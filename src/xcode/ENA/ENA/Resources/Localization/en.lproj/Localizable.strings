@@ -779,9 +779,11 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "You need to enable the exposure logging feature so that the app can determine whether you are at risk after encountering an infected app user. The exposure logging feature works transnationally, meaning any possible exposure involving users is also detected by other official coronavirus apps.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. Every day, the app downloads lists containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared their test results (more specifically: their random IDs) via their app. These lists are then compared with the random IDs of other users that have been recorded by your iPhone, in order to calculate the likelihood that you have also been infected and to warn you if necessary. You can use the toggle switch to disable exposure logging at any time.";
+"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their smartphones. Every day, the app downloads lists containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared their test results (more specifically: their random IDs) via their app. These lists are then compared with the random IDs of other users that have been recorded by your iPhone, in order to calculate the likelihood that you have also been infected and to warn you if necessary.";
 
-"ExposureNotificationSetting_DescriptionText3" = "The app never collects personal data such as your name, address or location, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
+"ExposureNotificationSetting_DescriptionText3" = "You can use the toggle switch to disable exposure logging at any time.";
+
+"ExposureNotificationSetting_DescriptionText4" = "The app never collects personal data such as your name, address or location, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
 
