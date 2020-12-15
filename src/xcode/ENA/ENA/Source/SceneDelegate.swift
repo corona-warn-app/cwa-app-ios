@@ -30,45 +30,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
-		riskConsumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
-			self?.state.riskDetectionFailed = false
-
-			#if DEBUG
-			if isUITesting, let uiTestRiskLevelEnv = UserDefaults.standard.string(forKey: "riskLevel") {
-				var uiTestRiskLevel: RiskLevel
-				var uiTestExposureNumber = 100
-				switch uiTestRiskLevelEnv {
-				case "increased":
-					uiTestRiskLevel = RiskLevel.increased
-				case "low":
-					uiTestRiskLevel = RiskLevel.low
-					uiTestExposureNumber = 7
-				case "unknownInitial":
-					uiTestRiskLevel = RiskLevel.unknownInitial
-				case "unknownOutdated":
-					uiTestRiskLevel = RiskLevel.unknownOutdated
-				default:
-					uiTestRiskLevel = RiskLevel.inactive
-
-				}
-				let uiTestRisk = Risk(level: uiTestRiskLevel, details: .init(daysSinceLastExposure: 1, numberOfExposures: uiTestExposureNumber, activeTracing: .init(interval: 14 * 86400), exposureDetectionDate: nil), riskLevelHasChanged: false)
-				self?.state.risk = uiTestRisk
-			}
-			#endif
-		}
-		riskConsumer.didFailCalculateRisk = {  [weak self] error in
-			// Ignore already running errors.
-			guard !error.isAlreadyRunningError else {
-				Log.info("[SceneDelegate] Ignore already running error.", log: .riskDetection)
-				return
-			}
-			
-			self?.state.riskDetectionFailed = true
-		}
-
-		riskProvider.observeRisk(riskConsumer)
-
 		UNUserNotificationCenter.current().delegate = self
 
 		setupUI()
@@ -83,7 +44,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		riskProvider.requestRisk(userInitiated: false)
 
-		let state = exposureManager.preconditions()
+		let state = exposureManager.exposureManagerState
 
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
@@ -109,7 +70,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	) {
 		// Add the new state to the history
 		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
-		riskProvider.exposureManagerState = newState
 
 		let message = """
 		New status of EN framework:
@@ -120,14 +80,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		"""
 		Log.info(message, log: .api)
 
-		state.exposureManager = newState
 		updateExposureState(newState)
 	}
 
 	// MARK: - Protocol CoordinatorDelegate
 
 	/// Resets all stores and notifies the Onboarding and resets all pending notifications
-	func coordinatorUserDidRequestReset() {
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
+		
+		exposureSubmissionService.reset()
+		
 		do {
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
@@ -186,17 +148,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: - Internal
 
-	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil, riskDetectionFailed: false) {
-		didSet {
-			coordinator.updateState(
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager
-			)
-		}
-	}
-
 	func requestUpdatedExposureState() {
-		let state = exposureManager.preconditions()
+		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
 	}
 
@@ -241,7 +194,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func showHome(animated _: Bool = false) {
-		if exposureManager.preconditions().status == .unknown {
+		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
@@ -256,7 +209,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func presentHomeVC() {
 		enStateHandler = ENStateHandler(
-			initialExposureManagerState: exposureManager.preconditions(),
+			initialExposureManagerState: exposureManager.exposureManagerState,
 			delegate: self
 		)
 
@@ -264,13 +217,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler: enStateHandler, state: state)
+		coordinator.showHome(enStateHandler: enStateHandler)
 	}
 	
 	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
-		guard warnOthersReminder.hasPositiveTestResult else {
+		let warnOthersReminder = WarnOthersReminder(store: store)
+		guard warnOthersReminder.positiveTestResultWasShown else {
 			return
 		}
+
 		coordinator.showPositiveTestResultFromNotification(with: .positive)
 	}
 	
@@ -301,8 +256,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	@objc
 	private func backgroundRefreshStatusDidChange() {
-		let detectionMode: DetectionMode = currentDetectionMode
-		state.detectionMode = detectionMode
+		coordinator.updateDetectionMode(currentDetectionMode)
 	}
 
 	// MARK: Privacy Protection

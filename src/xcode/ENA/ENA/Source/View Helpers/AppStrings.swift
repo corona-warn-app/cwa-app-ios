@@ -53,6 +53,7 @@ enum AppStrings {
 		static let dataPrivacyAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_AcceptTitle", comment: "")
 		static let dataPrivacyDontAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_DontAcceptTitle", comment: "")
 		static let continueText = NSLocalizedString("ExposureSubmission_Continue_actionText", comment: "")
+		static let primaryButton = NSLocalizedString("ExposureSubmission_Continue_actionText", comment: "")
 		static let confirmDismissPopUpTitle = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpTitle", comment: "")
 		static let confirmDismissPopUpText = NSLocalizedString("ExposureSubmission_ConfirmDismissPopUpText", comment: "")
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
@@ -70,16 +71,22 @@ enum AppStrings {
 		static let invalidError = NSLocalizedString("ExposureSubmissionTanEntry_InvalidError", comment: "")
 	}
 
-	enum ExposureSubmissionIntroduction {
-		static let title = NSLocalizedString("ExposureSubmissionIntroduction_Title", comment: "")
-		static let subTitle = NSLocalizedString("ExposureSubmissionIntroduction_SubTitle", comment: "")
-		static let accImageDescription = NSLocalizedString("ExposureSubmissionIntroduction_AccImageDescription", comment: "")
-		static let usage01 = NSLocalizedString("ExposureSubmissionIntroduction_Usage01", comment: "")
-		static let usage02 = NSLocalizedString("ExposureSubmissionIntroduction_Usage02", comment: "")
-		static let listItem1 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem1", comment: "")
-		static let listItem2 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem2", comment: "")
-		static let listItem3 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem3", comment: "")
-		static let listItem4 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem4", comment: "")
+	enum ExposureSubmissionTestResultAvailable {
+		static let title = NSLocalizedString("ExposureSubmissionTestresultAvailable_Title", comment: "")
+		static let accImageDescription = NSLocalizedString("ExposureSubmissionTestresultAvailable_AccImageDescription", comment: "")
+		static let consentGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_granted", comment: "")
+		static let consentNotGranted = NSLocalizedString("ExposureSubmissionTestresultAvailable_Consent_not_given", comment: "")
+		static let listItem1WithConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1WithConsent", comment: "")
+		static let listItem2WithConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithConsent", comment: "")
+		static let listItem1WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent", comment: "")
+		static let listItem2WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent", comment: "")
+		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_primaryButtonTitle", comment: "")
+		static let closeAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertTitle", comment: "")
+		static let closeAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertMessage", comment: "")
+		static let closeAlertButtonClose = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel", comment: "")
+		static let closeAlertButtonContinue = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue", comment: "")
+		static let noConsentCloseAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle", comment: "")
+		static let noConsentCloseAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage", comment: "")
 	}
 
 	enum ExposureSubmissionResult {
@@ -93,7 +100,6 @@ enum AppStrings {
 		static let procedure = NSLocalizedString("ExposureSubmissionResult_Procedure", comment: "")
 		static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
 		static let warnOthers = NSLocalizedString("ExposureSubmissionResult_warnOthers", comment: "")
-		static let testAddedDesc = NSLocalizedString("ExposureSubmissionResult_testAddedDesc", comment: "")
 		static let testNegative = NSLocalizedString("ExposureSubmissionResult_testNegative", comment: "")
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
 		static let testInvalid = NSLocalizedString("ExposureSubmissionResult_testInvalid", comment: "")
@@ -101,9 +107,9 @@ enum AppStrings {
 		static let testExpired = NSLocalizedString("ExposureSubmissionResult_testExpired", comment: "")
 		static let testExpiredDesc = NSLocalizedString("ExposureSubmissionResult_testExpiredDesc", comment: "")
 		static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
-		static let testPendingDescParagraph1 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph1", comment: "")
-		static let testPendingDescParagraph2 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph2", comment: "")
-		static let testPendingDescParagraph3 = NSLocalizedString("ExposureSubmissionResult_testPendingDesc_paragraph3", comment: "")
+		static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
+		static let warnOthersConsentGiven = NSLocalizedString("ExposureSubmissionResult_WarnOthersConsentGiven", comment: "")
+		static let warnOthersConsentNotGiven = NSLocalizedString("ExposureSubmissionResult_WarnOthersConsentNotGiven", comment: "")
 		static let testRemove = NSLocalizedString("ExposureSubmissionResult_testRemove", comment: "")
 		static let testRemoveDesc = NSLocalizedString("ExposureSubmissionResult_testRemoveDesc", comment: "")
 		static let warnOthersDesc = NSLocalizedString("ExposureSubmissionResult_warnOthersDesc", comment: "")
@@ -124,25 +130,40 @@ enum AppStrings {
 
 	enum ExposureSubmissionDispatch {
 		static let title = NSLocalizedString("ExposureSubmission_DispatchTitle", comment: "")
+		static let accImageDescription = NSLocalizedString("ExposureSubmissionIntroduction_AccImageDescription", comment: "")
 		static let description = NSLocalizedString("ExposureSubmission_DispatchDescription", comment: "")
+		static let sectionHeadline = NSLocalizedString("ExposureSubmission_DispatchSectionHeadline", comment: "")
+		static let sectionHeadline2 = NSLocalizedString("ExposureSubmission_DispatchSectionHeadline2", comment: "")
 		static let qrCodeButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonTitle", comment: "")
 		static let qrCodeButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonDescription", comment: "")
 		static let tanButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_TANButtonTitle", comment: "")
 		static let tanButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_TANButtonDescription", comment: "")
 		static let hotlineButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonTitle", comment: "")
 		static let hotlineButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonDescription", comment: "")
-		static let positiveWord = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonPositiveWord", comment: "")
 	}
 
 	enum ExposureSubmissionQRInfo {
 		static let title = NSLocalizedString("ExposureSubmissionQRInfo_title", comment: "")
 		static let imageDescription = NSLocalizedString("ExposureSubmissionQRInfo_imageDescription", comment: "")
+		static let titleDescription = NSLocalizedString("ExposureSubmissionQRInfo_title_description", comment: "")
+		static let headerSection1 = NSLocalizedString("ExposureSubmissionQRInfo_header_section_1", comment: "")
+		static let bodySection1 = NSLocalizedString("ExposureSubmissionQRInfo_body_section_1", comment: "")
 		static let instruction1 = NSLocalizedString("ExposureSubmissionQRInfo_instruction1", comment: "")
 		static let instruction2 = NSLocalizedString("ExposureSubmissionQRInfo_instruction2", comment: "")
-		static let instruction2HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction2_highlightedPhrase", comment: "")
 		static let instruction3 = NSLocalizedString("ExposureSubmissionQRInfo_instruction3", comment: "")
 		static let instruction3HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction3_highlightedPhrase", comment: "")
-		static let instruction4 = NSLocalizedString("ExposureSubmissionQRInfo_instruction4", comment: "")
+		static let headerSection2 = NSLocalizedString("ExposureSubmissionQRInfo_header_section_2", comment: "")
+		static let bodySection2 = NSLocalizedString("ExposureSubmissionQRInfo_body_section_2", comment: "")
+		static let acknowledgementTitle = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_title", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBody = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_body", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement1_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_1_1", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement1_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_1_2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement2_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_2_1", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement2_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_2_2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement3 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_3", comment: "")
+		static let acknowledgement4 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_4", comment: "")
+		static let acknowledgement5 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_5", comment: "")
+		static let acknowledgement6 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_6", comment: "")
 		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionQRInfo_primaryButtonTitle", comment: "")
 	}
 
@@ -171,6 +192,24 @@ enum AppStrings {
 		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
 		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
+	}
+	
+	enum ExposureSubmissionPositiveTestResult {
+		static let noConsentTitle = NSLocalizedString("TestResultPositive_NoConsent_Title", comment: "")
+		static let noConsentInfo1 = NSLocalizedString("TestResultPositive_NoConsent_Info1", comment: "")
+		static let noConsentInfo2 = NSLocalizedString("TestResultPositive_NoConsent_Info2", comment: "")
+		static let noConsentInfo3 = NSLocalizedString("TestResultPositive_NoConsent_Info3", comment: "")
+		static let noConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_PrimaryButton", comment: "")
+		static let noConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_NoConsent_SecondaryButton", comment: "")
+		static let noConsentAlertTitle = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Title", comment: "")
+		static let noConsentAlertDescription = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_Description", comment: "")
+		static let noConsentAlertButtonDontWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne", comment: "")
+		static let noConsentAlertButtonWarn = NSLocalizedString("TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo", comment: "")
+		static let withConsentTitle = NSLocalizedString("TestResultPositive_WithConsent_Title", comment: "")
+		static let withConsentInfo1 = NSLocalizedString("TestResultPositive_WithConsent_Info1", comment: "")
+		static let withConsentInfo2 = NSLocalizedString("TestResultPositive_WithConsent_Info2", comment: "")
+		static let withConsentPrimaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_PrimaryButton", comment: "")
+		static let withConsentSecondaryButtonTitle = NSLocalizedString("TestResultPositive_WithConsent_SecondaryButton", comment: "")
 	}
 
 	enum ExposureSubmissionSymptoms {
@@ -205,6 +244,13 @@ enum AppStrings {
 		static let continueButton = NSLocalizedString("ExposureSubmissionSymptomsOnset_ContinueButton", comment: "")
 	}
 	
+	enum ExposureSubmissionSymptomsCancelAlert {
+		static let title = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertTitle", comment: "")
+		static let message = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertMessage", comment: "")
+		static let cancelButton = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertButtonCancel", comment: "")
+		static let continueButton = NSLocalizedString("ExposureSubmissionSymptoms_CancelAlertButtonContinue", comment: "")
+	}
+	
 	enum ExposureSubmissionWarnOthers {
 		static let title = NSLocalizedString("ExposureSubmissionWarnOthers_title", comment: "")
 		static let accImageDescription = NSLocalizedString("ExposureSubmissionWarnOthers_AccImageDescription", comment: "")
@@ -212,10 +258,9 @@ enum AppStrings {
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnOthers_sectionTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionWarnOthers_description", comment: "")
 		static let supportedCountriesTitle = NSLocalizedString("ExposureSubmissionWarnOthers_supportedCountriesTitle", comment: "")
-		static let consentUnderagesTitle = NSLocalizedString("ExposureSubmissionWarnOthers_consentUnderagesTitle", comment: "")
-		static let consentUnderagesText = NSLocalizedString("ExposureSubmissionWarnOthers_consentUnderagesText", comment: "")
-		static let consentDescription = NSLocalizedString("ExposureSubmissionWarnOthers_consentDescription", tableName: "Localizable.legal", comment: "")
-		static let consentTitle = NSLocalizedString("ExposureSubmissionWarnOthers_consentTitle", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement_1_1 = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgement_1_1", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement_1_2 = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgement_1_2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgement_footer = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgement_footer", tableName: "Localizable.legal", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {
@@ -234,12 +279,13 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionError {
-		static let noKeys = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
+		static let noKeysCollected = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
 		static let invalidTan = NSLocalizedString("ExposureSubmissionError_InvalidTan", comment: "")
 		static let enNotEnabled = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", comment: "")
 		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
 		static let invalidResponse = NSLocalizedString("ExposureSubmissionError_InvalidResponse", comment: "")
 		static let noResponse = NSLocalizedString("ExposureSubmissionError_NoResponse", comment: "")
+		static let noNetworkConnection = NSLocalizedString("ExposureNotificationSetting_EU_Empty_Error_Desc", comment: "")
 		static let teleTanAlreadyUsed = NSLocalizedString("ExposureSubmissionError_TeleTanAlreadyUsed", comment: "")
 		static let qrAlreadyUsed = NSLocalizedString("ExposureSubmissionError_QRAlreadyUsed", comment: "")
 		static let qrAlreadyUsedTitle = NSLocalizedString("ExposureSubmissionError_QRAlreadyUsed_Title", comment: "")
@@ -294,7 +340,7 @@ enum AppStrings {
 		static let explanationTextLowNoEncounter = NSLocalizedString("ExposureDetection_Explanation_Text_Low_No_Encounter", comment: "")
 		static let explanationTextLowWithEncounter = NSLocalizedString("ExposureDetection_Explanation_Text_Low_With_Encounter", comment: "")
 		static let explanationTextHigh = NSLocalizedString("ExposureDetection_Explanation_Text_High", comment: "")
-		static let explanationTextHighDaysSinceLastExposure = NSLocalizedString("ExposureDetection_Explanation_Text_High_DaysSinceLastExposure", comment: "")
+		static let explanationTextHighDateOfLastExposure = NSLocalizedString("ExposureDetection_Explanation_Text_High_DateOfLastExposure", comment: "")
 		static let explanationFAQLink = NSLocalizedString("ExposureDetection_Explanation_FAQ_Link", tableName: "Localizable.links", comment: "")
 		static let explanationFAQLinkText = NSLocalizedString("ExposureDetection_Explanation_FAQ_Link_Text", comment: "")
 
@@ -304,6 +350,7 @@ enum AppStrings {
 
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
+		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
 		static let riskCardStatusDownloadingTitle = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Title", comment: "")
 		static let riskCardStatusDownloadingBody = NSLocalizedString("ExposureDetection_Risk_Status_Downloading_Body", comment: "")
@@ -473,6 +520,7 @@ enum AppStrings {
 		static let descriptionText1 = NSLocalizedString("ExposureNotificationSetting_DescriptionText1", comment: "")
 		static let descriptionText2 = NSLocalizedString("ExposureNotificationSetting_DescriptionText2", comment: "")
 		static let descriptionText3 = NSLocalizedString("ExposureNotificationSetting_DescriptionText3", comment: "")
+		static let descriptionText4 = NSLocalizedString("ExposureNotificationSetting_DescriptionText4", comment: "")
 		static let actionCellHeader = NSLocalizedString("ExposureNotificationSetting_ActionCell_Header", comment: "")
 		static let activateBluetooth = NSLocalizedString("ExposureNotificationSetting_Activate_Bluetooth", comment: "")
 		static let activateInternet = NSLocalizedString("ExposureNotificationSetting_Activate_Internet", comment: "")
@@ -542,8 +590,7 @@ enum AppStrings {
 		static let activateCardOnTitle = NSLocalizedString("Home_Activate_Card_On_Title", comment: "")
 		static let activateCardOffTitle = NSLocalizedString("Home_Activate_Card_Off_Title", comment: "")
 		static let activateCardBluetoothOffTitle = NSLocalizedString("Home_Activate_Card_Bluetooth_Off_Title", comment: "")
-		static let activateCardInternetOffTitle = NSLocalizedString("Home_Activate_Card_Internet_Off_Title", comment: "")
-
+		
 		// Inactive Card
 		static let riskCardInactiveNoCalculationPossibleTitle = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Title", comment: "")
 		static let riskCardInactiveOutdatedResultsTitle = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Title", comment: "")
@@ -562,18 +609,11 @@ enum AppStrings {
 		static let riskCardNoDateTitle = NSLocalizedString("Home_Risk_No_Date_Title", comment: "")
 		static let riskCardIntervalDisabledButtonTitle = NSLocalizedString("Home_Risk_Period_Disabled_Button_Title", comment: "")
 		static let riskCardLastContactItemTitle = NSLocalizedString("Home_Risk_Last_Contact_Item_Title", comment: "")
-		static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
 		static let riskCardLastActiveItemTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Title", comment: "")
 		static let riskCardLastActiveItemUnknownTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Unknown_Title", comment: "")
 		static let riskCardLastActiveItemLowTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_Low_Title", comment: "")
 		static let riskCardLastActiveItemHighTitle = NSLocalizedString("Home_Risk_Last_Activate_Item_High_Title", comment: "")
 		static let riskCardUpdateButton = NSLocalizedString("Home_RiskCard_Update_Button", comment: "")
-
-		// Unknown Card
-		static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
-
-		// Unknown Card 48h
-		static let riskCardUnknown48hBody = NSLocalizedString("Home_RiskCard_Unknown48h_Body", comment: "")
 
 		// Low Card
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
@@ -630,11 +670,14 @@ enum AppStrings {
 		static let resultCardLoadingBody = NSLocalizedString("Home_resultCard_LoadingBody", comment: "")
 		static let resultCardLoadingTitle = NSLocalizedString("Home_resultCard_LoadingTitle", comment: "")
 		static let resultCardShowResultButton = NSLocalizedString("Home_resultCard_ShowResultButton", comment: "")
+		static let resultCardRetrieveResultButton = NSLocalizedString("Home_resultCard_RetrieveResultButton", comment: "")
 		static let resultCardNegativeTitle = NSLocalizedString("Home_resultCard_NegativeTitle", comment: "")
 		static let resultCardNegativeDesc = NSLocalizedString("Home_resultCard_NegativeDesc", comment: "")
 		static let resultCardPendingDesc = NSLocalizedString("Home_resultCard_PendingDesc", comment: "")
 		static let resultCardInvalidTitle = NSLocalizedString("Home_resultCard_InvalidTitle", comment: "")
 		static let resultCardInvalidDesc = NSLocalizedString("Home_resultCard_InvalidDesc", comment: "")
+		static let resultCardAvailableSubtitle = NSLocalizedString("Home_resultCard_AvailableSubtitle", comment: "")
+		static let resultCardAvailableDesc = NSLocalizedString("Home_resultCard_AvailableDesc", comment: "")
 		static let resultCardLoadingErrorTitle = NSLocalizedString("Home_resultCard_LoadingErrorTitle", comment: "")
 
 		static let riskStatusLoweredAlertTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_Title", comment: "")
@@ -694,8 +737,6 @@ enum AppStrings {
 		static let legend2HighColor = NSLocalizedString("RiskLegend_Legend2_High_Color", comment: "")
 		static let legend2Low = NSLocalizedString("RiskLegend_Legend2_Low", comment: "")
 		static let legend2LowColor = NSLocalizedString("RiskLegend_Legend2_Low_Color", comment: "")
-		static let legend2Unknown = NSLocalizedString("RiskLegend_Legend2_Unknown", comment: "")
-		static let legend2UnknownColor = NSLocalizedString("RiskLegend_Legend2_Unknown_Color", comment: "")
 		static let legend3Title = NSLocalizedString("RiskLegend_Legend3_Title", comment: "")
 		static let legend3Text = NSLocalizedString("RiskLegend_Legend3_Text", comment: "")
 		static let definitionsTitle = NSLocalizedString("RiskLegend_Definitions_Title", comment: "")
@@ -800,6 +841,29 @@ enum AppStrings {
 	enum WrongDeviceTime {
 		static let errorPushNotificationTitle = NSLocalizedString("ExposureDetection_WrongTime_Notification_Title", comment: "")
 		static let errorPushNotificationText = NSLocalizedString("ExposureDetection_WrongTime_Notification_Body", comment: "")
+	}
+	
+	enum AutomaticSharingConsent {
+		static let consentTitle = NSLocalizedString("AutomaticSharingConsent_Title", comment: "")
+		static let switchTitle = NSLocalizedString("AutomaticSharingConsent_SwitchTitle", comment: "")
+		static let switchTitleDescription = NSLocalizedString("AutomaticSharingConsent_SwitchTitleDesc", comment: "")
+		static let consentSubTitle = NSLocalizedString("AutomaticSharingConsent_Subtitle", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart1 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart1", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart2 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart2", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart3 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart3", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart4 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart4", tableName: "Localizable.legal", comment: "")
+		static let consentDescriptionPart5 = NSLocalizedString("AutomaticSharingConsent_DescriptionPart5", tableName: "Localizable.legal", comment: "")
+		static let dataProcessingDetailInfo = NSLocalizedString("AutomaticSharingConsent_DataProcessingDetailInfo", comment: "")
+	}
+	
+	enum ThankYouScreen {
+		static let title = NSLocalizedString("Thank_You_Title", comment: "")
+		static let subTitle = NSLocalizedString("Thank_You_SubTitle", comment: "")
+		static let description1 = NSLocalizedString("Thank_You_Description1", comment: "")
+		static let description2 = NSLocalizedString("Thank_You_Description2", comment: "")
+		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
+		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
+		static let accImageDescription = NSLocalizedString("Thank_You_AccImageDescription", comment: "")
 	}
 	
 	// swiftlint:disable:next file_length

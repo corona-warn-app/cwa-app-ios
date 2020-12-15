@@ -24,11 +24,11 @@ import ZIPFoundation
 
 extension Archive {
 
-	func extractAppConfiguration() throws -> SAP_Internal_ApplicationConfiguration {
-		guard let binEntry = self["default_app_config.bin"] else {
+	func extractAppConfiguration() throws -> SAP_Internal_V2_ApplicationConfigurationIOS {
+		guard let binEntry = self["default_app_config_ios.bin"] else {
 			throw FingerprintError.entryNotFound(entryID: "default_app_config.bin")
 		}
-		guard let hashEntry = self["default_app_config.sha256"] else {
+		guard let hashEntry = self["default_app_config_ios.sha256"] else {
 			throw FingerprintError.entryNotFound(entryID: "default_app_config.sha256")
 		}
 
@@ -39,7 +39,7 @@ extension Archive {
 			let hashString = String(data: hash, encoding: .utf8)
 
 			let binHash = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
-			let config = try SAP_Internal_ApplicationConfiguration(serializedData: bin)
+			let config = try SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: bin)
 
 			// we currently compare the raw bin instead of the deserialized object
 			guard /*config.fingerprint*/ binHash == hashString else {
@@ -64,7 +64,7 @@ protocol Fingerprinting {
 	var fingerprint: String { get }
 }
 
-extension SAP_Internal_ApplicationConfiguration: Fingerprinting {
+extension SAP_Internal_V2_ApplicationConfigurationIOS: Fingerprinting {
 
 	var fingerprint: String {
 		do {

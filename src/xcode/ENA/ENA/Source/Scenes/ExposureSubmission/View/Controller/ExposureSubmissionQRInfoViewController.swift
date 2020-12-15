@@ -8,11 +8,12 @@ import UIKit
 class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
-
+	
 	init(
+		supportedCountries: [Country],
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
-		self.viewModel = ExposureSubmissionQRInfoViewModel()
+		self.viewModel = ExposureSubmissionQRInfoViewModel(supportedCountries: supportedCountries)
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)
@@ -29,6 +30,10 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 		super.viewDidLoad()
 
 		setupView()
+
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
+		footerView?.isHidden = false
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -44,6 +49,13 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 			}
 		}
+	}
+
+	// MARK: - Internal
+
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
+		case countries = "LabeledCountriesCell"
 	}
 
 	// MARK: - Private
@@ -65,10 +77,18 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.countries.rawValue
+		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
 	}
-
 }

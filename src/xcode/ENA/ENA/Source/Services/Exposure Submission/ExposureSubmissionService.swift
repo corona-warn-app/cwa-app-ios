@@ -4,62 +4,151 @@
 
 import ExposureNotification
 import Foundation
+import Combine
 
+/// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
+/// around the exposure submission process.
+/// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
+/// state. It wraps around the `SecureStore` binding.
+/// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
+/// it to stay in sync.
 class ENAExposureSubmissionService: ExposureSubmissionService {
-
+	
 	// MARK: - Init
 
-	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
-		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
+	init(
+		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
+		appConfigurationProvider: AppConfigurationProviding,
+		client: Client,
+		store: Store,
+		warnOthersReminder: WarnOthersRemindable
+	) {
+		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
+		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.warnOthersReminder = warnOthersReminder
+		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
+		
+		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
+		}.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol ExposureSubmissionService
 
 	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
-		get { self.store.devicePairingConsentAcceptTimestamp }
-		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+		get { store.devicePairingConsentAcceptTimestamp }
+		set { store.devicePairingConsentAcceptTimestamp = newValue }
 	}
 
 	private(set) var devicePairingSuccessfulTimestamp: Int64? {
-		get { self.store.devicePairingSuccessfulTimestamp }
-		set { self.store.devicePairingSuccessfulTimestamp = newValue }
+		get { store.devicePairingSuccessfulTimestamp }
+		set { store.devicePairingSuccessfulTimestamp = newValue }
 	}
 
+	var symptomsOnset: SymptomsOnset {
+		get { store.submissionSymptomsOnset }
+		set { store.submissionSymptomsOnset = newValue }
+	}
+
+	var hasRegistrationToken: Bool {
+		guard let token = store.registrationToken, !token.isEmpty else {
+			return false
+		}
+		return true
+	}
+	
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $_isSubmissionConsentGiven }
+	
+	var isSubmissionConsentGiven: Bool {
+		get {
+			return _isSubmissionConsentGiven
+		}
+		set {
+			_isSubmissionConsentGiven = newValue
+		}
+	}
+
+	func loadSupportedCountries(
+		isLoading: @escaping (Bool) -> Void,
+		onSuccess: @escaping ([Country]) -> Void
+	) {
+		isLoading(true)
+
+		appConfigurationProvider.appConfiguration().sink { [weak self] config in
+			guard let self = self else { return }
+
+			isLoading(false)
+
+			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+			if countries.isEmpty {
+				self.supportedCountries = [.defaultCountry()]
+			} else {
+				self.supportedCountries = countries
+			}
+
+			onSuccess(self.supportedCountries)
+		}.store(in: &subscriptions)
+	}
+
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
+		Log.info("Getting temporary exposure keys...", log: .api)
+
+		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
+			if let error = error {
+				Log.error("Error while retrieving temporary exposure keys: \(error.localizedDescription)", log: .api)
+				completion(self?.parseError(error))
+
+				return
+			}
+
+			// Empty array means successful key retrieval without keys
+			self?.temporaryExposureKeys = keys?.map { $0.sapKey } ?? []
+			completion(nil)
+		}
+	}
+	
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
 	/// We prepend a fake request in order to guarantee the V+V+S sequence. Please kindly check `getTestResult` for more information.
 	func submitExposure(
-		symptomsOnset: SymptomsOnset,
-		visitedCountries: [Country],
-		completionHandler: @escaping ExposureSubmissionHandler
+		completion: @escaping ExposureSubmissionHandler
 	) {
 		Log.info("Started exposure submission...", log: .api)
 
-		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
-			if let error = error {
-				Log.error("Error while retrieving diagnosis keys: \(error.localizedDescription)", log: .api)
-				completionHandler(self.parseError(error))
-				return
-			}
+		guard isSubmissionConsentGiven else {
+			Log.info("Cancelled submission: Submission consent not given.", log: .api)
+			completion(.noSubmissionConsent)
 
-			guard let keys = keys, !keys.isEmpty else {
-				completionHandler(.noKeys)
-				// We perform a cleanup in order to set the correct
-				// timestamps, despite not having communicated with the backend,
-				// in order to show the correct screens.
-				self.submitExposureCleanup()
-				return
-			}
-			let processedKeys = keys.processedForSubmission(with: symptomsOnset)
-
-			// Request needs to be prepended by the fake request.
-			self._fakeVerificationServerRequest(completion: { _ in
-				self._submitExposure(processedKeys, visitedCountries: visitedCountries, completionHandler: completionHandler)
-			})
+			return
 		}
+
+		guard let keys = temporaryExposureKeys else {
+			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+			completion(.keysNotShared)
+
+			return
+		}
+
+		guard !keys.isEmpty else {
+			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
+			completion(.noKeysCollected)
+
+			// We perform a cleanup in order to set the correct
+			// timestamps, despite not having communicated with the backend,
+			// in order to show the correct screens.
+			submitExposureCleanup()
+
+			return
+		}
+		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
+
+		// Request needs to be prepended by the fake request.
+		_fakeVerificationServerRequest(completion: { _ in
+			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completion: completion)
+		})
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
@@ -124,31 +213,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	func hasRegistrationToken() -> Bool {
-		guard let token = store.registrationToken, !token.isEmpty else {
-			return false
-		}
-		return true
-	}
-
 	func deleteTest() {
 		store.registrationToken = nil
 		store.testResultReceivedTimeStamp = nil
 		store.devicePairingConsentAccept = false
 		store.devicePairingSuccessfulTimestamp = nil
 		store.devicePairingConsentAcceptTimestamp = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
-	func preconditions() -> ExposureManagerState {
-		diagnosiskeyRetrieval.preconditions()
+	var exposureManagerState: ExposureManagerState {
+		diagnosisKeysRetrieval.exposureManagerState
 	}
 
 	func acceptPairing() {
 		devicePairingConsentAccept = true
 		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 	}
-
 
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
@@ -162,22 +242,43 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			})
 		}
 	}
+	
+	func reset() {
+		Log.info("ExposureSubmissionServce: isConsentGiven value resetted to 'false'")
+		isSubmissionConsentGiven = false
+	}
 
 	// MARK: - Internal
 
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 
 	// MARK: - Private
+	
+	private var subscriptions: Set<AnyCancellable> = []
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 
-	private let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
+	private let diagnosisKeysRetrieval: DiagnosisKeysRetrieval
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let warnOthersReminder: WarnOthersRemindable
+
+	@Published private var _isSubmissionConsentGiven: Bool
 
 	private var devicePairingConsentAccept: Bool {
-		get { self.store.devicePairingConsentAccept }
-		set { self.store.devicePairingConsentAccept = newValue }
+		get { store.devicePairingConsentAccept }
+		set { store.devicePairingConsentAccept = newValue }
+	}
+
+	private var temporaryExposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
+		get { store.submissionKeys }
+		set { store.submissionKeys = newValue }
+	}
+
+	private(set) var supportedCountries: [Country] {
+		get { store.submissionCountries }
+		set { store.submissionCountries = newValue }
 	}
 
 	// MARK: methods for handling the API calls.
@@ -187,7 +288,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ completeWith: @escaping ENAExposureSubmissionService.TestResultHandler
 	) {
 		client.getTestResult(forDevice: registrationToken, isFake: false) { result in
-
 			switch result {
 			case let .failure(error):
 				completeWith(.failure(self.parseError(error)))
@@ -233,7 +333,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 
 		if !store.devicePairingConsentAccept {
-			completeWith(.failure(.noConsent))
+			completeWith(.failure(.noDevicePairingConsent))
 			return
 		}
 
@@ -259,14 +359,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		visitedCountries: [Country],
-		completionHandler: @escaping ExposureSubmissionHandler
+		completion: @escaping ExposureSubmissionHandler
 	) {
-		self._getTANForExposureSubmit(hasConsent: true, completion: { result in
+		_getTANForExposureSubmit(hasConsent: true, completion: { result in
 			switch result {
 			case let .failure(error):
-				completionHandler(error)
+				completion(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completionHandler)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completion)
 			}
 		})
 	}
@@ -336,12 +436,18 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow. Removes the registrationToken,
-	// and isAllowedToSubmitDiagnosisKeys.
+	// `submitExposure` flow.
 	private func submitExposureCleanup() {
+		warnOthersReminder.cancelNotifications()
+
 		store.registrationToken = nil
-		store.isAllowedToSubmitDiagnosisKeys = false
 		store.tan = nil
+
+		isSubmissionConsentGiven = false
+		temporaryExposureKeys = nil
+		supportedCountries = []
+		symptomsOnset = .noInformation
+
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		Log.info("Exposure submission cleanup.", log: .api)
 	}
@@ -370,7 +476,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method is convenience for sending a V + S request pattern.
 	private func _fakeVerificationAndSubmissionServerRequest(completionHandler: ExposureSubmissionHandler? = nil) {
-		self._fakeVerificationServerRequest { _ in
+		_fakeVerificationServerRequest { _ in
 			self._fakeSubmissionServerRequest { _ in
 				completionHandler?(.fakeResponse)
 			}

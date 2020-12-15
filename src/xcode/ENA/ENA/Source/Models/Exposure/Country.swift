@@ -6,7 +6,7 @@ import UIKit
 
 
 /// A simple data countainer representing a country or political region.
-struct Country: Equatable {
+struct Country: Equatable, Codable {
 
 	typealias ID = String
 
@@ -17,7 +17,9 @@ struct Country: Equatable {
 	let localizedName: String
 
 	/// The flag of the current country, if present.
-	let flag: UIImage?
+	var flag: UIImage? {
+		UIImage(named: "flag.\(id.lowercased())")
+	}
 
 	/// Initialize a country with a given. If no valid `countryCode` is given the initalizer returns `nil`.
 	///
@@ -28,18 +30,20 @@ struct Country: Equatable {
 
 		id = countryCode
 		localizedName = name
-		flag = UIImage(named: "flag.\(countryCode.lowercased())")
 	}
 
 	static func defaultCountry() -> Country {
 		// swiftlint:disable:next force_unwrapping
 		return Country(countryCode: "DE")!
 	}
+
 }
 
 extension Locale {
+
 	func regionName(forCountryCode code: String) -> String? {
 		var identifier: String
+
 		// quick solution for the EU scenario
 		switch code.lowercased() {
 		case "el":
@@ -53,12 +57,15 @@ extension Locale {
 		default:
 			identifier = code
 		}
+
 		let target = Locale(identifier: identifier)
 		
 		// catch cases where multiple languages per region might appear, e.g. Norway
 		guard let regionCode = target.identifier.components(separatedBy: "_").last else {
 			return nil
 		}
+
 		return localizedString(forRegionCode: regionCode)
 	}
+
 }

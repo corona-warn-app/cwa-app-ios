@@ -26,7 +26,7 @@ private class MockNavigationController: UINavigationController {
 }
 
 private class MockCoordinatorDelegate: CoordinatorDelegate {
-	func coordinatorUserDidRequestReset() { }
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) { }
 }
 
 class MockCoordinator: Coordinator {
@@ -57,7 +57,7 @@ class CoordinatorTests: XCTestCase {
 	func test_coordinator_shouldShowHome() {
 		let delegate = MockStateHandlerObserverDelegate()
 		let enStateHandler = ENStateHandler(initialExposureManagerState: .init(), delegate: delegate)
-		coordinator.showHome(enStateHandler: enStateHandler, state: .init(exposureManager: .init(), detectionMode: .automatic, risk: nil, riskDetectionFailed: false))
+		coordinator.showHome(enStateHandler: enStateHandler)
 		let setViewControllersWasCalled = coordinator.mockNavigationController.setViewControllersWasCalled
 		XCTAssertTrue(setViewControllersWasCalled)
 	}
@@ -81,7 +81,7 @@ class CoordinatorTests: XCTestCase {
 	}
 	
 	func test_coordinator_shouldShowExposureDetection() {
-		let state = HomeInteractor.State(detectionMode: .automatic, exposureManagerState: .init(), enState: .unknown, risk: nil, riskDetectionFailed: false)
+		let state = HomeInteractor.State(riskState: .inactive, detectionMode: .automatic, exposureManagerState: .init(), enState: .unknown)
 		coordinator.showExposureDetection(state: state, activityState: .idle)
 		let presentWasCalled = coordinator.mockNavigationController.presentWasCalled
 		XCTAssertTrue(presentWasCalled)

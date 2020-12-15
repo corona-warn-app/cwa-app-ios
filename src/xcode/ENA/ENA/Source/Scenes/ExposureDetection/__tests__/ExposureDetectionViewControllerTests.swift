@@ -27,17 +27,20 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 	func testHighRiskState() {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskState: .risk(
+				.init(
+					level: .high,
+					details: .init(
+						mostRecentDateWithRiskLevel: Date(),
+						numberOfDaysWithRiskLevel: 2,
+						activeTracing: .init(interval: 14 * 86400),
+						exposureDetectionDate: nil
+					),
+					riskLevelHasChanged: false
+				)
+			),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: .init(level: .increased,
-						details: .init(
-							daysSinceLastExposure: 1,
-							numberOfExposures: 2,
-							activeTracing: .init(interval: 14 * 86400),
-							exposureDetectionDate: nil
-						),
-						riskLevelHasChanged: false),
 			previousRiskLevel: nil
 		)
 
@@ -51,8 +54,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		let lowRisk = Risk(
 			level: .low,
 			details: .init(
-				daysSinceLastExposure: 1,
-				numberOfExposures: 2,
+				mostRecentDateWithRiskLevel: Date(),
+				numberOfDaysWithRiskLevel: 2,
 				activeTracing: .init(interval: 14 * 86400),
 				exposureDetectionDate: nil
 			),
@@ -60,10 +63,9 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		)
 
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskState: .risk(lowRisk),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: lowRisk,
 			previousRiskLevel: nil
 		)
 
@@ -94,8 +96,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		let lowRisk = Risk(
 			level: .low,
 			details: .init(
-				daysSinceLastExposure: 1,
-				numberOfExposures: 0,
+				mostRecentDateWithRiskLevel: Date(),
+				numberOfDaysWithRiskLevel: 0,
 				activeTracing: .init(interval: 14 * 86400),
 				exposureDetectionDate: nil
 			),
@@ -103,10 +105,9 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 		)
 
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: false, exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskState: .risk(lowRisk),
 			detectionMode: .automatic,
 			activityState: .idle,
-			risk: lowRisk,
 			previousRiskLevel: nil
 		)
 

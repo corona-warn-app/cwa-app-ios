@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>En son bir gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>En son %u gün önce, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-		</dict>
-	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -76,19 +16,19 @@
 			<string>Şu ana dek hiçbir maruz kalma yok</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Bir kez düşük riskli karşılaşma</string>
+			<string>Bir gün için düşük riskli maruz kalmalar</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u kez düşük riskli karşılaşma</string>
+			<string>%u gün için düşük riskli maruz kalmalar</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u kez düşük riskli karşılaşma</string>
+			<string>%u gün için düşük riskli maruz kalmalar</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u kez düşük riskli karşılaşma</string>
+			<string>%u gün için düşük riskli maruz kalmalar</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u kez düşük riskli karşılaşma</string>
+			<string>%u gün için düşük riskli maruz kalmalar</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -103,52 +43,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Şu ana dek hiçbir maruz kalma yok</string>
+			<string>%u gün için artmış riskli maruz kalmalar</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Bir maruz kalma</string>
+			<string>Bir gün için artmış riskli maruz kalmalar</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u maruz kalma</string>
+			<string>%u gün için artmış riskli maruz kalmalar</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u maruz kalma</string>
+			<string>%u gün için artmış riskli maruz kalmalar</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u maruz kalma</string>
+			<string>%u gün için artmış riskli maruz kalmalar</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u maruz kalma</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Last_Contact_Item_Title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Son maruz kalmanın üzerinden bir günden az süre geçti</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<string>%u gün için artmış riskli maruz kalmalar</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>

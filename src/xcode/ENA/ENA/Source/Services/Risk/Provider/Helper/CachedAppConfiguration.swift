@@ -9,7 +9,7 @@ import ZIPFoundation
 final class CachedAppConfiguration {
 
 	private struct AppConfigResponse {
-		let config: SAP_Internal_ApplicationConfiguration
+		let config: SAP_Internal_V2_ApplicationConfigurationIOS
 		let etag: String?
 	}
 
@@ -20,7 +20,7 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
-	@Published var configuration: SAP_Internal_ApplicationConfiguration?
+	@Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
@@ -33,13 +33,11 @@ final class CachedAppConfiguration {
 
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
-	private let configurationDidChange: (() -> Void)?
-
 	private var subscriptions = [AnyCancellable]()
 
 	/// The location of the default app configuration.
 	private var defaultAppConfigPath: URL {
-		guard let url = Bundle.main.url(forResource: "default_app_config_17", withExtension: "") else {
+		guard let url = Bundle.main.url(forResource: "default_app_config_18", withExtension: "") else {
 			fatalError("Could not locate default app config")
 		}
 		return url
@@ -48,30 +46,19 @@ final class CachedAppConfiguration {
 	init(
 		client: AppConfigurationFetching,
 		store: Store,
-		deviceTimeCheck: DeviceTimeCheckProtocol? = nil,
-		configurationDidChange: (() -> Void)? = nil
+		deviceTimeCheck: DeviceTimeCheckProtocol? = nil
 	) {
 		Log.debug("CachedAppConfiguration init called", log: .appConfig)
 
 		self.client = client
 		self.store = store
-		self.configurationDidChange = configurationDidChange
 
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
-
 
 		guard shouldFetch() else { return }
 
 		// check for updated or fetch initial app configuration
-		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
-			.sink { response in
-				self.store.appConfigMetadata = AppConfigMetadata(
-					lastAppConfigETag: response.etag ?? "\"ReloadMe\"",
-					lastAppConfigFetch: Date(),
-					appConfig: response.config
-				)
-			}
-			.store(in: &subscriptions)
+		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
 	}
 
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
@@ -86,7 +73,6 @@ final class CachedAppConfiguration {
 						lastAppConfigFetch: Date(),
 						appConfig: response.config
 					)
-					promise(.success(AppConfigResponse(config: response.config, etag: response.eTag)))
 
 					// update revokation list
 					let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
@@ -99,7 +85,8 @@ final class CachedAppConfiguration {
 						// no further action - yet
 					}
 
-					self.configurationDidChange?()
+					promise(.success(AppConfigResponse(config: response.config, etag: response.eTag)))
+
 				case .failure(let error):
 					switch error {
 					case CachedAppConfiguration.CacheError.notModified where self.store.appConfigMetadata != nil:
@@ -113,7 +100,14 @@ final class CachedAppConfiguration {
 						promise(.success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
 
 					default:
-						// try to provide the default configuration or return error response
+						// Try to provide the cached app config.
+						if let cachedAppConfig = self.store.appConfigMetadata {
+							Log.info("Providing cached app configuration", log: .localData)
+							promise(.success(AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)))
+							return
+						}
+
+						// If there is no cached config, provide the default configuration.
 						guard
 							let data = try? Data(contentsOf: self.defaultAppConfigPath),
 							let zip = Archive(data: data, accessMode: .read),
@@ -122,14 +116,8 @@ final class CachedAppConfiguration {
 							Log.error("Could not provide static app configuration!", log: .localData, error: nil)
 							fatalError("Could not provide static app configuration!")
 						}
-						// Let's stick to the default for 5 Minute
-						self.store.appConfigMetadata = AppConfigMetadata(
-							lastAppConfigETag: "\"default\"",
-							lastAppConfigFetch: Date(),
-							appConfig: defaultConfig
-						)
 
-						Log.info("Providing canned app configuration 🥫", log: .localData)
+						Log.info("Providing default app configuration 🥫", log: .localData)
 						promise(.success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
 					}
 				}
@@ -152,7 +140,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 
 	fileprivate static let timestampKey = "LastAppConfigFetch"
 
-	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+	func appConfiguration(forceFetch: Bool = false) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		let force = shouldFetch() || forceFetch
 
 		if let cachedVersion = store.appConfigMetadata?.appConfig, !force {
@@ -165,14 +153,23 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			Log.debug("fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .appConfig)
 			// fetch a new one
 			return getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
-				.map({ $0.config })
 				.receive(on: DispatchQueue.main)
+				.map({ $0.config })
 				.eraseToAnyPublisher()
 		}
 	}
 
-	func appConfiguration() -> AnyPublisher<SAP_Internal_ApplicationConfiguration, Never> {
+	func appConfiguration() -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return appConfiguration(forceFetch: false)
+	}
+
+	func supportedCountries() -> AnyPublisher<[Country], Never> {
+		return appConfiguration()
+			.map({ config -> [Country] in
+				let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+				return countries.isEmpty ? [.defaultCountry()] : countries
+			})
+			.eraseToAnyPublisher()
 	}
 
 	/// Simple helper to simulate Cache-Control

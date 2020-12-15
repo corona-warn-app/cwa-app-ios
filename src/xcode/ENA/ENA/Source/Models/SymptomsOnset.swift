@@ -5,7 +5,7 @@
 import Foundation
 import ExposureNotification
 
-enum SymptomsOnset: Equatable {
+enum SymptomsOnset: Equatable, Codable {
 
 	case noInformation
 	case nonSymptomatic
@@ -14,6 +14,62 @@ enum SymptomsOnset: Equatable {
 	case oneToTwoWeeksAgo
 	case moreThanTwoWeeksAgo
 	case daysSinceOnset(Int)
+
+	// MARK: - Protocol Codable
+
+	enum Key: CodingKey {
+		case rawValue
+		case associatedValue
+	}
+
+	enum CodingError: Error {
+		case unknownValue
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: Key.self)
+		let rawValue = try container.decode(Int.self, forKey: .rawValue)
+		switch rawValue {
+		case 0:
+			self = .noInformation
+		case 1:
+			self = .nonSymptomatic
+		case 2:
+			self = .symptomaticWithUnknownOnset
+		case 3:
+			self = .lastSevenDays
+		case 4:
+			self = .oneToTwoWeeksAgo
+		case 5:
+			self = .moreThanTwoWeeksAgo
+		case 6:
+			let daysSinceOnset = try container.decode(Int.self, forKey: .associatedValue)
+			self = .daysSinceOnset(daysSinceOnset)
+		default:
+			throw CodingError.unknownValue
+		}
+	}
+
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: Key.self)
+		switch self {
+		case .noInformation:
+			try container.encode(0, forKey: .rawValue)
+		case .nonSymptomatic:
+			try container.encode(1, forKey: .rawValue)
+		case .symptomaticWithUnknownOnset:
+			try container.encode(2, forKey: .rawValue)
+		case .lastSevenDays:
+			try container.encode(3, forKey: .rawValue)
+		case .oneToTwoWeeksAgo:
+			try container.encode(4, forKey: .rawValue)
+		case .moreThanTwoWeeksAgo:
+			try container.encode(5, forKey: .rawValue)
+		case .daysSinceOnset(let daysSinceOnset):
+			try container.encode(6, forKey: .rawValue)
+			try container.encode(daysSinceOnset, forKey: .associatedValue)
+		}
+	}
 
 	// MARK: - Internal
 

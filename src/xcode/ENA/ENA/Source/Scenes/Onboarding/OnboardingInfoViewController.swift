@@ -53,7 +53,7 @@ final class OnboardingInfoViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		let preconditions = exposureManager.preconditions()
+		let preconditions = exposureManager.exposureManagerState
 		updateUI(exposureManagerState: preconditions)
 	}
 	
@@ -145,7 +145,9 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func loadCountryList() {
-		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+		// force loading app configuration regardless the cached state. If, for some
+		// reason no app configuration is available, we'll use a minimal default config.
+		appConfigurationProvider.appConfiguration(forceFetch: true).sink { [weak self] configuration in
 			let supportedCountryIDs = configuration.supportedCountries
 
 			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
@@ -189,6 +191,7 @@ final class OnboardingInfoViewController: UIViewController {
 			linkTextView.adjustsFontForContentSizeCategory = true
 			linkTextView.textContainerInset = .zero
 			linkTextView.textContainer.lineFragmentPadding = .zero
+			linkTextView.backgroundColor = .clear
 		} else {
 			linkTextView.isHidden = true
 		}
@@ -363,7 +366,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func runIgnoreActionForPageType(completion: @escaping () -> Void) {
-		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.exposureManagerState.authorized else {
 			completion()
 			return
 		}

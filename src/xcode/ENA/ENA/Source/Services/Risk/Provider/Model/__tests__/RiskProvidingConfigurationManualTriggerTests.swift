@@ -16,7 +16,7 @@ final class RiskProvidingConfigurationManualTriggerTests: XCTestCase {
 		)
 
 		XCTAssertEqual(
-			config.manualExposureDetectionState(activeTracingHours: 42, lastExposureDetectionDate: nil),
+			config.manualExposureDetectionState(lastExposureDetectionDate: nil),
 			.possible
 		)
     }
@@ -30,7 +30,6 @@ final class RiskProvidingConfigurationManualTriggerTests: XCTestCase {
 
 		XCTAssertEqual(
 			config.manualExposureDetectionState(
-				activeTracingHours: 42,
 				lastExposureDetectionDate: calendar.date(byAdding: .init(day: -1), to: Date())
 			),
 			.possible
@@ -48,7 +47,6 @@ final class RiskProvidingConfigurationManualTriggerTests: XCTestCase {
 
 		XCTAssertEqual(
 			config.manualExposureDetectionState(
-				activeTracingHours: 42,
 				lastExposureDetectionDate: calendar.date(byAdding: .init(hour: -12), to: Date())
 			),
 			.waiting
@@ -64,7 +62,6 @@ final class RiskProvidingConfigurationManualTriggerTests: XCTestCase {
 
 		XCTAssertEqual(
 			config.manualExposureDetectionState(
-				activeTracingHours: 42,
 				lastExposureDetectionDate: calendar.date(byAdding: .init(day: -10), to: Date())
 			),
 			.possible
@@ -80,7 +77,6 @@ final class RiskProvidingConfigurationManualTriggerTests: XCTestCase {
 
 		XCTAssertNil(
 			config.manualExposureDetectionState(
-				activeTracingHours: 42,
 				lastExposureDetectionDate: calendar.date(byAdding: .init(day: -10), to: Date())
 			)
 		)

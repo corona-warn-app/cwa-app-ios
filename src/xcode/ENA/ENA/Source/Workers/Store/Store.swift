@@ -5,30 +5,6 @@
 import Foundation
 import ExposureNotification
 
-enum EitherLowOrIncreasedRiskLevel: Int {
-	case low = 0
-	case increased = 1_000 /// so that increased > low + we have enough reserved values
-	var description: String {
-		switch self {
-		case .low: return "low"
-		case .increased: return "increased"
-		}
-	}
-}
-
-extension EitherLowOrIncreasedRiskLevel {
-	init?(with risk: RiskLevel) {
-		switch risk {
-		case .low:
-			self = .low
-		case .increased:
-			self = .increased
-		default:
-			return nil
-		}
-	}
-}
-
 protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
@@ -44,12 +20,9 @@ protocol StoreProtocol: AnyObject {
 	var devicePairingConsentAccept: Bool { get set }
 	var devicePairingConsentAcceptTimestamp: Int64? { get set }
 	var devicePairingSuccessfulTimestamp: Int64? { get set }
-	var isAllowedToSubmitDiagnosisKeys: Bool { get set }
 
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
-
-	var summary: SummaryMetadata? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -81,9 +54,9 @@ protocol StoreProtocol: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
+	var riskCalculationResult: RiskCalculationResult? { get set }
 
-	/// Set to true whenever a risk calculation changes the risk from .increased to .low
+	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
 	/// `true` if the user needs to be informed about how risk detection works.
@@ -106,9 +79,6 @@ protocol StoreProtocol: AnyObject {
 	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationTwoTimer: TimeInterval { get set }
-	
-	/// If there was a positive test result, this information will be stored for warn others
-	var warnOthersHasActiveTestResult: Bool { get set }
 
 	var wasRecentDayKeyDownloadSuccessful: Bool { get set }
 
@@ -120,11 +90,26 @@ protocol StoreProtocol: AnyObject {
 	
 	var wasDeviceTimeErrorShown: Bool { get set }
 
+	var positiveTestResultWasShown: Bool { get set }
+	
+	var isSubmissionConsentGiven: Bool { get set }
+
+	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
+
+	var submissionCountries: [Country] { get set }
+
+	var submissionSymptomsOnset: SymptomsOnset { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
+
+	var mostRecentRiskCalculation: RiskCalculation? { get set }
+
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
+
 	var dmKillDeviceTimeCheck: Bool { get set }
 	#endif
 

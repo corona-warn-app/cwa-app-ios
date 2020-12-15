@@ -13,7 +13,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		AppConfigMetadata(
 			lastAppConfigETag: "ETag",
 			lastAppConfigFetch: Date(),
-			appConfig: SAP_Internal_ApplicationConfiguration()
+			appConfig: SAP_Internal_V2_ApplicationConfigurationIOS()
 		)
 	}
 
@@ -61,53 +61,60 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		try fileManager.removeItem(at: parentDir)
 	}
 
-	// MARK: - Detect Summary With Configuration Tests
+	// MARK: - Detect Exposure Windows With Configuration Tests
 
-	func testDetectSummaryWithConfiguration_Success() throws {
+	func testDetectExposureWindowsWithConfiguration_Success() throws {
 		// Test the case where the exector is asked to run an exposure detection
-		// We provide a `MockExposureDetector` + a mock detection summary, and expect this to be returned
+		// We provide a `MockExposureDetector` + a mock exposure window, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
-		let mockSummary = MutableENExposureDetectionSummary(daysSinceLastExposure: 2, matchedKeyCount: 2, maximumRiskScore: 255)
-		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((mockSummary, nil)))
+		let mockExposureWindow = MutableENExposureWindow(calibrationConfidence: .medium, date: Date(), diagnosisReportType: .confirmedTest, infectiousness: .standard, scanInstances: [])
+		let sut = ExposureDetectionExecutor.makeWith(
+			exposureDetector: MockExposureDetector(
+				detectionHandler: (MutableENExposureDetectionSummary(), nil),
+				exposureWindowsHandler: ([mockExposureWindow], nil)
+			)
+		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
-		_ = sut.exposureDetection(
+		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { result in
 				defer { completionExpectation.fulfill() }
 
-				guard case .success(let summary) = result else {
-					XCTFail("Completion handler did return a detection summary!")
+				guard case .success(let exposureWindows) = result, let exposureWindow = exposureWindows.first else {
+					XCTFail("Completion handler did not return an exposure window!")
 					return
 				}
 
-				XCTAssertEqual(summary.daysSinceLastExposure, mockSummary.daysSinceLastExposure)
-				XCTAssertEqual(summary.matchedKeyCount, mockSummary.matchedKeyCount)
-				XCTAssertEqual(summary.maximumRiskScore, mockSummary.maximumRiskScore)
+				XCTAssertEqual(exposureWindow.calibrationConfidence, mockExposureWindow.calibrationConfidence)
+				XCTAssertEqual(exposureWindow.date, mockExposureWindow.date)
+				XCTAssertEqual(exposureWindow.diagnosisReportType, mockExposureWindow.diagnosisReportType)
+				XCTAssertEqual(exposureWindow.infectiousness, mockExposureWindow.infectiousness)
+				XCTAssertEqual(exposureWindow.scanInstances, mockExposureWindow.scanInstances)
 			}
 		)
 		waitForExpectations(timeout: 2.0)
 	}
 
-	func testDetectSummaryWithConfiguration_Error() throws {
+	func testDetectExposureWindowsWithConfiguration_Error() throws {
 		// Test the case where the exector is asked to run an exposure detection
 		// We provide an `MockExposureDetector` with an error, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let expectedError = ENError(.notAuthorized)
-		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector((nil, expectedError)))
+		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector(exposureWindowsHandler: (nil, expectedError)))
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 
-		_ = sut.exposureDetection(
+		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
@@ -130,7 +137,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		waitForExpectations(timeout: 2.0)
 	}
 
-	func testDetectSummaryWithConfiguration_Error2BadParameter_ClearsCache() throws {
+	func testDetectExposureWindowsWithConfiguration_Error2BadParameter_ClearsCache() throws {
 		// Test the case where the exector is asked to run an exposure detection
 		// We provide an `MockExposureDetector` with an error, and expect this to be returned
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
@@ -152,23 +159,24 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let sut = ExposureDetectionExecutor.makeWith(
 			packageStore: packageStore,
 			store: store,
-			exposureDetector: MockExposureDetector((nil, expectedError))
+			exposureDetector: MockExposureDetector(
+				detectionHandler: (nil, expectedError)
+			)
 		)
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
 			deviceTimeCheck: DeviceTimeCheck(store: store)
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)
 		XCTAssertNotNil(store.appConfigMetadata)
 
-		_ = sut.exposureDetection(
+		_ = sut.detectExposureWindows(
 			exposureDetection,
 			detectSummaryWithConfiguration: ENExposureConfiguration(),
 			writtenPackages: WrittenPackages(urls: []),
 			completion: { _ in
-
 				XCTAssertEqual(packageStore.allDays(country: "DE").count, 0)
 				XCTAssertNil(store.appConfigMetadata)
 

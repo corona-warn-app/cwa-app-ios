@@ -111,10 +111,7 @@ extension HTTPClient {
 				.appending(
 					"version",
 					apiVersion,
-					"configuration",
-					"country",
-					country,
-					"app_config"
+					"app_config_ios"
 			)
 		}
 

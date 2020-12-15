@@ -71,7 +71,13 @@ extension AppDelegate {
 	/// - Parameters:
 	///   - completion: called after all requests were triggered. Currently, only required when running in background mode to avoid terminating before the requests were made.
 	private func sendFakeRequest(_ completion: (() -> Void)? = nil) {
-		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
 		let group = DispatchGroup()
 
 		for i in 0..<Int.random(in: Constants.minNumberOfSequentialPlaybooks...Constants.maxNumberOfSequentialPlaybooks) {

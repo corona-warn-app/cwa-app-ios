@@ -40,6 +40,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		case ligthOff
 	}
 
+	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	let captureSession: AVCaptureSession
 
 	var isScanningActivated: Bool {
@@ -73,13 +74,28 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		captureSession.stopRunning()
 	}
 
-	func startCaptureSession() {
+	func setupCaptureSession() {
+		/// this special case is need to avoid system alert while UI tests are running
 		#if DEBUG
 		if isUITesting {
 			activateScanning()
 			return
 		}
 		#endif
+		guard let currentCaptureDevice = captureDevice,
+			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
+			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
+			return
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		captureSession.addInput(caputureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+	}
+
+	func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
 			Log.info("AVCaptureDevice.authorized - enable qr code scanner")
@@ -177,22 +193,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Private
 
 	private let onSuccess: (DeviceRegistrationKey) -> Void
-	private let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	private let captureDevice: AVCaptureDevice?
-
-	private func setupCaptureSession() {
-		guard let currentCaptureDevice = captureDevice,
-			let caputureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
-			onError(.cameraPermissionDenied) { Log.error("Failed to setup AVCaptureDeviceInput", log: .ui) }
-			return
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-	}
-
 
 }

@@ -3,16 +3,16 @@
 //
 
 import Foundation
+import ExposureNotification
 
-typealias RiskCalculationResult = Result<Risk, RiskProviderError>
+typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
 enum RiskProviderError: Error {
+	case inactive
 	case timeout
 	case riskProviderIsRunning
 	case missingAppConfig
 	case failedKeyPackageDownload(KeyPackageDownloadError)
-	case missingCachedSummary
-	case failedToDetectSummary
 	case failedRiskCalculation
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
 
@@ -23,8 +23,8 @@ enum RiskProviderError: Error {
 		case .failedKeyPackageDownload(let keyPackageDownloadError):
 			return keyPackageDownloadError == .downloadIsRunning
 		case .failedRiskDetection(let didEndPrematuralyReason):
-			if case let .noSummary(summaryError) = didEndPrematuralyReason {
-				if let exposureDetectionError = summaryError as? ExposureDetectionError {
+			if case let .noExposureWindows(exposureWindowsError) = didEndPrematuralyReason {
+				if let exposureDetectionError = exposureWindowsError as? ExposureDetectionError {
 					return exposureDetectionError == .isAlreadyRunning
 				}
 			}
@@ -34,14 +34,51 @@ enum RiskProviderError: Error {
 
 		return false
 	}
+
+	var shouldBeDisplayedToUser: Bool {
+		!isENError16DataInaccessible
+	}
+
+	private var isENError16DataInaccessible: Bool {
+		guard case let .failedRiskDetection(didEndPrematuralyReason) = self,
+			  case let .noExposureWindows(noExposureWindowsError) = didEndPrematuralyReason,
+			  let enError = noExposureWindowsError as? ENError else {
+			return false
+		}
+
+		return enError.code == .dataInaccessible
+	}
+}
+
+enum RiskProviderActivityState {
+	case idle
+	case riskRequested
+	case downloading
+	case detecting
+
+	var isActive: Bool {
+		self == .downloading || self == .detecting
+	}
 }
 
 protocol RiskProviding: AnyObject {
-	typealias Completion = (RiskCalculationResult) -> Void
-
-	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, ignoreCachedSummary: Bool)
-	func nextExposureDetectionDate() -> Date
 
 	var riskProvidingConfiguration: RiskProvidingConfiguration { get set }
+	var exposureManagerState: ExposureManagerState { get set }
+	var activityState: RiskProviderActivityState { get }
+	var manualExposureDetectionState: ManualExposureDetectionState? { get }
+	var nextExposureDetectionDate: Date { get }
+
+	func observeRisk(_ consumer: RiskConsumer)
+	func removeRisk(_ consumer: RiskConsumer)
+
+	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval)
+}
+
+extension RiskProviding {
+
+	func requestRisk(userInitiated: Bool) {
+		requestRisk(userInitiated: userInitiated, timeoutInterval: TimeInterval(60 * 8))
+	}
+
 }

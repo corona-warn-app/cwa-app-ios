@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum o zi pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Aveți un risc crescut de infectare deoarece ați fost expus ultima dată acum %u de zile pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u zi de la ultima expunere</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u de zile de la ultima expunere</string>
-		</dict>
-	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -76,19 +16,19 @@
 			<string>Nicio expunere până acum</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>O întâlnire cu risc redus</string>
+			<string>Expuneri cu risc redus într-o zi</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u întâlniri cu risc redus</string>
+			<string>Expuneri cu risc redus în %u zile</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u întâlniri cu risc redus</string>
+			<string>Expuneri cu risc redus în %u zile</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u întâlniri cu risc redus</string>
+			<string>Expuneri cu risc redus în %u zile</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u de întâlniri cu risc redus</string>
+			<string>Expuneri cu risc redus în %u de zile</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -103,52 +43,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Nicio expunere până acum</string>
+			<string>Expuneri cu risc crescut în %u zile</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>O expunere</string>
+			<string>Expuneri cu risc crescut într-o zi</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u expuneri</string>
+			<string>Expuneri cu risc crescut în %u zile</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u expuneri</string>
+			<string>Expuneri cu risc crescut în %u zile</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u expuneri</string>
+			<string>Expuneri cu risc crescut în %u zile</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u de expuneri</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Last_Contact_Item_Title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Mai puțin de o zi de la ultima expunere</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u zi de la ultima expunere</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u zile de la ultima expunere</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u de zile de la ultima expunere</string>
+			<string>Expuneri cu risc crescut în %u de zile</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>
@@ -178,7 +88,7 @@
 			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
 		</dict>
 		<key>seconds</key>
 		<dict>

@@ -5,8 +5,8 @@
 import UIKit
 
 final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
-	private var numberRiskContacts: Int
-	private var daysSinceLastExposure: Int?
+	private var numberOfDaysWithHighRisk: Int
+	private var mostRecentDateWithHighRisk: Date?
 
 	private let titleColor: UIColor = .enaColor(for: .textContrast)
 	private let color: UIColor = .enaColor(for: .riskHigh)
@@ -15,16 +15,16 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		state: RiskProvider.ActivityState,
-		numberRiskContacts: Int,
-		daysSinceLastExposure: Int?,
+		state: RiskProviderActivityState,
+		numberOfDaysWithHighRisk: Int,
+		mostRecentDateWithHighRisk: Date?,
 		lastUpdateDate: Date?,
 		manualExposureDetectionState: ManualExposureDetectionState?,
 		detectionMode: DetectionMode,
 		detectionInterval: Int
 	) {
-		self.numberRiskContacts = numberRiskContacts
-		self.daysSinceLastExposure = daysSinceLastExposure
+		self.numberOfDaysWithHighRisk = numberOfDaysWithHighRisk
+		self.mostRecentDateWithHighRisk = mostRecentDateWithHighRisk
 		super.init(
 			state: state,
 			isButtonEnabled: manualExposureDetectionState == .possible,
@@ -71,13 +71,21 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	private func setupNormalCellState(for cell: RiskLevelCollectionViewCell) -> [HomeRiskViewConfiguratorAny] {
 		cell.configureTitle(title: AppStrings.Home.riskCardHighTitle, titleColor: titleColor)
-		let numberOfDaysSinceLastExposure = daysSinceLastExposure ?? 0
-		let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberRiskContacts)
-		let lastContactTitle = String(format: AppStrings.Home.riskCardLastContactItemTitle, numberOfDaysSinceLastExposure)
+
+		var formattedMostRecentDateWithHighRisk = ""
+		assert(mostRecentDateWithHighRisk != nil, "mostRecentDateWithHighRisk must be set on high risk state")
+		if let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+			formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+		}
+
+		let numberOfDaysWithHighRiskTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberOfDaysWithHighRisk)
+		let lastContactTitle = String(format: AppStrings.Home.riskCardLastContactItemTitle, formattedMostRecentDateWithHighRisk)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 
 		return [
-			HomeRiskImageItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "Icons_RisikoBegegnung", iconTintColor: titleColor, color: color, separatorColor: separatorColor),
+			HomeRiskImageItemViewConfigurator(title: numberOfDaysWithHighRiskTitle, titleColor: titleColor, iconImageName: "Icons_RisikoBegegnung", iconTintColor: titleColor, color: color, separatorColor: separatorColor),
 			HomeRiskImageItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Icons_Calendar", iconTintColor: titleColor, color: color, separatorColor: separatorColor),
 			HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 		]
@@ -87,8 +95,8 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	override func hash(into hasher: inout Swift.Hasher) {
 		super.hash(into: &hasher)
-		hasher.combine(numberRiskContacts)
-		hasher.combine(daysSinceLastExposure)
+		hasher.combine(numberOfDaysWithHighRisk)
+		hasher.combine(mostRecentDateWithHighRisk)
 	}
 
 	static func == (lhs: HomeHighRiskCellConfigurator, rhs: HomeHighRiskCellConfigurator) -> Bool {
@@ -96,8 +104,8 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lhs.isButtonEnabled == rhs.isButtonEnabled &&
 		lhs.isButtonHidden == rhs.isButtonHidden &&
 		lhs.lastUpdateDate == rhs.lastUpdateDate &&
-		lhs.numberRiskContacts == rhs.numberRiskContacts &&
-		lhs.daysSinceLastExposure == rhs.daysSinceLastExposure &&
+		lhs.numberOfDaysWithHighRisk == rhs.numberOfDaysWithHighRisk &&
+		lhs.mostRecentDateWithHighRisk == rhs.mostRecentDateWithHighRisk &&
 		lhs.detectionInterval == rhs.detectionInterval
 	}
 }

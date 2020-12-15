@@ -17,7 +17,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var warnOthersReminder: WarnOthersRemindable { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -60,9 +59,9 @@ extension AppDelegate {
 		switch riskProviderError {
 		case .failedRiskDetection(let didEndPrematurelyReason):
 			switch didEndPrematurelyReason {
-			case let .noSummary(error):
+			case let .noExposureWindows(error):
 				return makeAlertController(
-					noSummaryError: error,
+					noExposureWindowsError: error,
 					localizedDescription: didEndPrematurelyReason.localizedDescription,
 					rootController: rootController
 				)
@@ -83,21 +82,26 @@ extension AppDelegate {
 		}
 	}
 
-	private func makeAlertController(noSummaryError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
 
-		if let enError = noSummaryError as? ENError {
-			let openFAQ: (() -> Void)? = {
-				guard let url = enError.faqURL else { return nil }
-				return {
-					UIApplication.shared.open(url, options: [:])
-				}
-			}()
-			return rootController.setupErrorAlert(
-				message: localizedDescription,
-				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
-				secondaryActionCompletion: openFAQ
-			)
-		} else if let exposureDetectionError = noSummaryError as? ExposureDetectionError {
+		if let enError = noExposureWindowsError as? ENError {
+			switch enError.code {
+			case .dataInaccessible:
+				return nil
+			default:
+				let openFAQ: (() -> Void)? = {
+					guard let url = enError.faqURL else { return nil }
+					return {
+						UIApplication.shared.open(url, options: [:])
+					}
+				}()
+				return rootController.setupErrorAlert(
+					message: localizedDescription,
+					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+					secondaryActionCompletion: openFAQ
+				)
+			}
+		} else if let exposureDetectionError = noExposureWindowsError as? ExposureDetectionError {
 			switch exposureDetectionError {
 			case .isAlreadyRunning:
 				return nil
@@ -116,8 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let store: Store
 	let serverEnvironment: ServerEnvironment
 
-	let warnOthersReminder: WarnOthersRemindable
-
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let backgroundTaskConsumer = RiskConsumer()
 
@@ -131,17 +133,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// use a custom http client that uses/recognized caching mechanisms
 		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
 		
-		let provider = CachedAppConfiguration(client: appFetchingClient, store: store, configurationDidChange: { [weak self] in
-			// Recalculate risk with new app configuration
-			self?.riskProvider.requestRisk(userInitiated: false, ignoreCachedSummary: true)
-		})
+		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
 		provider.packageStore = downloadedPackagesStore
 		return provider
 	}()
 
 	lazy var riskProvider: RiskProvider = {
-
 		let keyPackageDownload = KeyPackageDownload(
 			downloadedPackagesStore: downloadedPackagesStore,
 			client: client,
@@ -149,14 +147,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			store: store
 		)
 
+		#if !RELEASE
 		return RiskProvider(
 			configuration: .default,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
-			exposureManagerState: exposureManager.preconditions(),
+			exposureManagerState: exposureManager.exposureManagerState,
+			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
 			keyPackageDownload: keyPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
+		#else
+		return RiskProvider(
+			configuration: .default,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			exposureManagerState: exposureManager.exposureManagerState,
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
+		)
+		#endif
+
 	}()
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -191,15 +202,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.serverEnvironment = ServerEnvironment()
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
-		self.warnOthersReminder = WarnOthersReminder(store: self.store)
 
 		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
 		self.client = HTTPClient(configuration: configuration)
 		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
-		#if !RELEASE
 		downloadedPackagesStore.keyValueStore = self.store
-		#endif
 	}
 
 	func application(

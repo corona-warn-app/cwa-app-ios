@@ -11,6 +11,7 @@ class CountdownTimerTests: XCTestCase {
 	private var countdownTimerTarget: CountdownTimerTarget!
 
 	override func setUp() {
+		super.setUp()
 		countdownTimerTarget = CountdownTimerTarget()
 	}
 
@@ -55,16 +56,17 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		let doneExpectation = self.expectation(description: "Calls done when finished.")
-		countdownTimerTarget.doneCallback = { _, _ in
+		countdownTimerTarget.doneCallback = { _, finished in
+			XCTAssertTrue(finished)
 			doneExpectation.fulfill()
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: .long)
+		self.waitForExpectations(timeout: .extraLong) // just add enough buffer
 	}
 }
 
-class CountdownTimerTarget: CountdownTimerDelegate {
+private class CountdownTimerTarget: CountdownTimerDelegate {
 
 	var updateCallback: ((CountdownTimer, String) -> Void)?
 	var doneCallback: ((CountdownTimer, Bool) -> Void)?

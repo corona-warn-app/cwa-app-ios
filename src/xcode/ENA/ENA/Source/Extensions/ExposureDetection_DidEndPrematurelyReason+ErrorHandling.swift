@@ -8,7 +8,7 @@ import ExposureNotification
 extension ExposureDetection.DidEndPrematurelyReason {
 	func errorAlertController(rootController: UIViewController) -> UIAlertController? {
 		switch self {
-		case let .noSummary(error):
+		case let .noExposureWindows(error):
 			return makeAlertControllerForENError(error, rootController: rootController)
 		case .wrongDeviceTime:
 			return rootController.setupErrorAlert(message: localizedDescription)

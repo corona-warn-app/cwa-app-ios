@@ -9,13 +9,14 @@ class ENAUITests: XCTestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
+		super.setUp()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchEnvironment["IsOnboarded"] = "NO"
+		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
-
 
 	override func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
@@ -79,8 +80,8 @@ class ENAUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Home.submitCardButton"].tap()
 		// todo: need accessibility for Next
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionDispatch.description"].waitForExistence(timeout: .medium))
+
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0005") }
 
@@ -105,7 +106,7 @@ class ENAUITests: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments.append(contentsOf: ["-negativeResult", "YES"])
+		app.launchArguments.append(contentsOf: ["-testResult", TestResult.negative.stringValue])
 		app.launch()
 
 		// ScreenShot_0006: Negative result

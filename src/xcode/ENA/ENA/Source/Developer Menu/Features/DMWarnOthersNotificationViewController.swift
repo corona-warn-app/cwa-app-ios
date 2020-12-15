@@ -1,33 +1,25 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 #if !RELEASE
 
 import UIKit
+import Combine
 
 final class DMWarnOthersNotificationViewController: UIViewController, UITextFieldDelegate {
-
+	
 	// MARK: - Init
 	
-	init(warnOthersReminder: WarnOthersRemindable, store: Store) {
+	init(
+		warnOthersReminder: WarnOthersRemindable,
+		store: Store,
+		exposureSubmissionService: ExposureSubmissionService
+	) {
+		
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
+		self.exposureSubmissionService = exposureSubmissionService
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -46,8 +38,26 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.numberOfLines = 0
-		titleLabel.text = "Warn others notification settings"
+		titleLabel.text = "\n\nWarn others notification settings"
 		titleLabel.font = UIFont.enaFont(for: .headline)
+		
+		let currentSubmissionConsentStatusTitleLabel = UILabel(frame: .zero)
+		currentSubmissionConsentStatusTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentSubmissionConsentStatusTitleLabel.numberOfLines = 0
+		currentSubmissionConsentStatusTitleLabel.text = "Current status of submission consent\n"
+		currentSubmissionConsentStatusTitleLabel.font = UIFont.enaFont(for: .headline)
+		
+		currentSubmissionConsentStatusStateLabel = UILabel(frame: .zero)
+		currentSubmissionConsentStatusStateLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentSubmissionConsentStatusStateLabel.numberOfLines = 0
+		currentSubmissionConsentStatusStateLabel.font = UIFont.enaFont(for: .title2)
+		
+		let currentSubmissionConsentStatusStateDescription = UILabel(frame: .zero)
+		currentSubmissionConsentStatusStateDescription.translatesAutoresizingMaskIntoConstraints = false
+		currentSubmissionConsentStatusStateDescription.numberOfLines = 0
+		currentSubmissionConsentStatusStateDescription.text = "\n⚠️ If SubmissionConsent is granted (🟢), then no warn others notifications will be scheduled!"
+		currentSubmissionConsentStatusStateDescription.font = UIFont.enaFont(for: .subheadline)
+		
 		
 		let descriptionLabel = UILabel(frame: .zero)
 		descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +109,10 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval2TextField.delegate = self
 		timeInterval2TextField.borderStyle = .line
 		
-		let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
+		consentSwitch.onTintColor = .enaColor(for: .tint)
+		consentSwitch.addTarget(self, action: #selector(self.consentStateChanged), for: .valueChanged)
+		
+		let stackView = UIStackView(arrangedSubviews: [currentSubmissionConsentStatusTitleLabel, currentSubmissionConsentStatusStateLabel, consentSwitch, currentSubmissionConsentStatusStateDescription, titleLabel, descriptionLabel, timeInterval1Label, timeInterval1TextField, timeInterval2Label, timeInterval2TextField, saveButton, resetDefaultsButton, descriptionResetNotificationsLabel, resetNotificationsButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.alignment = .center
@@ -119,15 +132,26 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 		timeInterval1TextField.text = "\(warnOthersReminder.notificationOneTimeInterval)"
 		timeInterval2TextField.text = "\(warnOthersReminder.notificationTwoTimeInterval)"
 		
-		//Set the keyboard type.
+		// Set the keyboard type.
 		timeInterval1TextField.keyboardType = .numberPad
 		timeInterval2TextField.keyboardType = .numberPad
 		self.hideKeyboardWhenTappedAround()
+		
+		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
+			self.consentSwitch.isOn = isSubmissionConsentGiven
+			self.currentSubmissionConsentStatusStateLabel.text = isSubmissionConsentGiven ? "🟢 Consent granted 👍" : "🔴 Consent not given 👎"
+		}.store(in: &cancellables)
 		
 	}
 	
 	// MARK: - Private
 
+	private let consentSwitch = UISwitch()
+	
+	private var cancellables: Set<AnyCancellable> = []
+	
+	private var exposureSubmissionService: ExposureSubmissionService
+	
 	private var timeInterval1TextField: UITextField!
 	private var timeInterval2TextField: UITextField!
 
@@ -136,7 +160,14 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 
 	private let store: Store
 	private var warnOthersReminder: WarnOthersRemindable
-
+	
+	private var currentSubmissionConsentStatusStateLabel = UILabel()
+	
+	@objc
+	private func consentStateChanged(switchState: UISwitch) {
+		exposureSubmissionService.isSubmissionConsentGiven = switchState.isOn
+	}
+	
 	@objc
 	private func scheduleNotificationsButtonTapped() {
 		let timeInterval1 = Double(timeInterval1TextField.text ?? "") ?? WarnOthersNotificationsTimeInterval.intervalOne

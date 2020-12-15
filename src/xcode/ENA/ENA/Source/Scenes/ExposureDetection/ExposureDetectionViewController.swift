@@ -63,20 +63,33 @@ extension ExposureDetectionViewController {
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		consumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
-			self?.state.riskDetectionFailed = false
+			self?.state.riskState = .risk(risk)
 			self?.updateUI()
 		}
+
 		consumer.didFailCalculateRisk = { [weak self] error in
+
 			// Ignore already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
 				return
 			}
+
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[ExposureDetectionViewController] Don't show error to user: \(error).", log: .riskDetection)
+				return
+			}
 			
-			self?.state.riskDetectionFailed = true
+			switch error {
+			case .inactive:
+				self?.state.riskState = .inactive
+			default:
+				self?.state.riskState = .detectionFailed
+			}
+			
 			self?.updateUI()
 		}
+		
 		consumer.didChangeActivityState = { [weak self] activityState in
 			self?.state.activityState = activityState
 		}
@@ -149,13 +162,6 @@ private extension ExposureDetectionViewController {
 	}
 }
 
-extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
-		state.exposureManagerState = exposureManagerState
-		updateUI()
-	}
-}
-
 extension ExposureDetectionViewController {
 	func updateUI() {
 		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
@@ -169,7 +175,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .inactive && !state.riskDetectionFailed {
+		if case .risk = state.riskState, state.isTracingEnabled {
 			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
 			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
@@ -193,18 +199,20 @@ extension ExposureDetectionViewController {
 	/// - Parameters:
 	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
 	private func updateCheckButton(_ time: String? = nil) {
-		if !state.isTracingEnabled {
+		if !state.isTracingEnabled || state.riskDetectionFailed {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+
+			if !state.isTracingEnabled {
+				checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			} else if state.riskDetectionFailed {
+				checkButton.setTitle(AppStrings.ExposureDetection.buttonTitleRestart, for: .normal)
+			}
+
 			return
 		}
 
-		var mode = state.detectionMode
-		if .unknownOutdated == state.risk?.level { mode = .manual }
-
-		switch mode {
-
+		switch state.detectionMode {
 		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:
 			footerView.isHidden = true
@@ -214,7 +222,7 @@ extension ExposureDetectionViewController {
 		case .manual:
 			footerView.isHidden = false
 
-			let nextRefresh = riskProvider.nextExposureDetectionDate()
+			let nextRefresh = riskProvider.nextExposureDetectionDate
 			let now = Date()
 
 			// If there is not countdown and the next possible refresh date is in the future,

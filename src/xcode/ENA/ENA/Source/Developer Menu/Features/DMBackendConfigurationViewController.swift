@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class DMBackendConfigurationViewController: UITableViewController, RequiresAppDependencies {
+final class DMBackendConfigurationViewController: UITableViewController {
 
 	// MARK: Creating a Configuration View Controller
 
@@ -22,7 +22,7 @@ final class DMBackendConfigurationViewController: UITableViewController, Require
 		self.exposureSubmissionService = exposureSubmissionService
 
 		super.init(style: .plain)
-		title = "⚙️ Configuration"
+		title = "⚙️ Backend Configuration"
 	}
 
 	@available(*, unavailable)

@@ -9,12 +9,19 @@ enum ExposureSubmissionError: Error, Equatable {
 	case noRegistrationToken
 	case enNotEnabled
 	case notAuthorized
-	case noKeys
-	case noConsent
+
+	/// User has not granted acces to their keys
+	case keysNotShared
+
+	/// Access to keys was granted but no keys were collected by the exposure notification framework
+	case noKeysCollected
+
+	case noSubmissionConsent
+	case noDevicePairingConsent
 	case noAppConfiguration
 	case invalidTan
 	case invalidResponse
-	case noResponse
+	case noNetworkConnection
 	case teleTanAlreadyUsed
 	case qrAlreadyUsed
 	case regTokenNotExist
@@ -29,6 +36,11 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidPayloadOrHeaders
 	case requestCouldNotBeBuilt
 	case qrExpired
+
+	/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
+	///
+	/// This had multiple reasons (offline, invalid payload, etc.) and was ambiguous. Please consider another state (e.g. `invalidResponse` or `noNetworkConnection`) and refactor existing solutions!
+	case noResponse
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -50,6 +62,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
 			return AppStrings.ExposureSubmissionError.noResponse
+		case .noNetworkConnection:
+			return AppStrings.ExposureSubmissionError.noNetworkConnection
 		case .noAppConfiguration:
 			return AppStrings.ExposureSubmissionError.noAppConfiguration
 		case .qrAlreadyUsed:
@@ -60,8 +74,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
-		case .noKeys:
-			return AppStrings.ExposureSubmissionError.noKeys
+		case .noKeysCollected:
+			return AppStrings.ExposureSubmissionError.noKeysCollected
 		case .internal:
 			return AppStrings.Common.enError11Description
 		case .unsupported:

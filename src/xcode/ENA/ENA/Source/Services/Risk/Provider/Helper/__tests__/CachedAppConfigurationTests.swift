@@ -21,20 +21,14 @@ final class CachedAppConfigurationTests: XCTestCase {
 		XCTAssertNil(store.appConfigMetadata)
 
 		let client = CachingHTTPClientMock(store: store)
-		let expectedConfig = SAP_Internal_ApplicationConfiguration()
+		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 
-		let configurationDidChangeExpectation = expectation(description: "Configuration did change")
-		configurationDidChangeExpectation.expectedFulfillmentCount = 1
-		configurationDidChangeExpectation.assertForOverFulfill = true
-
-		let cache = CachedAppConfiguration(client: client, store: store, configurationDidChange: {
-			configurationDidChangeExpectation.fulfill()
-		})
+		let cache = CachedAppConfiguration(client: client, store: store)
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 		completionExpectation.expectedFulfillmentCount = 2
@@ -53,23 +47,57 @@ final class CachedAppConfigurationTests: XCTestCase {
 			completionExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-//		cache.$configuration.
-//		cache.appConfiguration { response in
-//			switch response {
-//			case .success(let config):
-//				XCTAssertEqual(config, expectedConfig)
-//				XCTAssertEqual(config, store.appConfig)
-//			case .failure(let error):
-//				XCTFail(error.localizedDescription)
-//			}
-//			completionExpectation.fulfill()
-//		}
-
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testCacheSupportedCountries() throws {
+		let store = MockTestStore()
+		var config = CachingHTTPClientMock.staticAppConfig
+		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+
+		let client = CachingHTTPClientMock(store: store)
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			completeWith((.success(config), nil))
+		}
+
+		let gotValue = expectation(description: "got countries list")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		cache
+			.supportedCountries()
+			.sink { countries in
+				XCTAssertEqual(countries.count, 6)
+				gotValue.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testCacheEmptySupportedCountries() throws {
+		let store = MockTestStore()
+		var config = CachingHTTPClientMock.staticAppConfig
+		config.supportedCountries = []
+		let client = CachingHTTPClientMock(store: store)
+
+		let gotValue = expectation(description: "got countries list")
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		cache
+			.supportedCountries()
+			.sink { countries in
+				XCTAssertEqual(countries.count, 1)
+				XCTAssertEqual(countries.first, .defaultCountry())
+				gotValue.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: .short)
+	}
+
 //	func testCacheDecay() throws {
-//		let outdatedConfig = SAP_Internal_ApplicationConfiguration()
+//		let outdatedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 //		let updatedConfig = CachingHTTPClientMock.staticAppConfig
 //
 //		let store = MockTestStore()
@@ -214,7 +242,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 //
 //		let store = MockTestStore()
 //		store.lastAppConfigETag = "etag"
-//		store.appConfig = SAP_Internal_ApplicationConfiguration()
+//		store.appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 //
 //		let client = CachingHTTPClientMock(store: store)
 //		client.onFetchAppConfiguration = { _, completeWith in

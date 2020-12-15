@@ -11,14 +11,22 @@ protocol ExposureSubmissionService: class {
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
+	var exposureManagerState: ExposureManagerState { get }
+	var hasRegistrationToken: Bool { get }
+
+	var supportedCountries: [Country] { get } // temporary!
+
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
 	var devicePairingSuccessfulTimestamp: Int64? { get }
-	
-	func submitExposure(
-		symptomsOnset: SymptomsOnset,
-		visitedCountries: [Country],
-		completionHandler: @escaping ExposureSubmissionHandler
-	)
+
+	var symptomsOnset: SymptomsOnset { get set }
+
+	var isSubmissionConsentGiven: Bool { get set }
+	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
+
+	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void)
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)
+	func submitExposure(completion: @escaping ExposureSubmissionHandler)
 
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
@@ -33,10 +41,9 @@ protocol ExposureSubmissionService: class {
 	///   - useStoredRegistration: flag to show if a separate registration is needed (`false`) or an existing registration token is used (`true`)
 	///   - completion: a `TestResultHandler`
 	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool, completion: @escaping TestResultHandler)
-	func hasRegistrationToken() -> Bool
 	func deleteTest()
-	func preconditions() -> ExposureManagerState
 	func acceptPairing()
 	func fakeRequest(completionHandler: ExposureSubmissionHandler?)
+	func reset()
 
 }

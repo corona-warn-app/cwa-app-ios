@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Изложени сте на повишен риск от заразяване, защото преди 1 дeн сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>Изложени сте на повишен риск от заразяване, защото преди %u дни сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Изложени сте на повишен риск от заразяване, защото преди %u дни сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Изложени сте на повишен риск от заразяване, защото преди %u дни сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Изложени сте на повишен риск от заразяване, защото преди %u дни сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Изложени сте на повишен риск от заразяване, защото преди %u дни сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u ден от последното излагане на риск</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u дни от последното излагане на риск</string>
-		</dict>
-	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -76,19 +16,19 @@
 			<string>До момента няма излагане на риск</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Един контакт с нисък риск</string>
+			<string>Брой дни с излагания на нисък риск: 1</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u контакти с нисък риск</string>
+			<string>Брой дни с излагания на нисък риск: %u</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u контакти с нисък риск</string>
+			<string>Брой дни с излагания на нисък риск: %u</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u контакти с нисък риск</string>
+			<string>Брой дни с излагания на нисък риск: %u</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u контакти с нисък риск</string>
+			<string>Брой дни с излагания на нисък риск: %u</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -103,52 +43,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>До момента няма излагане на риск</string>
+			<string>Брой дни с излагания на повишен риск: %u</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Едно излагане на риск</string>
+			<string>Брой дни с излагания на повишен риск: 1</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>%u излагания на риск</string>
+			<string>Брой дни с излагания на повишен риск: %u</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>%u излагания на риск</string>
+			<string>Брой дни с излагания на повишен риск: %u</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>%u излагания на риск</string>
+			<string>Брой дни с излагания на повишен риск: %u</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>%u излагания на риск</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Last_Contact_Item_Title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<!--Plural form for ZERO.-->
-			<string>По-малко от един ден от последното излагане на риск</string>
-			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>%u ден от последното излагане на риск</string>
-			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>%u дни от последното излагане на риск</string>
-			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>%u дни от последното излагане на риск</string>
+			<string>Брой дни с излагания на повишен риск: %u</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>

@@ -8,8 +8,6 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
-	@IBInspectable var cellBackgroundColor: UIColor?
-
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
 	override func loadView() {
@@ -105,7 +103,18 @@ extension DynamicTableViewController {
 				view?.imageView?.accessibilityLabel = label
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
-			view?.height = height
+			if let height = height {
+				view?.height = height
+			} else if let imageWidth = image?.size.width,
+			   let imageHeight = image?.size.height {
+				// view.bounds.size.width will not be set at that point
+				// tableviews always use full screen, so it might work to use screen size here
+				let cellWidth = UIScreen.main.bounds.size.width
+				let ratio = imageHeight / imageWidth
+				view?.height = cellWidth * ratio
+			} else {
+				view?.height = 250.0
+			}
 			return view
 
 		case let .view(view):
@@ -128,14 +137,15 @@ extension DynamicTableViewController {
 			return block(self)
 
 		default:
+			Log.error("Missing dynamic header type: \(String(describing: headerFooter))")
 			return nil
 		}
 	}
 
-	final func execute(action: DynamicAction) {
+	final func execute(action: DynamicAction, cell: UITableViewCell? = nil) {
 		switch action {
 		case let .open(url):
-			if let url = url { UIApplication.shared.open(url) }
+			if let url = url { LinkHelper.openLink(withUrl: url, from: self) }
 
 		case let .call(number):
 			if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
@@ -144,7 +154,7 @@ extension DynamicTableViewController {
 			performSegue(withIdentifier: segueIdentifier, sender: nil)
 
 		case let .execute(block):
-			block(self)
+			block(self, cell)
 
 		case .none:
 			break
@@ -241,7 +251,8 @@ extension DynamicTableViewController {
 
 		cell.removeSeparators()
 
-		if section.separators != .none {
+		// no separators for spacers please
+		if section.separators != .none, cell is DynamicTableViewSpaceCell == false {
 			let isFirst = indexPath.row == 0
 			let isLast = indexPath.row == section.cells.count - 1
 
@@ -250,22 +261,20 @@ extension DynamicTableViewController {
 			if !isLast { cell.addSeparator(.inBetween) }
 		}
 
-		if let cellBackgroundColor = cellBackgroundColor {
-			cell.backgroundColor = cellBackgroundColor
-		}
-
 		return cell
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.action)
+		let dynamicCell = dynamicTableViewModel.cell(at: indexPath)
+		let cell = tableView.cellForRow(at: indexPath)
+		execute(action: dynamicCell.action, cell: cell)
 	}
 
 	func tableView(_: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.accessoryAction)
+		let dynamicCell = dynamicTableViewModel.cell(at: indexPath)
+		guard let cell = tableView.cellForRow(at: indexPath) else { return }
+		execute(action: dynamicCell.accessoryAction, cell: cell)
 	}
 }
 

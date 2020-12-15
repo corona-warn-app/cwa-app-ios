@@ -15,10 +15,9 @@ protocol RequiresAppDependencies {
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var appConfigurationProvider: AppConfigurationProviding { get }
-	var riskProvider: RiskProvider { get }
+	var riskProvider: RiskProviding { get }
 	var exposureManager: ExposureManager { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var warnOthersReminder: WarnOthersRemindable { get }
 }
 
 extension RequiresAppDependencies {
@@ -42,7 +41,7 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().appConfigurationProvider
 	}
 
-	var riskProvider: RiskProvider {
+	var riskProvider: RiskProviding {
 		UIApplication.coronaWarnDelegate().riskProvider
 	}
 
@@ -56,9 +55,5 @@ extension RequiresAppDependencies {
 
 	var serverEnvironment: ServerEnvironment {
 		UIApplication.coronaWarnDelegate().serverEnvironment
-	}
-	
-	var warnOthersReminder: WarnOthersRemindable {
-		UIApplication.coronaWarnDelegate().warnOthersReminder
 	}
 }

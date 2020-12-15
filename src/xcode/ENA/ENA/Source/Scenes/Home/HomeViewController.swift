@@ -9,8 +9,8 @@ import UIKit
 protocol HomeViewControllerDelegate: AnyObject {
 	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState)
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState)
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
@@ -24,24 +24,48 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	init?(
 		coder: NSCoder,
 		delegate: HomeViewControllerDelegate,
-		detectionMode: DetectionMode,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
-		risk: Risk?,
 		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
-		//self.enState = initialEnState
+
 		super.init(coder: coder)
+
+		var riskState: RiskState
+		if let riskCalculationResult = store.riskCalculationResult {
+			riskState = .risk(
+				Risk(
+					activeTracing: store.tracingStatusHistory.activeTracing(),
+					riskCalculationResult: riskCalculationResult
+				)
+			)
+		} else {
+			riskState = .risk(
+				Risk(
+					level: .low,
+					details: .init(
+						mostRecentDateWithRiskLevel: nil,
+						numberOfDaysWithRiskLevel: 0,
+						activeTracing: store.tracingStatusHistory.activeTracing(),
+						exposureDetectionDate: nil
+					),
+					riskLevelHasChanged: false
+				)
+			)
+		}
+
 		self.homeInteractor = HomeInteractor(
 			homeViewController: self,
 			state: .init(
-				detectionMode: detectionMode,
+				riskState: riskState,
 				exposureManagerState: exposureManagerState,
-				enState: initialEnState,
-				risk: risk,
-				riskDetectionFailed: false
-			), exposureSubmissionService: exposureSubmissionService)
+				enState: initialEnState
+			),
+			exposureSubmissionService: exposureSubmissionService,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToEnStateUpdateList(homeInteractor)
 	}
@@ -133,8 +157,19 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			guard let self = self else { return }
 
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
-			// TBD: delay still needed?
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			
+			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
+			var delay = 0.5
+			
+			#if DEBUG
+			if isUITesting {
+				// In UI Testing we need to increase the delaye slightly again.
+				// Otherwise UI Tests fail
+				delay = 1.5
+			}
+			#endif
+			
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
 				]
@@ -195,12 +230,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.setExposureDetectionState(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
 		homeInteractor.updateDetectionMode(detectionMode)
-		homeInteractor.updateExposureManagerState(exposureManagerState)
 
 		reloadData(animatingDifferences: false)
 

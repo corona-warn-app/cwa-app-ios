@@ -11,10 +11,16 @@ struct WrittenPackages {
 
 	var urls: [URL]
 	func cleanUp() {
-		let fileManager = FileManager()
-		for url in urls {
-			try? fileManager.removeItem(at: url)
+		guard let directoryURL = urls.first?.deletingLastPathComponent() else {
+			return
 		}
+		
+		let fileManager = FileManager()
+		Log.info("Removing: \(directoryURL)", log: .localData)
+		
+		// Remove the whole directory, instead of removing each file and than forget to remove the directory
+		try? fileManager.removeItem(at: directoryURL)
+		
 	}
 
 	mutating func add(_ url: URL) {

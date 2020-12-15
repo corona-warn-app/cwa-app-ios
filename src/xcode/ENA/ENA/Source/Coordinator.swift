@@ -8,7 +8,7 @@ import UIKit
 	A delegate protocol for reseting the state of the app, when Reset functionality is used.
 */
 protocol CoordinatorDelegate: AnyObject {
-	func coordinatorUserDidRequestReset()
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService)
 }
 
 /**
@@ -31,7 +31,8 @@ class Coordinator: RequiresAppDependencies {
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
+			diagnosisKeysRetrieval: self.exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
 			client: self.client,
 			store: self.store
 		)
@@ -48,20 +49,19 @@ class Coordinator: RequiresAppDependencies {
 		enStateUpdateList.removeAllObjects()
 	}
 
-	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
+	func showHome(enStateHandler: ENStateHandler) {
 		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				detectionMode: state.detectionMode,
-				exposureManagerState: state.exposureManager,
+				exposureManagerState: exposureManager.exposureManagerState,
 				initialEnState: enStateHandler.state,
-				risk: state.risk,
 				exposureSubmissionService: self.exposureSubmissionService
 			)
 		}
 
 		self.homeController = homeController
+
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
 			#if !RELEASE
@@ -99,14 +99,10 @@ class Coordinator: RequiresAppDependencies {
 		)
 	}
 
-	func updateState(
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState
+	func updateDetectionMode(
+		_ detectionMode: DetectionMode
 	) {
-		homeController?.updateState(
-			detectionMode: detectionMode,
-			exposureManagerState: exposureManagerState
-		)
+		homeController?.updateDetectionMode(detectionMode)
 	}
 
 	#if !RELEASE
@@ -160,14 +156,12 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
+	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: state.riskDetectionFailed,
-			exposureManagerState: state.exposureManagerState,
+			riskState: state.riskState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
-			risk: state.risk,
-			previousRiskLevel: store.previousRiskLevel
+			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
@@ -180,14 +174,12 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.present(vc, animated: true)
 	}
 
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProvider.ActivityState) {
+	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
-			riskDetectionFailed: state.riskDetectionFailed,
-			exposureManagerState: state.exposureManagerState,
+			riskState: state.riskState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
-			risk: state.risk,
-			previousRiskLevel: store.previousRiskLevel
+			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		exposureDetectionController?.state = state
 	}
@@ -197,7 +189,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
 		let coordinator = ExposureSubmissionCoordinator(
-			warnOthersReminder: warnOthersReminder,
+			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: self
@@ -276,7 +268,7 @@ extension Coordinator: SettingsViewControllerDelegate {
 	}
 
 	func settingsViewControllerUserDidRequestReset(_ controller: SettingsViewController) {
-		delegate?.coordinatorUserDidRequestReset()
+		delegate?.coordinatorUserDidRequestReset(exposureSubmissionService: exposureSubmissionService)
 	}
 }
 

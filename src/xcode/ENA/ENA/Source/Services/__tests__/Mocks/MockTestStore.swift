@@ -9,14 +9,13 @@ final class MockTestStore: Store, AppConfigCaching {
 	
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
-	var warnOthersHasActiveTestResult: Bool = false
+	var positiveTestResultWasShown: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	var riskCalculationResult: RiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
@@ -39,7 +38,6 @@ final class MockTestStore: Store, AppConfigCaching {
 	var devicePairingConsentAccept: Bool = false
 	var devicePairingConsentAcceptTimestamp: Int64?
 	var devicePairingSuccessfulTimestamp: Int64?
-	var isAllowedToSubmitDiagnosisKeys: Bool = false
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
@@ -50,10 +48,16 @@ final class MockTestStore: Store, AppConfigCaching {
 	var lastKeyPackageDownloadDate: Date = .distantPast
 	var isDeviceTimeCorrect = true
 	var wasDeviceTimeErrorShown = false
+	var isSubmissionConsentGiven = false
+	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
+	var submissionCountries: [Country] = [.defaultCountry()]
+	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
+	var mostRecentRiskCalculation: RiskCalculation?
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
 	#endif
 

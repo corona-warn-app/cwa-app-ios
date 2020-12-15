@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import ExposureNotification
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
@@ -107,11 +108,6 @@ final class SecureStore: Store {
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
 	}
 
-	var isAllowedToSubmitDiagnosisKeys: Bool {
-		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
-		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
-	}
-
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
@@ -174,19 +170,9 @@ final class SecureStore: Store {
 		}
 	}
 
-	var summary: SummaryMetadata? {
-		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
-		set { kvStore["previousSummaryMetadata"] = newValue }
-	}
-
-	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
-		get {
-			guard let value = kvStore["previousRiskLevel"] as Int? else {
-				return nil
-			}
-			return EitherLowOrIncreasedRiskLevel(rawValue: value)
-		}
-		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
+	var riskCalculationResult: RiskCalculationResult? {
+		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
+		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {
@@ -243,7 +229,33 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
+	
+	var isSubmissionConsentGiven: Bool {
+		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
+		set { kvStore["isSubmissionConsentGiven"] = newValue }
+	}
 
+	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? {
+		get {
+			(kvStore["submissionKeys"] as [Data]?)?.compactMap {
+				try? SAP_External_Exposurenotification_TemporaryExposureKey(serializedData: $0)
+			}
+		}
+		set {
+			kvStore["submissionKeys"] = newValue?.compactMap { try? $0.serializedData() }
+		}
+	}
+
+	var submissionCountries: [Country] {
+		get { kvStore["submissionCountries"] as [Country]? ?? [.defaultCountry()] }
+		set { kvStore["submissionCountries"] = newValue }
+	}
+
+	var submissionSymptomsOnset: SymptomsOnset {
+		get { kvStore["submissionSymptomsOnset"] as SymptomsOnset? ?? .noInformation }
+		set { kvStore["submissionSymptomsOnset"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -256,6 +268,16 @@ final class SecureStore: Store {
 	var dmKillDeviceTimeCheck: Bool {
 		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
+	}
+
+	var mostRecentRiskCalculation: RiskCalculation? {
+		get { kvStore["mostRecentRiskCalculation"] as RiskCalculation? }
+		set { kvStore["mostRecentRiskCalculation"] = newValue }
+	}
+
+	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? {
+		get { kvStore["mostRecentRiskCalculationConfiguration"] as RiskCalculationConfiguration? }
+		set { kvStore["mostRecentRiskCalculationConfiguration"] = newValue }
 	}
 
 	#endif
@@ -273,10 +295,11 @@ extension SecureStore {
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
 	
-	var warnOthersHasActiveTestResult: Bool {
+	var positiveTestResultWasShown: Bool {
 		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
 		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
 	}
+
 }
 
 extension SecureStore: AppConfigCaching {

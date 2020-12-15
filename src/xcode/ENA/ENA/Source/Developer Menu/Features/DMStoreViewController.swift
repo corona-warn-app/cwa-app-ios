@@ -38,9 +38,6 @@ final class DMStoreViewController: UITableViewController {
 			DMStoreItem(attribute: "devicePairingConsentAcceptTimestamp") { store in
 				store.devicePairingConsentAcceptTimestamp?.description ?? ""
 			},
-			DMStoreItem(attribute: "previousRiskLevel") { store in
-				store.previousRiskLevel?.description ?? ""
-			},
 			DMStoreItem(attribute: "lastAppConfigETag") { store in
 				store.appConfigMetadata?.lastAppConfigETag.description ?? "<nil>"
 			},

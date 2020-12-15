@@ -8,14 +8,21 @@ enum ExposureSubmissionServiceFactory {
 
 	/// Will return a mock service in UI tests if and only if the .useMock parameter is passed to the application.
 	/// If the parameter is _not_ provided, the factory will instantiate a regular ENAExposureSubmissionService.
-	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
+	static func create(
+		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
+		appConfigurationProvider: AppConfigurationProviding,
+		client: Client,
+		store: Store
+	) -> ExposureSubmissionService {
 		#if DEBUG
 		if isUITesting {
 			guard isEnabled(.useMock) else {
 				return ENAExposureSubmissionService(
-					diagnosiskeyRetrieval: diagnosiskeyRetrieval,
+					diagnosisKeysRetrieval: diagnosisKeysRetrieval,
+					appConfigurationProvider: appConfigurationProvider,
 					client: client,
-					store: store
+					store: store,
+					warnOthersReminder: WarnOthersReminder(store: store)
 				)
 			}
 
@@ -29,8 +36,26 @@ enum ExposureSubmissionServiceFactory {
 				}
 			}
 
+			if isEnabled(.loadSupportedCountriesSuccess) {
+				service.loadSupportedCountriesCallback = { isLoading, onSuccess in
+					isLoading(true)
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						isLoading(false)
+						onSuccess([.defaultCountry()])
+					}
+				}
+			}
+
+			if isEnabled(.getTemporaryExposureKeysSuccess) {
+				service.getTemporaryExposureKeysCallback = { completeWith in
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						completeWith(nil)
+					}
+				}
+			}
+
 			if isEnabled(.submitExposureSuccess) {
-				service.submitExposureCallback = { _, _, completeWith in
+				service.submitExposureCallback = { completeWith in
 					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 						completeWith(nil)
 					}
@@ -42,9 +67,11 @@ enum ExposureSubmissionServiceFactory {
 		#endif
 
 		let service = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: diagnosiskeyRetrieval,
+			diagnosisKeysRetrieval: diagnosisKeysRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
 			client: client,
-			store: store
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
 		return service

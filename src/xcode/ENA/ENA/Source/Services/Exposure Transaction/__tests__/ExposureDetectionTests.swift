@@ -27,16 +27,16 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 			return writtenPackages
 		}
 
-		let summaryResultBeCalled = expectation(description: "summaryResult called")
-		delegate.summaryResult = { _, _ in
-			summaryResultBeCalled.fulfill()
-			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
+		let exposureWindowResultBeCalled = expectation(description: "exposureWindowResult called")
+		delegate.exposureWindowResult = { _, _ in
+			exposureWindowResultBeCalled.fulfill()
+			return .success([MutableENExposureWindow()])
 		}
 
 		let startCompletionCalled = expectation(description: "start completion called")
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfiguration: SAP_Internal_ApplicationConfiguration(),
+			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
 			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
 		)
 		detection.start { _ in
@@ -46,10 +46,10 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		wait(
 			for: [
 				writtenPackagesBeCalled,
-				summaryResultBeCalled,
+				exposureWindowResultBeCalled,
 				startCompletionCalled
 			],
-			timeout: 1.0,
+			timeout: .medium,
 			enforceOrder: true
 		)
 	}
@@ -74,15 +74,58 @@ final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 
 	private var _maximumRiskScore: ENRiskScore
 	override var maximumRiskScore: ENRiskScore { _maximumRiskScore }
+
+}
+
+final class MutableENExposureWindow: ENExposureWindow {
+
+	init(
+		calibrationConfidence: ENCalibrationConfidence = .lowest,
+		date: Date = Date(),
+		diagnosisReportType: ENDiagnosisReportType = .unknown,
+		infectiousness: ENInfectiousness = .none,
+		scanInstances: [ENScanInstance] = []
+	) {
+		self._calibrationConfidence = calibrationConfidence
+		self._date = date
+		self._diagnosisReportType = diagnosisReportType
+		self._infectiousness = infectiousness
+		self._scanInstances = scanInstances
+	}
+
+	private var _calibrationConfidence: ENCalibrationConfidence
+	override var calibrationConfidence: ENCalibrationConfidence {
+		_calibrationConfidence
+	}
+
+	private var _date: Date
+	override var date: Date {
+		_date
+	}
+
+	private var _diagnosisReportType: ENDiagnosisReportType
+	override var diagnosisReportType: ENDiagnosisReportType {
+		_diagnosisReportType
+	}
+
+	private var _infectiousness: ENInfectiousness
+	override var infectiousness: ENInfectiousness {
+		_infectiousness
+	}
+
+	private var _scanInstances: [ENScanInstance]
+	override var scanInstances: [ENScanInstance] {
+		_scanInstances
+	}
 }
 
 private final class ExposureDetectionDelegateMock {
-	var detectSummaryWithConfigurationWasCalled = false
+	var detectExposureWindowsWithConfigurationWasCalled = false
 	var deviceTimeCorrect = true
 	var deviceTimeIncorrectErrorMessageShown = false
 
 	// MARK: Types
-	struct SummaryError: Error { }
+	struct ExposureWindowError: Error { }
 
 	// MARK: Properties
 
@@ -90,11 +133,11 @@ private final class ExposureDetectionDelegateMock {
 		nil
 	}
 
-	var summaryResult: (
+	var exposureWindowResult: (
 		_ configuration: ENExposureConfiguration,
 		_ writtenPackages: WrittenPackages
-		) -> Result<ENExposureDetectionSummary, Error> = { _, _ in
-		.failure(SummaryError())
+		) -> Result<[ENExposureWindow], Error> = { _, _ in
+		.failure(ExposureWindowError())
 	}
 }
 
@@ -104,14 +147,15 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		writtenPackages()
 	}
 
-	func exposureDetection(
+	func detectExposureWindows(
 		_ detection: ExposureDetection,
 		detectSummaryWithConfiguration configuration: ENExposureConfiguration,
 		writtenPackages: WrittenPackages,
-		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) -> Progress {
-		completion(summaryResult(configuration, writtenPackages))
+		completion: @escaping (Result<[ENExposureWindow], Error>) -> Void
+	) -> Progress {
+		completion(exposureWindowResult(configuration, writtenPackages))
 
-		detectSummaryWithConfigurationWasCalled = true
+		detectExposureWindowsWithConfigurationWasCalled = true
 		return Progress()
 	}
 	

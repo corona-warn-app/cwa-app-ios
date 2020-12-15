@@ -11,7 +11,7 @@ import CryptoKit
 final class HTTPClientDaysAndHoursTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
-	let expectationsTimeout: TimeInterval = 2
+	let expectationsTimeout: TimeInterval = 5
 	let mockUrl = URL(staticString: "http://example.com")
 	let tan = "1234"
 
@@ -89,7 +89,9 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let expectation = self.expectation(
 			description: "expect successful result but empty"
 		)
-		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12", country: "IT") { result in
+
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.availableHours(day: "2020-05-12", country: "IT") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -118,7 +120,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect successful result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12", country: "IT") { result in
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.availableHours(day: "2020-05-12", country: "IT") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -143,7 +146,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		WifiOnlyHTTPClient.with(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never cause success")
@@ -159,6 +163,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
@@ -166,7 +171,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		WifiOnlyHTTPClient.with(mock: stack).fetchHour(1, day: "2020-05-01", country: "IT") { result in
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -183,6 +189,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
@@ -190,7 +197,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "IT") { result in
+		let httpClient = HTTPClient.makeWith(mock: stack)
+		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -212,7 +220,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01", forCountry: "IT") { result in
+		let httpClient = HTTPClient.makeWith(mock: stack)
+		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -332,13 +341,15 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			url: URL(string: "https://example.com")!,
 			statusCode: 500,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: nil
+		)
 		let successfulResponse = HTTPURLResponse(
 			// swiftlint:disable:next force_unwrapping
 			url: URL(string: "https://example.com")!,
 			statusCode: 200,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: ["etAg": "\"SomeEtag\""]
+		)
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let validPayload = try Data(contentsOf: url)
@@ -392,7 +403,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = WifiOnlyHTTPClient.with(mock: stack)
+		let client = WifiOnlyHTTPClient.makeWith(mock: stack)
 		// We mock the connection, no need for read data!
 		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
 			switch result {
@@ -448,7 +459,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = WifiOnlyHTTPClient.with(mock: stack)
+		let client = WifiOnlyHTTPClient.makeWith(mock: stack)
 		// We mock the connection, no need for read data!
 		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
 			switch result {
@@ -478,13 +489,15 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			url: URL(string: "https://example.com")!,
 			statusCode: 500,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: nil
+		)
 		let successfulResponse = HTTPURLResponse(
 			// swiftlint:disable:next force_unwrapping
 			url: URL(string: "https://example.com")!,
 			statusCode: 200,
 			httpVersion: "HTTP/2",
-			headerFields: nil)
+			headerFields: ["etAg": "\"SomeEtag\""]
+		)
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let validPayload = try Data(contentsOf: url)
@@ -507,7 +520,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 
 		let stack = MockNetworkStack(mockSession: session)
-		let client = WifiOnlyHTTPClient.with(mock: stack)
+		let client = WifiOnlyHTTPClient.makeWith(mock: stack)
 		// We mock the connection, no need for read data!
 		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
 			switch result {
@@ -522,6 +535,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 	}
 
 	private func assertPackageFormat(for response: PackageDownloadResponse) {
+		XCTAssertNotNil(response.etag)
 		XCTAssertEqual(response.package.bin.count, binFileSize)
 		XCTAssertEqual(response.package.signature.count, sigFileSize)
 	}

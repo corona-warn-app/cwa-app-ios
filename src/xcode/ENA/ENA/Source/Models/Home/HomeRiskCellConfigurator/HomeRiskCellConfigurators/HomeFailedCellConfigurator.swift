@@ -9,8 +9,8 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - Init
 
 	init(
-		state: RiskProvider.ActivityState,
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		state: RiskProviderActivityState,
+		previousRiskLevel: RiskLevel?,
 		lastUpdateDate: Date?
 	) {
 		self.riskProviderState = state
@@ -23,7 +23,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: - Internal
 
 	var activeAction: (() -> Void)?
-	var riskProviderState: RiskProvider.ActivityState
+	var riskProviderState: RiskProviderActivityState
 
 	let title = AppStrings.Home.riskCardFailedCalculationTitle
 	let body = AppStrings.Home.riskCardFailedCalculationBody
@@ -33,7 +33,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 		switch previousRiskLevel {
 		case .low?:
 			return AppStrings.Home.riskCardLastActiveItemLowTitle
-		case .increased?:
+		case .high?:
 			return AppStrings.Home.riskCardLastActiveItemHighTitle
 		default:
 			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
@@ -78,7 +78,7 @@ final class HomeFailedCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: - Private
 
-	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	private var previousRiskLevel: RiskLevel?
 	private var lastUpdateDate: Date?
 
 	private let titleColor: UIColor = .enaColor(for: .textPrimary1)

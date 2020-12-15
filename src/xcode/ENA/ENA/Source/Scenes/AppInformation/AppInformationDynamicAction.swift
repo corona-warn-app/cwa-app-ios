@@ -4,13 +4,13 @@
 
 extension DynamicAction {
 	static var safari: Self {
-		.execute { viewController in
+		.execute { viewController, _ in
 			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 	
 	static func push(model: DynamicTableViewModel, separators: Bool = false, withTitle title: String) -> Self {
-		.execute { viewController in
+		.execute { viewController, _ in
 			let detailViewController = AppInformationDetailViewController()
 			detailViewController.title = title
 			detailViewController.dynamicTableViewModel = model

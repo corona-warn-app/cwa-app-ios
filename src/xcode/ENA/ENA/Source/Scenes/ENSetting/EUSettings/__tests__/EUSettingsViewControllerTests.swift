@@ -8,12 +8,12 @@ import Combine
 
 class EUSettingsViewControllerTests: XCTestCase {
 
-	private var subscriptions = [AnyCancellable]()
+	private var subscriptions: [AnyCancellable] = []
 
 	func testDataReloadForSuccessfulDownload() {
 		let exp = expectation(description: "config fetched")
 
-		var customConfig = SAP_Internal_ApplicationConfiguration()
+		var customConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		customConfig.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 		let configProvider = CachedAppConfigurationMock(with: customConfig)
 

@@ -5,154 +5,11 @@
 import XCTest
 @testable import ENA
 
-// swiftlint:disable:next type_body_length
 class ExposureSubmissionCoordinatorModelTests: XCTestCase {
-
-	func testExposureSubmissionServiceHasRegistrationToken() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.hasRegistrationTokenCallback = { true }
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		XCTAssertTrue(model.exposureSubmissionServiceHasRegistrationToken)
-	}
-
-	func testExposureSubmissionServiceHasNoRegistrationToken() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.hasRegistrationTokenCallback = { false }
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		XCTAssertFalse(model.exposureSubmissionServiceHasRegistrationToken)
-	}
-
-	// MARK: -
-
-	func testCheckStateAndLoadCountriesSupportedCountriesLoadSucceeds() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
-		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
-			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
-		}
-
-		var config = SAP_Internal_ApplicationConfiguration()
-		config.supportedCountries = ["DE", "IT", "ES"]
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock(with: config)
-		)
-
-		let expectedIsLoadingValues = [true, false]
-		var isLoadingValues = [Bool]()
-
-		let isLoadingExpectation = expectation(description: "isLoading is called twice")
-		isLoadingExpectation.expectedFulfillmentCount = 2
-
-		let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
-		model.checkStateAndLoadCountries(
-			isLoading: {
-				isLoadingValues.append($0)
-				isLoadingExpectation.fulfill()
-			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
-		)
-
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE"), Country(countryCode: "IT"), Country(countryCode: "ES")])
-	}
-
-	func testCheckStateAndLoadCountriesSupportedCountriesLoadEmpty() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: true, enabled: true, status: .active) }
-		exposureSubmissionService.submitExposureCallback = { _, visitedCountries, _ in
-			XCTAssertEqual(visitedCountries, [Country(countryCode: "DE")])
-		}
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		let expectedIsLoadingValues = [true, false]
-		var isLoadingValues = [Bool]()
-
-		let isLoadingExpectation = expectation(description: "isLoading is called twice")
-		isLoadingExpectation.expectedFulfillmentCount = 2
-
-		let onSuccessExpectation = expectation(description: "onSuccess is called")
-
-		let onErrorExpectation = expectation(description: "onError is not called")
-		onErrorExpectation.isInverted = true
-
-		model.checkStateAndLoadCountries(
-			isLoading: {
-				isLoadingValues.append($0)
-				isLoadingExpectation.fulfill()
-			},
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { _ in onErrorExpectation.fulfill() }
-		)
-
-		waitForExpectations(timeout: .medium)
-		XCTAssertEqual(isLoadingValues, expectedIsLoadingValues)
-
-		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssertEqual(model.supportedCountries, [Country(countryCode: "DE")])
-	}
-
-	func testCheckStateAndLoadCountriesStateCheckFails() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.preconditionsCallback = { ExposureManagerState(authorized: false, enabled: false, status: .unknown) }
-
-		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
-		)
-
-		let isLoadingExpectation = expectation(description: "isLoading is not called")
-		isLoadingExpectation.isInverted = true
-
-		let onSuccessExpectation = expectation(description: "onSuccess is not called")
-		onSuccessExpectation.isInverted = true
-
-		let onErrorExpectation = expectation(description: "onError is called")
-
-		model.checkStateAndLoadCountries(
-			isLoading: { _ in isLoadingExpectation.fulfill() },
-			onSuccess: { onSuccessExpectation.fulfill() },
-			onError: { error in
-				XCTAssertEqual(error, .enNotEnabled)
-				onErrorExpectation.fulfill()
-			}
-		)
-
-		waitForExpectations(timeout: .short)
-
-		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
-		XCTAssert(model.supportedCountries.isEmpty)
-	}
-
-	// MARK: -
 
 	func testSymptomsOptionYesSelected() {
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: MockExposureSubmissionService()
 		)
 
 		model.symptomsOptionSelected(.yes)
@@ -164,23 +21,21 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .nonSymptomatic)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		model.symptomsOptionSelected(.no)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .nonSymptomatic)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -189,23 +44,21 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .noInformation)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		model.symptomsOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
 
 		XCTAssertFalse(model.shouldShowSymptomsOnsetScreen)
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .noInformation)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -216,15 +69,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .daysSinceOnset(1))
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let yesterday = try XCTUnwrap(Calendar.gregorian().date(byAdding: .day, value: -1, to: Date()))
@@ -232,7 +82,9 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		model.symptomsOnsetOptionSelected(.exactDate(yesterday))
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .daysSinceOnset(1))
 
 		waitForExpectations(timeout: .short)
 	}
@@ -241,21 +93,20 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .lastSevenDays)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		model.symptomsOnsetOptionSelected(.lastSevenDays)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .lastSevenDays)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -264,21 +115,21 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .oneToTwoWeeksAgo)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		model.symptomsOnsetOptionSelected(.oneToTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .oneToTwoWeeksAgo)
+
 
 		waitForExpectations(timeout: .short)
 	}
@@ -287,21 +138,20 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .moreThanTwoWeeksAgo)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		model.symptomsOnsetOptionSelected(.moreThanTwoWeeksAgo)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .moreThanTwoWeeksAgo)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -310,21 +160,20 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let submissionExpectation = expectation(description: "Submission is called")
 
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { symptomsOnset, _, _ in
-			XCTAssertEqual(symptomsOnset, .symptomaticWithUnknownOnset)
-
+		exposureSubmissionService.submitExposureCallback = { _ in
 			submissionExpectation.fulfill()
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		model.symptomsOnsetOptionSelected(.preferNotToSay)
 
 		// Submit to check that correct symptoms onset is set
-		model.warnOthersConsentGiven(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+		model.submitExposure(isLoading: { _ in }, onSuccess: { }, onError: { _ in })
+
+		XCTAssertEqual(model.exposureSubmissionService.symptomsOnset, .symptomaticWithUnknownOnset)
 
 		waitForExpectations(timeout: .short)
 	}
@@ -333,13 +182,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSuccessfulSubmit() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(nil)
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -353,7 +201,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -368,13 +216,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testSuccessfulSubmitWithoutKeys() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
-			completion(.noKeys)
+		exposureSubmissionService.submitExposureCallback = { completion in
+			completion(.noKeysCollected)
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -388,7 +235,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -403,13 +250,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testFailingSubmitWithNotAuthorizedError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(.notAuthorized)
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -425,7 +271,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		let onErrorExpectation = expectation(description: "onError is not called")
 		onErrorExpectation.isInverted = true
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -440,13 +286,12 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 	func testFailingSubmitWithInternalError() {
 		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.submitExposureCallback = { _, _, completion in
+		exposureSubmissionService.submitExposureCallback = { completion in
 			completion(.internal)
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -460,7 +305,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 
 		let onErrorExpectation = expectation(description: "onError is called")
 
-		model.warnOthersConsentGiven(
+		model.submitExposure(
 			isLoading: {
 				isLoadingValues.append($0)
 				isLoadingExpectation.fulfill()
@@ -482,8 +327,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let expectedIsLoadingValues = [true, false]
@@ -524,8 +368,7 @@ class ExposureSubmissionCoordinatorModelTests: XCTestCase {
 		}
 
 		let model = ExposureSubmissionCoordinatorModel(
-			exposureSubmissionService: exposureSubmissionService,
-			appConfigurationProvider: CachedAppConfigurationMock()
+			exposureSubmissionService: exposureSubmissionService
 		)
 
 		let expectedIsLoadingValues = [true, false]

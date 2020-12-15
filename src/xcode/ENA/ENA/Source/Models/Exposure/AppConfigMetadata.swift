@@ -26,7 +26,7 @@ struct AppConfigMetadata: Codable, Equatable {
 	init(
 		lastAppConfigETag: String,
 		lastAppConfigFetch: Date,
-		appConfig: SAP_Internal_ApplicationConfiguration
+		appConfig: SAP_Internal_V2_ApplicationConfigurationIOS
 	) {
 		self.lastAppConfigETag = lastAppConfigETag
 		self.lastAppConfigFetch = lastAppConfigFetch
@@ -48,7 +48,7 @@ struct AppConfigMetadata: Codable, Equatable {
 		lastAppConfigFetch = try container.decode(Date.self, forKey: .lastAppConfigFetch)
 		
 		let appConfigData = try container.decode(Data.self, forKey: .appConfig)
-		appConfig = try SAP_Internal_ApplicationConfiguration(serializedData: appConfigData)
+		appConfig = try SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: appConfigData)
 	}
 	
 	func encode(to encoder: Encoder) throws {
@@ -65,7 +65,7 @@ struct AppConfigMetadata: Codable, Equatable {
 	
 	var lastAppConfigETag: String
 	var lastAppConfigFetch: Date
-	var appConfig: SAP_Internal_ApplicationConfiguration
+	var appConfig: SAP_Internal_V2_ApplicationConfigurationIOS
 	
 	mutating func refeshLastAppConfigFetchDate() {
 		lastAppConfigFetch = Date()

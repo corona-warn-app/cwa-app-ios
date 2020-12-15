@@ -10,9 +10,11 @@ enum DMMenuItem: Int, CaseIterable {
 	case keys = 0
 	case wifiClient
 	case checkSubmittedKeys
+	case appConfiguration
 	case backendConfiguration
 	case lastSubmissionRequest
 	case manuallyRequestRisk
+	case debugRiskCalculation
 	case errorLog
 	case purgeRegistrationToken
 	case sendFakeRequest
@@ -43,9 +45,11 @@ extension DMMenuItem {
 		case .keys: return "Keys"
 		case .wifiClient: return "Hourly packages over Wifi only"
 		case .checkSubmittedKeys: return "Check submitted Keys"
+		case .appConfiguration: return "App Configuration"
 		case .backendConfiguration: return "Backend Configuration"
 		case .lastSubmissionRequest: return "Last Submission Request"
 		case .manuallyRequestRisk: return "Manually Request Risk"
+		case .debugRiskCalculation: return "Debug Risk Calculation"
 		case .errorLog: return "Error Log"
 		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Send fake Request"
@@ -64,9 +68,11 @@ extension DMMenuItem {
 		case .keys: return "View local Keys & generate test Keys"
 		case .wifiClient: return "Change hourly packages network connection type"
 		case .checkSubmittedKeys: return "Check the state of your local keys"
+		case .appConfiguration: return "See the current app configuration"
 		case .backendConfiguration: return "See the current backend configuration"
 		case .lastSubmissionRequest: return "Export the last executed submission request"
 		case .manuallyRequestRisk: return "Manually requests the current risk"
+		case .debugRiskCalculation: return "See the most recent risk calculation values"
 		case .errorLog: return "View all errors logged by the app"
 		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"

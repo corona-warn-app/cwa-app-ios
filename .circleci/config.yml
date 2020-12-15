@@ -2,7 +2,7 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.1.1
+  - xcode_version: &xcode_version 12.2.0
 
 commands:
   install-tools:
@@ -75,7 +75,7 @@ jobs:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/action_0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/xccovarchive-0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
           shell: /bin/zsh
@@ -117,16 +117,27 @@ jobs:
       language:
         default: "de-DE"
         type: string
+      displaymode:
+        default: "light"
+        type: string
     steps:
       - attach_workspace:
           at: .
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Snapshot
-          command: cd src/xcode && bundle exec fastlane run snapshot languages:<<parameters.language>> clear_previous_screenshots:"false" && cd -
-      - run:
-          name: Rename overview html
-          command: mv src/xcode/screenshots/screenshots.html src/xcode/screenshots/screenshots-<<parameters.language>>.html
+          command: |
+            case <<parameters.displaymode>> in
+             "dark") use_dark_mode=true ;;
+             *) use_dark_mode=false ;;
+            esac
+            cd src/xcode
+            bundle exec fastlane run snapshot \
+              languages:<<parameters.language>> \
+              dark_mode:${use_dark_mode} \
+              clear_previous_screenshots:"false" \
+              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
+            cd -
       - persist_to_workspace:
           root: .
           paths:
@@ -202,6 +213,7 @@ workflows:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
             requires:
               - dependencies
         - collect-snapshots:
@@ -239,6 +251,7 @@ workflows:
             matrix:
               parameters:
                 language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
             requires:
               - dependencies
             filters:

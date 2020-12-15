@@ -5,14 +5,18 @@
 import UIKit
 import Combine
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Init
 
 	init(
-		viewModel: ExposureSubmissionTestResultViewModel
+		viewModel: ExposureSubmissionTestResultViewModel,
+		exposureSubmissionService: ExposureSubmissionService,
+		onDismiss: @escaping (TestResult, @escaping (Bool) -> Void) -> Void
 	) {
 		self.viewModel = viewModel
+		self.exposureSubmissionService = exposureSubmissionService
+		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -29,16 +33,22 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		setUpView()
 		setUpBindings()
+		
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
+		footerView?.isHidden = false
 	}
 	
-	override func viewWillAppear(_ animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
 		viewModel.updateWarnOthers()
 	}
 
 	override var navigationItem: UINavigationItem {
 		viewModel.navigationFooterItem
 	}
-
+	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -49,15 +59,29 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		viewModel.didTapSecondaryButton()
 	}
 
-	// MARK: - Private
+	// MARK: - Protocol DismissHandling
 
+	func wasAttemptedToBeDismissed() {
+		onDismiss(viewModel.testResult) { [weak self] isLoading in
+			DispatchQueue.main.async {
+				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
+				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
+				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+			}
+		}
+	}
+	
+	// MARK: - Private
+	
+	private let onDismiss: (TestResult, @escaping (Bool) -> Void) -> Void
+	private let exposureSubmissionService: ExposureSubmissionService
 	private let viewModel: ExposureSubmissionTestResultViewModel
 
 	private var bindings: [AnyCancellable] = []
 
 	private func setUpView() {
 		view.backgroundColor = .enaColor(for: .background)
-		cellBackgroundColor = .clear
 
 		setUpDynamicTableView()
 	}
@@ -90,6 +114,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.viewModel.shouldShowDeletionConfirmationAlert = false
 
 				self.showDeletionConfirmationAlert()
+			}
+			.store(in: &bindings)
+		
+		viewModel.$shouldAttemptToDismiss
+			.sink { [weak self] shouldAttemptToDismiss in
+				guard let self = self, shouldAttemptToDismiss else { return }
+				
+				self.viewModel.shouldAttemptToDismiss = false
+				
+				self.wasAttemptedToBeDismissed()
 			}
 			.store(in: &bindings)
 
