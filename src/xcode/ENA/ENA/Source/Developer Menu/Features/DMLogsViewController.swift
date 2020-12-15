@@ -123,7 +123,9 @@ final class DMLogsViewController: UIViewController {
 		let view = UITextView()
 		view.isEditable = false
 		view.textAlignment = .natural
-		view.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+		if #available(iOS 13.0, *) {
+			view.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+		}
 		return view
 	}()
 
