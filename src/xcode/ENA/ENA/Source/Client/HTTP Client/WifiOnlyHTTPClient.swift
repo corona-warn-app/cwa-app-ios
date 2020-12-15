@@ -157,9 +157,13 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 
 	var isWifiOnlyActive: Bool {
 		let wifiOnlyConfiguration = URLSessionConfiguration.coronaWarnSessionConfigurationWifiOnly()
-		return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess &&
-			session.configuration.allowsExpensiveNetworkAccess == wifiOnlyConfiguration.allowsExpensiveNetworkAccess &&
-			session.configuration.allowsConstrainedNetworkAccess == wifiOnlyConfiguration.allowsConstrainedNetworkAccess
+		if #available(iOS 13.0, *) {
+			return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess &&
+				session.configuration.allowsExpensiveNetworkAccess == wifiOnlyConfiguration.allowsExpensiveNetworkAccess &&
+				session.configuration.allowsConstrainedNetworkAccess == wifiOnlyConfiguration.allowsConstrainedNetworkAccess
+		} else {
+			return session.configuration.allowsCellularAccess == wifiOnlyConfiguration.allowsCellularAccess
+		}
 	}
 
 	func fetchHours(
