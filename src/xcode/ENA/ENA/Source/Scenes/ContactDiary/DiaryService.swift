@@ -258,7 +258,12 @@ class DiaryService {
 	@Published private(set) var days: [DiaryDay] = []
 
 	var exportString: String {
-		"These are your exported diary entries."
+		let exportResult = store.export()
+		if case let .success(exportString) = exportResult {
+			return exportString
+		} else {
+			return ""
+		}
 	}
 
 	func update(entry: DiaryEntry) {
