@@ -202,13 +202,14 @@ workflows:
 
     snapshot-all:
       jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
+        - dependencies
+        # - dependencies:
+        #     filters:
+        #       tags:
+        #         only:
+        #           - /^v.*/
+        #       branches:
+        #         ignore: /.*/
         - snapshot:
             matrix:
               parameters:
