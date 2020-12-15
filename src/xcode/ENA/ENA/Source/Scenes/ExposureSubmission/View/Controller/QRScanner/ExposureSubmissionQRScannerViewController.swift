@@ -81,7 +81,9 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 			navigationController?.navigationBar.setBackgroundImage(image, for: .default)
 		}
 
-		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
+		navigationItem.leftBarButtonItem = cancelItem
 
 		let flashButton = UIButton(type: .custom)
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
