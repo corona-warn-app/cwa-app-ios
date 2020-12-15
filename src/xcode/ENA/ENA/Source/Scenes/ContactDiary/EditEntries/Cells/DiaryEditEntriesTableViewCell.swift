@@ -8,13 +8,8 @@ class DiaryEditEntriesTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(entry: DiaryEntry) {
-		switch entry {
-		case .contactPerson(let contactPerson):
-			label.text = contactPerson.name
-		case .location(let location):
-			label.text = location.name
-		}
+	func configure(model: DiaryEditEntriesCellModel) {
+		label.text = model.text
 	}
 
 	// MARK: - Private

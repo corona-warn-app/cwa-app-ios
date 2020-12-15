@@ -59,6 +59,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	// MARK: - Protocol UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
+		// Needs to be set to 0 when empty for the animation of deleting the whole section
 		return viewModel.entries.isEmpty ? 0 : 1
 	}
 
@@ -71,7 +72,8 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 			fatalError("Could not dequeue DiaryEditEntriesTableViewCell")
 		}
 
-		cell.configure(entry: viewModel.entries[indexPath.row])
+		let cellModel = DiaryEditEntriesCellModel(entry: viewModel.entries[indexPath.row])
+		cell.configure(model: cellModel)
 
 		return cell
 	}
@@ -93,7 +95,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
 			shouldReload = false
-			viewModel.remove(entry: viewModel.entries[indexPath.row])
+			viewModel.removeEntry(at: indexPath)
 			tableView.performBatchUpdates({
 				tableView.deleteRows(at: [indexPath], with: .automatic)
 			}, completion: { _ in
