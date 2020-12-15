@@ -12,11 +12,15 @@ extension ExposureDetectionViewController {
 
 		var riskState: RiskState
 
-		var exposureManagerState: ExposureManagerState = .init()
-
 		var detectionMode: DetectionMode = DetectionMode.default
 
-		var isTracingEnabled: Bool { exposureManagerState.enabled }
+		var isTracingEnabled: Bool {
+			if case .inactive = riskState {
+				return false
+			} else {
+				return true
+			}
+		}
 		
 		var activityState: RiskProviderActivityState = .idle
 
