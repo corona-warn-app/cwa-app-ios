@@ -31,7 +31,8 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupNavigationBar()
+		navigationController?.navigationBar.prefersLargeTitles = true
+
 		setupBindings()
 		setupView()
 	}
@@ -112,11 +113,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		return item
 	}()
 
-	private func setupNavigationBar() {
-//		navigationItem
-		navigationController?.navigationBar.prefersLargeTitles = true
-	}
-
 	private func setupBindings() {
 		viewModel.$textInput.sink { [navigationFooterItem] updatedText in
 			navigationFooterItem.isPrimaryButtonEnabled = !updatedText.isEmpty
@@ -127,7 +123,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		title = viewModel.title
 
 		let scrollView = UIScrollView(frame: view.frame)
-//		scrollView.contentInset = UIEdgeInsets(top: 55, left: 0, bottom: 0, right: 0.0)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
