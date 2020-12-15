@@ -108,7 +108,7 @@ class DiaryCoordinator {
 	private func showAddEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
-			diaryService: diaryService,
+			store: diaryService.store,
 			dismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
 			})
@@ -123,7 +123,7 @@ class DiaryCoordinator {
 	private func showEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from: ENANavigationControllerWithFooter? = nil) {
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
-			diaryService: diaryService,
+			store: diaryService.store,
 			dismiss: { [weak self] in
 				if from == nil {
 					self?.parentNavigationController?.dismiss(animated: true)

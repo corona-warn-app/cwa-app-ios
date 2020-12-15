@@ -11,11 +11,11 @@ class DiaryAddAndEditEntryViewModel {
 
 	init(
 		mode: Mode,
-		diaryService: DiaryService,
+		store: DiaryStoring,
 		dismiss: @escaping () -> Void
 	) {
 		self.mode = mode
-		self.diaryService = diaryService
+		self.store = store
 		self.dismiss = dismiss
 
 		switch mode {
@@ -39,8 +39,7 @@ class DiaryAddAndEditEntryViewModel {
 	}
 
 	let mode: Mode
-	// is store maybe enougth?
-	let diaryService: DiaryService
+	let store: DiaryStoring
 	let dismiss: () -> Void
 
 	private(set) var textInput: String
@@ -54,7 +53,6 @@ class DiaryAddAndEditEntryViewModel {
 	}
 
 	func save() {
-		let store = diaryService.store
 		switch mode {
 		case let .add(day, type):
 			switch type {
