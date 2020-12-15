@@ -598,7 +598,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				LEFT JOIN ContactPersonEncounter
 				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
 				AND ContactPersonEncounter.date = ?
-				ORDER BY ContactPerson.name ASC, contactPersonId ASC
+				ORDER BY ContactPerson.name COLLATE NOCASE ASC, contactPersonId COLLATE NOCASE ASC
 			"""
 
 		do {
@@ -630,7 +630,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				LEFT JOIN LocationVisit
 				ON Location.id = LocationVisit.locationId
 				AND LocationVisit.date = ?
-				ORDER BY Location.name ASC, locationId ASC
+				ORDER BY Location.name COLLATE NOCASE ASC, locationId COLLATE NOCASE ASC
 			"""
 
 		do {

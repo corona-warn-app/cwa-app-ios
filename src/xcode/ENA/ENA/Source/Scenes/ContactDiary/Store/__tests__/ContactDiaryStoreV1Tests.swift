@@ -422,11 +422,11 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 		addContactPerson(name: "Adam Sandale", to: store)
 		addContactPerson(name: "Adam Sandale", to: store)
-		addContactPerson(name: "Emma Hicks", to: store)
+		addContactPerson(name: "emma Hicks", to: store)
 
 		addLocation(name: "Amsterdam", to: store)
 		addLocation(name: "Berlin", to: store)
-		addLocation(name: "Berlin", to: store)
+		addLocation(name: "berlin", to: store)
 
 		store.diaryDaysPublisher.sink { diaryDays in
 			let storedNames: [String] =
@@ -442,10 +442,10 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			let expectedNames = [
 				"Adam Sandale",
 				"Adam Sandale",
-				"Emma Hicks",
+				"emma Hicks",
 				"Amsterdam",
 				"Berlin",
-				"Berlin"
+				"berlin"
 			]
 
 			XCTAssertEqual(storedNames, expectedNames)
