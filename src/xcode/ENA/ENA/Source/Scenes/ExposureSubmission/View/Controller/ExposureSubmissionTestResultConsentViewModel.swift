@@ -15,7 +15,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 		exposureSubmissionService: ExposureSubmissionService,
 		testResultAvailability: TestResultAvailability
 	) {
-		self.supportedCountries = supportedCountries.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		self.supportedCountries = supportedCountries.sortedByLocalizedName
 		self.exposureSubmissionService = exposureSubmissionService
 		self.testResultAvailability = testResultAvailability
 	}
