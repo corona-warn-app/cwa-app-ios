@@ -11,7 +11,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 
 	init(
 		entryType: DiaryEntryType,
-		store: DiaryStoring,
+		store: DiaryStoringProviding,
 		onCellSelection: @escaping (DiaryEntry) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
