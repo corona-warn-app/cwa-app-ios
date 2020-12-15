@@ -59,8 +59,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	// MARK: - Protocol UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		// Needs to be set to 0 when empty for the animation of deleting the whole section
-		return viewModel.entries.isEmpty ? 0 : 1
+		return 1
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -152,12 +151,19 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 				title: viewModel.alertConfirmButtonTitle,
 				style: .destructive,
 				handler: { [weak self] _ in
-					self?.shouldReload = false
-					self?.viewModel.removeAll()
-					self?.tableView.performBatchUpdates({
-						self?.tableView.deleteSections([0], with: .automatic)
+					guard let self = self else { return }
+
+					let numberOfRows = self.viewModel.entries.count
+
+					self.shouldReload = false
+					self.viewModel.removeAll()
+					self.tableView.performBatchUpdates({
+						self.tableView.deleteRows(
+							at: (0..<numberOfRows).map { IndexPath(row: $0, section: 0) },
+							with: .automatic
+						)
 					}, completion: { _ in
-						self?.shouldReload = true
+						self.shouldReload = true
 					})
 				}
 			)
