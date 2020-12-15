@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import ColorCompatibility
 
 class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 

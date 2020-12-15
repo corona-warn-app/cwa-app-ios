@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import ColorCompatibility
 
 class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 

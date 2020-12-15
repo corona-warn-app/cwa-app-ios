@@ -4,7 +4,6 @@
 
 import UIKit
 import OpenCombine
-import ColorCompatibility
 
 class TanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
 

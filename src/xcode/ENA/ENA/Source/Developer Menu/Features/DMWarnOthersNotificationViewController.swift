@@ -6,7 +6,6 @@
 
 import UIKit
 import OpenCombine
-import ColorCompatibility
 
 final class DMWarnOthersNotificationViewController: UIViewController, UITextFieldDelegate {
 	

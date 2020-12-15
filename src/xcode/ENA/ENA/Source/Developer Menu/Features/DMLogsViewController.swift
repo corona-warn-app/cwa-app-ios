@@ -6,7 +6,6 @@
 
 import UIKit
 import os.log
-import ColorCompatibility
 
 private extension OSLogType {
 

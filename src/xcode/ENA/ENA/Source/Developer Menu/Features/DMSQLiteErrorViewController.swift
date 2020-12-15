@@ -5,7 +5,7 @@
 #if !RELEASE
 
 import UIKit
-import ColorCompatibility
+
 final class DMSQLiteErrorViewController: UIViewController, UITextFieldDelegate {
 	
 	// MARK: Properties

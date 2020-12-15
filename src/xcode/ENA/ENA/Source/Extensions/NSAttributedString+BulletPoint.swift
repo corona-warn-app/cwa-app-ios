@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import ColorCompatibility
 
 extension NSAttributedString {
 
