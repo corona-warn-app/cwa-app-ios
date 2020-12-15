@@ -424,6 +424,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+
+		app.resetAuthorizationStatus(for: .camera)
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -454,7 +456,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// QR view
 		// fake tap to trigger interruption handler in case of privacy alerts
-		app.navigationBars["QR-Code Scan"].tap()
+		let flashButton = app.buttons["AppStrings.ExposureSubmissionQRScanner.flash"]
+		if flashButton.waitForExistence(timeout: .long) {
+			flashButton.tap()
+		}
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 

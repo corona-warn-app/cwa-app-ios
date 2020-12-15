@@ -90,6 +90,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
 		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
 		flashButton.accessibilityTraits = [.button]
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
 	}
