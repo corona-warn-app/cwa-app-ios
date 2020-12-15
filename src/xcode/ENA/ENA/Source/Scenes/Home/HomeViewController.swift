@@ -4,6 +4,7 @@
 
 import ExposureNotification
 import OpenCombine
+import DiffableDataSources
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -78,7 +79,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
+	private var dataSource: CollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
@@ -360,7 +361,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+		dataSource = CollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			cell.unhighlight()
@@ -370,7 +371,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func applySnapshotFromSections(animatingDifferences: Bool = false) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+		var snapshot = DiffableDataSourceSnapshot<Section, AnyHashable>()
 		for section in sections {
 			snapshot.appendSections([section.section])
 			snapshot.appendItems( section.cellConfigurators.map { $0.hashValue })
