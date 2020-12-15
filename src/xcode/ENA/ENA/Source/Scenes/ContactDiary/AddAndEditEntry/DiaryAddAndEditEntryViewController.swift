@@ -31,20 +31,22 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.dismiss()
-			}
-		)
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.largeTitleDisplayMode = .always
-
+		setupNavigationBar()
+		setupBindings()
 		setupView()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		entryTextField.becomeFirstResponder()
+
+		DispatchQueue.main.async { [weak self] in
+			self?.entryTextField.becomeFirstResponder()
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		entryTextField.resignFirstResponder()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -55,6 +57,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		viewModel.save()
+		entryTextField.resignFirstResponder()
 		dismiss()
 	}
 
@@ -72,6 +75,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		entryTextField.resignFirstResponder()
 		viewModel.save()
+		entryTextField.resignFirstResponder()
 		dismiss()
 		return false
 	}
@@ -95,6 +99,22 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		return item
 	}()
+
+	private func setupNavigationBar() {
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.dismiss()
+			}
+		)
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
+	}
+
+	private func setupBindings() {
+		viewModel.$textInput.sink { [navigationFooterItem] updatedText in
+			navigationFooterItem.isPrimaryButtonEnabled = !updatedText.isEmpty
+		}.store(in: &bindings)
+	}
 
 	private func setupView() {
 		title = viewModel.title
@@ -147,12 +167,13 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			entryTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39.0),
 			entryTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
 		])
+
+		footerView?.isHidden = false
 	}
 
 	@objc
 	private func textValueChanged(sender: UITextField) {
 		viewModel.update(sender.text)
-		navigationFooterItem.isPrimaryButtonEnabled = !(sender.text?.isEmpty ?? true)
 	}
 
 }

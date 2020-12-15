@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class DiaryAddAndEditEntryViewModel {
 
@@ -36,7 +37,7 @@ class DiaryAddAndEditEntryViewModel {
 		case edit(DiaryEntry)
 	}
 
-	private(set) var textInput: String
+	@Published private(set) var textInput: String
 
 	func update(_ text: String?) {
 		textInput = text ?? ""
