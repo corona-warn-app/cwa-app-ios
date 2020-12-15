@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OpenCombine
 
 #if DEBUG
 class MockExposureSubmissionService: ExposureSubmissionService {
@@ -32,7 +33,7 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// Needed to use a publisher in the protocol
 	@OpenCombine.Published var isSubmissionConsentGiven: Bool = false
-	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { $isSubmissionConsentGiven }
+	var isSubmissionConsentGivenPublisher: OpenCombine.Published<Bool>.Publisher { $isSubmissionConsentGiven }
 
 	// MARK: - ExposureSubmissionService methods.
 	
