@@ -293,25 +293,32 @@ private extension UITableViewCell {
 
 	func addSeparator(_ location: SeparatorLocation) {
 		let separator = UIView(frame: bounds)
-		contentView.addSubview(separator)
+		
+		let backgroundView: UIView
+		if let existingBackgroundView = self.backgroundView {
+			backgroundView = existingBackgroundView
+		} else {
+			backgroundView = UIView()
+			self.backgroundView = backgroundView
+		}
+		backgroundView.addSubview(separator)
+		
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
+		separator.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16).isActive = true
+		separator.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 		switch location {
 		case .top:
 			separator.tag = SeparatorLocation.top.rawValue
-			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+			separator.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
 		case .bottom:
 			separator.tag = SeparatorLocation.bottom.rawValue
-			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+			separator.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
 		case .inBetween:
 			separator.tag = SeparatorLocation.inBetween.rawValue
-			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+			separator.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
 		}
 	}
 }
