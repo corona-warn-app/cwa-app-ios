@@ -8,6 +8,8 @@ import UIKit
 public enum ENAColor: String, CaseIterable {
 	// MARK: - Background Colors
 	case background = "ENA Background Color"
+	case darkBackground = "ENA Dark Background Color"
+	case cellBackground = "ENA Cell Background Color"
 	case hairline = "ENA Hairline Color"
 	case hairlineContrast = "ENA Hairline Contrast Color"
 	case separator = "ENA Separator Color"

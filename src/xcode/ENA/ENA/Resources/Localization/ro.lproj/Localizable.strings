@@ -315,7 +315,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Să combatem împreună COVID-19";
 
-"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțul de infectare.";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mai multă protecție pentru dvs. și pentru noi toți. Utilizând Corona-Warn-App putem întrerupe mai ușor lanțurile de infectare.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Transformați-vă dispozitivul într-un sistem de avertizare împotriva coronavirusului. Obțineți un sumar al stării de risc și aflați dacă ați intrat în contact strâns cu persoane diagnosticate cu COVID-19 în ultimele 14 zile. \n\nAplicația înregistrează în jurnal întâlnirile dintre persoane prin smartphone-urile acestora, care schimbă ID-uri aleatorii criptate, fără a accesa niciun fel de date personale.";
 
@@ -387,7 +387,7 @@
 
 "ExposureSubmission_ConfirmDismissPopUpText" = "Intrările dvs. nu vor fi salvate.";
 
-"ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the App querying the status of your coronavirus test and displaying it in the App. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the App’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the App. If you have enabled notifications, you will also receive a notification outside the App telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the App. You can withdraw this consent at any time by deleting your test registration in the App. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
+"ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Permiteți";
 
@@ -395,7 +395,7 @@
 
 "ExposureSubmission_Submit" = "Introduceți TAN";
 
-"ExposureSubmissionTanEntry_Title" = "Intrare TAN";
+"ExposureSubmissionTanEntry_Title" = "Introduceți TAN";
 
 "ExposureSubmissionTanEntry_EntryField" = "Câmp de intrare TAN";
 
@@ -430,9 +430,9 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Scanați codul dvs. QR pentru a afla rezultatul testului dvs. și a-i avertiza pe ceilalți.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "Intrare TAN";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Introduceți TAN";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "Aveți un cod TAN? Continuați să introduceți codul dvs. TAN pentru a-i putea avertiza pe ceilalți.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Aveți un cod TAN? Atingeți aici pentru a introduce codul dvs. TAN pentru a-i putea avertiza pe ceilalți.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Nu aveți un cod TAN încă?";
 
@@ -484,13 +484,13 @@
 
 "ExposureSubmissionQRInfo_header_section_2" = "Vă rugăm să îi ajutați pe ceilalți cu care v-ați întâlnit, avertizându-i!";
 
-"ExposureSubmissionQRInfo_body_section_2" = "Dacă ați fost diagnosticat cu coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației. Funcția de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
+"ExposureSubmissionQRInfo_body_section_2" = "Dacă ați fost diagnosticat cu coronavirus, puteți să îi avertizați pe ceilalți prin intermediul aplicației. Caracteristica de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
 
 "ExposureSubmissionQRInfo_acknowledgement_3" = "Consimțământul dvs. este voluntar.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Puteți afla rezultatul testului dvs. chiar dacă nu alegeți să îl partajați. Dar dacă partajați rezultatul testului dvs., veți ajuta la protejarea celorlalți împotriva infecției.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor ști cine a partajat rezultatele testelor respective.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Trebuie să aveți cel puțin 16 ani pentru a vă acorda consimțământul.";
 
@@ -557,7 +557,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "La pasul următor, partajați rezultatul testului dvs. apăsând „Partajare”.";
 
-"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Ați ales să nu partajați rezultatele testului dvs. Ceilalți nu vor fi avertizați.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Ați ales să nu partajați rezultatul testului dvs. Ceilalți nu vor fi avertizați.";
 
 "ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "La pasul următor, aveți ocazia să vă răzgândiți și să partajați totuși rezultatul testului dvs., pentru a ajuta la oprirea răspândirii coronavirusului și a-i proteja pe ceilalți.";
 
@@ -566,6 +566,10 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Important:\nSunteți pe punctul de a anula acest proces. Încă nu i-ați avertizat pe ceilalți. Vă rugăm să finalizați procesul și să ajutați la protejarea celorlalți.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Sigur doriți să anulați acest proces?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Doriți să anulați?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Intrările dvs. nu vor fi salvate.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anulare";
 
@@ -590,7 +594,7 @@
 
 "ExposureSubmissionResult_testAdded" = "Testul dvs. a fost adăugat.";
 
-"ExposureSubmissionResult_warnOthers" = "Avertizarea altora";
+"ExposureSubmissionResult_warnOthers" = "Avertizați-i pe ceilalți";
 
 "ExposureSubmissionResult_warnOthersDesc" = "Partajați ID-urile dvs. aleatorii și avertizați-i pe ceilalți.\nAjutați la stabilirea riscului de infectare pentru ceilalți cu mai multă acuratețe, indicând momentul în care ați observat prima dată simptomele de coronavirus.";
 
@@ -663,7 +667,7 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Nu";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Nu comentez";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Nu răspund";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Înainte";
 
@@ -682,7 +686,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Cu peste 2 săptămâni în urmă";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Nu comentez";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Nu răspund";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "Asta e tot!";
 
@@ -704,7 +708,7 @@
 
 "ExposureSubmissionWarnOthers_description" = "Deoarece ați fost testat pozitiv la coronavirus, acum puteți să îi avertizați pe ceilalți prin intermediul aplicației.";
 
-"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Funcția de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Caracteristica de avertizare funcționează în câteva țări. Următoarele țări participă în prezent:";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
@@ -775,9 +779,11 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Trebuie să activați caracteristica de înregistrare în jurnal a expunerilor, pentru ca aplicația să poată determina dacă aveți risc de infectare după ce ați întâlnit un utilizator al aplicației care este infectat. Caracteristica de înregistrare în jurnal a expunerilor funcționează la nivel transnațional, ceea ce înseamnă că orice expunere posibilă care îi implică pe utilizatori este detectată și de alte aplicații oficiale împotriva coronavirusului.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Înregistrarea în jurnal a expunerilor funcționează astfel: iPhone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către dispozitivele acestora. În fiecare zi, aplicația descarcă liste ce conțin ID-uri aleatorii – împreună cu orice alte informații voluntare despre debutul simptomelor – ale tuturor utilizatorilor testați pozitiv la virus și care au partajat voluntar rezultatele testelor lor (mai exact: ID-urile lor aleatorii) prin intermediul aplicației lor. Apoi, aceste liste sunt comparate cu ID-urile aleatorii ale altor utilizatori care au fost înregistrate de iPhone-ul dvs., pentru a calcula probabilitatea ca și dvs. să fi fost infectat și să vă avertizeze dacă este necesar. Puteți utiliza comutatorul pentru a dezactiva în orice moment înregistrarea în jurnal a expunerilor.";
+"ExposureNotificationSetting_DescriptionText2" = "Înregistrarea în jurnal a expunerilor funcționează astfel: iPhone-ul dvs. primește prin Bluetooth ID-uri aleatorii criptate ale altor utilizatori și transmite propriul dvs. ID aleatoriu către smartphone-urile acestora. În fiecare zi, aplicația descarcă liste ce conțin ID-uri aleatorii – împreună cu orice alte informații voluntare despre debutul simptomelor – ale tuturor utilizatorilor testați pozitiv la virus și care au partajat voluntar rezultatele testelor lor (mai exact: ID-urile lor aleatorii) prin intermediul aplicației lor. Apoi, aceste liste sunt comparate cu ID-urile aleatorii ale altor utilizatori care au fost înregistrate de iPhone-ul dvs., pentru a calcula probabilitatea ca și dvs. să fi fost infectat și să vă avertizeze dacă este necesar.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Aplicația nu colectează niciodată date personale, precum numele, adresa sau locația dvs., iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
+"ExposureNotificationSetting_DescriptionText3" = "Puteți utiliza comutatorul pentru a dezactiva în orice moment înregistrarea în jurnal a expunerilor.";
+
+"ExposureNotificationSetting_DescriptionText4" = "Aplicația nu colectează niciodată date personale, precum numele, adresa sau locația dvs., iar aceste informații nu sunt transmise niciodată altor utilizatori. Nu se pot utiliza ID-urile aleatorii pentru a trage concluzii despre persoane individuale.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Porniți Bluetooth";
 
@@ -844,7 +850,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. Descărcările listelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. Descărcările listelor de ID-uri aleatorii sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Următoarele țări participă în prezent la înregistrarea în jurnal a expunerilor la nivel transnațional:";
 
@@ -963,7 +969,7 @@
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Trimiteți ID-ul dvs. aleatoriu pentru a-i avertiza și pe alții.";
 
-"Home_Finding_Positive_Card_Button" = "Avertizarea altora";
+"Home_Finding_Positive_Card_Button" = "Avertizați-i pe ceilalți";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Ați fost testat?";
@@ -974,7 +980,7 @@
 
 "Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
 
-"Home_InfoCard_ShareBody" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțul de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
+"Home_InfoCard_ShareBody" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțurile de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
 
 "Home_InfoCard_AboutTitle" = "Întrebări frecvente";
 
@@ -1106,7 +1112,7 @@
 
 "InviteFriends_Title" = "Să combatem împreună COVID-19";
 
-"InviteFriends_Description" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțul de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
+"InviteFriends_Description" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțurile de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
 
 "InviteFriends_Button" = "Trimiteți linkul de descărcare";
 
@@ -1231,7 +1237,7 @@
 
 "DeltaOnboarding_Headline" = "Înregistrare transnațională a expunerilor în jurnal";
 
-"DeltaOnboarding_Description" = "Caracteristicile aplicației Corona-Warn au fost extinse. Multe țări s-au asociat pentru a susține avertizarea la nivel internațional, pe baza unui server de schimb operat în comun. Acum poate fi luată în considerare posibila expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din alte țări participante când se calculează riscul dvs. de expunere.\n\nPentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin intermediul propriei aplicații. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs.\n\nDescărcările listelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"DeltaOnboarding_Description" = "Caracteristicile aplicației Corona-Warn au fost extinse. Multe țări s-au asociat pentru a susține avertizarea la nivel internațional, pe baza unui server de schimb operat în comun. Acum poate fi luată în considerare posibila expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din alte țări participante când se calculează riscul dvs. de expunere.\n\nPentru aceasta, aplicația descarcă liste, care sunt actualizate zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin intermediul propriei aplicații. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs.\n\nDescărcările listelor de ID-uri aleatorii sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "DeltaOnboarding_ParticipatingCountries" = "În prezent participă următoare țări:";
 
@@ -1281,11 +1287,11 @@
 
 "TestResultPositive_NoConsent_Info1" = "Partajați rezultatul testului dvs. și ajutați la protejarea celorlalți împotriva infecției.";
 
-"TestResultPositive_NoConsent_Info2" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor ști cine a partajat rezultatele testelor respective.";
+"TestResultPositive_NoConsent_Info2" = "Identitatea dvs. va rămâne secretă. Alți utilizatori nu vor afla cine a partajat rezultatul testului.";
 
 "TestResultPositive_NoConsent_Info3" = "Asigurați-vă că urmați instrucțiunile direcției dvs. de sănătate publică și că stați acasă, pentru a nu-i infecta pe ceilalți.";
 
-"TestResultPositive_NoConsent_PrimaryButton" = "Avertizarea altora";
+"TestResultPositive_NoConsent_PrimaryButton" = "Avertizați-i pe ceilalți";
 
 "TestResultPositive_NoConsent_SecondaryButton" = "Anulare";
 

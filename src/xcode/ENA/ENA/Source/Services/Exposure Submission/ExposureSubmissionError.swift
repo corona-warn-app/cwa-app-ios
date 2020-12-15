@@ -9,7 +9,13 @@ enum ExposureSubmissionError: Error, Equatable {
 	case noRegistrationToken
 	case enNotEnabled
 	case notAuthorized
-	case noKeys
+
+	/// User has not granted acces to their keys
+	case keysNotShared
+
+	/// Access to keys was granted but no keys were collected by the exposure notification framework
+	case noKeysCollected
+
 	case noSubmissionConsent
 	case noDevicePairingConsent
 	case noAppConfiguration
@@ -68,8 +74,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
-		case .noKeys:
-			return AppStrings.ExposureSubmissionError.noKeys
+		case .noKeysCollected:
+			return AppStrings.ExposureSubmissionError.noKeysCollected
 		case .internal:
 			return AppStrings.Common.enError11Description
 		case .unsupported:

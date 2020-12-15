@@ -204,10 +204,9 @@ extension HomeInteractor {
 	}
 
 	func reloadActionSection() {
-		precondition(
-			!sections.isEmpty,
-			"Serious programmer error: reloadActionSection() was called without calling buildSections() first."
-		)
+		if sections.isEmpty {
+			buildSections()
+		}
 		sections[0] = setupActionSectionDefinition()
 		homeViewController.reloadData(animatingDifferences: false)
 	}

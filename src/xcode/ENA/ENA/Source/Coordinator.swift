@@ -8,7 +8,7 @@ import UIKit
 	A delegate protocol for reseting the state of the app, when Reset functionality is used.
 */
 protocol CoordinatorDelegate: AnyObject {
-	func coordinatorUserDidRequestReset()
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService)
 }
 
 /**
@@ -288,7 +288,7 @@ extension Coordinator: SettingsViewControllerDelegate {
 	}
 
 	func settingsViewControllerUserDidRequestReset(_ controller: SettingsViewController) {
-		delegate?.coordinatorUserDidRequestReset()
+		delegate?.coordinatorUserDidRequestReset(exposureSubmissionService: exposureSubmissionService)
 	}
 }
 

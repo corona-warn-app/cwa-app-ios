@@ -368,7 +368,7 @@
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Uluslararası Maruz Kalma Günlüğü";
 
-"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Bazı ülkeler uluslararası uyarıları etkinleştirmek üzere iş birliği yapmaktadır. Diğer bir ifadeyle, tüm katılımcı ülkelerdeki resmi korona uygulamalarının kullanıcılarına maruz kalma olasılığınız da artık hesaba katılabilir.\n\nBir kullanıcı, diğer kullanıcıları uyarmak için uygulama üzerinden pozitif test sonucunu (daha doğru bir ifadeyle rastgele kimliklerini) katılımcı ülkeler tarafından ortak olarak işletilen exchange sunucusuna gönderdiğinde tüm bu ülkelerdeki resmi korona uygulamalarının tüm kullanıcıları maruz kalma olasılığı konusunda uyarılabilir.\n\nPozitif test sonuçlarını paylaşan kullanıcıların rastgele kimliklerini içeren listelerin günlük olarak indirilmesi için ücret alınmaz. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Bazı ülkeler uluslararası uyarıları etkinleştirmek üzere iş birliği yapmaktadır. Diğer bir ifadeyle, tüm katılımcı ülkelerdeki resmi koronavirüs uygulamalarının kullanıcılarına maruz kalma olasılığınız da artık hesaba katılabilir.\n\nBir kullanıcı, diğer kullanıcıları uyarmak için uygulama üzerinden pozitif test sonucunu (daha doğru bir ifadeyle rastgele kimliklerini) katılımcı ülkeler tarafından ortak olarak işletilen exchange sunucusuna gönderdiğinde tüm bu ülkelerdeki resmi koronavirüs uygulamalarının tüm kullanıcıları maruz kalma olasılığı konusunda uyarılabilir.\n\nPozitif test sonuçlarını paylaşan kullanıcıların rastgele kimliklerini içeren listelerin günlük olarak indirilmesi için ücret alınmaz. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
 
 "onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "Şu anda aşağıdaki ülkeler katılmaktadır:";
 
@@ -387,7 +387,7 @@
 
 "ExposureSubmission_ConfirmDismissPopUpText" = "Girişleriniz kaydedilmeyecektir.";
 
-"ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak Uygulamanın koronavirüs testinizin durumunu sorgulamasına ve Uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu Uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz Uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca Uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği\" başlığında daha fazla bilgiye erişebilirsiniz.";
+"ExposureSubmission_DataPrivacyDescription" = "\"Kabul Et\" seçeneğine dokunarak uygulamanın koronavirüs testinizin durumunu sorgulamasına ve uygulamada görüntülemesine izin verirsiniz. Bu özelliği, QR kod aldıysanız ve test sonucunuzun Uygulamanın sunucu sistemine aktarılmasına onay verdiyseniz kullanabilirsiniz. Testi yapan laboratuvar test sonucunuzu sunucuya kaydettiği anda sonucu uygulamada görüntüleyebilirsiniz. Ayrıca bildirimleri etkinleştirirseniz uygulama, kullanmadığınız sırada test sonucunuzun alındığını belirten bir bildirim gönderir. Ancak gizlilik nedenleriyle testin sonucu yalnızca uygulamada görüntülenecektir. Uygulamada test kaydınızı silerek dilediğiniz zaman bu onayı geri çekebilirsiniz. Onayınızı geri çekmeniz, onayınızı geri çekmeden önce testi işlemenin hukuki niteliğini etkilemeyecektir. Menüde \"Veri Gizliliği\" başlığında daha fazla bilgiye erişebilirsiniz.";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "İzin Ver";
 
@@ -395,7 +395,7 @@
 
 "ExposureSubmission_Submit" = "TAN gir";
 
-"ExposureSubmissionTanEntry_Title" = "TAN Girişi";
+"ExposureSubmissionTanEntry_Title" = "TAN gir";
 
 "ExposureSubmissionTanEntry_EntryField" = "TAN Giriş Alanı";
 
@@ -430,9 +430,9 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test sonucunuzu almak ve ardından diğer kullanıcıları uyarmak için QR kodunuzu tarayın.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN Girişi";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN gir";
 
-"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere devam edin.";
+"ExposureSubmissionDispatch_TANButtonDescription" = "TAN'niz var mı? Diğer kullanıcıları uyarabilmek için TAN'nizi girmek üzere buraya dokunun.";
 
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "TAN yok mu?";
 
@@ -484,13 +484,13 @@
 
 "ExposureSubmissionQRInfo_header_section_2" = "Lütfen karşılaştığınız diğer kullanıcıları uyararak onlara yardımcı olun!";
 
-"ExposureSubmissionQRInfo_body_section_2" = "Koronavirüs tanısı aldıysanız uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Uyarı işlevi birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
+"ExposureSubmissionQRInfo_body_section_2" = "Koronavirüs tanısı aldıysanız uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
 
 "ExposureSubmissionQRInfo_acknowledgement_3" = "Onayınız gönüllülük esasına dayalıdır.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını bilmeyecektir.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
 
@@ -557,7 +557,7 @@
 
 "ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Sonraki adımda lütfen “Paylaş” seçeneğine dokunarak test sonucunuzu paylaşın.";
 
-"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Test sonuçlarınızı paylaşmamayı seçtiniz. Diğer kullanıcılar uyarılmayacak.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Test sonucunuzu paylaşmamayı seçtiniz. Diğer kullanıcılar uyarılmayacak.";
 
 "ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "Sonraki adımda dilerseniz fikrinizi değiştirip test sonucunuzu paylaşarak koronavirüsün yayılmasını durdurmaya ve diğer kullanıcıların korunmasına yardımcı olabilirsiniz.";
 
@@ -566,6 +566,10 @@
 "ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Önemli:\nBu işlemi iptal etmek üzeresiniz. Henüz diğer kullanıcıları uyarmadınız. Lütfen bu işlemi tamamlayın ve diğer kullanıcıların korunmasına yardımcı olun.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "İşlemi gerçekten iptal etmek istiyor musunuz?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "İptal etmek istiyor musunuz?";
+
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Girişleriniz kaydedilmeyecektir.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "İptal";
 
@@ -590,9 +594,9 @@
 
 "ExposureSubmissionResult_testAdded" = "Testiniz eklendi.";
 
-"ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarma";
+"ExposureSubmissionResult_warnOthers" = "Diğer Kullanıcıları Uyarın";
 
-"ExposureSubmissionResult_warnOthersDesc" = "Rastgele kimliklerinizi paylaşın ve diğer kullanıcıları uyarın.\nHerhangi bir koronavirüs semptomunu ne zaman ilk kez fark ettiğinizi de belirterek diğer kullanıcıların enfeksiyon riskini daha doğru şekilde belirlemeye yardımcı olun.";
+"ExposureSubmissionResult_warnOthersDesc" = "Rastgele kimliklerinizi paylaşın ve diğer kullanıcıları uyarın.\nHerhangi bir koronavirüs belirtisini ne zaman ilk kez fark ettiğinizi de belirterek diğer kullanıcıların enfeksiyon riskini daha doğru şekilde belirlemeye yardımcı olun.";
 
 "ExposureSubmissionResult_testNegative" = "Negatif Tanı";
 
@@ -628,9 +632,9 @@
 
 "ExposureSubmissionResult_testRemoveDesc" = "Gerekirse yeni bir test kodu kaydedebilmeniz için lütfen testi Corona-Warn-App'ten silin.";
 
-"ExposureSubmissionResult_primaryButtonTitle" = "Semptomları Gir";
+"ExposureSubmissionResult_primaryButtonTitle" = "Belirtileri Gir";
 
-"ExposureSubmissionResult_secondaryButtonTitle" = "Semptomları Girme";
+"ExposureSubmissionResult_secondaryButtonTitle" = "Belirtileri Girme";
 
 "ExposureSubmissionResult_deleteButton" = "Testi sil";
 
@@ -639,7 +643,7 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Belirtiler";
 
-"ExposureSubmissionSymptoms_Introduction" = "Uygulamanın, diğer kullanıcılar açısından enfeksiyon riskini daha doğru bir biçimde hesaplayabilmesi için herhangi bir korona belirtisi fark edip etmediğinizi ve ne zaman fark ettiğinizi belirtebilirsiniz. Bu adım gönüllülük esasına dayanır. Belirtilerinizle ilgili bilgi vermek istemiyorsanız \"Bilgi yok\" seçeneğini belirlemeniz yeterlidir.";
+"ExposureSubmissionSymptoms_Introduction" = "Uygulamanın, diğer kullanıcılar açısından enfeksiyon riskini daha doğru bir biçimde hesaplayabilmesi için herhangi bir koronavirüs belirtisi fark edip etmediğinizi ve ne zaman fark ettiğinizi belirtebilirsiniz. Bu adım gönüllülük esasına dayanır. Belirtilerinizle ilgili bilgi vermek istemiyorsanız \"Bilgi yok\" seçeneğini belirlemeniz yeterlidir.";
 
 "ExposureSubmissionSymptoms_Description" = "Son birkaç günde aşağıdaki belirtilerden birini veya daha fazlasını yaşadınız mı?";
 
@@ -663,12 +667,12 @@
 
 "ExposureSubmissionSymptoms_AnswerOptionNo" = "Hayır";
 
-"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Beyan yok";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Bilgi yok";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Sonraki";
 
 /* ExposureSubmissionSymptomsOnset */
-"ExposureSubmissionSymptomsOnset_Title" = "Belirtilerin başlangıcı";
+"ExposureSubmissionSymptomsOnset_Title" = "Belirtilerin Başlangıcı";
 
 "ExposureSubmissionSymptomsOnset_Subtitle" = "Belirtileri ilk kez ne zaman fark ettiniz?";
 
@@ -682,7 +686,7 @@
 
 "ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "2 haftadan uzun süre önce";
 
-"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Beyan yok";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Bilgi yok";
 
 "ExposureSubmissionSymptomsOnset_ContinueButton" = "İşte bu kadar!";
 
@@ -704,7 +708,7 @@
 
 "ExposureSubmissionWarnOthers_description" = "Koronavirüs testinizin sonucu pozitif olduğu için şimdi diğer kullanıcıları uygulama üzerinden uyarabilirsiniz.";
 
-"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Uyarı işlevi birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
@@ -740,7 +744,7 @@
 
 "ExposureSubmissionError_QRNotExist_Title" = "R kodun süresi doldu";
 
-"ExposureSubmissionError_QRNotExist" = "Lütfen testi uygulamadan kaldırın.\nArdından Uygulamaya yeni bir test ekleyebilirsiniz.";
+"ExposureSubmissionError_QRNotExist" = "Lütfen testi uygulamadan kaldırın.\nArdından uygulamaya yeni bir test ekleyebilirsiniz.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Gönderme işlemi için TAN oluşturulamıyor. Lütfen Uygulama Bilgileri -> Teknik Yardım Hattı üzerinden teknik yardım hattı ile iletişime geçin.";
 
@@ -775,9 +779,11 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Uygulamanın, enfekte olan bir kullanıcı ile karşılaşmanızın ardından risk altında olup olmadığınızı belirleyebilmesi için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir. Maruz kalma günlüğü özelliği uluslararası olarak çalışır; yani, kullanıcılara ilişkin tüm olası maruz kalmalar da diğer resmi koronavirüs uygulamalarıyla tespit edilir.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü özelliği, iPhone'unuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimlikleri diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Uygulama her gün, virüs testi pozitif olan ve uygulamaları aracılığıyla bu bilgileri (özellikle rastgele kimliklerini) gönüllü olarak paylaşan tüm kullanıcıların rastgele kimliklerini içeren bir liste ile birlikte bu kullanıcıların semptomlarının başlangıcına ilişkin gönüllü olarak verilen tüm bilgileri indirir. Ardından bu liste, sizin de enfekte olma olasılığınızı hesaplamak ve gereken durumlarda sizi uyarmak için iPhone'unuzun kaydetttiği ve karşılaştığınız diğer kullanıcıların rastgele kimliklerle karşılaştırılır. Düğmeyi kullanarak dilediğiniz zaman maruz kalma günlüğünü devre dışı bırakabilirsiniz.";
+"ExposureNotificationSetting_DescriptionText2" = "Maruz kalma günlüğü özelliği, iPhone'unuzun Bluetooth üzerinden diğer kullanıcıların şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimlikleri diğer kullanıcıların akıllı telefonlarına aktarmasıyla çalışır. Uygulama her gün, virüs testi pozitif olan ve uygulamaları aracılığıyla bu bilgileri (özellikle rastgele kimliklerini) gönüllü olarak paylaşan tüm kullanıcıların rastgele kimliklerini içeren bir liste ile birlikte bu kullanıcıların belirtilerinin başlangıcına ilişkin gönüllü olarak verilen tüm bilgileri indirir. Ardından bu liste, sizin de enfekte olma olasılığınızı hesaplamak ve gereken durumlarda sizi uyarmak için iPhone'unuzun kaydetttiği ve karşılaştığınız diğer kullanıcıların rastgele kimliklerle karşılaştırılır.";
 
-"ExposureNotificationSetting_DescriptionText3" = "Uygulama hiçbir durumda adınız, adresiniz veya konumunuz gibi kişisel verileri toplamaz ve bu bilgileri diğer kullanıcılara aktarmaz. Rastgele kimlikleri kullanarak kişilerin kimlikleri hakkında sonuçlar çıkarılamaz.";
+"ExposureNotificationSetting_DescriptionText3" = "Düğmeyi kullanarak dilediğiniz zaman maruz kalma günlüğünü devre dışı bırakabilirsiniz.";
+
+"ExposureNotificationSetting_DescriptionText4" = "Uygulama hiçbir durumda adınız, adresiniz veya konumunuz gibi kişisel verileri toplamaz ve bu bilgileri diğer kullanıcılara aktarmaz. Rastgele kimlikleri kullanarak kişilerin kimlikleri hakkında sonuçlar çıkarılamaz.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth'u aç";
 
@@ -844,7 +850,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Bazı ülkeler, ortak bir exchange sunucusu üzerinden uluslararası uyarıları etkinleştirmek üzere birlikte çalışma yürütmektedir. Örneğin, diğer katılımcı ülkelerin resmi koronavirüs uygulamasının kullanıcıları ile temaslar da maruz kalma günlüğünde hesaba katılabilir.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Bunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen bir listeyi indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır. Liste indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
+"ExposureNotificationSetting_EU_Desc_2" = "Bunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır. Rastgele kimlik listelerinin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Aşağıdaki ülkeler, uluslararası maruz kalma günlüğüne katılmaktadır:";
 
@@ -963,7 +969,7 @@
 
 "Home_Finding_Positive_Card_Share_Item_Title" = "Diğer kullanıcıların uyarılabilmesi için rastgele kimliklerinizi paylaşın.";
 
-"Home_Finding_Positive_Card_Button" = "Diğer Kullanıcıları Uyarma";
+"Home_Finding_Positive_Card_Button" = "Diğer Kullanıcıları Uyarın";
 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Test yaptırdınız mı?";
@@ -974,7 +980,7 @@
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App'i Paylaş";
 
-"Home_InfoCard_ShareBody" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
+"Home_InfoCard_ShareBody" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirlerini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
 
 "Home_InfoCard_AboutTitle" = "SSS";
 
@@ -991,7 +997,7 @@
 
 "Home_resultCard_ResultUnvailableTitle" = "Sonucunuz henüz çıkmadı";
 
-"Home_resultCard_ShowResultButton" = "Testi Görüntüle";
+"Home_resultCard_ShowResultButton" = "Testi Göster";
 
 "Home_resultCard_RetrieveResultButton" = "Test Sonucunu Al";
 
@@ -1106,7 +1112,7 @@
 
 "InviteFriends_Title" = "Koronavirüs ile birlikte mücadele edelim";
 
-"InviteFriends_Description" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
+"InviteFriends_Description" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirlerini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
 
 "InviteFriends_Button" = "İndirme Bağlantısı Gönder";
 
@@ -1231,7 +1237,7 @@
 
 "DeltaOnboarding_Headline" = "Uluslararası Maruz Kalma Günlüğü";
 
-"DeltaOnboarding_Description" = "Corona-Warn-App'in özellikleri genişletildi. Çok sayıda ülke, ortak olarak işletilen bir exchange sunucusu bazında uluslararası uyarıları etkinleştirmek üzere iş birliği yapmıştır. Maruz kalma riskiniz hesaplanırken diğer katılımcı ülkelerdeki resmi korona uygulamalarının kullanıcılarına maruz kalıp kalmadığınız da artık hesaba katılabilir.\n\nBunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen bir listeyi indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır.\n\nListe indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
+"DeltaOnboarding_Description" = "Corona-Warn-App'in özellikleri genişletildi. Çok sayıda ülke, ortak olarak işletilen bir exchange sunucusu bazında uluslararası uyarıları etkinleştirmek üzere iş birliği yapmıştır. Maruz kalma riskiniz hesaplanırken diğer katılımcı ülkelerdeki resmi koronavirüs uygulamalarının kullanıcılarına maruz kalıp kalmadığınız da artık hesaba katılabilir.\n\nBunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır.\n\nRastgele kimlik listelerinin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
 
 "DeltaOnboarding_ParticipatingCountries" = "Şu anda aşağıdaki ülkeler katılmaktadır:";
 
@@ -1270,7 +1276,7 @@
 
 "Thank_You_Description2" = "Uyarıların daha doğru olmasını sağlamaya yardımcı olabilirsiniz. Bunun için sonraki adımda belirtilerinizin ilk kez ne zaman görülmeye başladığını belirtin. Bu adımı dilediğiniz zaman iptal edebilirsiniz.";
 
-"Thank_You_Continue_Button" = "Semptomları Gir";
+"Thank_You_Continue_Button" = "Belirtileri Gir";
 
 "Thank_You_Cancel_Button" = "Çıkış";
 
@@ -1281,11 +1287,11 @@
 
 "TestResultPositive_NoConsent_Info1" = "Test sonucunuzu paylaşın ve diğer kullanıcıların enfeksiyondan korunmasına yardımcı olun.";
 
-"TestResultPositive_NoConsent_Info2" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını bilmeyecektir.";
+"TestResultPositive_NoConsent_Info2" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
 "TestResultPositive_NoConsent_Info3" = "Başka insanların enfeksiyona yakalanmaması için lütfen kamu sağlığı yetkilinizin talimatlarına uyun ve evde kalın.";
 
-"TestResultPositive_NoConsent_PrimaryButton" = "Diğer Kullanıcıları Uyarma";
+"TestResultPositive_NoConsent_PrimaryButton" = "Diğer Kullanıcıları Uyarın";
 
 "TestResultPositive_NoConsent_SecondaryButton" = "İptal";
 
@@ -1303,7 +1309,7 @@
 
 "TestResultPositive_WithConsent_Info2" = "Uyarıların daha doğru olmasını sağlamaya yardımcı olabilirsiniz. Bunun için sonraki adımda belirtilerinizin ilk kez ne zaman görülmeye başladığını belirtin. Bu adımı dilediğiniz zaman iptal edebilirsiniz.";
 
-"TestResultPositive_WithConsent_PrimaryButton" = "Semptomları Gir";
+"TestResultPositive_WithConsent_PrimaryButton" = "Belirtileri Gir";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Çıkış";
 

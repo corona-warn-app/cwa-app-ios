@@ -279,7 +279,7 @@ enum AppStrings {
 	}
 
 	enum ExposureSubmissionError {
-		static let noKeys = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
+		static let noKeysCollected = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
 		static let invalidTan = NSLocalizedString("ExposureSubmissionError_InvalidTan", comment: "")
 		static let enNotEnabled = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", comment: "")
 		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
@@ -520,6 +520,7 @@ enum AppStrings {
 		static let descriptionText1 = NSLocalizedString("ExposureNotificationSetting_DescriptionText1", comment: "")
 		static let descriptionText2 = NSLocalizedString("ExposureNotificationSetting_DescriptionText2", comment: "")
 		static let descriptionText3 = NSLocalizedString("ExposureNotificationSetting_DescriptionText3", comment: "")
+		static let descriptionText4 = NSLocalizedString("ExposureNotificationSetting_DescriptionText4", comment: "")
 		static let actionCellHeader = NSLocalizedString("ExposureNotificationSetting_ActionCell_Header", comment: "")
 		static let activateBluetooth = NSLocalizedString("ExposureNotificationSetting_Activate_Bluetooth", comment: "")
 		static let activateInternet = NSLocalizedString("ExposureNotificationSetting_Activate_Internet", comment: "")
@@ -870,6 +871,7 @@ enum AppStrings {
 	}
 	
 	enum ContactDiary {
+
 		enum Overview {
 			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
 			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
@@ -880,6 +882,17 @@ enum AppStrings {
 				static let editPersonTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditPersonTitle", comment: "")
 				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
 			}
+		}
+		
+		enum Day {
+			static let contactPersonsSegment = NSLocalizedString("ContactDiary_Day_ContactPersonsSegment", comment: "")
+			static let addContactPerson = NSLocalizedString("ContactDiary_Day_AddContactPerson", comment: "")
+			static let contactPersonsEmptyTitle = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyTitle", comment: "")
+			static let contactPersonsEmptyDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyDescription", comment: "")
+			static let locationsSegment = NSLocalizedString("ContactDiary_Day_LocationsSegment", comment: "")
+			static let addLocation = NSLocalizedString("ContactDiary_Day_AddLocation", comment: "")
+			static let locationsEmptyTitle = NSLocalizedString("ContactDiary_Day_LocationsEmptyTitle", comment: "")
+			static let locationsEmptyDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyDescription", comment: "")
 		}
 
 		enum Information {
@@ -895,6 +908,7 @@ enum AppStrings {
 			static let dataPrivacyTitle = NSLocalizedString("ContactDiary_Information_Dataprivacy_Title", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("ContactDiary_Information_PrimaryButton_Title", comment: "")
 		}
+
 	}
 	
 	// swiftlint:disable:next file_length

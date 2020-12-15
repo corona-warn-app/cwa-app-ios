@@ -43,6 +43,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		}
 
 		encountersVisitsContainerStackView.isHidden = encountersVisitsStackView.arrangedSubviews.isEmpty
+
+		accessibilityTraits = [.button]
 	}
 
 	// MARK: - Private
