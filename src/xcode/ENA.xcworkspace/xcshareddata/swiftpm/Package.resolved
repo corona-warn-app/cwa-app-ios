@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "IBPCollectionViewCompositionalLayout",
+        "repositoryURL": "https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout.git",
+        "state": {
+          "branch": null,
+          "revision": "ce7156f0a8f087d92feb23577f9ce1bf10090a29",
+          "version": "0.6.7"
+        }
+      },
+      {
         "package": "OpenCombine",
         "repositoryURL": "https://github.com/OpenCombine/OpenCombine.git",
         "state": {

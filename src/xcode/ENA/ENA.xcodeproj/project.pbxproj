@@ -558,6 +558,7 @@
 		EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */; };
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
+		EBA4038D2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
@@ -1257,6 +1258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				015E8C0824C997D200C0A4B3 /* CWASQLite.framework in Frameworks */,
+				EBA4038D2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout in Frameworks */,
 				EB7AF62A2587E98C00D94CA8 /* OpenCombineFoundation in Frameworks */,
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
@@ -3214,6 +3216,7 @@
 				EB7AF6292587E98C00D94CA8 /* OpenCombineFoundation */,
 				EB7AF62B2587E98C00D94CA8 /* OpenCombine */,
 				EB7AF62D2587E98C00D94CA8 /* OpenCombineDispatch */,
+				EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -3320,6 +3323,7 @@
 				B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
+				EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -5144,6 +5148,14 @@
 				version = 0.11.0;
 			};
 		};
+		EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.6.7;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5176,6 +5188,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */;
 			productName = OpenCombineDispatch;
+		};
+		EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */;
+			productName = IBPCollectionViewCompositionalLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
