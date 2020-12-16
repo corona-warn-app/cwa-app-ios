@@ -8,7 +8,7 @@ import XCTest
 
 enum accessibilityLabels {
 	
-	//access Localized.strings via UITest bundle
+	// access Localized.strings via UITest bundle
 	static func localized(_ key: String) -> String {
 		let uiTestBundle = Bundle(for: ENAUITests_01_Home.self)
 		return NSLocalizedString(key, bundle: uiTestBundle, comment: "")
@@ -35,7 +35,7 @@ enum accessibilityLabels {
 		}
 	}
 
-	//label attributes
+	// label attributes
 	static func labelsOfElement(_ query: XCUIElementQuery) -> [String] {
 		var labels = [String]()
 		let n = query.count
@@ -47,7 +47,7 @@ enum accessibilityLabels {
 		return labels
 	}
 	
-	//accessibility identifiers
+	// accessibility identifiers
 	static func accIdentifiersOfElement(_ query: XCUIElementQuery) -> [String] {
 		var identifiers = [String]()
 		let n = query.count
@@ -59,7 +59,7 @@ enum accessibilityLabels {
 		return identifiers
 	}
 	
-	//labels that identifies the accessibility element, in a localized string.
+	// labels that identifies the accessibility element, in a localized string.
 	static func accLabelsOfElement(_ query: XCUIElementQuery) -> [String] {
 		var labels = [String]()
 		let n = query.count
@@ -71,7 +71,7 @@ enum accessibilityLabels {
 		return labels
 	}
 	
-	//title attributes
+	// title attributes
 	static func titleOfElement(_ query: XCUIElementQuery) -> [String] {
 		var titles = [String]()
 		let n = query.count
