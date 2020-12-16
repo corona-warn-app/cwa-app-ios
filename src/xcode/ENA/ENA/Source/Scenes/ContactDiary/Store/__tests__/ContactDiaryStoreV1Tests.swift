@@ -477,7 +477,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		let stringWith251Chars = String(repeating: "Y", count: 251) //(0...250).map { "Y" }
+		let stringWith251Chars = String(repeating: "Y", count: 251)
 
 		let addPersonResult = store.addContactPerson(name: stringWith251Chars)
 		guard case .success(let personId) = addPersonResult,
