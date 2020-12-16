@@ -22,8 +22,8 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 		cell.backgroundColor = .enaColor(for: .background)
 		cell.configure(title: title, description: description, accessibilityIdentifier: accessibilityIdentifier)
 
-		cell.topDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
-		cell.bottomDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
+		cell.topDividerView.backgroundColor = ColorCompatibility.secondaryLabel.withAlphaComponent(0.3)
+		cell.bottomDividerView.backgroundColor = ColorCompatibility.secondaryLabel.withAlphaComponent(0.3)
 
 		configureBorders(in: cell)
 	}
