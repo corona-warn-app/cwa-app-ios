@@ -148,13 +148,13 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			Log.debug("fetching cached app configuration", log: .appConfig)
 			// use the cached version
 			return Just(cachedVersion)
-				.receive(on: DispatchQueue.main)
+				.receive(on: DispatchQueue.main.ocombine)
 				.eraseToAnyPublisher()
 		} else {
 			Log.debug("fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .appConfig)
 			// fetch a new one
 			return getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
-				.receive(on: DispatchQueue.main)
+				.receive(on: DispatchQueue.main.ocombine)
 				.map({ $0.config })
 				.eraseToAnyPublisher()
 		}

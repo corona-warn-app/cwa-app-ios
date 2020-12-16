@@ -165,15 +165,17 @@ class BackgroundAppRefreshViewModel {
 	}
 
 	private func observeBackgroundAppRefresh() {
-		NotificationCenter.default.publisher(for: UIApplication.backgroundRefreshStatusDidChangeNotification).sink { [weak self] _ in
-			guard let self = self else { return }
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.backgroundRefreshStatusDidChangeNotification)
+			.sink { [weak self] _ in
+				guard let self = self else { return }
 
-			self.backgroundRefreshStatus = self.backgroundRefreshStatusProvider.backgroundRefreshStatus
-		}.store(in: &subscriptions)
+				self.backgroundRefreshStatus = self.backgroundRefreshStatusProvider.backgroundRefreshStatus
+			}
+			.store(in: &subscriptions)
 	}
 	
 	private func observeLowPowerMode() {
-		NotificationCenter.default.publisher(for: Notification.Name.NSProcessInfoPowerStateDidChange).sink { [weak self] _ in
+		NotificationCenter.default.ocombine.publisher(for: Notification.Name.NSProcessInfoPowerStateDidChange).sink { [weak self] _ in
 			guard let self = self else { return }
 
 			self.lowPowerModeEnabled = self.lowPowerModeStatusProvider.isLowPowerModeEnabled

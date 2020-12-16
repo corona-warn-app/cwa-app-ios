@@ -27,7 +27,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		super.init(style: .plain)
 
 		diaryService.$days
-			.receive(on: RunLoop.main)
+			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
 			}

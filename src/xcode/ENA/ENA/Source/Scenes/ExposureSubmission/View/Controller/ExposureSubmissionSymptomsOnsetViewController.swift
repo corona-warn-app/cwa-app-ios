@@ -122,7 +122,7 @@ class ExposureSubmissionSymptomsOnsetViewController: DynamicTableViewController,
 
 		setupTableView()
 
-		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetOption.receive(on: RunLoop.main).sink {
+		symptomsOnsetButtonStateSubscription = $selectedSymptomsOnsetOption.receive(on: RunLoop.main.ocombine).sink {
 			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
 		}
 	}
