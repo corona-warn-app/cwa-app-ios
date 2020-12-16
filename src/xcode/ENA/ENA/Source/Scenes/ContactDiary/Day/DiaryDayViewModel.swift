@@ -47,7 +47,7 @@ class DiaryDayViewModel {
 	}
 
 	func numberOfRows(in section: Int) -> Int {
-		switch DiaryDayViewModel.Section(rawValue: section) {
+		switch Section(rawValue: section) {
 		case .add:
 			return 1
 		case .entries:

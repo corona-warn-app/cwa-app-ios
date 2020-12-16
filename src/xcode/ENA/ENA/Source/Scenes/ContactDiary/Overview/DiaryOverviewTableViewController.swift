@@ -10,14 +10,14 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Init
 
 	init(
-		diaryService: DiaryService,
+		viewModel: DiaryOverviewViewModel,
 		onCellSelection: @escaping (DiaryDay) -> Void,
 		onInfoButtonTap: @escaping () -> Void,
 		onExportButtonTap: @escaping () -> Void,
 		onEditContactPersonsButtonTap: @escaping () -> Void,
 		onEditLocationsButtonTap: @escaping () -> Void
 	) {
-		self.diaryService = diaryService
+		self.viewModel = viewModel
 		self.onCellSelection = onCellSelection
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onExportButtonTap = onExportButtonTap
@@ -26,7 +26,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 		super.init(style: .plain)
 
-		diaryService.$days
+		viewModel.$days
 			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
@@ -60,22 +60,15 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return Section.allCases.count
+		return viewModel.numberOfSections
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch Section(rawValue: section) {
-		case .description:
-			return 1
-		case .days:
-			return diaryService.days.count
-		case .none:
-			fatalError("Invalid section")
-		}
+		viewModel.numberOfRows(in: section)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch Section(rawValue: indexPath.section) {
+		switch DiaryOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .description:
 			return descriptionCell(forRowAt: indexPath)
 		case .days:
@@ -92,17 +85,12 @@ class DiaryOverviewTableViewController: UITableViewController {
 			return
 		}
 
-		onCellSelection(diaryService.days[indexPath.row])
+		onCellSelection(viewModel.days[indexPath.row])
 	}
 
 	// MARK: - Private
 
-	private enum Section: Int, CaseIterable {
-		case description
-		case days
-	}
-
-	private let diaryService: DiaryService
+	private let viewModel: DiaryOverviewViewModel
 	private let onCellSelection: (DiaryDay) -> Void
 	private let onInfoButtonTap: () -> Void
 	private let onExportButtonTap: () -> Void
@@ -140,7 +128,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
 
-		cell.configure(day: diaryService.days[indexPath.row])
+		cell.configure(day: viewModel.days[indexPath.row])
 
 		return cell
 	}

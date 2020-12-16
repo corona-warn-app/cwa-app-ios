@@ -36,11 +36,13 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		setupAccessibility()
 	}
 
-	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, tintColor: UIColor = .enaColor(for: .textPrimary1), accessibilityIdentifier: String?) {
+	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, imageDescription: String, tintColor: UIColor = .enaColor(for: .textPrimary1), accessibilityIdentifier: String?) {
 		titleLabel.text = title
 		subtitleLabel.text = subtitle
 		descriptionLabel.text = description
-		illustrationView?.image = image
+		illustrationView.image = image
+		illustrationView.accessibilityLabel = imageDescription
+		illustrationView.isAccessibilityElement = true
 
 		button.setTitle(buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton

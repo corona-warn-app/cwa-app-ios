@@ -96,11 +96,37 @@ extension DynamicCell {
 		}
 	}
 
-	static func icon(_ image: UIImage?, text: DynamicTableViewIconCell.Text, tintColor: UIColor? = nil, style: ENAFont = .body, iconWidth: CGFloat = 32, selectionStyle: UITableViewCell.SelectionStyle = .none, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
-		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style, iconWidth: iconWidth, selectionStyle: selectionStyle)
-			configure?(viewController, cell, indexPath)
-		}
+	static func icon(
+		_ image: UIImage?,
+		text: DynamicTableViewIconCell.Text,
+		tintColor: UIColor? = nil,
+		style: ENAFont = .body,
+		iconWidth: CGFloat = 32,
+		selectionStyle: UITableViewCell.SelectionStyle = .none,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil,
+		alignment: UIStackView.Alignment = .center
+	) -> Self {
+		.identifier(
+			CellReuseIdentifier.icon,
+			action: action,
+			accessoryAction: .none, configure: { viewController, cell, indexPath in
+				guard let cell = cell as? DynamicTableViewIconCell else {
+					Log.error("no DynamicTableViewIconCell")
+					return
+				}
+				cell.configure(
+					image: image,
+					text: text,
+					customTintColor: tintColor,
+					style: style,
+					iconWidth: iconWidth,
+					selectionStyle: selectionStyle,
+					alignment: alignment
+				)
+				configure?(viewController, cell, indexPath)
+			}
+		)
 	}
 
 	static func space(height: CGFloat, color: UIColor? = nil) -> Self {
