@@ -283,11 +283,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 					if let error = error {
+						self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 						if case .notAuthorized = error {
-							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 							Log.info("ExposureSubmissionCoordinator: Submission consent reset to false after OS authorization was not given.")
 						} else {
-							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 							self?.showErrorAlert(for: error)
 						}
 					} else {
