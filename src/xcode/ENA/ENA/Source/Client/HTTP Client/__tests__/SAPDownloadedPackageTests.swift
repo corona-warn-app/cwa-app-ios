@@ -27,8 +27,13 @@ final class SAPDownloadedPackageTests: XCTestCase {
 		// Test the package signature verification process - rejecting when the signature does not match
 		let bytes = [0xA, 0xB, 0xC, 0xD]
 		// The bin and signature were  made for different data sets
-		let package = try SAPDownloadedPackage.makePackage(bin: Data(bytes: bytes, count: 4),
-														   signature: try SAPDownloadedPackage.makeSignature(data: Data(bytes: bytes, count: 3), key: signingKey).asList() // swiftlint:disable:this vertical_parameter_alignment_on_call
+
+		let package = try SAPDownloadedPackage.makePackage(
+			bin: Data(bytes: bytes, count: 4),
+			signature: try SAPDownloadedPackage.makeSignature(
+				data: Data(bytes: bytes, count: 3),
+				key: signingKey
+			).asList()
 		)
 
 		XCTAssertFalse(verifier(package))

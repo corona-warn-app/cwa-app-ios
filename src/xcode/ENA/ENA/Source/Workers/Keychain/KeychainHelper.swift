@@ -92,4 +92,20 @@ struct KeychainHelper {
 		try saveToKeychain(key: SecureStore.keychainDatabaseKey, data: Data(key.utf8))
 		return key
 	}
+
+	/// Generates and stores a new random database key
+	/// - Throws: a `KeychainError` in case the generation or database save fails
+	/// - Returns: the newly created key
+	func generateContactDiaryDatabaseKey() throws -> String {
+		var bytes = [UInt8](repeating: 0, count: 32)
+		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+		guard result == errSecSuccess else {
+			Log.error("Error creating random bytes.", log: .api)
+			throw KeychainError.keyGenerationFail
+		}
+
+		let key = "x'\(Data(bytes).hexEncodedString())'"
+		try saveToKeychain(key: ContactDiaryStoreV1.encriptionKeyKey, data: Data(key.utf8))
+		return key
+	}
 }
