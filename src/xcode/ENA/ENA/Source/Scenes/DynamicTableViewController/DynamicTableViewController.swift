@@ -293,21 +293,23 @@ private extension UITableViewCell {
 
 	func addSeparator(_ location: SeparatorLocation) {
 		let separator = UIView(frame: bounds)
-
-		let seperatorView: UIView
-		if let existingSeperatorView = self.backgroundView {
-			seperatorView = existingSeperatorView
-		} else {
-			seperatorView = UIView()
-			self.backgroundView = seperatorView
-		}
-		seperatorView.addSubview(separator)
-		
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0).isActive = true
-		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 14.0).isActive = true
-		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+		contentView.addSubview(separator)
+
+		let separatorTrailingConstant: CGFloat
+		switch accessoryType {
+		case .none:
+			separatorTrailingConstant = 2.0
+		default:
+			separatorTrailingConstant = 30.0
+		}
+		NSLayoutConstraint.activate([
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: -4.0),
+			separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: separatorTrailingConstant),
+			separator.heightAnchor.constraint(equalToConstant: 1)
+		])
 
 		switch location {
 		case .top:
