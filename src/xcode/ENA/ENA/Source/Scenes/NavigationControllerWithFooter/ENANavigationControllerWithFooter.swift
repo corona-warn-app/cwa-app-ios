@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class ENANavigationControllerWithFooter: UINavigationController {
+class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePresentationControllerDelegate {
 	private var navigationItemObserver: ENANavigationFooterItem.Observer?
 
 	private(set) var footerView: ENANavigationFooterView! { didSet { footerView.delegate = self } }
@@ -19,6 +19,18 @@ class ENANavigationControllerWithFooter: UINavigationController {
 	private(set) var isFooterViewHidden: Bool = true
 
 	private var topViewControllerWithFooterChild: ENANavigationControllerWithFooterChild? { topViewController as? ENANavigationControllerWithFooterChild }
+
+	override init(rootViewController: UIViewController) {
+		super.init(rootViewController: rootViewController)
+		self.presentationController?.delegate = self
+		self.isModalInPresentation = true
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		self.presentationController?.delegate = self
+		self.isModalInPresentation = true
+	}
 
 	override func loadView() {
 		super.loadView()
@@ -52,6 +64,20 @@ class ENANavigationControllerWithFooter: UINavigationController {
 		updateAdditionalSafeAreaInsets()
 		layoutFooterView()
 	}
+
+	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		guard let topViewController = viewControllers.last,
+			  let dismissableViewController = topViewController as? DismissHandling  else {
+			// this is the default behavior
+			dismiss(animated: true)
+			return
+		}
+
+		dismissableViewController.wasAttemptedToBeDismissed()
+	}
+
 }
 
 private extension ENANavigationControllerWithFooter {
@@ -125,6 +151,7 @@ extension ENANavigationControllerWithFooter {
 		transitionFooterView(to: viewController)
 	}
 
+	@discardableResult
 	override func popViewController(animated: Bool) -> UIViewController? {
 		let viewController = super.popViewController(animated: animated)
 		transitionFooterView(to: topViewController)
