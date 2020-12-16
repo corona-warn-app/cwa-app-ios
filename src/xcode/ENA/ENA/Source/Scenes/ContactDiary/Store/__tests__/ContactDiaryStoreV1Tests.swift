@@ -477,7 +477,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		let stringWith251Chars = String(repeating: "Y", count: 251) //(0...250).map { "Y" }
+		let stringWith251Chars = String(repeating: "Y", count: 251)
 
 		let addPersonResult = store.addContactPerson(name: stringWith251Chars)
 		guard case .success(let personId) = addPersonResult,
@@ -527,6 +527,66 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		XCTAssertEqual(nameUpdated, expectedName)
+	}
+
+	func test_When_export_Then_CorrectStringIsReturned() {
+		guard let today = dateFormatter.date(from: "2020-12-15") else {
+			fatalError("Failed to create date.")
+		}
+
+		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
+			  let thirteenDaysAgo = Calendar.current.date(byAdding: .day, value: -13, to: today) else {
+			fatalError("Could not create test dates.")
+		}
+
+		let dateProviderStub = DateProviderStub(today: today)
+
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue, dateProvider: dateProviderStub)
+
+		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
+		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
+
+		let amsterdamLocationId = addLocation(name: "Amsterdam", to: store)
+		let berlinId = addLocation(name: "Berlin", to: store)
+
+		addLocationVisit(locationId: amsterdamLocationId, date: today, store: store)
+		addLocationVisit(locationId: berlinId, date: today, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: today, store: store)
+		addPersonEncounter(personId: adamSandaleId, date: today, store: store)
+
+		addLocationVisit(locationId: amsterdamLocationId, date: tenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
+
+		addLocationVisit(locationId: amsterdamLocationId, date: thirteenDaysAgo, store: store)
+		addLocationVisit(locationId: berlinId, date: thirteenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: thirteenDaysAgo, store: store)
+		addPersonEncounter(personId: adamSandaleId, date: thirteenDaysAgo, store: store)
+
+		let exportResult = store.export()
+		guard case let .success(exportString) = exportResult else {
+			XCTFail("Error not expected")
+			return
+		}
+
+		let expectedString = """
+			Kontakte der letzten 14 Tage (02.12.20 - 15.12.20)
+			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
+
+			15.12.20 Adam Sandale
+			15.12.20 Emma Hicks
+			15.12.20 Amsterdam
+			15.12.20 Berlin
+			05.12.20 Emma Hicks
+			05.12.20 Amsterdam
+			02.12.20 Adam Sandale
+			02.12.20 Emma Hicks
+			02.12.20 Amsterdam
+			02.12.20 Berlin
+
+			"""
+
+		XCTAssertEqual(exportString, expectedString)
 	}
 
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
@@ -621,13 +681,14 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		return databaseQueue
 	}
 
-	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue) -> ContactDiaryStoreV1 {
+	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStoreV1 {
 		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
 
 		return ContactDiaryStoreV1(
 			databaseQueue: databaseQueue,
 			schema: schema,
-			key: "Dummy"
+			key: "Dummy",
+			dateProvider: dateProvider
 		)
 	}
 
@@ -636,6 +697,11 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		dateFormatter.formatOptions = [.withFullDate]
 		return dateFormatter
 	}()
+
+}
+
+struct DateProviderStub: DateProviding {
+	var today: Date
 
 	// swiftlint:disable:next file_length
 }

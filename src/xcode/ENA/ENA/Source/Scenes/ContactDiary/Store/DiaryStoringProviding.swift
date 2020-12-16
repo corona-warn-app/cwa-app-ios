@@ -45,5 +45,7 @@ protocol DiaryStoring {
 protocol DiaryProviding {
 
 	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
+
+	func export() -> Result<String, SQLiteErrorCode>
 	
 }

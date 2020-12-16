@@ -13,9 +13,15 @@ class MockDiaryStore: DiaryStoringProviding {
 		updateDays()
 	}
 
-	// MARK: - Protocol DiaryStoringProviding
+	// MARK: - Protocol DiaryProviding
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
+
+	func export() -> Result<String, SQLiteErrorCode> {
+		return .success("Dummy")
+	}
+
+	// MARK: - Protocol DiaryStoring
 
 	@discardableResult
 	func addContactPerson(name: String) -> DiaryStoringResult {
