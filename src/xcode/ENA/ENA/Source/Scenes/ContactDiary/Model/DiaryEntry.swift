@@ -33,9 +33,9 @@ enum DiaryEntry: Equatable {
 	var isSelected: Bool {
 		switch self {
 		case .location(let location):
-			return location.visitId != nil
+			return location.isSelected
 		case .contactPerson(let contactPerson):
-			return contactPerson.encounterId != nil
+			return contactPerson.isSelected
 		}
 	}
 
