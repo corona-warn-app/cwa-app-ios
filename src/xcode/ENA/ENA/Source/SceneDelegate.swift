@@ -127,10 +127,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
-			checkIfPositiveTestResultWasShown()
+			showPositiveTestResultIfNeeded()
 
 		case ActionableNotificationIdentifier.testResult.identifier:
-			guard let testResultRawValue = response.notification.request.content.userInfo[ActionableNotificationIdentifier.testResult.identifier] as? Int,
+			let testIdenifier = ActionableNotificationIdentifier.testResult.identifier
+			guard let testResultRawValue = response.notification.request.content.userInfo[testIdenifier] as? Int,
 				  let testResult = TestResult(rawValue: testResultRawValue) else {
 				showHome(animated: true)
 				return
@@ -138,13 +139,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			
 			switch testResult {
 			case .positive, .negative:
-				showTestResultFromNotification(with: testResult, animated: true)
-				
+				showTestResultFromNotification(with: testResult)
 			case .invalid:
 				showHome(animated: true)
-				
-			default:
-				break
+			case .expired, .pending:
+				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
 			
 		default: break
@@ -252,15 +251,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		coordinator.showHome(enStateHandler: enStateHandler)
 	}
 	
-	private func checkIfPositiveTestResultWasShown() {
+	private func showPositiveTestResultIfNeeded() {
 		let warnOthersReminder = WarnOthersReminder(store: store)
 		guard warnOthersReminder.positiveTestResultWasShown else {
 			return
 		}
-		showTestResultFromNotification(with: .positive, animated: true)
+		showTestResultFromNotification(with: .positive)
 	}
 
-	private func showTestResultFromNotification(with testResult: TestResult, animated _: Bool = false) {
+	private func showTestResultFromNotification(with testResult: TestResult) {
 		// we should show screens based on test result regardless wether positiveTestResultWasShown before or not
 		coordinator.showTestResultFromNotification(with: testResult)
 	}
