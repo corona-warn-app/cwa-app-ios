@@ -17,6 +17,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
+	var contactDiaryStore: ContactDiaryStoreV1 { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -118,6 +119,7 @@ extension AppDelegate {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let store: Store
+	let contactDiaryStore = ContactDiaryStoreV1(fileName: "ContactDiary")
 	let serverEnvironment: ServerEnvironment
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared

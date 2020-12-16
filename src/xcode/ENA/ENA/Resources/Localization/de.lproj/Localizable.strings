@@ -119,7 +119,7 @@
 
 "ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen finden Sie in den FAQ";
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen finden Sie in den FAQ.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
 
@@ -322,7 +322,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in Ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufalls-IDs austauschen. Persönliche Daten werden dabei nicht ausgetauscht.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informationen zur App in leichter Sprache und Gebärdensprache";
 
@@ -994,6 +994,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
 
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Kontakt-Tagebuch";
+
+"Home_DiaryCard_Body" = "Merken Sie sich, wo Sie waren und wen Sie getroffen haben.";
+
+"Home_DiaryCard_Button" = "Tagebuch führen";
+
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
 "Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
@@ -1328,3 +1335,94 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "TestResultPositive_WithConsent_PrimaryButton" = "Weiter mit Symptom-Erfassung";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Beenden";
+
+/* Contact Diary*/
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Kontakt-Tagebuch";
+
+"ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. ";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Personen bearbeiten";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Personen";
+
+"ContactDiary_Day_AddContactPerson" = "Person hinzufügen";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Noch keine Personen vorhanden";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Legen Sie eine Person an und fügen Sie sie in Ihrem Kontakt-Tagebuch hinzu.";
+
+"ContactDiary_Day_LocationsSegment" = "Orte";
+
+"ContactDiary_Day_AddLocation" = "Ort hinzufügen";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Noch keine Orte vorhanden";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu. ";
+
+/* Edit Entries */
+
+"ContactDiary_EditEntries_ContactPersons_Title" = "Personen";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Alle entfernen";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Wollen Sie wirklich alle Personen entfernen?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie eine Person entfernen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Ja";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nein";
+
+"ContactDiary_EditEntries_Locations_Title" = "Orte";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle entfernen";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Wollen Sie wirklich alle Orte entfernen?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie einen Ort entfernen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Ja";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nein";
+
+/* Information */
+"ContactDiary_Information_Title" = "Kontakt-Tagebuch";
+
+"ContactDiary_Information_ImageDescription" = "Wir sehen drei Personen mit Abstand zueinander, die ihre Smartphones zur Kontaktprotokollierung verwenden.";
+
+"ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 16 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";
+
+"ContactDiary_Information_Item_Person_Title" = "Tragen Sie ein, mit wem Sie sich getroffen haben.";
+
+"ContactDiary_Information_Item_Location_Title" = "Tragen Sie ein, an welchen Orten Sie anderen begegnet sind.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Ihr Tagebuch ist nur für Sie bestimmt. Ihre Einträge werden nur auf Ihrem Smartphone gespeichert und nach 16 Tagen automatisch gelöscht.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Tagebuch führen";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Speichern";
+
+/*  - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Ort";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Ort";
+
+/*  - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Person";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";

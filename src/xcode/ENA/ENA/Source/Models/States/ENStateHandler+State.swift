@@ -13,11 +13,11 @@ extension ENStateHandler {
 		case bluetoothOff
 		/// Restricted Mode due to parental controls.
 		case restricted
-		///Not authorized. The user declined consent in onboarding.
+		/// Not authorized. The user declined consent in onboarding.
 		case notAuthorized
-		///ENStatus is restricted but ENAuthorization Status is authorized. App was not set as active for the region.
+		/// ENStatus is restricted but ENAuthorization Status is authorized. App was not set as active for the region.
 		case notActiveApp
-		///The user was never asked the consent before, that's why unknown.
+		/// The user was never asked the consent before, that's why unknown.
 		case unknown
 	}
 }

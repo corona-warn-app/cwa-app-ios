@@ -6,6 +6,15 @@ import Foundation
 import UIKit
 
 struct DynamicTableViewModel {
+
+	// MARK: - Init
+
+	init(_ content: [DynamicSection]) {
+		self.content = content
+	}
+
+	// MARK: - Internal
+
 	static func with(
 		creator: (_ model: inout DynamicTableViewModel) -> Void
 	) -> DynamicTableViewModel {
@@ -13,27 +22,22 @@ struct DynamicTableViewModel {
 		creator(&model)
 		return model
 	}
-	
-	private var content: [DynamicSection]
-	
-	init(_ content: [DynamicSection]) {
-		self.content = content
-	}
-	
+
+	var content: [DynamicSection]
+	var numberOfSection: Int { content.count }
+
 	func section(_ section: Int) -> DynamicSection {
 		content[section]
 	}
-	
+
 	func section(at indexPath: IndexPath) -> DynamicSection {
 		section(indexPath.section)
 	}
-	
+
 	func cell(at indexPath: IndexPath) -> DynamicCell {
 		content[indexPath.section].cells[indexPath.row]
 	}
-	
-	var numberOfSection: Int { content.count }
-	
+
 	func numberOfRows(section index: Int) -> Int? {
 		guard content.indices.contains(index) else {
 			return nil

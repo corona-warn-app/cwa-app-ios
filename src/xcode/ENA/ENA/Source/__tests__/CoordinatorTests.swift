@@ -38,7 +38,7 @@ class MockCoordinator: Coordinator {
 	init() {
 		mockNavigationController = MockNavigationController()
 		mockDelegate = MockCoordinatorDelegate()
-		super.init(mockDelegate, mockNavigationController)
+		super.init(mockDelegate, mockNavigationController, contactDiaryStore: MockDiaryStore())
 	}
 }
 
