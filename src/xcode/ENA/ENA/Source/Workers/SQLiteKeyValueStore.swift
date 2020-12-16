@@ -66,7 +66,7 @@ final class SQLiteKeyValueStore {
 		return isSuccess
 	}
 
-	/// Open Database Connection, set the Key and check if the Key/Value Table already exits.
+	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
 	/// This retries the init steps, in case there was an issue
 	private func openDbIfNeeded() {
 		databaseQueue?.inDatabase { db in

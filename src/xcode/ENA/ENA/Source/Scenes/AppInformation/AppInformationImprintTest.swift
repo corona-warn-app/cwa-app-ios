@@ -29,7 +29,7 @@ class AppInformationImprintTest: XCTestCase {
 		XCTAssertNotNil(section)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertEqual(numberOfCells, 9) // DE EN
+		XCTAssertEqual(numberOfCells, 9) //DE EN
 	}
 
 	
@@ -54,7 +54,7 @@ class AppInformationImprintTest: XCTestCase {
 		XCTAssertNotNil(section)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertEqual(numberOfCells, 9) // DE EN
+		XCTAssertEqual(numberOfCells, 9) //DE EN
 	}
 
 
@@ -85,17 +85,17 @@ class AppInformationImprintTest: XCTestCase {
 	
 	func testContactFormDE() {
 		let cellCollection = AppInformationImprintViewModel.contactForms(localization: "de")
-		XCTAssertEqual(cellCollection.count, 1) // DE EN
+		XCTAssertEqual(cellCollection.count, 1) //DE EN
 	}
 
 	func testContactFormEN() {
 		let cellCollection = AppInformationImprintViewModel.contactForms(localization: "en")
-		XCTAssertEqual(cellCollection.count, 1) // DE EN
+		XCTAssertEqual(cellCollection.count, 1) //DE EN
 	}
 
 	func testContactFormTR() {
 		let cellCollection = AppInformationImprintViewModel.contactForms(localization: "tr")
-		XCTAssertEqual(cellCollection.count, 2) // not DE EN
+		XCTAssertEqual(cellCollection.count, 2) //not DE EN
 	}
 	
 }
