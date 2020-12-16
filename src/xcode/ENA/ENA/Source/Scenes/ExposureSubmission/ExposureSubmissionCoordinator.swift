@@ -205,17 +205,20 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				isLoading(true)
 				self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-
-					if let error = error {
-						// User selected "Don't Share" / "Nicht teilen"
-						if case .notAuthorized = error {
-							self.model.exposureSubmissionService.isSubmissionConsentGiven = false
-							self.showTestResultScreen(with: testResult)
-						} else {
-							self.showErrorAlert(for: error)
-						}
-					} else {
+					
+					guard let error = error else {
 						self.showTestResultScreen(with: testResult)
+						return
+					}
+					
+					self.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					
+					// User selected "Don't Share" / "Nicht teilen"
+					if error == .notAuthorized {
+						Log.info("OS submission authorization was declined.")
+						self.showTestResultScreen(with: testResult)
+					} else {
+						self.showErrorAlert(for: error)
 					}
 				}
 			},
@@ -282,15 +285,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-					if let error = error {
-						self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
-						if case .notAuthorized = error {
-							Log.info("ExposureSubmissionCoordinator: Submission consent reset to false after OS authorization was not given.")
-						} else {
-							self?.showErrorAlert(for: error)
-						}
-					} else {
+					guard let error = error else {
 						self?.showThankYouScreen()
+						return
+					}
+					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					if error == .notAuthorized {
+						Log.info("Submission consent reset to false after OS authorization was not given.")
+					} else {
+						self?.showErrorAlert(for: error)
 					}
 				}
 			}
@@ -406,16 +409,18 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 					
-					if let error = error {
-						// User selected "Don't Share" / "Nicht teilen"
-						if case .notAuthorized = error {
-							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
-						} else {
-							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
-							self?.showErrorAlert(for: error)
-						}
-					} else {
+					guard let error = error else {
 						self?.showThankYouScreen()
+						return
+					}
+					
+					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					
+					// User selected "Don't Share" / "Nicht teilen"
+					if error == .notAuthorized {
+						Log.info("OS submission authorization was declined.")
+					} else {
+						self?.showErrorAlert(for: error)
 					}
 				}
 			}
