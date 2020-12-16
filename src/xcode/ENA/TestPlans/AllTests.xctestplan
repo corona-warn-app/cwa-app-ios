@@ -49,7 +49,7 @@
       "id" : "23BB78C4-766D-4EE2-87E6-E0C288E37D26",
       "name" : "fake-Klingon",
       "options" : {
-        "language" : "IDELaunchSchemeLanguageAccentedLatin",
+        "language" : "IDELaunchSchemeLanguageRLO",
         "region" : "AS"
       }
     }
