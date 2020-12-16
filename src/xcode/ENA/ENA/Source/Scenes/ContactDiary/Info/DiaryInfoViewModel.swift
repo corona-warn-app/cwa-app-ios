@@ -81,24 +81,15 @@ struct DiaryInfoViewModel {
 			),
 			// Legal text
 			.section(cells: [
-				.acknowledgement(
-					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1), // larger font required
-					description: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),   // should be BOLD
-					bulletPoints: [
+				.extendedLegal(
+					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
+					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
+					bulletPoints1: [
 						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
 						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_2)
 						],
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
-					configure: { _, cell, _ in
-						cell.backgroundColor = .enaColor(for: .background)
-					}
-				)
-			]),
-			.section(cells: [
-				.acknowledgement(
-					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2), // larger font required
-					description: nil,
-					bulletPoints: [
+					subheadline2: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2),
+					bulletPoints2: [
 						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
 						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
 						],
@@ -132,5 +123,39 @@ struct DiaryInfoViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+
+}
+
+extension DynamicCell {
+
+	/// A `DynamicLegalExtendedCell` to display legal text
+	/// - Parameters:
+	///   - title: The title/header for the legal foo.
+	///   - subheadline1: Optional description text.
+	///   - bulletPoints1: A list of strings to be prefixed with bullet points.
+	///   - subheadline2: Optional description text.
+	///   - bulletPoints2: A list of strings to be prefixed with bullet points.
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display legal texts
+	static func extendedLegal(
+		title: NSAttributedString,
+		subheadline1: NSAttributedString?,
+		bulletPoints1: [NSAttributedString]? =  nil,
+		subheadline2: NSAttributedString?,
+		bulletPoints2: [NSAttributedString]? =  nil,
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(DiaryInfoViewController.ReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicLegalExtendedCell else {
+				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
+			}
+
+			cell.configure(title: title, subheadline1: subheadline1, bulletPoints1: bulletPoints1, subheadline2: subheadline2, bulletPoints2: bulletPoints2, accessibilityIdentifier: accessibilityIdentifier)
+			
+			configure?(viewController, cell, indexPath)
+		}
+	}
 
 }
