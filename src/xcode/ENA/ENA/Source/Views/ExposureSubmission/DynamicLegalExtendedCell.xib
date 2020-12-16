@@ -21,7 +21,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vne-NW-PQu" userLabel="Card View">
                         <rect key="frame" x="16" y="11" width="288" height="598"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1md-SR-62Q" userLabel="Title Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1md-SR-62Q" userLabel="Title Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="43.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -30,7 +30,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKO-eN-0Yw" userLabel="Description Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKO-eN-0Yw" userLabel="Description Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="20" y="60.5" width="43.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -52,7 +52,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-WL-Nhf" userLabel="Content Stack View 2">
-                                <rect key="frame" x="20" y="360" width="248" height="158"/>
+                                <rect key="frame" x="20" y="360" width="248" height="218"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Separator Color"/>
@@ -67,7 +67,7 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="79Y-9g-GkT" secondAttribute="trailing" constant="20" symbolic="YES" id="U6o-jC-NHf"/>
                             <constraint firstItem="8Pe-9Z-Ydm" firstAttribute="top" secondItem="ZKO-eN-0Yw" secondAttribute="bottom" constant="20" id="VpF-ym-q2r"/>
                             <constraint firstItem="8Pe-9Z-Ydm" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="XXc-vO-SNF"/>
-                            <constraint firstAttribute="bottom" secondItem="3ck-WL-Nhf" secondAttribute="bottom" constant="80" id="ct8-GM-x4B"/>
+                            <constraint firstAttribute="bottom" secondItem="3ck-WL-Nhf" secondAttribute="bottom" constant="20" id="ct8-GM-x4B"/>
                             <constraint firstItem="3ck-WL-Nhf" firstAttribute="top" secondItem="Vne-NW-PQu" secondAttribute="top" constant="360" id="ga8-gv-ikF"/>
                             <constraint firstItem="3ck-WL-Nhf" firstAttribute="leading" secondItem="8Pe-9Z-Ydm" secondAttribute="leading" id="jzO-tT-B1m"/>
                             <constraint firstItem="1md-SR-62Q" firstAttribute="top" secondItem="Vne-NW-PQu" secondAttribute="top" constant="20" id="og4-Dn-9i9"/>
