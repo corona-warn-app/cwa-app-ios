@@ -16,11 +16,11 @@ class TanInputViewModelTests: XCTestCase {
 			givenTan: "234567893D"
 		)
 
-		//WHEN
+		// WHEN
 		let isValid = viewModel.isNumberOfDigitsReached
 		let isChecksumValid = viewModel.isChecksumValid
 
-		//THEN
+		// THEN
 		XCTAssertTrue(isValid, "tan format is invalid")
 		XCTAssertTrue(isChecksumValid, "tan checksum is invalid")
 	}
@@ -34,11 +34,11 @@ class TanInputViewModelTests: XCTestCase {
 			givenTan: "ZBYKEVDBNU"
 		)
 
-		//WHEN
+		// WHEN
 		let isValid = viewModel.isNumberOfDigitsReached
 		let isChecksumValid = viewModel.isChecksumValid
 
-		//THEN
+		// THEN
 		XCTAssertTrue(isValid, "tan format is invalid")
 		XCTAssertFalse(isChecksumValid, "tan checksum is valid")
 	}
@@ -52,11 +52,11 @@ class TanInputViewModelTests: XCTestCase {
 			givenTan: "ZBYKEVDBNL"
 		)
 
-		//WHEN
+		// WHEN
 		let isValid = viewModel.isNumberOfDigitsReached
 		let isChecksumValid = viewModel.isChecksumValid
 
-		//THEN
+		// THEN
 		XCTAssertTrue(isValid, "tan format is invalid")
 		XCTAssertFalse(isChecksumValid, "tan checksum is valid")
 	}
