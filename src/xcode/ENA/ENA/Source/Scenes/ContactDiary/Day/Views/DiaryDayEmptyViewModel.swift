@@ -14,10 +14,12 @@ struct DiaryDayEmptyViewModel {
 			image = UIImage(named: "Illu_Diary_ContactPerson_Empty")
 			title = AppStrings.ContactDiary.Day.contactPersonsEmptyTitle
 			description = AppStrings.ContactDiary.Day.contactPersonsEmptyDescription
+			imageDescription = AppStrings.ContactDiary.Day.contactPersonsEmptyImageDescription
 		case .location:
 			image = UIImage(named: "Illu_Diary_Location_Empty")
 			title = AppStrings.ContactDiary.Day.locationsEmptyTitle
 			description = AppStrings.ContactDiary.Day.locationsEmptyDescription
+			imageDescription = AppStrings.ContactDiary.Day.locationsEmptyImageDescription
 		}
 	}
 
@@ -26,5 +28,6 @@ struct DiaryDayEmptyViewModel {
 	let image: UIImage?
 	let title: String
 	let description: String
+	let imageDescription: String
 
 }
