@@ -74,7 +74,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		navigationController?.overrideUserInterfaceStyle = .dark
+		#warning("Check QRCodeScanner Design/Look")
+		if #available(iOS 13.0, *) {
+			navigationController?.overrideUserInterfaceStyle = .dark
+		}
 		navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		navigationController?.navigationBar.shadowImage = UIImage()
 		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
