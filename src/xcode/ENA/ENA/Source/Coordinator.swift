@@ -78,7 +78,7 @@ class Coordinator: RequiresAppDependencies {
 		})
 	}
 	
-	func showPositiveTestResultFromNotification(with result: TestResult) {
+	func showTestResultFromNotification(with result: TestResult) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
 				self.showExposureSubmission(with: result)
