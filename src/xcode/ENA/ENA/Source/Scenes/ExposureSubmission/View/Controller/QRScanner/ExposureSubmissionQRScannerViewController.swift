@@ -85,8 +85,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 		let flashButton = UIButton(type: .custom)
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
-		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
+		#warning("Check image converted from SFSymbols to pdf asset")
+		flashButton.setImage(UIImage(named: "bolt"), for: .normal)
+		#warning("Check image converted from SFSymbols to pdf asset")
+		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
 		flashButton.accessibilityTraits = [.button]
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
