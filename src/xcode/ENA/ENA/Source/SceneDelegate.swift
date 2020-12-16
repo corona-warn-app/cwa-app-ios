@@ -52,7 +52,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
-		taskScheduler.scheduleTask()
+		if #available(iOS 13.0, *) {
+			taskScheduler.scheduleTask()
+		}
 		Log.info("Scene did enter Background.", log: .background)
 	}
 
