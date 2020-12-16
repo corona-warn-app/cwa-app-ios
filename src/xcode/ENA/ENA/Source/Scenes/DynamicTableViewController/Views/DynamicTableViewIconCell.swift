@@ -12,39 +12,46 @@ class DynamicTableViewIconCell: UITableViewCell {
 		case attributedString(NSAttributedString)
 	}
 
-	// MARK: - Overrides
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		imageView?.tintColor = tintColor
-	}
-
 	// MARK: - Internal
 
-	func configure(image: UIImage?, text: Text, tintColor: UIColor?, style: ENAFont = .body, iconWidth: CGFloat, selectionStyle: UITableViewCell.SelectionStyle) {
-		if let tintColor = tintColor {
-			imageView?.tintColor = tintColor
+	func configure(
+		image: UIImage?,
+		text: Text,
+		customTintColor: UIColor?,
+		style: ENAFont,
+		iconWidth: CGFloat,
+		selectionStyle: UITableViewCell.SelectionStyle,
+		alignment: UIStackView.Alignment
+	) {
+		stackView.alignment = alignment
+
+		if let customTintColor = customTintColor {
+			imageView?.tintColor = customTintColor
 			imageView?.image = image?.withRenderingMode(.alwaysTemplate)
 		} else {
+			imageView?.tintColor = tintColor
 			imageView?.image = image?.withRenderingMode(.alwaysOriginal)
 		}
 
-		(textLabel as? ENALabel)?.style = style.labelStyle
+		imageViewWidthConstraint.constant = iconWidth
+
+		contentTextLabel.style = style.labelStyle
 
 		switch text {
 		case .string(let string):
-			textLabel?.text = string
+			contentTextLabel.text = string
 		case .attributedString(let attributedString):
-			textLabel?.attributedText = attributedString
+			contentTextLabel.attributedText = attributedString
 		}
-
-		imageViewWidthConstraint.constant = iconWidth
 
 		self.selectionStyle = selectionStyle
 	}
 
 	// MARK: - Private
 
+	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var imageViewWidthConstraint: NSLayoutConstraint!
+	@IBOutlet private weak var iconImageView: UIImageView!
+	@IBOutlet private weak var contentTextLabel: ENALabel!
 
 }

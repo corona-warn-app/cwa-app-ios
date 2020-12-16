@@ -43,7 +43,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle),
+						alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -51,7 +52,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.ContactDiary.Information.itemContactTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemContactTitle),
+						alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -59,7 +61,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiary.Information.itemLockTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemLockTitle),
+						alignment: .top
 					)
 				]
 			),
