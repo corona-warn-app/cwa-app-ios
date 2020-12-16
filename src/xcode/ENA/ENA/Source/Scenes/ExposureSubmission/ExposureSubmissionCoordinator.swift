@@ -285,6 +285,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					if let error = error {
 						if case .notAuthorized = error {
 							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+							Log.info("ExposureSubmissionCoordinator: Submission consent reset to false after OS authorization was not given.")
 						} else {
 							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 							self?.showErrorAlert(for: error)
