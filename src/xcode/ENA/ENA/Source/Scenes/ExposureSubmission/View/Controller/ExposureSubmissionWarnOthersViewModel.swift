@@ -27,7 +27,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 	// MARK: - Init
 
 	init(supportedCountries: [Country]) {
-		countries = supportedCountries
+		countries = supportedCountries.sortedByLocalizedName
 	}
 
 	// MARK: - Internal
