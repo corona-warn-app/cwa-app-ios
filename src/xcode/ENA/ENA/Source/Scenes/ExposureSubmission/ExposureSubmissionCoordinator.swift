@@ -211,11 +211,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						return
 					}
 					
-					self.model.exposureSubmissionService.isSubmissionConsentGiven = false
-					
 					// User selected "Don't Share" / "Nicht teilen"
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
+						self.model.exposureSubmissionService.isSubmissionConsentGiven = false
 						self.showTestResultScreen(with: testResult)
 					} else {
 						self.showErrorAlert(for: error)
