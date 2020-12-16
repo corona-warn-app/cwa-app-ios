@@ -38,6 +38,8 @@ class DiaryDayEmptyView: UIView {
 
 		let imageView = UIImageView()
 		imageView.image = viewModel.image
+		imageView.accessibilityLabel = viewModel.imageDescription
+		imageView.isAccessibilityElement = true
 		stackView.addArrangedSubview(imageView)
 		stackView.setCustomSpacing(30, after: imageView)
 
