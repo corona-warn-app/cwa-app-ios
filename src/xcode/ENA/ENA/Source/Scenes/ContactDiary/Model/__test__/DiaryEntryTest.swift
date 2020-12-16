@@ -30,7 +30,7 @@ class DiaryEntryTest: XCTestCase {
 
 		XCTAssertEqual(entry.name, "Mars")
 		XCTAssertFalse(entry.isSelected)
-		XCTAssertEqual(entry.type, .contactPerson)
+		XCTAssertEqual(entry.type, .location)
 	}
 
 	func testSelectedLocation() throws {
@@ -38,7 +38,7 @@ class DiaryEntryTest: XCTestCase {
 
 		XCTAssertEqual(entry.name, "Earth")
 		XCTAssertTrue(entry.isSelected)
-		XCTAssertEqual(entry.type, .contactPerson)
+		XCTAssertEqual(entry.type, .location)
 	}
 	
 }
