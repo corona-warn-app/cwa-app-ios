@@ -43,9 +43,20 @@ class DynamicLegalExtendedCell: UITableViewCell {
 		let textBlocks1 = bulletPoints1?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
 		let textBlocks2 = bulletPoints2?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
 
+		configure(title: title, description1: subheadline1, description2: subheadline2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
+	}
+	
+	func configure(title: NSAttributedString, description1: NSAttributedString?, description2: NSAttributedString?, textBlocks1: [NSAttributedString], textBlocks2: [NSAttributedString], accessibilityIdentifier: String? = nil) {
+		
 		titleLabel.attributedText = title
-		descriptionLabel1.attributedText = subheadline1
-		descriptionLabel2.attributedText = subheadline2
+		descriptionLabel1.attributedText = description1
+		descriptionLabel2.attributedText = description2
+		
+		self.accessibilityIdentifier = accessibilityIdentifier
+		
+		// pruning stack view before setting (new) label
+		contentStackView1.removeAllArrangedSubviews()
+		contentStackView2.removeAllArrangedSubviews()
 		
 		textBlocks1.forEach { string in
 			let label = ENALabel()
@@ -55,7 +66,7 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			label.attributedText = string
 			contentStackView1.addArrangedSubview(label)
 		}
-
+		
 		textBlocks2.forEach { string in
 			let label = ENALabel()
 			label.style = .body
@@ -64,7 +75,7 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			label.attributedText = string
 			contentStackView2.addArrangedSubview(label)
 		}
-
+		
 	}
 
 	private func setup() {

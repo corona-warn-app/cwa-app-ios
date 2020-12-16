@@ -81,7 +81,15 @@ struct DiaryInfoViewModel {
 			),
 			// Legal text
 			.section(cells: [
-				.extendedLegal(
+//				.acknowledgement(
+//					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
+//					description: NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
+//					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+//					configure: { _, cell, _ in
+//						cell.backgroundColor = .enaColor(for: .background)
+//					}
+//				)
+				.legalExtended(
 					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
 					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
 					bulletPoints1: [
@@ -138,7 +146,7 @@ extension DynamicCell {
 	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
 	///   - configure: Optional custom cell configuration
 	/// - Returns: A `DynamicCell` to display legal texts
-	static func extendedLegal(
+	static func legalExtended(
 		title: NSAttributedString,
 		subheadline1: NSAttributedString?,
 		bulletPoints1: [NSAttributedString]? =  nil,
@@ -151,7 +159,6 @@ extension DynamicCell {
 			guard let cell = cell as? DynamicLegalExtendedCell else {
 				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
 			}
-
 			cell.configure(title: title, subheadline1: subheadline1, bulletPoints1: bulletPoints1, subheadline2: subheadline2, bulletPoints2: bulletPoints2, accessibilityIdentifier: accessibilityIdentifier)
 			
 			configure?(viewController, cell, indexPath)
