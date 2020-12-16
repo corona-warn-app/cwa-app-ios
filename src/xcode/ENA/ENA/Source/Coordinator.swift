@@ -159,7 +159,6 @@ extension Coordinator: HomeViewControllerDelegate {
 	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
 			riskState: state.riskState,
-			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
 			previousRiskLevel: store.riskCalculationResult?.riskLevel
@@ -178,7 +177,6 @@ extension Coordinator: HomeViewControllerDelegate {
 	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
 		let state = ExposureDetectionViewController.State(
 			riskState: state.riskState,
-			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			activityState: activityState,
 			previousRiskLevel: store.riskCalculationResult?.riskLevel
