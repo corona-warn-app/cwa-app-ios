@@ -293,7 +293,15 @@ private extension UITableViewCell {
 
 	func addSeparator(_ location: SeparatorLocation) {
 		let separator = UIView(frame: bounds)
-		contentView.addSubview(separator)
+
+		let seperatorView: UIView
+		if let existingSeperatorView = self.backgroundView {
+			seperatorView = existingSeperatorView
+		} else {
+			seperatorView = UIView()
+			self.backgroundView = seperatorView
+		}
+		seperatorView.addSubview(separator)
 		
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
