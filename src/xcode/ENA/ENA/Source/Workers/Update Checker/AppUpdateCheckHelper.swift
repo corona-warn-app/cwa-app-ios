@@ -75,7 +75,7 @@ final class AppUpdateCheckHelper {
 		switch type {
 		case .update:
 			alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionLater, comment: ""), style: .default, handler: { _ in
-				//Do nothing
+				// Do nothing
 			}))
 		case .forceUpdate:
 			alert.message = AppStrings.UpdateMessage.textForce

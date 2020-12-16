@@ -182,7 +182,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 			warnOthersReminder.notificationOneTimeInterval = TimeInterval(timeInterval1)
 			warnOthersReminder.notificationTwoTimeInterval = TimeInterval(timeInterval2)
 			
-			//Display notification save alert.
+			// Display notification save alert.
 			showAlert(title: "Notifications time saved", message: "Notification1 time \(timeInterval1) seconds & Notification2 time \(timeInterval2) seconds has saved into the secure store.")
 		}
 	}

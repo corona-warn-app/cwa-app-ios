@@ -8,7 +8,7 @@ import UIKit
 struct ExposureSubmissionQRInfoViewModel {
 
 	init(supportedCountries: [Country]) {
-		countries = supportedCountries
+		countries = supportedCountries.sortedByLocalizedName
 	}
 
 	// MARK: - Internal
@@ -137,7 +137,7 @@ extension DynamicCell {
 	static func acknowledgement(
 		title: NSAttributedString,
 		description: NSAttributedString?,
-		bulletPoints: [NSAttributedString],
+		bulletPoints: [NSAttributedString]? =  nil,
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {

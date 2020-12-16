@@ -13,6 +13,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState)
 	func showExposureSubmission(with result: TestResult?)
+	func showDiary()
 	func showInviteFriends()
 	func showWebPage(from viewController: UIViewController, urlString: String)
 	func showAppInformation()
@@ -269,6 +270,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.showExposureSubmission(with: result)
 	}
 
+	func showDiary() {
+		delegate?.showDiary()
+	}
+
 	func showExposureNotificationSetting() {
 		delegate?.showExposureNotificationSetting(enState: self.homeInteractor.state.enState)
 	}
@@ -292,6 +297,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			showExposureDetection()
 		case is RiskFailedCollectionViewCell:
 			showExposureDetection()
+		case is HomeDiaryCollectionViewCell:
+			showDiary()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
@@ -354,7 +361,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
 			InfoCollectionViewCell.self,
-			HomeTestResultLoadingCell.self
+			HomeTestResultLoadingCell.self,
+			HomeDiaryCollectionViewCell.self
 		]
 
 		collectionView.register(cellTypes: cellTypes)

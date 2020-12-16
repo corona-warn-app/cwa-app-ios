@@ -13,7 +13,7 @@ protocol DismissHandling {
 	func wasAttemptedToBeDismissed()
 }
 
-final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate, UIAdaptivePresentationControllerDelegate {
+final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
 
 	// MARK: - Init
 
@@ -25,11 +25,6 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		self.coordinator = coordinator
 		self.dismissClosure = dismissClosure
 		super.init(rootViewController: rootViewController)
-		// init default UIAdaptivePresentation delegate
-		self.presentationController?.delegate = self
-		if #available(iOS 13.0, *) {
-			self.isModalInPresentation = true
-		}
 	}
 
 	@available(*, unavailable)
@@ -80,7 +75,8 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
 
-	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+	/// override to implement an other default handling - call dismissClosure()
+	override func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
 			  let dismissableViewController = topViewController as? DismissHandling  else {
 			Log.debug("ViewController found doesn't conforms to protocol DismissHandling -> stop")
