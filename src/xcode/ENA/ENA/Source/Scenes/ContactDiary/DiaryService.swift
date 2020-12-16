@@ -248,7 +248,7 @@ class DiaryService {
 	
 	let store: DiaryStoringProviding
 
-	@Published private(set) var days: [DiaryDay] = []
+	@OpenCombine.Published private(set) var days: [DiaryDay] = []
 
 	var exportString: String {
 		"These are your exported diary entries."
@@ -293,7 +293,7 @@ class DiaryDay: Equatable {
 
 	let dateString: String
 
-	@Published private(set) var entries: [DiaryEntry]
+	@OpenCombine.Published private(set) var entries: [DiaryEntry]
 
 	var selectedEntries: [DiaryEntry] {
 		entries.filter {

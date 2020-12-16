@@ -4,7 +4,7 @@
 
 import XCTest
 @testable import ENA
-import Combine
+import OpenCombine
 
 class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	

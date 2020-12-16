@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 import FMDB
-import Combine
+import OpenCombine
 
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {

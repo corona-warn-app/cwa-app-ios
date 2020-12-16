@@ -5,7 +5,7 @@
 import Foundation
 import XCTest
 @testable import ENA
-import Combine
+import OpenCombine
 
 class DiaryDayViewModelTest: XCTestCase {
 

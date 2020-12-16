@@ -4,7 +4,7 @@
 
 import XCTest
 import FMDB
-import Combine
+import OpenCombine
 @testable import ENA
 
 // swiftlint:disable:next type_body_length
