@@ -657,6 +657,7 @@ enum AppStrings {
 
 		static let diaryCardTitle = NSLocalizedString("Home_DiaryCard_Title", comment: "")
 		static let diaryCardBody = NSLocalizedString("Home_DiaryCard_Body", comment: "")
+		static let diaryCardImageDescription = NSLocalizedString("Home_DiaryCard_ImageDescription", comment: "")
 		static let diaryCardButton = NSLocalizedString("Home_DiaryCard_Button", comment: "")
 
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
@@ -889,10 +890,12 @@ enum AppStrings {
 			static let addContactPerson = NSLocalizedString("ContactDiary_Day_AddContactPerson", comment: "")
 			static let contactPersonsEmptyTitle = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyTitle", comment: "")
 			static let contactPersonsEmptyDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyDescription", comment: "")
+			static let contactPersonsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyImageDescription", comment: "")
 			static let locationsSegment = NSLocalizedString("ContactDiary_Day_LocationsSegment", comment: "")
 			static let addLocation = NSLocalizedString("ContactDiary_Day_AddLocation", comment: "")
 			static let locationsEmptyTitle = NSLocalizedString("ContactDiary_Day_LocationsEmptyTitle", comment: "")
 			static let locationsEmptyDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyDescription", comment: "")
+			static let locationsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyImageDescription", comment: "")
 		}
 
 		enum EditEntries {
