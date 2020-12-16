@@ -39,17 +39,17 @@ class CountryTests: XCTestCase {
 	
 	func testSortingOfCountries() throws {
 	
-		//GIVEN
+		// GIVEN
 		var unsortedList = [Country]()
 		unsortedList.append(Country(countryCode: "FR") ?? Country.defaultCountry())
 		unsortedList.append(Country(countryCode: "DE") ?? Country.defaultCountry())
 		unsortedList.append(Country(countryCode: "CY") ?? Country.defaultCountry())
 		unsortedList.append(Country(countryCode: "DK") ?? Country.defaultCountry())
 		
-		//WHEN
+		// WHEN
 		let sortedList = unsortedList.sortedByLocalizedName
 		
-		//THEN
+		// THEN
 		switch Locale.current.languageCode {
 		case "de":
 			XCTAssertEqual(sortedList[0].id, "DK")
