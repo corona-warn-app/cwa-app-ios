@@ -94,6 +94,8 @@ private extension ENAColor {
 		switch self {
 		// MARK: - Background Colors
 		case .background: return "background"
+		case .darkBackground: return "darkBackground"
+		case .cellBackground: return "cellBackground"
 		case .hairline: return "hairline"
 		case .hairlineContrast: return "hairline-contrast"
 		case .separator: return "separator"
@@ -132,6 +134,9 @@ private extension ENAColor {
 		case .textSemanticGreen: return "text-semantic-green"
 		case .textSemanticRed: return "text-semantic-red"
 		case .textTint: return "text-tint"
+
+		// MARK: - Textfiled Colors
+		case .textField: return "text-field"
 		}
 	}
 }

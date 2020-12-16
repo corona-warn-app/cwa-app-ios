@@ -8,6 +8,8 @@ import UIKit
 public enum ENAColor: String, CaseIterable {
 	// MARK: - Background Colors
 	case background = "ENA Background Color"
+	case darkBackground = "ENA Dark Background Color"
+	case cellBackground = "ENA Cell Background Color"
 	case hairline = "ENA Hairline Color"
 	case hairlineContrast = "ENA Hairline Contrast Color"
 	case separator = "ENA Separator Color"
@@ -46,6 +48,9 @@ public enum ENAColor: String, CaseIterable {
 	case textSemanticGreen = "ENA Text Semantic Green Color"
 	case textSemanticRed = "ENA Text Semantic Red Color"
 	case textTint = "ENA Text Tint Color"
+
+	// MARK: - Textfield
+	case textField = "ENA Textfield Color"
 }
 
 public extension UIColor {

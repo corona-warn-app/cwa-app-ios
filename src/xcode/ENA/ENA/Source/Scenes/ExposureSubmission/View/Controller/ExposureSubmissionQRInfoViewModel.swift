@@ -137,7 +137,7 @@ extension DynamicCell {
 	static func acknowledgement(
 		title: NSAttributedString,
 		description: NSAttributedString?,
-		bulletPoints: [NSAttributedString],
+		bulletPoints: [NSAttributedString]? =  nil,
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
