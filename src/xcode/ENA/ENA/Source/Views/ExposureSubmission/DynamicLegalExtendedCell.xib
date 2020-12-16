@@ -22,7 +22,7 @@
                         <rect key="frame" x="16" y="11" width="288" height="598"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1md-SR-62Q" userLabel="Title Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="41.5" height="20.5"/>
+                                <rect key="frame" x="20" y="20" width="43.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -31,7 +31,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKO-eN-0Yw" userLabel="Description Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="60.5" width="41.5" height="20.5"/>
+                                <rect key="frame" x="20" y="60.5" width="43.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -39,11 +39,11 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Pe-9Z-Ydm" userLabel="Content Stack View 1">
-                                <rect key="frame" x="20" y="101" width="248" height="200"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Pe-9Z-Ydm" userLabel="Content Stack View 1">
+                                <rect key="frame" x="20" y="101" width="248" height="198.5"/>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79Y-9g-GkT" userLabel="Description Label 2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="338" width="43.5" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79Y-9g-GkT" userLabel="Description Label 2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="20" y="319.5" width="43.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -51,21 +51,27 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-WL-Nhf" userLabel="Content Stack View 2">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-WL-Nhf" userLabel="Content Stack View 2">
                                 <rect key="frame" x="20" y="360" width="248" height="158"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Separator Color"/>
                         <constraints>
+                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="top" secondItem="79Y-9g-GkT" secondAttribute="bottom" constant="20" id="2y0-76-leV"/>
+                            <constraint firstItem="79Y-9g-GkT" firstAttribute="top" secondItem="8Pe-9Z-Ydm" secondAttribute="bottom" constant="20" id="5Mh-b8-kg2"/>
                             <constraint firstItem="ZKO-eN-0Yw" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="5de-81-MM8"/>
+                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="trailing" secondItem="8Pe-9Z-Ydm" secondAttribute="trailing" id="60Y-UL-fVm"/>
+                            <constraint firstItem="79Y-9g-GkT" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" symbolic="YES" id="7E6-Hc-T3v"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZKO-eN-0Yw" secondAttribute="trailing" constant="20" id="ANm-eZ-O2j"/>
                             <constraint firstItem="ZKO-eN-0Yw" firstAttribute="top" secondItem="1md-SR-62Q" secondAttribute="bottom" constant="20" id="MPr-VH-MjZ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="79Y-9g-GkT" secondAttribute="trailing" constant="20" symbolic="YES" id="U6o-jC-NHf"/>
                             <constraint firstItem="8Pe-9Z-Ydm" firstAttribute="top" secondItem="ZKO-eN-0Yw" secondAttribute="bottom" constant="20" id="VpF-ym-q2r"/>
                             <constraint firstItem="8Pe-9Z-Ydm" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="XXc-vO-SNF"/>
-                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="top" secondItem="79Y-9g-GkT" secondAttribute="bottom" constant="20" id="YOI-1Y-Z5z"/>
+                            <constraint firstAttribute="bottom" secondItem="3ck-WL-Nhf" secondAttribute="bottom" constant="80" id="ct8-GM-x4B"/>
+                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="top" secondItem="Vne-NW-PQu" secondAttribute="top" constant="360" id="ga8-gv-ikF"/>
+                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="leading" secondItem="8Pe-9Z-Ydm" secondAttribute="leading" id="jzO-tT-B1m"/>
                             <constraint firstItem="1md-SR-62Q" firstAttribute="top" secondItem="Vne-NW-PQu" secondAttribute="top" constant="20" id="og4-Dn-9i9"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1md-SR-62Q" secondAttribute="trailing" constant="20" id="sz8-EM-uLK"/>
-                            <constraint firstItem="79Y-9g-GkT" firstAttribute="top" secondItem="8Pe-9Z-Ydm" secondAttribute="bottom" constant="20" id="tfc-Yp-BoG"/>
                             <constraint firstAttribute="trailing" secondItem="8Pe-9Z-Ydm" secondAttribute="trailing" constant="20" id="vcr-h7-WeG"/>
                             <constraint firstItem="1md-SR-62Q" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="vy1-V9-M3V"/>
                         </constraints>
@@ -92,13 +98,13 @@
     </objects>
     <designables>
         <designable name="1md-SR-62Q">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
         </designable>
         <designable name="79Y-9g-GkT">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
         </designable>
         <designable name="ZKO-eN-0Yw">
-            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
