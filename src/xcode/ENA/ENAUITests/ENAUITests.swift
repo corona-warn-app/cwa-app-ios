@@ -62,6 +62,7 @@ class ENAUITests: XCTestCase {
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 		app.swipeUp()
+		app.swipeUp() // the home screen got loger and for some reason we have to scroll to `tap()`
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .extraLong))
 		app.cells["AppStrings.Home.settingsCardTitle"].tap()
 		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: .extraLong))
