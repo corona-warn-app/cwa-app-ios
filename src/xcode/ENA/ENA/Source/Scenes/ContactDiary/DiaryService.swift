@@ -55,8 +55,9 @@ protocol DiaryStoring {
 }
 
 protocol DiaryProviding {
-
 	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
+
+	func export() -> Result<String, SQLiteErrorCode>
 }
 
 class MockDiaryStore: DiaryStoringProviding {
@@ -67,9 +68,15 @@ class MockDiaryStore: DiaryStoringProviding {
 		updateDays()
 	}
 
-	// MARK: - Protocol DiaryStoring
+	// MARK: - Protocol DiaryProviding
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
+
+	func export() -> Result<String, SQLiteErrorCode> {
+		return .success("Dummy")
+	}
+
+	// MARK: - Protocol DiaryStoring
 
 	@discardableResult
 	func addContactPerson(name: String) -> DiaryStoringResult {
@@ -251,7 +258,12 @@ class DiaryService {
 	@Published private(set) var days: [DiaryDay] = []
 
 	var exportString: String {
-		"These are your exported diary entries."
+		let exportResult = store.export()
+		if case let .success(exportString) = exportResult {
+			return exportString
+		} else {
+			return ""
+		}
 	}
 
 	func update(entry: DiaryEntry) {
