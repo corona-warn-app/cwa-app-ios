@@ -296,18 +296,10 @@ private extension UITableViewCell {
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
 
-		contentView.addSubview(separator)
-
-		let separatorTrailingConstant: CGFloat
-		switch accessoryType {
-		case .none:
-			separatorTrailingConstant = 2.0
-		default:
-			separatorTrailingConstant = 30.0
-		}
+		addSubview(separator)
 		NSLayoutConstraint.activate([
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: -4.0),
-			separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: separatorTrailingConstant),
+			separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+			separator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
 			separator.heightAnchor.constraint(equalToConstant: 1)
 		])
 
