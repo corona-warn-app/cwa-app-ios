@@ -65,7 +65,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
 		case .add:
-			return addCell(forRowAt: indexPath)
+			return entryAddCell(forRowAt: indexPath)
 		case .entries:
 			return entryCell(forRowAt: indexPath)
 		case .none:
@@ -122,7 +122,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.estimatedRowHeight = 60
 	}
 
-	private func addCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func entryAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryDayAddTableViewCell.self), for: indexPath) as? DiaryDayAddTableViewCell else {
 			fatalError("Could not dequeue DiaryDayAddTableViewCell")
 		}
@@ -147,11 +147,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	private func updateForSelectedEntryType() {
 		tableView.reloadData()
 
-		if viewModel.entriesOfSelectedType.isEmpty {
-			tableView.backgroundView = DiaryDayEmptyView(entryType: viewModel.selectedEntryType)
-		} else {
-			tableView.backgroundView = nil
-		}
+		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? DiaryDayEmptyView(entryType: viewModel.selectedEntryType) : nil
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
