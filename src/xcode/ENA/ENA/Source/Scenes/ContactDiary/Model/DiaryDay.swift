@@ -5,7 +5,7 @@
 import Foundation
 import Combine
 
-class DiaryDay: Equatable {
+struct DiaryDay: Equatable {
 
 	// MARK: - Init
 
@@ -17,30 +17,25 @@ class DiaryDay: Equatable {
 		self.entries = entries
 	}
 
-	// MARK: - Protocol Equatable
-
-	static func == (lhs: DiaryDay, rhs: DiaryDay) -> Bool {
-		return lhs.dateString == rhs.dateString && lhs.entries == rhs.entries
-	}
-
 	// MARK: - Internal
 
 	let dateString: String
-
-	@Published private(set) var entries: [DiaryEntry]
+	let entries: [DiaryEntry]
 
 	var selectedEntries: [DiaryEntry] {
-		entries.filter {
-			switch $0 {
-			case .location(let location):
-				return location.isSelected
-			case .contactPerson(let contactPerson):
-				return contactPerson.isSelected
-			}
-		}
+		entries.filter { $0.isSelected }
 	}
 
-	var date: Date {
+	var formattedDate: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.setLocalizedDateFormatFromTemplate("EEEEddMMyy")
+
+		return dateFormatter.string(from: date)
+	}
+
+	// MARK: - Private
+
+	private var date: Date {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]
 
@@ -50,13 +45,6 @@ class DiaryDay: Equatable {
 		}
 
 		return date
-	}
-
-	var formattedDate: String {
-		let dateFormatter = DateFormatter()
-		dateFormatter.setLocalizedDateFormatFromTemplate("EEEEddMMyy")
-
-		return dateFormatter.string(from: date)
 	}
 
 }

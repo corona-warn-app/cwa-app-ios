@@ -72,6 +72,7 @@
 		01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A23684251A22E90043D9F8 /* ExposureSubmissionQRInfoModelTests.swift */; };
 		01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */; };
 		01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */; };
+		01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B605C8258A32930093DB8E /* DiaryDayTest.swift */; };
 		01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */; };
 		01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232624F812BC0064C0EB /* OptionGroupView.swift */; };
 		01B7232924F812DF0064C0EB /* OptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232824F812DF0064C0EB /* OptionView.swift */; };
@@ -737,6 +738,8 @@
 		01A23684251A22E90043D9F8 /* ExposureSubmissionQRInfoModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoModelTests.swift; sourceTree = "<group>"; };
 		01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModelTests.swift; sourceTree = "<group>"; };
 		01A97DD22506769F00C07C37 /* DatePickerDayViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDayViewModelTests.swift; sourceTree = "<group>"; };
+		01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewViewModelTest.swift; sourceTree = "<group>"; };
+		01B605C8258A32930093DB8E /* DiaryDayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayTest.swift; sourceTree = "<group>"; };
 		01B7232324F812500064C0EB /* DynamicTableViewOptionGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewOptionGroupCell.swift; sourceTree = "<group>"; };
 		01B7232624F812BC0064C0EB /* OptionGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupView.swift; sourceTree = "<group>"; };
 		01B7232824F812DF0064C0EB /* OptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionView.swift; sourceTree = "<group>"; };
@@ -1451,6 +1454,7 @@
 		0190982D257E5B4F0065D050 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
+				019C9F5A2589537300B26392 /* __test__ */,
 				01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */,
 				019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */,
 				01F2A560257FC79F00DA96A6 /* Cells */,
@@ -1497,6 +1501,7 @@
 		019C9F2225894D2A00B26392 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				019C9F592589536000B26392 /* __test__ */,
 				019C9F33258951BB00B26392 /* DiaryDay.swift */,
 				019C9F3A258951BE00B26392 /* DiaryEntry.swift */,
 				019C9F38258951BC00B26392 /* DiaryEntryType.swift */,
@@ -1506,6 +1511,22 @@
 				019C9F31258951B900B26392 /* LocationVisit.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		019C9F592589536000B26392 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				01B605C8258A32930093DB8E /* DiaryDayTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
+		019C9F5A2589537300B26392 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				01B605C3258A181C0093DB8E /* DiaryOverviewViewModelTest.swift */,
+			);
+			path = __test__;
 			sourceTree = "<group>";
 		};
 		01A1B440252DE53800841B63 /* QRScanner */ = {
@@ -4222,6 +4243,7 @@
 				B120C7C924AFE7B800F68FF1 /* ActiveTracingTests.swift in Sources */,
 				516E430224B89AED0008CC30 /* CoordinatorTests.swift in Sources */,
 				01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */,
+				01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */,
 				9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */,
 				B11655932491437600316087 /* RiskProvidingConfigurationTests.swift in Sources */,
 				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
