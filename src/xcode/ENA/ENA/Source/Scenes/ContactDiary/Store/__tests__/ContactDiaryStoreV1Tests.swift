@@ -530,15 +530,19 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	}
 
 	func test_When_export_Then_CorrectStringIsReturned() {
-		let databaseQueue = makeDatabaseQueue()
-		let store = makeContactDiaryStore(with: databaseQueue)
-
-		let today = Date()
+		guard let today = dateFormatter.date(from: "2020-12-15") else {
+			fatalError("Failed to create date.")
+		}
 
 		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
 			  let thirteenDaysAgo = Calendar.current.date(byAdding: .day, value: -13, to: today) else {
 			fatalError("Could not create test dates.")
 		}
+
+		let dateProviderStub = DateProviderStub(today: today)
+
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue, dateProvider: dateProviderStub)
 
 		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
 		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
@@ -566,6 +570,9 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		let expectedString = """
+			Kontakte der letzten 14 Tage (02.12.20 - 15.12.20)
+			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
+
 			15.12.20 Adam Sandale
 			15.12.20 Emma Hicks
 			15.12.20 Amsterdam
@@ -674,13 +681,14 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		return databaseQueue
 	}
 
-	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue) -> ContactDiaryStoreV1 {
+	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStoreV1 {
 		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
 
 		return ContactDiaryStoreV1(
 			databaseQueue: databaseQueue,
 			schema: schema,
-			key: "Dummy"
+			key: "Dummy",
+			dateProvider: dateProvider
 		)
 	}
 
@@ -689,6 +697,11 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		dateFormatter.formatOptions = [.withFullDate]
 		return dateFormatter
 	}()
+
+}
+
+struct DateProviderStub: DateProviding {
+	var today: Date
 
 	// swiftlint:disable:next file_length
 }

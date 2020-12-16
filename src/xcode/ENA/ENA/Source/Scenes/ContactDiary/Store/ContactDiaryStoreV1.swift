@@ -7,6 +7,16 @@ import UIKit
 import FMDB
 import Combine
 
+protocol DateProviding {
+	var today: Date { get }
+}
+
+struct DateProvider: DateProviding {
+	var today: Date {
+		Date()
+	}
+}
+
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
@@ -17,10 +27,12 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	init(
 		databaseQueue: FMDatabaseQueue,
 		schema: ContactDiaryStoreSchemaV1,
-		key: String
+		key: String,
+		dateProvider: DateProviding = DateProvider()
 	) {
 		self.databaseQueue = databaseQueue
 		self.key = key
+		self.dateProvider = dateProvider
 
 		openAndSetup()
 
@@ -44,20 +56,32 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] export entries.", log: .localData)
 
-			var exportString = ""
+			var contentHeader = "Kontakte der letzten 14 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
+
+			let endExportDate = dateProvider.today
+			guard let startExportDate = Calendar.current.date(byAdding: .day, value: -(userVisiblePeriodInDays - 1), to: endExportDate) else {
+				fatalError("Could not create test dates.")
+			}
+
+			let startDateString = germanDateFormatter.string(from: startExportDate)
+			let endDateString = germanDateFormatter.string(from: endExportDate)
+			contentHeader = String(format: contentHeader, startDateString, endDateString)
+			contentHeader.append("\n\n")
+
+			var exportString = contentHeader
 
 			let personEncounterSQL = """
 					SELECT 'A' AS sourtGroup, ContactPerson.id AS entryId, ContactPerson.name AS entryName, ContactPersonEncounter.id AS contactPersonEncounterId, ContactPersonEncounter.date
 					FROM ContactPersonEncounter
 					LEFT JOIN ContactPerson
 					ON ContactPersonEncounter.contactPersonId = ContactPerson.id
-					WHERE ContactPersonEncounter.date > date('now','-\(userVisiblePeriodInDays) days')
+					WHERE ContactPersonEncounter.date > date('\(todayDateString)','-\(userVisiblePeriodInDays) days')
 					UNION
 					SELECT 'B' AS sourtGroup, Location.id AS entryId, Location.name AS entryName, LocationVisit.id AS locationVisitId, LocationVisit.date
 					FROM LocationVisit
 					LEFT JOIN Location
 					ON LocationVisit.locationId = Location.id
-					WHERE LocationVisit.date > date('now','-\(userVisiblePeriodInDays) days')
+					WHERE LocationVisit.date > date('\(todayDateString)','-\(userVisiblePeriodInDays) days')
 					ORDER BY date DESC, sourtGroup ASC, entryName COLLATE NOCASE ASC, entryId ASC
 				"""
 
@@ -107,12 +131,12 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 			let sqlContactPersonEncounter = """
 				DELETE FROM ContactPersonEncounter
-				WHERE date < date('now','-\(dataRetentionPeriodInDays - 1) days')
+				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
 			let sqlLocationVisit = """
 				DELETE FROM LocationVisit
-				WHERE date < date('now','-\(dataRetentionPeriodInDays - 1) days')
+				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
 			do {
@@ -541,6 +565,11 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private let dataRetentionPeriodInDays = 16 // Including today.
 	private let userVisiblePeriodInDays = 14 // Including today.
 	private let key: String
+	private let dateProvider: DateProviding
+	
+	private var todayDateString: String {
+		dateFormatter.string(from: dateProvider.today)
+	}
 
 	private var dateFormatter: ISO8601DateFormatter = {
 		let dateFormatter = ISO8601DateFormatter()
@@ -667,7 +696,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		var diaryDays = [DiaryDay]()
 
 		for index in 0..<userVisiblePeriodInDays {
-			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: Date()) else {
+			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: dateProvider.today) else {
 				continue
 			}
 			let dateString = dateFormatter.string(from: date)
