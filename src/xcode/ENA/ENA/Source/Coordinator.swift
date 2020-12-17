@@ -137,7 +137,7 @@ class Coordinator: RequiresAppDependencies {
 extension Coordinator: HomeViewControllerDelegate {
 	func showRiskLegend() {
 		rootViewController.present(
-			RiskLegendViewController(),
+			UINavigationController(rootViewController: RiskLegendViewController()),
 			animated: true,
 			completion: nil
 		)

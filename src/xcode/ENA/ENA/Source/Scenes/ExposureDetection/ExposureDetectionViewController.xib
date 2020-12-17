@@ -17,6 +17,8 @@
                 <outlet property="headerView" destination="o5N-fQ-iws" id="qYW-89-QPe"/>
                 <outlet property="tableView" destination="Ecz-FJ-Tex" id="QtT-Yq-NMr"/>
                 <outlet property="titleLabel" destination="QHc-xv-Mv6" id="tv6-Tb-8by"/>
+                <outlet property="titleViewBottomConstraint" destination="Qib-Ub-C0D" id="KwK-ux-9ra"/>
+                <outlet property="view" destination="l5W-aj-R75" id="hco-cA-gwI"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

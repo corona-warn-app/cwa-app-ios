@@ -13,6 +13,8 @@ class RiskLegendViewController: DynamicTableViewController {
 		super.viewDidLoad()
 
 		navigationItem.title = AppStrings.RiskLegend.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
 
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: { [weak self] in
 			self?.dismiss(animated: true)

@@ -6,30 +6,9 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
-	// MARK: - Properties.
+final class ExposureDetectionViewController: DynamicTableViewController, CountdownTimerDelegate, RequiresAppDependencies {
 
-	private var countdown: CountdownTimer?
-
-	// MARK: - IB Outlets.
-
-	@IBOutlet var closeButton: UIButton!
-	@IBOutlet var headerView: UIView!
-	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var footerView: UIView!
-	@IBOutlet var checkButton: ENAButton!
-
-	var state: State {
-		didSet {
-			updateUI()
-		}
-	}
-	private weak var delegate: ExposureDetectionViewControllerDelegate?
-
-	private let consumer = RiskConsumer()
-
-	// MARK: - Creating an Exposure Detection View Controller.
+	// MARK: - Init
 
 	init(
 		state: State,
@@ -38,7 +17,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		self.state = state
 		self.delegate = delegate
 
-		super.init(nibName: nil, bundle: nil)
+		super.init(nibName: "ExposureDetectionViewController", bundle: .main)
 	}
 
 	@available(*, unavailable)
@@ -49,9 +28,9 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	deinit {
 		riskProvider.removeRisk(consumer)
 	}
-}
 
-extension ExposureDetectionViewController {
+	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -81,17 +60,17 @@ extension ExposureDetectionViewController {
 				Log.info("[ExposureDetectionViewController] Don't show error to user: \(error).", log: .riskDetection)
 				return
 			}
-			
+
 			switch error {
 			case .inactive:
 				self?.state.riskState = .inactive
 			default:
 				self?.state.riskState = .detectionFailed
 			}
-			
+
 			self?.updateUI()
 		}
-		
+
 		consumer.didChangeActivityState = { [weak self] activityState in
 			self?.state.activityState = activityState
 		}
@@ -121,7 +100,7 @@ extension ExposureDetectionViewController {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
 		(cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
-		
+
 		if cell.backgroundView == nil {
 			cell.backgroundView = UIView()
 		}
@@ -132,21 +111,61 @@ extension ExposureDetectionViewController {
 
 		return cell
 	}
-}
 
-extension ExposureDetectionViewController {
-	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		let offset = scrollView.contentOffset.y
+	// MARK: - Protocol CountdownTimerDelegate
 
-		if offset > 0 {
-			titleViewBottomConstraint.constant = 0
-		} else {
-			titleViewBottomConstraint.constant = -offset
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
+		self.updateCheckButton(time)
+	}
+
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		self.updateCheckButton()
+	}
+
+	// MARK: - Internal
+
+	enum ReusableCellIdentifer: String, TableViewCellReuseIdentifiers {
+		case risk = "riskCell"
+		case riskText = "riskTextCell"
+		case riskRefresh = "riskRefreshCell"
+		case riskLoading = "riskLoadingCell"
+		case header = "headerCell"
+		case guide = "guideCell"
+		case longGuide = "longGuideCell"
+		case link = "linkCell"
+		case hotline = "hotlineCell"
+	}
+
+	var state: State {
+		didSet {
+			updateUI()
 		}
 	}
-}
 
-private extension ExposureDetectionViewController {
+	func updateUI() {
+		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
+
+		updateCloseButton()
+		updateHeader()
+		updateTableView()
+		updateCheckButton()
+
+		view.setNeedsLayout()
+	}
+
+	// MARK: - Private
+
+	@IBOutlet private var closeButton: UIButton!
+	@IBOutlet private var headerView: UIView!
+	@IBOutlet private var titleViewBottomConstraint: NSLayoutConstraint!
+	@IBOutlet private var titleLabel: UILabel!
+	@IBOutlet private var footerView: UIView!
+	@IBOutlet private var checkButton: ENAButton!
+
+	private var countdown: CountdownTimer?
+	private weak var delegate: ExposureDetectionViewControllerDelegate?
+	private let consumer = RiskConsumer()
+
 	@IBAction private func tappedClose() {
 		dismiss(animated: true)
 	}
@@ -162,9 +181,16 @@ private extension ExposureDetectionViewController {
 		}
 		riskProvider.requestRisk(userInitiated: true)
 	}
-}
 
-extension ExposureDetectionViewController {
+	private func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let offset = scrollView.contentOffset.y
+
+		if offset > 0 {
+			titleViewBottomConstraint.constant = 0
+		} else {
+			titleViewBottomConstraint.constant = -offset
+		}
+	}
 
 	private func registerCells() {
 		tableView.register(
@@ -211,17 +237,6 @@ extension ExposureDetectionViewController {
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
 			forCellReuseIdentifier: ReusableCellIdentifer.link.rawValue
 		)
-	}
-
-	func updateUI() {
-		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
-
-		updateCloseButton()
-		updateHeader()
-		updateTableView()
-		updateCheckButton()
-
-		view.setNeedsLayout()
 	}
 
 	private func updateCloseButton() {
@@ -317,33 +332,5 @@ extension ExposureDetectionViewController {
 			self.checkButton.isEnabled = false
 		}
 	}
-}
-
-// MARK: - CountdownTimerDelegate methods.
-
-extension ExposureDetectionViewController: CountdownTimerDelegate {
-
-	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
-		self.updateCheckButton(time)
-	}
-
-	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
-		self.updateCheckButton()
-	}
-}
-
-extension ExposureDetectionViewController {
-
-	enum ReusableCellIdentifer: String, TableViewCellReuseIdentifiers {
-		case risk = "riskCell"
-		case riskText = "riskTextCell"
-		case riskRefresh = "riskRefreshCell"
-		case riskLoading = "riskLoadingCell"
-		case header = "headerCell"
-		case guide = "guideCell"
-		case longGuide = "longGuideCell"
-		case link = "linkCell"
-		case hotline = "hotlineCell"
-	}
-
+	
 }

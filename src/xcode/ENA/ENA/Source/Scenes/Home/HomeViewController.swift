@@ -21,7 +21,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func addToEnStateUpdateList(_ anyObject: AnyObject?)
 }
 
-final class HomeViewController: UIViewController, RequiresAppDependencies {
+final class HomeViewController: UICollectionViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 	init(
 		delegate: HomeViewControllerDelegate,
@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	) {
 		self.delegate = delegate
 
-		super.init(nibName: nil, bundle: nil)
+		super.init(collectionViewLayout: .init())
 
 		var riskState: RiskState
 		if let riskCalculationResult = store.riskCalculationResult {
@@ -80,7 +80,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private var sections: HomeInteractor.SectionConfiguration = []
 	private var dataSource: CollectionViewDiffableDataSource<Section, AnyHashable>?
-	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
@@ -421,8 +420,8 @@ extension HomeViewController: HomeLayoutDelegate {
 	}
 }
 
-extension HomeViewController: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+extension HomeViewController {
+	override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
 		let cell = collectionView.cellForItem(at: indexPath)
 		switch cell {
 		case is RiskThankYouCollectionViewCell: return false
@@ -430,15 +429,15 @@ extension HomeViewController: UICollectionViewDelegate {
 		}
 	}
 
-	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+	override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.highlight()
 	}
 
-	func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+	override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.unhighlight()
 	}
 
-	func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		showScreen(at: indexPath)
 	}
 }
