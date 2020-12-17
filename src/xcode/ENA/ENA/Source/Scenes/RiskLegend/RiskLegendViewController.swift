@@ -6,35 +6,34 @@ import Foundation
 import UIKit
 
 class RiskLegendViewController: DynamicTableViewController {
-	@IBOutlet weak var titleLabel: UILabel!
-	@IBOutlet weak var subtitleLabel: UILabel!
+
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		navigationItem.title = AppStrings.RiskLegend.title
 
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: { [weak self] in
+			self?.dismiss(animated: true)
+		})
+
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.separatorStyle = .none
+		tableView.allowsSelection = false
 
 		dynamicTableViewModel = model
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+
 		cell.backgroundColor = .clear
+
 		return cell
 	}
 
-	@IBAction func close() {
-		dismiss(animated: true)
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-
-		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
-	}
 }
 
 extension RiskLegendViewController {
