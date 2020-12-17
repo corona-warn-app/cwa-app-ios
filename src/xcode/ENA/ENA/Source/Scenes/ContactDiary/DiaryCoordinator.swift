@@ -10,11 +10,11 @@ class DiaryCoordinator {
 
 	init(
 		store: Store,
-		diaryStore: DiaryStoring,
+		diaryStore: DiaryStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
-		self.diaryService = DiaryService(store: diaryStore)
+		self.diaryStore = diaryStore
 		self.parentNavigationController = parentNavigationController
 	}
 
@@ -31,7 +31,7 @@ class DiaryCoordinator {
 	// MARK: - Private
 
 	private let store: Store
-	private let diaryService: DiaryService
+	private let diaryStore: DiaryStoringProviding
 
 	private weak var parentNavigationController: UINavigationController?
 
@@ -42,9 +42,9 @@ class DiaryCoordinator {
 
 	// MARK: Show Screens
 
-	lazy var overviewScreen: DiaryOverviewTableViewController = {
+	private lazy var overviewScreen: DiaryOverviewTableViewController = {
 		return DiaryOverviewTableViewController(
-			diaryService: diaryService,
+			viewModel: DiaryOverviewViewModel(store: diaryStore),
 			onCellSelection: { [weak self] day in
 				self?.showDayScreen(day: day)
 			},
@@ -55,10 +55,10 @@ class DiaryCoordinator {
 				self?.showExportActivity()
 			},
 			onEditContactPersonsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(type: .contactPerson)
+				self?.showEditEntriesScreen(entryType: .contactPerson)
 			},
 			onEditLocationsButtonTap: { [weak self] in
-				self?.showEditEntriesScreen(type: .location)
+				self?.showEditEntriesScreen(entryType: .location)
 			}
 		)
 	}()
@@ -92,51 +92,68 @@ class DiaryCoordinator {
 	}
 
 	private func showDayScreen(day: DiaryDay) {
-		let viewController = DiaryDayTableViewController(
-			diaryDayService: DiaryDayService(day: day, store: diaryService.store),
-			onAddEntryCellTap: { [weak self] day, entryType in
-				self?.showAddAndEditEntryScreen(mode: .add(day, entryType))
-			}
+		let viewController = DiaryDayViewController(
+			viewModel: DiaryDayViewModel(
+				day: day,
+				store: diaryStore,
+				onAddEntryCellTap: { [weak self] day, entryType in
+					self?.showAddAndEditEntryScreen(mode: .add(day, entryType))
+				}
+			)
 		)
 
 		parentNavigationController?.pushViewController(viewController, animated: true)
 	}
 
-	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode) {
-		let navigationController = UINavigationController()
+	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from fromViewController: UIViewController? = nil) {
+		let presentingViewController = fromViewController ?? parentNavigationController
+
+		let viewModel = DiaryAddAndEditEntryViewModel(
+			mode: mode,
+			store: diaryStore
+		)
 
 		let viewController = DiaryAddAndEditEntryViewController(
-			mode: mode,
-			diaryService: diaryService,
-			onDismiss: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
+			viewModel: viewModel,
+			dismiss: {
+				presentingViewController?.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
+		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
-		parentNavigationController?.present(navigationController, animated: true)
+		presentingViewController?.present(navigationController, animated: true)
 	}
 
-	private func showEditEntriesScreen(type: DiaryEntryType) {
-		let navigationController = UINavigationController()
+	private func showEditEntriesScreen(entryType: DiaryEntryType) {
+		var navigationController: UINavigationController!
 
-		let viewController = DiaryEditEntriesTableViewController(
-			diaryService: diaryService,
+		let viewController = DiaryEditEntriesViewController(
+			entryType: entryType,
+			store: diaryStore,
 			onCellSelection: { [weak self] entry in
-				self?.showAddAndEditEntryScreen(mode: .edit(entry))
+				self?.showAddAndEditEntryScreen(
+					mode: .edit(entry),
+					from: navigationController
+				)
 			},
 			onDismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-		navigationController.viewControllers = [viewController]
-
+		navigationController = UINavigationController(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 	private func showExportActivity() {
+		let exportString: String
+		if case let .success(string) = diaryStore.export() {
+			exportString = string
+		} else {
+			exportString = ""
+		}
+
 		let viewController = UIActivityViewController(
-			activityItems: [diaryService.exportString],
+			activityItems: [exportString],
 			applicationActivities: nil
 		)
 		parentNavigationController?.present(viewController, animated: true, completion: nil)

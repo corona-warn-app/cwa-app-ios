@@ -17,6 +17,9 @@ extension OSLog {
 	static let appConfig = OSLog(subsystem: subsystem, category: "appconfig")
 	/// Contact Diary
 	static let contactdiary = OSLog(subsystem: subsystem, category: "contactdiary")
+	/// Background - Stuff that happens in the Background.
+	static let background = OSLog(subsystem: subsystem, category: "background")
+
 }
 
 enum Log {
@@ -151,6 +154,10 @@ struct FileLogger {
 			return ""
 		}
 		return logString
+	}
+	
+	func deleteLogs() {
+		try? FileManager.default.removeItem(at: logFileBaseURL)
 	}
 }
 
