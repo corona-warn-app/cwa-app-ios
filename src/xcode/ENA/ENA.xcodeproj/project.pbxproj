@@ -121,6 +121,7 @@
 		01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */; };
 		01D02707258BBCC700B6389A /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */; };
 		01D02708258BBCC700B6389A /* ActionDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E7258BB6DB00B6389A /* ActionDetailTableViewCell.xib */; };
+		01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D0270F258BC17500B6389A /* InviteFriendsViewController.xib */; };
 		01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */; };
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
@@ -650,8 +651,7 @@
 		EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB8E247FB46C001B0A71 /* ENStateTests.swift */; };
 		EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB90247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift */; };
 		EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE26950A248FCB0300BAE234 /* InfoPlist.strings */; };
-		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
-		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
+		EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* InviteFriendsViewController.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF10679246EBF8B009DFB4E /* ResetViewController.swift */; };
@@ -811,6 +811,7 @@
 		01D026E8258BB6DD00B6389A /* DescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionTableViewCell.xib; sourceTree = "<group>"; };
 		01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionTableViewCell.xib; sourceTree = "<group>"; };
 		01D026ED258BB70100B6389A /* EuTracingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EuTracingTableViewCell.xib; sourceTree = "<group>"; };
+		01D0270F258BC17500B6389A /* InviteFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteFriendsViewController.xib; sourceTree = "<group>"; };
 		01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModelTests.swift; sourceTree = "<group>"; };
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
@@ -1361,8 +1362,7 @@
 		EE22DB90247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStateHandlerObserverDelegate.swift; sourceTree = "<group>"; };
 		EE269509248FCB0300BAE234 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE26950B248FCB1600BAE234 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InviteFriends.storyboard; sourceTree = "<group>"; };
-		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
+		EE278B2F245F2C8A008B06F9 /* InviteFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteFriendsViewController.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2479,7 +2479,6 @@
 			children = (
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420CF24586AB300AD70CA /* Settings.storyboard */,
-				EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -3510,7 +3509,8 @@
 		EE278B2E245F2C58008B06F9 /* FriendsInvite */ = {
 			isa = PBXGroup;
 			children = (
-				EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */,
+				EE278B2F245F2C8A008B06F9 /* InviteFriendsViewController.swift */,
+				01D0270F258BC17500B6389A /* InviteFriendsViewController.xib */,
 			);
 			path = FriendsInvite;
 			sourceTree = "<group>";
@@ -3777,7 +3777,6 @@
 				01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
-				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				01D02704258BBCC700B6389A /* DescriptionTableViewCell.xib in Resources */,
@@ -3798,6 +3797,7 @@
 				51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
+				01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */,
 				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
 				51CE1B88246078B6002CF42A /* RiskLevelCollectionViewCell.xib in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
@@ -4098,7 +4098,7 @@
 				4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */,
 				ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */,
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
-				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
+				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,

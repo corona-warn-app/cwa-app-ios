@@ -205,7 +205,7 @@ extension Coordinator: HomeViewControllerDelegate {
 
 	func showInviteFriends() {
 		rootViewController.pushViewController(
-			FriendsInviteController.initiate(for: .inviteFriends),
+			InviteFriendsViewController(),
 			animated: true
 		)
 	}
