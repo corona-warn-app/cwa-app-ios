@@ -87,6 +87,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
 
 		let flashButton = UIButton(type: .custom)
+		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
 		#warning("Check image converted from SFSymbols to pdf asset")
 		flashButton.setImage(UIImage(named: "bolt"), for: .normal)
