@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-enum accessibilityLabels {
+enum AccessibilityLabels {
 	
 	// access Localized.strings via UITest bundle
 	static func localized(_ key: String) -> String {
