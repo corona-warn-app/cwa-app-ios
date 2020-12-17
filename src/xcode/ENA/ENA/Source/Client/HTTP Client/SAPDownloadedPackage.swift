@@ -13,7 +13,7 @@ struct SAPDownloadedPackage: Fingerprinting {
 	init(keysBin: Data, signature: Data) {
 		self.bin = keysBin
 		self.signature = signature
-		self.fingerprint = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
+		self.fingerprint = bin.sha256String()
 	}
 
 	init?(compressedData: Data) {
