@@ -23,8 +23,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		guard case let .success(id) = result,
-			  let contactPerson = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
-			  let name = contactPerson.string(forColumn: "name") else {
+			  let contactPersonResult = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
+			  let name = contactPersonResult.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}

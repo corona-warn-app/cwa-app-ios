@@ -87,6 +87,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 			do {
 				let queryResult = try database.executeQuery(personEncounterSQL, values: [])
+				defer {
+					queryResult.close()
+				}
 
 				while queryResult.next() {
 					let name = queryResult.string(forColumn: "entryName") ?? ""
@@ -177,6 +180,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard group.wait(timeout: DispatchTime.now() + timeout) == .success else {
+			databaseQueue.interrupt()
 			return .failure(.unknown)
 		}
 
@@ -706,13 +710,16 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			"""
 
 		do {
-			let result = try database.executeQuery(sql, values: [date])
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
 
-			while result.next() {
-				let encounterId = result.longLongInt(forColumn: "contactPersonEncounterId")
+			while queryResult.next() {
+				let encounterId = queryResult.longLongInt(forColumn: "contactPersonEncounterId")
 				let contactPerson = DiaryContactPerson(
-					id: Int(result.int(forColumn: "contactPersonId")),
-					name: result.string(forColumn: "name") ?? "",
+					id: Int(queryResult.int(forColumn: "contactPersonId")),
+					name: queryResult.string(forColumn: "name") ?? "",
 					encounterId: encounterId == 0 ? nil : Int(encounterId)
 				)
 				contactPersons.append(contactPerson)
@@ -738,13 +745,16 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			"""
 
 		do {
-			let result = try database.executeQuery(sql, values: [date])
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
 
-			while result.next() {
-				let visitId = result.longLongInt(forColumn: "locationVisitId")
+			while queryResult.next() {
+				let visitId = queryResult.longLongInt(forColumn: "locationVisitId")
 				let contactPerson = DiaryLocation(
-					id: Int(result.int(forColumn: "locationId")),
-					name: result.string(forColumn: "name") ?? "",
+					id: Int(queryResult.int(forColumn: "locationId")),
+					name: queryResult.string(forColumn: "name") ?? "",
 					visitId: visitId == 0 ? nil : Int(visitId)
 				)
 				locations.append(contactPerson)
