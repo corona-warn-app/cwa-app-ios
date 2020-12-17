@@ -577,6 +577,7 @@
 		BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
+		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
 		CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8638522477EBD400A5A07C /* SettingsViewModel.swift */; };
@@ -1265,6 +1266,7 @@
 		BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryTextField.swift; sourceTree = "<group>"; };
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
+		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
 		CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
@@ -1436,6 +1438,7 @@
 		0190982A257E5A9D0065D050 /* ContactDiary */ = {
 			isa = PBXGroup;
 			children = (
+				BAEC99BE258B6FFA00B98ECA /* __tests__ */,
 				0190982B257E5AF70065D050 /* DiaryCoordinator.swift */,
 				0190982C257E5B340065D050 /* Info */,
 				0190982D257E5B4F0065D050 /* Overview */,
@@ -3315,6 +3318,14 @@
 			path = TestResultAvailable;
 			sourceTree = "<group>";
 		};
+		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		CD8638512477EBAA00A5A07C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -4339,6 +4350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */,
 				94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */,
 				134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */,
 				EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */,

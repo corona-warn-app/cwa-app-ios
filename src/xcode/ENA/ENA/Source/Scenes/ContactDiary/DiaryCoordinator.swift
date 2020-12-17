@@ -23,6 +23,13 @@ class DiaryCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
+		#if DEBUG
+		if isUITesting {
+			if let diaryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
+				store.diaryInfoScreenShown = (diaryInfoScreenShown != "NO")
+			}
+		}
+		#endif
 		if !infoScreenShown {
 			showInfoScreen()
 		}
