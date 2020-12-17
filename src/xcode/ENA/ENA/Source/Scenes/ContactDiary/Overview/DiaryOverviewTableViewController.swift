@@ -10,14 +10,14 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Init
 
 	init(
-		diaryService: DiaryService,
+		viewModel: DiaryOverviewViewModel,
 		onCellSelection: @escaping (DiaryDay) -> Void,
 		onInfoButtonTap: @escaping () -> Void,
 		onExportButtonTap: @escaping () -> Void,
 		onEditContactPersonsButtonTap: @escaping () -> Void,
 		onEditLocationsButtonTap: @escaping () -> Void
 	) {
-		self.diaryService = diaryService
+		self.viewModel = viewModel
 		self.onCellSelection = onCellSelection
 		self.onInfoButtonTap = onInfoButtonTap
 		self.onExportButtonTap = onExportButtonTap
@@ -26,7 +26,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 		super.init(style: .plain)
 
-		diaryService.$days
+		viewModel.$days
+			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
 			}
@@ -44,9 +45,11 @@ class DiaryOverviewTableViewController: UITableViewController {
 		super.viewDidLoad()
 
 		setupTableView()
-		navigationItem.largeTitleDisplayMode = .always
 
+		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.ContactDiary.Overview.title
+
+		view.backgroundColor = .enaColor(for: .darkBackground)
 		
 		let moreImage = UIImage(named: "Icons_More_Circle")
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
@@ -57,26 +60,19 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return viewModel.numberOfSections
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch section {
-		case 0:
-			return 1
-		case 1:
-			return diaryService.days.count
-		default:
-			fatalError("Invalid section")
-		}
+		viewModel.numberOfRows(in: section)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch indexPath.section {
-		case 0:
-			return descriptionCell(at: indexPath)
-		case 1:
-			return dayCell(at: indexPath)
+		switch DiaryOverviewViewModel.Section(rawValue: indexPath.section) {
+		case .description:
+			return descriptionCell(forRowAt: indexPath)
+		case .days:
+			return dayCell(forRowAt: indexPath)
 		default:
 			fatalError("Invalid section")
 		}
@@ -85,12 +81,16 @@ class DiaryOverviewTableViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		onCellSelection(diaryService.days[indexPath.row])
+		guard indexPath.section == 1 else {
+			return
+		}
+
+		onCellSelection(viewModel.days[indexPath.row])
 	}
 
 	// MARK: - Private
 
-	private let diaryService: DiaryService
+	private let viewModel: DiaryOverviewViewModel
 	private let onCellSelection: (DiaryDay) -> Void
 	private let onInfoButtonTap: () -> Void
 	private let onExportButtonTap: () -> Void
@@ -115,7 +115,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		tableView.estimatedRowHeight = 60
 	}
 
-	private func descriptionCell(at indexPath: IndexPath) -> UITableViewCell {
+	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDescriptionTableViewCell.self), for: indexPath) as? DiaryOverviewDescriptionTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDescriptionTableViewCell")
 		}
@@ -123,12 +123,12 @@ class DiaryOverviewTableViewController: UITableViewController {
 		return cell
 	}
 
-	private func dayCell(at indexPath: IndexPath) -> UITableViewCell {
+	private func dayCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
 
-		cell.configure(day: diaryService.days[indexPath.row])
+		cell.configure(day: viewModel.days[indexPath.row])
 
 		return cell
 	}

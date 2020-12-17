@@ -43,7 +43,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle),
+						alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -51,7 +52,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.ContactDiary.Information.itemContactTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemContactTitle),
+						alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -59,7 +61,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiary.Information.itemLockTitle)
+						text: .string(AppStrings.ContactDiary.Information.itemLockTitle),
+            alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -67,7 +70,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
-						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically)
+						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically),
+            alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -75,7 +79,8 @@ struct DiaryInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
-						text: .string(AppStrings.ContactDiary.Information.exportTextformat)
+						text: .string(AppStrings.ContactDiary.Information.exportTextformat),
+						alignment: .top
 					)
 				]
 			),
