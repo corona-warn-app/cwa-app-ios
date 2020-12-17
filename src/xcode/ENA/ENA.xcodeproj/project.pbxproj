@@ -220,6 +220,7 @@
 		35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701F32556C016008AEA91 /* Migration1To2Tests.swift */; };
 		35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */; };
 		35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */; };
+		35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */; };
 		35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */; };
 		35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */; };
 		35EA68522555488600335F73 /* SQLiteError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA68512555488600335F73 /* SQLiteError.swift */; };
@@ -925,6 +926,7 @@
 		35C701F32556C016008AEA91 /* Migration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2Tests.swift; sourceTree = "<group>"; };
 		35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalCell.swift; sourceTree = "<group>"; };
 		35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalCell.xib; sourceTree = "<group>"; };
+		35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKitFallbacks.swift; sourceTree = "<group>"; };
 		35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV2.swift; sourceTree = "<group>"; };
 		35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV2.swift; sourceTree = "<group>"; };
 		35EA68512555488600335F73 /* SQLiteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteError.swift; sourceTree = "<group>"; };
@@ -1883,6 +1885,14 @@
 				3523CA31252DC617002E6DEC /* Screenshots.xctestplan */,
 			);
 			name = TestPlans;
+			sourceTree = "<group>";
+		};
+		35EA6158258BC88A0062B50A /* iOS 12 Fallback */ = {
+			isa = PBXGroup;
+			children = (
+				35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */,
+			);
+			path = "iOS 12 Fallback";
 			sourceTree = "<group>";
 		};
 		35EA68402554BEB200335F73 /* V2 */ = {
@@ -3192,6 +3202,7 @@
 		B1CD333F2486AA5F00B06E9B /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				35EA6158258BC88A0062B50A /* iOS 12 Fallback */,
 				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
 			);
 			path = Security;
@@ -4011,6 +4022,7 @@
 				B1175213248A83AB00C3325C /* Risk.swift in Sources */,
 				A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */,
 				B1A89F3824819C2B00DA1CEC /* HomeInteractor.swift in Sources */,
+				35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */,
 				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
 				01F2A54F257FC0A000DA96A6 /* HomeDiaryCollectionViewCell.swift in Sources */,

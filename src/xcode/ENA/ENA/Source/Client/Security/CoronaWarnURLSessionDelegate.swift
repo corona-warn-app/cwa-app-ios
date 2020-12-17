@@ -98,7 +98,7 @@ extension CoronaWarnURLSessionDelegate {
 		var keyWithHeader = Data(rsa2048Asn1HeaderBytes)
 		keyWithHeader.append(data)
 
-		let hash = SHA256.hash(data: keyWithHeader)
+		let hash = keyWithHeader.sha256()
 		return Data(hash).base64EncodedString()
 	}
 }
