@@ -40,6 +40,8 @@ protocol DiaryStoring {
 	func removeAllContactPersons() -> DiaryStoringVoidResult
 	@discardableResult
 	func cleanup() -> DiaryStoringVoidResult
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult
 }
 
 protocol DiaryProviding {

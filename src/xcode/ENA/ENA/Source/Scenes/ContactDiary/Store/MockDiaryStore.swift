@@ -140,6 +140,11 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
+	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult {
+		// There is no cleanup implemented (deleting old entries) for the mock.
+		return .success(())
+	}
+
 	// MARK: - Private
 
 	private var contactPersons: [DiaryContactPerson] = []

@@ -165,6 +165,27 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return result
 	}
 
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult {
+		let group = DispatchGroup()
+		var result: DiaryStoringVoidResult?
+
+		group.enter()
+		DispatchQueue.global().async {
+			result = self.cleanup()
+			group.leave()
+		}
+
+		guard group.wait(timeout: DispatchTime.now() + timeout) == .success else {
+			return .failure(.unknown)
+		}
+
+		guard let _result = result else {
+			fatalError("Nil result from cleanup is not expected.")
+		}
+		return _result
+	}
+
 	func addContactPerson(name: String) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
 
