@@ -583,6 +583,21 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	@discardableResult
 	func reset() -> DiaryStoringVoidResult {
+		let dropTablesResult = dropTables()
+		if case let .failure(error) = dropTablesResult {
+			return .failure(error)
+		}
+
+		openAndSetup()
+
+		databaseQueue.inDatabase { database in
+			updateDiaryDays(with: database)
+		}
+
+		return .success(())
+	}
+
+	private func dropTables() -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -602,15 +617,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			}
 
 			result = .success(())
-		}
-
-		openAndSetup()
-
-		databaseQueue.inDatabase { database in
-			let updateResult = updateDiaryDays(with: database)
-			if case let .failure(error) = updateResult {
-				result = .failure(error)
-			}
 		}
 
 		guard let _result = result else {
@@ -751,6 +757,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(locations)
 	}
 
+	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
 
