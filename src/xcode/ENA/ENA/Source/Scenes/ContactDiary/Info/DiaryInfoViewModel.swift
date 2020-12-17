@@ -81,14 +81,6 @@ struct DiaryInfoViewModel {
 			),
 			// Legal text
 			.section(cells: [
-//				.acknowledgement(
-//					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
-//					description: NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
-//					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
-//					configure: { _, cell, _ in
-//						cell.backgroundColor = .enaColor(for: .background)
-//					}
-//				)
 				.legalExtended(
 					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
 					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
