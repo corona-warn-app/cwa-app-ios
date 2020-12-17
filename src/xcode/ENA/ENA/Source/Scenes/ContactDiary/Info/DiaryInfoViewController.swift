@@ -51,15 +51,15 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 	}
 
 	// MARK: - Internal
-
+	
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legalExtended = "DynamicLegalExtendedCell"
+	}
+	
 	// MARK: - Private
 
 	private let viewModel: DiaryInfoViewModel
 	private let onDismiss: () -> Void
-
-	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case legal = "DynamicLegalCell"
-	}
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -77,8 +77,8 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
