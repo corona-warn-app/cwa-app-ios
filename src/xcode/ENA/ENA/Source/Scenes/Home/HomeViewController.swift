@@ -23,8 +23,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 
 final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-	init?(
-		coder: NSCoder,
+	init(
 		delegate: HomeViewControllerDelegate,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
@@ -32,7 +31,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	) {
 		self.delegate = delegate
 
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 
 		var riskState: RiskState
 		if let riskCalculationResult = store.riskCalculationResult {
@@ -100,6 +99,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		setupBarButtonItems()
 		setupBackgroundFetchAlert()
 		configureCollectionView()
 		configureDataSource()
@@ -119,18 +119,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		super.viewWillAppear(animated)
 		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
-		updateBackgroundColor()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		showInformationHowRiskDetectionWorks()
 		showDeltaOnboarding()
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateBackgroundColor()
 	}
 
 	private func showInformationHowRiskDetectionWorks() {
@@ -184,6 +178,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
 		}.store(in: &subscriptions)
+	}
+
+	private func setupBarButtonItems() {
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
+
+		let infoButton = UIButton(type: .infoLight)
+		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.
@@ -351,6 +353,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
 
+		collectionView.showsHorizontalScrollIndicator = false
+		collectionView.isDirectionalLockEnabled = true
+		collectionView.backgroundColor = .enaColor(for: .darkBackground)
+
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
 			RiskLevelCollectionViewCell.self,
@@ -389,14 +395,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func updateSections() {
 		sections = homeInteractor.sections
-	}
-
-	private func updateBackgroundColor() {
-		if traitCollection.userInterfaceStyle == .light {
-			collectionView.backgroundColor = .enaColor(for: .background)
-		} else {
-			collectionView.backgroundColor = .enaColor(for: .separator)
-		}
 	}
 
 	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {

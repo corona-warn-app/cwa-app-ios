@@ -58,15 +58,12 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler) {
-		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			HomeViewController(
-				coder: coder,
-				delegate: self,
-				exposureManagerState: exposureManager.exposureManagerState,
-				initialEnState: enStateHandler.state,
-				exposureSubmissionService: self.exposureSubmissionService
-			)
-		}
+		let homeController = HomeViewController(
+			delegate: self,
+			exposureManagerState: exposureManager.exposureManagerState,
+			initialEnState: enStateHandler.state,
+			exposureSubmissionService: self.exposureSubmissionService
+		)
 
 		self.homeController = homeController
 
