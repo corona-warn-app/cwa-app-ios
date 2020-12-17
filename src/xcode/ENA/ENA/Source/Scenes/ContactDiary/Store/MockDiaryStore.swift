@@ -145,6 +145,16 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
+	func reset() -> DiaryStoringVoidResult {
+		contactPersons.removeAll()
+		contactPersonEncounters.removeAll()
+		locations.removeAll()
+		locationVisits.removeAll()
+
+		updateDays()
+		return .success(())
+	}
+
 	// MARK: - Private
 
 	private var contactPersons: [DiaryContactPerson] = []

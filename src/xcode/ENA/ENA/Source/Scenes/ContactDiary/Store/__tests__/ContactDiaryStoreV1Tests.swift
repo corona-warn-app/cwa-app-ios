@@ -589,6 +589,50 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertEqual(exportString, expectedString)
 	}
 
+	func test_When_Reset_Then_DatabaseIsEmpty() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		// Add data and check if its persisted.
+
+		let personId = addContactPerson(name: "Some Person", to: store)
+		addPersonEncounter(personId: personId, date: Date(), store: store)
+		let locationId = addLocation(name: "Some Location", to: store)
+		addLocationVisit(locationId: locationId, date: Date(), store: store)
+
+		XCTAssertNotNil(fetchEntries(for: "Location", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "ContactPerson", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
+
+		// Reset store and check if date was removed.
+
+		guard case .success = store.reset() else {
+			XCTFail("Failure not expected.")
+			return
+		}
+
+		let numberOfDiaryEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
+		XCTAssertEqual(numberOfDiaryEntries, 0)
+
+		XCTAssertNil(fetchEntries(for: "Location", with: locationId, from: databaseQueue))
+		XCTAssertNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
+		XCTAssertNil(fetchEntries(for: "ContactPerson", with: locationId, from: databaseQueue))
+		XCTAssertNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
+
+		// Add again some data an check if persistence is working again.
+
+		let person1Id = addContactPerson(name: "Some Person", to: store)
+		addPersonEncounter(personId: person1Id, date: Date(), store: store)
+		let location1Id = addLocation(name: "Some Location", to: store)
+		addLocationVisit(locationId: location1Id, date: Date(), store: store)
+
+		XCTAssertNotNil(fetchEntries(for: "Location", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "LocationVisit", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "ContactPerson", with: locationId, from: databaseQueue))
+		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
+	}
+
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")

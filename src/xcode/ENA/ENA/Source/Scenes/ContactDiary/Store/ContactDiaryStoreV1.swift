@@ -33,10 +33,10 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		self.databaseQueue = databaseQueue
 		self.key = key
 		self.dateProvider = dateProvider
+		self.schema = schema
 
 		openAndSetup()
 
-		createSchemaIfNeeded(schema: schema)
 		cleanup()
 
 		databaseQueue.inDatabase { database in
@@ -580,6 +580,45 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	func removeAllContactPersons() -> DiaryStoringVoidResult {
 		return removeAllEntries(from: "ContactPerson")
 	}
+
+	@discardableResult
+	func reset() -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			let sql = """
+					PRAGMA journal_mode=OFF;
+					DROP TABLE Location;
+					DROP TABLE LocationVisit;
+					DROP TABLE ContactPerson;
+					DROP TABLE ContactPersonEncounter;
+					VACUUM;
+				"""
+
+			guard database.executeStatements(sql) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		openAndSetup()
+
+		databaseQueue.inDatabase { database in
+			let updateResult = updateDiaryDays(with: database)
+			if case let .failure(error) = updateResult {
+				result = .failure(error)
+			}
+		}
+
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
+	}
 	
 	// MARK: - Private
 
@@ -587,7 +626,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private let userVisiblePeriodInDays = 14 // Including today.
 	private let key: String
 	private let dateProvider: DateProviding
-	
+	private let schema: ContactDiaryStoreSchemaV1
+
 	private var todayDateString: String {
 		dateFormatter.string(from: dateProvider.today)
 	}
@@ -607,10 +647,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	}()
 
 	private let databaseQueue: FMDatabaseQueue
-
-	private func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
-		_ = schema.create()
-	}
 
 	private func openAndSetup() {
 		databaseQueue.inDatabase { database in
@@ -638,6 +674,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 		}
+
+		_ = schema.create()
 	}
 
 	private func registerToDidBecomeActiveNotification() {

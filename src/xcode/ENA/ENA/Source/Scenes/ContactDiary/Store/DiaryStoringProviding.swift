@@ -42,6 +42,8 @@ protocol DiaryStoring {
 	func cleanup() -> DiaryStoringVoidResult
 	@discardableResult
 	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult
+	@discardableResult
+	func reset() -> DiaryStoringVoidResult
 }
 
 protocol DiaryProviding {
