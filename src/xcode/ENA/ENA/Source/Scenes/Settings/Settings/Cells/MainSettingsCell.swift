@@ -4,7 +4,7 @@
 
 import UIKit
 
-class MainSettingsTableViewCell: UITableViewCell {
+class MainSettingsCell: UITableViewCell {
 	@IBOutlet var iconImageView: UIImageView!
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var stateLabel: UILabel!

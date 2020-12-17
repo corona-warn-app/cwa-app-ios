@@ -9,8 +9,8 @@ class BackgroundAppRefreshViewController: UIViewController {
 
 	// MARK: - Init
 	
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
+	init() {
+		super.init(nibName: nil, bundle: nil)
 
 		viewModel = BackgroundAppRefreshViewModel(
 			onOpenSettings: {
@@ -26,6 +26,11 @@ class BackgroundAppRefreshViewController: UIViewController {
 				}
 			}
 		)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	// MARK: - Overrides

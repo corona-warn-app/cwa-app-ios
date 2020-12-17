@@ -4,6 +4,6 @@
 
 import UIKit
 
-class LabelTableViewCell: UITableViewCell {
+class SettingsLabelCell: UITableViewCell {
 	@IBOutlet var titleLabel: UILabel!
 }

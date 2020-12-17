@@ -99,7 +99,7 @@ extension NotificationSettingsViewModel {
 	}
 
 	struct SettingsOnItem {
-		let identifier = "notificationsOn"
+		let identifier = NotificationSettingsViewController.ReuseIdentifier.notificationsOn
 		let description: String
 		var state: Bool {
 			didSet {
@@ -113,7 +113,7 @@ extension NotificationSettingsViewModel {
 	}
 
 	struct SettingsOffItem {
-		let identifier = "notificationsOff"
+		let identifier = NotificationSettingsViewController.ReuseIdentifier.notificationsOff
 		let description: String
 		let state: String
 	}

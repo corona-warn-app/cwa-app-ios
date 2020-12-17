@@ -31,6 +31,7 @@ class Coordinator: RequiresAppDependencies {
 	private var exposureDetectionController: ExposureDetectionViewController?
 
 	private var diaryCoordinator: DiaryCoordinator?
+	private var settingsCoordinator: SettingsCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
@@ -148,7 +149,9 @@ extension Coordinator: HomeViewControllerDelegate {
 			initialEnState: enState,
 			store: self.store,
 			appConfigurationProvider: self.appConfigurationProvider,
-			delegate: self
+			setExposureManagerEnabled: { [weak self] newState, completion in
+				self?.setExposureManagerEnabled(newState, then: completion)
+			}
 		)
 		addToEnStateUpdateList(vc)
 		rootViewController.pushViewController(vc, animated: true)
@@ -222,19 +225,24 @@ extension Coordinator: HomeViewControllerDelegate {
 	}
 
 	func showSettings(enState: ENStateHandler.State) {
-		let storyboard = AppStoryboard.settings.instance
-		let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
-			SettingsViewController(
-				coder: coder,
-				store: self.store,
-				initialEnState: enState,
-				appConfigurationProvider: self.appConfigurationProvider,
-				delegate: self
-			)
-		}
-		addToEnStateUpdateList(vc)
-		settingsController = vc
-		rootViewController.pushViewController(vc, animated: true)
+		settingsCoordinator = SettingsCoordinator(
+			store: store,
+			initialEnState: enState,
+			appConfigurationProvider: appConfigurationProvider,
+			parentNavigationController: rootViewController,
+			setExposureManagerEnabled: { [weak self] newState, completion in
+				self?.setExposureManagerEnabled(newState, then: completion)
+			},
+			onResetRequest: { [weak self] in
+				guard let self = self else { return }
+
+				self.delegate?.coordinatorUserDidRequestReset(exposureSubmissionService: self.exposureSubmissionService)
+			}
+		)
+
+		settingsCoordinator?.start()
+
+		addToEnStateUpdateList(settingsCoordinator)
 	}
 
 	func addToEnStateUpdateList(_ anyObject: AnyObject?) {
@@ -242,12 +250,6 @@ extension Coordinator: HomeViewControllerDelegate {
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdateList.add(anyObject)
 		}
-	}
-}
-
-extension Coordinator: ExposureNotificationSettingViewControllerDelegate {
-	func exposureNotificationSettingViewController(_ controller: ExposureNotificationSettingViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping Completion) {
-		setExposureManagerEnabled(enabled, then: completion)
 	}
 }
 
@@ -264,16 +266,6 @@ extension Coordinator: ExposureDetectionViewControllerDelegate {
 extension Coordinator: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		homeController?.updateTestResultState()
-	}
-}
-
-extension Coordinator: SettingsViewControllerDelegate {
-	func settingsViewController(_ controller: SettingsViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping Completion) {
-		setExposureManagerEnabled(enabled, then: completion)
-	}
-
-	func settingsViewControllerUserDidRequestReset(_ controller: SettingsViewController) {
-		delegate?.coordinatorUserDidRequestReset(exposureSubmissionService: exposureSubmissionService)
 	}
 }
 
