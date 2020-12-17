@@ -23,6 +23,11 @@ class RiskLegendViewController: DynamicTableViewController {
 		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 
+		tableView.register(
+			UINib(nibName: String(describing: RiskLegendDotBodyCell.self), bundle: nil),
+			forCellReuseIdentifier: CellReuseIdentifier.dotBody.rawValue
+		)
+
 		dynamicTableViewModel = model
 	}
 
@@ -38,7 +43,6 @@ class RiskLegendViewController: DynamicTableViewController {
 
 extension RiskLegendViewController {
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
-		case numberedTitle = "numberedTitleCell"
-		case dotBody = "dotBodyCell"
+		case dotBody = "RiskLegendDotBodyCell"
 	}
 }

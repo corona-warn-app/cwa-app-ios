@@ -12,7 +12,7 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	// MARK: - Initializers
 	
-	init?(
+	init(
 		supportedCountries: [Country]
 	) {
 		self.viewModel = DeltaOnboardingV15ViewModel(supportedCountries: supportedCountries)

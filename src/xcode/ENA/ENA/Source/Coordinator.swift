@@ -165,14 +165,11 @@ extension Coordinator: HomeViewControllerDelegate {
 			activityState: activityState,
 			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
-		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
-			ExposureDetectionViewController(
-				coder: coder,
-				state: state,
-				delegate: self
-			)
-		}
-		exposureDetectionController = vc as? ExposureDetectionViewController
+		let vc = ExposureDetectionViewController(
+			state: state,
+			delegate: self
+		)
+		exposureDetectionController = vc
 		rootViewController.present(vc, animated: true)
 	}
 

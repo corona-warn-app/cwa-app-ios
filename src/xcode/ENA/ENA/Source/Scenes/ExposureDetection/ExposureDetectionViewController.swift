@@ -31,14 +31,14 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 
 	// MARK: - Creating an Exposure Detection View Controller.
 
-	init?(
-		coder: NSCoder,
+	init(
 		state: State,
 		delegate: ExposureDetectionViewControllerDelegate
 	) {
-		self.delegate = delegate
 		self.state = state
-		super.init(coder: coder)
+		self.delegate = delegate
+
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -61,6 +61,8 @@ extension ExposureDetectionViewController {
 		closeButton.accessibilityTraits = .button
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+
+		registerCells()
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.riskState = .risk(risk)
@@ -163,6 +165,54 @@ private extension ExposureDetectionViewController {
 }
 
 extension ExposureDetectionViewController {
+
+	private func registerCells() {
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionHeaderCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.header.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionRiskCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.risk.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionLongGuideCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.longGuide.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionLoadingCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.riskLoading.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionHotlineCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.hotline.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: "ExposureDetectionRiskRefreshCell", bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.riskRefresh.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: "ExposureDetectionRiskTextCell", bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.riskText.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: "ExposureDetectionGuideCell", bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.guide.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifer.link.rawValue
+		)
+	}
+
 	func updateUI() {
 		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
 
@@ -280,4 +330,20 @@ extension ExposureDetectionViewController: CountdownTimerDelegate {
 	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
 		self.updateCheckButton()
 	}
+}
+
+extension ExposureDetectionViewController {
+
+	enum ReusableCellIdentifer: String, TableViewCellReuseIdentifiers {
+		case risk = "riskCell"
+		case riskText = "riskTextCell"
+		case riskRefresh = "riskRefreshCell"
+		case riskLoading = "riskLoadingCell"
+		case header = "headerCell"
+		case guide = "guideCell"
+		case longGuide = "longGuideCell"
+		case link = "linkCell"
+		case hotline = "hotlineCell"
+	}
+
 }

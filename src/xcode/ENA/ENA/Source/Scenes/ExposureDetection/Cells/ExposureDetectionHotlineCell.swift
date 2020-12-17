@@ -5,17 +5,17 @@
 import Foundation
 import UIKit
 
-class InsetTableViewCell: UITableViewCell {
-	@IBOutlet var insetContentView: InsetTableViewCellContentView!
+class ExposureDetectionHotlineCell: UITableViewCell {
+	@IBOutlet var hotlineContentView: ExposureDetectionHotlineCellContentView!
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		insetContentView.primaryAction = nil
+		hotlineContentView.primaryAction = nil
 	}
 }
 
 @IBDesignable
-class InsetTableViewCellContentView: UIView {
+class ExposureDetectionHotlineCellContentView: UIView {
 	var primaryAction: (() -> Void)?
 
 	override func prepareForInterfaceBuilder() {
