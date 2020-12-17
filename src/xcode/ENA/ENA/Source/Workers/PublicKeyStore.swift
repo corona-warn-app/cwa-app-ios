@@ -21,6 +21,7 @@ extension Data {
 	}
 }
 
+@available(iOS 13.0, *)
 extension P256.Signing.PublicKey {
 	init(staticBase64Encoded: StaticString) {
 		// swiftlint:disable:next force_try
@@ -46,17 +47,19 @@ enum PublicKeyEnv {
 	}
 }
 
-typealias PublicKeyProvider = () -> P256.Signing.PublicKey
 typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProvider
-typealias PublicKeyProviderFromActiveCompilationConditions = () -> PublicKeyProvider
 typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProvider
 
 private let DefaultPublicKeyFromEnvProvider: PublicKeyProviderFromEnv = { env in
 	return DefaultPublicKeyFromString(env.stringRepresentation)
 }
 
-let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk in
-	return { P256.Signing.PublicKey(staticBase64Encoded: pk) }
+let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk -> PublicKeyProvider in
+	if #available(iOS 13.0, *) {
+		return P256.Signing.PublicKey(staticBase64Encoded: pk)
+	} else {
+		return PublicKey(with: pk)
+	}
 }
 
 let DefaultPublicKeyProvider: PublicKeyProvider = {
