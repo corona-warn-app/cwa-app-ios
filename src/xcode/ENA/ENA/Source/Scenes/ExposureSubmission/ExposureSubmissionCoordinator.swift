@@ -296,7 +296,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Screen Flow
 
 	private func showHotlineScreen() {
-		let vc = createHotlineViewController()
+		let vc = ExposureSubmissionHotlineViewController(
+			onSecondaryButtonTap: { [weak self] in
+				self?.showTanScreen()
+			}
+		)
+
 		push(vc)
 	}
 
@@ -685,20 +690,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			}
 		)
-	}
-
-}
-
-// MARK: - Creation.
-
-extension ExposureSubmissionCoordinator {
-	
-	// MARK: - Private
-
-	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
 	}
 
 }

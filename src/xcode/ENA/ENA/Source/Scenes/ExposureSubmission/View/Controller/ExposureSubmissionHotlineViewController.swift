@@ -8,9 +8,12 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
-		self.coordinator = coordinator
-		super.init(coder: coder)
+	init(
+		onSecondaryButtonTap: @escaping () -> Void
+	) {
+		self.onSecondaryButtonTap = onSecondaryButtonTap
+
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -22,6 +25,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		title = AppStrings.ExposureSubmissionHotline.title
 		setupTableView()
 		setupBackButton()
@@ -42,9 +46,19 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		navigationFooterItem
 	}
 
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		callHotline()
+	}
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
+		self.onSecondaryButtonTap()
+	}
+
 	// MARK: - Private
 	
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	private let onSecondaryButtonTap: () -> Void
 	
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -59,8 +73,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	}()
 
 	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
+		view.backgroundColor = .enaColor(for: .background)
+		tableView.separatorStyle = .none
+
 		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		dynamicTableViewModel = DynamicTableViewModel(
@@ -116,26 +131,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 			]
 		)
 	}
-}
-
-// MARK: - Cell reuse identifiers.
-
-extension ExposureSubmissionHotlineViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case stepCell
-	}
-}
-
-// MARK: - ENANavigationControllerWithFooterChild Extension.
-
-extension ExposureSubmissionHotlineViewController {
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		callHotline()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		self.coordinator?.showTanScreen()
-	}
 
 	private func callHotline() {
 		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
@@ -143,5 +138,14 @@ extension ExposureSubmissionHotlineViewController {
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}
 		}
+	}
+
+}
+
+// MARK: - Cell reuse identifiers.
+
+extension ExposureSubmissionHotlineViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case stepCell
 	}
 }
