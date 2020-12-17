@@ -28,7 +28,6 @@ class DynamicLegalExtendedCell: UITableViewCell {
 		setup()
 	}
 	
-	
 	///Configure a legal extended cell:
 	/// - Parameters:
 	/// - title, (bold)
