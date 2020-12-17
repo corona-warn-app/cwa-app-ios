@@ -81,9 +81,8 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	@IBSegueAction
-	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
+	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController {
 		let vc = ExposureNotificationSettingViewController(
-			coder: coder,
 			initialEnState: enState,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,

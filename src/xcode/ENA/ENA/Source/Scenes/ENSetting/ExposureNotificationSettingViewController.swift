@@ -25,18 +25,18 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
 
-	init?(
-		coder: NSCoder,
+	init(
 		initialEnState: ENStateHandler.State,
 		store: Store,
 		appConfigurationProvider: AppConfigurationProviding,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
-		self.delegate = delegate
+		self.enState = initialEnState
 		self.store = store
 		self.appConfigurationProvider = appConfigurationProvider
-		enState = initialEnState
-		super.init(coder: coder)
+		self.delegate = delegate
+
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -46,9 +46,17 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		view.backgroundColor = .enaColor(for: .background)
+
+		title = AppStrings.ExposureNotificationSetting.title
 		navigationItem.largeTitleDisplayMode = .always
-		setUIText()
+		navigationController?.navigationBar.prefersLargeTitles = true
+
+		registerCells()
+
 		tableView.sectionFooterHeight = 0.0
+		tableView.separatorStyle = .none
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -66,12 +74,41 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 			then: completion
 		)
 	}
+
+	private func registerCells() {
+		tableView.register(
+			UINib(nibName: String(describing: TracingHistoryTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ImageTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.banner.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ActionDetailTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: DescriptionTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.descriptionCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ActionTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.actionCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: EuTracingTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.euTracingCell.rawValue
+		)
+	}
 }
 
 extension ExposureNotificationSettingViewController {
-	private func setUIText() {
-		title = AppStrings.ExposureNotificationSetting.title
-	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
 		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in

@@ -144,16 +144,12 @@ extension Coordinator: HomeViewControllerDelegate {
 	}
 
 	func showExposureNotificationSetting(enState: ENStateHandler.State) {
-		let storyboard = AppStoryboard.exposureNotificationSetting.instance
-		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
-			ExposureNotificationSettingViewController(
-				coder: coder,
-				initialEnState: enState,
-				store: self.store,
-				appConfigurationProvider: self.appConfigurationProvider,
-				delegate: self
-			)
-		}
+		let vc = ExposureNotificationSettingViewController(
+			initialEnState: enState,
+			store: self.store,
+			appConfigurationProvider: self.appConfigurationProvider,
+			delegate: self
+		)
 		addToEnStateUpdateList(vc)
 		rootViewController.pushViewController(vc, animated: true)
 	}

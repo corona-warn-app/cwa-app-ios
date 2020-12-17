@@ -58,7 +58,7 @@ private extension DynamicCell {
 	}
 
 	static func risk(hasSeparator: Bool = true, configure: @escaping GenericCellConfigurator<ExposureDetectionViewController>) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.risk) { viewController, cell, indexPath in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.risk) { viewController, cell, indexPath in
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
 			cell.tintColor = state.riskContrastTintColor
@@ -135,7 +135,7 @@ private extension DynamicCell {
 	}
 
 	static func riskText(text: String) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.riskText) { viewController, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.riskText) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
 			cell.textLabel?.textColor = state.titleTextColor
@@ -144,7 +144,7 @@ private extension DynamicCell {
 	}
 
 	static func riskLoading(text: String) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.riskLoading) { viewController, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.riskLoading) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskBackgroundColor
 			cell.textLabel?.text = text
@@ -152,7 +152,7 @@ private extension DynamicCell {
 	}
 
 	static func header(title: String, subtitle: String) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.header) { _, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.header) { _, cell, _ in
 			let cell = cell as? ExposureDetectionHeaderCell
 			cell?.titleLabel?.text = title
 			cell?.subtitleLabel?.text = subtitle
@@ -161,7 +161,7 @@ private extension DynamicCell {
 	}
 
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.guide) { viewController, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.guide) { viewController, cell, _ in
 			let state = viewController.state
 			cell.tintColor = state.riskTintColor
 			cell.textLabel?.text = text
@@ -170,7 +170,7 @@ private extension DynamicCell {
 	}
 
 	static func guide(image: UIImage?, text: [String]) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.longGuide) { viewController, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.longGuide) { viewController, cell, _ in
 			let state = viewController.state
 			cell.tintColor = state.riskTintColor
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
@@ -178,13 +178,13 @@ private extension DynamicCell {
 	}
 
 	static func link(text: String, url: URL?) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.link, action: .open(url: url)) { _, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
 		}
 	}
 
 	static func hotline(number: String) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifer.hotline) { _, cell, _ in
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.hotline) { _, cell, _ in
 			(cell as? ExposureDetectionHotlineCell)?.hotlineContentView.primaryAction = {
 				if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
 			}

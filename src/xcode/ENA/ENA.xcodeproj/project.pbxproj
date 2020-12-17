@@ -115,6 +115,12 @@
 		01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026AA258BA2F900B6389A /* ExposureDetectionRiskTextCell.xib */; };
 		01D026C1258BACCE00B6389A /* ExposureDetectionRiskRefreshCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026A9258BA2F600B6389A /* ExposureDetectionRiskRefreshCell.xib */; };
 		01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026AC258BA2FD00B6389A /* ExposureDetectionLinkCell.xib */; };
+		01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */; };
+		01D02704258BBCC700B6389A /* DescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E8258BB6DD00B6389A /* DescriptionTableViewCell.xib */; };
+		01D02705258BBCC700B6389A /* EuTracingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026ED258BB70100B6389A /* EuTracingTableViewCell.xib */; };
+		01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */; };
+		01D02707258BBCC700B6389A /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */; };
+		01D02708258BBCC700B6389A /* ActionDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E7258BB6DB00B6389A /* ActionDetailTableViewCell.xib */; };
 		01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */; };
 		01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */; };
 		01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */; };
@@ -341,7 +347,6 @@
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
 		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
 		853D987A24694A8700490DBA /* ENAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D987924694A8700490DBA /* ENAButton.swift */; };
-		853D98832469DC5000490DBA /* ExposureNotificationSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */; };
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595BF5E246032D90056EA27 /* ENASwitch.swift */; };
 		859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859DD511248549790073D59F /* MockDiagnosisKeysRetrieval.swift */; };
@@ -800,6 +805,12 @@
 		01D026AA258BA2F900B6389A /* ExposureDetectionRiskTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionRiskTextCell.xib; sourceTree = "<group>"; };
 		01D026AB258BA2FA00B6389A /* ExposureDetectionGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionGuideCell.xib; sourceTree = "<group>"; };
 		01D026AC258BA2FD00B6389A /* ExposureDetectionLinkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionLinkCell.xib; sourceTree = "<group>"; };
+		01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracingHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		01D026E7258BB6DB00B6389A /* ActionDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionDetailTableViewCell.xib; sourceTree = "<group>"; };
+		01D026E8258BB6DD00B6389A /* DescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionTableViewCell.xib; sourceTree = "<group>"; };
+		01D026ED258BB70100B6389A /* EuTracingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EuTracingTableViewCell.xib; sourceTree = "<group>"; };
 		01D16C5D24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModelTests.swift; sourceTree = "<group>"; };
 		01D16C5F24ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBackgroundRefreshStatusProvider.swift; sourceTree = "<group>"; };
 		01D16C6124ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLowPowerModeStatusProvider.swift; sourceTree = "<group>"; };
@@ -1047,7 +1058,6 @@
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
-		853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExposureNotificationSetting.storyboard; sourceTree = "<group>"; };
 		853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
 		85790F2E245C6B72003D47E1 /* ENA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENA.entitlements; sourceTree = "<group>"; };
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
@@ -1666,6 +1676,25 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		01D026CF258BB65B00B6389A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EE22DB84247FB43A001B0A71 /* TracingHistoryTableViewCell.swift */,
+				01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */,
+				EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */,
+				01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */,
+				EE22DB86247FB43A001B0A71 /* ActionDetailTableViewCell.swift */,
+				01D026E7258BB6DB00B6389A /* ActionDetailTableViewCell.xib */,
+				EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */,
+				01D026E8258BB6DD00B6389A /* DescriptionTableViewCell.xib */,
+				EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */,
+				01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */,
+				941ADDAF2518C2B200E421D9 /* EuTracingTableViewCell.swift */,
+				01D026ED258BB70100B6389A /* EuTracingTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		01D16C5C24ED6981007DB387 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1864,6 +1893,7 @@
 				B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */,
 				714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */,
 				01D02683258B9C1300B6389A /* Cells */,
+				EEF790092466ED410065EBD5 /* Views */,
 			);
 			path = ExposureDetection;
 			sourceTree = "<group>";
@@ -2314,6 +2344,7 @@
 				EE22DB80247FB409001B0A71 /* ENSettingModel.swift */,
 				EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */,
 				853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */,
+				01D026CF258BB65B00B6389A /* Cells */,
 			);
 			path = ENSetting;
 			sourceTree = "<group>";
@@ -2322,10 +2353,8 @@
 			isa = PBXGroup;
 			children = (
 				B10F9B88249961B500C418F4 /* __tests__ */,
-				EE22DB83247FB43A001B0A71 /* ENSetting */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
-				EEF790092466ED410065EBD5 /* ExposureDetection */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
 				51CE1B74246078B6002CF42A /* Home Screen */,
 				71B804502485272200D53506 /* RiskLegend */,
@@ -2451,7 +2480,6 @@
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420CF24586AB300AD70CA /* Settings.storyboard */,
 				EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */,
-				853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -3479,19 +3507,6 @@
 			path = RiskLegend;
 			sourceTree = "<group>";
 		};
-		EE22DB83247FB43A001B0A71 /* ENSetting */ = {
-			isa = PBXGroup;
-			children = (
-				EE22DB84247FB43A001B0A71 /* TracingHistoryTableViewCell.swift */,
-				EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */,
-				EE22DB86247FB43A001B0A71 /* ActionDetailTableViewCell.swift */,
-				EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */,
-				EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */,
-				941ADDAF2518C2B200E421D9 /* EuTracingTableViewCell.swift */,
-			);
-			path = ENSetting;
-			sourceTree = "<group>";
-		};
 		EE278B2E245F2C58008B06F9 /* FriendsInvite */ = {
 			isa = PBXGroup;
 			children = (
@@ -3532,12 +3547,12 @@
 			path = AppInformation;
 			sourceTree = "<group>";
 		};
-		EEF790092466ED410065EBD5 /* ExposureDetection */ = {
+		EEF790092466ED410065EBD5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				713EA25C24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift */,
 			);
-			path = ExposureDetection;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F247572E2483934B003E1FC5 /* __tests__ */ = {
@@ -3745,6 +3760,7 @@
 				01D026C1258BACCE00B6389A /* ExposureDetectionRiskRefreshCell.xib in Resources */,
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
+				01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */,
 				710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
@@ -3764,14 +3780,17 @@
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
+				01D02704258BBCC700B6389A /* DescriptionTableViewCell.xib in Resources */,
 				01D0262E258A791C00B6389A /* OnboardingInfoViewController.xib in Resources */,
 				01F2A559257FC33800DA96A6 /* HomeDiaryCollectionViewCell.xib in Resources */,
 				AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */,
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
 				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
+				01D02707258BBCC700B6389A /* ImageTableViewCell.xib in Resources */,
 				EBA403D02589260D00D1F039 /* LICENSE in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
+				01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */,
 				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */,
@@ -3790,8 +3809,9 @@
 				01D02688258B9CB200B6389A /* ExposureDetectionHeaderCell.xib in Resources */,
 				51FE277D247535C400BB8144 /* RiskLoadingItemView.xib in Resources */,
 				01D026A5258BA20E00B6389A /* ExposureDetectionHotlineCell.xib in Resources */,
-				853D98832469DC5000490DBA /* ExposureNotificationSetting.storyboard in Resources */,
 				AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */,
+				01D02705258BBCC700B6389A /* EuTracingTableViewCell.xib in Resources */,
+				01D02708258BBCC700B6389A /* ActionDetailTableViewCell.xib in Resources */,
 				01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
