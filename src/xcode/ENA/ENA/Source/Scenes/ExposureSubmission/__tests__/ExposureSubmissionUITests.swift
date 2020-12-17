@@ -455,8 +455,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
-						.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
-						.waitForExistence(timeout: .medium)
+			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
+			.waitForExistence(timeout: .medium)
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
