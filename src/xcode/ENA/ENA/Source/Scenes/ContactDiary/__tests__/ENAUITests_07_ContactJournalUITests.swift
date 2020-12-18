@@ -74,16 +74,37 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
 
-		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 2)
+		let personsTableView = app.descendants(matching: .table).element(boundBy: 1)
+		XCTAssertEqual(personsTableView.cells.count, 2)
 
 		// tap the delete button :-)
-		app.descendants(matching: .table).element(boundBy: 1).cells.element(boundBy: 1).buttons.element(boundBy: 0).tap()
+		personsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 0).tap()
 		// wait for delete confirmation button trailing in the cell
-		XCTAssertTrue(app.descendants(matching: .table).element(boundBy: 1).cells.element(boundBy: 1).buttons.element(boundBy: 2).waitForExistence(timeout: .medium))
+		XCTAssertTrue(personsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).waitForExistence(timeout: .medium))
 
-		app.descendants(matching: .table).element(boundBy: 1).cells.element(boundBy: 1).buttons.element(boundBy: 2).tap()
+		personsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).tap()
 
-		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 1)
+		XCTAssertEqual(personsTableView.cells.count, 1)
+
+		// select person to edit
+		let originalPerson = personsTableView.cells.firstMatch.staticTexts.firstMatch.label
+		personsTableView.cells.firstMatch.tap()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 2).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
+		app.textFields.firstMatch.typeText("-Müller")
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
+		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+
+		XCTAssertNotEqual(originalPerson, personsTableView.cells.firstMatch.staticTexts.firstMatch.label)
+		XCTAssertEqual(originalPerson + "-Müller", personsTableView.cells.firstMatch.staticTexts.firstMatch.label)
+	}
+
+	func testOpenEditLocationViaSheet() throws {
+		openInformationSheet()
+
+		app.sheets.firstMatch.buttons.element(boundBy: 3).tap()
+
 	}
 
 	func testAddOnePersonAndOneLocationToDate() throws {
