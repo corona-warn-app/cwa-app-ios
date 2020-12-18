@@ -146,6 +146,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Back to homescreen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
@@ -185,8 +186,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// This may fail in future because of the Thank You card. So, just check the home screen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		// This button ID might fail in future versions because of the to be added 'Thank You' card.
+		// Currently UI tests CURRENTLY don't reflect the correct UI state after this test. Thank You should be visible and is expected in non-ui tests!
+		let thankYouCardID = "AppStrings.Home.submitCardButton"
+		XCTAssertTrue(app.collectionViews.buttons[thankYouCardID].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons[thankYouCardID].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
@@ -274,6 +278,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		
 		// This may fail in future because of the Thank You card. So, just check the home screen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
@@ -315,9 +320,13 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		
+
+		// don't warn
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].tap()
+
 		// Back to homescreen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 	
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
@@ -554,6 +563,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		
 		// Back to homescreen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
@@ -587,7 +597,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 				
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
-		app.alerts.firstMatch.buttons.firstMatch.tap() // warn
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.cancelButton].tap()
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
@@ -609,6 +619,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Back to homescreen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 }
 

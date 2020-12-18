@@ -296,6 +296,7 @@ enum AccessibilityIdentifiers {
 		static let primaryFooterButton = "General.primaryFooterButton"
 		static let secondaryFooterButton = "General.secondaryFooterButton"
 		static let cancelButton = "General.cancelButton"
+		static let defaultButton = "General.defaultButton"
 	}
 
 	enum DatePickerOption {

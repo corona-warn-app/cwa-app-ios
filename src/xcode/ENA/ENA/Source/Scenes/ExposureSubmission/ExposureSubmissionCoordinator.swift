@@ -516,27 +516,40 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			message: alertMessage,
 			preferredStyle: .alert)
 
-		alert.addAction(
-			UIAlertAction(
-				title: cancelAlertButtonTitle,
-				style: .default,
-				handler: { [weak self] _ in
-					if isSubmissionConsentGiven {
-						self?.submitExposureAndDismiss(isLoading: isLoading)
-					} else {
-						self?.dismiss()
-					}
+		let statyOnScreenAction = UIAlertAction(
+			title: cancelAlertButtonTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				if isSubmissionConsentGiven {
+					self?.submitExposureAndDismiss(isLoading: isLoading)
+				} else {
+					self?.dismiss()
 				}
-			)
+			}
 		)
-		alert.addAction(
-			UIAlertAction(
-				title: continueAlertButtonTitle,
-				style: .cancel
-			)
-		)
+		// DEFAULT action, although this is labelled as 'cancelAlertButtonTitle'!
+		statyOnScreenAction.accessibilityIdentifier = AccessibilityIdentifiers.General.defaultButton
+		alert.addAction(statyOnScreenAction)
 
-		navigationController?.present(alert, animated: true, completion: nil)
+		let leaveScreenAction = UIAlertAction(
+			title: continueAlertButtonTitle,
+			style: .cancel
+		)
+		// CANCEL action, although this is labelled as 'continueAlertButtonTitle'!
+		leaveScreenAction.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
+		alert.addAction(leaveScreenAction)
+
+		navigationController?.present(alert, animated: true, completion: {
+			// see: https://stackoverflow.com/a/40688141/194585
+			let stayButton = statyOnScreenAction.value(forKey: "__representer")
+			let leaveButton = leaveScreenAction.value(forKey: "__representer")
+
+			let stayView = stayButton as? UIView
+			stayView?.accessibilityIdentifier = AccessibilityIdentifiers.General.defaultButton
+
+			let leaveView = leaveButton as? UIView
+			leaveView?.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
+		})
 	}
 	
 	private func showThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {
