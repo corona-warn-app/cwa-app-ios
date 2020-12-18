@@ -194,7 +194,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		addPersonToDayEntry("Maria Musterfrau")
 
-		// check count for day entries: 1 add entry cell + 2 person added
+		// check count for day entries: 1 add entry cell + 2 persons added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 	}
 
