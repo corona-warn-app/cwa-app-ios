@@ -47,13 +47,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.otherElements["ActivityListView"].waitForExistence(timeout: .medium))
 	}
 
-	private func openEditPersonViaSheet() {
-		openInformationSheet()
-
-		app.sheets.firstMatch.buttons.element(boundBy: 2).tap()
-
-	}
-
 	func testDeleteAllPersons() throws {
 		openEditPersonViaSheet()
 
@@ -69,7 +62,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 0)
 	}
 
-	func testDeleteOnePerson() throws {
+	func testDeleteOnePersonAndEditOnePerson() throws {
 		openEditPersonViaSheet()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
@@ -100,14 +93,40 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(originalPerson + "-Müller", personsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
-	func testOpenEditLocationViaSheet() throws {
-		openInformationSheet()
+	func testDeleteOneLocationAndEditOneLocation() throws {
+		openEditLocationsViaSheet()
 
-		app.sheets.firstMatch.buttons.element(boundBy: 3).tap()
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_Locations_Title"))
 
+		let locationsTableView = app.descendants(matching: .table).element(boundBy: 1)
+		XCTAssertEqual(locationsTableView.cells.count, 2)
+
+		// tap the delete button :-)
+		locationsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 0).tap()
+		// wait for delete confirmation button trailing in the cell
+		XCTAssertTrue(locationsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).waitForExistence(timeout: .medium))
+
+		locationsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).tap()
+
+		XCTAssertEqual(locationsTableView.cells.count, 1)
+
+		// select person to edit
+		let originalLocation = locationsTableView.cells.firstMatch.staticTexts.firstMatch.label
+		locationsTableView.cells.firstMatch.tap()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 2).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
+		app.textFields.firstMatch.typeText("-RotWeiss")
+
+		app.textFields.firstMatch.buttons
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
+		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+
+		XCTAssertNotEqual(originalLocation, locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
+		XCTAssertEqual(originalLocation + "-RotWeiss", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
-	func testAddOnePersonAndOneLocationToDate() throws {
+	func testAddTwoPersonsAndOneLocationToDate() throws {
 
 		navigateToJournalOverview()
 
@@ -288,6 +307,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		addPersonToDayEntry("Manu Mustermann")
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 		addLocationToDayEntry("Pommesbude")
+		addLocationToDayEntry("Dönerstand")
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
@@ -301,6 +321,18 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.navigationBars.firstMatch.buttons.element(boundBy: 1).tap()
 
 		XCTAssertTrue(app.sheets.firstMatch.waitForExistence(timeout: .medium))
+	}
+
+	private func openEditPersonViaSheet() {
+		openInformationSheet()
+
+		app.sheets.firstMatch.buttons.element(boundBy: 2).tap()
+	}
+
+	private func openEditLocationsViaSheet() {
+		openInformationSheet()
+
+		app.sheets.firstMatch.buttons.element(boundBy: 3).tap()
 	}
 
 	private func launch() {
