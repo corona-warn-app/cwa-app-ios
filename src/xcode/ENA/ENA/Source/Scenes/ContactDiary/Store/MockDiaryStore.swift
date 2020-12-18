@@ -145,6 +145,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(())
 	}
 
+	@discardableResult
 	func reset() -> DiaryStoringVoidResult {
 		contactPersons.removeAll()
 		contactPersonEncounters.removeAll()
@@ -153,6 +154,10 @@ class MockDiaryStore: DiaryStoringProviding {
 
 		updateDays()
 		return .success(())
+	}
+
+	func close() {
+		reset()
 	}
 
 	// MARK: - Private

@@ -633,6 +633,35 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
 	}
 
+	func test_Some() {
+		let store = ContactDiaryStoreV1.make(filename: "SomeStore")
+		_ = store.addContactPerson(name: "Some Name")
+		let numberOfEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
+		XCTAssertEqual(numberOfEntries, 14)
+		store.close()
+
+		let fileManager = FileManager.default
+		guard let storeURL = try? fileManager
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("ContactDiary")
+				.appendingPathComponent("ContactDiary")
+				.appendingPathExtension("sqlite") else {
+			fatalError("Could not create folder.")
+		}
+
+		do {
+			let corruptingString = "I will corrupt the database"
+			try corruptingString.write(to: storeURL, atomically: true, encoding: String.Encoding.utf8)
+		} catch {
+			XCTFail("Error is not expected: \(error)")
+		}
+
+		let storeAfterRescue = ContactDiaryStoreV1.make(filename: "SomeStore")
+		_ = storeAfterRescue.addContactPerson(name: "Some Name")
+		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
+		XCTAssertEqual(numberOfEntriesAfterRescue, 14)
+	}
+
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")
@@ -728,12 +757,16 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStoreV1 {
 		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
 
-		return ContactDiaryStoreV1(
+		guard let store = ContactDiaryStoreV1(
 			databaseQueue: databaseQueue,
 			schema: schema,
 			key: "Dummy",
 			dateProvider: dateProvider
-		)
+		) else {
+			fatalError("Could not create content diary store.")
+		}
+
+		return store
 	}
 
 	private var dateFormatter: ISO8601DateFormatter = {
