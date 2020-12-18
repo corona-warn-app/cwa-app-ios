@@ -620,35 +620,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		databaseQueue.close()
 	}
 
-	private func dropTables() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
-
-		databaseQueue.inDatabase { database in
-			let sql = """
-					PRAGMA journal_mode=OFF;
-					DROP TABLE Location;
-					DROP TABLE LocationVisit;
-					DROP TABLE ContactPerson;
-					DROP TABLE ContactPersonEncounter;
-					VACUUM;
-				"""
-
-			guard database.executeStatements(sql) else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
-		}
-
-		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
-		}
-
-		return _result
-	}
-	
 	// MARK: - Private
 
 	private let dataRetentionPeriodInDays = 16 // Including today.
@@ -876,6 +847,36 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 		return _result
 	}
+
+	private func dropTables() -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			let sql = """
+					PRAGMA journal_mode=OFF;
+					DROP TABLE Location;
+					DROP TABLE LocationVisit;
+					DROP TABLE ContactPerson;
+					DROP TABLE ContactPersonEncounter;
+					VACUUM;
+				"""
+
+			guard database.executeStatements(sql) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
 
 	private func logLastErrorCode(from database: FMDatabase) {
 		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
