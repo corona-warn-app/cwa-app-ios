@@ -605,7 +605,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			return openAndSetupResult
 		}
 
-		var updateDiaruesResult: DiaryStoringVoidResult?
+		var updateDiaryDaysResult: DiaryStoringVoidResult?
 		databaseQueue.inDatabase { database in
 			updateDiaruesResult = updateDiaryDays(with: database)
 		}
