@@ -633,8 +633,8 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
 	}
 
-	func test_Some() {
-		let store = ContactDiaryStoreV1.make(filename: "SomeStore")
+	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() {
+		let store = ContactDiaryStoreV1.make()
 		_ = store.addContactPerson(name: "Some Name")
 		let numberOfEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
 		XCTAssertEqual(numberOfEntries, 14)
@@ -656,7 +656,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			XCTFail("Error is not expected: \(error)")
 		}
 
-		let storeAfterRescue = ContactDiaryStoreV1.make(filename: "SomeStore")
+		let storeAfterRescue = ContactDiaryStoreV1.make()
 		_ = storeAfterRescue.addContactPerson(name: "Some Name")
 		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
 		XCTAssertEqual(numberOfEntriesAfterRescue, 14)

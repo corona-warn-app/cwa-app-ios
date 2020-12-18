@@ -892,10 +892,10 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 extension ContactDiaryStoreV1 {
 
-	static func make(filename: String) -> ContactDiaryStoreV1 {
+	static func make() -> ContactDiaryStoreV1 {
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
-		if let store = ContactDiaryStoreV1(fileName: filename) {
+		if let store = ContactDiaryStoreV1() {
 			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
 			return store
 		}
@@ -906,7 +906,7 @@ extension ContactDiaryStoreV1 {
 		// Remove the database file and try to init the store a second time.
 		try? FileManager.default.removeItem(at: ContactDiaryStoreV1.storeDirectoryURL)
 
-		if let secondTryStore = ContactDiaryStoreV1(fileName: filename) {
+		if let secondTryStore = ContactDiaryStoreV1() {
 			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
 			return secondTryStore
 		} else {
@@ -915,7 +915,7 @@ extension ContactDiaryStoreV1 {
 		}
 	}
 
-	convenience init?(fileName: String) {
+	convenience init?() {
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV1.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
