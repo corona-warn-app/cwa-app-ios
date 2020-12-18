@@ -516,7 +516,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			message: alertMessage,
 			preferredStyle: .alert)
 
-		alert.addAction(UIAlertAction(
+		let statyOnScreenAction = UIAlertAction(
 			title: cancelAlertButtonTitle,
 			style: .default,
 			handler: { [weak self] _ in
@@ -526,12 +526,18 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					self?.dismiss()
 				}
 			}
-		))
+		)
+		// DEFAULT action, although this is labelled as 'cancelAlertButtonTitle'!
+		statyOnScreenAction.accessibilityIdentifier = AccessibilityIdentifiers.General.defaultButton
+		alert.addAction(statyOnScreenAction)
 
-		alert.addAction(UIAlertAction(
+		let leaveScreenAction = UIAlertAction(
 			title: continueAlertButtonTitle,
 			style: .cancel
-		))
+		)
+		// CANCEL action, although this is labelled as 'continueAlertButtonTitle'!
+		leaveScreenAction.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
+		alert.addAction(leaveScreenAction)
 
 		navigationController?.present(alert, animated: true, completion: {
 			#if DEBUG
