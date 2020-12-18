@@ -75,8 +75,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 									)
 								}
 							},
-						.space(height: 20,
-							   color: .clear)
+						.space(height: 20)
 					]
 				)
 			)
