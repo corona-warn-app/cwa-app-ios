@@ -19,7 +19,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
-		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocation", "YES"])
+		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocations", "YES"])
 	}
 
 	// MARK: - Internal
