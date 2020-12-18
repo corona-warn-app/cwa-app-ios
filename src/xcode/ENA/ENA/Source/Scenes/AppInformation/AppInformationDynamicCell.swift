@@ -5,6 +5,20 @@
 import Foundation
 import UIKit
 
+class HotlineCaller {
+
+	@objc
+	func call() -> Bool {
+		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+			UIApplication.shared.canOpenURL(url) {
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		}
+
+		return true
+	}
+
+}
+
 extension DynamicCell {
 	static func phone(text: String, number: String, accessibilityIdentifier: String? = nil) -> Self {
 		#warning("Check image converted from SFSymbols to pdf asset")
@@ -18,16 +32,11 @@ extension DynamicCell {
 			cell.accessibilityTraits = .button
 			
 			cell.accessibilityCustomActions?.removeAll()
-			
+
+			let hotlineCaller = HotlineCaller()
 			let actionName = "\(AppStrings.ExposureSubmissionHotline.callButtonTitle) \(AppStrings.AccessibilityLabel.phoneNumber)"
 			cell.accessibilityCustomActions = [
-				UIAccessibilityCustomAction(name: actionName, actionHandler: {  _ -> Bool in
-					if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
-						UIApplication.shared.canOpenURL(url) {
-						UIApplication.shared.open(url, options: [:], completionHandler: nil)
-					}
-					return true
-				})
+				UIAccessibilityCustomAction(name: actionName, target: hotlineCaller, selector: #selector(HotlineCaller.call))
 			]
 			
 		}
