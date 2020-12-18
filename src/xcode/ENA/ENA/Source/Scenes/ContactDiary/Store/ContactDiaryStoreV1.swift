@@ -657,13 +657,13 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
-				errorResult = .failure(.unknown)
+				errorResult = .failure(dbError(from: database))
 				return
 			}
 
 			guard database.open() else {
 				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
-				errorResult = .failure(.unknown)
+				errorResult = .failure(dbError(from: database))
 				return
 			}
 
@@ -686,7 +686,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 		let schemaCreateResult = schema.create()
 		if case let .failure(error) = schemaCreateResult {
-			return .failure(error)
+			return .failure(.database(error))
 		}
 
 		return .success(())
