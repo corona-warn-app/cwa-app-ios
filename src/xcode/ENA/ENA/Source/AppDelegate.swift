@@ -488,15 +488,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private var privacyProtectionWindow: UIWindow?
 
 	private func showPrivacyProtectionWindow() {
-		guard
-			let windowScene = window?.windowScene,
-			store.isOnboarded == true
-			else {
-				return
-		}
+		guard store.isOnboarded else { return }
 
 		let privacyProtectionViewController = PrivacyProtectionViewController()
-		privacyProtectionWindow = UIWindow(windowScene: windowScene)
+		privacyProtectionWindow = UIWindow(frame: UIScreen.main.bounds)
 		privacyProtectionWindow?.rootViewController = privacyProtectionViewController
 		privacyProtectionWindow?.windowLevel = .alert + 1
 		privacyProtectionWindow?.makeKeyAndVisible()
