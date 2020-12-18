@@ -189,7 +189,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 		guard group.wait(timeout: DispatchTime.now() + timeout) == .success else {
 			databaseQueue.interrupt()
-			return .failure(.unknown)
+			return .failure(.timeout)
 		}
 
 		guard let _result = result else {
@@ -730,7 +730,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		cleanup()
 	}
 
-	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
+	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], DiaryStoringError> {
 		var contactPersons = [DiaryContactPerson]()
 
 		let sql = """
@@ -765,7 +765,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(contactPersons)
 	}
 
-	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SQLiteErrorCode> {
+	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], DiaryStoringError> {
 		var locations = [DiaryLocation]()
 
 		let sql = """
@@ -881,8 +881,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 	}
 
-	private func dbError(from database: FMDatabase) -> SQLiteErrorCode {
-		return SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+	private func dbError(from database: FMDatabase) -> DiaryStoringError {
+		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+		return .database(dbError)
 	}
 }
 

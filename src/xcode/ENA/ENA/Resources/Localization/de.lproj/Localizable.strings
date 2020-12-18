@@ -630,7 +630,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_testPending" = "Ihr Testergebnis liegt noch nicht vor.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.";
+"ExposureSubmissionResult_testPendingDesc" = "Sobald Ihr Testergebnis vorliegt, wird es Ihnen in der App angezeigt.\n\nSie bekommen Ihr Testergebnis auch außerhalb der App mitgeteilt. Falls Ihr Test positiv ist, bekommen Sie vom Gesundheitsamt eine Mitteilung.\n\nWenn Ihnen außerhalb der App ein positives Testergebnis mitgeteilt wurde, entfernen Sie den aktuell in der App registrierten Test. Rufen Sie die unter „TAN anfragen” angegebene Nummer an, um eine TAN zu erhalten. Registrieren Sie dann Ihr Testergebnis mithilfe der TAN in der App.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Einverständnis „Andere warnen“ erteilt";
 
@@ -1408,13 +1408,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 16 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 14 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";
 
 "ContactDiary_Information_Item_Person_Title" = "Tragen Sie ein, mit wem Sie sich getroffen haben.";
 
 "ContactDiary_Information_Item_Location_Title" = "Tragen Sie ein, an welchen Orten Sie anderen begegnet sind.";
 
-"ContactDiary_Information_Item_Lock_Title" = "Ihr Tagebuch ist nur für Sie bestimmt. Ihre Einträge werden nur auf Ihrem Smartphone gespeichert und nach 16 Tagen automatisch gelöscht.";
+"ContactDiary_Information_Item_Lock_Title" = "Ihr Tagebuch ist nur für Sie bestimmt. Ihre Einträge werden nur auf Ihrem Smartphone gespeichert.";
 
 "ContactDiary_Information_Item_DeletedAutomatically_Title" = "Sie können hinzugefügte Personen und Orte jederzeit wieder aus dem Tagebuch entfernen. Tagebuch-Einträge werden nach 16 Tagen automatisch gelöscht.";
 

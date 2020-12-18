@@ -7,10 +7,15 @@ import Combine
 
 typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
 
+enum DiaryStoringError: Error {
+	case database(SQLiteErrorCode)
+	case timeout
+}
+
 protocol DiaryStoring {
 
-	typealias DiaryStoringResult = Result<Int, SQLiteErrorCode>
-	typealias DiaryStoringVoidResult = Result<Void, SQLiteErrorCode>
+	typealias DiaryStoringResult = Result<Int, DiaryStoringError>
+	typealias DiaryStoringVoidResult = Result<Void, DiaryStoringError>
 
 	@discardableResult
 	func addContactPerson(name: String) -> DiaryStoringResult
