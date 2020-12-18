@@ -18,7 +18,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocation", "YES"])
 
@@ -46,6 +45,45 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.otherElements["ActivityListView"].waitForExistence(timeout: .medium))
+	}
+
+	private func openEditPersonViaSheet() {
+		openInformationSheet()
+
+		app.sheets.firstMatch.buttons.element(boundBy: 2).tap()
+
+	}
+
+	func testDeleteAllPersons() throws {
+		openEditPersonViaSheet()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle")].exists)
+		app.buttons[app.localized("ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle")].tap()
+
+		XCTAssertEqual(app.alerts.firstMatch.label, app.localized("ContactDiary_EditEntries_ContactPersons_AlertTitle"))
+
+		app.alerts.firstMatch.buttons[app.localized("ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle")].tap()
+
+		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 0)
+	}
+
+	func testDeleteOnePerson() throws {
+		openEditPersonViaSheet()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
+
+		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 2)
+
+		// tap the delete button :-)
+		app.descendants(matching: .table).element(boundBy: 1).cells.element(boundBy: 1).buttons.element(boundBy: 0).tap()
+		// wait for delete confirmation button trailing in the cell
+		XCTAssertTrue(app.descendants(matching: .table).element(boundBy: 1).cells.element(boundBy: 1).buttons.element(boundBy: 2).waitForExistence(timeout: .medium))
+
+		app.descendants(matching: .table).element(boundBy: 1).cells.element(boundBy: 1).buttons.element(boundBy: 2).tap()
+
+		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 1)
 	}
 
 	func testAddOnePersonAndOneLocationToDate() throws {
