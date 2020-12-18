@@ -20,7 +20,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocation", "YES"])
-
 	}
 
 	// MARK: - Internal
@@ -56,7 +55,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.buttons[app.localized("ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle")].tap()
 
 		XCTAssertEqual(app.alerts.firstMatch.label, app.localized("ContactDiary_EditEntries_ContactPersons_AlertTitle"))
-
 		app.alerts.firstMatch.buttons[app.localized("ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle")].tap()
 
 		XCTAssertEqual(app.descendants(matching: .table).element(boundBy: 1).cells.count, 0)
@@ -130,7 +128,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddTwoPersonsAndOneLocationToDate() throws {
-
 		navigateToJournalOverview()
 
 		// check count for overview: day cell 14 days plus 1 description cell
@@ -178,7 +175,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddPersonToDate() throws {
-
 		navigateToJournalOverview()
 
 		// check count for overview: day cell 14 days plus 1 description cell
@@ -203,7 +199,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddLocationToDate() throws {
-
 		navigateToJournalOverview()
 
 		// check count for overview: day cell 14 days plus 1 description cell
@@ -263,7 +258,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 	}
 
-
 	// MARK: - Private
 
 	private func navigateToJournalOverview() {
@@ -299,7 +293,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	private func prepareDataInOverview() {
-
 		navigateToJournalOverview()
 
 		// select 3th cell
@@ -314,7 +307,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
-
 	}
 
 	private func openInformationSheet() {
@@ -382,5 +374,4 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		}
 		return nil
 	}
-
 }
