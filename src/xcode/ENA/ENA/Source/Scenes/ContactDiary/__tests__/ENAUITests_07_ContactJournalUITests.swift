@@ -216,7 +216,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		addLocationToDayEntry("Pommesbude")
 
-		// check count for day entries: 1 add entry cell + 1 person added
+		// check count for day entries: 1 add entry cell + 1 location added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
 
 		addLocationToDayEntry("Supermarkt")
