@@ -119,7 +119,7 @@ extension AppDelegate {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let store: Store
-	let contactDiaryStore = ContactDiaryStoreV1(fileName: "ContactDiary")
+	let contactDiaryStore = ContactDiaryStoreV1.make()
 	let serverEnvironment: ServerEnvironment
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
