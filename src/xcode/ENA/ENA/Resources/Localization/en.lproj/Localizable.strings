@@ -313,11 +313,11 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_title" = "Let's fight coronavirus together";
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Let’s fight coronavirus together";
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you've had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -353,7 +353,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with COVID-19 …";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone’s health.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
 
@@ -538,9 +538,9 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Your quarantine period is usually 14 days. Please observe your symptoms and monitor how they develop.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms.";
+"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by the public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
-"ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don't own a smartphone, or haven't installed the app.";
+"ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
 "ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
 
@@ -622,7 +622,7 @@
 
 "ExposureSubmissionResult_testPending" = "Your test result is not available yet.";
 
-"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.";
+"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIn you are notified of a positive test result outside the app, please remove the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Consent “Warn others” granted";
 
@@ -950,7 +950,7 @@
 
 "Home_Thank_You_Card_Contacts_Item_Title" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms.";
 
-"Home_Thank_You_Card_App_Item_Title" = "Please particularly consider people who will not be notified directly by the app since they don't own a smartphone, or haven't installed the app.";
+"Home_Thank_You_Card_App_Item_Title" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
 
@@ -977,6 +977,15 @@
 "Home_SubmitCard_Body" = "Help protect yourself and others.";
 
 "Home_SubmitCard_Button" = "Next Steps";
+
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Contact Journal";
+
+"Home_DiaryCard_Body" = "Keep track of where you have been and whom you met.";
+
+"Home_DiaryCard_ImageDescription" = "A closed book with a bookmark.";
+
+"Home_DiaryCard_Button" = "Manage Journal";
 
 "Home_InfoCard_ShareTitle" = "Share the Corona-Warn-App";
 
@@ -1033,7 +1042,7 @@
 
 "App_Information_About_ImageDescription" = "";
 
-"App_Information_About_Title" = "Let's fight coronavirus together";
+"App_Information_About_Title" = "Let’s fight coronavirus together";
 
 "App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
@@ -1110,13 +1119,13 @@
 
 "InviteFriends_Subtitle" = "Share the Corona-Warn-App";
 
-"InviteFriends_Title" = "Let's fight coronavirus together";
+"InviteFriends_Title" = "Let’s fight coronavirus together";
 
 "InviteFriends_Description" = "The more people who use the app, the faster we can break chains of infection. Please invite your family and friends to download the app.";
 
 "InviteFriends_Button" = "Send Download Link";
 
-"InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
+"InviteFriends_ShareTitle" = "Fighting coronavirus together. I’m in on this, you too?";
 
 "InviteFriends_Illustration_Label" = "A man shares the Corona-Warn-App with four other persons.";
 
@@ -1165,7 +1174,7 @@
 
 "RiskLegend_Legend1_Title" = "Exposure Logging";
 
-"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people's devices are logged. You don't have to do anything else.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people’s devices are logged. You don’t have to do anything else.";
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
@@ -1312,4 +1321,100 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Enter Symptoms";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Exit";
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Contact Journal";
+
+"ContactDiary_Overview_Description" = "Write down the people you have met and places you have visited. ";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Export Entries";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Edit People";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edit Places";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "People";
+
+"ContactDiary_Day_AddContactPerson" = "Add Person";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "No people defined yet";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Create a person and add them to your contact journal.";
+
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "A silhouette of a woman who is walking across a meadow.";
+
+"ContactDiary_Day_LocationsSegment" = "Places";
+
+"ContactDiary_Day_AddLocation" = "Add Place";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "No places defined yet";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Create a place and add it to your contact journal.";
+
+"ContactDiary_Day_LocationsEmptyImageDescription" = "A building is marked with a location flag.";
+
+/* Edit Entries */
+"ContactDiary_EditEntries_ContactPersons_Title" = "People";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Remove All";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Do you really want to remove all people?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Yes";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "No";
+
+"ContactDiary_EditEntries_Locations_Title" = "Places";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Remove All";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Do you really want to remove all places?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Yes";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "No";
+
+/* Information */
+"ContactDiary_Information_Title" = "Contact Journal";
+
+"ContactDiary_Information_ImageDescription" = "Several people are outside, looking at their smartphones.";
+
+"ContactDiary_Information_DescriptionTitle" = "Keep track of your contacts.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed.";
+
+"ContactDiary_Information_Item_Person_Title" = "Enter the people you have met.";
+
+"ContactDiary_Information_Item_Location_Title" = "Enter the places where you’ve encountered others.";
+
+"ContactDiary_Information_Item_Lock_Title" = "You are the only one who can access your journal entries. Your entries will be saved only on your smartphone.";
+
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "You can remove entries for people and places from your journal at any time. Journal entries will be deleted automatically after 16 days.";
+
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "You can export your contact journal in plain text format and then print out the entries, edit them, or provide them to your public health office as needed.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Manage Journal";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Save";
+
+/* - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Place";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Place";
+
+/* - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Person";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
 
