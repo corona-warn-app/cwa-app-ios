@@ -204,7 +204,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for overview: day cell 14 days plus 1 description cell
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
 
-		// select 3th cell
+		// select 3rd cell
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
