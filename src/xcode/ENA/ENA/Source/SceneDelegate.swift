@@ -108,6 +108,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		// Remove all pending notifications
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+
+		// Reset contact diary
+		UIApplication.coronaWarnDelegate().contactDiaryStore.reset()
 	}
 
 	// MARK: - Protocol UNUserNotificationCenterDelegate

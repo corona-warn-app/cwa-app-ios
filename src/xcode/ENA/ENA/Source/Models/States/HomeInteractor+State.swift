@@ -15,14 +15,6 @@ extension HomeInteractor {
 		var exposureManagerState: ExposureManagerState
 		var enState: ENStateHandler.State
 
-		var riskDetails: Risk.Details? {
-			if case .risk(let risk) = riskState {
-				return risk.details
-			}
-
-			return nil
-		}
-
 	}
 
 }

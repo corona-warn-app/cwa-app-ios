@@ -15,6 +15,7 @@ class ContactDiaryStoreSchemaV1 {
 
 	// MARK: - Public
 
+	@discardableResult
 	func create() -> Result<Void, SQLiteErrorCode> {
 		var result: Result<Void, SQLiteErrorCode> = .success(())
 

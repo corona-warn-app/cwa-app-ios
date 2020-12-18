@@ -1,25 +1,25 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_consentTitle" = "Onay beyanı";
+"ExposureSubmissionWarnOthers_consentTitle" = "Onay Beyanı";
 
 "ExposureSubmissionWarnOthers_consentDescription" = "“Kabul Et”e tıkladığınızda, son 14 gün içinde oluşan rastgele kimlik no’larınız ve olası semptomların başlangıcı ile ilgili tüm verilerin uygulamanın sunucu sistemine iletilmesine izin vermiş olursunuz. Bu veriler, temas halinde olduğunuz uygulama kullanıcıları için enfeksiyon riskini değerlendirmek ve olası bir enfeksiyon riski durumunda onları uyarmak için kullanılır. Diğer katılımcı ülkelerdeki resmi Korona uygulamalarının kullanıcılarının da uyarılması adına, bu veriler aynı zamanda uygulamanın sunucu sistemi tarafından katılımcı ülkelerin ortaklaşa işletilen veri değişim sunucusuna da gönderilmektedir.\n\nNe diğer kullanıcılar, ne de RKI (Robert Koch Enstitüsü) veya katılımcı ülkelerin sağlık kurumu yetkilileri, aktarılan bu veriler üzerinden sizin kimliğinizi, adınızı veya diğer kişisel bilgilerinizi öğrenebilir.\n\nSınır ötesi uyarılar için rastgele kimlik no’larının ve olası semptomların başlangıcı ile ilgili verilerin aktarılması isteğe bağlı gerçekleşir. Bu verileri aktarmak istemezseniz, bu durum sizin için herhangi bir sakınca doğurmaz. Bu uygulamayı kullanıp kullanmadığınız ve nasıl kullandığınız, takip ve kontrol edilemediğinden, rastgele kimlik no’larınızı kullanıma açıp açmadığınızı sizden başka hiç kimse bilemez.\n\nVermiş olduğunuz onayı, istediğiniz an bu uygulamayı silmek suretiyle iptal edebilirsiniz. Verilmiş olan onayın iptali, iptal işlemi geçerli oluncaya kadar bu onay temelinde yürütülmüş olan işlemlerin yasalara uygunluğunu etkilemez.\n\nKatılımcı ülkeler ve veri korumasından sorumlu sağlık kurumu hakkında daha fazla bilgiyi “Uygulama bilgileri” > “Veri gizliliği” menü öğeleri altında bulabilirsiniz.";
 
 
 /* DeltaOnboarding */
 
-"DeltaOnboarding_DataProcessing_Info_title" = "Veri işlemeye ilişkin notlar";
+"DeltaOnboarding_DataProcessing_Info_title" = "Veri İşlemeye İlişkin Notlar";
 
 "DeltaOnboarding_DataProcessing_Info_content" = "Uygulamanın katılımcı ülkelerdeki kullanıcılarıyla bir riskli temasa maruz kalıp kalmadığınızı ve bu nedenle sizin için bir enfeksiyon riski olup olmadığını öğrenmek için hiçbir şeyi değiştirmenize gerek yoktur. Sadece maruz kalma günlüğünü etkinleştirmeniz yeterlidir. Maruz kalma günlüğü, bir Corona-Warn-App kullanıcısı veya diğer bir resmi Korona uygulaması kullanıcısı ile yaşadığınız tüm riske maruz kalmalarda sizi otomatik olarak uyarır.\n\niPhone’unuzdaki “Maruz kalma bildirimleri” işlevini etkinleştirdiğinizde, Phone’unuz sürekli olarak rastgele kimlik numaraları oluşturur ve bunları Bluetooth aracılığıyla göndererek çevrenizdeki akıllı telefonlar tarafından alınabilmelerini sağlar. Öte yandan, kendi iPhone’unuz da diğer akıllı telefonlardan rastgele kimlik numaraları alır. Kendi rastgele kimlik numaralarınız ve diğer akıllı telefonlardan alınan kimlik numaraları, iPhone’unuz tarafından kaydedilir ve orada 14 gün boyunca saklanır.\n\nEnfeksiyon riskinin değerlendirmesinde uygulama, diğer kişileri uyarmak için kendi test sonuçlarını (daha doğrusu, kendi rastgele kimliklerini) resmi Korona uygulaması aracılığıyla paylaşan tüm kullanıcıların rastgele kimlik no'larını içeren ve günlük olarak güncellenen listeler indirir. Daha sonra bu listeler, iPhone’unuz tarafından kaydedilen rastgele kimlik numaraları ile karşılaştırılır.\n\nBir riske maruz kalma tespit edilirse, Korona uygulaması sizi bu konuda bilgilendirir. Böyle bir durumda uygulama, iPhone’unuz tarafından kaydedilen maruz kalma verilerine (temasın tarihi, süresi ve Bluetooth sinyal gücü) erişir. Diğer kullanıcıya olan mekânsal mesafe, Bluetooth sinyal gücü üzerinden elde edilir (sinyal ne kadar güçlüyse, mesafe o kadar kısadır).Bu veriler, enfeksiyon riskinizi hesaplamak ve nasıl davranmanız gerektiği konusunda size önerilerde bulunmak üzere uygulama tarafından değerlendirilir. Bu değerlendirme işlemi, sadece kendi akıllı telefonunuzda gerçekleştirilir.\n\nSizden başka hiç kimse (RKI (Robert Koch Enstitüsü) veya katılımcı ülkelerin sağlık kurumu yetkilileri bile), enfeksiyon riskine maruz kalıp kalmadığınızı ve sizin için nasıl bir enfeksiyon riskinin saptandığını öğrenemez.\n\nUygulamanın veri gizliliği beyanını (sınır ötesi maruz kalma günlüğü için veri işlemeye ilişkin bilgiler de dahil) “Uygulama bilgileri” > ”Veri gizliliği” menü öğeleri altında bulabilirsiniz.";
 
 /* Onboarding */
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Rıza beyanı";
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Rıza Beyanı";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Diğer katılımcı ülkelerdeki uygulama kullanıcılarıyla bir riskli temasa maruz kalıp kalmadığınızı ve bu nedenle bir enfeksiyon riski olup olmadığını öğrenmek için, maruz kalma günlüğünü etkinleştirmeniz gerekmektedir.“Maruz kalma günlüğünü etkinleştir” tuşuna tıkladığınızda, uygulamanızdaki maruz kalma günlüğünü ve ilgili veri işlemenin etkinleştirilmesini kabul etmiş olursunuz.\n\nMaruz kama günlüğünü kullanabilmek için, ayrıca iPhone’unuzdakiApple tarafından sağlanan “Maruz kalma bildirimleri” işlevini de etkinleştirmeniz ve Corona-Warn-App’ı kullanıma açmanız gerekir.\n\nBunun ardından iPhone’unuz sürekli olarak rastgele kimlik numaraları oluşturur ve bunları Bluetooth aracılığıyla göndererek çevrenizdeki akıllı telefonlar tarafından alınabilmelerini sağlar. Öte yandan, kendi iPhone’unuz da diğer akıllı telefonlardan rastgele kimlik numaraları alır. Kendi rastgele kimlik numaralarınız ve diğer akıllı telefonlardan alınan kimlik numaraları, iPhone’unuz tarafından kaydedilir ve orada 14 gün boyunca saklanır.\n\nEnfeksiyon riskinin değerlendirmesinde uygulama, diğer kişileri uyarmak için kendi test sonuçlarını (daha doğrusu, kendi rastgele kimliklerini) resmi Korona uygulaması aracılığıyla paylaşan tüm kullanıcıların rastgele kimlik no'larını içeren ve günlük olarak güncellenen listeler indirir. Daha sonra bu listeler, iPhone’unuz tarafından kaydedilen rastgele kimlik numaraları ile karşılaştırılır.\n\nBir riske maruz kalma tespit edilirse, Korona uygulaması sizi bu konuda bilgilendirir. Böyle bir durumda uygulama, iPhone’unuz tarafından kaydedilen maruz kalma verilerine (temasın tarihi, süresi ve Bluetooth sinyal gücü) erişir. Diğer kullanıcıya olan mekânsal mesafe, Bluetooth sinyal gücü üzerinden elde edilir (sinyal ne kadar güçlüyse, mesafe o kadar kısadır).Bu veriler, enfeksiyon riskinizi hesaplamak ve nasıl davranmanız gerektiği konusunda size önerilerde bulunmak üzere uygulama tarafından değerlendirilir. Bu değerlendirme işlemi, sadece kendi akıllı telefonunuzda gerçekleştirilir.\n\nSizden başka hiç kimse (RKI (Robert Koch Enstitüsü) veya katılımcı ülkelerin sağlık kurumu yetkilileri bile), enfeksiyon riskine maruz kalıp kalmadığınızı ve sizin için nasıl bir enfeksiyon riskinin saptandığını öğrenemez.\n\nMaruz kalma günlüğüne vermiş olduğunuz rıza beyanını iptal etmek için, istediğiniz zaman uygulamadaki kaydırıcıyı kullanarak, işlevi devre dışı bırakabilir veya uygulamayı silebilirsiniz. Maruz kalma günlüğünü tekrar kullanmak isterseniz, kaydırıcıyı yeniden etkinleştirebilir veya uygulamayı yeniden yükleyebilirsiniz. Maruz kalma günlüğünü devre dışı bırakırsanız, uygulama, artık riskle karşılaşıp karşılaşmadığınızı denetleyemez. Rastgele kimlik numaralarının gönderilmesini ve tarafınızdan alınmasını durdurmak için, iPhone’unuzdakimaruz kalma bildirimleri işlevini devre dışı bırakmanız gerekir. Lütfen iPhone’unuzdaki bu işlev tarafından kaydedilen kendinize ait ve dışarıdan gelen rastgele kimlik numaralarının uygulama tarafından silinmediğini unutmayın. Bunları, sadece iPhone’unuzun ayarlarından kalıcı olarak silebilirsiniz.\n\nUygulamanın veri gizliliği beyanını (sınır ötesi maruz kalma günlüğü için veri işlemeye ilişkin bilgiler de dahil) “Uygulama bilgileri” > ”Veri gizliliği” menü öğeleri altında bulabilirsiniz.";
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Rıza beyanınız";
+"ExposureSubmissionQRInfo_acknowledgement_title" = "Rıza Beyanınız";
 
 "ExposureSubmissionQRInfo_acknowledgement_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
@@ -33,7 +33,7 @@
 
 /* Automatic share submission result consent */
 
-"AutomaticSharingConsent_Subtitle" = "Rıza beyanı";
+"AutomaticSharingConsent_Subtitle" = "Rıza Beyanı";
 
 "AutomaticSharingConsent_DescriptionPart1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır.";
 
@@ -44,6 +44,24 @@
 "AutomaticSharingConsent_DescriptionPart4" = "Yukarıdaki “Diğer Kullanıcıları Uyarın” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
 
 "AutomaticSharingConsent_DescriptionPart5" = "Bunun ardından test sonucunuz size görüntülenir.";
+
+
+/* Contact diary information */
+
+"ContactDiary_Information_Legal_Headline_1" = "Veri İşlemeye İlişkin Notlar";
+
+"ContactDiary_Information_Legal_SubHeadline_1" = "Kaydedilen tüm bilgiler üzerinde tam kontrole sahip olursunuz.";
+
+"ContactDiary_Information_Legal_Text_1" = "Corona-Warn-App’ın bu ek işlevinin kullanımı isteğe bağlıdır ve hangi kişi ve yerleri kaydedeceğinize yalnızca siz karar verirsiniz.";
+
+"ContactDiary_Information_Legal_Text_2" = "Ne RKI ne de başka herhangi bir kurum, temas günlüğüne girdiğiniz bilgilere erişebilir. Bu bilgiler, yalnızca Android akıllı telefonunuzda şifrelenmiş halde saklanır.";
+
+"ContactDiary_Information_Legal_SubHeadline_2" = "Lütfen çevrenizdeki kişilerin gizliliğini koruyun.";
+
+"ContactDiary_Information_Legal_Text_3" = "Lütfen temas günlüğünüzde kayıtlı olan verileri, kiminle ve nasıl paylaştığınızı tam olarak kontrol edin. Bu bilgiler, hatırlatma amaçlıdır - üçüncü taraflara yönelik değildir. Sağlık kurumu, temaslı takibi ile ilgili olarak sizden yardımınızı rica ederse, kayıtlarınızın aktarımı usule uygundur.";
+
+"ContactDiary_Information_Legal_Text_4" = "Özel kişiler veya şirketler, topladığınız verileri başkalarına aktarmanızı talep edemez. Birisi temas güncesine kaydedilmek istemiyorsa, lütfen onun bu isteğine saygı gösterin.";
+
 
 /* ExposureSubmissionWarnOthers */
 
