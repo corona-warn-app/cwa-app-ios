@@ -538,7 +538,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Perioada de carantină este de obicei de 14 zile. Observați ce simptome aveți și monitorizați dezvoltarea acestora.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Direcția de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome.";
+"ExposureSubmissionSuccess_listItem2_2" = "Autoritatea de sănătate publică vă va solicita să întocmiți o listă a persoanelor cu care ați intrat în contact. Aceasta trebuie să cuprindă toate persoanele cu care ați avut contact strâns (mai puțin de 2 metri, conversații față în față) timp de peste 15 minute începând cu două zile înainte de a prezenta simptome. Puteți utiliza jurnalul de contacte în acest scop: trebuie doar să exportați intrările și apoi să le tipăriți sau să le expediați pe e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Luați în considerare în special persoanele care nu vor fi notificate direct de aplicație dacă nu au un smartphone sau dacă nu și-au instalat aplicația.";
 
@@ -622,7 +622,7 @@
 
 "ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.";
+"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, eliminați testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Consimțământ „Avertizați-i pe ceilalți” acordat";
 
@@ -978,6 +978,15 @@
 
 "Home_SubmitCard_Button" = "Pașii următori";
 
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Jurnal de contacte";
+
+"Home_DiaryCard_Body" = "Păstrați evidența locurilor prin care ați fost și a persoanelor cu care v-ați întâlnit.";
+
+"Home_DiaryCard_ImageDescription" = "O carte închisă cu un semn de citire.";
+
+"Home_DiaryCard_Button" = "Gestionare jurnal";
+
 "Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "Cu cât aplicația este utilizată de mai multe persoane, cu atât mai repede putem întrerupe lanțurile de infectare. Invitați-vă familia și prietenii să descarce aplicația.";
@@ -1312,4 +1321,100 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Introducere simptome";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Ieșire";
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Jurnal de contacte";
+
+"ContactDiary_Overview_Description" = "Notați persoanele pe care le-ați întâlnit și locurile pe care le-ați vizitat. ";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informații";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Exportare intrări";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Editare persoane";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Editare locuri";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Persoane";
+
+"ContactDiary_Day_AddContactPerson" = "Adăugare persoană";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Nicio persoană definită deocamdată";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Creați o persoană și adăugați-o la jurnalul dvs. de contacte.";
+
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "Silueta unei femei care se plimbă pe un câmp.";
+
+"ContactDiary_Day_LocationsSegment" = "Locuri";
+
+"ContactDiary_Day_AddLocation" = "Adăugare loc";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Niciun loc definit deocamdată";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Creați un loc și adăugați-l la jurnalul dvs. de contacte.";
+
+"ContactDiary_Day_LocationsEmptyImageDescription" = "O clădire este marcată cu o piuneză.";
+
+/* Edit Entries */
+"ContactDiary_EditEntries_ContactPersons_Title" = "Persoane";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Eliminare toate";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Sigur doriți să eliminați toate persoanele?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Dacă eliminați o persoană, toate intrările pentru respectiva persoană vor fi eliminate din jurnalul dvs.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Da";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nu";
+
+"ContactDiary_EditEntries_Locations_Title" = "Locuri";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Eliminare toate";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Sigur doriți să eliminați toate locurile?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Dacă eliminați un loc, toate intrările pentru respectivul loc vor fi eliminate din jurnalul dvs.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Da";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nu";
+
+/* Information */
+"ContactDiary_Information_Title" = "Jurnal de contacte";
+
+"ContactDiary_Information_ImageDescription" = "Câteva persoane sunt afară, uitându-se la smartphone-urile lor.";
+
+"ContactDiary_Information_DescriptionTitle" = "Păstrați evidența contactelor dvs.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Creați un sumar al contactelor din ultimele 14 zile pentru a avea rapid la îndemână o listă completă, dacă este necesar.";
+
+"ContactDiary_Information_Item_Person_Title" = "Introduceți persoanele pe care le-ați întâlnit.";
+
+"ContactDiary_Information_Item_Location_Title" = "Introduceți locurile în care v-ați întâlnit cu alte persoane.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Sunteți singura persoană care poate accesa intrările din jurnal. Intrările dvs. vor fi salvate doar pe smartphone.";
+
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Puteți oricând elimina intrări de persoane și locuri din jurnal. Intrările din jurnal vor fi șterse automat după 16 zile.";
+
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "Puteți exporta jurnalul de contacte în format de text simplu și apoi puteți tipări sau edita intrările, sau le puteți pune la dispoziția autorității de sănătate publică, după cum este necesar.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Gestionare jurnal";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Salvare";
+
+/* - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Loc";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Loc";
+
+/* - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Persoană";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Persoană";
 
