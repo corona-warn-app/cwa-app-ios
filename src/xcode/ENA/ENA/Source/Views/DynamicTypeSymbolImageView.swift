@@ -38,14 +38,18 @@ class DynamicTypeSymbolImageView: UIImageView {
 		guard !isSettingImageInternally else { return }
 		isSettingImageInternally = true
 
-		let weight = UIImage.SymbolWeight(dynamicTypeWeight) ?? .regular
-		let configuration = UIImage.SymbolConfiguration(pointSize: scaledPointSize, weight: weight, scale: .default)
-		image = image?.withConfiguration(configuration)
+		#warning("Check chevrons")
+		if #available(iOS 13, *) {
+			let weight = UIImage.SymbolWeight(dynamicTypeWeight) ?? .regular
+			let configuration = UIImage.SymbolConfiguration(pointSize: scaledPointSize, weight: weight, scale: .default)
+			image = image?.withConfiguration(configuration)
+		}
 
 		isSettingImageInternally = false
 	}
 }
 
+@available(iOS 13.0, *)
 private extension UIImage.SymbolWeight {
 	init?(_ string: String) {
 		switch string {
