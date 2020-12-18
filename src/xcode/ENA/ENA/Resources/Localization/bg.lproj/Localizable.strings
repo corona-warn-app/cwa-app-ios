@@ -538,7 +538,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Периодът, в който трябва да сте под карантина, е 14 дни. Наблюдавайте своите симптоми и тяхното развитие.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Службата за обществено здравеопазване (Gesundheitsamt) ще изиска от Вас да съставите списък на Вашите контактни лица. Той трябва да включва всички лица, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да развиете симптоми.";
+"ExposureSubmissionSuccess_listItem2_2" = "Службата за обществено здравеопазване ще изиска от Вас да съставите списък на хората, с които сте били в близък контакт (на разстояние под 2 метра или при разговор лице в лице) в продължение на повече от 15 минути през последните два дни, преди да развиете симптоми. Може да използвате Вашия дневник на контактите – просто експортирайте записите и след това ги разпечатайте или ги изпратете по имейл.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Моля, обърнете особено внимание на хората, които няма да бъдат уведомени директно чрез приложението, тъй като нямат смартфон или не са инсталирали приложението.";
 
@@ -622,7 +622,7 @@
 
 "ExposureSubmissionResult_testPending" = "Все още няма резултат от теста Ви.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.";
+"ExposureSubmissionResult_testPendingDesc" = "Резултатът от Вашия тест ще се покаже в приложението веднага щом бъде готов.\n\nТой ще Ви бъде изпратен също и извън приложението. Службата за обществено осигуряване ще Ви уведоми, ако е положителен.\n\nАко получите такова уведомление, моля изтрийте теста, който в момента е регистриран в приложението. Позвънете на номера, показан под “Заявка за ТАН код”, за да получите TAN. Използвайте кода, за да регистрирате своя резултат в приложението и да предупредите останалите потребители.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Съгласие “Предупредете другите” е дадено";
 
@@ -978,6 +978,15 @@
 
 "Home_SubmitCard_Button" = "Следващи стъпки";
 
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Дневник на контактите";
+
+"Home_DiaryCard_Body" = "Отбелязвайте къде сте били и с кого сте се срещнали.";
+
+"Home_DiaryCard_ImageDescription" = "Затворена книга с отметка.";
+
+"Home_DiaryCard_Button" = "Управление на дневника";
+
 "Home_InfoCard_ShareTitle" = "Споделете приложението Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригите на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
@@ -1116,7 +1125,7 @@
 
 "InviteFriends_Button" = "Изпращане на линк за изтегляне";
 
-"InviteFriends_ShareTitle" = "Да се преборим с коронавируса заедно. Аз ще участвам, а ти?";
+"InviteFriends_ShareTitle" = "Да се преборим с коронавируса заедно! Аз ще участвам, а ти?";
 
 "InviteFriends_Illustration_Label" = "Човек споделя приложението Corona-Warn-App с четирима души.";
 
@@ -1312,4 +1321,100 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Въведете симптоми";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Изход";
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Дневник на контактите";
+
+"ContactDiary_Overview_Description" = "Отбележете хората, които сте срещнали, и местата, които сте посетили. ";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Информация";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Експортиране на записи";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Редактиране на лица";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Редактиране на места";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Лица";
+
+"ContactDiary_Day_AddContactPerson" = "Добавяне на лице";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Все още няма въведени лица";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Създайте лице и го добавете към Вашия дневник на контактите.";
+
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "Силует на жена, която минава през поляна.";
+
+"ContactDiary_Day_LocationsSegment" = "Места";
+
+"ContactDiary_Day_AddLocation" = "Добавяне на място";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Все още няма въведени места";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Създайте място и го добавете към Вашия дневник на контактите.";
+
+"ContactDiary_Day_LocationsEmptyImageDescription" = "Сграда с маркер за местоположение.";
+
+/* Edit Entries */
+"ContactDiary_EditEntries_ContactPersons_Title" = "Лица";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Изтриване на всички";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Наистина ли искате да изтриете всички лица?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Ако изтриете дадено лице, всички записи за него ще бъдат премахнати от Вашия дневник.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Да";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Не";
+
+"ContactDiary_EditEntries_Locations_Title" = "Места";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Изтриване на всички";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Наистина ли искате да изтриете всички места?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Ако изтриете дадено място, всички записи за него ще бъдат премахнати от Вашия дневник.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Да";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Не";
+
+/* Information */
+"ContactDiary_Information_Title" = "Дневник на контактите";
+
+"ContactDiary_Information_ImageDescription" = "Няколко души са навън и гледат смартфоните си.";
+
+"ContactDiary_Information_DescriptionTitle" = "Отбелязвайте Вашите контакти.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Направете списък на Вашите контакти през последните 14 дни. Ще имате бърз достъп до него в случай на необходимост.";
+
+"ContactDiary_Information_Item_Person_Title" = "Отбележете хората, които сте срещнали.";
+
+"ContactDiary_Information_Item_Location_Title" = "Отбележете местата, където сте имали контакт с други хора.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Единствено Вие имате достъп до записите от Вашия дневник. Те ще се пазят само на Вашия смартфон.";
+
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Можете да премахвате записи за хора и места от Вашия дневник по всяко време. Записите от дневника ще се изтриват автоматично след 16 дни.";
+
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "Ако е необходимо, можете да експортирате Вашия дневник на контактите във формат на обикновен текст и след това да го разпечатате, редактирате или предоставите на службата за обществено здравеопазване.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "За повече информация прочетете декларацията за поверителност.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Управление на дневника";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Запазване";
+
+/* - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Място";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Място";
+
+/* - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Лице";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Лице";
 
