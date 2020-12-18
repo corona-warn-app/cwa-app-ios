@@ -21,6 +21,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocation", "YES"])
+
 	}
 
 	// MARK: - Internal
@@ -49,6 +50,54 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+	}
+
+	func testAddOnePersonAndOneLocationToDate() {
+
+		navigateToJournalOverview()
+
+		// check count for overview: day cell 14 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+
+		// select 3th cell
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		// check count for day entries: 1 add entry cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+
+		addPersonToDayEntry("Marcus Mustermann")
+		addPersonToDayEntry("Manu Mustermann")
+
+		// check count for day entries: 1 add entry cell + 1 person added
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+
+		// deselect Manu Mustermann - 1 because new persons get entered on top
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).tap()
+
+		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+
+		// check count for day entries: 1 add entry cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+
+		addLocationToDayEntry("Pommesbude")
+
+		// check count for day entries: 1 add entry cell + 2 person added
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
+
+		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+
+		// check count for overview: day cell 14 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		let dayCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3)
+
+		XCTAssertTrue(dayCell.staticTexts["Marcus Mustermann"].exists)
+		XCTAssertTrue(dayCell.staticTexts["Pommesbude"].exists)
+		XCTAssertFalse(dayCell.staticTexts["Manu Mustermann"].exists)
 	}
 
 	func testAddPersonToDate() {
