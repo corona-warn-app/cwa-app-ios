@@ -8,6 +8,7 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
+
 	var client: HTTPClient { get }
 	var wifiClient: WifiOnlyHTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
@@ -18,10 +19,13 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
 	var contactDiaryStore: ContactDiaryStoreV1 { get }
+
+	func requestUpdatedExposureState()
+
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, UNUserNotificationCenterDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
 	// MARK: - Init
 
@@ -39,10 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate {
 
 	// MARK: - Protocol UIApplicationDelegate
 
+	var window: UIWindow?
+
 	func application(
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		setupUI()
+
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.delegate = self
@@ -55,7 +63,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate {
 		}
 		riskProvider.observeRisk(consumer)
 
+		#if DEBUG
+		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
+		if isUITesting {
+			window?.layer.speed = 100
+		}
+
+		setupOnboardingForTesting()
+		#endif
+
+		exposureManager.observeExposureNotificationStatus(observer: self)
+
+		UNUserNotificationCenter.current().delegate = self
+
+		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+
 		return true
+	}
+
+	func applicationWillEnterForeground(_ application: UIApplication) {
+		let detectionMode = DetectionMode.fromBackgroundStatus()
+		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
+
+		riskProvider.requestRisk(userInitiated: false)
+
+		let state = exposureManager.exposureManagerState
+
+		updateExposureState(state)
+		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+	}
+
+	func applicationDidBecomeActive(_ application: UIApplication) {
+		Log.info("Application did become active.", log: .background)
+
+		hidePrivacyProtectionWindow()
+		UIApplication.shared.applicationIconBadgeNumber = 0
+		// explicitely disabled as per #EXPOSUREAPP-2214
+		executeFakeRequestOnAppLaunch(probability: 0.0)
+	}
+
+	func applicationDidEnterBackground(_ application: UIApplication) {
+		showPrivacyProtectionWindow()
+		if #available(iOS 13.0, *) {
+			taskScheduler.scheduleTask()
+		}
+		Log.info("Application did enter background.", log: .background)
 	}
 
 	// MARK: - Protocol CoronaWarnAppDelegate
@@ -125,6 +178,95 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate {
 	let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 
+	func requestUpdatedExposureState() {
+		let state = exposureManager.exposureManagerState
+		updateExposureState(state)
+	}
+
+	// MARK: - Protocol ENAExposureManagerObserver
+
+	func exposureManager(
+		_: ENAExposureManager,
+		didChangeState newState: ExposureManagerState
+	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+
+		let message = """
+		New status of EN framework:
+		Authorized: \(newState.authorized)
+		enabled: \(newState.enabled)
+		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
+		"""
+		Log.info(message, log: .api)
+
+		updateExposureState(newState)
+	}
+
+	// MARK: - Protocol CoordinatorDelegate
+
+	/// Resets all stores and notifies the Onboarding and resets all pending notifications
+	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
+
+		exposureSubmissionService.reset()
+
+		do {
+			let newKey = try KeychainHelper().generateDatabaseKey()
+			store.clearAll(key: newKey)
+		} catch {
+			fatalError("Creating new database key failed")
+		}
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
+		exposureManager.reset {
+			self.exposureManager.observeExposureNotificationStatus(observer: self)
+			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+		}
+
+		// Remove all pending notifications
+		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+	}
+
+	// MARK: - Protocol UNUserNotificationCenterDelegate
+
+	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+		completionHandler([.alert, .badge, .sound])
+	}
+
+	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+		switch response.notification.request.identifier {
+		case ActionableNotificationIdentifier.testResult.identifier,
+			 ActionableNotificationIdentifier.riskDetection.identifier,
+			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
+			showHome(animated: true)
+
+		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
+			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
+			showPositiveTestResultFromNotification(animated: true)
+
+		default: break
+		}
+
+		completionHandler()
+	}
+
+	// MARK: - Protocol ExposureStateUpdating
+
+	func updateExposureState(_ state: ExposureManagerState) {
+		riskProvider.exposureManagerState = state
+		riskProvider.requestRisk(userInitiated: false)
+		coordinator.updateExposureState(state)
+		enStateHandler?.updateExposureState(state)
+	}
+
+	// MARK: - Protocol ENStateHandlerUpdating
+
+	func updateEnState(_ state: ENStateHandler.State) {
+		Log.info("AppDelegate got EnState update: \(state)", log: .api)
+		coordinator.updateEnState(state)
+	}
+
 	// MARK: - Internal
 
 	let backgroundTaskConsumer = RiskConsumer()
@@ -144,11 +286,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate {
 	}()
 
 	private func showError(_ riskProviderError: RiskProviderError) {
-		guard
-			let scene = UIApplication.shared.connectedScenes.first,
-			let delegate = scene.delegate as? SceneDelegate,
-			let rootController = delegate.window?.rootViewController
-		else {
+		guard let rootController = window?.rootViewController else {
 			return
 		}
 
@@ -231,4 +369,158 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate {
 		}
 	}
 
+	private lazy var navigationController: UINavigationController = AppNavigationController()
+	private lazy var coordinator = Coordinator(
+		self,
+		navigationController,
+		contactDiaryStore: UIApplication.coronaWarnDelegate().contactDiaryStore
+	)
+
+	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
+
+	private var enStateHandler: ENStateHandler?
+
+	private let riskConsumer = RiskConsumer()
+
+	private func setupUI() {
+		setupNavigationBarAppearance()
+		setupAlertViewAppearance()
+
+		if store.isOnboarded {
+			showHome()
+		} else {
+			showOnboarding()
+		}
+		UIImageView.appearance().accessibilityIgnoresInvertColors = true
+
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.rootViewController = navigationController
+		window?.makeKeyAndVisible()
+	}
+
+	private func setupNavigationBarAppearance() {
+		let appearance = UINavigationBar.appearance()
+
+		appearance.tintColor = .enaColor(for: .tint)
+
+		appearance.titleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+
+		appearance.largeTitleTextAttributes = [
+			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+	}
+
+	private func setupAlertViewAppearance() {
+		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
+	}
+
+	private func showHome(animated _: Bool = false) {
+		if exposureManager.exposureManagerState.status == .unknown {
+			exposureManager.activate { [weak self] error in
+				if let error = error {
+					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
+					return
+				}
+				self?.presentHomeVC()
+			}
+		} else {
+			presentHomeVC()
+		}
+	}
+
+	private func presentHomeVC() {
+		enStateHandler = ENStateHandler(
+			initialExposureManagerState: exposureManager.exposureManagerState,
+			delegate: self
+		)
+
+		guard let enStateHandler = self.enStateHandler else {
+			fatalError("It should not happen.")
+		}
+
+		coordinator.showHome(enStateHandler: enStateHandler)
+	}
+
+	private func showPositiveTestResultFromNotification(animated _: Bool = false) {
+		let warnOthersReminder = WarnOthersReminder(store: store)
+		guard warnOthersReminder.positiveTestResultWasShown else {
+			return
+		}
+
+		coordinator.showPositiveTestResultFromNotification(with: .positive)
+	}
+
+	private func showOnboarding() {
+		coordinator.showOnboarding()
+	}
+
+	#if DEBUG
+	private func setupOnboardingForTesting() {
+		if let isOnboarded = UserDefaults.standard.string(forKey: "isOnboarded") {
+			store.isOnboarded = (isOnboarded != "NO")
+		}
+
+		if let onboardingVersion = UserDefaults.standard.string(forKey: "onboardingVersion") {
+			store.onboardingVersion = onboardingVersion
+		}
+
+		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
+			store.onboardingVersion = Bundle.main.appVersion
+		}
+	}
+	#endif
+
+	@objc
+	private func isOnboardedDidChange(_: NSNotification) {
+		store.isOnboarded ? showHome() : showOnboarding()
+	}
+
+	@objc
+	private func backgroundRefreshStatusDidChange() {
+		coordinator.updateDetectionMode(currentDetectionMode)
+	}
+
+	// MARK: Privacy Protection
+
+	private var privacyProtectionWindow: UIWindow?
+
+	private func showPrivacyProtectionWindow() {
+		guard
+			let windowScene = window?.windowScene,
+			store.isOnboarded == true
+			else {
+				return
+		}
+
+		let privacyProtectionViewController = PrivacyProtectionViewController()
+		privacyProtectionWindow = UIWindow(windowScene: windowScene)
+		privacyProtectionWindow?.rootViewController = privacyProtectionViewController
+		privacyProtectionWindow?.windowLevel = .alert + 1
+		privacyProtectionWindow?.makeKeyAndVisible()
+		privacyProtectionViewController.show()
+	}
+
+	private func hidePrivacyProtectionWindow() {
+		guard let privacyProtectionViewController = privacyProtectionWindow?.rootViewController as? PrivacyProtectionViewController else {
+			return
+		}
+		privacyProtectionViewController.hide {
+			self.privacyProtectionWindow?.isHidden = true
+			self.privacyProtectionWindow = nil
+		}
+	}
+
+}
+
+private extension Array where Element == URLQueryItem {
+	func valueFor(queryItem named: String) -> String? {
+		first(where: { $0.name == named })?.value
+	}
+}
+
+private var currentDetectionMode: DetectionMode {
+	DetectionMode.fromBackgroundStatus()
 }

@@ -360,7 +360,6 @@
 		8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595BF5E246032D90056EA27 /* ENASwitch.swift */; };
 		859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859DD511248549790073D59F /* MockDiagnosisKeysRetrieval.swift */; };
 		85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7593E2457048F008175F0 /* AppDelegate.swift */; };
-		85D759412457048F008175F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D759402457048F008175F0 /* SceneDelegate.swift */; };
 		85D7594B24570491008175F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594A24570491008175F0 /* Assets.xcassets */; };
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
@@ -1082,7 +1081,6 @@
 		859DD511248549790073D59F /* MockDiagnosisKeysRetrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiagnosisKeysRetrieval.swift; sourceTree = "<group>"; };
 		85D7593B2457048F008175F0 /* ENA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ENA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7593E2457048F008175F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		85D759402457048F008175F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		85D7594A24570491008175F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85D7594D24570491008175F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85D7594F24570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2250,7 +2248,6 @@
 				85D7593E2457048F008175F0 /* AppDelegate.swift */,
 				A3552CC524DD6E78008C91BE /* AppDelegate+ENATaskExecutionDelegate.swift */,
 				A3552CC324DD6E16008C91BE /* AppDelegate+PlausibleDeniability.swift */,
-				85D759402457048F008175F0 /* SceneDelegate.swift */,
 				CDA262F724AB808800612E15 /* Coordinator.swift */,
 				516E430324B89AF60008CC30 /* __tests__ */,
 			);
@@ -4209,7 +4206,6 @@
 				01F2A5B92581181A00DA96A6 /* DiaryDayAddTableViewCell.swift in Sources */,
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
-				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				71B8044D248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,

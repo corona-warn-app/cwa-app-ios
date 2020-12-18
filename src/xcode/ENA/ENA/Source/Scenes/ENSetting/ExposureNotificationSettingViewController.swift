@@ -241,9 +241,8 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
 		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
-		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-			mySceneDelegate.requestUpdatedExposureState()
-		}
+
+		UIApplication.coronaWarnDelegate().requestUpdatedExposureState()
 		tableView.reloadData()
 	}
 

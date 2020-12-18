@@ -15,7 +15,7 @@ protocol CoordinatorDelegate: AnyObject {
 	The object for coordination of communication between first and second level view controllers, including navigation.
 
 	This class is the first point of contact for handling navigation inside the app.
-	It's supposed to be insantiated from `AppDelegate` or `SceneDelegate` and handed over the root view controller.
+	It's supposed to be instantiated from `AppDelegate` or `SceneDelegate` and handed over the root view controller.
 	It instantiates view controllers with dependencies and presents them.
 	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transfering state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
