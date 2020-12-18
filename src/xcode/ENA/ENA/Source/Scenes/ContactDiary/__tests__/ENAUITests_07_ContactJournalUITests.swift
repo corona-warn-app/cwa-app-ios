@@ -117,13 +117,16 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.navigationBars.element(boundBy: 2).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
 		app.textFields.firstMatch.typeText("-RotWeiss")
 
-		app.textFields.firstMatch.buttons
+		XCTAssertTrue(app.textFields.firstMatch.buttons.firstMatch.waitForExistence(timeout: .medium))
+		// tap the clear button inside textfield to clear input
+		app.textFields.firstMatch.buttons.firstMatch.tap()
+		app.textFields.firstMatch.typeText("PommesBude-RotWeiss")
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
 
 		XCTAssertNotEqual(originalLocation, locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
-		XCTAssertEqual(originalLocation + "-RotWeiss", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
+		XCTAssertEqual("PommesBude-RotWeiss", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
 	func testAddTwoPersonsAndOneLocationToDate() throws {
