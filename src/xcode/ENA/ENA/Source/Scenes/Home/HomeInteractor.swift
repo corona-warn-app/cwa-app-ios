@@ -215,7 +215,6 @@ extension HomeInteractor {
 // MARK: - Action section setup helpers.
 
 extension HomeInteractor {
-	private var riskDetails: Risk.Details? { state.riskDetails }
 
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 		let detectionIsAutomatic = detectionMode == .automatic
