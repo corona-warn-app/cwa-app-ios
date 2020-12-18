@@ -24,7 +24,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	// MARK: - Init
 
-	init(
+	init?(
 		databaseQueue: FMDatabaseQueue,
 		schema: ContactDiaryStoreSchemaV1,
 		key: String,
@@ -35,12 +35,20 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		self.dateProvider = dateProvider
 		self.schema = schema
 
-		openAndSetup()
+		guard case .success = openAndSetup() else {
+			return nil
+		}
 
-		cleanup()
+		guard case .success = cleanup() else {
+			return nil
+		}
 
+		var updateDiaryResult: DiaryStoringVoidResult?
 		databaseQueue.inDatabase { database in
-			_ = updateDiaryDays(with: database)
+			updateDiaryResult = updateDiaryDays(with: database)
+		}
+		guard case .success = updateDiaryResult else {
+			return nil
 		}
 
 		registerToDidBecomeActiveNotification()
@@ -111,7 +119,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -224,7 +232,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -265,7 +273,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -309,7 +317,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -353,7 +361,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -390,7 +398,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -427,7 +435,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -463,7 +471,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -499,7 +507,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -535,7 +543,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -571,7 +579,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
@@ -592,44 +600,26 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			return .failure(error)
 		}
 
-		openAndSetup()
+		let openAndSetupResult = openAndSetup()
+		if case .failure = openAndSetupResult {
+			return openAndSetupResult
+		}
 
+		var updateDiaryDaysResult: DiaryStoringVoidResult?
 		databaseQueue.inDatabase { database in
-			updateDiaryDays(with: database)
+			updateDiaryDaysResult = updateDiaryDays(with: database)
+		}
+		if case .failure(let error) = updateDiaryDaysResult {
+			return .failure(error)
 		}
 
 		return .success(())
 	}
 
-	private func dropTables() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
-
-		databaseQueue.inDatabase { database in
-			let sql = """
-					PRAGMA journal_mode=OFF;
-					DROP TABLE Location;
-					DROP TABLE LocationVisit;
-					DROP TABLE ContactPerson;
-					DROP TABLE ContactPersonEncounter;
-					VACUUM;
-				"""
-
-			guard database.executeStatements(sql) else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
-		}
-
-		guard let _result = result else {
-			fatalError("Result should not be nil.")
-		}
-
-		return _result
+	func close() {
+		databaseQueue.close()
 	}
-	
+
 	// MARK: - Private
 
 	private let dataRetentionPeriodInDays = 16 // Including today.
@@ -658,18 +648,22 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	private let databaseQueue: FMDatabaseQueue
 
-	private func openAndSetup() {
+	private func openAndSetup() -> DiaryStoringVoidResult {
+		var errorResult: DiaryStoringVoidResult?
+
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
 
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
+				errorResult = .failure(dbError(from: database))
 				return
 			}
 
 			guard database.open() else {
 				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
+				errorResult = .failure(dbError(from: database))
 				return
 			}
 
@@ -681,11 +675,21 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			"""
 			guard database.executeStatements(sql) else {
 				logLastErrorCode(from: database)
+				errorResult = .failure(dbError(from: database))
 				return
 			}
 		}
 
-		_ = schema.create()
+		if let _errorResult = errorResult {
+			return _errorResult
+		}
+
+		let schemaCreateResult = schema.create()
+		if case let .failure(error) = schemaCreateResult {
+			return .failure(.database(error))
+		}
+
+		return .success(())
 	}
 
 	private func registerToDidBecomeActiveNotification() {
@@ -838,11 +842,41 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("Result should not be nil.")
+			fatalError("[ContactDiaryStore] Result should not be nil.")
 		}
 
 		return _result
 	}
+
+	private func dropTables() -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			let sql = """
+					PRAGMA journal_mode=OFF;
+					DROP TABLE Location;
+					DROP TABLE LocationVisit;
+					DROP TABLE ContactPerson;
+					DROP TABLE ContactPersonEncounter;
+					VACUUM;
+				"""
+
+			guard database.executeStatements(sql) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
 
 	private func logLastErrorCode(from database: FMDatabase) {
 		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
@@ -854,41 +888,37 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	}
 }
 
+// MARK: Creation
+
 extension ContactDiaryStoreV1 {
-	convenience init(fileName: String) {
-		let fileManager = FileManager.default
 
-		guard let storeDirectoryURL = try? fileManager
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("ContactDiary") else {
-			fatalError("Could not create folder.")
+	static func make() -> ContactDiaryStoreV1 {
+		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
+
+		if let store = ContactDiaryStoreV1() {
+			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
+			return store
 		}
 
-		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
-			try? fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
-		}
+		Log.info("[ContactDiaryStore] Failed to create contact diary store. Try to rescue it...", log: .localData)
 
-		let storeURL = storeDirectoryURL
-			.appendingPathComponent(fileName)
-			.appendingPathExtension("sqlite")
+		// The database could not be created – To the rescue!
+		// Remove the database file and try to init the store a second time.
+		try? FileManager.default.removeItem(at: ContactDiaryStoreV1.storeDirectoryURL)
 
-		guard let keychain = try? KeychainHelper() else {
-			fatalError("Failed to create KeychainHelper for contact diary store.")
-		}
-
-		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStoreV1.encriptionKeyKey) {
-			key = String(decoding: keyData, as: UTF8.self)
+		if let secondTryStore = ContactDiaryStoreV1() {
+			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
+			return secondTryStore
 		} else {
-			do {
-				key = try keychain.generateContactDiaryDatabaseKey()
-			} catch {
-				fatalError("Failed to create key for contact diary store.")
-			}
+			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
+			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
 		}
+	}
 
-		guard let databaseQueue = FMDatabaseQueue(path: storeURL.path) else {
-			fatalError("Failed to create FMDatabaseQueue.")
+	convenience init?() {
+		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV1.storeURL.path) else {
+			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
+			return nil
 		}
 
 		let schema = ContactDiaryStoreSchemaV1(
@@ -898,8 +928,48 @@ extension ContactDiaryStoreV1 {
 		self.init(
 			databaseQueue: databaseQueue,
 			schema: schema,
-			key: key
+			key: ContactDiaryStoreV1.encryptionKey
 		)
+	}
+
+	private static var storeURL: URL {
+		storeDirectoryURL
+			.appendingPathComponent("ContactDiary")
+			.appendingPathExtension("sqlite")
+	}
+
+	private static var storeDirectoryURL: URL {
+		let fileManager = FileManager.default
+
+		guard let storeDirectoryURL = try? fileManager
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("ContactDiary") else {
+			fatalError("[ContactDiaryStore] Could not create folder.")
+		}
+
+		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
+			try? fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+		}
+		return storeDirectoryURL
+	}
+
+	private static var encryptionKey: String {
+		guard let keychain = try? KeychainHelper() else {
+			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
+		}
+
+		let key: String
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStoreV1.encriptionKeyKey) {
+			key = String(decoding: keyData, as: UTF8.self)
+		} else {
+			do {
+				key = try keychain.generateContactDiaryDatabaseKey()
+			} catch {
+				fatalError("[ContactDiaryStore] Failed to create key for contact diary store.")
+			}
+		}
+
+		return key
 	}
 
 	// swiftlint:disable:next file_length
