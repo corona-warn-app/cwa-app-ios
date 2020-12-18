@@ -237,7 +237,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		search("AppStrings.ContactDiaryInformation.dataPrivacyTitle", element: app)?.tap()
 
 		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("App_Information_Privacy_Navigation"))
+		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
 	}
 
 	func testCloseInformationVC() throws {
