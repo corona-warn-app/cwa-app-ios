@@ -10,6 +10,7 @@ import CryptoKit
 
 
 // DEV NOTE: structure might change ⚠️⚠️⚠️
+#warning("check test coverage!")
 
 // MARK: - HASH
 
@@ -21,19 +22,30 @@ extension Data {
 		if #available(iOS 13.0, *) {
 			return Data(SHA256.hash(data: self))
 		} else {
-			preconditionFailure("not implemented")
+			// via https://www.agnosticdev.com/content/how-use-commoncrypto-apis-swift-5
+
+			// #define CC_SHA256_DIGEST_LENGTH     32
+			// Creates an array of unsigned 8 bit integers that contains 32 zeros
+			var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+
+			// CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (md)
+			// Takes the strData referenced value (const unsigned char *d) and hashes it into a reference to the digest parameter.
+			_ = self.withUnsafeBytes {
+				// CommonCrypto
+				// extern unsigned char *CC_SHA256(const void *data, CC_LONG len, unsigned char *md)  -|
+				// OpenSSL                                                                             |
+				// unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md)        <-|
+				CC_SHA256($0.baseAddress, UInt32(self.count), &digest)
+			}
+
+			return Data(digest)
 		}
 	}
 
 	/// SHA 256 hash of the current Data
 	/// - Returns: String representation of the hash value
 	func sha256String() -> String {
-		if #available(iOS 13.0, *) {
-			// compact map removes 'SHA256 digest:' prefix
-			return sha256().compactMap { String(format: "%02x", $0) }.joined()
-		} else {
-			preconditionFailure("not implemented")
-		}
+		sha256().compactMap { String(format: "%02x", $0) }.joined()
 	}
 }
 
@@ -60,14 +72,16 @@ struct PublicKey {
 
 extension PublicKey: PublicKeyProvider {
 	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol {
-		preconditionFailure("not implemented")
+		#warning("invalid mock implementation")
+		return true
 	}
 }
 
 @available(iOS 13.0, *)
 extension P256.Signing.PublicKey: PublicKeyProvider {
 	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol {
-		preconditionFailure("not implemented")
+		#warning("invalid mock implementation")
+		return true
 	}
 }
 
@@ -101,20 +115,20 @@ protocol ECDSASignatureProtocol {
 
 /// Very naïve implementation of `P256.Signing.ECDSASignature` used as data container.
 struct ECDSASignature: ECDSASignatureProtocol {
-	var rawRepresentation: Data {
-		preconditionFailure("not implemented")
-	}
+	var rawRepresentation: Data
 
-	var derRepresentation: Data {
-		preconditionFailure("not implemented")
-	}
+	var derRepresentation: Data
 
 	init<D>(rawRepresentation: D) throws where D: DataProtocol {
-		preconditionFailure("not implemented")
+		#warning("invalid mock implementation")
+		self.rawRepresentation = Data() // rawRepresentation
+		self.derRepresentation = self.rawRepresentation
 	}
 
 	init<D>(derRepresentation: D) throws where D: DataProtocol {
-		preconditionFailure("not implemented")
+		#warning("invalid mock implementation")
+		self.derRepresentation = Data() // derRepresentation
+		self.rawRepresentation = self.derRepresentation
 	}
 
 	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R {

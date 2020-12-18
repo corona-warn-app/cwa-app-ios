@@ -41,9 +41,9 @@ struct SAPDownloadedPackage: Fingerprinting {
 	typealias Verification = (SAPDownloadedPackage) -> Bool
 
 	struct Verifier {
-		private let getPublicKey: PublicKeyProvider
+		private let getPublicKey: PublicKeyProviding
 
-		init(key provider: @escaping PublicKeyProvider = DefaultPublicKeyProvider) {
+		init(key provider: @escaping PublicKeyProviding = DefaultPublicKeyProvider) {
 			getPublicKey = provider
 		}
 
@@ -59,7 +59,7 @@ struct SAPDownloadedPackage: Fingerprinting {
 			for signatureEntry in parsedSignatureFile.signatures {
 				let signatureData: Data = signatureEntry.signature
 				guard
-					let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
+					let signature = try? ECDSASignature(derRepresentation: signatureData)
 				else {
 					Log.warning("Could not validate signature of downloaded package", log: .api)
 					continue

@@ -6,6 +6,7 @@ import Foundation
 import CommonCrypto
 import CryptoKit
 
+@available(iOS 13.0, *)
 final class CoronaWarnURLSessionDelegate: NSObject {
 	private let localPublicKey: String
 
@@ -15,6 +16,7 @@ final class CoronaWarnURLSessionDelegate: NSObject {
 	}
 }
 
+@available(iOS 13.0, *)
 extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 	func urlSession(
 		_ session: URLSession,

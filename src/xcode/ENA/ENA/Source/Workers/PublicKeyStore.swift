@@ -47,6 +47,7 @@ enum PublicKeyEnv {
 	}
 }
 
+typealias PublicKeyProviding = () -> PublicKeyProvider
 typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProvider
 typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProvider
 
@@ -62,10 +63,14 @@ let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk -> PublicKeyP
 	}
 }
 
-let DefaultPublicKeyProvider: PublicKeyProvider = {
+let DefaultPublicKeyProvider: PublicKeyProviding = {
 	#if USE_DEV_PK_FOR_SIG_VERIFICATION
-	return DefaultPublicKeyFromEnvProvider(.development)
+	return {
+		DefaultPublicKeyFromEnvProvider(.development)
+	}
 	#else
-	return DefaultPublicKeyFromEnvProvider(.production)
+	return {
+		DefaultPublicKeyFromEnvProvider(.production)
+	}
 	#endif
 }()
