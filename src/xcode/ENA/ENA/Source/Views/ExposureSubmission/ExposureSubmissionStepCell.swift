@@ -18,6 +18,8 @@ class ExposureSubmissionStepCell: UITableViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		
+		setup()
 
 		contentView.preservesSuperviewLayoutMargins = false
 		contentView.layoutMargins.top = 0
@@ -55,6 +57,9 @@ class ExposureSubmissionStepCell: UITableViewCell {
 		configure(style: .body, title: title, icon: UIImage(named: "Icons_Dark_Dot"), iconTint: nil, hairline: hairline, bottomSpacing: bottomSpacing)
 	}
 
+	
+	// MARK: - Private
+	
 	private func applyHairline(_ hairline: Hairline) {
 		switch hairline {
 		case .none:
@@ -67,6 +72,10 @@ class ExposureSubmissionStepCell: UITableViewCell {
 			hairlineView.isHidden = false
 			hairlineTopConstraint.isActive = false
 		}
+	}
+	
+	private func setup() {
+		backgroundColor = .clear
 	}
 }
 
