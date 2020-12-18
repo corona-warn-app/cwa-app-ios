@@ -286,9 +286,9 @@ private extension UITableViewCell {
 	}
 
 	func removeSeparators() {
-		contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-		contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-		contentView.viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
