@@ -20,6 +20,8 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	@IBOutlet var footerView: UIView!
 	@IBOutlet var checkButton: ENAButton!
 
+	let store: Store
+
 	var state: State {
 		didSet {
 			updateUI()
@@ -34,10 +36,12 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	init?(
 		coder: NSCoder,
 		state: State,
+		store: Store,
 		delegate: ExposureDetectionViewControllerDelegate
 	) {
-		self.delegate = delegate
 		self.state = state
+		self.store = store
+		self.delegate = delegate
 		super.init(coder: coder)
 	}
 
@@ -68,7 +72,6 @@ extension ExposureDetectionViewController {
 		}
 
 		consumer.didFailCalculateRisk = { [weak self] error in
-
 			// Ignore already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
