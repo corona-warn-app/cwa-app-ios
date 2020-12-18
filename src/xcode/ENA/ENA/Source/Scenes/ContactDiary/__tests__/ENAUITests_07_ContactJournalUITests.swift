@@ -30,29 +30,25 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	// MARK: - Test cases.
 
-	private func addPersonToDayEntry(_ personName: String) {
-		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
-		addCell.tap()
+	func testOpenInformationScreenViaSheet() throws {
+		openInformationSheet()
 
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
-		app.textFields.firstMatch.typeText(personName)
+		app.sheets.firstMatch.buttons.element(boundBy: 0).tap()
 
-		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
-		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+		// Check whether we have entered the info screen.
+		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
 	}
 
-	private func addLocationToDayEntry(_ locationName: String) {
-		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
-		addCell.tap()
+	func testOpenExportViaSheet() throws {
+		openInformationSheet()
 
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
-		app.textFields.firstMatch.typeText(locationName)
+		app.sheets.firstMatch.buttons.element(boundBy: 1).tap()
 
-		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
-		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+		// Check whether we have entered the info screen.
+		XCTAssertTrue(app.otherElements["ActivityListView"].waitForExistence(timeout: .medium))
 	}
 
-	func testAddOnePersonAndOneLocationToDate() {
+	func testAddOnePersonAndOneLocationToDate() throws {
 
 		navigateToJournalOverview()
 
@@ -100,7 +96,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertFalse(dayCell.staticTexts["Manu Mustermann"].exists)
 	}
 
-	func testAddPersonToDate() {
+	func testAddPersonToDate() throws {
 
 		navigateToJournalOverview()
 
@@ -125,7 +121,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 	}
 
-	func testAddLocationToDate() {
+	func testAddLocationToDate() throws {
 
 		navigateToJournalOverview()
 
@@ -197,6 +193,55 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		let collectionView = app.descendants(matching: .collectionView).firstMatch
 		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
+	}
+
+	private func addPersonToDayEntry(_ personName: String) {
+		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
+		addCell.tap()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
+		app.textFields.firstMatch.typeText(personName)
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
+		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+	}
+
+	private func addLocationToDayEntry(_ locationName: String) {
+		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
+		addCell.tap()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
+		app.textFields.firstMatch.typeText(locationName)
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
+		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+	}
+
+	private func prepareDataInOverview() {
+
+		navigateToJournalOverview()
+
+		// select 3th cell
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		addPersonToDayEntry("Marcus Mustermann")
+		addPersonToDayEntry("Manu Mustermann")
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+		addLocationToDayEntry("Pommesbude")
+
+		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+
+	}
+
+	private func openInformationSheet() {
+		prepareDataInOverview()
+
+		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 1).waitForExistence(timeout: .medium))
+		app.navigationBars.firstMatch.buttons.element(boundBy: 1).tap()
+
+		XCTAssertTrue(app.sheets.firstMatch.waitForExistence(timeout: .medium))
 	}
 
 	private func launch() {
