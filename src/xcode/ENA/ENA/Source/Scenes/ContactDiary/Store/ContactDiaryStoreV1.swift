@@ -607,9 +607,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 		var updateDiaryDaysResult: DiaryStoringVoidResult?
 		databaseQueue.inDatabase { database in
-			updateDiaruesResult = updateDiaryDays(with: database)
+			updateDiaryDaysResult = updateDiaryDays(with: database)
 		}
-		if case .failure(let error) = updateDiaruesResult {
+		if case .failure(let error) = updateDiaryDaysResult {
 			return .failure(error)
 		}
 
