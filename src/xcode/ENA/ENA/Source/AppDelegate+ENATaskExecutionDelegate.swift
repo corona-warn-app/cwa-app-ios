@@ -56,6 +56,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			}
 		}
 
+		group.enter()
+		DispatchQueue.global().async {
+			Log.info("Cleanup contact diary store.", log: .background)
+			self.contactDiaryStore.cleanup(timeout: 10.0)
+			group.leave()
+		}
+
 		group.notify(queue: .main) {
 			completion(true)
 		}

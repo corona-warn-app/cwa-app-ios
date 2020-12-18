@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Şu ana dek hiçbir maruz kalma yok</string>
+			<string>Hiçbir maruz kalma yok</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Bir gün için düşük riskli maruz kalmalar</string>

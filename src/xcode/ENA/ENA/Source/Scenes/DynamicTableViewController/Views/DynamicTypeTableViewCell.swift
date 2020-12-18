@@ -67,7 +67,7 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 	func configureAccessibility(label: String? = nil, identifier: String? = nil, traits: UIAccessibilityTraits = .staticText) {
 		textLabel?.accessibilityLabel = label
-		textLabel?.accessibilityIdentifier = identifier
+		accessibilityIdentifier = identifier
 		accessibilityTraits = traits
 	}
 }
