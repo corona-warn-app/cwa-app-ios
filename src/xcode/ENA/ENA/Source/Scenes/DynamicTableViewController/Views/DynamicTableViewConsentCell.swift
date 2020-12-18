@@ -39,7 +39,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		
 		// MARK: - General cell setup.
 		selectionStyle = .none
-		backgroundColor = .enaColor(for: .background)
+		backgroundColor = .clear
 		
 		// MARK: - Add consent view
 		consentView.backgroundColor = .enaColor(for: .separator)

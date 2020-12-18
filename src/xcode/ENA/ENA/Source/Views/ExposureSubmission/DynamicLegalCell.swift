@@ -69,5 +69,6 @@ class DynamicLegalCell: UITableViewCell {
 
 	private func setup() {
 		cardView.layer.cornerRadius = 16
+		backgroundColor = .clear
 	}
 }

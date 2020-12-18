@@ -75,7 +75,8 @@ class ExposureSubmissionTestResultConsentViewModel {
 									)
 								}
 							},
-						.space(height: 20)
+						.space(height: 20,
+							   color: .clear)
 					]
 				)
 			)
@@ -90,6 +91,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default
+								cell.backgroundColor = .clear
 							}
 						)
 					]

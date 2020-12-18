@@ -64,6 +64,7 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		selectionStyle = .none
 
 		cardView.layer.cornerRadius = 16
+		backgroundColor = .clear
 
 		highlightView?.removeFromSuperview()
 		highlightView = UIView(frame: bounds)
