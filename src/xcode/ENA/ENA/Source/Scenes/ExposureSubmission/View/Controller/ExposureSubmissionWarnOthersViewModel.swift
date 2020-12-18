@@ -53,14 +53,12 @@ struct ExposureSubmissionWarnOthersViewModel {
 						text: AppStrings.ExposureSubmissionWarnOthers.description,
 						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description
 					),
-					.space(height: 12,
-						   color: .clear),
+					.space(height: 12),
 					.body(
 						text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
 						accessibilityIdentifier: nil
 					),
-					.space(height: 12,
-						   color: .clear)
+					.space(height: 12)
 				]
 			)
 		)
@@ -69,8 +67,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 		model.add(
 			.section(separators: .all, cells: [
 				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList),
-				.space(height: 8,
-					   color: .clear)
+				.space(height: 8)
 			])
 		)
 
@@ -87,8 +84,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
-				.space(height: 16,
-					   color: .clear)
+				.space(height: 16)
 			])
 		)
 
@@ -105,8 +101,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 						cell.accessoryType = .disclosureIndicator
 						cell.selectionStyle = .default
 					}),
-				.space(height: 12,
-					   color: .clear)
+				.space(height: 12)
 			])
 		)
 
