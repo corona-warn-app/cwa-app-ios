@@ -911,7 +911,7 @@ extension ContactDiaryStoreV1 {
 			return secondTryStore
 		} else {
 			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
-			fatalError("[ContactDiaryStore] Could not create contact diary store after sencond try.")
+			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
 		}
 	}
 
