@@ -219,7 +219,7 @@ extension HomeInteractor {
 
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 		let detectionIsAutomatic = detectionMode == .automatic
-		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
+		let dateLastExposureDetection = store.riskCalculationResult?.calculationDate
 
 		let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
