@@ -34,6 +34,11 @@ class DiaryCoordinator {
 				diaryStore.removeAllContactPersons()
 			}
 
+			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllLocation"),
+			   journalRemoveAllPersons == "YES" {
+				diaryStore.removeAllLocations()
+			}
+
 		}
 		#endif
 		if !infoScreenShown {

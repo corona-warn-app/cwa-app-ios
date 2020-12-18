@@ -20,6 +20,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
+		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocation", "YES"])
 	}
 
 	// MARK: - Internal
@@ -39,7 +40,18 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
 	}
 
-	func testAddPersonAndLocationToADate() {
+	private func addLocationToDayEntry(_ locationName: String) {
+		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
+		addCell.tap()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
+		app.textFields.firstMatch.typeText(locationName)
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
+		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+	}
+
+	func testAddPersonToDate() {
 
 		navigateToJournalOverview()
 
@@ -64,6 +76,33 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 	}
 
+	func testAddLocationToDate() {
+
+		navigateToJournalOverview()
+
+		// check count for overview: day cell 14 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+
+		// select 3th cell
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+
+		// check count for day entries: 1 add entry cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+
+		addLocationToDayEntry("Pommesbude")
+
+		// check count for day entries: 1 add entry cell + 1 person added
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
+
+		addLocationToDayEntry("Supermarkt")
+
+		// check count for day entries: 1 add entry cell + 2 person added
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+	}
 
 	func testNavigationToInformationVC() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
