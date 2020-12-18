@@ -295,7 +295,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	private func prepareDataInOverview() {
 		navigateToJournalOverview()
 
-		// select 3th cell
+		// select 3rd cell
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
