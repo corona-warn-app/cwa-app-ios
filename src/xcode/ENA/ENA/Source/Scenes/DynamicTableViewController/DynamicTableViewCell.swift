@@ -129,11 +129,11 @@ extension DynamicCell {
 		)
 	}
 
-	static func space(height: CGFloat, color: UIColor? = nil) -> Self {
+	static func space(height: CGFloat, color: UIColor? = .clear) -> Self {
 		.identifier(CellReuseIdentifier.space) { _, cell, _ in
 			guard let cell = cell as? DynamicTableViewSpaceCell else { return }
 			cell.height = height
-			cell.backgroundColor = .clear
+			cell.backgroundColor = color
 		}
 	}
 	
