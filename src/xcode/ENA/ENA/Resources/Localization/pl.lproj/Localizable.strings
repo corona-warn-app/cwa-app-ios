@@ -538,7 +538,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów.";
+"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -622,7 +622,7 @@
 
 "ExposureSubmissionResult_testPending" = "Twój wynik testu nie jest jeszcze dostępny.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+"ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Zgoda na „Ostrzeganie innych” udzielona";
 
@@ -978,6 +978,15 @@
 
 "Home_SubmitCard_Button" = "Następne kroki";
 
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Dziennik kontaktów";
+
+"Home_DiaryCard_Body" = "Rejestruj odwiedzane miejsca i spotykane osoby.";
+
+"Home_DiaryCard_ImageDescription" = "Zamknięta książka z zakładką.";
+
+"Home_DiaryCard_Button" = "Zarządzaj dziennikiem";
+
 "Home_InfoCard_ShareTitle" = "Udostępnij Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "Im więcej osób będzie korzystać z aplikacji, tym szybciej będziemy mogli przerwać łańcuchy zakażeń. Zachęć rodzinę i znajomych do pobrania aplikacji.";
@@ -1312,4 +1321,100 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Wprowadź objawy";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Zakończ";
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Dziennik kontaktów";
+
+"ContactDiary_Overview_Description" = "Zapisuj dane spotykanych osób i odwiedzanych miejsc.";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informacje";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Eksportuj wpisy";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Edytuj osoby";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edytuj miejsca";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Osoby";
+
+"ContactDiary_Day_AddContactPerson" = "Dodaj osobę";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Nie zdefiniowano jeszcze żadnych osób";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Utwórz osobę i dodaj ją do dziennika kontaktów.";
+
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "Sylwetka kobiety idącej po łące.";
+
+"ContactDiary_Day_LocationsSegment" = "Miejsca";
+
+"ContactDiary_Day_AddLocation" = "Dodaj miejsce";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Nie zdefiniowano jeszcze żadnych miejsc";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Utwórz miejsce i dodaj je do dziennika kontaktów.";
+
+"ContactDiary_Day_LocationsEmptyImageDescription" = "Budynek jest oznaczony flagą lokalizacji.";
+
+/* Edit Entries */
+"ContactDiary_EditEntries_ContactPersons_Title" = "Osoby";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Usuń wszystko";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie osoby?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Jeśli usuniesz osobę, wszystkie wpisy dotyczące tej osoby zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nie";
+
+"ContactDiary_EditEntries_Locations_Title" = "Miejsca";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Usuń wszystko";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie miejsca?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Jeśli usuniesz miejsce, wszystkie wpisy dotyczące tego miejsca zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nie";
+
+/* Information */
+"ContactDiary_Information_Title" = "Dziennik kontaktów";
+
+"ContactDiary_Information_ImageDescription" = "Kilka osób na dworze patrzy na ekrany swoich smartfonów.";
+
+"ContactDiary_Information_DescriptionTitle" = "Rejestruj swoje kontakty.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Utwórz przegląd swoich kontaktów z ostatnich 14 dni, aby w razie potrzeby mieć szybki dostęp do kompletnej listy.";
+
+"ContactDiary_Information_Item_Person_Title" = "Wpisz dane spotkanych osób.";
+
+"ContactDiary_Information_Item_Location_Title" = "Wpisz dane miejsc, w których spotkałeś(-aś) inne osoby.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Jesteś jedyną osobą, która ma dostęp do wpisów w Twoim dzienniku. Twoje wpisy będą zapisywane tylko na Twoim smartfonie.";
+
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Możesz w dowolnym momencie usunąć wpisy dotyczące osób i miejsc ze swojego dziennika. Wpisy w dzienniku będą automatycznie usuwane po 16 dniach.";
+
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "Możesz wyeksportować swój dziennik kontaktów w formacie zwykłego tekstu, a następnie wydrukować wpisy, edytować je lub w razie potrzeby przekazać do organu ds. zdrowia publicznego.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Zarządzaj dziennikiem";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Zapisz";
+
+/* - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Miejsce";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Miejsce";
+
+/* - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Osoba";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Osoba";
 

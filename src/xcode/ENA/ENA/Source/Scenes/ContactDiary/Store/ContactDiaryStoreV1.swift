@@ -33,10 +33,10 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		self.databaseQueue = databaseQueue
 		self.key = key
 		self.dateProvider = dateProvider
+		self.schema = schema
 
 		openAndSetup()
 
-		createSchemaIfNeeded(schema: schema)
 		cleanup()
 
 		databaseQueue.inDatabase { database in
@@ -87,6 +87,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 			do {
 				let queryResult = try database.executeQuery(personEncounterSQL, values: [])
+				defer {
+					queryResult.close()
+				}
 
 				while queryResult.next() {
 					let name = queryResult.string(forColumn: "entryName") ?? ""
@@ -163,6 +166,28 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		}
 
 		return result
+	}
+
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult {
+		let group = DispatchGroup()
+		var result: DiaryStoringVoidResult?
+
+		group.enter()
+		DispatchQueue.global().async {
+			result = self.cleanup()
+			group.leave()
+		}
+
+		guard group.wait(timeout: DispatchTime.now() + timeout) == .success else {
+			databaseQueue.interrupt()
+			return .failure(.timeout)
+		}
+
+		guard let _result = result else {
+			fatalError("Nil result from cleanup is not expected.")
+		}
+		return _result
 	}
 
 	func addContactPerson(name: String) -> DiaryStoringResult {
@@ -559,6 +584,51 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	func removeAllContactPersons() -> DiaryStoringVoidResult {
 		return removeAllEntries(from: "ContactPerson")
 	}
+
+	@discardableResult
+	func reset() -> DiaryStoringVoidResult {
+		let dropTablesResult = dropTables()
+		if case let .failure(error) = dropTablesResult {
+			return .failure(error)
+		}
+
+		openAndSetup()
+
+		databaseQueue.inDatabase { database in
+			updateDiaryDays(with: database)
+		}
+
+		return .success(())
+	}
+
+	private func dropTables() -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			let sql = """
+					PRAGMA journal_mode=OFF;
+					DROP TABLE Location;
+					DROP TABLE LocationVisit;
+					DROP TABLE ContactPerson;
+					DROP TABLE ContactPersonEncounter;
+					VACUUM;
+				"""
+
+			guard database.executeStatements(sql) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("Result should not be nil.")
+		}
+
+		return _result
+	}
 	
 	// MARK: - Private
 
@@ -566,7 +636,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private let userVisiblePeriodInDays = 14 // Including today.
 	private let key: String
 	private let dateProvider: DateProviding
-	
+	private let schema: ContactDiaryStoreSchemaV1
+
 	private var todayDateString: String {
 		dateFormatter.string(from: dateProvider.today)
 	}
@@ -586,10 +657,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	}()
 
 	private let databaseQueue: FMDatabaseQueue
-
-	private func createSchemaIfNeeded(schema: ContactDiaryStoreSchemaV1) {
-		_ = schema.create()
-	}
 
 	private func openAndSetup() {
 		databaseQueue.inDatabase { database in
@@ -617,6 +684,8 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 		}
+
+		_ = schema.create()
 	}
 
 	private func registerToDidBecomeActiveNotification() {
@@ -628,7 +697,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		cleanup()
 	}
 
-	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], SQLiteErrorCode> {
+	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], DiaryStoringError> {
 		var contactPersons = [DiaryContactPerson]()
 
 		let sql = """
@@ -641,13 +710,16 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			"""
 
 		do {
-			let result = try database.executeQuery(sql, values: [date])
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
 
-			while result.next() {
-				let encounterId = result.longLongInt(forColumn: "contactPersonEncounterId")
+			while queryResult.next() {
+				let encounterId = queryResult.longLongInt(forColumn: "contactPersonEncounterId")
 				let contactPerson = DiaryContactPerson(
-					id: Int(result.int(forColumn: "contactPersonId")),
-					name: result.string(forColumn: "name") ?? "",
+					id: Int(queryResult.int(forColumn: "contactPersonId")),
+					name: queryResult.string(forColumn: "name") ?? "",
 					encounterId: encounterId == 0 ? nil : Int(encounterId)
 				)
 				contactPersons.append(contactPerson)
@@ -660,7 +732,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(contactPersons)
 	}
 
-	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SQLiteErrorCode> {
+	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], DiaryStoringError> {
 		var locations = [DiaryLocation]()
 
 		let sql = """
@@ -673,13 +745,16 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			"""
 
 		do {
-			let result = try database.executeQuery(sql, values: [date])
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
 
-			while result.next() {
-				let visitId = result.longLongInt(forColumn: "locationVisitId")
+			while queryResult.next() {
+				let visitId = queryResult.longLongInt(forColumn: "locationVisitId")
 				let contactPerson = DiaryLocation(
-					id: Int(result.int(forColumn: "locationId")),
-					name: result.string(forColumn: "name") ?? "",
+					id: Int(queryResult.int(forColumn: "locationId")),
+					name: queryResult.string(forColumn: "name") ?? "",
 					visitId: visitId == 0 ? nil : Int(visitId)
 				)
 				locations.append(contactPerson)
@@ -692,6 +767,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return .success(locations)
 	}
 
+	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
 
@@ -772,8 +848,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 	}
 
-	private func dbError(from database: FMDatabase) -> SQLiteErrorCode {
-		return SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+	private func dbError(from database: FMDatabase) -> DiaryStoringError {
+		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+		return .database(dbError)
 	}
 }
 
