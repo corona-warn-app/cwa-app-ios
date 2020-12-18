@@ -108,7 +108,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertEqual(locationsTableView.cells.count, 1)
 
-		// select person to edit
+		// select location to edit
 		let originalLocation = locationsTableView.cells.firstMatch.staticTexts.firstMatch.label
 		locationsTableView.cells.firstMatch.tap()
 
