@@ -42,7 +42,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		app.sheets.firstMatch.buttons.element(boundBy: 1).tap()
 
-		// Check whether we have entered the info screen.
+		// Check whether we have entered the share sheet.
 		XCTAssertTrue(app.otherElements["ActivityListView"].waitForExistence(timeout: .medium))
 	}
 
