@@ -17,7 +17,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
 	}
 
 	// MARK: - Internal
@@ -26,14 +28,47 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	// MARK: - Test cases.
 
+	private func addPersonToDayEntry(_ personName: String) {
+		let addCell = app.descendants(matching: .table).firstMatch.cells.firstMatch
+		addCell.tap()
+
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
+		app.textFields.firstMatch.typeText(personName)
+
+		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
+		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
+	}
+
+	func testAddPersonAndLocationToADate() {
+
+		navigateToJournalOverview()
+
+		// check count for overview: day cell 14 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+
+		// select 3th cell
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		// check count for day entries: 1 add entry cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+
+		addPersonToDayEntry("Marcus Mustermann")
+
+		// check count for day entries: 1 add entry cell + 1 person added
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
+
+		addPersonToDayEntry("Maria Musterfrau")
+
+		// check count for day entries: 1 add entry cell + 2 person added
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+	}
+
+
 	func testNavigationToInformationVC() throws {
-		launch()
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
 
-		// Click submit card.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-
-		let collectionView = app.descendants(matching: .collectionView).firstMatch
-		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
+		navigateToJournalOverview()
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
@@ -46,13 +81,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testCloseInformationVC() throws {
-		launch()
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
 
-		// Click submit card.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-
-		let collectionView = app.descendants(matching: .collectionView).firstMatch
-		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
+		navigateToJournalOverview()
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
@@ -69,6 +100,17 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 
 	// MARK: - Private
+
+	private func navigateToJournalOverview() {
+		launch()
+
+		// Click submit card.
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+
+		let collectionView = app.descendants(matching: .collectionView).firstMatch
+		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
+	}
+
 	private func launch() {
 		app.launch()
 		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))

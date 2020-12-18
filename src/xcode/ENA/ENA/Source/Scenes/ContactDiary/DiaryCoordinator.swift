@@ -28,6 +28,12 @@ class DiaryCoordinator {
 			if let diaryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
 				store.diaryInfoScreenShown = (diaryInfoScreenShown != "NO")
 			}
+
+			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllPersons"),
+			   journalRemoveAllPersons == "YES" {
+				diaryStore.removeAllContactPersons()
+			}
+
 		}
 		#endif
 		if !infoScreenShown {
