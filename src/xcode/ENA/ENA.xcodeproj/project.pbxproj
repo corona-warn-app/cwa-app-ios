@@ -2061,15 +2061,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		51CE1B74246078B6002CF42A /* Home Screen */ = {
-			isa = PBXGroup;
-			children = (
-				51CE1B75246078B6002CF42A /* Cells */,
-				51CE1B83246078B6002CF42A /* Decorations */,
-			);
-			path = "Home Screen";
-			sourceTree = "<group>";
-		};
 		51CE1B75246078B6002CF42A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2097,7 +2088,7 @@
 			path = Decorations;
 			sourceTree = "<group>";
 		};
-		51CE1BB82460AE69002CF42A /* Home */ = {
+		51CE1BB82460AE69002CF42A /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */,
@@ -2108,7 +2099,7 @@
 				01F2A534257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift */,
 				710224EB248FC150000C5DEF /* HomeDiaryCellConfigurator.swift */,
 			);
-			path = Home;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		51CE1BBB2460B1BA002CF42A /* Protocols */ = {
@@ -2212,6 +2203,9 @@
 				5111E7622460BB1500ED6498 /* HomeInteractor.swift */,
 				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
 				B1BFE27124BDE1D500C1181D /* HomeViewController+HowRiskDetectionWorks.swift */,
+				51CE1BB82460AE69002CF42A /* Models */,
+				51CE1B75246078B6002CF42A /* Cells */,
+				51CE1B83246078B6002CF42A /* Decorations */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2261,7 +2255,6 @@
 				138910C3247A907500D739F6 /* Task Scheduling */,
 				B1125458246F2C2100AB5036 /* Converting Keys */,
 				514E81322461B97700636861 /* Exposure */,
-				51CE1BB82460AE69002CF42A /* Home */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 				B18E852E248C29D400CF4FB8 /* DetectionMode.swift */,
 				FEDCE21C117BF675C80F5989 /* States */,
@@ -2406,7 +2399,6 @@
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
-				51CE1B74246078B6002CF42A /* Home Screen */,
 				71B804502485272200D53506 /* RiskLegend */,
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
