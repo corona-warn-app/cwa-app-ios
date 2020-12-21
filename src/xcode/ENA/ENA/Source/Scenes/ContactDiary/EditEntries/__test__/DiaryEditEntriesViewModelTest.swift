@@ -14,10 +14,14 @@ class DiaryEditEntriesViewModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.EditEntries.ContactPersons.title)
 		XCTAssertEqual(viewModel.deleteAllButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.deleteAllButtonTitle)
-		XCTAssertEqual(viewModel.alertTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.title)
-		XCTAssertEqual(viewModel.alertMessage, AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.message)
-		XCTAssertEqual(viewModel.alertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.confirmButtonTitle)
-		XCTAssertEqual(viewModel.alertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.cancelButtonTitle)
+		XCTAssertEqual(viewModel.deleteAllAlertTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.title)
+		XCTAssertEqual(viewModel.deleteAllAlertMessage, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.message)
+		XCTAssertEqual(viewModel.deleteAllAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.confirmButtonTitle)
+		XCTAssertEqual(viewModel.deleteAllAlertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.cancelButtonTitle)
+		XCTAssertEqual(viewModel.deleteOneAlertTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.title)
+		XCTAssertEqual(viewModel.deleteOneAlertMessage, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.message)
+		XCTAssertEqual(viewModel.deleteOneAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.confirmButtonTitle)
+		XCTAssertEqual(viewModel.deleteOneAlertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.cancelButtonTitle)
 	}
 
 	func testLocationsStrings() throws {
@@ -25,10 +29,14 @@ class DiaryEditEntriesViewModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.EditEntries.Locations.title)
 		XCTAssertEqual(viewModel.deleteAllButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.deleteAllButtonTitle)
-		XCTAssertEqual(viewModel.alertTitle, AppStrings.ContactDiary.EditEntries.Locations.Alert.title)
-		XCTAssertEqual(viewModel.alertMessage, AppStrings.ContactDiary.EditEntries.Locations.Alert.message)
-		XCTAssertEqual(viewModel.alertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.Alert.confirmButtonTitle)
-		XCTAssertEqual(viewModel.alertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.Alert.cancelButtonTitle)
+		XCTAssertEqual(viewModel.deleteAllAlertTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.title)
+		XCTAssertEqual(viewModel.deleteAllAlertMessage, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.message)
+		XCTAssertEqual(viewModel.deleteAllAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.confirmButtonTitle)
+		XCTAssertEqual(viewModel.deleteAllAlertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.cancelButtonTitle)
+		XCTAssertEqual(viewModel.deleteOneAlertTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.title)
+		XCTAssertEqual(viewModel.deleteOneAlertMessage, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.message)
+		XCTAssertEqual(viewModel.deleteOneAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.confirmButtonTitle)
+		XCTAssertEqual(viewModel.deleteOneAlertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.cancelButtonTitle)
 	}
 
 	func testContactPersonsEntriesUpdatedWhenStoreChanges() throws {
