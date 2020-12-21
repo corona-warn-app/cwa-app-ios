@@ -903,7 +903,14 @@ enum AppStrings {
 				static let title = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_Title", comment: "")
 				static let deleteAllButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle", comment: "")
 
-				enum Alert {
+				enum DeleteOneAlert {
+					static let title = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertTitle", comment: "")
+					static let message = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertMessage", comment: "")
+					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle", comment: "")
+				}
+
+				enum DeleteAllAlert {
 					static let title = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertTitle", comment: "")
 					static let message = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertMessage", comment: "")
 					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle", comment: "")
@@ -915,7 +922,14 @@ enum AppStrings {
 				static let title = NSLocalizedString("ContactDiary_EditEntries_Locations_Title", comment: "")
 				static let deleteAllButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Locations_DeleteAllButtonTitle", comment: "")
 
-				enum Alert {
+				enum DeleteOneAlert {
+					static let title = NSLocalizedString("ContactDiary_EditEntries_Location_AlertTitle", comment: "")
+					static let message = NSLocalizedString("ContactDiary_EditEntries_Location_AlertMessage", comment: "")
+					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Location_AlertConfirmButtonTitle", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Location_AlertCancelButtonTitle", comment: "")
+				}
+
+				enum DeleteAllAlert {
 					static let title = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertTitle", comment: "")
 					static let message = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertMessage", comment: "")
 					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle", comment: "")
