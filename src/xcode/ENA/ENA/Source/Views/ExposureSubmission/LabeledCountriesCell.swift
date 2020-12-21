@@ -26,7 +26,7 @@ class LabeledCountriesCell: UITableViewCell {
 	// MARK: - Private
 	
 	private func setup() {
-		backgroundColor = .clear
+		backgroundColor = .enaColor(for: .background)
 	}
 
 }
