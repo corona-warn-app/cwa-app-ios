@@ -75,6 +75,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		personsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).tap()
 
+		XCTAssertEqual(app.alerts.firstMatch.label, app.localized("ContactDiary_EditEntries_ContactPerson_AlertTitle"))
+		app.alerts.firstMatch.buttons[app.localized("ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle")].tap()
+
 		XCTAssertEqual(personsTableView.cells.count, 1)
 
 		// select person to edit
@@ -105,6 +108,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(locationsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).waitForExistence(timeout: .medium))
 
 		locationsTableView.cells.element(boundBy: 1).buttons.element(boundBy: 2).tap()
+
+		XCTAssertEqual(app.alerts.firstMatch.label, app.localized("ContactDiary_EditEntries_Location_AlertTitle"))
+		app.alerts.firstMatch.buttons[app.localized("ContactDiary_EditEntries_Location_AlertConfirmButtonTitle")].tap()
 
 		XCTAssertEqual(locationsTableView.cells.count, 1)
 

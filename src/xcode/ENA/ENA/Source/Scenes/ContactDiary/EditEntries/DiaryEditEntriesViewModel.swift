@@ -21,18 +21,30 @@ class DiaryEditEntriesViewModel {
 		switch entryType {
 		case .contactPerson:
 			title = AppStrings.ContactDiary.EditEntries.ContactPersons.title
+
 			deleteAllButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.deleteAllButtonTitle
-			alertTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.title
-			alertMessage = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.message
-			alertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.confirmButtonTitle
-			alertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.Alert.cancelButtonTitle
+			deleteAllAlertTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.title
+			deleteAllAlertMessage = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.message
+			deleteAllAlertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.confirmButtonTitle
+			deleteAllAlertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.cancelButtonTitle
+
+			deleteOneAlertTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.title
+			deleteOneAlertMessage = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.message
+			deleteOneAlertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.confirmButtonTitle
+			deleteOneAlertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.cancelButtonTitle
 		case .location:
 			title = AppStrings.ContactDiary.EditEntries.Locations.title
+
 			deleteAllButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.deleteAllButtonTitle
-			alertTitle = AppStrings.ContactDiary.EditEntries.Locations.Alert.title
-			alertMessage = AppStrings.ContactDiary.EditEntries.Locations.Alert.message
-			alertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.Alert.confirmButtonTitle
-			alertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.Alert.cancelButtonTitle
+			deleteAllAlertTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.title
+			deleteAllAlertMessage = AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.message
+			deleteAllAlertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.confirmButtonTitle
+			deleteAllAlertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.cancelButtonTitle
+
+			deleteOneAlertTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.title
+			deleteOneAlertMessage = AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.message
+			deleteOneAlertConfirmButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.confirmButtonTitle
+			deleteOneAlertCancelButtonTitle = AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.cancelButtonTitle
 		}
 
 		store.diaryDaysPublisher
@@ -50,11 +62,17 @@ class DiaryEditEntriesViewModel {
 	@Published private(set) var entries: [DiaryEntry]
 
 	let title: String
+
 	let deleteAllButtonTitle: String
-	let alertTitle: String
-	let alertMessage: String
-	let alertConfirmButtonTitle: String
-	let alertCancelButtonTitle: String
+	let deleteAllAlertTitle: String
+	let deleteAllAlertMessage: String
+	let deleteAllAlertConfirmButtonTitle: String
+	let deleteAllAlertCancelButtonTitle: String
+
+	let deleteOneAlertTitle: String
+	let deleteOneAlertMessage: String
+	let deleteOneAlertConfirmButtonTitle: String
+	let deleteOneAlertCancelButtonTitle: String
 
 	func removeEntry(at indexPath: IndexPath) {
 		remove(entry: entries[indexPath.row])
