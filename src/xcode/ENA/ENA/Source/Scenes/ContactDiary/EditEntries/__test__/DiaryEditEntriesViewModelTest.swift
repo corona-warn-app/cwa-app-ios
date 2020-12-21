@@ -13,11 +13,13 @@ class DiaryEditEntriesViewModelTest: XCTestCase {
 		let viewModel = DiaryEditEntriesViewModel(entryType: .contactPerson, store: MockDiaryStore())
 
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.EditEntries.ContactPersons.title)
+
 		XCTAssertEqual(viewModel.deleteAllButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.deleteAllButtonTitle)
 		XCTAssertEqual(viewModel.deleteAllAlertTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.title)
 		XCTAssertEqual(viewModel.deleteAllAlertMessage, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.message)
 		XCTAssertEqual(viewModel.deleteAllAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.confirmButtonTitle)
 		XCTAssertEqual(viewModel.deleteAllAlertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteAllAlert.cancelButtonTitle)
+
 		XCTAssertEqual(viewModel.deleteOneAlertTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.title)
 		XCTAssertEqual(viewModel.deleteOneAlertMessage, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.message)
 		XCTAssertEqual(viewModel.deleteOneAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.ContactPersons.DeleteOneAlert.confirmButtonTitle)
@@ -28,11 +30,13 @@ class DiaryEditEntriesViewModelTest: XCTestCase {
 		let viewModel = DiaryEditEntriesViewModel(entryType: .location, store: MockDiaryStore())
 
 		XCTAssertEqual(viewModel.title, AppStrings.ContactDiary.EditEntries.Locations.title)
+
 		XCTAssertEqual(viewModel.deleteAllButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.deleteAllButtonTitle)
 		XCTAssertEqual(viewModel.deleteAllAlertTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.title)
 		XCTAssertEqual(viewModel.deleteAllAlertMessage, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.message)
 		XCTAssertEqual(viewModel.deleteAllAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.confirmButtonTitle)
 		XCTAssertEqual(viewModel.deleteAllAlertCancelButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteAllAlert.cancelButtonTitle)
+		
 		XCTAssertEqual(viewModel.deleteOneAlertTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.title)
 		XCTAssertEqual(viewModel.deleteOneAlertMessage, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.message)
 		XCTAssertEqual(viewModel.deleteOneAlertConfirmButtonTitle, AppStrings.ContactDiary.EditEntries.Locations.DeleteOneAlert.confirmButtonTitle)
