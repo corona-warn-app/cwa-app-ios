@@ -75,7 +75,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 	}
 	
 	private func setup() {
-		backgroundColor = .clear
+		backgroundColor = .enaColor(for: .background)
 	}
 }
 
