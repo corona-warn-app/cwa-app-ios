@@ -1389,6 +1389,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nein";
 
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Wollen Sie diese Person wirklich entfernen?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Wenn Sie eine Person entfernen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Ja";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Nein";
+
 "ContactDiary_EditEntries_Locations_Title" = "Orte";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle entfernen";
@@ -1400,6 +1408,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Ja";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nein";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Wollen Sie diesen Ort wirklich entfernen?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "Wenn Sie einen Ort entfernen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Ja";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "Nein";
 
 /* Information */
 "ContactDiary_Information_Title" = "Kontakt-Tagebuch";
