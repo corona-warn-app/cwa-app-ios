@@ -90,6 +90,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default
+								cell.backgroundColor = .enaColor(for: .background)
 							}
 						)
 					]
