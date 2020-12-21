@@ -27,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ecz-FJ-Tex">
-                    <rect key="frame" x="0.0" y="104.5" width="414" height="791.5"/>
+                    <rect key="frame" x="0.0" y="117.5" width="414" height="778.5"/>
                     <color key="backgroundColor" name="ENA Background Color"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="EVY-yH-9Yy"/>
@@ -35,13 +35,13 @@
                     </connections>
                 </tableView>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mR6-aq-Ir7" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="776" width="414" height="120"/>
+                    <rect key="frame" x="0.0" y="780" width="414" height="116"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="sr8-WF-1eF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xd3-NS-88w" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="382" height="54"/>
+                                <rect key="frame" x="16" y="16" width="382" height="50"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
                                 <state key="normal" title="Check Now"/>
                                 <connections>
@@ -60,13 +60,13 @@
                     <blurEffect style="regular"/>
                 </visualEffectView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5N-fQ-iws">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="104.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="117.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXO-Mq-nXl" userLabel="Title View">
-                            <rect key="frame" x="0.0" y="0.0" width="374" height="104.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="117.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Current Risk Level" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHc-xv-Mv6" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="68" width="342" height="20.5"/>
+                                    <rect key="frame" x="16" y="68" width="342" height="33.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="ENA Text Contrast Color"/>
                                     <nil key="highlightedColor"/>
@@ -84,7 +84,6 @@
                             <edgeInsets key="layoutMargins" top="24" left="16" bottom="16" right="16"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" name="ENA Risk High Color"/>
                     <constraints>
                         <constraint firstItem="SXO-Mq-nXl" firstAttribute="top" secondItem="o5N-fQ-iws" secondAttribute="top" id="H4f-YO-JqO"/>
                         <constraint firstItem="SXO-Mq-nXl" firstAttribute="leading" secondItem="o5N-fQ-iws" secondAttribute="leading" id="WkI-ms-U1J"/>
@@ -135,9 +134,6 @@
         <image name="Icons - Close - Contrast" width="30" height="30"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Risk High Color">
-            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Contrast Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

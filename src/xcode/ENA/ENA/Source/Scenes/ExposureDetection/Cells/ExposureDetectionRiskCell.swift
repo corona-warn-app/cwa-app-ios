@@ -10,6 +10,7 @@ class ExposureDetectionRiskCell: UITableViewCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
+
 		separatorView.isHidden = false
 	}
 }
