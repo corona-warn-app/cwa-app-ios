@@ -92,15 +92,26 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	}
 
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		if editingStyle == .delete {
-			shouldReload = false
-			viewModel.removeEntry(at: indexPath)
-			tableView.performBatchUpdates({
-				tableView.deleteRows(at: [indexPath], with: .automatic)
-			}, completion: { _ in
-				self.shouldReload = true
-			})
-		}
+		guard editingStyle == .delete else { return }
+
+		showAlert(
+			title: viewModel.deleteOneAlertTitle,
+			message: viewModel.deleteOneAlertMessage,
+			cancelButtonTitle: viewModel.deleteOneAlertCancelButtonTitle,
+			confirmButtonTitle: viewModel.deleteOneAlertConfirmButtonTitle,
+			confirmAction: { [weak self] in
+				guard let self = self else { return }
+
+				self.shouldReload = false
+				self.viewModel.removeEntry(at: indexPath)
+				tableView.performBatchUpdates({
+					tableView.deleteRows(at: [indexPath], with: .automatic)
+				}, completion: { _ in
+					self.shouldReload = true
+				})
+			}
+		)
+
 	}
 
 	// MARK: - Private
@@ -133,38 +144,56 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 	}
 
 	@IBAction private func didTapDeleteAllButton(_ sender: ENAButton) {
+		showAlert(
+			title: viewModel.deleteAllAlertTitle,
+			message: viewModel.deleteAllAlertMessage,
+			cancelButtonTitle: viewModel.deleteAllAlertCancelButtonTitle,
+			confirmButtonTitle: viewModel.deleteAllAlertConfirmButtonTitle,
+			confirmAction: { [weak self] in
+				guard let self = self else { return }
+
+				let numberOfRows = self.viewModel.entries.count
+
+				self.shouldReload = false
+				self.viewModel.removeAll()
+				self.tableView.performBatchUpdates({
+					self.tableView.deleteRows(
+						at: (0..<numberOfRows).map { IndexPath(row: $0, section: 0) },
+						with: .automatic
+					)
+				}, completion: { _ in
+					self.shouldReload = true
+				})
+			}
+		)
+	}
+
+	private func showAlert(
+		title: String,
+		message: String,
+		cancelButtonTitle: String,
+		confirmButtonTitle: String,
+		confirmAction: @escaping () -> Void
+	) {
 		let alert = UIAlertController(
-			title: viewModel.alertTitle,
-			message: viewModel.alertMessage,
+			title: title,
+			message: message,
 			preferredStyle: .alert
 		)
 
 		alert.addAction(
 			UIAlertAction(
-				title: viewModel.alertCancelButtonTitle,
+				title: cancelButtonTitle,
 				style: .cancel
 			)
 		)
 
 		alert.addAction(
 			UIAlertAction(
-				title: viewModel.alertConfirmButtonTitle,
+				title: confirmButtonTitle,
 				style: .destructive,
-				handler: { [weak self] _ in
-					guard let self = self else { return }
-
-					let numberOfRows = self.viewModel.entries.count
-
-					self.shouldReload = false
-					self.viewModel.removeAll()
-					self.tableView.performBatchUpdates({
-						self.tableView.deleteRows(
-							at: (0..<numberOfRows).map { IndexPath(row: $0, section: 0) },
-							with: .automatic
-						)
-					}, completion: { _ in
-						self.shouldReload = true
-					})
+				handler: { _ in
+					confirmAction()
 				}
 			)
 		)
