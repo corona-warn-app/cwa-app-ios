@@ -11,7 +11,7 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 	// MARK: - Setup.
 
 	func createVC(with state: ExposureDetectionViewController.State) -> ExposureDetectionViewController? {
-		let vc = ExposureDetectionViewController(state: state, delegate: MockExposureDetectionViewControllerDelegate())
+		let vc = ExposureDetectionViewController(state: state, store: MockTestStore(), delegate: MockExposureDetectionViewControllerDelegate())
 
 		guard let exposureDetectionVC = vc as? ExposureDetectionViewController else {
 			XCTFail("Could not load ExposureDetectionViewController.")
