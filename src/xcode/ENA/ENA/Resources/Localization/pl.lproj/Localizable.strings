@@ -1370,6 +1370,14 @@
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nie";
 
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Czy na pewno chcesz usunąć tę osobę?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Jeśli usuniesz osobę, wszystkie wpisy dotyczące tej osoby zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Nie";
+
 "ContactDiary_EditEntries_Locations_Title" = "Miejsca";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Usuń wszystko";
@@ -1381,6 +1389,14 @@
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Tak";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nie";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Czy na pewno chcesz usunąć to miejsce?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "Jeśli usuniesz miejsce, wszystkie wpisy dotyczące tego miejsca zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "Nie";
 
 /* Information */
 "ContactDiary_Information_Title" = "Dziennik kontaktów";

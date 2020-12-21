@@ -1370,6 +1370,14 @@
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Не";
 
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Наистина ли искате да изтриете това лице?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Ако изтриете дадено лице, всички записи за него ще бъдат премахнати от Вашия дневник.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Да";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Не";
+
 "ContactDiary_EditEntries_Locations_Title" = "Места";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Изтриване на всички";
@@ -1381,6 +1389,14 @@
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Да";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Не";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Наистина ли искате да изтриете това място?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "Ако изтриете дадено място, всички записи за него ще бъдат премахнати от Вашия дневник.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Да";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "Не";
 
 /* Information */
 "ContactDiary_Information_Title" = "Дневник на контактите";
