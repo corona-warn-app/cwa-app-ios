@@ -3,6 +3,16 @@
     {
       "filename" : "icon_tagebuch_autom_geloescht.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "icon_tagebuch_autom_geloescht_dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
