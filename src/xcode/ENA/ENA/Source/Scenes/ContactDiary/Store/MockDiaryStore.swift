@@ -4,6 +4,7 @@
 
 import Foundation
 import Combine
+@testable import ENA
 
 class MockDiaryStore: DiaryStoringProviding {
 

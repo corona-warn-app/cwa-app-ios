@@ -12,7 +12,7 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 	func createVC(with state: ExposureDetectionViewController.State) -> ExposureDetectionViewController? {
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder -> UIViewController? in
-			ExposureDetectionViewController(coder: coder, state: state, delegate: MockExposureDetectionViewControllerDelegate())
+			ExposureDetectionViewController(coder: coder, state: state, store: MockTestStore(), delegate: MockExposureDetectionViewControllerDelegate())
 		}
 
 		guard let exposureDetectionVC = vc as? ExposureDetectionViewController else {

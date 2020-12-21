@@ -175,6 +175,7 @@ extension Coordinator: HomeViewControllerDelegate {
 			ExposureDetectionViewController(
 				coder: coder,
 				state: state,
+				store: self.store,
 				delegate: self
 			)
 		}
