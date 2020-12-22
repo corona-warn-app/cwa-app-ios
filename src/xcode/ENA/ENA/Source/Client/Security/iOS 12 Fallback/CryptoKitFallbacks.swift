@@ -22,23 +22,7 @@ extension Data {
 		if #available(iOS 13.0, *) {
 			return Data(SHA256.hash(data: self))
 		} else {
-			// via https://www.agnosticdev.com/content/how-use-commoncrypto-apis-swift-5
-
-			// #define CC_SHA256_DIGEST_LENGTH     32
-			// Creates an array of unsigned 8 bit integers that contains 32 zeros
-			var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-
-			// CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (md)
-			// Takes the strData referenced value (const unsigned char *d) and hashes it into a reference to the digest parameter.
-			_ = self.withUnsafeBytes {
-				// CommonCrypto
-				// extern unsigned char *CC_SHA256(const void *data, CC_LONG len, unsigned char *md)  -|
-				// OpenSSL                                                                             |
-				// unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md)        <-|
-				CC_SHA256($0.baseAddress, UInt32(self.count), &digest)
-			}
-
-			return Data(digest)
+			return sha256_fallback()
 		}
 	}
 
@@ -46,6 +30,32 @@ extension Data {
 	/// - Returns: String representation of the hash value
 	func sha256String() -> String {
 		sha256().compactMap { String(format: "%02x", $0) }.joined()
+	}
+
+
+	/// Explicit fallback implementation for pre-iOS13 builds.
+	///
+	/// Don't use this directly and `sha256()` instead.
+	///
+	/// - Returns: Data representation of the hash value
+	func sha256_fallback() -> Data {
+		// via https://www.agnosticdev.com/content/how-use-commoncrypto-apis-swift-5
+
+		// #define CC_SHA256_DIGEST_LENGTH     32
+		// Creates an array of unsigned 8 bit integers that contains 32 zeros
+		var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+
+		// CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (md)
+		// Takes the strData referenced value (const unsigned char *d) and hashes it into a reference to the digest parameter.
+		_ = self.withUnsafeBytes {
+			// CommonCrypto
+			// extern unsigned char *CC_SHA256(const void *data, CC_LONG len, unsigned char *md)  -|
+			// OpenSSL                                                                             |
+			// unsigned char *SHA256(const unsigned char *d, size_t n, unsigned char *md)        <-|
+			CC_SHA256($0.baseAddress, UInt32(self.count), &digest)
+		}
+
+		return Data(digest)
 	}
 }
 
@@ -120,15 +130,23 @@ struct ECDSASignature: ECDSASignatureProtocol {
 	var derRepresentation: Data
 
 	init<D>(rawRepresentation: D) throws where D: DataProtocol {
-		#warning("invalid mock implementation")
-		self.rawRepresentation = Data() // rawRepresentation
-		self.derRepresentation = self.rawRepresentation
+		var representation: Data = Data()
+		let size = withUnsafeMutableBytes(of: &representation, { rawRepresentation.copyBytes(to: $0) })
+		assert(size == MemoryLayout.size(ofValue: representation))
+
+		self.rawRepresentation = representation
+		#warning("work in progress")
+		self.derRepresentation = Data() // self.rawRepresentation
 	}
 
 	init<D>(derRepresentation: D) throws where D: DataProtocol {
-		#warning("invalid mock implementation")
-		self.derRepresentation = Data() // derRepresentation
-		self.rawRepresentation = self.derRepresentation
+		var representation: Data = Data()
+		let size = withUnsafeMutableBytes(of: &representation, { derRepresentation.copyBytes(to: $0) })
+		assert(size == MemoryLayout.size(ofValue: representation))
+
+		self.derRepresentation = representation
+		#warning("work in progress")
+		self.rawRepresentation = Data() // self.derRepresentation
 	}
 
 	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R {
