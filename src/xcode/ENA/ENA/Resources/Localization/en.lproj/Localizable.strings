@@ -1370,6 +1370,14 @@
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "No";
 
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Do you really want to remove this person?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Yes";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "No";
+
 "ContactDiary_EditEntries_Locations_Title" = "Places";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Remove All";
@@ -1381,6 +1389,14 @@
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Yes";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "No";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Do you really want to remove this place?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Yes";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "No";
 
 /* Information */
 "ContactDiary_Information_Title" = "Contact Journal";
