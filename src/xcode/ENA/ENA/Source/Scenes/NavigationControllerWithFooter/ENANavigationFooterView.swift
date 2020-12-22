@@ -139,6 +139,7 @@ extension ENANavigationFooterView {
 		primaryButton = ENAButton(type: .custom)
 		primaryButton.setTitle("Primary Button", for: .normal)
 		primaryButton.addTarget(self, action: #selector(didTapPrimaryButton), for: .primaryActionTriggered)
+		primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.primaryFooterButton
 	}
 
 	private func setupSecondaryButton() {
@@ -146,6 +147,7 @@ extension ENANavigationFooterView {
 		secondaryButton.setTitle("Secondary Button", for: .normal)
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didTapSecondaryButton), for: .primaryActionTriggered)
+		secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.secondaryFooterButton
 	}
 }
 

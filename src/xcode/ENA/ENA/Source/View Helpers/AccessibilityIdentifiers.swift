@@ -149,6 +149,10 @@ enum AccessibilityIdentifiers {
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
 	}
 
+	enum ExposureSubmissionQRScanner {
+		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
+	}
+
 	enum ExposureSubmissionQRInfo {
 		static let headerSection1 = "AppStrings.ExposureSubmissionQRInfo.headerSection1"
 		static let headerSection2 = "AppStrings.ExposureSubmissionQRInfo.headerSection2"
@@ -288,6 +292,11 @@ enum AccessibilityIdentifiers {
 	enum General {
 		static let exposureSubmissionNavigationControllerTitle = "ExposureSubmissionNavigationController"
 		static let image = "ExposureSubmissionIntroViewController.image"
+
+		static let primaryFooterButton = "General.primaryFooterButton"
+		static let secondaryFooterButton = "General.secondaryFooterButton"
+		static let cancelButton = "General.cancelButton"
+		static let defaultButton = "General.defaultButton"
 	}
 
 	enum DatePickerOption {
