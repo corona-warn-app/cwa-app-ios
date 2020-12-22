@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>No exposure up to now</string>
+			<string>No exposures</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Exposures with low risk on one day</string>

@@ -215,11 +215,10 @@ extension HomeInteractor {
 // MARK: - Action section setup helpers.
 
 extension HomeInteractor {
-	private var riskDetails: Risk.Details? { state.riskDetails }
 
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 		let detectionIsAutomatic = detectionMode == .automatic
-		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
+		let dateLastExposureDetection = store.riskCalculationResult?.calculationDate
 
 		let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
@@ -291,6 +290,12 @@ extension HomeInteractor {
 		let submitConfigurator = HomeTestResultCellConfigurator()
 		submitConfigurator.primaryAction = homeViewController.showExposureSubmissionWithoutResult
 		return submitConfigurator
+	}
+
+	func setupDiaryConfigurator() -> HomeDiaryCellConfigurator {
+		let diaryConfigurator = HomeDiaryCellConfigurator()
+		diaryConfigurator.primaryAction = homeViewController.showDiary
+		return diaryConfigurator
 	}
 
 	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
@@ -365,6 +370,9 @@ extension HomeInteractor {
 			let submitCellConfigurator = setupSubmitConfigurator()
 			actionsConfigurators.append(submitCellConfigurator)
 		}
+
+		let diaryConfigurator = setupDiaryConfigurator()
+		actionsConfigurators.append(diaryConfigurator)
 
 		return actionsConfigurators
 	}

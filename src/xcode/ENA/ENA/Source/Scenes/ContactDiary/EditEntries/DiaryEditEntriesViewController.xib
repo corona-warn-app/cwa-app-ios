@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiaryEditEntriesViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="deleteAllButton" destination="8JE-dq-vsn" id="GoJ-V8-6Lk"/>
+                <outlet property="tableView" destination="Ayn-Bb-Bzf" id="Zel-Qr-84q"/>
+                <outlet property="view" destination="iN0-l3-epB" id="mSs-e2-gS4"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ayn-Bb-Bzf">
+                    <rect key="frame" x="0.0" y="44" width="414" height="736"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8JE-dq-vsn" customClass="ENAButton" customModule="ENA">
+                    <rect key="frame" x="16" y="796" width="382" height="50"/>
+                    <state key="normal" title="Button"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                            <color key="value" name="ENA Button Destructive Color"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="didTapDeleteAllButton:" destination="-1" eventType="touchUpInside" id="ukT-Ok-46t"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Ayn-Bb-Bzf" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="2e0-n5-iHC"/>
+                <constraint firstItem="8JE-dq-vsn" firstAttribute="top" secondItem="Ayn-Bb-Bzf" secondAttribute="bottom" constant="16" id="7ew-ud-pBa"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8JE-dq-vsn" secondAttribute="trailing" constant="16" id="D6H-Ha-lir"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8JE-dq-vsn" secondAttribute="bottom" constant="16" id="L8F-mG-CR8"/>
+                <constraint firstItem="8JE-dq-vsn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Q83-2O-6aK"/>
+                <constraint firstItem="Ayn-Bb-Bzf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Tbv-ze-xiZ"/>
+                <constraint firstItem="Ayn-Bb-Bzf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="aQC-n7-io3"/>
+            </constraints>
+            <point key="canvasLocation" x="-404.34782608695656" y="152.67857142857142"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="8JE-dq-vsn">
+            <size key="intrinsicContentSize" width="70" height="50"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="ENA Button Destructive Color">
+            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

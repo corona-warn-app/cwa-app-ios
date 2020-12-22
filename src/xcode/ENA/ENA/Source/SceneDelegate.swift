@@ -53,9 +53,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleTask()
+		Log.info("Scene did enter Background.", log: .background)
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
+		Log.info("Scene did become active.", log: .background)
+
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
 		// explicitely disabled as per #EXPOSUREAPP-2214
@@ -105,6 +108,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		// Remove all pending notifications
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+
+		// Reset contact diary
+		UIApplication.coronaWarnDelegate().contactDiaryStore.reset()
 	}
 
 	// MARK: - Protocol UNUserNotificationCenterDelegate
@@ -156,7 +162,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	// MARK: - Private
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private lazy var coordinator = Coordinator(self, navigationController)
+	private lazy var coordinator = Coordinator(
+		self,
+		navigationController,
+		contactDiaryStore: UIApplication.coronaWarnDelegate().contactDiaryStore
+	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
 
@@ -166,7 +176,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func setupUI() {
 		setupNavigationBarAppearance()
-
+		setupAlertViewAppearance()
+		
 		if store.isOnboarded {
 			showHome()
 		} else {
@@ -191,6 +202,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
+	}
+	
+	private func setupAlertViewAppearance() {
+		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
 	}
 
 	private func showHome(animated _: Bool = false) {

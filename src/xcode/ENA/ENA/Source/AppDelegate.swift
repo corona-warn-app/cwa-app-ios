@@ -17,6 +17,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
+	var contactDiaryStore: ContactDiaryStoreV1 { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
@@ -118,6 +119,7 @@ extension AppDelegate {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let store: Store
+	let contactDiaryStore = ContactDiaryStoreV1.make()
 	let serverEnvironment: ServerEnvironment
 
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
@@ -127,7 +129,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		#if DEBUG
 		if isUITesting {
 			// provide a static app configuration for ui tests to prevent validation errors
-			return CachedAppConfigurationMock()
+			let mockConfig = isScreenshotMode ?
+				CachedAppConfigurationMock.screenshotConfiguration :
+				CachedAppConfigurationMock.defaultAppConfiguration
+			return CachedAppConfigurationMock(with: mockConfig)
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms

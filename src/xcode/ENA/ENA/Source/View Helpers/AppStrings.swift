@@ -655,6 +655,11 @@ enum AppStrings {
 		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
 		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
 
+		static let diaryCardTitle = NSLocalizedString("Home_DiaryCard_Title", comment: "")
+		static let diaryCardBody = NSLocalizedString("Home_DiaryCard_Body", comment: "")
+		static let diaryCardImageDescription = NSLocalizedString("Home_DiaryCard_ImageDescription", comment: "")
+		static let diaryCardButton = NSLocalizedString("Home_DiaryCard_Button", comment: "")
+
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
@@ -864,6 +869,109 @@ enum AppStrings {
 		static let continueButton = NSLocalizedString("Thank_You_Continue_Button", comment: "")
 		static let cancelButton = NSLocalizedString("Thank_You_Cancel_Button", comment: "")
 		static let accImageDescription = NSLocalizedString("Thank_You_AccImageDescription", comment: "")
+	}
+	
+	enum ContactDiary {
+
+		enum Overview {
+			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
+			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
+
+			enum ActionSheet {
+				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")
+				static let exportActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionTitle", comment: "")
+				static let editPersonTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditPersonTitle", comment: "")
+				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
+			}
+		}
+
+		enum Day {
+			static let contactPersonsSegment = NSLocalizedString("ContactDiary_Day_ContactPersonsSegment", comment: "")
+			static let addContactPerson = NSLocalizedString("ContactDiary_Day_AddContactPerson", comment: "")
+			static let contactPersonsEmptyTitle = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyTitle", comment: "")
+			static let contactPersonsEmptyDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyDescription", comment: "")
+			static let contactPersonsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_ContactPersonsEmptyImageDescription", comment: "")
+			static let locationsSegment = NSLocalizedString("ContactDiary_Day_LocationsSegment", comment: "")
+			static let addLocation = NSLocalizedString("ContactDiary_Day_AddLocation", comment: "")
+			static let locationsEmptyTitle = NSLocalizedString("ContactDiary_Day_LocationsEmptyTitle", comment: "")
+			static let locationsEmptyDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyDescription", comment: "")
+			static let locationsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyImageDescription", comment: "")
+		}
+
+		enum EditEntries {
+			enum ContactPersons {
+				static let title = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_Title", comment: "")
+				static let deleteAllButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle", comment: "")
+
+				enum DeleteOneAlert {
+					static let title = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertTitle", comment: "")
+					static let message = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertMessage", comment: "")
+					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle", comment: "")
+				}
+
+				enum DeleteAllAlert {
+					static let title = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertTitle", comment: "")
+					static let message = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertMessage", comment: "")
+					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle", comment: "")
+				}
+			}
+
+			enum Locations {
+				static let title = NSLocalizedString("ContactDiary_EditEntries_Locations_Title", comment: "")
+				static let deleteAllButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Locations_DeleteAllButtonTitle", comment: "")
+
+				enum DeleteOneAlert {
+					static let title = NSLocalizedString("ContactDiary_EditEntries_Location_AlertTitle", comment: "")
+					static let message = NSLocalizedString("ContactDiary_EditEntries_Location_AlertMessage", comment: "")
+					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Location_AlertConfirmButtonTitle", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Location_AlertCancelButtonTitle", comment: "")
+				}
+
+				enum DeleteAllAlert {
+					static let title = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertTitle", comment: "")
+					static let message = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertMessage", comment: "")
+					static let confirmButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle", comment: "")
+					static let cancelButtonTitle = NSLocalizedString("ContactDiary_EditEntries_Locations_AlertCancelButtonTitle", comment: "")
+				}
+			}
+		}
+
+		enum Information {
+			static let title = NSLocalizedString("ContactDiary_Information_Title", comment: "")
+			static let imageDescription = NSLocalizedString("ContactDiary_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("ContactDiary_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("ContactDiary_Information_DescriptionSubHeadline", comment: "")
+			static let itemPersonTitle = NSLocalizedString("ContactDiary_Information_Item_Person_Title", comment: "")
+			static let itemContactTitle = NSLocalizedString("ContactDiary_Information_Item_Location_Title", comment: "")
+			static let itemLockTitle = NSLocalizedString("ContactDiary_Information_Item_Lock_Title", comment: "")
+			static let deletedAutomatically = NSLocalizedString("ContactDiary_Information_Item_DeletedAutomatically_Title", comment: "")
+			static let exportTextformat = NSLocalizedString("ContactDiary_Information_Item_ExportTextFormat_Title", comment: "")
+			static let legalHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_2 = NSLocalizedString("ContactDiary_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_1 = NSLocalizedString("ContactDiary_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+			static let legalText_2 = NSLocalizedString("ContactDiary_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_3 = NSLocalizedString("ContactDiary_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+			static let legalText_4 = NSLocalizedString("ContactDiary_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("ContactDiary_Information_Dataprivacy_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("ContactDiary_Information_PrimaryButton_Title", comment: "")
+		}
+
+		enum AddEditEntry {
+			static let primaryButtonTitle = NSLocalizedString("ContactDiary_AddEditEntry_PrimaryButton_Title", comment: "")
+
+			enum location {
+				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
+				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder", comment: "")
+			}
+
+			enum person {
+				static let title = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
+				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
+			}
+		}
 	}
 	
 	// swiftlint:disable:next file_length

@@ -29,6 +29,7 @@ enum AccessibilityIdentifiers {
 
 	enum Home {
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let diaryCardButton = "AppStrings.Home.diaryCardButton"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
@@ -41,7 +42,14 @@ enum AccessibilityIdentifiers {
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 		static let thankYouCard = "AppStrings.Home.thankYouCard"
+	}
 
+	enum ContactDiaryInformation {
+		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
+		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
+		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
+		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 	}
 
 	enum Onboarding {
@@ -139,6 +147,10 @@ enum AccessibilityIdentifiers {
 		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
 		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
+	}
+
+	enum ExposureSubmissionQRScanner {
+		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
 	}
 
 	enum ExposureSubmissionQRInfo {
@@ -280,6 +292,11 @@ enum AccessibilityIdentifiers {
 	enum General {
 		static let exposureSubmissionNavigationControllerTitle = "ExposureSubmissionNavigationController"
 		static let image = "ExposureSubmissionIntroViewController.image"
+
+		static let primaryFooterButton = "General.primaryFooterButton"
+		static let secondaryFooterButton = "General.secondaryFooterButton"
+		static let cancelButton = "General.cancelButton"
+		static let defaultButton = "General.defaultButton"
 	}
 
 	enum DatePickerOption {
