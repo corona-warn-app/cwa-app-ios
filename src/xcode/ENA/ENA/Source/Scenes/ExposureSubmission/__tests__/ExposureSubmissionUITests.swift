@@ -143,7 +143,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		
 		// This may fail in future because of the Thank You card. So, just check the home screen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+
+		// Back to homescreen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
@@ -183,10 +186,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(btnContinue.isEnabled)
 		btnContinue.tap()
 		
-		// This may fail in future because of the Thank You card. So, just check the home screen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
-		
+		// This button ID might fail in future versions because of the to be added 'Thank You' card.
+		// Currently UI tests CURRENTLY don't reflect the correct UI state after this test. Thank You should be visible and is expected in non-ui tests!
+		let thankYouCardID = "AppStrings.Home.submitCardButton"
+		XCTAssertTrue(app.collectionViews.buttons[thankYouCardID].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons[thankYouCardID].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
@@ -274,8 +278,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		
 		// This may fail in future because of the Thank You card. So, just check the home screen
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
-		
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
@@ -287,6 +290,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 
+		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		// see https://developer.apple.com/videos/play/wwdc2020/10220/
+		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
+			return false
+		}
+
 		// Start Submission Flow
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
@@ -312,10 +321,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
-		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Nicht warnen"].tap()
-		
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
-		
+		// don't warn
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].tap()
+
+		// Back to homescreen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 	
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
@@ -326,6 +337,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
+
+		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		// see https://developer.apple.com/videos/play/wwdc2020/10220/
+		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
+			return false
+		}
 		
 		// Start Submission Flow
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
@@ -352,7 +369,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
-		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Warnen"].tap()
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
@@ -372,12 +388,18 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
+
+		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
+			return false
+		}
+
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		// Open Intro screen.
 		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 				
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
@@ -385,12 +407,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 						.waitForExistence(timeout: .medium)
 		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		// Fill in dummy TAN.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
 		type(app, text: "qwdzxcsrhe")
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		// Click continue button.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
@@ -401,18 +423,65 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Click secondary button to skip symptoms screens and immediately go to warn others screen.
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		
-		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Warnen"].tap()
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
 		
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+	}
+
+	func test_screenshot_SubmitQR() {
+		var screenshotCounter = 0
+
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+
+		app.resetAuthorizationStatus(for: .camera)
+		launch()
+
+		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		// see https://developer.apple.com/videos/play/wwdc2020/10220/
+		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
+			return false
+		}
+
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Open Intro screen.
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Overview Screen: click TAN button.
+		XCTAssertTrue(app
+			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
+			.waitForExistence(timeout: .medium)
+		)
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
+
+		// QR Info screen
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		// "Einverstanden"
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
+		// QR view
+		// fake tap to trigger interruption handler in case of privacy alerts
+		let flashButton = app.buttons["AppStrings.ExposureSubmissionQRScanner.flash"]
+		if flashButton.waitForExistence(timeout: .long) {
+			flashButton.tap()
+		}
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_SubmissionNotPossible() {
@@ -486,12 +555,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Nein"].tap()
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Ja"].tap()
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.firstMatch.tap() // no
 		
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
-		
+		// Back to homescreen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
@@ -512,15 +584,20 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		
-		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Nicht warnen"].tap()
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // don't warn
+
+		// Back to homescreen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 				
-		app.alerts["Sie wollen keine Warnung verschicken?"].buttons["Warnen"].tap()
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.cancelButton].tap()
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
@@ -532,14 +609,17 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		
-		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Nein"].tap()
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
-		
-		app.alerts["Wollen Sie die Symptom-Erfassung abbrechen?"].buttons["Ja"].tap()
-		
-		waitForNonExistence(of: app.buttons["AppStrings.ExposureSubmission.primaryButton"], timeout: .long)
-		
+
+		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
+		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
+
+		// Back to homescreen
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 }
 
@@ -623,12 +703,4 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 
-}
-
-extension XCTestCase {
-	func waitForNonExistence(of element: XCUIElement, timeout: TimeInterval) {
-		let doesNotExistPredicate = NSPredicate(format: "exists == FALSE")
-		expectation(for: doesNotExistPredicate, evaluatedWith: element, handler: nil)
-		waitForExpectations(timeout: timeout, handler: nil)
-	}
 }

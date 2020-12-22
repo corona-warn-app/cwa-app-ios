@@ -11,7 +11,21 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	private let config: SAP_Internal_V2_ApplicationConfigurationIOS
 
-	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS? = nil) {
+
+	/// A special configuration for screenshots.
+	///
+	/// Provides a fake list of supported countries.
+	static let screenshotConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS = {
+		var config = CachedAppConfigurationMock.defaultAppConfiguration
+		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+		return config
+	}()
+
+
+	/// The default app configration loaded directly from file.
+	///
+	///	This is synchronously for test and screenshot purposes. Use `AppConfigurationProviding` for 'real' config fetching!
+	static let defaultAppConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS = {
 		guard
 			let url = Bundle.main.url(forResource: "default_app_config_18", withExtension: ""),
 			let data = try? Data(contentsOf: url),
@@ -19,7 +33,11 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 			let staticConfig = try? zip.extractAppConfiguration() else {
 			fatalError("Could not fetch static app config")
 		}
-		self.config = config ?? staticConfig
+		return staticConfig
+	}()
+
+	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration) {
+		self.config = config
 	}
 
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {

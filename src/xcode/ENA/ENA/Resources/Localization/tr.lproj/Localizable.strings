@@ -1370,6 +1370,14 @@
 
 "ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Hayır";
 
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Bu kişiyi gerçekten kaldırmak istiyor musunuz?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Bir kişiyi kaldırdığınızda o kişiye ilişkin tüm girişler güncenizden kaldırılacaktır.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Evet";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Hayır";
+
 "ContactDiary_EditEntries_Locations_Title" = "Yerler";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Tümünü Kaldır";
@@ -1381,6 +1389,14 @@
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Evet";
 
 "ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Hayır";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Bu yeri gerçekten kaldırmak istiyor musunuz?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "Bir yeri kaldırdığınızda o yere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Evet";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "Hayır";
 
 /* Information */
 "ContactDiary_Information_Title" = "Temas Güncesi";
