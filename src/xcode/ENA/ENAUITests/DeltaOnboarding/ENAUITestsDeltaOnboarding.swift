@@ -67,13 +67,13 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		let tablesQuery = XCUIApplication().tables
 		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
 		
-		snapshot("homescreenrisk_level_\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		
-		snapshot("homescreenrisk_level_\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		
-		snapshot("homescreenrisk_level_\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		
 		

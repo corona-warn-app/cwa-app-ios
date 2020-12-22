@@ -3,6 +3,16 @@
     {
       "filename" : "icon_export_textformat.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "icon_export_textformat_dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
