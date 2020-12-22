@@ -58,24 +58,30 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler) {
-		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			HomeViewController(
-				coder: coder,
-				delegate: self,
-				exposureManagerState: exposureManager.exposureManagerState,
-				initialEnState: enStateHandler.state,
-				exposureSubmissionService: self.exposureSubmissionService
-			)
+		if homeController == nil {
+			let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
+				HomeViewController(
+					coder: coder,
+					delegate: self,
+					exposureManagerState: exposureManager.exposureManagerState,
+					initialEnState: enStateHandler.state,
+					exposureSubmissionService: self.exposureSubmissionService
+				)
+			}
+
+			self.homeController = homeController
+
+			UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+				self.rootViewController.setViewControllers([homeController], animated: false)
+				#if !RELEASE
+				self.enableDeveloperMenuIfAllowed(in: homeController)
+				#endif
+			})
+		} else {
+			rootViewController.dismiss(animated: false)
+			rootViewController.popToRootViewController(animated: false)
+			homeController?.scrollToTop(animated: false)
 		}
-
-		self.homeController = homeController
-
-		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-			self.rootViewController.setViewControllers([homeController], animated: false)
-			#if !RELEASE
-			self.enableDeveloperMenuIfAllowed(in: homeController)
-			#endif
-		})
 	}
 	
 	func showTestResultFromNotification(with result: TestResult) {
