@@ -60,7 +60,7 @@ class HomeTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
-		case .exposureDetection:
+		case .exposureLogging:
 			return exposureDetectionCell(forRowAt: indexPath)
 		case .diary:
 			return diaryCell(forRowAt: indexPath)
@@ -85,7 +85,7 @@ class HomeTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
-		case .exposureDetection:
+		case .exposureLogging:
 			onExposureDetectionCellTap(viewModel.state.enState)
 		case .diary:
 			onDiaryCellTap()
@@ -136,8 +136,8 @@ class HomeTableViewController: UITableViewController {
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: ActivateTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: ActivateTableViewCell.self)
+			UINib(nibName: String(describing: HomeExposureLoggingTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeExposureLoggingTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
@@ -154,11 +154,11 @@ class HomeTableViewController: UITableViewController {
 	}
 
 	private func exposureDetectionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ActivateTableViewCell.self), for: indexPath) as? ActivateTableViewCell else {
-			fatalError("Could not dequeue ActivateTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeExposureLoggingTableViewCell.self), for: indexPath) as? HomeExposureLoggingTableViewCell else {
+			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
 		}
 
-		let cellModel = ActivateCellModel(state: viewModel.state)
+		let cellModel = HomeExposureLoggingCellModel(state: viewModel.state)
 		cell.configure(with: cellModel)
 
 		return cell

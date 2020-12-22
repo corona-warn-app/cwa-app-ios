@@ -18,7 +18,7 @@ class HomeTableViewModel {
 	// MARK: - Internal
 
 	enum Section: Int, CaseIterable {
-		case exposureDetection
+		case exposureLogging
 		case riskAndTest
 		case diary
 		case infos
@@ -33,7 +33,7 @@ class HomeTableViewModel {
 
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
-		case .exposureDetection:
+		case .exposureLogging:
 			return 1
 		case .riskAndTest:
 			return 0

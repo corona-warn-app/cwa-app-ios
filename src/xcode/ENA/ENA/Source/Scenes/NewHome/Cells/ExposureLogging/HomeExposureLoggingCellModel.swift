@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ActivateCellModel {
+class HomeExposureLoggingCellModel {
 
 	// MARK: - Init
 

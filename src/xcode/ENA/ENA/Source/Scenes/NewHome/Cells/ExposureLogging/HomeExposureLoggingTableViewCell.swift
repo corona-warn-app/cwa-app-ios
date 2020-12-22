@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ActivateTableViewCell: UITableViewCell {
+class HomeExposureLoggingTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
@@ -24,7 +24,7 @@ class ActivateTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: ActivateCellModel) {
+	func configure(with cellModel: HomeExposureLoggingCellModel) {
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
 		cellModel.$title.assign(to: \.accessibilityLabel, on: self).store(in: &subscriptions)
 		cellModel.$icon.assign(to: \.image, on: iconImageView).store(in: &subscriptions)
@@ -58,6 +58,6 @@ class ActivateTableViewCell: UITableViewCell {
 	@IBOutlet private var cardView: HomeCardView!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: ActivateCellModel?
+	private var cellModel: HomeExposureLoggingCellModel?
 
 }
