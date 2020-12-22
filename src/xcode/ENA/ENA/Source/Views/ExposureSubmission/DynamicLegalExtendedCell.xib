@@ -68,9 +68,6 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="711-w9-VbR" firstAttribute="top" secondItem="INJ-xI-Je9" secondAttribute="bottom" constant="20" id="yiw-As-gz2"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Separator Color"/>
