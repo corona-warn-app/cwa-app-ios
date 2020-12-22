@@ -26,7 +26,9 @@ class Coordinator: RequiresAppDependencies {
 	private let rootViewController: UINavigationController
 	private let contactDiaryStore: DiaryStoringProviding
 
-	private var homeController: HomeViewController?
+	private var homeController: HomeTableViewController?
+	private var homeState: HomeState?
+
 	private var settingsController: SettingsViewController?
 	private var exposureDetectionController: ExposureDetectionViewController?
 
@@ -59,14 +61,41 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler) {
-		let homeController = HomeViewController(
-			delegate: self,
+		let homeState = HomeState(
+			store: store,
+			riskProvider: riskProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
-			initialEnState: enStateHandler.state,
-			exposureSubmissionService: self.exposureSubmissionService
+			enState: enStateHandler.state
+		)
+
+		let homeController = HomeTableViewController(
+			viewModel: HomeTableViewModel(state: homeState),
+			onInfoBarButtonItemTap: { [weak self] in
+				self?.showRiskLegend()
+			},
+			onExposureDetectionCellTap: { [weak self] enState in
+				self?.showExposureNotificationSetting(enState: enState)
+			},
+			onDiaryCellTap: { [weak self] in
+				self?.showDiary()
+			},
+			onInviteFriendsCellTap: { [weak self] in
+				self?.showInviteFriends()
+			},
+			onFAQCellTap: { [weak self] in
+				guard let self = self else { return }
+				self.showWebPage(from: self.rootViewController, urlString: AppStrings.SafariView.targetURL)
+			},
+			onAppInformationCellTap: { [weak self] in
+				self?.showAppInformation()
+			},
+			onSettingsCellTap: { [weak self] enState in
+				self?.showSettings(enState: enState)
+			}
 		)
 
 		self.homeController = homeController
+		addToEnStateUpdateList(homeState)
 
 		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.rootViewController.setViewControllers([homeController], animated: false)
@@ -105,7 +134,7 @@ class Coordinator: RequiresAppDependencies {
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
-		homeController?.updateDetectionMode(detectionMode)
+		homeState?.updateDetectionMode(detectionMode)
 	}
 
 	#if !RELEASE
@@ -265,13 +294,13 @@ extension Coordinator: ExposureDetectionViewControllerDelegate {
 
 extension Coordinator: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
-		homeController?.updateTestResultState()
+//		homeState?.updateTestResultState()
 	}
 }
 
 extension Coordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeController?.updateExposureState(state)
+		homeState?.updateExposureManagerState(state)
 		settingsController?.updateExposureState(state)
 		exposureDetectionController?.updateUI()
 	}
@@ -279,7 +308,7 @@ extension Coordinator: ExposureStateUpdating {
 
 extension Coordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		homeController?.updateEnState(state)
+		homeState?.updateEnState(state)
 		updateAllState(state)
 	}
 
