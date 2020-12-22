@@ -6,7 +6,6 @@ import Foundation
 import CommonCrypto
 import CryptoKit
 
-@available(iOS 13.0, *)
 final class CoronaWarnURLSessionDelegate: NSObject {
 	private let localPublicKey: String
 
@@ -16,74 +15,49 @@ final class CoronaWarnURLSessionDelegate: NSObject {
 	}
 }
 
-@available(iOS 13.0, *)
 extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 	func urlSession(
 		_ session: URLSession,
 		didReceive challenge: URLAuthenticationChallenge,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
-		func reject() { completionHandler(.cancelAuthenticationChallenge, /* credential */ nil) }
-
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
-		guard
-			let trust = challenge.protectionSpace.serverTrust
-		else {
+		guard let trust = challenge.protectionSpace.serverTrust else {
 			// Reject all requests that we do not have a public key to pin for
-			reject()
+			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
 
-		let localPublicKey = self.localPublicKey
+		var secresult = SecTrustResultType.invalid
+		let status = SecTrustEvaluate(trust, &secresult)
 
-		// We discard the returned status code (OSStatus) because this is also how
-		// Apple is doing it in their official sample code – see [0] for more info.
-		SecTrustEvaluateAsyncWithError(trust, .main) { trust, isValid, error in
-			func accept() { completionHandler(.useCredential, URLCredential(trust: trust)) }
-
-			guard isValid else {
-				Log.error("Server certificate is not valid. Rejecting challenge!", log: .api)
-				reject()
-				return
+		if status == errSecSuccess {
+			#if DEBUG
+			// debug/review: print the chain
+			for i in 0..<SecTrustGetCertificateCount(trust) {
+				let cert = SecTrustGetCertificateAtIndex(trust, i)
+				Log.debug("[\(challenge.protectionSpace.host)] @ \(i): \(cert.debugDescription)", log: .api)
 			}
+			#endif
 
-			guard error == nil else {
-				Log.error("Encountered error when evaluating server trust challenge, rejecting!", log: .api)
-				reject()
-				return
+			// we expect a chain of at least 2 certificates
+			// index '1' is the required intermediate
+			if
+				let serverCertificate = SecTrustGetCertificateAtIndex(trust, 1),
+				let serverPublicKey = SecCertificateCopyKey(serverCertificate),
+				let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data? {
+
+				// Matching fingerprint?
+				let keyHash = serverPublicKeyData.sha256String()
+				if localPublicKey == keyHash {
+					// Success! This is our server
+					completionHandler(.useCredential, URLCredential(trust: trust))
+					return
+				}
 			}
-
-			// Our landscape has a certificate chain with three certificates.
-			// We want to get the intermediate certificate, in our case the second.
-			guard
-				SecTrustGetCertificateCount(trust) >= 2,
-				SecTrustEvaluateWithError(trust, nil),
-				let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 1)
-			else {
-				Log.error("Could not trust or get certificate, rejecting!", log: .api)
-				reject()
-				return
-			}
-
-			guard
-				let remotePublicKey = SecCertificateCopyKey(remoteCertificate),
-				let remotePublicKeyData = SecKeyCopyExternalRepresentation(remotePublicKey, nil) as Data?
-			else {
-				Log.error("Failed to get the remote server's public key!", log: .api)
-				reject()
-				return
-			}
-
-			let hashedRemotePublicKey = self.sha256ForRSA2048(data: remotePublicKeyData)
-			// We simply compare the two hashed keys, and reject the challenge if they do not match
-			guard hashedRemotePublicKey == localPublicKey else {
-				Log.error("The server's public key did not match what we expected!", log: .api)
-				reject()
-				return
-			}
-
-			accept()
 		}
+
+		completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 	}
 }
 
