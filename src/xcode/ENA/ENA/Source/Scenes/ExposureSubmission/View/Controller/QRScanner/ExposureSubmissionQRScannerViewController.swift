@@ -84,7 +84,9 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 			navigationController?.navigationBar.setBackgroundImage(image, for: .default)
 		}
 
-		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+		let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+		cancelItem.accessibilityIdentifier = AccessibilityIdentifiers.General.cancelButton
+		navigationItem.leftBarButtonItem = cancelItem
 
 		let flashButton = UIButton(type: .custom)
 		flashButton.imageView?.contentMode = .center
@@ -94,6 +96,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		#warning("Check image converted from SFSymbols to pdf asset")
 		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
 		flashButton.accessibilityTraits = [.button]
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: flashButton)
 	}

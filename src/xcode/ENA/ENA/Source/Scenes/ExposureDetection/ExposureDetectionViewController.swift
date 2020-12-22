@@ -12,10 +12,12 @@ final class ExposureDetectionViewController: DynamicTableViewController, Countdo
 
 	init(
 		state: State,
+		store: Store,
 		delegate: ExposureDetectionViewControllerDelegate
 	) {
 		self.state = state
-		self.delegate = delegate
+        self.store = store
+        self.delegate = delegate
 
 		super.init(nibName: "ExposureDetectionViewController", bundle: .main)
 	}
@@ -49,7 +51,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Countdo
 		}
 
 		consumer.didFailCalculateRisk = { [weak self] error in
-
 			// Ignore already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
@@ -135,6 +136,8 @@ final class ExposureDetectionViewController: DynamicTableViewController, Countdo
 		case link = "linkCell"
 		case hotline = "hotlineCell"
 	}
+    
+    let store: Store
 
 	var state: State {
 		didSet {

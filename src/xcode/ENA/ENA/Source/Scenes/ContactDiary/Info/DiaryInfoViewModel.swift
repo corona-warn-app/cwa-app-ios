@@ -62,7 +62,7 @@ struct DiaryInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Lock"),
 						text: .string(AppStrings.ContactDiary.Information.itemLockTitle),
-            alignment: .top
+						alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -71,7 +71,7 @@ struct DiaryInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
 						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically),
-            alignment: .top
+						alignment: .top
 					),
 					.space(
 						height: 15.0,

@@ -23,6 +23,24 @@ class DiaryCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
+		#if DEBUG
+		if isUITesting {
+			if let diaryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
+				store.diaryInfoScreenShown = (diaryInfoScreenShown != "NO")
+			}
+
+			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllPersons"),
+			   journalRemoveAllPersons == "YES" {
+				diaryStore.removeAllContactPersons()
+			}
+
+			if let journalRemoveAllLocations = UserDefaults.standard.string(forKey: "journalRemoveAllLocations"),
+			   journalRemoveAllLocations == "YES" {
+				diaryStore.removeAllLocations()
+			}
+
+		}
+		#endif
 		if !infoScreenShown {
 			showInfoScreen()
 		}

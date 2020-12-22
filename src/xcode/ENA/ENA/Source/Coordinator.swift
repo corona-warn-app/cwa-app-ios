@@ -105,7 +105,7 @@ class Coordinator: RequiresAppDependencies {
 		})
 	}
 	
-	func showPositiveTestResultFromNotification(with result: TestResult) {
+	func showTestResultFromNotification(with result: TestResult) {
 		if let presentedViewController = rootViewController.presentedViewController {
 			presentedViewController.dismiss(animated: true) {
 				self.showExposureSubmission(with: result)
@@ -195,6 +195,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		)
 		let vc = ExposureDetectionViewController(
 			state: state,
+			store: store,
 			delegate: self
 		)
 		exposureDetectionController = vc

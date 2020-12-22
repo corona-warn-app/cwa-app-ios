@@ -538,7 +538,7 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Karantina süreniz genellikle 14 gündür. Lütfen belirtilerinizi gözlemleyin ve belirtilerinizin nasıl ortaya çıktığını izleyin.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkilisi, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, belirtileriniz ortaya çıkmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir.";
+"ExposureSubmissionSuccess_listItem2_2" = "Kamu sağlığı yetkilisi, temasa geçtiğiniz kişilerin bir listesini oluşturmanızı isteyecektir. Bu listeye, belirtileriniz ortaya çıkmadan önceki iki gün içinde 15 dakikadan uzun süreyle yakın temas halinde (2 metreden kısa mesafede, yüz yüze görüşme) olduğunuz herkesi dahil etmeniz gerekir. Bunun için temas güncenizi kullanabilirsiniz: Girişleri dışa aktarmanız ve ardından yazdırmanız ya da e-posta yoluyla göndermeniz yeterlidir.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Lütfen özellikle akıllı telefonu olmadığı veya uygulamayı yüklemediği için doğrudan uygulamanın uyarmayacağı kişileri göz önünde bulundurun.";
 
@@ -622,7 +622,7 @@
 
 "ExposureSubmissionResult_testPending" = "Test sonucunuz henüz çıkmadı.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.";
+"ExposureSubmissionResult_testPendingDesc" = "Test sonucunuz çıkar çıkmaz uygulamada görüntülenecektir.\n\nTest sonucunuz uygulama dışından da tarafınıza iletilecektir. Testinizin pozitif sonuç vermesi halinde kamu sağlığı yetkilileri sizi bilgilendirecektir.\n\nUygulama dışından bir pozitif test sonucu aldıysanız lütfen uygulamaya kayıtlı testi kaldırın. TAN almak için \"TAN Talebi\" başlığının altında gösterilen numarayı arayın. Ardından bu TAN'yi kullanarak sonucunuzu uygulamaya kaydedin ve diğer kullanıcıları uyarın.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "“Diğer kullanıcıları uyar” onayı verildi";
 
@@ -978,6 +978,15 @@
 
 "Home_SubmitCard_Button" = "Sonraki Adımlar";
 
+/* Home Diary card */
+"Home_DiaryCard_Title" = "Temas Güncesi";
+
+"Home_DiaryCard_Body" = "Nerede bulunduğunuzun ve kimlerle karşılaştığınızın kaydını tutun.";
+
+"Home_DiaryCard_ImageDescription" = "Yer işareti bulunan kapalı bir kitap.";
+
+"Home_DiaryCard_Button" = "Günce Yönetimi";
+
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App'i Paylaş";
 
 "Home_InfoCard_ShareBody" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirlerini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
@@ -1312,4 +1321,116 @@
 "TestResultPositive_WithConsent_PrimaryButton" = "Belirtileri Gir";
 
 "TestResultPositive_WithConsent_SecondaryButton" = "Çıkış";
+
+/* Overview */
+"ContactDiary_Overview_Title" = "Temas Güncesi";
+
+"ContactDiary_Overview_Description" = "Karşılaştığınız kişileri ve ziyaret ettiğiniz yerleri yazın. ";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Bilgi";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Girişleri Dışa Aktar";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Kişileri Düzenle";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Yerleri Düzenle";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Kişiler";
+
+"ContactDiary_Day_AddContactPerson" = "Kişi Ekle";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Henüz hiçbir kişi tanımlanmadı";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Bir kişi oluşturun ve temas güncenize ekleyin.";
+
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "Çayırda yürüyen bir kadın silüeti.";
+
+"ContactDiary_Day_LocationsSegment" = "Yerler";
+
+"ContactDiary_Day_AddLocation" = "Yer Ekle";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Henüz hiçbir yer tanımlanmadı";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Bir yer oluşturun ve temas güncenize ekleyin.";
+
+"ContactDiary_Day_LocationsEmptyImageDescription" = "Konum işareti taşıyan bir bina.";
+
+/* Edit Entries */
+"ContactDiary_EditEntries_ContactPersons_Title" = "Kişiler";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Tümünü Kaldır";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Tüm kişileri gerçekten kaldırmak istiyor musunuz?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Bir kişiyi kaldırdığınızda o kişiye ilişkin tüm girişler güncenizden kaldırılacaktır.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Evet";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Hayır";
+
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Bu kişiyi gerçekten kaldırmak istiyor musunuz?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Bir kişiyi kaldırdığınızda o kişiye ilişkin tüm girişler güncenizden kaldırılacaktır.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Evet";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Hayır";
+
+"ContactDiary_EditEntries_Locations_Title" = "Yerler";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Tümünü Kaldır";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Tüm yerleri gerçekten kaldırmak istiyor musunuz?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Bir yeri kaldırdığınızda o yere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Evet";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Hayır";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Bu yeri gerçekten kaldırmak istiyor musunuz?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "Bir yeri kaldırdığınızda o yere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Evet";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "Hayır";
+
+/* Information */
+"ContactDiary_Information_Title" = "Temas Güncesi";
+
+"ContactDiary_Information_ImageDescription" = "Birden fazla kişi dış mekanda, akıllı telefonlarına bakıyor.";
+
+"ContactDiary_Information_DescriptionTitle" = "Temas kaydınızı tutun.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "İhtiyaç duyduğunuzda elinizin altında eksiksiz bir liste olması için son 14 güne ait temaslarınıza ilişkin bir genel bakış oluşturun.";
+
+"ContactDiary_Information_Item_Person_Title" = "Karşılaştığınız kişileri girin.";
+
+"ContactDiary_Information_Item_Location_Title" = "Başka insanlarla karşılaştığınız yerleri girin.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Günce girişlerinize yalnızca siz erişebilirsiniz. Girişleriniz yalnızca akıllı telefonunuza kaydedilecektir.";
+
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Dilediğiniz zaman güncenizdeki kişi ve yer girişlerini kaldırabilirsiniz. Günce girişleri 16 günün ardından otomatik olarak silinecektir.";
+
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "Temas güncenizi düz metin biçiminde dışa aktarabilir ve ardından girişleri yazdırabilir, düzenleyebilir ya da gerekli olduğunda kamu sağlığı görevlinize sunabilirsiniz.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "Daha fazla bilgi için lütfen gizlilik bildirimine başvurun.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Günce Yönetimi";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Kaydet";
+
+/* - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Yer";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Yer";
+
+/* - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Kişi";
 
