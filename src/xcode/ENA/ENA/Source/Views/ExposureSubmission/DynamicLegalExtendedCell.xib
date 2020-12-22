@@ -30,49 +30,57 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKO-eN-0Yw" userLabel="Description Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="60.5" width="43.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Pe-9Z-Ydm" userLabel="Content Stack View 1">
-                                <rect key="frame" x="20" y="101" width="248" height="298.5"/>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79Y-9g-GkT" userLabel="Description Label 2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="20" y="419.5" width="43.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-WL-Nhf" userLabel="Content Stack View 2">
-                                <rect key="frame" x="20" y="460" width="248" height="398"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="h3i-dT-89f">
+                                <rect key="frame" x="20" y="60.5" width="248" height="797.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="INJ-xI-Je9">
+                                        <rect key="frame" x="0.0" y="0.0" width="248" height="224.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKO-eN-0Yw" userLabel="Description Label 1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="248" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8Pe-9Z-Ydm" userLabel="Content Stack View 1">
+                                                <rect key="frame" x="0.0" y="40.5" width="248" height="184"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="711-w9-VbR">
+                                        <rect key="frame" x="0.0" y="244.5" width="248" height="553"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79Y-9g-GkT" userLabel="Description Label 2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="248" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3ck-WL-Nhf" userLabel="Content Stack View 2">
+                                                <rect key="frame" x="0.0" y="40.5" width="248" height="512.5"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="711-w9-VbR" firstAttribute="top" secondItem="INJ-xI-Je9" secondAttribute="bottom" constant="20" id="yiw-As-gz2"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Separator Color"/>
                         <constraints>
-                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="top" secondItem="79Y-9g-GkT" secondAttribute="bottom" constant="20" id="2y0-76-leV"/>
-                            <constraint firstItem="79Y-9g-GkT" firstAttribute="top" secondItem="8Pe-9Z-Ydm" secondAttribute="bottom" constant="20" id="5Mh-b8-kg2"/>
-                            <constraint firstItem="ZKO-eN-0Yw" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="5de-81-MM8"/>
-                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="trailing" secondItem="8Pe-9Z-Ydm" secondAttribute="trailing" id="60Y-UL-fVm"/>
-                            <constraint firstItem="79Y-9g-GkT" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" symbolic="YES" id="7E6-Hc-T3v"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZKO-eN-0Yw" secondAttribute="trailing" constant="20" id="ANm-eZ-O2j"/>
-                            <constraint firstItem="ZKO-eN-0Yw" firstAttribute="top" secondItem="1md-SR-62Q" secondAttribute="bottom" constant="20" id="MPr-VH-MjZ"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="79Y-9g-GkT" secondAttribute="trailing" constant="20" symbolic="YES" id="U6o-jC-NHf"/>
-                            <constraint firstItem="8Pe-9Z-Ydm" firstAttribute="top" secondItem="ZKO-eN-0Yw" secondAttribute="bottom" constant="20" id="VpF-ym-q2r"/>
-                            <constraint firstItem="8Pe-9Z-Ydm" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="XXc-vO-SNF"/>
-                            <constraint firstAttribute="bottom" secondItem="3ck-WL-Nhf" secondAttribute="bottom" constant="20" id="ct8-GM-x4B"/>
-                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="top" secondItem="Vne-NW-PQu" secondAttribute="top" constant="460" id="ga8-gv-ikF"/>
-                            <constraint firstItem="3ck-WL-Nhf" firstAttribute="leading" secondItem="8Pe-9Z-Ydm" secondAttribute="leading" id="jzO-tT-B1m"/>
+                            <constraint firstItem="h3i-dT-89f" firstAttribute="leading" secondItem="1md-SR-62Q" secondAttribute="leading" id="HHw-Tz-M1n"/>
+                            <constraint firstItem="h3i-dT-89f" firstAttribute="width" secondItem="Vne-NW-PQu" secondAttribute="width" multiplier="0.861111" id="Ngm-a5-MrX"/>
+                            <constraint firstItem="h3i-dT-89f" firstAttribute="top" secondItem="1md-SR-62Q" secondAttribute="bottom" constant="20" id="juh-4h-Qx8"/>
+                            <constraint firstAttribute="bottom" secondItem="h3i-dT-89f" secondAttribute="bottom" constant="20" id="mpH-ba-bKI"/>
                             <constraint firstItem="1md-SR-62Q" firstAttribute="top" secondItem="Vne-NW-PQu" secondAttribute="top" constant="20" id="og4-Dn-9i9"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1md-SR-62Q" secondAttribute="trailing" constant="20" id="sz8-EM-uLK"/>
-                            <constraint firstAttribute="trailing" secondItem="8Pe-9Z-Ydm" secondAttribute="trailing" constant="20" id="vcr-h7-WeG"/>
                             <constraint firstItem="1md-SR-62Q" firstAttribute="leading" secondItem="Vne-NW-PQu" secondAttribute="leading" constant="20" id="vy1-V9-M3V"/>
                         </constraints>
                     </view>
