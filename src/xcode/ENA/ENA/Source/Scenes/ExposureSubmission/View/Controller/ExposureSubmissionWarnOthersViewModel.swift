@@ -9,6 +9,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 
 	// MARK: - Properties
 
+	private let dismissCompletion: (() -> Void)?
 	private let countries: [Country]
 	private let acknowledgementString: NSAttributedString = {
 		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
@@ -26,8 +27,9 @@ struct ExposureSubmissionWarnOthersViewModel {
 
 	// MARK: - Init
 
-	init(supportedCountries: [Country]) {
+	init(supportedCountries: [Country], completion: (() -> Void)?) {
 		countries = supportedCountries.sortedByLocalizedName
+		dismissCompletion = completion
 	}
 
 	// MARK: - Internal
@@ -96,7 +98,10 @@ struct ExposureSubmissionWarnOthersViewModel {
 					style: DynamicCell.TextCellStyle.label,
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
-					action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
+					action: .push(model: AppInformationModel.privacyModel,
+								  withTitle: AppStrings.AppInformation.privacyTitle,
+								  completion: dismissCompletion
+					),
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 						cell.selectionStyle = .default

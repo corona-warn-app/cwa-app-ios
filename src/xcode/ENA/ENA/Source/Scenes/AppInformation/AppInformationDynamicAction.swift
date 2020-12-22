@@ -8,10 +8,11 @@ extension DynamicAction {
 			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
 		}
 	}
-	
-	static func push(model: DynamicTableViewModel, separators: Bool = false, withTitle title: String) -> Self {
+
+	static func push(model: DynamicTableViewModel, separators: Bool = false, withTitle title: String, completion: (() -> Void)? = nil) -> Self {
 		.execute { viewController, _ in
 			let detailViewController = AppInformationDetailViewController()
+			detailViewController.dismissHandeling = completion
 			detailViewController.title = title
 			detailViewController.dynamicTableViewModel = model
 			detailViewController.separatorStyle = separators ? .singleLine : .none
