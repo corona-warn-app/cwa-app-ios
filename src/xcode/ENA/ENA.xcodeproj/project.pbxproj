@@ -141,15 +141,15 @@
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */; };
 		01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */; };
-		01EA17902590F03600E98E02 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17762590F03100E98E02 /* InfoTableViewCell.swift */; };
-		01EA17932590F03600E98E02 /* ActivateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17722590F03000E98E02 /* ActivateTableViewCell.swift */; };
+		01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */; };
+		01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */; };
 		01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17712590F03000E98E02 /* HomeCardView.swift */; };
 		01EA17992590F03600E98E02 /* HomeDiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */; };
-		01EA17BB2591344F00E98E02 /* ActivateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17752590F03100E98E02 /* ActivateTableViewCell.xib */; };
-		01EA17C92591353200E98E02 /* ActivateCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17C82591353200E98E02 /* ActivateCellModel.swift */; };
+		01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */; };
+		01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */; };
 		01EA17D12591366200E98E02 /* HomeDiaryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */; };
 		01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */; };
-		01EA17EF259139B900E98E02 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17732590F03000E98E02 /* InfoTableViewCell.xib */; };
+		01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */; };
 		01EA17F325913A5900E98E02 /* HomeDiaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */; };
 		01EA17FE259217B100E98E02 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17FD259217B100E98E02 /* HomeState.swift */; };
 		01EA172D2590C2EC00E98E02 /* MockDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F0725894BE900B26392 /* MockDiaryStore.swift */; };
@@ -859,13 +859,13 @@
 		01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModel.swift; sourceTree = "<group>"; };
 		01EA17712590F03000E98E02 /* HomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardView.swift; sourceTree = "<group>"; };
-		01EA17722590F03000E98E02 /* ActivateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateTableViewCell.swift; sourceTree = "<group>"; };
-		01EA17732590F03000E98E02 /* InfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
-		01EA17752590F03100E98E02 /* ActivateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivateTableViewCell.xib; sourceTree = "<group>"; };
-		01EA17762590F03100E98E02 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingTableViewCell.swift; sourceTree = "<group>"; };
+		01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeInfoTableViewCell.xib; sourceTree = "<group>"; };
+		01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeExposureLoggingTableViewCell.xib; sourceTree = "<group>"; };
+		01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDiaryTableViewCell.xib; sourceTree = "<group>"; };
 		01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryTableViewCell.swift; sourceTree = "<group>"; };
-		01EA17C82591353200E98E02 /* ActivateCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateCellModel.swift; sourceTree = "<group>"; };
+		01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModel.swift; sourceTree = "<group>"; };
 		01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCellModel.swift; sourceTree = "<group>"; };
 		01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModel.swift; sourceTree = "<group>"; };
 		01EA17FD259217B100E98E02 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
@@ -1816,21 +1816,21 @@
 			isa = PBXGroup;
 			children = (
 				01EA17712590F03000E98E02 /* HomeCardView.swift */,
-				01EA17BF2591346300E98E02 /* Activate */,
+				01EA17BF2591346300E98E02 /* ExposureLogging */,
 				01EA17C02591347800E98E02 /* Diary */,
 				01EA17C42591348100E98E02 /* Info */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		01EA17BF2591346300E98E02 /* Activate */ = {
+		01EA17BF2591346300E98E02 /* ExposureLogging */ = {
 			isa = PBXGroup;
 			children = (
-				01EA17722590F03000E98E02 /* ActivateTableViewCell.swift */,
-				01EA17752590F03100E98E02 /* ActivateTableViewCell.xib */,
-				01EA17C82591353200E98E02 /* ActivateCellModel.swift */,
+				01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */,
+				01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */,
+				01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */,
 			);
-			path = Activate;
+			path = ExposureLogging;
 			sourceTree = "<group>";
 		};
 		01EA17C02591347800E98E02 /* Diary */ = {
@@ -1846,8 +1846,8 @@
 		01EA17C42591348100E98E02 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				01EA17762590F03100E98E02 /* InfoTableViewCell.swift */,
-				01EA17732590F03000E98E02 /* InfoTableViewCell.xib */,
+				01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */,
+				01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */,
 				01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */,
 			);
 			path = Info;
@@ -3531,16 +3531,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		CD8638512477EBAA00A5A07C /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				B163D10E24990664001A322C /* __tests__ */,
-				CD8638522477EBD400A5A07C /* SettingsViewModel.swift */,
-				CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
 		CD99A398245B229F00BF12AF /* ExposureSubmission */ = {
 			isa = PBXGroup;
 			children = (
@@ -3905,7 +3895,7 @@
 				710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
-				01EA17BB2591344F00E98E02 /* ActivateTableViewCell.xib in Resources */,
+				01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */,
 				01D02647258B576100B6389A /* RiskLegendDotBodyCell.xib in Resources */,
 				01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */,
 				AB010D05253ECC9200DF1F61 /* RiskFailedCollectionViewCell.xib in Resources */,
@@ -3920,7 +3910,7 @@
 				01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
-				01EA17EF259139B900E98E02 /* InfoTableViewCell.xib in Resources */,
+				01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
@@ -4192,7 +4182,7 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
-				01EA17902590F03600E98E02 /* InfoTableViewCell.swift in Sources */,
+				01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
 				A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */,
@@ -4300,7 +4290,7 @@
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				AB010D04253ECC9200DF1F61 /* RiskFailedCollectionViewCell.swift in Sources */,
-				01EA17C92591353200E98E02 /* ActivateCellModel.swift in Sources */,
+				01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
@@ -4405,7 +4395,7 @@
 				01734B5D255D6C4500E60A8B /* semantic_version.pb.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
-				01EA17932590F03600E98E02 /* ActivateTableViewCell.swift in Sources */,
+				01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */,
 				EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */,

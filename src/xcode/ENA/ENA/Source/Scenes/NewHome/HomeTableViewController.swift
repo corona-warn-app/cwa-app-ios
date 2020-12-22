@@ -144,8 +144,8 @@ class HomeTableViewController: UITableViewController {
 			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: InfoTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: InfoTableViewCell.self)
+			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeInfoTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
@@ -178,8 +178,8 @@ class HomeTableViewController: UITableViewController {
 	}
 
 	private func infoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: InfoTableViewCell.self), for: indexPath) as? InfoTableViewCell else {
-			fatalError("Could not dequeue InfoTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeInfoTableViewCell.self), for: indexPath) as? HomeInfoTableViewCell else {
+			fatalError("Could not dequeue HomeInfoTableViewCell")
 		}
 
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {

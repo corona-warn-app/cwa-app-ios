@@ -4,7 +4,7 @@
 
 import UIKit
 
-class InfoTableViewCell: UITableViewCell {
+class HomeInfoTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 
