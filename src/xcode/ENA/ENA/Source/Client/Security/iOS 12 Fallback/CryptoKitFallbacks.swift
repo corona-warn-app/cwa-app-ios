@@ -9,9 +9,6 @@ import CryptoKit
 #endif
 
 
-// DEV NOTE: structure might change ⚠️⚠️⚠️
-#warning("check test coverage!")
-
 // MARK: - HASH
 
 extension Data {

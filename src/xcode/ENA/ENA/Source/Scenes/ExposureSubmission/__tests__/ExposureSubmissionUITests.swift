@@ -446,7 +446,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 
-		app.resetAuthorizationStatus(for: .camera)
+		if #available(iOS 13.4, *) {
+			app.resetAuthorizationStatus(for: .camera)
+		}
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
