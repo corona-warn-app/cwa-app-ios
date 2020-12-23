@@ -8,7 +8,6 @@ import XCTest
 class OnboardingInfoViewControllerTests: XCTestCase {
 
 	func test_createOnboardingInfoViewController() {
-		let storyboard = AppStoryboard.onboarding.instance
 		let mockExposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: nil)
 		let mockStore = MockTestStore()
 		let mockClient = ClientMock()
