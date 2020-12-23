@@ -31,7 +31,7 @@ commands:
       - install-tools
       - run:
           name: Install dependencies
-          command: cd src/xcode && bundle install --path=vendor --jobs=4
+          command: cd src/xcode && bundle install --path=vendor --jobs=8
       - save_cache:
           key: *cache_key
           paths:
