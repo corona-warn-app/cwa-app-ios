@@ -281,6 +281,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		delegate?.showExposureDetection(state: homeInteractor.state, activityState: homeInteractor.riskProvider.activityState)
 	}
 
+	func scrollToTop(animated: Bool) {
+		collectionView.scrollToItem(
+			at: IndexPath(item: 0, section: 0),
+			at: .top,
+			animated: animated
+		)
+	}
+
 	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {
 		let cell = collectionView.cellForItem(at: indexPath)
 		switch cell {
