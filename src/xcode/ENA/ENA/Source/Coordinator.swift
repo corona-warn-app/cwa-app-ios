@@ -61,51 +61,58 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler) {
-		let homeState = HomeState(
-			store: store,
-			riskProvider: riskProvider,
-			exposureManagerState: exposureManager.exposureManagerState,
-			enState: enStateHandler.state
-		)
+		if homeController == nil {
+			let homeState = HomeState(
+				store: store,
+				riskProvider: riskProvider,
+				exposureManagerState: exposureManager.exposureManagerState,
+				enState: enStateHandler.state
+			)
 
-		let homeController = HomeTableViewController(
-			viewModel: HomeTableViewModel(state: homeState),
-			onInfoBarButtonItemTap: { [weak self] in
-				self?.showRiskLegend()
-			},
-			onExposureDetectionCellTap: { [weak self] enState in
-				self?.showExposureNotificationSetting(enState: enState)
-			},
-			onRiskCellTap: { [weak self] homeState in
-				self?.showExposureDetection(state: homeState)
-			},
-			onDiaryCellTap: { [weak self] in
-				self?.showDiary()
-			},
-			onInviteFriendsCellTap: { [weak self] in
-				self?.showInviteFriends()
-			},
-			onFAQCellTap: { [weak self] in
-				guard let self = self else { return }
-				self.showWebPage(from: self.rootViewController, urlString: AppStrings.SafariView.targetURL)
-			},
-			onAppInformationCellTap: { [weak self] in
-				self?.showAppInformation()
-			},
-			onSettingsCellTap: { [weak self] enState in
-				self?.showSettings(enState: enState)
-			}
-		)
+			let homeController = HomeTableViewController(
+				viewModel: HomeTableViewModel(state: homeState),
+				onInfoBarButtonItemTap: { [weak self] in
+					self?.showRiskLegend()
+				},
+				onExposureDetectionCellTap: { [weak self] enState in
+					self?.showExposureNotificationSetting(enState: enState)
+				},
+				onRiskCellTap: { [weak self] homeState in
+					self?.showExposureDetection(state: homeState)
+				},
+				onDiaryCellTap: { [weak self] in
+					self?.showDiary()
+				},
+				onInviteFriendsCellTap: { [weak self] in
+					self?.showInviteFriends()
+				},
+				onFAQCellTap: { [weak self] in
+					guard let self = self else { return }
+					self.showWebPage(from: self.rootViewController, urlString: AppStrings.SafariView.targetURL)
+				},
+				onAppInformationCellTap: { [weak self] in
+					self?.showAppInformation()
+				},
+				onSettingsCellTap: { [weak self] enState in
+					self?.showSettings(enState: enState)
+				}
+			)
 
-		self.homeController = homeController
-		addToEnStateUpdateList(homeState)
+			self.homeController = homeController
+			addToEnStateUpdateList(homeState)
 
-		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-			self.rootViewController.setViewControllers([homeController], animated: false)
-			#if !RELEASE
-			self.enableDeveloperMenuIfAllowed(in: homeController)
-			#endif
-		})
+			UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+				self.rootViewController.setViewControllers([homeController], animated: false)
+				#if !RELEASE
+				self.enableDeveloperMenuIfAllowed(in: homeController)
+				#endif
+			})
+		} else {
+			rootViewController.dismiss(animated: false)
+			rootViewController.popToRootViewController(animated: false)
+			#warning("Add scroll to top")
+//			homeController?.scrollToTop(animated: false)
+		}
 	}
 	
 	func showTestResultFromNotification(with result: TestResult) {

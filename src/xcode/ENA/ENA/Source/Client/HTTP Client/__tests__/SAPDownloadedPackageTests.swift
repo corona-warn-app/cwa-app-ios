@@ -7,13 +7,19 @@ import XCTest
 import CryptoKit
 import ZIPFoundation
 
+@available(iOS 13.0, *)
 final class SAPDownloadedPackageTests: XCTestCase {
 
 	private lazy var signingKey = P256.Signing.PrivateKey()
 	private lazy var publicKey = signingKey.publicKey
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
-	private lazy var mockKeyProvider: PublicKeyProvider = { self.publicKey }
-	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
+	#warning("Check properties that our commented out current once are quickfixes to get tests running.")
+	private lazy var mockKeyProvider: PublicKeyProvider = { self.publicKey }()
+	// swiftlint:disable:next force_cast
+	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider as! PublicKeyProviding)
+//	private lazy var mockKeyProvider: PublicKeyProvider = { self.publicKey }
+//	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
+	
 
 	// MARK: Signature Verification Tests
 

@@ -241,7 +241,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		switch response.notification.request.identifier {
 		case ActionableNotificationIdentifier.riskDetection.identifier,
 			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
-			showHome(animated: true)
+			showHome()
 
 		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
 			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
@@ -251,7 +251,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			let testIdenifier = ActionableNotificationIdentifier.testResult.identifier
 			guard let testResultRawValue = response.notification.request.content.userInfo[testIdenifier] as? Int,
 				  let testResult = TestResult(rawValue: testResultRawValue) else {
-				showHome(animated: true)
+				showHome()
 				return
 			}
 
@@ -259,7 +259,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			case .positive, .negative:
 				showTestResultFromNotification(with: testResult)
 			case .invalid:
-				showHome(animated: true)
+				showHome()
 			case .expired, .pending:
 				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
 			}
@@ -436,7 +436,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
 	}
 
-	private func showHome(animated _: Bool = false) {
+	private func showHome() {
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {

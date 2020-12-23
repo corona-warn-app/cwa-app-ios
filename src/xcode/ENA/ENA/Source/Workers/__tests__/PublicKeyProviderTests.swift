@@ -26,11 +26,15 @@ final class PublicKeyProviderTests: XCTestCase {
 	}
 	
 	// There was a bug in our code that converted the string rep. of the key to plain unicode instead of base64 encoded data.
+	@available(iOS 13.0, *)
 	func testDefaultPublicKeyFromString() throws {
 		let pk: StaticString = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 		let data = try XCTUnwrap(Data(staticBase64Encoded: pk))
+
+		let publicKey = try XCTUnwrap(DefaultPublicKeyFromString(pk) as? PublicKey)
+
 		XCTAssertEqual(
-			DefaultPublicKeyFromString(pk)().rawRepresentation,
+			publicKey.pemRepresentation.data(using: .utf8), // FIXME: temporary solution
 			try P256.Signing.PublicKey(rawRepresentation: data).rawRepresentation
 		)
 	}

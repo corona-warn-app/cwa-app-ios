@@ -112,6 +112,12 @@ class HomeTableViewController: UITableViewController {
 		}
 	}
 
+	// MARK: - Internal
+	func scrollToTop(animated: Bool) {
+		tableView.setContentOffset(.zero, animated: animated)
+	}
+	
+	
 	// MARK: - Private
 
 	private let onInfoBarButtonItemTap: () -> Void
