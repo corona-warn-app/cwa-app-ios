@@ -17,7 +17,7 @@ class DynamicTableViewControllerRowsTests: XCTestCase {
 		let testBundle = Bundle(for: DynamicTableViewControllerRowsTests.self)
 		let storyboardFake = UIStoryboard(name: "DynamicTableViewControllerFake", bundle: testBundle)
 		// The force unwrap it used here because when the type doesn't match, a
-		// crash immedeately informs about a problem in the test.
+		// crash immediately informs about a problem in the test.
 		guard let viewController = storyboardFake.instantiateViewController(identifier: "DynamicTableViewController") as? DynamicTableViewController
 			else {
 				XCTAssert(false, "Unable to instantiate DynamicTableViewController from DynamicTableViewControllerFake.storyboard")
