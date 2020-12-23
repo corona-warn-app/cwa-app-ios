@@ -25,6 +25,13 @@ class HomeTableViewModel {
 		case settings
 	}
 
+	enum RiskAndTestRow {
+		case risk
+		case testResult
+		case shownPositiveTestResult
+		case thankYou
+	}
+
 	var state: HomeState
 
 	var numberOfSections: Int {
@@ -36,7 +43,7 @@ class HomeTableViewModel {
 		case .exposureLogging:
 			return 1
 		case .riskAndTest:
-			return 0
+			return 1
 		case .diary:
 			return 1
 		case .infos:

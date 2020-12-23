@@ -12,6 +12,7 @@ class HomeTableViewController: UITableViewController {
 		viewModel: HomeTableViewModel,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureDetectionCellTap: @escaping (ENStateHandler.State) -> Void,
+		onRiskCellTap: @escaping (HomeState) -> Void,
 		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
@@ -22,6 +23,7 @@ class HomeTableViewController: UITableViewController {
 
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureDetectionCellTap = onExposureDetectionCellTap
+		self.onRiskCellTap = onRiskCellTap
 		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
@@ -62,6 +64,8 @@ class HomeTableViewController: UITableViewController {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
 			return exposureDetectionCell(forRowAt: indexPath)
+		case .riskAndTest:
+			return riskCell(forRowAt: indexPath)
 		case .diary:
 			return diaryCell(forRowAt: indexPath)
 		case .infos:
@@ -87,6 +91,8 @@ class HomeTableViewController: UITableViewController {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
 			onExposureDetectionCellTap(viewModel.state.enState)
+		case .riskAndTest:
+			onRiskCellTap(viewModel.state)
 		case .diary:
 			onDiaryCellTap()
 		case .infos:
@@ -116,6 +122,7 @@ class HomeTableViewController: UITableViewController {
 
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureDetectionCellTap: (ENStateHandler.State) -> Void
+	private let onRiskCellTap: (HomeState) -> Void
 	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
@@ -146,6 +153,10 @@ class HomeTableViewController: UITableViewController {
 			forCellReuseIdentifier: String(describing: HomeExposureLoggingTableViewCell.self)
 		)
 		tableView.register(
+			UINib(nibName: String(describing: HomeRiskTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeRiskTableViewCell.self)
+		)
+		tableView.register(
 			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
 		)
@@ -165,6 +176,17 @@ class HomeTableViewController: UITableViewController {
 		}
 
 		let cellModel = HomeExposureLoggingCellModel(state: viewModel.state)
+		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func riskCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeRiskTableViewCell.self), for: indexPath) as? HomeRiskTableViewCell else {
+			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
+		}
+
+		let cellModel = HomeRiskCellModel(homeState: viewModel.state)
 		cell.configure(with: cellModel)
 
 		return cell
