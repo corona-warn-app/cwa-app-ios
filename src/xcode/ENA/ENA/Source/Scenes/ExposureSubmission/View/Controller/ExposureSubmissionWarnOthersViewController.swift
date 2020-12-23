@@ -10,10 +10,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Init
 
 	init(
-		supportedCountries: [Country],
+		viewModel: ExposureSubmissionWarnOthersViewModel,
 		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
 	) {
-		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
+		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)

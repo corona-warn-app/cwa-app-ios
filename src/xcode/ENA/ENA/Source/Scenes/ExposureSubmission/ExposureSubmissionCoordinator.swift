@@ -189,7 +189,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					onSuccess: { supportedCountries in
 						self?.showTestResultSubmissionConsentScreen(
 							supportedCountries: supportedCountries,
-							testResultAvailability: .available
+							testResultAvailability: .availableAndPositive
 						)
 					}
 				)
@@ -229,6 +229,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
@@ -240,7 +241,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						onSuccess: { supportedCountries in
 							self?.showTestResultSubmissionConsentScreen(
 								supportedCountries: supportedCountries,
-								testResultAvailability: .notAvailabile
+								testResultAvailability: testResultAvailability
 							)
 						}
 					)
@@ -279,7 +280,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// ugly but works for the moment
 		// refactoring more of the coordinator-logic to facilitate combine would help
 		let vc = ExposureSubmissionWarnOthersViewController(
-			supportedCountries: model.exposureSubmissionService.supportedCountries,
+			viewModel: ExposureSubmissionWarnOthersViewModel(
+				supportedCountries: model.exposureSubmissionService.supportedCountries) { [weak self] in
+				self?.showTestResultAvailableCloseAlert()
+			},
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
@@ -387,11 +391,16 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
+		// we should show the alert in the completion only if the testResult is positveAndAvailable
+		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailabile ? nil : { [weak self] in
+			self?.showTestResultAvailableCloseAlert()
+		}
 		let vc = ExposureSubmissionTestResultConsentViewController(
 			viewModel: ExposureSubmissionTestResultConsentViewModel(
 				supportedCountries: supportedCountries,
 				exposureSubmissionService: model.exposureSubmissionService,
-				testResultAvailability: testResultAvailability
+				testResultAvailability: testResultAvailability,
+				dismissCompletion: dismissCompletion
 			)
 		)
 
@@ -401,8 +410,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Late consent
 
 	private func showWarnOthersScreen(supportedCountries: [Country]) {
+		let viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries) { [weak self] in
+			self?.showTestResultAvailableCloseAlert()
+		}
 		let vc = ExposureSubmissionWarnOthersViewController(
-			supportedCountries: supportedCountries,
+			viewModel: viewModel,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
