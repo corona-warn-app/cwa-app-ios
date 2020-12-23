@@ -9,6 +9,7 @@ import ZIPFoundation
 
 // MARK: - Static helpers for package creation
 
+@available(iOS 13.0, *)
 extension SAPDownloadedPackage {
 
 	/// - note: Will SHA256 hash the data

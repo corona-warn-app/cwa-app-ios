@@ -65,15 +65,19 @@ protocol PublicKeyProvider {
 /// Very naïve implementation of `P256.Signing.PublicKey` used as data container.
 struct PublicKey {
 	let pemHeader: StaticString = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE"
-
-	private let publicKey: String
+	let pemRepresentation: String
+	let rawRepresentation: Data
 
 	/// Initializes a PublicKey from a given key string.
 	/// - Parameters:
 	///   - pkString: A string representation of the public key to store
 	///   - hasPrefix: Does the pkString provides a PEM header (`true`) or should it be attached during init (`false`). Defaults to `false`.
 	init(with pkString: StaticString, hasPrefix: Bool = false) {
-		self.publicKey = hasPrefix ? String(pkString) : String(pemHeader).appending(String(pkString))
+		self.pemRepresentation = hasPrefix ? String(pkString) : String(pemHeader).appending(String(pkString))
+		guard let raw = pemRepresentation.data(using: .utf8) else {
+			fatalError("Cannot initialize raw representation of public key")
+		}
+		self.rawRepresentation = raw
 	}
 }
 
