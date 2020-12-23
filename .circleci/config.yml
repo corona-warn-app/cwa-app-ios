@@ -54,6 +54,7 @@ jobs:
   build:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -64,6 +65,7 @@ jobs:
   test:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -115,6 +117,7 @@ jobs:
   snapshot:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     parameters:
       language:
         default: "de-DE"
@@ -147,6 +150,7 @@ jobs:
   collect-snapshots:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -158,6 +162,7 @@ jobs:
   testflight-release:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -172,6 +177,7 @@ jobs:
   update-docs:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     shell: /bin/zsh
     steps:
       - attach_workspace:
