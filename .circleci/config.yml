@@ -43,7 +43,7 @@ commands:
 jobs:
   dependencies:
     executor:
-      size: *executor_size
+      size: "large"
     macos:
       xcode: *xcode_version
     steps:
