@@ -37,6 +37,7 @@ class HomeState: ENStateHandlerUpdating {
 			)
 		}
 
+		self.store = store
 		self.riskProvider = riskProvider
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
@@ -58,6 +59,10 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
+	var lastRiskCalculationDate: Date? {
+		store.riskCalculationResult?.calculationDate
+	}
+
 	func updateDetectionMode(_ detectionMode: DetectionMode) {
 		self.detectionMode = detectionMode
 	}
@@ -67,6 +72,8 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	// MARK: - Private
+
+	private let store: Store
 
 	private let riskProvider: RiskProviding
 	private let riskConsumer = RiskConsumer()

@@ -76,6 +76,9 @@ class Coordinator: RequiresAppDependencies {
 			onExposureDetectionCellTap: { [weak self] enState in
 				self?.showExposureNotificationSetting(enState: enState)
 			},
+			onRiskCellTap: { [weak self] homeState in
+				self?.showExposureDetection(state: homeState)
+			},
 			onDiaryCellTap: { [weak self] in
 				self?.showDiary()
 			},
@@ -162,10 +165,8 @@ class Coordinator: RequiresAppDependencies {
 			exposureManager.disable(completion: completion)
 		}
 	}
-}
 
-extension Coordinator: HomeViewControllerDelegate {
-	func showRiskLegend() {
+	private func showRiskLegend() {
 		rootViewController.present(
 			UINavigationController(rootViewController: RiskLegendViewController()),
 			animated: true,
@@ -173,7 +174,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		)
 	}
 
-	func showExposureNotificationSetting(enState: ENStateHandler.State) {
+	private func showExposureNotificationSetting(enState: ENStateHandler.State) {
 		let vc = ExposureNotificationSettingViewController(
 			initialEnState: enState,
 			store: self.store,
@@ -186,11 +187,11 @@ extension Coordinator: HomeViewControllerDelegate {
 		rootViewController.pushViewController(vc, animated: true)
 	}
 
-	func showExposureDetection(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
+	private func showExposureDetection(state: HomeState) {
 		let state = ExposureDetectionViewController.State(
 			riskState: state.riskState,
 			detectionMode: state.detectionMode,
-			activityState: activityState,
+			activityState: state.riskProviderActivityState,
 			previousRiskLevel: store.riskCalculationResult?.riskLevel
 		)
 		let vc = ExposureDetectionViewController(
@@ -201,18 +202,18 @@ extension Coordinator: HomeViewControllerDelegate {
 		exposureDetectionController = vc
 		rootViewController.present(vc, animated: true)
 	}
+//
+//	private func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
+//		let state = ExposureDetectionViewController.State(
+//			riskState: state.riskState,
+//			detectionMode: state.detectionMode,
+//			activityState: activityState,
+//			previousRiskLevel: store.riskCalculationResult?.riskLevel
+//		)
+//		exposureDetectionController?.state = state
+//	}
 
-	func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
-		let state = ExposureDetectionViewController.State(
-			riskState: state.riskState,
-			detectionMode: state.detectionMode,
-			activityState: activityState,
-			previousRiskLevel: store.riskCalculationResult?.riskLevel
-		)
-		exposureDetectionController?.state = state
-	}
-
-	func showExposureSubmission(with result: TestResult? = nil) {
+	private func showExposureSubmission(with result: TestResult? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
 		// when .start() is called. The coordinator is then bound to the lifecycle of this navigation controller
 		// which is managed by UIKit.
@@ -226,7 +227,7 @@ extension Coordinator: HomeViewControllerDelegate {
 		coordinator.start(with: result)
 	}
 
-	func showDiary() {
+	private func showDiary() {
 		diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
@@ -236,25 +237,25 @@ extension Coordinator: HomeViewControllerDelegate {
 		diaryCoordinator?.start()
 	}
 
-	func showInviteFriends() {
+	private func showInviteFriends() {
 		rootViewController.pushViewController(
 			InviteFriendsViewController(),
 			animated: true
 		)
 	}
 
-	func showWebPage(from viewController: UIViewController, urlString: String) {
+	private func showWebPage(from viewController: UIViewController, urlString: String) {
 		LinkHelper.showWebPage(from: viewController, urlString: urlString)
 	}
 
-	func showAppInformation() {
+	private func showAppInformation() {
 		rootViewController.pushViewController(
 			AppInformationViewController(),
 			animated: true
 		)
 	}
 
-	func showSettings(enState: ENStateHandler.State) {
+	private func showSettings(enState: ENStateHandler.State) {
 		settingsCoordinator = SettingsCoordinator(
 			store: store,
 			initialEnState: enState,
@@ -275,12 +276,13 @@ extension Coordinator: HomeViewControllerDelegate {
 		addToEnStateUpdateList(settingsCoordinator)
 	}
 
-	func addToEnStateUpdateList(_ anyObject: AnyObject?) {
+	private func addToEnStateUpdateList(_ anyObject: AnyObject?) {
 		if let anyObject = anyObject,
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdateList.add(anyObject)
 		}
 	}
+
 }
 
 extension Coordinator: ExposureDetectionViewControllerDelegate {
