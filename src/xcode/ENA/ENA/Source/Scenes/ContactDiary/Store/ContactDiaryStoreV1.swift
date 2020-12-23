@@ -640,7 +640,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	private var germanDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
+		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .none
 		dateFormatter.locale = Locale(identifier: "de_DE")
 		return dateFormatter
