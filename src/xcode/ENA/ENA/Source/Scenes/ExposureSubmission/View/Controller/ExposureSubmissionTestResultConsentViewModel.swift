@@ -13,11 +13,13 @@ class ExposureSubmissionTestResultConsentViewModel {
 	init(
 		supportedCountries: [Country],
 		exposureSubmissionService: ExposureSubmissionService,
-		testResultAvailability: TestResultAvailability
+		testResultAvailability: TestResultAvailability,
+		dismissCompletion: (() -> Void)?
 	) {
 		self.supportedCountries = supportedCountries.sortedByLocalizedName
 		self.exposureSubmissionService = exposureSubmissionService
 		self.testResultAvailability = testResultAvailability
+		self.dismissCompletion = dismissCompletion
 	}
 
 	// MARK: - Public
@@ -61,7 +63,7 @@ class ExposureSubmissionTestResultConsentViewModel {
 									// text needed here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3251
 									// but not here: https://www.figma.com/file/BpLyzxHZVa6a8BbSdcL76V/CWA_Submission_Flow_v02?node-id=388%3A3183
 									var part4: String = AppStrings.AutomaticSharingConsent.consentDescriptionPart4
-									if self.testResultAvailability == .available {
+									if self.testResultAvailability == .availableAndPositive {
 										part4.append(" \(AppStrings.AutomaticSharingConsent.consentDescriptionPart5)")
 									}
 
@@ -86,7 +88,10 @@ class ExposureSubmissionTestResultConsentViewModel {
 						.icon(
 							nil,
 							text: .string(AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo),
-							action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
+							action: .push(model: AppInformationModel.privacyModel,
+										  withTitle: AppStrings.AppInformation.privacyTitle,
+										  completion: dismissCompletion
+							),
 							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default
@@ -112,7 +117,8 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 	private let supportedCountries: [Country]
 	private let testResultAvailability: TestResultAvailability
-
+	private let dismissCompletion: (() -> Void)?
+	
 	private var cancellables: Set<AnyCancellable> = []
 	private var exposureSubmissionService: ExposureSubmissionService
 
@@ -126,6 +132,6 @@ class ExposureSubmissionTestResultConsentViewModel {
 // MARK: - TestResultAvailability
 
 enum TestResultAvailability {
-	case available
+	case availableAndPositive
 	case notAvailabile
 }
