@@ -151,8 +151,7 @@ final class OnboardingInfoViewController: UIViewController {
 			let supportedCountryIDs = configuration.supportedCountries
 
 			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
-			self?.supportedCountries = supportedCountries
-				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+			self?.supportedCountries = supportedCountries.sortedByLocalizedName
 		}.store(in: &subscriptions)
 	}
 

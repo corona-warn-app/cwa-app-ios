@@ -26,7 +26,7 @@ platform :ios do
     setup_circle_ci
 
     if is_ci
-      xcversion(version: "~> 12.2.0")
+      xcversion(version: "~> 12.3.0")
     end
   end
 
@@ -41,7 +41,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.2,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.3,name=iPhone 11",
       scheme: "ENA"
     )
   end
@@ -52,7 +52,7 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.2,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=14.3,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
