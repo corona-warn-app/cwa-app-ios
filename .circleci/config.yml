@@ -2,7 +2,7 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.2.0
+  - xcode_version: &xcode_version 12.3.0
   - resource_class: &resource_class large
 
 commands:
