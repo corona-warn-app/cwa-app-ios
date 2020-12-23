@@ -23,12 +23,12 @@ class ContactDiaryStoreSchemaV1 {
 			let sql = """
 				CREATE TABLE IF NOT EXISTS ContactPerson (
 					id INTEGER PRIMARY KEY,
-					name STRING NOT NULL CHECK (LENGTH(name) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS Location (
 					id INTEGER PRIMARY KEY,
-					name STRING NOT NULL CHECK (LENGTH(name) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (

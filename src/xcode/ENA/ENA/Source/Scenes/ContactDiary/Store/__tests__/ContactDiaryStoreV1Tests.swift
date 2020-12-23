@@ -51,7 +51,47 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 
 		XCTAssertEqual(name, "Hinterm Mond")
 	}
+	
+	func test_When_addZeroPrefixedLocation_Then_LocationIsPersistedCorrectly() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
 
+		let result = store.addLocation(name: "0043")
+
+		if case let .failure(error) = result {
+			XCTFail("Error not expected: \(error)")
+		}
+
+		guard case let .success(id) = result,
+			  let location = fetchEntries(for: "Location", with: id, from: databaseQueue),
+			  let name = location.string(forColumn: "name") else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		XCTAssertEqual(name, "0043")
+	}
+	
+	func test_When_addZeroPrefixedContactPerson_Then_LocationIsPersistedCorrectly() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let result = store.addContactPerson(name: "005")
+
+		if case let .failure(error) = result {
+			XCTFail("Error not expected: \(error)")
+		}
+
+		guard case let .success(id) = result,
+			  let contactPersonResult = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
+			  let name = contactPersonResult.string(forColumn: "name") else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		XCTAssertEqual(name, "005")
+	}
+	
 	func test_When_addContactPersonEncounter_Then_ContactPersonEncounterIsPersisted() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
