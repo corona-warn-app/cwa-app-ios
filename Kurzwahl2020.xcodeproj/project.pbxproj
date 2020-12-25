@@ -25,6 +25,8 @@
 		50ADF97C240EAA3100850FB6 /* SelectColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */; };
 		50C3564F2401C4510026ABE5 /* AskForAccessToContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */; };
 		50C8558C23D98EC400AAB7F2 /* ModelContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */; };
+		613E3F7225969D4C00B69A5B /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E3F7125969D4C00B69A5B /* AppStrings.swift */; };
+		613E3F7325969D4C00B69A5B /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E3F7125969D4C00B69A5B /* AppStrings.swift */; };
 		7E16FDEF23D4AD92005DAAF3 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */; };
 		7E2E0DE623E5CA0700825EC1 /* ContactTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2E0DE523E5CA0700825EC1 /* ContactTest.swift */; };
 		7E3D6CFF23C9D4CB002E4239 /* StoreToFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */; };
@@ -95,6 +97,7 @@
 		50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorPalette.swift; sourceTree = "<group>"; };
 		50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAccessToContactsView.swift; sourceTree = "<group>"; };
 		50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContacts.swift; sourceTree = "<group>"; };
+		613E3F7125969D4C00B69A5B /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		7E2E0DE523E5CA0700825EC1 /* ContactTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTest.swift; sourceTree = "<group>"; };
 		7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreToFileTest.swift; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 				502BF536236399BB00FDE7BF /* AppDelegate.swift */,
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
 				7E3D6D0423CB997B002E4239 /* SettingsView.swift */,
+				613E3F7125969D4C00B69A5B /* AppStrings.swift */,
 				50AD8B6923D8EDEB00819FD1 /* ContactView.swift */,
 				7E5C786323E8AA3200E25902 /* ContactDetailView.swift */,
 				7E82628724138BE4008E141C /* Data Model */,
@@ -433,6 +437,7 @@
 				7E5C786423E8AA3200E25902 /* ContactDetailView.swift in Sources */,
 				50ADCF822369C135007B248B /* ColorManagement.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
+				613E3F7225969D4C00B69A5B /* AppStrings.swift in Sources */,
 				505B608D240C57FB0041A592 /* ColorSelectView.swift in Sources */,
 				7EC1B80323C100E8004B7396 /* editView.swift in Sources */,
 				7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */,
@@ -470,6 +475,7 @@
 				7E7AEC652496C44700CD1D6B /* ContactDetailView.swift in Sources */,
 				7E7AEC662496C44700CD1D6B /* ColorManagement.swift in Sources */,
 				7E7AEC672496C44700CD1D6B /* Storage.swift in Sources */,
+				613E3F7325969D4C00B69A5B /* AppStrings.swift in Sources */,
 				7E7AEC682496C44700CD1D6B /* ColorSelectView.swift in Sources */,
 				7E7AEC692496C44700CD1D6B /* editView.swift in Sources */,
 				7E7AEC6A2496C44700CD1D6B /* NavigationStack.swift in Sources */,
