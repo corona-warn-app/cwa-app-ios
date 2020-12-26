@@ -126,6 +126,20 @@ Web: https://www.avanderlee.com/swift/combine/
 ### SwiftUI on all Devices
 
 
+## WWDC 2020
+
+### What's New in Swift
+https://github.com/Blackjacx/WWDC#Whats-new-in-Swift
+
+### What's New in SwiftUI
+https://github.com/Blackjacx/WWDC#Whats-new-in-SwiftUI
+09:00 Lists and Collections
+
+### Stacks, Grids, and Outlines in SwiftUI
+https://developer.apple.com/videos/play/wwdc2020/10031/ 
+
+
+
 
 ## Swift with Majid
 Property wrappers in SwiftUI
