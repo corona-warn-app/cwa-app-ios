@@ -47,29 +47,9 @@ class ColorManagement : ObservableObject {
     var allPalettes = [palette]() //array of all available palettes
     var userSelectedPalettes = [palette]()  //the three used palettes
     var allColors = [String]()    //array with all color code of the selected 3 palettes
-    
-    
-    fileprivate func paletteInitCBC36() {
-        allPalettes.append(palette(name: c_summerTime, thumbnail: c_tn_summerTime_lm, thumbnailDarkMode: c_tn_summerTime_dm, colors:ColorPaletteSummer))
-        allPalettes.append(palette(name: c_darkPink, thumbnail: c_tn_darkPink_lm, thumbnailDarkMode: c_tn_darkPink_dm, colors:ColorPaletteDarkPink))
-        allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
-        allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
-        allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
-        allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
-        //        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
-    }
-    
-    fileprivate func paletteInitCBC24() {
-        allPalettes.append(palette(name: c_palette01, thumbnail: c_tn_P01_lm, thumbnailDarkMode: c_tn_P01_dm, colors:ColorPalette01))
-        allPalettes.append(palette(name: c_palette02, thumbnail: c_tn_P02_lm, thumbnailDarkMode: c_tn_P02_dm, colors:ColorPalette02))
-        allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
-        allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
-        allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
-        allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
-        //        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
-    }
-    
 
+    // MARK: - Init
+    
     init() {
         print("ColorManagemen init")
         #if CBC24
@@ -83,27 +63,27 @@ class ColorManagement : ObservableObject {
         setAllColors()
     }
     
+    // MARK: - Public
     
     func getUIColor(withId: Int) -> UIColor {
         if withId < allColors.count {
-            let u : UIColor = UIColor.init(named: allColors[withId])!
-            return u
+            guard let color = UIColor.init(named: allColors[withId]) else {
+                return UIColor.init(named: "Black")!
+            }
+            return color
         }
         else {
-            return UIColor.init(named: "black")!
+            return UIColor.init(named: "Black")!
         }
     }
-    
     
     func getThumbnailName(withIndex: Int) -> String {
         return userSelectedPalettes[withIndex].thumbnail
     }
     
-    
     func getAllPalettes() -> [palette] {
         return allPalettes
     }
-    
     
     func getScreenPaletteName(withIndex: Int) -> String {
         if userSelectedPalettes.count < withIndex + 1 {
@@ -134,10 +114,8 @@ class ColorManagement : ObservableObject {
                     globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
                 }
             }
-            
         }
     }
-    
     
     func modifyScreenPalette(withIndex: Int, name: String) {
         for p in allPalettes {
@@ -150,7 +128,6 @@ class ColorManagement : ObservableObject {
         }
     }
     
-    
     func setAllColors() {
         allColors.removeAll()
         for i in 0...(globalNoOfScreens - 1) {
@@ -159,7 +136,6 @@ class ColorManagement : ObservableObject {
         }
     }
 
-    
     func getColors(forPalette: String) -> [String] {
         var result = [String]()
         for p in allPalettes {
@@ -170,7 +146,6 @@ class ColorManagement : ObservableObject {
         return result
     }
     
-    
     func getPalette(withName: String) -> palette{
         var result = palette(name: "", thumbnail: "", thumbnailDarkMode: "", colors: [""])
         for p in allPalettes {
@@ -179,6 +154,30 @@ class ColorManagement : ObservableObject {
             }
         }
         return result
+    }
+    
+    // MARK: - Private
+    
+    private func paletteInitCBC36() {
+        allPalettes.append(palette(name: c_summerTime, thumbnail: c_tn_summerTime_lm, thumbnailDarkMode: c_tn_summerTime_dm, colors:ColorPaletteSummer))
+        allPalettes.append(palette(name: c_darkPink, thumbnail: c_tn_darkPink_lm, thumbnailDarkMode: c_tn_darkPink_dm, colors:ColorPaletteDarkPink))
+        allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
+        allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
+        allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
+        allPalettes.append(palette(name: c_palette01, thumbnail: c_tn_P01_lm, thumbnailDarkMode: c_tn_P01_dm, colors:ColorPalette01))
+        allPalettes.append(palette(name: c_palette02, thumbnail: c_tn_P02_lm, thumbnailDarkMode: c_tn_P02_dm, colors:ColorPalette02))
+        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
+    }
+    
+    private func paletteInitCBC24() {
+        allPalettes.append(palette(name: c_palette01, thumbnail: c_tn_P01_lm, thumbnailDarkMode: c_tn_P01_dm, colors:ColorPalette01))
+        allPalettes.append(palette(name: c_palette02, thumbnail: c_tn_P02_lm, thumbnailDarkMode: c_tn_P02_dm, colors:ColorPalette02))
+        allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
+        allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
+        allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
+        //        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
     }
     
 } //class
