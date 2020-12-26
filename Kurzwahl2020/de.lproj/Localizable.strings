@@ -13,9 +13,9 @@
 // Integer %lld
 
 // SettingsView
-"Font Size" = "Schriftgröße";
+"Settings_FontSize" = "Schriftgröße";
 "Size: %lld" = "Größe: %lld";
-"About" = "Über Call By Color";
+"Settings_About" = "Über Call By Color";
 "Privacy Statement" = "Datenschutz";
 "Settings" = "Einstellungen";
 "Help" = "Hilfe";

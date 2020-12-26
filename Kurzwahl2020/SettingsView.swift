@@ -18,7 +18,7 @@ struct SettingsView: View {
         NavigationView {
             VStack{
                 Form {
-                    Section(header: Text("Font Size")) {
+                    Section(header: Text(AppStrings.settings.fontSize)) {
                         Stepper(value: $model.fontSize, in: 12...64) {
                             Text("Size: \(model.getFontSizeAsInt())")
                         } //.labelsHidden
@@ -45,7 +45,7 @@ struct SettingsView: View {
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(AboutView()))) }) {
-                        Text("About")
+                        Text(AppStrings.settings.about)
                     }//.buttonStyle(PlainButtonStyle())
 
                 }.navigationBarTitle(Text("Settings"))
