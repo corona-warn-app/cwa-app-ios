@@ -35,22 +35,21 @@ struct ContentView2: View {
 
 struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
-
+    
     @EnvironmentObject var appState : HomeViewState
     @EnvironmentObject var editViewState : EditViewState
     @EnvironmentObject var colorManager : ColorManagement
     @GestureState var isLongPressed = false
-  
+    
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-
+    
     var body: some View {
         TabView(selection: $appState.selectedTab) {
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
-                            
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
-                        self.hstackTiles($0, geometry)
+                            self.hstack_with_two_tiles($0, geometry)
                     }
                 }
             }
@@ -62,49 +61,49 @@ struct HomeView: View {
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
-                        self.hstackTiles($0, geometry)
+                        self.hstack_with_two_tiles($0, geometry)
                     }
                 }
             }
             .tabItem {
                 Image(systemName: appState.selectedTab == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
-
+            
             #if CBC36
             // 3nd screen
-                GeometryReader { geometry in
-                    VStack(spacing: self.vspacing()) {
-                        ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
-                            self.hstackTiles($0, geometry)
-                        }
+            GeometryReader { geometry in
+                VStack(spacing: self.vspacing()) {
+                    ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
+                        self.hstack_with_two_tiles($0, geometry)
                     }
                 }
-                .tabItem {
-                    Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
-                }.tag(2)
+            }
+            .tabItem {
+                Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
+            }.tag(2)
             #endif
-
+            
             // 4nd screen
-//            GeometryReader { geometry in
-//                VStack(spacing: self.vspacing()) {
-//                    ForEach((3*globalNumberOfRows...(4*globalNumberOfRows-1)), id: \.self) {
-//                        self.hstackTiles($0, geometry)
-//                    }
-//                }
-//            }
-//            .tabItem {
-//                Image(systemName: appState.selectedTab == 3 ? "4.square.fill" : "4.square")
-//            }.tag(3)
-
+            //            GeometryReader { geometry in
+            //                VStack(spacing: self.vspacing()) {
+            //                    ForEach((3*globalNumberOfRows...(4*globalNumberOfRows-1)), id: \.self) {
+            //                        self.hstackTiles($0, geometry)
+            //                    }
+            //                }
+            //            }
+            //            .tabItem {
+            //                Image(systemName: appState.selectedTab == 3 ? "4.square.fill" : "4.square")
+            //            }.tag(3)
+            
             // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
-            .tabItem {
-                Image(systemName: appState.selectedTab == 4 ? "gear" : "gear")
-                Text("Settings")
-            }.tag(4)
+                .tabItem {
+                    Image(systemName: appState.selectedTab == 4 ? "gear" : "gear")
+                    Text("Settings")
+                }.tag(4)
         }
     }
-
+    
     func makeCall(_ withTileNumber: Int) {
         let scheme : String = "tel://"
         var phoneNumber = globalDataModel.getNumber(withId: withTileNumber).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -131,52 +130,26 @@ struct HomeView: View {
     private func hspacing()->CGFloat {
         return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
     }
-
     
     private func vspacing()->CGFloat {
         return (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
     }
     
     // draw a HStack with two tiles
-    private func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        return HStack(spacing: self.hspacing()) {
+    private func hstack_with_two_tiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
+        let leading_padding = ( geometry.size.width - hspacing() - 2 * self.dimensions(geometry).1 ) / 2
+        
+        return HStack(alignment: .center, spacing: self.hspacing()) {
             tile(withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
             tile(withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
-        } .padding(.bottom, 2)
+        } .padding(.bottom, 2).padding(.leading, leading_padding)
     }
-    
-    
-    
-    private func switchToEditTile(_ withTileNumber: Int) {
-        self.editViewState.userSelectedName = globalDataModel.getName(withId: withTileNumber)
-        self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
-        self.navigation.advance(NavigationItem(
-            view: AnyView(
-                editView(tileId: withTileNumber))))
-    }
-    
-    
-    
-    func clearTile(_ withTileNumber: Int) {
-        editViewState.userSelectedName = ""
-        editViewState.userSelectedNumber = ""
-        editViewState.imageDataAvailable = false
-        editViewState.label = ""
-        editViewState.thumbnailImageData = Data()
-        globalDataModel.modifyTile(withTile: phoneTile.init(id: withTileNumber,
-                                                            name: self.editViewState.userSelectedName,
-                                                            phoneNumber: self.editViewState.userSelectedNumber,
-                                                            backgroundColor: globalDataModel.getColorName(withId: withTileNumber)))
-        globalDataModel.persist()
-    }
-
-    
     
     // draw one tile
     private func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
-//            .background(Color(globalDataModel.getUIColor(withId: withTileNumber)))
+            //            .background(Color(globalDataModel.getUIColor(withId: withTileNumber)))
             .background(Color(colorManager.getUIColor(withId: withTileNumber)))
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
@@ -208,8 +181,6 @@ struct HomeView: View {
             }
     }
     
-    
-    
     //calculate the dimensions of the tile (aspect ratio 1.61)
     private func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
         let geo = geometry.size.height
@@ -234,20 +205,35 @@ struct HomeView: View {
         return(vsize, hsize)
     }
     
-    
-
     private func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
         return Text("\(globalDataModel.getName(withId: withTileNumber))").multilineTextAlignment(.center)
-//        return Text("Veronica iPhone").multilineTextAlignment(.center)
+            //        return Text("Veronica iPhone").multilineTextAlignment(.center)
             .font(Font.custom(globalDataModel.font, size: globalDataModel.fontSize))
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .padding(.horizontal)
-        }
-        
+    }
     
+    private func switchToEditTile(_ withTileNumber: Int) {
+        self.editViewState.userSelectedName = globalDataModel.getName(withId: withTileNumber)
+        self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
+        self.navigation.advance(NavigationItem(
+                                    view: AnyView(
+                                        editView(tileId: withTileNumber))))
+    }
     
-
+    func clearTile(_ withTileNumber: Int) {
+        editViewState.userSelectedName = ""
+        editViewState.userSelectedNumber = ""
+        editViewState.imageDataAvailable = false
+        editViewState.label = ""
+        editViewState.thumbnailImageData = Data()
+        globalDataModel.modifyTile(withTile: phoneTile.init(id: withTileNumber,
+                                                            name: self.editViewState.userSelectedName,
+                                                            phoneNumber: self.editViewState.userSelectedNumber,
+                                                            backgroundColor: globalDataModel.getColorName(withId: withTileNumber)))
+        globalDataModel.persist()
+    }
     
 }  //HomeView
 
