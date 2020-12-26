@@ -21,14 +21,10 @@
 import SwiftUI
 import Combine
 
-
-
 final class HomeViewState: ObservableObject {
     // store the current tab of HomeView
     @Published var selectedTab: Int = 0
 }
-
-
 
 struct ContentView2: View {
     var body: some View {
@@ -36,7 +32,6 @@ struct ContentView2: View {
             .environmentObject(NavigationStack( NavigationItem( view: AnyView(HomeView()))))
     }
 }
-
 
 struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
@@ -49,16 +44,6 @@ struct HomeView: View {
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
-    fileprivate func hspacing()->CGFloat {
-        return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
-    }
-
-    
-    fileprivate func vspacing()->CGFloat {
-        return (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
-    }
-    
-    
     var body: some View {
         TabView(selection: $appState.selectedTab) {
             GeometryReader { geometry in
@@ -120,10 +105,40 @@ struct HomeView: View {
         }
     }
 
+    func makeCall(_ withTileNumber: Int) {
+        let scheme : String = "tel://"
+        var phoneNumber = globalDataModel.getNumber(withId: withTileNumber).trimmingCharacters(in: .whitespacesAndNewlines)
+        phoneNumber = phoneNumber.replacingOccurrences(of: " ", with: "")
+        phoneNumber = phoneNumber.replacingOccurrences(of: "/", with: "")
+        //phoneNumber = phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        
+        if phoneNumber.count > 0 {
+            if phoneNumber[phoneNumber.startIndex] == "+" {
+                phoneNumber = phoneNumber.digits
+                phoneNumber.insert("+", at: phoneNumber.startIndex)
+            } else {
+                phoneNumber = phoneNumber.digits
+            }
+            
+            
+            let url = URL(string: scheme + phoneNumber)
+            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func hspacing()->CGFloat {
+        return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
+    }
 
     
+    private func vspacing()->CGFloat {
+        return (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
+    }
+    
     // draw a HStack with two tiles
-    fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
+    private func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
         return HStack(spacing: self.hspacing()) {
             tile(withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
             tile(withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
@@ -132,7 +147,7 @@ struct HomeView: View {
     
     
     
-    fileprivate func switchToEditTile(_ withTileNumber: Int) {
+    private func switchToEditTile(_ withTileNumber: Int) {
         self.editViewState.userSelectedName = globalDataModel.getName(withId: withTileNumber)
         self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
         self.navigation.advance(NavigationItem(
@@ -158,7 +173,7 @@ struct HomeView: View {
     
     
     // draw one tile
-    fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
+    private func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
 //            .background(Color(globalDataModel.getUIColor(withId: withTileNumber)))
@@ -196,7 +211,7 @@ struct HomeView: View {
     
     
     //calculate the dimensions of the tile (aspect ratio 1.61)
-    fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
+    private func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
         let geo = geometry.size.height
         let vMaxSize = geo / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
         var hsize = geometry.size.width / 2 - hspacing()
@@ -221,7 +236,7 @@ struct HomeView: View {
     
     
 
-    fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
+    private func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
         return Text("\(globalDataModel.getName(withId: withTileNumber))").multilineTextAlignment(.center)
 //        return Text("Veronica iPhone").multilineTextAlignment(.center)
             .font(Font.custom(globalDataModel.font, size: globalDataModel.fontSize))
@@ -232,26 +247,7 @@ struct HomeView: View {
         
     
     
-    func makeCall(_ withTileNumber: Int) {
-        let scheme : String = "tel://"
-        var phoneNumber = globalDataModel.getNumber(withId: withTileNumber).trimmingCharacters(in: .whitespacesAndNewlines)
-        phoneNumber = phoneNumber.replacingOccurrences(of: " ", with: "")
-        phoneNumber = phoneNumber.replacingOccurrences(of: "/", with: "")
-        //phoneNumber = phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        
-        if phoneNumber.count > 0 {
-            if phoneNumber[phoneNumber.startIndex] == "+" {
-                phoneNumber = phoneNumber.digits
-                phoneNumber.insert("+", at: phoneNumber.startIndex)
-            } else {
-                phoneNumber = phoneNumber.digits
-            }
-            
-            
-            let url = URL(string: scheme + phoneNumber)
-            UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-        }
-    }
+
     
 }  //HomeView
 
