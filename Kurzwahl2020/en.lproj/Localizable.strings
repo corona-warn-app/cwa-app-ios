@@ -5,3 +5,44 @@
   Created by Andreas Vogel on 23.02.20.
   Copyright © 2020 Vogel, Andreas. All rights reserved.
 */
+
+// SettingsView
+"Settings_FontSize" = "Font size";
+"Settings_SizeMetric" = "Size: %lld";
+"Settings_About" = "About Call By Color";
+"Data_Privacy_Statement" = "Data Privacy Statement";
+"settings" = "Settings";
+"settings_help" = "Help";
+"settings_colors" = "Colors";
+
+// ContactView
+"contactView_selectContact" = "Select contact";
+"contactView_cancel" = "Cancel";
+"contacts" = "Contacts";
+"contact_detail_cancel" = "Cancel";
+
+"phoneNumbers" = "Phone Numbers";
+
+// AskForAccessToContactsView
+"askForAccess_heading1" = "Add phone number";
+
+"askForAccess_paragraph1" = "Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue.";
+
+"askForAccess_heading2" = "Start a Phone Call";
+
+"askForAccess_paragraph2" = "Tap to start a phone call. Alternatively tap and hold, then choose 'Call number' from the  menue.";
+
+"askForAccess_heading3" = "Access Contacts";
+
+"askForAccess_paragraph3" = "In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts.";
+
+// AboutView
+"about_back" = "Back";
+"about_cbc36" = "Call by Color 36";
+"about_cbc24" = "Call by Color 24";
+"about_copyright" = "Copyright 2020 Andreas Vogel";
+
+// PrivacyView
+"privacy_policy_heading1" = "Privacy Policy";
+"privacy_policy_paragraph1" = "All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.";
+"privacy_policy_backButton" = "Back";

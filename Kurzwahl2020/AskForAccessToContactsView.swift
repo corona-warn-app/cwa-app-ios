@@ -20,17 +20,14 @@ struct AskForAccessToContactsView: View {
                                     self.navigation.unwind()
             })
             VStack{
-                Text("How to Enter a Number")
-                    .fontWeight(.bold)
-                Text("Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue.").multilineTextAlignment(.leading).padding()
+                Text(AppStrings.askForAccess.heading1).fontWeight(.bold)
                 Text("")
-                Text("Start a Phone Call")
-                    .fontWeight(.bold)
-                Text("Tap to start a phone call. Alternatively tap and hold, then choose 'Call number' from the  menue.").multilineTextAlignment(.leading).padding()
+                Text(AppStrings.askForAccess.paragraph1).multilineTextAlignment(.leading).padding()
+                Text(AppStrings.askForAccess.heading2).fontWeight(.bold)
+                Text(AppStrings.askForAccess.paragraph2).multilineTextAlignment(.leading).padding()
                 Text("")
-                Text("Access Contacts")
-                    .fontWeight(.bold)
-                Text("In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts.").multilineTextAlignment(.leading).padding()                
+                Text(AppStrings.askForAccess.heading3).fontWeight(.bold)
+                Text(AppStrings.askForAccess.paragraph3).multilineTextAlignment(.leading).padding()
                 Spacer()
             }
         }

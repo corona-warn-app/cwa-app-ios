@@ -25,30 +25,34 @@
 "contactView_selectContact" = "Wähle Kontakt";
 "contactView_cancel" = "Abbruch";
 "contacts" = "Kontakte";
+"contact_detail_cancel" = "Abbruch";
 
 // ContactDetailView
-"Phone Numbers" = "Telefonnummern";
+"phoneNumbers" = "Telefonnummern";
 
 // AskForAccessToContactsView
-"How to Enter a Number" = "Nummer hinzufügen";
-"Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue." = "Zum Eingeben einer Nummer einfach ein Feld doppelt tippen. Tippen und Halten öffnet ein Menü.";
-"Start a Phone Call" = "Anrufen";
-"Tap to start a phone call. Alternatively tap and hold, then choose 'Call number' from the  menue." = "Zum Anrufen tippen Sie enfach auf ein Feld.";
+"askForAccess_heading1" = "Nummer hinzufügen";
 
-"Access Contacts" = "Kontakte";
+"askForAccess_paragraph1" = "Zum Eingeben einer Nummer einfach ein Feld doppelt tippen. Tippen und Halten öffnet ein Menü.";
 
-"In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts." = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'";
+"askForAccess_heading2" = "Anrufen";
+
+"askForAccess_paragraph2" = "Zum Anrufen tippen Sie enfach auf ein Feld.";
+
+"askForAccess_heading3" = "Kontakte";
+
+"askForAccess_paragraph3" = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'.";
 
 // AboutView
-"Back" = "Zurück";
-"Call by Color 36" = "Call by Color 36";
-"Call by Color 24" = "Call by Color 24";
-"Copyright 2020 Andreas Vogel" = "Copyright 2020 Andreas Vogel";
+"about_back" = "Zurück";
+"about_cbc36" = "Call by Color 36";
+"about_cbc24" = "Call by Color 24";
+"about_copyright" = "Copyright 2020 Andreas Vogel";
 
 // PrivacyView
-"Privacy Policy" = "Datenschutz";
-"All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked." = "Alle Namen und Telefonnummer, die sie in der App speichern, werden nur lokal auf dem Gerät gespeichert. Diese App sammelt keine personenbezogenen Daten. Die App benötigt den Zugang zu den Kontakten, falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten.";
-
+"privacy_policy_heading1" = "Datenschutz";
+"privacy_policy_paragraph1" = "Alle Namen und Telefonnummer, die sie in der App speichern, werden nur lokal auf dem Gerät gespeichert. Diese App sammelt keine personenbezogenen Daten. Die App benötigt den Zugang zu den Kontakten, falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten.";
+"privacy_policy_backButton" = "Zurück";
 
 // editView
 "Edit View" = "Eingabe";

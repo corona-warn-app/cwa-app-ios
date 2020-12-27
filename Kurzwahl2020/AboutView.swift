@@ -19,19 +19,16 @@ struct AboutView: View {
         
         VStack{
             SingleActionBackView( title:"",
-                                  buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
+                                  buttonText: AppStrings.about.back,
                                   action:{
                                     self.navigation.unwind()
-            })
+                                  })
             VStack{
                 #if CBC36
-                Text("Call by Color 36")
-                    .font(.title)
+                Text(AppStrings.about.cbc36).font(.title)
                 #elseif CBC24
-                Text("Call by Color 24")
-                .font(.title)
+                Text(AppStrings.about.cbc24).font(.title).font(.title)
                 #endif
-                //Text("Version 1.0")
                 Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)")
                     .fontWeight(.regular)
                 Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)")
@@ -41,14 +38,12 @@ struct AboutView: View {
                 #elseif CBC24
                 Image("IconCBC24 1024").resizable().frame(width: 120, height: 120).cornerRadius(20)
                 #endif
-                    Spacer()
-                        .fixedSize()
-                        .frame(width: 150, height: 150)
+                Spacer()
+                    .fixedSize()
+                    .frame(width: 150, height: 150)
                 
                 Spacer()
-                Text("Copyright 2020 Andreas Vogel").fontWeight(.regular).multilineTextAlignment(.leading).padding(.horizontal)
-                
-                
+                Text(AppStrings.about.copyright).fontWeight(.regular).multilineTextAlignment(.leading).padding(.horizontal)
             }
         }
         
@@ -60,8 +55,6 @@ struct AboutView_Previews: PreviewProvider {
         AboutView()
     }
 }
-
-
 
 struct SingleActionBackView: View{
     var title: String

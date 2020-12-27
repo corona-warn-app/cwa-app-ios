@@ -17,7 +17,7 @@ struct ContactDetailView: View {
     
     var body: some View {
         VStack {
-            SingleActionBackView( title: NSLocalizedString("Phone Numbers", comment: "Navigation bar title"),
+            SingleActionBackView( title: AppStrings.contacts.phoneNumbers,
                                   buttonText: NSLocalizedString("Cancel", comment: "Navigation bar Cancel button"),
                                   action:{
                                     self.editNavigation.unwind()

@@ -14,16 +14,16 @@ struct PrivacyView: View {
     var body: some View {
         VStack{
             SingleActionBackView( title: "",
-                                  buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
+                                  buttonText: AppStrings.privacyPolicy.backButton,
                                   action:{
                                     self.navigation.unwind()
             })
             VStack{
 
                 
-                Text("Privacy Policy")
-                    .font(.title)
-                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.").fontWeight(.regular).multilineTextAlignment(.leading).padding()
+                Text(AppStrings.privacyPolicy.heading1).font(.title)
+                Text(AppStrings.privacyPolicy.paragraph1)
+                    .fontWeight(.regular).multilineTextAlignment(.leading).padding()
                 Spacer()
                 
             }

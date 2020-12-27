@@ -23,10 +23,35 @@ enum AppStrings {
         static let contacts = NSLocalizedString("contacts", comment: "Navigation bar title");
         static let selectContact = NSLocalizedString("contactView_selectContact", comment: "Navigation bar title");
         static let cancel = NSLocalizedString("contactView_cancel", comment: "Navigation bar Cancel button");
+        static let phoneNumbers = NSLocalizedString("phone_numbers", comment: "Navigation bar title");
+        static let contact_detail_cancel = NSLocalizedString("contact_detail_cancel", comment: "Navigation bar Cancel button");
     }
     
     enum edit {
         static let contacts = NSLocalizedString("contacts", comment: "Navigation bar title");
         static let cancel = NSLocalizedString("editView_cancel", comment: "Navigation bar Cancel button");
+    }
+    
+    // AskForAccessToContactsView
+    enum askForAccess {
+        static let heading1 = NSLocalizedString("askForAccess_heading1", comment: "");
+        static let paragraph1 = NSLocalizedString("askForAccess_paragraph1", comment: "");
+        static let heading2 = NSLocalizedString("askForAccess_heading2", comment: "");
+        static let paragraph2 = NSLocalizedString("askForAccess_paragraph2", comment: "");
+        static let heading3 = NSLocalizedString("askForAccess_heading3", comment: "");
+        static let paragraph3 = NSLocalizedString("askForAccess_paragraph3", comment: "");
+    }
+    
+    enum about {
+        static let back = NSLocalizedString("about_back", comment: "");
+        static let cbc36 = NSLocalizedString("about_cbc36", comment: "");
+        static let cbc24 = NSLocalizedString("about_cbc24", comment: "");
+        static let copyright = NSLocalizedString("about_copyright", comment: "");
+    }
+    
+    enum privacyPolicy {
+        static let heading1 = NSLocalizedString("privacy_policy_heading1", comment: "");
+        static let paragraph1 = NSLocalizedString("privacy_policy_paragraph1", comment: "");
+        static let backButton = NSLocalizedString("privacy_policy_backButton", comment: "");
     }
 }
