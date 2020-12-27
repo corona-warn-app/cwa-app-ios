@@ -63,6 +63,7 @@ enum AppStrings {
        
     enum home {
         static let edit = NSLocalizedString("home_edit", comment: "");
+        static let clear = NSLocalizedString("home_clear", comment: "");
         static let callNumber = NSLocalizedString("home_callNumber", comment: "");
         static let settings = NSLocalizedString("home_settings", comment: "");
     }

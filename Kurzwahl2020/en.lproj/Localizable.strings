@@ -60,7 +60,8 @@
 
 // HomeView
 "home_edit" = "Edit";
-"home_callNumber" = "Call";
+"home_clear" = "Clear";
+"home_callNumber" = "Start phone call";
 "home_settings" = "Settings";
 
 //ColorSelectView

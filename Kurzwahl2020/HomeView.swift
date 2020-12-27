@@ -163,19 +163,19 @@ struct HomeView: View {
                 Button(action: {
                     self.switchToEditTile(withTileNumber)
                 }) {
-                    Text("Edit")
+                    Text(AppStrings.home.edit)
                     Image(systemName: "pencil")
                 }
                 Button(action: {
                     self.clearTile(withTileNumber)
                 }) {
-                    Text("Clear")
+                    Text(AppStrings.home.clear)
                     Image(systemName: "trash")
                 }
                 Button(action: {
                     self.makeCall(withTileNumber)
                 }) {
-                    Text("Call number")
+                    Text(AppStrings.home.callNumber)
                     Image(systemName: "phone.circle")
                 }
             }
