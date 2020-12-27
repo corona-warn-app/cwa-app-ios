@@ -39,6 +39,16 @@
                ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "615D99202597D1F200C4B280"
+               BuildableName = "CBC36 UITests.xctest"
+               BlueprintName = "CBC36 UITests"
+               ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

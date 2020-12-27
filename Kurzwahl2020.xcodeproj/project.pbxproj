@@ -27,6 +27,8 @@
 		50C8558C23D98EC400AAB7F2 /* ModelContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */; };
 		613E3F7225969D4C00B69A5B /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E3F7125969D4C00B69A5B /* AppStrings.swift */; };
 		613E3F7325969D4C00B69A5B /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613E3F7125969D4C00B69A5B /* AppStrings.swift */; };
+		615D99242597D1F200C4B280 /* CBC36_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615D99232597D1F200C4B280 /* CBC36_UITests.swift */; };
+		619134682599172000FEBF60 /* AccessibilityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619134672599172000FEBF60 /* AccessibilityLabels.swift */; };
 		7E16FDEF23D4AD92005DAAF3 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */; };
 		7E2E0DE623E5CA0700825EC1 /* ContactTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2E0DE523E5CA0700825EC1 /* ContactTest.swift */; };
 		7E3D6CFF23C9D4CB002E4239 /* StoreToFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */; };
@@ -72,6 +74,13 @@
 			remoteGlobalIDString = 502BF532236399BB00FDE7BF;
 			remoteInfo = Kurzwahl2020;
 		};
+		615D99262597D1F200C4B280 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 502BF52B236399BB00FDE7BF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 502BF532236399BB00FDE7BF;
+			remoteInfo = "Call by Color 36";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +107,10 @@
 		50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAccessToContactsView.swift; sourceTree = "<group>"; };
 		50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContacts.swift; sourceTree = "<group>"; };
 		613E3F7125969D4C00B69A5B /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
+		615D99212597D1F200C4B280 /* CBC36 UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CBC36 UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		615D99232597D1F200C4B280 /* CBC36_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBC36_UITests.swift; sourceTree = "<group>"; };
+		615D99252597D1F200C4B280 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		619134672599172000FEBF60 /* AccessibilityLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityLabels.swift; sourceTree = "<group>"; };
 		7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		7E2E0DE523E5CA0700825EC1 /* ContactTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTest.swift; sourceTree = "<group>"; };
 		7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreToFileTest.swift; sourceTree = "<group>"; };
@@ -138,6 +151,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		615D991E2597D1F200C4B280 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7E7AEC6F2496C44700CD1D6B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +173,7 @@
 			children = (
 				502BF535236399BB00FDE7BF /* Kurzwahl2020 */,
 				502BF54C236399BD00FDE7BF /* Kurzwahl2020Tests */,
+				615D99222597D1F200C4B280 /* CBC36 UITests */,
 				502BF534236399BB00FDE7BF /* Products */,
 				7E7AEC7C2496C44700CD1D6B /* CBC24Info.plist */,
 			);
@@ -164,6 +185,7 @@
 				502BF533236399BB00FDE7BF /* Call by Color 36.app */,
 				502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */,
 				7E7AEC7B2496C44700CD1D6B /* Call by Color 24.app */,
+				615D99212597D1F200C4B280 /* CBC36 UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,6 +244,16 @@
 				502BF54F236399BD00FDE7BF /* Info.plist */,
 			);
 			path = Kurzwahl2020Tests;
+			sourceTree = "<group>";
+		};
+		615D99222597D1F200C4B280 /* CBC36 UITests */ = {
+			isa = PBXGroup;
+			children = (
+				615D99232597D1F200C4B280 /* CBC36_UITests.swift */,
+				619134672599172000FEBF60 /* AccessibilityLabels.swift */,
+				615D99252597D1F200C4B280 /* Info.plist */,
+			);
+			path = "CBC36 UITests";
 			sourceTree = "<group>";
 		};
 		7E7AEC5A2496287600CD1D6B /* Color Palettes */ = {
@@ -286,6 +318,24 @@
 			productReference = 502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		615D99202597D1F200C4B280 /* CBC36 UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 615D992A2597D1F200C4B280 /* Build configuration list for PBXNativeTarget "CBC36 UITests" */;
+			buildPhases = (
+				615D991D2597D1F200C4B280 /* Sources */,
+				615D991E2597D1F200C4B280 /* Frameworks */,
+				615D991F2597D1F200C4B280 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				615D99272597D1F200C4B280 /* PBXTargetDependency */,
+			);
+			name = "CBC36 UITests";
+			productName = "CBC36 UITests";
+			productReference = 615D99212597D1F200C4B280 /* CBC36 UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		7E7AEC5B2496C44700CD1D6B /* Call by Color 24 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E7AEC782496C44700CD1D6B /* Build configuration list for PBXNativeTarget "Call by Color 24" */;
@@ -312,7 +362,7 @@
 		502BF52B236399BB00FDE7BF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1110;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Vogel, Andreas";
 				TargetAttributes = {
@@ -321,6 +371,10 @@
 					};
 					502BF548236399BD00FDE7BF = {
 						CreatedOnToolsVersion = 11.1;
+						TestTargetID = 502BF532236399BB00FDE7BF;
+					};
+					615D99202597D1F200C4B280 = {
+						CreatedOnToolsVersion = 12.3;
 						TestTargetID = 502BF532236399BB00FDE7BF;
 					};
 				};
@@ -344,6 +398,7 @@
 				502BF532236399BB00FDE7BF /* Call by Color 36 */,
 				502BF548236399BD00FDE7BF /* Kurzwahl2020Tests */,
 				7E7AEC5B2496C44700CD1D6B /* Call by Color 24 */,
+				615D99202597D1F200C4B280 /* CBC36 UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -363,6 +418,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		502BF547236399BD00FDE7BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		615D991F2597D1F200C4B280 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -460,6 +522,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		615D991D2597D1F200C4B280 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				615D99242597D1F200C4B280 /* CBC36_UITests.swift in Sources */,
+				619134682599172000FEBF60 /* AccessibilityLabels.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7E7AEC5C2496C44700CD1D6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -493,6 +564,11 @@
 			isa = PBXTargetDependency;
 			target = 502BF532236399BB00FDE7BF /* Call by Color 36 */;
 			targetProxy = 502BF54A236399BD00FDE7BF /* PBXContainerItemProxy */;
+		};
+		615D99272597D1F200C4B280 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 502BF532236399BB00FDE7BF /* Call by Color 36 */;
+			targetProxy = 615D99262597D1F200C4B280 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -731,6 +807,46 @@
 			};
 			name = Release;
 		};
+		615D99282597D1F200C4B280 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38NDJTMNK5;
+				INFOPLIST_FILE = "CBC36 UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tcfos.CBC36-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Call by Color 36";
+			};
+			name = Debug;
+		};
+		615D99292597D1F200C4B280 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38NDJTMNK5;
+				INFOPLIST_FILE = "CBC36 UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tcfos.CBC36-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Call by Color 36";
+			};
+			name = Release;
+		};
 		7E7AEC792496C44700CD1D6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -807,6 +923,15 @@
 			buildConfigurations = (
 				502BF556236399BD00FDE7BF /* Debug */,
 				502BF557236399BD00FDE7BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		615D992A2597D1F200C4B280 /* Build configuration list for PBXNativeTarget "CBC36 UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				615D99282597D1F200C4B280 /* Debug */,
+				615D99292597D1F200C4B280 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
