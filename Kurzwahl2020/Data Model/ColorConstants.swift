@@ -11,7 +11,7 @@ import Foundation
 
 // constants: Names of the palettes
 let c_number_of_available_palettes = 9
-let c_summerTime : String = "Summer Time"
+let c_summerTime : String = AppStrings.palette.summerTime
 let c_darkPink : String = "Dark Pink"
 let c_red : String = "Red"
 let c_green : String = "Green"

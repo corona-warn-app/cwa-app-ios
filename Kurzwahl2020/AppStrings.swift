@@ -73,4 +73,8 @@ enum AppStrings {
         static let selectPalette = NSLocalizedString("color_selectPalette", comment: "");
         static let backButton = NSLocalizedString("color_backButton", comment: "");
     }
+    
+    enum palette {
+        static let summerTime = NSLocalizedString("palette_summerTime", comment: "");
+    }
 }

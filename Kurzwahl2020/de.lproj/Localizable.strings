@@ -77,3 +77,7 @@
 
 //SelectColorPalette
 "color_selectPalette" = "Farbpalette auswählen";
+
+// Palette
+"palette_summerTime" = "Sommer";
+
