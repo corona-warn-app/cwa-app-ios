@@ -18,4 +18,15 @@ enum AppStrings {
         static let help = NSLocalizedString("settings_help", comment: "");
         static let colors = NSLocalizedString("settings_colors", comment: "");
     }
+
+    enum contacts {
+        static let contacts = NSLocalizedString("contacts", comment: "Navigation bar title");
+        static let selectContact = NSLocalizedString("contactView_selectContact", comment: "Navigation bar title");
+        static let cancel = NSLocalizedString("contactView_cancel", comment: "Navigation bar Cancel button");
+    }
+    
+    enum edit {
+        static let contacts = NSLocalizedString("contacts", comment: "Navigation bar title");
+        static let cancel = NSLocalizedString("editView_cancel", comment: "Navigation bar Cancel button");
+    }
 }

@@ -14,7 +14,7 @@
 
 // SettingsView
 "Settings_FontSize" = "Schriftgröße";
-"Size: %lld" = "Größe: %lld";
+"Settings_SizeMetric" = "Größe: %lld";
 "Settings_About" = "Über Call By Color";
 "Data_Privacy_Statement" = "Datenschutz";
 "settings" = "Einstellungen";
@@ -22,8 +22,9 @@
 "settings_colors" = "Farben";
 
 // ContactView
-"Select Contact" = "Wähle Kontakt";
-"Cancel" = "Abbruch";
+"contactView_selectContact" = "Wähle Kontakt";
+"contactView_cancel" = "Abbruch";
+"contacts" = "Kontakte";
 
 // ContactDetailView
 "Phone Numbers" = "Telefonnummern";
@@ -54,9 +55,10 @@
 "Enter Name and Phone Number" = "Eingabe von Name und Telefonnummer";
 "Name" = "Name";
 "Number" = "Nummer";
-"Contacts" = "Kontakte";
+
 "Clear" = "Löschen";
 "OK" = "OK";
+"editView_cancel" = "Abbruch";
 
 // HomeView
 "Edit" = "Editieren";

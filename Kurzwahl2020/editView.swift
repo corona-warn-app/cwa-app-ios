@@ -75,7 +75,7 @@ struct editView: View {
                             self.navigation.advance(NavigationItem(
                                 view: AnyView(ContactView()))) }) {
                                     HStack {
-                                        Text("Contacts").foregroundColor(Color.accentColor)
+                                        Text(AppStrings.edit.contacts).foregroundColor(Color.accentColor)
                                         Spacer()
                                         Image(systemName: "person.2")
                                     }
@@ -85,7 +85,7 @@ struct editView: View {
                             self.navigation.advance(NavigationItem(
                                 view: AnyView(AskForAccessToContactsView()))) }) {
                                     HStack {
-                                        Text("Contacts").foregroundColor(Color.accentColor)
+                                        Text(AppStrings.edit.contacts).foregroundColor(Color.accentColor)
                                         Spacer()
                                         Image(systemName: "person.2")
                                     }
@@ -145,7 +145,7 @@ struct BackView: View{
             //            Rectangle().fill(Color.secondary).frame( height: 40 )
             Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
             HStack{
-                Button( action: cancelAction){ Text("Cancel").padding(.leading, 15)
+                Button( action: cancelAction){ Text(AppStrings.edit.cancel).padding(.leading, 15)
                 }.foregroundColor(Color.accentColor)
                 Spacer()
                 Text(title).padding(.leading, 20).font(Font.system(size: 20)).padding(.trailing, 20)

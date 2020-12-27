@@ -20,7 +20,7 @@ struct SettingsView: View {
                 Form {
                     Section(header: Text(AppStrings.settings.fontSize)) {
                         Stepper(value: $model.fontSize, in: 12...64) {
-                            Text("Size: \(model.getFontSizeAsInt())")
+                            Text(String(format: AppStrings.settings.fontSizeMetric, model.getFontSizeAsInt()))
                         } //.labelsHidden
                     }.padding(.leading, 2.0)
 
