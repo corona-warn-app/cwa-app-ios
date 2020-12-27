@@ -139,6 +139,8 @@ https://github.com/Blackjacx/WWDC#Whats-new-in-SwiftUI
 https://developer.apple.com/videos/play/wwdc2020/10031/ 
 
 
+## LazyGrid
+https://www.appcoda.com/swiftui-lazyvgrid-lazyhgrid/
 
 
 ## Swift with Majid
