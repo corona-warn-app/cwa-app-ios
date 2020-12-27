@@ -119,7 +119,7 @@
 		7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iPhone Screen Sizes.md"; sourceTree = "<group>"; };
 		7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen 2.storyboard"; sourceTree = "<group>"; };
 		7EC1B80223C100E8004B7396 /* editView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editView.swift; sourceTree = "<group>"; };
-		7EC8F975248D3308004A810F /* update_build_bumber.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update_build_bumber.sh; sourceTree = "<group>"; };
+		7EC8F975248D3308004A810F /* update_build_number.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update_build_number.sh; sourceTree = "<group>"; };
 		7ED0B429248C4892002B7B08 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,7 +193,7 @@
 				502BF544236399BD00FDE7BF /* Info.plist */,
 				502BF53E236399BD00FDE7BF /* Preview Content */,
 				5094A7A52365E324004D0932 /* Notizen.rtf */,
-				7EC8F975248D3308004A810F /* update_build_bumber.sh */,
+				7EC8F975248D3308004A810F /* update_build_number.sh */,
 				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
 				7E88253C248C068200E9F650 /* App Store Description.md */,
 				7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */,

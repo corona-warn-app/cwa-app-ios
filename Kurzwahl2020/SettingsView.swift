@@ -27,19 +27,19 @@ struct SettingsView: View {
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(ColorSelectView()))) }) {
-                        Text("Colors")
+                        Text(AppStrings.settings.colors)
                     }//.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(AskForAccessToContactsView()))) }) {
-                        Text("Help")
+                        Text(AppStrings.settings.help)
                     }//.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(PrivacyView()))) }) {
-                        Text("Privacy Statement")
+                        Text(AppStrings.settings.data_Privacy_Statement)
                     }//.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
@@ -48,7 +48,7 @@ struct SettingsView: View {
                         Text(AppStrings.settings.about)
                     }//.buttonStyle(PlainButtonStyle())
 
-                }.navigationBarTitle(Text("Settings"))
+                }.navigationBarTitle(Text(AppStrings.settings.settings))
             }
         }
     }

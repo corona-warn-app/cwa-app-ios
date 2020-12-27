@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#  update_build_bumber.sh
+#  update_build_number.sh
 #  Kurzwahl2020
 #
 #  Created by Andreas Vogel on 07.06.20.

@@ -16,10 +16,10 @@
 "Settings_FontSize" = "Schriftgröße";
 "Size: %lld" = "Größe: %lld";
 "Settings_About" = "Über Call By Color";
-"Privacy Statement" = "Datenschutz";
-"Settings" = "Einstellungen";
-"Help" = "Hilfe";
-"Colors" = "Farben";
+"Data_Privacy_Statement" = "Datenschutz";
+"settings" = "Einstellungen";
+"settings_help" = "Hilfe";
+"settings_colors" = "Farben";
 
 // ContactView
 "Select Contact" = "Wähle Kontakt";
