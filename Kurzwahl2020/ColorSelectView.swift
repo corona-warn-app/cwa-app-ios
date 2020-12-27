@@ -23,12 +23,12 @@ struct ColorSelectView: View {
     var body: some View {
         VStack{
             SingleActionBackView( title: "",
-                                  buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
+                                  buttonText: AppStrings.color.backButton,
                                   action:{
                                     self.navigation.unwind()
             })
             VStack{
-                Text("Color Settings")
+                Text(AppStrings.color.selectColor)
                     .multilineTextAlignment(.leading)                  .padding(.horizontal)
                 HStack{
                     Spacer()

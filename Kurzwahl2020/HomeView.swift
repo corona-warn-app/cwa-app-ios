@@ -99,7 +99,7 @@ struct HomeView: View {
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
                 .tabItem {
                     Image(systemName: appState.selectedTab == 4 ? "gear" : "gear")
-                    Text("Settings")
+                    Text(AppStrings.home.settings)
                 }.tag(4)
         }
     }

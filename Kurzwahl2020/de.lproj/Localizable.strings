@@ -43,6 +43,8 @@
 
 "askForAccess_paragraph3" = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'.";
 
+"askForAccess_backButton" = "Zurück";
+
 // AboutView
 "about_back" = "Zurück";
 "about_cbc36" = "Call by Color 36";
@@ -55,21 +57,22 @@
 "privacy_policy_backButton" = "Zurück";
 
 // editView
-"Edit View" = "Eingabe";
-"Enter Name and Phone Number" = "Eingabe von Name und Telefonnummer";
-"Name" = "Name";
-"Number" = "Nummer";
+"edit_enterNameAndNumber" = "Eingabe von Name und Telefonnummer";
+"edit_name" = "Name";
+"edit_number" = "Nummer";
 
-"Clear" = "Löschen";
-"OK" = "OK";
-"editView_cancel" = "Abbruch";
+"edit_clear" = "Löschen";
+"edit_ok" = "OK";
+"edit_cancelButton" = "Abbruch";
 
 // HomeView
-"Edit" = "Editieren";
-"Call number" = "Anrufen";
+"home_edit" = "Editieren";
+"home_callNumber" = "Anrufen";
+"home_settings" = "Einstellungen";
 
 //ColorSelectView
-"Color Settings" = "Farben wählen ";
+"color_selectScreen" = "Bildschirmseite auswählen";
+"color_backButton" = "Zurück";
 
 //SelectColorPalette
-"Choose a color palette" = "Farbpalette auswählen";
+"color_selectPalette" = "Farbpalette auswählen";

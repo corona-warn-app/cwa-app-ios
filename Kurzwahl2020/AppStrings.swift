@@ -29,7 +29,12 @@ enum AppStrings {
     
     enum edit {
         static let contacts = NSLocalizedString("contacts", comment: "Navigation bar title");
-        static let cancel = NSLocalizedString("editView_cancel", comment: "Navigation bar Cancel button");
+        static let cancelButton = NSLocalizedString("edit_cancelButton", comment: "Navigation bar Cancel button");
+        static let enterNameAndNumber = NSLocalizedString("edit_enterNameAndNumber", comment: "");
+        static let name = NSLocalizedString("edit_name", comment: "");
+        static let number = NSLocalizedString("edit_number", comment: "");
+        static let clear = NSLocalizedString("edit_clear", comment: "");
+        static let ok = NSLocalizedString("edit_ok", comment: "");
     }
     
     // AskForAccessToContactsView
@@ -40,6 +45,7 @@ enum AppStrings {
         static let paragraph2 = NSLocalizedString("askForAccess_paragraph2", comment: "");
         static let heading3 = NSLocalizedString("askForAccess_heading3", comment: "");
         static let paragraph3 = NSLocalizedString("askForAccess_paragraph3", comment: "");
+        static let backButton = NSLocalizedString("askForAccess_backButton", comment: "");
     }
     
     enum about {
@@ -53,5 +59,17 @@ enum AppStrings {
         static let heading1 = NSLocalizedString("privacy_policy_heading1", comment: "");
         static let paragraph1 = NSLocalizedString("privacy_policy_paragraph1", comment: "");
         static let backButton = NSLocalizedString("privacy_policy_backButton", comment: "");
+    }
+       
+    enum home {
+        static let edit = NSLocalizedString("home_edit", comment: "");
+        static let callNumber = NSLocalizedString("home_callNumber", comment: "");
+        static let settings = NSLocalizedString("home_settings", comment: "");
+    }
+    
+    enum color {
+        static let selectColor = NSLocalizedString("color_selectScreen", comment: "");
+        static let selectPalette = NSLocalizedString("color_selectPalette", comment: "");
+        static let backButton = NSLocalizedString("color_backButton", comment: "");
     }
 }

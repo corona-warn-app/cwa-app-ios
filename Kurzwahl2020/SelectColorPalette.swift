@@ -16,12 +16,12 @@ struct SelectColorPalette: View {
     var body: some View {
         VStack {
             SingleActionBackView( title: "",
-                                  buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
+                                  buttonText: AppStrings.color.backButton,
                                   action:{
                                     self.navigation.unwind()
             })
             
-            Text("Choose a color palette")
+            Text(AppStrings.color.selectPalette)
             List {
                 ForEach(colorManager.getAllPalettes()) { p in
                     thumbnailRow(colorPalette: p, screenIndex: self.screenIndex)

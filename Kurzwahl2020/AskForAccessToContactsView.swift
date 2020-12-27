@@ -15,7 +15,7 @@ struct AskForAccessToContactsView: View {
         
         VStack{
             SingleActionBackView( title: "",
-                                   buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
+                                  buttonText: AppStrings.askForAccess.backButton,
                                   action:{
                                     self.navigation.unwind()
             })

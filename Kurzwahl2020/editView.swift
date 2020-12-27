@@ -52,9 +52,9 @@ struct editView: View {
             )
             
             Form {
-                Section(header: Text("Enter Name and Phone Number")) {
+                Section(header: Text(AppStrings.edit.enterNameAndNumber)) {
                     HStack {
-                        TextField("Name", text: $editViewState.userSelectedName).disableAutocorrection(true)
+                        TextField(AppStrings.edit.name, text: $editViewState.userSelectedName).disableAutocorrection(true)
                         Spacer()
                         if self.editViewState.imageDataAvailable == true {
                             Image(uiImage: UIImage(data: self.editViewState.thumbnailImageData!)! ).resizable()
@@ -63,7 +63,7 @@ struct editView: View {
                                 .aspectRatio(contentMode: ContentMode.fit)
                         }
                     }
-                    TextField("Number", text: $editViewState.userSelectedNumber).disableAutocorrection(true).keyboardType(.phonePad)
+                    TextField(AppStrings.edit.number, text: $editViewState.userSelectedNumber).disableAutocorrection(true).keyboardType(.phonePad)
                     
                 }//.font(Font.system(size: 22)) //.labelsHidden
                 //                Section(header: Text("Color Code – experimental")) {
@@ -99,7 +99,7 @@ struct editView: View {
                         self.cleanEditViewState()
                     }) {
                         HStack {
-                            Text("Clear").foregroundColor(Color.accentColor)
+                            Text(AppStrings.edit.clear).foregroundColor(Color.accentColor)
                             Spacer()
                             Image(systemName: "trash")
                         }
@@ -109,8 +109,6 @@ struct editView: View {
             
         }
     }
-
-
 
     func cleanEditViewState() {
         editViewState.userSelectedName = ""
@@ -122,18 +120,11 @@ struct editView: View {
 
 }
 
-
-
-
-
-
 struct editView_Previews: PreviewProvider {
     static var previews: some View {
         editView()
     }
 }
-
-
 
 struct BackView: View{
     var title: String
@@ -145,7 +136,7 @@ struct BackView: View{
             //            Rectangle().fill(Color.secondary).frame( height: 40 )
             Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
             HStack{
-                Button( action: cancelAction){ Text(AppStrings.edit.cancel).padding(.leading, 15)
+                Button( action: cancelAction){ Text(AppStrings.edit.cancelButton).padding(.leading, 15)
                 }.foregroundColor(Color.accentColor)
                 Spacer()
                 Text(title).padding(.leading, 20).font(Font.system(size: 20)).padding(.trailing, 20)
@@ -155,11 +146,8 @@ struct BackView: View{
             }
         }
     }
-    
-    
+        
 }
-
-
 
 // provide a hex code for a UIColor
 extension UIColor {
@@ -175,7 +163,5 @@ extension UIColor {
         let hexCodeAlpha : String = String(NSString(format:"%02X", Int(255 * alpha)))
         
         return(hexCodeRed + hexCodeGreen + hexCodeBlue + hexCodeAlpha)
-        
-        
     }
 }
