@@ -59,8 +59,8 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
-	var lastRiskCalculationDate: Date? {
-		store.riskCalculationResult?.calculationDate
+	var lastRiskCalculationResult: RiskCalculationResult? {
+		store.riskCalculationResult
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {
