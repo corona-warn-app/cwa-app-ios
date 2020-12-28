@@ -132,8 +132,7 @@ struct ECDSASignature: ECDSASignatureProtocol {
 
 	init<D>(rawRepresentation: D) throws where D: DataProtocol {
 		var representation: Data = Data()
-		let size = withUnsafeMutableBytes(of: &representation, { rawRepresentation.copyBytes(to: $0) })
-		assert(size == MemoryLayout.size(ofValue: representation))
+		_ = representation.withUnsafeMutableBytes { rawRepresentation.copyBytes(to: $0) }
 
 		self.rawRepresentation = representation
 		#warning("work in progress")
@@ -142,8 +141,7 @@ struct ECDSASignature: ECDSASignatureProtocol {
 
 	init<D>(derRepresentation: D) throws where D: DataProtocol {
 		var representation: Data = Data()
-		let size = withUnsafeMutableBytes(of: &representation, { derRepresentation.copyBytes(to: $0) })
-		assert(size == MemoryLayout.size(ofValue: representation))
+		_ = representation.withUnsafeMutableBytes { derRepresentation.copyBytes(to: $0) }
 
 		self.derRepresentation = representation
 		#warning("work in progress")
