@@ -62,6 +62,7 @@ final class HomeRiskTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
+		cellModel.$isButtonInverted.assign(to: \.isInverted, on: button).store(in: &subscriptions)
 		cellModel.$isButtonEnabled.assign(to: \.isEnabled, on: button).store(in: &subscriptions)
 		cellModel.$isButtonHidden.assign(to: \.isHidden, on: button).store(in: &subscriptions)
 		cellModel.$buttonTitle.assign(to: \.accessibilityLabel, on: button).store(in: &subscriptions)

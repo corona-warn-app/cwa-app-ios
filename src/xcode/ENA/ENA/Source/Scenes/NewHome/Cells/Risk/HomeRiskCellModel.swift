@@ -67,6 +67,7 @@ class HomeRiskCellModel {
 
 	@OpenCombine.Published var buttonTitle: String! = AppStrings.Home.riskCardUpdateButton
 	@OpenCombine.Published var buttonAction: (() -> Void)?
+	@OpenCombine.Published var isButtonInverted: Bool = true
 	@OpenCombine.Published var isButtonEnabled: Bool = false
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
@@ -178,6 +179,7 @@ class HomeRiskCellModel {
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
 
+		isButtonInverted = true
 		isButtonHidden = true
 		isButtonEnabled = false
 
@@ -297,6 +299,7 @@ class HomeRiskCellModel {
 		isBodyHidden = false
 
 		buttonTitle = AppStrings.Home.riskCardInactiveNoCalculationPossibleButton
+		isButtonInverted = false
 		isButtonHidden = false
 		isButtonEnabled = true
 
@@ -340,6 +343,7 @@ class HomeRiskCellModel {
 		isBodyHidden = false
 
 		buttonTitle = AppStrings.Home.riskCardFailedCalculationRestartButtonTitle
+		isButtonInverted = false
 		isButtonHidden = false
 		isButtonEnabled = true
 
