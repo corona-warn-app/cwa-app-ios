@@ -11,9 +11,11 @@ class HomeRiskCellModel {
 
 	init(
 		homeState: HomeState,
+		onInactiveButtonTap: @escaping () -> Void,
 		onUpdate: @escaping () -> Void
 	) {
 		self.homeState = homeState
+		self.onInactiveButtonTap = onInactiveButtonTap
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -65,6 +67,7 @@ class HomeRiskCellModel {
 
 	@OpenCombine.Published var buttonTitle: String! = AppStrings.Home.riskCardUpdateButton
 	@OpenCombine.Published var buttonAction: (() -> Void)?
+	@OpenCombine.Published var isButtonInverted: Bool = true
 	@OpenCombine.Published var isButtonEnabled: Bool = false
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
@@ -81,9 +84,19 @@ class HomeRiskCellModel {
 
 	@OpenCombine.Published var itemViewModels: [HomeItemViewModel] = []
 
+	func onButtonTap() {
+		switch homeState.riskState {
+		case .inactive:
+			onInactiveButtonTap()
+		case .risk, .detectionFailed:
+			homeState.requestRisk(userInitiated: true)
+		}
+	}
+
 	// MARK: - Private
 
 	private let homeState: HomeState
+	private let onInactiveButtonTap: () -> Void
 
 //	private var lastUpdateDate: Date?
 //	private var timeUntilUpdate: String?
@@ -166,6 +179,7 @@ class HomeRiskCellModel {
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
 
+		isButtonInverted = true
 		isButtonHidden = true
 		isButtonEnabled = false
 
@@ -285,6 +299,7 @@ class HomeRiskCellModel {
 		isBodyHidden = false
 
 		buttonTitle = AppStrings.Home.riskCardInactiveNoCalculationPossibleButton
+		isButtonInverted = false
 		isButtonHidden = false
 		isButtonEnabled = true
 
@@ -328,6 +343,7 @@ class HomeRiskCellModel {
 		isBodyHidden = false
 
 		buttonTitle = AppStrings.Home.riskCardFailedCalculationRestartButtonTitle
+		isButtonInverted = false
 		isButtonHidden = false
 		isButtonEnabled = true
 

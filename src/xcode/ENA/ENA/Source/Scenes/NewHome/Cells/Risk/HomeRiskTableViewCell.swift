@@ -38,6 +38,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 	func configure(with cellModel: HomeRiskCellModel) {
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
+		cellModel.$title.assign(to: \.accessibilityLabel, on: topContainer).store(in: &subscriptions)
+
 		cellModel.$titleColor.assign(to: \.textColor, on: titleLabel).store(in: &subscriptions)
 
 		cellModel.$body.assign(to: \.text, on: bodyLabel).store(in: &subscriptions)
@@ -60,6 +62,7 @@ final class HomeRiskTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
+		cellModel.$isButtonInverted.assign(to: \.isInverted, on: button).store(in: &subscriptions)
 		cellModel.$isButtonEnabled.assign(to: \.isEnabled, on: button).store(in: &subscriptions)
 		cellModel.$isButtonHidden.assign(to: \.isHidden, on: button).store(in: &subscriptions)
 		cellModel.$buttonTitle.assign(to: \.accessibilityLabel, on: button).store(in: &subscriptions)
@@ -107,13 +110,11 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var riskViewStackView: UIStackView!
 
-	private var onButtonTap: (() -> Void)?
-
 	private var subscriptions = Set<AnyCancellable>()
 	private var cellModel: HomeRiskCellModel?
 
 	@IBAction private func buttonTapped(_: UIButton) {
-		onButtonTap?()
+		cellModel?.onButtonTap()
 	}
 
 	private func setupAccessibility() {
@@ -129,8 +130,6 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		topContainer.accessibilityTraits = [.updatesFrequently, .button]
 		bodyLabel.accessibilityTraits = [.updatesFrequently]
 		button.accessibilityTraits = [.updatesFrequently, .button]
-
-		topContainer.accessibilityLabel = titleLabel.text ?? ""
 
 		topContainer.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.topContainer
 		bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel

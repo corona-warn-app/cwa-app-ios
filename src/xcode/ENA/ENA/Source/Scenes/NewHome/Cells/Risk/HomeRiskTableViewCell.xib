@@ -25,10 +25,10 @@
                                 <rect key="frame" x="16" y="16" width="354" height="271"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pke-Vc-HHn">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="33.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="32"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gno-nj-MZX" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="316" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="316" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Contrast Color"/>
                                                 <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-Fu-7Ci" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="354" height="139.5"/>
+                                        <rect key="frame" x="0.0" y="48" width="354" height="141"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
@@ -69,6 +69,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isInverted" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="03L-U2-HlU" eventType="primaryActionTriggered" id="cXT-iL-rfk"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -110,10 +113,10 @@
             <size key="intrinsicContentSize" width="2267.5" height="20.5"/>
         </designable>
         <designable name="b20-mf-cB4">
-            <size key="intrinsicContentSize" width="70" height="50"/>
+            <size key="intrinsicContentSize" width="54" height="33"/>
         </designable>
         <designable name="gno-nj-MZX">
-            <size key="intrinsicContentSize" width="77" height="33.5"/>
+            <size key="intrinsicContentSize" width="45" height="20.5"/>
         </designable>
     </designables>
     <resources>

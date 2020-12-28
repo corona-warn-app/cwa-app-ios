@@ -13,6 +13,7 @@ class HomeTableViewController: UITableViewController {
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureDetectionCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
+		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
@@ -24,6 +25,7 @@ class HomeTableViewController: UITableViewController {
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureDetectionCellTap = onExposureDetectionCellTap
 		self.onRiskCellTap = onRiskCellTap
+		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
@@ -131,6 +133,7 @@ class HomeTableViewController: UITableViewController {
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureDetectionCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
+	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
@@ -196,6 +199,11 @@ class HomeTableViewController: UITableViewController {
 
 		let cellModel = HomeRiskCellModel(
 			homeState: viewModel.state,
+			onInactiveButtonTap: { [weak self] in
+				guard let self = self else { return }
+
+				self.onInactiveCellButtonTap(self.viewModel.state.enState)
+			},
 			onUpdate: { [weak self] in
 				// Updates the cell height whenever the content of the cell changes
 				self?.tableView.beginUpdates()

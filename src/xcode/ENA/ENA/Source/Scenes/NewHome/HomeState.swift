@@ -71,6 +71,10 @@ class HomeState: ENStateHandlerUpdating {
 		self.exposureManagerState = exposureManagerState
 	}
 
+	func requestRisk(userInitiated: Bool) {
+		riskProvider.requestRisk(userInitiated: userInitiated)
+	}
+
 	// MARK: - Private
 
 	private let store: Store
