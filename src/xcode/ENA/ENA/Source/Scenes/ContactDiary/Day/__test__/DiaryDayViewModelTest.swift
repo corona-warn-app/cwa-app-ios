@@ -265,7 +265,7 @@ class DiaryDayViewModelTest: XCTestCase {
 
 	func makeDay() -> DiaryDay {
 		return DiaryDay(
-			dateString: "2020-12-11",
+			dateString: dateFormatter.string(from: Date()),
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 7, name: "Andreas Vogel")),
 				.contactPerson(DiaryContactPerson(id: 2, name: "Artur Friesen")),
@@ -282,5 +282,11 @@ class DiaryDayViewModelTest: XCTestCase {
 			]
 		)
 	}
+
+	private var dateFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
+		return dateFormatter
+	}()
 	
 }
