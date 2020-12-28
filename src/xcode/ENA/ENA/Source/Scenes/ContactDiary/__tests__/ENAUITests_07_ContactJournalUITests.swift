@@ -34,8 +34,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.sheets.firstMatch.buttons.element(boundBy: 0).tap()
 
 		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_Information_Title"))	}
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		XCTAssertEqual(app.buttons["AppStrings.ExposureSubmission.primaryButton"].label, app.localized("ContactDiary_Information_PrimaryButton_Title"))
+	}
 
 	func testOpenExportViaSheet() throws {
 		openInformationSheet()
@@ -237,8 +238,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		navigateToJournalOverview()
 
 		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_Information_Title"))
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		XCTAssertEqual(app.buttons["AppStrings.ExposureSubmission.primaryButton"].label, app.localized("ContactDiary_Information_PrimaryButton_Title"))
 
 		// search for data privacy cell and tap
 		search("AppStrings.ContactDiaryInformation.dataPrivacyTitle", element: app)?.tap()
@@ -253,9 +254,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		navigateToJournalOverview()
 
 		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
-		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_Information_Title"))
-		
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		XCTAssertEqual(app.buttons["AppStrings.ExposureSubmission.primaryButton"].label, app.localized("ContactDiary_Information_PrimaryButton_Title"))
+
 		// Select diary button
 		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmission.primaryButton"]
