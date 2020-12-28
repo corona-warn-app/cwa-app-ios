@@ -10,7 +10,8 @@ class HomeRiskCellModel {
 	// MARK: - Init
 
 	init(
-		homeState: HomeState
+		homeState: HomeState,
+		onUpdate: @escaping () -> Void
 	) {
 		self.homeState = homeState
 
@@ -25,10 +26,12 @@ class HomeRiskCellModel {
 						self?.setupHighRiskState(risk: risk)
 					}
 				case .inactive:
-					break
+					self?.setupInactiveState()
 				case .detectionFailed:
 					break
 				}
+
+				onUpdate()
 			}
 			.store(in: &subscriptions)
 
@@ -42,6 +45,8 @@ class HomeRiskCellModel {
 				default:
 					break
 				}
+
+				onUpdate()
 			}
 			.store(in: &subscriptions)
 	}
@@ -63,8 +68,6 @@ class HomeRiskCellModel {
 	@OpenCombine.Published var isButtonEnabled: Bool = false
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
-
-
 //	var buttonTitle: String {
 //		if homeState.riskProviderActivityState.isActive { return AppStrings.Home.riskCardUpdateButton }
 //		if isButtonEnabled { return AppStrings.Home.riskCardUpdateButton }
@@ -76,25 +79,35 @@ class HomeRiskCellModel {
 //		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
 //	}
 
-	var lastUpdateDateString: String {
-		if let lastUpdateDate = homeState.lastRiskCalculationDate {
-			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
-		} else {
-			return AppStrings.Home.riskCardNoDateTitle
-		}
-	}
-
 	@OpenCombine.Published var itemViewModels: [HomeItemViewModel] = []
 
 	// MARK: - Private
 
 	private let homeState: HomeState
 
-	private var lastUpdateDate: Date?
-
-	private var timeUntilUpdate: String?
+//	private var lastUpdateDate: Date?
+//	private var timeUntilUpdate: String?
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private var lastUpdateDateString: String {
+		if let lastUpdateDate = homeState.lastRiskCalculationResult?.calculationDate {
+			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
+		} else {
+			return AppStrings.Home.riskCardNoDateTitle
+		}
+	}
+
+	private var previousRiskTitle: String {
+		switch homeState.lastRiskCalculationResult?.riskLevel {
+		case .low:
+			return AppStrings.Home.riskCardLastActiveItemLowTitle
+		case .high:
+			return AppStrings.Home.riskCardLastActiveItemHighTitle
+		case .none:
+			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
+		}
+	}
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -105,25 +118,35 @@ class HomeRiskCellModel {
 	}()
 
 	private func setupDownloadingState() {
-		title = AppStrings.Home.riskCardStatusDownloadingTitle
-
-		itemViewModels = [
-			HomeLoadingItemViewModel(
-				title: AppStrings.Home.riskCardStatusDownloadingBody,
-				titleColor: titleColor,
-				isActivityIndicatorOn: true,
-				color: backgroundColor,
-				separatorColor: separatorColor
-			)
-		]
+		setupLoadingState(
+			title: AppStrings.Home.riskCardStatusDownloadingTitle,
+			loadingItemTitle: AppStrings.Home.riskCardStatusDownloadingBody
+		)
 	}
 
 	private func setupDetectingState() {
-		title = AppStrings.Home.riskCardStatusDetectingTitle
+		setupLoadingState(
+			title: AppStrings.Home.riskCardStatusDetectingTitle,
+			loadingItemTitle: AppStrings.Home.riskCardStatusDetectingBody
+		)
+	}
+
+	private func setupLoadingState(
+		title: String,
+		loadingItemTitle: String
+	) {
+		self.title = title
+
+		body = ""
+		bodyColor = .enaColor(for: .textContrast)
+		isBodyHidden = true
+
+		isButtonHidden = true
+		isButtonEnabled = false
 
 		itemViewModels = [
 			HomeLoadingItemViewModel(
-				title: AppStrings.Home.riskCardStatusDetectingBody,
+				title: loadingItemTitle,
 				titleColor: titleColor,
 				isActivityIndicatorOn: true,
 				color: backgroundColor,
@@ -143,11 +166,17 @@ class HomeRiskCellModel {
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
 
+		isButtonHidden = true
+		isButtonEnabled = false
+
 		let activeTracing = risk.details.activeTracing
 
 		itemViewModels = [
 			HomeImageItemViewModel(
-				title: String(format: AppStrings.Home.riskCardLowNumberContactsItemTitle, risk.details.numberOfDaysWithRiskLevel),
+				title: String(
+					format: AppStrings.Home.riskCardLowNumberContactsItemTitle,
+					risk.details.numberOfDaysWithRiskLevel
+				),
 				titleColor: titleColor,
 				iconImageName: "Icons_KeineRisikoBegegnung",
 				iconTintColor: titleColor,
@@ -167,7 +196,10 @@ class HomeRiskCellModel {
 				containerInsets: nil
 			),
 			HomeImageItemViewModel(
-				title: String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString),
+				title: String(
+					format: AppStrings.Home.riskCardDateItemTitle,
+					lastUpdateDateString
+				),
 				titleColor: titleColor,
 				iconImageName: "Icons_Aktualisiert",
 				iconTintColor: titleColor,
@@ -182,41 +214,144 @@ class HomeRiskCellModel {
 		backgroundColor = .enaColor(for: .riskHigh)
 		separatorColor = .enaColor(for: .hairlineContrast)
 
-		title = AppStrings.Home.riskCardLowTitle
+		title = AppStrings.Home.riskCardHighTitle
 		titleColor = .enaColor(for: .textContrast)
 
 		body = ""
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
 
-		let activeTracing = risk.details.activeTracing
+		isButtonHidden = true
+		isButtonEnabled = false
+
+		let mostRecentDateWithHighRisk = risk.details.mostRecentDateWithRiskLevel
+		var formattedMostRecentDateWithHighRisk = ""
+		assert(mostRecentDateWithHighRisk != nil, "mostRecentDateWithHighRisk must be set on high risk state")
+		if let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+			formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+		}
 
 		itemViewModels = [
 			HomeImageItemViewModel(
-				title: String(format: AppStrings.Home.riskCardLowNumberContactsItemTitle, risk.details.numberOfDaysWithRiskLevel),
+				title: String(
+					format: AppStrings.Home.riskCardHighNumberContactsItemTitle,
+					risk.details.numberOfDaysWithRiskLevel
+				),
 				titleColor: titleColor,
-				iconImageName: "Icons_KeineRisikoBegegnung",
+				iconImageName: "Icons_RisikoBegegnung",
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
 				containerInsets: nil
 			),
 			HomeImageItemViewModel(
-				title: activeTracing.localizedDuration,
+				title: String(
+					format: AppStrings.Home.riskCardLastContactItemTitle,
+					formattedMostRecentDateWithHighRisk
+				),
 				titleColor: titleColor,
-				iconImageName: activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
-					"Icons_TracingCircleFull - Dark" :
-					"Icons_TracingCircle-Dark_Step \(activeTracing.inDays)",
+				iconImageName: "Icons_Calendar",
 				iconTintColor: titleColor,
 				color: backgroundColor,
 				separatorColor: separatorColor,
 				containerInsets: nil
 			),
 			HomeImageItemViewModel(
-				title: String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString),
+				title: String(
+					format: AppStrings.Home.riskCardDateItemTitle,
+					lastUpdateDateString
+				),
 				titleColor: titleColor,
 				iconImageName: "Icons_Aktualisiert",
 				iconTintColor: titleColor,
+				color: backgroundColor,
+				separatorColor: separatorColor,
+				containerInsets: nil
+			)
+		]
+	}
+
+	private func setupInactiveState() {
+		backgroundColor = .enaColor(for: .background)
+		separatorColor = .enaColor(for: .hairline)
+
+		title = AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle
+		titleColor = .enaColor(for: .textPrimary1)
+
+		body = AppStrings.Home.riskCardInactiveNoCalculationPossibleBody
+		bodyColor = .enaColor(for: .textPrimary1)
+		isBodyHidden = false
+
+		buttonTitle = AppStrings.Home.riskCardInactiveNoCalculationPossibleButton
+		isButtonHidden = false
+		isButtonEnabled = true
+
+		itemViewModels = [
+			HomeImageItemViewModel(
+				title: String(
+					format: AppStrings.Home.riskCardLastActiveItemTitle,
+					previousRiskTitle
+				),
+				titleColor: titleColor,
+				iconImageName: "Icons_LetzteErmittlung-Light",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: backgroundColor,
+				separatorColor: separatorColor,
+				containerInsets: nil
+			),
+			HomeImageItemViewModel(
+				title: String(
+					format: AppStrings.Home.riskCardDateItemTitle,
+					lastUpdateDateString
+				),
+				titleColor: titleColor,
+				iconImageName: "Icons_Aktualisiert",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: backgroundColor,
+				separatorColor: separatorColor,
+				containerInsets: nil
+			)
+		]
+	}
+
+	private func setupFailedState() {
+		backgroundColor = .enaColor(for: .background)
+		separatorColor = .enaColor(for: .hairline)
+
+		title = AppStrings.Home.riskCardFailedCalculationTitle
+		titleColor = .enaColor(for: .textPrimary1)
+
+		body = AppStrings.Home.riskCardFailedCalculationBody
+		bodyColor = .enaColor(for: .textPrimary1)
+		isBodyHidden = false
+
+		buttonTitle = AppStrings.Home.riskCardFailedCalculationRestartButtonTitle
+		isButtonHidden = false
+		isButtonEnabled = true
+
+		itemViewModels = [
+			HomeImageItemViewModel(
+				title: String(
+					format: AppStrings.Home.riskCardLastActiveItemTitle,
+					previousRiskTitle
+				),
+				titleColor: titleColor,
+				iconImageName: "Icons_LetzteErmittlung-Light",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: backgroundColor,
+				separatorColor: separatorColor,
+				containerInsets: nil
+			),
+			HomeImageItemViewModel(
+				title: String(
+					format: AppStrings.Home.riskCardDateItemTitle,
+					lastUpdateDateString
+				),
+				titleColor: titleColor,
+				iconImageName: "Icons_Aktualisiert",
+				iconTintColor: .enaColor(for: .riskNeutral),
 				color: backgroundColor,
 				separatorColor: separatorColor,
 				containerInsets: nil

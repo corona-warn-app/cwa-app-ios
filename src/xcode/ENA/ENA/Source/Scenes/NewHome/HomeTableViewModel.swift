@@ -55,6 +55,30 @@ class HomeTableViewModel {
 		}
 	}
 
+	func heightForHeader(in section: Int) -> CGFloat {
+		switch Section(rawValue: section) {
+		case .exposureLogging, .riskAndTest, .diary:
+			return 0
+		case .infos, .settings:
+			return 16
+		case .none:
+			fatalError("Invalid section")
+		}
+	}
+
+	func heightForFooter(in section: Int) -> CGFloat {
+		switch Section(rawValue: section) {
+		case .exposureLogging, .riskAndTest, .diary:
+			return 0
+		case .infos:
+			return 16
+		case .settings:
+			return 32
+		case .none:
+			fatalError("Invalid section")
+		}
+	}
+
 	// MARK: - Private
 
 }

@@ -77,12 +77,20 @@ class HomeTableViewController: UITableViewController {
 		}
 	}
 
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		UIView()
+	}
+
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return viewModel.heightForHeader(in: section)
+	}
+
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		UIView()
 	}
 
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 16
+		return viewModel.heightForFooter(in: section)
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -186,7 +194,14 @@ class HomeTableViewController: UITableViewController {
 			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
 		}
 
-		let cellModel = HomeRiskCellModel(homeState: viewModel.state)
+		let cellModel = HomeRiskCellModel(
+			homeState: viewModel.state,
+			onUpdate: { [weak self] in
+				// Updates the cell height whenever the content of the cell changes
+				self?.tableView.beginUpdates()
+				self?.tableView.endUpdates()
+			}
+		)
 		cell.configure(with: cellModel)
 
 		return cell
