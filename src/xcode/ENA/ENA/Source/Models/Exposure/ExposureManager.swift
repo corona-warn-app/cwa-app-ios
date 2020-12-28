@@ -157,10 +157,28 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	) {
 		self.manager = manager
 		super.init()
+		#warning("REFACTOR ME MARCUS :D")
+		if #available(iOS 13.5, *) {
+			
+		} else if NSClassFromString("ENManager") != nil {
+			guard let enManager = manager as? ENManager else {
+				return
+			}
+			enManager.setLaunchActivityHandler { activityFlags in
+				if activityFlags.contains(.periodicRun) {
+					guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else {
+						return
+					}
+					appdelegate.executeENABackgroundTask(completion: { _ in
+						print("BG DoNE O.o")
+					})
+				}
+			}
+		}
 	}
 
 	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
-		// previsously we had a precondion here. Removed for now to track down a bug.
+		// previously we had a precondition here. Removed for now to track down a bug.
 		guard exposureManagerObserver == nil else {
 			return
 		}
