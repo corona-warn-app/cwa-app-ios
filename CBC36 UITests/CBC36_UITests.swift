@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Call_by_Color_36
 
 class CBC36_UITests: XCTestCase {
 
@@ -30,9 +31,10 @@ class CBC36_UITests: XCTestCase {
         AccessibilityLabels.printLabels(app.staticTexts)
         AccessibilityLabels.printLabels(app.buttons)
 
+        let settingsLabel = String(format: AccessibilityLabels.localized(AppStrings.home.settings))
+        XCTAssert(app.buttons[settingsLabel].waitForExistence(timeout: .short))
+        XCTAssert(app.staticTexts["Kate Bell"].waitForExistence(timeout: .short))
         
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
     func testLaunchPerformance() throws {
