@@ -59,7 +59,6 @@ final class InviteFriendsViewController: UIViewController, UIActivityItemSource 
 		return shareTitle
 	}
 
-	#warning("Check if sharing still works")
 	@available(iOS 13.0, *)
 	func activityViewControllerLinkMetadata(_: UIActivityViewController) -> LPLinkMetadata? {
 		let metadata = LPLinkMetadata()
