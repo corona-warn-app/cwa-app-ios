@@ -80,6 +80,9 @@ class Coordinator: RequiresAppDependencies {
 				onRiskCellTap: { [weak self] homeState in
 					self?.showExposureDetection(state: homeState)
 				},
+				onInactiveCellButtonTap: { [weak self] enState in
+					self?.showExposureNotificationSetting(enState: enState)
+				},
 				onDiaryCellTap: { [weak self] in
 					self?.showDiary()
 				},

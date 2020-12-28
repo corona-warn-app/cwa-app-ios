@@ -109,13 +109,11 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var riskViewStackView: UIStackView!
 
-	private var onButtonTap: (() -> Void)?
-
 	private var subscriptions = Set<AnyCancellable>()
 	private var cellModel: HomeRiskCellModel?
 
 	@IBAction private func buttonTapped(_: UIButton) {
-		onButtonTap?()
+		cellModel?.onButtonTap()
 	}
 
 	private func setupAccessibility() {
