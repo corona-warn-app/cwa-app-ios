@@ -59,8 +59,20 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
+	var manualExposureDetectionState: ManualExposureDetectionState? {
+		riskProvider.manualExposureDetectionState
+	}
+
+	var exposureDetectionInterval: Int {
+		riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
+	}
+
 	var lastRiskCalculationResult: RiskCalculationResult? {
 		store.riskCalculationResult
+	}
+
+	var nextExposureDetectionDate: Date {
+		riskProvider.nextExposureDetectionDate
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {

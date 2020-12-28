@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class HomeRiskCellModel {
+class HomeRiskCellModel: CountdownTimerDelegate {
 
 	// MARK: - Init
 
@@ -51,6 +51,35 @@ class HomeRiskCellModel {
 				onUpdate()
 			}
 			.store(in: &subscriptions)
+
+		homeState.$detectionMode
+			.sink { [weak self] _ in
+				self?.scheduleCountdownTimer()
+
+				if case .risk = homeState.riskState {
+					self?.isButtonHidden = homeState.detectionMode == .automatic
+				}
+
+				onUpdate()
+			}
+			.store(in: &subscriptions)
+	}
+
+	// MARK: - Protocol CountdownTimerDelegate
+
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		if case .risk = homeState.riskState, homeState.manualExposureDetectionState == .possible {
+			buttonTitle = AppStrings.Home.riskCardUpdateButton
+			isButtonEnabled = true
+		}
+	}
+
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
+		timeUntilUpdate = time
+
+		if case .risk = homeState.riskState {
+			buttonTitle = riskButtonTitle
+		}
 	}
 
 	// MARK: - Internal
@@ -71,17 +100,6 @@ class HomeRiskCellModel {
 	@OpenCombine.Published var isButtonEnabled: Bool = false
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
-//	var buttonTitle: String {
-//		if homeState.riskProviderActivityState.isActive { return AppStrings.Home.riskCardUpdateButton }
-//		if isButtonEnabled { return AppStrings.Home.riskCardUpdateButton }
-//		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
-//
-////		let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
-//		let detectionInterval = 24
-//
-//		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
-//	}
-
 	@OpenCombine.Published var itemViewModels: [HomeItemViewModel] = []
 
 	func onButtonTap() {
@@ -98,8 +116,8 @@ class HomeRiskCellModel {
 	private let homeState: HomeState
 	private let onInactiveButtonTap: () -> Void
 
-//	private var lastUpdateDate: Date?
-//	private var timeUntilUpdate: String?
+	private var countdownTimer: CountdownTimer?
+	private var timeUntilUpdate: String?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -122,6 +140,14 @@ class HomeRiskCellModel {
 		}
 	}
 
+	private var riskButtonTitle: String {
+		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
+
+		let detectionInterval = homeState.exposureDetectionInterval
+
+		return String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)")
+	}
+
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.doesRelativeDateFormatting = true
@@ -129,6 +155,33 @@ class HomeRiskCellModel {
 		dateFormatter.timeStyle = .short
 		return dateFormatter
 	}()
+
+	private func scheduleCountdownTimer() {
+		guard homeState.detectionMode == .manual else { return }
+
+		// Cleanup potentially existing countdown.
+		countdownTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		// Schedule new countdown.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateCountdownTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		countdownTimer = CountdownTimer(countdownTo: homeState.nextExposureDetectionDate)
+		countdownTimer?.delegate = self
+		countdownTimer?.start()
+	}
+
+	@objc
+	private func invalidateCountdownTimer() {
+		countdownTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshTimerAfterResumingFromBackground() {
+		scheduleCountdownTimer()
+	}
 
 	private func setupDownloadingState() {
 		setupLoadingState(
@@ -179,9 +232,10 @@ class HomeRiskCellModel {
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
 
+		buttonTitle = riskButtonTitle
 		isButtonInverted = true
-		isButtonHidden = true
-		isButtonEnabled = false
+		isButtonHidden = homeState.detectionMode == .automatic
+		isButtonEnabled = homeState.manualExposureDetectionState == .possible
 
 		let activeTracing = risk.details.activeTracing
 
@@ -235,8 +289,10 @@ class HomeRiskCellModel {
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
 
-		isButtonHidden = true
-		isButtonEnabled = false
+		buttonTitle = riskButtonTitle
+		isButtonInverted = true
+		isButtonHidden = homeState.detectionMode == .automatic
+		isButtonEnabled = homeState.manualExposureDetectionState == .possible
 
 		let mostRecentDateWithHighRisk = risk.details.mostRecentDateWithRiskLevel
 		var formattedMostRecentDateWithHighRisk = ""
