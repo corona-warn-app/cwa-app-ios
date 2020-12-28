@@ -34,8 +34,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.sheets.firstMatch.buttons.element(boundBy: 0).tap()
 
 		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
-	}
+		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_Information_Title"))	}
 
 	func testOpenExportViaSheet() throws {
 		openInformationSheet()
@@ -237,7 +237,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		navigateToJournalOverview()
 
 		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_Information_Title"))
 
 		// search for data privacy cell and tap
 		search("AppStrings.ContactDiaryInformation.dataPrivacyTitle", element: app)?.tap()
@@ -252,8 +253,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		navigateToJournalOverview()
 
 		// Check whether we have entered the info screen.
-		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
-
+		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
+		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_Information_Title"))
+		
 		// Select diary button
 		XCTAssertTrue(app
 			.buttons["AppStrings.ExposureSubmission.primaryButton"]
