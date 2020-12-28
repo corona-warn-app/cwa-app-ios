@@ -29,13 +29,13 @@ final class PublicKeyProviderTests: XCTestCase {
 	@available(iOS 13.0, *)
 	func testDefaultPublicKeyFromString() throws {
 		let pk: StaticString = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
-		let data = try XCTUnwrap(Data(staticBase64Encoded: pk))
+		let data = Data(staticBase64Encoded: pk)
 
-		let publicKey = try XCTUnwrap(DefaultPublicKeyFromString(pk) as? PublicKey)
+		// the fallback in `DefaultPublicKeyFromString(pk)` - the default CryptoKit implementation is our reference
+		let publicKey = PublicKey(with: pk)
+		// we have a valid assumption that CryptoKit is somewhat working…
+		let referenceKey = try P256.Signing.PublicKey(rawRepresentation: data)
 
-		XCTAssertEqual(
-			publicKey.pemRepresentation.data(using: .utf8), // FIXME: temporary solution
-			try P256.Signing.PublicKey(rawRepresentation: data).rawRepresentation
-		)
+		XCTAssertEqual(publicKey.rawRepresentation, referenceKey.rawRepresentation)
 	}
 }
