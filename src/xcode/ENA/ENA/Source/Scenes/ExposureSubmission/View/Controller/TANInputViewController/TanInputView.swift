@@ -73,10 +73,8 @@ class TanInputView: UIControl, UIKeyInput {
 	private let invalidColor = UIColor.enaColor(for: .textSemanticRed)
 	private let boxColor = UIColor.enaColor(for: .separator)
 	private let spacing: CGFloat = 3.0
-	private let verticalSpacing: CGFloat = 8.0
 	private let cornerRadius: CGFloat = 4.0
 	private let boxInsets = UIEdgeInsets(top: 10, left: 1, bottom: 10, right: 1)
-	private let verticalBoxInsets = UIEdgeInsets(top: 13, left: 8, bottom: 13, right: 8)
 	private let font: UIFont = UIFont.enaFont(for: .title2)
 
 	private var stackView: UIStackView!
@@ -92,9 +90,11 @@ class TanInputView: UIControl, UIKeyInput {
 
 	private func setup() {
 		stackView = UIStackView()
-
 		stackView.isUserInteractionEnabled = false
 		stackView.alignment = .fill
+		stackView.axis = .horizontal
+		stackView.spacing = spacing
+		stackView.distribution = .fill
 
 		// Enfore left-to-right semantics for RTL languages such as Arabic.
 		stackView.semanticContentAttribute = .forceLeftToRight
@@ -107,14 +107,14 @@ class TanInputView: UIControl, UIKeyInput {
 
 		// Constrain group heights
 		if let firstStackView = stackViews.first {
-			stackViews[1...].forEach { $0.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true }
+			stackViews.forEach { $0.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true }
 		}
 
 		// Constrain character labels
 		if let firstLabel = inputLabels.first {
 			boxWidthConstraint = firstLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 0)
 			boxHeightConstraint = firstLabel.heightAnchor.constraint(equalToConstant: 0)
-			inputLabels[1...].forEach {
+			inputLabels.forEach {
 				NSLayoutConstraint.activate([
 					$0.widthAnchor.constraint(equalTo: firstLabel.widthAnchor),
 					$0.heightAnchor.constraint(equalTo: firstLabel.heightAnchor)
@@ -123,12 +123,17 @@ class TanInputView: UIControl, UIKeyInput {
 		}
 
 		addSubview(stackView)
-		stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-		stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+		NSLayoutConstraint.activate([
+			stackView.topAnchor.constraint(equalTo: topAnchor),
+			stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+			stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+			stackView.widthAnchor.constraint(equalTo: widthAnchor)
+		])
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [stackView] + stackViews + labels, to: false)
-		updateAxis(.horizontal)
+		inputLabels.forEach { $0.layoutMargins = boxInsets }
+		updateBoxSize()
+
 		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
 	}
 
@@ -191,26 +196,6 @@ class TanInputView: UIControl, UIKeyInput {
 		return label
 	}
 
-	private func updateAxis(_ axis: NSLayoutConstraint.Axis) {
-		stackView.axis = axis
-
-		let insets: UIEdgeInsets
-
-		if axis == .horizontal {
-			stackView.spacing = spacing
-			stackView.distribution = .fill
-			insets = boxInsets
-		} else {
-			stackView.spacing = verticalSpacing
-			stackView.distribution = .fillEqually
-			insets = verticalBoxInsets
-		}
-
-		inputLabels.forEach { $0.layoutMargins = insets }
-
-		updateBoxSize()
-	}
-
 	private func updateBoxSize() {
 		let label = UILabel()
 		label.adjustsFontForContentSizeCategory = true
@@ -218,10 +203,8 @@ class TanInputView: UIControl, UIKeyInput {
 		label.text = "W" // Largest reference character
 
 		let size = label.intrinsicContentSize
-		let insets = stackView.axis == .horizontal ? boxInsets : verticalBoxInsets
-
-		boxWidthConstraint.constant = size.width + insets.left + insets.right
-		boxHeightConstraint.constant = size.height + insets.top + insets.bottom
+		boxWidthConstraint.constant = size.width + boxInsets.left + boxInsets.right
+		boxHeightConstraint.constant = size.height + boxInsets.top + boxInsets.bottom
 
 		boxWidthConstraint.isActive = true
 		boxHeightConstraint.isActive = true
