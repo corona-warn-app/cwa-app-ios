@@ -1401,6 +1401,8 @@
 /* Information */
 "ContactDiary_Information_Title" = "Temas Güncesi";
 
+"ContactDiary_Information_ImageDescription" = "Birden fazla kişi dış mekanda, akıllı telefonlarına bakıyor.";
+
 "ContactDiary_Information_DescriptionTitle" = "Temas kaydınızı tutun.";
 
 "ContactDiary_Information_DescriptionSubHeadline" = "İhtiyaç duyduğunuzda elinizin altında eksiksiz bir liste olması için son 14 güne ait temaslarınıza ilişkin bir genel bakış oluşturun.";

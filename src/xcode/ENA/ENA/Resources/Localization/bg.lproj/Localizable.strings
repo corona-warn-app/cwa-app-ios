@@ -1401,6 +1401,8 @@
 /* Information */
 "ContactDiary_Information_Title" = "Дневник на контактите";
 
+"ContactDiary_Information_ImageDescription" = "Няколко души са навън и гледат смартфоните си.";
+
 "ContactDiary_Information_DescriptionTitle" = "Отбелязвайте Вашите контакти.";
 
 "ContactDiary_Information_DescriptionSubHeadline" = "Направете списък на Вашите контакти през последните 14 дни. Ще имате бърз достъп до него в случай на необходимост.";

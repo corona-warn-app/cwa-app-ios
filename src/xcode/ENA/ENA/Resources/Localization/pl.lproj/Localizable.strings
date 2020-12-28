@@ -1401,6 +1401,8 @@
 /* Information */
 "ContactDiary_Information_Title" = "Dziennik kontaktów";
 
+"ContactDiary_Information_ImageDescription" = "Kilka osób na dworze patrzy na ekrany swoich smartfonów.";
+
 "ContactDiary_Information_DescriptionTitle" = "Rejestruj swoje kontakty.";
 
 "ContactDiary_Information_DescriptionSubHeadline" = "Utwórz przegląd swoich kontaktów z ostatnich 14 dni, aby w razie potrzeby mieć szybki dostęp do kompletnej listy.";

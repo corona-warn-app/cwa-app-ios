@@ -1420,6 +1420,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Information */
 "ContactDiary_Information_Title" = "Kontakt-Tagebuch";
 
+"ContactDiary_Information_ImageDescription" = "Mehrere Menschen schauen im Freien auf ihre Handys.";
+
 "ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
 
 "ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 14 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";

@@ -25,6 +25,7 @@ struct DiaryInfoViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_ContactDiary-Information"
 						),
+						accessibilityLabel: AppStrings.ContactDiary.Information.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription
 					),
 				cells: [
