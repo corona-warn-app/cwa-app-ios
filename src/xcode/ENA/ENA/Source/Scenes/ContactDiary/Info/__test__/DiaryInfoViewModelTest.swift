@@ -5,7 +5,6 @@
 import XCTest
 @testable import ENA
 
-
 class DiaryInfoViewModelTest: XCTestCase {
 
 	/// test if the information screen has 3 sections (image, legal and disclaimer)
