@@ -38,6 +38,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 	func configure(with cellModel: HomeRiskCellModel) {
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
+		cellModel.$title.assign(to: \.accessibilityLabel, on: topContainer).store(in: &subscriptions)
+
 		cellModel.$titleColor.assign(to: \.textColor, on: titleLabel).store(in: &subscriptions)
 
 		cellModel.$body.assign(to: \.text, on: bodyLabel).store(in: &subscriptions)
@@ -129,8 +131,6 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		topContainer.accessibilityTraits = [.updatesFrequently, .button]
 		bodyLabel.accessibilityTraits = [.updatesFrequently]
 		button.accessibilityTraits = [.updatesFrequently, .button]
-
-		topContainer.accessibilityLabel = titleLabel.text ?? ""
 
 		topContainer.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.topContainer
 		bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel
