@@ -940,7 +940,6 @@ enum AppStrings {
 
 		enum Information {
 			static let title = NSLocalizedString("ContactDiary_Information_Title", comment: "")
-			static let imageDescription = NSLocalizedString("ContactDiary_Information_ImageDescription", comment: "")
 			static let descriptionTitle = NSLocalizedString("ContactDiary_Information_DescriptionTitle", comment: "")
 			static let descriptionSubHeadline = NSLocalizedString("ContactDiary_Information_DescriptionSubHeadline", comment: "")
 			static let itemPersonTitle = NSLocalizedString("ContactDiary_Information_Item_Person_Title", comment: "")

@@ -1401,8 +1401,6 @@
 /* Information */
 "ContactDiary_Information_Title" = "Contact Journal";
 
-"ContactDiary_Information_ImageDescription" = "Several people are outside, looking at their smartphones.";
-
 "ContactDiary_Information_DescriptionTitle" = "Keep track of your contacts.";
 
 "ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed.";
