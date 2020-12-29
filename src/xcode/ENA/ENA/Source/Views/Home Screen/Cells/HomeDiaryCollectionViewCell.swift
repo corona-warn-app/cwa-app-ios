@@ -10,14 +10,10 @@ protocol HomeDiaryCollectionViewCellDelegate: class {
 }
 
 class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var subtitleLabel: ENALabel!
-	@IBOutlet var descriptionLabel: ENALabel!
-	@IBOutlet var illustrationView: UIImageView!
-	@IBOutlet var button: ENAButton!
-	@IBOutlet var stackView: UIStackView!
 
-	weak var delegate: HomeDiaryCollectionViewCellDelegate?
+	// MARK: - Init
+
+	// MARK: - Overrides
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
@@ -29,6 +25,24 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		setup()
 	}
 
+	override func tintColorDidChange() {
+		super.tintColorDidChange()
+		subtitleLabel.textColor = tintColor
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updateIllustration(for: traitCollection)
+	}
+
+	// MARK: - Protocol <#Name#>
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	weak var delegate: HomeDiaryCollectionViewCellDelegate?
+
 	private func setup() {
 		subtitleLabel.textColor = tintColor
 		updateIllustration(for: traitCollection)
@@ -36,13 +50,22 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		setupAccessibility()
 	}
 
-	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, imageDescription: String, tintColor: UIColor = .enaColor(for: .textPrimary1), accessibilityIdentifier: String?) {
+	func configure(
+		title: String,
+		subtitle: String? = nil,
+		description: String,
+		button buttonTitle: String,
+		image: UIImage?,
+		imageDescription: String? = nil,
+		tintColor: UIColor = .enaColor(for: .textPrimary1),
+		accessibilityIdentifier: String?
+	) {
 		titleLabel.text = title
 		subtitleLabel.text = subtitle
 		descriptionLabel.text = description
 		illustrationView.image = image
 		illustrationView.accessibilityLabel = imageDescription
-		illustrationView.isAccessibilityElement = true
+		illustrationView.isAccessibilityElement = imageDescription != nil
 
 		button.setTitle(buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
@@ -53,15 +76,23 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		self.tintColor = tintColor
 	}
 
-	override func tintColorDidChange() {
-		super.tintColorDidChange()
-		subtitleLabel.textColor = tintColor
+	func setupAccessibility() {
+		titleLabel.isAccessibilityElement = true
+		subtitleLabel.isAccessibilityElement = true
+		descriptionLabel.isAccessibilityElement = true
+		isAccessibilityElement = false
+
+		titleLabel.accessibilityTraits = [.header, .button]
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateIllustration(for: traitCollection)
-	}
+	// MARK: - Private
+
+	@IBOutlet private var titleLabel: ENALabel!
+	@IBOutlet private var subtitleLabel: ENALabel!
+	@IBOutlet private var descriptionLabel: ENALabel!
+	@IBOutlet private var illustrationView: UIImageView!
+	@IBOutlet private var button: ENAButton!
+	@IBOutlet private var stackView: UIStackView!
 
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
@@ -75,12 +106,4 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		delegate?.diaryCollectionViewCellPrimaryActionTriggered(self)
 	}
 
-	func setupAccessibility() {
-		titleLabel.isAccessibilityElement = true
-		subtitleLabel.isAccessibilityElement = true
-		descriptionLabel.isAccessibilityElement = true
-		isAccessibilityElement = false
-
-		titleLabel.accessibilityTraits = [.header, .button]
-	}
 }

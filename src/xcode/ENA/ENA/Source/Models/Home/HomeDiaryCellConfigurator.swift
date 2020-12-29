@@ -17,7 +17,6 @@ class HomeDiaryCellConfigurator: CollectionViewCellConfigurator {
 			description: AppStrings.Home.diaryCardBody,
 			button: AppStrings.Home.diaryCardButton,
 			image: UIImage(named: "Illu_Diary"),
-			imageDescription: AppStrings.Home.diaryCardImageDescription,
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.diaryCardButton
 		)
 	}
