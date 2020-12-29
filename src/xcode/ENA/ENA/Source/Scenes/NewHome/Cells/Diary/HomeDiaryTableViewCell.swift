@@ -35,9 +35,7 @@ class HomeDiaryTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(
-		with cellModel: HomeDiaryCellModel
-	) {
+	func configure(with cellModel: HomeDiaryCellModel) {
 		titleLabel.text = cellModel.title
 		descriptionLabel.text = cellModel.description
 		illustrationView.image = cellModel.image

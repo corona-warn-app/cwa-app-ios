@@ -30,7 +30,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				case .inactive:
 					self?.setupInactiveState()
 				case .detectionFailed:
-					break
+					self?.setupFailedState()
 				}
 
 				onUpdate()

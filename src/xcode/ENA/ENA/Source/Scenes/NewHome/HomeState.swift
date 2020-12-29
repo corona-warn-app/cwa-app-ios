@@ -58,6 +58,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var detectionMode: DetectionMode = .fromBackgroundStatus()
 	@OpenCombine.Published var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
+	@OpenCombine.Published var testResult: TestResult?
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvider.manualExposureDetectionState
@@ -73,6 +74,14 @@ class HomeState: ENStateHandlerUpdating {
 
 	var nextExposureDetectionDate: Date {
 		riskProvider.nextExposureDetectionDate
+	}
+
+	var positiveTestResultWasShown: Bool {
+		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
+	}
+
+	var keysWereSubmitted: Bool {
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {

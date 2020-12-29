@@ -83,6 +83,9 @@ class Coordinator: RequiresAppDependencies {
 				onInactiveCellButtonTap: { [weak self] enState in
 					self?.showExposureNotificationSetting(enState: enState)
 				},
+				onTestResultCellTap: { [weak self] testResult in
+					self?.showExposureSubmission(with: testResult)
+				},
 				onDiaryCellTap: { [weak self] in
 					self?.showDiary()
 				},

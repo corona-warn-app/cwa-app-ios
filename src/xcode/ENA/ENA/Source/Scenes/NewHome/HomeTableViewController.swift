@@ -14,6 +14,7 @@ class HomeTableViewController: UITableViewController {
 		onExposureDetectionCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
+		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
@@ -26,6 +27,7 @@ class HomeTableViewController: UITableViewController {
 		self.onExposureDetectionCellTap = onExposureDetectionCellTap
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
+		self.onTestResultCellTap = onTestResultCellTap
 		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
@@ -67,7 +69,14 @@ class HomeTableViewController: UITableViewController {
 		case .exposureLogging:
 			return exposureDetectionCell(forRowAt: indexPath)
 		case .riskAndTest:
-			return riskCell(forRowAt: indexPath)
+			switch viewModel.riskAndTestRows[indexPath.row] {
+			case .risk:
+				return riskCell(forRowAt: indexPath)
+			case .testResult, .shownPositiveTestResult:
+				return testResultCell(forRowAt: indexPath)
+			case .thankYou:
+				return UITableViewCell()
+			}
 		case .diary:
 			return diaryCell(forRowAt: indexPath)
 		case .infos:
@@ -102,7 +111,14 @@ class HomeTableViewController: UITableViewController {
 		case .exposureLogging:
 			onExposureDetectionCellTap(viewModel.state.enState)
 		case .riskAndTest:
-			onRiskCellTap(viewModel.state)
+			switch viewModel.riskAndTestRows[indexPath.row] {
+			case .risk:
+				onRiskCellTap(viewModel.state)
+			case .testResult, .shownPositiveTestResult:
+				onTestResultCellTap(viewModel.state.testResult)
+			case .thankYou:
+				break
+			}
 		case .diary:
 			onDiaryCellTap()
 		case .infos:
@@ -134,6 +150,7 @@ class HomeTableViewController: UITableViewController {
 	private let onExposureDetectionCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
+	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
@@ -168,6 +185,10 @@ class HomeTableViewController: UITableViewController {
 			forCellReuseIdentifier: String(describing: HomeRiskTableViewCell.self)
 		)
 		tableView.register(
+			UINib(nibName: String(describing: HomeTestResultTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeTestResultTableViewCell.self)
+		)
+		tableView.register(
 			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
 		)
@@ -194,7 +215,7 @@ class HomeTableViewController: UITableViewController {
 
 	private func riskCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeRiskTableViewCell.self), for: indexPath) as? HomeRiskTableViewCell else {
-			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
+			fatalError("Could not dequeue HomeRiskTableViewCell")
 		}
 
 		let cellModel = HomeRiskCellModel(
@@ -205,12 +226,38 @@ class HomeTableViewController: UITableViewController {
 				self.onInactiveCellButtonTap(self.viewModel.state.enState)
 			},
 			onUpdate: { [weak self] in
+				guard let self = self, self.tableView.visibleCells.contains(cell) else { return }
 				// Updates the cell height whenever the content of the cell changes
-				self?.tableView.beginUpdates()
-				self?.tableView.endUpdates()
+				self.tableView.beginUpdates()
+				self.tableView.endUpdates()
 			}
 		)
 		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func testResultCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTestResultTableViewCell.self), for: indexPath) as? HomeTestResultTableViewCell else {
+			fatalError("Could not dequeue HomeTestResultTableViewCell")
+		}
+
+		let cellModel = HomeTestResultCellModel(
+			homeState: viewModel.state,
+			onUpdate: { [weak self] in
+				guard let self = self, self.tableView.visibleCells.contains(cell) else { return }
+				// Updates the cell height whenever the content of the cell changes
+				self.tableView.beginUpdates()
+				self.tableView.endUpdates()
+			}
+		)
+		cell.configure(
+			with: cellModel,
+			onPrimaryAction: { [weak self] in
+				guard let self = self else { return }
+				self.onTestResultCellTap(self.viewModel.state.testResult)
+			}
+		)
 
 		return cell
 	}
