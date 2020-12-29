@@ -50,10 +50,45 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		guard case .success = updateDiaryResult else {
 			return nil
 		}
+		
+		migrateColumns(inTable: "ContactPerson")
+		migrateColumns(inTable: "Location")
 
 		registerToDidBecomeActiveNotification()
 	}
-
+	
+	func migrateColumns(inTable tableName: String) {
+		databaseQueue.inDatabase { database in
+			let queryResult = database.prepare("PRAGMA table_info(" + tableName + ")" )
+			var finalSQL: String?
+			
+			while queryResult.next() {
+				// Do migration if old database "name" field type is String --> change it to TEXT
+				if type == "STRING" {
+					finalSQL = """
+				    ALTER TABLE \(tableName) RENAME TO tmp;
+				    CREATE TABLE \(tableName) (
+				    id INTEGER PRIMARY KEY,
+				    name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
+				    );
+				    INSERT INTO \(tableName)(id, name)
+				    SELECT id, name
+				    FROM tmp;
+				    DROP TABLE tmp;
+				    """
+					break
+				}
+			}
+			
+			queryResult.close()
+			
+			guard let sql = finalSQL, database.executeStatements(sql) else {
+				logLastErrorCode(from: database)
+				return
+			}
+		}
+	}
+	
 	// MARK: - Protocol DiaryProviding
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
@@ -63,7 +98,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] export entries.", log: .localData)
-
 			var contentHeader = "Kontakte der letzten 14 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
 
 			let endExportDate = dateProvider.today
