@@ -43,10 +43,14 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		}
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		tanInputView.resignFirstResponder()
+	}
+
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		tanInputView.resignFirstResponder()
 		viewModel.submitTan()
 	}
 
