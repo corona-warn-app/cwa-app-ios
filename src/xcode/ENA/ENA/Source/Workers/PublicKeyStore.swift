@@ -59,7 +59,11 @@ let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk -> PublicKeyP
 	if #available(iOS 13.0, *) {
 		return P256.Signing.PublicKey(staticBase64Encoded: pk)
 	} else {
-		return PublicKey(with: pk)
+		do {
+			return try PublicKey(with: pk)
+		} catch { // better than force unwrap
+			fatalError(error.localizedDescription)
+		}
 	}
 }
 

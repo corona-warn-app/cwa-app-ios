@@ -101,6 +101,7 @@ class Coordinator: RequiresAppDependencies {
 				}
 			)
 
+			self.homeState = homeState
 			self.homeController = homeController
 			addToEnStateUpdateList(homeState)
 
