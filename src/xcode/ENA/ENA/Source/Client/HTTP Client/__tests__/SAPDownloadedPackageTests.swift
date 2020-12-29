@@ -7,7 +7,7 @@ import XCTest
 import CryptoKit
 import ZIPFoundation
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, *) // TODO: remove this
 final class SAPDownloadedPackageTests: XCTestCase {
 
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
