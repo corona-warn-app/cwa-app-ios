@@ -56,7 +56,50 @@ extension Data {
 	}
 }
 
-// MARK: - Public Key Handling
+// MARK: - Asymmetric Key Handling
+
+struct PrivateKey {
+	/// The corresponding public key.
+	var publicKey: PublicKey {
+		let publicKey = SecKeyCopyPublicKey(privateKey)
+		var error: Unmanaged<CFError>?
+		// swiftlint:disable:next force_unwrapping
+		guard let cfdata = SecKeyCopyExternalRepresentation(publicKey!, &error) else {
+			// swiftlint:disable:next force_unwrapping
+			let err = error!.takeRetainedValue() as Error
+			fatalError(err.localizedDescription)
+		}
+		return PublicKey(rawRepresentation: cfdata as Data)
+	}
+
+	/// Our defaul tag for all keys
+	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+
+	/// Internal reference to the 'real' key
+	private let privateKey: SecKey
+
+
+	/// Generates a new private key with a SHA-256 ECDSA algorithm.
+	///
+	/// - Parameter tag: Consider this an identifier. Defaults to the main bundle identifier if present or "de.rki.coronawarnapp"
+	init(tag: String = (Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp")) throws {
+		let attributes: [String: Any] =
+			[kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom, // https://developer.apple.com/documentation/security/keychain_services/keychain_items/item_attribute_keys_and_values#1679067
+			 kSecAttrKeySizeInBits as String: 256,
+			 kSecPrivateKeyAttrs as String: [
+				kSecAttrIsPermanent as String: true,
+				kSecAttrApplicationTag as String: tag
+			 ]
+		]
+
+		var error: Unmanaged<CFError>?
+		guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
+			// swiftlint:disable:next force_unwrapping
+			throw error!.takeRetainedValue() as Error // ok for now
+		}
+		self.privateKey = privateKey
+	}
+}
 
 protocol PublicKeyProvider {
 	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol
@@ -73,6 +116,10 @@ struct PublicKey {
 	init(with pkString: StaticString, hasPrefix: Bool = false) {
 		let rawData = Data(staticBase64Encoded: pkString)
 		self.rawRepresentation = rawData
+	}
+
+	init(rawRepresentation: Data) {
+		self.rawRepresentation = rawRepresentation
 	}
 }
 
