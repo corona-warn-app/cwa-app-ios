@@ -85,8 +85,15 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 	// MARK: - Internal
 
+	enum ChevronStyle {
+		case plain
+		case circled
+	}
+
 	@OpenCombine.Published var title: String! = AppStrings.Home.riskCardLowTitle
 	@OpenCombine.Published var titleColor: UIColor = .enaColor(for: .textContrast)
+
+	@OpenCombine.Published var chevronStyle: ChevronStyle = .circled
 
 	@OpenCombine.Published var body: String! = ""
 	@OpenCombine.Published var bodyColor: UIColor = .enaColor(for: .textContrast)
@@ -231,6 +238,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		title = AppStrings.Home.riskCardLowTitle
 		titleColor = .enaColor(for: .textContrast)
 
+		chevronStyle = .circled
+
 		body = ""
 		bodyColor = .enaColor(for: .textContrast)
 		isBodyHidden = true
@@ -287,6 +296,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 		title = AppStrings.Home.riskCardHighTitle
 		titleColor = .enaColor(for: .textContrast)
+
+		chevronStyle = .circled
 
 		body = ""
 		bodyColor = .enaColor(for: .textContrast)
@@ -353,6 +364,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		title = AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle
 		titleColor = .enaColor(for: .textPrimary1)
 
+		chevronStyle = .plain
+
 		body = AppStrings.Home.riskCardInactiveNoCalculationPossibleBody
 		bodyColor = .enaColor(for: .textPrimary1)
 		isBodyHidden = false
@@ -396,6 +409,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 		title = AppStrings.Home.riskCardFailedCalculationTitle
 		titleColor = .enaColor(for: .textPrimary1)
+
+		chevronStyle = .plain
 
 		body = AppStrings.Home.riskCardFailedCalculationBody
 		bodyColor = .enaColor(for: .textPrimary1)

@@ -24,10 +24,10 @@
                                 <rect key="frame" x="16" y="16" width="354" height="271"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pke-Vc-HHn">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="33.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="52"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gno-nj-MZX" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="316" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -35,18 +35,38 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="999" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron" translatesAutoresizingMaskIntoConstraints="NO" id="nJl-O5-rry">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WZW-Yt-Dll">
+                                                <rect key="frame" x="298" y="0.0" width="18" height="52"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="999" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="nJl-O5-rry">
+                                                        <rect key="frame" x="0.0" y="14.5" width="7" height="12"/>
+                                                        <color key="tintColor" systemColor="systemGray2Color"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="12" id="gv6-c3-YX2"/>
+                                                            <constraint firstAttribute="width" constant="7" id="pm1-Pr-Fe4"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="nJl-O5-rry" firstAttribute="leading" secondItem="WZW-Yt-Dll" secondAttribute="leading" id="fwD-jf-6ae"/>
+                                                    <constraint firstAttribute="width" constant="18" id="iRp-Ty-kxN"/>
+                                                </constraints>
+                                            </view>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="999" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron" translatesAutoresizingMaskIntoConstraints="NO" id="b4K-LE-weN">
                                                 <rect key="frame" x="324" y="0.0" width="30" height="32"/>
                                                 <color key="tintColor" systemColor="systemGray2Color"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="gv6-c3-YX2"/>
-                                                    <constraint firstAttribute="width" constant="30" id="pm1-Pr-Fe4"/>
+                                                    <constraint firstAttribute="height" constant="32" id="D3w-b1-o2S"/>
+                                                    <constraint firstAttribute="width" constant="30" id="spT-sf-jKd"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="nJl-O5-rry" firstAttribute="bottom" secondItem="gno-nj-MZX" secondAttribute="firstBaseline" id="awi-tF-VnD"/>
+                                        </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-Fu-7Ci" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="354" height="139.5"/>
+                                        <rect key="frame" x="0.0" y="68" width="354" height="121"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -93,8 +113,9 @@
             <connections>
                 <outlet property="bodyLabel" destination="8Sq-Fu-7Ci" id="oA5-rW-bN9"/>
                 <outlet property="button" destination="b20-mf-cB4" id="rOx-px-jLw"/>
-                <outlet property="chevronImageView" destination="nJl-O5-rry" id="kU4-IV-2nk"/>
+                <outlet property="circledChevronImageView" destination="b4K-LE-weN" id="RUj-Z8-5UB"/>
                 <outlet property="containerView" destination="P9r-4c-lUv" id="oVR-xv-fcv"/>
+                <outlet property="plainChevronView" destination="WZW-Yt-Dll" id="Z33-63-K6P"/>
                 <outlet property="riskViewStackView" destination="1VM-pd-4gu" id="hMg-zR-yFJ"/>
                 <outlet property="stackView" destination="vPX-Xb-EeD" id="132-fd-IJV"/>
                 <outlet property="titleLabel" destination="gno-nj-MZX" id="iXx-0n-EaC"/>
@@ -116,6 +137,7 @@
     </designables>
     <resources>
         <image name="Icons_Chevron" width="30" height="30"/>
+        <image name="Icons_Chevron_plain" width="7" height="12"/>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

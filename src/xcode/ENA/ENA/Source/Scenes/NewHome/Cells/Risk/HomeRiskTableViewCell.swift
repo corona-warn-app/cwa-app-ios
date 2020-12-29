@@ -42,6 +42,13 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 		cellModel.$titleColor.assign(to: \.textColor, on: titleLabel).store(in: &subscriptions)
 
+		cellModel.$chevronStyle
+			.sink { [weak self] in
+				self?.plainChevronView.isHidden = $0 != .plain
+				self?.circledChevronImageView.isHidden = $0 != .circled
+			}
+			.store(in: &subscriptions)
+
 		cellModel.$body.assign(to: \.text, on: bodyLabel).store(in: &subscriptions)
 		cellModel.$bodyColor.assign(to: \.textColor, on: bodyLabel).store(in: &subscriptions)
 		cellModel.$isBodyHidden.assign(to: \.isHidden, on: bodyLabel).store(in: &subscriptions)
@@ -101,7 +108,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	@IBOutlet private weak var titleLabel: ENALabel!
-	@IBOutlet private weak var chevronImageView: UIImageView!
+	@IBOutlet weak var plainChevronView: UIView!
+	@IBOutlet private weak var circledChevronImageView: UIImageView!
 	@IBOutlet private weak var bodyLabel: ENALabel!
 	@IBOutlet private weak var button: ENAButton!
 
@@ -119,7 +127,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 	private func setupAccessibility() {
 		titleLabel.isAccessibilityElement = false
-		chevronImageView.isAccessibilityElement = false
+		plainChevronView.isAccessibilityElement = false
+		circledChevronImageView.isAccessibilityElement = false
 		containerView.isAccessibilityElement = false
 		stackView.isAccessibilityElement = false
 
