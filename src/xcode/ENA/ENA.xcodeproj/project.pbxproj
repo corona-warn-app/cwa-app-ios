@@ -109,7 +109,6 @@
 		01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D6948E2502729000B45BEA /* DatePickerDay.swift */; };
 		01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D69490250272CE00B45BEA /* DatePickerDayViewModel.swift */; };
 		01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */; };
-		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */ = {isa = PBXBuildFile; fileRef = 01E42990251DCDC90057FCBE /* Localizable.legal.strings */; };
 		01EA172D2590C2EC00E98E02 /* MockDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019C9F0725894BE900B26392 /* MockDiaryStore.swift */; };
 		01F2A535257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A534257FACDF00DA96A6 /* HomeTestResultCellConfigurator.swift */; };
@@ -1279,7 +1278,6 @@
 		CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		CD7F5C732466F6D400D3D03C /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		CD8638522477EBD400A5A07C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExposureSubmission.storyboard; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C92461A47C00BF12AF /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		CDA262F724AB808800612E15 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -2401,7 +2399,6 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
 				51D420CD245869C800AD70CA /* Home.storyboard */,
@@ -3723,7 +3720,6 @@
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
 				EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */,
-				01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */,
 				51CE1B8A246078B6002CF42A /* InfoCollectionViewCell.xib in Resources */,
 				51FE277D247535C400BB8144 /* RiskLoadingItemView.xib in Resources */,
 				853D98832469DC5000490DBA /* ExposureNotificationSetting.storyboard in Resources */,
