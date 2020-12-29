@@ -26,6 +26,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		view.backgroundColor = .enaColor(for: .background)
 		title = AppStrings.ExposureSubmissionHotline.title
 		setupTableView()
 		setupBackButton()
@@ -68,6 +69,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
+		tableView.separatorStyle = .none
 		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		dynamicTableViewModel = DynamicTableViewModel(
