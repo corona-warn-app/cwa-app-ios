@@ -570,19 +570,19 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		}
 
 		let expectedString = """
-			Kontakte der letzten 14 Tage (02.12.20 - 15.12.20)
+			Kontakte der letzten 14 Tage (02.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
-			15.12.20 Adam Sandale
-			15.12.20 Emma Hicks
-			15.12.20 Amsterdam
-			15.12.20 Berlin
-			05.12.20 Emma Hicks
-			05.12.20 Amsterdam
-			02.12.20 Adam Sandale
-			02.12.20 Emma Hicks
-			02.12.20 Amsterdam
-			02.12.20 Berlin
+			15.12.2020 Adam Sandale
+			15.12.2020 Emma Hicks
+			15.12.2020 Amsterdam
+			15.12.2020 Berlin
+			05.12.2020 Emma Hicks
+			05.12.2020 Amsterdam
+			02.12.2020 Adam Sandale
+			02.12.2020 Emma Hicks
+			02.12.2020 Amsterdam
+			02.12.2020 Berlin
 
 			"""
 

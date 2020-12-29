@@ -286,32 +286,33 @@ private extension UITableViewCell {
 	}
 
 	func removeSeparators() {
-		contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-		contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-		contentView.viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
 		let separator = UIView(frame: bounds)
-		contentView.addSubview(separator)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+		addSubview(separator)
+		NSLayoutConstraint.activate([
+			separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+			separator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+			separator.heightAnchor.constraint(equalToConstant: 1)
+		])
 
 		switch location {
 		case .top:
 			separator.tag = SeparatorLocation.top.rawValue
 			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		case .bottom:
 			separator.tag = SeparatorLocation.bottom.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		case .inBetween:
 			separator.tag = SeparatorLocation.inBetween.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		}
 	}
 }

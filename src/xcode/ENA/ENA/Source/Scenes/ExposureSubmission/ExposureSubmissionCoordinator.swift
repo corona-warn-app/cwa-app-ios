@@ -189,7 +189,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					onSuccess: { supportedCountries in
 						self?.showTestResultSubmissionConsentScreen(
 							supportedCountries: supportedCountries,
-							testResultAvailability: .available
+							testResultAvailability: .availableAndPositive
 						)
 					}
 				)
@@ -205,17 +205,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				isLoading(true)
 				self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-
-					if let error = error {
-						// User selected "Don't Share" / "Nicht teilen"
-						if case .notAuthorized = error {
-							self.model.exposureSubmissionService.isSubmissionConsentGiven = false
-							self.showTestResultScreen(with: testResult)
-						} else {
-							self.showErrorAlert(for: error)
-						}
-					} else {
+					
+					guard let error = error else {
 						self.showTestResultScreen(with: testResult)
+						return
+					}
+					
+					// User selected "Don't Share" / "Nicht teilen"
+					if error == .notAuthorized {
+						Log.info("OS submission authorization was declined.")
+						self.model.exposureSubmissionService.isSubmissionConsentGiven = false
+						self.showTestResultScreen(with: testResult)
+					} else {
+						self.showErrorAlert(for: error)
 					}
 				}
 			},
@@ -227,6 +229,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
@@ -238,7 +241,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						onSuccess: { supportedCountries in
 							self?.showTestResultSubmissionConsentScreen(
 								supportedCountries: supportedCountries,
-								testResultAvailability: .notAvailabile
+								testResultAvailability: testResultAvailability
 							)
 						}
 					)
@@ -277,15 +280,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// ugly but works for the moment
 		// refactoring more of the coordinator-logic to facilitate combine would help
 		let vc = ExposureSubmissionWarnOthersViewController(
-			supportedCountries: model.exposureSubmissionService.supportedCountries,
+			viewModel: ExposureSubmissionWarnOthersViewModel(
+				supportedCountries: model.exposureSubmissionService.supportedCountries) { [weak self] in
+				self?.showTestResultAvailableCloseAlert()
+			},
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-					if let error = error {
-						self?.showErrorAlert(for: error)
-					} else {
+					guard let error = error else {
 						self?.showThankYouScreen()
+						return
+					}
+					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					if error == .notAuthorized {
+						Log.info("Submission consent reset to false after OS authorization was not given.")
+					} else {
+						self?.showErrorAlert(for: error)
 					}
 				}
 			}
@@ -380,11 +391,16 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
+		// we should show the alert in the completion only if the testResult is positveAndAvailable
+		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailabile ? nil : { [weak self] in
+			self?.showTestResultAvailableCloseAlert()
+		}
 		let vc = ExposureSubmissionTestResultConsentViewController(
 			viewModel: ExposureSubmissionTestResultConsentViewModel(
 				supportedCountries: supportedCountries,
 				exposureSubmissionService: model.exposureSubmissionService,
-				testResultAvailability: testResultAvailability
+				testResultAvailability: testResultAvailability,
+				dismissCompletion: dismissCompletion
 			)
 		)
 
@@ -394,23 +410,28 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Late consent
 
 	private func showWarnOthersScreen(supportedCountries: [Country]) {
+		let viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries) { [weak self] in
+			self?.showTestResultAvailableCloseAlert()
+		}
 		let vc = ExposureSubmissionWarnOthersViewController(
-			supportedCountries: supportedCountries,
+			viewModel: viewModel,
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 					
-					if let error = error {
-						// User selected "Don't Share" / "Nicht teilen"
-						if case .notAuthorized = error {
-							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
-						} else {
-							self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
-							self?.showErrorAlert(for: error)
-						}
-					} else {
+					guard let error = error else {
 						self?.showThankYouScreen()
+						return
+					}
+					
+					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					
+					// User selected "Don't Share" / "Nicht teilen"
+					if error == .notAuthorized {
+						Log.info("OS submission authorization was declined.")
+					} else {
+						self?.showErrorAlert(for: error)
 					}
 				}
 			}

@@ -638,9 +638,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return dateFormatter
 	}()
 
-	private var germanDateFormatter: DateFormatter = {
+	private lazy var germanDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
+		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .none
 		dateFormatter.locale = Locale(identifier: "de_DE")
 		return dateFormatter
