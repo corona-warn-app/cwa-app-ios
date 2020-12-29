@@ -53,11 +53,12 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			.store(in: &subscriptions)
 
 		homeState.$detectionMode
-			.sink { [weak self] _ in
+			.receive(on: RunLoop.main.ocombine)
+			.sink { [weak self] detectionMode in
 				self?.scheduleCountdownTimer()
 
 				if case .risk = homeState.riskState {
-					self?.isButtonHidden = homeState.detectionMode == .automatic
+					self?.isButtonHidden = detectionMode == .automatic
 				}
 
 				onUpdate()
@@ -141,7 +142,9 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	private var riskButtonTitle: String {
-		if let timeUntilUpdate = timeUntilUpdate { return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate) }
+		if let timeUntilUpdate = timeUntilUpdate {
+			return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate)
+		}
 
 		let detectionInterval = homeState.exposureDetectionInterval
 
