@@ -18,6 +18,19 @@ class HomeCardView: UIView {
 		layer.shadowOffset = .init(width: 0.0, height: 10.0)
 		layer.shadowRadius = 36.0
 		layer.shadowOpacity = 1
+
+		highlightView.backgroundColor = .clear
+		highlightView.layer.cornerRadius = cornerRadius
+
+		addSubview(highlightView)
+		highlightView.translatesAutoresizingMaskIntoConstraints = false
+
+		NSLayoutConstraint.activate([
+			highlightView.leadingAnchor.constraint(equalTo: leadingAnchor),
+			highlightView.topAnchor.constraint(equalTo: topAnchor),
+			highlightView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			highlightView.bottomAnchor.constraint(equalTo: bottomAnchor)
+		])
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -29,11 +42,13 @@ class HomeCardView: UIView {
 	// MARK: - Internal
 
 	func setHighlighted(_ highlighted: Bool, animated: Bool) {
-		backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .enaColor(for: .background)
+		highlightView.backgroundColor = highlighted ? .enaColor(for: .listHighlight) : .clear
 	}
 
 	// MARK: - Private
 
 	private let cornerRadius: CGFloat = 14.0
+
+	private let highlightView = UIView()
 
 }

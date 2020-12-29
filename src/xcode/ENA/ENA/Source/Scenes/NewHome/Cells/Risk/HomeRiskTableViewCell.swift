@@ -23,6 +23,12 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		button.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityMedium ? .byTruncatingMiddle : .byWordWrapping
 	}
 
+	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		super.setHighlighted(highlighted, animated: animated)
+
+		containerView.setHighlighted(highlighted, animated: animated)
+	}
+
 	// Ignore touches on the button when it's disabled
 	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 		let buttonPoint = convert(point, to: button)
@@ -113,7 +119,7 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	@IBOutlet private weak var bodyLabel: ENALabel!
 	@IBOutlet private weak var button: ENAButton!
 
-	@IBOutlet private weak var containerView: UIView!
+	@IBOutlet private weak var containerView: HomeCardView!
 	@IBOutlet private weak var topContainer: UIStackView!
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var riskViewStackView: UIStackView!
