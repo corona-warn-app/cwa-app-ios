@@ -39,21 +39,23 @@ enum ExposureSubmissionDynamicCell {
 		bottomSpacing: ExposureSubmissionStepCell.Spacing = .large,
 		action: DynamicAction = .none
 	) -> DynamicCell {
-		.identifier(CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
-			guard let cell = cell as? ExposureSubmissionStepCell else { return }
-			cell.configure(style: style, color: color, title: title, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
-			cell.titleLabel.accessibilityLabel = [iconAccessibilityLabel, cell.titleLabel.accessibilityLabel]
-				.compactMap({ $0 })
-				.joined(separator: ": ")
+		.identifier(
+			CustomCellReuseIdentifiers.stepCell,
+			action: action) { _, cell, _ in
+				guard let cell = cell as? ExposureSubmissionStepCell else {
+					return
+				}
+				cell.configure(style: style, color: color, title: title, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
 
-			if let accessibilityLabel = accessibilityLabel {
 				cell.accessibilityLabel = accessibilityLabel
-			}
+				cell.titleLabel.accessibilityLabel = [iconAccessibilityLabel, cell.titleLabel.accessibilityLabel]
+					.compactMap({ $0 })
+					.joined(separator: ": ")
 
-			if let accessibilityTraits = accessibilityTraits {
-				cell.accessibilityTraits = accessibilityTraits
+				if let accessibilityTraits = accessibilityTraits {
+					cell.accessibilityTraits = accessibilityTraits
+				}
 			}
-		}
 	}
 
 }
