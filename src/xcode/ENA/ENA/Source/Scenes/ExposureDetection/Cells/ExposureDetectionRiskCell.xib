@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +29,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk label with icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ex7-Pd-jQL" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="48" y="6" width="326" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="ENA Text Contrast Color"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
@@ -40,7 +39,6 @@
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWS-wx-QOr">
                         <rect key="frame" x="68" y="0.0" width="326" height="1"/>
-                        <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="xaf-SR-Afv"/>
                         </constraints>
@@ -73,11 +71,5 @@
     </designables>
     <resources>
         <image name="Icons_RisikoBegegnung" width="32" height="32"/>
-        <namedColor name="ENA Hairline Contrast Color">
-            <color red="1" green="1" blue="1" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Text Contrast Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

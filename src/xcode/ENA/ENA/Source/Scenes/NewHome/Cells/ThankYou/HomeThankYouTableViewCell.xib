@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="16" width="382" height="709"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vH-2n-zB9" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="0.0" width="350" height="20.5"/>
+                                        <rect key="frame" x="16" y="0.0" width="350" height="33.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -33,10 +33,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Home_VielenDank" translatesAutoresizingMaskIntoConstraints="NO" id="gib-Lj-L9x">
-                                        <rect key="frame" x="19.5" y="36.5" width="343" height="178"/>
+                                        <rect key="frame" x="19.5" y="49.5" width="343" height="178"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="249" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjR-ul-n67" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="230.5" width="350" height="156.5"/>
+                                        <rect key="frame" x="16" y="243.5" width="350" height="131.5"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -46,7 +46,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kx4-69-edp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="403" width="350" height="20.5"/>
+                                        <rect key="frame" x="16" y="391" width="350" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -55,10 +55,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8VS-I3-yNF">
-                                        <rect key="frame" x="16" y="439.5" width="350" height="167"/>
+                                        <rect key="frame" x="16" y="433.5" width="350" height="167"/>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 More Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5t-z9-0Jg" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="622.5" width="350" height="20.5"/>
+                                        <rect key="frame" x="16" y="616.5" width="350" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -119,16 +119,16 @@
     </objects>
     <designables>
         <designable name="4vH-2n-zB9">
-            <size key="intrinsicContentSize" width="45" height="20.5"/>
+            <size key="intrinsicContentSize" width="77" height="33.5"/>
         </designable>
         <designable name="MjR-ul-n67">
             <size key="intrinsicContentSize" width="2267.5" height="20.5"/>
         </designable>
         <designable name="kx4-69-edp">
-            <size key="intrinsicContentSize" width="88.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="117.5" height="26.5"/>
         </designable>
         <designable name="t5t-z9-0Jg">
-            <size key="intrinsicContentSize" width="123.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="164.5" height="26.5"/>
         </designable>
     </designables>
     <resources>

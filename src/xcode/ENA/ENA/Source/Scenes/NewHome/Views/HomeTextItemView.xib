@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +16,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wga-O0-nFp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                     <rect key="frame" x="16" y="0.0" width="339" height="61"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" name="ENA Text Contrast Color"/>
+                    <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
@@ -25,7 +24,6 @@
                 </label>
                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnj-K1-GQZ">
                     <rect key="frame" x="0.0" y="60" width="371" height="1"/>
-                    <color key="backgroundColor" name="ENA Hairline Color"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="gmn-H2-y7y"/>
                     </constraints>
@@ -53,12 +51,4 @@
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
     </designables>
-    <resources>
-        <namedColor name="ENA Hairline Color">
-            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Text Contrast Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-    </resources>
 </document>
