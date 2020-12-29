@@ -56,7 +56,6 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		description: String,
 		button buttonTitle: String,
 		image: UIImage?,
-		imageDescription: String? = nil,
 		tintColor: UIColor = .enaColor(for: .textPrimary1),
 		accessibilityIdentifier: String?
 	) {
@@ -64,8 +63,6 @@ class HomeDiaryCollectionViewCell: HomeCardCollectionViewCell {
 		subtitleLabel.text = subtitle
 		descriptionLabel.text = description
 		illustrationView.image = image
-		illustrationView.accessibilityLabel = imageDescription
-		illustrationView.isAccessibilityElement = imageDescription != nil
 
 		button.setTitle(buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
