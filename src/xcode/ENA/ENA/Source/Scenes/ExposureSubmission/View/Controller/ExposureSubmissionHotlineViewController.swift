@@ -8,8 +8,12 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	// MARK: - Init
 
-	init(coordinator: ExposureSubmissionCoordinating) {
-		self.coordinator = coordinator
+	init(
+		showTANScreen: @escaping () -> Void,
+		showCallHotline: @escaping () -> Void
+	) {
+		self.showTANScreen = showTANScreen
+		self.showCallHotline = showCallHotline
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -34,10 +38,21 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		navigationFooterItem
 	}
 
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		showCallHotline()
+	}
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
+		showTANScreen()
+	}
+
 	// MARK: - Private
-	
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-	
+
+	private let showTANScreen: () -> Void
+	private let showCallHotline: () -> Void
+
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
@@ -65,7 +80,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 						.body(text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
 							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
 								cell.textLabel?.accessibilityTraits = .header
-						}
+							}
 					]
 				),
 				DynamicSection.section(
@@ -88,7 +103,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							accessibilityTraits: [.button],
 							hairline: .topAttached,
 							bottomSpacing: .normal,
-							action: .execute { [weak self] _, _ in self?.callHotline() }
+							action: .execute { [weak self] _, _ in self?.showCallHotline() }
 						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .footnote,
@@ -115,25 +130,5 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 extension ExposureSubmissionHotlineViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
-	}
-}
-
-// MARK: - ENANavigationControllerWithFooterChild Extension.
-
-extension ExposureSubmissionHotlineViewController {
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		callHotline()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		self.coordinator?.showTanScreen()
-	}
-
-	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
-			if UIApplication.shared.canOpenURL(url) {
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
-		}
 	}
 }

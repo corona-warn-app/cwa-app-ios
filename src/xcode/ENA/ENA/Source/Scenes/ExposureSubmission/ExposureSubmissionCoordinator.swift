@@ -307,7 +307,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Screen Flow
 
 	private func showHotlineScreen() {
-		let hotlineViewController = ExposureSubmissionHotlineViewController(coordinator: self)
+		let hotlineViewController = ExposureSubmissionHotlineViewController(
+			showTANScreen: { [weak self] in
+				self?.showTanScreen()
+			},
+			showCallHotline: {
+				guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+					  UIApplication.shared.canOpenURL(url) else {
+					Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
+					return
+				}
+				UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			}
+		)
 		push(hotlineViewController)
 	}
 
