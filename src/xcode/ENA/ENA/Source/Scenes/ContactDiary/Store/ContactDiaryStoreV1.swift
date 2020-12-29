@@ -63,8 +63,11 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 			var finalSQL: String?
 			
 			while queryResult.next() {
-				// Do migration if old database "name" field type is String --> change it to TEXT
-				if type == "STRING" {
+				let name = queryResult.string(forColumn: "name")
+				let type = queryResult.string(forColumn: "type")
+
+				// do migration for contact diary tables if the type of the Column "name" is "STRING"
+				if name == "name" && type == "STRING" {
 					finalSQL = """
 				    ALTER TABLE \(tableName) RENAME TO tmp;
 				    CREATE TABLE \(tableName) (
