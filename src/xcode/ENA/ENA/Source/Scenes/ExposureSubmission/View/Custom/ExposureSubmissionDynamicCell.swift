@@ -48,7 +48,7 @@ enum ExposureSubmissionDynamicCell {
 				cell.configure(style: style, color: color, title: title, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
 
 				cell.accessibilityLabel = accessibilityLabel
-				cell.titleLabel.accessibilityLabel = [iconAccessibilityLabel, cell.titleLabel.accessibilityLabel]
+				cell.titleLabel.accessibilityLabel = [iconAccessibilityLabel, accessibilityLabel]
 					.compactMap({ $0 })
 					.joined(separator: ": ")
 
