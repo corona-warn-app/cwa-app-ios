@@ -8,9 +8,7 @@ import XCTest
 class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
 
 	func testSetupView() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
-		}
+		let vc = ExposureSubmissionHotlineViewController(showTANScreen: {}, showCallHotline: {})
 		_ = vc.view
 		XCTAssertNotNil(vc.tableView)
 		XCTAssertEqual(vc.tableView.numberOfSections, 2)
