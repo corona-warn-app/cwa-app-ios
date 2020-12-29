@@ -8,9 +8,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	// MARK: - Init
 
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
+	init(coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -28,14 +28,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		
 		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
 		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
 	}
 
 	override var navigationItem: UINavigationItem {
