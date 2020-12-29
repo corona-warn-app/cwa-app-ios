@@ -55,8 +55,9 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 	func test_When_addZeroPrefixedLocation_Then_LocationIsPersistedCorrectly() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
-
-		let result = store.addLocation(name: "0043")
+		let testString = "0043"
+		
+		let result = store.addLocation(name: testString)
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -69,14 +70,15 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		XCTAssertEqual(name, "0043")
+		XCTAssertEqual(name, testString)
 	}
 	
 	func test_When_addZeroPrefixedContactPerson_Then_LocationIsPersistedCorrectly() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
+		let testString = "HBF"
 
-		let result = store.addContactPerson(name: "005")
+		let result = store.addContactPerson(name: testString)
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -89,7 +91,7 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 			return
 		}
 
-		XCTAssertEqual(name, "005")
+		XCTAssertEqual(name, testString)
 	}
 	
 	func test_When_addContactPersonEncounter_Then_ContactPersonEncounterIsPersisted() {
