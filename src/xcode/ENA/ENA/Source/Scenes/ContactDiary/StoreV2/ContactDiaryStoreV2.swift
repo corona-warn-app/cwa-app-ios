@@ -975,7 +975,7 @@ extension ContactDiaryStoreV2 {
 
 extension ContactDiaryStoreV2 {
 	convenience init?() {
-		let latestDBVersion = 2		
+		let latestDBVersion = 2
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV2.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
