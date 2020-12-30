@@ -657,7 +657,6 @@ enum AppStrings {
 
 		static let diaryCardTitle = NSLocalizedString("Home_DiaryCard_Title", comment: "")
 		static let diaryCardBody = NSLocalizedString("Home_DiaryCard_Body", comment: "")
-		static let diaryCardImageDescription = NSLocalizedString("Home_DiaryCard_ImageDescription", comment: "")
 		static let diaryCardButton = NSLocalizedString("Home_DiaryCard_Button", comment: "")
 
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
