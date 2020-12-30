@@ -345,38 +345,24 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	/// scroll and collect all visible elements until the collection doen't change
 	private func search(_ identifier: String, element: XCUIElement) -> XCUIElement? {
 		var allElementsFound = false
-		var seenElementIdentifiers: [String] = []
+		var lastLoopSeenElements: [String] = []
 
 		while !allElementsFound {
-			// search for a possibel button
+			/** search for a possibel button */
 			guard !element.buttons[identifier].exists else {
 				return element.buttons[identifier]
 			}
 
-			// search for a possible cell
+			/** search for a possible cell */
 			guard !element.cells[identifier].exists else {
 				return element.cells[identifier]
 			}
 
 			let allElements = element.cells.allElementsBoundByIndex.map { $0.identifier } + element.buttons.allElementsBoundByIndex.map { $0.identifier }
-			allElementsFound = allElements == seenElementIdentifiers
-			seenElementIdentifiers = allElements
+			allElementsFound = allElements == lastLoopSeenElements
+			lastLoopSeenElements = allElements
 
-			let coordinateToStartFrom = element.coordinate(
-				withNormalizedOffset: CGVector(
-					dx: 0.99,
-					dy: 0.9
-				)
-			)
-
-			coordinateToStartFrom.press(
-				forDuration: 0.01,
-				thenDragTo: element.coordinate(
-					withNormalizedOffset: CGVector(
-						dx: 0.99,
-						dy: 0.1)
-				)
-			)
+			app.swipeUp()
 		}
 		return nil
 	}
