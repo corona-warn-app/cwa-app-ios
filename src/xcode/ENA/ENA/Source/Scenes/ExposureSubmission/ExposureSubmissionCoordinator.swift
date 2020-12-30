@@ -307,8 +307,20 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Screen Flow
 
 	private func showHotlineScreen() {
-		let vc = createHotlineViewController()
-		push(vc)
+		let hotlineViewController = ExposureSubmissionHotlineViewController(
+			showTANScreen: { [weak self] in
+				self?.showTanScreen()
+			},
+			showCallHotline: {
+				guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+					  UIApplication.shared.canOpenURL(url) else {
+					Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
+					return
+				}
+				UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			}
+		)
+		push(hotlineViewController)
 	}
 
 	private func presentTanInvalidAlert(localizedDescription: String, completion: @escaping () -> Void) {
@@ -721,20 +733,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			}
 		)
-	}
-
-}
-
-// MARK: - Creation.
-
-extension ExposureSubmissionCoordinator {
-	
-	// MARK: - Private
-
-	private func createHotlineViewController() -> ExposureSubmissionHotlineViewController {
-		AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
-			ExposureSubmissionHotlineViewController(coder: coder, coordinator: self)
-		}
 	}
 
 }
