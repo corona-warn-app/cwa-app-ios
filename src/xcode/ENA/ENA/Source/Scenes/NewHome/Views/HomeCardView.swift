@@ -22,6 +22,8 @@ class HomeCardView: UIView {
 		highlightView.backgroundColor = .clear
 		highlightView.layer.cornerRadius = cornerRadius
 
+		highlightView.isUserInteractionEnabled = false
+
 		addSubview(highlightView)
 		highlightView.translatesAutoresizingMaskIntoConstraints = false
 
