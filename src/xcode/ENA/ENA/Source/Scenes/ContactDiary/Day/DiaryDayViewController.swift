@@ -43,11 +43,14 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			.store(in: &subscriptions)
 
 		viewModel.$selectedEntryType
-			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
-				// Scrolling to top prevents table view from flickering while reloading
-				self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-				self?.updateForSelectedEntryType()
+				// DispatchQueue triggers immediately while .receive(on:) would wait until the main runloop is free, which lead to a crash if the switch happend while scrolling.
+				// In that case cells were dequeued for the old model (entriesOfSelectedType) that was not available anymore.
+				DispatchQueue.main.async {
+					// Scrolling to top prevents table view from flickering while reloading
+					self?.tableView.setContentOffset(.zero, animated: false)
+					self?.updateForSelectedEntryType()
+				}
 			}
 			.store(in: &subscriptions)
 	}
