@@ -20,10 +20,9 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var contactDiaryStore: ContactDiaryStoreV1 { get }
+	var contactDiaryStore: ContactDiaryStoreV2 { get }
 
 	func requestUpdatedExposureState()
-
 }
 
 @UIApplicationMain
@@ -124,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let store: Store
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let serverEnvironment: ServerEnvironment
-	let contactDiaryStore = ContactDiaryStoreV1.make()
+	let contactDiaryStore = ContactDiaryStoreV2.make()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG

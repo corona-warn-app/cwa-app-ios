@@ -5,20 +5,10 @@
 import Foundation
 import UIKit
 import FMDB
-import OpenCombine
-
-protocol DateProviding {
-	var today: Date { get }
-}
-
-struct DateProvider: DateProviding {
-	var today: Date {
-		Date()
-	}
-}
+import Combine
 
 // swiftlint:disable:next type_body_length
-class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
+class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
@@ -26,16 +16,17 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	init?(
 		databaseQueue: FMDatabaseQueue,
-		schema: ContactDiaryStoreSchemaV1,
+		schema: ContactDiaryStoreSchemaV2,
 		key: String,
 		dateProvider: DateProviding = DateProvider(),
-		latestDBVersion: Int = 1
+		latestDBVersion: Int
 	) {
 		self.databaseQueue = databaseQueue
 		self.key = key
 		self.dateProvider = dateProvider
 		self.schema = schema
-
+		self.latestVersion = latestDBVersion
+		
 		guard case .success = openAndSetup() else {
 			return nil
 		}
@@ -51,7 +42,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		guard case .success = updateDiaryResult else {
 			return nil
 		}
-		
 		registerToDidBecomeActiveNotification()
 	}
 	
@@ -626,20 +616,21 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private let userVisiblePeriodInDays = 14 // Including today.
 	private let key: String
 	private let dateProvider: DateProviding
-	private let schema: ContactDiaryStoreSchemaV1
+	private let schema: ContactDiaryStoreSchemaV2
 
 	private var todayDateString: String {
 		dateFormatter.string(from: dateProvider.today)
 	}
 
 	private var dateFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
 		return dateFormatter
 	}()
 
-	private lazy var germanDateFormatter: DateFormatter = {
+	private var germanDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
+		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .none
 		dateFormatter.locale = Locale(identifier: "de_DE")
 		return dateFormatter
@@ -648,25 +639,34 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private let databaseQueue: FMDatabaseQueue
 	private let latestVersion: Int
 
-	func openAndSetup() -> DiaryStoringVoidResult {
+	private func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?
-
+		
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-
+			
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
-
+			
 			guard database.open() else {
 				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
-
+			// We need to check for the following:
+			// (userVersion = 0) means: no database was created and stored previously by the user --> this is the first database --> create new updated schema
+			// if a database was stored but not the latest version --> migrate the old schema
+			 if database.userVersion != 0 && database.userVersion < latestVersion {
+				// we create the migration here and not in the init() because the database need to be open and decrypted before migration or it will fail
+				let migrations: [Migration] = [ContactDiaryMigration1To2(database: database), ContactDiaryMigration1To2(database: database)]
+				let migrator = SerialMigrator(latestVersion: latestVersion, database: database, migrations: migrations)
+				try? migrator.migrate()
+			}
+			
 			let sql = """
 				PRAGMA locking_mode=EXCLUSIVE;
 				PRAGMA auto_vacuum=2;
@@ -679,18 +679,15 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 		}
-
+		
 		if let _errorResult = errorResult {
 			return _errorResult
 		}
-
 		let schemaCreateResult = schema.create()
 		if case let .failure(error) = schemaCreateResult {
 			return .failure(.database(error))
 		}
-		databaseQueue.inDatabase { database in
-			print(database.tableExists("Location"))
-		}
+		
 		return .success(())
 	}
 
@@ -892,12 +889,12 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 // MARK: Creation
 
-extension ContactDiaryStoreV1 {
+extension ContactDiaryStoreV2 {
 
-	static func make() -> ContactDiaryStoreV1 {
+	static func make() -> ContactDiaryStoreV2 {
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
-		if let store = ContactDiaryStoreV1() {
+		if let store = ContactDiaryStoreV2() {
 			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
 			return store
 		}
@@ -906,9 +903,9 @@ extension ContactDiaryStoreV1 {
 
 		// The database could not be created – To the rescue!
 		// Remove the database file and try to init the store a second time.
-		try? FileManager.default.removeItem(at: ContactDiaryStoreV1.storeDirectoryURL)
+		try? FileManager.default.removeItem(at: ContactDiaryStoreV2.storeDirectoryURL)
 
-		if let secondTryStore = ContactDiaryStoreV1() {
+		if let secondTryStore = ContactDiaryStoreV2() {
 			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
 			return secondTryStore
 		} else {
@@ -917,22 +914,22 @@ extension ContactDiaryStoreV1 {
 		}
 	}
 
-	convenience init?() {
-		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV1.storeURL.path) else {
-			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
-			return nil
-		}
-
-		let schema = ContactDiaryStoreSchemaV1(
-			databaseQueue: databaseQueue
-		)
-
-		self.init(
-			databaseQueue: databaseQueue,
-			schema: schema,
-			key: ContactDiaryStoreV1.encryptionKey
-		)
-	}
+//	convenience init?() {
+//		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV2.storeURL.path) else {
+//			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
+//			return nil
+//		}
+//
+//		let schema = ContactDiaryStoreSchemaV1(
+//			databaseQueue: databaseQueue
+//		)
+//
+//		self.init(
+//			databaseQueue: databaseQueue,
+//			schema: schema,
+//			key: ContactDiaryStoreV2.encryptionKey
+//		)
+//	}
 
 	private static var storeURL: URL {
 		storeDirectoryURL
@@ -961,7 +958,7 @@ extension ContactDiaryStoreV1 {
 		}
 
 		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStoreV1.encriptionKeyKey) {
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStoreV2.encriptionKeyKey) {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
@@ -973,6 +970,30 @@ extension ContactDiaryStoreV1 {
 
 		return key
 	}
+}
 
+extension ContactDiaryStoreV2 {
+	convenience init?() {
+		
+		let storeURL = ContactDiaryStoreV2.storeURL
+		let db = FMDatabase(url: storeURL)
+		let latestDBVersion = 2
+		// we added the migration twice because there is a bug here; initial database version should be 0 not 1, this is a temp fix
+		
+		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV2.storeURL.path) else {
+			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
+			return nil
+		}
+		
+		let schema = ContactDiaryStoreSchemaV2(
+			databaseQueue: databaseQueue
+		)
+		self.init(
+			databaseQueue: databaseQueue,
+			schema: schema,
+			key: ContactDiaryStoreV2.encryptionKey,
+			latestDBVersion: latestDBVersion
+		)
+	}
 	// swiftlint:disable:next file_length
 }

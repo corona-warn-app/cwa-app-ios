@@ -5,7 +5,7 @@
 import FMDB
 import CWASQLite
 
-class ContactDiaryStoreSchemaV1 {
+class ContactDiaryStoreSchemaV2 {
 
 	// MARK: - Init
 
@@ -23,12 +23,12 @@ class ContactDiaryStoreSchemaV1 {
 			let sql = """
 				CREATE TABLE IF NOT EXISTS ContactPerson (
 					id INTEGER PRIMARY KEY,
-					name STRING NOT NULL CHECK (LENGTH(name) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS Location (
 					id INTEGER PRIMARY KEY,
-					name STRING NOT NULL CHECK (LENGTH(name) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
@@ -52,7 +52,7 @@ class ContactDiaryStoreSchemaV1 {
 				return
 			}
 
-			database.userVersion = 1
+			database.userVersion = 2
 			result = .success(())
 		}
 
