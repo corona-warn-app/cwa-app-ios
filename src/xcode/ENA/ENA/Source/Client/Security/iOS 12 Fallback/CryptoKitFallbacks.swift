@@ -56,7 +56,26 @@ extension Data {
 	}
 }
 
+// ------ 8< cut here -------
+
 // MARK: - Asymmetric Key Handling
+
+protocol PrivateKeyProvider {
+	var privateKeyRaw: Data { get }
+	var publicKeyRaw: Data { get }
+}
+
+@available(iOS 13.0, *)
+extension P256.Signing.PrivateKey: PrivateKeyProvider {
+	var privateKeyRaw: Data {
+		return self.rawRepresentation
+	}
+
+	var publicKeyRaw: Data {
+		return self.publicKey.rawRepresentation
+	}
+
+}
 
 struct PrivateKey {
 	/// The corresponding public key.
@@ -126,7 +145,7 @@ struct PublicKey {
 extension PublicKey: PublicKeyProvider {
 	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol {
 		#warning("invalid mock implementation")
-		return true
+		return false
 	}
 }
 
@@ -134,7 +153,7 @@ extension PublicKey: PublicKeyProvider {
 extension P256.Signing.PublicKey: PublicKeyProvider {
 	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol {
 		#warning("invalid mock implementation")
-		return true
+		return false
 	}
 }
 
@@ -144,7 +163,7 @@ extension P256.Signing.PublicKey: PublicKeyProvider {
 protocol ECDSASignatureProtocol {
 	/// Returns the raw signature.
 	/// The raw signature format for ECDSA is r || s
-	var rawRepresentation: Data { get }
+//	var rawRepresentation: Data { get }
 
 	/// A DER-encoded representation of the signature
 	var derRepresentation: Data { get }
@@ -152,7 +171,7 @@ protocol ECDSASignatureProtocol {
 	/// Initializes ECDSASignature from the raw representation.
 	/// The raw signature format for ECDSA is r || s
 	/// As defined in https://tools.ietf.org/html/rfc4754
-	init<D>(rawRepresentation: D) throws where D: DataProtocol
+//	init<D>(rawRepresentation: D) throws where D: DataProtocol
 
 	/// Initializes ECDSASignature from the DER representation.
 	init<D>(derRepresentation: D) throws where D: DataProtocol
@@ -168,18 +187,19 @@ protocol ECDSASignatureProtocol {
 
 /// Very naïve implementation of `P256.Signing.ECDSASignature` used as data container.
 struct ECDSASignature: ECDSASignatureProtocol {
-	var rawRepresentation: Data
+//	var rawRepresentation: Data
 
+	// X9.62 format (ASN.1 SEQUENCE of two INTEGER fields).
 	var derRepresentation: Data
 
-	init<D>(rawRepresentation: D) throws where D: DataProtocol {
-		var representation: Data = Data()
-		_ = representation.withUnsafeMutableBytes { rawRepresentation.copyBytes(to: $0) }
-
-		self.rawRepresentation = representation
-		#warning("work in progress")
-		self.derRepresentation = Data() // self.rawRepresentation
-	}
+//	init<D>(rawRepresentation: D) throws where D: DataProtocol {
+//		var representation: Data = Data()
+//		_ = representation.withUnsafeMutableBytes { rawRepresentation.copyBytes(to: $0) }
+//
+//		self.rawRepresentation = representation
+//		#warning("work in progress")
+//		self.derRepresentation = Data() // self.rawRepresentation
+//	}
 
 	init<D>(derRepresentation: D) throws where D: DataProtocol {
 		var representation: Data = Data()
@@ -187,7 +207,7 @@ struct ECDSASignature: ECDSASignatureProtocol {
 
 		self.derRepresentation = representation
 		#warning("work in progress")
-		self.rawRepresentation = Data() // self.derRepresentation
+//		self.rawRepresentation = Data() // self.derRepresentation
 	}
 
 	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R {
