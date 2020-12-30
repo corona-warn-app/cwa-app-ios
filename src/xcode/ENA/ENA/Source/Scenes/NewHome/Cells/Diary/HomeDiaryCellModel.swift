@@ -11,7 +11,6 @@ struct HomeDiaryCellModel {
 	let description = AppStrings.Home.diaryCardBody
 	let buttonTitle = AppStrings.Home.diaryCardButton
 	let image = UIImage(named: "Illu_Diary")
-	let imageDescription = AppStrings.Home.diaryCardImageDescription
 	let accessibilityIdentifier = AccessibilityIdentifiers.Home.diaryCardButton
 
 	let onPrimaryAction: (() -> Void)

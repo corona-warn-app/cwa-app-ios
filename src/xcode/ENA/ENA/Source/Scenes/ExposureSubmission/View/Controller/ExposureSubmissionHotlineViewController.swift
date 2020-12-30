@@ -26,20 +26,14 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		view.backgroundColor = .enaColor(for: .background)
 		title = AppStrings.ExposureSubmissionHotline.title
+
 		setupTableView()
 		setupBackButton()
 		
 		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
 		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -59,7 +53,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	// MARK: - Private
 	
 	private let onSecondaryButtonTap: () -> Void
-	
+
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
@@ -73,7 +67,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	}()
 
 	private func setupTableView() {
-		view.backgroundColor = .enaColor(for: .background)
 		tableView.separatorStyle = .none
 
 		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
@@ -88,7 +81,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 						.body(text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
 							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
 								cell.textLabel?.accessibilityTraits = .header
-						}
+							}
 					]
 				),
 				DynamicSection.section(
@@ -133,11 +126,12 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	}
 
 	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
-			if UIApplication.shared.canOpenURL(url) {
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
+		guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+			  UIApplication.shared.canOpenURL(url) else {
+			Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
+			return
 		}
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
 
 }

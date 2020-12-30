@@ -9,6 +9,7 @@ class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
 
 	func testSetupView() {
 		let vc = ExposureSubmissionHotlineViewController(onSecondaryButtonTap: {})
+
 		_ = vc.view
 		XCTAssertNotNil(vc.tableView)
 		XCTAssertEqual(vc.tableView.numberOfSections, 2)

@@ -39,8 +39,6 @@ class HomeDiaryTableViewCell: UITableViewCell {
 		titleLabel.text = cellModel.title
 		descriptionLabel.text = cellModel.description
 		illustrationView.image = cellModel.image
-		illustrationView.accessibilityLabel = cellModel.imageDescription
-		illustrationView.isAccessibilityElement = true
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
