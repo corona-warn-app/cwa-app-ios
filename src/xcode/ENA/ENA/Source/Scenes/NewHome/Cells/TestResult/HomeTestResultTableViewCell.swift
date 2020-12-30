@@ -61,9 +61,15 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 			}
 			.store(in: &subscriptions)
 
-		cellModel.$accessibilityIdentifier.assign(to: \.accessibilityIdentifier, on: button).store(in: &subscriptions)
-
 		cellModel.$tintColor.assign(to: \.tintColor, on: self).store(in: &subscriptions)
+
+		cellModel.$isActivityIndicatorHidden.assign(to: \.isHidden, on: activityIndicator).store(in: &subscriptions)
+		cellModel.$isActivityIndicatorHidden.map({ !$0 }).assign(to: \.isHidden, on: illustrationView).store(in: &subscriptions)
+
+		cellModel.$isUserInteractionEnabled.assign(to: \.isUserInteractionEnabled, on: self).store(in: &subscriptions)
+		cellModel.$isUserInteractionEnabled.assign(to: \.isEnabled, on: button).store(in: &subscriptions)
+
+		cellModel.$accessibilityIdentifier.assign(to: \.accessibilityIdentifier, on: button).store(in: &subscriptions)
 
 		self.onPrimaryAction = onPrimaryAction
 
@@ -76,6 +82,7 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	@IBOutlet private weak var cardView: HomeCardView!
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var subtitleLabel: ENALabel!
+	@IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet private weak var descriptionLabel: ENALabel!
 	@IBOutlet private weak var illustrationView: UIImageView!
 	@IBOutlet private weak var button: ENAButton!

@@ -63,7 +63,7 @@ final class HomeThankYouTableViewCell: UITableViewCell {
 			let nib = UINib(nibName: nibName, bundle: .main)
 
 			if let itemView = nib.instantiate(withOwner: self, options: nil).first as? HomeItemViewAny {
-				riskViewStackView.addArrangedSubview(itemView)
+				furtherInfoStackView.addArrangedSubview(itemView)
 				itemView.configureAny(with: itemModel)
 			}
 		}

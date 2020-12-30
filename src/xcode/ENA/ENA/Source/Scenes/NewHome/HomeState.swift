@@ -13,7 +13,8 @@ class HomeState: ENStateHandlerUpdating {
 		store: Store,
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
-		enState: ENStateHandler.State
+		enState: ENStateHandler.State,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		if let riskCalculationResult = store.riskCalculationResult {
 			self.riskState = .risk(
@@ -41,6 +42,7 @@ class HomeState: ENStateHandlerUpdating {
 		self.riskProvider = riskProvider
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
+		self.exposureSubmissionService = exposureSubmissionService
 
 		observeRisk()
 	}
@@ -53,12 +55,20 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Internal
 
+	enum TestResultLoadingError {
+		case expired
+		case error(Error)
+	}
+
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
 	@OpenCombine.Published var detectionMode: DetectionMode = .fromBackgroundStatus()
 	@OpenCombine.Published var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
+
 	@OpenCombine.Published var testResult: TestResult?
+	@OpenCombine.Published var testResultIsLoading: Bool = false
+	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvider.manualExposureDetectionState
@@ -96,9 +106,53 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider.requestRisk(userInitiated: userInitiated)
 	}
 
+	func updateTestResult() {
+		// Avoid unnecessary loading.
+		guard testResult == nil || testResult != .positive else { return }
+
+		guard store.registrationToken != nil else {
+			testResult = nil
+			return
+		}
+
+		// Make sure to make the loading cell appear for at least `minRequestTime`.
+		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
+		// Make sure to only trigger this additional delay when no other test result is present already.
+		let requestStart = Date()
+		let minRequestTime: TimeInterval = 0.5
+
+		testResultIsLoading = true
+
+		exposureSubmissionService.getTestResult { [weak self] result in
+			self?.testResultIsLoading = false
+
+			switch result {
+			case .failure(let error):
+				// When we fail here, publish the error to trigger an alert and set the state to pending.
+				self?.testResultLoadingError = .error(error)
+				self?.testResult = .pending
+
+			case .success(let testResult):
+				switch testResult {
+				case .expired:
+					self?.testResultLoadingError = .expired
+					self?.testResult = .expired
+
+				case .invalid, .negative, .positive, .pending:
+					let requestTime = Date().timeIntervalSince(requestStart)
+					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+						self?.testResult = testResult
+					}
+				}
+			}
+		}
+	}
+
 	// MARK: - Private
 
 	private let store: Store
+	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding
 	private let riskConsumer = RiskConsumer()

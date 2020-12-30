@@ -3,8 +3,9 @@
 //
 
 import UIKit
+import OpenCombine
 
-class HomeTableViewController: UITableViewController {
+class HomeTableViewController: UITableViewController, NavigationBarOpacityDelegate {
 
 	// MARK: - Init
 
@@ -35,6 +36,27 @@ class HomeTableViewController: UITableViewController {
 		self.onSettingsCellTap = onSettingsCellTap
 
 		super.init(style: .plain)
+
+		viewModel.state.$testResultLoadingError
+			.sink { [weak self] testResultLoadingError in
+				guard let self = self, let testResultLoadingError = testResultLoadingError else { return }
+
+				self.viewModel.state.testResultLoadingError = nil
+
+				switch testResultLoadingError {
+				case .error(let error):
+					self.alertError(
+						message: error.localizedDescription,
+						title: AppStrings.Home.resultCardLoadingErrorTitle
+					)
+				case .expired:
+					self.alertError(
+						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
+						title: AppStrings.Home.resultCardLoadingErrorTitle
+					)
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -52,6 +74,25 @@ class HomeTableViewController: UITableViewController {
 
 		navigationItem.largeTitleDisplayMode = .never
 		tableView.backgroundColor = .enaColor(for: .separator)
+
+		setupBackgroundFetchAlert()
+
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		viewModel.state.updateTestResult()
+		viewModel.state.requestRisk(userInitiated: false)
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		showInformationHowRiskDetectionWorks()
+		showDeltaOnboarding()
+		showRiskStatusLoweredAlertIfNeeded()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -75,7 +116,7 @@ class HomeTableViewController: UITableViewController {
 			case .testResult, .shownPositiveTestResult:
 				return testResultCell(forRowAt: indexPath)
 			case .thankYou:
-				return UITableViewCell()
+				return thankYouCell(forRowAt: indexPath)
 			}
 		case .diary:
 			return diaryCell(forRowAt: indexPath)
@@ -138,11 +179,18 @@ class HomeTableViewController: UITableViewController {
 		}
 	}
 
+	// MARK: - Protocol NavigationBarOpacityDelegate
+
+	var preferredNavigationBarOpacity: CGFloat {
+		let alpha = (tableView.adjustedContentInset.top + tableView.contentOffset.y) / 32
+		return max(0, min(alpha, 1))
+	}
+
 	// MARK: - Internal
+
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
-	
 	
 	// MARK: - Private
 
@@ -158,6 +206,8 @@ class HomeTableViewController: UITableViewController {
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 
 	private let viewModel: HomeTableViewModel
+
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupBarButtonItems() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
@@ -187,6 +237,10 @@ class HomeTableViewController: UITableViewController {
 		tableView.register(
 			UINib(nibName: String(describing: HomeTestResultTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeTestResultTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeThankYouTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeThankYouTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
@@ -262,6 +316,17 @@ class HomeTableViewController: UITableViewController {
 		return cell
 	}
 
+	private func thankYouCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeThankYouTableViewCell.self), for: indexPath) as? HomeThankYouTableViewCell else {
+			fatalError("Could not dequeue HomeThankYouTableViewCell")
+		}
+
+		let cellModel = HomeThankYouCellModel()
+		cell.configure(with: cellModel)
+
+		return cell
+	}
+
 	private func diaryCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeDiaryTableViewCell.self), for: indexPath) as? HomeDiaryTableViewCell else {
 			fatalError("Could not dequeue HomeDiaryTableViewCell")
@@ -302,6 +367,100 @@ class HomeTableViewController: UITableViewController {
 
 	@IBAction private func infoButtonTapped() {
 		onInfoBarButtonItemTap()
+	}
+
+	private func showInformationHowRiskDetectionWorks() {
+//		#if DEBUG
+//		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
+//			store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+//		}
+//		#endif
+//
+//		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
+//			return
+//		}
+//
+//		let alert = UIAlertController.localizedHowRiskDetectionWorksAlertController(
+//			maximumNumberOfDays: TracingStatusHistory.maxStoredDays
+//		)
+//
+//		present(alert, animated: true) {
+//			self.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+//		}
+	}
+
+	private func showDeltaOnboarding() {
+//		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+//			guard let self = self else { return }
+//
+//			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
+//
+//			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
+//			var delay = 0.5
+//
+//			#if DEBUG
+//			if isUITesting {
+//				// In UI Testing we need to increase the delaye slightly again.
+//				// Otherwise UI Tests fail
+//				delay = 1.5
+//			}
+//			#endif
+//
+//			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+//				let onboardings: [DeltaOnboarding] = [
+//					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
+//				]
+//
+//				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+//				self.deltaOnboardingCoordinator?.finished = { [weak self] in
+//					self?.deltaOnboardingCoordinator = nil
+//				}
+//
+//				self.deltaOnboardingCoordinator?.startOnboarding()
+//			}
+//		}.store(in: &subscriptions)
+	}
+
+	/// This method sets up a background fetch alert, and presents it, if needed.
+	/// Check the `createBackgroundFetchAlert` method for more information.
+	private func setupBackgroundFetchAlert() {
+//		guard let alert = createBackgroundFetchAlert(
+//			status: UIApplication.shared.backgroundRefreshStatus,
+//			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
+//			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert,
+//			store: homeInteractor.store
+//			) else { return }
+//
+//		self.present(
+//			alert,
+//			animated: true,
+//			completion: nil
+//		)
+	}
+
+	func showRiskStatusLoweredAlertIfNeeded() {
+//		guard store.shouldShowRiskStatusLoweredAlert else { return }
+//
+//		let alert = UIAlertController(
+//			title: AppStrings.Home.riskStatusLoweredAlertTitle,
+//			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+//			preferredStyle: .alert
+//		)
+//
+//		let alertAction = UIAlertAction(
+//			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
+//			style: .default
+//		)
+//		alert.addAction(alertAction)
+//
+//		present(alert, animated: true) { [weak self] in
+//			self?.store.shouldShowRiskStatusLoweredAlert = false
+//		}
+	}
+
+	@objc
+	private func refreshUIAfterResumingFromBackground() {
+		viewModel.state.updateTestResult()
 	}
 
 }

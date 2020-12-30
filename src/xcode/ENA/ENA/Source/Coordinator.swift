@@ -66,7 +66,8 @@ class Coordinator: RequiresAppDependencies {
 				store: store,
 				riskProvider: riskProvider,
 				exposureManagerState: exposureManager.exposureManagerState,
-				enState: enStateHandler.state
+				enState: enStateHandler.state,
+				exposureSubmissionService: exposureSubmissionService
 			)
 
 			let homeController = HomeTableViewController(
@@ -117,8 +118,8 @@ class Coordinator: RequiresAppDependencies {
 		} else {
 			rootViewController.dismiss(animated: false)
 			rootViewController.popToRootViewController(animated: false)
-			#warning("Add scroll to top")
-//			homeController?.scrollToTop(animated: false)
+
+			homeController?.scrollToTop(animated: false)
 		}
 	}
 	
@@ -311,7 +312,7 @@ extension Coordinator: ExposureDetectionViewControllerDelegate {
 
 extension Coordinator: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
-//		homeState?.updateTestResultState()
+		homeState?.updateTestResult()
 	}
 }
 

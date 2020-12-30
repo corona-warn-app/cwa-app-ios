@@ -43,6 +43,7 @@ class HomeTableViewModel {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
 
+			Log.info("Reached end of life state.", log: .localData)
 			return [.thankYou]
 		} else if state.positiveTestResultWasShown {
 			// This is shown when a positive test result was already shown to the user. The risk cell will not be shown in that case.
