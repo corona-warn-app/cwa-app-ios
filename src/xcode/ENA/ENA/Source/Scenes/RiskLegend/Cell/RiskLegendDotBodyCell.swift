@@ -1,10 +1,13 @@
-//
+////
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
 class RiskLegendDotBodyCell: UITableViewCell {
+
+	// MARK: - Private
+
 	@IBOutlet weak var dotView: UIView!
+
 }

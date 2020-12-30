@@ -148,10 +148,15 @@ class Coordinator: RequiresAppDependencies {
 
 extension Coordinator: HomeViewControllerDelegate {
 	func showRiskLegend() {
+		let riskLegendViewController = RiskLegendViewController(
+			onDismiss: { [weak rootViewController] in
+				rootViewController?.dismiss(animated: true)
+			}
+		)
+
 		rootViewController.present(
-			AppStoryboard.riskLegend.initiateInitial(),
-			animated: true,
-			completion: nil
+			UINavigationController(rootViewController: riskLegendViewController),
+			animated: true
 		)
 	}
 

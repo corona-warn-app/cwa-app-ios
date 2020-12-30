@@ -8,12 +8,10 @@ enum AppStoryboard: String {
 	case home = "Home"
 	case onboarding = "Onboarding"
 	case exposureNotificationSetting = "ExposureNotificationSetting"
-	case exposureSubmission = "ExposureSubmission"
 	case settings = "Settings"
 	case developerMenu = "DeveloperMenu"
 	case inviteFriends = "InviteFriends"
 	case exposureDetection = "ExposureDetection"
-	case riskLegend = "RiskLegend"
 
 	var instance: UIStoryboard {
 		UIStoryboard(name: rawValue, bundle: nil)
