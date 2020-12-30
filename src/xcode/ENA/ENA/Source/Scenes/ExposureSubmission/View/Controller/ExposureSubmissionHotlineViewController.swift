@@ -8,6 +8,13 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 
 	// MARK: - Init
 
+	convenience init() {
+		self.init(
+			showTANScreen: {},
+			showCallHotline: {}
+		)
+	}
+
 	init(
 		showTANScreen: @escaping () -> Void,
 		showCallHotline: @escaping () -> Void
