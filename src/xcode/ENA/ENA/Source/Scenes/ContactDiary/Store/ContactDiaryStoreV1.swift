@@ -28,8 +28,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		databaseQueue: FMDatabaseQueue,
 		schema: ContactDiaryStoreSchemaV1,
 		key: String,
-		dateProvider: DateProviding = DateProvider(),
-		latestDBVersion: Int = 1
+		dateProvider: DateProviding = DateProvider()
 	) {
 		self.databaseQueue = databaseQueue
 		self.key = key
@@ -646,7 +645,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	}()
 
 	private let databaseQueue: FMDatabaseQueue
-	private let latestVersion: Int
 
 	func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?

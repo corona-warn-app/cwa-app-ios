@@ -660,8 +660,9 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 			// We need to check for the following:
 			// (userVersion = 0) means: no database was created and stored previously by the user --> this is the first database --> create new updated schema
 			// if a database was stored but not the latest version --> migrate the old schema
-			 if database.userVersion != 0 && database.userVersion < latestVersion {
+			if database.userVersion != 0 && database.userVersion < latestVersion {
 				// we create the migration here and not in the init() because the database need to be open and decrypted before migration or it will fail
+				// we added the migration twice because there is a bug here; initial database version should be 0 not 1, this is a temp fix
 				let migrations: [Migration] = [ContactDiaryMigration1To2(database: database), ContactDiaryMigration1To2(database: database)]
 				let migrator = SerialMigrator(latestVersion: latestVersion, database: database, migrations: migrations)
 				try? migrator.migrate()
@@ -974,12 +975,7 @@ extension ContactDiaryStoreV2 {
 
 extension ContactDiaryStoreV2 {
 	convenience init?() {
-		
-		let storeURL = ContactDiaryStoreV2.storeURL
-		let db = FMDatabase(url: storeURL)
-		let latestDBVersion = 2
-		// we added the migration twice because there is a bug here; initial database version should be 0 not 1, this is a temp fix
-		
+		let latestDBVersion = 2		
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV2.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
