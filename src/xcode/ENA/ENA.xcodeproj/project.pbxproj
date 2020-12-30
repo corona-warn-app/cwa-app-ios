@@ -624,9 +624,7 @@
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
 		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
-		EBA4038D2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */; };
 		EBA403932588E0C300D1F039 /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = EBA403922588E0C300D1F039 /* DiffableDataSources */; };
-		EBA403A42588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403A32588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift */; };
 		EBA403D02589260D00D1F039 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = EBA403CE2589260D00D1F039 /* LICENSE */; };
 		EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
@@ -1384,7 +1382,6 @@
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
-		EBA403A32588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBPCollectionViewCompositionalLayoutInteroperability.swift; sourceTree = "<group>"; };
 		EBA403CE2589260D00D1F039 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
 		EBBABC46256402A9005B7C07 /* default_app_config_18 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_18; sourceTree = "<group>"; };
@@ -1448,7 +1445,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				015E8C0824C997D200C0A4B3 /* CWASQLite.framework in Frameworks */,
-				EBA4038D2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout in Frameworks */,
 				EB7AF62A2587E98C00D94CA8 /* OpenCombineFoundation in Frameworks */,
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
@@ -3667,7 +3663,6 @@
 			isa = PBXGroup;
 			children = (
 				EBA403CD258925C000D1F039 /* ColorCompatibility */,
-				EBA403A32588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift */,
 			);
 			path = iOS12Support;
 			sourceTree = "<group>";
@@ -3811,7 +3806,6 @@
 				EB7AF6292587E98C00D94CA8 /* OpenCombineFoundation */,
 				EB7AF62B2587E98C00D94CA8 /* OpenCombine */,
 				EB7AF62D2587E98C00D94CA8 /* OpenCombineDispatch */,
-				EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */,
 				EBA403922588E0C300D1F039 /* DiffableDataSources */,
 			);
 			productName = ENA;
@@ -3919,7 +3913,6 @@
 				B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
-				EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */,
 				EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
@@ -4403,7 +4396,6 @@
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
 				EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */,
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
-				EBA403A42588E6D400D1F039 /* IBPCollectionViewCompositionalLayoutInteroperability.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
 				019C9F34258951BB00B26392 /* DiaryDay.swift in Sources */,
@@ -5810,14 +5802,6 @@
 				version = 0.11.0;
 			};
 		};
-		EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout.git";
-			requirement = {
-				kind = exactVersion;
-				version = 0.6.7;
-			};
-		};
 		EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ra1028/DiffableDataSources";
@@ -5858,11 +5842,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */;
 			productName = OpenCombineDispatch;
-		};
-		EBA4038C2588E06E00D1F039 /* IBPCollectionViewCompositionalLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EBA4038B2588E06E00D1F039 /* XCRemoteSwiftPackageReference "IBPCollectionViewCompositionalLayout" */;
-			productName = IBPCollectionViewCompositionalLayout;
 		};
 		EBA403922588E0C300D1F039 /* DiffableDataSources */ = {
 			isa = XCSwiftPackageProductDependency;
