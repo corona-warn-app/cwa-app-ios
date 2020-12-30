@@ -767,11 +767,8 @@
 		01A4DC6725922EB3007D5794 /* HomeLoadingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingItemView.swift; sourceTree = "<group>"; };
 		01A4DC6825922EB4007D5794 /* HomeLoadingItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeLoadingItemView.xib; sourceTree = "<group>"; };
 		01A4DC6925922EB4007D5794 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
-		01A4DC7725922EBC007D5794 /* HomeTestResultLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultLoadingCell.swift; sourceTree = "<group>"; };
 		01A4DC7825922EBD007D5794 /* HomeTestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTestResultTableViewCell.xib; sourceTree = "<group>"; };
 		01A4DC7925922EBD007D5794 /* HomeTestResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultTableViewCell.swift; sourceTree = "<group>"; };
-		01A4DC7A25922EBD007D5794 /* HomeTestResultLoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTestResultLoadingCell.xib; sourceTree = "<group>"; };
-		01A4DC8725922F01007D5794 /* HomeTestResultLoadingCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultLoadingCellConfigurator.swift; sourceTree = "<group>"; };
 		01A4DC8C25922F05007D5794 /* HomeTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModel.swift; sourceTree = "<group>"; };
 		01A4DCB5259264F9007D5794 /* HomeThankYouCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouCellModel.swift; sourceTree = "<group>"; };
 		01A4DCFD25926A66007D5794 /* HomeImageItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeImageItemViewModel.swift; sourceTree = "<group>"; };
@@ -1670,9 +1667,6 @@
 		01A4DC8025922EC3007D5794 /* TestResult */ = {
 			isa = PBXGroup;
 			children = (
-				01A4DC7725922EBC007D5794 /* HomeTestResultLoadingCell.swift */,
-				01A4DC7A25922EBD007D5794 /* HomeTestResultLoadingCell.xib */,
-				01A4DC8725922F01007D5794 /* HomeTestResultLoadingCellConfigurator.swift */,
 				01A4DC7925922EBD007D5794 /* HomeTestResultTableViewCell.swift */,
 				01A4DC7825922EBD007D5794 /* HomeTestResultTableViewCell.xib */,
 				01A4DC8C25922F05007D5794 /* HomeTestResultCellModel.swift */,
