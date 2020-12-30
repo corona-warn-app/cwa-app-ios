@@ -624,7 +624,6 @@
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
 		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
-		EBA403932588E0C300D1F039 /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = EBA403922588E0C300D1F039 /* DiffableDataSources */; };
 		EBA403D02589260D00D1F039 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = EBA403CE2589260D00D1F039 /* LICENSE */; };
 		EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
@@ -1449,7 +1448,6 @@
 				EB7AF62E2587E98C00D94CA8 /* OpenCombineDispatch in Frameworks */,
 				B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
-				EBA403932588E0C300D1F039 /* DiffableDataSources in Frameworks */,
 				B1EDFD88248E741B00E7EAFF /* SwiftProtobuf in Frameworks */,
 				EB7AF62C2587E98C00D94CA8 /* OpenCombine in Frameworks */,
 				B1EDFD89248E741B00E7EAFF /* ZIPFoundation in Frameworks */,
@@ -3806,7 +3804,6 @@
 				EB7AF6292587E98C00D94CA8 /* OpenCombineFoundation */,
 				EB7AF62B2587E98C00D94CA8 /* OpenCombine */,
 				EB7AF62D2587E98C00D94CA8 /* OpenCombineDispatch */,
-				EBA403922588E0C300D1F039 /* DiffableDataSources */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -3913,7 +3910,6 @@
 				B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
-				EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -5802,14 +5798,6 @@
 				version = 0.11.0;
 			};
 		};
-		EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ra1028/DiffableDataSources";
-			requirement = {
-				kind = exactVersion;
-				version = 0.4.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -5842,11 +5830,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */;
 			productName = OpenCombineDispatch;
-		};
-		EBA403922588E0C300D1F039 /* DiffableDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EBA403912588E0C300D1F039 /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
-			productName = DiffableDataSources;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
