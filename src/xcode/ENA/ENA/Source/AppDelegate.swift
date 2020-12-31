@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.client = HTTPClient(configuration: configuration)
 		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
-		downloadedPackagesStore.keyValueStore = self.store
+		self.downloadedPackagesStore.keyValueStore = self.store
 	}
 
 	// MARK: - Protocol UIApplicationDelegate
@@ -49,6 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		if AppDelegate.isAppDisabled() {
+			// Show Disabled UI
+			setupAppDisabledUI()
+			
+			return true
+		}
+		
 		setupUI()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -170,12 +177,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
-	let exposureManager: ExposureManager = {
+	lazy var exposureManager: ExposureManager = {
 		let keys = [ENTemporaryExposureKey()]
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	let exposureManager: ExposureManager = ENAExposureManager()
+	lazy var exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 
 	func requestUpdatedExposureState() {
@@ -530,6 +537,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self.privacyProtectionWindow?.isHidden = true
 			self.privacyProtectionWindow = nil
 		}
+	}
+	
+	private static func isAppDisabled() -> Bool {
+		if #available(iOS 13.7, *) {
+			return false
+		} else if #available(iOS 13.5, *) {
+			return true
+		} else if NSClassFromString("ENManager") != nil {
+			return false
+		} else {
+			return true
+		}
+	}
+	
+	private func setupAppDisabledUI() {
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.rootViewController = AppDisabledViewController()
+		window?.makeKeyAndVisible()
 	}
 
 }
