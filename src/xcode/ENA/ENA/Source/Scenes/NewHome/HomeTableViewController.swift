@@ -241,6 +241,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeTestResultTableViewCell.self)
 		)
 		tableView.register(
+			UINib(nibName: String(describing: HomeShownPositiveTestResultTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self)
+		)
+		tableView.register(
 			UINib(nibName: String(describing: HomeThankYouTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeThankYouTableViewCell.self)
 		)
@@ -302,8 +306,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onUpdate: { [weak self] in
 				guard let self = self, self.tableView.visibleCells.contains(cell) else { return }
 				// Updates the cell height whenever the content of the cell changes
-				self.tableView.beginUpdates()
-				self.tableView.endUpdates()
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+				}
 			}
 		)
 		cell.configure(
