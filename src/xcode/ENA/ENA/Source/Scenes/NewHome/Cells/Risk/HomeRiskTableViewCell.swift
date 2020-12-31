@@ -114,7 +114,7 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	@IBOutlet private weak var titleLabel: ENALabel!
-	@IBOutlet weak var plainChevronView: UIView!
+	@IBOutlet private weak var plainChevronView: UIView!
 	@IBOutlet private weak var circledChevronImageView: UIImageView!
 	@IBOutlet private weak var bodyLabel: ENALabel!
 	@IBOutlet private weak var button: ENAButton!

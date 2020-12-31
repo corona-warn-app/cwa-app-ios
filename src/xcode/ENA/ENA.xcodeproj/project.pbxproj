@@ -45,6 +45,9 @@
 		017AD0C1259BBD1700FA2B3F /* HomeTestResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DC7925922EBD007D5794 /* HomeTestResultTableViewCell.swift */; };
 		017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A4DC7825922EBD007D5794 /* HomeTestResultTableViewCell.xib */; };
 		017AD0C9259BBD2E00FA2B3F /* HomeTestResultCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DC8C25922F05007D5794 /* HomeTestResultCellModel.swift */; };
+		017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A4DC5625922EB0007D5794 /* HomeShownPositiveTestResultTableViewCell.xib */; };
+		017AD10F259DC46E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DC5725922EB1007D5794 /* HomeShownPositiveTestResultTableViewCell.swift */; };
+		017AD114259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
 		01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
@@ -726,6 +729,7 @@
 		01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENExposureConfiguration+Convenience.swift"; sourceTree = "<group>"; };
 		0177F48125501111009DD568 /* RiskCalculationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCalculationResult.swift; sourceTree = "<group>"; };
 		0177F4B025503805009DD568 /* ScanInstanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanInstanceTest.swift; sourceTree = "<group>"; };
+		017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModel.swift; sourceTree = "<group>"; };
 		0190982B257E5AF70065D050 /* DiaryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoordinator.swift; sourceTree = "<group>"; };
 		01909834257E606C0065D050 /* DiaryEditEntriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewController.swift; sourceTree = "<group>"; };
 		0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModel.swift; sourceTree = "<group>"; };
@@ -752,8 +756,8 @@
 		01A1B460252E17F900841B63 /* ExposureSubmissionCoordinatorModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinatorModelTests.swift; sourceTree = "<group>"; };
 		01A236792519D1E80043D9F8 /* ExposureSubmissionWarnOthersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewModel.swift; sourceTree = "<group>"; };
 		01A23684251A22E90043D9F8 /* ExposureSubmissionQRInfoModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRInfoModelTests.swift; sourceTree = "<group>"; };
-		01A4DC5625922EB0007D5794 /* RiskFindingPositiveCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskFindingPositiveCollectionViewCell.xib; sourceTree = "<group>"; };
-		01A4DC5725922EB1007D5794 /* RiskFindingPositiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskFindingPositiveCollectionViewCell.swift; sourceTree = "<group>"; };
+		01A4DC5625922EB0007D5794 /* HomeShownPositiveTestResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeShownPositiveTestResultTableViewCell.xib; sourceTree = "<group>"; };
+		01A4DC5725922EB1007D5794 /* HomeShownPositiveTestResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultTableViewCell.swift; sourceTree = "<group>"; };
 		01A4DC5925922EB1007D5794 /* HomeRiskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeRiskTableViewCell.xib; sourceTree = "<group>"; };
 		01A4DC5A25922EB1007D5794 /* HomeThankYouTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeThankYouTableViewCell.xib; sourceTree = "<group>"; };
 		01A4DC5B25922EB1007D5794 /* HomeThankYouTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouTableViewCell.swift; sourceTree = "<group>"; };
@@ -1636,8 +1640,9 @@
 				01A4DC5D25922EB2007D5794 /* HomeRiskTableViewCell.swift */,
 				01A4DC5925922EB1007D5794 /* HomeRiskTableViewCell.xib */,
 				01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */,
-				01A4DC5725922EB1007D5794 /* RiskFindingPositiveCollectionViewCell.swift */,
-				01A4DC5625922EB0007D5794 /* RiskFindingPositiveCollectionViewCell.xib */,
+				01A4DC5725922EB1007D5794 /* HomeShownPositiveTestResultTableViewCell.swift */,
+				01A4DC5625922EB0007D5794 /* HomeShownPositiveTestResultTableViewCell.xib */,
+				017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */,
 			);
 			path = Risk;
 			sourceTree = "<group>";
@@ -3988,6 +3993,7 @@
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
 				01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
+				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
 				01D02733258BD36800B6389A /* MainSettingsCell.xib in Resources */,
 				BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
@@ -4105,6 +4111,7 @@
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
+				017AD10F259DC46E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.swift in Sources */,
 				AB7420AC251B67A8006666AC /* DeltaOnboardingV15.swift in Sources */,
 				71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */,
 				BA6C8B05254D6B1F008344F5 /* RiskCalculation.swift in Sources */,
@@ -4308,6 +4315,7 @@
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
+				017AD114259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift in Sources */,
 				0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */,
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
 				352F25A824EFCBDE00ACDFF3 /* ServerEnvironment.swift in Sources */,

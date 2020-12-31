@@ -35,7 +35,7 @@ class HomeDiaryTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: HomeDiaryCellModel) {
+	func configure(with cellModel: HomeDiaryCellModel, onPrimaryAction: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
 		descriptionLabel.text = cellModel.description
 		illustrationView.image = cellModel.image
@@ -47,7 +47,7 @@ class HomeDiaryTableViewCell: UITableViewCell {
 
 		self.tintColor = tintColor
 
-		self.onPrimaryAction = cellModel.onPrimaryAction
+		self.onPrimaryAction = onPrimaryAction
 	}
 
 	// MARK: - Private

@@ -113,8 +113,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			switch viewModel.riskAndTestRows[indexPath.row] {
 			case .risk:
 				return riskCell(forRowAt: indexPath)
-			case .testResult, .shownPositiveTestResult:
+			case .testResult:
 				return testResultCell(forRowAt: indexPath)
+			case .shownPositiveTestResult:
+				return shownPositiveTestResultCell(forRowAt: indexPath)
 			case .thankYou:
 				return thankYouCell(forRowAt: indexPath)
 			}
@@ -261,8 +263,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
 		}
 
-		let cellModel = HomeExposureLoggingCellModel(state: viewModel.state)
-		cell.configure(with: cellModel)
+		cell.configure(with: HomeExposureLoggingCellModel(state: viewModel.state))
 
 		return cell
 	}
@@ -316,6 +317,22 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
+	private func shownPositiveTestResultCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeShownPositiveTestResultTableViewCell.self), for: indexPath) as? HomeShownPositiveTestResultTableViewCell else {
+			fatalError("Could not dequeue HomeShownPositiveTestResultTableViewCell")
+		}
+
+		cell.configure(
+			with: HomeShownPositiveTestResultCellModel(),
+			onPrimaryAction: { [weak self] in
+				guard let self = self else { return }
+				self.onTestResultCellTap(self.viewModel.state.testResult)
+			}
+		)
+
+		return cell
+	}
+
 	private func thankYouCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeThankYouTableViewCell.self), for: indexPath) as? HomeThankYouTableViewCell else {
 			fatalError("Could not dequeue HomeThankYouTableViewCell")
@@ -332,10 +349,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeDiaryTableViewCell")
 		}
 
-		let cellModel = HomeDiaryCellModel(onPrimaryAction: { [weak self] in
-			self?.onDiaryCellTap()
-		})
-		cell.configure(with: cellModel)
+		cell.configure(
+			with: HomeDiaryCellModel(),
+			onPrimaryAction: { [weak self] in
+				self?.onDiaryCellTap()
+			}
+		)
 
 		return cell
 	}
