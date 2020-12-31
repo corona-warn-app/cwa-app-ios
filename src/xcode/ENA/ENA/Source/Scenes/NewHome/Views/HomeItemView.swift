@@ -4,36 +4,6 @@
 
 import UIKit
 
-
-//protocol HomeItemViewModelAny {
-//	var viewAnyType: UIView.Type { get }
-//
-//	func configureAny(riskView: UIView)
-//}
-//
-//protocol HomeItemViewModel: HomeItemViewModelAny {
-//	associatedtype ViewType: UIView
-//	func configure(riskView: ViewType)
-//}
-//
-//extension HomeItemViewModel {
-//	var viewAnyType: UIView.Type {
-//		ViewType.self
-//	}
-//
-//	func configureAny(riskView: UIView) {
-//		if let riskView = riskView as? ViewType {
-//			configure(riskView: riskView)
-//		} else {
-//			let error = "\(riskView) isn't conformed ViewType"
-//			Log.error(error, log: .ui)
-//			fatalError(error)
-//		}
-//	}
-//}
-
-
-
 protocol HomeItemViewModel {
 
 	var ViewType: HomeItemViewAny.Type { get }
