@@ -310,7 +310,27 @@ class ContactDiaryStoreV1Tests: XCTestCase {
 		XCTAssertNil(fetchPerson2ResultAfterDelete)
 	}
 
-	func test_When_sinkOnDiaryDays_Then_diaryDaysAreReturned() {
+	func test_When_sinkOnDiaryDays_Then_diaryDaysAreReturnedWithCorrectStartingDay() throws {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+
+		// Set time between midnight and 1 am local time to check that the correct starting day considering the current time zone is returned.
+		let dateString = "2020-12-31 00:10"
+		let today = try XCTUnwrap(dateFormatter.date(from: dateString))
+
+		let databaseQueue = makeDatabaseQueue()
+		let dateProviderStub = DateProviderStub(today: today)
+		let store = makeContactDiaryStore(with: databaseQueue, dateProvider: dateProviderStub)
+
+		store.diaryDaysPublisher.sink { diaryDays in
+			// Only the last 14 days (including today) should be returned.
+			XCTAssertEqual(diaryDays.count, 14)
+
+			XCTAssertEqual(diaryDays[0].formattedDate, "Donnerstag, 31.12.20")
+		}.store(in: &subscriptions)
+	}
+
+	func test_When_sinkOnDiaryDays_Then_diaryDaysWithCorrectEntriesAreReturned() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
