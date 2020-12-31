@@ -2,39 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "DiffableDataSources",
-        "repositoryURL": "https://github.com/ra1028/DiffableDataSources",
-        "state": {
-          "branch": null,
-          "revision": "581b4f8d1634e83c6b33caaafdc6a115a74650c3",
-          "version": "0.4.0"
-        }
-      },
-      {
-        "package": "DifferenceKit",
-        "repositoryURL": "https://github.com/ra1028/DifferenceKit.git",
-        "state": {
-          "branch": null,
-          "revision": "14c66681e12a38b81045f44c6c29724a0d4b0e72",
-          "version": "1.1.5"
-        }
-      },
-      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
           "branch": null,
           "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
           "version": "2.7.7"
-        }
-      },
-      {
-        "package": "IBPCollectionViewCompositionalLayout",
-        "repositoryURL": "https://github.com/kishikawakatsumi/IBPCollectionViewCompositionalLayout.git",
-        "state": {
-          "branch": null,
-          "revision": "ce7156f0a8f087d92feb23577f9ce1bf10090a29",
-          "version": "0.6.7"
         }
       },
       {

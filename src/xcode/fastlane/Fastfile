@@ -63,7 +63,7 @@ platform :ios do
       mode: :lint,
       output_file: "swiftlint.result.json",
       config_file: "ENA/.swiftlint.yml",
-      strict: true,
+      strict: false,
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
@@ -71,7 +71,7 @@ platform :ios do
     # Combined Unit & UI Tests
     run_tests(
       scheme: "ENA",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=YES",
+      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
       testplan: "AllTests",
       only_test_configurations: ["DE"],
       devices: ["iPhone 11"],
