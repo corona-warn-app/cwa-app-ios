@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum CellConfiguratorPositionInSection {
+enum CellPositionInSection {
 	case first
 	case other
 	case last

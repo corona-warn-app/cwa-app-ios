@@ -90,7 +90,7 @@
 		01A4DD0325926A6A007D5794 /* HomeTextItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0225926A6A007D5794 /* HomeTextItemViewModel.swift */; };
 		01A4DD0825926A6E007D5794 /* HomeListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0725926A6E007D5794 /* HomeListItemViewModel.swift */; };
 		01A4DD0D25926A73007D5794 /* HomeLoadingItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */; };
-		01A4DD3825935AC1007D5794 /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD3725935AC1007D5794 /* CellConfiguratorIndexPosition.swift */; };
+		01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */; };
 		01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */; };
 		01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D02765258BD61600B6389A /* NotificationSettingsOnTableViewCell.xib */; };
 		01A6EFCB258BE9C60001D8C2 /* NotificationSettingsOffTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6EFB4258BD6270001D8C2 /* NotificationSettingsOffTableViewCell.xib */; };
@@ -775,7 +775,7 @@
 		01A4DD0225926A6A007D5794 /* HomeTextItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTextItemViewModel.swift; sourceTree = "<group>"; };
 		01A4DD0725926A6E007D5794 /* HomeListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemViewModel.swift; sourceTree = "<group>"; };
 		01A4DD0C25926A72007D5794 /* HomeLoadingItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLoadingItemViewModel.swift; sourceTree = "<group>"; };
-		01A4DD3725935AC1007D5794 /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
+		01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellPositionInSection.swift; sourceTree = "<group>"; };
 		01A4DD4225935D1F007D5794 /* HomeRiskCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModel.swift; sourceTree = "<group>"; };
 		01A6EFB4258BD6270001D8C2 /* NotificationSettingsOffTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsOffTableViewCell.xib; sourceTree = "<group>"; };
 		01A97DD02506767E00C07C37 /* DatePickerOptionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerOptionViewModelTests.swift; sourceTree = "<group>"; };
@@ -1659,7 +1659,6 @@
 				01A4DC6925922EB4007D5794 /* HomeListItemView.swift */,
 				01A4DC6425922EB3007D5794 /* HomeListItemView.xib */,
 				01A4DD0725926A6E007D5794 /* HomeListItemViewModel.swift */,
-				01A4DD3725935AC1007D5794 /* CellConfiguratorIndexPosition.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1902,6 +1901,7 @@
 				01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */,
 				01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */,
 				01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */,
+				01A4DD3725935AC1007D5794 /* CellPositionInSection.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -4100,7 +4100,7 @@
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
-				01A4DD3825935AC1007D5794 /* CellConfiguratorIndexPosition.swift in Sources */,
+				01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */,
 				357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				0190987D257E64C70065D050 /* DiaryCoordinator.swift in Sources */,

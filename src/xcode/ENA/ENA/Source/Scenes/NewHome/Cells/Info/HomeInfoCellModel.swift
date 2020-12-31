@@ -45,7 +45,7 @@ struct HomeInfoCellModel {
 
 	var title: String
 	var description: String?
-	var position: CellConfiguratorPositionInSection
+	var position: CellPositionInSection
 	var accessibilityIdentifier: String
 
 }

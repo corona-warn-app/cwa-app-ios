@@ -53,7 +53,7 @@ class HomeInfoTableViewCell: UITableViewCell {
 		accessibilityTraits = .button
 	}
 
-	private func configureBorders(for position: CellConfiguratorPositionInSection) {
+	private func configureBorders(for position: CellPositionInSection) {
 		switch position {
 		case .first:
 			topDividerView.isHidden = false
