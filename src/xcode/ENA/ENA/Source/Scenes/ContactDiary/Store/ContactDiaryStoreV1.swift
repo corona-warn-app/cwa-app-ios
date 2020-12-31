@@ -646,7 +646,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	private let databaseQueue: FMDatabaseQueue
 
-	func openAndSetup() -> DiaryStoringVoidResult {
+	private func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -685,9 +685,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		let schemaCreateResult = schema.create()
 		if case let .failure(error) = schemaCreateResult {
 			return .failure(.database(error))
-		}
-		databaseQueue.inDatabase { database in
-			print(database.tableExists("Location"))
 		}
 		return .success(())
 	}

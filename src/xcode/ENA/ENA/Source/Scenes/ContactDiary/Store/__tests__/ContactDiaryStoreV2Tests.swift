@@ -76,7 +76,6 @@ class ContactDiaryStoreV2Tests: XCTestCase {
 	
 	private func fetchEntries(for table: String, with id: Int, from databaseQueue: FMDatabaseQueue) -> FMResultSet? {
 		var result: FMResultSet?
-
 		databaseQueue.inDatabase { database in
 			let sql =
 			"""
@@ -88,15 +87,12 @@ class ContactDiaryStoreV2Tests: XCTestCase {
 					id = '\(id)'
 			;
 			"""
-
 			guard let queryResult = database.executeQuery(sql, withParameterDictionary: nil) else {
 				return
 			}
-
 			guard queryResult.next() else {
 				return
 			}
-
 			result = queryResult
 		}
 

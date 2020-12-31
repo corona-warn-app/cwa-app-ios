@@ -915,23 +915,6 @@ extension ContactDiaryStoreV2 {
 		}
 	}
 
-//	convenience init?() {
-//		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV2.storeURL.path) else {
-//			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
-//			return nil
-//		}
-//
-//		let schema = ContactDiaryStoreSchemaV1(
-//			databaseQueue: databaseQueue
-//		)
-//
-//		self.init(
-//			databaseQueue: databaseQueue,
-//			schema: schema,
-//			key: ContactDiaryStoreV2.encryptionKey
-//		)
-//	}
-
 	private static var storeURL: URL {
 		storeDirectoryURL
 			.appendingPathComponent("ContactDiary")
