@@ -1,5 +1,5 @@
 <h1 align="center">
-    Corona Warn App: iOS
+    Corona Warn App - iOS
 </h1>
 
 <p align="center">
