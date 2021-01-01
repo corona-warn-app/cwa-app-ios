@@ -12,14 +12,14 @@ import Foundation
 // constants: Names of the palettes
 let c_number_of_available_palettes = 9
 let c_summerTime : String = AppStrings.palette.summerTime
-let c_darkPink : String = "Dark Pink"
-let c_red : String = "Red"
-let c_green : String = "Green"
-let c_blue : String = "Blue"
-let c_gray : String = "Gray"
-let c_palette01 : String = "P01"
-let c_palette02 : String = "P02"
-let c_palette03 : String = "P03"
+let c_darkPink : String = AppStrings.palette.darkPink
+let c_red : String = AppStrings.palette.red
+let c_green : String = AppStrings.palette.green
+let c_blue : String = AppStrings.palette.blue
+let c_gray : String = AppStrings.palette.gray
+let c_palette01 : String = AppStrings.palette.p01
+let c_palette02 : String = AppStrings.palette.p02
+let c_palette03 : String = AppStrings.palette.p03
 
 // constants: file names for thumbnails in Light & Dark Mode
 let c_tn_summerTime_lm = "Standard Light Mode"

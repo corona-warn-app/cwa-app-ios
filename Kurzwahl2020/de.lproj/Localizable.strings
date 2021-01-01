@@ -80,4 +80,11 @@
 
 // Palette
 "palette_summerTime" = "Sommer";
-
+"palette_darkPink" = "Dark Pink";
+"palette_red" = "Rot";
+"palette_green" = "Grün";
+"palette_blue" = "Blau";
+"palette_gray" = "Grau";
+"palette_p01" = "P01";
+"palette_p02" = "P02";
+"palette_p03" = "P03";
