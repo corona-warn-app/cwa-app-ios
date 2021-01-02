@@ -4,7 +4,9 @@
 
 import Foundation
 import CommonCrypto
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 
 final class CoronaWarnURLSessionDelegate: NSObject {
 	private let localPublicKey: String

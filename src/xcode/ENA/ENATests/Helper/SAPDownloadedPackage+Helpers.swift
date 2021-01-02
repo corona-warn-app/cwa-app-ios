@@ -14,7 +14,7 @@ extension SAPDownloadedPackage {
 	/// - note: Will SHA256 hash the data
 	static func makeSignature(data: Data, key: PrivateKeyProvider, bundleId: String = "de.rki.coronawarnapp") throws -> SAP_External_Exposurenotification_TEKSignature {
 		var signature = SAP_External_Exposurenotification_TEKSignature()
-		//signature.signature = try key.signature(for: data).derRepresentation // TODO: implement!
+		signature.signature = try key.signature(for: data).derRepresentation
 		signature.signatureInfo = makeSignatureInfo(bundleId: bundleId)
 
 		return signature
@@ -89,8 +89,8 @@ struct CryptoProvider {
 
 	/// Create a private signing key
 	/// - Returns: The key as `PrivateKeyProvider`
-	func createPrivateKey() -> PrivateKeyProvider {
-		if #available(iOS 13.0, *) {
+	func createPrivateKey(useFallback: Bool = false) -> PrivateKeyProvider {
+		if #available(iOS 13.0, *), !useFallback {
 			return P256.Signing.PrivateKey()
 		} else {
 			preconditionFailure() // work in progress
@@ -101,7 +101,7 @@ struct CryptoProvider {
 	///
 	/// - Parameter privateKey: The private key to derive the public key from. If no key is given, the default private key will be created
 	/// - Returns:The requested public key
-	func createPublicKey(from privateKey: PrivateKeyProvider? = nil) -> PublicKeyProvider {
+	func createPublicKey(from privateKey: PrivateKeyProvider? = nil) -> PublicKeyProtocol {
 		let priv = privateKey ?? createPrivateKey()
 		return PublicKey(rawRepresentation: priv.publicKeyRaw)
 	}
@@ -109,7 +109,7 @@ struct CryptoProvider {
 	/// Creates a new key pair
 	///
 	/// - Returns:A tuple containing a private key and it's corresponding public key
-	func createKeyPair() -> (PrivateKeyProvider, PublicKeyProvider) {
+	func createKeyPair() -> (PrivateKeyProvider, PublicKeyProtocol) {
 		let priv = createPrivateKey()
 		return (priv, PublicKey(rawRepresentation: priv.publicKeyRaw))
 	}

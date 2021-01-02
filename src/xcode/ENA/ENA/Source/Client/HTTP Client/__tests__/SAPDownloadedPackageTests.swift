@@ -11,17 +11,10 @@ import ZIPFoundation
 final class SAPDownloadedPackageTests: XCTestCase {
 
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
-	
-	private lazy var signingKey: PrivateKeyProvider = {
-		if #available(iOS 13.0, *) {
-			return P256.Signing.PrivateKey()
-		} else {
-			preconditionFailure() // work in progress
-		}
-	}()
-	private lazy var mockKeyProvider: PublicKeyProvider = {
-		PublicKey(rawRepresentation: signingKey.publicKeyRaw)
-	}()
+
+	private let crypto = CryptoProvider()
+	private lazy var signingKey: PrivateKeyProvider = crypto.createPrivateKey()
+	private lazy var mockKeyProvider: PublicKeyProtocol = crypto.createPublicKey(from: signingKey)
 	private lazy var verifier = SAPDownloadedPackage.Verifier(key: { self.mockKeyProvider })
 	
 
@@ -74,8 +67,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	}
 
 	func testVerifySignature_OneSignatureFails() throws {
-		// Test the case where there are multiple signatures, and one is invalid
-		// As long as one is valid, we should still pass.
+		// Create and invalidate signature
 		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		var invalidSignature = try SAPDownloadedPackage.makeSignature(data: data, key: signingKey)
 		invalidSignature.signature.append(Data(bytes: [0xE], count: 1))

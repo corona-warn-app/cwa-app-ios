@@ -65,7 +65,7 @@ struct SAPDownloadedPackage: Fingerprinting {
 					continue
 				}
 
-				if publicKey.isValidSignature(signature, for: package.bin) {
+				if publicKey.isValid(signature: signature, for: package.bin) {
 					return true
 				}
 			}

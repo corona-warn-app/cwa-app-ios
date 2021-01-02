@@ -15,11 +15,11 @@ extension Data {
 
 	/// SHA 256 hash of the current Data
 	/// - Returns: Data representation of the hash value
-	func sha256() -> Data {
-		if #available(iOS 13.0, *) {
+	func sha256(enforceFallback: Bool = false) -> Data {
+		if #available(iOS 13.0, *), !enforceFallback {
 			return Data(SHA256.hash(data: self))
 		} else {
-			return sha256_fallback()
+			return sha256fallback()
 		}
 	}
 
@@ -35,7 +35,7 @@ extension Data {
 	/// Don't use this directly and `sha256()` instead.
 	///
 	/// - Returns: Data representation of the hash value
-	func sha256_fallback() -> Data {
+	private func sha256fallback() -> Data {
 		// via https://www.agnosticdev.com/content/how-use-commoncrypto-apis-swift-5
 
 		// #define CC_SHA256_DIGEST_LENGTH     32
@@ -63,6 +63,8 @@ extension Data {
 protocol PrivateKeyProvider {
 	var privateKeyRaw: Data { get }
 	var publicKeyRaw: Data { get }
+
+	func signature(for data: Data) throws -> ECDSASignatureProtocol
 }
 
 @available(iOS 13.0, *)
@@ -75,19 +77,25 @@ extension P256.Signing.PrivateKey: PrivateKeyProvider {
 		return self.publicKey.rawRepresentation
 	}
 
+	func signature(for data: Data) throws -> ECDSASignatureProtocol {
+		// type cast to enforce CryptoKit's `signature(for:)`
+		return try self.signature(for: data) as P256.Signing.ECDSASignature
+	}
 }
 
 struct PrivateKey {
+
 	/// The corresponding public key.
 	var publicKey: PublicKey {
 		let publicKey = SecKeyCopyPublicKey(privateKey)
 		var error: Unmanaged<CFError>?
-		// swiftlint:disable:next force_unwrapping
+
+		// swiftlint:disable force_unwrapping
 		guard let cfdata = SecKeyCopyExternalRepresentation(publicKey!, &error) else {
-			// swiftlint:disable:next force_unwrapping
 			let err = error!.takeRetainedValue() as Error
 			fatalError(err.localizedDescription)
 		}
+		// swiftlint:enable force_unwrapping
 		return PublicKey(rawRepresentation: cfdata as Data)
 	}
 
@@ -96,7 +104,6 @@ struct PrivateKey {
 
 	/// Internal reference to the 'real' key
 	private let privateKey: SecKey
-
 
 	/// Generates a new private key with a SHA-256 ECDSA algorithm.
 	///
@@ -120,12 +127,35 @@ struct PrivateKey {
 	}
 }
 
-protocol PublicKeyProvider {
-	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol
+extension PrivateKey: PrivateKeyProvider {
+	var privateKeyRaw: Data {
+		var error: Unmanaged<CFError>?
+		guard let cfdata = SecKeyCopyExternalRepresentation(privateKey, &error) else {
+			// swiftlint:disable:next force_unwrapping
+			let err = error!.takeRetainedValue() as Error
+			fatalError(err.localizedDescription)
+		}
+		return cfdata as Data
+	}
+
+	var publicKeyRaw: Data {
+		publicKey.rawRepresentation
+	}
+
+	func signature(for data: Data) throws -> ECDSASignatureProtocol {
+		// as in `P256.Signing.ECDSASignature(derRepresentation: data)`
+		return try ECDSASignature(derRepresentation: data)
+	}
+
+
+}
+
+protocol PublicKeyProtocol {
+	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol
 }
 
 /// Very naïve implementation of `P256.Signing.PublicKey` used as data container.
-struct PublicKey {
+struct PublicKey: PublicKeyProtocol {
 	let rawRepresentation: Data
 
 	/// Initializes a PublicKey from a given key string.
@@ -140,20 +170,42 @@ struct PublicKey {
 	init(rawRepresentation: Data) {
 		self.rawRepresentation = rawRepresentation
 	}
-}
 
-extension PublicKey: PublicKeyProvider {
-	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol {
-		#warning("invalid mock implementation")
-		return false
+	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol {
+		if #available(iOS 13, *) {
+			// convert back to and use native CryptoKit data formats
+			guard
+				let key = try? P256.Signing.PublicKey(rawRepresentation: rawRepresentation),
+				let sig = try? P256.Signing.ECDSASignature(derRepresentation: signature.derRepresentation) else {
+				return false
+			}
+			return key.isValidSignature(sig, for: data)
+		} else {
+			preconditionFailure("to implement")
+		}
 	}
 }
 
 @available(iOS 13.0, *)
-extension P256.Signing.PublicKey: PublicKeyProvider {
-	func isValidSignature<D>(_ signature: ECDSASignature, for data: D) -> Bool where D: DataProtocol {
-		#warning("invalid mock implementation")
-		return false
+extension P256.Signing.PublicKey: PublicKeyProtocol {
+
+	/// Simple wrapper to allow protocol conformance
+	///
+	///	Validation is done via CryptoKit's `isValid<D>` after parsing to native `P256.Signing.ECDSASignature`.
+	///	The parsing/conversion might fail! Currently we just return `false` for the validation check. However,
+	///	if this case happens, we might have a serious bug in the current implementation. Future implementations might change!
+	///
+	/// - Parameters:
+	///   - signature: a `ECDSASignatureProtocol` to be parsed as a 'native' `P256.Signing.ECDSASignature`
+	///   - data: the data to verify
+	/// - Returns: true if signature and data match, false if not OR if the parsing fails
+	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol {
+		guard let sig = try? P256.Signing.ECDSASignature(derRepresentation: signature.derRepresentation) else {
+			Log.error("Cannot create P256.Signing.ECDSASignature from existing DER representation!", log: .localData)
+			assertionFailure("we are not expecting this. check details!") // only triggered in DEBUG
+			return false
+		}
+		return isValidSignature(sig, for: data)
 	}
 }
 
@@ -161,17 +213,9 @@ extension P256.Signing.PublicKey: PublicKeyProvider {
 
 /// Umrella protocol to cover CryptoKit's `P256.Signing.ECDSASignature` and custom `ECDSASignature`.
 protocol ECDSASignatureProtocol {
-	/// Returns the raw signature.
-	/// The raw signature format for ECDSA is r || s
-//	var rawRepresentation: Data { get }
 
 	/// A DER-encoded representation of the signature
 	var derRepresentation: Data { get }
-
-	/// Initializes ECDSASignature from the raw representation.
-	/// The raw signature format for ECDSA is r || s
-	/// As defined in https://tools.ietf.org/html/rfc4754
-//	init<D>(rawRepresentation: D) throws where D: DataProtocol
 
 	/// Initializes ECDSASignature from the DER representation.
 	init<D>(derRepresentation: D) throws where D: DataProtocol
@@ -185,29 +229,20 @@ protocol ECDSASignatureProtocol {
 	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R
 }
 
+@available(iOS 13.0, *)
+extension P256.Signing.ECDSASignature: ECDSASignatureProtocol {}
+
 /// Very naïve implementation of `P256.Signing.ECDSASignature` used as data container.
 struct ECDSASignature: ECDSASignatureProtocol {
-//	var rawRepresentation: Data
 
 	// X9.62 format (ASN.1 SEQUENCE of two INTEGER fields).
 	var derRepresentation: Data
 
-//	init<D>(rawRepresentation: D) throws where D: DataProtocol {
-//		var representation: Data = Data()
-//		_ = representation.withUnsafeMutableBytes { rawRepresentation.copyBytes(to: $0) }
-//
-//		self.rawRepresentation = representation
-//		#warning("work in progress")
-//		self.derRepresentation = Data() // self.rawRepresentation
-//	}
-
+	/// Mimiking `P256.Signing.ECDSASignature.init(derRepresentation:)`
+	/// - Parameter derRepresentation: DER format to store
+	/// - Throws: Currently not happening in our custom implementation. We stick to `throws` to allow identical init signatures
 	init<D>(derRepresentation: D) throws where D: DataProtocol {
-		var representation: Data = Data()
-		_ = representation.withUnsafeMutableBytes { derRepresentation.copyBytes(to: $0) }
-
-		self.derRepresentation = representation
-		#warning("work in progress")
-//		self.rawRepresentation = Data() // self.derRepresentation
+		self.derRepresentation = Data(derRepresentation)
 	}
 
 	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R {

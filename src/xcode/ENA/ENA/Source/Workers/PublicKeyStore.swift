@@ -39,15 +39,15 @@ enum PublicKeyEnv {
 	}
 }
 
-typealias PublicKeyProviding = () -> PublicKeyProvider
-typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProvider
-typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProvider
+typealias PublicKeyProviding = () -> PublicKeyProtocol
+typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProtocol
+typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProtocol
 
 private let DefaultPublicKeyFromEnvProvider: PublicKeyProviderFromEnv = { env in
 	return DefaultPublicKeyFromString(env.stringRepresentation)
 }
 
-let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk -> PublicKeyProvider in
+let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk -> PublicKeyProtocol in
 	if #available(iOS 13.0, *) {
 		let data = Data(staticBase64Encoded: pk)
 		guard let key = try? P256.Signing.PublicKey(rawRepresentation: data) else {

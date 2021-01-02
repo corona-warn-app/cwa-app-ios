@@ -13,7 +13,7 @@ class CryptoFallbackTests: XCTestCase {
     func testCustomSha256() throws {
 		let data = try XCTUnwrap("Alice".data(using: .utf8))
 
-		let customDigest = data.sha256_fallback()
+		let customDigest = data.sha256(enforceFallback: true)
 		let referenceDigest = Data(SHA256.hash(data: data))
 
 		XCTAssertEqual(customDigest, referenceDigest)
@@ -34,7 +34,7 @@ class CryptoFallbackTests: XCTestCase {
 			for i in 0..<500_000 {
 				// swiftlint:disable:next force_unwrapping
 				let data = "Alice\(i)".data(using: .utf8)!
-				_ = data.sha256_fallback()
+				_ = data.sha256(enforceFallback: true)
 			}
 		}
 	}
