@@ -93,7 +93,11 @@ struct CryptoProvider {
 		if #available(iOS 13.0, *), !useFallback {
 			return P256.Signing.PrivateKey()
 		} else {
-			preconditionFailure() // work in progress
+			do {
+				return try PrivateKey()
+			} catch {
+				fatalError(error.localizedDescription) // should not happen™
+			}
 		}
 	}
 
@@ -101,16 +105,16 @@ struct CryptoProvider {
 	///
 	/// - Parameter privateKey: The private key to derive the public key from. If no key is given, the default private key will be created
 	/// - Returns:The requested public key
-	func createPublicKey(from privateKey: PrivateKeyProvider? = nil) -> PublicKeyProtocol {
-		let priv = privateKey ?? createPrivateKey()
+	func createPublicKey(from privateKey: PrivateKeyProvider? = nil, useFallback: Bool = false) -> PublicKeyProtocol {
+		let priv = privateKey ?? createPrivateKey(useFallback: useFallback)
 		return PublicKey(rawRepresentation: priv.publicKeyRaw)
 	}
 
 	/// Creates a new key pair
 	///
 	/// - Returns:A tuple containing a private key and it's corresponding public key
-	func createKeyPair() -> (PrivateKeyProvider, PublicKeyProtocol) {
-		let priv = createPrivateKey()
+	func createKeyPair(useFallback: Bool = false) -> (PrivateKeyProvider, PublicKeyProtocol) {
+		let priv = createPrivateKey(useFallback: useFallback)
 		return (priv, PublicKey(rawRepresentation: priv.publicKeyRaw))
 	}
 }

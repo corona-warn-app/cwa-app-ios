@@ -8,7 +8,6 @@ import CommonCrypto
 import CryptoKit
 #endif
 
-
 // MARK: - HASH
 
 extension Data {
@@ -146,31 +145,49 @@ extension PrivateKey: PrivateKeyProvider {
 		// as in `P256.Signing.ECDSASignature(derRepresentation: data)`
 		return try ECDSASignature(derRepresentation: data)
 	}
-
-
 }
 
 protocol PublicKeyProtocol {
+	/// The x9.63 representation of the current key
+	///
+	/// This is not a crypto library. I am aware that the private key also might have this property - we just need it here!
+	/// Maybe this property will move to a proper place/protocol a  later™ stage.
+	var x963Representation: Data { get }
+
 	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol
 }
 
 /// Very naïve implementation of `P256.Signing.PublicKey` used as data container.
 struct PublicKey: PublicKeyProtocol {
 	let rawRepresentation: Data
+	let x963Representation: Data
 
 	/// Initializes a PublicKey from a given key string.
 	/// - Parameters:
 	///   - pkString: A string representation of the public key to store
-	///   - hasPrefix: Does the pkString provides a PEM header (`true`) or should it be attached during init (`false`). Defaults to `false`.
-	init(with pkString: StaticString, hasPrefix: Bool = false) {
+	init(with pkString: StaticString) {
 		let rawData = Data(staticBase64Encoded: pkString)
-		self.rawRepresentation = rawData
+		self.init(rawRepresentation: rawData)
 	}
 
 	init(rawRepresentation: Data) {
 		self.rawRepresentation = rawRepresentation
+
+		var bytes = [UInt8](rawRepresentation)
+		bytes.insert(0x04, at: 0) // the X9.63 prefix for elliptic curves (as in `04 || X || Y`)
+		self.x963Representation = Data(bytes)
+		assert(x963Representation.count == 65, "check this!")
 	}
 
+	/// Verifies an ECDSA signature over the P256 elliptic curve.
+	/// SHA256 is used as the hash function.
+	///
+	/// Wrapps the native `isValid` implementation(s), if available (iOS 13.0+).
+	///
+	/// - Parameters:
+	///   - signature: The signature to verify
+	///   - data: The data that was signed.
+	/// - Returns: True if the signature is valid, false otherwise.
 	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol {
 		if #available(iOS 13, *) {
 			// convert back to and use native CryptoKit data formats
@@ -181,8 +198,56 @@ struct PublicKey: PublicKeyProtocol {
 			}
 			return key.isValidSignature(sig, for: data)
 		} else {
-			preconditionFailure("to implement")
+			return isValid_fallback(signature: signature, for: data)
 		}
+	}
+
+
+	/// Explicit call to the fallback implementation of `isValid<D>(signature: ECDSASignatureProtocol, for data: D)`
+	///
+	///	This is intended for testing purposes.
+	///
+	/// - Parameters:
+	///   - signature: The signature to verify
+	///   - data: The data that was signed.
+	/// - Returns: True if the signature is valid, false otherwise.
+	func isValid_fallback<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol {
+		guard let secKey = PublicKey.decodeSecKeyFromBase64(encodedKey: self.rawRepresentation.base64EncodedString()) else {
+			return false
+		}
+
+		var representation: Data = Data()
+		_ = representation.withUnsafeMutableBytes { data.suffix(65).copyBytes(to: $0) }
+
+		var error: Unmanaged<CFError>?
+		guard SecKeyVerifySignature(secKey, SecKeyAlgorithm.ecdsaSignatureDigestX962SHA1, Data(data) as CFData/*representation as CFData*/, signature.derRepresentation as CFData, &error) else {
+			Log.error(error.debugDescription, log: .localData)
+			return false
+		}
+		return true
+	}
+
+	// Extract secKey from encoded string - defaults to extracting public keys
+	static func decodeSecKeyFromBase64(encodedKey: String, isPrivate: Bool = false) -> SecKey? {
+		let keyClass = isPrivate ? kSecAttrKeyClassPrivate : kSecAttrKeyClassPublic
+		let attributes: [String: Any] = [
+			kSecAttrKeyClass as String: keyClass,
+			kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+			kSecAttrKeySizeInBits as String: 256
+		]
+
+		guard let secKeyData = Data(base64Encoded: encodedKey) else {
+			print("Error: invalid encodedKey, cannot extract data")
+			return nil
+		}
+
+		var error: Unmanaged<CFError>?
+		guard let secKey = SecKeyCreateWithData(secKeyData as CFData, attributes as CFDictionary, &error) else {
+			print("Error in SecKeyCreateWithData(): \(error.debugDescription)")
+			return nil
+		}
+
+		return secKey
 	}
 }
 
