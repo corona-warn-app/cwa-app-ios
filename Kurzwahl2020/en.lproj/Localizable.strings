@@ -4,7 +4,13 @@
 
   Created by Andreas Vogel on 23.02.20.
   Copyright © 2020 Vogel, Andreas. All rights reserved.
+ 
+ https://www.hackingwithswift.com/example-code/uikit/how-to-localize-your-ios-app
+ 
 */
+
+// String %@
+// Integer %lld
 
 // SettingsView
 "Settings_FontSize" = "Font size";
@@ -21,12 +27,13 @@
 "contacts" = "Contacts";
 "contact_detail_cancel" = "Cancel";
 
+// ContactDetailView
 "phoneNumbers" = "Phone Numbers";
 
 // AskForAccessToContactsView
 "askForAccess_heading1" = "Add phone number";
 
-"askForAccess_paragraph1" = "Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue.";
+"askForAccess_paragraph1" = "Double tap to enter a phone number and name. Alternatively tap and hold a field, then choose 'Edit' from the menue.";
 
 "askForAccess_heading2" = "Start a Phone Call";
 

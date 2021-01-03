@@ -41,7 +41,7 @@
 
 "askForAccess_heading3" = "Kontakte";
 
-"askForAccess_paragraph3" = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'.";
+"askForAccess_paragraph3" = "Falls sie Namen und Telefonnummern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'.";
 
 "askForAccess_backButton" = "Zurück";
 
@@ -53,7 +53,7 @@
 
 // PrivacyView
 "privacy_policy_heading1" = "Datenschutz";
-"privacy_policy_paragraph1" = "Alle Namen und Telefonnummer, die sie in der App speichern, werden nur lokal auf dem Gerät gespeichert. Diese App sammelt keine personenbezogenen Daten. Die App benötigt den Zugang zu den Kontakten, falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten.";
+"privacy_policy_paragraph1" = "Alle Namen und Telefonnummern, die sie in der App speichern, werden nur lokal auf dem Gerät gespeichert. Diese App sammelt keine personenbezogenen Daten. Die App benötigt den Zugang zu den Kontakten, falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten.";
 "privacy_policy_backButton" = "Zurück";
 
 // editView
