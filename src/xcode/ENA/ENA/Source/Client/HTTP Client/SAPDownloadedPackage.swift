@@ -4,7 +4,6 @@
 
 import Foundation
 import ZIPFoundation
-import CryptoKit
 
 /// A combined binary file (zipped) and the corresponding verification signature.
 struct SAPDownloadedPackage: Fingerprinting {

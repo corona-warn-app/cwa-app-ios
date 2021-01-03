@@ -2,7 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import CryptoKit
 import Foundation
 
 enum Hasher {

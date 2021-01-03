@@ -3,7 +3,9 @@
 //
 
 import Foundation
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 
 enum KeyError: Error {
 	/// It was not possible to create the base64 encoded data from the public key string
@@ -47,15 +49,15 @@ private let DefaultPublicKeyFromEnvProvider: PublicKeyProviderFromEnv = { env in
 	return DefaultPublicKeyFromString(env.stringRepresentation)
 }
 
-let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk -> PublicKeyProtocol in
+let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { string -> PublicKeyProtocol in
 	if #available(iOS 13.0, *) {
-		let data = Data(staticBase64Encoded: pk)
+		let data = Data(staticBase64Encoded: string)
 		guard let key = try? P256.Signing.PublicKey(rawRepresentation: data) else {
 			fatalError("Could not initialize private key from given data")
 		}
 		return key
 	} else {
-		return PublicKey(with: pk)
+		return PublicKey(with: string)
 	}
 }
 
