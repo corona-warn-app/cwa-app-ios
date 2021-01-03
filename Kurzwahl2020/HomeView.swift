@@ -104,7 +104,9 @@ struct HomeView: View {
         }
     }
     
-    func makeCall(_ withTileNumber: Int) {
+    // MARK: - Private
+    
+    private func makeCall(_ withTileNumber: Int) {
         let scheme : String = "tel://"
         var phoneNumber = globalDataModel.getNumber(withId: withTileNumber).trimmingCharacters(in: .whitespacesAndNewlines)
         phoneNumber = phoneNumber.replacingOccurrences(of: " ", with: "")
@@ -125,8 +127,6 @@ struct HomeView: View {
         }
     }
     
-    // MARK: - Private
-    
     private func hspacing()->CGFloat {
         return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
     }
@@ -136,12 +136,20 @@ struct HomeView: View {
     }
     
     // draw a HStack with two tiles
-    private func hstack_with_two_tiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        let leading_padding = ( geometry.size.width - hspacing() - 2 * self.dimensions(geometry).1 ) / 2
+    private  func hstack_with_two_tiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
+        if globalDataModel.tileGeometry.height == 0 {
+            globalDataModel.tileGeometry.height = self.dimensions(geometry).0
+        }
         
+        if globalDataModel.tileGeometry.width == 0 {
+            globalDataModel.tileGeometry.width = self.dimensions(geometry).1
+        }
+        
+        let leading_padding = ( geometry.size.width - hspacing() - 2 * globalDataModel.tileGeometry.width ) / 2
+
         return HStack(alignment: .center, spacing: self.hspacing()) {
-            tile(withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
-            tile(withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
+            tile(withTileNumber: lineNumber * 2, globalDataModel.tileGeometry.height, globalDataModel.tileGeometry.width)
+            tile(withTileNumber: lineNumber * 2 + 1, globalDataModel.tileGeometry.height, globalDataModel.tileGeometry.width)
         } .padding(.bottom, 2).padding(.leading, leading_padding)
     }
     
@@ -183,8 +191,7 @@ struct HomeView: View {
     
     //calculate the dimensions of the tile (aspect ratio 1.61)
     private func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
-        let geo = geometry.size.height
-        let vMaxSize = geo / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
+        let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
         var hsize = geometry.size.width / 2 - hspacing()
         
         var vsize : CGFloat = 0

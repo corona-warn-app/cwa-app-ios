@@ -43,6 +43,16 @@ enum tileError : Error {
     case badIndex
 }
 
+struct tileGeometryStruct {
+    var height: CGFloat;
+    var width: CGFloat;
+    
+    init(height: CGFloat, width: CGFloat) {
+        self.height = height
+        self.width = width
+    }
+}
+
 struct phoneTile {
     var id: Int
     var name: String
@@ -100,6 +110,7 @@ class kurzwahlModel: ObservableObject{
     @Published var tiles: [phoneTile] = []
     @Published var font : String = "PingFang TC Medium"
     @Published var fontSize : CGFloat = 0
+    @Published var tileGeometry : tileGeometryStruct
     
     private var phoneNumbers : [String] = [""]
     private var colors : [ String ] = [""]
@@ -110,6 +121,7 @@ class kurzwahlModel: ObservableObject{
     
     
     init() {
+        self.tileGeometry = tileGeometryStruct(height: 0.0, width: 0.0)
         initializeDefaultTiles()
         self.load()
         fontSize = CGFloat(((settings["fontsize"] ?? "18") as NSString).doubleValue)
