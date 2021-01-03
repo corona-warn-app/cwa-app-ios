@@ -44,8 +44,8 @@ class CryptoFallbackTests: XCTestCase {
 	// MARK: - Signature checks
 
 	func testPrivateKeyGeneration() throws {
-		let custom1 = CryptoProvider().createPrivateKey(useFallback: true)
-		let custom2 = CryptoProvider().createPrivateKey(useFallback: false)
+		let custom1 = CryptoProvider.createPrivateKey(useFallback: true)
+		let custom2 = CryptoProvider.createPrivateKey(useFallback: false)
 
 		// type check to ensure we really use the fallback
 		XCTAssertTrue(type(of: custom1) == PrivateKey.self)
@@ -65,7 +65,7 @@ class CryptoFallbackTests: XCTestCase {
 		let referenceKey = rootKey.publicKey
 
 		let fallbackKey1 = PublicKey(rawRepresentation: rootKey.publicKey.rawRepresentation)
-		let fallbackKey2 = CryptoProvider().createPublicKey(from: rootKey, useFallback: true)
+		let fallbackKey2 = CryptoProvider.createPublicKey(from: rootKey, useFallback: true)
 
 		// ensure we use the correct types
 		XCTAssertTrue(type(of: referenceKey) == P256.Signing.PublicKey.self)
@@ -91,7 +91,7 @@ class CryptoFallbackTests: XCTestCase {
 		// Private/Public key makes no difference. We use a public key in the 'real' conversion, so let's do this here as well
 		let rootKey = P256.Signing.PrivateKey()
 		let referenceKey = rootKey.publicKey
-		let fallbackKey = CryptoProvider().createPublicKey(from: rootKey, useFallback: true)
+		let fallbackKey = CryptoProvider.createPublicKey(from: rootKey, useFallback: true)
 
 		// ensure we use the correct types
 		XCTAssertTrue(type(of: referenceKey) == P256.Signing.PublicKey.self)
@@ -128,7 +128,7 @@ class CryptoFallbackTests: XCTestCase {
 		let rootKey = P256.Signing.PrivateKey()
 		let referenceKey = rootKey.publicKey
 		// Fallback
-		let fallbackPublicKey = try XCTUnwrap(CryptoProvider().createPublicKey(from: rootKey, useFallback: true) as? PublicKey)
+		let fallbackPublicKey = try XCTUnwrap(CryptoProvider.createPublicKey(from: rootKey, useFallback: true) as? PublicKey)
 
 		// just to be sure...
 		XCTAssertTrue(type(of: rootKey) == P256.Signing.PrivateKey.self)
