@@ -8,7 +8,7 @@ import CommonCrypto
 import CryptoKit
 #endif
 
-// MARK: - HASH
+// MARK: - SHA256
 
 extension Data {
 
@@ -55,23 +55,19 @@ extension Data {
 	}
 }
 
-// ------ 8< cut here -------
-
 // MARK: - Asymmetric Key Handling
 
 protocol PrivateKeyProvider {
-	var privateKeyRaw: Data { get }
+	var rawRepresentation: Data { get }
 	var publicKeyRaw: Data { get }
+
+	var x963Representation: Data { get }
 
 	func signature(for data: Data) throws -> ECDSASignatureProtocol
 }
 
 @available(iOS 13.0, *)
 extension P256.Signing.PrivateKey: PrivateKeyProvider {
-	var privateKeyRaw: Data {
-		return self.rawRepresentation
-	}
-
 	var publicKeyRaw: Data {
 		return self.publicKey.rawRepresentation
 	}
@@ -95,7 +91,7 @@ struct PrivateKey {
 			fatalError(err.localizedDescription)
 		}
 		// swiftlint:enable force_unwrapping
-		return PublicKey(rawRepresentation: cfdata as Data)
+		return PublicKey(x963Representation: cfdata as Data)
 	}
 
 	/// Our defaul tag for all keys
@@ -108,13 +104,14 @@ struct PrivateKey {
 	///
 	/// - Parameter tag: Consider this an identifier. Defaults to the main bundle identifier if present or "de.rki.coronawarnapp"
 	init(tag: String = (Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp")) throws {
-		let attributes: [String: Any] =
-			[kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom, // https://developer.apple.com/documentation/security/keychain_services/keychain_items/item_attribute_keys_and_values#1679067
-			 kSecAttrKeySizeInBits as String: 256,
-			 kSecPrivateKeyAttrs as String: [
+		// https://developer.apple.com/documentation/security/keychain_services/keychain_items/item_attribute_keys_and_values#1679067
+		let attributes: [String: Any] = [
+			kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+			kSecAttrKeySizeInBits as String: 256,
+			kSecPrivateKeyAttrs as String: [
 				kSecAttrIsPermanent as String: true,
 				kSecAttrApplicationTag as String: tag
-			 ]
+			]
 		]
 
 		var error: Unmanaged<CFError>?
@@ -127,7 +124,18 @@ struct PrivateKey {
 }
 
 extension PrivateKey: PrivateKeyProvider {
-	var privateKeyRaw: Data {
+	var rawRepresentation: Data {
+		let bytes = [UInt8](x963Representation)
+		guard bytes.first == 0x04 else {
+			fatalError("invalid format!")
+		}
+		// X9.63 format is `04 || X || Y || K` for private keys. The raw private key is just `K`.
+		// Strip the prefix and public key.
+		let rawPrivate = bytes.suffix(32) // keep the last `kSecAttrKeySizeInBits` Bytes
+		return Data(rawPrivate)
+	}
+
+	var x963Representation: Data {
 		var error: Unmanaged<CFError>?
 		guard let cfdata = SecKeyCopyExternalRepresentation(privateKey, &error) else {
 			// swiftlint:disable:next force_unwrapping
@@ -143,15 +151,17 @@ extension PrivateKey: PrivateKeyProvider {
 
 	func signature(for data: Data) throws -> ECDSASignatureProtocol {
 		// as in `P256.Signing.ECDSASignature(derRepresentation: data)`
-		return try ECDSASignature(derRepresentation: data)
+		var error: Unmanaged<CFError>?
+		guard let signature = SecKeyCreateSignature(privateKey, .ecdsaSignatureMessageX962SHA256, data as CFData, &error) as Data? else {
+			// swiftlint:disable:next force_unwrapping
+			throw error!.takeRetainedValue() as Error
+		}
+		return try ECDSASignature(derRepresentation: signature)
 	}
 }
 
 protocol PublicKeyProtocol {
-	/// The x9.63 representation of the current key
-	///
-	/// This is not a crypto library. I am aware that the private key also might have this property - we just need it here!
-	/// Maybe this property will move to a proper place/protocol a  later™ stage.
+	/// The ANSI X9.63 representation of the current key
 	var x963Representation: Data { get }
 
 	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol
@@ -174,9 +184,18 @@ struct PublicKey: PublicKeyProtocol {
 		self.rawRepresentation = rawRepresentation
 
 		var bytes = [UInt8](rawRepresentation)
-		bytes.insert(0x04, at: 0) // the X9.63 prefix for elliptic curves (as in `04 || X || Y`)
+		bytes.insert(0x04, at: 0) // the ANSI X9.63 prefix for elliptic curves (as in `04 || X || Y [ || K ]`)
 		self.x963Representation = Data(bytes)
 		assert(x963Representation.count == 65, "check this!")
+	}
+
+	init(x963Representation: Data) {
+		self.x963Representation = x963Representation
+
+		var bytes = [UInt8](x963Representation)
+		bytes.remove(at: 0) // pop the ANSI X9.63 prefix for elliptic curves (as in `04 || X || Y [ || K ]`)
+		self.rawRepresentation = Data(bytes)
+		assert(rawRepresentation.count == 64, "check this!")
 	}
 
 	/// Verifies an ECDSA signature over the P256 elliptic curve.
@@ -212,16 +231,14 @@ struct PublicKey: PublicKeyProtocol {
 	///   - data: The data that was signed.
 	/// - Returns: True if the signature is valid, false otherwise.
 	func isValid_fallback<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol {
-		guard let secKey = PublicKey.decodeSecKeyFromBase64(encodedKey: self.rawRepresentation.base64EncodedString()) else {
+		guard let secKey = PublicKey.decodeSecKeyFromBase64(encodedKey: self.x963Representation.base64EncodedString()) else {
 			return false
 		}
 
-		var representation: Data = Data()
-		_ = representation.withUnsafeMutableBytes { data.suffix(65).copyBytes(to: $0) }
-
 		var error: Unmanaged<CFError>?
-		guard SecKeyVerifySignature(secKey, SecKeyAlgorithm.ecdsaSignatureDigestX962SHA1, Data(data) as CFData/*representation as CFData*/, signature.derRepresentation as CFData, &error) else {
-			Log.error(error.debugDescription, log: .localData)
+		// Fallback `ECDSASignature` currently uses only raw representation instead of DER!
+		guard SecKeyVerifySignature(secKey, SecKeyAlgorithm.ecdsaSignatureMessageX962SHA256, Data(data) as CFData, signature.derRepresentation as CFData, &error) else {
+			Log.error(error.debugDescription, log: .crypto)
 			return false
 		}
 		return true
@@ -246,7 +263,6 @@ struct PublicKey: PublicKeyProtocol {
 			print("Error in SecKeyCreateWithData(): \(error.debugDescription)")
 			return nil
 		}
-
 		return secKey
 	}
 }
@@ -266,7 +282,7 @@ extension P256.Signing.PublicKey: PublicKeyProtocol {
 	/// - Returns: true if signature and data match, false if not OR if the parsing fails
 	func isValid<D>(signature: ECDSASignatureProtocol, for data: D) -> Bool where D: DataProtocol {
 		guard let sig = try? P256.Signing.ECDSASignature(derRepresentation: signature.derRepresentation) else {
-			Log.error("Cannot create P256.Signing.ECDSASignature from existing DER representation!", log: .localData)
+			Log.error("Cannot create P256.Signing.ECDSASignature from existing raw representation!", log: .crypto)
 			assertionFailure("we are not expecting this. check details!") // only triggered in DEBUG
 			return false
 		}
@@ -277,6 +293,8 @@ extension P256.Signing.PublicKey: PublicKeyProtocol {
 // MARK: - ECDSA Signature Handling
 
 /// Umrella protocol to cover CryptoKit's `P256.Signing.ECDSASignature` and custom `ECDSASignature`.
+///
+/// Unlike `P256.Signing.ECDSASignature` we dont support raw representation yet!
 protocol ECDSASignatureProtocol {
 
 	/// A DER-encoded representation of the signature
@@ -285,13 +303,6 @@ protocol ECDSASignatureProtocol {
 	/// Initializes ECDSASignature from the DER representation.
 	init<D>(derRepresentation: D) throws where D: DataProtocol
 
-	/// Calls the given closure with the contents of underlying storage.
-	///
-	/// - note: Calling `withUnsafeBytes` multiple times does not guarantee that
-	///         the same buffer pointer will be passed in every time.
-	/// - warning: The buffer argument to the body should not be stored or used
-	///            outside of the lifetime of the call to the closure.
-	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R
 }
 
 @available(iOS 13.0, *)
@@ -310,9 +321,6 @@ struct ECDSASignature: ECDSASignatureProtocol {
 		self.derRepresentation = Data(derRepresentation)
 	}
 
-	func withUnsafeBytes<R>(_ body: (UnsafeRawBufferPointer) throws -> R) rethrows -> R {
-		preconditionFailure("not implemented")
-	}
 }
 
 // MARK: - General extensions
