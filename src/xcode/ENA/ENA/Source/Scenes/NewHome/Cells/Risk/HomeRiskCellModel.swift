@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable:next type_body_length
 class HomeRiskCellModel: CountdownTimerDelegate {
 
 	// MARK: - Init

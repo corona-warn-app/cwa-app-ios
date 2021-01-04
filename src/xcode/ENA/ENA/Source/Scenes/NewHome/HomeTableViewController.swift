@@ -148,7 +148,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	// MARK: - Protocol UITableViewDelegate
-
+	
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
