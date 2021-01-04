@@ -70,18 +70,22 @@ class Coordinator: RequiresAppDependencies {
 			}
 
 			self.homeController = homeController
-
-			UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-				self.rootViewController.setViewControllers([homeController], animated: false)
-				#if !RELEASE
-				self.enableDeveloperMenuIfAllowed(in: homeController)
-				#endif
-			})
 		} else {
-			rootViewController.dismiss(animated: false)
-			rootViewController.popToRootViewController(animated: false)
 			homeController?.scrollToTop(animated: false)
 		}
+
+		rootViewController.dismiss(animated: false)
+
+		guard let homeController = homeController else {
+			return
+		}
+
+		UIView.transition(with: rootViewController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+			self.rootViewController.setViewControllers([homeController], animated: false)
+			#if !RELEASE
+			self.enableDeveloperMenuIfAllowed(in: homeController)
+			#endif
+		})
 	}
 	
 	func showTestResultFromNotification(with result: TestResult) {
