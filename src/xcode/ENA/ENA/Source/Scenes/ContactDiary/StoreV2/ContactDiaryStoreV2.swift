@@ -623,8 +623,7 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 	}
 
 	private var dateFormatter: ISO8601DateFormatter = {
-		let dateFormatter = ISO8601DateFormatter()
-		dateFormatter.formatOptions = [.withFullDate]
+		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
 		return dateFormatter
 	}()
 
