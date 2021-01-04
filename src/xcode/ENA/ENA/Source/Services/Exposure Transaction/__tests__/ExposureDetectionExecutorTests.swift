@@ -7,9 +7,9 @@ import ExposureNotification
 import Foundation
 import XCTest
 
-@available(iOS 13.0, *)
+
 final class ExposureDetectionExecutorTests: XCTestCase {
-	#warning("Check if this test is really not needed with iOS 12")
+
 	private var dummyAppConfigMetadata: AppConfigMetadata {
 		AppConfigMetadata(
 			lastAppConfigETag: "ETag",

@@ -16,6 +16,7 @@ extension StaticString: Equatable {
 }
 
 final class PublicKeyProviderTests: XCTestCase {
+
 	func testThatKeysHaveNotBeenAlteredAccidentally() {
 		XCTAssertEqual(
 			PublicKeyEnv.production.stringRepresentation,
@@ -28,8 +29,11 @@ final class PublicKeyProviderTests: XCTestCase {
 	}
 	
 	// There was a bug in our code that converted the string rep. of the key to plain unicode instead of base64 encoded data.
-	@available(iOS 13.0, *)
 	func testDefaultPublicKeyFromString() throws {
+		guard #available(iOS 13.0, *) else {
+		   throw XCTSkip("Unsupported iOS version")
+		}
+
 		let pk: StaticString = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 		let data = Data(staticBase64Encoded: pk)
 
@@ -40,4 +44,5 @@ final class PublicKeyProviderTests: XCTestCase {
 
 		XCTAssertEqual(publicKey.rawRepresentation, referenceKey.rawRepresentation)
 	}
+	
 }

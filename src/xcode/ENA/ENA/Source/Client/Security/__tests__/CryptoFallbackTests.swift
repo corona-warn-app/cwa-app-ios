@@ -10,7 +10,7 @@ import CryptoKit
 
 
 @available(iOS 13.0, *)
-class CryptoFallbackTests: XCTestCase {
+class CryptoFallbackTests: iOS13TestCase {
 
 	// MARK: - SHA256 checks
 
