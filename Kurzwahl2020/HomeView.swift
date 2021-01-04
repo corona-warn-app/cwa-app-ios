@@ -195,18 +195,22 @@ struct HomeView: View {
         var hsize = geometry.size.width / 2 - hspacing()
         
         var vsize : CGFloat = 0
-        if DeviceType.IS_IPHONE_SE == false && DeviceType.IS_IPHONE_7 == false {
-            vsize = hsize / appdefaults.tilesize.aspectRatioStandard
-        } else {
+        if DeviceType.IS_IPHONE_SE == true {
             vsize = hsize / appdefaults.tilesize.aspectRatioIPhoneSE
+        } else if DeviceType.IS_IPHONE_7 == true {
+            vsize = hsize / appdefaults.tilesize.aspectRatioIPhone7
+        } else if DeviceType.IS_IPHONE_LARGE {
+            vsize = hsize / appdefaults.tilesize.aspectRatioStandard
         }
         
         if (vsize > vMaxSize ) {
             vsize = vMaxSize
-            if DeviceType.IS_IPHONE_SE == false && DeviceType.IS_IPHONE_7 == false {
-                hsize = vsize * appdefaults.tilesize.aspectRatioStandard
-            } else {
+            if DeviceType.IS_IPHONE_SE == true {
                 hsize = vsize * appdefaults.tilesize.aspectRatioIPhoneSE
+            } else if DeviceType.IS_IPHONE_7 == true {
+                hsize = vsize * appdefaults.tilesize.aspectRatioIPhone7
+            } else if DeviceType.IS_IPHONE_LARGE {
+                hsize = vsize * appdefaults.tilesize.aspectRatioStandard
             }
         }
         return(vsize, hsize)
