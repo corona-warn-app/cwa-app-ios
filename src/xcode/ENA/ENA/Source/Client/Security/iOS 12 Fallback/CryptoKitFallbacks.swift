@@ -25,7 +25,8 @@ extension Data {
 	/// SHA 256 hash of the current Data
 	/// - Returns: String representation of the hash value
 	func sha256String() -> String {
-		sha256().compactMap { String(format: "%02x", $0) }.joined()
+		// https://stackoverflow.com/a/48580310/194585
+		sha256().compactMap { String(format: "%02hhx", $0) }.joined()
 	}
 
 

@@ -192,5 +192,20 @@ class CryptoFallbackTests: iOS13TestCase {
 
 	// MARK: - Bad data tests
 
-	// TODO: Don't just test the happy paths!
+	func testAlteredPackageValidation() throws {
+		let rootKey = try PrivateKey()
+		let publicKey = rootKey.publicKey
+
+		let verifier = SAPDownloadedPackage.Verifier(key: { publicKey })
+		let package = try SAPDownloadedPackage.makePackage(key: rootKey)
+
+		XCTAssertTrue(verifier(package))
+
+		var bin = [UInt8](package.bin)
+		let index = Int.random(in: 0..<bin.count)
+		bin[index] ^= 0xFF
+
+		let alteredPackage = SAPDownloadedPackage(keysBin: Data(bin), signature: package.signature)
+		XCTAssertFalse(verifier(alteredPackage))
+	}
 }
