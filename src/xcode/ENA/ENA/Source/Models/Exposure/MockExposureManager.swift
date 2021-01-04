@@ -91,7 +91,7 @@ extension MockExposureManager: ExposureManager {
 		notificationCenter.requestAuthorization(options: options) { _, error in
 			if let error = error {
 				// handle error
-				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+				Log.error("Notification authorization request error", log: .default, error: error)
 			}
 			DispatchQueue.main.async {
 				completionHandler()
