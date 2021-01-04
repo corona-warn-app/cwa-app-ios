@@ -111,6 +111,8 @@ class Coordinator: RequiresAppDependencies {
 			],
 			animated: false
 		)
+		
+		homeController = nil
 	}
 
 	func updateDetectionMode(
