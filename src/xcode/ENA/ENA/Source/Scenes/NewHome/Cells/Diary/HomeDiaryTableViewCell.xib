@@ -39,19 +39,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xfa-H9-Rvm">
                                                 <rect key="frame" x="324" y="0.0" width="18" height="20.5"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="bAX-5v-5eU" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bAX-5v-5eU">
                                                         <rect key="frame" x="0.0" y="4" width="7" height="12"/>
                                                         <color key="tintColor" name="ENA Chevron Color"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="7" id="fzF-JY-aKa"/>
-                                                            <constraint firstAttribute="height" constant="12" id="sry-lT-Hpk"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                <real key="value" value="13"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
-                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -151,9 +141,6 @@
         </designable>
         <designable name="ZP2-0X-cw1">
             <size key="intrinsicContentSize" width="46" height="30"/>
-        </designable>
-        <designable name="bAX-5v-5eU">
-            <size key="intrinsicContentSize" width="7.0722659999999999" height="11.994629"/>
         </designable>
     </designables>
     <resources>

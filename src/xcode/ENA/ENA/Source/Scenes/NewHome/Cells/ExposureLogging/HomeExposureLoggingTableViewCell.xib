@@ -41,19 +41,9 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B">
                                 <rect key="frame" x="348.5" y="31.5" width="7" height="12"/>
                                 <color key="tintColor" name="ENA Chevron Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="7" id="dOV-D5-KHL"/>
-                                    <constraint firstAttribute="height" constant="12" id="h2P-cj-kFY"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                        <real key="value" value="13"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
-                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
@@ -86,11 +76,8 @@
         </tableViewCell>
     </objects>
     <designables>
-        <designable name="2Cb-Bg-07B">
-            <size key="intrinsicContentSize" width="7.0722659999999999" height="11.994629"/>
-        </designable>
         <designable name="os7-5B-ds1">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
         </designable>
     </designables>
     <resources>

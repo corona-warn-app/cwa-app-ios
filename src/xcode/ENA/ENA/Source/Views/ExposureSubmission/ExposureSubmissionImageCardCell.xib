@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +21,7 @@
                         <rect key="frame" x="20" y="11" width="426" height="199"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZC-S1-aXb" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="16" y="16" width="367" height="26.5"/>
+                                <rect key="frame" x="16" y="16" width="368.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                 <nil key="highlightedColor"/>
@@ -28,21 +29,15 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JVb-5I-BrX" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="391" y="22.5" width="10" height="13.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JVb-5I-BrX">
+                                <rect key="frame" x="392.5" y="20" width="7" height="12"/>
                                 <color key="tintColor" name="ENA Chevron Color"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                        <real key="value" value="13"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
-                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GJr-7L-ixx">
-                                <rect key="frame" x="0.0" y="50.5" width="426" height="148.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="426" height="154.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7g-Hr-lW1">
-                                        <rect key="frame" x="0.0" y="0.0" width="268" height="148.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="268" height="154.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6u2-Yd-YXN" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="0.0" width="252" height="122"/>
@@ -64,10 +59,10 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkz-qh-4Ti">
-                                        <rect key="frame" x="276" y="0.0" width="150" height="148.5"/>
+                                        <rect key="frame" x="276" y="0.0" width="150" height="154.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Submission_QRCode" translatesAutoresizingMaskIntoConstraints="NO" id="WTn-zF-u23">
-                                                <rect key="frame" x="0.0" y="18.5" width="150" height="130"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="150" height="130"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
@@ -112,17 +107,25 @@
             <point key="canvasLocation" x="-307.24637681159425" y="60.602678571428569"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="6u2-Yd-YXN">
+            <size key="intrinsicContentSize" width="1199.5" height="20.5"/>
+        </designable>
+        <designable name="GZC-S1-aXb">
+            <size key="intrinsicContentSize" width="47.5" height="20.5"/>
+        </designable>
+    </designables>
     <resources>
+        <image name="Icons_Chevron_plain" width="7" height="12"/>
         <image name="Illu_Submission_QRCode" width="150" height="130"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
         <namedColor name="ENA Chevron Color">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Separator Color">
-            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
