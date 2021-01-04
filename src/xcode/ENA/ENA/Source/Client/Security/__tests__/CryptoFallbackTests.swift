@@ -124,7 +124,7 @@ class CryptoFallbackTests: iOS13TestCase {
 	}
 
 	func testSignature() throws {
-		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
+		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 32) // [Int64]
 
 		// test with CryptoKit as 'base line'
 		let rootKey = P256.Signing.PrivateKey()
@@ -156,7 +156,7 @@ class CryptoFallbackTests: iOS13TestCase {
 	}
 
 	func testSignatureFallbackOnly() throws {
-		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
+		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 32) // [Int64]
 
 		let rootKey = try PrivateKey()
 		let publicKey = rootKey.publicKey
@@ -192,6 +192,33 @@ class CryptoFallbackTests: iOS13TestCase {
 
 	// MARK: - Bad data tests
 
+	func testAlteredDataValidation() throws {
+		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4)
+
+		let rootKey = try PrivateKey()
+		let publicKey = rootKey.publicKey
+
+		// CryptoKit as reference (explicit casting)
+		let referencePublicKey = try P256.Signing.PublicKey(x963Representation: publicKey.x963Representation)
+
+		// sign data and validate signature format
+		let signature = try rootKey.signature(for: data)
+		XCTAssertGreaterThanOrEqual(signature.derRepresentation.count, 70)
+		XCTAssertTrue(type(of: signature) == ECDSASignature.self)
+
+		// now alter the data
+		let data2 = Data(bytes: [0xB, 0xB, 0xC, 0xD] as [UInt8], count: 4)
+
+		// finally, signature validation
+		XCTAssertFalse(publicKey.isValid(signature: signature, for: data2)) // uses CryptoKit
+		XCTAssertFalse(publicKey.isValid_fallback(signature: signature, for: data2)) // explicit fallback
+
+		let refernceSignature = try P256.Signing.ECDSASignature(derRepresentation: signature.derRepresentation)
+		XCTAssertFalse(publicKey.isValid(signature: refernceSignature, for: data2)) // uses CryptoKit
+		XCTAssertFalse(publicKey.isValid_fallback(signature: refernceSignature, for: data2)) // explicit fallback
+		XCTAssertFalse(referencePublicKey.isValidSignature(refernceSignature, for: data2))
+	}
+
 	func testAlteredPackageValidation() throws {
 		let rootKey = try PrivateKey()
 		let publicKey = rootKey.publicKey
@@ -201,11 +228,15 @@ class CryptoFallbackTests: iOS13TestCase {
 
 		XCTAssertTrue(verifier(package))
 
+		// flip a random bit
 		var bin = [UInt8](package.bin)
-		let index = Int.random(in: 0..<bin.count)
-		bin[index] ^= 0xFF
+		let index = Int.random(in: 1..<bin.count)
+		bin[index] ^= 0x1
+		let alteredBin = Data(bin)
 
-		let alteredPackage = SAPDownloadedPackage(keysBin: Data(bin), signature: package.signature)
+		XCTAssertNotEqual(package.bin.sha256(), alteredBin.sha256())
+		let alteredPackage = SAPDownloadedPackage(keysBin: alteredBin, signature: package.signature)
+		
 		XCTAssertFalse(verifier(alteredPackage))
 	}
 }
