@@ -7,7 +7,6 @@ import UIKit
 
 extension DynamicCell {
 	static func phone(text: String, number: String, accessibilityIdentifier: String? = nil) -> Self {
-		#warning("Check image converted from SFSymbols to pdf asset")
 		var cell: DynamicCell = .icon(UIImage(named: "phone"), text: .string(text), tintColor: .enaColor(for: .textPrimary1), selectionStyle: .default, action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
