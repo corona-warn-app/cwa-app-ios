@@ -25,10 +25,10 @@
                                 <rect key="frame" x="20" y="20" width="342" height="307"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kBM-M0-Sbu">
-                                        <rect key="frame" x="0.0" y="0.0" width="342" height="26.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="342" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZ6-2K-xy0" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="316" height="26.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="316" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -37,10 +37,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="muV-A7-NF0">
-                                                <rect key="frame" x="324" y="0.0" width="18" height="26.5"/>
+                                                <rect key="frame" x="324" y="0.0" width="18" height="20.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="Hr1-Xc-tXu" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="9" width="7" height="12"/>
+                                                        <rect key="frame" x="0.0" y="4" width="7" height="12"/>
                                                         <color key="tintColor" name="ENA Chevron Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="7" id="1Pw-yh-GXa"/>
@@ -66,10 +66,10 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="3ms-Ns-7X9">
-                                        <rect key="frame" x="0.0" y="42.5" width="342" height="264.5"/>
+                                        <rect key="frame" x="0.0" y="36.5" width="342" height="270.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="061-zw-rBZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="342" height="198.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="342" height="224.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hij-ok-lMp">
                                                         <rect key="frame" x="0.0" y="0.0" width="230" height="191"/>
@@ -86,7 +86,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DF5-AO-yKU">
                                                                 <rect key="frame" x="0.0" y="28.5" width="230" height="162.5"/>
                                                                 <subviews>
-                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="hXr-mC-cgn">
+                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="hXr-mC-cgn">
                                                                         <rect key="frame" x="0.0" y="56.5" width="50" height="50"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="50" id="Iwt-IJ-k1D"/>
@@ -124,7 +124,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOk-WI-sOB" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="214.5" width="342" height="50"/>
+                                                <rect key="frame" x="0.0" y="240.5" width="342" height="30"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="primaryActionTriggered" destination="EMK-su-rDS" eventType="primaryActionTriggered" id="9yQ-MD-2g2"/>
@@ -173,13 +173,13 @@
             <size key="intrinsicContentSize" width="7.0722659999999999" height="11.994629"/>
         </designable>
         <designable name="JLg-PA-Yas">
-            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="67" height="20.5"/>
         </designable>
         <designable name="pZ6-2K-xy0">
-            <size key="intrinsicContentSize" width="63.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="47.5" height="20.5"/>
         </designable>
         <designable name="yOk-WI-sOB">
-            <size key="intrinsicContentSize" width="70" height="50"/>
+            <size key="intrinsicContentSize" width="46" height="30"/>
         </designable>
     </designables>
     <resources>
