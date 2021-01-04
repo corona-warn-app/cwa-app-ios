@@ -74,7 +74,6 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		#warning("Check QRCodeScanner Design/Look")
 		if #available(iOS 13.0, *) {
 			navigationController?.overrideUserInterfaceStyle = .dark
 		}
@@ -91,9 +90,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		let flashButton = UIButton(type: .custom)
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		#warning("Check image converted from SFSymbols to pdf asset")
 		flashButton.setImage(UIImage(named: "bolt"), for: .normal)
-		#warning("Check image converted from SFSymbols to pdf asset")
 		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
 		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
