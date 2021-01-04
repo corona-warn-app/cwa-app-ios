@@ -19,6 +19,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 		homeState.$riskState
 			.sink { [weak self] in
+				self?.scheduleCountdownTimer()
+
 				switch $0 {
 				case .risk(let risk):
 					switch risk.level {
@@ -151,6 +153,10 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	private var riskButtonTitle: String {
 		if let timeUntilUpdate = timeUntilUpdate {
 			return String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate)
+		}
+
+		if homeState.manualExposureDetectionState == .possible {
+			return AppStrings.Home.riskCardUpdateButton
 		}
 
 		let detectionInterval = homeState.exposureDetectionInterval
