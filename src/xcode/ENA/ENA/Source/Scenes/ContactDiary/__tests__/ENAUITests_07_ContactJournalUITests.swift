@@ -272,7 +272,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// Click submit card.
 		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 
-		let collectionView = app.descendants(matching: .collectionView).firstMatch
+		let collectionView = app.descendants(matching: .table).firstMatch
 		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
 	}
 
