@@ -111,7 +111,8 @@ class Coordinator: RequiresAppDependencies {
 			],
 			animated: false
 		)
-		
+
+		// Reset the homeController, so its freshly recreated after onboarding.
 		homeController = nil
 	}
 
