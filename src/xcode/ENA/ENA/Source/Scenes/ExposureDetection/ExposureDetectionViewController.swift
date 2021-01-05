@@ -281,7 +281,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Countdo
 		}
 
 		switch state.detectionMode {
-		// Automatic mode does not requred additional logic, this is often the default configuration.
+		// Automatic mode does not require additional logic, this is often the default configuration.
 		case .automatic:
 			footerView.isHidden = true
 			checkButton.isEnabled = true

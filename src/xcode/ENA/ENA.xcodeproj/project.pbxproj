@@ -2078,6 +2078,7 @@
 				A36FACC224C5E9FC00DED947 /* __tests__ */,
 				71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */,
 				01D02666258B750800B6389A /* ExposureDetectionViewController.xib */,
+				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */,
 				B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */,
 				714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */,
 				01D02683258B9C1300B6389A /* Cells */,
@@ -2383,7 +2384,7 @@
 				514E81322461B97700636861 /* Exposure */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 				B18E852E248C29D400CF4FB8 /* DetectionMode.swift */,
-				FEDCE21C117BF675C80F5989 /* States */,
+				FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */,
 				0144BDE0250924CC00B0857C /* SymptomsOnset.swift */,
 			);
 			path = Models;
@@ -3753,15 +3754,6 @@
 				A1654F0024B43E7F00C0E115 /* DynamicTableViewTextViewCellTests.swift */,
 			);
 			path = __tests__;
-			sourceTree = "<group>";
-		};
-		FEDCE21C117BF675C80F5989 /* States */ = {
-			isa = PBXGroup;
-			children = (
-				FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */,
-				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */,
-			);
-			path = States;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
