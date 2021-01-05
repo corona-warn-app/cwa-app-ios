@@ -24,6 +24,8 @@ extension OSLog {
 
 enum Log {
 
+	private static let fileLogger = FileLogger()
+
     static func debug(_ message: String, log: OSLog = .default) {
         Self.log(message: message, type: .debug, log: log, error: nil)
     }
@@ -47,7 +49,6 @@ enum Log {
 
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
 
-		let fileLogger = FileLogger()
 		fileLogger.log(message, logType: type)
 
 		// Crashlytics
