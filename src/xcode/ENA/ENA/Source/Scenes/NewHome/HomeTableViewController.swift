@@ -5,6 +5,7 @@
 import UIKit
 import OpenCombine
 
+// swiftlint:disable:next type_body_length
 class HomeTableViewController: UITableViewController, NavigationBarOpacityDelegate {
 
 	// MARK: - Init
