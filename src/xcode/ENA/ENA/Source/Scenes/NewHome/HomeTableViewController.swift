@@ -11,6 +11,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	init(
 		viewModel: HomeTableViewModel,
+		appConfigurationProvider: AppConfigurationProviding,
 		onInfoBarButtonItemTap: @escaping () -> Void,
 		onExposureDetectionCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
@@ -23,6 +24,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onSettingsCellTap: @escaping (ENStateHandler.State) -> Void
 	) {
 		self.viewModel = viewModel
+		self.appConfigurationProvider = appConfigurationProvider
 
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
 		self.onExposureDetectionCellTap = onExposureDetectionCellTap
@@ -75,8 +77,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationItem.largeTitleDisplayMode = .never
 		tableView.backgroundColor = .enaColor(for: .separator)
 
-		setupBackgroundFetchAlert()
-
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 
@@ -90,9 +90,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
-		showInformationHowRiskDetectionWorks()
-		showDeltaOnboarding()
-		showRiskStatusLoweredAlertIfNeeded()
+		showDeltaOnboardingAndAlertsIfNeeded()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -197,6 +195,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	// MARK: - Private
 
+	private let viewModel: HomeTableViewModel
+	private let appConfigurationProvider: AppConfigurationProviding
+
 	private let onInfoBarButtonItemTap: () -> Void
 	private let onExposureDetectionCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
@@ -208,7 +209,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onAppInformationCellTap: () -> Void
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 
-	private let viewModel: HomeTableViewModel
+	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -394,98 +395,161 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInfoBarButtonItemTap()
 	}
 
-	private func showInformationHowRiskDetectionWorks() {
-//		#if DEBUG
-//		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
-//			store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
-//		}
-//		#endif
-//
-//		guard store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
-//			return
-//		}
-//
-//		let alert = UIAlertController.localizedHowRiskDetectionWorksAlertController(
-//			maximumNumberOfDays: TracingStatusHistory.maxStoredDays
-//		)
-//
-//		present(alert, animated: true) {
-//			self.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
-//		}
+	func showDeltaOnboardingAndAlertsIfNeeded() {
+		showDeltaOnboardingIfNeeded(completion: { [weak self] in
+			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
+				self?.showBackgroundFetchAlertIfNeeded(completion: {
+					self?.showRiskStatusLoweredAlertIfNeeded()
+				})
+			})
+		})
 	}
 
-	private func showDeltaOnboarding() {
-//		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
-//			guard let self = self else { return }
-//
-//			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
-//
-//			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
-//			var delay = 0.5
-//
-//			#if DEBUG
-//			if isUITesting {
-//				// In UI Testing we need to increase the delaye slightly again.
-//				// Otherwise UI Tests fail
-//				delay = 1.5
-//			}
-//			#endif
-//
-//			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-//				let onboardings: [DeltaOnboarding] = [
-//					DeltaOnboardingV15(store: self.store, supportedCountries: supportedCountries)
-//				]
-//
-//				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
-//				self.deltaOnboardingCoordinator?.finished = { [weak self] in
-//					self?.deltaOnboardingCoordinator = nil
-//				}
-//
-//				self.deltaOnboardingCoordinator?.startOnboarding()
-//			}
-//		}.store(in: &subscriptions)
+	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
+		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
+			guard let self = self else { return }
+
+			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
+
+			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
+			var delay = 0.5
+
+			#if DEBUG
+			if isUITesting {
+				// In UI Testing we need to increase the delaye slightly again.
+				// Otherwise UI Tests fail
+				delay = 1.5
+			}
+			#endif
+
+			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+				let onboardings: [DeltaOnboarding] = [
+					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries)
+				]
+
+				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
+				self.deltaOnboardingCoordinator?.finished = { [weak self] in
+					self?.deltaOnboardingCoordinator = nil
+					completion()
+				}
+
+				self.deltaOnboardingCoordinator?.startOnboarding()
+			}
+		}.store(in: &subscriptions)
 	}
 
-	/// This method sets up a background fetch alert, and presents it, if needed.
-	/// Check the `createBackgroundFetchAlert` method for more information.
-	private func setupBackgroundFetchAlert() {
-//		guard let alert = createBackgroundFetchAlert(
-//			status: UIApplication.shared.backgroundRefreshStatus,
-//			inLowPowerMode: ProcessInfo.processInfo.isLowPowerModeEnabled,
-//			hasSeenAlertBefore: homeInteractor.store.hasSeenBackgroundFetchAlert,
-//			store: homeInteractor.store
-//			) else { return }
-//
-//		self.present(
-//			alert,
-//			animated: true,
-//			completion: nil
-//		)
+	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
+		#if DEBUG
+		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
+			viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+		}
+		#endif
+
+		guard viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
+			completion()
+			return
+		}
+
+		let title = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+		let message = String(
+			format: NSLocalizedString(
+				"How_Risk_Detection_Works_Alert_Message",
+				comment: ""
+			),
+			TracingStatusHistory.maxStoredDays
+		)
+
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: NSLocalizedString("Alert_ActionOk", comment: ""),
+				style: .default,
+				handler: { _ in
+					completion()
+				}
+			)
+		)
+
+		present(alert, animated: true) { [weak self] in
+			self?.viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+		}
 	}
 
-	func showRiskStatusLoweredAlertIfNeeded() {
-//		guard store.shouldShowRiskStatusLoweredAlert else { return }
-//
-//		let alert = UIAlertController(
-//			title: AppStrings.Home.riskStatusLoweredAlertTitle,
-//			message: AppStrings.Home.riskStatusLoweredAlertMessage,
-//			preferredStyle: .alert
-//		)
-//
-//		let alertAction = UIAlertAction(
-//			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
-//			style: .default
-//		)
-//		alert.addAction(alertAction)
-//
-//		present(alert, animated: true) { [weak self] in
-//			self?.store.shouldShowRiskStatusLoweredAlert = false
-//		}
+	/// This method checks whether the below conditions in regards to background fetching have been met
+	/// and shows the corresponding alert.
+	private func showBackgroundFetchAlertIfNeeded(completion: @escaping () -> Void = {}) {
+		let status = UIApplication.shared.backgroundRefreshStatus
+		let inLowPowerMode = ProcessInfo.processInfo.isLowPowerModeEnabled
+		let hasSeenAlertBefore = viewModel.state.store.hasSeenBackgroundFetchAlert
+
+		/// The error alert should only be shown:
+		/// - once
+		/// - if the background refresh is disabled
+		/// - if the user is __not__ in power saving mode, because in this case the background
+		///   refresh is disabled automatically. Therefore we have to explicitly check this.
+		if status == .available || inLowPowerMode || hasSeenAlertBefore {
+			completion()
+			return
+		}
+
+		let alert = setupErrorAlert(
+			title: AppStrings.Common.backgroundFetch_AlertTitle,
+			message: AppStrings.Common.backgroundFetch_AlertMessage,
+			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
+			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
+			completion: { [weak self] in
+				self?.viewModel.state.store.hasSeenBackgroundFetchAlert = true
+				completion()
+			},
+			secondaryActionCompletion: {
+				if let url = URL(string: UIApplication.openSettingsURLString) {
+					UIApplication.shared.open(url, options: [:], completionHandler: nil)
+				}
+			}
+		)
+
+		self.present(
+			alert,
+			animated: true,
+			completion: nil
+		)
+	}
+
+	func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {
+		guard viewModel.state.store.shouldShowRiskStatusLoweredAlert else {
+			completion()
+			return
+		}
+
+		let alert = UIAlertController(
+			title: AppStrings.Home.riskStatusLoweredAlertTitle,
+			message: AppStrings.Home.riskStatusLoweredAlertMessage,
+			preferredStyle: .alert
+		)
+
+		let alertAction = UIAlertAction(
+			title: AppStrings.Home.riskStatusLoweredAlertPrimaryButtonTitle,
+			style: .default,
+			handler: { _ in
+				completion()
+			}
+		)
+		alert.addAction(alertAction)
+
+		present(alert, animated: true) { [weak self] in
+			self?.viewModel.state.store.shouldShowRiskStatusLoweredAlert = false
+		}
 	}
 
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
 		viewModel.state.updateTestResult()
+		showDeltaOnboardingAndAlertsIfNeeded()
 	}
 
 }
