@@ -727,21 +727,65 @@ class ContactDiaryStoreTests: XCTestCase {
 	func test_when_newDatabaseVersionExist_then_migrationIsExcuted() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryV1Store(with: databaseQueue)
-		let result = store.addContactPerson(name: "Jane Doe")
-		if case let .failure(error) = result {
+		
+		let oldName = "007"
+		let oldLocation = "00005"
+		let expectedFetchedOldName = "7"
+		let expectedFetchedOldLocation = "5"
+
+		let nameResult = store.addContactPerson(name: oldName)
+		let locationResult = store.addLocation(name: oldLocation)
+		
+		if case let .failure(error) = nameResult {
 			XCTFail("Error not expected: \(error)")
 		}
-		// initializing newest version store will trigger the migration then we check the database if the name is migrated
-		 _ = makeContactDiaryStore(with: databaseQueue)
 		
-		guard case let .success(id) = result,
+		// initializing newest version store will trigger the migration then we check the database if the name is migrated
+		 let newStore = makeContactDiaryStore(with: databaseQueue)
+
+		guard case let .success(id) = nameResult,
 			  let contactPersonResult = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
 			  let name = contactPersonResult.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
+		guard case let .success(locationID) = locationResult,
+			  let location = fetchEntries(for: "Location", with: locationID, from: databaseQueue),
+			  let locationName = location.string(forColumn: "name") else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
 		
-		XCTAssertEqual(name, "Jane Doe")
+		// result saved in V1 without prefix zeros
+		XCTAssertEqual(name, expectedFetchedOldName)
+		XCTAssertEqual(locationName, expectedFetchedOldLocation)
+
+		
+		// now that the new store has the old data, lets test if prefix zeros are saved correctly
+
+		let expectedFetchedNewName = "00008"
+		let expectedFetchedNewLocation = "00000"
+		
+		let newNameResult = newStore.addContactPerson(name: expectedFetchedNewName)
+		let newLocationResult = newStore.addLocation(name: expectedFetchedNewLocation)
+		
+		guard case let .success(newNameId) = newNameResult,
+			  let newContactPersonResult = fetchEntries(for: "ContactPerson", with: newNameId, from: databaseQueue),
+			  let newName = newContactPersonResult.string(forColumn: "name") else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+		guard case let .success(newLocationID) = newLocationResult,
+			  let newLocation = fetchEntries(for: "Location", with: newLocationID, from: databaseQueue),
+			  let newLocationName = newLocation.string(forColumn: "name") else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		// result saved in V2 with prefix zeros
+		XCTAssertEqual(expectedFetchedNewName, newName)
+		XCTAssertEqual(expectedFetchedNewLocation, newLocationName)
+
 	}
 	
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
@@ -838,7 +882,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
 		let schema = ContactDiaryStoreSchemaV2(databaseQueue: databaseQueue)
-		let migrations: [Migration] = [EmptyMigration(), ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
+		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 2, migrations: migrations)
 
 		guard let store = ContactDiaryStore(
@@ -856,7 +900,7 @@ class ContactDiaryStoreTests: XCTestCase {
 	
 	private func makeContactDiaryV1Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
 		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
-		let migrations: [Migration] = [EmptyMigration(), ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
+		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 1, migrations: migrations)
 
 		guard let store = ContactDiaryStore(

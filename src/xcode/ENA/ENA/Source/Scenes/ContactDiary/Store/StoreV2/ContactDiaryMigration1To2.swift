@@ -12,6 +12,7 @@ final class ContactDiaryMigration1To2: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
 	private var database: FMDatabase?
+	private var error: Error?
 	
 	init(databaseQueue: FMDatabaseQueue) {
 		self.databaseQueue = databaseQueue
@@ -49,17 +50,15 @@ final class ContactDiaryMigration1To2: Migration {
 				}
 				
 				queryResult.close()
-				
-
+				guard let sql = finalSQL, database.executeStatements(sql) else {
+					error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
+					return
+				}
 			}
 		}
 		
-		if let database = database {
-			guard let sql = finalSQL, database.executeStatements(sql) else {
-				throw MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
-			}
-		} else {
-			throw MigrationError.general(description: "Database is Nil")
+		if let error = error {
+			throw error
 		}
 	}
 }
