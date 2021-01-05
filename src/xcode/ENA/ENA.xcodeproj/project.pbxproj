@@ -50,6 +50,8 @@
 		017AD114259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */; };
 		017AD122259DDED100FA2B3F /* ISO8601DateFormatter+ContactDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD121259DDE6B00FA2B3F /* ISO8601DateFormatter+ContactDiary.swift */; };
 		017AD13625A3238300FA2B3F /* iOS13TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD13525A3235B00FA2B3F /* iOS13TestCase.swift */; };
+		017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
+		017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
 		01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
@@ -280,17 +282,11 @@
 		50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
 		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
-		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
-		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
 		516E430224B89AED0008CC30 /* CoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E430124B89AED0008CC30 /* CoordinatorTests.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
 		51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BE245B3B5D00286105 /* OnboardingInfo.swift */; };
-		51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */; };
-		51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */; };
-		51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */; };
-		51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */; };
 		51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject+Identifier.swift */; };
 		51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C324583E3300AD70CA /* SettingsViewController.swift */; };
 		5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5222AA67255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift */; };
@@ -307,9 +303,7 @@
 		710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */; };
 		710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */; };
 		710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */; };
-		710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
 		710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */; };
-		710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB24247514BD00948792 /* UIViewController+Segue.swift */; };
 		710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB26247533FA00948792 /* DynamicTableViewController.swift */; };
 		710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB282475353900948792 /* DynamicTableViewModel.swift */; };
 		71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E2D24891C02004B0C9F /* ENAColorTests.swift */; };
@@ -989,7 +983,6 @@
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeue.swift"; sourceTree = "<group>"; };
-		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskImageItemViewConfigurator.swift; sourceTree = "<group>"; };
 		515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouRiskCellConfigurator.swift; sourceTree = "<group>"; };
 		516E42C924B760EC0008CC30 /* HomeRiskLevelCellConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfiguratorTests.swift; sourceTree = "<group>"; };
@@ -1010,8 +1003,6 @@
 		51C779132486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskFindingPositiveCollectionViewCell.xib; sourceTree = "<group>"; };
 		51C779152486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskFindingPositiveCollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
-		51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+Identifier.swift"; sourceTree = "<group>"; };
 		51CE1B5424604DD2002CF42A /* HomeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLayout.swift; sourceTree = "<group>"; };
 		51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivateCollectionViewCell.xib; sourceTree = "<group>"; };
 		51CE1B78246078B6002CF42A /* ActivateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivateCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1020,9 +1011,7 @@
 		51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCollectionViewCell.xib; sourceTree = "<group>"; };
 		51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionSystemBackgroundDecorationView.swift; sourceTree = "<group>"; };
-		51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Dequeue.swift"; sourceTree = "<group>"; };
 		51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActivateCellConfigurator.swift; sourceTree = "<group>"; };
-		51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellConfigurator.swift; sourceTree = "<group>"; };
 		51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellConfigurator.swift; sourceTree = "<group>"; };
 		51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellConfigurator.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Identifier.swift"; sourceTree = "<group>"; };
@@ -1048,7 +1037,6 @@
 		710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionDynamicCell.swift; sourceTree = "<group>"; };
 		710ABB1E2475115500948792 /* UITableViewController+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Enum.swift"; sourceTree = "<group>"; };
 		710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeTableViewCell.swift; sourceTree = "<group>"; };
-		710ABB24247514BD00948792 /* UIViewController+Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Segue.swift"; sourceTree = "<group>"; };
 		710ABB26247533FA00948792 /* DynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewController.swift; sourceTree = "<group>"; };
 		710ABB282475353900948792 /* DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewModel.swift; sourceTree = "<group>"; };
 		71176E2D24891C02004B0C9F /* ENAColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColorTests.swift; sourceTree = "<group>"; };
@@ -2133,20 +2121,9 @@
 			path = "Risk Items";
 			sourceTree = "<group>";
 		};
-		514EE996246D4BDD00DE4884 /* UICollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */,
-				51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */,
-				51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */,
-			);
-			path = UICollectionView;
-			sourceTree = "<group>";
-		};
 		514EE997246D4BEB00DE4884 /* UITableView */ = {
 			isa = PBXGroup;
 			children = (
-				710ABB24247514BD00948792 /* UIViewController+Segue.swift */,
 				710ABB1E2475115500948792 /* UITableViewController+Enum.swift */,
 				514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */,
 				514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */,
@@ -2256,8 +2233,6 @@
 			isa = PBXGroup;
 			children = (
 				B18CADAD24782FA4006F53F0 /* ExposureStateUpdating.swift */,
-				51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */,
-				514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */,
 				FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */,
 			);
 			path = Protocols;
@@ -2299,7 +2274,6 @@
 			isa = PBXGroup;
 			children = (
 				71176E2C24891BCF004B0C9F /* __tests__ */,
-				514EE996246D4BDD00DE4884 /* UICollectionView */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
 				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
@@ -4140,7 +4114,6 @@
 				35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */,
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				EBB92C7C259E111A00013B41 /* AppDisabledView.swift in Sources */,
-				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				ABAE0A14257F77C40030ED47 /* ContactDiaryStoreV1.swift in Sources */,
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
@@ -4158,7 +4131,6 @@
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
 				A3552CC424DD6E16008C91BE /* AppDelegate+PlausibleDeniability.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
-				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
 				01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */,
@@ -4181,7 +4153,6 @@
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
-				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
 				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
@@ -4200,6 +4171,7 @@
 				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
 				AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */,
+				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */,
@@ -4262,7 +4234,6 @@
 				B153096A24706F1000A4A1BD /* URLSession+Default.swift in Sources */,
 				2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */,
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
-				51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				35EA68522555488600335F73 /* SQLiteError.swift in Sources */,
 				BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */,
@@ -4291,6 +4262,7 @@
 				AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */,
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
+				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
 				EBB92C72259E10ED00013B41 /* AppDisabledViewController.swift in Sources */,
 				354E305924EFF26E00526C9F /* Country.swift in Sources */,
 				01A4DC6A25922EB4007D5794 /* HomeTextItemView.swift in Sources */,
@@ -4306,7 +4278,6 @@
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
 				019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */,
-				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
 				01A4DC6C25922EB4007D5794 /* HomeRiskTableViewCell.swift in Sources */,
 				BA6C8AF4254D65E1008344F5 /* ScanInstance.swift in Sources */,
 				BA6D1634255AD2AA00ED3492 /* DMWifiClientViewModel.swift in Sources */,
@@ -4385,7 +4356,6 @@
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
-				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
@@ -4429,7 +4399,6 @@
 				016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */,
 				71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */,
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
-				710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */,
 				5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */,
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
@@ -4451,7 +4420,6 @@
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				01A4DC6E25922EB4007D5794 /* HomeImageItemView.swift in Sources */,
-				710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */,
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,
 				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,

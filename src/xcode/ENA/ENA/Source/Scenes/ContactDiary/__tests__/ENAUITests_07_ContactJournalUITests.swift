@@ -272,8 +272,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// Click submit card.
 		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 
-		let collectionView = app.descendants(matching: .table).firstMatch
-		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
+		let homeTableView = app.descendants(matching: .table).firstMatch
+		search("AppStrings.Home.diaryCardButton", element: homeTableView)?.tap()
 	}
 
 	private func addPersonToDayEntry(_ personName: String) {

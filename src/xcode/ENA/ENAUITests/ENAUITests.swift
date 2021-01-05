@@ -53,8 +53,8 @@ class ENAUITests: XCTestCase {
 		if snapshotsActive { snapshot("AppStore_0002") }
 
 		// ScreenShot_0003: Risk view (low risk)
-		XCTAssertTrue(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: 5.0))
-		app.buttons["RiskLevelCollectionViewCell.topContainer"].tap()
+		XCTAssertTrue(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: 5.0))
+		app.buttons["HomeRiskTableViewCell.topContainer"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0003") }
 

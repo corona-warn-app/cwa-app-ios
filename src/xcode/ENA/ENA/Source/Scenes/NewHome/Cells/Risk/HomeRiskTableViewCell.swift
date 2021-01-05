@@ -146,9 +146,9 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		bodyLabel.accessibilityTraits = [.updatesFrequently]
 		button.accessibilityTraits = [.updatesFrequently, .button]
 
-		topContainer.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.topContainer
-		bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel
-		button.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.updateButton
+		topContainer.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer
+		bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.bodyLabel
+		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.updateButton
 	}
 
 }
