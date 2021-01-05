@@ -396,7 +396,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInfoBarButtonItemTap()
 	}
 
-	func showDeltaOnboardingAndAlertsIfNeeded() {
+	private func showDeltaOnboardingAndAlertsIfNeeded() {
 		showDeltaOnboardingIfNeeded(completion: { [weak self] in
 			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 				self?.showBackgroundFetchAlertIfNeeded(completion: {
@@ -521,7 +521,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 	}
 
-	func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {
+	private func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {
 		guard viewModel.state.store.shouldShowRiskStatusLoweredAlert else {
 			completion()
 			return
