@@ -90,8 +90,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
 
-		let consentNotGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell]
+		let consentNotGivenCell = app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell]
 		XCTAssertTrue(consentNotGivenCell.waitForExistence(timeout: .medium))
+		
 		consentNotGivenCell.tap()
 		let consentSwitch = app.switches.firstMatch
 		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
@@ -100,7 +101,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertEqual(consentSwitch.value as? String, "1")
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		
-		let consentGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
+		let consentGivenCell = app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
