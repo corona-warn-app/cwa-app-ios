@@ -50,6 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+		#if DEBUG
+		setupOnboardingForTesting()
+		#endif
+		
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupAppDisabledUI()
@@ -70,15 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self?.showError(error)
 		}
 		riskProvider.observeRisk(consumer)
-
-		#if DEBUG
-		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
-		if isUITesting {
-			window?.layer.speed = 100
-		}
-
-		setupOnboardingForTesting()
-		#endif
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
@@ -423,6 +418,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
+		
+		#if DEBUG
+		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
+		if isUITesting {
+			window?.layer.speed = 100
+		}
+		#endif
 	}
 
 	private func setupNavigationBarAppearance() {

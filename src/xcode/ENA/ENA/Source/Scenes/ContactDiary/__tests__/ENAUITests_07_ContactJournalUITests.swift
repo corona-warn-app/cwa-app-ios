@@ -274,6 +274,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		let homeTableView = app.descendants(matching: .table).firstMatch
 		search("AppStrings.Home.diaryCardButton", element: homeTableView)?.tap()
+        
+        XCTAssertTrue(app.navigationBars.staticTexts[app.localized("ContactDiary_Information_Title")].waitForExistence(timeout: .medium))
 	}
 
 	private func addPersonToDayEntry(_ personName: String) {
