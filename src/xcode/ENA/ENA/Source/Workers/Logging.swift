@@ -24,7 +24,11 @@ extension OSLog {
 
 enum Log {
 
+	#if !RELEASE
+
 	private static let fileLogger = FileLogger()
+	
+	#endif
 
     static func debug(_ message: String, log: OSLog = .default) {
         Self.log(message: message, type: .debug, log: log, error: nil)
