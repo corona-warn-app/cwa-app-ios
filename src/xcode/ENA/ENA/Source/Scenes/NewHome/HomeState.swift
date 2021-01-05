@@ -60,6 +60,8 @@ class HomeState: ENStateHandlerUpdating {
 		case error(Error)
 	}
 
+	let store: Store
+
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
 	@OpenCombine.Published var detectionMode: DetectionMode = .fromBackgroundStatus()
@@ -151,7 +153,6 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Private
 
-	private let store: Store
 	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding
