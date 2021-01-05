@@ -88,7 +88,7 @@ final class DMDeveloperMenu {
 			title: "❌",
 			style: .done,
 			target: self,
-			action: #selector(self.closeDeveloperMenu)
+			action: #selector(closeDeveloperMenu)
 		)
 
 		vc.navigationItem.rightBarButtonItem = closeBarButtonItem
