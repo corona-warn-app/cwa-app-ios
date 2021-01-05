@@ -44,6 +44,8 @@ class HomeState: ENStateHandlerUpdating {
 		self.enState = enState
 		self.exposureSubmissionService = exposureSubmissionService
 
+		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
+
 		observeRisk()
 	}
 
@@ -72,12 +74,10 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var testResultIsLoading: Bool = false
 	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
+	@OpenCombine.Published var exposureDetectionInterval: Int
+
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvider.manualExposureDetectionState
-	}
-
-	var exposureDetectionInterval: Int {
-		riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 	}
 
 	var lastRiskCalculationResult: RiskCalculationResult? {
@@ -187,6 +187,11 @@ class HomeState: ENStateHandlerUpdating {
 			default:
 				self.riskState = .detectionFailed
 			}
+		}
+
+		riskConsumer.didChangeRiskProvidingConfiguration = { [weak self] configuration in
+			guard let interval = configuration.exposureDetectionInterval.hour else { return }
+			self?.exposureDetectionInterval = interval
 		}
 
 		riskProvider.observeRisk(riskConsumer)

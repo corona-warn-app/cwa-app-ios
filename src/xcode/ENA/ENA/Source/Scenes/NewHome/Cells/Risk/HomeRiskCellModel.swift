@@ -67,6 +67,12 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				onUpdate()
 			}
 			.store(in: &subscriptions)
+
+		homeState.$exposureDetectionInterval
+			.sink { [weak self] _ in
+				self?.scheduleCountdownTimer()
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol CountdownTimerDelegate
