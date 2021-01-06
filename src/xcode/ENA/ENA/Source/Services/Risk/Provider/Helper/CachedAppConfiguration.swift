@@ -63,19 +63,20 @@ final class CachedAppConfiguration {
 	}
 
 	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
-	private var requestIsRunning = false
+	private var requestIsRunning: Bool { !promises.isEmpty }
 
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
 		return Future { promise in
 
-			Log.debug("Append promise.", log: .appConfig)
-			self.promises.append(promise)
-
 			guard !self.requestIsRunning else {
 				Log.debug("Return immediately because request allready running.", log: .appConfig)
+				Log.debug("Append promise.", log: .appConfig)
+				self.promises.append(promise)
 				return
 			}
-			self.requestIsRunning = true
+
+			Log.debug("Append promise.", log: .appConfig)
+			self.promises.append(promise)
 
 			func resolvePromises(with result: Result<CachedAppConfiguration.AppConfigResponse, Never>) {
 				Log.debug("resolvePromises count: \(self.promises.count).", log: .appConfig)
@@ -84,7 +85,6 @@ final class CachedAppConfiguration {
 					promise(result)
 				}
 				self.promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
-				self.requestIsRunning = false
 			}
 
 			self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
