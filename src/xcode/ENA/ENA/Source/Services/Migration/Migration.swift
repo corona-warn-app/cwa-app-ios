@@ -10,5 +10,6 @@ enum MigrationError: Error {
 }
 
 protocol Migration {
+	var version: Int { get }
 	func execute() throws
 }

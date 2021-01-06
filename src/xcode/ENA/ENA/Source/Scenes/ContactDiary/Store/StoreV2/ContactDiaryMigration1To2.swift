@@ -4,10 +4,6 @@
 
 import FMDB
 
-final class EmptyMigration: Migration {
-	func execute() throws {}
-}
-
 final class ContactDiaryMigration1To2: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
@@ -17,6 +13,10 @@ final class ContactDiaryMigration1To2: Migration {
 	init(databaseQueue: FMDatabaseQueue) {
 		self.databaseQueue = databaseQueue
 	}
+
+	// MARK: - Protocol Migration
+
+	let version = 2
 
 	func execute() throws {
 		

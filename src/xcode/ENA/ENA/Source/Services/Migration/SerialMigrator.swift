@@ -38,7 +38,6 @@ final class SerialMigrator: SerialMigratorProtocol {
 	private let latestVersion: Int
 	private let database: FMDatabase
 	private let migrations: [Migration]
-	private var migrationIndex = 0
 
 	init(
 		latestVersion: Int,
@@ -56,9 +55,11 @@ final class SerialMigrator: SerialMigratorProtocol {
 			Log.info("Migrating database from v\(userVersion) to v\(latestVersion)!", log: .localData)
 
 			do {
-				try migrations[migrationIndex].execute()
-				self.database.userVersion += 1
-				migrationIndex += 1
+				let nextVersion = self.database.userVersion + 1
+				let migration = migrations.first { $0.version == nextVersion }
+				try migration?.execute()
+
+				self.database.userVersion = nextVersion
 				try migrate()
 			} catch {
 				Log.error("Migration failed from version \(database.userVersion) to version \(database.userVersion.advanced(by: 1))", log: .localData)
