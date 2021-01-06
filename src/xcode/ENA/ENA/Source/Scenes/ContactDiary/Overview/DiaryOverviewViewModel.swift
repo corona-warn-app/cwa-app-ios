@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 
 class DiaryOverviewViewModel {
 
@@ -24,7 +24,7 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@Published private(set) var days: [DiaryDay] = []
+	@OpenCombine.Published private(set) var days: [DiaryDay] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count

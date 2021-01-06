@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="riskRefreshCell" id="T8C-y5-IWj">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="30.5"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T8C-y5-IWj" id="pPy-tU-DLB">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="30.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aou-Km-nyy" customClass="ExposureDetectionRoundedView" customModule="ENA" customModuleProvider="target">
+                        <rect key="frame" x="157.5" y="0.0" width="99.5" height="30.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regular Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUW-xL-xzp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="12" y="5" width="75.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="ENA Text Contrast Color"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="ENA Text Primary 3 Color"/>
+                        <constraints>
+                            <constraint firstItem="XUW-xL-xzp" firstAttribute="top" secondItem="aou-Km-nyy" secondAttribute="topMargin" id="4eF-z2-N5L"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="XUW-xL-xzp" secondAttribute="bottom" id="6iK-pM-Dq9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XUW-xL-xzp" secondAttribute="trailing" id="XYJ-Ii-FeU"/>
+                            <constraint firstItem="XUW-xL-xzp" firstAttribute="leading" secondItem="aou-Km-nyy" secondAttribute="leadingMargin" id="XbY-6P-iTN"/>
+                        </constraints>
+                        <edgeInsets key="layoutMargins" top="5" left="12" bottom="5" right="12"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aou-Km-nyy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pPy-tU-DLB" secondAttribute="leadingMargin" id="2gM-GV-2Et"/>
+                    <constraint firstItem="aou-Km-nyy" firstAttribute="top" secondItem="pPy-tU-DLB" secondAttribute="top" id="8uZ-zu-vSt"/>
+                    <constraint firstAttribute="bottom" secondItem="aou-Km-nyy" secondAttribute="bottom" id="Ky8-CT-Bds"/>
+                    <constraint firstItem="aou-Km-nyy" firstAttribute="centerX" secondItem="pPy-tU-DLB" secondAttribute="centerX" id="Tc9-LF-hVA"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="aou-Km-nyy" secondAttribute="trailing" id="l8P-0D-TM2"/>
+                </constraints>
+                <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
+            </tableViewCellContentView>
+            <color key="backgroundColor" name="ENA Risk High Color"/>
+            <connections>
+                <outlet property="textLabel" destination="XUW-xL-xzp" id="ozj-Pl-Q6E"/>
+            </connections>
+            <point key="canvasLocation" x="-712" y="145"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="XUW-xL-xzp">
+            <size key="intrinsicContentSize" width="75.5" height="16"/>
+        </designable>
+    </designables>
+    <resources>
+        <namedColor name="ENA Risk High Color">
+            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Contrast Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 3 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -879,7 +879,7 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 
 }
 
-private final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
+final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 
 	private let result: Result<[ENExposureWindow], Error>
 	private let keyPackagesToWrite: WrittenPackages

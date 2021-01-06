@@ -80,7 +80,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
-		XCTAssert(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
 
 		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
@@ -105,7 +105,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
-		XCTAssert(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
@@ -152,7 +152,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
-		XCTAssert(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
 
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")

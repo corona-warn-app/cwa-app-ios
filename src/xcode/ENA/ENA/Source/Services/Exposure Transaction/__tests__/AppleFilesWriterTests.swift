@@ -33,8 +33,8 @@ final class AppleFilesWriterTests: XCTestCase {
 	func testWriterWithPackagesWritesEverything() throws {
 		let packages: [SAPDownloadedPackage] = [
 			.init(
-				keysBin: Data(bytes: [0x0], count: 1),
-				signature: Data(bytes: [0x1], count: 1)
+				keysBin: Data(bytes: [0x0] as [UInt8], count: 1),
+				signature: Data(bytes: [0x1] as [UInt8], count: 1)
 			)
 		]
 		let writer = AppleFilesWriter(rootDir: rootDir)

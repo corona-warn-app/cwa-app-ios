@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryAddAndEditEntryViewModel {
 
@@ -37,7 +37,7 @@ class DiaryAddAndEditEntryViewModel {
 		case edit(DiaryEntry)
 	}
 
-	@Published private(set) var textInput: String
+	@OpenCombine.Published private(set) var textInput: String
 
 	func update(_ text: String?) {
 		textInput = text ?? ""

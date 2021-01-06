@@ -41,7 +41,8 @@ enum ExposureSubmissionDynamicCell {
 	) -> DynamicCell {
 		.identifier(
 			CustomCellReuseIdentifiers.stepCell,
-			action: action) { _, cell, _ in
+			action: action,
+			configure: { _, cell, _ in
 				guard let cell = cell as? ExposureSubmissionStepCell else {
 					return
 				}
@@ -56,6 +57,7 @@ enum ExposureSubmissionDynamicCell {
 					cell.accessibilityTraits = accessibilityTraits
 				}
 			}
+		)
 	}
 
 }

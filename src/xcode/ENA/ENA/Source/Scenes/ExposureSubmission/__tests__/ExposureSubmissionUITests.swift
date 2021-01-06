@@ -30,8 +30,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Click submit card.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["ExposureSubmissionIntroViewController.image"].waitForExistence(timeout: .medium))
@@ -41,8 +41,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionDispatch.description"].waitForExistence(timeout: .medium))
 
 		// Select hotline button.
@@ -61,8 +61,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 
 		// -> Open Intro screen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Intro screen
@@ -86,12 +86,13 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 		
 		// Open pending test result screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
 
-		let consentNotGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell]
+		let consentNotGivenCell = app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell]
 		XCTAssertTrue(consentNotGivenCell.waitForExistence(timeout: .medium))
+		
 		consentNotGivenCell.tap()
 		let consentSwitch = app.switches.firstMatch
 		XCTAssertTrue(consentSwitch.waitForExistence(timeout: .medium))
@@ -100,7 +101,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertEqual(consentSwitch.value as? String, "1")
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		
-		let consentGivenCell = app.tables.firstMatch.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
+		let consentGivenCell = app.cells[AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell]
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
@@ -142,11 +143,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		btnContinue.tap()
 		
 		// This may fail in future because of the Thank You card. So, just check the home screen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 
 		// Back to homescreen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOptionPreferNotToSay() {
@@ -189,8 +190,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// This button ID might fail in future versions because of the to be added 'Thank You' card.
 		// Currently UI tests CURRENTLY don't reflect the correct UI state after this test. Thank You should be visible and is expected in non-ui tests!
 		let thankYouCardID = "AppStrings.Home.submitCardButton"
-		XCTAssertTrue(app.collectionViews.buttons[thankYouCardID].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.collectionViews.buttons[thankYouCardID].isHittable)
+		XCTAssertTrue(app.cells.buttons[thankYouCardID].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons[thankYouCardID].isHittable)
 	}
 
 	func test_SubmitTAN_SymptomsOnsetDateOption() {
@@ -277,8 +278,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		btnContinue.tap()
 		
 		// This may fail in future because of the Thank You card. So, just check the home screen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	func test_SubmitTAN_CancelOnTestResultScreen() {
@@ -297,8 +298,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		}
 
 		// Start Submission Flow
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
@@ -325,8 +326,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].tap()
 
 		// Back to homescreen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 	
 	func test_SubmitTAN_SecondaryFlowWithoutSymptomsScreens() {
@@ -345,8 +346,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		}
 		
 		// Start Submission Flow
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
@@ -397,8 +398,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 				
 		// Overview Screen: click TAN button.
@@ -446,7 +447,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 
-		app.resetAuthorizationStatus(for: .camera)
+		if #available(iOS 13.4, *) {
+			app.resetAuthorizationStatus(for: .camera)
+		}
 		launch()
 
 		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
@@ -458,8 +461,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// Overview Screen: click TAN button.
@@ -497,8 +500,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Overview Screen: click TAN button.
 		XCTAssertTrue(app
@@ -539,8 +542,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 		
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
@@ -562,8 +565,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.firstMatch.tap() // no
 		
 		// Back to homescreen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 
 	// Navigate to the Thank You screen with alert on Test Result Screen.
@@ -578,8 +581,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		launch()
 		
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
@@ -589,9 +592,9 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // don't warn
 
 		// Back to homescreen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
@@ -618,8 +621,8 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
 
 		// Back to homescreen
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].isHittable)
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].isHittable)
 	}
 }
 
@@ -659,8 +662,8 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 
 	func navigateToSymptomsScreen() {
 		// Open Intro screen.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
-		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.cells.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Click TAN button.
 		XCTAssertTrue(app

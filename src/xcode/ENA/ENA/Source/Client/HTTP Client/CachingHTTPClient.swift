@@ -75,7 +75,7 @@ class CachingHTTPClient: AppConfigurationFetching {
 				// serialize config
 				do {
 					let config = try SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: package.bin)
-					let eTag = response.httpResponse.value(forHTTPHeaderField: "ETag")
+					let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 					let configurationResponse = AppConfigurationFetchingResponse(config, eTag)
 					completion((.success(configurationResponse), serverDate))
 				} catch {
@@ -88,16 +88,6 @@ class CachingHTTPClient: AppConfigurationFetching {
 				}
 				completion((.failure(error), serverDate))
 			}
-		}
-	}
-}
-
-extension HTTPURLResponse {
-	var dateHeader: Date? {
-		if let dateString = value(forHTTPHeaderField: "Date") {
-			return ENAFormatter.httpDateHeaderFormatter.date(from: dateString)
-		} else {
-			return nil
 		}
 	}
 }

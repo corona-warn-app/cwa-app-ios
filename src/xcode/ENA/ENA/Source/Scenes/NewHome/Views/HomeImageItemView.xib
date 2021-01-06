@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="HomeImageItemView" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="346" height="57"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-BV-ccC">
+                    <rect key="frame" x="0.0" y="0.0" width="346" height="57"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
+                            <rect key="frame" x="0.0" y="12.5" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="900" constant="32" id="5NM-Ed-5sF"/>
+                                <constraint firstAttribute="width" priority="900" constant="32" id="sqY-Cl-O79"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-5t-F3e" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="48" y="18.5" width="298" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqB-br-Yjr" userLabel="Separator View">
+                    <rect key="frame" x="48" y="56" width="298" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="2Ko-AP-a7I"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="xqB-br-Yjr" secondAttribute="bottom" id="Eec-3A-2t8"/>
+                <constraint firstItem="U8q-BV-ccC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Wom-tu-YMP"/>
+                <constraint firstItem="U8q-BV-ccC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XPC-0n-zGZ"/>
+                <constraint firstAttribute="bottom" secondItem="U8q-BV-ccC" secondAttribute="bottom" id="p4N-z4-s3W"/>
+                <constraint firstAttribute="trailing" secondItem="xqB-br-Yjr" secondAttribute="trailing" id="pTY-nO-oHb"/>
+                <constraint firstAttribute="trailing" secondItem="U8q-BV-ccC" secondAttribute="trailing" id="vJE-jW-HkY"/>
+                <constraint firstItem="xqB-br-Yjr" firstAttribute="leading" secondItem="8r0-5t-F3e" secondAttribute="leading" id="yV3-1E-GHY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="iconImageView" destination="3I7-DI-BV1" id="ZUe-Wn-we0"/>
+                <outlet property="separatorView" destination="xqB-br-Yjr" id="U2c-lj-ws8"/>
+                <outlet property="stackView" destination="U8q-BV-ccC" id="x67-8K-hzW"/>
+                <outlet property="textLabel" destination="8r0-5t-F3e" id="8vi-Kt-oO7"/>
+            </connections>
+            <point key="canvasLocation" x="-93" y="54"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="8r0-5t-F3e">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="Icons_Calendar" width="32" height="32"/>
+    </resources>
+</document>
