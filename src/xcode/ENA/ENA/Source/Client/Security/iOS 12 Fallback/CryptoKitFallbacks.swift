@@ -255,13 +255,13 @@ struct PublicKey: PublicKeyProtocol {
 		]
 
 		guard let secKeyData = Data(base64Encoded: encodedKey) else {
-			print("Error: invalid encodedKey, cannot extract data")
+			Log.error("Error: invalid encodedKey, cannot extract data", log: .crypto)
 			return nil
 		}
 
 		var error: Unmanaged<CFError>?
 		guard let secKey = SecKeyCreateWithData(secKeyData as CFData, attributes as CFDictionary, &error) else {
-			print("Error in SecKeyCreateWithData(): \(error.debugDescription)")
+			Log.error("Error in SecKeyCreateWithData(): \(error.debugDescription)", log: .crypto)
 			return nil
 		}
 		return secKey
