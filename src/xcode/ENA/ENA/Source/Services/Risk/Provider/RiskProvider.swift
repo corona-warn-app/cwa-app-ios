@@ -201,18 +201,18 @@ final class RiskProvider: RiskProviding {
 		// fetching the configuration from the backend.
 		// However in some precondition cases we can return early:
 		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
-		if !exposureManagerState.isGood {
-			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
-			completion(.failure(.inactive))
-			return
-		}
-
-		// 2. There is a previous risk that is still valid and should not be recalculated
-		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
-			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
-			completion(.success(risk))
-			return
-		}
+//		if !exposureManagerState.isGood {
+//			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
+//			completion(.failure(.inactive))
+//			return
+//		}
+//
+//		// 2. There is a previous risk that is still valid and should not be recalculated
+//		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
+//			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+//			completion(.success(risk))
+//			return
+//		}
 
 		executeExposureDetection(
 			appConfiguration: appConfiguration,
@@ -353,7 +353,7 @@ final class RiskProvider: RiskProviding {
 
         self.riskProvidingConfiguration = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: exposureDetectionInterval,
+			exposureDetectionInterval: DateComponents(second: 5),
 			detectionMode: riskProvidingConfiguration.detectionMode
 		)
     }

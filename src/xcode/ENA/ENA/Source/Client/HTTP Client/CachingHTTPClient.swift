@@ -38,6 +38,8 @@ class CachingHTTPClient: AppConfigurationFetching {
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
 	func fetchAppConfiguration(etag: String? = nil, completion: @escaping AppConfigResultHandler) {
+		Log.debug("HTTPClient: fetchAppConfiguration.", log: .appConfig)
+
 		// ETag
 		var headers: [String: String]?
 		if let etag = etag {

@@ -67,6 +67,8 @@ final class CachedAppConfiguration {
 
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
 		return Future { promise in
+
+			Log.debug("Append promise.", log: .appConfig)
 			self.promises.append(promise)
 
 			guard !self.requestIsRunning else {
@@ -76,6 +78,8 @@ final class CachedAppConfiguration {
 			self.requestIsRunning = true
 
 			func resolvePromises(with result: Result<CachedAppConfiguration.AppConfigResponse, Never>) {
+				Log.debug("resolvePromises count: \(self.promises.count).", log: .appConfig)
+
 				for promise in self.promises {
 					promise(result)
 				}
