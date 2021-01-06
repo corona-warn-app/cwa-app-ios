@@ -12,7 +12,11 @@ final class DMWifiClientViewController: UITableViewController {
 
 	init(wifiClient: WifiOnlyHTTPClient) {
 		self.viewModel = DMWifiClientViewModel(wifiClient: wifiClient)
-		super.init(style: .insetGrouped)
+		if #available(iOS 13.0, *) {
+			super.init(style: .insetGrouped)
+		} else {
+			super.init(style: .grouped)
+		}
 	}
 
 	required init?(coder: NSCoder) {

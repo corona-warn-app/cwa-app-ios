@@ -5,7 +5,7 @@
 import Foundation
 import ExposureNotification
 import UIKit
-import Combine
+import OpenCombine
 
 final class RiskProvider: RiskProviding {
 
@@ -35,7 +35,14 @@ final class RiskProvider: RiskProviding {
 
 	// MARK: - Protocol RiskProviding
 
-	var riskProvidingConfiguration: RiskProvidingConfiguration
+	var riskProvidingConfiguration: RiskProvidingConfiguration {
+		didSet {
+			if riskProvidingConfiguration != oldValue {
+				riskProvidingConfigurationChanged(riskProvidingConfiguration)
+			}
+		}
+	}
+
 	var exposureManagerState: ExposureManagerState
 	private(set) var activityState: RiskProviderActivityState = .idle
 
@@ -381,6 +388,16 @@ final class RiskProvider: RiskProviding {
 		targetQueue.async { [weak self] in
 			self?.consumers.forEach {
 				$0.didChangeActivityState?(state)
+			}
+		}
+	}
+
+	private func riskProvidingConfigurationChanged(_ configuration: RiskProvidingConfiguration) {
+		Log.info("RiskProvider: Inform consumers about risk providing configuration change to: \(configuration)", log: .riskDetection)
+
+		targetQueue.async { [weak self] in
+			self?.consumers.forEach {
+				$0.didChangeRiskProvidingConfiguration?(configuration)
 			}
 		}
 	}

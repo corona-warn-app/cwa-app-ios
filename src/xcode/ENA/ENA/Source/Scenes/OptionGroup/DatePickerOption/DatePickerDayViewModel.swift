@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DatePickerDayViewModel {
 
@@ -38,10 +38,10 @@ class DatePickerDayViewModel {
 
 	let fontSize: CGFloat = 16
 
-	@Published var backgroundColor: UIColor = .enaColor(for: .background)
-	@Published var textColor: UIColor = .enaColor(for: .textPrimary1)
-	@Published var fontWeight: String = "regular"
-	@Published var accessibilityTraits: UIAccessibilityTraits = []
+	@OpenCombine.Published var backgroundColor: UIColor = .enaColor(for: .background)
+	@OpenCombine.Published var textColor: UIColor = .enaColor(for: .textPrimary1)
+	@OpenCombine.Published var fontWeight: String = "regular"
+	@OpenCombine.Published var accessibilityTraits: UIAccessibilityTraits = []
 
 	var dayString: String {
 		let dateFormatter = DateFormatter()

@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 import FMDB
-import Combine
+import OpenCombine
 
 protocol DateProviding {
 	var today: Date { get }

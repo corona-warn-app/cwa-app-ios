@@ -6,6 +6,7 @@ import Foundation
 import UIKit
 
 extension RiskLegendViewController {
+
 	var model: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.navigationSubtitle(
@@ -121,6 +122,7 @@ extension RiskLegendViewController {
 			)
 		])
 	}
+	
 }
 
 private extension DynamicCell {

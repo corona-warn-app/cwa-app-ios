@@ -285,7 +285,7 @@ final class HTTPClient: Client {
 						responseError = .invalidResponse
 						return
 					}
-					let etag = response.httpResponse.value(forHTTPHeaderField: "ETag")
+					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 					let payload = PackageDownloadResponse(package: package, etag: etag)
 					completeWith(.success(payload))
 				case let .failure(error):

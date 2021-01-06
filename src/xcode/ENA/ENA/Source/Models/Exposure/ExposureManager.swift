@@ -157,10 +157,30 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	) {
 		self.manager = manager
 		super.init()
+		if #available(iOS 13.5, *) {
+			// Do nothing since we can use BGTask in this case.
+		} else if NSClassFromString("ENManager") != nil {	// Make sure that ENManager is available.
+			guard let enManager = manager as? ENManager else {
+				Log.error("Manager is not of Type ENManager, this should not happen!", log: .riskDetection)
+				return
+			}
+			enManager.setLaunchActivityHandler { activityFlags in
+				if activityFlags.contains(.periodicRun) {
+					guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+						Log.error("AppDelegate is not of Type AppDelegate, this should not happen!", log: .background)
+						return
+					}
+					Log.info("Starting backgroundTask via Bluetooth", log: .background)
+					appDelegate.executeENABackgroundTask(completion: { success in
+						Log.info("Background task was: \(success)", log: .background)
+					})
+				}
+			}
+		}
 	}
 
 	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
-		// previsously we had a precondion here. Removed for now to track down a bug.
+		// previously we had a precondition here. Removed for now to track down a bug.
 		guard exposureManagerObserver == nil else {
 			return
 		}

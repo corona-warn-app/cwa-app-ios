@@ -3,7 +3,9 @@
 //
 
 import XCTest
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 @testable import ENA
 
 extension StaticString: Equatable {
@@ -14,6 +16,7 @@ extension StaticString: Equatable {
 }
 
 final class PublicKeyProviderTests: XCTestCase {
+
 	func testThatKeysHaveNotBeenAlteredAccidentally() {
 		XCTAssertEqual(
 			PublicKeyEnv.production.stringRepresentation,
@@ -27,11 +30,19 @@ final class PublicKeyProviderTests: XCTestCase {
 	
 	// There was a bug in our code that converted the string rep. of the key to plain unicode instead of base64 encoded data.
 	func testDefaultPublicKeyFromString() throws {
+		guard #available(iOS 13.0, *) else {
+		   throw XCTSkip("Unsupported iOS version")
+		}
+
 		let pk: StaticString = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
-		let data = try XCTUnwrap(Data(staticBase64Encoded: pk))
-		XCTAssertEqual(
-			DefaultPublicKeyFromString(pk)().rawRepresentation,
-			try P256.Signing.PublicKey(rawRepresentation: data).rawRepresentation
-		)
+		let data = Data(staticBase64Encoded: pk)
+
+		// the fallback in `DefaultPublicKeyFromString(pk)` - the default CryptoKit implementation is our reference
+		let publicKey = PublicKey(with: pk)
+		// we have a valid assumption that CryptoKit is somewhat working…
+		let referenceKey = try P256.Signing.PublicKey(rawRepresentation: data)
+
+		XCTAssertEqual(publicKey.rawRepresentation, referenceKey.rawRepresentation)
 	}
+	
 }

@@ -5,7 +5,7 @@
 #if !RELEASE
 
 import UIKit
-import Combine
+import OpenCombine
 
 final class DMWarnOthersNotificationViewController: UIViewController, UITextFieldDelegate {
 	
@@ -33,7 +33,7 @@ final class DMWarnOthersNotificationViewController: UIViewController, UITextFiel
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		view.backgroundColor = .systemBackground
+		view.backgroundColor = ColorCompatibility.systemBackground
 		
 		let titleLabel = UILabel(frame: .zero)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false

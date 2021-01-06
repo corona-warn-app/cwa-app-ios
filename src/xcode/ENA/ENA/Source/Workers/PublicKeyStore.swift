@@ -3,7 +3,9 @@
 //
 
 import Foundation
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 
 enum KeyError: Error {
 	/// It was not possible to create the base64 encoded data from the public key string
@@ -18,13 +20,6 @@ extension Data {
 	init(staticBase64Encoded: StaticString) {
 		// swiftlint:disable:next force_unwrapping
 		self.init(base64Encoded: "\(staticBase64Encoded)")!
-	}
-}
-
-extension P256.Signing.PublicKey {
-	init(staticBase64Encoded: StaticString) {
-		// swiftlint:disable:next force_try
-		try! self.init(rawRepresentation: Data(staticBase64Encoded: staticBase64Encoded))
 	}
 }
 
@@ -46,23 +41,34 @@ enum PublicKeyEnv {
 	}
 }
 
-typealias PublicKeyProvider = () -> P256.Signing.PublicKey
-typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProvider
-typealias PublicKeyProviderFromActiveCompilationConditions = () -> PublicKeyProvider
-typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProvider
+typealias PublicKeyProviding = () -> PublicKeyProtocol
+typealias PublicKeyFromStringProvider = (StaticString) -> PublicKeyProtocol
+typealias PublicKeyProviderFromEnv = (PublicKeyEnv) -> PublicKeyProtocol
 
 private let DefaultPublicKeyFromEnvProvider: PublicKeyProviderFromEnv = { env in
 	return DefaultPublicKeyFromString(env.stringRepresentation)
 }
 
-let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { pk in
-	return { P256.Signing.PublicKey(staticBase64Encoded: pk) }
+let DefaultPublicKeyFromString: PublicKeyFromStringProvider = { string -> PublicKeyProtocol in
+	if #available(iOS 13.0, *) {
+		let data = Data(staticBase64Encoded: string)
+		guard let key = try? P256.Signing.PublicKey(rawRepresentation: data) else {
+			fatalError("Could not initialize private key from given data")
+		}
+		return key
+	} else {
+		return PublicKey(with: string)
+	}
 }
 
-let DefaultPublicKeyProvider: PublicKeyProvider = {
+let DefaultPublicKeyProvider: PublicKeyProviding = {
 	#if USE_DEV_PK_FOR_SIG_VERIFICATION
-	return DefaultPublicKeyFromEnvProvider(.development)
+	return {
+		DefaultPublicKeyFromEnvProvider(.development)
+	}
 	#else
-	return DefaultPublicKeyFromEnvProvider(.production)
+	return {
+		DefaultPublicKeyFromEnvProvider(.production)
+	}
 	#endif
 }()

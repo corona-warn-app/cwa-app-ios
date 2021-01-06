@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="HomeListItemView" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="513" height="197"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="firstBaseline" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gzn-a5-PrZ">
+                    <rect key="frame" x="0.0" y="0.0" width="513" height="197"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" horizontalCompressionResistancePriority="745" insetsLayoutMarginsFromSafeArea="NO" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UH-8p-hUr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="179" width="7" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Body Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQT-KO-jfY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="23" y="179" width="490" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="gzn-a5-PrZ" secondAttribute="bottom" id="7tx-N5-ucj"/>
+                <constraint firstItem="gzn-a5-PrZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RGa-yv-b4S"/>
+                <constraint firstAttribute="trailing" secondItem="gzn-a5-PrZ" secondAttribute="trailing" id="gM5-Of-9Ty"/>
+                <constraint firstItem="gzn-a5-PrZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yl7-8y-FCc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dotLabel" destination="0UH-8p-hUr" id="A0J-5k-3E6"/>
+                <outlet property="stackView" destination="gzn-a5-PrZ" id="WD5-9S-DPQ"/>
+                <outlet property="textLabel" destination="aQT-KO-jfY" id="OwI-uB-0QQ"/>
+            </connections>
+            <point key="canvasLocation" x="4" y="-12"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="0UH-8p-hUr">
+            <size key="intrinsicContentSize" width="7" height="18"/>
+        </designable>
+        <designable name="aQT-KO-jfY">
+            <size key="intrinsicContentSize" width="76.5" height="18"/>
+        </designable>
+    </designables>
+</document>

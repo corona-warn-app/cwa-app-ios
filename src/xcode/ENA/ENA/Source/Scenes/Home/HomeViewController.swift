@@ -3,7 +3,8 @@
 //
 
 import ExposureNotification
-import Combine
+import OpenCombine
+import DiffableDataSources
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -20,10 +21,9 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func addToEnStateUpdateList(_ anyObject: AnyObject?)
 }
 
-final class HomeViewController: UIViewController, RequiresAppDependencies {
+final class HomeViewController: UICollectionViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-	init?(
-		coder: NSCoder,
+	init(
 		delegate: HomeViewControllerDelegate,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	) {
 		self.delegate = delegate
 
-		super.init(coder: coder)
+		super.init(collectionViewLayout: .init())
 
 		var riskState: RiskState
 		if let riskCalculationResult = store.riskCalculationResult {
@@ -79,8 +79,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>?
-	private var collectionView: UICollectionView! { view as? UICollectionView }
+	private var dataSource: CollectionViewDiffableDataSource<Section, AnyHashable>?
 	private var homeInteractor: HomeInteractor!
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
@@ -99,6 +98,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		setupBarButtonItems()
 		setupBackgroundFetchAlert()
 		configureCollectionView()
 		configureDataSource()
@@ -118,18 +118,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		super.viewWillAppear(animated)
 		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
-		updateBackgroundColor()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		showInformationHowRiskDetectionWorks()
 		showDeltaOnboarding()
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateBackgroundColor()
 	}
 
 	private func showInformationHowRiskDetectionWorks() {
@@ -183,6 +177,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				self.deltaOnboardingCoordinator?.startOnboarding()
 			}
 		}.store(in: &subscriptions)
+	}
+
+	private func setupBarButtonItems() {
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
+
+		let infoButton = UIButton(type: .infoLight)
+		infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
 	}
 
 	/// This method sets up a background fetch alert, and presents it, if needed.
@@ -358,6 +360,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
 
+		collectionView.showsHorizontalScrollIndicator = false
+		collectionView.isDirectionalLockEnabled = true
+		collectionView.backgroundColor = .enaColor(for: .darkBackground)
+
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
 			RiskLevelCollectionViewCell.self,
@@ -376,7 +382,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+		dataSource = CollectionViewDiffableDataSource<Section, AnyHashable>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			cell.unhighlight()
@@ -386,7 +392,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func applySnapshotFromSections(animatingDifferences: Bool = false) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+		var snapshot = DiffableDataSourceSnapshot<Section, AnyHashable>()
 		for section in sections {
 			snapshot.appendSections([section.section])
 			snapshot.appendItems( section.cellConfigurators.map { $0.hashValue })
@@ -396,14 +402,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func updateSections() {
 		sections = homeInteractor.sections
-	}
-
-	private func updateBackgroundColor() {
-		if traitCollection.userInterfaceStyle == .light {
-			collectionView.backgroundColor = .enaColor(for: .background)
-		} else {
-			collectionView.backgroundColor = .enaColor(for: .separator)
-		}
 	}
 
 	func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {
@@ -430,8 +428,8 @@ extension HomeViewController: HomeLayoutDelegate {
 	}
 }
 
-extension HomeViewController: UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+extension HomeViewController {
+	override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
 		let cell = collectionView.cellForItem(at: indexPath)
 		switch cell {
 		case is RiskThankYouCollectionViewCell: return false
@@ -439,15 +437,15 @@ extension HomeViewController: UICollectionViewDelegate {
 		}
 	}
 
-	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+	override func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.highlight()
 	}
 
-	func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+	override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.unhighlight()
 	}
 
-	func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+	override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		showScreen(at: indexPath)
 	}
 }

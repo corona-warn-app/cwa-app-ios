@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 import UserNotifications
 import ExposureNotification
 
@@ -15,8 +15,7 @@ final class OnboardingInfoViewController: UIViewController {
 	
 	// MARK: - Init
 	
-	init?(
-		coder: NSCoder,
+	init(
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
 		store: Store,
@@ -28,7 +27,8 @@ final class OnboardingInfoViewController: UIViewController {
 		self.store = store
 		self.client = client
 		self.supportedCountries = supportedCountries
-		super.init(coder: coder)
+
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -129,19 +129,14 @@ final class OnboardingInfoViewController: UIViewController {
 			finishOnBoarding()
 			return
 		}
-		let storyboard = AppStoryboard.onboarding.instance
-		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
-			OnboardingInfoViewController(
-				coder: coder,
-				pageType: nextPageType,
-				exposureManager: self.exposureManager,
-				store: self.store,
-				client: client,
-				supportedCountries: supportedCountries
-			)
-		}
-		// swiftlint:disable:next force_unwrapping
-		navigationController?.pushViewController(next!, animated: true)
+		let next = OnboardingInfoViewController(
+			pageType: nextPageType,
+			exposureManager: self.exposureManager,
+			store: self.store,
+			client: client,
+			supportedCountries: supportedCountries
+		)
+		navigationController?.pushViewController(next, animated: true)
 	}
 
 	private func loadCountryList() {

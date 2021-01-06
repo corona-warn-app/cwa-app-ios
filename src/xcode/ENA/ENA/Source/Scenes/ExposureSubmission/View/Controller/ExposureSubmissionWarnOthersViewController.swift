@@ -28,12 +28,12 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		setupView()
 		
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 		footerView?.isHidden = false
-		
 	}
 
 	override var navigationItem: UINavigationItem {

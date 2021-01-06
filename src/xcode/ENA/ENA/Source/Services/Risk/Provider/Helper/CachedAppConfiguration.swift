@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 import ZIPFoundation
 
 final class CachedAppConfiguration {
@@ -20,7 +20,7 @@ final class CachedAppConfiguration {
 		case notModified
 	}
 
-	@Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
+	@OpenCombine.Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
@@ -147,13 +147,13 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			Log.debug("fetching cached app configuration", log: .appConfig)
 			// use the cached version
 			return Just(cachedVersion)
-				.receive(on: DispatchQueue.main)
+				.receive(on: DispatchQueue.main.ocombine)
 				.eraseToAnyPublisher()
 		} else {
 			Log.debug("fetching fresh app configuration. forceFetch: \(forceFetch), force: \(force)", log: .appConfig)
 			// fetch a new one
 			return getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
-				.receive(on: DispatchQueue.main)
+				.receive(on: DispatchQueue.main.ocombine)
 				.map({ $0.config })
 				.eraseToAnyPublisher()
 		}
@@ -184,7 +184,7 @@ extension CachedAppConfiguration: AppConfigurationProviding {
 			Log.debug("no last config fetch timestamp stored", log: .appConfig)
 			return true
 		}
-        Log.debug("timestamp >= 300s? \(abs(lastFetch.distance(to: Date())) >= 300)", log: .appConfig)
-        return abs(lastFetch.distance(to: Date())) >= 300
+		Log.debug("timestamp >= 300s? \(abs(Date().timeIntervalSince(lastFetch))) >= 300)", log: .appConfig)
+        return abs(Date().timeIntervalSince(lastFetch)) >= 300
 	}
 }
