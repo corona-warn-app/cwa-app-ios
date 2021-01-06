@@ -882,7 +882,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				result = .failure(dbError(from: database))
 				return
 			}
-
+			database.userVersion = 0
 			result = .success(())
 		}
 
