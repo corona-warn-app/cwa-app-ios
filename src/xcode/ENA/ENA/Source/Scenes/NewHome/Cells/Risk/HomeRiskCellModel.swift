@@ -56,7 +56,6 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			.store(in: &subscriptions)
 
 		homeState.$detectionMode
-			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] detectionMode in
 				self?.scheduleCountdownTimer()
 
@@ -112,7 +111,6 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	@OpenCombine.Published var separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 
 	@OpenCombine.Published var buttonTitle: String! = AppStrings.Home.riskCardUpdateButton
-	@OpenCombine.Published var buttonAction: (() -> Void)?
 	@OpenCombine.Published var isButtonInverted: Bool = true
 	@OpenCombine.Published var isButtonEnabled: Bool = false
 	@OpenCombine.Published var isButtonHidden: Bool = true

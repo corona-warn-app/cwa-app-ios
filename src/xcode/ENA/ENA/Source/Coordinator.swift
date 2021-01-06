@@ -30,7 +30,6 @@ class Coordinator: RequiresAppDependencies {
 	private var homeState: HomeState?
 
 	private var settingsController: SettingsViewController?
-	private var exposureDetectionController: ExposureDetectionViewController?
 
 	private var diaryCoordinator: DiaryCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
@@ -204,30 +203,22 @@ class Coordinator: RequiresAppDependencies {
 	}
 
 	private func showExposureDetection(state: HomeState) {
-		let state = ExposureDetectionViewController.State(
-			riskState: state.riskState,
-			detectionMode: state.detectionMode,
-			activityState: state.riskProviderActivityState,
-			previousRiskLevel: store.riskCalculationResult?.riskLevel
-		)
+		guard let homeState = homeState else {
+			return
+		}
+
 		let vc = ExposureDetectionViewController(
-			state: state,
-			store: store,
-			delegate: self
+			viewModel: ExposureDetectionViewModel(
+				homeState: homeState,
+				onInactiveButtonTap: { [weak self] completion in
+					self?.setExposureManagerEnabled(true, then: completion)
+				}
+			),
+			store: store
 		)
-		exposureDetectionController = vc
+
 		rootViewController.present(vc, animated: true)
 	}
-//
-//	private func setExposureDetectionState(state: HomeInteractor.State, activityState: RiskProviderActivityState) {
-//		let state = ExposureDetectionViewController.State(
-//			riskState: state.riskState,
-//			detectionMode: state.detectionMode,
-//			activityState: activityState,
-//			previousRiskLevel: store.riskCalculationResult?.riskLevel
-//		)
-//		exposureDetectionController?.state = state
-//	}
 
 	private func showExposureSubmission(with result: TestResult? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller
@@ -301,16 +292,6 @@ class Coordinator: RequiresAppDependencies {
 
 }
 
-extension Coordinator: ExposureDetectionViewControllerDelegate {
-	func exposureDetectionViewController(
-		_: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	) {
-		setExposureManagerEnabled(enabled, then: completion)
-	}
-}
-
 extension Coordinator: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		homeState?.updateTestResult()
@@ -321,7 +302,6 @@ extension Coordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeState?.updateExposureManagerState(state)
 		settingsController?.updateExposureState(state)
-		exposureDetectionController?.updateUI()
 	}
 }
 

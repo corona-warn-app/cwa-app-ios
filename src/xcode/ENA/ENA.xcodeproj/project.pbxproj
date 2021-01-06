@@ -52,6 +52,9 @@
 		017AD13625A3238300FA2B3F /* iOS13TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD13525A3235B00FA2B3F /* iOS13TestCase.swift */; };
 		017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
 		017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
+		017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */; };
+		017AD18725A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */; };
+		017AD18C25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD18B25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
 		01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
@@ -506,7 +509,6 @@
 		B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AC51D524CED8820087C35B /* DetectionModeTests.swift */; };
 		B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */; };
 		B1B5A76024924B3D0029D5D7 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = B1B5A75F24924B3D0029D5D7 /* FMDB */; };
-		B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */; };
 		B1C6ED00247F23730066138F /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		B1C7EE4424938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */; };
 		B1C7EE4624938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7EE4524938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift */; };
@@ -517,7 +519,6 @@
 		B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */; };
 		B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */; };
 		B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CA246C84A400E728AD /* DownloadedPackagesStoreV1.swift */; };
-		B1D6B002247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */; };
 		B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */; };
 		B1D8CB2724DD44C6008C6010 /* DMTracingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */; };
 		B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */; };
@@ -652,7 +653,7 @@
 		FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE0116603B6E00FAEE632 /* ExposureDetectionExecutor.swift */; };
 		FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */; };
 		FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */; };
-		FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */; };
+		FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -723,6 +724,9 @@
 		017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModel.swift; sourceTree = "<group>"; };
 		017AD121259DDE6B00FA2B3F /* ISO8601DateFormatter+ContactDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+ContactDiary.swift"; sourceTree = "<group>"; };
 		017AD13525A3235B00FA2B3F /* iOS13TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS13TestCase.swift; sourceTree = "<group>"; };
+		017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicHeader+ExposureDetection.swift"; sourceTree = "<group>"; };
+		017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+ExposureDetection.swift"; sourceTree = "<group>"; };
+		017AD18B25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActiveTracing+ExposureDetection.swift"; sourceTree = "<group>"; };
 		0190982B257E5AF70065D050 /* DiaryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoordinator.swift; sourceTree = "<group>"; };
 		01909834257E606C0065D050 /* DiaryEditEntriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewController.swift; sourceTree = "<group>"; };
 		0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModel.swift; sourceTree = "<group>"; };
@@ -1054,7 +1058,6 @@
 		713EA26024798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionHotlineCell.swift; sourceTree = "<group>"; };
 		713EA26224798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionHeaderCell.swift; sourceTree = "<group>"; };
 		714194E9247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderSeparatorView.swift; sourceTree = "<group>"; };
-		714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "ExposureDetectionViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLongGuideCell.swift; sourceTree = "<group>"; };
 		7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLoadingCell.swift; sourceTree = "<group>"; };
 		717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHtmlCell.swift; sourceTree = "<group>"; };
@@ -1273,7 +1276,6 @@
 		B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegate.swift; sourceTree = "<group>"; };
 		B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ConfigurationTests.swift"; sourceTree = "<group>"; };
 		B1D431CA246C84A400E728AD /* DownloadedPackagesStoreV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV1.swift; sourceTree = "<group>"; };
-		B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+CoronaWarn.swift"; sourceTree = "<group>"; };
 		B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTracingHistoryViewController.swift; sourceTree = "<group>"; };
 		B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientConfigurationEndpointTests.swift; sourceTree = "<group>"; };
@@ -1431,7 +1433,7 @@
 		FEDCE0116603B6E00FAEE632 /* ExposureDetectionExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionExecutor.swift; sourceTree = "<group>"; };
 		FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiresAppDependencies.swift; sourceTree = "<group>"; };
 		FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENStateHandler+State.swift"; sourceTree = "<group>"; };
-		FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionViewController+State.swift"; sourceTree = "<group>"; };
+		FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModel.swift; sourceTree = "<group>"; };
 		FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeInteractor+State.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1503,6 +1505,16 @@
 				01734B57255D6C4500E60A8B /* semantic_version.pb.swift */,
 			);
 			name = v2;
+			sourceTree = "<group>";
+		};
+		017AD19925A5C74400FA2B3F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */,
+				017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */,
+				017AD18B25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0190982A257E5A9D0065D050 /* ContactDiary */ = {
@@ -2078,10 +2090,9 @@
 				A36FACC224C5E9FC00DED947 /* __tests__ */,
 				71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */,
 				01D02666258B750800B6389A /* ExposureDetectionViewController.xib */,
-				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */,
-				B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */,
-				714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */,
+				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewModel.swift */,
 				01D02683258B9C1300B6389A /* Cells */,
+				017AD19925A5C74400FA2B3F /* Extensions */,
 				EEF790092466ED410065EBD5 /* Views */,
 			);
 			path = ExposureDetection;
@@ -4308,7 +4319,6 @@
 				AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */,
 				503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
-				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
@@ -4332,7 +4342,6 @@
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
 				01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */,
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
-				B1D6B002247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift in Sources */,
 				01A4DC7125922EB4007D5794 /* HomeThankYouTableViewCell.swift in Sources */,
 				EB08F1782541CE3300D11FA9 /* risk_score_classification.pb.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
@@ -4342,6 +4351,7 @@
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
 				01734B5C255D6C4500E60A8B /* key_download_parameters.pb.swift in Sources */,
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
+				017AD18C25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift in Sources */,
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
 				B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */,
 				017AD122259DDED100FA2B3F /* ISO8601DateFormatter+ContactDiary.swift in Sources */,
@@ -4378,6 +4388,7 @@
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
 				50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */,
 				9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */,
+				017AD18725A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift in Sources */,
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
@@ -4397,6 +4408,7 @@
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				01909882257E675D0065D050 /* DiaryContactPerson.swift in Sources */,
+				017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
@@ -4443,7 +4455,7 @@
 				01D02626258A769200B6389A /* HTTPURLResponse+Header.swift in Sources */,
 				EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
-				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */,
+				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewModel.swift in Sources */,
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
