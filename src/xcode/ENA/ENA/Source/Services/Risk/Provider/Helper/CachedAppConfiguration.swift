@@ -62,8 +62,27 @@ final class CachedAppConfiguration {
 		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
 	}
 
+	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
+	private var requestIsRunning = false
+
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
 		return Future { promise in
+			self.promises.append(promise)
+
+			guard !self.requestIsRunning else {
+				Log.debug("Return immediately because request allready running.", log: .appConfig)
+				return
+			}
+			self.requestIsRunning = true
+
+			func resolvePromises(with result: Result<CachedAppConfiguration.AppConfigResponse, Never>) {
+				for promise in self.promises {
+					promise(result)
+				}
+				self.promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
+				self.requestIsRunning = false
+			}
+
 			self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
 				guard let self = self else { return }
 
@@ -86,7 +105,7 @@ final class CachedAppConfiguration {
 						// no further action - yet
 					}
 
-					promise(.success(AppConfigResponse(config: response.config, etag: response.eTag)))
+					resolvePromises(with: .success(AppConfigResponse(config: response.config, etag: response.eTag)))
 
 				case .failure(let error):
 					switch error {
@@ -98,13 +117,13 @@ final class CachedAppConfiguration {
 						}
 						// server response HTTP 304 is considered a 'successful fetch'
 						self.store.appConfigMetadata?.refeshLastAppConfigFetchDate()
-						promise(.success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
+						resolvePromises(with: .success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
 
 					default:
 						// Try to provide the cached app config.
 						if let cachedAppConfig = self.store.appConfigMetadata {
 							Log.info("Providing cached app configuration", log: .localData)
-							promise(.success(AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)))
+							resolvePromises(with: .success(AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)))
 							return
 						}
 
@@ -119,7 +138,7 @@ final class CachedAppConfiguration {
 						}
 
 						Log.info("Providing default app configuration 🥫", log: .localData)
-						promise(.success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
+						resolvePromises(with: .success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
 					}
 				}
 
