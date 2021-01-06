@@ -31,7 +31,6 @@ class NotificationSettingsOnTableViewCell: UITableViewCell {
 
 	private func setupAccessibility() {
 		guard let viewModel = viewModel else { return }
-		print(viewModel)
 		accessibilityIdentifier = viewModel.accessibilityIdentifier
 
 		isAccessibilityElement = true
