@@ -95,6 +95,4 @@ class HomeTableViewModel {
 		}
 	}
 
-	// MARK: - Private
-
 }
