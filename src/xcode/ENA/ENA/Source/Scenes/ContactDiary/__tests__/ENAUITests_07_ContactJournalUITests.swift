@@ -365,7 +365,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		var lastLoopSeenElements: [String] = []
 
 		while !allElementsFound {
-			/** search for a possibel button */
+			/** search for a possible button */
 			guard !element.buttons[identifier].exists else {
 				return element.buttons[identifier]
 			}
