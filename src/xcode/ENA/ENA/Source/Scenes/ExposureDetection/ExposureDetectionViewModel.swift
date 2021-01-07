@@ -23,25 +23,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		homeState.$riskState
 			.sink { [weak self] in
 				self?.scheduleCountdownTimer()
-
-				switch $0 {
-				case .risk(let risk):
-					self?.setupRiskState(risk: risk)
-				case .inactive:
-					self?.setupInactiveState()
-				case .detectionFailed:
-					self?.setupFailedState()
-				}
+				self?.setup(for: $0)
 			}
 			.store(in: &subscriptions)
 
 		homeState.$riskProviderActivityState
 			.sink { [weak self] in
+				self?.riskProviderActivityState = $0
+
 				switch $0 {
 				case .downloading:
-					self?.setupDownloadingState()
+					self?.setupForDownloadingState()
 				case .detecting:
-					self?.setupDetectingState()
+					self?.setupForDetectingState()
 				default:
 					break
 				}
@@ -90,7 +84,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-	@OpenCombine.Published var shouldReloadTableView: Bool = false
 
 	@OpenCombine.Published var titleText: String! = RiskLevel.low.text
 
@@ -169,6 +162,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
 
+	private var riskProviderActivityState: RiskProviderActivityState = .idle
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
@@ -226,31 +221,38 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		scheduleCountdownTimer()
 	}
 
-	private func setupDownloadingState() {
-		setupLoadingState(
-			title: AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
-		)
+	private func setup(for riskState: RiskState) {
+		switch riskState {
+		case .risk(let risk):
+			setupForRiskState(risk: risk)
+		case .inactive:
+			setupForInactiveState()
+		case .detectionFailed:
+			setupForFailedState()
+		}
 	}
 
-	private func setupDetectingState() {
-		setupLoadingState(
-			title: AppStrings.ExposureDetection.riskCardStatusDetectingTitle
-		)
+	private func setupForDownloadingState() {
+		titleText = AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
+
+		setupForLoadingState()
 	}
 
-	private func setupLoadingState(
-		title: String
-	) {
-		// Reload table view to show loading section
-		shouldReloadTableView = true
+	private func setupForDetectingState() {
+		titleText = AppStrings.ExposureDetection.riskCardStatusDetectingTitle
 
-		titleText = title
+		setupForLoadingState()
+	}
+
+	private func setupForLoadingState() {
+		// Update dynamic table view model with current risk state
+		setup(for: homeState.riskState)
 
 		isButtonHidden = true
 		isButtonEnabled = false
 	}
 
-	private func setupRiskState(risk: Risk) {
+	private func setupForRiskState(risk: Risk) {
 		switch risk.level {
 		case .low:
 			dynamicTableViewModel = lowRiskModel(risk: risk)
@@ -269,7 +271,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		isButtonEnabled = homeState.manualExposureDetectionState == .possible
 	}
 
-	private func setupInactiveState() {
+	private func setupForInactiveState() {
 		dynamicTableViewModel = inactiveModel
 
 		titleText = AppStrings.ExposureDetection.off
@@ -283,7 +285,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		isButtonEnabled = true
 	}
 
-	private func setupFailedState() {
+	private func setupForFailedState() {
 		dynamicTableViewModel = failureModel
 
 		titleText = AppStrings.ExposureDetection.riskCardFailedCalculationTitle
@@ -417,14 +419,14 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	private func riskDataSection(cells: [DynamicCell]) -> DynamicSection {
 		riskSection(
-			isHidden: { (($0 as? ExposureDetectionViewController)?.viewModel.homeState.riskProviderActivityState.isActive ?? false) },
+			isHidden: { (($0 as? ExposureDetectionViewController)?.viewModel.riskProviderActivityState.isActive ?? false) },
 			cells: cells
 		)
 	}
 
 	private var riskLoadingSection: DynamicSection {
 		var riskLoadingText = ""
-		switch homeState.riskProviderActivityState {
+		switch riskProviderActivityState {
 		case .detecting:
 			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDetectingBody
 		case .downloading:
@@ -436,7 +438,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		return DynamicSection.section(
 			header: .none,
 			footer: .none,
-			isHidden: { !(($0 as? ExposureDetectionViewController)?.viewModel.homeState.riskProviderActivityState.isActive ?? false) },
+			isHidden: { !(($0 as? ExposureDetectionViewController)?.viewModel.riskProviderActivityState.isActive ?? false) },
 			cells: [
 				.riskLoading(text: riskLoadingText)
 			]

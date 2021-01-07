@@ -47,15 +47,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$shouldReloadTableView
-			.sink { [weak self] shouldReload in
-				guard shouldReload else { return }
-
-				self?.viewModel.shouldReloadTableView = false
-				self?.tableView.reloadData()
-			}
-			.store(in: &subscriptions)
-
 		viewModel.$closeButtonStyle
 			.sink { [weak self] in
 				switch $0 {
