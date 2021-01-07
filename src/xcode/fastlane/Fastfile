@@ -68,6 +68,9 @@ platform :ios do
       reporter: "sonarqube"
     )
 
+    # Clean test_output to make sure xcov is working https://github.com/fastlane-community/danger-xcov/issues/33#issuecomment-704510403
+    sh("rm -r test_output/*")
+
     begin 
 
       # Combined Unit & UI Tests
