@@ -368,12 +368,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		while !allElementsFound {
 			/** search for a possible button */
-			guard !element.buttons[identifier].isHittable else {
+			guard !element.buttons[identifier].exists else {
 				return element.buttons[identifier]
 			}
 
 			/** search for a possible cell */
-			guard !element.cells[identifier].isHittable else {
+			guard !element.cells[identifier].exists else {
 				return element.cells[identifier]
 			}
 
