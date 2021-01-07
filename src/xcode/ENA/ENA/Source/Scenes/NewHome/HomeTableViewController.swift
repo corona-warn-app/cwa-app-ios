@@ -266,7 +266,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+
+		// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		tableView.estimatedRowHeight = 500
 	}
 
 	private func exposureDetectionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
