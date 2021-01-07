@@ -23,6 +23,12 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 		configureStackView()
 	}
 
+	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		super.setHighlighted(highlighted, animated: animated)
+
+		containerView.setHighlighted(highlighted, animated: animated)
+	}
+
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeShownPositiveTestResultCellModel, onPrimaryAction: @escaping () -> Void) {
