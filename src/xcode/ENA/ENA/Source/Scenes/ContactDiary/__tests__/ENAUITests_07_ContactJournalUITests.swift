@@ -257,8 +257,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.swipeUp(velocity: .fast)
 		app.swipeUp(velocity: .fast)
 
-		let privacyCell = try? XCTUnwrap(app.cells["AppStrings.ContactDiaryInformation.dataPrivacyTitle"].firstMatch, "Privacy Cell not found")
-		privacyCell?.tap()
+		let privacyCell = try XCTUnwrap(app.cells["AppStrings.ContactDiaryInformation.dataPrivacyTitle"].firstMatch, "Privacy Cell not found")
+		privacyCell.tap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
 	}
