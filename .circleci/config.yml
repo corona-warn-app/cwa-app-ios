@@ -91,6 +91,8 @@ jobs:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENA.xcresult
       - run:
           name: Skip SonarCloud for external Pull Requests
           shell: /bin/zsh

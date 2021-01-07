@@ -75,7 +75,8 @@ platform :ios do
       testplan: "AllTests",
       only_test_configurations: ["DE"],
       devices: ["iPhone 11"],
-      prelaunch_simulator: true
+      prelaunch_simulator: true, 
+      result_bundle: true
     )
 
     # Gather code coverage
