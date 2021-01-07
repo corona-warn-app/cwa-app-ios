@@ -85,16 +85,20 @@ jobs:
           shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+      - run:
+          name: Zip ENA.xcresult
+          shell: /bin/zsh
+          command: cd src/xcode/fastlane/test_output && tar -czf ENA.xcresult.tar ENA.xcresult && cd -
+      - run:
+          name: Remove ENA.xcresult
+          shell: /bin/zsh
+          command: cd src/xcode/fastlane/test_output && rm -rf ENA.xcresult
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
-      - run:
-          name: Zip ENA.xcresult
-          shell: /bin/zsh
-          command: cd src/xcode/fastlane/test_output && tar -czf ENA.xcresult.tar ENA.xcresult && cd -
       - store_artifacts:
           path: src/xcode/fastlane/test_output/ENA.xcresult.tar
       - run:
