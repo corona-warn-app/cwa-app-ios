@@ -254,10 +254,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
 
-		// search for data privacy cell and tap
-		search("AppStrings.ContactDiaryInformation.dataPrivacyTitle", element: app)?.tap()
+		app.swipeUp(velocity: .fast)
+		app.swipeUp(velocity: .fast)
 
-		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
+		let privacyCell = try XCTUnwrap(app.cells["AppStrings.ContactDiaryInformation.dataPrivacyTitle"].firstMatch, "Privacy Cell not found")
+		privacyCell.tap()
+
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
 	}
 
