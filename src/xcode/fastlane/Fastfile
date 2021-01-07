@@ -68,16 +68,30 @@ platform :ios do
       reporter: "sonarqube"
     )
 
-    # Combined Unit & UI Tests
-    run_tests(
-      scheme: "ENA",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-      testplan: "AllTests",
-      only_test_configurations: ["DE"],
-      devices: ["iPhone 11"],
-      prelaunch_simulator: true, 
-      result_bundle: true
-    )
+    begin 
+
+      # Combined Unit & UI Tests
+      run_tests(
+        scheme: "ENA",
+        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
+        testplan: "AllTests",
+        only_test_configurations: ["DE"],
+        devices: ["iPhone 11"],
+        prelaunch_simulator: true, 
+        result_bundle: true,
+      )
+
+    rescue 
+
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
+      sh("pwd")
+      sh("rm -r test_output/ENA.xcresult")
+    
+    end 
 
     # Gather code coverage
     xcov(
@@ -88,12 +102,8 @@ platform :ios do
       output_directory: "fastlane/test_output"
     )
 
-    zip(
-      path: "fastlane/test_output/ENA.xcresult",
-      output_path: "ENA.xcresult.zip",
-      verbose: false
-    )
-    sh("rm -rf fastlane/test_output/ENA.xcresult")
+    sh("rm -r test_output/ENA.xcresult")
+
   end
 
   desc "Build and upload for testing"
