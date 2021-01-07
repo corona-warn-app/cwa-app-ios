@@ -82,8 +82,16 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
+        "ENAUITests_00_Onboarding\/test_0001_OnboardingFlow_EnablePermissions_normal_XS()",
+        "ENAUITests_00_Onboarding\/test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S()",
+        "ENAUITests_01_Home",
+        "ENAUITests_02_AppInformation",
+        "ENAUITests_03_Settings",
+        "ENAUITests_04_ExposureSubmissionUITests",
+        "ENAUITests_05_ExposureLogging",
         "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()",
-        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()"
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()",
+        "ENAUITests_07_ContactJournalUITests"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
