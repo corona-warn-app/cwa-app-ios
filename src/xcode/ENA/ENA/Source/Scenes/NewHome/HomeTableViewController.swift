@@ -84,7 +84,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		viewModel.state.updateTestResult()
 		viewModel.state.requestRisk(userInitiated: false)
 	}
 
