@@ -190,6 +190,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Internal
 
+	func reload() {
+		tableView.reloadData()
+	}
+
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
@@ -309,9 +313,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onUpdate: { [weak self] in
 				guard let self = self, self.tableView.visibleCells.contains(cell) else { return }
 				// Updates the cell height whenever the content of the cell changes
-				DispatchQueue.main.async {
-					self.tableView.reloadData()
-				}
+				self.tableView.beginUpdates()
+				self.tableView.endUpdates()
 			}
 		)
 		cell.configure(
