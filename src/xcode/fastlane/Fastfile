@@ -92,6 +92,8 @@ platform :ios do
     
     end 
 
+    sh("rm -r test_output/ENA.xcresult")
+
     # Gather code coverage
     xcov(
       workspace: "ENA.xcworkspace",
@@ -101,7 +103,6 @@ platform :ios do
       output_directory: "fastlane/test_output"
     )
 
-    sh("rm -r test_output/ENA.xcresult")
 
   end
 
