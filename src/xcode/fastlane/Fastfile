@@ -79,6 +79,7 @@ platform :ios do
         devices: ["iPhone 11"],
         prelaunch_simulator: true, 
         result_bundle: true,
+        code_coverage: true
       )
 
     rescue 
