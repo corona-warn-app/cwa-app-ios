@@ -133,7 +133,12 @@ class ENAButton: DynamicTypeButton {
 
 		guard nil == activityIndicator else { return }
 
-		let activityIndicator = UIActivityIndicatorView(style: traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge ? .large : .medium)
+		let activityIndicator: UIActivityIndicatorView
+		if #available(iOS 13.0, *) {
+			activityIndicator = UIActivityIndicatorView(style: traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge ? .large : .medium)
+		} else {
+			activityIndicator = UIActivityIndicatorView(style: traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge ? .whiteLarge : .white)
+		}
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 		activityIndicator.isUserInteractionEnabled = false
 
@@ -164,9 +169,17 @@ class ENAButton: DynamicTypeButton {
 
 	private func updateActivityIndicatorStyle() {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge {
-			activityIndicator?.style = .large
+			if #available(iOS 13.0, *) {
+				activityIndicator?.style = .large
+			} else {
+				activityIndicator?.style = .whiteLarge
+			}
 		} else {
-			activityIndicator?.style = .medium
+			if #available(iOS 13.0, *) {
+				activityIndicator?.style = .medium
+			} else {
+				activityIndicator?.style = .white
+			}
 		}
 	}
 

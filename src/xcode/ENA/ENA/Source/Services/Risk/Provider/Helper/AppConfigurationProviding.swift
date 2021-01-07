@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 
 /// A provider of the app configuration struct
 protocol AppConfigurationProviding: AnyObject {

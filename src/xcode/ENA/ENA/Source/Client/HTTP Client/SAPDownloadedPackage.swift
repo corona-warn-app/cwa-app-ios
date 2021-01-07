@@ -4,7 +4,6 @@
 
 import Foundation
 import ZIPFoundation
-import CryptoKit
 
 /// A combined binary file (zipped) and the corresponding verification signature.
 struct SAPDownloadedPackage: Fingerprinting {
@@ -13,7 +12,7 @@ struct SAPDownloadedPackage: Fingerprinting {
 	init(keysBin: Data, signature: Data) {
 		self.bin = keysBin
 		self.signature = signature
-		self.fingerprint = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
+		self.fingerprint = bin.sha256String()
 	}
 
 	init?(compressedData: Data) {
@@ -41,9 +40,9 @@ struct SAPDownloadedPackage: Fingerprinting {
 	typealias Verification = (SAPDownloadedPackage) -> Bool
 
 	struct Verifier {
-		private let getPublicKey: PublicKeyProvider
+		private let getPublicKey: PublicKeyProviding
 
-		init(key provider: @escaping PublicKeyProvider = DefaultPublicKeyProvider) {
+		init(key provider: @escaping PublicKeyProviding = DefaultPublicKeyProvider) {
 			getPublicKey = provider
 		}
 
@@ -59,13 +58,13 @@ struct SAPDownloadedPackage: Fingerprinting {
 			for signatureEntry in parsedSignatureFile.signatures {
 				let signatureData: Data = signatureEntry.signature
 				guard
-					let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
+					let signature = try? ECDSASignature(derRepresentation: signatureData)
 				else {
 					Log.warning("Could not validate signature of downloaded package", log: .api)
 					continue
 				}
 
-				if publicKey.isValidSignature(signature, for: package.bin) {
+				if publicKey.isValid(signature: signature, for: package.bin) {
 					return true
 				}
 			}

@@ -3,7 +3,7 @@
 //
 
 import XCTest
-import Combine
+import OpenCombine
 @testable import ENA
 
 class BackgroundAppRefreshViewModelTests: XCTestCase {
@@ -103,7 +103,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [String]()
-		let subscription = viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0)
 			expectation.fulfill()
 		}
@@ -135,7 +135,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [String]()
-		let subscription = viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0)
 			expectation.fulfill()
 		}
@@ -167,7 +167,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [String]()
-		let subscription = viewModel.$backgroundAppRefreshStatusImageAccessibilityLabel.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$backgroundAppRefreshStatusImageAccessibilityLabel.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0)
 			expectation.fulfill()
 		}
@@ -199,7 +199,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [UIImage?]()
-		let subscription = viewModel.$image.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$image.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0)
 			expectation.fulfill()
 		}
@@ -231,7 +231,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [Int?]()
-		let subscription = viewModel.$infoBoxViewModel.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$infoBoxViewModel.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0?.instructions.count)
 			expectation.fulfill()
 		}
@@ -263,7 +263,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [Int?]()
-		let subscription = viewModel.$infoBoxViewModel.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$infoBoxViewModel.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0?.instructions.count)
 			expectation.fulfill()
 		}
@@ -295,7 +295,7 @@ class BackgroundAppRefreshViewModelTests: XCTestCase {
 		expectation.expectedFulfillmentCount = expectedValues.count
 
 		var receivedValues = [Int?]()
-		let subscription = viewModel.$infoBoxViewModel.receive(on: RunLoop.main).sink {
+		let subscription = viewModel.$infoBoxViewModel.receive(on: RunLoop.main.ocombine).sink {
 			receivedValues.append($0?.instructions.count)
 			expectation.fulfill()
 		}

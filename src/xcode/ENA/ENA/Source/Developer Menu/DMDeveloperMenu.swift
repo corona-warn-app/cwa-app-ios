@@ -83,6 +83,16 @@ final class DMDeveloperMenu {
 			wifiClient: wifiClient,
 			exposureSubmissionService: exposureSubmissionService
 		)
+
+		let closeBarButtonItem = UIBarButtonItem(
+			title: "❌",
+			style: .done,
+			target: self,
+			action: #selector(closeDeveloperMenu)
+		)
+
+		vc.navigationItem.rightBarButtonItem = closeBarButtonItem
+
 		let navigationController = UINavigationController(
 			rootViewController: vc
 		)
@@ -93,6 +103,10 @@ final class DMDeveloperMenu {
 		)
 	}
 
+	@objc
+	func closeDeveloperMenu() {
+		presentingViewController.dismiss(animated: true)
+	}
 
 	private func isAllowed() -> Bool {
 		true

@@ -12,7 +12,11 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	init(store: Store) {
 		self.viewModel = DMDeviceTimeCheckViewModel(store: store)
-		super.init(style: .insetGrouped)
+		if #available(iOS 13.0, *) {
+			super.init(style: .insetGrouped)
+		} else {
+			super.init(style: .grouped)
+		}
 	}
 
 	required init?(coder: NSCoder) {

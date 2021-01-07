@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class TanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
 
@@ -25,7 +25,7 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .systemBackground
+		view.backgroundColor = ColorCompatibility.systemBackground
 		setupViews()
 		setupViewModelBindings()
 		footerView?.isHidden = false

@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class ExposureSubmissionTestResultConsentViewController: DynamicTableViewController, DismissHandling {
 

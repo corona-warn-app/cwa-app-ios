@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,10 +24,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hOt-m3-pCZ" userLabel="GrayArea">
-                    <rect key="frame" x="16" y="16" width="382" height="740"/>
+                    <rect key="frame" x="16" y="16" width="382" height="780"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufj-pQ-XcM" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="16" y="9" width="306" height="26.5"/>
+                            <rect key="frame" x="16" y="9" width="306" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -42,7 +43,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xz6-s9-cbH" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="16" y="487.5" width="350" height="20.5"/>
+                            <rect key="frame" x="16" y="527.5" width="350" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -51,7 +52,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="200" axis="vertical" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="5fd-4R-3SA">
-                            <rect key="frame" x="16" y="524" width="350" height="200"/>
+                            <rect key="frame" x="16" y="564" width="350" height="200"/>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" name="ENA Separator Color"/>
@@ -76,15 +77,15 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3n-FV-E0G" userLabel="Settings" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="772" width="382" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3n-FV-E0G" userLabel="Settings" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="16" y="812" width="382" height="30"/>
                     <state key="normal" title="Settings"/>
                     <connections>
                         <action selector="onSettings" destination="-1" eventType="touchUpInside" id="zXc-FI-AZv"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCK-6F-VwA" userLabel="Share" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="830" width="382" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCK-6F-VwA" userLabel="Share" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="16" y="850" width="382" height="30"/>
                     <state key="normal" title="Share"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
@@ -94,6 +95,7 @@
                     </connections>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="Qys-36-qef"/>
             <color key="backgroundColor" name="ENA Background Color"/>
             <constraints>
                 <constraint firstItem="g3n-FV-E0G" firstAttribute="top" secondItem="hOt-m3-pCZ" secondAttribute="bottom" constant="16" id="0OX-c7-6mC"/>
@@ -107,10 +109,23 @@
                 <constraint firstItem="hOt-m3-pCZ" firstAttribute="leading" secondItem="xe6-Dc-jD3" secondAttribute="leading" constant="16" id="o0K-y3-2ID"/>
                 <constraint firstItem="zCK-6F-VwA" firstAttribute="top" secondItem="g3n-FV-E0G" secondAttribute="bottom" constant="8" id="zhM-QX-Kdz"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Qys-36-qef"/>
             <point key="canvasLocation" x="723" y="-1467"/>
         </view>
     </objects>
+    <designables>
+        <designable name="Ufj-pQ-XcM">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="Xz6-s9-cbH">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="g3n-FV-E0G">
+            <size key="intrinsicContentSize" width="57" height="30"/>
+        </designable>
+        <designable name="zCK-6F-VwA">
+            <size key="intrinsicContentSize" width="40" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Icons_iOS_Hintergrundaktualisierung_Aus" width="28" height="28"/>
         <namedColor name="ENA Background Color">

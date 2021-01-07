@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 
 typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
 
@@ -54,7 +54,7 @@ protocol DiaryStoring {
 
 protocol DiaryProviding {
 
-	var diaryDaysPublisher: CurrentValueSubject<[DiaryDay], Never> { get }
+	var diaryDaysPublisher: OpenCombine.CurrentValueSubject<[DiaryDay], Never> { get }
 
 	func export() -> Result<String, SQLiteErrorCode>
 	

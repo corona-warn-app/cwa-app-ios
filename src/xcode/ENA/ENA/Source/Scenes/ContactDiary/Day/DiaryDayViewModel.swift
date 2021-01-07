@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryDayViewModel {
 
@@ -33,8 +33,8 @@ class DiaryDayViewModel {
 		case entries
 	}
 
-	@Published private(set) var day: DiaryDay
-	@Published var selectedEntryType: DiaryEntryType = .contactPerson
+	@OpenCombine.Published private(set) var day: DiaryDay
+	@OpenCombine.Published var selectedEntryType: DiaryEntryType = .contactPerson
 
 	var entriesOfSelectedType: [DiaryEntry] {
 		day.entries.filter {
