@@ -87,6 +87,13 @@ platform :ios do
       html_report: false,
       output_directory: "fastlane/test_output"
     )
+
+    zip(
+      path: "fastlane/test_output/ENA.xcresult",
+      output_path: "ENA.xcresult.zip",
+      verbose: false
+    )
+    sh("rm -rf fastlane/test_output/ENA.xcresult")
   end
 
   desc "Build and upload for testing"
