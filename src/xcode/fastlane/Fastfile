@@ -88,7 +88,6 @@ platform :ios do
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
-      sh("pwd")
       sh("rm -r test_output/ENA.xcresult")
     
     end 
