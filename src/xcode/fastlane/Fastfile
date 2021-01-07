@@ -68,9 +68,6 @@ platform :ios do
       reporter: "sonarqube"
     )
 
-    # Clean test_output to make sure xcov is working https://github.com/fastlane-community/danger-xcov/issues/33#issuecomment-704510403
-    sh("rm -r test_output/*")
-
     begin 
 
       # Combined Unit & UI Tests
@@ -96,16 +93,6 @@ platform :ios do
     end 
 
     sh("rm -r test_output/ENA.xcresult")
-
-    # Gather code coverage
-    xcov(
-      workspace: "ENA.xcworkspace",
-      scheme: "ENA",
-      markdown_report: true,
-      html_report: false,
-      output_directory: "fastlane/test_output"
-    )
-
 
   end
 
