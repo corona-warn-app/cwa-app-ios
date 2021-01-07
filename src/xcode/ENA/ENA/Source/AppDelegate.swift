@@ -20,7 +20,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var contactDiaryStore: ContactDiaryStoreV2 { get }
+	var contactDiaryStore: ContactDiaryStore { get }
 
 	func requestUpdatedExposureState()
 }
@@ -120,10 +120,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let client: HTTPClient
 	let wifiClient: WifiOnlyHTTPClient
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
-	let store: Store
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-	let serverEnvironment: ServerEnvironment
-	let contactDiaryStore = ContactDiaryStoreV2.make()
+    let store: Store
+    let contactDiaryStore = ContactDiaryStore.make()
+    let serverEnvironment: ServerEnvironment
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG
