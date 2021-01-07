@@ -200,23 +200,6 @@ workflows:
         - test:
             requires:
               - dependencies
-        - update-docs:
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - main
-
-    snapshot-all:
-      jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
         - snapshot:
             matrix:
               parameters:
@@ -224,9 +207,20 @@ workflows:
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot
+        - update-docs:
+            requires:
+              - dependencies
+            filters:
+              branches:
+                only:
+                  - main
 
     beta-release:
       jobs:
@@ -263,11 +257,9 @@ workflows:
             requires:
               - dependencies
             filters:
-              tags:
-                only:
-                  - /^v.*/
               branches:
-                ignore: /.*/
+                only:
+                  - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot
