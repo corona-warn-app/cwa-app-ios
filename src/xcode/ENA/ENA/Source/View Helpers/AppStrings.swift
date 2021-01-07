@@ -873,6 +873,7 @@ enum AppStrings {
 	enum ContactDiary {
 
 		enum Overview {
+			static let menuButtonTitle = NSLocalizedString("ContactDiary_Overview_Button_Title_Menu", comment: "")
 			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
 			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
 
