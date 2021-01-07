@@ -207,6 +207,10 @@ workflows:
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot
@@ -217,6 +221,25 @@ workflows:
               branches:
                 only:
                   - main
+
+    snapshot-all:
+      jobs:
+        - dependencies:
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
+        - snapshot:
+            matrix:
+              parameters:
+                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
+            requires:
+              - dependencies
+        - collect-snapshots:
+            requires:
+              - snapshot
+
     beta-release:
       jobs:
         - dependencies:
