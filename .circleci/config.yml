@@ -200,21 +200,6 @@ workflows:
         - test:
             requires:
               - dependencies
-        - update-docs:
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - main
-
-    snapshot-all:
-      jobs:
-        - dependencies:
-            filters:
-              branches:
-                only:
-                  - /release\/.*/
         - snapshot:
             matrix:
               parameters:
@@ -225,7 +210,13 @@ workflows:
         - collect-snapshots:
             requires:
               - snapshot
-
+        - update-docs:
+            requires:
+              - dependencies
+            filters:
+              branches:
+                only:
+                  - main
     beta-release:
       jobs:
         - dependencies:
