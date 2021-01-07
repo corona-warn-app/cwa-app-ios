@@ -90,10 +90,8 @@ platform :ios do
         verbose: false
       )
       sh("rm -r test_output/ENA.xcresult")
-    
+      
     end 
-
-    sh("rm -r test_output/ENA.xcresult")
 
   end
 
