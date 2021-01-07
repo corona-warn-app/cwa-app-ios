@@ -1339,6 +1339,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Contact Diary*/
 
 /* Overview */
+"ContactDiary_Overview_Button_Title_Menu" = "Menü";
+
 "ContactDiary_Overview_Title" = "Kontakt-Tagebuch";
 
 "ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. ";
