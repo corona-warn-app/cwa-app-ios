@@ -8,89 +8,94 @@ import OpenCombine
 
 class HomeExposureLoggingCellModelTests: XCTestCase {
 	
-	func testUpdateEnabledCase() {
-		let homeEnabledState = makeHomeState(with: .enabled)
-		runTestForState(
-			state: homeEnabledState,
-			expectedTitle: AppStrings.Home.activateCardOnTitle,
-			expectedIcon: UIImage(named: "Icons_Risikoermittlung_25"),
-			expectedAnimationImages: (0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) }),
-			expectedAccessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardOnTitle
-		)
-    }
-	
-	func testBluetoothOffState() {
-		let homeBluetoothOffState = makeHomeState(with: .bluetoothOff)
-		runTestForState(
-			state: homeBluetoothOffState,
-			expectedTitle: AppStrings.Home.activateCardBluetoothOffTitle,
-			expectedIcon: UIImage(named: "Icons_Bluetooth_aus"),
-			expectedAnimationImages: nil,
-			expectedAccessibilityIdentifier: AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle
-		)
-	}
-	
-	func testDisabledState() {
-		let homeDisabledState = makeHomeState(with: .disabled)
-		runTestForState(state: homeDisabledState)
-	}
-	
-	func testRestrictedState() {
-		let homeRestrictedState = makeHomeState(with: .restricted)
-		runTestForState(state: homeRestrictedState)
-	}
-	
-	func testNotAuthorizedState() {
-		let homeNotAuthorizedState = makeHomeState(with: .notAuthorized)
-		runTestForState(state: homeNotAuthorizedState)
-	}
-	
-	func test_unknown() {
-		let homeUnknownState = makeHomeState(with: .unknown)
-		runTestForState(state: homeUnknownState)
-	}
-	
-	func test_notActiveApp() {
-		let homeNotActiveAppState = makeHomeState(with: .notActiveApp)
-		runTestForState(state: homeNotActiveAppState)
-	}
+	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
+		
+		let expectationTitles = expectation(description: "StateTitle")
+		let expectationIcons = expectation(description: "StateIcon")
+		let expectationAnimationImages = expectation(description: "AnimationImages")
+		let expectationAccessibilityIdentifiers = expectation(description: "AccessibilityIdentifier")
+		
+		let titlesArray = [
+			AppStrings.Home.activateCardOnTitle,
+			AppStrings.Home.activateCardBluetoothOffTitle,
+			AppStrings.Home.activateCardOffTitle,
+			AppStrings.Home.activateCardOffTitle,
+			AppStrings.Home.activateCardOffTitle,
+			AppStrings.Home.activateCardOffTitle,
+			AppStrings.Home.activateCardOffTitle
+		]
+		let iconsArray = [
+			UIImage(named: "Icons_Risikoermittlung_25"),
+			UIImage(named: "Icons_Bluetooth_aus"),
+			UIImage(named: "Icons_Risikoermittlung_gestoppt"),
+			UIImage(named: "Icons_Risikoermittlung_gestoppt"),
+			UIImage(named: "Icons_Risikoermittlung_gestoppt"),
+			UIImage(named: "Icons_Risikoermittlung_gestoppt"),
+			UIImage(named: "Icons_Risikoermittlung_gestoppt")
+		]
+		
+		let animationImagesArray = [(0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) }), nil, nil, nil, nil, nil, nil]
+		let accessabilityIdentifiersArray = [
+			AccessibilityIdentifiers.Home.activateCardOnTitle,
+			AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle,
+			AccessibilityIdentifiers.Home.activateCardOffTitle,
+			AccessibilityIdentifiers.Home.activateCardOffTitle,
+			AccessibilityIdentifiers.Home.activateCardOffTitle,
+			AccessibilityIdentifiers.Home.activateCardOffTitle,
+			AccessibilityIdentifiers.Home.activateCardOffTitle
+		]
+		
+		var recievedTitleValues = [String?]()
+		var recievedIconsArray = [UIImage?]()
+		var recievedAnimationImages = [[UIImage]?]()
+		var recievedAccessibilityIdentifiers = [String?]()
+		
+		expectationTitles.expectedFulfillmentCount = titlesArray.count
+		expectationIcons.expectedFulfillmentCount = iconsArray.count
+		expectationAnimationImages.expectedFulfillmentCount = animationImagesArray.count
+		expectationAccessibilityIdentifiers.expectedFulfillmentCount = accessabilityIdentifiersArray.count
 
-	private func runTestForState(
-		state: HomeState,
-		expectedTitle: String = AppStrings.Home.activateCardOffTitle,
-		expectedIcon: UIImage? = UIImage(named: "Icons_Risikoermittlung_gestoppt"),
-		expectedAnimationImages: [UIImage]? = nil,
-		expectedAccessibilityIdentifier: String = AccessibilityIdentifiers.Home.activateCardOffTitle
-	) {
+		let state = makeHomeState(with: .enabled)
 		let sut = HomeExposureLoggingCellModel(state: state)
 		
-		let expectationTitle = expectation(description: "StateTitle")
-		let expectationIcon = expectation(description: "StateIcon")
-		let expectationAnimationImages = expectation(description: "AnimationImages")
-		let expectationAccessibilityIdentifier = expectation(description: "AccessibilityIdentifier")
-
-		_ = sut.$title
+		let titlesSubscription = sut.$title
 			.sink { recievedValue in
-				XCTAssertEqual(recievedValue, expectedTitle)
-				expectationTitle.fulfill()
+				recievedTitleValues.append(recievedValue)
+				expectationTitles.fulfill()
 			}
-		_ = sut.$icon
+		let iconsSubscription = sut.$icon
 			.sink { recievedValue in
-				XCTAssertEqual(recievedValue, expectedIcon)
-				expectationIcon.fulfill()
+				recievedIconsArray.append(recievedValue)
+				expectationIcons.fulfill()
 			}
-		_ = sut.$animationImages
+		let animationsSubscription = sut.$animationImages
 			.sink { recievedValue in
-				XCTAssertEqual(recievedValue, expectedAnimationImages)
+				recievedAnimationImages.append(recievedValue)
 				expectationAnimationImages.fulfill()
 			}
-		_ = sut.$accessibilityIdentifier
+		let accessabilityIdentifiersSubscription = sut.$accessibilityIdentifier
 			.sink { recievedValue in
-				XCTAssertEqual(recievedValue, expectedAccessibilityIdentifier)
-				expectationAccessibilityIdentifier.fulfill()
+				recievedAccessibilityIdentifiers.append(recievedValue)
+				expectationAccessibilityIdentifiers.fulfill()
 			}
-		waitForExpectations(timeout: 1, handler: nil)
 
+		state.enState = .bluetoothOff
+		state.enState = .disabled
+		state.enState = .restricted
+		state.enState = .notActiveApp
+		state.enState = .notAuthorized
+		state.enState = .unknown
+		
+		waitForExpectations(timeout: 1, handler: nil)
+		titlesSubscription.cancel()
+		iconsSubscription.cancel()
+		animationsSubscription.cancel()
+		accessabilityIdentifiersSubscription.cancel()
+
+		XCTAssertEqual(recievedTitleValues, titlesArray)
+		XCTAssertEqual(recievedIconsArray, iconsArray)
+		XCTAssertEqual(recievedAnimationImages, animationImagesArray)
+		XCTAssertEqual(recievedAccessibilityIdentifiers, accessabilityIdentifiersArray)
 	}
 	
 	private func makeHomeState(with enState: ENStateHandler.State) -> HomeState {
