@@ -534,7 +534,6 @@
 		B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */; };
 		B1FC2D2024D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FC2D1F24D9C8DF00083C81 /* SAP_TemporaryExposureKey+DeveloperMenu.swift */; };
 		B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DE248821E000D012E5 /* RiskProvider.swift */; };
-		B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskProviding.swift */; };
 		B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13E1248824E900D012E5 /* RiskProviderTests.swift */; };
 		B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13E52488255900D012E5 /* RiskProvidingConfiguration.swift */; };
 		B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */; };
@@ -626,6 +625,10 @@
 		EBB92C7C259E111A00013B41 /* AppDisabledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* AppDisabledView.swift */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
+		EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */; };
+		EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskProviding.swift */; };
+		EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */; };
+		EBD2D0AE25A86C6B006E4220 /* MockRiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */; };
 		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
 		EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
@@ -1384,6 +1387,8 @@
 		EBB92C7B259E111A00013B41 /* AppDisabledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDisabledView.swift; sourceTree = "<group>"; };
 		EBBABC46256402A9005B7C07 /* default_app_config_18 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_18; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
+		EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModelTests.swift; sourceTree = "<group>"; };
+		EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRiskProvider.swift; sourceTree = "<group>"; };
 		EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewController.swift; sourceTree = "<group>"; };
 		EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewModel.swift; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
@@ -1857,6 +1862,7 @@
 		01EA17602590E9B900E98E02 /* NewHome */ = {
 			isa = PBXGroup;
 			children = (
+				EBD2D07C25A86144006E4220 /* __tests__ */,
 				01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */,
 				01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */,
 				01EA17FD259217B100E98E02 /* HomeState.swift */,
@@ -3414,6 +3420,7 @@
 				B1FE13E0248824D700D012E5 /* __tests__ */,
 				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
 				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
+				EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -3697,6 +3704,14 @@
 				EBB92C76259E110900013B41 /* AppDisabledViewModel.swift */,
 			);
 			path = AppDisabled;
+			sourceTree = "<group>";
+		};
+		EBD2D07C25A86144006E4220 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */ = {
@@ -4154,7 +4169,6 @@
 				01B72BF22583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift in Sources */,
 				01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
-				B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
 				2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */,
 				52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */,
@@ -4208,9 +4222,7 @@
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
-				514C0A14247C163800F235F6 /* HomeLowRiskCellConfigurator.swift in Sources */,
 				8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */,
-				51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
@@ -4347,6 +4359,7 @@
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
 				71B8044D248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift in Sources */,
+				EBD2D0AE25A86C6B006E4220 /* MockRiskProvider.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
@@ -4413,6 +4426,7 @@
 				EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */,
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
+				EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
 				019C9F34258951BB00B26392 /* DiaryDay.swift in Sources */,
 				AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */,
@@ -4460,7 +4474,6 @@
 				EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */,
 				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
-				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
@@ -4513,6 +4526,7 @@
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
+				EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */,
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
@@ -4616,6 +4630,7 @@
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
+				EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */,
 				AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */,
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
