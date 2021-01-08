@@ -10,7 +10,7 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 	
 	func testUpdateEnabledCase() {
 		let homeEnabledState = makeHomeState(with: .enabled)
-		makeCommonTestCodeForState(
+		runTestForState(
 			state: homeEnabledState,
 			expectedTitle: AppStrings.Home.activateCardOnTitle,
 			expectedIcon: UIImage(named: "Icons_Risikoermittlung_25"),
@@ -21,7 +21,7 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 	
 	func testBluetoothOffState() {
 		let homeBluetoothOffState = makeHomeState(with: .bluetoothOff)
-		makeCommonTestCodeForState(
+		runTestForState(
 			state: homeBluetoothOffState,
 			expectedTitle: AppStrings.Home.activateCardBluetoothOffTitle,
 			expectedIcon: UIImage(named: "Icons_Bluetooth_aus"),
@@ -32,30 +32,30 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 	
 	func testDisabledState() {
 		let homeDisabledState = makeHomeState(with: .disabled)
-		makeCommonTestCodeForState(state: homeDisabledState)
+		runTestForState(state: homeDisabledState)
 	}
 	
 	func testRestrictedState() {
 		let homeRestrictedState = makeHomeState(with: .restricted)
-		makeCommonTestCodeForState(state: homeRestrictedState)
+		runTestForState(state: homeRestrictedState)
 	}
 	
 	func testNotAuthorizedState() {
 		let homeNotAuthorizedState = makeHomeState(with: .notAuthorized)
-		makeCommonTestCodeForState(state: homeNotAuthorizedState)
+		runTestForState(state: homeNotAuthorizedState)
 	}
 	
 	func test_unknown() {
 		let homeUnknownState = makeHomeState(with: .unknown)
-		makeCommonTestCodeForState(state: homeUnknownState)
+		runTestForState(state: homeUnknownState)
 	}
 	
 	func test_notActiveApp() {
 		let homeNotActiveAppState = makeHomeState(with: .notActiveApp)
-		makeCommonTestCodeForState(state: homeNotActiveAppState)
+		runTestForState(state: homeNotActiveAppState)
 	}
 
-	private func makeCommonTestCodeForState(
+	private func runTestForState(
 		state: HomeState,
 		expectedTitle: String = AppStrings.Home.activateCardOffTitle,
 		expectedIcon: UIImage? = UIImage(named: "Icons_Risikoermittlung_gestoppt"),
@@ -71,29 +71,25 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 
 		_ = sut.$title
 			.sink { recievedValue in
-				if recievedValue == expectedTitle {
-					expectationTitle.fulfill()
-				}
+				XCTAssertEqual(recievedValue, expectedTitle)
+				expectationTitle.fulfill()
 			}
 		_ = sut.$icon
 			.sink { recievedValue in
-				if recievedValue == expectedIcon {
-					expectationIcon.fulfill()
-				}
+				XCTAssertEqual(recievedValue, expectedIcon)
+				expectationIcon.fulfill()
 			}
 		_ = sut.$animationImages
 			.sink { recievedValue in
-				if recievedValue == expectedAnimationImages {
-					expectationAnimationImages.fulfill()
-				}
+				XCTAssertEqual(recievedValue, expectedAnimationImages)
+				expectationAnimationImages.fulfill()
 			}
 		_ = sut.$accessibilityIdentifier
 			.sink { recievedValue in
-				if recievedValue == expectedAccessibilityIdentifier {
-					expectationAccessibilityIdentifier.fulfill()
-				}
+				XCTAssertEqual(recievedValue, expectedAccessibilityIdentifier)
+				expectationAccessibilityIdentifier.fulfill()
 			}
-		wait(for: [expectationTitle, expectationIcon, expectationAnimationImages, expectationAccessibilityIdentifier], timeout: 1)
+		waitForExpectations(timeout: 1, handler: nil)
 
 	}
 	
