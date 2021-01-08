@@ -26,14 +26,14 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				case .risk(let risk):
 					switch risk.level {
 					case .low:
-						self?.setupLowRiskState(risk: risk)
+						self?.setupForLowRiskState(risk: risk)
 					case .high:
-						self?.setupHighRiskState(risk: risk)
+						self?.setupForHighRiskState(risk: risk)
 					}
 				case .inactive:
-					self?.setupInactiveState()
+					self?.setupForInactiveState()
 				case .detectionFailed:
-					self?.setupFailedState()
+					self?.setupForFailedState()
 				}
 
 				onUpdate()
@@ -44,9 +44,9 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			.sink { [weak self] in
 				switch $0 {
 				case .downloading:
-					self?.setupDownloadingState()
+					self?.setupForDownloadingState()
 				case .detecting:
-					self?.setupDetectingState()
+					self?.setupForDetectingState()
 				default:
 					break
 				}
@@ -204,21 +204,21 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		scheduleCountdownTimer()
 	}
 
-	private func setupDownloadingState() {
-		setupLoadingState(
+	private func setupForDownloadingState() {
+		setupForLoadingState(
 			title: AppStrings.Home.riskCardStatusDownloadingTitle,
 			loadingItemTitle: AppStrings.Home.riskCardStatusDownloadingBody
 		)
 	}
 
-	private func setupDetectingState() {
-		setupLoadingState(
+	private func setupForDetectingState() {
+		setupForLoadingState(
 			title: AppStrings.Home.riskCardStatusDetectingTitle,
 			loadingItemTitle: AppStrings.Home.riskCardStatusDetectingBody
 		)
 	}
 
-	private func setupLoadingState(
+	private func setupForLoadingState(
 		title: String,
 		loadingItemTitle: String
 	) {
@@ -242,7 +242,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		]
 	}
 
-	private func setupLowRiskState(risk: Risk) {
+	private func setupForLowRiskState(risk: Risk) {
 		backgroundColor = .enaColor(for: .riskLow)
 		separatorColor = .enaColor(for: .hairlineContrast)
 
@@ -301,7 +301,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		]
 	}
 
-	private func setupHighRiskState(risk: Risk) {
+	private func setupForHighRiskState(risk: Risk) {
 		backgroundColor = .enaColor(for: .riskHigh)
 		separatorColor = .enaColor(for: .hairlineContrast)
 
@@ -368,7 +368,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		]
 	}
 
-	private func setupInactiveState() {
+	private func setupForInactiveState() {
 		backgroundColor = .enaColor(for: .background)
 		separatorColor = .enaColor(for: .hairline)
 
@@ -414,7 +414,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		]
 	}
 
-	private func setupFailedState() {
+	private func setupForFailedState() {
 		backgroundColor = .enaColor(for: .background)
 		separatorColor = .enaColor(for: .hairline)
 

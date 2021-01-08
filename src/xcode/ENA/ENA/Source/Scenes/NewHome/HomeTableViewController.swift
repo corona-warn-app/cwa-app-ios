@@ -189,6 +189,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	// MARK: - Internal
 
+	func reload() {
+		tableView.reloadData()
+	}
+
 	func scrollToTop(animated: Bool) {
 		tableView.setContentOffset(.zero, animated: animated)
 	}
@@ -261,7 +265,23 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+
+		// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		tableView.estimatedRowHeight = 500
+	}
+
+	private func animateChanges(of cell: UITableViewCell) {
+		guard tableView.visibleCells.contains(cell) else { return }
+
+		// Animate the changed cell height
+		tableView.beginUpdates()
+		tableView.endUpdates()
+
+		// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+		for cell in tableView.visibleCells {
+			cell.layer.masksToBounds = false
+			cell.contentView.layer.masksToBounds = false
+		}
 	}
 
 	private func exposureDetectionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -287,10 +307,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self.onInactiveCellButtonTap(self.viewModel.state.enState)
 			},
 			onUpdate: { [weak self] in
-				guard let self = self, self.tableView.visibleCells.contains(cell) else { return }
-				// Updates the cell height whenever the content of the cell changes
-				self.tableView.beginUpdates()
-				self.tableView.endUpdates()
+				self?.animateChanges(of: cell)
 			}
 		)
 		cell.configure(with: cellModel)
@@ -306,11 +323,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		let cellModel = HomeTestResultCellModel(
 			homeState: viewModel.state,
 			onUpdate: { [weak self] in
-				guard let self = self, self.tableView.visibleCells.contains(cell) else { return }
-				// Updates the cell height whenever the content of the cell changes
-				DispatchQueue.main.async {
-					self.tableView.reloadData()
-				}
+				self?.animateChanges(of: cell)
 			}
 		)
 		cell.configure(

@@ -297,6 +297,7 @@ class Coordinator: RequiresAppDependencies {
 
 extension Coordinator: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
+		homeController?.reload()
 		homeState?.updateTestResult()
 	}
 }
