@@ -4,6 +4,7 @@
 
 import Foundation
 import ExposureNotification
+@testable import ENA
 
 class MockRiskProvider: RiskProviding {
 	
