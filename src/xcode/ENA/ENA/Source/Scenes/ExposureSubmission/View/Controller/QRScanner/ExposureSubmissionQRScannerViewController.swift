@@ -74,7 +74,9 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		navigationController?.overrideUserInterfaceStyle = .dark
+		if #available(iOS 13.0, *) {
+			navigationController?.overrideUserInterfaceStyle = .dark
+		}
 		navigationController?.navigationBar.tintColor = .enaColor(for: .textContrast)
 		navigationController?.navigationBar.shadowImage = UIImage()
 		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
@@ -86,9 +88,10 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		navigationItem.leftBarButtonItem = cancelItem
 
 		let flashButton = UIButton(type: .custom)
+		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		flashButton.setImage(UIImage(systemName: "bolt"), for: .normal)
-		flashButton.setImage(UIImage(systemName: "bolt.fill"), for: .selected)
+		flashButton.setImage(UIImage(named: "bolt"), for: .normal)
+		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
 		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
 		flashButton.accessibilityTraits = [.button]

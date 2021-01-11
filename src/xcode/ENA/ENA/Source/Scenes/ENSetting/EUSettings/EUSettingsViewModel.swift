@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 import UIKit
 
 class EUSettingsViewModel {

@@ -17,7 +17,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
-		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllPersons", "YES"])
 		app.launchArguments.append(contentsOf: ["-journalRemoveAllLocations", "YES"])
 	}
@@ -29,6 +28,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	// MARK: - Test cases.
 
 	func testOpenInformationScreenViaSheet() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		openInformationSheet()
 
 		app.sheets.firstMatch.buttons.element(boundBy: 0).tap()
@@ -38,6 +39,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testOpenExportViaSheet() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		openInformationSheet()
 
 		app.sheets.firstMatch.buttons.element(boundBy: 1).tap()
@@ -47,6 +50,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testDeleteAllPersons() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		openEditPersonViaSheet()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
@@ -61,6 +66,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testDeleteOnePersonAndEditOnePerson() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		openEditPersonViaSheet()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_ContactPersons_Title"))
@@ -95,6 +102,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testDeleteOneLocationAndEditOneLocation() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		openEditLocationsViaSheet()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_EditEntries_Locations_Title"))
@@ -134,6 +143,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddTwoPersonsAndOneLocationToDate() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		navigateToJournalOverview()
 
 		// check count for overview: day cell 14 days plus 1 description cell
@@ -181,6 +192,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddPersonToDate() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		navigateToJournalOverview()
 
 		// check count for overview: day cell 14 days plus 1 description cell
@@ -205,6 +218,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddLocationToDate() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
 		navigateToJournalOverview()
 
 		// check count for overview: day cell 14 days plus 1 description cell
@@ -239,10 +254,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
 
-		// search for data privacy cell and tap
-		search("AppStrings.ContactDiaryInformation.dataPrivacyTitle", element: app)?.tap()
+		app.swipeUp(velocity: .fast)
+		app.swipeUp(velocity: .fast)
 
-		XCTAssertTrue(app.navigationBars.element(boundBy: 1).waitForExistence(timeout: .medium))
+		let privacyCell = try XCTUnwrap(app.cells["AppStrings.ContactDiaryInformation.dataPrivacyTitle"].firstMatch, "Privacy Cell not found")
+		privacyCell.tap()
+
 		XCTAssertTrue(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: .medium))
 	}
 
@@ -270,10 +287,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		launch()
 
 		// Click submit card.
-		XCTAssertTrue(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 
-		let collectionView = app.descendants(matching: .collectionView).firstMatch
-		search("AppStrings.Home.diaryCardButton", element: collectionView)?.tap()
+		let homeTableView = app.descendants(matching: .table).firstMatch
+		search("AppStrings.Home.diaryCardButton", element: homeTableView)?.tap()
+        
+        XCTAssertTrue(app.navigationBars.staticTexts[app.localized("ContactDiary_Information_Title")].waitForExistence(timeout: .medium))
 	}
 
 	private func addPersonToDayEntry(_ personName: String) {
@@ -348,7 +367,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		var lastLoopSeenElements: [String] = []
 
 		while !allElementsFound {
-			/** search for a possibel button */
+			/** search for a possible button */
 			guard !element.buttons[identifier].exists else {
 				return element.buttons[identifier]
 			}

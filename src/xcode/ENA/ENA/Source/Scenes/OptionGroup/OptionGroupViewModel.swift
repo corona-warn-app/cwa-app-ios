@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class OptionGroupViewModel {
 
@@ -40,7 +40,7 @@ class OptionGroupViewModel {
 
 	// MARK: - Internal
 
-	@Published private(set) var selection: Selection?
+	@OpenCombine.Published private(set) var selection: Selection?
 
 	var options: [Option]
 

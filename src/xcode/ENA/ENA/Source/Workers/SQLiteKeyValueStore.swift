@@ -226,16 +226,27 @@ final class SQLiteKeyValueStore {
 	///
 	/// - attention: Errors encountered during encoding with `JSONEncoder` silently fail (but are logged)!
 	///	If encoding fails, fetching the value for that key will result in empty `Data`
+	/// Model needs to wrapped into array for iOS 12.5: https://drewag.me/posts/2019/09/11/json-encoder-change-in-swift-5
+	/// On installations that are already in use we have to fallback to the old way to get the data that is not wrapped inside an array
 	subscript<Model: Codable>(key: String) -> Model? {
 		get {
 			guard let data = try? getData(for: key) else {
 				return nil
 			}
-			return try? JSONDecoder().decode(Model.self, from: data)
+			do {
+				let array = try JSONDecoder().decode(Array<Model>.self, from: data)
+				if let value = array.first {
+					return value
+				}
+
+			} catch {
+				Log.error("Error when decoding value from K/V SQLite store: \(error.localizedDescription)", log: .localData)
+			}
+			return try? JSONDecoder().decode(Model.self, from: data) // Fallback for old installations
 		}
 		set {
 			do {
-				let encoded = try JSONEncoder().encode(newValue)
+				let encoded = try JSONEncoder().encode([newValue])
 				try setData(encoded, for: key)
 			} catch {
 				Log.error("Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)", log: .localData)

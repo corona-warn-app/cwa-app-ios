@@ -12,25 +12,15 @@ class DynamicCellTests: XCTestCase {
 	var window: UIWindow!
 
 	override func setUpWithError() throws {
-		// The fake storyboard is needed here to instantiate an instance of
-		// DynamicTableViewController like it will be done in the real app.
-		// Without that, the tableView property doesn't get assign properly.
-		let testBundle = Bundle(for: DynamicTableViewControllerRowsTests.self)
-		let storyboardFake = UIStoryboard(name: "DynamicTableViewControllerFake", bundle: testBundle)
-		// The force unwrap it used here because when the type doesn't match, a
-		// crash immedeately informs about a problem in the test.
-		guard let viewController = storyboardFake.instantiateViewController(identifier: "DynamicTableViewController") as? DynamicTableViewController
-			else {
-				XCTAssert(false, "Unable to instantiate DynamicTableViewController from DynamicTableViewControllerFake.storyboard")
-				return
-		}
-		dynamicVC = viewController
+		dynamicVC = DynamicTableViewController()
 
 		// trigger viewDidLoad
 		dynamicVC.loadViewIfNeeded()
 
 		window = UIWindow(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 		window.makeKeyAndVisible()
+		
+		window.rootViewController = dynamicVC
 	}
 
 	override func tearDownWithError() throws {
@@ -45,20 +35,20 @@ extension DynamicCellTests {
 	func testMakeDynamicCell_TextCell_DefaultIsLabelStyle() {
 		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo")])
 		dynamicVC.dynamicTableViewModel = DynamicTableViewModel([section])
-		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
-		window.rootViewController = dynamicVC
+		
+		dynamicVC.tableView.reloadData() // Force a reload that new ViewModel gets used
 
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
-
+		
 		XCTAssert(cell is DynamicTableViewTextCell)
 	}
 
 	func testMakeDynamicCell_UseTextViewCellStyle() {
 		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo", cellStyle: .textView([]))])
 		dynamicVC.dynamicTableViewModel = DynamicTableViewModel([section])
-		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
-		window.rootViewController = dynamicVC
+
+		dynamicVC.tableView.reloadData() // Force a reload that new ViewModel gets used
 
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
@@ -70,8 +60,8 @@ extension DynamicCellTests {
 		let expectedDetectors = UIDataDetectorTypes.all
 		let section = DynamicSection.section(cells: [.dynamicType(text: "Foo", cellStyle: .textView(expectedDetectors))])
 		dynamicVC.dynamicTableViewModel = DynamicTableViewModel([section])
-		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
-		window.rootViewController = dynamicVC
+
+		dynamicVC.tableView.reloadData() // Force a reload that new ViewModel gets used
 
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
@@ -86,8 +76,8 @@ extension DynamicCellTests {
 	func testMakeDynamicCell_Body_DefaultIsLabelStyle() {
 		let section = DynamicSection.section(cells: [.body(text: "Foo", accessibilityIdentifier: "Foo")])
 		dynamicVC.dynamicTableViewModel = DynamicTableViewModel([section])
-		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
-		window.rootViewController = dynamicVC
+		
+		dynamicVC.tableView.reloadData() // Force a reload that new ViewModel gets used
 
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)

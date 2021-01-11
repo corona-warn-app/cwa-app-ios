@@ -20,15 +20,12 @@ final class HomeInteractorTests: XCTestCase {
 		let delegate = HomeViewControllerDelegateDummy()
 		let exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 
-		let homeController = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { coder in
-			HomeViewController(
-				coder: coder,
-				delegate: delegate,
-				exposureManagerState: exposureManagerState,
-				initialEnState: .enabled,
-				exposureSubmissionService: service
-			)
-		}
+		let homeController = HomeViewController(
+			delegate: delegate,
+			exposureManagerState: exposureManagerState,
+			initialEnState: .enabled,
+			exposureSubmissionService: service
+		)
 
 		let enState = ENStateHandler.State.enabled
 		let homeInteractorState = HomeInteractor.State(riskState: .inactive, exposureManagerState: exposureManagerState, enState: enState)

@@ -62,8 +62,8 @@ final class DMLogsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.backgroundColor = .systemBackground
-		textView.textColor = .label
+		view.backgroundColor = ColorCompatibility.systemBackground
+		textView.textColor = ColorCompatibility.label
 
 		let segementedControlItems = OSLogType.allCases.map { $0.title }
 		segmentedControl = UISegmentedControl(items: segementedControlItems)
@@ -122,7 +122,9 @@ final class DMLogsViewController: UIViewController {
 		let view = UITextView()
 		view.isEditable = false
 		view.textAlignment = .natural
-		view.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+		if #available(iOS 13.0, *) {
+			view.font = UIFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+		}
 		return view
 	}()
 

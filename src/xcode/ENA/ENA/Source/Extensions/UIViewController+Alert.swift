@@ -33,38 +33,6 @@ extension UIViewController {
 		)
 	}
 
-	/// This method checks whether the below conditions in regards to background fetching have been met
-	/// and creates the corresponding alert. Note that `store` is needed in the alert closure in order
-	/// to track that the alert has already been shown once.
-	/// The error alert should only be shown:
-	/// - once
-	/// - if the background refresh is disabled
-	/// - if the user is __not__ in power saving mode, because in this case the background
-	///   refresh is disabled automatically. Therefore we have to explicitly check this.
-	func createBackgroundFetchAlert(
-		status: UIBackgroundRefreshStatus,
-		inLowPowerMode: Bool,
-		hasSeenAlertBefore: Bool,
-		store: Store) -> UIAlertController? {
-
-		if status == .available || inLowPowerMode || hasSeenAlertBefore { return nil }
-
-		let openSettings: (() -> Void) = {
-			if let url = URL(string: UIApplication.openSettingsURLString) {
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
-		}
-
-		return setupErrorAlert(
-			title: AppStrings.Common.backgroundFetch_AlertTitle,
-			message: AppStrings.Common.backgroundFetch_AlertMessage,
-			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
-			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
-			completion: { store.hasSeenBackgroundFetchAlert = true },
-			secondaryActionCompletion: openSettings
-		)
-	}
-
 }
 
 extension UIAlertController {
@@ -97,7 +65,7 @@ extension UIAlertController {
 			title: okTitle ?? AppStrings.Common.alertActionOk,
 			style: .cancel,
 			handler: { _ in
-				alert.dismiss(animated: true, completion: completion)
+				completion?()
 			}
 		)
 
@@ -107,8 +75,7 @@ extension UIAlertController {
 				title: secondaryActionTitle,
 				style: .default,
 				handler: { _ in
-					alert.dismiss(animated: true, completion: secondaryActionCompletion)
-
+					secondaryActionCompletion?()
 				}
 			)
 			alert.addAction(retryAction)

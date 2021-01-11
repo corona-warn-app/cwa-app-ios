@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 @testable import ENA
 
 class MockDiaryStore: DiaryStoringProviding {
@@ -16,7 +16,7 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	// MARK: - Protocol DiaryProviding
 
-	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
+	var diaryDaysPublisher = OpenCombine.CurrentValueSubject<[DiaryDay], Never>([])
 
 	func export() -> Result<String, SQLiteErrorCode> {
 		return .success("Dummy")

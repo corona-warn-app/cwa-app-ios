@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationSettingsViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="illustrationImageView" destination="hkd-dw-uNC" id="daF-zL-4AE"/>
+                <outlet property="infoView" destination="U4h-va-mIb" id="2kh-aj-B7l"/>
+                <outlet property="infoViewButton" destination="73l-bO-Ic1" id="q5a-fH-6fY"/>
+                <outlet property="infoViewDescriptionLabel" destination="woh-IT-fvE" id="KIk-uV-v5L"/>
+                <outlet property="infoViewImage" destination="gtj-0b-RfZ" id="kUO-91-u2l"/>
+                <outlet property="infoViewTitleLabel" destination="MJ4-a5-yvq" id="2PE-u9-dga"/>
+                <outlet property="tableView" destination="I1G-zf-N5q" id="28I-iY-E1D"/>
+                <outlet property="tableViewHeightConstraint" destination="jVw-gH-396" id="sdk-Yw-s3G"/>
+                <outlet property="titleLabel" destination="Gl8-ki-99s" id="bpQ-Gg-mfS"/>
+                <outlet property="view" destination="A4Z-Rn-3Lu" id="SfZ-7I-Zhp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="A4Z-Rn-3Lu">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKL-mG-SyP">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bvz-za-dcz">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="696"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Mitteilungen_On" translatesAutoresizingMaskIntoConstraints="NO" id="hkd-dw-uNC" userLabel="Image View">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
+                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="ywT-6n-5bX">
+                                    <rect key="frame" x="0.0" y="229" width="414" height="451"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="# Mitteilungen sind ausgestellt" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gl8-ki-99s" userLabel="Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="0.0" width="382" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="I1G-zf-N5q">
+                                            <rect key="frame" x="0.0" y="37.5" width="414" height="200"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="200" id="jVw-gH-396"/>
+                                            </constraints>
+                                        </tableView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U4h-va-mIb" userLabel="Info View">
+                                            <rect key="frame" x="16" y="254.5" width="382" height="196.5"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0WJ-68-ZEy">
+                                                    <rect key="frame" x="16" y="20" width="350" height="160.5"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWr-5l-L2x">
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJ4-a5-yvq" userLabel="Info Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="312" height="50"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="Icons_Settings_Risikoermittlung" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-0b-RfZ" userLabel="Info Image View">
+                                                                    <rect key="frame" x="322" y="0.0" width="28" height="28"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="28" id="9Yv-zB-Bey"/>
+                                                                        <constraint firstAttribute="height" constant="28" id="c21-7R-bEa"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" name="ENA Separator Color"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailing" secondItem="gtj-0b-RfZ" secondAttribute="trailing" id="6nl-5G-J2c"/>
+                                                                <constraint firstItem="MJ4-a5-yvq" firstAttribute="leading" secondItem="mWr-5l-L2x" secondAttribute="leading" id="NLX-Av-MKI"/>
+                                                                <constraint firstItem="gtj-0b-RfZ" firstAttribute="leading" secondItem="MJ4-a5-yvq" secondAttribute="trailing" constant="10" id="NfT-w5-IOh"/>
+                                                                <constraint firstItem="gtj-0b-RfZ" firstAttribute="top" secondItem="mWr-5l-L2x" secondAttribute="top" id="mBe-fd-qwi"/>
+                                                                <constraint firstAttribute="bottom" secondItem="MJ4-a5-yvq" secondAttribute="bottom" id="pzL-Dy-aiF"/>
+                                                                <constraint firstItem="MJ4-a5-yvq" firstAttribute="top" secondItem="mWr-5l-L2x" secondAttribute="top" id="yPz-A5-UFV"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Info Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woh-IT-fvE" userLabel="Info Description Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="70" width="350" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73l-bO-Ic1" userLabel="Open Settings Button" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="110.5" width="350" height="50"/>
+                                                            <state key="normal" title="# App-Einstellungen öffnen"/>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" name="ENA Separator Color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="0WJ-68-ZEy" secondAttribute="bottom" constant="16" id="3dh-xm-aSB"/>
+                                                <constraint firstItem="0WJ-68-ZEy" firstAttribute="top" secondItem="U4h-va-mIb" secondAttribute="top" constant="20" id="9V5-Qb-AfH"/>
+                                                <constraint firstItem="0WJ-68-ZEy" firstAttribute="leading" secondItem="U4h-va-mIb" secondAttribute="leading" constant="16" id="AFW-mp-IXY"/>
+                                                <constraint firstAttribute="trailing" secondItem="0WJ-68-ZEy" secondAttribute="trailing" constant="16" id="Dx5-ia-PS6"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="U4h-va-mIb" firstAttribute="leading" secondItem="ywT-6n-5bX" secondAttribute="leading" constant="16" id="MgV-xn-cfT"/>
+                                        <constraint firstAttribute="trailing" secondItem="I1G-zf-N5q" secondAttribute="trailing" id="SZ4-Fk-SxO"/>
+                                        <constraint firstItem="I1G-zf-N5q" firstAttribute="leading" secondItem="ywT-6n-5bX" secondAttribute="leading" id="Tvt-jL-Cuc"/>
+                                        <constraint firstAttribute="trailing" secondItem="Gl8-ki-99s" secondAttribute="trailing" constant="16" id="gZQ-mU-eXf"/>
+                                        <constraint firstItem="Gl8-ki-99s" firstAttribute="leading" secondItem="ywT-6n-5bX" secondAttribute="leading" constant="16" id="ivD-uI-1mk"/>
+                                        <constraint firstAttribute="trailing" secondItem="U4h-va-mIb" secondAttribute="trailing" constant="16" id="kTK-kn-WLN"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="hkd-dw-uNC" secondAttribute="trailing" id="3Of-zK-qBP"/>
+                                <constraint firstAttribute="bottom" secondItem="ywT-6n-5bX" secondAttribute="bottom" constant="16" id="3h9-Am-Wc8"/>
+                                <constraint firstAttribute="trailing" secondItem="ywT-6n-5bX" secondAttribute="trailing" id="Dde-Qn-Q3e"/>
+                                <constraint firstItem="ywT-6n-5bX" firstAttribute="leading" secondItem="Bvz-za-dcz" secondAttribute="leading" id="N5T-jc-c4p"/>
+                                <constraint firstItem="ywT-6n-5bX" firstAttribute="top" secondItem="hkd-dw-uNC" secondAttribute="bottom" id="SlX-VL-35t"/>
+                                <constraint firstItem="hkd-dw-uNC" firstAttribute="leading" secondItem="Bvz-za-dcz" secondAttribute="leading" id="oi6-tg-DQ8"/>
+                                <constraint firstItem="hkd-dw-uNC" firstAttribute="top" secondItem="Bvz-za-dcz" secondAttribute="top" id="yIF-S9-KWB"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Bvz-za-dcz" firstAttribute="top" secondItem="rKL-mG-SyP" secondAttribute="top" id="FAU-Dz-jjb"/>
+                        <constraint firstItem="Bvz-za-dcz" firstAttribute="width" secondItem="rKL-mG-SyP" secondAttribute="width" id="NsZ-8n-G6x"/>
+                        <constraint firstItem="Bvz-za-dcz" firstAttribute="leading" secondItem="rKL-mG-SyP" secondAttribute="leading" id="PTH-ZF-DhX"/>
+                        <constraint firstAttribute="bottom" secondItem="Bvz-za-dcz" secondAttribute="bottom" id="gZ4-1w-nUK"/>
+                        <constraint firstAttribute="trailing" secondItem="Bvz-za-dcz" secondAttribute="trailing" id="sLq-6F-eyQ"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Yq5-qv-RXh"/>
+            <color key="backgroundColor" name="ENA Background Color"/>
+            <constraints>
+                <constraint firstItem="rKL-mG-SyP" firstAttribute="leading" secondItem="A4Z-Rn-3Lu" secondAttribute="leading" id="7HT-7H-NXF"/>
+                <constraint firstAttribute="bottom" secondItem="rKL-mG-SyP" secondAttribute="bottom" id="B02-3g-NLl"/>
+                <constraint firstItem="rKL-mG-SyP" firstAttribute="top" secondItem="A4Z-Rn-3Lu" secondAttribute="top" id="Xgs-d3-7EN"/>
+                <constraint firstAttribute="trailing" secondItem="rKL-mG-SyP" secondAttribute="trailing" id="kMX-HM-bfd"/>
+            </constraints>
+            <point key="canvasLocation" x="-257" y="101"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="73l-bO-Ic1">
+            <size key="intrinsicContentSize" width="235" height="50"/>
+        </designable>
+        <designable name="Gl8-ki-99s">
+            <size key="intrinsicContentSize" width="244" height="20.5"/>
+        </designable>
+        <designable name="MJ4-a5-yvq">
+            <size key="intrinsicContentSize" width="64" height="26.5"/>
+        </designable>
+        <designable name="woh-IT-fvE">
+            <size key="intrinsicContentSize" width="79.5" height="20.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="Icons_Settings_Risikoermittlung" width="28" height="28"/>
+        <image name="Illu_Mitteilungen_On" width="375" height="229"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Separator Color">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

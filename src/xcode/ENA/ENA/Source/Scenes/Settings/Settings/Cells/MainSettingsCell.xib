@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mainSettings" id="Xxi-Y4-SQg" customClass="MainSettingsCell" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xxi-Y4-SQg" id="ORf-fn-S4X">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLd-kA-7XV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wfs-tI-sVW">
+                                <rect key="frame" x="16" y="8" width="28" height="28"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_Settings_Risikoermittlung" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yrO-Vz-M9q" userLabel="Icon Image View">
+                                        <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="28" id="K9Z-3q-nqk"/>
+                                            <constraint firstAttribute="height" constant="28" id="Lg4-bR-l6Z"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="yrO-Vz-M9q" firstAttribute="centerY" secondItem="wfs-tI-sVW" secondAttribute="centerY" id="3Ny-y2-zQ7"/>
+                                    <constraint firstItem="yrO-Vz-M9q" firstAttribute="centerX" secondItem="wfs-tI-sVW" secondAttribute="centerX" id="Jfq-ge-0nD"/>
+                                    <constraint firstAttribute="width" constant="28" id="Pef-zc-CrJ"/>
+                                    <constraint firstAttribute="height" constant="28" id="XI2-fk-u0X"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Kontaktprotokoll" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7M-Wa-qKJ" userLabel="Description Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="54" y="6" width="281.5" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" text="# An" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41o-a9-1Ys" userLabel="State Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="345.5" y="0.0" width="35.5" height="44.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="PdF-9Y-RPf" userLabel="Disclosure Indicator">
+                                <rect key="frame" x="391" y="16.5" width="7" height="12"/>
+                                <color key="tintColor" name="ENA Chevron Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="igI-UX-RET"/>
+                                    <constraint firstAttribute="width" constant="7" id="lyq-Oc-V2Z"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                </preferredSymbolConfiguration>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="PdF-9Y-RPf" firstAttribute="centerY" secondItem="HLd-kA-7XV" secondAttribute="centerY" id="3Af-Zb-Kx0"/>
+                            <constraint firstItem="wfs-tI-sVW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HLd-kA-7XV" secondAttribute="top" constant="8" id="7yC-iN-RAw"/>
+                            <constraint firstAttribute="bottom" secondItem="41o-a9-1Ys" secondAttribute="bottom" id="Jh8-Wv-VGM"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wfs-tI-sVW" secondAttribute="bottom" constant="8" id="KBk-yL-DOX"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v7M-Wa-qKJ" secondAttribute="bottom" constant="8" id="P3x-dd-lwG"/>
+                            <constraint firstItem="v7M-Wa-qKJ" firstAttribute="leading" secondItem="wfs-tI-sVW" secondAttribute="trailing" constant="10" id="QYb-0p-ChF"/>
+                            <constraint firstItem="PdF-9Y-RPf" firstAttribute="leading" secondItem="41o-a9-1Ys" secondAttribute="trailing" constant="10" id="RV5-mY-SQQ"/>
+                            <constraint firstItem="41o-a9-1Ys" firstAttribute="leading" secondItem="v7M-Wa-qKJ" secondAttribute="trailing" constant="10" id="TxR-ih-YmK"/>
+                            <constraint firstItem="v7M-Wa-qKJ" firstAttribute="leading" secondItem="HLd-kA-7XV" secondAttribute="leading" priority="900" constant="16" id="XjR-3v-Zi9"/>
+                            <constraint firstItem="v7M-Wa-qKJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HLd-kA-7XV" secondAttribute="top" id="Z35-Iz-Zi6"/>
+                            <constraint firstItem="41o-a9-1Ys" firstAttribute="top" secondItem="HLd-kA-7XV" secondAttribute="top" id="cO2-0p-1yA"/>
+                            <constraint firstItem="v7M-Wa-qKJ" firstAttribute="firstBaseline" secondItem="wfs-tI-sVW" secondAttribute="centerY" id="gmZ-wf-MVU" userLabel="Image Container First Baseline Constraint"/>
+                            <constraint firstItem="wfs-tI-sVW" firstAttribute="leading" secondItem="HLd-kA-7XV" secondAttribute="leading" constant="16" id="hyl-z2-cm3"/>
+                            <constraint firstItem="wfs-tI-sVW" firstAttribute="centerY" secondItem="HLd-kA-7XV" secondAttribute="centerY" id="j0O-HI-lxL"/>
+                            <constraint firstItem="41o-a9-1Ys" firstAttribute="top" secondItem="v7M-Wa-qKJ" secondAttribute="bottom" priority="900" id="nmj-rZ-D4z"/>
+                            <constraint firstItem="PdF-9Y-RPf" firstAttribute="leading" secondItem="v7M-Wa-qKJ" secondAttribute="trailing" priority="900" constant="16" id="qZB-pl-m9G"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="vYJ-za-31I"/>
+                            <constraint firstAttribute="trailing" secondItem="PdF-9Y-RPf" secondAttribute="trailing" constant="16" id="wox-ae-U9I"/>
+                            <constraint firstItem="41o-a9-1Ys" firstAttribute="leading" secondItem="HLd-kA-7XV" secondAttribute="leading" priority="900" constant="16" id="z71-95-aiT"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="j0O-HI-lxL"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="HLd-kA-7XV" secondAttribute="bottom" id="21f-Q4-TXO"/>
+                    <constraint firstItem="HLd-kA-7XV" firstAttribute="leading" secondItem="ORf-fn-S4X" secondAttribute="leading" id="3re-4r-KiM"/>
+                    <constraint firstAttribute="trailing" secondItem="HLd-kA-7XV" secondAttribute="trailing" id="AuL-7u-xpW"/>
+                    <constraint firstItem="HLd-kA-7XV" firstAttribute="top" secondItem="ORf-fn-S4X" secondAttribute="top" id="Hc1-de-VhO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" name="ENA Background Color"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="v7M-Wa-qKJ" id="Gtq-7b-0dK"/>
+                <outlet property="descriptionLabelBottom" destination="P3x-dd-lwG" id="8vF-hf-2Mr"/>
+                <outlet property="descriptionLabelLeadingConstraint" destination="XjR-3v-Zi9" id="j3H-8p-nld"/>
+                <outlet property="descriptionLabelTrailingConstraint" destination="QYb-0p-ChF" id="TLA-si-kuN"/>
+                <outlet property="disclosureIndicatorLeading" destination="RV5-mY-SQQ" id="txW-9k-wSd"/>
+                <outlet property="disclosureIndicatorLeadingLarge" destination="qZB-pl-m9G" id="OyD-aw-uev"/>
+                <outlet property="iconImageView" destination="yrO-Vz-M9q" id="VyR-1J-mS7"/>
+                <outlet property="imageContainer" destination="wfs-tI-sVW" id="CXi-Ib-WoK"/>
+                <outlet property="imageContainerCenterConstraint" destination="j0O-HI-lxL" id="Kqb-mg-TVb"/>
+                <outlet property="imageContainerFirstBaselineConstraint" destination="gmZ-wf-MVU" id="lsf-2K-Jkx"/>
+                <outlet property="stateLabel" destination="41o-a9-1Ys" id="Mg2-xa-MHM"/>
+                <outlet property="stateLabelLeading" destination="TxR-ih-YmK" id="50P-Y4-uIA"/>
+                <outlet property="stateLabelLeadingLarge" destination="z71-95-aiT" id="cPm-gd-uTq"/>
+                <outlet property="stateLabelTop" destination="cO2-0p-1yA" id="eMP-1C-6xc"/>
+                <outlet property="stateLabelTopLarge" destination="nmj-rZ-D4z" id="G2d-zA-osj"/>
+            </connections>
+            <point key="canvasLocation" x="-561" y="154"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="41o-a9-1Ys">
+            <size key="intrinsicContentSize" width="35.5" height="20.5"/>
+        </designable>
+        <designable name="v7M-Wa-qKJ">
+            <size key="intrinsicContentSize" width="139.5" height="20.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="Icons_Chevron_plain" width="7" height="12"/>
+        <image name="Icons_Settings_Risikoermittlung" width="28" height="28"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Chevron Color">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 2 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

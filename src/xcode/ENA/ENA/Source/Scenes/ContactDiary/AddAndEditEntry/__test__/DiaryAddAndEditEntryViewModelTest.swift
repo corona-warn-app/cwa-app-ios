@@ -4,7 +4,7 @@
 
 import XCTest
 @testable import ENA
-import Combine
+import OpenCombine
 
 class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
@@ -172,7 +172,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		XCTAssertEqual(text, "Office")
 	}
 	
-	func testGIVEN_Location_WHEN_getTitleAndPlacholder_THEN_TextIsCorrcet() {
+	func testGIVEN_Location_WHEN_getTitleAndPlaceholder_THEN_TextIsCorrect() {
 		// GIVEN
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .add(makeDay(), .location),

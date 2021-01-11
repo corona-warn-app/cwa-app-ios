@@ -3,7 +3,7 @@
 //
 
 import XCTest
-import Combine
+import OpenCombine
 @testable import ENA
 
 class TestResultAvailableViewModelTest: XCTestCase {

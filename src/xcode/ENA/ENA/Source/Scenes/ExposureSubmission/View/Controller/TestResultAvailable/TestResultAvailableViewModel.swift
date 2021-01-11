@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-import Combine
+import OpenCombine
 
 final class TestResultAvailableViewModel {
 	
@@ -32,7 +32,7 @@ final class TestResultAvailableViewModel {
 	let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
 	let onDismiss: () -> Void
 
-	@Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
+	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 
 	lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()

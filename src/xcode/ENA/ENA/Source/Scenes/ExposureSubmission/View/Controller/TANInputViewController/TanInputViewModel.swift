@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 
 final class TanInputViewModel {
 	
@@ -25,9 +25,9 @@ final class TanInputViewModel {
 
 	// MARK: - Public
 
-	@Published private(set) var errorText: String = ""
-	@Published private(set) var isPrimaryButtonEnabled: Bool = false
-	@Published private(set) var isPrimaryBarButtonIsLoading: Bool = false
+	@OpenCombine.Published private(set) var errorText: String = ""
+	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool = false
+	@OpenCombine.Published private(set) var isPrimaryBarButtonIsLoading: Bool = false
 
 	private(set) var text: String = "" {
 		didSet {

@@ -7,7 +7,9 @@ import UIKit
 
 class AppNavigationController: UINavigationController {
 	private var scrollViewObserver: NSKeyValueObservation?
-	private var defaultScrollEdgeAppearance: UINavigationBarAppearance?
+	
+	@available(iOS 13.0, *)
+	private(set) lazy var defaultScrollEdgeAppearance: UINavigationBarAppearance? = nil
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -15,7 +17,9 @@ class AppNavigationController: UINavigationController {
 		navigationBar.isTranslucent = true
 		navigationBar.prefersLargeTitles = true
 
-		defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+		if #available(iOS 13.0, *) {
+			defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+		}
 
 		view.backgroundColor = .enaColor(for: .separator)
 
@@ -65,33 +69,51 @@ extension AppNavigationController: UINavigationControllerDelegate {
 		}
 
 		let previousNavigationBackgroundAlpha = navigationBar.backgroundAlpha
-		let previousScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+		if #available(iOS 13.0, *) {
+			let previousScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+			
+			transitionCoordinator?.animate(alongsideTransition: { _ in
+				self.navigationBar.backgroundAlpha = navigationBackgroundAlpha
 
-		transitionCoordinator?.animate(alongsideTransition: { _ in
-			self.navigationBar.backgroundAlpha = navigationBackgroundAlpha
+				if let largeTitleBackgroundColor = largeTitleBackgroundColor {
+					self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
+					self.navigationBar.scrollEdgeAppearance?.backgroundColor = largeTitleBackgroundColor
+				} else if let largeTitleBlurEffect = largeTitleBlurEffect {
+					self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
+					self.navigationBar.scrollEdgeAppearance?.backgroundEffect = UIBlurEffect(style: largeTitleBlurEffect)
+				} else {
+					self.navigationBar.scrollEdgeAppearance = self.defaultScrollEdgeAppearance
+				}
 
-			if let largeTitleBackgroundColor = largeTitleBackgroundColor {
-				self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
-				self.navigationBar.scrollEdgeAppearance?.backgroundColor = largeTitleBackgroundColor
-			} else if let largeTitleBlurEffect = largeTitleBlurEffect {
-				self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
-				self.navigationBar.scrollEdgeAppearance?.backgroundEffect = UIBlurEffect(style: largeTitleBlurEffect)
-			} else {
-				self.navigationBar.scrollEdgeAppearance = self.defaultScrollEdgeAppearance
-			}
+			}, completion: { context in
+				if context.isCancelled {
+					self.navigationBar.backgroundAlpha = previousNavigationBackgroundAlpha
+					self.navigationBar.scrollEdgeAppearance = previousScrollEdgeAppearance
 
-		}, completion: { context in
-			if context.isCancelled {
-				self.navigationBar.backgroundAlpha = previousNavigationBackgroundAlpha
-				self.navigationBar.scrollEdgeAppearance = previousScrollEdgeAppearance
+					self.scrollViewObserver?.invalidate()
+					self.scrollViewObserver = previousScrollViewObserver
 
-				self.scrollViewObserver?.invalidate()
-				self.scrollViewObserver = previousScrollViewObserver
+				} else {
+					previousScrollViewObserver?.invalidate()
+				}
+			})
+		} else {
+			transitionCoordinator?.animate(alongsideTransition: { _ in
+				self.navigationBar.backgroundAlpha = navigationBackgroundAlpha
 
-			} else {
-				previousScrollViewObserver?.invalidate()
-			}
-		})
+			}, completion: { context in
+				if context.isCancelled {
+					self.navigationBar.backgroundAlpha = previousNavigationBackgroundAlpha
+
+					self.scrollViewObserver?.invalidate()
+					self.scrollViewObserver = previousScrollViewObserver
+
+				} else {
+					previousScrollViewObserver?.invalidate()
+				}
+			})
+		}
+
 	}
 
 	/// If the passed in `UIViewController` is a `NavigationBarOpacityDelegate` and contains a `UIScrollView`,

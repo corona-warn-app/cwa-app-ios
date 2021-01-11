@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResetViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="description1Label" destination="Bay-mV-g8G" id="j6G-7w-gaU"/>
+                <outlet property="discardButton" destination="nPc-2E-kVL" id="MVJ-N1-tGU"/>
+                <outlet property="footerView" destination="6Tl-Ov-QYb" id="EpL-As-bfW"/>
+                <outlet property="header1Label" destination="SNm-cT-fXA" id="baY-du-7ji"/>
+                <outlet property="imageView" destination="fxm-im-btR" id="wIF-sI-SFv"/>
+                <outlet property="infoDescriptionLabel" destination="GwW-pM-Ui1" id="sP4-WY-AZe"/>
+                <outlet property="infoTitleLabel" destination="XwD-4h-3Ep" id="FWX-IF-TkP"/>
+                <outlet property="infoView" destination="M1K-p1-O1N" id="MSh-fO-Td2"/>
+                <outlet property="resetButton" destination="8Zu-rF-tBG" id="f6s-hg-ldf"/>
+                <outlet property="scrollView" destination="ttx-BR-FJ6" id="rBy-95-0hA"/>
+                <outlet property="subtitleLabel" destination="FQR-bV-m9P" id="WQp-PP-NwE"/>
+                <outlet property="view" destination="rh8-Dg-42m" id="a3c-SD-r7C"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="rh8-Dg-42m">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttx-BR-FJ6">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pi0-oF-KFl">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="618.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Anwendung Zurücksetzen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQR-bV-m9P" userLabel="Subtltle Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="0.0" width="382" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jAb-PE-B4B">
+                                    <rect key="frame" x="16" y="36.5" width="382" height="397.5"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_AppZuruecksetzen" translatesAutoresizingMaskIntoConstraints="NO" id="fxm-im-btR">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="iS9-eY-NOF">
+                                            <rect key="frame" x="0.0" y="239" width="382" height="158.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNm-cT-fXA" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bay-mV-g8G" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="57" width="382" height="101.5"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1K-p1-O1N" userLabel="Info View">
+                                    <rect key="frame" x="16" y="466" width="382" height="136.5"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="oaV-V1-45A">
+                                            <rect key="frame" x="16" y="20" width="350" height="86.5"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSO-k1-bIl">
+                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="50"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwD-4h-3Ep" userLabel="Info Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="322" height="50"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="Icons_Settings_Risikoermittlung" translatesAutoresizingMaskIntoConstraints="NO" id="rQx-m6-wsq" userLabel="Info Image View">
+                                                            <rect key="frame" x="322" y="0.0" width="28" height="28"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="28" id="48b-cc-yiA"/>
+                                                                <constraint firstAttribute="width" constant="28" id="UJp-TN-LGX"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="ENA Separator Color"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="XwD-4h-3Ep" secondAttribute="bottom" id="2KE-Fm-IJr"/>
+                                                        <constraint firstItem="rQx-m6-wsq" firstAttribute="leading" secondItem="XwD-4h-3Ep" secondAttribute="trailing" id="5dA-Uj-NfU"/>
+                                                        <constraint firstAttribute="trailing" secondItem="rQx-m6-wsq" secondAttribute="trailing" id="79h-Dj-BhJ"/>
+                                                        <constraint firstItem="XwD-4h-3Ep" firstAttribute="top" secondItem="lSO-k1-bIl" secondAttribute="top" id="ZGe-BH-DPb"/>
+                                                        <constraint firstItem="rQx-m6-wsq" firstAttribute="top" secondItem="lSO-k1-bIl" secondAttribute="top" id="pBg-af-T4B"/>
+                                                        <constraint firstItem="XwD-4h-3Ep" firstAttribute="leading" secondItem="lSO-k1-bIl" secondAttribute="leading" id="u4D-75-Zbe"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Info Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GwW-pM-Ui1" userLabel="Info Description Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="66" width="350" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="ENA Separator Color"/>
+                                    <constraints>
+                                        <constraint firstItem="oaV-V1-45A" firstAttribute="top" secondItem="M1K-p1-O1N" secondAttribute="top" constant="20" id="1xS-64-Sea"/>
+                                        <constraint firstAttribute="bottom" secondItem="oaV-V1-45A" secondAttribute="bottom" constant="30" id="4uG-eC-i6n"/>
+                                        <constraint firstAttribute="trailing" secondItem="oaV-V1-45A" secondAttribute="trailing" constant="16" id="Do2-k4-AZm"/>
+                                        <constraint firstItem="oaV-V1-45A" firstAttribute="leading" secondItem="M1K-p1-O1N" secondAttribute="leading" constant="16" id="cE1-Dz-elK"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="jAb-PE-B4B" firstAttribute="leading" secondItem="Pi0-oF-KFl" secondAttribute="leadingMargin" id="5a7-mw-FEq"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="M1K-p1-O1N" secondAttribute="trailing" id="7q1-eK-JXc"/>
+                                <constraint firstItem="FQR-bV-m9P" firstAttribute="leading" secondItem="Pi0-oF-KFl" secondAttribute="leadingMargin" id="9hv-fi-xZg"/>
+                                <constraint firstItem="jAb-PE-B4B" firstAttribute="top" secondItem="FQR-bV-m9P" secondAttribute="bottom" constant="16" id="C69-ew-Rdr"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="FQR-bV-m9P" secondAttribute="trailing" id="EMg-39-Hcy"/>
+                                <constraint firstAttribute="bottomMargin" secondItem="M1K-p1-O1N" secondAttribute="bottom" id="GLe-yq-9j8"/>
+                                <constraint firstItem="FQR-bV-m9P" firstAttribute="top" secondItem="Pi0-oF-KFl" secondAttribute="top" id="GMI-Qe-ZYk"/>
+                                <constraint firstItem="M1K-p1-O1N" firstAttribute="top" secondItem="jAb-PE-B4B" secondAttribute="bottom" constant="32" id="R5R-M6-tnR"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="jAb-PE-B4B" secondAttribute="trailing" id="jhW-Up-WOF"/>
+                                <constraint firstItem="M1K-p1-O1N" firstAttribute="leading" secondItem="Pi0-oF-KFl" secondAttribute="leadingMargin" id="khw-Qn-HMw"/>
+                            </constraints>
+                            <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="16" right="16"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="Pi0-oF-KFl" firstAttribute="width" secondItem="ttx-BR-FJ6" secondAttribute="width" id="6P4-US-OEX"/>
+                        <constraint firstItem="Pi0-oF-KFl" firstAttribute="leading" secondItem="ttx-BR-FJ6" secondAttribute="leading" id="7nz-LZ-IKZ"/>
+                        <constraint firstAttribute="trailing" secondItem="Pi0-oF-KFl" secondAttribute="trailing" id="BiG-nH-EYE"/>
+                        <constraint firstItem="Pi0-oF-KFl" firstAttribute="top" secondItem="ttx-BR-FJ6" secondAttribute="top" id="C9c-VA-ocV"/>
+                        <constraint firstAttribute="bottom" secondItem="Pi0-oF-KFl" secondAttribute="bottom" id="ZFH-yl-wfT"/>
+                    </constraints>
+                </scrollView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Tl-Ov-QYb" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="758" width="414" height="138"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="yKr-cO-JQr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="138"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="35g-RZ-kt9">
+                                <rect key="frame" x="16" y="16" width="382" height="72"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="8Zu-rF-tBG" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="34"/>
+                                        <state key="normal" title="Daten zurücksetzen"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" name="ENA Button Destructive Color"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="resetData:" destination="-1" eventType="touchUpInside" id="gCw-Rk-TFv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPc-2E-kVL" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="42" width="382" height="30"/>
+                                        <state key="normal" title="Abbrechen"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="discard:" destination="-1" eventType="touchUpInside" id="Q8j-Px-ZWA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="35g-RZ-kt9" firstAttribute="top" secondItem="yKr-cO-JQr" secondAttribute="topMargin" id="2hc-ZR-OHG"/>
+                            <constraint firstItem="35g-RZ-kt9" firstAttribute="leading" secondItem="yKr-cO-JQr" secondAttribute="leadingMargin" id="qHe-iX-3dN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="35g-RZ-kt9" secondAttribute="trailing" id="rPa-HS-VF7"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="35g-RZ-kt9" secondAttribute="bottom" id="urT-ZP-Y9G"/>
+                        </constraints>
+                        <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="9Kk-rL-9bn"/>
+            <color key="backgroundColor" name="ENA Background Color"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ttx-BR-FJ6" secondAttribute="trailing" id="4ys-K8-1bI"/>
+                <constraint firstItem="ttx-BR-FJ6" firstAttribute="top" secondItem="rh8-Dg-42m" secondAttribute="top" id="AKI-lf-Xb0"/>
+                <constraint firstAttribute="bottom" secondItem="6Tl-Ov-QYb" secondAttribute="bottom" id="AcT-ne-SCv"/>
+                <constraint firstItem="6Tl-Ov-QYb" firstAttribute="leading" secondItem="rh8-Dg-42m" secondAttribute="leading" id="Fhq-Qa-quC"/>
+                <constraint firstItem="ttx-BR-FJ6" firstAttribute="leading" secondItem="rh8-Dg-42m" secondAttribute="leading" id="fny-bv-nSs"/>
+                <constraint firstAttribute="bottom" secondItem="ttx-BR-FJ6" secondAttribute="bottom" id="lF1-lP-pt0"/>
+                <constraint firstAttribute="trailing" secondItem="6Tl-Ov-QYb" secondAttribute="trailing" id="skV-pa-1lg"/>
+            </constraints>
+            <point key="canvasLocation" x="-257" y="100"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Icons_Settings_Risikoermittlung" width="28" height="28"/>
+        <image name="Illu_AppZuruecksetzen" width="375" height="229"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Button Destructive Color">
+            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Separator Color">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 2 Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

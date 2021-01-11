@@ -10,14 +10,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dotBodyCell" id="gtJ-mg-Rgn" customClass="RiskLegendDotBodyCell" customModule="ENA" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RiskLegendDotBodyCell" id="N0U-zz-OnK" userLabel="RiskLegendDotBodyCell" customClass="RiskLegendDotBodyCell" customModule="ENA" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gtJ-mg-Rgn" id="TCL-h7-R1G">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N0U-zz-OnK" id="N5j-He-37t">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ueq-Af-e12" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EN0-Lx-w6P" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                         <rect key="frame" x="68" y="11" width="326" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -26,12 +26,12 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adp-bG-hM2">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKD-ba-QOl">
                         <rect key="frame" x="28" y="13.5" width="16" height="16"/>
                         <color key="backgroundColor" name="ENA Risk High Color"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="16" id="Rh3-Sp-WkU"/>
-                            <constraint firstAttribute="height" constant="16" id="zl0-9M-QP3"/>
+                            <constraint firstAttribute="height" constant="16" id="Fvg-QU-6bI"/>
+                            <constraint firstAttribute="width" constant="16" id="QCl-5t-iLX"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -41,25 +41,25 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Ueq-Af-e12" firstAttribute="leading" secondItem="adp-bG-hM2" secondAttribute="trailing" constant="24" id="31Y-Zx-mZV"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Ueq-Af-e12" secondAttribute="trailing" id="HFc-z6-M5d"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Ueq-Af-e12" secondAttribute="bottom" id="Jxh-jR-wo0"/>
-                    <constraint firstItem="adp-bG-hM2" firstAttribute="leading" secondItem="TCL-h7-R1G" secondAttribute="leadingMargin" constant="8" id="f93-rS-myZ"/>
-                    <constraint firstItem="Ueq-Af-e12" firstAttribute="top" secondItem="TCL-h7-R1G" secondAttribute="topMargin" id="geG-JY-Xv9"/>
-                    <constraint firstItem="adp-bG-hM2" firstAttribute="centerY" secondItem="TCL-h7-R1G" secondAttribute="centerY" id="ovA-lq-Q4C"/>
+                    <constraint firstItem="EN0-Lx-w6P" firstAttribute="top" secondItem="N5j-He-37t" secondAttribute="topMargin" id="0By-ii-Lw2"/>
+                    <constraint firstItem="EN0-Lx-w6P" firstAttribute="leading" secondItem="EKD-ba-QOl" secondAttribute="trailing" constant="24" id="6tP-9N-XPa"/>
+                    <constraint firstItem="EKD-ba-QOl" firstAttribute="centerY" secondItem="N5j-He-37t" secondAttribute="centerY" id="iCa-lR-SiE"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="EN0-Lx-w6P" secondAttribute="trailing" id="sTJ-t4-pU8"/>
+                    <constraint firstItem="EKD-ba-QOl" firstAttribute="leading" secondItem="N5j-He-37t" secondAttribute="leadingMargin" constant="8" id="tX0-Ja-HBn"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="EN0-Lx-w6P" secondAttribute="bottom" id="wou-QK-tnf"/>
                 </constraints>
                 <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
             </tableViewCellContentView>
             <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
             <connections>
-                <outlet property="dotView" destination="adp-bG-hM2" id="QeX-vP-I2g"/>
-                <outlet property="textLabel" destination="Ueq-Af-e12" id="PT9-JX-gmi"/>
+                <outlet property="dotView" destination="EKD-ba-QOl" id="6kU-Ce-fpP"/>
+                <outlet property="textLabel" destination="EN0-Lx-w6P" id="LTm-Rr-pnt"/>
             </connections>
-            <point key="canvasLocation" x="-68" y="230"/>
+            <point key="canvasLocation" x="-428" y="144"/>
         </tableViewCell>
     </objects>
     <designables>
-        <designable name="Ueq-Af-e12">
+        <designable name="EN0-Lx-w6P">
             <size key="intrinsicContentSize" width="39.5" height="20.5"/>
         </designable>
     </designables>

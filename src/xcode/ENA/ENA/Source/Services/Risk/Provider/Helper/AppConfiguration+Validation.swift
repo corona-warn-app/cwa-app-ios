@@ -17,7 +17,6 @@
 // under the License.
 //
 
-import CryptoKit
 import Foundation
 import ZIPFoundation
 
@@ -37,12 +36,10 @@ extension Archive {
 			let bin = try extractData(from: binEntry)
 
 			let hashString = String(data: hash, encoding: .utf8)
-
-			let binHash = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
 			let config = try SAP_Internal_V2_ApplicationConfigurationIOS(serializedData: bin)
 
 			// we currently compare the raw bin instead of the deserialized object
-			guard /*config.fingerprint*/ binHash == hashString else {
+			guard /*config.fingerprint*/ bin.sha256String() == hashString else {
 				Log.error("Fingerprint mismatch", log: .localData)
 				throw FingerprintError.binaryNotValidated
 			}
@@ -69,7 +66,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: Fingerprinting {
 	var fingerprint: String {
 		do {
 			let data = try serializedData()
-			return SHA256.hash(data: data).compactMap { String(format: "%02x", $0) }.joined()
+			return data.sha256String()
 		} catch {
 			Log.error("Cannot fingerprint \(self)", log: .localData, error: error)
 			return ""

@@ -3,13 +3,13 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DynamicTableViewOptionGroupCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	@Published private(set) var selection: OptionGroupViewModel.Selection?
+	@OpenCombine.Published private(set) var selection: OptionGroupViewModel.Selection?
 
 	func configure(options: [OptionGroupViewModel.Option], initialSelection: OptionGroupViewModel.Selection? = nil) {
 		if optionGroupView?.superview != nil {

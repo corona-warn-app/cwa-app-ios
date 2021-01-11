@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryOverviewTableViewController: UITableViewController {
 
@@ -27,7 +27,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		super.init(style: .plain)
 
 		viewModel.$days
-			.receive(on: RunLoop.main)
+			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] _ in
 				self?.tableView.reloadData()
 			}
@@ -53,6 +53,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		
 		let moreImage = UIImage(named: "Icons_More_Circle")
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
+		rightBarButton.accessibilityLabel = AppStrings.ContactDiary.Overview.menuButtonTitle
 		rightBarButton.tintColor = .enaColor(for: .tint)
 		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
 	}

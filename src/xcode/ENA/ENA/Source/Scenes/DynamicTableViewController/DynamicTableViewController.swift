@@ -150,9 +150,6 @@ extension DynamicTableViewController {
 		case let .call(number):
 			if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
 
-		case let .perform(segueIdentifier):
-			performSegue(withIdentifier: segueIdentifier, sender: nil)
-
 		case let .execute(block):
 			block(self, cell)
 

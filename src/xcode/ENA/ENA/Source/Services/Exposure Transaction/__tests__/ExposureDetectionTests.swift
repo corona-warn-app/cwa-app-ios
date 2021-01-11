@@ -3,7 +3,7 @@
 //
 
 import XCTest
-import Combine
+import OpenCombine
 import ExposureNotification
 @testable import ENA
 

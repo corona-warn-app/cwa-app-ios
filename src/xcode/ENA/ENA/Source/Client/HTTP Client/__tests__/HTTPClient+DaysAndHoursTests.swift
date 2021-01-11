@@ -5,7 +5,6 @@
 @testable import ENA
 import ExposureNotification
 import XCTest
-import CryptoKit
 
 // swiftlint:disable:next type_body_length
 final class HTTPClientDaysAndHoursTests: XCTestCase {
@@ -213,7 +212,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 	func testFetchDay_InvalidPackage() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: Data(bytes: [0xA, 0xB], count: 2)
+			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
 		let successExpectation = expectation(

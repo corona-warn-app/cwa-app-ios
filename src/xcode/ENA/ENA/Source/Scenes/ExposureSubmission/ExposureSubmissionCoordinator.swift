@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-import Combine
+import OpenCombine
 
 /// Coordinator for the exposure submission flow.
 /// This protocol hides the creation of view controllers and their transitions behind a slim interface.
@@ -307,20 +307,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Screen Flow
 
 	private func showHotlineScreen() {
-		let hotlineViewController = ExposureSubmissionHotlineViewController(
-			showTANScreen: { [weak self] in
+		let vc = ExposureSubmissionHotlineViewController(
+			onSecondaryButtonTap: { [weak self] in
 				self?.showTanScreen()
-			},
-			showCallHotline: {
-				guard let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
-					  UIApplication.shared.canOpenURL(url) else {
-					Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
-					return
-				}
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}
 		)
-		push(hotlineViewController)
+
+		push(vc)
 	}
 
 	private func presentTanInvalidAlert(localizedDescription: String, completion: @escaping () -> Void) {

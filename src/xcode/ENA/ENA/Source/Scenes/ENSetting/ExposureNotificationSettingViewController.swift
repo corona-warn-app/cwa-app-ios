@@ -5,38 +5,22 @@
 import ExposureNotification
 import UIKit
 
-protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
-	typealias Completion = (ExposureNotificationError?) -> Void
+final class ExposureNotificationSettingViewController: UITableViewController, ActionTableViewCellDelegate, ENStateHandlerUpdating {
 
-	func exposureNotificationSettingViewController(
-		_ controller: ExposureNotificationSettingViewController,
-		setExposureManagerEnabled enabled: Bool,
-		then completion: @escaping Completion
-	)
-}
+	// MARK: - Init
 
-final class ExposureNotificationSettingViewController: UITableViewController {
-	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
-
-	private var lastActionCell: ActionCell?
-
-	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
-	let store: Store
-	let appConfigurationProvider: AppConfigurationProviding
-	var enState: ENStateHandler.State
-
-	init?(
-		coder: NSCoder,
+	init(
 		initialEnState: ENStateHandler.State,
 		store: Store,
 		appConfigurationProvider: AppConfigurationProviding,
-		delegate: ExposureNotificationSettingViewControllerDelegate
+		setExposureManagerEnabled: @escaping (Bool, @escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
-		self.delegate = delegate
+		self.enState = initialEnState
 		self.store = store
 		self.appConfigurationProvider = appConfigurationProvider
-		enState = initialEnState
-		super.init(coder: coder)
+		self.setExposureManagerEnabled = setExposureManagerEnabled
+
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -44,111 +28,30 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		view.backgroundColor = .enaColor(for: .background)
+
+		title = AppStrings.ExposureNotificationSetting.title
 		navigationItem.largeTitleDisplayMode = .always
-		setUIText()
+		navigationController?.navigationBar.prefersLargeTitles = true
+
+		registerCells()
+
 		tableView.sectionFooterHeight = 0.0
+		tableView.separatorStyle = .none
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
 		tableView.reloadData()
 	}
 
-	private func setExposureManagerEnabled(
-		_ enabled: Bool,
-		then completion: @escaping ExposureNotificationSettingViewControllerDelegate.Completion
-	) {
-		delegate?.exposureNotificationSettingViewController(
-			self,
-			setExposureManagerEnabled: enabled,
-			then: completion
-		)
-	}
-}
-
-extension ExposureNotificationSettingViewController {
-	private func setUIText() {
-		title = AppStrings.ExposureNotificationSetting.title
-	}
-
-	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
-			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsUrl) {
-				UIApplication.shared.open(settingsUrl, completionHandler: nil)
-			}
-		})
-		var errorMessage = ""
-		switch error {
-		case .exposureNotificationAuthorization:
-			errorMessage = AppStrings.ExposureNotificationError.enAuthorizationError
-		case .exposureNotificationRequired:
-			errorMessage = AppStrings.ExposureNotificationError.enActivationRequiredError
-		case .exposureNotificationUnavailable:
-			errorMessage = AppStrings.ExposureNotificationError.enUnavailableError
-		case .unknown(let message):
-			errorMessage = AppStrings.ExposureNotificationError.enUnknownError + message
-		case .apiMisuse:
-			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
-		}
-		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
-		}
-		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
-		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-			mySceneDelegate.requestUpdatedExposureState()
-		}
-		tableView.reloadData()
-	}
-
-	private func handleErrorIfNeed(_ error: ExposureNotificationError?) {
-		if let error = error {
-			handleEnableError(error, alert: true)
-		} else {
-			tableView.reloadData()
-		}
-	}
-
-	private func silentErrorIfNeed(_ error: ExposureNotificationError?) {
-		if let error = error {
-			handleEnableError(error, alert: false)
-		} else {
-			tableView.reloadData()
-		}
-	}
-
-	private func askConsentToUser() {
-		let alert = UIAlertController(
-			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
-			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody,
-			preferredStyle: .alert
-		)
-		let completionHandler: (UIAlertAction) -> Void = { action in
-			switch action.style {
-			case .default:
-				self.persistForDPP(accepted: true)
-				self.setExposureManagerEnabled(true, then: self.silentErrorIfNeed)
-			case .cancel, .destructive:
-				self.lastActionCell?.configure(for: self.enState, delegate: self)
-				self.tableView.reloadData()
-			@unknown default:
-				fatalError("Not all cases of actions covered when handling the bluetooth")
-			}
-		}
-		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentActivateAction, style: .default, handler: { action in completionHandler(action) }))
-		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
-		self.present(alert, animated: true, completion: nil)
-	}
-
-	func persistForDPP(accepted: Bool) {
-		self.store.exposureActivationConsentAccept = accepted
-		self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
-	}
-}
-
-extension ExposureNotificationSettingViewController {
+	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in _: UITableView) -> Int {
 		model.content.count
@@ -181,16 +84,6 @@ extension ExposureNotificationSettingViewController {
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
-	}
-	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = indexPath.section
-		let content = model.content[section]
-
-		guard content.cellType == .euTracingCell else { return }
-
-		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
-		navigationController?.pushViewController(vc, animated: true)
 	}
 
 	override func tableView(
@@ -231,7 +124,166 @@ extension ExposureNotificationSettingViewController {
 		return cell
 	}
 
+	// MARK: - Protocol UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let section = indexPath.section
+		let content = model.content[section]
+
+		guard content.cellType == .euTracingCell else { return }
+
+		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
+		navigationController?.pushViewController(vc, animated: true)
+	}
+
+	// MARK: - Protocol ActionTableViewCellDelegate
+
+	func performAction(action: SettingAction) {
+		switch action {
+		case .enable(true):
+			setExposureManagerEnabled(true, handleErrorIfNeed)
+		case .enable(false):
+			setExposureManagerEnabled(false, handleErrorIfNeed)
+		case .askConsent:
+			askConsentToUser()
+		}
+	}
+
+	// MARK: - Protocol ENStateHandlerUpdating
+
+	func updateEnState(_ enState: ENStateHandler.State) {
+		Log.info("Get the new state: \(enState)", log: .api)
+		self.enState = enState
+		lastActionCell?.configure(for: enState, delegate: self)
+		self.tableView.reloadData()
+	}
+
+	// MARK: - Internal
+
+	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
+	let store: Store
+	let appConfigurationProvider: AppConfigurationProviding
+	var enState: ENStateHandler.State
+
+	func persistForDPP(accepted: Bool) {
+		self.store.exposureActivationConsentAccept = accepted
+		self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+	}
+
 	// MARK: - Private
+
+	enum ReusableCellIdentifier: String {
+		case banner
+		case actionCell
+		case euTracingCell
+		case tracingCell
+		case actionDetailCell
+		case descriptionCell
+	}
+
+	private var lastActionCell: ActionCell?
+
+	private let setExposureManagerEnabled: (Bool, @escaping (ExposureNotificationError?) -> Void) -> Void
+
+	private func registerCells() {
+		tableView.register(
+			UINib(nibName: String(describing: TracingHistoryTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ImageTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.banner.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ActionDetailTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: DescriptionTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.descriptionCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ActionTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.actionCell.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: EuTracingTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.euTracingCell.rawValue
+		)
+	}
+
+	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
+		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
+			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+				UIApplication.shared.canOpenURL(settingsUrl) {
+				UIApplication.shared.open(settingsUrl, completionHandler: nil)
+			}
+		})
+		var errorMessage = ""
+		switch error {
+		case .exposureNotificationAuthorization:
+			errorMessage = AppStrings.ExposureNotificationError.enAuthorizationError
+		case .exposureNotificationRequired:
+			errorMessage = AppStrings.ExposureNotificationError.enActivationRequiredError
+		case .exposureNotificationUnavailable:
+			errorMessage = AppStrings.ExposureNotificationError.enUnavailableError
+		case .unknown(let message):
+			errorMessage = AppStrings.ExposureNotificationError.enUnknownError + message
+		case .apiMisuse:
+			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
+		}
+		if alert {
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
+		}
+		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
+
+		UIApplication.coronaWarnDelegate().requestUpdatedExposureState()
+		tableView.reloadData()
+	}
+
+	private func handleErrorIfNeed(_ error: ExposureNotificationError?) {
+		if let error = error {
+			handleEnableError(error, alert: true)
+		} else {
+			tableView.reloadData()
+		}
+	}
+
+	private func silentErrorIfNeed(_ error: ExposureNotificationError?) {
+		if let error = error {
+			handleEnableError(error, alert: false)
+		} else {
+			tableView.reloadData()
+		}
+	}
+
+	private func askConsentToUser() {
+		let alert = UIAlertController(
+			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody,
+			preferredStyle: .alert
+		)
+		let completionHandler: (UIAlertAction) -> Void = { action in
+			switch action.style {
+			case .default:
+				self.persistForDPP(accepted: true)
+				self.setExposureManagerEnabled(true, self.silentErrorIfNeed)
+			case .cancel, .destructive:
+				self.lastActionCell?.configure(for: self.enState, delegate: self)
+				self.tableView.reloadData()
+			@unknown default:
+				fatalError("Not all cases of actions covered when handling the bluetooth")
+			}
+		}
+		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentActivateAction, style: .default, handler: { action in completionHandler(action) }))
+		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
+		self.present(alert, animated: true, completion: nil)
+	}
 
 	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
@@ -275,31 +327,8 @@ extension ExposureNotificationSettingViewController {
 
 }
 
-extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate {
-	func performAction(action: SettingAction) {
-		switch action {
-		case .enable(true):
-			setExposureManagerEnabled(true, then: handleErrorIfNeed)
-		case .enable(false):
-			setExposureManagerEnabled(false, then: handleErrorIfNeed)
-		case .askConsent:
-			askConsentToUser()
-		}
-	}
-}
-
-extension ExposureNotificationSettingViewController {
-	fileprivate enum ReusableCellIdentifier: String {
-		case banner
-		case actionCell
-		case euTracingCell
-		case tracingCell
-		case actionDetailCell
-		case descriptionCell
-	}
-}
-
 private extension ENSettingModel.Content {
+
 	var cellType: ExposureNotificationSettingViewController.ReusableCellIdentifier {
 		switch self {
 		case .banner:
@@ -316,14 +345,5 @@ private extension ENSettingModel.Content {
 			return .descriptionCell
 		}
 	}
-}
 
-// MARK: ENStateHandler Updating
-extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
-	func updateEnState(_ enState: ENStateHandler.State) {
-		Log.info("Get the new state: \(enState)", log: .api)
-		self.enState = enState
-		lastActionCell?.configure(for: enState, delegate: self)
-		self.tableView.reloadData()
-	}
 }

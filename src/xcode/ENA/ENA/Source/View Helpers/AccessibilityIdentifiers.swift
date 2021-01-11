@@ -20,13 +20,6 @@ enum AccessibilityIdentifiers {
 		static let onTitle = "AppStrings.NotificationSettings.onTitle"
 	}
 
-	enum RiskCollectionViewCell {
-		static let topContainer = "RiskLevelCollectionViewCell.topContainer"
-		static let bodyLabel = "RiskLevelCollectionViewCell.bodyLabel"
-		static let detectionIntervalLabel = "RiskLevelCollectionViewCell.detectionIntervalLabel"
-		static let updateButton = "RiskLevelCollectionViewCell.updateButton"
-	}
-
 	enum Home {
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
 		static let diaryCardButton = "AppStrings.Home.diaryCardButton"
@@ -42,6 +35,12 @@ enum AccessibilityIdentifiers {
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 		static let thankYouCard = "AppStrings.Home.thankYouCard"
+
+		enum RiskTableViewCell {
+			static let topContainer = "HomeRiskTableViewCell.topContainer"
+			static let bodyLabel = "HomeRiskTableViewCell.bodyLabel"
+			static let updateButton = "HomeRiskTableViewCell.updateButton"
+		}
 	}
 
 	enum ContactDiaryInformation {

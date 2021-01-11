@@ -17,7 +17,7 @@ extension UNUserNotificationCenter {
 				// Deadman Notification already setup -> return
 				return
 			} else {
-				// No Deadman Notification setup, contiune to setup a new one
+				// No Deadman Notification setup, continue to setup a new one
 				let content = UNMutableNotificationContent()
 				content.title = AppStrings.Common.deadmanAlertTitle
 				content.body = AppStrings.Common.deadmanAlertBody
@@ -43,7 +43,7 @@ extension UNUserNotificationCenter {
 		})
 	}
 	
-	/// Reset the Deadman Notification, should be called after a successfull risk-calculation.
+	/// Reset the Deadman Notification, should be called after a successful risk-calculation.
 	func resetDeadmanNotification() {
 		cancelDeadmanNotification()
 		scheduleDeadmanNotificationIfNeeded()
@@ -53,7 +53,7 @@ extension UNUserNotificationCenter {
 	
 	private static let deadmanNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-deadman"
 
-	/// Cancels the Deadman Notificatoin
+	/// Cancels the Deadman Notification
 	private func cancelDeadmanNotification() {
 		removePendingNotificationRequests(withIdentifiers: [UNUserNotificationCenter.deadmanNotificationIdentifier])
 	}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExposureDetectionViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="checkButton" destination="xd3-NS-88w" id="Gvf-zM-6Md"/>
+                <outlet property="closeButton" destination="Vuv-bj-pSo" id="FDd-ei-tdW"/>
+                <outlet property="footerView" destination="mR6-aq-Ir7" id="NEt-lB-1Rr"/>
+                <outlet property="headerView" destination="o5N-fQ-iws" id="qYW-89-QPe"/>
+                <outlet property="tableView" destination="Ecz-FJ-Tex" id="QtT-Yq-NMr"/>
+                <outlet property="titleLabel" destination="QHc-xv-Mv6" id="tv6-Tb-8by"/>
+                <outlet property="titleViewBottomConstraint" destination="Qib-Ub-C0D" id="KwK-ux-9ra"/>
+                <outlet property="view" destination="l5W-aj-R75" id="hco-cA-gwI"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="l5W-aj-R75">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ecz-FJ-Tex">
+                    <rect key="frame" x="0.0" y="117.5" width="414" height="778.5"/>
+                    <color key="backgroundColor" name="ENA Background Color"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="EVY-yH-9Yy"/>
+                        <outlet property="delegate" destination="-1" id="ch5-lP-qeY"/>
+                    </connections>
+                </tableView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mR6-aq-Ir7" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="780" width="414" height="116"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="sr8-WF-1eF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xd3-NS-88w" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="16" y="16" width="382" height="50"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
+                                <state key="normal" title="Check Now"/>
+                                <connections>
+                                    <action selector="tappedBottomButton" destination="-1" eventType="touchUpInside" id="7kk-hF-RBn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xd3-NS-88w" firstAttribute="trailing" secondItem="sr8-WF-1eF" secondAttribute="trailingMargin" id="57i-A2-UGr"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="xd3-NS-88w" secondAttribute="bottom" id="HlV-Dt-mHM"/>
+                            <constraint firstItem="xd3-NS-88w" firstAttribute="leading" secondItem="sr8-WF-1eF" secondAttribute="leadingMargin" id="dTO-96-SwO"/>
+                            <constraint firstItem="xd3-NS-88w" firstAttribute="top" secondItem="sr8-WF-1eF" secondAttribute="topMargin" id="gia-he-c8d"/>
+                        </constraints>
+                        <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                    </view>
+                    <blurEffect style="regular"/>
+                </visualEffectView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o5N-fQ-iws">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="117.5"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXO-Mq-nXl" userLabel="Title View">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="117.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Current Risk Level" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHc-xv-Mv6" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                    <rect key="frame" x="16" y="68" width="342" height="33.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailingMargin" secondItem="QHc-xv-Mv6" secondAttribute="trailing" id="8MY-cH-23K"/>
+                                <constraint firstAttribute="bottomMargin" secondItem="QHc-xv-Mv6" secondAttribute="bottom" id="Qib-Ub-C0D"/>
+                                <constraint firstItem="QHc-xv-Mv6" firstAttribute="top" secondItem="SXO-Mq-nXl" secondAttribute="topMargin" id="TfC-F0-UCc"/>
+                                <constraint firstItem="QHc-xv-Mv6" firstAttribute="leading" secondItem="SXO-Mq-nXl" secondAttribute="leadingMargin" id="UTg-s2-Ydx"/>
+                            </constraints>
+                            <edgeInsets key="layoutMargins" top="24" left="16" bottom="16" right="16"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="SXO-Mq-nXl" firstAttribute="top" secondItem="o5N-fQ-iws" secondAttribute="top" id="H4f-YO-JqO"/>
+                        <constraint firstItem="SXO-Mq-nXl" firstAttribute="leading" secondItem="o5N-fQ-iws" secondAttribute="leading" id="WkI-ms-U1J"/>
+                        <constraint firstAttribute="bottom" secondItem="SXO-Mq-nXl" secondAttribute="bottom" id="gqy-wD-N9C"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuv-bj-pSo">
+                    <rect key="frame" x="360" y="18" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="lv1-JR-Mm1"/>
+                        <constraint firstAttribute="height" constant="44" id="t4M-d2-MpZ"/>
+                    </constraints>
+                    <state key="normal" image="Icons - Close - Contrast"/>
+                    <connections>
+                        <action selector="tappedClose" destination="-1" eventType="touchUpInside" id="ggg-t0-6Qw"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Zyl-pV-r2y"/>
+            <color key="backgroundColor" name="ENA Background Color"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Vuv-bj-pSo" secondAttribute="trailing" constant="10" id="4o2-hV-MeH"/>
+                <constraint firstItem="Vuv-bj-pSo" firstAttribute="top" secondItem="l5W-aj-R75" secondAttribute="top" constant="18" id="4zk-iy-ito"/>
+                <constraint firstAttribute="bottom" secondItem="mR6-aq-Ir7" secondAttribute="bottom" id="9qF-Ta-K2e"/>
+                <constraint firstItem="Vuv-bj-pSo" firstAttribute="leading" secondItem="QHc-xv-Mv6" secondAttribute="trailing" constant="2" id="PvB-fz-0EG"/>
+                <constraint firstItem="o5N-fQ-iws" firstAttribute="top" secondItem="l5W-aj-R75" secondAttribute="top" id="QO4-zk-OJW"/>
+                <constraint firstItem="mR6-aq-Ir7" firstAttribute="leading" secondItem="l5W-aj-R75" secondAttribute="leading" id="RUv-nx-Tqq"/>
+                <constraint firstAttribute="trailing" secondItem="mR6-aq-Ir7" secondAttribute="trailing" id="Sgk-n0-IHK"/>
+                <constraint firstAttribute="bottom" secondItem="Ecz-FJ-Tex" secondAttribute="bottom" id="cxs-DP-lMS"/>
+                <constraint firstItem="Ecz-FJ-Tex" firstAttribute="leading" secondItem="l5W-aj-R75" secondAttribute="leading" id="e2O-Vi-Y6J"/>
+                <constraint firstAttribute="trailing" secondItem="o5N-fQ-iws" secondAttribute="trailing" id="g7m-lq-AbE"/>
+                <constraint firstItem="Ecz-FJ-Tex" firstAttribute="top" secondItem="SXO-Mq-nXl" secondAttribute="bottom" id="kP5-Eq-YAx"/>
+                <constraint firstAttribute="trailing" secondItem="Ecz-FJ-Tex" secondAttribute="trailing" id="lJV-SI-RP1"/>
+                <constraint firstItem="o5N-fQ-iws" firstAttribute="leading" secondItem="l5W-aj-R75" secondAttribute="leading" id="sb9-Xe-kiG"/>
+            </constraints>
+            <point key="canvasLocation" x="-472" y="140"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="QHc-xv-Mv6">
+            <size key="intrinsicContentSize" width="236.5" height="33.5"/>
+        </designable>
+        <designable name="xd3-NS-88w">
+            <size key="intrinsicContentSize" width="107" height="50"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="Icons - Close - Contrast" width="30" height="30"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

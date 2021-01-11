@@ -12,13 +12,12 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	// MARK: - Initializers
 	
-	init?(
-		coder: NSCoder,
+	init(
 		supportedCountries: [Country]
 	) {
 		self.viewModel = DeltaOnboardingV15ViewModel(supportedCountries: supportedCountries)
 		
-		super.init(coder: coder)
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -30,7 +29,9 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		self.navigationController?.presentationController?.delegate = self
+
 		setupView()
 		setupRightBarButtonItem()
 	}
@@ -71,8 +72,8 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 	}
 
 	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
+		view.backgroundColor = .enaColor(for: .background)
+		tableView.separatorStyle = .none
 
 		tableView.register(
 			DynamicTableViewRoundedCell.self,

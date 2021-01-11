@@ -21,15 +21,26 @@ class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePrese
 	private var topViewControllerWithFooterChild: ENANavigationControllerWithFooterChild? { topViewController as? ENANavigationControllerWithFooterChild }
 
 	override init(rootViewController: UIViewController) {
-		super.init(rootViewController: rootViewController)
+		if #available(iOS 13.0, *) {
+			super.init(rootViewController: rootViewController)
+		} else {
+			super.init(nibName: nil, bundle: nil)
+			self.viewControllers = [rootViewController]
+		}
+
 		self.presentationController?.delegate = self
-		self.isModalInPresentation = true
+
+		if #available(iOS 13.0, *) {
+			self.isModalInPresentation = true
+		}
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		self.presentationController?.delegate = self
-		self.isModalInPresentation = true
+		if #available(iOS 13.0, *) {
+			self.isModalInPresentation = true
+		}
 	}
 
 	override func loadView() {

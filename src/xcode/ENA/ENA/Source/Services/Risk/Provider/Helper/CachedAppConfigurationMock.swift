@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 import ZIPFoundation
 
 #if DEBUG
@@ -42,7 +42,7 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return Just(config)
-			.receive(on: DispatchQueue.main)
+			.receive(on: DispatchQueue.main.ocombine)
 			.eraseToAnyPublisher()
 	}
 

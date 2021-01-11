@@ -20,7 +20,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 	// MARK: - Write Downloaded Package Tests
 
 	func testWriteDownloadedPackage() throws {
-		// Test the case where the exector is asked to write the downloaded packages
+		// Test the case where the executor is asked to write the downloaded packages
 		// to disk and return the URLs (for later exposure detection use)
 		// We expect that the .bin and .sig files are written in the App's temp directory
 		// Hourly fetching is enabled

@@ -35,13 +35,14 @@ final class ENATaskScheduler {
 	weak var delegate: ENATaskExecutionDelegate?
 
 	// MARK: - Initializer.
-
 	private init() {
-		registerTask(with: .exposureNotification, execute: exposureNotificationTask(_:))
+		if #available(iOS 13.0, *) {
+			registerTask(with: .exposureNotification, execute: exposureNotificationTask(_:))
+		}
 	}
 
 	// MARK: - Task registration.
-
+	@available(iOS 13.0, *)
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, execute: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
@@ -62,7 +63,8 @@ final class ENATaskScheduler {
 	}
 
 	// MARK: - Task scheduling.
-
+	
+	@available(iOS 13.0, *)
 	func scheduleTask() {
 		do {
 			let taskRequest = BGProcessingTaskRequest(identifier: ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier)
@@ -76,7 +78,7 @@ final class ENATaskScheduler {
 	}
 
 	// MARK: - Task execution handlers.
-
+	@available(iOS 13.0, *)
 	private func exposureNotificationTask(_ task: BGTask) {
 		delegate?.executeENABackgroundTask { success in
 			task.setTaskCompleted(success: success)

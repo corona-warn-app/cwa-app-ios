@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-import Combine
+import OpenCombine
 
 final class TestResultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 

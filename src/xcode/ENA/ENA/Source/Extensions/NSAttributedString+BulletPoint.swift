@@ -26,7 +26,7 @@ extension NSAttributedString {
 
 		let bulletAttributes: [NSAttributedString.Key: Any] = [
 			.font: font.scaledFont(size: font.pointSize, weight: .black),
-			.foregroundColor: UIColor.label
+			.foregroundColor: ColorCompatibility.label
 		]
 
 		let bullet = "\u{2022}"

@@ -4,16 +4,17 @@
 
 @testable import ENA
 import XCTest
-import CryptoKit
 import ZIPFoundation
+
 
 final class SAPDownloadedPackageTests: XCTestCase {
 
-	private lazy var signingKey = P256.Signing.PrivateKey()
-	private lazy var publicKey = signingKey.publicKey
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
-	private lazy var mockKeyProvider: PublicKeyProvider = { self.publicKey }
-	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
+
+	private lazy var signingKey: PrivateKeyProvider = CryptoProvider.createPrivateKey()
+	private lazy var mockKeyProvider: PublicKeyProtocol = CryptoProvider.createPublicKey(from: signingKey)
+	private lazy var verifier = SAPDownloadedPackage.Verifier(key: { self.mockKeyProvider })
+	
 
 	// MARK: Signature Verification Tests
 
@@ -25,8 +26,9 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	func testVerifySignature_RejectModifiedBin() throws {
 		// Test the package signature verification process - rejecting when the signature does not match
-		let bytes = [0xA, 0xB, 0xC, 0xD]
+		let bytes = [0xA, 0xB, 0xC, 0xD] as [UInt8]
 		// The bin and signature were  made for different data sets
+
 		let package = try SAPDownloadedPackage.makePackage(
 			bin: Data(bytes: bytes, count: 4),
 			signature: try SAPDownloadedPackage.makeSignature(
@@ -40,9 +42,9 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	func testVerifySignature_RejectCorruptSignature() throws {
 		let package = SAPDownloadedPackage(
-			keysBin: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4),
+			keysBin: Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4),
 			// This cannot be decoded into a SAP_External_Exposurenotification_TEKSignatureList
-			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
+			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4)
 		)
 
 		XCTAssertFalse(verifier(package))
@@ -51,7 +53,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	func testVerifySignature_OneKeyMatchesBundleId() throws {
 		// Test the case where there are multiple signatures, and one has a non-matching bundleID
 		// As long as there is one valid signature for the bin data, it should pass
-		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
+		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4)
 		let signatures = [
 			try SAPDownloadedPackage.makeSignature(data: data, key: signingKey, bundleId: "hello"),
 			try SAPDownloadedPackage.makeSignature(data: data, key: signingKey)
@@ -63,11 +65,10 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	}
 
 	func testVerifySignature_OneSignatureFails() throws {
-		// Test the case where there are multiple signatures, and one is invalid
-		// As long as one is valid, we should still pass.
-		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
+		// Create and invalidate signature
+		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4)
 		var invalidSignature = try SAPDownloadedPackage.makeSignature(data: data, key: signingKey)
-		invalidSignature.signature.append(Data(bytes: [0xE], count: 1))
+		invalidSignature.signature.append(Data(bytes: [0xE] as [UInt8], count: 1))
 
 		let signatures = [
 			invalidSignature,

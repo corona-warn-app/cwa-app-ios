@@ -63,7 +63,7 @@ final class HTTPClientTestResultTests: XCTestCase {
 	func testGetTestResult_MalformedResponse() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: Data(bytes: [0xA, 0xB], count: 2)
+			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
 		let successExpectation = expectation(

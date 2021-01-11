@@ -10,19 +10,7 @@ class DynamicTableViewControllerRegisterCellsTests: XCTestCase {
 	var sut: DynamicTableViewController!
 	
 	override func setUpWithError() throws {
-		// The fake storyboard is needed here to instantiate an instance of
-		// DynamicTableViewController like it will be done in the real app.
-		// Without that, the tableView property doesn't get assign properly.
-		let testBundle = Bundle(for: DynamicTableViewControllerRegisterCellsTests.self)
-		let storyboardFake = UIStoryboard(name: "DynamicTableViewControllerFake", bundle: testBundle)
-		// The force unwrap it used here because when the type doesn't match, a
-		// crash immedeately informs about a problem in the test.
-		guard let viewController = storyboardFake.instantiateViewController(identifier: "DynamicTableViewController") as? DynamicTableViewController
-			else {
-				XCTAssert(false, "Unable to instantiate DynamicTableViewController from DynamicTableViewControllerFake.storyboard")
-				return
-		}
-		sut = viewController
+		sut = DynamicTableViewController()
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()
 	}

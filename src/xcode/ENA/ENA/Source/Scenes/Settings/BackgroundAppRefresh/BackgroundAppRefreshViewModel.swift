@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 protocol LowPowerModeStatusProviding {
 	var isLowPowerModeEnabled: Bool { get }
@@ -54,11 +54,11 @@ class BackgroundAppRefreshViewModel {
 	let settingsHeaderTitle = AppStrings.BackgroundAppRefreshSettings.Status.header.uppercased()
 	let backgroundAppRefreshTitle = AppStrings.BackgroundAppRefreshSettings.Status.title
 
-	@Published var backgroundAppRefreshStatusText: String = ""
-	@Published var backgroundAppRefreshStatusAccessibilityLabel: String = ""
-	@Published var backgroundAppRefreshStatusImageAccessibilityLabel: String = ""
-	@Published var image: UIImage?
-	@Published var infoBoxViewModel: InfoBoxViewModel?
+	@OpenCombine.Published var backgroundAppRefreshStatusText: String = ""
+	@OpenCombine.Published var backgroundAppRefreshStatusAccessibilityLabel: String = ""
+	@OpenCombine.Published var backgroundAppRefreshStatusImageAccessibilityLabel: String = ""
+	@OpenCombine.Published var image: UIImage?
+	@OpenCombine.Published var infoBoxViewModel: InfoBoxViewModel?
 
 
 	// MARK: - Private
@@ -165,15 +165,17 @@ class BackgroundAppRefreshViewModel {
 	}
 
 	private func observeBackgroundAppRefresh() {
-		NotificationCenter.default.publisher(for: UIApplication.backgroundRefreshStatusDidChangeNotification).sink { [weak self] _ in
-			guard let self = self else { return }
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.backgroundRefreshStatusDidChangeNotification)
+			.sink { [weak self] _ in
+				guard let self = self else { return }
 
-			self.backgroundRefreshStatus = self.backgroundRefreshStatusProvider.backgroundRefreshStatus
-		}.store(in: &subscriptions)
+				self.backgroundRefreshStatus = self.backgroundRefreshStatusProvider.backgroundRefreshStatus
+			}
+			.store(in: &subscriptions)
 	}
 	
 	private func observeLowPowerMode() {
-		NotificationCenter.default.publisher(for: Notification.Name.NSProcessInfoPowerStateDidChange).sink { [weak self] _ in
+		NotificationCenter.default.ocombine.publisher(for: Notification.Name.NSProcessInfoPowerStateDidChange).sink { [weak self] _ in
 			guard let self = self else { return }
 
 			self.lowPowerModeEnabled = self.lowPowerModeStatusProvider.isLowPowerModeEnabled

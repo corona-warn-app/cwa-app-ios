@@ -3,10 +3,13 @@
 //
 
 import UIKit
+import IBPCollectionViewCompositionalLayout
 
 protocol HomeLayoutDelegate: AnyObject {
 	func homeLayoutSection(for sectionIndex: Int) -> HomeViewController.Section?
 }
+
+typealias UICollectionViewCompositionalLayoutSectionProvider = (Int, NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection?
 
 extension UICollectionViewLayout {
 	static let topInset: CGFloat = 32.0

@@ -16,11 +16,9 @@ class DeltaOnboardingV15: DeltaOnboarding {
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		let deltaOnboardingViewController = AppStoryboard.onboarding.initiate(
-			viewControllerType: DeltaOnboardingV15ViewController.self) { [weak self] coder -> UIViewController? in
-			guard let self = self else { return nil }
-			return DeltaOnboardingV15ViewController(coder: coder, supportedCountries: self.supportedCountries)
-		}
+		let deltaOnboardingViewController = DeltaOnboardingV15ViewController(
+			supportedCountries: supportedCountries
+		)
 
 		let navigationController = DeltaOnboardingNavigationController(rootViewController: deltaOnboardingViewController)
 

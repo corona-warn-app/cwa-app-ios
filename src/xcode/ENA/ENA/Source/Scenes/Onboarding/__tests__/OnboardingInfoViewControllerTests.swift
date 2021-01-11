@@ -8,7 +8,6 @@ import XCTest
 class OnboardingInfoViewControllerTests: XCTestCase {
 
 	func test_createOnboardingInfoViewController() {
-		let storyboard = AppStoryboard.onboarding.instance
 		let mockExposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: nil)
 		let mockStore = MockTestStore()
 		let mockClient = ClientMock()
@@ -20,16 +19,13 @@ class OnboardingInfoViewControllerTests: XCTestCase {
 
 		let supportedCountries = [germanCountry]
 
-		let onboardingInfoViewController = storyboard.instantiateInitialViewController { coder in
-			OnboardingInfoViewController(
-				coder: coder,
-				pageType: .enableLoggingOfContactsPage,
-				exposureManager: mockExposureManager,
-				store: mockStore,
-				client: mockClient,
-				supportedCountries: supportedCountries
-			)
-		}
+		let onboardingInfoViewController = OnboardingInfoViewController(
+			pageType: .enableLoggingOfContactsPage,
+			exposureManager: mockExposureManager,
+			store: mockStore,
+			client: mockClient,
+			supportedCountries: supportedCountries
+		)
 		
 		XCTAssertNotNil(onboardingInfoViewController, "Could not create OnboardingInfoViewController")
 

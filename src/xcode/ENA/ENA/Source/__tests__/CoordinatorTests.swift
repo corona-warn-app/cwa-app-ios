@@ -68,47 +68,4 @@ class CoordinatorTests: XCTestCase {
 		XCTAssertTrue(setViewControllersWasCalled)
 	}
 
-	func test_coordinator_shouldShowRiskLegend() {
-		coordinator.showRiskLegend()
-		let presentWasCalled = coordinator.mockNavigationController.presentWasCalled
-		XCTAssertTrue(presentWasCalled)
-	}
-
-	func test_coordinator_shouldShowExposureNotificationSetting() {
-		coordinator.showExposureNotificationSetting(enState: .unknown)
-		let pushViewControllerWasCalled = coordinator.mockNavigationController.pushViewControllerWasCalled
-		XCTAssertTrue(pushViewControllerWasCalled)
-	}
-	
-	func test_coordinator_shouldShowExposureDetection() {
-		let state = HomeInteractor.State(riskState: .inactive, detectionMode: .automatic, exposureManagerState: .init(), enState: .unknown)
-		coordinator.showExposureDetection(state: state, activityState: .idle)
-		let presentWasCalled = coordinator.mockNavigationController.presentWasCalled
-		XCTAssertTrue(presentWasCalled)
-	}
-
-	func test_coordinator_shouldShowExposureSubmission() {
-		coordinator.showExposureSubmission()
-		let presentWasCalled = coordinator.mockNavigationController.presentWasCalled
-		XCTAssertTrue(presentWasCalled)
-	}
-
-	func test_coordinator_shouldShowInviteFriends() {
-		coordinator.showInviteFriends()
-		let pushViewControllerWasCalled = coordinator.mockNavigationController.pushViewControllerWasCalled
-		XCTAssertTrue(pushViewControllerWasCalled)
-	}
-
-	func test_coordinator_shouldShowAppInformation() {
-		coordinator.showAppInformation()
-		let pushViewControllerWasCalled = coordinator.mockNavigationController.pushViewControllerWasCalled
-		XCTAssertTrue(pushViewControllerWasCalled)
-	}
-
-	func test_coordinator_shouldShowSettings() {
-		coordinator.showSettings(enState: .unknown)
-		let pushViewControllerWasCalled = coordinator.mockNavigationController.pushViewControllerWasCalled
-		XCTAssertTrue(pushViewControllerWasCalled)
-	}
-
 }

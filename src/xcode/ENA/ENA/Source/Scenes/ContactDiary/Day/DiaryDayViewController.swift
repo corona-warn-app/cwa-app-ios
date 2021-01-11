@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -36,7 +36,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		setupTableView()
 
 		viewModel.$day
-			.receive(on: RunLoop.main)
+			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] _ in
 				self?.updateForSelectedEntryType()
 			}

@@ -11,6 +11,8 @@ extension OSLog {
     static let ui = OSLog(subsystem: subsystem, category: "ui")
     /// Local data & caches
     static let localData = OSLog(subsystem: subsystem, category: "localdata")
+	///	Cryptography
+	static let crypto = OSLog(subsystem: subsystem, category: "crypto")
 	/// Risk Detection
 	static let riskDetection = OSLog(subsystem: subsystem, category: "riskdetection")
 	/// App Config
@@ -22,7 +24,22 @@ extension OSLog {
 
 }
 
+/// Logging
+///
+/// Usage:
+/// ```
+/// Log.debug("foo")
+/// Log.info("something broke", log: .api)
+/// Log.warning("validation failed", log: .crypto)
+/// Log.error("my hovercraft is full of eels", log: .ui)
+/// ```
 enum Log {
+
+	#if !RELEASE
+
+	private static let fileLogger = FileLogger()
+	
+	#endif
 
     static func debug(_ message: String, log: OSLog = .default) {
         Self.log(message: message, type: .debug, log: log, error: nil)
@@ -47,7 +64,6 @@ enum Log {
 
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
 
-		let fileLogger = FileLogger()
 		fileLogger.log(message, logType: type)
 
 		// Crashlytics
@@ -59,11 +75,6 @@ enum Log {
 		#endif
 	}
 }
-
-// Usage:
-// Log.debug("foo")
-// Log.info("something broke", log: .api)
-// Log.error("my hovercraft is full of eels", log: .ui)
 
 #if !RELEASE
 

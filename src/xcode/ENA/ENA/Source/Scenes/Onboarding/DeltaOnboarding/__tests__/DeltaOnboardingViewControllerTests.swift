@@ -9,21 +9,15 @@ import XCTest
 class DeltaOnboardingViewControllerTests: XCTestCase {
 
 	private func createVC() -> DeltaOnboardingV15ViewController {
-		AppStoryboard.onboarding.initiate(viewControllerType: DeltaOnboardingV15ViewController.self) { coder -> UIViewController? in
 			DeltaOnboardingV15ViewController(
-				coder: coder,
 				supportedCountries: [ Country.defaultCountry() ]
 			)
-		}
 	}
 	
 	private func createVCWithoutCountries() -> DeltaOnboardingV15ViewController {
-		AppStoryboard.onboarding.initiate(viewControllerType: DeltaOnboardingV15ViewController.self) { coder -> UIViewController? in
 			DeltaOnboardingV15ViewController(
-				coder: coder,
 				supportedCountries: []
 			)
-		}
 	}
 	
 	func testCellsInSection0() {

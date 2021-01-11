@@ -20,7 +20,7 @@
 #if !RELEASE
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DMAppConfigurationViewController: UIViewController {
 

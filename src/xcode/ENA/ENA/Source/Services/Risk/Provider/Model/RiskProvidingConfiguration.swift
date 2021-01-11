@@ -5,7 +5,7 @@
 import Foundation
 
 /// Used to configure a `RiskLevelProvider`.
-struct RiskProvidingConfiguration {
+struct RiskProvidingConfiguration: Equatable {
 
     static let defaultExposureDetectionsInterval = 24 / defaultMaxExposureDetectionsPerInterval
     private static let defaultMaxExposureDetectionsPerInterval = 1

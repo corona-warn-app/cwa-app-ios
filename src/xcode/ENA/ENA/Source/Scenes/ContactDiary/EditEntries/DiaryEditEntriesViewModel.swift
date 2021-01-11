@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryEditEntriesViewModel {
 
@@ -59,7 +59,7 @@ class DiaryEditEntriesViewModel {
 
 	// MARK: - Internal
 
-	@Published private(set) var entries: [DiaryEntry]
+	@OpenCombine.Published private(set) var entries: [DiaryEntry]
 
 	let title: String
 

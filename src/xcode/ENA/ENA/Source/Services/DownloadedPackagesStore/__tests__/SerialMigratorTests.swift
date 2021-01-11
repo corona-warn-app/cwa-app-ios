@@ -10,9 +10,14 @@ final class MigrationStub: Migration {
 
 	private let migration: () -> Void
 
-	init(migration: @escaping () -> Void) {
+	init(version: Int, migration: @escaping () -> Void) {
+		self.version = version
 		self.migration = migration
 	}
+
+	// MARK: - Protocol Migration
+
+	var version = 0
 
 	func execute() throws {
 		migration() // always succeeds!
@@ -38,10 +43,13 @@ final class SerialMigratorTests: XCTestCase {
 
 		let migrationExpectation = expectation(description: "Migration was called.")
 
-		let migration = MigrationStub { [weak self] in
-			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN")
-			migrationExpectation.fulfill()
-		}
+		let migration = MigrationStub(
+			version: 1,
+			migration: { [weak self] in
+				self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN")
+				migrationExpectation.fulfill()
+			}
+		)
 
 		let serialMigrator = SerialMigrator(latestVersion: 1, database: database, migrations: [migration])
 		try serialMigrator.migrate()
@@ -60,15 +68,21 @@ final class SerialMigratorTests: XCTestCase {
 		migrationExpectation.expectedFulfillmentCount = 2
 		migrationExpectation.assertForOverFulfill = true
 
-		let migration0To1 = MigrationStub { [weak self] in
-			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_1")
-			migrationExpectation.fulfill()
-		}
+		let migration0To1 = MigrationStub(
+			version: 1,
+			migration: { [weak self] in
+				self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_1")
+				migrationExpectation.fulfill()
+			}
+		)
 
-		let migration1To2 = MigrationStub { [weak self] in
-			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_2")
-			migrationExpectation.fulfill()
-		}
+		let migration1To2 = MigrationStub(
+			version: 2,
+			migration: { [weak self] in
+				self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_2")
+				migrationExpectation.fulfill()
+			}
+		)
 
 		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration0To1, migration1To2])
 		try serialMigrator.migrate()
@@ -84,16 +98,23 @@ final class SerialMigratorTests: XCTestCase {
 		insertDummyData(to: database)
 		database.userVersion = 1
 
-		let migration0To1 = MigrationStub {
-			XCTFail("This migration should not be executed, because userVersion is 1.")
-		}
+		let migration0To1 = MigrationStub(
+			version: 1,
+			migration: {
+				XCTFail("This migration should not be executed, because userVersion is 1.")
+			}
+		)
 
 		let migrationExpectation = expectation(description: "Migration was called.")
 
-		let migration1To2 = MigrationStub { [weak self] in
-			self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_1")
-			migrationExpectation.fulfill()
-		}
+		let migration1To2 = MigrationStub(
+			version: 2,
+			migration: { [weak self] in
+				self?.addDummyColumn(to: database, name: "Z_SOME_COLUMN_1")
+				migrationExpectation.fulfill()
+			}
+		)
+
 
 		let serialMigrator = SerialMigrator(latestVersion: 2, database: database, migrations: [migration0To1, migration1To2])
 		try serialMigrator.migrate()

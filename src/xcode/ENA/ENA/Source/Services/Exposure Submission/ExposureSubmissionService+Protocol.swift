@@ -3,6 +3,8 @@
 //
 
 import Foundation
+import OpenCombine
+
 
 protocol ExposureSubmissionService: class {
 
@@ -22,7 +24,7 @@ protocol ExposureSubmissionService: class {
 	var symptomsOnset: SymptomsOnset { get set }
 
 	var isSubmissionConsentGiven: Bool { get set }
-	var isSubmissionConsentGivenPublisher: Published<Bool>.Publisher { get }
+	var isSubmissionConsentGivenPublisher: OpenCombine.Published<Bool>.Publisher { get }
 
 	func loadSupportedCountries(isLoading: @escaping (Bool) -> Void, onSuccess: @escaping ([Country]) -> Void)
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler)

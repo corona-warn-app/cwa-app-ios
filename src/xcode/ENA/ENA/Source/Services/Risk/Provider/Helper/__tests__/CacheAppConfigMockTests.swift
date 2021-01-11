@@ -18,7 +18,7 @@
 //
 
 import XCTest
-import Combine
+import OpenCombine
 import ZIPFoundation
 @testable import ENA
 
