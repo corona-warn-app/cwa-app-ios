@@ -98,12 +98,12 @@ class RiskLegendViewController: DynamicTableViewController {
 					.dotBodyCell(
 						color: .enaColor(for: .riskHigh),
 						text: AppStrings.RiskLegend.legend2High,
-						accessibilityLabelColor: AppStrings.RiskLegend.legend2HighColor,
+						accessibilityLabelColor: AppStrings.ExposureDetection.highColorName,
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High),
 					.dotBodyCell(
 						color: .enaColor(for: .riskLow),
 						text: AppStrings.RiskLegend.legend2Low,
-						accessibilityLabelColor: AppStrings.RiskLegend.legend2LowColor,
+						accessibilityLabelColor: AppStrings.ExposureDetection.lowColorName,
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor)
 				]
 			),

@@ -1203,11 +1203,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend2_High" = "Erhöhtes Risiko";
 
-"RiskLegend_Legend2_High_Color" = "Rot";
-
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
-
-"RiskLegend_Legend2_Low_Color" = "Grün";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 
