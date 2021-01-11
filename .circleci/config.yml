@@ -87,6 +87,8 @@ jobs:
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - run:
           name: Skip SonarCloud for external Pull Requests
           shell: /bin/zsh
