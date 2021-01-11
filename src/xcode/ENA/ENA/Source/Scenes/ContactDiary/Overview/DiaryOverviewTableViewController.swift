@@ -53,6 +53,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		
 		let moreImage = UIImage(named: "Icons_More_Circle")
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
+		rightBarButton.accessibilityLabel = AppStrings.ContactDiary.Overview.menuButtonTitle
 		rightBarButton.tintColor = .enaColor(for: .tint)
 		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
 	}

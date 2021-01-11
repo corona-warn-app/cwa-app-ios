@@ -18,7 +18,7 @@ struct DateProvider: DateProviding {
 }
 
 // swiftlint:disable:next type_body_length
-class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
+class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
@@ -26,15 +26,17 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	init?(
 		databaseQueue: FMDatabaseQueue,
-		schema: ContactDiaryStoreSchemaV1,
+		schema: ContactDiarySchemaProtocol,
 		key: String,
-		dateProvider: DateProviding = DateProvider()
-	) {
+		dateProvider: DateProviding = DateProvider(),
+		migrator: SerialMigratorProtocol
+		) {
 		self.databaseQueue = databaseQueue
 		self.key = key
 		self.dateProvider = dateProvider
 		self.schema = schema
-
+		self.migrator = migrator
+		
 		guard case .success = openAndSetup() else {
 			return nil
 		}
@@ -50,10 +52,10 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		guard case .success = updateDiaryResult else {
 			return nil
 		}
-
+		
 		registerToDidBecomeActiveNotification()
 	}
-
+	
 	// MARK: - Protocol DiaryProviding
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
@@ -63,7 +65,6 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] export entries.", log: .localData)
-
 			var contentHeader = "Kontakte der letzten 14 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
 
 			let endExportDate = dateProvider.today
@@ -626,8 +627,9 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 	private let userVisiblePeriodInDays = 14 // Including today.
 	private let key: String
 	private let dateProvider: DateProviding
-	private let schema: ContactDiaryStoreSchemaV1
-
+	private let schema: ContactDiarySchemaProtocol
+	private let migrator: SerialMigratorProtocol
+	
 	private var todayDateString: String {
 		dateFormatter.string(from: dateProvider.today)
 	}
@@ -637,7 +639,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 		return dateFormatter
 	}()
 
-	private lazy var germanDateFormatter: DateFormatter = {
+	private var germanDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .none
@@ -649,23 +651,24 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	private func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?
-
+		var userVerson: UInt32?
+		
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-
+			userVerson = database.userVersion
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
-
+			
 			guard database.open() else {
 				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
-
+			
 			let sql = """
 				PRAGMA locking_mode=EXCLUSIVE;
 				PRAGMA auto_vacuum=2;
@@ -678,19 +681,33 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				return
 			}
 		}
-
+		
 		if let _errorResult = errorResult {
 			return _errorResult
 		}
-
-		let schemaCreateResult = schema.create()
-		if case let .failure(error) = schemaCreateResult {
-			return .failure(.database(error))
+		
+		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
+		// then we create the latest scheme
+		if let version = userVerson, version == 0 {
+			let schemaCreateResult = schema.create()
+			if case let .failure(error) = schemaCreateResult {
+				return .failure(.database(error))
+			}
+		} else {
+			migrate()
 		}
-
+		
 		return .success(())
 	}
-
+	
+	private func migrate() {
+		do {
+			try migrator.migrate()
+		} catch {
+			_ = MigrationError.general(description: error.localizedDescription)
+		}
+	}
+	
 	private func registerToDidBecomeActiveNotification() {
 		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
@@ -865,7 +882,7 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 				result = .failure(dbError(from: database))
 				return
 			}
-
+			database.userVersion = 0
 			result = .success(())
 		}
 
@@ -889,12 +906,12 @@ class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 // MARK: Creation
 
-extension ContactDiaryStoreV1 {
+extension ContactDiaryStore {
 
-	static func make() -> ContactDiaryStoreV1 {
+	static func make() -> ContactDiaryStore {
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
-		if let store = ContactDiaryStoreV1() {
+		if let store = ContactDiaryStore() {
 			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
 			return store
 		}
@@ -903,32 +920,15 @@ extension ContactDiaryStoreV1 {
 
 		// The database could not be created – To the rescue!
 		// Remove the database file and try to init the store a second time.
-		try? FileManager.default.removeItem(at: ContactDiaryStoreV1.storeDirectoryURL)
+		try? FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
 
-		if let secondTryStore = ContactDiaryStoreV1() {
+		if let secondTryStore = ContactDiaryStore() {
 			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
 			return secondTryStore
 		} else {
 			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
 			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
 		}
-	}
-
-	convenience init?() {
-		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStoreV1.storeURL.path) else {
-			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
-			return nil
-		}
-
-		let schema = ContactDiaryStoreSchemaV1(
-			databaseQueue: databaseQueue
-		)
-
-		self.init(
-			databaseQueue: databaseQueue,
-			schema: schema,
-			key: ContactDiaryStoreV1.encryptionKey
-		)
 	}
 
 	private static var storeURL: URL {
@@ -958,7 +958,7 @@ extension ContactDiaryStoreV1 {
 		}
 
 		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStoreV1.encriptionKeyKey) {
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encriptionKeyKey) {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
@@ -970,6 +970,29 @@ extension ContactDiaryStoreV1 {
 
 		return key
 	}
+}
 
+extension ContactDiaryStore {
+	convenience init?() {
+		let latestDBVersion = 2
+		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
+			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
+			return nil
+		}
+		
+		let schema = ContactDiaryStoreSchemaV2(
+			databaseQueue: databaseQueue
+		)
+		
+		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
+		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
+
+		self.init(
+			databaseQueue: databaseQueue,
+			schema: schema,
+			key: ContactDiaryStore.encryptionKey,
+			migrator: migrator
+		)
+	}
 	// swiftlint:disable:next file_length
 }

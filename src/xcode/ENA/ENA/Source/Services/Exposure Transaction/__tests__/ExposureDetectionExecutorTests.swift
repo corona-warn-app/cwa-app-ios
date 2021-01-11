@@ -7,7 +7,6 @@ import ExposureNotification
 import Foundation
 import XCTest
 
-
 final class ExposureDetectionExecutorTests: XCTestCase {
 
 	private var dummyAppConfigMetadata: AppConfigMetadata {

@@ -19,7 +19,7 @@ class ENAUITests_03_Settings: XCTestCase {
 	func test_0030_SettingsFlow() throws {
 		app.launch()
 		
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 
 		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.settingsCardTitle"].tap()
@@ -34,7 +34,7 @@ class ENAUITests_03_Settings: XCTestCase {
 	func test_0031_SettingsFlow_BackgroundAppRefresh() throws {
 		app.launch()
 		
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 
 		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.settingsCardTitle"].tap()

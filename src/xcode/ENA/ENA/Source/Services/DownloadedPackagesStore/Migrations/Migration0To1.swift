@@ -11,6 +11,10 @@ final class Migration0To1: Migration {
 	init(database: FMDatabase) {
 		self.database = database
 	}
+	
+	// MARK: - Protocol Migration
+
+	let version = 1
 
 	func execute() throws {
 		let sql = """

@@ -10,6 +10,7 @@ final class HomeTextItemView: UIView, HomeItemView, HomeItemViewSeparatorable {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+
 		layoutMargins = .init(top: titleTopPadding, left: 0, bottom: titleTopPadding, right: 0)
 	}
 
@@ -18,7 +19,9 @@ final class HomeTextItemView: UIView, HomeItemView, HomeItemViewSeparatorable {
 	func configure(with viewModel: HomeTextItemViewModel) {
 		titleLabel?.text = viewModel.title
 		titleLabel?.textColor = viewModel.titleColor
+
 		separatorView?.backgroundColor = viewModel.separatorColor
+
 		backgroundColor = viewModel.color
 	}
 

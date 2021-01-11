@@ -90,7 +90,7 @@ class DynamicTableViewConsentCell: UITableViewCell {
 		countriesStackView.axis = .vertical
 		countriesStackView.spacing = 8
 		countriesStackView.isLayoutMarginsRelativeArrangement = true
-		countriesStackView.directionalLayoutMargins = UIKit.NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+		countriesStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
 		
 		// MARK: - Flag Icons Label adjustment.
 		flagIconsLabel.lineBreakMode = .byWordWrapping

@@ -79,7 +79,7 @@ jobs:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/xccovarchive-0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/xccov-to-sonarqube-generic.sh src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml && rm -r src/xcode/fastlane/test_output/ENA.xcresult
       - run:
           name: Fix SwiftLint output for SonarCloud
           shell: /bin/zsh
@@ -200,23 +200,6 @@ workflows:
         - test:
             requires:
               - dependencies
-        - update-docs:
-            requires:
-              - dependencies
-            filters:
-              branches:
-                only:
-                  - main
-
-    snapshot-all:
-      jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
         - snapshot:
             matrix:
               parameters:
@@ -224,9 +207,20 @@ workflows:
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot
+        - update-docs:
+            requires:
+              - dependencies
+            filters:
+              branches:
+                only:
+                  - main
 
     beta-release:
       jobs:
@@ -263,11 +257,9 @@ workflows:
             requires:
               - dependencies
             filters:
-              tags:
-                only:
-                  - /^v.*/
               branches:
-                ignore: /.*/
+                only:
+                  - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot

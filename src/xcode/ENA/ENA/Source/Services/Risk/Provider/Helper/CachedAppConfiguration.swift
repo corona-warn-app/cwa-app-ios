@@ -4,7 +4,6 @@
 
 import Foundation
 import OpenCombine
-import OpenCombineDispatch
 import ZIPFoundation
 
 final class CachedAppConfiguration {
