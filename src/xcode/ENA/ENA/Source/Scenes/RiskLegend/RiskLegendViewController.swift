@@ -54,7 +54,7 @@ class RiskLegendViewController: DynamicTableViewController {
 
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
 		case numberedTitle = "numberedTitleCell"
-		case dotBody = "dotBodyCell"
+		case dotBody = "RiskLegendDotBodyCell"
 	}
 
 	// MARK: - Private
