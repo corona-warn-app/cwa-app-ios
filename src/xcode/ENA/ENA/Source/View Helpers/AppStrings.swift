@@ -306,7 +306,9 @@ enum AppStrings {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
 		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
 		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
+		static let lowColorName = NSLocalizedString("ExposureDetection_Low_Green_Color", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
+		static let highColorName = NSLocalizedString("ExposureDetection_High_Red_Color", comment: "")
 
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
@@ -617,6 +619,7 @@ enum AppStrings {
 
 		// Low Card
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
+		static let riskCardLowTitleColorName = NSLocalizedString("Home_Risk_Low_Color", comment: "")
 		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
 

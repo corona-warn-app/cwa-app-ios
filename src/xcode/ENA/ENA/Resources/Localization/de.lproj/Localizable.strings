@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Niedriges Risiko";
 
+"ExposureDetection_Low_Green_Color" = "Grün";
+
 "ExposureDetection_High" = "Erhöhtes Risiko";
+
+"ExposureDetection_High_Red_Color" = "Rot";
 
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
