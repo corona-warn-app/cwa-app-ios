@@ -579,7 +579,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 }
 
-private extension RiskLevel {
+extension RiskLevel {
 
 	var text: String {
 		switch self {
