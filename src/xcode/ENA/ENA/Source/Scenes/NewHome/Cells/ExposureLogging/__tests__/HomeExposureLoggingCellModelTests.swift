@@ -86,7 +86,7 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 		state.enState = .notAuthorized
 		state.enState = .unknown
 		
-		waitForExpectations(timeout: 1, handler: nil)
+		waitForExpectations(timeout: .short, handler: nil)
 		titlesSubscription.cancel()
 		iconsSubscription.cancel()
 		animationsSubscription.cancel()
