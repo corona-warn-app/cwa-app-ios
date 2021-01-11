@@ -68,25 +68,36 @@ platform :ios do
       reporter: "sonarqube"
     )
 
-    # Combined Unit & UI Tests
-    run_tests(
-      scheme: "ENA",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-      testplan: "AllTests",
-      only_test_configurations: ["DE"],
-      devices: ["iPhone 11"],
-      prelaunch_simulator: true, 
-      result_bundle: true,
-      code_coverage: true
-    )
+    begin 
 
+      # Combined Unit & UI Tests
+      run_tests(
+        scheme: "ENA",
+        xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
+        testplan: "AllTests",
+        only_test_configurations: ["DE"],
+        devices: ["iPhone 11"],
+        prelaunch_simulator: true, 
+        result_bundle: true,
+        code_coverage: true
+      )
 
-    zip(
-      path: "fastlane/test_output/ENA.xcresult",
-      output_path: "fastlane/test_output/ENA.xcresult.zip",
-      verbose: false
-    )
-    
+    rescue 
+
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
+      
+    end 
+      # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
+
   end
 
   desc "Build and upload for testing"
