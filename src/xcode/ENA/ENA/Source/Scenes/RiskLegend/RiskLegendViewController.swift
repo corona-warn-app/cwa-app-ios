@@ -46,10 +46,6 @@ class RiskLegendViewController: DynamicTableViewController {
 		return cell
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
