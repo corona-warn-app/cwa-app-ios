@@ -431,7 +431,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
-"ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen, die Ausbreitung von Corona zu verhindern.";
+"ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen mit, die Ausbreitung von Corona zu verhindern.";
 
 "ExposureSubmission_DispatchSectionHeadline" = "Sie haben sich bereits testen lassen?";
 
@@ -439,7 +439,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Rufen Sie Ihr Testergebnis ab, indem Sie den QR-Code scannen und warnen Sie andere.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Testdokuments scannen.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
 
