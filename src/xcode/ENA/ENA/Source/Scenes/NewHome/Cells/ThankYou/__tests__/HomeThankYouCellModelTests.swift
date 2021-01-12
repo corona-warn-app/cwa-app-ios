@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class HomeThankYouCellModelTest: XCTestCase {
+class HomeThankYouCellModelTests: XCTestCase {
 
 	func testGIVEN_CellModel_THEN_InitilizedAsExpected() {
 		// GIVEN
