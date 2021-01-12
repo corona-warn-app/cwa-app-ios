@@ -97,6 +97,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	@OpenCombine.Published var exposureNotificationError: ExposureNotificationError?
 
+	var titleTextAccessibilityColor: String! = RiskLevel.low.accessibilityRiskColor
+
 	var previousRiskTitle: String {
 		switch homeState.lastRiskCalculationResult?.riskLevel {
 		case .low:
@@ -577,12 +579,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 }
 
-private extension RiskLevel {
+extension RiskLevel {
 
 	var text: String {
 		switch self {
 		case .low: return AppStrings.ExposureDetection.low
 		case .high: return AppStrings.ExposureDetection.high
+		}
+	}
+
+	var accessibilityRiskColor: String {
+		switch self {
+		case .low: return AppStrings.ExposureDetection.lowColorName
+		case .high: return AppStrings.ExposureDetection.highColorName
 		}
 	}
 

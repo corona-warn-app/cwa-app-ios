@@ -79,18 +79,16 @@ jobs:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/xccov-to-sonarqube-generic.sh src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml && rm -r src/xcode/fastlane/test_output/ENA.xcresult
+            ./scripts/cococo src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
           shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
-      - store_test_results:
-          path: src/xcode/fastlane/test_output
-      - store_artifacts:
-          path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - run:
           name: Skip SonarCloud for external Pull Requests
           shell: /bin/zsh
