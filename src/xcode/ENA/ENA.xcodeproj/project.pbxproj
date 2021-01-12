@@ -277,6 +277,7 @@
 		50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6124FE1E8700932566 /* AppInformationModel.swift */; };
 		50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */; };
 		50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */; };
+		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
@@ -966,6 +967,7 @@
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
 		50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImprintTest.swift; sourceTree = "<group>"; };
+		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
@@ -3720,6 +3722,7 @@
 			isa = PBXGroup;
 			children = (
 				EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */,
+				50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4538,6 +4541,7 @@
 				EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */,
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
+				50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */,
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
