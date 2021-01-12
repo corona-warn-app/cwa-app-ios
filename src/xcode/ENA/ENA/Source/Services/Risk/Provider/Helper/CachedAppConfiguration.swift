@@ -77,6 +77,28 @@ final class CachedAppConfiguration {
 			Log.debug("Append promise.", log: .appConfig)
 			self.promises.append(promise)
 
+			func defaultFailureHandler() {
+				// Try to provide the cached app config.
+				if let cachedAppConfig = self.store.appConfigMetadata {
+					Log.info("Providing cached app configuration", log: .localData)
+					resolvePromises(with: .success(AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)))
+					return
+				}
+
+				// If there is no cached config, provide the default configuration.
+				guard
+					let data = try? Data(contentsOf: self.defaultAppConfigPath),
+					let zip = Archive(data: data, accessMode: .read),
+					let defaultConfig = try? zip.extractAppConfiguration()
+				else {
+					Log.error("Could not provide static app configuration!", log: .localData, error: nil)
+					fatalError("Could not provide static app configuration!")
+				}
+
+				Log.info("Providing default app configuration 🥫", log: .localData)
+				resolvePromises(with: .success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
+			}
+
 			func resolvePromises(with result: Result<CachedAppConfiguration.AppConfigResponse, Never>) {
 				Log.debug("resolvePromises count: \(self.promises.count).", log: .appConfig)
 
@@ -127,25 +149,7 @@ final class CachedAppConfiguration {
 							resolvePromises(with: .success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
 
 						default:
-							// Try to provide the cached app config.
-							if let cachedAppConfig = self.store.appConfigMetadata {
-								Log.info("Providing cached app configuration", log: .localData)
-								resolvePromises(with: .success(AppConfigResponse(config: cachedAppConfig.appConfig, etag: cachedAppConfig.lastAppConfigETag)))
-								return
-							}
-
-							// If there is no cached config, provide the default configuration.
-							guard
-								let data = try? Data(contentsOf: self.defaultAppConfigPath),
-								let zip = Archive(data: data, accessMode: .read),
-								let defaultConfig = try? zip.extractAppConfiguration()
-							else {
-								Log.error("Could not provide static app configuration!", log: .localData, error: nil)
-								fatalError("Could not provide static app configuration!")
-							}
-
-							Log.info("Providing default app configuration 🥫", log: .localData)
-							resolvePromises(with: .success(AppConfigResponse(config: defaultConfig, etag: self.store.appConfigMetadata?.lastAppConfigETag)))
+							defaultFailureHandler()
 						}
 					}
 
