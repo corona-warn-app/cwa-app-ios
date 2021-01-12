@@ -132,7 +132,7 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
 
 		// Inactive risk card title "Risiko-Ermittlung gestoppt" – the localized text is used as accessibility identifier
-		XCTAssert(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle)].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
