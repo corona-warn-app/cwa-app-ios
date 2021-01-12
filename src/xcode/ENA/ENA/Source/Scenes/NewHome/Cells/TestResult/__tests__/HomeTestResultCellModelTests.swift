@@ -9,7 +9,7 @@ import OpenCombine
 class HomeTestResultCellModelTests: XCTestCase {
 	
 	// expected values arrays have to test the default flow values plus explicitly test setting the testResult into [.none, .negative, .invalid, .pending, .positive, .expired]
-	// so the total test cases are [.none(default), .none(explicit), .negative, .invalid, .pending, .positive, .expired]
+	// so the total test cases are [.none(default), .none(explicit), .negative, .invalid, .pending, .positive, .expired, (Loading)]
 	
 	let titlesArray = [
 		AppStrings.Home.submitCardTitle,
@@ -18,7 +18,8 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AppStrings.Home.resultCardResultAvailableTitle,
 		AppStrings.Home.resultCardResultUnvailableTitle,
 		AppStrings.Home.resultCardResultAvailableTitle,
-		AppStrings.Home.resultCardResultUnvailableTitle
+		AppStrings.Home.resultCardResultUnvailableTitle,
+		AppStrings.Home.resultCardLoadingTitle
 	]
 	let subtitleArray = [
 		nil,
@@ -27,6 +28,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AppStrings.Home.resultCardInvalidTitle,
 		nil,
 		AppStrings.Home.resultCardAvailableSubtitle,
+		nil,
 		nil
 	]
 	let descriptionsArray = [
@@ -36,7 +38,8 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AppStrings.Home.resultCardInvalidDesc,
 		AppStrings.Home.resultCardPendingDesc,
 		AppStrings.Home.resultCardAvailableDesc,
-		AppStrings.Home.resultCardPendingDesc
+		AppStrings.Home.resultCardPendingDesc,
+		AppStrings.Home.resultCardLoadingBody
 	]
 	let buttonTitlesArray = [
 		AppStrings.Home.submitCardButton,
@@ -45,6 +48,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AppStrings.Home.resultCardShowResultButton,
 		AppStrings.Home.resultCardShowResultButton,
 		AppStrings.Home.resultCardRetrieveResultButton,
+		AppStrings.Home.resultCardShowResultButton,
 		AppStrings.Home.resultCardShowResultButton
 	]
 	let imagesArray = [
@@ -54,7 +58,8 @@ class HomeTestResultCellModelTests: XCTestCase {
 		UIImage(named: "Illu_Hand_with_phone-error"),
 		UIImage(named: "Illu_Hand_with_phone-pending"),
 		UIImage(named: "Illu_Hand_with_phone-error"),
-		UIImage(named: "Illu_Hand_with_phone-pending")
+		UIImage(named: "Illu_Hand_with_phone-pending"),
+		UIImage(named: "Illu_Hand_with_phone-initial")
 	]
 	let colorsArray: [UIColor] = [
 		.enaColor(for: .textPrimary1),
@@ -63,11 +68,11 @@ class HomeTestResultCellModelTests: XCTestCase {
 		.enaColor(for: .textSemanticGray),
 		.enaColor(for: .textPrimary2),
 		.enaColor(for: .textSemanticGray),
-		.enaColor(for: .textPrimary2)
+		.enaColor(for: .textPrimary2),
+		.enaColor(for: .textPrimary1)
 	]
-	let indicatorVisibilityArray = [true, true, true, true, true, true, true]
-	let userInteractionArray = [true, true, true, true, true, true, true]
-	
+	let indicatorVisibilityArray = [true, true, true, true, true, true, true, false]
+	let userInteractionArray = [true, true, true, true, true, true, true, false]
 	let accessabilityIdentifiersArray = [
 		AccessibilityIdentifiers.Home.submitCardButton,
 		AccessibilityIdentifiers.Home.submitCardButton,
@@ -75,9 +80,9 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AccessibilityIdentifiers.Home.resultCardShowResultButton,
 		AccessibilityIdentifiers.Home.resultCardShowResultButton,
 		AccessibilityIdentifiers.Home.resultCardShowResultButton,
-		AccessibilityIdentifiers.Home.resultCardShowResultButton
+		AccessibilityIdentifiers.Home.resultCardShowResultButton,
+		AccessibilityIdentifiers.Home.submitCardButton
 	]
-	
 
 	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
 		
@@ -90,7 +95,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		let expectationIndicatorVisibility = expectation(description: "expectationIndicatorVisibility")
 		let expectationUserInteraction = expectation(description: "expectationUserInteraction")
 		let expectationAccessabilityIdentifiers = expectation(description: "expectationAccessabilityIdentifiers")
-		//let expectationOnUpdate = expectation(description: "expectationOnUpdate")
+		let expectationOnUpdate = expectation(description: "expectationOnUpdate")
 
 		var recievedTitles = [String?]()
 		var recievedSubtitles = [String?]()
@@ -111,14 +116,12 @@ class HomeTestResultCellModelTests: XCTestCase {
 		expectationIndicatorVisibility.expectedFulfillmentCount = indicatorVisibilityArray.count
 		expectationUserInteraction.expectedFulfillmentCount = userInteractionArray.count
 		expectationAccessabilityIdentifiers.expectedFulfillmentCount = accessabilityIdentifiersArray.count
-
+		expectationOnUpdate.expectedFulfillmentCount = accessabilityIdentifiersArray.count
+		
 		let state = makeHomeState()
 		
-		var x = 0
 		let sut = HomeTestResultCellModel(homeState: state) {
-			x += 1
-			print("count i s \(x)")
-			//expectationOnUpdate.fulfill()
+			expectationOnUpdate.fulfill()
 		}
 		
 		let titlesSubscription = sut.$title
@@ -170,13 +173,15 @@ class HomeTestResultCellModelTests: XCTestCase {
 				recievedAccessibilityIdentifiers.append(recievedValue)
 				expectationAccessabilityIdentifiers.fulfill()
 			}
+		
 		state.testResult = .none
 		state.testResult = .negative
 		state.testResult = .invalid
 		state.testResult = .pending
 		state.testResult = .positive
 		state.testResult = .expired
-
+		state.testResultIsLoading = true
+		
 		waitForExpectations(timeout: .short, handler: nil)
 		
 		titlesSubscription.cancel()
