@@ -81,7 +81,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 		
 		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -106,7 +106,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 		
 		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -129,7 +129,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
-		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		// Inactive risk card title "Risiko-Ermittlung gestoppt" – the localized text is used as accessibility identifier
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
@@ -153,7 +153,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()

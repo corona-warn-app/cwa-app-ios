@@ -78,8 +78,8 @@ class ENAUITests: XCTestCase {
 		app.navigationBars.buttons.element(boundBy: 0).tap()
 		app.swipeDown()
 		// todo: need accessibility for Notify and Help
-		XCTAssertTrue(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		// todo: need accessibility for Next
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionDispatch.description"].waitForExistence(timeout: .medium))
 
@@ -112,8 +112,8 @@ class ENAUITests: XCTestCase {
 
 		// ScreenShot_0006: Negative result
 		try? navigateThroughOnboarding()
-		XCTAssertTrue(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: 5.0))
-		app.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
 		if snapshotsActive { snapshot("AppStore_0006") }
 	}
