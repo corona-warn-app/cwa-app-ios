@@ -14,8 +14,11 @@ struct ActiveTracing: Equatable {
 	let interval: TimeInterval
 	let maximumNumberOfDays: Int
 
+	/** a negative interval is invalid and will be handled as 0
+		this shall only happen if a risk calcultion was done in the future before
+	*/
 	init(interval: TimeInterval, maximumNumberOfDays: Int = TracingStatusHistory.maxStoredDays) {
-		self.interval = interval
+		self.interval = max(interval, 0)
 		self.maximumNumberOfDays = maximumNumberOfDays
 	}
 
