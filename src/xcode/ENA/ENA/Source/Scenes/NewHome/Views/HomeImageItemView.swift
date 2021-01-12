@@ -33,7 +33,8 @@ final class HomeImageItemView: UIView, HomeItemView, HomeItemViewSeparatorable {
 		separatorView?.backgroundColor = viewModel.separatorColor
 
 		backgroundColor = viewModel.color
-
+		accessibilityLabel = viewModel.title
+		isAccessibilityElement = true
 		if let containerInsets = viewModel.containerInsets {
 			stackView.layoutMargins = containerInsets
 		}

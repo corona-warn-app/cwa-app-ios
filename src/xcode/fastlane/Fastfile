@@ -89,9 +89,14 @@ platform :ios do
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
-      sh("rm -r test_output/ENA.xcresult")
       
     end 
+      # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
 
   end
 

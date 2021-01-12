@@ -89,7 +89,7 @@ class ENAUITests_01_Home: XCTestCase {
 		
 		// find an element with localized text "Begegnungen an einem Tag mit erhöhtem Risiko"
 		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), numberOfDaysWithHighRisk)
-		XCTAssert(app.staticTexts[highRiskTitle].waitForExistence(timeout: .short))
+		XCTAssert(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -114,7 +114,7 @@ class ENAUITests_01_Home: XCTestCase {
 		
 		// find an element with localized text "Keine Risiko-Begegnungen"
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), numberOfDaysWithLowRisk)
-		XCTAssert(app.staticTexts[lowRiskTitle].waitForExistence(timeout: .short))
+		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
