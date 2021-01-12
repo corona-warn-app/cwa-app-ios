@@ -453,7 +453,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Schritt 1 von 2";
 
@@ -461,9 +461,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\ntäglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
+"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren Test zu registrieren.";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
