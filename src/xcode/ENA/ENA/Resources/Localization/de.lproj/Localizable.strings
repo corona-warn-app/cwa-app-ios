@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Niedriges Risiko";
 
+"ExposureDetection_Low_Green_Color" = "Grün";
+
 "ExposureDetection_High" = "Erhöhtes Risiko";
+
+"ExposureDetection_High_Red_Color" = "Rot";
 
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
@@ -1199,11 +1203,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend2_High" = "Erhöhtes Risiko";
 
-"RiskLegend_Legend2_High_Color" = "Rot";
-
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
-
-"RiskLegend_Legend2_Low_Color" = "Grün";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 

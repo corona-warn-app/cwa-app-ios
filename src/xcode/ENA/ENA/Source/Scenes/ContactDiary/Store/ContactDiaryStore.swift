@@ -639,7 +639,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return dateFormatter
 	}()
 
-	private var germanDateFormatter: DateFormatter = {
+	private lazy var germanDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .none

@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Niskie ryzyko";
 
+"ExposureDetection_Low_Green_Color" = "Zielony";
+
 "ExposureDetection_High" = "Podwyższone ryzyko";
+
+"ExposureDetection_High_Red_Color" = "Czerwony";
 
 "ExposureDetection_LastExposure" = "Ostatnio dnia %@";
 
@@ -1182,11 +1186,7 @@
 
 "RiskLegend_Legend2_High" = "Podwyższone ryzyko";
 
-"RiskLegend_Legend2_High_Color" = "Czerwony";
-
 "RiskLegend_Legend2_Low" = "Niskie ryzyko";
-
-"RiskLegend_Legend2_Low_Color" = "Zielony";
 
 "RiskLegend_Legend3_Title" = "Powiadamianie innych użytkowników";
 
