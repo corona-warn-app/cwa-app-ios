@@ -60,6 +60,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				}
 			}
 			.store(in: &subscriptions)
+
+		viewModel.state.$testResult
+			.sink { [weak self] _ in
+				DispatchQueue.main.async {
+					self?.reload()
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
