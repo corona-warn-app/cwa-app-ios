@@ -287,7 +287,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		launch()
 
 		// Click submit card.
-		XCTAssertTrue(app.cells.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 
 		let homeTableView = app.descendants(matching: .table).firstMatch
 		search("AppStrings.Home.diaryCardButton", element: homeTableView)?.tap()
@@ -357,7 +358,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	private func launch() {
 		app.launch()
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
 	}
 
 	/// we will search for the given identifier inside a scrollable element
