@@ -358,7 +358,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	private func launch() {
 		app.launch()
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
 	}
 
 	/// we will search for the given identifier inside a scrollable element

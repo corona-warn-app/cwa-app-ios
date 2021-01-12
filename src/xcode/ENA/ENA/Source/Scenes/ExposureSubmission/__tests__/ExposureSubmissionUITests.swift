@@ -640,7 +640,7 @@ extension ENAUITests_04_ExposureSubmissionUITests {
 	/// Launch and wait until the app is ready.
 	private func launch() {
 		app.launch()
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .long))
 	}
 
 	/// Use this method to grab localized strings correctly.

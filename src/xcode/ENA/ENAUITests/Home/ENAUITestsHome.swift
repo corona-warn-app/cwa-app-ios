@@ -27,7 +27,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		// assert cells
@@ -43,7 +43,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		// assert cells
@@ -59,7 +59,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
 
 		app.swipeUp()
 		app.swipeUp()
@@ -80,7 +80,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
-		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
@@ -91,7 +91,7 @@ class ENAUITests_01_Home: XCTestCase {
 		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), numberOfDaysWithHighRisk)
 		XCTAssert(app.staticTexts[highRiskTitle].waitForExistence(timeout: .short))
 		
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -105,7 +105,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
-		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
@@ -116,7 +116,7 @@ class ENAUITests_01_Home: XCTestCase {
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), numberOfDaysWithLowRisk)
 		XCTAssert(app.staticTexts[lowRiskTitle].waitForExistence(timeout: .short))
 		
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -134,7 +134,7 @@ class ENAUITests_01_Home: XCTestCase {
 		// Inactive risk card title "Risiko-Ermittlung gestoppt" – the localized text is used as accessibility identifier
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
 		
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .short))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -152,7 +152,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
-		XCTAssert(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")

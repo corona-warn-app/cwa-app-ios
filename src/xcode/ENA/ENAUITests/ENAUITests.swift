@@ -49,18 +49,18 @@ class ENAUITests: XCTestCase {
 
 		// ScreenShot_0002: Homescreen (low risk)
 		try? navigateThroughOnboarding()
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0002") }
 
 		// ScreenShot_0003: Risk view (low risk)
-		XCTAssertTrue(app.buttons["HomeRiskTableViewCell.topContainer"].waitForExistence(timeout: 5.0))
-		app.buttons["HomeRiskTableViewCell.topContainer"].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].tap()
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0003") }
 
 		// ScreenShot_0004: Settings > Risk exposure
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
-		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 		app.swipeUp()
 		app.swipeUp() // the home screen got loger and for some reason we have to scroll to `tap()`
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .extraLong))
