@@ -405,8 +405,6 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTanEntry_EntryField" = "TAN-Eingabefeld";
 
-"ExposureSubmissionTanEntry_Info" = "Geben Sie die Ihnen mitgeteilte TAN ein:";
-
 "ExposureSubmissionTanEntry_Description" = "Geben Sie die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.";
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
