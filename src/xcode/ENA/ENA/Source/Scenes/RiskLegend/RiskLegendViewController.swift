@@ -53,9 +53,9 @@ class RiskLegendViewController: DynamicTableViewController {
 		case dotBody = "RiskLegendDotBodyCell"
 	}
 
-	// MARK: - Private
+	let onDismiss: () -> Void
 
-	private let onDismiss: () -> Void
+	// MARK: - Private
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
