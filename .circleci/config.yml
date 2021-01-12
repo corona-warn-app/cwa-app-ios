@@ -79,7 +79,7 @@ jobs:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/xccov-to-sonarqube-generic.sh src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/cococo src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
           shell: /bin/zsh
