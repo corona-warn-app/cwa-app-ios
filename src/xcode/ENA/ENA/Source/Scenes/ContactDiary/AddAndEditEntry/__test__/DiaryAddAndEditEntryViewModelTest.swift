@@ -38,8 +38,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		let placeholder = viewModel.placeholderText
 		
 		// THEN
-		XCTAssertEqual(text, "Person")
-		XCTAssertEqual(placeholder, "Person")
+		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.person.title)
+		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.person.placeholder)
 	}
 	
 	func testGIVEN_ContactPerson_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
@@ -184,8 +184,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		let placeholder = viewModel.placeholderText
 		
 		// THEN
-		XCTAssertEqual(text, "Ort")
-		XCTAssertEqual(placeholder, "Ort")
+		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.location.title)
+		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.location.placeholder)
 	}
 	
 	func testGIVEN_Location_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {

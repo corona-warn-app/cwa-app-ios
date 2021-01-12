@@ -40,6 +40,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		super.init(style: .plain)
 
+		viewModel.state.$testResult
+		   .sink { [weak self] _ in
+			DispatchQueue.main.async {
+			 self?.reload()
+			}
+		   }
+		   .store(in: &subscriptions)
+
 		viewModel.state.$testResultLoadingError
 			.sink { [weak self] testResultLoadingError in
 				guard let self = self, let testResultLoadingError = testResultLoadingError else { return }
