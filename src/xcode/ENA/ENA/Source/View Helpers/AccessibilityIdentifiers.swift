@@ -37,7 +37,7 @@ enum AccessibilityIdentifiers {
 		static let thankYouCard = "AppStrings.Home.thankYouCard"
 
 		enum RiskTableViewCell {
-			static let topContainer = "HomeRiskTableViewCell.topContainer"
+			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
 			static let bodyLabel = "HomeRiskTableViewCell.bodyLabel"
 			static let updateButton = "HomeRiskTableViewCell.updateButton"
 		}
