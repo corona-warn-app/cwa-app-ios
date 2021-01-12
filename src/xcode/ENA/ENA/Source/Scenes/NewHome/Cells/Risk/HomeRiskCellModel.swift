@@ -99,6 +99,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	}
 
 	@OpenCombine.Published var title: String! = AppStrings.Home.riskCardLowTitle
+	@OpenCombine.Published var titleAccessibilityValue: String! = AppStrings.Home.riskCardLowTitleColorName
 	@OpenCombine.Published var titleColor: UIColor = .enaColor(for: .textContrast)
 
 	@OpenCombine.Published var chevronStyle: ChevronStyle = .circled
@@ -223,6 +224,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		loadingItemTitle: String
 	) {
 		self.title = title
+		titleAccessibilityValue = ""
 
 		body = ""
 		bodyColor = .enaColor(for: .textContrast)
@@ -247,6 +249,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairlineContrast)
 
 		title = AppStrings.Home.riskCardLowTitle
+		titleAccessibilityValue = risk.level.accessibilityRiskColor
 		titleColor = .enaColor(for: .textContrast)
 
 		chevronStyle = .circled
@@ -306,6 +309,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairlineContrast)
 
 		title = AppStrings.Home.riskCardHighTitle
+		titleAccessibilityValue = risk.level.accessibilityRiskColor
 		titleColor = .enaColor(for: .textContrast)
 
 		chevronStyle = .circled
@@ -373,6 +377,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairline)
 
 		title = AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle
+		titleAccessibilityValue = ""
 		titleColor = .enaColor(for: .textPrimary1)
 
 		chevronStyle = .plain
@@ -419,6 +424,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		separatorColor = .enaColor(for: .hairline)
 
 		title = AppStrings.Home.riskCardFailedCalculationTitle
+		titleAccessibilityValue = ""
 		titleColor = .enaColor(for: .textPrimary1)
 
 		chevronStyle = .plain

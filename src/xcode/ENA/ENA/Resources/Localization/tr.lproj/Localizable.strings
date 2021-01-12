@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Düşük Risk";
 
+"ExposureDetection_Low_Green_Color" = "Yeşil";
+
 "ExposureDetection_High" = "Daha Yüksek Risk";
+
+"ExposureDetection_High_Red_Color" = "Kırmızı";
 
 "ExposureDetection_LastExposure" = "En son %@";
 
@@ -1182,11 +1186,7 @@
 
 "RiskLegend_Legend2_High" = "Daha Yüksek Risk";
 
-"RiskLegend_Legend2_High_Color" = "Kırmızı";
-
 "RiskLegend_Legend2_Low" = "Düşük Risk";
-
-"RiskLegend_Legend2_Low_Color" = "Yeşil";
 
 "RiskLegend_Legend3_Title" = "Diğer Kullanıcıları Bilgilendirme";
 

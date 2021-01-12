@@ -45,6 +45,7 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	func configure(with cellModel: HomeRiskCellModel) {
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
 		cellModel.$title.assign(to: \.accessibilityLabel, on: topContainer).store(in: &subscriptions)
+		cellModel.$titleAccessibilityValue.assign(to: \.accessibilityValue, on: topContainer).store(in: &subscriptions)
 
 		cellModel.$titleColor.assign(to: \.textColor, on: titleLabel).store(in: &subscriptions)
 
@@ -80,7 +81,6 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		cellModel.$isButtonHidden.assign(to: \.isHidden, on: button).store(in: &subscriptions)
 		cellModel.$buttonTitle.assign(to: \.accessibilityLabel, on: button).store(in: &subscriptions)
 
-		button.isAccessibilityElement = true
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
 
 		cellModel.$itemViewModels
