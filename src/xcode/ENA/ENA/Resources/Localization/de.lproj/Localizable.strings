@@ -618,11 +618,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
 
-"ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
+"ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
 
-"ExposureSubmissionResult_testExpired" = "Test fehlerhaft";
+"ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
