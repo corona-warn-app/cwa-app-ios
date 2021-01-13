@@ -88,6 +88,15 @@ final class ActiveTracingTests: XCTestCase {
 			"Risiko-Ermittlung dauerhaft aktiv"
 		)
 	}
+
+	func testGIVEN_ActiveTracingWithNegativeInterval_THEN_InDaysIsZero() {
+		// GIVEN
+		let activeTracing = ActiveTracing(interval: -250)
+
+		// THEN
+		XCTAssertEqual(activeTracing.inDays, 0)
+		XCTAssertEqual(activeTracing.inHours, 0)
+	}
 }
 
 private func _activeTracing(interval: TimeInterval) -> ActiveTracing {

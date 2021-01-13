@@ -432,7 +432,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR Kodlu Test";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test sonucunuzu almak ve ardından diğer kullanıcıları uyarmak için QR kodunuzu tarayın.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Test belgenizin QR kodunu tarayarak testinizi kaydedin.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN gir";
 
@@ -854,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Bazı ülkeler, ortak bir exchange sunucusu üzerinden uluslararası uyarıları etkinleştirmek üzere birlikte çalışma yürütmektedir. Örneğin, diğer katılımcı ülkelerin resmi koronavirüs uygulamasının kullanıcıları ile temaslar da maruz kalma günlüğünde hesaba katılabilir.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Bunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır. Rastgele kimlik listelerinin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
+"ExposureNotificationSetting_EU_Desc_2" = "Bunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır. \n\nRastgele kimlik listelerinin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Aşağıdaki ülkeler, uluslararası maruz kalma günlüğüne katılmaktadır:";
 
@@ -1244,7 +1244,7 @@
 
 "DeltaOnboarding_Headline" = "Uluslararası Maruz Kalma Günlüğü";
 
-"DeltaOnboarding_Description" = "Corona-Warn-App'in özellikleri genişletildi. Çok sayıda ülke, ortak olarak işletilen bir exchange sunucusu bazında uluslararası uyarıları etkinleştirmek üzere iş birliği yapmıştır. Maruz kalma riskiniz hesaplanırken diğer katılımcı ülkelerdeki resmi koronavirüs uygulamalarının kullanıcılarına maruz kalıp kalmadığınız da artık hesaba katılabilir.\n\nBunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır.\n\nRastgele kimlik listelerinin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
+"DeltaOnboarding_Description" = "Corona-Warn-App'in özellikleri genişletildi. Çok sayıda ülke, ortak olarak işletilen bir exchange sunucusu bazında uluslararası uyarıları etkinleştirmek üzere iş birliği yapmıştır. Maruz kalma riskiniz hesaplanırken diğer katılımcı ülkelerdeki resmi koronavirüs uygulamalarının kullanıcılarına maruz kalıp kalmadığınız da artık hesaba katılabilir.\n\nBunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır.\n\nListelerin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
 
 "DeltaOnboarding_ParticipatingCountries" = "Şu anda aşağıdaki ülkeler katılmaktadır:";
 
@@ -1321,6 +1321,8 @@
 "TestResultPositive_WithConsent_SecondaryButton" = "Çıkış";
 
 /* Overview */
+"ContactDiary_Overview_Button_Title_Menu" = "Menü";
+
 "ContactDiary_Overview_Title" = "Temas Güncesi";
 
 "ContactDiary_Overview_Description" = "Karşılaştığınız kişileri ve ziyaret ettiğiniz yerleri yazın. ";
