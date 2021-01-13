@@ -36,9 +36,10 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		setupTableView()
 
 		viewModel.$day
-			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] _ in
-				self?.updateForSelectedEntryType()
+				DispatchQueue.main.async {
+					self?.updateForSelectedEntryType()
+				}
 			}
 			.store(in: &subscriptions)
 
