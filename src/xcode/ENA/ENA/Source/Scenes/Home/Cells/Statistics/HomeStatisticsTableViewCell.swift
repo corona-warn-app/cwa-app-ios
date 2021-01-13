@@ -6,11 +6,17 @@ import UIKit
 
 class HomeStatisticsTableViewCell: UITableViewCell {
 
+	// MARK: - Overrides
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
 		self.addGestureRecognizer(scrollView.panGestureRecognizer)
+    }
 
+	// MARK: - Internal
+
+	func configure(onInfoButtonTap: @escaping () -> Void) {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		for _ in 0...3 {
@@ -21,10 +27,15 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 				stackView.addArrangedSubview(statisticsCardView)
 
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+				statisticsCardView.configure(onInfoButtonTap: {
+					onInfoButtonTap()
+				})
 			}
 		}
-    }
-    
+	}
+
+	// MARK: - Private
+
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var stackView: UIStackView!
 

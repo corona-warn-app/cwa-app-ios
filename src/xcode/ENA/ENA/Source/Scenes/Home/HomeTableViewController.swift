@@ -18,6 +18,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
+		onStatisticsInfoButtonTap: @escaping () -> Void,
 		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
@@ -32,6 +33,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
+		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
 		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
@@ -111,6 +113,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -219,6 +222,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
+	private let onStatisticsInfoButtonTap: () -> Void
 	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
@@ -384,6 +388,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
+
+		cell.configure(onInfoButtonTap: { [weak self] in
+			self?.onStatisticsInfoButtonTap()
+		})
 
 		return cell
 	}

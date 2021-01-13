@@ -39,6 +39,7 @@
 		016E25F425AF13EA0077C64C /* HomeStatisticsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */; };
 		016E260325AF20300077C64C /* HomeStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E260225AF20300077C64C /* HomeStatisticsCardView.swift */; };
 		016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016E260725AF20540077C64C /* HomeStatisticsCardView.xib */; };
+		016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E261325AF43450077C64C /* StatisticsInfoViewController.swift */; };
 		01734B5B255D6C4500E60A8B /* app_features_v2.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */; };
 		01734B5C255D6C4500E60A8B /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */; };
 		01734B5D255D6C4500E60A8B /* semantic_version.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B57255D6C4500E60A8B /* semantic_version.pb.swift */; };
@@ -732,6 +733,7 @@
 		016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeStatisticsTableViewCell.xib; sourceTree = "<group>"; };
 		016E260225AF20300077C64C /* HomeStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardView.swift; sourceTree = "<group>"; };
 		016E260725AF20540077C64C /* HomeStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeStatisticsCardView.xib; sourceTree = "<group>"; };
+		016E261325AF43450077C64C /* StatisticsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsInfoViewController.swift; sourceTree = "<group>"; };
 		01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_features_v2.pb.swift; path = ../../../gen/output/internal/v2/app_features_v2.pb.swift; sourceTree = "<group>"; };
 		01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/v2/key_download_parameters.pb.swift; sourceTree = "<group>"; };
 		01734B57255D6C4500E60A8B /* semantic_version.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = semantic_version.pb.swift; path = ../../../gen/output/internal/v2/semantic_version.pb.swift; sourceTree = "<group>"; };
@@ -1479,6 +1481,14 @@
 				016E260725AF20540077C64C /* HomeStatisticsCardView.xib */,
 			);
 			path = Statistics;
+			sourceTree = "<group>";
+		};
+		016E260C25AF43440077C64C /* StatisticsInfo */ = {
+			isa = PBXGroup;
+			children = (
+				016E261325AF43450077C64C /* StatisticsInfoViewController.swift */,
+			);
+			path = StatisticsInfo;
 			sourceTree = "<group>";
 		};
 		01734B51255D6BEE00E60A8B /* v2 */ = {
@@ -2487,6 +2497,7 @@
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				51D420C224583D7B00AD70CA /* Settings */,
+				016E260C25AF43440077C64C /* StatisticsInfo */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -4339,6 +4350,7 @@
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				01909882257E675D0065D050 /* DiaryContactPerson.swift in Sources */,
+				016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */,
 				017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */,
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,

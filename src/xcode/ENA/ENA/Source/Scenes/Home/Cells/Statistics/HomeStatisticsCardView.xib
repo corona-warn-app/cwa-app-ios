@@ -60,6 +60,9 @@
                                                 <constraint firstAttribute="height" constant="56" id="mcS-U0-41i"/>
                                             </constraints>
                                             <color key="tintColor" name="ENA Tint Color"/>
+                                            <connections>
+                                                <action selector="infoButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="fHy-uH-Y0l"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>

@@ -6,12 +6,18 @@ import UIKit
 
 class HomeStatisticsCardView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+	// MARK: - Internal
+
+	func configure(onInfoButtonTap: @escaping () -> Void) {
+		self.onInfoButtonTap = onInfoButtonTap
+	}
+
+	// MARK: - Private
+
+	private var onInfoButtonTap: (() -> Void)?
+
+	@IBAction private  func infoButtonTapped(_ sender: Any) {
+		onInfoButtonTap?()
+	}
 
 }

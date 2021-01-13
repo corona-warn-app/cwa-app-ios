@@ -87,6 +87,9 @@ class Coordinator: RequiresAppDependencies {
 				onTestResultCellTap: { [weak self] testResult in
 					self?.showExposureSubmission(with: testResult)
 				},
+				onStatisticsInfoButtonTap: { [weak self] in
+					self?.showStatisticsInfo()
+				},
 				onDiaryCellTap: { [weak self] in
 					self?.showDiary()
 				},
@@ -240,6 +243,19 @@ class Coordinator: RequiresAppDependencies {
 		)
 
 		coordinator.start(with: result)
+	}
+
+	func showStatisticsInfo() {
+		let statisticsInfoController = StatisticsInfoViewController(
+			onDismiss: { [weak rootViewController] in
+				rootViewController?.dismiss(animated: true)
+			}
+		)
+
+		rootViewController.present(
+			UINavigationController(rootViewController: statisticsInfoController),
+			animated: true
+		)
 	}
 
 	private func showDiary() {
