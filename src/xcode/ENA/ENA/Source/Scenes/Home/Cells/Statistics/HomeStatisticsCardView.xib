@@ -30,7 +30,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqo-jL-P60" userLabel="Spacer">
                                                     <rect key="frame" x="0.0" y="0.0" width="387" height="16"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" name="ENA Background Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="XNN-8V-Gqd"/>
                                                     </constraints>
@@ -46,7 +46,7 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xej-j2-vnc" userLabel="Spacer">
                                                     <rect key="frame" x="0.0" y="42.5" width="387" height="24"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" name="ENA Background Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="bWt-Ve-kBv"/>
                                                     </constraints>
