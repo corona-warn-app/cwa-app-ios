@@ -439,7 +439,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Ihnen liegt eine TAN vor? Weiter zur TAN-Eingabe, um andere zu warnen.";
 
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Weder QR-Code noch TAN?";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
 
 "ExposureSubmissionDispatch_HotlineButtonDescription" = "Rufen Sie uns an und erhalten Sie eine TAN.";
 
