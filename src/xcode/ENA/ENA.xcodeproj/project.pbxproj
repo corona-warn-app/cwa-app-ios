@@ -33,7 +33,6 @@
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */; };
 		016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */; };
-		01734B5B255D6C4500E60A8B /* app_features_v2.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */; };
 		01734B5C255D6C4500E60A8B /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */; };
 		01734B5D255D6C4500E60A8B /* semantic_version.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B57255D6C4500E60A8B /* semantic_version.pb.swift */; };
 		01734B5E255D6C4500E60A8B /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B58255D6C4500E60A8B /* risk_calculation_parameters.pb.swift */; };
@@ -249,6 +248,7 @@
 		353412CC2525EE4A0086D15C /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353412CB2525EE4A0086D15C /* Globals.swift */; };
 		35358DD425A23169004FD0CB /* HTTPClientCertificatePinningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */; };
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
+		3544182925AF7B5200B11056 /* app_features.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3544182825AF7B5200B11056 /* app_features.pb.swift */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
 		356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		356FBF49255EC27A00959346 /* CacheAppConfigMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */; };
@@ -593,7 +593,6 @@
 		EB08F1782541CE3300D11FA9 /* risk_score_classification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */; };
 		EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */; };
 		EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */; };
-		EB08F17B2541CE3300D11FA9 /* app_features.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1732541CE3200D11FA9 /* app_features.pb.swift */; };
 		EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1742541CE3200D11FA9 /* submission_payload.pb.swift */; };
 		EB08F17E2541CE3300D11FA9 /* app_version_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */; };
 		EB08F17F2541CE3300D11FA9 /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1772541CE3200D11FA9 /* risk_score_parameters.pb.swift */; };
@@ -712,7 +711,6 @@
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
 		016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModel.swift; sourceTree = "<group>"; };
 		016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModelTests.swift; sourceTree = "<group>"; };
-		01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_features_v2.pb.swift; path = ../../../gen/output/internal/v2/app_features_v2.pb.swift; sourceTree = "<group>"; };
 		01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/v2/key_download_parameters.pb.swift; sourceTree = "<group>"; };
 		01734B57255D6C4500E60A8B /* semantic_version.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = semantic_version.pb.swift; path = ../../../gen/output/internal/v2/semantic_version.pb.swift; sourceTree = "<group>"; };
 		01734B58255D6C4500E60A8B /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_calculation_parameters.pb.swift; path = ../../../gen/output/internal/v2/risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
@@ -937,6 +935,7 @@
 		353412CB2525EE4A0086D15C /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientCertificatePinningTests.swift; sourceTree = "<group>"; };
 		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
+		3544182825AF7B5200B11056 /* app_features.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_features.pb.swift; path = ../../../gen/output/internal/v2/app_features.pb.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAppConfigMockTests.swift; sourceTree = "<group>"; };
 		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
@@ -1353,7 +1352,6 @@
 		EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_classification.pb.swift; path = ../../../gen/output/internal/risk_score_classification.pb.swift; sourceTree = "<group>"; };
 		EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = attenuation_duration.pb.swift; path = ../../../gen/output/internal/attenuation_duration.pb.swift; sourceTree = "<group>"; };
 		EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/output/internal/risk_level.pb.swift; sourceTree = "<group>"; };
-		EB08F1732541CE3200D11FA9 /* app_features.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_features.pb.swift; path = ../../../gen/output/internal/app_features.pb.swift; sourceTree = "<group>"; };
 		EB08F1742541CE3200D11FA9 /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/output/internal/submission_payload.pb.swift; sourceTree = "<group>"; };
 		EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_version_config.pb.swift; path = ../../../gen/output/internal/app_version_config.pb.swift; sourceTree = "<group>"; };
 		EB08F1772541CE3200D11FA9 /* risk_score_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_parameters.pb.swift; path = ../../../gen/output/internal/risk_score_parameters.pb.swift; sourceTree = "<group>"; };
@@ -1497,8 +1495,8 @@
 		01734B51255D6BEE00E60A8B /* v2 */ = {
 			isa = PBXGroup;
 			children = (
+				3544182825AF7B5200B11056 /* app_features.pb.swift */,
 				01734B59255D6C4500E60A8B /* app_config_ios.pb.swift */,
-				01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */,
 				01734B5A255D6C4500E60A8B /* exposure_detection_parameters.pb.swift */,
 				01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */,
 				01734B58255D6C4500E60A8B /* risk_calculation_parameters.pb.swift */,
@@ -3021,7 +3019,6 @@
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
 				EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */,
 				EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */,
-				EB08F1732541CE3200D11FA9 /* app_features.pb.swift */,
 				EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */,
 				EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */,
 				EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */,
@@ -4202,6 +4199,7 @@
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
 				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
+				3544182925AF7B5200B11056 /* app_features.pb.swift in Sources */,
 				AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */,
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
@@ -4280,7 +4278,6 @@
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
-				01734B5B255D6C4500E60A8B /* app_features_v2.pb.swift in Sources */,
 				01A4DC7025922EB4007D5794 /* HomeItemView.swift in Sources */,
 				01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
@@ -4458,7 +4455,6 @@
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,
 				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
-				EB08F17B2541CE3300D11FA9 /* app_features.pb.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
