@@ -20,6 +20,7 @@ class HomeTableViewModel {
 	enum Section: Int, CaseIterable {
 		case exposureLogging
 		case riskAndTest
+		case statistics
 		case diary
 		case infos
 		case settings
@@ -60,6 +61,8 @@ class HomeTableViewModel {
 			return 1
 		case .riskAndTest:
 			return riskAndTestRows.count
+		case .statistics:
+			return 1
 		case .diary:
 			return 1
 		case .infos:
@@ -73,7 +76,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .diary:
+		case .exposureLogging, .riskAndTest, .diary, .statistics:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -84,7 +87,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .diary:
+		case .exposureLogging, .riskAndTest, .diary, .statistics:
 			return 0
 		case .infos:
 			return 16

@@ -126,6 +126,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .thankYou:
 				return thankYouCell(forRowAt: indexPath)
 			}
+		case .statistics:
+			return statisticsCell(forRowAt: indexPath)
 		case .diary:
 			return diaryCell(forRowAt: indexPath)
 		case .infos:
@@ -169,6 +171,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .thankYou:
 				break
 			}
+		case .statistics:
+			break
 		case .diary:
 			onDiaryCellTap()
 		case .infos:
@@ -261,6 +265,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeThankYouTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeThankYouTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeStatisticsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
@@ -368,6 +376,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		let cellModel = HomeThankYouCellModel()
 		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func statisticsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
+			fatalError("Could not dequeue HomeStatisticsTableViewCell")
+		}
 
 		return cell
 	}

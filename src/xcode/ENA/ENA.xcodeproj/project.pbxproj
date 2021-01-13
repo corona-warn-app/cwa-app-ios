@@ -35,6 +35,10 @@
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */; };
 		016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */; };
+		016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E25F125AF13EA0077C64C /* HomeStatisticsTableViewCell.swift */; };
+		016E25F425AF13EA0077C64C /* HomeStatisticsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */; };
+		016E260325AF20300077C64C /* HomeStatisticsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E260225AF20300077C64C /* HomeStatisticsCardView.swift */; };
+		016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016E260725AF20540077C64C /* HomeStatisticsCardView.xib */; };
 		01734B5B255D6C4500E60A8B /* app_features_v2.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */; };
 		01734B5C255D6C4500E60A8B /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */; };
 		01734B5D255D6C4500E60A8B /* semantic_version.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B57255D6C4500E60A8B /* semantic_version.pb.swift */; };
@@ -724,6 +728,10 @@
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
 		016961982540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModel.swift; sourceTree = "<group>"; };
 		016961AF2549630100FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewModelTests.swift; sourceTree = "<group>"; };
+		016E25F125AF13EA0077C64C /* HomeStatisticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsTableViewCell.swift; sourceTree = "<group>"; };
+		016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeStatisticsTableViewCell.xib; sourceTree = "<group>"; };
+		016E260225AF20300077C64C /* HomeStatisticsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardView.swift; sourceTree = "<group>"; };
+		016E260725AF20540077C64C /* HomeStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeStatisticsCardView.xib; sourceTree = "<group>"; };
 		01734B55255D6C4500E60A8B /* app_features_v2.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_features_v2.pb.swift; path = ../../../gen/output/internal/v2/app_features_v2.pb.swift; sourceTree = "<group>"; };
 		01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/v2/key_download_parameters.pb.swift; sourceTree = "<group>"; };
 		01734B57255D6C4500E60A8B /* semantic_version.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = semantic_version.pb.swift; path = ../../../gen/output/internal/v2/semantic_version.pb.swift; sourceTree = "<group>"; };
@@ -1462,6 +1470,17 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
+		016E25E825AF138B0077C64C /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				016E25F125AF13EA0077C64C /* HomeStatisticsTableViewCell.swift */,
+				016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */,
+				016E260225AF20300077C64C /* HomeStatisticsCardView.swift */,
+				016E260725AF20540077C64C /* HomeStatisticsCardView.xib */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
 		01734B51255D6BEE00E60A8B /* v2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1845,6 +1864,7 @@
 				01A4DC5525922EB0007D5794 /* Risk */,
 				01A4DC8025922EC3007D5794 /* TestResult */,
 				01A4DCA125924FFE007D5794 /* ThankYou */,
+				016E25E825AF138B0077C64C /* Statistics */,
 				01EA17C02591347800E98E02 /* Diary */,
 				01EA17C42591348100E98E02 /* Info */,
 			);
@@ -3839,6 +3859,7 @@
 				01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */,
 				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
 				01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */,
+				016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */,
 				01A4DC9D259247AF007D5794 /* HomeRiskTableViewCell.xib in Resources */,
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */,
@@ -3873,6 +3894,7 @@
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
 				01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
+				016E25F425AF13EA0077C64C /* HomeStatisticsTableViewCell.xib in Resources */,
 				01D02704258BBCC700B6389A /* DescriptionTableViewCell.xib in Resources */,
 				01D0262E258A791C00B6389A /* OnboardingInfoViewController.xib in Resources */,
 				AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */,
@@ -4072,6 +4094,7 @@
 				948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
+				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
@@ -4144,6 +4167,7 @@
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
 				35EA68522555488600335F73 /* SQLiteError.swift in Sources */,
+				016E260325AF20300077C64C /* HomeStatisticsCardView.swift in Sources */,
 				BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */,
 				9417BA95252B6B5100AD4053 /* DMSQLiteErrorViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
