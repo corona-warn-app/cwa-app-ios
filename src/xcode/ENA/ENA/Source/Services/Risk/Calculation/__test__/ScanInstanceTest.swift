@@ -1,10 +1,7 @@
 //
-//  ExposureWindowTest.swift
-//  ENATests
+// 🦠 Corona-Warn-App
 //
-//  Created by Kai-Marcel Teuber on 31.10.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
-//
+
 
 import XCTest
 import ExposureNotification
