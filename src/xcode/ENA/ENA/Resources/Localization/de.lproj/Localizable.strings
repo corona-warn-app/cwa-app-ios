@@ -1215,7 +1215,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Check_Title" = "Risiko-Überprüfung";
 
-"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
+"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den Risiko-Mitteilungen anderer Personen. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
 
 "RiskLegend_Contact_Title" = "Risiko-Begegnung";
 
