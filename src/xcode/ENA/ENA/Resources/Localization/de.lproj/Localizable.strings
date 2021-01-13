@@ -71,7 +71,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Letzte Risiko-Überprüfung: %@";
 
-"ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.";
+"ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, damit Ihr aktueller Risikostatus berechnet werden kann.";
 
 "ExposureDetection_OutdatedText" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
