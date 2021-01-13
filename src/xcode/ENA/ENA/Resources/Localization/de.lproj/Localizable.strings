@@ -340,7 +340,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -790,7 +790,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch Risiko-Begegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Ansteckungsrisiko zu berechnen und Sie zu warnen.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Ansteckungsrisiko zu berechnen und Sie zu warnen.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
