@@ -77,7 +77,7 @@
 
 "ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
-"ExposureDetection_LoadingText" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"ExposureDetection_LoadingText" = "Aktuelle Daten werden heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
@@ -1022,7 +1022,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_resultCard_RetrieveResultButton" = "Testergebnis abrufen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Aktuelle Daten werden heruntergeladen. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft …";
 
