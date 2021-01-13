@@ -87,6 +87,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.backgroundColor = .enaColor(for: .separator)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		viewModel.state.updateTestResult()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
