@@ -23,7 +23,7 @@
                             <rect key="frame" x="16" y="0.0" width="443" height="264"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="h4n-R1-pv1">
-                                    <rect key="frame" x="0.0" y="0.0" width="443" height="66.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="443" height="72"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4mw-Ym-LMM">
                                             <rect key="frame" x="0.0" y="0.0" width="387" height="66.5"/>
@@ -67,10 +67,10 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Imx-q1-RUe">
-                                    <rect key="frame" x="0.0" y="66.5" width="443" height="197.5"/>
+                                    <rect key="frame" x="0.0" y="72" width="443" height="192"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Drr-V5-WQ8">
-                                            <rect key="frame" x="0.0" y="0.0" width="327" height="197.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="et3-5g-2ko" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
@@ -81,15 +81,23 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm5-H8-QtK" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="20.5" width="71.5" height="33.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QtE-Zy-aXk">
+                                                    <rect key="frame" x="0.0" y="20.5" width="98.5" height="33.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sm5-H8-QtK" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="33.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pfeil_steigend" translatesAutoresizingMaskIntoConstraints="NO" id="5TC-4n-wbc">
+                                                            <rect key="frame" x="79.5" y="0.0" width="19" height="33.5"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vx6-82-ahH" userLabel="Spacer">
                                                     <rect key="frame" x="0.0" y="54" width="320" height="16"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,10 +112,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="T6u-5R-LOa">
-                                                    <rect key="frame" x="0.0" y="90.5" width="83.5" height="26"/>
+                                                    <rect key="frame" x="0.0" y="90.5" width="70.5" height="20.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpU-cG-34e" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="43.5" height="26"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="43.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -115,26 +123,26 @@
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_Lock" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-im-uTD">
-                                                            <rect key="frame" x="51.5" y="0.0" width="32" height="26"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pfeil_sinkend" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-im-uTD">
+                                                            <rect key="frame" x="51.5" y="0.0" width="19" height="20.5"/>
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DbG-Ia-Adu" userLabel="Spacer">
-                                                    <rect key="frame" x="0.0" y="116.5" width="320" height="8"/>
+                                                    <rect key="frame" x="0.0" y="111" width="320" height="8"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="8" id="ihm-Gl-7fQ"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYx-Wq-bIZ" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="124.5" width="41.5" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="119" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCp-EG-vob" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="145" width="43.5" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="139.5" width="43.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -143,14 +151,14 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-o4-emk" userLabel="Spacer">
-                                                    <rect key="frame" x="0.0" y="165.5" width="320" height="16"/>
+                                                    <rect key="frame" x="0.0" y="160" width="320" height="16"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="8aT-SI-3DB"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPf-Rc-use" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="181.5" width="33" height="16"/>
+                                                    <rect key="frame" x="0.0" y="176" width="33" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -160,8 +168,8 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Hand_with_phone-error" translatesAutoresizingMaskIntoConstraints="NO" id="TH2-hV-4Si">
-                                            <rect key="frame" x="327" y="0.0" width="116" height="197.5"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Warnende_Personen" translatesAutoresizingMaskIntoConstraints="NO" id="TH2-hV-4Si">
+                                            <rect key="frame" x="320" y="0.0" width="123" height="192"/>
                                         </imageView>
                                     </subviews>
                                 </stackView>
@@ -216,8 +224,9 @@
         </designable>
     </designables>
     <resources>
-        <image name="Icons_Lock" width="32" height="32"/>
-        <image name="Illu_Hand_with_phone-error" width="116" height="108"/>
+        <image name="Illu_Warnende_Personen" width="128" height="146"/>
+        <image name="Pfeil_sinkend" width="19" height="19"/>
+        <image name="Pfeil_steigend" width="19" height="19"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -71,7 +71,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				text: AppStrings.RiskLegend.subtitle,
 				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle),
 			.section(
-				header: .image(UIImage(named: "Illu_Legende-Overview"),
+				header: .image(UIImage(named: "Illu_StatisticsInfo"),
 							   accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,
 							   accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.titleImageAccLabel,
 							   height: 200),
