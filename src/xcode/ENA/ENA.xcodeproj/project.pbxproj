@@ -1888,8 +1888,8 @@
 			children = (
 				01F2A57F25803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift */,
 				01F2A58025803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib */,
-				01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */,
 				BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */,
+				01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */,
 				01F2A562257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib */,
 			);
 			path = Cells;

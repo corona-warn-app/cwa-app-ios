@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Combine
 
 struct DiaryDay: Equatable {
 
@@ -22,21 +21,6 @@ struct DiaryDay: Equatable {
 	enum HistoryExposure: Equatable {
 		case encounter(RiskLevel)
 		case none
-
-		var imageName: String? {
-			switch self {
-			case let .encounter(risk):
-				switch risk {
-				case .low:
-					return "Icons_Attention_low"
-				case .high:
-					return "Icons_Attention_high"
-				}
-
-			case .none:
-				return nil
-			}
-		}
 	}
 
 	let dateString: String

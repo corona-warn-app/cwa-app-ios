@@ -13,10 +13,6 @@ final class DiaryOverviewDayCellModel {
 		self.model = model
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -31,10 +27,44 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryImage: UIImage {
-		guard let imagename = model.exposureEncounter.imageName else {
+		switch model.exposureEncounter {
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return UIImage(imageLiteralResourceName: "Icons_Attention_low")
+			case .high:
+				return UIImage(imageLiteralResourceName: "Icons_Attention_high")
+			}
+		case .none:
 			return UIImage()
 		}
-		return UIImage(imageLiteralResourceName: imagename)
+	}
+
+	var exposureHistoryTitle: String? {
+		switch model.exposureEncounter {
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return AppStrings.ContactDiary.Overview.lowRiskTitle
+			case .high:
+				return AppStrings.ContactDiary.Overview.increasedRiskTitle
+			}
+
+		case .none:
+			return nil
+		}
+	}
+
+	var exposureHistoryDetail: String? {
+		switch model.exposureEncounter {
+		case .encounter:
+			return selectedEntries.isEmpty ?
+				AppStrings.ContactDiary.Overview.riskText1 :
+				[AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n")
+
+		case .none:
+			return nil
+		}
 	}
 
 	var selectedEntries: [DiaryEntry] {
