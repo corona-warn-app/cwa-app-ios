@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
 
 "Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
 
@@ -1418,7 +1418,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Information */
 "ContactDiary_Information_Title" = "Kontakt-Tagebuch";
 
-"ContactDiary_Information_ImageDescription" = "Mehrere Menschen schauen im Freien auf ihre Handys.";
+"ContactDiary_Information_ImageDescription" = "Mehrere Menschen schauen im Freien auf ihre Smartphones.";
 
 "ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
 
