@@ -684,6 +684,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Weiter";
 
+"ExposureSubmissionSymptoms_DoneButton" = "Fertig";
+
 /* ExposureSubmissionSymptomsOnset */
 
 "ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";

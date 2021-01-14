@@ -230,6 +230,8 @@ enum AppStrings {
 		static let answerOptionNo = NSLocalizedString("ExposureSubmissionSymptoms_AnswerOptionNo", comment: "")
 		static let answerOptionPreferNotToSay = NSLocalizedString("ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionSymptoms_ContinueButton", comment: "")
+		static let doneButton = NSLocalizedString("ExposureSubmissionSymptoms_DoneButton", comment: "")
+
 	}
 	
 	enum ExposureSubmissionSymptomsOnset {
