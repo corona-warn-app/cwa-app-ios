@@ -4,8 +4,7 @@
 
 import Foundation
 
-
-class CachingHTTPClient: AppConfigurationFetching {
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	/// The client configuration - mostly server endpoints per environment
 	let configuration: HTTPClient.Configuration
 
@@ -87,6 +86,60 @@ class CachingHTTPClient: AppConfigurationFetching {
 					serverDate = httpResponse.dateHeader
 				}
 				completion((.failure(error), serverDate))
+			}
+		}
+	}
+
+	// MARK: - StatisticsFetching
+
+	func fetchStatistics(etag: String?, completion: @escaping StatisticsFetchingResultHandler) {
+		// ETag
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.configurationURL, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				// content not modified?
+				guard response.statusCode != 304 else {
+					completion(.failure(CachedAppConfiguration.CacheError.notModified))
+					return
+				}
+
+				// has data?
+				guard
+					let data = response.body,
+					let package = SAPDownloadedPackage(compressedData: data)
+				else {
+					let error = CachedAppConfiguration.CacheError.dataFetchError(message: "Failed to create downloaded package for app config.")
+					completion(.failure(error))
+					return
+				}
+
+				// data verified?
+				guard self.packageVerifier(package) else {
+					let error = CachedAppConfiguration.CacheError.dataVerificationError(message: "Failed to verify app config signature")
+					completion(.failure(error))
+					return
+				}
+
+				// serialize config
+				do {
+					let stats = try SAP_Internal_Stats_Statistics(serializedData: package.bin)
+					let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let configurationResponse = StatisticsFetchingResponse(stats, etag)
+					completion(.success(configurationResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				var serverDate: Date?
+				if case let .httpError(_, httpResponse) = error {
+					serverDate = httpResponse.dateHeader
+				}
+				completion(.failure(error))
 			}
 		}
 	}
