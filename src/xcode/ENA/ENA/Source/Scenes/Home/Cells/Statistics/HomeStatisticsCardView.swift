@@ -7,6 +7,14 @@ import OpenCombine
 
 class HomeStatisticsCardView: UIView {
 
+	// MARK: - Overrides
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateIllustration(for: traitCollection)
+	}
+
 	// MARK: - Internal
 
 	@IBOutlet weak var titleLabel: ENALabel!
@@ -37,10 +45,7 @@ class HomeStatisticsCardView: UIView {
 			.store(in: &subscriptions)
 
 		viewModel.$illustrationImage
-			.sink { [weak self] in
-				self?.illustrationImageView.isHidden = $0 == nil
-				self?.illustrationImageView.image = $0
-			}
+			.assign(to: \.image, on: illustrationImageView)
 			.store(in: &subscriptions)
 
 		viewModel.$primaryTitle
@@ -110,6 +115,8 @@ class HomeStatisticsCardView: UIView {
 		self.viewModel = viewModel
 
 		self.onInfoButtonTap = onInfoButtonTap
+
+		updateIllustration(for: traitCollection)
 	}
 
 	// MARK: - Private
@@ -121,6 +128,14 @@ class HomeStatisticsCardView: UIView {
 
 	@IBAction private func infoButtonTapped(_ sender: Any) {
 		onInfoButtonTap?()
+	}
+
+	private func updateIllustration(for traitCollection: UITraitCollection) {
+		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
+			illustrationImageView.isHidden = true
+		} else {
+			illustrationImageView.isHidden = false
+		}
 	}
 
 }

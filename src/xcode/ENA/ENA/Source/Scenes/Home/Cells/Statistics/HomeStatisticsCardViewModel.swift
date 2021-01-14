@@ -33,7 +33,7 @@ class HomeStatisticsCardViewModel {
 
 	@OpenCombine.Published var title: String?
 
-	@OpenCombine.Published var illustrationImage: UIImage?
+	@OpenCombine.Published var illustrationImage: UIImage!
 
 	@OpenCombine.Published var primaryTitle: String?
 	@OpenCombine.Published var primaryValue: String?
