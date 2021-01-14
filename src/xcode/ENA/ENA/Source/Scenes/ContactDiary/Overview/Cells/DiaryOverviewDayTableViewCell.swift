@@ -11,17 +11,29 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+//		exposureHistoryTitleLabel.font = .enaFont(for: .headline)
+//		exposureHistoryTitleLabel.textColor = .enaColor(for: .textPrimary1)
+//		exposureHistoryDetailLabel.font = .enaFont(for: .subheadline)
+//		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary1)
+
 		exposureHistoryStackView.isHidden = false
 	}
 
+//	override func prepareForReuse() {
+//		super.prepareForReuse()
+//
+//	}
+
 	// MARK: - Internal
 
-	func configure(day: DiaryDay) {
-		dateLabel.text = day.formattedDate
+	func configure(cellViewModel: DiaryOverviewDayCellModel) {
+		dateLabel.text = cellViewModel.formattedDate
+		exposureHistoryStackView.isHidden = !cellViewModel.showExposureHistory
+		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
 
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for entry in day.selectedEntries {
+		for entry in cellViewModel.selectedEntries {
 			let imageView = UIImageView()
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
