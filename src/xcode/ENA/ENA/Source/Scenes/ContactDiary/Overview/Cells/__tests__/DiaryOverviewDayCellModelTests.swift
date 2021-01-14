@@ -10,7 +10,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 	func testGIVEN_NoEncounterDay_WHEN_getTitle_THEN_TextsAreNilAndAnEmptyImage() {
 		// GIVEN
 		let diaryDay = DiaryDay(
-			dateString: "2020-12-16",
+			dateString: "2021-01-14",
 			entries: [],
 			exposureEncounter: .none
 		)
@@ -32,7 +32,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 	func testGIVEN_LowEncounterDayWithoutEntries_WHEN_getTitleAndImage_THEN_LowAlterTextAndImage() {
 		// GIVEN
 		let diaryDay = DiaryDay(
-			dateString: "2020-12-16",
+			dateString: "2021-01-14",
 			entries: [],
 			exposureEncounter: .encounter(.low)
 		)
@@ -45,14 +45,14 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertTrue(showExposureHistory)
-		XCTAssertEqual(title, "Niedriges Risiko")
+		XCTAssertEqual(title, AppStrings.ContactDiary.Overview.lowRiskTitle)
 		XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Icons_Attention_low"))
 	}
 
 	func testGIVEN_HighEncounterDayWithoutEntries_WHEN_getTitleAndImage_THEN_HighAlterTextAndImage() {
 		// GIVEN
 		let diaryDay = DiaryDay(
-			dateString: "2020-12-16",
+			dateString: "2021-01-14",
 			entries: [],
 			exposureEncounter: .encounter(.high)
 		)
@@ -65,14 +65,14 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertTrue(showExposureHistory)
-		XCTAssertEqual(title, "Erhöhtes Risiko")
+		XCTAssertEqual(title, AppStrings.ContactDiary.Overview.increasedRiskTitle)
 		XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Icons_Attention_high"))
 	}
 
 	func testGIVEN_LowEncounterDayWithoutEntries_WHEN_getDetail_THEN_isShorterDetailText() {
 		// GIVEN
 		let diaryDay = DiaryDay(
-			dateString: "2020-12-16",
+			dateString: "2021-01-14",
 			entries: [],
 			exposureEncounter: .encounter(.low)
 		)
@@ -84,13 +84,13 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertTrue(showExposureHistory)
-		XCTAssertEqual(detail, "aufgrund der von der App ausgewerteten Begegnungen.")
+		XCTAssertEqual(detail, AppStrings.ContactDiary.Overview.riskText1)
 	}
 
 	func testGIVEN_LowEncounterDayWithEntries_WHEN_getDetail_THEN_isLongerDetailText() {
 		// GIVEN
 		let diaryDay = DiaryDay(
-			dateString: "2020-12-16",
+			dateString: "2021-01-14",
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
 				.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
@@ -103,6 +103,6 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let detail = cellViewModel.exposureHistoryDetail
 
 		// THEN
-		XCTAssertEqual(detail, "aufgrund der von der App ausgewerteten Begegnungen.\nDiese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.")
+		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n"))
 	}
 }
