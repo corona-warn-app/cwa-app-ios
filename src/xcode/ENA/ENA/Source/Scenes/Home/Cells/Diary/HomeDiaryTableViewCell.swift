@@ -76,9 +76,7 @@ class HomeDiaryTableViewCell: UITableViewCell {
 	}
 
 	private func setupAccessibility() {
-		titleLabel.isAccessibilityElement = true
-		descriptionLabel.isAccessibilityElement = true
-		isAccessibilityElement = false
+		cardView.accessibilityElements = [titleLabel as Any, descriptionLabel as Any, button as Any]
 
 		titleLabel.accessibilityTraits = [.header, .button]
 	}

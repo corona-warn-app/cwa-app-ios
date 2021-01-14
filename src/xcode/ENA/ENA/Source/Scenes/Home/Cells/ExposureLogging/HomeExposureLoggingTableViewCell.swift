@@ -12,8 +12,9 @@ class HomeExposureLoggingTableViewCell: UITableViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
-		isAccessibilityElement = true
-		accessibilityTraits = .button
+		isAccessibilityElement = false
+		cardView.isAccessibilityElement = true
+		cardView.accessibilityTraits = .button
 	}
 
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -26,7 +27,7 @@ class HomeExposureLoggingTableViewCell: UITableViewCell {
 
 	func configure(with cellModel: HomeExposureLoggingCellModel) {
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
-		cellModel.$title.assign(to: \.accessibilityLabel, on: self).store(in: &subscriptions)
+		cellModel.$title.assign(to: \.accessibilityLabel, on: cardView).store(in: &subscriptions)
 		cellModel.$icon.assign(to: \.image, on: iconImageView).store(in: &subscriptions)
 		cellModel.$accessibilityIdentifier.assign(to: \.accessibilityIdentifier, on: self).store(in: &subscriptions)
 
