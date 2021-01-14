@@ -9,6 +9,22 @@ class HomeStatisticsCardView: UIView {
 
 	// MARK: - Internal
 
+	@IBOutlet weak var titleLabel: ENALabel!
+	@IBOutlet weak var illustrationImageView: UIImageView!
+
+	@IBOutlet weak var primaryTitleLabel: ENALabel!
+	@IBOutlet weak var primaryValueLabel: ENALabel!
+	@IBOutlet weak var primaryTrendImageView: UIImageView!
+
+	@IBOutlet weak var secondaryTitleLabel: ENALabel!
+	@IBOutlet weak var secondaryValueLabel: ENALabel!
+	@IBOutlet weak var secondaryTrendImageView: UIImageView!
+
+	@IBOutlet weak var tertiaryTitleLabel: ENALabel!
+	@IBOutlet weak var tertiaryValueLabel: ENALabel!
+
+	@IBOutlet weak var footnoteLabel: ENALabel!
+
 	func configure(
 		viewModel: HomeStatisticsCardViewModel,
 		onInfoButtonTap: @escaping () -> Void
@@ -102,22 +118,6 @@ class HomeStatisticsCardView: UIView {
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
-
-	@IBOutlet private weak var titleLabel: ENALabel!
-	@IBOutlet private weak var illustrationImageView: UIImageView!
-
-	@IBOutlet private weak var primaryTitleLabel: ENALabel!
-	@IBOutlet private weak var primaryValueLabel: ENALabel!
-	@IBOutlet private weak var primaryTrendImageView: UIImageView!
-
-	@IBOutlet private weak var secondaryTitleLabel: ENALabel!
-	@IBOutlet private weak var secondaryValueLabel: ENALabel!
-	@IBOutlet private weak var secondaryTrendImageView: UIImageView!
-
-	@IBOutlet private weak var tertiaryTitleLabel: ENALabel!
-	@IBOutlet private weak var tertiaryValueLabel: ENALabel!
-
-	@IBOutlet private weak var footnoteLabel: ENALabel!
 
 	@IBAction private func infoButtonTapped(_ sender: Any) {
 		onInfoButtonTap?()

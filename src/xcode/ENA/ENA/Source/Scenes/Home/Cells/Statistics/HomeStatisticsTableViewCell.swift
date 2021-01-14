@@ -33,6 +33,22 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 						onInfoButtonTap()
 					}
 				)
+
+				let cardViewCount = stackView.arrangedSubviews.count
+				if cardViewCount > 1, let previousCardView = stackView.arrangedSubviews[cardViewCount - 2] as? HomeStatisticsCardView {
+					NSLayoutConstraint.activate([
+						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
+						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
+						statisticsCardView.primaryValueLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryValueLabel.firstBaselineAnchor),
+						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
+						statisticsCardView.secondaryValueLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryValueLabel.firstBaselineAnchor),
+						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor),
+						statisticsCardView.tertiaryValueLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryValueLabel.firstBaselineAnchor),
+						statisticsCardView.footnoteLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.footnoteLabel.firstBaselineAnchor)
+					])
+
+
+				}
 			}
 		}
 	}

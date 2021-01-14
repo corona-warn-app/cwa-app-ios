@@ -72,7 +72,7 @@ class HomeStatisticsCardViewModel {
 		primaryTrendImage = nil
 		secondaryTitle = AppStrings.Statistics.Card.WarningPersons.secondaryLabelTitle
 		secondaryValue = "1.812"
-		secondaryTrendImage = UIImage(named: "Pfeil_sinkend")
+		secondaryTrendImage = UIImage(named: "Pfeil_stabil")
 		tertiaryTitle = AppStrings.Statistics.Card.WarningPersons.tertiaryLabelTitle
 		tertiaryValue = "20.922"
 		footnote = AppStrings.Statistics.Card.WarningPersons.footnote
