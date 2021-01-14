@@ -37,8 +37,6 @@ class RiskLegendViewController: DynamicTableViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.title = AppStrings.RiskLegend.title
 
-		view.backgroundColor = .enaColor(for: .background)
-
 		dynamicTableViewModel = model
 	}
 
