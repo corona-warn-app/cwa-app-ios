@@ -29,6 +29,20 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		containerView.setHighlighted(highlighted, animated: animated)
 	}
 
+	override var accessibilityElements: [Any]? {
+		get {
+			var accessibilityElements = [topContainer as Any, riskViewStackView as Any]
+
+			if !button.isHidden, let button = self.button {
+				accessibilityElements.append(button)
+			}
+
+			return accessibilityElements
+		}
+		// swiftlint:disable:next unused_setter_value
+		set { }
+	}
+
 	// Ignore touches on the button when it's disabled
 	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 		let buttonPoint = convert(point, to: button)
@@ -149,8 +163,6 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		topContainer.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer
 		bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.bodyLabel
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.updateButton
-
-		accessibilityElements = [topContainer as Any, riskViewStackView as Any, button as Any]
 	}
 
 }
