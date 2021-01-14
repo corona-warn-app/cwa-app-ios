@@ -251,6 +251,10 @@
 		35358DD425A23169004FD0CB /* HTTPClientCertificatePinningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */; };
 		3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */; };
 		3544182925AF7B5200B11056 /* app_features.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3544182825AF7B5200B11056 /* app_features.pb.swift */; };
+		354BB49A25B07DB000FBCFEE /* StatisticsProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */; };
+		354BB4A725B0824500FBCFEE /* card_header.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BB4A125B0824500FBCFEE /* card_header.pb.swift */; };
+		354BB4A825B0824500FBCFEE /* statistics.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BB4A225B0824500FBCFEE /* statistics.pb.swift */; };
+		354BB4A925B0824500FBCFEE /* key_figure_card.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354BB4A325B0824500FBCFEE /* key_figure_card.pb.swift */; };
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
 		356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		356FBF49255EC27A00959346 /* CacheAppConfigMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */; };
@@ -942,6 +946,10 @@
 		35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientCertificatePinningTests.swift; sourceTree = "<group>"; };
 		3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationMock.swift; sourceTree = "<group>"; };
 		3544182825AF7B5200B11056 /* app_features.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_features.pb.swift; path = ../../../gen/output/internal/v2/app_features.pb.swift; sourceTree = "<group>"; };
+		354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsProviding.swift; sourceTree = "<group>"; };
+		354BB4A125B0824500FBCFEE /* card_header.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = card_header.pb.swift; sourceTree = "<group>"; };
+		354BB4A225B0824500FBCFEE /* statistics.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = statistics.pb.swift; sourceTree = "<group>"; };
+		354BB4A325B0824500FBCFEE /* key_figure_card.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = key_figure_card.pb.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAppConfigMockTests.swift; sourceTree = "<group>"; };
 		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
@@ -1996,6 +2004,16 @@
 			name = TestPlans;
 			sourceTree = "<group>";
 		};
+		354BB4A025B0824500FBCFEE /* stats */ = {
+			isa = PBXGroup;
+			children = (
+				354BB4A125B0824500FBCFEE /* card_header.pb.swift */,
+				354BB4A225B0824500FBCFEE /* statistics.pb.swift */,
+				354BB4A325B0824500FBCFEE /* key_figure_card.pb.swift */,
+			);
+			path = stats;
+			sourceTree = "<group>";
+		};
 		35AA4AF2259B40DF00D32306 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -2856,6 +2874,7 @@
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				354BB4A025B0824500FBCFEE /* stats */,
 				01734B51255D6BEE00E60A8B /* v2 */,
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
 				EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */,
@@ -3276,6 +3295,7 @@
 				B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */,
 				3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */,
 				352E0F18255D537C00DC3E20 /* AppConfiguration+Validation.swift */,
+				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3977,12 +3997,15 @@
 				AB6289CF251BA01400CF61D2 /* Bundle+Version.swift in Sources */,
 				AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
+				354BB49A25B07DB000FBCFEE /* StatisticsProviding.swift in Sources */,
 				01909889257E7B900065D050 /* ExposureSubmissionQRInfoViewModel.swift in Sources */,
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
 				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
 				017AD0C9259BBD2E00FA2B3F /* HomeTestResultCellModel.swift in Sources */,
 				BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */,
+				354BB4A725B0824500FBCFEE /* card_header.pb.swift in Sources */,
+				354BB4A825B0824500FBCFEE /* statistics.pb.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
 				EB08F17E2541CE3300D11FA9 /* app_version_config.pb.swift in Sources */,
@@ -4091,6 +4114,7 @@
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				019C9F2D258951B700B26392 /* ContactPersonEncounter.swift in Sources */,
+				354BB4A925B0824500FBCFEE /* key_figure_card.pb.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
 				8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
