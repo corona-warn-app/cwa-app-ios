@@ -86,9 +86,10 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 
 	@OpenCombine.Published var titleText: String! = RiskLevel.low.text
+	@OpenCombine.Published var titleTextAccessibilityColor: String? = RiskLevel.low.accessibilityRiskColor
 
 	@OpenCombine.Published var riskBackgroundColor: UIColor! = RiskLevel.low.backgroundColor
-	@OpenCombine.Published var titleTextColor: UIColor = RiskLevel.low.contrastTextColor
+	@OpenCombine.Published var titleTextColor: UIColor = .enaColor(for: .textContrast)
 	@OpenCombine.Published var closeButtonStyle: CloseButtonStyle = .contrast
 
 	@OpenCombine.Published var buttonTitle: String! = AppStrings.ExposureDetection.buttonRefresh
@@ -96,8 +97,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
 	@OpenCombine.Published var exposureNotificationError: ExposureNotificationError?
-
-	var titleTextAccessibilityColor: String! = RiskLevel.low.accessibilityRiskColor
 
 	var previousRiskTitle: String {
 		switch homeState.lastRiskCalculationResult?.riskLevel {
@@ -121,8 +120,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	var riskContrastTintColor: UIColor {
 		switch homeState.riskState {
-		case .risk(let risk):
-			return risk.level.contrastTintColor
+		case .risk:
+			return .enaColor(for: .textContrast)
 		case .inactive, .detectionFailed:
 			return .enaColor(for: .riskNeutral)
 		}
@@ -250,6 +249,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		// Update dynamic table view model with current risk state
 		setup(for: homeState.riskState)
 
+		titleTextAccessibilityColor = nil
+
 		isButtonHidden = true
 		isButtonEnabled = false
 	}
@@ -263,9 +264,10 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		}
 
 		titleText = risk.level.text
+		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
 
 		riskBackgroundColor = risk.level.backgroundColor
-		titleTextColor = risk.level.contrastTextColor
+		titleTextColor = .enaColor(for: .textContrast)
 		closeButtonStyle = .contrast
 
 		buttonTitle = riskButtonTitle
@@ -277,6 +279,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		dynamicTableViewModel = inactiveModel
 
 		titleText = AppStrings.ExposureDetection.off
+		titleTextAccessibilityColor = nil
 
 		riskBackgroundColor = .enaColor(for: .background)
 		titleTextColor = .enaColor(for: .textPrimary1)
@@ -291,6 +294,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		dynamicTableViewModel = failureModel
 
 		titleText = AppStrings.ExposureDetection.riskCardFailedCalculationTitle
+		titleTextAccessibilityColor = nil
 
 		riskBackgroundColor = .enaColor(for: .background)
 		titleTextColor = .enaColor(for: .textPrimary1)
@@ -606,20 +610,6 @@ extension RiskLevel {
 		switch self {
 		case .low: return .enaColor(for: .riskLow)
 		case .high: return .enaColor(for: .riskHigh)
-		}
-	}
-
-	var contrastTintColor: UIColor {
-		switch self {
-		case .low: return .enaColor(for: .textContrast)
-		case .high: return .enaColor(for: .textContrast)
-		}
-	}
-
-	var contrastTextColor: UIColor {
-		switch self {
-		case .low: return .enaColor(for: .textContrast)
-		case .high: return .enaColor(for: .textContrast)
 		}
 	}
 

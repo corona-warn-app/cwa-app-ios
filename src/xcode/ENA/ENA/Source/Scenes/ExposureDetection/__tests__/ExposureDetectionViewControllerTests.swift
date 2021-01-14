@@ -8,32 +8,21 @@ import XCTest
 
 class ExposureDetectionViewControllerTests: XCTestCase {
 
-	// MARK: - Setup.
+	func testHighRiskState() {
+		let vc = createVC()
+		vc.loadViewIfNeeded()
 
-	func createVC() -> ExposureDetectionViewController? {
+		XCTAssertNotNil(vc.tableView)
+	}
+
+	// MARK: - Private
+
+	private func createVC() -> ExposureDetectionViewController {
 		let store = MockTestStore()
 
-		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
-		downloadedPackagesStore.open()
-
-		let client = ClientMock()
-		let keyPackageDownload = KeyPackageDownload(
-			downloadedPackagesStore: downloadedPackagesStore,
-			client: client,
-			wifiClient: client,
-			store: store
-		)
-
 		let homeState = HomeState(
-			store: MockTestStore(),
-			riskProvider: RiskProvider(
-				configuration: .default,
-				store: store,
-				appConfigurationProvider: CachedAppConfigurationMock(),
-				exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
-				keyPackageDownload: keyPackageDownload,
-				exposureDetectionExecutor: ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-			),
+			store: store,
+			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			exposureSubmissionService: MockExposureSubmissionService()
@@ -46,15 +35,6 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 			),
 			store: store
 		)
-	}
-
-	// MARK: - Exposure detection model.
-
-	func testHighRiskState() {
-		guard let vc = createVC() else { return }
-		vc.loadViewIfNeeded()
-
-		XCTAssertNotNil(vc.tableView)
 	}
 
 }
