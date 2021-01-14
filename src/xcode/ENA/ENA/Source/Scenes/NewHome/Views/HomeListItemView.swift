@@ -14,6 +14,8 @@ final class HomeListItemView: UIView, HomeItemView {
 		stackView.layoutMargins = UIEdgeInsets(top: 10.0, left: 8.0, bottom: 10.0, right: 0.0)
 		stackView.isLayoutMarginsRelativeArrangement = true
 
+		dotLabel.isAccessibilityElement = false
+
 		configureStackView()
 	}
 

@@ -149,6 +149,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 		topContainer.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer
 		bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.bodyLabel
 		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.RiskTableViewCell.updateButton
+
+		accessibilityElements = [topContainer as Any, riskViewStackView as Any, button as Any]
 	}
 
 }

@@ -87,10 +87,7 @@ final class HomeThankYouTableViewCell: UITableViewCell {
 	@IBOutlet private weak var furtherInfoStackView: UIStackView!
 
 	func setupAccessibility() {
-		titleLabel.isAccessibilityElement = true
-		containerView.isAccessibilityElement = false
-		stackView.isAccessibilityElement = false
-		bodyLabel.isAccessibilityElement = true
+		containerView.accessibilityElements = [titleLabel as Any, bodyLabel as Any, noteLabel as Any, riskViewStackView as Any, furtherInfoLabel as Any, furtherInfoStackView as Any]
 
 		titleLabel.accessibilityTraits = .header
 	}
