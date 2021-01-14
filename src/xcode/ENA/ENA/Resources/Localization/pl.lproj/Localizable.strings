@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Niskie ryzyko";
 
+"ExposureDetection_Low_Green_Color" = "Zielony";
+
 "ExposureDetection_High" = "Podwyższone ryzyko";
+
+"ExposureDetection_High_Red_Color" = "Czerwony";
 
 "ExposureDetection_LastExposure" = "Ostatnio dnia %@";
 
@@ -428,7 +432,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test z kodem QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Zeskanuj swój kod QR, aby pobrać wynik testu, a następnie ostrzeż innych.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Zarejestruj test poprzez zeskanowanie kodu QR dokumentu testu.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN";
 
@@ -850,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Kilka krajów współpracuje ze sobą w zakresie aktywacji transgranicznych alertów wysyłanych poprzez wspólny serwer wymiany danych. Podczas rejestrowania narażenia można na przykład uwzględniać również kontakty z użytkownikami oficjalnej aplikacji koronawirusowej z innych współpracujących krajów.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "W tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów za pośrednictwem swojej aplikacji, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój iPhone. Pobieranie list losowych identyfikatorów jest zazwyczaj bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych z tego tytułu w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
+"ExposureNotificationSetting_EU_Desc_2" = "W tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów za pośrednictwem swojej aplikacji, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój Iphone. \n\nPobieranie list losowych identyfikatorów jest zazwyczaj bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych z tego tytułu w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Następujące kraje uczestniczą obecnie w międzynarodowym rejestrowaniu narażenia:";
 
@@ -1182,11 +1186,7 @@
 
 "RiskLegend_Legend2_High" = "Podwyższone ryzyko";
 
-"RiskLegend_Legend2_High_Color" = "Czerwony";
-
 "RiskLegend_Legend2_Low" = "Niskie ryzyko";
-
-"RiskLegend_Legend2_Low_Color" = "Zielony";
 
 "RiskLegend_Legend3_Title" = "Powiadamianie innych użytkowników";
 
@@ -1244,7 +1244,7 @@
 
 "DeltaOnboarding_Headline" = "Rejestrowanie narażenia w różnych krajach";
 
-"DeltaOnboarding_Description" = "Funkcje aplikacji Corona-Warn-App zostały rozszerzone. Wiele krajów współpracuje w zakresie aktywacji międzynarodowych alertów wysyłanych poprzez wspólnie obsługiwany serwer wymiany danych. Podczas oceny ryzyka narażenia można teraz uwzględniać kontakty z użytkownikami oficjalnych aplikacji koronawirusowych z innych współpracujących krajów.\n\nW tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów poprzez własną aplikację, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój iPhone.\n\nPobieranie list z losowymi identyfikatorami jest z reguły bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
+"DeltaOnboarding_Description" = "Funkcje aplikacji Corona-Warn-App zostały rozszerzone. Wiele krajów współpracuje w zakresie aktywacji międzynarodowych alertów wysyłanych poprzez wspólnie obsługiwany serwer wymiany danych. Podczas oceny ryzyka narażenia można teraz uwzględniać kontakty z użytkownikami oficjalnych aplikacji koronawirusowych z innych współpracujących krajów.\n\nW tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów poprzez własną aplikację, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój iPhone.\n\nPobieranie list jest z reguły bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
 
 "DeltaOnboarding_ParticipatingCountries" = "Obecnie uczestniczą następujące kraje:";
 
@@ -1321,6 +1321,8 @@
 "TestResultPositive_WithConsent_SecondaryButton" = "Zakończ";
 
 /* Overview */
+"ContactDiary_Overview_Button_Title_Menu" = "Menu";
+
 "ContactDiary_Overview_Title" = "Dziennik kontaktów";
 
 "ContactDiary_Overview_Description" = "Zapisuj dane spotykanych osób i odwiedzanych miejsc.";

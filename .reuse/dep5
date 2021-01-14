@@ -25,9 +25,13 @@ Disclaimer: The code in this project may include calls to APIs (“API Calls”)
  parties the right to use of access any SAP External Product, through API Calls.
 
 Files: **
-Copyright:  2020 SAP SE or an SAP affiliate company and cwa-app-ios contributors
+Copyright:  2020-2021 SAP SE or an SAP affiliate company and cwa-app-ios contributors
 License: Apache-2.0
 
 Files: src/xcode/ENA/CWASQLite/sqlite3.c src/xcode/ENA/CWASQLite/sqlite3.h
 Copyright: No Copyright
 License: CC0-1.0
+
+Files: src/xcode/ENA/ENA/Source/Utils/iOS12Support/ColorCompatibility/ColorCompatibility.swift
+Copyright: Copyright (c) 2019 Noah Gilmore <noah.w.gilmore@gmail.com>
+License: MIT

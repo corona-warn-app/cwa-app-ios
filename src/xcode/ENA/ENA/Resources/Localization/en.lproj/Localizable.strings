@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Low Risk";
 
+"ExposureDetection_Low_Green_Color" = "Green";
+
 "ExposureDetection_High" = "Increased Risk";
+
+"ExposureDetection_High_Red_Color" = "Red";
 
 "ExposureDetection_LastExposure" = "Most recently on %@";
 
@@ -428,7 +432,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test with QR Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Scan your QR code to retrieve your test result and then warn others.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Register your test by scanning the QR code of your test document.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN";
 
@@ -622,7 +626,7 @@
 
 "ExposureSubmissionResult_testPending" = "Your test result is not available yet.";
 
-"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIn you are notified of a positive test result outside the app, please remove the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
+"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIf you are notified of a positive test result outside the app, please remove the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Consent “Warn others” granted";
 
@@ -850,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Several countries are working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can also be taken into account for exposure logging.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads lists, which are updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone. The downloads of the lists of random IDs are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
+"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads lists, which are updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone. \n\nThe downloads of the lists of random IDs are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "The following countries currently participate in transnational exposure logging:";
 
@@ -1182,11 +1186,7 @@
 
 "RiskLegend_Legend2_High" = "Increased Risk";
 
-"RiskLegend_Legend2_High_Color" = "Red";
-
 "RiskLegend_Legend2_Low" = "Low Risk";
-
-"RiskLegend_Legend2_Low_Color" = "Green";
 
 "RiskLegend_Legend3_Title" = "Notifying Other Users";
 
@@ -1244,7 +1244,7 @@
 
 "DeltaOnboarding_Headline" = "Transnational Exposure Logging";
 
-"DeltaOnboarding_Description" = "The features of the Corona-Warn-App have been enhanced. Many countries have joined up to enable international warnings, based on a jointly-operated exchange server. Exposure to users of official coronavirus apps in other participating countries can now be taken into account when calculating your exposure risk.\n\nTo do this, the app downloads lists, which are updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone.\n\nThe downloads of the lists of random IDs are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
+"DeltaOnboarding_Description" = "The features of the Corona-Warn-App have been enhanced. Many countries have joined up to enable international warnings, based on a jointly-operated exchange server. Exposure to users of official coronavirus apps in other participating countries can now be taken into account when calculating your exposure risk.\n\nTo do this, the app downloads lists, which are updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone.\n\nThe downloads of the lists are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
 
 "DeltaOnboarding_ParticipatingCountries" = "The following countries currently participate:";
 
@@ -1321,6 +1321,8 @@
 "TestResultPositive_WithConsent_SecondaryButton" = "Exit";
 
 /* Overview */
+"ContactDiary_Overview_Button_Title_Menu" = "Menu";
+
 "ContactDiary_Overview_Title" = "Contact Journal";
 
 "ContactDiary_Overview_Description" = "Write down the people you have met and places you have visited. ";

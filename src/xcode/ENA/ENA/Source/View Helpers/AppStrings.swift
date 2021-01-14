@@ -229,6 +229,8 @@ enum AppStrings {
 		static let answerOptionNo = NSLocalizedString("ExposureSubmissionSymptoms_AnswerOptionNo", comment: "")
 		static let answerOptionPreferNotToSay = NSLocalizedString("ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionSymptoms_ContinueButton", comment: "")
+		static let doneButton = NSLocalizedString("ExposureSubmissionSymptoms_DoneButton", comment: "")
+
 	}
 	
 	enum ExposureSubmissionSymptomsOnset {
@@ -305,7 +307,9 @@ enum AppStrings {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
 		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
 		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
+		static let lowColorName = NSLocalizedString("ExposureDetection_Low_Green_Color", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
+		static let highColorName = NSLocalizedString("ExposureDetection_High_Red_Color", comment: "")
 
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
@@ -616,6 +620,7 @@ enum AppStrings {
 
 		// Low Card
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
+		static let riskCardLowTitleColorName = NSLocalizedString("Home_Risk_Low_Color", comment: "")
 		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
 
@@ -737,9 +742,7 @@ enum AppStrings {
 		static let legend2Text = NSLocalizedString("RiskLegend_Legend2_Text", comment: "")
 		static let legend2RiskLevels = NSLocalizedString("RiskLegend_Legend2_RiskLevels", comment: "")
 		static let legend2High = NSLocalizedString("RiskLegend_Legend2_High", comment: "")
-		static let legend2HighColor = NSLocalizedString("RiskLegend_Legend2_High_Color", comment: "")
 		static let legend2Low = NSLocalizedString("RiskLegend_Legend2_Low", comment: "")
-		static let legend2LowColor = NSLocalizedString("RiskLegend_Legend2_Low_Color", comment: "")
 		static let legend3Title = NSLocalizedString("RiskLegend_Legend3_Title", comment: "")
 		static let legend3Text = NSLocalizedString("RiskLegend_Legend3_Text", comment: "")
 		static let definitionsTitle = NSLocalizedString("RiskLegend_Definitions_Title", comment: "")

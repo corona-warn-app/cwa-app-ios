@@ -24,7 +24,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -43,7 +43,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -60,7 +60,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -78,7 +78,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -95,7 +95,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -112,7 +112,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells

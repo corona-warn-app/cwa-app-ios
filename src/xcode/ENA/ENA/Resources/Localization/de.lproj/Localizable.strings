@@ -57,7 +57,11 @@
 
 "ExposureDetection_Low" = "Niedriges Risiko";
 
+"ExposureDetection_Low_Green_Color" = "Grün";
+
 "ExposureDetection_High" = "Erhöhtes Risiko";
+
+"ExposureDetection_High_Red_Color" = "Rot";
 
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
@@ -425,7 +429,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
-"ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen, die Ausbreitung von Corona zu verhindern.";
+"ExposureSubmission_DispatchDescription" = "Rufen Sie über die App Ihr Testergebnis ab und warnen Sie anschließend Ihre Mitmenschen. So schützen Sie sich und andere und helfen mit, die Ausbreitung von Corona zu verhindern.";
 
 "ExposureSubmission_DispatchSectionHeadline" = "Sie haben sich bereits testen lassen?";
 
@@ -433,7 +437,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test mit QR-Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Rufen Sie Ihr Testergebnis ab, indem Sie den QR-Code scannen und warnen Sie andere.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Testdokuments scannen.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Eingabe";
 
@@ -678,6 +682,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Weiter";
 
+"ExposureSubmissionSymptoms_DoneButton" = "Fertig";
+
 /* ExposureSubmissionSymptomsOnset */
 
 "ExposureSubmissionSymptomsOnset_Title" = "Symptom-Beginn";
@@ -862,7 +868,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mehrere Länder arbeiten zusammen, um über den gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen. Die Downloads der Listen mit den Zufalls-IDs sind für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
+"ExposureNotificationSetting_EU_Desc_2" = "Hierfür lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen.\n\nDie Downloads der Listen sind für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Derzeit nehmen die folgenden Länder an der länderübergreifenden Risiko-Ermittlung teil:";
 
@@ -1197,11 +1203,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend2_High" = "Erhöhtes Risiko";
 
-"RiskLegend_Legend2_High_Color" = "Rot";
-
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
-
-"RiskLegend_Legend2_Low_Color" = "Grün";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 

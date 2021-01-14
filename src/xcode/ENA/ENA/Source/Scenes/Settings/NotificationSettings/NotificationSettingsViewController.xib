@@ -104,6 +104,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73l-bO-Ic1" userLabel="Open Settings Button" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="110.5" width="350" height="50"/>
                                                             <state key="normal" title="# App-Einstellungen öffnen"/>
+                                                            <connections>
+                                                                <action selector="openSettings:" destination="-1" eventType="touchUpInside" id="e0L-61-1q7"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>

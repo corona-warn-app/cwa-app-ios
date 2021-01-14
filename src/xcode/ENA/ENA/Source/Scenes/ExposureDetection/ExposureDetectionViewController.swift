@@ -71,7 +71,10 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 			.store(in: &subscriptions)
 
 		viewModel.$riskBackgroundColor.assign(to: \.backgroundColor, on: headerView).store(in: &subscriptions)
+
 		viewModel.$titleText.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
+		viewModel.$titleTextAccessibilityColor.assign(to: \.accessibilityValue, on: titleLabel).store(in: &subscriptions)
+
 		viewModel.$titleTextColor.assign(to: \.textColor, on: titleLabel).store(in: &subscriptions)
 
 		viewModel.$buttonTitle
