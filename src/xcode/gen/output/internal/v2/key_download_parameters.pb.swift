@@ -27,9 +27,9 @@ struct SAP_Internal_V2_KeyDownloadParametersIOS {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cachedDayPackagesToUpdateOnEtagMismatch: [SAP_Internal_V2_DayPackageMetadata] = []
+  var revokedDayPackages: [SAP_Internal_V2_DayPackageMetadata] = []
 
-  var cachedHourPackagesToUpdateOnEtagMismatch: [SAP_Internal_V2_HourPackageMetadata] = []
+  var revokedHourPackages: [SAP_Internal_V2_HourPackageMetadata] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -41,9 +41,9 @@ struct SAP_Internal_V2_KeyDownloadParametersAndroid {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cachedDayPackagesToUpdateOnEtagMismatch: [SAP_Internal_V2_DayPackageMetadata] = []
+  var revokedDayPackages: [SAP_Internal_V2_DayPackageMetadata] = []
 
-  var cachedHourPackagesToUpdateOnEtagMismatch: [SAP_Internal_V2_HourPackageMetadata] = []
+  var revokedHourPackages: [SAP_Internal_V2_HourPackageMetadata] = []
 
   var downloadTimeoutInSeconds: Int32 = 0
 
@@ -95,8 +95,8 @@ fileprivate let _protobuf_package = "SAP.internal.v2"
 extension SAP_Internal_V2_KeyDownloadParametersIOS: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".KeyDownloadParametersIOS"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "cachedDayPackagesToUpdateOnETagMismatch"),
-    2: .same(proto: "cachedHourPackagesToUpdateOnETagMismatch"),
+    1: .same(proto: "revokedDayPackages"),
+    2: .same(proto: "revokedHourPackages"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -105,26 +105,26 @@ extension SAP_Internal_V2_KeyDownloadParametersIOS: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.cachedDayPackagesToUpdateOnEtagMismatch) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.cachedHourPackagesToUpdateOnEtagMismatch) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.revokedDayPackages) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.revokedHourPackages) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.cachedDayPackagesToUpdateOnEtagMismatch.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.cachedDayPackagesToUpdateOnEtagMismatch, fieldNumber: 1)
+    if !self.revokedDayPackages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.revokedDayPackages, fieldNumber: 1)
     }
-    if !self.cachedHourPackagesToUpdateOnEtagMismatch.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.cachedHourPackagesToUpdateOnEtagMismatch, fieldNumber: 2)
+    if !self.revokedHourPackages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.revokedHourPackages, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SAP_Internal_V2_KeyDownloadParametersIOS, rhs: SAP_Internal_V2_KeyDownloadParametersIOS) -> Bool {
-    if lhs.cachedDayPackagesToUpdateOnEtagMismatch != rhs.cachedDayPackagesToUpdateOnEtagMismatch {return false}
-    if lhs.cachedHourPackagesToUpdateOnEtagMismatch != rhs.cachedHourPackagesToUpdateOnEtagMismatch {return false}
+    if lhs.revokedDayPackages != rhs.revokedDayPackages {return false}
+    if lhs.revokedHourPackages != rhs.revokedHourPackages {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -133,8 +133,8 @@ extension SAP_Internal_V2_KeyDownloadParametersIOS: SwiftProtobuf.Message, Swift
 extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".KeyDownloadParametersAndroid"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "cachedDayPackagesToUpdateOnETagMismatch"),
-    2: .same(proto: "cachedHourPackagesToUpdateOnETagMismatch"),
+    1: .same(proto: "revokedDayPackages"),
+    2: .same(proto: "revokedHourPackages"),
     3: .same(proto: "downloadTimeoutInSeconds"),
     4: .same(proto: "overallTimeoutInSeconds"),
   ]
@@ -145,8 +145,8 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.cachedDayPackagesToUpdateOnEtagMismatch) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.cachedHourPackagesToUpdateOnEtagMismatch) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.revokedDayPackages) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.revokedHourPackages) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.downloadTimeoutInSeconds) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.overallTimeoutInSeconds) }()
       default: break
@@ -155,11 +155,11 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.cachedDayPackagesToUpdateOnEtagMismatch.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.cachedDayPackagesToUpdateOnEtagMismatch, fieldNumber: 1)
+    if !self.revokedDayPackages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.revokedDayPackages, fieldNumber: 1)
     }
-    if !self.cachedHourPackagesToUpdateOnEtagMismatch.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.cachedHourPackagesToUpdateOnEtagMismatch, fieldNumber: 2)
+    if !self.revokedHourPackages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.revokedHourPackages, fieldNumber: 2)
     }
     if self.downloadTimeoutInSeconds != 0 {
       try visitor.visitSingularInt32Field(value: self.downloadTimeoutInSeconds, fieldNumber: 3)
@@ -171,8 +171,8 @@ extension SAP_Internal_V2_KeyDownloadParametersAndroid: SwiftProtobuf.Message, S
   }
 
   static func ==(lhs: SAP_Internal_V2_KeyDownloadParametersAndroid, rhs: SAP_Internal_V2_KeyDownloadParametersAndroid) -> Bool {
-    if lhs.cachedDayPackagesToUpdateOnEtagMismatch != rhs.cachedDayPackagesToUpdateOnEtagMismatch {return false}
-    if lhs.cachedHourPackagesToUpdateOnEtagMismatch != rhs.cachedHourPackagesToUpdateOnEtagMismatch {return false}
+    if lhs.revokedDayPackages != rhs.revokedDayPackages {return false}
+    if lhs.revokedHourPackages != rhs.revokedHourPackages {return false}
     if lhs.downloadTimeoutInSeconds != rhs.downloadTimeoutInSeconds {return false}
     if lhs.overallTimeoutInSeconds != rhs.overallTimeoutInSeconds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
