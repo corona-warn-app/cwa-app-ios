@@ -91,10 +91,13 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			switch index {
 			case 0:
 				selectedSymptomsOption = .yes
+				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.continueButton
 			case 1:
 				selectedSymptomsOption = .no
+				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.doneButton
 			case 2:
 				selectedSymptomsOption = .preferNotToSay
+				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.doneButton
 			default:
 				break
 			}

@@ -7,13 +7,6 @@
     "licenseUrl": "https://raw.githubusercontent.com/weichsel/ZIPFoundation/development/LICENSE"
   },
   {
-    "component": "SwiftLint",
-    "licensor": "Realm Inc.",
-    "website": "https://github.com/realm/SwiftLint",
-    "license": "MIT License",
-    "licenseUrl": "https://raw.githubusercontent.com/realm/SwiftLint/master/LICENSE"
-  },
-  {
     "component": "SQLCipher",
     "licensor": "zetetic",
     "website": "https://www.zetetic.net/sqlcipher/",
@@ -33,5 +26,19 @@
     "website": "https://github.com/apple/swift-protobuf",
     "license": "Apache 2.0 License",
     "licenseUrl": "https://raw.githubusercontent.com/apple/swift-protobuf/master/LICENSE.txt"
+  },
+  {
+    "component": "ColorCompatibility",
+    "licensor": "Noah Gilmore",
+    "website": "https://github.com/noahsark769/ColorCompatibility",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/noahsark769/ColorCompatibility/main/LICENSE"
+  },
+  {
+    "component": "OpenCombine",
+    "licensor": "Sergej Jaskiewicz",
+    "website": "https://github.com/OpenCombine/OpenCombine",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/OpenCombine/OpenCombine/master/LICENSE"
   }
 ]

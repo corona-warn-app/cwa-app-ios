@@ -22,7 +22,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct SAP_Internal_V2_ApplicationConfigurationIOS {
+struct SAP_Internal_ApplicationConfiguration {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -129,7 +129,7 @@ struct SAP_Internal_V2_ApplicationConfigurationIOS {
 
 fileprivate let _protobuf_package = "SAP.internal"
 
-extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ApplicationConfiguration"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "minRiskScore"),
@@ -248,7 +248,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SAP_Internal_V2_ApplicationConfigurationIOS, rhs: SAP_Internal_V2_ApplicationConfigurationIOS) -> Bool {
+  static func ==(lhs: SAP_Internal_ApplicationConfiguration, rhs: SAP_Internal_ApplicationConfiguration) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
