@@ -6,30 +6,15 @@ import UIKit
 
 class DiaryOverviewDayTableViewCell: UITableViewCell {
 
-	// MARK: - Override
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-
-//		exposureHistoryTitleLabel.font = .enaFont(for: .headline)
-//		exposureHistoryTitleLabel.textColor = .enaColor(for: .textPrimary1)
-//		exposureHistoryDetailLabel.font = .enaFont(for: .subheadline)
-//		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary1)
-
-		exposureHistoryStackView.isHidden = false
-	}
-
-//	override func prepareForReuse() {
-//		super.prepareForReuse()
-//
-//	}
-
 	// MARK: - Internal
 
 	func configure(cellViewModel: DiaryOverviewDayCellModel) {
 		dateLabel.text = cellViewModel.formattedDate
+
 		exposureHistoryStackView.isHidden = !cellViewModel.showExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
+		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
+		exposureHistoryDetailLabel.text = cellViewModel.exposureHistoryDetail
 
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
