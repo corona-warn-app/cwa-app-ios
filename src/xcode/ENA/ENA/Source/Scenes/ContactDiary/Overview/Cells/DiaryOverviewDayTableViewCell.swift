@@ -6,6 +6,14 @@ import UIKit
 
 class DiaryOverviewDayTableViewCell: UITableViewCell {
 
+	// MARK: - Override
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		exposureHistoryStackView.isHidden = false
+	}
+
 	// MARK: - Internal
 
 	func configure(day: DiaryDay) {
@@ -52,5 +60,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var dateLabel: ENALabel!
 	@IBOutlet private weak var encountersVisitsContainerStackView: UIStackView!
 	@IBOutlet private weak var encountersVisitsStackView: UIStackView!
+	@IBOutlet private weak var exposureHistoryStackView: UIStackView!
+	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
+	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
+	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
 
 }
