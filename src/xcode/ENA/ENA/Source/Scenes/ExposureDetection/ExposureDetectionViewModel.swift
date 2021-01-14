@@ -89,7 +89,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var titleTextAccessibilityColor: String? = RiskLevel.low.accessibilityRiskColor
 
 	@OpenCombine.Published var riskBackgroundColor: UIColor! = RiskLevel.low.backgroundColor
-	@OpenCombine.Published var titleTextColor: UIColor = RiskLevel.low.contrastTextColor
+	@OpenCombine.Published var titleTextColor: UIColor = .enaColor(for: .textContrast)
 	@OpenCombine.Published var closeButtonStyle: CloseButtonStyle = .contrast
 
 	@OpenCombine.Published var buttonTitle: String! = AppStrings.ExposureDetection.buttonRefresh
@@ -120,8 +120,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	var riskContrastTintColor: UIColor {
 		switch homeState.riskState {
-		case .risk(let risk):
-			return risk.level.contrastTintColor
+		case .risk:
+			return .enaColor(for: .textContrast)
 		case .inactive, .detectionFailed:
 			return .enaColor(for: .riskNeutral)
 		}
@@ -267,7 +267,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
 
 		riskBackgroundColor = risk.level.backgroundColor
-		titleTextColor = risk.level.contrastTextColor
+		titleTextColor = .enaColor(for: .textContrast)
 		closeButtonStyle = .contrast
 
 		buttonTitle = riskButtonTitle
@@ -610,20 +610,6 @@ extension RiskLevel {
 		switch self {
 		case .low: return .enaColor(for: .riskLow)
 		case .high: return .enaColor(for: .riskHigh)
-		}
-	}
-
-	var contrastTintColor: UIColor {
-		switch self {
-		case .low: return .enaColor(for: .textContrast)
-		case .high: return .enaColor(for: .textContrast)
-		}
-	}
-
-	var contrastTextColor: UIColor {
-		switch self {
-		case .low: return .enaColor(for: .textContrast)
-		case .high: return .enaColor(for: .textContrast)
 		}
 	}
 
