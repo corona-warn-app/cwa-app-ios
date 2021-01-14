@@ -76,6 +76,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	@objc
 	func toggle(_ sender: Any) {
 		actionSwitch.isOn.toggle()
+		switchValueDidChange(self)
 		setupAccessibility()
 	}
 
