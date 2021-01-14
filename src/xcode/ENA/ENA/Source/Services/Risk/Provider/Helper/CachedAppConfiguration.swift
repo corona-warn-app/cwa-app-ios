@@ -28,13 +28,6 @@ final class CachedAppConfiguration {
 		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
 	}
 
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	enum CacheError: Error {
