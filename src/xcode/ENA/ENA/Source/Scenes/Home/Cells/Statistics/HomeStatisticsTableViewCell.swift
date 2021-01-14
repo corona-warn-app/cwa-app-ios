@@ -19,17 +19,20 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	func configure(onInfoButtonTap: @escaping () -> Void) {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for _ in 0...3 {
+		for index in 0...3 {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
 
-			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
+			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView, let card = HomeStatisticsCardViewModel.Card(rawValue: index) {
 				stackView.addArrangedSubview(statisticsCardView)
 
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-				statisticsCardView.configure(onInfoButtonTap: {
-					onInfoButtonTap()
-				})
+				statisticsCardView.configure(
+					viewModel: HomeStatisticsCardViewModel(for: card),
+					onInfoButtonTap: {
+						onInfoButtonTap()
+					}
+				)
 			}
 		}
 	}
