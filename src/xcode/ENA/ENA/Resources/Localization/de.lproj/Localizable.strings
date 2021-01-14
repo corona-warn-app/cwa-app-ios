@@ -919,9 +919,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Ermittlung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
-"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung aktivieren";
 
-"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung aktivieren";
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
