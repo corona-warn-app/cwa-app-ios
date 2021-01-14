@@ -626,7 +626,6 @@
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
 		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
-		EBA403D02589260D00D1F039 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = EBA403CE2589260D00D1F039 /* LICENSE */; };
 		EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */; };
 		EBB92C72259E10ED00013B41 /* AppDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C71259E10ED00013B41 /* AppDisabledViewController.swift */; };
 		EBB92C77259E110900013B41 /* AppDisabledViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* AppDisabledViewModel.swift */; };
@@ -1335,7 +1334,6 @@
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
-		EBA403CE2589260D00D1F039 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
 		EBB92C71259E10ED00013B41 /* AppDisabledViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDisabledViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* AppDisabledViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDisabledViewModel.swift; sourceTree = "<group>"; };
@@ -3567,7 +3565,6 @@
 			isa = PBXGroup;
 			children = (
 				EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */,
-				EBA403CE2589260D00D1F039 /* LICENSE */,
 			);
 			path = ColorCompatibility;
 			sourceTree = "<group>";
@@ -3881,7 +3878,6 @@
 				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				01D02707258BBCC700B6389A /* ImageTableViewCell.xib in Resources */,
-				EBA403D02589260D00D1F039 /* LICENSE in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
 				01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
@@ -4744,7 +4740,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -4900,7 +4896,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -5075,7 +5071,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -5312,7 +5308,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -5353,7 +5349,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5496,7 +5492,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -5540,7 +5536,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -5583,7 +5579,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
