@@ -108,10 +108,7 @@ final class HomeTestResultTableViewCell: UITableViewCell {
 	}
 
 	func setupAccessibility() {
-		titleLabel.isAccessibilityElement = true
-		subtitleLabel.isAccessibilityElement = true
-		descriptionLabel.isAccessibilityElement = true
-		isAccessibilityElement = false
+		cardView.accessibilityElements = [titleLabel as Any, subtitleLabel as Any, descriptionLabel as Any, button as Any]
 
 		titleLabel.accessibilityTraits = [.header, .button]
 	}

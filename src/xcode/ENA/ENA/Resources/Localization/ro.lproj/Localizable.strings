@@ -432,7 +432,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Testarea cu cod QR";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Scanați codul dvs. QR pentru a afla rezultatul testului dvs. și a-i avertiza pe ceilalți.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Înregistrați-vă testul scanând codul QR al documentului de testare.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "Introduceți TAN";
 
@@ -626,7 +626,7 @@
 
 "ExposureSubmissionResult_testPending" = "Rezultatul testului dvs. nu este încă disponibil.";
 
-"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, eliminați testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
+"ExposureSubmissionResult_testPendingDesc" = "Imediat ce devine disponibil, rezultatul testului dvs. va fi afișat în aplicație.\n\nDe asemenea, veți primi rezultatul testului în afara aplicației. Autoritățile de sănătate publică vă vor anunța dacă testul dvs. este pozitiv.\n\nDacă sunteți notificat privind un rezultat pozitiv al testului în afara aplicației, eliminați testul curent înregistrat în aplicație. Apelați numărul indicat la „Solicitare TAN” pentru a obține un număr TAN. Apoi, puteți utiliza acest TAN pentru a vă înregistra rezultatul în aplicație și pentru a-i avertiza pe ceilalți.";
 
 "ExposureSubmissionResult_WarnOthersConsentGiven" = "Consimțământ „Avertizați-i pe ceilalți” acordat";
 
@@ -854,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. Descărcările listelor de ID-uri aleatorii sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. \n\nDescărcările listelor de ID-uri aleatorii sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Următoarele țări participă în prezent la înregistrarea în jurnal a expunerilor la nivel transnațional:";
 
@@ -1244,7 +1244,7 @@
 
 "DeltaOnboarding_Headline" = "Înregistrare transnațională a expunerilor în jurnal";
 
-"DeltaOnboarding_Description" = "Caracteristicile aplicației Corona-Warn au fost extinse. Multe țări s-au asociat pentru a susține avertizarea la nivel internațional, pe baza unui server de schimb operat în comun. Acum poate fi luată în considerare posibila expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din alte țări participante când se calculează riscul dvs. de expunere.\n\nPentru aceasta, aplicația descarcă liste, care sunt actualizate zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin intermediul propriei aplicații. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs.\n\nDescărcările listelor de ID-uri aleatorii sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"DeltaOnboarding_Description" = "Caracteristicile aplicației Corona-Warn au fost extinse. Multe țări s-au asociat pentru a susține avertizarea la nivel internațional, pe baza unui server de schimb operat în comun. Acum poate fi luată în considerare posibila expunere la utilizatori ai aplicațiilor oficiale anticoronavirus din alte țări participante când se calculează riscul dvs. de expunere.\n\nPentru aceasta, aplicația descarcă liste, care sunt actualizate zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat ID-urile aleatorii prin intermediul propriei aplicații. Această listă este apoi comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs.\n\nDescărcările listelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "DeltaOnboarding_ParticipatingCountries" = "În prezent participă următoare țări:";
 
@@ -1321,6 +1321,8 @@
 "TestResultPositive_WithConsent_SecondaryButton" = "Ieșire";
 
 /* Overview */
+"ContactDiary_Overview_Button_Title_Menu" = "Meniu";
+
 "ContactDiary_Overview_Title" = "Jurnal de contacte";
 
 "ContactDiary_Overview_Description" = "Notați persoanele pe care le-ați întâlnit și locurile pe care le-ați vizitat. ";

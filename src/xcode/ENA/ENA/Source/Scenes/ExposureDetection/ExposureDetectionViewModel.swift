@@ -86,6 +86,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
 
 	@OpenCombine.Published var titleText: String! = RiskLevel.low.text
+	@OpenCombine.Published var titleTextAccessibilityColor: String? = RiskLevel.low.accessibilityRiskColor
 
 	@OpenCombine.Published var riskBackgroundColor: UIColor! = RiskLevel.low.backgroundColor
 	@OpenCombine.Published var titleTextColor: UIColor = .enaColor(for: .textContrast)
@@ -96,8 +97,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
 	@OpenCombine.Published var exposureNotificationError: ExposureNotificationError?
-
-	var titleTextAccessibilityColor: String! = RiskLevel.low.accessibilityRiskColor
 
 	var previousRiskTitle: String {
 		switch homeState.lastRiskCalculationResult?.riskLevel {
@@ -250,6 +249,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		// Update dynamic table view model with current risk state
 		setup(for: homeState.riskState)
 
+		titleTextAccessibilityColor = nil
+
 		isButtonHidden = true
 		isButtonEnabled = false
 	}
@@ -263,6 +264,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		}
 
 		titleText = risk.level.text
+		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
 
 		riskBackgroundColor = risk.level.backgroundColor
 		titleTextColor = .enaColor(for: .textContrast)
@@ -277,6 +279,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		dynamicTableViewModel = inactiveModel
 
 		titleText = AppStrings.ExposureDetection.off
+		titleTextAccessibilityColor = nil
 
 		riskBackgroundColor = .enaColor(for: .background)
 		titleTextColor = .enaColor(for: .textPrimary1)
@@ -291,6 +294,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		dynamicTableViewModel = failureModel
 
 		titleText = AppStrings.ExposureDetection.riskCardFailedCalculationTitle
+		titleTextAccessibilityColor = nil
 
 		riskBackgroundColor = .enaColor(for: .background)
 		titleTextColor = .enaColor(for: .textPrimary1)

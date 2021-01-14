@@ -14,6 +14,8 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 		stackView.setCustomSpacing(32.0, after: topContainer)
 		stackView.setCustomSpacing(32.0, after: statusContainer)
 		stackView.setCustomSpacing(8.0, after: noteLabel)
+
+		setupAccessibility()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -107,6 +109,8 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 	}
 
 	func setupAccessibility() {
+		containerView.accessibilityElements = [topContainer as Any, statusContainer as Any, noteLabel as Any, homeItemStackView as Any, nextButton as Any]
+
 		topContainer.isAccessibilityElement = true
 		topContainer.accessibilityTraits = [.button, .header]
 	}
