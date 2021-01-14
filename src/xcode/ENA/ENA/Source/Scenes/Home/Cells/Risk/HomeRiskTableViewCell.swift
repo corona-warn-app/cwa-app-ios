@@ -57,6 +57,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(with cellModel: HomeRiskCellModel) {
+		guard !isConfigured else { return }
+
 		cellModel.$title.assign(to: \.text, on: titleLabel).store(in: &subscriptions)
 		cellModel.$title.assign(to: \.accessibilityLabel, on: topContainer).store(in: &subscriptions)
 		cellModel.$titleAccessibilityValue.assign(to: \.accessibilityValue, on: topContainer).store(in: &subscriptions)
@@ -123,6 +125,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 		// Retaining cell model so it gets updated
 		self.cellModel = cellModel
+
+		isConfigured = true
 	}
 
 	// MARK: - Private
@@ -140,6 +144,8 @@ final class HomeRiskTableViewCell: UITableViewCell {
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var cellModel: HomeRiskCellModel?
+
+	private var isConfigured: Bool = false
 
 	@IBAction private func buttonTapped(_: UIButton) {
 		cellModel?.onButtonTap()
