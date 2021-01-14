@@ -139,7 +139,7 @@ extension DynamicCell {
 	}
 
 	static func link(text: String, url: URL?) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
+		.custom(withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
 		}
 	}

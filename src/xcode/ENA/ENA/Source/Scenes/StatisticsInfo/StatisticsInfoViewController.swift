@@ -35,7 +35,9 @@ class StatisticsInfoViewController: DynamicTableViewController {
 		)
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.title = AppStrings.RiskLegend.title
+		navigationItem.title = AppStrings.Statistics.Info.title
+
+		view.backgroundColor = .enaColor(for: .background)
 
 		dynamicTableViewModel = model
 	}
@@ -63,128 +65,212 @@ class StatisticsInfoViewController: DynamicTableViewController {
 			UINib(nibName: String(describing: RiskLegendDotBodyCell.self), bundle: nil),
 			forCellReuseIdentifier: RiskLegendViewController.CellReuseIdentifier.dotBody.rawValue
 		)
+
+		tableView.register(
+			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
+			forCellReuseIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link.rawValue
+		)
 	}
 
 	private var model: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.navigationSubtitle(
-				text: AppStrings.RiskLegend.subtitle,
-				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle),
+				text: AppStrings.Statistics.Info.subtitle,
+				accessibilityIdentifier: nil
+			),
 			.section(
 				header: .image(UIImage(named: "Illu_StatisticsInfo"),
-							   accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,
-							   accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.titleImageAccLabel,
+							   accessibilityLabel: AppStrings.Statistics.Info.titleImageAccLabel,
+							   accessibilityIdentifier: nil,
 							   height: 200),
-				footer: .space(height: 32),
+				footer: .space(height: 16),
 				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_1"), text: .string(AppStrings.RiskLegend.legend1Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+					.title2(
+						text: AppStrings.Statistics.Info.newInfectionsTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.RiskLegend.legend1Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend1Text)
+						text: AppStrings.Statistics.Info.newInfectionsText,
+						accessibilityIdentifier: nil
+					)
 				]
 			),
 			.section(
-				footer: .space(height: 32),
+				footer: .space(height: 16),
 				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_2"), text: .string(AppStrings.RiskLegend.legend2Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+					.title2(
+						text: AppStrings.Statistics.Info.warningPersonsTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.RiskLegend.legend2Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text),
-					.space(height: 8),
-					.headline(
-						text: AppStrings.RiskLegend.legend2RiskLevels,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2RiskLevels),
-					.space(height: 8),
-					.dotBodyCell(
-						color: .enaColor(for: .riskHigh),
-						text: AppStrings.RiskLegend.legend2High,
-						accessibilityLabelColor: AppStrings.ExposureDetection.highColorName,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High),
-					.dotBodyCell(
-						color: .enaColor(for: .riskLow),
-						text: AppStrings.RiskLegend.legend2Low,
-						accessibilityLabelColor: AppStrings.ExposureDetection.lowColorName,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor)
+						text: AppStrings.Statistics.Info.warningPersonsText,
+						accessibilityIdentifier: nil
+					)
+				]
+			),
+			.section(
+				footer: .space(height: 16),
+				cells: [
+					.title2(
+						text: AppStrings.Statistics.Info.incidenceTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.incidenceText,
+						accessibilityIdentifier: nil
+					)
+				]
+			),
+			.section(
+				footer: .space(height: 16),
+				cells: [
+					.title2(
+						text: AppStrings.Statistics.Info.rValueTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.rValueText,
+						accessibilityIdentifier: nil
+					)
 				]
 			),
 			.section(
 				footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
 				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_3"), text: .string(AppStrings.RiskLegend.legend3Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.RiskLegend.legend3Text,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend3Text)
+						text: AppStrings.Statistics.Info.faqLinkText,
+						accessibilityIdentifier: nil
+					),
+					.link(
+						text: AppStrings.Statistics.Info.faqLinkTitle,
+						url: URL(staticString: "http://www.corona-warn-app.com")
+					)
 				]
 			),
 			.section(
 				footer: .space(height: 8),
 				cells: [
 					.title2(
-						text: AppStrings.RiskLegend.definitionsTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.definitionsTitle)
+						text: AppStrings.Statistics.Info.definitionsTitle,
+						accessibilityIdentifier: nil
+					)
 				]
 			),
 			.section(
 				cells: [
 					.headlineWithoutBottomInset(
-						text: AppStrings.RiskLegend.storeTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.storeTitle),
-					.body(
-						text: AppStrings.RiskLegend.storeText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.storeText)
-				]
-			),
-			.section(
-				header: .space(height: 16),
-				cells: [
+						text: AppStrings.Statistics.Info.periodTitle,
+						accessibilityIdentifier: nil
+					),
+					.space(height: 8),
 					.headlineWithoutBottomInset(
-						text: AppStrings.RiskLegend.checkTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.checkTitle),
+						text: AppStrings.Statistics.Info.yesterdayTitle,
+						color: .enaColor(for: .textPrimary2),
+						accessibilityIdentifier: nil
+					),
 					.body(
-						text: AppStrings.RiskLegend.checkText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.checkText)
-				]
-			),
-			.section(
-				header: .space(height: 16),
-				cells: [
+						text: AppStrings.Statistics.Info.yesterdayText,
+						accessibilityIdentifier: nil
+					),
+					.space(height: 8),
 					.headlineWithoutBottomInset(
-						text: AppStrings.RiskLegend.contactTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.contactTitle),
+						text: AppStrings.Statistics.Info.meanTitle,
+						color: .enaColor(for: .textPrimary2),
+						accessibilityIdentifier: nil
+					),
 					.body(
-						text: AppStrings.RiskLegend.contactText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.contactText)
-				]
-			),
-			.section(
-				header: .space(height: 16),
-				cells: [
+						text: AppStrings.Statistics.Info.meanText,
+						accessibilityIdentifier: nil
+					),
+					.space(height: 8),
 					.headlineWithoutBottomInset(
-						text: AppStrings.RiskLegend.notificationTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.notificationTitle),
+						text: AppStrings.Statistics.Info.totalTitle,
+						color: .enaColor(for: .textPrimary2),
+						accessibilityIdentifier: nil
+					),
 					.body(
-						text: AppStrings.RiskLegend.notificationText,
-						accessibilityIdentifier:AccessibilityIdentifiers.RiskLegend.notificationText)
+						text: AppStrings.Statistics.Info.totalText,
+						accessibilityIdentifier: nil
+					)
 				]
 			),
 			.section(
 				header: .space(height: 16),
+				footer: .space(height: 16),
 				cells: [
 					.headlineWithoutBottomInset(
-						text: AppStrings.RiskLegend.randomTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.randomTitle),
+						text: AppStrings.Statistics.Info.trendTitle,
+						accessibilityIdentifier: nil
+					),
 					.body(
-						text: AppStrings.RiskLegend.randomText,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.randomText)
+						text: AppStrings.Statistics.Info.trendText,
+						accessibilityIdentifier: nil
+					),
+					.space(height: 8),
+					.headlineWithoutBottomInset(
+						text: AppStrings.Statistics.Info.trendsTitle,
+						accessibilityIdentifier: nil
+					),
+					.icon(UIImage(named: "Pfeil_steigend"), text: .string(AppStrings.Statistics.Info.trendsIncreasing), iconWidth: 19),
+					.icon(UIImage(named: "Pfeil_sinkend"), text: .string(AppStrings.Statistics.Info.trendsDecreasing), iconWidth: 19),
+					.icon(UIImage(named: "Pfeil_stabil"), text: .string(AppStrings.Statistics.Info.trendsStable), iconWidth: 19),
+					.footnote(
+						text: AppStrings.Statistics.Info.trendsFootnote,
+						accessibilityIdentifier: nil
+					)
 				]
 			)
+//			.section(
+//				header: .space(height: 16),
+//				cells: [
+//					.headlineWithoutBottomInset(
+//						text: AppStrings.Statistics.Info.checkTitle,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.checkTitle),
+//					.body(
+//						text: AppStrings.Statistics.Info.checkText,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.checkText)
+//				]
+//			),
+//			.section(
+//				header: .space(height: 16),
+//				cells: [
+//					.headlineWithoutBottomInset(
+//						text: AppStrings.Statistics.Info.contactTitle,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.contactTitle),
+//					.body(
+//						text: AppStrings.Statistics.Info.contactText,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.contactText)
+//				]
+//			),
+//			.section(
+//				header: .space(height: 16),
+//				cells: [
+//					.headlineWithoutBottomInset(
+//						text: AppStrings.Statistics.Info.notificationTitle,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.notificationTitle),
+//					.body(
+//						text: AppStrings.Statistics.Info.notificationText,
+//						accessibilityIdentifier:AccessibilityIdentifiers.Statistics.Info.notificationText)
+//				]
+//			),
+//			.section(
+//				header: .space(height: 16),
+//				cells: [
+//					.headlineWithoutBottomInset(
+//						text: AppStrings.Statistics.Info.randomTitle,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.randomTitle),
+//					.body(
+//						text: AppStrings.Statistics.Info.randomText,
+//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.randomText)
+//				]
+//			)
 		])
 	}
 }
 
 private extension DynamicCell {
-	static func headlineWithoutBottomInset(text: String, accessibilityIdentifier: String?) -> Self {
-		.headline(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
+	static func headlineWithoutBottomInset(text: String, color: UIColor? = nil, accessibilityIdentifier: String?) -> Self {
+		.headline(text: text, color: color, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
 			cell.accessibilityIdentifier = accessibilityIdentifier

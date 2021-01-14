@@ -765,6 +765,7 @@ enum AppStrings {
 		static let actionUpdate = NSLocalizedString("Update_Message_Action_Update", comment: "")
 		static let actionLater = NSLocalizedString("Update_Message_Action_Later", comment: "")
 	}
+
 	enum AppInformation {
 		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
 		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")
@@ -973,6 +974,72 @@ enum AppStrings {
 				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
 			}
 		}
+	}
+
+	enum Statistics {
+
+		enum Card {
+
+			enum NewInfections {
+				static let title = NSLocalizedString("Statistics_Card_NewInfections_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_NewInfections_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_NewInfections_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_NewInfections_TertiaryLabelTitle", comment: "")
+			}
+
+			enum WarningPersons {
+				static let title = NSLocalizedString("Statistics_Card_WarningPersons_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_WarningPersons_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_WarningPersons_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_WarningPersons_TertiaryLabelTitle", comment: "")
+				static let footnote = NSLocalizedString("Statistics_Card_WarningPersons_Footnote", comment: "")
+			}
+
+			enum Incidence {
+				static let title = NSLocalizedString("Statistics_Card_Incidence_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_SecondaryLabelTitle", comment: "")
+			}
+
+			enum RValue {
+				static let title = NSLocalizedString("Statistics_Card_RValue_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_RValue_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_RValue_SecondaryLabelTitle", comment: "")
+			}
+
+		}
+
+		enum Info {
+			static let title = NSLocalizedString("Statistics_Info_Title", comment: "")
+			static let subtitle = NSLocalizedString("Statistics_Info_Subtitle", comment: "")
+			static let newInfectionsTitle = NSLocalizedString("Statistics_Info_NewInfections_Title", comment: "")
+			static let newInfectionsText = NSLocalizedString("Statistics_Info_NewInfections_Text", comment: "")
+			static let warningPersonsTitle = NSLocalizedString("Statistics_Info_WarningPersons_Title", comment: "")
+			static let warningPersonsText = NSLocalizedString("Statistics_Info_WarningPersons_Text", comment: "")
+			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
+			static let incidenceText = NSLocalizedString("Statistics_Info_Incidence_Text", comment: "")
+			static let rValueTitle = NSLocalizedString("Statistics_Info_RValue_Title", comment: "")
+			static let rValueText = NSLocalizedString("Statistics_Info_RValue_Text", comment: "")
+			static let faqLinkText = NSLocalizedString("Statistics_Info_FAQLink_Text", comment: "")
+			static let faqLinkTitle = NSLocalizedString("Statistics_Info_FAQLink_Title", comment: "")
+			static let definitionsTitle = NSLocalizedString("Statistics_Info_Definitions_Title", comment: "")
+			static let periodTitle = NSLocalizedString("Statistics_Info_Period_Title", comment: "")
+			static let yesterdayTitle = NSLocalizedString("Statistics_Info_Yesterday_Title", comment: "")
+			static let yesterdayText = NSLocalizedString("Statistics_Info_Yesterday_Text", comment: "")
+			static let meanTitle = NSLocalizedString("Statistics_Info_Mean_Title", comment: "")
+			static let meanText = NSLocalizedString("Statistics_Info_Mean_Text", comment: "")
+			static let totalTitle = NSLocalizedString("Statistics_Info_Total_Title", comment: "")
+			static let totalText = NSLocalizedString("Statistics_Info_Total_Text", comment: "")
+			static let trendTitle = NSLocalizedString("Statistics_Info_Trend_Title", comment: "")
+			static let trendText = NSLocalizedString("Statistics_Info_Trend_Text", comment: "")
+			static let trendsTitle = NSLocalizedString("Statistics_Info_Trends_Title", comment: "")
+			static let trendsIncreasing = NSLocalizedString("Statistics_Info_Trends_Increasing", comment: "")
+			static let trendsDecreasing = NSLocalizedString("Statistics_Info_Trends_Decreasing", comment: "")
+			static let trendsStable = NSLocalizedString("Statistics_Info_Trends_Stable", comment: "")
+			static let trendsFootnote = NSLocalizedString("Statistics_Info_Trends_Footnote", comment: "")
+			static let titleImageAccLabel = NSLocalizedString("Statistics_Info_Image_AccLabel", comment: "")
+		}
+
 	}
 	
 	// swiftlint:disable:next file_length
