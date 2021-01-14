@@ -8,40 +8,7 @@ import ZIPFoundation
 
 final class CachedAppConfiguration {
 
-	private struct AppConfigResponse {
-		let config: SAP_Internal_V2_ApplicationConfigurationIOS
-		let etag: String?
-	}
-
-	enum CacheError: Error {
-		case dataFetchError(message: String?)
-		case dataVerificationError(message: String?)
-		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
-		case notModified
-	}
-
-	@OpenCombine.Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
-
-	/// A reference to the key package store to directly allow removal of invalidated key packages
-	weak var packageStore: DownloadedPackagesStore?
-
-	/// Most likely a HTTP client
-	private let client: AppConfigurationFetching
-
-	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching
-
-	private let deviceTimeCheck: DeviceTimeCheckProtocol
-
-	private var subscriptions = [AnyCancellable]()
-
-	/// The location of the default app configuration.
-	private var defaultAppConfigPath: URL {
-		guard let url = Bundle.main.url(forResource: "default_app_config_18", withExtension: "") else {
-			fatalError("Could not locate default app config")
-		}
-		return url
-	}
+	// MARK: - Init
 
 	init(
 		client: AppConfigurationFetching,
@@ -59,6 +26,52 @@ final class CachedAppConfiguration {
 
 		// check for updated or fetch initial app configuration
 		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
+	}
+
+
+	// MARK: - Overrides
+
+	// MARK: - Protocol <#Name#>
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	enum CacheError: Error {
+		case dataFetchError(message: String?)
+		case dataVerificationError(message: String?)
+		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
+		case notModified
+	}
+
+	@OpenCombine.Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
+
+	/// A reference to the key package store to directly allow removal of invalidated key packages
+	weak var packageStore: DownloadedPackagesStore?
+
+
+	// MARK: - Private
+
+	private struct AppConfigResponse {
+		let config: SAP_Internal_V2_ApplicationConfigurationIOS
+		let etag: String?
+	}
+
+	/// Most likely a HTTP client
+	private let client: AppConfigurationFetching
+
+	/// The place where the app config and last etag is stored
+	private let store: AppConfigCaching
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
+
+	private var subscriptions = [AnyCancellable]()
+
+	/// The location of the default app configuration.
+	private var defaultAppConfigPath: URL {
+		guard let url = Bundle.main.url(forResource: "default_app_config_18", withExtension: "") else {
+			fatalError("Could not locate default app config")
+		}
+		return url
 	}
 
 	private var promises = [(Result<CachedAppConfiguration.AppConfigResponse, Never>) -> Void]()
