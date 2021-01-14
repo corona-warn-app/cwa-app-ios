@@ -220,50 +220,6 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					)
 				]
 			)
-//			.section(
-//				header: .space(height: 16),
-//				cells: [
-//					.headlineWithoutBottomInset(
-//						text: AppStrings.Statistics.Info.checkTitle,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.checkTitle),
-//					.body(
-//						text: AppStrings.Statistics.Info.checkText,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.checkText)
-//				]
-//			),
-//			.section(
-//				header: .space(height: 16),
-//				cells: [
-//					.headlineWithoutBottomInset(
-//						text: AppStrings.Statistics.Info.contactTitle,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.contactTitle),
-//					.body(
-//						text: AppStrings.Statistics.Info.contactText,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.contactText)
-//				]
-//			),
-//			.section(
-//				header: .space(height: 16),
-//				cells: [
-//					.headlineWithoutBottomInset(
-//						text: AppStrings.Statistics.Info.notificationTitle,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.notificationTitle),
-//					.body(
-//						text: AppStrings.Statistics.Info.notificationText,
-//						accessibilityIdentifier:AccessibilityIdentifiers.Statistics.Info.notificationText)
-//				]
-//			),
-//			.section(
-//				header: .space(height: 16),
-//				cells: [
-//					.headlineWithoutBottomInset(
-//						text: AppStrings.Statistics.Info.randomTitle,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.randomTitle),
-//					.body(
-//						text: AppStrings.Statistics.Info.randomText,
-//						accessibilityIdentifier: AccessibilityIdentifiers.Statistics.Info.randomText)
-//				]
-//			)
 		])
 	}
 }
