@@ -1007,6 +1007,10 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_RValue_SecondaryLabelTitle", comment: "")
 			}
 
+			static let trendIncreasing = NSLocalizedString("Statistics_Card_Trend_Increasing", comment: "")
+			static let trendDecreasing = NSLocalizedString("Statistics_Card_Trend_Decreasing", comment: "")
+			static let trendStable = NSLocalizedString("Statistics_Card_Trend_Stable", comment: "")
+
 		}
 
 		enum Info {

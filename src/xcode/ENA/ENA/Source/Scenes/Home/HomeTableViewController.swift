@@ -389,9 +389,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
 
-		cell.configure(onInfoButtonTap: { [weak self] in
-			self?.onStatisticsInfoButtonTap()
-		})
+		cell.configure(
+			onInfoButtonTap: { [weak self] in
+				self?.onStatisticsInfoButtonTap()
+			},
+			onAccessibilityFocus: { [weak self] in
+				self?.tableView.contentOffset.x = 0
+				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+			}
+		)
 
 		return cell
 	}

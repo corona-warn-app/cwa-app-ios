@@ -16,7 +16,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(onInfoButtonTap: @escaping () -> Void) {
+	func configure(onInfoButtonTap: @escaping () -> Void, onAccessibilityFocus: @escaping () -> Void) {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		for index in 0...3 {
@@ -31,6 +31,11 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					viewModel: HomeStatisticsCardViewModel(for: card),
 					onInfoButtonTap: {
 						onInfoButtonTap()
+					},
+					onAccessibilityFocus: { [weak self] in
+						self?.scrollView.scrollRectToVisible(statisticsCardView.frame, animated: false)
+						onAccessibilityFocus()
+						UIAccessibility.post(notification: .layoutChanged, argument: nil)
 					}
 				)
 
@@ -39,18 +44,15 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					NSLayoutConstraint.activate([
 						statisticsCardView.titleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.titleLabel.firstBaselineAnchor),
 						statisticsCardView.primaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.primaryValueLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.primaryValueLabel.firstBaselineAnchor),
 						statisticsCardView.secondaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.secondaryValueLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.secondaryValueLabel.firstBaselineAnchor),
 						statisticsCardView.tertiaryTitleLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryTitleLabel.firstBaselineAnchor),
-						statisticsCardView.tertiaryValueLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.tertiaryValueLabel.firstBaselineAnchor),
 						statisticsCardView.footnoteLabel.firstBaselineAnchor.constraint(equalTo: previousCardView.footnoteLabel.firstBaselineAnchor)
 					])
-
-
 				}
 			}
 		}
+
+		accessibilityElements = stackView.arrangedSubviews
 	}
 
 	// MARK: - Private

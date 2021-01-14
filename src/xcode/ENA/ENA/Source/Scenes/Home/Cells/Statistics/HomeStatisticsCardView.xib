@@ -61,6 +61,7 @@
                                             </constraints>
                                             <color key="tintColor" name="ENA Tint Color"/>
                                             <connections>
+                                                <action selector="infoButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="PrN-1D-3Y0"/>
                                                 <action selector="infoButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="fHy-uH-Y0l"/>
                                             </connections>
                                         </button>
@@ -95,6 +96,9 @@
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="Pfeil_steigend" translatesAutoresizingMaskIntoConstraints="NO" id="5TC-4n-wbc">
                                                             <rect key="frame" x="79.5" y="7.5" width="19" height="19"/>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <bool key="isElement" value="YES"/>
+                                                            </accessibility>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="19" id="1EP-bJ-ysF"/>
                                                                 <constraint firstAttribute="height" constant="19" id="OPP-UR-cc6"/>
@@ -129,6 +133,9 @@
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="Pfeil_sinkend" translatesAutoresizingMaskIntoConstraints="NO" id="nk6-im-uTD">
                                                             <rect key="frame" x="51.5" y="1" width="19" height="19"/>
+                                                            <accessibility key="accessibilityConfiguration">
+                                                                <bool key="isElement" value="YES"/>
+                                                            </accessibility>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="19" id="0OK-Fn-BXm"/>
                                                                 <constraint firstAttribute="height" constant="19" id="Uba-Qk-Z49"/>
@@ -205,6 +212,7 @@
             <connections>
                 <outlet property="footnoteLabel" destination="yPf-Rc-use" id="Rdv-ec-g7I"/>
                 <outlet property="illustrationImageView" destination="TH2-hV-4Si" id="uMD-sf-GcJ"/>
+                <outlet property="infoButton" destination="hme-UE-Bg6" id="V62-Kf-IBB"/>
                 <outlet property="primaryTitleLabel" destination="et3-5g-2ko" id="Ry9-Sj-HOX"/>
                 <outlet property="primaryTrendImageView" destination="5TC-4n-wbc" id="wav-uT-Iui"/>
                 <outlet property="primaryValueLabel" destination="sm5-H8-QtK" id="Avi-q2-U3p"/>

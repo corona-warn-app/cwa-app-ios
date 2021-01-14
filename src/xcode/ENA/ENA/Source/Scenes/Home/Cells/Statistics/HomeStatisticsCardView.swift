@@ -9,15 +9,92 @@ class HomeStatisticsCardView: UIView {
 
 	// MARK: - Overrides
 
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		let focusableLabels = [
+			titleLabel as ENALabel,
+			primaryTitleLabel as ENALabel,
+			primaryValueLabel as ENALabel,
+			secondaryTitleLabel as ENALabel,
+			secondaryValueLabel as ENALabel,
+			tertiaryTitleLabel as ENALabel,
+			tertiaryValueLabel as ENALabel,
+			footnoteLabel as ENALabel
+		]
+
+		focusableLabels.forEach {
+			$0.onAccessibilityFocus = { [weak self] in
+				self?.onAccessibilityFocus?()
+			}
+		}
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateIllustration(for: traitCollection)
 	}
 
+	override var accessibilityElements: [Any]? {
+		get {
+			var accessibilityElements = [Any]()
+
+			if viewModel?.title != nil, let titleLabel = self.titleLabel {
+				accessibilityElements.append(titleLabel)
+			}
+
+			if let infoButton = self.infoButton {
+				accessibilityElements.append(infoButton)
+			}
+
+			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {
+				accessibilityElements.append(primaryTitleLabel)
+			}
+
+			if viewModel?.primaryValue != nil, let primaryValueLabel = self.primaryValueLabel {
+				accessibilityElements.append(primaryValueLabel)
+			}
+
+			if viewModel?.primaryTrendImage != nil, let primaryTrendImageView = self.primaryTrendImageView {
+				accessibilityElements.append(primaryTrendImageView)
+			}
+
+			if viewModel?.secondaryTitle != nil, let secondaryTitleLabel = self.secondaryTitleLabel {
+				accessibilityElements.append(secondaryTitleLabel)
+			}
+
+			if viewModel?.secondaryValue != nil, let secondaryValueLabel = self.secondaryValueLabel {
+				accessibilityElements.append(secondaryValueLabel)
+			}
+
+			if viewModel?.secondaryTrendImage != nil, let secondaryTrendImageView = self.secondaryTrendImageView {
+				accessibilityElements.append(secondaryTrendImageView)
+			}
+
+			if viewModel?.tertiaryTitle != nil, let tertiaryTitleLabel = self.tertiaryTitleLabel {
+				accessibilityElements.append(tertiaryTitleLabel)
+			}
+
+			if viewModel?.tertiaryValue != nil, let tertiaryValueLabel = self.tertiaryValueLabel {
+				accessibilityElements.append(tertiaryValueLabel)
+			}
+
+			if viewModel?.footnote != nil, let footnoteLabel = self.footnoteLabel {
+				accessibilityElements.append(footnoteLabel)
+			}
+
+			return accessibilityElements
+		}
+		// swiftlint:disable:next unused_setter_value
+		set { }
+	}
+
 	// MARK: - Internal
 
 	@IBOutlet weak var titleLabel: ENALabel!
+	@IBOutlet weak var infoButton: UIButton!
+
 	@IBOutlet weak var illustrationImageView: UIImageView!
 
 	@IBOutlet weak var primaryTitleLabel: ENALabel!
@@ -35,7 +112,8 @@ class HomeStatisticsCardView: UIView {
 
 	func configure(
 		viewModel: HomeStatisticsCardViewModel,
-		onInfoButtonTap: @escaping () -> Void
+		onInfoButtonTap: @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
 	) {
 		viewModel.$title
 			.sink { [weak self] in
@@ -69,6 +147,10 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$primaryTrendAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: primaryTrendImageView)
+			.store(in: &subscriptions)
+
 		viewModel.$secondaryTitle
 			.sink { [weak self] in
 				self?.secondaryTitleLabel.isHidden = $0 == nil
@@ -88,6 +170,10 @@ class HomeStatisticsCardView: UIView {
 				self?.secondaryTrendImageView.isHidden = $0 == nil
 				self?.secondaryTrendImageView.image = $0
 			}
+			.store(in: &subscriptions)
+
+		viewModel.$secondaryTrendAccessibilityLabel
+			.assign(to: \.accessibilityLabel, on: secondaryTrendImageView)
 			.store(in: &subscriptions)
 
 		viewModel.$tertiaryTitle
@@ -115,6 +201,7 @@ class HomeStatisticsCardView: UIView {
 		self.viewModel = viewModel
 
 		self.onInfoButtonTap = onInfoButtonTap
+		self.onAccessibilityFocus = onAccessibilityFocus
 
 		updateIllustration(for: traitCollection)
 	}
@@ -122,6 +209,7 @@ class HomeStatisticsCardView: UIView {
 	// MARK: - Private
 
 	private var onInfoButtonTap: (() -> Void)?
+	private var onAccessibilityFocus: (() -> Void)?
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var viewModel: HomeStatisticsCardViewModel?
