@@ -17,6 +17,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	// MARK: - Internal
 
 	func configure(onInfoButtonTap: @escaping () -> Void, onAccessibilityFocus: @escaping () -> Void) {
+		guard !isConfigured else { return }
+
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		for index in 0...3 {
@@ -53,11 +55,15 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		accessibilityElements = stackView.arrangedSubviews
+
+		isConfigured = true
 	}
 
 	// MARK: - Private
 
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var stackView: UIStackView!
+
+	private var isConfigured: Bool = false
 
 }
