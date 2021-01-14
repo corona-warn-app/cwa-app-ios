@@ -61,7 +61,6 @@
                                             </constraints>
                                             <color key="tintColor" name="ENA Tint Color"/>
                                             <connections>
-                                                <action selector="infoButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="PrN-1D-3Y0"/>
                                                 <action selector="infoButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="fHy-uH-Y0l"/>
                                             </connections>
                                         </button>
