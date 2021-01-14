@@ -1128,13 +1128,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 
 /* Invite Friends */
-"InviteFriends_NavTitle" = "Teilen";
+"InviteFriends_NavTitle" = "Empfehlen";
 
-"InviteFriends_Subtitle" = "Teilen Sie die Corona-Warn-App";
+"InviteFriends_Subtitle" = "Empfehlen Sie die Corona-Warn-App";
 
 "InviteFriends_Title" = "Gemeinsam Corona bekämpfen";
 
-"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
+"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte ein!";
 
 "InviteFriends_Button" = "Link versenden";
 
