@@ -11,7 +11,7 @@ struct DiaryDay: Equatable {
 	init(
 		dateString: String,
 		entries: [DiaryEntry],
-		exposureEncounter: HistoryExposure = .none
+		exposureEncounter: HistoryExposure
 	) {
 		self.dateString = dateString
 		self.entries = entries
