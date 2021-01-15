@@ -44,6 +44,9 @@
 		016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016E260725AF20540077C64C /* HomeStatisticsCardView.xib */; };
 		016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E261325AF43450077C64C /* StatisticsInfoViewController.swift */; };
 		016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */; };
+		016E26AB25B0A7E50077C64C /* card_header.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E26A825B0A7E50077C64C /* card_header.pb.swift */; };
+		016E26AC25B0A7E50077C64C /* statistics.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E26A925B0A7E50077C64C /* statistics.pb.swift */; };
+		016E26AD25B0A7E50077C64C /* key_figure_card.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E26AA25B0A7E50077C64C /* key_figure_card.pb.swift */; };
 		01734B5C255D6C4500E60A8B /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */; };
 		01734B5D255D6C4500E60A8B /* semantic_version.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B57255D6C4500E60A8B /* semantic_version.pb.swift */; };
 		01734B5E255D6C4500E60A8B /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B58255D6C4500E60A8B /* risk_calculation_parameters.pb.swift */; };
@@ -740,6 +743,9 @@
 		016E260725AF20540077C64C /* HomeStatisticsCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeStatisticsCardView.xib; sourceTree = "<group>"; };
 		016E261325AF43450077C64C /* StatisticsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsInfoViewController.swift; sourceTree = "<group>"; };
 		016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModel.swift; sourceTree = "<group>"; };
+		016E26A825B0A7E50077C64C /* card_header.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = card_header.pb.swift; sourceTree = "<group>"; };
+		016E26A925B0A7E50077C64C /* statistics.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = statistics.pb.swift; sourceTree = "<group>"; };
+		016E26AA25B0A7E50077C64C /* key_figure_card.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = key_figure_card.pb.swift; sourceTree = "<group>"; };
 		01734B56255D6C4500E60A8B /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = key_download_parameters.pb.swift; path = ../../../gen/output/internal/v2/key_download_parameters.pb.swift; sourceTree = "<group>"; };
 		01734B57255D6C4500E60A8B /* semantic_version.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = semantic_version.pb.swift; path = ../../../gen/output/internal/v2/semantic_version.pb.swift; sourceTree = "<group>"; };
 		01734B58255D6C4500E60A8B /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_calculation_parameters.pb.swift; path = ../../../gen/output/internal/v2/risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
@@ -1497,6 +1503,17 @@
 				016E261325AF43450077C64C /* StatisticsInfoViewController.swift */,
 			);
 			path = StatisticsInfo;
+			sourceTree = "<group>";
+		};
+		016E26A725B0A7E50077C64C /* stats */ = {
+			isa = PBXGroup;
+			children = (
+				016E26A825B0A7E50077C64C /* card_header.pb.swift */,
+				016E26A925B0A7E50077C64C /* statistics.pb.swift */,
+				016E26AA25B0A7E50077C64C /* key_figure_card.pb.swift */,
+			);
+			name = stats;
+			path = ../../../gen/output/internal/stats;
 			sourceTree = "<group>";
 		};
 		01734B51255D6BEE00E60A8B /* v2 */ = {
@@ -2899,6 +2916,7 @@
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				016E26A725B0A7E50077C64C /* stats */,
 				01734B51255D6BEE00E60A8B /* v2 */,
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
 				EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */,
@@ -4198,6 +4216,7 @@
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
 				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
+				016E26AD25B0A7E50077C64C /* key_figure_card.pb.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
 				01A4DC7025922EB4007D5794 /* HomeItemView.swift in Sources */,
@@ -4333,6 +4352,7 @@
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
+				016E26AB25B0A7E50077C64C /* card_header.pb.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
 				50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */,
@@ -4364,6 +4384,7 @@
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
+				016E26AC25B0A7E50077C64C /* statistics.pb.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
