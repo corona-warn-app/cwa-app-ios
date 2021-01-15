@@ -22,6 +22,13 @@ struct StatisticsMetadata: Codable {
 		statistics = response.stats
 	}
 
+	// Used for unit tests
+	init(stats: SAP_Internal_Stats_Statistics, eTag: String?, timestamp: Date = Date()) {
+		lastStatisticsETag = eTag
+		lastStatisticsFetch = timestamp
+		statistics = stats
+	}
+
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -40,5 +47,9 @@ struct StatisticsMetadata: Codable {
 
 		let data = try statistics.serializedData()
 		try container.encode(data, forKey: .statistics)
+	}
+
+	mutating func refeshLastFetchDate() {
+		lastStatisticsFetch = Date()
 	}
 }
