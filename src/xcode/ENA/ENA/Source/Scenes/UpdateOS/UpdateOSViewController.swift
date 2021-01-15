@@ -4,12 +4,12 @@
 
 import UIKit
 
-class AppDisabledViewController: UIViewController {
+class UpdateOSViewController: UIViewController {
 	
 	// MARK: - Overrides
 	
 	override func loadView() {
-		self.view = AppDisabledView()
+		self.view = UpdateOSView()
 	}
 	 
 	override func viewDidLoad() {
@@ -19,9 +19,9 @@ class AppDisabledViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let viewModel = AppDisabledViewModel()
-	private var customView: AppDisabledView {
+	private let viewModel = UpdateOSViewModel()
+	private var customView: UpdateOSView {
 		// swiftlint:disable:next force_cast
-		return view as! AppDisabledView
+		return view as! UpdateOSView
 	}
 }

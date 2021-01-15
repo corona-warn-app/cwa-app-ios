@@ -4,7 +4,7 @@
 
 import UIKit
 
-class AppDisabledView: UIView {
+class UpdateOSView: UIView {
 
 	// MARK: - Init
 

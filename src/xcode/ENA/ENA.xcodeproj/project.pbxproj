@@ -626,9 +626,9 @@
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
 		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
 		EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */; };
-		EBB92C72259E10ED00013B41 /* AppDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C71259E10ED00013B41 /* AppDisabledViewController.swift */; };
-		EBB92C77259E110900013B41 /* AppDisabledViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* AppDisabledViewModel.swift */; };
-		EBB92C7C259E111A00013B41 /* AppDisabledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* AppDisabledView.swift */; };
+		EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */; };
+		EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */; };
+		EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* UpdateOSView.swift */; };
 		EBBABC47256402A9005B7C07 /* default_app_config_18 in Resources */ = {isa = PBXBuildFile; fileRef = EBBABC46256402A9005B7C07 /* default_app_config_18 */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */; };
@@ -1333,9 +1333,9 @@
 		EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
-		EBB92C71259E10ED00013B41 /* AppDisabledViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDisabledViewController.swift; sourceTree = "<group>"; };
-		EBB92C76259E110900013B41 /* AppDisabledViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDisabledViewModel.swift; sourceTree = "<group>"; };
-		EBB92C7B259E111A00013B41 /* AppDisabledView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDisabledView.swift; sourceTree = "<group>"; };
+		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
+		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
+		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
 		EBBABC46256402A9005B7C07 /* default_app_config_18 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_18; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModelTests.swift; sourceTree = "<group>"; };
@@ -2448,7 +2448,7 @@
 			isa = PBXGroup;
 			children = (
 				71176E30248957B1004B0C9F /* App */,
-				EBB92C70259E10BD00013B41 /* AppDisabled */,
+				EBB92C70259E10BD00013B41 /* UpdateOS */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
@@ -3566,14 +3566,14 @@
 			path = ColorCompatibility;
 			sourceTree = "<group>";
 		};
-		EBB92C70259E10BD00013B41 /* AppDisabled */ = {
+		EBB92C70259E10BD00013B41 /* UpdateOS */ = {
 			isa = PBXGroup;
 			children = (
-				EBB92C7B259E111A00013B41 /* AppDisabledView.swift */,
-				EBB92C71259E10ED00013B41 /* AppDisabledViewController.swift */,
-				EBB92C76259E110900013B41 /* AppDisabledViewModel.swift */,
+				EBB92C7B259E111A00013B41 /* UpdateOSView.swift */,
+				EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */,
+				EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */,
 			);
-			path = AppDisabled;
+			path = UpdateOS;
 			sourceTree = "<group>";
 		};
 		EBD2D07C25A86144006E4220 /* __tests__ */ = {
@@ -4001,7 +4001,7 @@
 				BA6C8B05254D6B1F008344F5 /* RiskCalculation.swift in Sources */,
 				BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */,
 				ABAE0A1C257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift in Sources */,
-				EBB92C77259E110900013B41 /* AppDisabledViewModel.swift in Sources */,
+				EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */,
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
 				A3E851B224ADD09900402485 /* CountdownTimer.swift in Sources */,
 				EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */,
@@ -4016,7 +4016,7 @@
 				CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */,
 				35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */,
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
-				EBB92C7C259E111A00013B41 /* AppDisabledView.swift in Sources */,
+				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
@@ -4164,7 +4164,7 @@
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
-				EBB92C72259E10ED00013B41 /* AppDisabledViewController.swift in Sources */,
+				EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */,
 				354E305924EFF26E00526C9F /* Country.swift in Sources */,
 				01A4DC6A25922EB4007D5794 /* HomeTextItemView.swift in Sources */,
 				BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */,

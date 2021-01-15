@@ -557,7 +557,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	
 	private func setupAppDisabledUI() {
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = AppDisabledViewController()
+		window?.rootViewController = UpdateOSViewController()
 		window?.makeKeyAndVisible()
 	}
 
