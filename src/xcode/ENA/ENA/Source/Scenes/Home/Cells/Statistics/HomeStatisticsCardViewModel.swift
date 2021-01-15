@@ -11,24 +11,24 @@ class HomeStatisticsCardViewModel {
 
 	init(for card: Card) {
 		switch card {
-		case .newInfections:
-			setupNewInfections()
-		case .warningPersons:
-			setupWarningPersons()
+		case .infections:
+			setupInfections()
 		case .incidence:
 			setupIncidence()
-		case .rValue:
-			setupRValue()
+		case .keySubmissions:
+			setupKeySubmissions()
+		case .reproductionNumber:
+			setupReproductionNumber()
 		}
 	}
 
 	// MARK: - Internal
 
 	enum Card: Int {
-		case newInfections
-		case warningPersons
-		case incidence
-		case rValue
+		case infections = 1
+		case incidence = 2
+		case keySubmissions = 3
+		case reproductionNumber = 4
 	}
 
 	@OpenCombine.Published var title: String?
@@ -52,46 +52,46 @@ class HomeStatisticsCardViewModel {
 
 	// MARK: - Private
 
-	private func setupNewInfections() {
-		title = AppStrings.Statistics.Card.NewInfections.title
+	private func setupInfections() {
+		title = AppStrings.Statistics.Card.Infections.title
 
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
-		primaryTitle = AppStrings.Statistics.Card.NewInfections.primaryLabelTitle
+		primaryTitle = AppStrings.Statistics.Card.Infections.primaryLabelTitle
 		primaryValue = "14.714"
 		primaryTrendImage = nil
 		primaryTrendAccessibilityLabel = nil
 
-		secondaryTitle = AppStrings.Statistics.Card.NewInfections.secondaryLabelTitle
+		secondaryTitle = AppStrings.Statistics.Card.Infections.secondaryLabelTitle
 		secondaryValue = "11.981"
 		secondaryTrendImage = UIImage(named: "Pfeil_steigend")
 		secondaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendIncreasing
 
-		tertiaryTitle = AppStrings.Statistics.Card.NewInfections.tertiaryLabelTitle
+		tertiaryTitle = AppStrings.Statistics.Card.Infections.tertiaryLabelTitle
 		tertiaryValue = "429.181"
 
 		footnote = nil
 	}
 
-	private func setupWarningPersons() {
-		title = AppStrings.Statistics.Card.WarningPersons.title
+	private func setupKeySubmissions() {
+		title = AppStrings.Statistics.Card.KeySubmissions.title
 
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
-		primaryTitle = AppStrings.Statistics.Card.WarningPersons.primaryLabelTitle
+		primaryTitle = AppStrings.Statistics.Card.KeySubmissions.primaryLabelTitle
 		primaryValue = "1.514"
 		primaryTrendImage = nil
 		primaryTrendAccessibilityLabel = nil
 
-		secondaryTitle = AppStrings.Statistics.Card.WarningPersons.secondaryLabelTitle
+		secondaryTitle = AppStrings.Statistics.Card.KeySubmissions.secondaryLabelTitle
 		secondaryValue = "1.812"
 		secondaryTrendImage = UIImage(named: "Pfeil_stabil")
 		secondaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendStable
 
-		tertiaryTitle = AppStrings.Statistics.Card.WarningPersons.tertiaryLabelTitle
+		tertiaryTitle = AppStrings.Statistics.Card.KeySubmissions.tertiaryLabelTitle
 		tertiaryValue = "20.922"
 
-		footnote = AppStrings.Statistics.Card.WarningPersons.footnote
+		footnote = AppStrings.Statistics.Card.KeySubmissions.footnote
 	}
 
 	private func setupIncidence() {
@@ -115,17 +115,17 @@ class HomeStatisticsCardViewModel {
 		footnote = nil
 	}
 
-	private func setupRValue() {
-		title = AppStrings.Statistics.Card.RValue.title
+	private func setupReproductionNumber() {
+		title = AppStrings.Statistics.Card.ReproductionNumber.title
 
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
-		primaryTitle = AppStrings.Statistics.Card.RValue.primaryLabelTitle
+		primaryTitle = AppStrings.Statistics.Card.ReproductionNumber.primaryLabelTitle
 		primaryValue = "1,04"
 		primaryTrendImage = UIImage(named: "Pfeil_sinkend")
 		primaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendDecreasing
 
-		secondaryTitle = AppStrings.Statistics.Card.RValue.secondaryLabelTitle
+		secondaryTitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
 		secondaryValue = nil
 		secondaryTrendImage = nil
 		secondaryTrendAccessibilityLabel = nil

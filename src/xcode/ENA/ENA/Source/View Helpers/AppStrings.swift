@@ -980,19 +980,11 @@ enum AppStrings {
 
 		enum Card {
 
-			enum NewInfections {
-				static let title = NSLocalizedString("Statistics_Card_NewInfections_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_NewInfections_PrimaryLabelTitle", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_NewInfections_SecondaryLabelTitle", comment: "")
-				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_NewInfections_TertiaryLabelTitle", comment: "")
-			}
-
-			enum WarningPersons {
-				static let title = NSLocalizedString("Statistics_Card_WarningPersons_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_WarningPersons_PrimaryLabelTitle", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_WarningPersons_SecondaryLabelTitle", comment: "")
-				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_WarningPersons_TertiaryLabelTitle", comment: "")
-				static let footnote = NSLocalizedString("Statistics_Card_WarningPersons_Footnote", comment: "")
+			enum Infections {
+				static let title = NSLocalizedString("Statistics_Card_Infections_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_TertiaryLabelTitle", comment: "")
 			}
 
 			enum Incidence {
@@ -1001,10 +993,18 @@ enum AppStrings {
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_SecondaryLabelTitle", comment: "")
 			}
 
-			enum RValue {
-				static let title = NSLocalizedString("Statistics_Card_RValue_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_RValue_PrimaryLabelTitle", comment: "")
-				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_RValue_SecondaryLabelTitle", comment: "")
+			enum KeySubmissions {
+				static let title = NSLocalizedString("Statistics_Card_KeySubmissions_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_KeySubmissions_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_KeySubmissions_SecondaryLabelTitle", comment: "")
+				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_KeySubmissions_TertiaryLabelTitle", comment: "")
+				static let footnote = NSLocalizedString("Statistics_Card_KeySubmissions_Footnote", comment: "")
+			}
+
+			enum ReproductionNumber {
+				static let title = NSLocalizedString("Statistics_Card_ReproductionNumber_Title", comment: "")
+				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_ReproductionNumber_PrimaryLabelTitle", comment: "")
+				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_ReproductionNumber_SecondaryLabelTitle", comment: "")
 			}
 
 			static let trendIncreasing = NSLocalizedString("Statistics_Card_Trend_Increasing", comment: "")
@@ -1016,14 +1016,14 @@ enum AppStrings {
 		enum Info {
 			static let title = NSLocalizedString("Statistics_Info_Title", comment: "")
 			static let subtitle = NSLocalizedString("Statistics_Info_Subtitle", comment: "")
-			static let newInfectionsTitle = NSLocalizedString("Statistics_Info_NewInfections_Title", comment: "")
-			static let newInfectionsText = NSLocalizedString("Statistics_Info_NewInfections_Text", comment: "")
-			static let warningPersonsTitle = NSLocalizedString("Statistics_Info_WarningPersons_Title", comment: "")
-			static let warningPersonsText = NSLocalizedString("Statistics_Info_WarningPersons_Text", comment: "")
+			static let infectionsTitle = NSLocalizedString("Statistics_Info_Infections_Title", comment: "")
+			static let infectionsText = NSLocalizedString("Statistics_Info_Infections_Text", comment: "")
+			static let keySubmissionsTitle = NSLocalizedString("Statistics_Info_KeySubmissions_Title", comment: "")
+			static let keySubmissionsText = NSLocalizedString("Statistics_Info_KeySubmissions_Text", comment: "")
 			static let incidenceTitle = NSLocalizedString("Statistics_Info_Incidence_Title", comment: "")
 			static let incidenceText = NSLocalizedString("Statistics_Info_Incidence_Text", comment: "")
-			static let rValueTitle = NSLocalizedString("Statistics_Info_RValue_Title", comment: "")
-			static let rValueText = NSLocalizedString("Statistics_Info_RValue_Text", comment: "")
+			static let reproductionNumberTitle = NSLocalizedString("Statistics_Info_ReproductionNumber_Title", comment: "")
+			static let reproductionNumberText = NSLocalizedString("Statistics_Info_ReproductionNumber_Text", comment: "")
 			static let faqLinkText = NSLocalizedString("Statistics_Info_FAQLink_Text", comment: "")
 			static let faqLinkTitle = NSLocalizedString("Statistics_Info_FAQLink_Title", comment: "")
 			static let definitionsTitle = NSLocalizedString("Statistics_Info_Definitions_Title", comment: "")

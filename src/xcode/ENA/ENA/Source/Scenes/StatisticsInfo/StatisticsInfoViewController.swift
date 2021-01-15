@@ -86,11 +86,11 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				footer: .space(height: 16),
 				cells: [
 					.title2(
-						text: AppStrings.Statistics.Info.newInfectionsTitle,
+						text: AppStrings.Statistics.Info.infectionsTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.Statistics.Info.newInfectionsText,
+						text: AppStrings.Statistics.Info.infectionsText,
 						accessibilityIdentifier: nil
 					)
 				]
@@ -99,11 +99,11 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				footer: .space(height: 16),
 				cells: [
 					.title2(
-						text: AppStrings.Statistics.Info.warningPersonsTitle,
+						text: AppStrings.Statistics.Info.keySubmissionsTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.Statistics.Info.warningPersonsText,
+						text: AppStrings.Statistics.Info.keySubmissionsText,
 						accessibilityIdentifier: nil
 					)
 				]
@@ -125,11 +125,11 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				footer: .space(height: 16),
 				cells: [
 					.title2(
-						text: AppStrings.Statistics.Info.rValueTitle,
+						text: AppStrings.Statistics.Info.reproductionNumberTitle,
 						accessibilityIdentifier: nil
 					) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
-						text: AppStrings.Statistics.Info.rValueText,
+						text: AppStrings.Statistics.Info.reproductionNumberText,
 						accessibilityIdentifier: nil
 					)
 				]

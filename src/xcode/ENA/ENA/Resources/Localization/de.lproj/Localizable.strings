@@ -1461,20 +1461,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_Trend_Decreasing" = "Trend fallend";
 "Statistics_Card_Trend_Stable" = "Trend stabil";
 
-/* - New Infections Card */
+/* - Infections Card */
 
-"Statistics_Card_NewInfections_Title" = "Bestätigte Neuinfektionen";
-"Statistics_Card_NewInfections_PrimaryLabelTitle" = "Gestern";
-"Statistics_Card_NewInfections_SecondaryLabelTitle" = "7-Tage-Mittelwert";
-"Statistics_Card_NewInfections_TertiaryLabelTitle" = "Gesamt";
-
-/* - Warning Persons Card */
-
-"Statistics_Card_WarningPersons_Title" = "Warnende Personen";
-"Statistics_Card_WarningPersons_PrimaryLabelTitle" = "Gestern";
-"Statistics_Card_WarningPersons_SecondaryLabelTitle" = "7-Tage-Mittelwert";
-"Statistics_Card_WarningPersons_TertiaryLabelTitle" = "Gesamt";
-"Statistics_Card_WarningPersons_Footnote" = "über die Corona-Warn-App";
+"Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";
+"Statistics_Card_Infections_PrimaryLabelTitle" = "Gestern";
+"Statistics_Card_Infections_SecondaryLabelTitle" = "7-Tage-Mittelwert";
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Gesamt";
 
 /* - Incidence Card */
 
@@ -1482,24 +1474,32 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Card_Incidence_PrimaryLabelTitle" = "Bis gestern";
 "Statistics_Card_Incidence_SecondaryLabelTitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
 
-/* - R Value Card */
+/* - Key Submissions Card */
 
-"Statistics_Card_RValue_Title" = "7-Tage-R-Wert";
-"Statistics_Card_RValue_PrimaryLabelTitle" = "Aktuell";
-"Statistics_Card_RValue_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
+"Statistics_Card_KeySubmissions_Title" = "Warnende Personen";
+"Statistics_Card_KeySubmissions_PrimaryLabelTitle" = "Gestern";
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7-Tage-Mittelwert";
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Gesamt";
+"Statistics_Card_KeySubmissions_Footnote" = "über die Corona-Warn-App";
 
-/* - Info */
+/* - Reproduction Number Card */
+
+"Statistics_Card_ReproductionNumber_Title" = "7-Tage-R-Wert";
+"Statistics_Card_ReproductionNumber_PrimaryLabelTitle" = "Aktuell";
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
+
+/* - Info Screen */
 
 "Statistics_Info_Title" = "Kennzahlen";
 "Statistics_Info_Subtitle" = "Erklärung der bundesweiten Statistiken";
-"Statistics_Info_NewInfections_Title" = "Bestätigte Neuinfektionen";
-"Statistics_Info_NewInfections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen";
-"Statistics_Info_WarningPersons_Title" = "Warnende Personen";
-"Statistics_Info_WarningPersons_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben";
+"Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
+"Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen";
+"Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
+"Statistics_Info_KeySubmissions_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben";
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
 "Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner";
-"Statistics_Info_RValue_Title" = "7-Tage-R-Wert";
-"Statistics_Info_RValue_Text" = "Die Reproduktionszahl R gibt an, wie viele Personen im Durchschnitt von einer infizierten Person angesteckt wurden. Der aktuelle Wert berücksichtigt Daten bis vor 5 Tagen.";
+"Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
+"Statistics_Info_ReproductionNumber_Text" = "Die Reproduktionszahl R gibt an, wie viele Personen im Durchschnitt von einer infizierten Person angesteckt wurden. Der aktuelle Wert berücksichtigt Daten bis vor 5 Tagen.";
 "Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in der";
 "Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken";
 "Statistics_Info_Definitions_Title" = "Legende";
