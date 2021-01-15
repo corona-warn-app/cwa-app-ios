@@ -128,17 +128,13 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 				// serialize config
 				do {
 					let stats = try SAP_Internal_Stats_Statistics(serializedData: package.bin)
-					let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let configurationResponse = StatisticsFetchingResponse(stats, etag)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let configurationResponse = StatisticsFetchingResponse(stats, responseETag)
 					completion(.success(configurationResponse))
 				} catch {
 					completion(.failure(error))
 				}
 			case .failure(let error):
-				var serverDate: Date?
-				if case let .httpError(_, httpResponse) = error {
-					serverDate = httpResponse.dateHeader
-				}
 				completion(.failure(error))
 			}
 		}

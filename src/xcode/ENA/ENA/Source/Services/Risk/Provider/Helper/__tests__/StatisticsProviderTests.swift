@@ -23,7 +23,8 @@ class StatisticsProviderTests: XCTestCase {
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response): // StatisticsFetchingResponse
-				break
+				XCTAssertEqual(response.stats.keyFigureCards.count, 4)
+				XCTAssertEqual(response.stats.cardIDSequence.count, response.stats.keyFigureCards.count)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
