@@ -269,6 +269,8 @@
 		35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701F32556C016008AEA91 /* Migration1To2Tests.swift */; };
 		35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */; };
 		35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */; };
+		35E121A025B19D8C0098D754 /* sample_stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 35E1219E25B19D8C0098D754 /* sample_stats.bin */; };
+		35E121A125B19D8C0098D754 /* sample_stats.sha256 in Resources */ = {isa = PBXBuildFile; fileRef = 35E1219F25B19D8C0098D754 /* sample_stats.sha256 */; };
 		35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */; };
 		35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */; };
 		35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */; };
@@ -963,6 +965,8 @@
 		35C701F32556C016008AEA91 /* Migration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2Tests.swift; sourceTree = "<group>"; };
 		35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalCell.swift; sourceTree = "<group>"; };
 		35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalCell.xib; sourceTree = "<group>"; };
+		35E1219E25B19D8C0098D754 /* sample_stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = sample_stats.bin; sourceTree = "<group>"; };
+		35E1219F25B19D8C0098D754 /* sample_stats.sha256 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_stats.sha256; sourceTree = "<group>"; };
 		35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKitFallbacks.swift; sourceTree = "<group>"; };
 		35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV2.swift; sourceTree = "<group>"; };
 		35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV2.swift; sourceTree = "<group>"; };
@@ -2023,6 +2027,15 @@
 				35358DD325A23169004FD0CB /* HTTPClientCertificatePinningTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		35E1219D25B19D8C0098D754 /* sample_stats */ = {
+			isa = PBXGroup;
+			children = (
+				35E1219E25B19D8C0098D754 /* sample_stats.bin */,
+				35E1219F25B19D8C0098D754 /* sample_stats.sha256 */,
+			);
+			path = sample_stats;
 			sourceTree = "<group>";
 		};
 		35EA6158258BC88A0062B50A /* iOS 12 Fallback */ = {
@@ -3305,6 +3318,7 @@
 		B1FE13FC24896EE700D012E5 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				35E1219D25B19D8C0098D754 /* sample_stats */,
 				B1FE13FD24896EF700D012E5 /* CachedAppConfigurationTests.swift */,
 				AB35609F2547194C00C3F8E0 /* DeviceTimeCheckTests.swift */,
 				356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */,
@@ -3930,8 +3944,10 @@
 			files = (
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
+				35E121A125B19D8C0098D754 /* sample_stats.sha256 in Resources */,
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */,
+				35E121A025B19D8C0098D754 /* sample_stats.bin in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 			);

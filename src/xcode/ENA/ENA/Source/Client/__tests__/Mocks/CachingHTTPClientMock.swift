@@ -13,7 +13,16 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	}
 
 	static let staticAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
-	static let staticStatistics = SAP_Internal_Stats_Statistics()
+	static let staticStatistics: SAP_Internal_Stats_Statistics = {
+		guard
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "sample_stats", withExtension: "bin"),
+			let data = try? Data(contentsOf: url),
+			let stats = try? SAP_Internal_Stats_Statistics(serializedData: data)
+		else {
+			fatalError("Cannot initialize static test data")
+		}
+		return stats
+	}()
 
 	static let staticAppConfigMetadata: AppConfigMetadata = {
 		let bundle = Bundle(for: CachingHTTPClientMock.self)
