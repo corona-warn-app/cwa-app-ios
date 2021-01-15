@@ -194,11 +194,11 @@ private extension SAP_Internal_Stats_KeyFigure {
 	var trendImage: UIImage? {
 		switch trend {
 		case .stable:
-			return UIImage(named: "Pfeil_stabil")
+			return UIImage(named: "Pfeil_stabil_plain")
 		case .increasing:
-			return UIImage(named: "Pfeil_steigend")
+			return UIImage(named: "Pfeil_steigend_plain")
 		case .decreasing:
-			return UIImage(named: "Pfeil_sinkend")
+			return UIImage(named: "Pfeil_sinkend_plain")
 		case .unspecifiedTrend:
 			return nil
 		case .UNRECOGNIZED:
