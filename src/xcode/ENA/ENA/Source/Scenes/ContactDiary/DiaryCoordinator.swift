@@ -25,8 +25,8 @@ class DiaryCoordinator {
 
 		#if DEBUG
 		if isUITesting {
-			if let diaryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
-				store.diaryInfoScreenShown = (diaryInfoScreenShown != "NO")
+			if let journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
+				store.journalWithExposureHistoryInfoScreenShown = (journalWithExposureHistoryInfoScreenShown != "NO")
 			}
 
 			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllPersons"),
@@ -54,8 +54,8 @@ class DiaryCoordinator {
 	private weak var parentNavigationController: UINavigationController?
 
 	private var infoScreenShown: Bool {
-		get { store.diaryInfoScreenShown }
-		set { store.diaryInfoScreenShown = newValue }
+		get { store.journalWithExposureHistoryInfoScreenShown }
+		set { store.journalWithExposureHistoryInfoScreenShown = newValue }
 	}
 
 	// MARK: Show Screens
