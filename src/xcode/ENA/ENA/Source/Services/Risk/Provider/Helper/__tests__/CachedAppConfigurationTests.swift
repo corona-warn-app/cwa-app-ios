@@ -95,4 +95,36 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+
+	// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-3781
+	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledOnce() {
+		// GIVEN
+		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client only once")
+		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+
+		let store = MockTestStore()
+		XCTAssertNil(store.appConfigMetadata)
+
+		let client = CachingHTTPClientMock(store: store)
+		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
+			completeWith((.success(config), nil))
+			fetchedFromClientExpectation.fulfill()
+		}
+
+		// WHEN
+		// Initilize the `CachedAppConfiguration` will trigger `fetchAppConfiguration`.
+		_ = CachedAppConfiguration(client: client, store: store)
+		_ = CachedAppConfiguration(client: client, store: store)
+		_ = CachedAppConfiguration(client: client, store: store)
+		_ = CachedAppConfiguration(client: client, store: store)
+		_ = CachedAppConfiguration(client: client, store: store)
+		_ = CachedAppConfiguration(client: client, store: store)
+
+		XCTAssertNotNil(store.appConfigMetadata)
+		XCTAssertEqual(fetchedFromClientExpectation.expectedFulfillmentCount, 1)
+		waitForExpectations(timeout: .medium)
+	}
 }

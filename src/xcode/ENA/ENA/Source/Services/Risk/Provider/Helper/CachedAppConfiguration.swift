@@ -117,7 +117,6 @@ final class CachedAppConfiguration {
 			let queue = DispatchQueue(label: "fetchAppConfiguration queue", attributes: .concurrent)
 
 			self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
-
 				queue.async(flags: .barrier) {
 					guard let self = self else { return }
 
