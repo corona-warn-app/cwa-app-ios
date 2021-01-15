@@ -5,8 +5,7 @@
 import Foundation
 import OpenCombine
 
-class StatisticsProvider {
-
+class StatisticsProvider: StatisticsProviding {
 	/// Most likely a HTTP client
 	private let client: StatisticsFetching
 
@@ -15,7 +14,6 @@ class StatisticsProvider {
 
 	private var subscriptions = [AnyCancellable]()
 
-
 	/// Default initializer
 	/// - Parameters:
 	///   - client: The client to fetch the stats
@@ -23,20 +21,16 @@ class StatisticsProvider {
 	init(client: StatisticsFetching, store: Store) {
 		self.client = client
 		self.store = store
+	}
 
-		guard shouldFetch() else { return }
-
-		// just fetch and cache
-		fetchStatistics(with: store.statistics?.lastStatisticsETag)
-			.sink(receiveCompletion: { result in
-				switch result {
-				case .finished:
-					break
-				case .failure(let error):
-					Log.error("Statistics loading error: \(error.localizedDescription)", log: .api, error: error)
-				}
-			}, receiveValue: { _ in })
-			.store(in: &subscriptions)
+	func statistics() -> AnyPublisher<SAP_Internal_Stats_Statistics, Error> {
+		guard let cached = store.statistics, !shouldFetch() else {
+			return fetchStatistics().eraseToAnyPublisher()
+		}
+		// return cached data; no error
+		return Just(cached.statistics)
+			.setFailureType(to: Error.self)
+			.eraseToAnyPublisher()
 	}
 
 	private func fetchStatistics(with etag: String? = nil) -> Future<SAP_Internal_Stats_Statistics, Error> {
@@ -51,10 +45,10 @@ class StatisticsProvider {
 					switch error {
 					case URLSessionError.notModified:
 						if let stats = self.store.statistics {
+							// like app config, we update `lastStatisticsFetch`
+							self.store.statistics?.refeshLastFetchDate()
 							// return cached stats
 							promise(.success(stats.statistics))
-							// unlike app config, we don't update 1lastStatisticsFetch` - this is
-							// only for simplicity
 						} else {
 							// in the unlikely case that we dont have any stats but an ETag, we don't retry and simply return the error
 							promise(.failure(error))
