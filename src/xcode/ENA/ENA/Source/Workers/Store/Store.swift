@@ -100,7 +100,7 @@ protocol StoreProtocol: AnyObject {
 
 	var submissionSymptomsOnset: SymptomsOnset { get set }
 
-	var diaryInfoScreenShown: Bool { get set }
+	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
 	func clearAll(key: String?)
 
