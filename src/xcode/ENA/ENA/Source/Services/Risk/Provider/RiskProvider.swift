@@ -197,10 +197,10 @@ final class RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping Completion
 	) {
-		// Risk Calculation involves some potentially long running tasks, like exposure detection and
-		// fetching the configuration from the backend.
-		// However in some precondition cases we can return early:
-		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
+//		 Risk Calculation involves some potentially long running tasks, like exposure detection and
+//		 fetching the configuration from the backend.
+//		 However in some precondition cases we can return early:
+//		 1. The exposureManagerState is bad (turned off, not authorized, etc.)
 		if !exposureManagerState.isGood {
 			Log.info("RiskProvider: Precondition not met for ExposureManagerState", log: .riskDetection)
 			completion(.failure(.inactive))
