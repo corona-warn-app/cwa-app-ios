@@ -43,12 +43,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		super.init(style: .plain)
 
 		viewModel.state.$testResult
-		   .sink { [weak self] _ in
-			DispatchQueue.main.async {
-			 self?.reload()
+			.sink { [weak self] _ in
+				DispatchQueue.main.async {
+					self?.reload()
+				}
 			}
-		   }
-		   .store(in: &subscriptions)
+			.store(in: &subscriptions)
 
 		viewModel.state.$testResultLoadingError
 			.sink { [weak self] testResultLoadingError in
@@ -89,6 +89,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.backgroundColor = .enaColor(for: .separator)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		viewModel.state.updateTestResult()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
