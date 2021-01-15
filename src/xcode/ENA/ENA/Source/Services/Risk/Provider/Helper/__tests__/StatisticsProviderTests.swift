@@ -13,7 +13,6 @@ class StatisticsProviderTests: XCTestCase {
 	func testFetchStaticStats() {
 
 		let fetchedFromClientExpectation = expectation(description: "stats fetched from client")
-		// we trigger a config fetch twice but expect only one http request (plus one cached result)
 		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
@@ -34,10 +33,10 @@ class StatisticsProviderTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	/// Quick test to verify the server's state. This can be removed refactored once the servers provide correct statistical data.
 	func testFetchStats() {
 
 		let fetchedFromClientExpectation = expectation(description: "stats fetched from client")
-		// we trigger a config fetch twice but expect only one http request (plus one cached result)
 		fetchedFromClientExpectation.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()

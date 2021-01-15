@@ -271,6 +271,8 @@
 		35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */; };
 		35E121A025B19D8C0098D754 /* sample_stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 35E1219E25B19D8C0098D754 /* sample_stats.bin */; };
 		35E121A125B19D8C0098D754 /* sample_stats.sha256 in Resources */ = {isa = PBXBuildFile; fileRef = 35E1219F25B19D8C0098D754 /* sample_stats.sha256 */; };
+		35E121A925B1CFB00098D754 /* StatisticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E121A825B1CFB00098D754 /* StatisticsProvider.swift */; };
+		35E121B925B23D060098D754 /* StatisticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E121B825B23D060098D754 /* StatisticsMetadata.swift */; };
 		35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */; };
 		35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */; };
 		35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */; };
@@ -967,6 +969,8 @@
 		35D16DDD2567FB980069AD1B /* DynamicLegalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalCell.xib; sourceTree = "<group>"; };
 		35E1219E25B19D8C0098D754 /* sample_stats.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = sample_stats.bin; sourceTree = "<group>"; };
 		35E1219F25B19D8C0098D754 /* sample_stats.sha256 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample_stats.sha256; sourceTree = "<group>"; };
+		35E121A825B1CFB00098D754 /* StatisticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsProvider.swift; sourceTree = "<group>"; };
+		35E121B825B23D060098D754 /* StatisticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsMetadata.swift; sourceTree = "<group>"; };
 		35EA6159258BC8E30062B50A /* CryptoKitFallbacks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKitFallbacks.swift; sourceTree = "<group>"; };
 		35EA684125553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreV2.swift; sourceTree = "<group>"; };
 		35EA684925553B5C00335F73 /* DownloadedPackagesStoreV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStoreV2.swift; sourceTree = "<group>"; };
@@ -2101,6 +2105,7 @@
 				94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */,
 				948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */,
 				94B255A52551B7C800649B4C /* WarnOthersReminder.swift */,
+				35E121B825B23D060098D754 /* StatisticsMetadata.swift */,
 			);
 			path = Exposure;
 			sourceTree = "<group>";
@@ -3278,6 +3283,8 @@
 				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
 				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
 				EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */,
+				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
+				35E121A825B1CFB00098D754 /* StatisticsProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -3310,7 +3317,6 @@
 				B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */,
 				3539DAD0252B353C00489B1A /* CachedAppConfigurationMock.swift */,
 				352E0F18255D537C00DC3E20 /* AppConfiguration+Validation.swift */,
-				354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -4188,6 +4194,8 @@
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
+				35E121B925B23D060098D754 /* StatisticsMetadata.swift in Sources */,
+				35E121A925B1CFB00098D754 /* StatisticsProvider.swift in Sources */,
 				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,

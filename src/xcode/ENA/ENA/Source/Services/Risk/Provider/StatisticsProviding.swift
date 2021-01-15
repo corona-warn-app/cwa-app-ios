@@ -29,11 +29,16 @@ protocol StatisticsFetching {
 
 /// Helper struct to collect some required data. Better than anonymous tumples.
 struct StatisticsFetchingResponse {
+	/// The fetched statistics
 	let stats: SAP_Internal_Stats_Statistics
+	/// Used for manual cache control
 	let eTag: String?
+	/// Used for manual cache control
+	let timestamp: Date
 
 	init(_ stats: SAP_Internal_Stats_Statistics, _ eTag: String? = nil) {
 		self.stats = stats
 		self.eTag = eTag
+		timestamp = Date()
 	}
 }
