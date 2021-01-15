@@ -1455,11 +1455,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Statistics */
 
-/* Trend On Cards */
+/* - Trend on Cards */
 
 "Statistics_Card_Trend_Increasing" = "Trend steigend";
 "Statistics_Card_Trend_Decreasing" = "Trend fallend";
 "Statistics_Card_Trend_Stable" = "Trend stabil";
+
+/* - Number and Date Formatting */
+
+"Statistics_Card_Million" = "%@ Mio.";
 
 /* - Infections Card */
 

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class HomeStatisticsTableViewCell: UITableViewCell {
 
@@ -16,21 +17,55 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(onInfoButtonTap: @escaping () -> Void, onAccessibilityFocus: @escaping () -> Void) {
+	func configure(
+		with cellModel: HomeStatisticsCellModel,
+		onInfoButtonTap: @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
+	) {
 		guard !isConfigured else { return }
 
+		cellModel.$keyFigureCards
+			.sink { [weak self] in
+				self?.configure(
+					for: $0,
+					onInfoButtonTap: onInfoButtonTap,
+					onAccessibilityFocus: onAccessibilityFocus
+				)
+			}
+			.store(in: &subscriptions)
+
+		// Retaining cell model so it gets updated
+		self.cellModel = cellModel
+
+		isConfigured = true
+	}
+
+	// MARK: - Private
+
+	@IBOutlet private weak var scrollView: UIScrollView!
+	@IBOutlet private weak var stackView: UIStackView!
+
+	private var cellModel: HomeStatisticsCellModel?
+	private var isConfigured: Bool = false
+	private var subscriptions = Set<AnyCancellable>()
+
+	private func configure(
+		for keyFigureCards: [SAP_Internal_Stats_KeyFigureCard],
+		onInfoButtonTap: @escaping () -> Void,
+		onAccessibilityFocus: @escaping () -> Void
+	) {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for index in 0...3 {
+		for keyFigureCard in keyFigureCards {
 			let nibName = String(describing: HomeStatisticsCardView.self)
 			let nib = UINib(nibName: nibName, bundle: .main)
 
-			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView, let card = HomeStatisticsCardViewModel.Card(rawValue: index) {
+			if let statisticsCardView = nib.instantiate(withOwner: self, options: nil).first as? HomeStatisticsCardView {
 				stackView.addArrangedSubview(statisticsCardView)
 
 				statisticsCardView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
 				statisticsCardView.configure(
-					viewModel: HomeStatisticsCardViewModel(for: card),
+					viewModel: HomeStatisticsCardViewModel(for: keyFigureCard),
 					onInfoButtonTap: {
 						onInfoButtonTap()
 					},
@@ -55,15 +90,6 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		}
 
 		accessibilityElements = stackView.arrangedSubviews
-
-		isConfigured = true
 	}
-
-	// MARK: - Private
-
-	@IBOutlet private weak var scrollView: UIScrollView!
-	@IBOutlet private weak var stackView: UIStackView!
-
-	private var isConfigured: Bool = false
 
 }

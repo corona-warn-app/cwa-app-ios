@@ -62,7 +62,7 @@ class HomeTableViewModel {
 		case .riskAndTest:
 			return riskAndTestRows.count
 		case .statistics:
-			return 1
+			return state.statistics.supportedCardIDSequence.isEmpty ? 0 : 1
 		case .diary:
 			return 1
 		case .infos:

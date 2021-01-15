@@ -28,6 +28,9 @@ class HomeStatisticsCardView: UIView {
 				self?.onAccessibilityFocus?()
 			}
 		}
+
+		primaryTrendImageView.layer.cornerRadius = primaryTrendImageView.bounds.width / 2
+		secondaryTrendImageView.layer.cornerRadius = secondaryTrendImageView.bounds.width / 2
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -147,6 +150,10 @@ class HomeStatisticsCardView: UIView {
 			}
 			.store(in: &subscriptions)
 
+		viewModel.$primaryTrendImageTintColor
+			.assign(to: \.backgroundColor, on: primaryTrendImageView)
+			.store(in: &subscriptions)
+
 		viewModel.$primaryTrendAccessibilityLabel
 			.assign(to: \.accessibilityLabel, on: primaryTrendImageView)
 			.store(in: &subscriptions)
@@ -170,6 +177,10 @@ class HomeStatisticsCardView: UIView {
 				self?.secondaryTrendImageView.isHidden = $0 == nil
 				self?.secondaryTrendImageView.image = $0
 			}
+			.store(in: &subscriptions)
+
+		viewModel.$secondaryTrendImageTintColor
+			.assign(to: \.backgroundColor, on: secondaryTrendImageView)
 			.store(in: &subscriptions)
 
 		viewModel.$secondaryTrendAccessibilityLabel

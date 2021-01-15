@@ -16,6 +16,9 @@
 		0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */; };
 		0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */; };
 		0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */; };
+		0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */; };
+		0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */; };
+		0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -711,6 +714,9 @@
 		0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModelTest.swift; sourceTree = "<group>"; };
 		0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayAddCellModelTest.swift; sourceTree = "<group>"; };
 		0123D5972501383100A91838 /* ExposureSubmissionErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionErrorTests.swift; sourceTree = "<group>"; };
+		0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCard.swift; sourceTree = "<group>"; };
+		0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModel.swift; sourceTree = "<group>"; };
+		0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_Statistics+SupportedIDs.swift"; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1475,9 +1481,12 @@
 			children = (
 				016E25F125AF13EA0077C64C /* HomeStatisticsTableViewCell.swift */,
 				016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */,
+				0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */,
 				016E260225AF20300077C64C /* HomeStatisticsCardView.swift */,
 				016E260725AF20540077C64C /* HomeStatisticsCardView.xib */,
 				016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */,
+				0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */,
+				0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -4005,6 +4014,7 @@
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
+				0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
 				0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
@@ -4102,6 +4112,7 @@
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
+				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
@@ -4141,6 +4152,7 @@
 				01EA17992590F03600E98E02 /* HomeDiaryTableViewCell.swift in Sources */,
 				01EA17D12591366200E98E02 /* HomeDiaryCellModel.swift in Sources */,
 				EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */,
+				0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */,
 				A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */,

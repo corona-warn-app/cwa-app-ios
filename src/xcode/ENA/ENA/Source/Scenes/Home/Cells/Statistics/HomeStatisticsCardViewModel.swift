@@ -9,131 +9,231 @@ class HomeStatisticsCardViewModel {
 
 	// MARK: - Init
 
-	init(for card: Card) {
-		switch card {
+	init(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+		switch HomeStatisticsCard(rawValue: keyFigureCard.header.cardID) {
 		case .infections:
-			setupInfections()
+			setupInfections(for: keyFigureCard)
 		case .incidence:
-			setupIncidence()
+			setupIncidence(for: keyFigureCard)
 		case .keySubmissions:
-			setupKeySubmissions()
+			setupKeySubmissions(for: keyFigureCard)
 		case .reproductionNumber:
-			setupReproductionNumber()
+			setupReproductionNumber(for: keyFigureCard)
+		case .none:
+			Log.info("Statistics card ID \(keyFigureCard.header.cardID) is not supported", log: .ui)
 		}
 	}
 
 	// MARK: - Internal
 
-	enum Card: Int {
-		case infections = 1
-		case incidence = 2
-		case keySubmissions = 3
-		case reproductionNumber = 4
-	}
+	@OpenCombine.Published private(set) var title: String?
 
-	@OpenCombine.Published var title: String?
+	@OpenCombine.Published private(set) var illustrationImage: UIImage!
 
-	@OpenCombine.Published var illustrationImage: UIImage!
+	@OpenCombine.Published private(set) var primaryTitle: String?
+	@OpenCombine.Published private(set) var primaryValue: String?
+	@OpenCombine.Published private(set) var primaryTrendImage: UIImage?
+	@OpenCombine.Published private(set) var primaryTrendImageTintColor: UIColor?
+	@OpenCombine.Published private(set) var primaryTrendAccessibilityLabel: String?
 
-	@OpenCombine.Published var primaryTitle: String?
-	@OpenCombine.Published var primaryValue: String?
-	@OpenCombine.Published var primaryTrendImage: UIImage?
-	@OpenCombine.Published var primaryTrendAccessibilityLabel: String?
+	@OpenCombine.Published private(set) var secondaryTitle: String?
+	@OpenCombine.Published private(set) var secondaryValue: String?
+	@OpenCombine.Published private(set) var secondaryTrendImage: UIImage?
+	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
+	@OpenCombine.Published private(set) var secondaryTrendAccessibilityLabel: String?
 
-	@OpenCombine.Published var secondaryTitle: String?
-	@OpenCombine.Published var secondaryValue: String?
-	@OpenCombine.Published var secondaryTrendImage: UIImage?
-	@OpenCombine.Published var secondaryTrendAccessibilityLabel: String?
+	@OpenCombine.Published private(set) var tertiaryTitle: String?
+	@OpenCombine.Published private(set) var tertiaryValue: String?
 
-	@OpenCombine.Published var tertiaryTitle: String?
-	@OpenCombine.Published var tertiaryValue: String?
-
-	@OpenCombine.Published var footnote: String?
+	@OpenCombine.Published private(set) var footnote: String?
 
 	// MARK: - Private
 
-	private func setupInfections() {
+	private lazy var dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .none
+		dateFormatter.doesRelativeDateFormatting = true
+
+		return dateFormatter
+	}()
+
+	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
 
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
-		primaryTitle = AppStrings.Statistics.Card.Infections.primaryLabelTitle
-		primaryValue = "14.714"
-		primaryTrendImage = nil
-		primaryTrendAccessibilityLabel = nil
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = dateFormatter.string(from: updateDate)
 
-		secondaryTitle = AppStrings.Statistics.Card.Infections.secondaryLabelTitle
-		secondaryValue = "11.981"
-		secondaryTrendImage = UIImage(named: "Pfeil_steigend")
-		secondaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendIncreasing
+			primaryValue = primaryFigure.formattedValue
 
-		tertiaryTitle = AppStrings.Statistics.Card.Infections.tertiaryLabelTitle
-		tertiaryValue = "429.181"
+			primaryTrendImage = primaryFigure.trendImage
+			primaryTrendImageTintColor = primaryFigure.trendTintColor
+			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+		}
 
-		footnote = nil
+		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
+			secondaryTitle = AppStrings.Statistics.Card.Infections.secondaryLabelTitle
+
+			secondaryValue = secondaryFigure.formattedValue
+
+			secondaryTrendImage = secondaryFigure.trendImage
+			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
+			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
+		}
+
+		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
+			tertiaryTitle = AppStrings.Statistics.Card.Infections.tertiaryLabelTitle
+
+			tertiaryValue = tertiaryFigure.formattedValue
+		}
 	}
 
-	private func setupKeySubmissions() {
+	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
 
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
-		primaryTitle = AppStrings.Statistics.Card.KeySubmissions.primaryLabelTitle
-		primaryValue = "1.514"
-		primaryTrendImage = nil
-		primaryTrendAccessibilityLabel = nil
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = dateFormatter.string(from: updateDate)
 
-		secondaryTitle = AppStrings.Statistics.Card.KeySubmissions.secondaryLabelTitle
-		secondaryValue = "1.812"
-		secondaryTrendImage = UIImage(named: "Pfeil_stabil")
-		secondaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendStable
+			primaryValue = primaryFigure.formattedValue
 
-		tertiaryTitle = AppStrings.Statistics.Card.KeySubmissions.tertiaryLabelTitle
-		tertiaryValue = "20.922"
+			primaryTrendImage = primaryFigure.trendImage
+			primaryTrendImageTintColor = primaryFigure.trendTintColor
+			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+		}
+
+		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
+			secondaryTitle = AppStrings.Statistics.Card.KeySubmissions.secondaryLabelTitle
+
+			secondaryValue = secondaryFigure.formattedValue
+
+			secondaryTrendImage = secondaryFigure.trendImage
+			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
+			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
+		}
+
+		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
+			tertiaryTitle = AppStrings.Statistics.Card.KeySubmissions.tertiaryLabelTitle
+
+			tertiaryValue = tertiaryFigure.formattedValue
+		}
 
 		footnote = AppStrings.Statistics.Card.KeySubmissions.footnote
 	}
 
-	private func setupIncidence() {
+	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
 
-		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
+		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
-		primaryTitle = AppStrings.Statistics.Card.Incidence.primaryLabelTitle
-		primaryValue = "98,9"
-		primaryTrendImage = UIImage(named: "Pfeil_steigend")
-		primaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendIncreasing
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = dateFormatter.string(from: updateDate)
+
+			primaryValue = primaryFigure.formattedValue
+
+			primaryTrendImage = primaryFigure.trendImage
+			primaryTrendImageTintColor = primaryFigure.trendTintColor
+			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+		}
 
 		secondaryTitle = AppStrings.Statistics.Card.Incidence.secondaryLabelTitle
-		secondaryValue = nil
-		secondaryTrendImage = nil
-		secondaryTrendAccessibilityLabel = nil
-
-		tertiaryTitle = nil
-		tertiaryValue = nil
-
-		footnote = nil
 	}
 
-	private func setupReproductionNumber() {
+	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
 
-		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
+		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
-		primaryTitle = AppStrings.Statistics.Card.ReproductionNumber.primaryLabelTitle
-		primaryValue = "1,04"
-		primaryTrendImage = UIImage(named: "Pfeil_sinkend")
-		primaryTrendAccessibilityLabel = AppStrings.Statistics.Card.trendDecreasing
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
+			primaryTitle = dateFormatter.string(from: updateDate)
+
+			primaryValue = primaryFigure.formattedValue
+
+			primaryTrendImage = primaryFigure.trendImage
+			primaryTrendImageTintColor = primaryFigure.trendTintColor
+			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+		}
 
 		secondaryTitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
-		secondaryValue = nil
-		secondaryTrendImage = nil
-		secondaryTrendAccessibilityLabel = nil
+	}
 
-		tertiaryTitle = nil
-		tertiaryValue = nil
+}
 
-		footnote = nil
+private extension SAP_Internal_Stats_KeyFigure {
+
+	var formattedValue: String? {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.numberStyle = .decimal
+
+		if value >= 10_000_000 {
+			numberFormatter.minimumFractionDigits = 1
+			numberFormatter.maximumFractionDigits = 1
+
+			let value = self.value / 1_000_000
+			guard let formattedNumber = numberFormatter.string(from: NSNumber(value: value)) else {
+				return nil
+			}
+
+			return String(format: AppStrings.Statistics.Card.million, formattedNumber)
+		} else {
+			let decimals = max(0, Int(self.decimals))
+			numberFormatter.minimumFractionDigits = Int(decimals)
+			numberFormatter.maximumFractionDigits = Int(decimals)
+
+			return numberFormatter.string(from: NSNumber(value: value))
+		}
+	}
+
+	var trendImage: UIImage? {
+		switch trend {
+		case .stable:
+			return UIImage(named: "Pfeil_stabil")
+		case .increasing:
+			return UIImage(named: "Pfeil_steigend")
+		case .decreasing:
+			return UIImage(named: "Pfeil_sinkend")
+		case .unspecifiedTrend:
+			return nil
+		case .UNRECOGNIZED:
+			return nil
+		}
+	}
+
+	var trendTintColor: UIColor? {
+		switch trendSemantic {
+		case .negative:
+			return .enaColor(for: .riskHigh)
+		case .neutral:
+			return .enaColor(for: .riskNeutral)
+		case .positive:
+			return .enaColor(for: .riskLow)
+		case .unspecifiedTrendSemantic:
+			return nil
+		case .UNRECOGNIZED:
+			return nil
+		}
+	}
+
+	var trendAccessibilityLabel: String? {
+		switch trend {
+		case .stable:
+			return AppStrings.Statistics.Card.trendStable
+		case .increasing:
+			return AppStrings.Statistics.Card.trendIncreasing
+		case .decreasing:
+			return AppStrings.Statistics.Card.trendDecreasing
+		case .unspecifiedTrend:
+			return nil
+		case .UNRECOGNIZED:
+			return nil
+		}
 	}
 
 }

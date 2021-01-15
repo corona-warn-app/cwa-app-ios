@@ -70,6 +70,19 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				}
 			}
 			.store(in: &subscriptions)
+
+		viewModel.state.$statistics
+			.sink { [weak self] newStatistics in
+				// Only reload if the number of statistics cards changed from or to 0
+				guard newStatistics.supportedCardIDSequence.isEmpty != viewModel.state.statistics.supportedCardIDSequence.isEmpty else {
+					return
+				}
+
+				DispatchQueue.main.async {
+					self?.reload()
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	@available(*, unavailable)
@@ -91,6 +104,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
 		viewModel.state.updateTestResult()
+		viewModel.state.updateStatistics()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -392,6 +406,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 
 		cell.configure(
+			with: HomeStatisticsCellModel(homeState: viewModel.state),
 			onInfoButtonTap: { [weak self] in
 				self?.onStatisticsInfoButtonTap()
 			},
@@ -602,7 +617,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
 		viewModel.state.updateTestResult()
+		viewModel.state.updateStatistics()
 		showDeltaOnboardingAndAlertsIfNeeded()
 	}
 
+	// swiftlint:disable:next file_length
 }
