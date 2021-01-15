@@ -78,5 +78,24 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 		
 	}
+	
+	func test_DeltaOnboardingScreenCloseButton() throws {
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.3"])
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
+		
+		XCTAssert(app.staticTexts["AppStrings.DeltaOnboarding.title"].waitForExistence(timeout: .long))
+		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		
+		// close delta onboarding
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		
+		XCTAssertEqual(app.staticTexts["AppStrings.DeltaOnboarding.title"].exists, false)
+		XCTAssertEqual(app.staticTexts["AppStrings.AccessibilityLabel.close"].exists, false)
+		
+		AccessibilityLabels.printLabels(app.staticTexts)
+		XCTAssert(app.staticTexts[AccessibilityLabels.localized(AppStrings.Home.submitCardBody)].waitForExistence(timeout: .short))
+			
+	}
 
 }
