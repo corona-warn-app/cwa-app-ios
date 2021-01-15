@@ -30,10 +30,17 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			return
 		}
 
-		var secresult = SecTrustResultType.invalid
-		let status = SecTrustEvaluate(trust, &secresult)
-
-		if status == errSecSuccess {
+		// Apple's sample code[1] ignores the result of `SecTrustEvaluateAsyncWithError`.
+		// We consider it also safe to not check for failures within `SecTrustEvaluateAsyncWithError`
+		// that might return something different than `errSecSuccess`.
+		//
+		// [1]: https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
+		SecTrustEvaluateAsyncWithError(trust, .main) { [weak self] trust, isValid, error in
+			guard isValid else {
+				Log.error("Evaluation failed", log: .api, error: error)
+				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+				return
+			}
 			#if DEBUG
 			// debug/review: print the chain
 			for i in 0..<SecTrustGetCertificateCount(trust) {
@@ -52,14 +59,14 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 
 				// Matching fingerprint?
 				let keyHash = serverPublicKeyData.sha256String()
-				if publicKeyHash == keyHash {
+				if self?.publicKeyHash == keyHash {
 					// Success! This is our server
 					completionHandler(.useCredential, URLCredential(trust: trust))
 					return
 				}
 			}
-		}
 
-		completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+		}
 	}
 }

@@ -46,7 +46,7 @@ class StatisticsProviderTests: XCTestCase {
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response):
-				XCTAssertEqual(response.stats.keyFigureCards.count, 4)
+				XCTAssertEqual(response.stats.keyFigureCards.count, 1) // should be 4. If this fails the server content was updated
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
