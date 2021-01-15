@@ -226,6 +226,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var deltaOnboardingDone = false
 
 	private func setupBarButtonItems() {
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "Corona-Warn-App"), style: .plain, target: nil, action: nil)
@@ -429,6 +430,13 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
+		switch deltaOnboardingDone {
+		case false:
+			deltaOnboardingDone = true
+		default:
+			return
+		}
+
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
