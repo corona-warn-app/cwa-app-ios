@@ -1028,6 +1028,7 @@ enum AppStrings {
 			static let reproductionNumberText = NSLocalizedString("Statistics_Info_ReproductionNumber_Text", comment: "")
 			static let faqLinkText = NSLocalizedString("Statistics_Info_FAQLink_Text", comment: "")
 			static let faqLinkTitle = NSLocalizedString("Statistics_Info_FAQLink_Title", comment: "")
+			static let faqLink = NSLocalizedString("Statistics_Info_FAQ_URL", tableName: "Localizable.links", comment: "")
 			static let definitionsTitle = NSLocalizedString("Statistics_Info_Definitions_Title", comment: "")
 			static let periodTitle = NSLocalizedString("Statistics_Info_Period_Title", comment: "")
 			static let yesterdayTitle = NSLocalizedString("Statistics_Info_Yesterday_Title", comment: "")

@@ -143,7 +143,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					),
 					.link(
 						text: AppStrings.Statistics.Info.faqLinkTitle,
-						url: URL(staticString: "http://www.corona-warn-app.com")
+						url: URL(string: AppStrings.Statistics.Info.faqLink)
 					)
 				]
 			),
