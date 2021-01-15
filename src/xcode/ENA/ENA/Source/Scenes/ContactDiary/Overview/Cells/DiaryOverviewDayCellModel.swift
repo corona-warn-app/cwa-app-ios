@@ -9,8 +9,8 @@ final class DiaryOverviewDayCellModel {
 
 	// MARK: - Init
 
-	init(_ model: DiaryDay) {
-		self.model = model
+	init(_ diaryDay: DiaryDay) {
+		self.diaryDay = diaryDay
 	}
 
 	// MARK: - Public
@@ -18,7 +18,7 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Internal
 
 	var showExposureHistory: Bool {
-		switch model.exposureEncounter {
+		switch diaryDay.exposureEncounter {
 		case .none:
 			return false
 		case .encounter:
@@ -27,7 +27,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryImage: UIImage {
-		switch model.exposureEncounter {
+		switch diaryDay.exposureEncounter {
 		case let .encounter(risk):
 			switch risk {
 			case .low:
@@ -41,7 +41,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryTitle: String? {
-		switch model.exposureEncounter {
+		switch diaryDay.exposureEncounter {
 		case let .encounter(risk):
 			switch risk {
 			case .low:
@@ -56,7 +56,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryDetail: String? {
-		switch model.exposureEncounter {
+		switch diaryDay.exposureEncounter {
 		case .encounter:
 			return selectedEntries.isEmpty ?
 				AppStrings.ContactDiary.Overview.riskText1 :
@@ -68,15 +68,15 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var selectedEntries: [DiaryEntry] {
-		model.selectedEntries
+		diaryDay.selectedEntries
 	}
 
 	var formattedDate: String {
-		model.formattedDate
+		diaryDay.formattedDate
 	}
 
 	// MARK: - Private
 
-	private let model: DiaryDay
+	private let diaryDay: DiaryDay
 
 }
