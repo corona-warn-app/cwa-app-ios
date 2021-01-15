@@ -955,6 +955,7 @@ enum AppStrings {
 			static let itemLockTitle = NSLocalizedString("ContactDiary_Information_Item_Lock_Title", comment: "")
 			static let deletedAutomatically = NSLocalizedString("ContactDiary_Information_Item_DeletedAutomatically_Title", comment: "")
 			static let exportTextformat = NSLocalizedString("ContactDiary_Information_Item_ExportTextFormat_Title", comment: "")
+			static let exposureHistory = NSLocalizedString("ContactDiary_Information_Item_ExposureHistory_Title", comment: "")
 			static let legalHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
 			static let legalSubHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
 			static let legalSubHeadline_2 = NSLocalizedString("ContactDiary_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
