@@ -4,6 +4,8 @@
 
 import Foundation
 import OpenCombine
+import OpenCombineFoundation
+import OpenCombineDispatch
 
 class StatisticsProvider: StatisticsProviding {
 	/// Most likely a HTTP client
@@ -25,7 +27,9 @@ class StatisticsProvider: StatisticsProviding {
 
 	func statistics() -> AnyPublisher<SAP_Internal_Stats_Statistics, Error> {
 		guard let cached = store.statistics, !shouldFetch() else {
-			return fetchStatistics().eraseToAnyPublisher()
+			return fetchStatistics()
+				.debounce(for: .milliseconds(1000), scheduler: DispatchQueue.OCombine(.main))
+				.eraseToAnyPublisher()
 		}
 		// return cached data; no error
 		return Just(cached.statistics)
