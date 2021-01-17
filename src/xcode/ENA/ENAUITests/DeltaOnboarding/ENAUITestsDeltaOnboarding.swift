@@ -37,14 +37,10 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 
 		let tablesQuery = XCUIApplication().tables
 		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
-		
-		
+				
 		// Close (X) Button
 		XCTAssertTrue(XCUIApplication().navigationBars["ENA.DeltaOnboardingV15View"].buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5))
 		
-		// Continue Button
-		XCTAssertTrue(XCUIApplication().buttons["AppStrings.DeltaOnboarding.primaryButton"].waitForExistence(timeout: 5))
-		XCUIApplication().buttons["AppStrings.DeltaOnboarding.primaryButton"].tap()
 	}
 	
 	func test_screenshotDeltaOnboardingV15View() throws {
@@ -75,7 +71,6 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		
 		
 	}
 	
