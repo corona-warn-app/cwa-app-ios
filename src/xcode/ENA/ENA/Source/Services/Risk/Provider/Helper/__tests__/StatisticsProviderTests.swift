@@ -93,44 +93,6 @@ class StatisticsProviderTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
-	func testStatisticsProvidingThrottling() throws {
-		let networkRequest = expectation(description: "network request")
-		networkRequest.expectedFulfillmentCount = 1
-
-		let dataReceived = expectation(description: "got data")
-		dataReceived.expectedFulfillmentCount = 5
-
-		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
-		client.onFetchStatistics = { _, completeWith in
-			let response = StatisticsFetchingResponse(CachingHTTPClientMock.staticStatistics, "fake2")
-			completeWith(.success(response))
-			networkRequest.fulfill()
-		}
-
-		for _ in 0...5 {
-			let provider = StatisticsProvider(client: client, store: store)
-			provider.statistics()
-				.sink(receiveCompletion: { result in
-					switch result {
-					case .finished:
-						return
-					case .failure(let error):
-						XCTFail("Foo: \(error)")
-					}
-				}, receiveValue: { response in
-					XCTAssertEqual(
-						response.keyFigureCards.count,
-						CachingHTTPClientMock.staticStatistics.keyFigureCards.count)
-
-					dataReceived.fulfill()
-				})
-				.store(in: &subscriptions)
-		}
-
-		waitForExpectations(timeout: .long)
-	}
-
 	func testStatisticsProvidingHttp304() throws {
 		let checkpoint = expectation(description: "Value received")
 		checkpoint.expectedFulfillmentCount = 2
