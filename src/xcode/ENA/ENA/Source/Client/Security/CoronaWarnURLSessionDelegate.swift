@@ -60,7 +60,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 	/// Common evaluation, covering iOS versions 12.5 or 13.x
 	/// - Parameters:
 	///   - challenge: A challenge from a server requiring authentication from the client.
-	///   - trust: Shortcur for `challenge.protectionSpace.serverTrust`
+	///   - trust: Shortcut for `challenge.protectionSpace.serverTrust`
 	///   - completionHandler: the completion handler to accept or reject the request
 	private func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
 		#if DEBUG
