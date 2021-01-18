@@ -962,6 +962,7 @@
 		503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModel.swift; sourceTree = "<group>"; };
 		505F2E512587738900697CC2 /* AccessibilityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityLabels.swift; sourceTree = "<group>"; };
+		50742EBB25B1FA5200FF00FA /* ContactDiaryStoreSchemaV3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3.swift; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
@@ -2022,6 +2023,15 @@
 			path = V2;
 			sourceTree = "<group>";
 		};
+		50742EBA25B1FA3B00FF00FA /* StoreV3 */ = {
+			isa = PBXGroup;
+			children = (
+				50742EBB25B1FA5200FF00FA /* ContactDiaryStoreSchemaV3.swift */,
+				50742EBC25B1FAA200FF00FA /* ContactDiaryMigration2To3.swift */,
+			);
+			path = StoreV3;
+			sourceTree = "<group>";
+		};
 		50BD2E6724FE26F300932566 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -2832,6 +2842,7 @@
 				019C9F0725894BE900B26392 /* MockDiaryStore.swift */,
 				8F2EDD3025A4B9BB006F6520 /* StoreV1 */,
 				8F27018D259B58D700E48CFE /* StoreV2 */,
+				50742EBA25B1FA3B00FF00FA /* StoreV3 */,
 			);
 			path = Store;
 			sourceTree = "<group>";
