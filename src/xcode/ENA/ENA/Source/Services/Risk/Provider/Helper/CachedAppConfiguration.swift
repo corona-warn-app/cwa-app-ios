@@ -16,11 +16,7 @@ final class CachedAppConfiguration {
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
 		case dataVerificationError(message: String?)
-		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
-		case notModified
 	}
-
-	@OpenCombine.Published var configuration: SAP_Internal_V2_ApplicationConfigurationIOS?
 
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
@@ -48,8 +44,6 @@ final class CachedAppConfiguration {
 		store: Store,
 		deviceTimeCheck: DeviceTimeCheckProtocol? = nil
 	) {
-		Log.debug("CachedAppConfiguration init called", log: .appConfig)
-
 		self.client = client
 		self.store = store
 
@@ -89,7 +83,7 @@ final class CachedAppConfiguration {
 
 				case .failure(let error):
 					switch error {
-					case CachedAppConfiguration.CacheError.notModified where self.store.appConfigMetadata != nil:
+					case URLSessionError.notModified where self.store.appConfigMetadata != nil:
 						Log.error("config not modified", log: .api)
 						// server is not modified and we have a cached config
 						guard let meta = self.store.appConfigMetadata else {
