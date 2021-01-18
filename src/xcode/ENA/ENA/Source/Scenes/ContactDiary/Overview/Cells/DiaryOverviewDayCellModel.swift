@@ -17,12 +17,12 @@ final class DiaryOverviewDayCellModel {
 
 	// MARK: - Internal
 
-	var showExposureHistory: Bool {
+	var hideExposureHistory: Bool {
 		switch diaryDay.exposureEncounter {
 		case .none:
-			return false
-		case .encounter:
 			return true
+		case .encounter:
+			return false
 		}
 	}
 
