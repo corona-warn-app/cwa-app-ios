@@ -27,6 +27,9 @@ protocol DiaryStoring {
 	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult
 
 	@discardableResult
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult
+
+	@discardableResult
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult
 	@discardableResult
 	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult
