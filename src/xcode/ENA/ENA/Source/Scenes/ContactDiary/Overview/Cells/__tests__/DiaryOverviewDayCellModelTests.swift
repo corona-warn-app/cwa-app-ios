@@ -17,15 +17,15 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
 		// WHEN
-		let showExposureHistory = cellViewModel.showExposureHistory
+		let showExposureHistory = cellViewModel.hideExposureHistory
 		let title = cellViewModel.exposureHistoryTitle
 		let image = cellViewModel.exposureHistoryImage
 		let detail = cellViewModel.exposureHistoryDetail
 
 		// THEN
-		XCTAssertFalse(showExposureHistory)
+		XCTAssertTrue(showExposureHistory)
 		XCTAssertNil(title)
-		XCTAssertEqual(image, UIImage())
+		XCTAssertNil(image)
 		XCTAssertNil(detail)
 	}
 
@@ -39,12 +39,12 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
 		// WHEN
-		let showExposureHistory = cellViewModel.showExposureHistory
+		let showExposureHistory = cellViewModel.hideExposureHistory
 		let title = cellViewModel.exposureHistoryTitle
 		let image = cellViewModel.exposureHistoryImage
 
 		// THEN
-		XCTAssertTrue(showExposureHistory)
+		XCTAssertFalse(showExposureHistory)
 		XCTAssertEqual(title, AppStrings.ContactDiary.Overview.lowRiskTitle)
 		XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Icons_Attention_low"))
 	}
@@ -59,12 +59,12 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
 		// WHEN
-		let showExposureHistory = cellViewModel.showExposureHistory
+		let showExposureHistory = cellViewModel.hideExposureHistory
 		let title = cellViewModel.exposureHistoryTitle
 		let image = cellViewModel.exposureHistoryImage
 
 		// THEN
-		XCTAssertTrue(showExposureHistory)
+		XCTAssertFalse(showExposureHistory)
 		XCTAssertEqual(title, AppStrings.ContactDiary.Overview.increasedRiskTitle)
 		XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Icons_Attention_high"))
 	}
@@ -79,11 +79,11 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
 		// WHEN
-		let showExposureHistory = cellViewModel.showExposureHistory
+		let showExposureHistory = cellViewModel.hideExposureHistory
 		let detail = cellViewModel.exposureHistoryDetail
 
 		// THEN
-		XCTAssertTrue(showExposureHistory)
+		XCTAssertFalse(showExposureHistory)
 		XCTAssertEqual(detail, AppStrings.ContactDiary.Overview.riskText1)
 	}
 

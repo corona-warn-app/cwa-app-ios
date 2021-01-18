@@ -17,16 +17,16 @@ final class DiaryOverviewDayCellModel {
 
 	// MARK: - Internal
 
-	var showExposureHistory: Bool {
+	var hideExposureHistory: Bool {
 		switch diaryDay.exposureEncounter {
 		case .none:
-			return false
-		case .encounter:
 			return true
+		case .encounter:
+			return false
 		}
 	}
 
-	var exposureHistoryImage: UIImage {
+	var exposureHistoryImage: UIImage? {
 		switch diaryDay.exposureEncounter {
 		case let .encounter(risk):
 			switch risk {
@@ -36,7 +36,7 @@ final class DiaryOverviewDayCellModel {
 				return UIImage(imageLiteralResourceName: "Icons_Attention_high")
 			}
 		case .none:
-			return UIImage()
+			return nil
 		}
 	}
 
