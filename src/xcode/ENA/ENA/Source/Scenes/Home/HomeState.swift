@@ -163,7 +163,7 @@ class HomeState: ENStateHandlerUpdating {
 					case .finished:
 						break
 					case .failure(let error):
-						Log.error("[HomeState] Could not load statistics", log: .api, error: error)
+						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
 					}
 				}, receiveValue: { [weak self] in
 					self?.statistics = $0
