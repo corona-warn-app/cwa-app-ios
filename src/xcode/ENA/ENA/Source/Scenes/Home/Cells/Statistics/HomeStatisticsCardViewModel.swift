@@ -53,7 +53,6 @@ class HomeStatisticsCardViewModel {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .none
-		dateFormatter.doesRelativeDateFormatting = true
 
 		return dateFormatter
 	}()
@@ -65,7 +64,7 @@ class HomeStatisticsCardViewModel {
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = dateFormatter.string(from: updateDate)
+			primaryTitle = formatted(updateDate, for: .infections)
 
 			primaryValue = primaryFigure.formattedValue
 
@@ -98,7 +97,7 @@ class HomeStatisticsCardViewModel {
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = dateFormatter.string(from: updateDate)
+			primaryTitle = formatted(updateDate, for: .keySubmissions)
 
 			primaryValue = primaryFigure.formattedValue
 
@@ -133,7 +132,7 @@ class HomeStatisticsCardViewModel {
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = dateFormatter.string(from: updateDate)
+			primaryTitle = formatted(updateDate, for: .incidence)
 
 			primaryValue = primaryFigure.formattedValue
 
@@ -152,7 +151,7 @@ class HomeStatisticsCardViewModel {
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = dateFormatter.string(from: updateDate)
+			primaryTitle = formatted(updateDate, for: .reproductionNumber)
 
 			primaryValue = primaryFigure.formattedValue
 
@@ -162,6 +161,49 @@ class HomeStatisticsCardViewModel {
 		}
 
 		secondaryTitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
+	}
+
+	// swiftlint:disable:next cyclomatic_complexity
+	private func formatted(_ date: Date, for card: HomeStatisticsCard) -> String {
+		if Calendar.current.isDate(date, inSameDayAs: Date()) {
+			switch card {
+			case .infections:
+				return AppStrings.Statistics.Card.Infections.today
+			case .incidence:
+				return AppStrings.Statistics.Card.Incidence.today
+			case .keySubmissions:
+				return AppStrings.Statistics.Card.KeySubmissions.today
+			case .reproductionNumber:
+				return AppStrings.Statistics.Card.ReproductionNumber.today
+			}
+		}
+
+
+		if let yesterday = Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()),
+		   Calendar.current.isDate(date, inSameDayAs: yesterday) {
+			switch card {
+			case .infections:
+				return AppStrings.Statistics.Card.Infections.yesterday
+			case .incidence:
+				return AppStrings.Statistics.Card.Incidence.yesterday
+			case .keySubmissions:
+				return AppStrings.Statistics.Card.KeySubmissions.yesterday
+			case .reproductionNumber:
+				return AppStrings.Statistics.Card.ReproductionNumber.yesterday
+			}
+		}
+
+		let formattedDate = dateFormatter.string(from: date)
+		switch card {
+		case .infections:
+			return String(format: AppStrings.Statistics.Card.Infections.date, formattedDate)
+		case .incidence:
+			return String(format: AppStrings.Statistics.Card.Incidence.date, formattedDate)
+		case .keySubmissions:
+			return String(format: AppStrings.Statistics.Card.KeySubmissions.date, formattedDate)
+		case .reproductionNumber:
+			return String(format: AppStrings.Statistics.Card.ReproductionNumber.date, formattedDate)
+		}
 	}
 
 }
