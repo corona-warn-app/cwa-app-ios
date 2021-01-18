@@ -64,6 +64,21 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(id)
 	}
 
+	@discardableResult
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
+		var addedIDs: [Int] = []
+		for (date, riskLevel) in riskLevelPerDate {
+			let id = (risklevelPerDays.map { $0.id }.max() ?? -1) + 1
+			risklevelPerDays.append(RisklevelPerDay(id: id, date: date, risklevel: riskLevel))
+			addedIDs.append(id)
+		}
+
+		updateDays()
+
+		let maxID = addedIDs.max() ?? 0
+		return .success(maxID)
+	}
+
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
@@ -167,6 +182,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	private var locations: [DiaryLocation] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
 	private var locationVisits: [LocationVisit] = []
+	private var risklevelPerDays: [RisklevelPerDay] = []
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
@@ -196,10 +212,28 @@ class MockDiaryStore: DiaryStoringProviding {
 					return DiaryEntry.location(location)
 				}
 
-			diaryDays.append(DiaryDay(dateString: dateString, entries: contactPersonEntries + locationEntries))
+			let expusureHistory: DiaryDay.HistoryExposure = risklevelPerDays
+				.filter { dateFormatter.string(from: $0.date) == dateString }
+				.map { $0.risklevel }
+				.max()
+				.map { .encounter($0) } ?? .none
+
+			diaryDays.append(DiaryDay(
+								dateString: dateString,
+								entries: contactPersonEntries + locationEntries,
+								exposureEncounter: expusureHistory
+				)
+			)
 		}
 
 		diaryDaysPublisher.send(diaryDays)
 	}
 
+}
+
+extension RiskLevel: Comparable {
+
+	public static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
+		lhs.rawValue < rhs.rawValue
+	}
 }
