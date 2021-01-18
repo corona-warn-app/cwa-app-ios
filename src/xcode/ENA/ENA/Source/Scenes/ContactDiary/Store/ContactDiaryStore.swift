@@ -375,10 +375,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let dateString = dateFormatter.string(from: level.key)
 			let riskLevelRawValue = level.value.rawValue
 			databaseQueue.inDatabase { database in
-				Log.info("[ContactDiaryStore] Add RiskLevelPerDay.", log: .localData)
+				Log.info("[ContactDiaryStore] Add RiskLevelPerDate.", log: .localData)
 
 				let sql = """
-					INSERT INTO RiskLevelPerDay (
+					INSERT INTO RiskLevelPerDate (
 						date,
 						riskLevel
 					)
@@ -835,6 +835,37 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(locations)
 	}
 
+	private func fetchRiskLevelPerDate(for date: String, in database: FMDatabase) -> Result<[Date: RiskLevel], DiaryStoringError> {
+		var riskLevels = [Date: RiskLevel]()
+
+		let sql = """
+				SELECT RiskLevelPerDate.date, RiskLevelPerDate.riskLevel
+				FROM RiskLevelPerDate
+				WHERE RiskLevelPerDate.date = ?
+			"""
+
+		do {
+			let queryResult = try database.executeQuery(sql, values: [date])
+			defer {
+				queryResult.close()
+			}
+
+			while queryResult.next() {
+				guard let dateString = queryResult.string(forColumn: "date"),
+					  let date = dateFormatter.date(from: dateString),
+					  let riskLevel = RiskLevel(rawValue: queryResult.long(forColumn: "riskLevel")) else {
+					return .failure(.database(SQLiteErrorCode.generalError))
+				}
+				riskLevels.updateValue(riskLevel, forKey: date)
+			}
+		} catch {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(riskLevels)
+	}
+
 	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
@@ -868,6 +899,16 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			case .failure(let error):
 				return .failure(error)
 			}
+
+			let riskLevelResult = fetchRiskLevelPerDate(for: dateString, in: database)
+
+//			var riskLevelsEntries: [DiaryEntry]
+//			switch riskLevelResult {
+//			case .success(let riskLevels):
+//				return riskLevels
+//			case .failure(let error):
+//				return .failure(error)
+//			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
 			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
@@ -922,6 +963,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					DROP TABLE LocationVisit;
 					DROP TABLE ContactPerson;
 					DROP TABLE ContactPersonEncounter;
+					DROP TABLE RiskLevelPerDate
 					VACUUM;
 				"""
 
