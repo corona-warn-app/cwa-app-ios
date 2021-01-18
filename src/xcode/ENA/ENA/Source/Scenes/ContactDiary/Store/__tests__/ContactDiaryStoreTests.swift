@@ -881,6 +881,24 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
+		let schema = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
+		let migrations: [Migration] = [ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
+		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 3, migrations: migrations)
+
+		guard let store = ContactDiaryStore(
+			databaseQueue: databaseQueue,
+			schema: schema,
+			key: "Dummy",
+			dateProvider: dateProvider,
+			migrator: migrator
+		) else {
+			fatalError("Could not create content diary store.")
+		}
+
+		return store
+	}
+
+	private func makeContactDiaryV2Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
 		let schema = ContactDiaryStoreSchemaV2(databaseQueue: databaseQueue)
 		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 2, migrations: migrations)
