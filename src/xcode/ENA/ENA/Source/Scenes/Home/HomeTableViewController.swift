@@ -284,8 +284,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		guard tableView.visibleCells.contains(cell) else { return }
 
 		// Animate the changed cell height
-		tableView.beginUpdates()
-		tableView.endUpdates()
+		tableView.performBatchUpdates(nil, completion: nil)
 
 		// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
 		for cell in tableView.visibleCells {
