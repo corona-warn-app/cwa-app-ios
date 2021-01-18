@@ -368,6 +368,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
+	// implementation is part of TASK #4616
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) {
+		Log.debug("Insert to contact database here - missign at the moment")
+	}
+
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
