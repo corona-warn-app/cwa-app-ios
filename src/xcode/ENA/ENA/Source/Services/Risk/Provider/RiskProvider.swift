@@ -14,7 +14,7 @@ final class RiskProvider: RiskProviding {
 	init(
 		configuration: RiskProvidingConfiguration,
 		store: Store,
-		contactDiaryStore: ContactDiaryStore,
+		contactDiaryStore: DiaryStoring,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
@@ -107,7 +107,7 @@ final class RiskProvider: RiskProviding {
     private typealias Completion = (RiskProviderResult) -> Void
 
 	private let store: Store
-	private let contactDiaryStore: ContactDiaryStore
+	private let contactDiaryStore: DiaryStoring
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
 	private let riskCalculation: RiskCalculationProtocol
