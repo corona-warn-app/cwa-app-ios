@@ -1459,4 +1459,4 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "UpdateOS_title" = "Führen Sie ein iOS-Update durch.";
 
-"UpdateOS_text" = "Für die Corona-Warn-App benötigen Sie die aktuelle iOS-Version. Gehen Sie dafür in die Einstellungen Ihres iPhones und wählen Sie Allgemein -> Softwareupdate.";
+"UpdateOS_text" = "Für die Corona-Warn-App benötigen Sie die aktuelle iOS-Version.\nGehen Sie dafür in die Einstellungen Ihres iPhones und wählen Sie Allgemein -> Softwareupdate.";
