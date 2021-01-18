@@ -368,12 +368,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
-		var result: DiaryStoringResult?
+	func addRiskLevelPerDate(_ riskLevelsPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult {
+		var result: DiaryStoringGroupResult?
 
-		riskLevelPerDate.forEach { level in
-			let dateString = dateFormatter.string(from: level.key)
-			let riskLevelRawValue = level.value.rawValue
+		for (date, riskLevel) in riskLevelsPerDate {
+			let dateString = dateFormatter.string(from: date)
+			let riskLevelRawValue = riskLevel.rawValue
 			databaseQueue.inDatabase { database in
 				Log.info("[ContactDiaryStore] Add RiskLevelPerDate.", log: .localData)
 
@@ -394,18 +394,18 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				]
 				guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 					logLastErrorCode(from: database)
-					result = .failure(dbError(from: database))
+					result?.append(.failure(dbError(from: database)))
 					return
 				}
 
 				let updateDiaryDaysResult = updateDiaryDays(with: database)
 				guard case .success = updateDiaryDaysResult else {
 					logLastErrorCode(from: database)
-					result = .failure(dbError(from: database))
+					result?.append(.failure(dbError(from: database)))
 					return
 				}
 
-				result = .success(Int(database.lastInsertRowId))
+				result?.append(.success(Int(database.lastInsertRowId)))
 			}
 		}
 
@@ -835,11 +835,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(locations)
 	}
 
-	private func fetchRiskLevelPerDate(for date: String, in database: FMDatabase) -> Result<[Date: RiskLevel], DiaryStoringError> {
-		var riskLevels = [Date: RiskLevel]()
+	private func fetchRiskLevelPerDate(for date: String, in database: FMDatabase) -> Result<RiskLevel?, DiaryStoringError> {
+		var riskLevel: RiskLevel?
 
 		let sql = """
-				SELECT RiskLevelPerDate.date, RiskLevelPerDate.riskLevel
+				SELECT RiskLevelPerDate.date, MAX(RiskLevelPerDate.riskLevel AS RiskLevel)
 				FROM RiskLevelPerDate
 				WHERE RiskLevelPerDate.date = ?
 			"""
@@ -851,19 +851,17 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
-				guard let dateString = queryResult.string(forColumn: "date"),
-					  let date = dateFormatter.date(from: dateString),
-					  let riskLevel = RiskLevel(rawValue: queryResult.long(forColumn: "riskLevel")) else {
+				guard let fetchedRiskLevel = RiskLevel(rawValue: queryResult.long(forColumn: "RiskLevel")) else {
 					return .failure(.database(SQLiteErrorCode.generalError))
 				}
-				riskLevels.updateValue(riskLevel, forKey: date)
+				riskLevel = fetchedRiskLevel
 			}
 		} catch {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
 		}
 
-		return .success(riskLevels)
+		return .success(riskLevel)
 	}
 
 	@discardableResult
@@ -902,16 +900,16 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let riskLevelResult = fetchRiskLevelPerDate(for: dateString, in: database)
 
-//			var riskLevelsEntries: [DiaryEntry]
-//			switch riskLevelResult {
-//			case .success(let riskLevels):
-//				return riskLevels
-//			case .failure(let error):
-//				return .failure(error)
-//			}
+			var historyExposure: DiaryDay.HistoryExposure
+			switch riskLevelResult {
+			case .success(let riskLevel):
+				historyExposure = getHistoryExposure(for: riskLevel)
+			case .failure(let error):
+				return .failure(error)
+			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, exposureEncounter: historyExposure)
 			diaryDays.append(diaryDay)
 		}
 
@@ -991,6 +989,22 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	private func dbError(from database: FMDatabase) -> DiaryStoringError {
 		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 		return .database(dbError)
+	}
+
+	private func getHistoryExposure(for riskLevel: RiskLevel?) -> DiaryDay.HistoryExposure {
+		switch riskLevel {
+		case .none:
+			return .none
+		case .some(let unwrappedRiskLevel):
+			switch unwrappedRiskLevel {
+			case .high:
+				return .encounter(.high)
+			case .low:
+				return .encounter(.low)
+			}
+		default:
+			return .none
+		}
 	}
 }
 

@@ -15,6 +15,7 @@ enum DiaryStoringError: Error {
 protocol DiaryStoring {
 
 	typealias DiaryStoringResult = Result<Int, DiaryStoringError>
+	typealias DiaryStoringGroupResult = [Result<Int, DiaryStoringError>]
 	typealias DiaryStoringVoidResult = Result<Void, DiaryStoringError>
 
 	@discardableResult
@@ -26,7 +27,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult
 	@discardableResult
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult
 
 	@discardableResult
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult
