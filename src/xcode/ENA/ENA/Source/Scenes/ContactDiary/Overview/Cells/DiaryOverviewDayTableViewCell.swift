@@ -11,7 +11,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	func configure(cellViewModel: DiaryOverviewDayCellModel) {
 		dateLabel.text = cellViewModel.formattedDate
 
-		exposureHistoryStackView.isHidden = !cellViewModel.showExposureHistory
+		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
 		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
 		exposureHistoryDetailLabel.text = cellViewModel.exposureHistoryDetail
