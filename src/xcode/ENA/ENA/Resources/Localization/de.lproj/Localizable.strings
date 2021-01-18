@@ -1511,7 +1511,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Statistics_Info_Yesterday_Title" = "Gestern / Bis gestern";
 "Statistics_Info_Yesterday_Text" = "Zahl für den Vortag / bis zum Vortag. Wenn für den Vortag noch keine Zahl vorliegt, wird das Datum des letzten Tages angezeigt, für den eine Zahl vorliegt.";
 "Statistics_Info_Mean_Title" = "7-Tage-Mittelwert";
-"Statistics_Info_Mean_Text" = "Mittelwert der vergangenen 7 Tage.";
+"Statistics_Info_Mean_Text" = "Mittelwert der vergangenen 7 Tage";
 "Statistics_Info_Total_Title" = "Gesamt";
 "Statistics_Info_Total_Text" = "Gesamtzahl seit Jahresbeginn 2020 bzw. Einführung der App (15. Juni 2020)";
 "Statistics_Info_Trend_Title" = "Trend";
