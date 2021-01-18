@@ -211,7 +211,8 @@ class HomeTestResultCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: .init(),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: MockTestStore()), store: MockTestStore())
 		)
 	}
 }

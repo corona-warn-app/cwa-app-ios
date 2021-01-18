@@ -19,7 +19,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: MockTestStore()), store: MockTestStore() )
 		)
 		homeState.detectionMode = .automatic
 
@@ -81,7 +82,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store )
 		)
 		homeState.detectionMode = .automatic
 
@@ -188,7 +190,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.detectionMode = .automatic
 
@@ -278,7 +281,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.detectionMode = .automatic
 		homeState.riskState = .inactive
@@ -351,7 +355,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.detectionMode = .automatic
 		homeState.riskState = .detectionFailed
@@ -434,7 +439,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.detectionMode = .manual
 
@@ -487,7 +493,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.detectionMode = .manual
 
@@ -530,7 +537,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.riskState = .inactive
 
@@ -572,7 +580,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
 		)
 		homeState.riskState = .detectionFailed
 

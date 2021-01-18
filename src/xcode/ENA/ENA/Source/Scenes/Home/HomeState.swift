@@ -66,14 +66,14 @@ class HomeState: ENStateHandlerUpdating {
 
 	let store: Store
 
-	@OpenCombine.Published private(set) var riskState: RiskState
-	@OpenCombine.Published private(set) var riskProviderActivityState: RiskProviderActivityState = .idle
-	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
+	@OpenCombine.Published var riskState: RiskState
+	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
+	@OpenCombine.Published var detectionMode: DetectionMode = .fromBackgroundStatus()
 	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
-	@OpenCombine.Published private(set) var enState: ENStateHandler.State
+	@OpenCombine.Published var enState: ENStateHandler.State
 
-	@OpenCombine.Published private(set) var testResult: TestResult?
-	@OpenCombine.Published private(set) var testResultIsLoading: Bool = false
+	@OpenCombine.Published var testResult: TestResult?
+	@OpenCombine.Published var testResultIsLoading: Bool = false
 	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
 	@OpenCombine.Published private(set) var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()

@@ -14,9 +14,11 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				exposureSubmissionService: MockExposureSubmissionService()
+				exposureSubmissionService: MockExposureSubmissionService(),
+				statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: MockTestStore()), store: MockTestStore() )
 			)
 		)
+		
 		// Number of Sections
 		XCTAssertEqual(sut.numberOfSections, 5, "Number of sections does not match.")
 		
@@ -56,7 +58,8 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				exposureSubmissionService: MockExposureSubmissionService()
+				exposureSubmissionService: MockExposureSubmissionService(),
+				statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: MockTestStore()), store: MockTestStore() )
 			)
 		)
 		
@@ -76,7 +79,8 @@ class HomeTableViewModelTests: XCTestCase {
 				riskProvider: MockRiskProvider(),
 				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 				enState: .enabled,
-				exposureSubmissionService: MockExposureSubmissionService()
+				exposureSubmissionService: MockExposureSubmissionService(),
+				statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: MockTestStore()), store: MockTestStore() )
 			)
 		)
 		sut.state.testResult = .positive
