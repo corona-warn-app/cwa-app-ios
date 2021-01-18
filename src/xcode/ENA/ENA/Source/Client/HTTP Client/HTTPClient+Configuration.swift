@@ -115,6 +115,16 @@ extension HTTPClient {
 			)
 		}
 
+		var statisticsURL: URL {
+			endpoints
+				.submission
+				.appending(
+					"version",
+					apiVersion,
+					"stats"
+			)
+		}
+
 		var submissionURL: URL {
 			endpoints
 				.submission
