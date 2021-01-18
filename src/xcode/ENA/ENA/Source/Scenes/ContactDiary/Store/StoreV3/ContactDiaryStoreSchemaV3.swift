@@ -50,7 +50,7 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);
 
-				CREATE TABLE IF NOT EXISTS RiskLevelPerDay (
+				CREATE TABLE IF NOT EXISTS RiskLevelPerDate (
 					id INTEGER PRIMARY KEY,
 					date TEXT NOT NULL,
 					riskLevel INTEGER NOT NULL

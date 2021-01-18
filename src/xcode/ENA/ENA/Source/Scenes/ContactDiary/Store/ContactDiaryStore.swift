@@ -1022,17 +1022,17 @@ extension ContactDiaryStore {
 
 extension ContactDiaryStore {
 	convenience init?() {
-		let latestDBVersion = 2
+		let latestDBVersion = 3
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
 		}
 		
-		let schema = ContactDiaryStoreSchemaV2(
+		let schema = ContactDiaryStoreSchemaV3(
 			databaseQueue: databaseQueue
 		)
 		
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
+		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue), ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
 
 		self.init(
