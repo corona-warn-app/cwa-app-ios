@@ -839,7 +839,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		var riskLevel: RiskLevel?
 
 		let sql = """
-				SELECT RiskLevelPerDate.date, MAX(RiskLevelPerDate.riskLevel AS RiskLevel)
+				SELECT RiskLevelPerDate.date, MAX(RiskLevelPerDate.riskLevel) AS RiskLevel
 				FROM RiskLevelPerDate
 				WHERE RiskLevelPerDate.date = ?
 			"""
