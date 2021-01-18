@@ -8,12 +8,17 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(day: DiaryDay) {
-		dateLabel.text = day.formattedDate
+	func configure(cellViewModel: DiaryOverviewDayCellModel) {
+		dateLabel.text = cellViewModel.formattedDate
+
+		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
+		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
+		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
+		exposureHistoryDetailLabel.text = cellViewModel.exposureHistoryDetail
 
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		for entry in day.selectedEntries {
+		for entry in cellViewModel.selectedEntries {
 			let imageView = UIImageView()
 			NSLayoutConstraint.activate([
 				imageView.widthAnchor.constraint(equalToConstant: 32),
@@ -52,5 +57,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var dateLabel: ENALabel!
 	@IBOutlet private weak var encountersVisitsContainerStackView: UIStackView!
 	@IBOutlet private weak var encountersVisitsStackView: UIStackView!
+	@IBOutlet private weak var exposureHistoryStackView: UIStackView!
+	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
+	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
+	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
 
 }

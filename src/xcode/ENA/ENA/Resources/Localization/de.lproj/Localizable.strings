@@ -1001,9 +1001,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Home Diary card */
 "Home_DiaryCard_Title" = "Kontakt-Tagebuch";
 
-"Home_DiaryCard_Body" = "Merken Sie sich, wo Sie waren und wen Sie getroffen haben.";
+"Home_DiaryCard_Body" = "Notieren Sie sich, wo Sie waren und wen Sie getroffen haben. Auch wenn Sie keine Kontakte eintragen, sehen Sie wann Sie Risiko-Begegnungen hatten.";
 
-"Home_DiaryCard_Button" = "Tagebuch führen";
+"Home_DiaryCard_Button" = "Tagebuch öffnen";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
@@ -1343,7 +1343,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_Title" = "Kontakt-Tagebuch";
 
-"ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. ";
+"ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. Sollte ein Risiko an einem Tag angezeigt werden, können Sie damit Personen warnen, die Sie an diesen Tagen begleitet haben, wenn diese die Corona-Warn-App nicht nutzen.";
+
+"ContactDiary_Overview_Increased_Risk_Title" = "Erhöhtes Risiko";
+
+"ContactDiary_Overview_Low_Risk_Title" = "Niedriges Risiko";
+
+"ContactDiary_Overview_Risk_Text_1" = "aufgrund der von der App ausgewerteten Begegnungen.";
+
+"ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
@@ -1424,7 +1432,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 14 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Erstellen Sie eine Übersicht über Ihre Kontakte der letzten 14 Tage. So haben Sie bei Bedarf schnell eine vollständige Liste zur Hand. Zusätzlich werden Ihnen hier Ihre Risiko-Begegnungen angezeigt.";
 
 "ContactDiary_Information_Item_Person_Title" = "Tragen Sie ein, mit wem Sie sich getroffen haben.";
 
@@ -1435,6 +1443,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ContactDiary_Information_Item_DeletedAutomatically_Title" = "Sie können hinzugefügte Personen und Orte jederzeit wieder aus dem Tagebuch entfernen. Tagebuch-Einträge werden nach 16 Tagen automatisch gelöscht.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "Sie können Ihr Kontakt-Tagebuch im Textformat exportieren. So können Sie bei Bedarf Ihre Einträge ausdrucken, bearbeiten oder dem Gesundheitsamt zur Verfügung stellen.";
+
+"ContactDiary_Information_Item_ExposureHistory_Title" = "Die angezeigten Risiko-Begegnungen müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen. Bitte ziehen Sie keine falschen Rückschlüsse.";
 
 "ContactDiary_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
 
