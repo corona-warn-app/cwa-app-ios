@@ -368,6 +368,54 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
+		var result: DiaryStoringResult?
+
+		riskLevelPerDate.forEach { level in
+			let dateString = dateFormatter.string(from: level.key)
+			let riskLevelRawValue = level.value.rawValue
+			databaseQueue.inDatabase { database in
+				Log.info("[ContactDiaryStore] Add RiskLevelPerDay.", log: .localData)
+
+				let sql = """
+					INSERT INTO RiskLevelPerDay (
+						date,
+						riskLevel
+					)
+					VALUES (
+						date(:dateString),
+						:riskLevel
+					);
+				"""
+
+				let parameters: [String: Any] = [
+					"date": dateString,
+					"riskLevel": riskLevelRawValue
+				]
+				guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
+					logLastErrorCode(from: database)
+					result = .failure(dbError(from: database))
+					return
+				}
+
+				let updateDiaryDaysResult = updateDiaryDays(with: database)
+				guard case .success = updateDiaryDaysResult else {
+					logLastErrorCode(from: database)
+					result = .failure(dbError(from: database))
+					return
+				}
+
+				result = .success(Int(database.lastInsertRowId))
+			}
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
