@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
-"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Smartphone neu und versuchen Sie es morgen erneut.";
 
 "Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
 
@@ -75,13 +75,13 @@
 
 "ExposureDetection_LastRiskLevel" = "Letzte Risiko-Überprüfung: %@";
 
-"ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.";
+"ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, damit Ihr aktueller Risikostatus berechnet werden kann.";
 
 "ExposureDetection_OutdatedText" = "Ihre Risiko-Berechnung wurde seit mehr als 48 Stunden nicht aktualisiert. Bitte aktualisieren Sie die Berechnung.";
 
 "ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
-"ExposureDetection_LoadingText" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"ExposureDetection_LoadingText" = "Aktuelle Daten werden heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
@@ -97,11 +97,11 @@
 
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
 
-"ExposureDetection_Guide_Hotline1" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Isolationsmaßnahmen, wenden Sie sich bitte an eine der folgenden Stellen:";
+"ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Isolationsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
 
 "ExposureDetection_Guide_Hotline2" = "Ihre Hausarztpraxis";
 
-"ExposureDetection_Guide_Hotline3" = "Den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
+"ExposureDetection_Guide_Hotline3" = "den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
 
@@ -344,7 +344,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -360,9 +360,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Ein positiver Testbefund wird verschlüsselt ins System übermittelt, das nun andere Nutzerinnen und Nutzer warnt.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie Corona-positiv getestet werden …";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie Corona-positiv getestet werden";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Falls  Sie ein positives Testergebnis erhalten, teilen Sie es bitte über die App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufalls-IDs Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
@@ -409,9 +409,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTanEntry_EntryField" = "TAN-Eingabefeld";
 
-"ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
-
-"ExposureSubmissionTanEntry_Description" = "Geben Sie bitte die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.";
+"ExposureSubmissionTanEntry_Description" = "Geben Sie die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.";
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 
@@ -457,7 +455,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Schritt 1 von 2";
 
@@ -465,9 +463,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\ntäglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
+"ExposureSubmission_SectionDescription2" = "Geben Sie die TAN in der App ein, um Ihren Test zu registrieren.";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
@@ -548,13 +546,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
+"ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
+"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Symptome (mehr) haben, können Sie ansteckend sein. Bitte halten Sie die angeordnete Quarantänezeit in jedem Fall ein.";
 
 /* Exposure Submission Testresult available*/
 "ExposureSubmissionTestresultAvailable_Title" = "Ihr Testergebnis liegt vor";
@@ -608,7 +606,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_warnOthers" = "Andere warnen";
 
-"ExposureSubmissionResult_warnOthersDesc" = "Teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
+"ExposureSubmissionResult_warnOthersDesc" = "Bitte teilen Sie Ihre Zufalls-IDs und warnen Sie andere.\nHelfen Sie, das Infektionsrisiko für andere genauer zu bestimmen, indem Sie auch angeben, wann eventuelle Corona-Symptome zum ersten Mal aufgetreten sind.";
 
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
@@ -624,11 +622,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteren SARS-CoV-2-Tests bestehen.";
 
-"ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
+"ExposureSubmissionResult_testInvalid" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Testcenter oder das zuständige Labor, um Information zum weiteren Vorgehen zu erhalten.";
 
-"ExposureSubmissionResult_testExpired" = "Test fehlerhaft";
+"ExposureSubmissionResult_testExpired" = "Test kann nicht ausgewertet werden";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Ihr QR Code ist bereits abgelaufen.";
 
@@ -798,7 +796,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert länderübergreifend, so dass auch Risiko-Begegnungen mit Nutzern von anderen offiziellen Corona-Apps erkannt werden.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer Nutzer empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Ansteckungsrisiko zu berechnen und Sie zu warnen.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphone weitergibt. Die App lädt täglich Listen mit den Zufalls-IDs und eventuellen Angaben zum Symptombeginn aller Corona-positiv getesteten Nutzer herunter, die ihr Testergebnis (genauer gesagt: ihre Zufalls-IDs) freiwillig über ihre App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer, denen Sie begegnet sind, verglichen, um Ihr Ansteckungsrisiko zu berechnen und Sie zu warnen.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Die Risiko-Ermittlung lässt sich jederzeit über den Schieberegler deaktivieren.";
 
@@ -810,7 +808,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureNotificationSetting_Activate_Internet" = "Internetverbindung herstellen";
 
-"ExposureNotificationSetting_Internet_Description" = "Die Risiko-Ermittlung benötigt eine Internetverbindung, um Risiko-Begegnungen berechnen zu können. Bitte aktivieren Sie WLAN oder mobile Daten in Ihren Geräte-Einstellungen.";
+"ExposureNotificationSetting_Internet_Description" = "Die Risiko-Ermittlung benötigt eine Internetverbindung, um Ihr Infektionsrisiko berechnen zu können. Bitte aktivieren Sie WLAN oder mobile Daten in Ihren Geräte-Einstellungen.";
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Geräte-Einstellungen öffnen";
 
@@ -927,9 +925,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Ermittlung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
-"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung aktivieren";
 
-"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung aktivieren";
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
@@ -1003,9 +1001,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Home Diary card */
 "Home_DiaryCard_Title" = "Kontakt-Tagebuch";
 
-"Home_DiaryCard_Body" = "Merken Sie sich, wo Sie waren und wen Sie getroffen haben.";
+"Home_DiaryCard_Body" = "Notieren Sie sich, wo Sie waren und wen Sie getroffen haben. Auch wenn Sie keine Kontakte eintragen, sehen Sie wann Sie Risiko-Begegnungen hatten.";
 
-"Home_DiaryCard_Button" = "Tagebuch führen";
+"Home_DiaryCard_Button" = "Tagebuch öffnen";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
@@ -1030,7 +1028,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_resultCard_RetrieveResultButton" = "Testergebnis abrufen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Aktuelle Daten werden heruntergeladen. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft …";
 
@@ -1136,15 +1134,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 
 /* Invite Friends */
-"InviteFriends_NavTitle" = "Teilen";
+"InviteFriends_NavTitle" = "Empfehlen";
 
-"InviteFriends_Subtitle" = "Teilen Sie die Corona-Warn-App";
+"InviteFriends_Subtitle" = "Empfehlen Sie die Corona-Warn-App";
 
 "InviteFriends_Title" = "Gemeinsam Corona bekämpfen";
 
-"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
+"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
 
-"InviteFriends_Button" = "Download-Link versenden";
+"InviteFriends_Button" = "Link versenden";
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
@@ -1195,11 +1193,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend1_Title" = "Risiko-Ermittlung";
 
-"RiskLegend_Legend1_Text" = "Die Risiko-Ermittlung ist eine der drei zentralen Funktionen der App. Ist sie aktiv, werden Begegnungen aufgezeichnet. Sie brauchen sich um nichts mehr zu kümmern.";
+"RiskLegend_Legend1_Text" = "Die Risiko-Ermittlung ist eine der drei zentralen Funktionen der App. Ist sie aktiv, werden Begegnungen automatisch aufgezeichnet.";
 
 "RiskLegend_Legend2_Title" = "Infektionsrisiko";
 
-"RiskLegend_Legend2_Text" = "Sind Sie innerhalb der letzten 14 Tage einer Corona-positiv getesteten Person begegnet, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand eine Begegnung stattfand.";
+"RiskLegend_Legend2_Text" = "Wenn Sie die Risiko-Ermittlung aktiviert haben, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand in den letzten 14 Tagen Begegnungen mit Corona-positiv getesteten Personen stattfanden.";
 
 "RiskLegend_Legend2_RiskLevels" = "Folgende Risikostatus können angezeigt werden:";
 
@@ -1209,7 +1207,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 
-"RiskLegend_Legend3_Text" = "Eine weitere zentrale Funktion. Hier können Sie Ihren Test registrieren und seinen Status abfragen. Bei einem positiven Test können Sie andere warnen und damit Infektionsketten unterbrechen.";
+"RiskLegend_Legend3_Text" = "Sie können Ihren Test registrieren und das Testergebnis in der App abfragen. Ist das Testergebnis positiv, können Sie andere warnen und somit helfen, Infektionsketten zu unterbrechen.";
 
 "RiskLegend_Definitions_Title" = "Wichtige Begriffe";
 
@@ -1219,7 +1217,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "RiskLegend_Check_Title" = "Risiko-Überprüfung";
 
-"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
+"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den Risiko-Mitteilungen anderer Personen. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
 
 "RiskLegend_Contact_Title" = "Risiko-Begegnung";
 
@@ -1430,7 +1428,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Information */
 "ContactDiary_Information_Title" = "Kontakt-Tagebuch";
 
-"ContactDiary_Information_ImageDescription" = "Mehrere Menschen schauen im Freien auf ihre Handys.";
+"ContactDiary_Information_ImageDescription" = "Mehrere Menschen schauen im Freien auf ihre Smartphones.";
 
 "ContactDiary_Information_DescriptionTitle" = "Behalten Sie den Überblick.";
 
