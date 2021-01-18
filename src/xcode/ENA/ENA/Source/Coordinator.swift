@@ -66,7 +66,11 @@ class Coordinator: RequiresAppDependencies {
 				riskProvider: riskProvider,
 				exposureManagerState: exposureManager.exposureManagerState,
 				enState: enStateHandler.state,
-				exposureSubmissionService: exposureSubmissionService
+				exposureSubmissionService: exposureSubmissionService,
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClient(clientConfiguration: client.configuration),
+					store: store
+				)
 			)
 
 			let homeController = HomeTableViewController(
