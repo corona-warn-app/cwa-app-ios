@@ -26,7 +26,7 @@ final class DiaryOverviewDayCellModel {
 		}
 	}
 
-	var exposureHistoryImage: UIImage {
+	var exposureHistoryImage: UIImage? {
 		switch diaryDay.exposureEncounter {
 		case let .encounter(risk):
 			switch risk {
@@ -36,7 +36,7 @@ final class DiaryOverviewDayCellModel {
 				return UIImage(imageLiteralResourceName: "Icons_Attention_high")
 			}
 		case .none:
-			return UIImage()
+			return nil
 		}
 	}
 
