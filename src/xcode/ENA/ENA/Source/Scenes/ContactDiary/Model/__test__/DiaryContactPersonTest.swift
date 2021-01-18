@@ -5,7 +5,6 @@
 import Foundation
 import XCTest
 @testable import ENA
-import Combine
 
 class DiaryContactPersonTest: XCTestCase {
 
