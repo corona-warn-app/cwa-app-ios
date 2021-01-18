@@ -163,7 +163,7 @@ class HomeState: ENStateHandlerUpdating {
 
 		var card1Figure1 = SAP_Internal_Stats_KeyFigure()
 		card1Figure1.rank = .primary
-		card1Figure1.value = 999_999
+		card1Figure1.value = 9_999_999
 		card1Figure1.decimals = 0
 		card1Figure1.trend = .unspecifiedTrend
 		card1Figure1.trendSemantic = .unspecifiedTrendSemantic
@@ -172,7 +172,7 @@ class HomeState: ENStateHandlerUpdating {
 		card1Figure2.rank = .secondary
 		card1Figure2.value = 10_000_000
 		card1Figure2.decimals = 0
-		card1Figure2.trend = .increasing
+		card1Figure2.trend = .stable
 		card1Figure2.trendSemantic = .positive
 
 		var card1Figure3 = SAP_Internal_Stats_KeyFigure()

@@ -129,7 +129,7 @@ class HomeStatisticsCardViewModel {
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
 
-		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
+		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
@@ -148,7 +148,7 @@ class HomeStatisticsCardViewModel {
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
 
-		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
+		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
