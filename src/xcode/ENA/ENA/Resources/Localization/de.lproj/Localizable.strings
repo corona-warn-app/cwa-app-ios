@@ -1458,7 +1458,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* - Trend on Cards */
 
 "Statistics_Card_Trend_Increasing" = "Trend steigend";
+
 "Statistics_Card_Trend_Decreasing" = "Trend fallend";
+
 "Statistics_Card_Trend_Stable" = "Trend stabil";
 
 /* - Number and Date Formatting */
@@ -1468,57 +1470,95 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* - Infections Card */
 
 "Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";
+
 "Statistics_Card_Infections_PrimaryLabelTitle" = "Gestern";
+
 "Statistics_Card_Infections_SecondaryLabelTitle" = "7-Tage-Mittelwert";
+
 "Statistics_Card_Infections_TertiaryLabelTitle" = "Gesamt";
 
 /* - Incidence Card */
 
 "Statistics_Card_Incidence_Title" = "7-Tage-Inzidenz";
+
 "Statistics_Card_Incidence_PrimaryLabelTitle" = "Bis gestern";
+
 "Statistics_Card_Incidence_SecondaryLabelTitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
 
 /* - Key Submissions Card */
 
 "Statistics_Card_KeySubmissions_Title" = "Warnende Personen";
+
 "Statistics_Card_KeySubmissions_PrimaryLabelTitle" = "Gestern";
+
 "Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7-Tage-Mittelwert";
+
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Gesamt";
+
 "Statistics_Card_KeySubmissions_Footnote" = "über die Corona-Warn-App";
 
 /* - Reproduction Number Card */
 
 "Statistics_Card_ReproductionNumber_Title" = "7-Tage-R-Wert";
+
 "Statistics_Card_ReproductionNumber_PrimaryLabelTitle" = "Aktuell";
+
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
 
 /* - Info Screen */
 
 "Statistics_Info_Title" = "Kennzahlen";
+
 "Statistics_Info_Subtitle" = "Erklärung der bundesweiten Statistiken";
+
 "Statistics_Info_Infections_Title" = "Bestätigte Neuinfektionen";
+
 "Statistics_Info_Infections_Text" = "Anzahl der an das RKI übermittelten Corona-positiv getesteten Personen";
+
 "Statistics_Info_KeySubmissions_Title" = "Warnende Personen";
+
 "Statistics_Info_KeySubmissions_Text" = "Anzahl der Corona-positiv getesteten Personen, die mithilfe der App ihre Mitmenschen gewarnt haben";
+
 "Statistics_Info_Incidence_Title" = "7-Tage-Inzidenz";
+
 "Statistics_Info_Incidence_Text" = "Gesamtzahl der bestätigten Neuinfektionen der letzten 7 Tage (nach Meldedatum) pro 100.000 Einwohner";
+
 "Statistics_Info_ReproductionNumber_Title" = "7-Tage-R-Wert";
+
 "Statistics_Info_ReproductionNumber_Text" = "Die Reproduktionszahl R gibt an, wie viele Personen im Durchschnitt von einer infizierten Person angesteckt wurden. Der aktuelle Wert berücksichtigt Daten bis vor 5 Tagen.";
+
 "Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in der";
+
 "Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken";
+
 "Statistics_Info_Definitions_Title" = "Legende";
+
 "Statistics_Info_Period_Title" = "Zeitraum";
+
 "Statistics_Info_Yesterday_Title" = "Gestern / Bis gestern";
+
 "Statistics_Info_Yesterday_Text" = "Zahl für den Vortag / bis zum Vortag. Wenn für den Vortag noch keine Zahl vorliegt, wird das Datum des letzten Tages angezeigt, für den eine Zahl vorliegt.";
+
 "Statistics_Info_Mean_Title" = "7-Tage-Mittelwert";
+
 "Statistics_Info_Mean_Text" = "Mittelwert der vergangenen 7 Tage";
+
 "Statistics_Info_Total_Title" = "Gesamt";
+
 "Statistics_Info_Total_Text" = "Gesamtzahl seit Jahresbeginn 2020 bzw. Einführung der App (15. Juni 2020)";
+
 "Statistics_Info_Trend_Title" = "Trend";
+
 "Statistics_Info_Trend_Text" = "Die Pfeilrichtung zeigt an, ob der Trend nach oben oder nach unten geht oder relativ stabil ist, d.h. eine Abweichung von weniger als 1% im Vortagesvergleich bzw. 5% im Vorwochenvergleich aufweist. Die Farbe bewertet diesen Trend als positiv (grün), negativ (rot) oder neutral (grau). Der Trend vergleicht den Wert vom Vortag mit dem Wert von vor zwei Tagen bzw. für die 7-Tage-Trends den Mittelwert der letzten 7 Tage mit dem der vorausgegangenen 7 Tage.";
+
 "Statistics_Info_Trends_Title" = "Folgende Trends können angezeigt werden:";
+
 "Statistics_Info_Trends_Increasing" = "Trend steigend";
+
 "Statistics_Info_Trends_Decreasing" = "Trend fallend";
+
 "Statistics_Info_Trends_Stable" = "Trend stabil";
+
 "Statistics_Info_Trends_Footnote" = "Die Bewertung des Trends bei den warnenden Personen ändert sich je nach Infektionslage. Deshalb wird dieser Trend immer neutral dargestellt.";
+
 "Statistics_Info_Image_AccLabel" = "";
