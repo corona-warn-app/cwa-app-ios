@@ -878,6 +878,10 @@ enum AppStrings {
 			static let menuButtonTitle = NSLocalizedString("ContactDiary_Overview_Button_Title_Menu", comment: "")
 			static let title = NSLocalizedString("ContactDiary_Overview_Title", comment: "")
 			static let description = NSLocalizedString("ContactDiary_Overview_Description", comment: "")
+			static let increasedRiskTitle = NSLocalizedString("ContactDiary_Overview_Increased_Risk_Title", comment: "")
+			static let lowRiskTitle = NSLocalizedString("ContactDiary_Overview_Low_Risk_Title", comment: "")
+			static let riskText1 = NSLocalizedString("ContactDiary_Overview_Risk_Text_1", comment: "")
+			static let riskText2 = NSLocalizedString("ContactDiary_Overview_Risk_Text_2", comment: "")
 
 			enum ActionSheet {
 				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")

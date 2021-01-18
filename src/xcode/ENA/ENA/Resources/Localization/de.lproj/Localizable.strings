@@ -1343,7 +1343,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ContactDiary_Overview_Title" = "Kontakt-Tagebuch";
 
-"ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. ";
+"ContactDiary_Overview_Description" = "Tragen Sie ein, mit wem Sie sich getroffen haben und wo Sie gewesen sind. Sollte ein Risiko an einem Tag angezeigt werden, können Sie damit Personen warnen, die Sie an diesen Tagen begleitet haben, wenn diese die Corona-Warn-App nicht nutzen.";
+
+"ContactDiary_Overview_Increased_Risk_Title" = "Erhöhtes Risiko";
+
+"ContactDiary_Overview_Low_Risk_Title" = "Niedriges Risiko";
+
+"ContactDiary_Overview_Risk_Text_1" = "aufgrund der von der App ausgewerteten Begegnungen.";
+
+"ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
