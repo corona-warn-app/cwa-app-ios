@@ -281,7 +281,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		guard tableView.visibleCells.contains(cell) else { return }
+		// Only animate changes as long as the risk and the test result cell are both still supposed to be there
+		guard tableView.visibleCells.contains(cell), viewModel.riskAndTestRows.count == 2 else { return }
 
 		// Animate the changed cell height
 		tableView.performBatchUpdates(nil, completion: nil)
