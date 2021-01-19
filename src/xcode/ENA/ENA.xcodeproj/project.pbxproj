@@ -65,6 +65,7 @@
 		017AD17F25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */; };
 		017AD18725A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */; };
 		017AD18C25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017AD18B25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift */; };
+		0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */; };
 		0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */; };
 		01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01909862257E63810065D050 /* DiaryDayViewController.swift */; };
 		01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0190984C257E62C70065D050 /* DiaryAddAndEditEntryViewController.swift */; };
@@ -766,6 +767,7 @@
 		017AD17E25A5A30500FA2B3F /* DynamicHeader+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicHeader+ExposureDetection.swift"; sourceTree = "<group>"; };
 		017AD18625A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+ExposureDetection.swift"; sourceTree = "<group>"; };
 		017AD18B25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActiveTracing+ExposureDetection.swift"; sourceTree = "<group>"; };
+		0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModelTests.swift; sourceTree = "<group>"; };
 		0190982B257E5AF70065D050 /* DiaryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCoordinator.swift; sourceTree = "<group>"; };
 		01909834257E606C0065D050 /* DiaryEditEntriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewController.swift; sourceTree = "<group>"; };
 		0190983C257E60760065D050 /* DiaryEditEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditEntriesViewModel.swift; sourceTree = "<group>"; };
@@ -1952,6 +1954,7 @@
 			isa = PBXGroup;
 			children = (
 				01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */,
+				0185DDDD25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift */,
 				01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */,
 			);
 			path = __tests__;
@@ -4581,6 +4584,7 @@
 				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
+				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,
 				A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */,
 				B1CD333E24865E0000B06E9B /* TracingStatusHistoryTests.swift in Sources */,
