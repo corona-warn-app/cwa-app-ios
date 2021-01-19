@@ -10,7 +10,6 @@ final class ActiveTracingTests: XCTestCase {
 		let activeTracing = _activeTracing(interval: 3600)
 		XCTAssertEqual(activeTracing.interval, 3600, accuracy: .high)
 		XCTAssertEqual(activeTracing.inDays, 0)
-		XCTFail("Fail to prove me right")
 	}
 
 	func testThatLessThan12HoursDontCountAsDay() {
