@@ -49,6 +49,7 @@ class RiskLegendeTest: XCTestCase {
 	
 	func test_createDotCell() {
 		let cell = RiskLegendDotBodyCell()
+		XCTAssertNotNil(cell)
 		XCTAssertEqual(cell.dotView.backgroundColor, .enaColor(for: .riskHigh))
 		XCTAssertEqual(cell.label.text, nil)
 	}
