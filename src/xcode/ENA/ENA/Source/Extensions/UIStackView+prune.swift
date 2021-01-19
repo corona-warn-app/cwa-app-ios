@@ -23,4 +23,11 @@ extension UIStackView {
 		// Remove the views from self
 		removedSubviews.forEach({ $0.removeFromSuperview() })
 	}
+	
+	func forceLayoutUpdate() {
+		arrangedSubviews.forEach({ $0.isHidden = true })
+		setNeedsLayout()
+		layoutIfNeeded()
+		arrangedSubviews.forEach({ $0.isHidden = false })
+	}
 }
