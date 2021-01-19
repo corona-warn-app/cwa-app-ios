@@ -280,7 +280,7 @@ class DiaryDayViewModelTest: XCTestCase {
 				.location(DiaryLocation(id: 1, name: "Bakery")),
 				.location(DiaryLocation(id: 0, name: "Supermarket"))
 			],
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 	}
 

@@ -213,17 +213,17 @@ class MockDiaryStore: DiaryStoringProviding {
 					return DiaryEntry.location(location)
 				}
 
-			let expusureHistory: DiaryDay.HistoryExposure = risklevelPerDays
+			let historyExposure: DiaryDay.HistoryExposure = risklevelPerDays
 				.filter { dateFormatter.string(from: $0.date) == dateString }
 				.map { $0.risklevel }
 				.max()
 				.map { .encounter($0) } ?? .none
 
 			diaryDays.append(DiaryDay(
-								dateString: dateString,
-								entries: contactPersonEntries + locationEntries,
-								exposureEncounter: expusureHistory
-				)
+				dateString: dateString,
+				entries: contactPersonEntries + locationEntries,
+				historyExposure: historyExposure
+			)
 			)
 		}
 

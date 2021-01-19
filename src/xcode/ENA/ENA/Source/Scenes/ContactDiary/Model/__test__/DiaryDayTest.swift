@@ -21,7 +21,7 @@ class DiaryDayTest: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: dateString,
 			entries: entries,
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 
 		XCTAssertEqual(diaryDay.dateString, dateString)
@@ -40,7 +40,7 @@ class DiaryDayTest: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: dateString,
 			entries: entries,
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 
 		XCTAssertEqual(diaryDay.selectedEntries, [
@@ -53,7 +53,7 @@ class DiaryDayTest: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2020-12-16",
 			entries: [],
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 
 		XCTAssertEqual(diaryDay.formattedDate, "Mittwoch, 16.12.20")

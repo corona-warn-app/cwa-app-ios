@@ -12,7 +12,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
@@ -34,7 +34,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			exposureEncounter: .encounter(.low)
+			historyExposure: .encounter(.low)
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
@@ -54,7 +54,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			exposureEncounter: .encounter(.high)
+			historyExposure: .encounter(.high)
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
@@ -74,7 +74,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [],
-			exposureEncounter: .encounter(.low)
+			historyExposure: .encounter(.low)
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 
@@ -95,7 +95,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
 				.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
 			],
-			exposureEncounter: .encounter(.low)
+			historyExposure: .encounter(.low)
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
 

@@ -102,7 +102,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		let emptyDiaryDay = DiaryDay(
 			dateString: "2020-12-11",
 			entries: [],
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 		
 		let store = emptyMockStore()
@@ -212,7 +212,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		let emptyDiaryDay = DiaryDay(
 			dateString: "2020-12-11",
 			entries: [],
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 		
 		let store = emptyMockStore()
@@ -282,7 +282,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause")),
 				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali"))
 			],
-			exposureEncounter: .none
+			historyExposure: .none
 		)
 	}
 	
