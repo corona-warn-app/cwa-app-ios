@@ -417,6 +417,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showDeltaOnboardingAndAlertsIfNeeded() {
+		
+		// [KGA] Hier reinhängen, new features sind wie delta onboarding
 		showDeltaOnboardingIfNeeded(completion: { [weak self] in
 			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 				self?.showBackgroundFetchAlertIfNeeded(completion: {
@@ -425,6 +427,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			})
 		})
 	}
+	
+	
 
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
@@ -445,7 +449,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries)
+					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store, supportedCountries: supportedCountries)
 				]
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
