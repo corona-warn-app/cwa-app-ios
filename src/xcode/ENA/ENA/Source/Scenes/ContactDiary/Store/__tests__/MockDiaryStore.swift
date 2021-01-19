@@ -65,18 +65,19 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
-		var addedIDs: [Int] = []
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult {
+		var groupResult: [Result<Int, DiaryStoringError>] = []
+
 		for (date, riskLevel) in riskLevelPerDate {
+
 			let id = (risklevelPerDays.map { $0.id }.max() ?? -1) + 1
 			risklevelPerDays.append(RiskLevelPerDay(id: id, date: date, risklevel: riskLevel))
-			addedIDs.append(id)
+			groupResult.append(.success(id))
 		}
 
 		updateDays()
 
-		let maxID = addedIDs.max() ?? 0
-		return .success(maxID)
+		return groupResult
 	}
 
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
