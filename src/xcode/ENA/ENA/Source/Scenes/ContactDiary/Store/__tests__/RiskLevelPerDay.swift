@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-struct RisklevelPerDay {
+struct RiskLevelPerDay {
 	let id: Int
 	let date: Date
 	let risklevel: RiskLevel

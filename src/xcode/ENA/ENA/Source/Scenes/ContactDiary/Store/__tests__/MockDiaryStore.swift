@@ -69,7 +69,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		var addedIDs: [Int] = []
 		for (date, riskLevel) in riskLevelPerDate {
 			let id = (risklevelPerDays.map { $0.id }.max() ?? -1) + 1
-			risklevelPerDays.append(RisklevelPerDay(id: id, date: date, risklevel: riskLevel))
+			risklevelPerDays.append(RiskLevelPerDay(id: id, date: date, risklevel: riskLevel))
 			addedIDs.append(id)
 		}
 
@@ -182,7 +182,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	private var locations: [DiaryLocation] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
 	private var locationVisits: [LocationVisit] = []
-	private var risklevelPerDays: [RisklevelPerDay] = []
+	private var risklevelPerDays: [RiskLevelPerDay] = []
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
