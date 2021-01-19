@@ -293,6 +293,7 @@
 		503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */; };
 		503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */; };
 		505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F2E512587738900697CC2 /* AccessibilityLabels.swift */; };
+		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
 		50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6124FE1E8700932566 /* AppInformationModel.swift */; };
 		50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */; };
@@ -1002,6 +1003,7 @@
 		503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModel.swift; sourceTree = "<group>"; };
 		505F2E512587738900697CC2 /* AccessibilityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityLabels.swift; sourceTree = "<group>"; };
+		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
@@ -1999,6 +2001,7 @@
 			isa = PBXGroup;
 			children = (
 				134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */,
+				509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -4660,6 +4663,7 @@
 				13E5046B248E3DF30086641C /* AppStrings.swift in Sources */,
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
+				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
