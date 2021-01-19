@@ -6,10 +6,23 @@ import Foundation
 import OpenCombine
 
 typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
+typealias ContactDiaryStoreSchema = ContactDiaryStoreSchemaV3
+typealias ContactDiaryStore = ContactDiaryStoreV3
+typealias DiaryDay = DiaryDayV3
 
 enum DiaryStoringError: Error {
 	case database(SQLiteErrorCode)
 	case timeout
+}
+
+struct DateProvider: DateProviding {
+	var today: Date {
+		Date()
+	}
+}
+
+protocol DateProviding {
+	var today: Date { get }
 }
 
 protocol DiaryStoring {

@@ -7,18 +7,8 @@ import UIKit
 import FMDB
 import OpenCombine
 
-protocol DateProviding {
-	var today: Date { get }
-}
-
-struct DateProvider: DateProviding {
-	var today: Date {
-		Date()
-	}
-}
-
 // swiftlint:disable:next type_body_length
-class ContactDiaryStore: DiaryStoring, DiaryProviding {
+class ContactDiaryStoreV1: DiaryStoring, DiaryProviding {
 
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
@@ -54,6 +44,28 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		}
 		
 		registerToDidBecomeActiveNotification()
+	}
+
+	convenience init?() {
+		let latestDBVersion = 3
+		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
+			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
+			return nil
+		}
+
+		let schema = ContactDiaryStoreSchema(
+			databaseQueue: databaseQueue
+		)
+
+		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue), ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
+		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
+
+		self.init(
+			databaseQueue: databaseQueue,
+			schema: schema,
+			key: ContactDiaryStore.encryptionKey,
+			migrator: migrator
+		)
 	}
 	
 	// MARK: - Protocol DiaryProviding
@@ -676,6 +688,71 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		databaseQueue.close()
 	}
 
+	// MARK: - Internal
+
+	static var storeURL: URL {
+		storeDirectoryURL
+			.appendingPathComponent("ContactDiary")
+			.appendingPathExtension("sqlite")
+	}
+
+	static var storeDirectoryURL: URL {
+		let fileManager = FileManager.default
+
+		guard let storeDirectoryURL = try? fileManager
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("ContactDiary") else {
+			fatalError("[ContactDiaryStore] Could not create folder.")
+		}
+
+		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
+			try? fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+		}
+		return storeDirectoryURL
+	}
+
+	static func make() -> ContactDiaryStore {
+		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
+
+		if let store = ContactDiaryStore() {
+			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
+			return store
+		}
+
+		Log.info("[ContactDiaryStore] Failed to create contact diary store. Try to rescue it...", log: .localData)
+
+		// The database could not be created – To the rescue!
+		// Remove the database file and try to init the store a second time.
+		try? FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
+
+		if let secondTryStore = ContactDiaryStore() {
+			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
+			return secondTryStore
+		} else {
+			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
+			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
+		}
+	}
+
+	static var encryptionKey: String {
+		guard let keychain = try? KeychainHelper() else {
+			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
+		}
+
+		let key: String
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encriptionKeyKey) {
+			key = String(decoding: keyData, as: UTF8.self)
+		} else {
+			do {
+				key = try keychain.generateContactDiaryDatabaseKey()
+			} catch {
+				fatalError("[ContactDiaryStore] Failed to create key for contact diary store.")
+			}
+		}
+
+		return key
+	}
+
 	// MARK: - Private
 
 	private let dataRetentionPeriodInDays = 17 // Including today.
@@ -684,6 +761,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	private let dateProvider: DateProviding
 	private let schema: ContactDiarySchemaProtocol
 	private let migrator: SerialMigratorProtocol
+	private let databaseQueue: FMDatabaseQueue
 	
 	private var todayDateString: String {
 		dateFormatter.string(from: dateProvider.today)
@@ -701,8 +779,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		dateFormatter.locale = Locale(identifier: "de_DE")
 		return dateFormatter
 	}()
-
-	private let databaseQueue: FMDatabaseQueue
 
 	private func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?
@@ -1010,98 +1086,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				return .encounter(.low)
 			}
 		}
-	}
-}
-
-// MARK: Creation
-
-extension ContactDiaryStore {
-
-	static func make() -> ContactDiaryStore {
-		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
-
-		if let store = ContactDiaryStore() {
-			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
-			return store
-		}
-
-		Log.info("[ContactDiaryStore] Failed to create contact diary store. Try to rescue it...", log: .localData)
-
-		// The database could not be created – To the rescue!
-		// Remove the database file and try to init the store a second time.
-		try? FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
-
-		if let secondTryStore = ContactDiaryStore() {
-			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
-			return secondTryStore
-		} else {
-			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
-			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
-		}
-	}
-
-	private static var storeURL: URL {
-		storeDirectoryURL
-			.appendingPathComponent("ContactDiary")
-			.appendingPathExtension("sqlite")
-	}
-
-	private static var storeDirectoryURL: URL {
-		let fileManager = FileManager.default
-
-		guard let storeDirectoryURL = try? fileManager
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("ContactDiary") else {
-			fatalError("[ContactDiaryStore] Could not create folder.")
-		}
-
-		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
-			try? fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
-		}
-		return storeDirectoryURL
-	}
-
-	private static var encryptionKey: String {
-		guard let keychain = try? KeychainHelper() else {
-			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
-		}
-
-		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encriptionKeyKey) {
-			key = String(decoding: keyData, as: UTF8.self)
-		} else {
-			do {
-				key = try keychain.generateContactDiaryDatabaseKey()
-			} catch {
-				fatalError("[ContactDiaryStore] Failed to create key for contact diary store.")
-			}
-		}
-
-		return key
-	}
-}
-
-extension ContactDiaryStore {
-	convenience init?() {
-		let latestDBVersion = 3
-		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
-			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
-			return nil
-		}
-		
-		let schema = ContactDiaryStoreSchemaV3(
-			databaseQueue: databaseQueue
-		)
-		
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue), ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
-		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
-
-		self.init(
-			databaseQueue: databaseQueue,
-			schema: schema,
-			key: ContactDiaryStore.encryptionKey,
-			migrator: migrator
-		)
 	}
 	// swiftlint:disable:next file_length
 }

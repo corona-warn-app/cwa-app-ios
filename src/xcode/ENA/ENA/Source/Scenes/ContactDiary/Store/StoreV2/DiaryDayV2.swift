@@ -4,30 +4,22 @@
 
 import Foundation
 
-struct DiaryDay: Equatable {
+struct DiaryDayV2: Equatable {
 
 	// MARK: - Init
 
 	init(
 		dateString: String,
-		entries: [DiaryEntry],
-		historyExposure: HistoryExposure
+		entries: [DiaryEntry]
 	) {
 		self.dateString = dateString
 		self.entries = entries
-		self.historyExposure = historyExposure
 	}
 
 	// MARK: - Internal
 
-	enum HistoryExposure: Equatable {
-		case encounter(RiskLevel)
-		case none
-	}
-
 	let dateString: String
 	let entries: [DiaryEntry]
-	let historyExposure: HistoryExposure
 
 	var selectedEntries: [DiaryEntry] {
 		entries.filter { $0.isSelected }
@@ -49,8 +41,6 @@ struct DiaryDay: Equatable {
 			Log.error("Could not get date from date string", log: .contactdiary)
 			return Date()
 		}
-
 		return date
 	}
-
 }
