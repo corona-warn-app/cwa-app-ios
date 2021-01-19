@@ -151,9 +151,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
+			let sqlRiskLevelPerDate = """
+				DELETE FROM RiskLevelPerDate
+				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
+			"""
+
 			do {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
+				try database.executeUpdate(sqlRiskLevelPerDate, values: nil)
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -839,7 +845,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		var riskLevel: RiskLevel?
 
 		let sql = """
-				SELECT RiskLevelPerDate.date, MAX(RiskLevelPerDate.riskLevel) AS RiskLevel
+				SELECT RiskLevelPerDate.date, MAX(RiskLevelPerDate.riskLevel) AS riskLevel
 				FROM RiskLevelPerDate
 				WHERE RiskLevelPerDate.date = ?
 			"""
@@ -851,10 +857,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
-				guard let fetchedRiskLevel = RiskLevel(rawValue: queryResult.long(forColumn: "RiskLevel")) else {
-					return .failure(.database(SQLiteErrorCode.generalError))
+				if let fetchedRiskLevel = RiskLevel(rawValue: queryResult.long(forColumn: "riskLevel")) {
+					riskLevel = fetchedRiskLevel
 				}
-				riskLevel = fetchedRiskLevel
 			}
 		} catch {
 			logLastErrorCode(from: database)
