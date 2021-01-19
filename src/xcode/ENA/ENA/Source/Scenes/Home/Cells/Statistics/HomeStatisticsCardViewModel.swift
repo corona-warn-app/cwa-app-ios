@@ -63,7 +63,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
-		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.Infections.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Infections
 		
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
@@ -99,7 +99,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
-		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.KeySubmissions.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.KeySubmissions
 
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
@@ -137,7 +137,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
-		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.Incidence.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Incidence
 
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
@@ -158,7 +158,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
-		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.ReproductionNumber.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.ReproductionNumber
 
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
