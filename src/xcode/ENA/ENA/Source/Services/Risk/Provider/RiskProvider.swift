@@ -461,7 +461,7 @@ extension RiskProvider {
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
 				calculationDate: Date(),
-				riskLevelPerDate: [Date(): .low]
+				riskLevelPerDate: [Date(): .high]
 			)
 		default:
 			store.riskCalculationResult = RiskCalculationResult(
