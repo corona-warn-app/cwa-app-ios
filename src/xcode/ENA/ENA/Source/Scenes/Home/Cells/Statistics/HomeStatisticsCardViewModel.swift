@@ -35,12 +35,14 @@ class HomeStatisticsCardViewModel {
 	@OpenCombine.Published private(set) var primaryTrendImage: UIImage?
 	@OpenCombine.Published private(set) var primaryTrendImageTintColor: UIColor?
 	@OpenCombine.Published private(set) var primaryTrendAccessibilityLabel: String?
+	@OpenCombine.Published private(set) var primaryTrendAccessibilityValue: String?
 
 	@OpenCombine.Published private(set) var secondaryTitle: String?
 	@OpenCombine.Published private(set) var secondaryValue: String?
 	@OpenCombine.Published private(set) var secondaryTrendImage: UIImage?
 	@OpenCombine.Published private(set) var secondaryTrendImageTintColor: UIColor?
 	@OpenCombine.Published private(set) var secondaryTrendAccessibilityLabel: String?
+	@OpenCombine.Published private(set) var secondaryTrendAccessibilityValue: String?
 
 	@OpenCombine.Published private(set) var tertiaryTitle: String?
 	@OpenCombine.Published private(set) var tertiaryValue: String?
@@ -71,6 +73,7 @@ class HomeStatisticsCardViewModel {
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor
 			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
 		}
 
 		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
@@ -81,6 +84,7 @@ class HomeStatisticsCardViewModel {
 			secondaryTrendImage = secondaryFigure.trendImage
 			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
 			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
+			secondaryTrendAccessibilityValue = secondaryFigure.trendAccessibilityValue
 		}
 
 		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
@@ -104,6 +108,7 @@ class HomeStatisticsCardViewModel {
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor
 			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
 		}
 
 		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
@@ -114,6 +119,7 @@ class HomeStatisticsCardViewModel {
 			secondaryTrendImage = secondaryFigure.trendImage
 			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
 			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
+			secondaryTrendAccessibilityValue = secondaryFigure.trendAccessibilityValue
 		}
 
 		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
@@ -139,6 +145,7 @@ class HomeStatisticsCardViewModel {
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor
 			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
 		}
 
 		secondaryTitle = AppStrings.Statistics.Card.Incidence.secondaryLabelTitle
@@ -158,6 +165,7 @@ class HomeStatisticsCardViewModel {
 			primaryTrendImage = primaryFigure.trendImage
 			primaryTrendImageTintColor = primaryFigure.trendTintColor
 			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
 		}
 
 		secondaryTitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
@@ -272,6 +280,21 @@ private extension SAP_Internal_Stats_KeyFigure {
 		case .decreasing:
 			return AppStrings.Statistics.Card.trendDecreasing
 		case .unspecifiedTrend:
+			return nil
+		case .UNRECOGNIZED:
+			return nil
+		}
+	}
+
+	var trendAccessibilityValue: String? {
+		switch trendSemantic {
+		case .negative:
+			return AppStrings.Statistics.Card.trendSemanticNegative
+		case .positive:
+			return AppStrings.Statistics.Card.trendSemanticPositive
+		case .neutral:
+			return AppStrings.Statistics.Card.trendSemanticNeutral
+		case .unspecifiedTrendSemantic:
 			return nil
 		case .UNRECOGNIZED:
 			return nil

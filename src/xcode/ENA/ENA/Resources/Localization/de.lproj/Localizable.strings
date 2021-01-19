@@ -1463,6 +1463,12 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Trend_Stable" = "Trend stabil";
 
+"Statistics_Card_TrendSemantic_Negative" = "negativ";
+
+"Statistics_Card_TrendSemantic_Positive" = "positiv";
+
+"Statistics_Card_TrendSemantic_Neutral" = "neutral";
+
 /* - Number Formatting */
 
 "Statistics_Card_Million" = "%@ Mio.";
@@ -1545,7 +1551,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in der";
 
-"Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken";
+"Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken.";
 
 "Statistics_Info_Definitions_Title" = "Legende";
 
@@ -1577,4 +1583,4 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Trends_Footnote" = "Die Bewertung des Trends bei den warnenden Personen ändert sich je nach Infektionslage. Deshalb wird dieser Trend immer neutral dargestellt.";
 
-"Statistics_Info_Image_AccLabel" = "";
+"Statistics_Info_Image_AccLabel" = "Abstrakte Darstellung eines Smartphones mit vier Platzhaltern für Informationen";

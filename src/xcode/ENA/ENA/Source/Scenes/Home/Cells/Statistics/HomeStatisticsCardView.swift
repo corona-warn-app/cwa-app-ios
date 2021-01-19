@@ -158,6 +158,10 @@ class HomeStatisticsCardView: UIView {
 			.assign(to: \.accessibilityLabel, on: primaryTrendImageView)
 			.store(in: &subscriptions)
 
+		viewModel.$primaryTrendAccessibilityValue
+			.assign(to: \.accessibilityValue, on: primaryTrendImageView)
+			.store(in: &subscriptions)
+
 		viewModel.$secondaryTitle
 			.sink { [weak self] in
 				self?.secondaryTitleLabel.isHidden = $0 == nil
@@ -185,6 +189,10 @@ class HomeStatisticsCardView: UIView {
 
 		viewModel.$secondaryTrendAccessibilityLabel
 			.assign(to: \.accessibilityLabel, on: secondaryTrendImageView)
+			.store(in: &subscriptions)
+
+		viewModel.$secondaryTrendAccessibilityValue
+			.assign(to: \.accessibilityValue, on: secondaryTrendImageView)
 			.store(in: &subscriptions)
 
 		viewModel.$tertiaryTitle

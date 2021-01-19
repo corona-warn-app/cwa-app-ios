@@ -1019,6 +1019,10 @@ enum AppStrings {
 			static let trendDecreasing = NSLocalizedString("Statistics_Card_Trend_Decreasing", comment: "")
 			static let trendStable = NSLocalizedString("Statistics_Card_Trend_Stable", comment: "")
 
+			static let trendSemanticNegative = NSLocalizedString("Statistics_Card_TrendSemantic_Negative", comment: "")
+			static let trendSemanticPositive = NSLocalizedString("Statistics_Card_TrendSemantic_Positive", comment: "")
+			static let trendSemanticNeutral = NSLocalizedString("Statistics_Card_TrendSemantic_Neutral", comment: "")
+
 			static let million = NSLocalizedString("Statistics_Card_Million", comment: "")
 
 		}
