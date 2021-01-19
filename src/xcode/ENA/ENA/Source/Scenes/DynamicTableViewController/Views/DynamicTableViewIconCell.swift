@@ -58,11 +58,9 @@ class DynamicTableViewIconCell: UITableViewCell {
 		super.prepareForReuse()
 		// hinding a stack views subview forces the stack view to update its layout
 		// this is how we solve the layout bug when reusing stack views in table view cells
-		iconImageView.isHidden = true
-		contentTextLabel.isHidden = true
+		stackView.arrangedSubviews.forEach({ $0.isHidden = true })
 		stackView.setNeedsLayout()
 		stackView.layoutIfNeeded()
-		iconImageView.isHidden = false
-		contentTextLabel.isHidden = false
+		stackView.arrangedSubviews.forEach({ $0.isHidden = false })
 	}
 }
