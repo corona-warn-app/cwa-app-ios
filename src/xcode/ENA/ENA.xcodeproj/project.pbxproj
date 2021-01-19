@@ -271,7 +271,6 @@
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
 		5004326F25B71E41003223DD /* ContactDiaryStoreV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004326E25B71E41003223DD /* ContactDiaryStoreV3.swift */; };
-		5004328B25B72064003223DD /* ContactDiaryStoreV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004328A25B72064003223DD /* ContactDiaryStoreV1.swift */; };
 		5004329025B72067003223DD /* ContactDiaryStoreV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004328F25B72067003223DD /* ContactDiaryStoreV2.swift */; };
 		5004329E25B720D7003223DD /* DiaryDayV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004329D25B720D6003223DD /* DiaryDayV2.swift */; };
 		503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */; };
@@ -587,6 +586,7 @@
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */; };
 		BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCCC7425ADB9FD00195AC3 /* RiskLegendeTest.swift */; };
+		BACD673125B72F7C00BAF5D0 /* ContactDiaryStoreV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004328A25B72064003223DD /* ContactDiaryStoreV1.swift */; };
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
@@ -4348,7 +4348,6 @@
 				5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */,
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
 				B16457BD24DC3F4E002879EB /* DMKeysViewController.swift in Sources */,
-				5004328B25B72064003223DD /* ContactDiaryStoreV1.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				01C6AC0E252B1E990052814D /* ExposureSubmissionQRScannerViewModel.swift in Sources */,
 				01909882257E675D0065D050 /* DiaryContactPerson.swift in Sources */,
@@ -4371,6 +4370,7 @@
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,
 				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
+				BACD673125B72F7C00BAF5D0 /* ContactDiaryStoreV1.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,

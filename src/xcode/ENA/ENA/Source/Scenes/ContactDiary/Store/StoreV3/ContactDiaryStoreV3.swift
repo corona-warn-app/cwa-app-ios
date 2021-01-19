@@ -8,7 +8,9 @@ import FMDB
 import OpenCombine
 
 // swiftlint:disable:next type_body_length
-class ContactDiaryStoreV3: DiaryStoring, DiaryProviding {
+class ContactDiaryStoreV3: DiaryStoringProviding {
+
+	typealias DiaryDay = DiaryDayV3
 
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 

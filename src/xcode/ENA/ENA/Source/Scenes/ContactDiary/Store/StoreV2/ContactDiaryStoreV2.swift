@@ -9,7 +9,9 @@ import OpenCombine
 
 
 // swiftlint:disable:next type_body_length
-class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
+class ContactDiaryStoreV2: DiaryStoringV2, DiaryProvidingV2 {
+
+	typealias DiaryDay = DiaryDayV2
 
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
@@ -27,7 +29,7 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 		self.dateProvider = dateProvider
 		self.schema = schema
 		self.migrator = migrator
-		
+
 		guard case .success = openAndSetup() else {
 			return nil
 		}
@@ -43,12 +45,12 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 		guard case .success = updateDiaryResult else {
 			return nil
 		}
-		
+
 		registerToDidBecomeActiveNotification()
 	}
 
 	convenience init?() {
-		let latestDBVersion = 3
+		let latestDBVersion = 2
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
@@ -379,54 +381,6 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 			}
 
 			result = .success(Int(database.lastInsertRowId))
-		}
-
-		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
-		}
-
-		return _result
-	}
-
-	func addRiskLevelPerDate(_ riskLevelsPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult {
-		var result: DiaryStoringGroupResult?
-
-		for (date, riskLevel) in riskLevelsPerDate {
-			let dateString = dateFormatter.string(from: date)
-			let riskLevelRawValue = riskLevel.rawValue
-			databaseQueue.inDatabase { database in
-				Log.info("[ContactDiaryStore] Add RiskLevelPerDate.", log: .localData)
-
-				let sql = """
-					INSERT INTO RiskLevelPerDate (
-						date,
-						riskLevel
-					)
-					VALUES (
-						date(:dateString),
-						:riskLevel
-					);
-				"""
-
-				let parameters: [String: Any] = [
-					"date": dateString,
-					"riskLevel": riskLevelRawValue
-				]
-				guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-					logLastErrorCode(from: database)
-					result?.append(.failure(dbError(from: database)))
-					return
-				}
-
-				let updateDiaryDaysResult = updateDiaryDays(with: database)
-				guard case .success = updateDiaryDaysResult else {
-					logLastErrorCode(from: database)
-					result?.append(.failure(dbError(from: database)))
-					return
-				}
-
-				result?.append(.success(Int(database.lastInsertRowId)))
-			}
 		}
 
 		guard let _result = result else {
@@ -981,19 +935,9 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 				return .failure(error)
 			}
 
-			let riskLevelResult = fetchRiskLevelPerDate(for: dateString, in: database)
-
-			var historyExposure: DiaryDay.HistoryExposure
-			switch riskLevelResult {
-			case .success(let riskLevel):
-				historyExposure = getHistoryExposure(for: riskLevel)
-			case .failure(let error):
-				return .failure(error)
-			}
-
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, historyExposure: historyExposure)
-
+			// ToDO: set exposure encouter / riskLevel
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
 			diaryDays.append(diaryDay)
 		}
 
@@ -1073,20 +1017,6 @@ class ContactDiaryStoreV2: DiaryStoring, DiaryProviding {
 	private func dbError(from database: FMDatabase) -> DiaryStoringError {
 		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
 		return .database(dbError)
-	}
-
-	private func getHistoryExposure(for riskLevel: RiskLevel?) -> DiaryDay.HistoryExposure {
-		switch riskLevel {
-		case .none:
-			return .none
-		case .some(let unwrappedRiskLevel):
-			switch unwrappedRiskLevel {
-			case .high:
-				return .encounter(.high)
-			case .low:
-				return .encounter(.low)
-			}
-		}
 	}
 	// swiftlint:disable:next file_length
 }

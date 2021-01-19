@@ -5,10 +5,13 @@
 import Foundation
 import OpenCombine
 
+typealias DiaryStoring = DiaryProvidingV3 & DiaryStoringV2 & DiaryStoringV3
+typealias DiaryProviding = DiaryProvidingV3
+typealias DiaryDay = DiaryDayV3
+typealias ContactDiaryStore = ContactDiaryStoreV3
+
 typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
 typealias ContactDiaryStoreSchema = ContactDiaryStoreSchemaV3
-typealias ContactDiaryStore = ContactDiaryStoreV3
-typealias DiaryDay = DiaryDayV3
 
 enum DiaryStoringError: Error {
 	case database(SQLiteErrorCode)
@@ -25,10 +28,9 @@ protocol DateProviding {
 	var today: Date { get }
 }
 
-protocol DiaryStoring {
+protocol DiaryStoringV2 {
 
 	typealias DiaryStoringResult = Result<Int, DiaryStoringError>
-	typealias DiaryStoringGroupResult = [Result<Int, DiaryStoringError>]
 	typealias DiaryStoringVoidResult = Result<Void, DiaryStoringError>
 
 	@discardableResult
@@ -39,8 +41,6 @@ protocol DiaryStoring {
 	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult
-	@discardableResult
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult
 
 	@discardableResult
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult
@@ -68,10 +68,21 @@ protocol DiaryStoring {
 	func close()
 }
 
-protocol DiaryProviding {
+protocol DiaryStoringV3 {
+	typealias DiaryStoringGroupResult = [Result<Int, DiaryStoringError>]
 
-	var diaryDaysPublisher: OpenCombine.CurrentValueSubject<[DiaryDay], Never> { get }
+	@discardableResult
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult
+}
 
+
+protocol DiaryProvidingV2 {
+	var diaryDaysPublisher: OpenCombine.CurrentValueSubject<[DiaryDayV2], Never> { get }
 	func export() -> Result<String, SQLiteErrorCode>
-	
+
+}
+
+protocol DiaryProvidingV3 {
+	var diaryDaysPublisher: OpenCombine.CurrentValueSubject<[DiaryDayV3], Never> { get }
+	func export() -> Result<String, SQLiteErrorCode>
 }
