@@ -28,7 +28,8 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		self.dateProvider = dateProvider
 		self.schema = schema
 		self.migrator = migrator
-		
+
+		/*** opens and prepares the database - triggers migration if needed */
 		guard case .success = openAndSetup() else {
 			return nil
 		}
@@ -44,7 +45,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		guard case .success = updateDiaryResult else {
 			return nil
 		}
-		
+
 		registerToDidBecomeActiveNotification()
 	}
 
@@ -59,7 +60,11 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 			databaseQueue: databaseQueue
 		)
 
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue), ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
+		let migrations: [Migration] = [
+			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
+			ContactDiaryMigration2To3(databaseQueue: databaseQueue)
+		]
+
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
 
 		self.init(
@@ -126,7 +131,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 					exportString.append("\(germanDateString) \(name)\n")
 				}
 			} catch {
-				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+				Log.error("[ContactDiaryStoreV3] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
@@ -134,7 +139,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -147,7 +152,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult = .success(())
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Cleanup old entries.", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Cleanup old entries.", log: .localData)
 
 			guard database.beginExclusiveTransaction() else {
 				logLastErrorCode(from: database)
@@ -224,7 +229,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Add ContactPerson.", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Add ContactPerson.", log: .localData)
 
 			let sql = """
 				INSERT INTO ContactPerson (
@@ -254,7 +259,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -264,7 +269,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Add Location.", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Add Location.", log: .localData)
 
 			let sql = """
 				INSERT INTO Location (
@@ -295,7 +300,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -305,7 +310,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Add ContactPersonEncounter.", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Add ContactPersonEncounter.", log: .localData)
 
 			let sql = """
 				INSERT INTO ContactPersonEncounter (
@@ -339,7 +344,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -349,7 +354,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Add LocationVisit.", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Add LocationVisit.", log: .localData)
 
 			let sql = """
 				INSERT INTO LocationVisit (
@@ -383,7 +388,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -396,7 +401,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 			let dateString = dateFormatter.string(from: date)
 			let riskLevelRawValue = riskLevel.rawValue
 			databaseQueue.inDatabase { database in
-				Log.info("[ContactDiaryStore] Add RiskLevelPerDate.", log: .localData)
+				Log.info("[ContactDiaryStoreV3] Add RiskLevelPerDate.", log: .localData)
 
 				let sql = """
 					INSERT INTO RiskLevelPerDate (
@@ -431,7 +436,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -441,7 +446,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Update ContactPerson with id: \(id).", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Update ContactPerson with id: \(id).", log: .localData)
 
 			let sql = """
 				UPDATE ContactPerson
@@ -468,7 +473,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -478,7 +483,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Update Location with id: \(id).", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Update Location with id: \(id).", log: .localData)
 
 			let sql = """
 				UPDATE Location
@@ -505,7 +510,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -515,7 +520,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove ContactPerson with id: \(id).", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Remove ContactPerson with id: \(id).", log: .localData)
 
 			let sql = """
 				DELETE FROM ContactPerson
@@ -541,7 +546,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -551,7 +556,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove Location with id: \(id).", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Remove Location with id: \(id).", log: .localData)
 
 			let sql = """
 				DELETE FROM Location
@@ -577,7 +582,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -587,7 +592,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove ContactPersonEncounter with id: \(id).", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Remove ContactPersonEncounter with id: \(id).", log: .localData)
 
 			let sql = """
 					DELETE FROM ContactPersonEncounter
@@ -613,7 +618,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -623,7 +628,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove LocationVisit with id: \(id).", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Remove LocationVisit with id: \(id).", log: .localData)
 
 			let sql = """
 					DELETE FROM LocationVisit
@@ -649,7 +654,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -704,7 +709,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		guard let storeDirectoryURL = try? fileManager
 			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 				.appendingPathComponent("ContactDiary") else {
-			fatalError("[ContactDiaryStore] Could not create folder.")
+			fatalError("[ContactDiaryStoreV3] Could not create folder.")
 		}
 
 		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
@@ -714,31 +719,31 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 	}
 
 	static func make() -> ContactDiaryStore {
-		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
+		Log.info("[ContactDiaryStoreV3] Trying to create contact diary store...", log: .localData)
 
 		if let store = ContactDiaryStore() {
-			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Successfully created contact diary store", log: .localData)
 			return store
 		}
 
-		Log.info("[ContactDiaryStore] Failed to create contact diary store. Try to rescue it...", log: .localData)
+		Log.info("[ContactDiaryStoreV3] Failed to create contact diary store. Try to rescue it...", log: .localData)
 
 		// The database could not be created – To the rescue!
-		// Remove the database file and try to init the store a second time.
+		// Remove the database file and try to init the store [ContactDiaryStoreV3] second time.
 		try? FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
 
 		if let secondTryStore = ContactDiaryStore() {
-			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Successfully rescued contact diary store", log: .localData)
 			return secondTryStore
 		} else {
-			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
-			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
+			Log.info("[ContactDiaryStoreV3] Failed to rescue contact diary store.", log: .localData)
+			fatalError("[ContactDiaryStoreV3] Could not create contact diary store after second try.")
 		}
 	}
 
 	static var encryptionKey: String {
 		guard let keychain = try? KeychainHelper() else {
-			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
+			fatalError("[ContactDiaryStoreV3] Failed to create KeychainHelper for contact diary store.")
 		}
 
 		let key: String
@@ -748,7 +753,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 			do {
 				key = try keychain.generateContactDiaryDatabaseKey()
 			} catch {
-				fatalError("[ContactDiaryStore] Failed to create key for contact diary store.")
+				fatalError("[ContactDiaryStoreV3] Failed to create key for contact diary store.")
 			}
 		}
 
@@ -787,17 +792,17 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var userVersion: UInt32?
 		
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Open and setup database.", log: .localData)
 			userVersion = database.userVersion
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
-				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
+				Log.error("[ContactDiaryStoreV3] Unable to set Key for encryption.", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
 			
 			guard database.open() else {
-				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
+				Log.error("[ContactDiaryStoreV3] Database could not be opened", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
@@ -819,7 +824,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 			return _errorResult
 		}
 		
-		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
+		// if version is zero then this means this is [ContactDiaryStoreV3] fresh database "[ContactDiaryStoreV3].[ContactDiaryStoreV3] no previous app was installed"
 		// then we create the latest scheme
 		if let version = userVersion, version == 0 {
 			let schemaCreateResult = schema.create()
@@ -1007,7 +1012,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		var result: DiaryStoringVoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Remove all entires from \(tableName)", log: .localData)
+			Log.info("[ContactDiaryStoreV3] Remove all entires from \(tableName)", log: .localData)
 
 			let sql = """
 				DELETE FROM \(tableName)
@@ -1030,7 +1035,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -1060,7 +1065,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[ContactDiaryStoreV3] Result should not be nil.")
 		}
 
 		return _result
@@ -1068,7 +1073,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 
 
 	private func logLastErrorCode(from database: FMDatabase) {
-		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+		Log.error("[ContactDiaryStoreV3] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 	}
 
 	private func dbError(from database: FMDatabase) -> DiaryStoringError {

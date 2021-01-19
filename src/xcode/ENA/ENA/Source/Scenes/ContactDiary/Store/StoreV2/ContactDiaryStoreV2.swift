@@ -60,7 +60,7 @@ class ContactDiaryStoreV2: DiaryStoringV2, DiaryProvidingV2 {
 			databaseQueue: databaseQueue
 		)
 
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue), ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
+		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
 
 		self.init(

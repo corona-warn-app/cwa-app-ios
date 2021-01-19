@@ -6,10 +6,8 @@ import FMDB
 
 final class ContactDiaryMigration2To3: Migration {
 
-	private let databaseQueue: FMDatabaseQueue
-	private var database: FMDatabase?
-	private var error: Error?
-	
+	// MARK: - Init
+
 	init(databaseQueue: FMDatabaseQueue) {
 		self.databaseQueue = databaseQueue
 	}
@@ -19,46 +17,35 @@ final class ContactDiaryMigration2To3: Migration {
 	let version = 3
 
 	func execute() throws {
-		
-		var finalSQL: String?
-		databaseQueue.inDatabase { database in
-			let tableNames = ["ContactPerson", "Location"]
+		databaseQueue.inDatabase { [weak self] database in
+			guard let self = self else {
+				error = MigrationError.failed(from: 2, to: 3)
+				return
+			}
 			self.database = database
-			for tableName in tableNames {
-				let queryResult = database.prepare("PRAGMA table_info(" + tableName + ")" )
-				
-				while queryResult.next() {
-					let name = queryResult.string(forColumn: "name")
-					let type = queryResult.string(forColumn: "type")
-					
-					// do migration for contact diary tables if the type of the Column "name" is "STRING"
-					if name == "name" && type == "STRING" {
-						finalSQL = """
-						CREATE TABLE tmp (
-						id INTEGER PRIMARY KEY,
-						name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
-						);
-						INSERT INTO tmp (id, name)
-						SELECT id, name
-						FROM \(tableName);
-						DROP TABLE \(tableName);
-						ALTER TABLE tmp RENAME TO \(tableName) ;
-						"""
-						
-						break
-					}
-				}
-				
-				queryResult.close()
-				guard let sql = finalSQL, database.executeStatements(sql) else {
-					error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
-					return
-				}
+			let sqlQuery = """
+				CREATE TABLE IF NOT EXISTS RiskLevelPerDate (
+					id INTEGER PRIMARY KEY,
+					date TEXT NOT NULL,
+					riskLevel INTEGER NOT NULL
+				);
+			"""
+
+			guard database.executeStatements(sqlQuery) else {
+				error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
+				return
 			}
 		}
-		
+
 		if let error = error {
 			throw error
 		}
 	}
+
+	// MARK: - Private
+
+	private let databaseQueue: FMDatabaseQueue
+	private var database: FMDatabase?
+	private var error: Error?
+	
 }
