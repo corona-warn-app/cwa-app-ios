@@ -76,7 +76,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var testResultIsLoading: Bool = false
 	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
-	@OpenCombine.Published private(set) var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
+	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
 
