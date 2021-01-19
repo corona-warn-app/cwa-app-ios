@@ -967,7 +967,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					DROP TABLE LocationVisit;
 					DROP TABLE ContactPerson;
 					DROP TABLE ContactPersonEncounter;
-					DROP TABLE RiskLevelPerDate
+					DROP TABLE RiskLevelPerDate;
 					VACUUM;
 				"""
 
