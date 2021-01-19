@@ -72,15 +72,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.store(in: &subscriptions)
 
 		viewModel.state.$statistics
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] newStatistics in
 				// Only reload if the number of statistics cards changed from or to 0
 				guard newStatistics.supportedCardIDSequence.isEmpty != viewModel.state.statistics.supportedCardIDSequence.isEmpty else {
 					return
 				}
 
-				DispatchQueue.main.async {
-					self?.reload()
-				}
+				self?.reload()
 			}
 			.store(in: &subscriptions)
 	}
