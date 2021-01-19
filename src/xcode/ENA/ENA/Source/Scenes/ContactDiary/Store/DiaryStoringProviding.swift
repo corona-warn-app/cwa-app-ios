@@ -5,8 +5,8 @@
 import Foundation
 import OpenCombine
 
-typealias DiaryStoring = DiaryProvidingV3 & DiaryStoringV2 & DiaryStoringV3
 typealias DiaryProviding = DiaryProvidingV3
+typealias DiaryStoring = DiaryProviding & DiaryStoringV2 & DiaryStoringV3
 typealias DiaryDay = DiaryDayV3
 typealias ContactDiaryStore = ContactDiaryStoreV3
 
