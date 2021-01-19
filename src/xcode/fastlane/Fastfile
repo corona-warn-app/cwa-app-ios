@@ -44,6 +44,10 @@ platform :ios do
       destination: "platform=iOS Simulator,OS=14.3,name=iPhone 11",
       scheme: "ENA"
     )
+    run_tests(
+      build_for_testing: true, # build only, no tests
+      scheme: "ENA"
+    )
   end
 
   desc "Build project (Community)"
