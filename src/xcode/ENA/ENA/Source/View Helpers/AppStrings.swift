@@ -820,6 +820,9 @@ enum AppStrings {
 	
 	enum DeltaOnboarding {
 		static let accImageLabel = NSLocalizedString("DeltaOnboarding_AccessibilityImageLabel", comment: "")
+		
+		static let newVersionFeaturesAccImageLabel = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel", comment: "")
+		
 		static let title = NSLocalizedString("DeltaOnboarding_Headline", comment: "")
 		
 		static let description = NSLocalizedString("DeltaOnboarding_Description", comment: "")

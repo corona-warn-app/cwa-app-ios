@@ -241,6 +241,7 @@ enum AccessibilityIdentifiers {
 	
 	enum DeltaOnboarding {
 		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
+		static let newVersionFeaturesAccImageDescription = "AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"
 		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
 		static let description = "AppStrings.DeltaOnboarding.description"
 		static let downloadInfo = "AppStrings.DeltaOnboarding.downloadInfo"

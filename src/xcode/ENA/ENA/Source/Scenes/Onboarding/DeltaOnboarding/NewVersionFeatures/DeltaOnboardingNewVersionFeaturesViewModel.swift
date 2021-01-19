@@ -23,8 +23,8 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_NewVersion_Features"),
-						accessibilityLabel: AppStrings.DeltaOnboarding.accImageLabel,
-						accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.accImageDescription,
+						accessibilityLabel: AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel,
+						accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
 						height: 250
 					),
 					cells: [
