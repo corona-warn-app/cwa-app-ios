@@ -1002,8 +1002,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			case .low:
 				return .encounter(.low)
 			}
-		default:
-			return .none
 		}
 	}
 }
