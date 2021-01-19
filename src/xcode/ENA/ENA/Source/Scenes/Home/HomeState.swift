@@ -68,7 +68,7 @@ class HomeState: ENStateHandlerUpdating {
 
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
-	@OpenCombine.Published var detectionMode: DetectionMode = .fromBackgroundStatus()
+	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
 	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 

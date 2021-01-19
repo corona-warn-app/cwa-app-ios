@@ -206,13 +206,18 @@ class HomeTestResultCellModelTests: XCTestCase {
 	}
 	
 	private func makeHomeState() -> HomeState {
-		HomeState(
-			store: MockTestStore(),
+		let store = MockTestStore()
+
+		return HomeState(
+			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: .init(),
 			enState: .enabled,
 			exposureSubmissionService: MockExposureSubmissionService(),
-			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: MockTestStore()), store: MockTestStore())
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 	}
 }

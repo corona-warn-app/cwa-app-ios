@@ -1463,7 +1463,13 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Trend_Stable" = "Trend stabil";
 
-/* - Number and Date Formatting */
+"Statistics_Card_TrendSemantic_Negative" = "negativ";
+
+"Statistics_Card_TrendSemantic_Positive" = "positiv";
+
+"Statistics_Card_TrendSemantic_Neutral" = "neutral";
+
+/* - Number Formatting */
 
 "Statistics_Card_Million" = "%@ Mio.";
 
@@ -1471,7 +1477,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Infections_Title" = "Bestätigte Neuinfektionen";
 
-"Statistics_Card_Infections_PrimaryLabelTitle" = "Gestern";
+"Statistics_Card_Infections_Today" = "Heute";
+
+"Statistics_Card_Infections_Yesterday" = "Gestern";
+
+"Statistics_Card_Infections_Date" = "%@";
 
 "Statistics_Card_Infections_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 
@@ -1481,7 +1491,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_Incidence_Title" = "7-Tage-Inzidenz";
 
-"Statistics_Card_Incidence_PrimaryLabelTitle" = "Bis gestern";
+"Statistics_Card_Incidence_Today" = "Bis heute";
+
+"Statistics_Card_Incidence_Yesterday" = "Bis gestern";
+
+"Statistics_Card_Incidence_Date" = "Bis %@";
 
 "Statistics_Card_Incidence_SecondaryLabelTitle" = "bestätigte Neuinfektionen je 100.000 Einwohner";
 
@@ -1489,7 +1503,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_KeySubmissions_Title" = "Warnende Personen";
 
-"Statistics_Card_KeySubmissions_PrimaryLabelTitle" = "Gestern";
+"Statistics_Card_KeySubmissions_Today" = "Heute";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Gestern";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
 
 "Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7-Tage-Mittelwert";
 
@@ -1501,7 +1519,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_ReproductionNumber_Title" = "7-Tage-R-Wert";
 
-"Statistics_Card_ReproductionNumber_PrimaryLabelTitle" = "Aktuell";
+"Statistics_Card_ReproductionNumber_Today" = "Aktuell";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Gestern";
+
+"Statistics_Card_ReproductionNumber_Date" = "Bis %@";
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
 
@@ -1529,7 +1551,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in der";
 
-"Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken";
+"Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken.";
 
 "Statistics_Info_Definitions_Title" = "Legende";
 
@@ -1561,4 +1583,4 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Info_Trends_Footnote" = "Die Bewertung des Trends bei den warnenden Personen ändert sich je nach Infektionslage. Deshalb wird dieser Trend immer neutral dargestellt.";
 
-"Statistics_Info_Image_AccLabel" = "";
+"Statistics_Info_Image_AccLabel" = "Abstrakte Darstellung eines Smartphones mit vier Platzhaltern für Informationen";

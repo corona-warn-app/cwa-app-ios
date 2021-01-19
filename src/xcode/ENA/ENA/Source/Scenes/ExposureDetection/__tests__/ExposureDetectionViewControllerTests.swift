@@ -26,7 +26,10 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
 			exposureSubmissionService: MockExposureSubmissionService(),
-			statisticsProvider: StatisticsProvider(client: CachingHTTPClientMock(store: store), store: store)
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 
 		return ExposureDetectionViewController(

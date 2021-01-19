@@ -72,15 +72,14 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.store(in: &subscriptions)
 
 		viewModel.state.$statistics
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] newStatistics in
 				// Only reload if the number of statistics cards changed from or to 0
 				guard newStatistics.supportedCardIDSequence.isEmpty != viewModel.state.statistics.supportedCardIDSequence.isEmpty else {
 					return
 				}
 
-				DispatchQueue.main.async {
-					self?.reload()
-				}
+				self?.reload()
 			}
 			.store(in: &subscriptions)
 	}
@@ -307,16 +306,27 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		guard tableView.visibleCells.contains(cell) else { return }
+		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
+		// https://developer.apple.com/forums/thread/117537
+		DispatchQueue.main.async { [self] in
+			guard tableView.visibleCells.contains(cell) else {
+				return
+			}
 
-		// Animate the changed cell height
-		tableView.beginUpdates()
-		tableView.endUpdates()
+			// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
+			guard viewModel.riskAndTestRows.count == 2 else {
+				tableView.reloadData()
+				return
+			}
 
-		// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
-		for cell in tableView.visibleCells {
-			cell.layer.masksToBounds = false
-			cell.contentView.layer.masksToBounds = false
+			// Animate the changed cell height
+			tableView.performBatchUpdates(nil, completion: nil)
+
+			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			for cell in tableView.visibleCells {
+				cell.layer.masksToBounds = false
+				cell.contentView.layer.masksToBounds = false
+			}
 		}
 	}
 

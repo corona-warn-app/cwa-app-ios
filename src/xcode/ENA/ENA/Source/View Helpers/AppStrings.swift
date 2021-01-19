@@ -982,20 +982,26 @@ enum AppStrings {
 
 			enum Infections {
 				static let title = NSLocalizedString("Statistics_Card_Infections_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_PrimaryLabelTitle", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_Infections_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_Infections_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_Infections_Date", comment: "")
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_Infections_TertiaryLabelTitle", comment: "")
 			}
 
 			enum Incidence {
 				static let title = NSLocalizedString("Statistics_Card_Incidence_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_PrimaryLabelTitle", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_Incidence_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_Incidence_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_Incidence_Date", comment: "")
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_Incidence_SecondaryLabelTitle", comment: "")
 			}
 
 			enum KeySubmissions {
 				static let title = NSLocalizedString("Statistics_Card_KeySubmissions_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_KeySubmissions_PrimaryLabelTitle", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_KeySubmissions_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_KeySubmissions_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_KeySubmissions_Date", comment: "")
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_KeySubmissions_SecondaryLabelTitle", comment: "")
 				static let tertiaryLabelTitle = NSLocalizedString("Statistics_Card_KeySubmissions_TertiaryLabelTitle", comment: "")
 				static let footnote = NSLocalizedString("Statistics_Card_KeySubmissions_Footnote", comment: "")
@@ -1003,13 +1009,19 @@ enum AppStrings {
 
 			enum ReproductionNumber {
 				static let title = NSLocalizedString("Statistics_Card_ReproductionNumber_Title", comment: "")
-				static let primaryLabelTitle = NSLocalizedString("Statistics_Card_ReproductionNumber_PrimaryLabelTitle", comment: "")
+				static let today = NSLocalizedString("Statistics_Card_ReproductionNumber_Today", comment: "")
+				static let yesterday = NSLocalizedString("Statistics_Card_ReproductionNumber_Yesterday", comment: "")
+				static let date = NSLocalizedString("Statistics_Card_ReproductionNumber_Date", comment: "")
 				static let secondaryLabelTitle = NSLocalizedString("Statistics_Card_ReproductionNumber_SecondaryLabelTitle", comment: "")
 			}
 
 			static let trendIncreasing = NSLocalizedString("Statistics_Card_Trend_Increasing", comment: "")
 			static let trendDecreasing = NSLocalizedString("Statistics_Card_Trend_Decreasing", comment: "")
 			static let trendStable = NSLocalizedString("Statistics_Card_Trend_Stable", comment: "")
+
+			static let trendSemanticNegative = NSLocalizedString("Statistics_Card_TrendSemantic_Negative", comment: "")
+			static let trendSemanticPositive = NSLocalizedString("Statistics_Card_TrendSemantic_Positive", comment: "")
+			static let trendSemanticNeutral = NSLocalizedString("Statistics_Card_TrendSemantic_Neutral", comment: "")
 
 			static let million = NSLocalizedString("Statistics_Card_Million", comment: "")
 
