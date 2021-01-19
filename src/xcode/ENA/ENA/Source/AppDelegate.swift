@@ -83,21 +83,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
-		checkForRisks()
 		return true
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
-		checkForRisks()
-		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
-	}
-	
-	private func checkForRisks() {
 		riskProvider.requestRisk(userInitiated: false)
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
+		
+		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
