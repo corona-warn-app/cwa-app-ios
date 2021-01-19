@@ -72,8 +72,18 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
-			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
+			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)
 			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
+			return
+		}
+
+		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+			return
+		}
+
+		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
 			return
 		}
 

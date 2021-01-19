@@ -282,11 +282,18 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		guard tableView.visibleCells.contains(cell) else { return }
+		guard tableView.visibleCells.contains(cell) else {
+			return
+		}
+
+		// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
+		guard viewModel.riskAndTestRows.count == 2 else {
+			tableView.reloadData()
+			return
+		}
 
 		// Animate the changed cell height
-		tableView.beginUpdates()
-		tableView.endUpdates()
+		tableView.performBatchUpdates(nil, completion: nil)
 
 		// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
 		for cell in tableView.visibleCells {
