@@ -15,6 +15,7 @@ class UpdateOSViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		customView.logoImageView.image = viewModel.logoImage
 		customView.imageView.image = viewModel.image
 		customView.titleLabel.text = viewModel.title
 		customView.textLabel.text = viewModel.text

@@ -18,7 +18,16 @@ class UpdateOSView: UIView {
 		setup()
 	}
 	
+	// MARK: - Internal
+
 	let imageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.contentMode = .center
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		return imageView
+	}()
+	
+	let logoImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .center
 		imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,14 +54,15 @@ class UpdateOSView: UIView {
 		return label
 	}()
 	
-	let scrollView: UIScrollView = {
+	// MARK: - Private
+	
+	private let scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
-		
 		return scrollView
 	}()
 	
-	let stackView: UIStackView = {
+	private let stackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .vertical
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,18 +70,21 @@ class UpdateOSView: UIView {
 		return stackView
 	}()
 	
-	let paddingView: UIView = {
+	private let paddingView: UIView = {
 		let paddingView = UIView()
 		paddingView.backgroundColor = ColorCompatibility.systemBackground
 		paddingView.translatesAutoresizingMaskIntoConstraints = false
 		return paddingView
 	}()
 	
-	func setup() {
+	private func setup() {
 		backgroundColor = ColorCompatibility.systemBackground
 		
 		translatesAutoresizingMaskIntoConstraints = false
 		
+		addSubview(logoImageView)
+		
+		// Embedding the text inside a bigger view to get some Padding on the UILabel
 		paddingView.addSubview(textLabel)
 		
 		stackView.addArrangedSubview(titleLabel)
@@ -83,6 +96,11 @@ class UpdateOSView: UIView {
 		addSubview(scrollView)
 
 		NSLayoutConstraint.activate([
+			// Logo
+			logoImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
+			logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+			
+			// Center Image
 			imageView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
 			imageView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
 			
