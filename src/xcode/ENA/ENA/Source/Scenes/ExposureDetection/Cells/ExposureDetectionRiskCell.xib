@@ -59,6 +59,7 @@
             <connections>
                 <outlet property="imageView" destination="bGr-sN-aEI" id="oCL-wz-Yy7"/>
                 <outlet property="separatorView" destination="mWS-wx-QOr" id="fFk-gf-mV5"/>
+                <outlet property="stackView" destination="LR8-TA-378" id="wFJ-r2-p4n"/>
                 <outlet property="textLabel" destination="Ex7-Pd-jQL" id="eQJ-R3-AUc"/>
             </connections>
             <point key="canvasLocation" x="-397" y="170"/>
