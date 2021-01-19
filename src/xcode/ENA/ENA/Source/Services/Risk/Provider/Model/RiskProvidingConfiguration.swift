@@ -14,7 +14,7 @@ struct RiskProvidingConfiguration: Equatable {
 		return RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),
 			exposureDetectionInterval: DateComponents(hour: defaultExposureDetectionsInterval),
-			detectionMode: .default
+			detectionMode: DetectionMode.fromBackgroundStatus()
 		)
 	}
 
