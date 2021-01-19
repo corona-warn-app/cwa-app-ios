@@ -77,7 +77,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
-		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Infections		
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Infections
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
 		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
