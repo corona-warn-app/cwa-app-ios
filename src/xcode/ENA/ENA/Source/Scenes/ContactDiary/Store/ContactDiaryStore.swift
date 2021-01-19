@@ -160,6 +160,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
 				try database.executeUpdate(sqlRiskLevelPerDate, values: nil)
+
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -705,11 +706,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	private func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?
-		var userVerson: UInt32?
+		var userVersion: UInt32?
 		
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-			userVerson = database.userVersion
+			userVersion = database.userVersion
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
@@ -742,7 +743,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		
 		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
 		// then we create the latest scheme
-		if let version = userVerson, version == 0 {
+		if let version = userVersion, version == 0 {
 			let schemaCreateResult = schema.create()
 			if case let .failure(error) = schemaCreateResult {
 				return .failure(.database(error))
@@ -914,7 +915,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, exposureEncounter: historyExposure)
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, historyExposure: historyExposure)
 
 			diaryDays.append(diaryDay)
 		}

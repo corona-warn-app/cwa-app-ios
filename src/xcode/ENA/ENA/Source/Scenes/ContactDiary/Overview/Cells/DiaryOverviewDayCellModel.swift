@@ -18,7 +18,7 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Internal
 
 	var hideExposureHistory: Bool {
-		switch diaryDay.exposureEncounter {
+		switch diaryDay.historyExposure {
 		case .none:
 			return true
 		case .encounter:
@@ -27,7 +27,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryImage: UIImage? {
-		switch diaryDay.exposureEncounter {
+		switch diaryDay.historyExposure {
 		case let .encounter(risk):
 			switch risk {
 			case .low:
@@ -41,7 +41,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryTitle: String? {
-		switch diaryDay.exposureEncounter {
+		switch diaryDay.historyExposure {
 		case let .encounter(risk):
 			switch risk {
 			case .low:
@@ -56,7 +56,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryDetail: String? {
-		switch diaryDay.exposureEncounter {
+		switch diaryDay.historyExposure {
 		case .encounter:
 			return selectedEntries.isEmpty ?
 				AppStrings.ContactDiary.Overview.riskText1 :

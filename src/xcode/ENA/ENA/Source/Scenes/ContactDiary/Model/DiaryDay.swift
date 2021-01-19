@@ -11,11 +11,11 @@ struct DiaryDay: Equatable {
 	init(
 		dateString: String,
 		entries: [DiaryEntry],
-		exposureEncounter: HistoryExposure
+		historyExposure: HistoryExposure
 	) {
 		self.dateString = dateString
 		self.entries = entries
-		self.exposureEncounter = exposureEncounter
+		self.historyExposure = historyExposure
 	}
 
 	// MARK: - Internal
@@ -27,7 +27,7 @@ struct DiaryDay: Equatable {
 
 	let dateString: String
 	let entries: [DiaryEntry]
-	let exposureEncounter: HistoryExposure
+	let historyExposure: HistoryExposure
 
 	var selectedEntries: [DiaryEntry] {
 		entries.filter { $0.isSelected }
