@@ -25,6 +25,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		guard !isConfigured else { return }
 
 		cellModel.$keyFigureCards
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				self?.configure(
 					for: $0,
