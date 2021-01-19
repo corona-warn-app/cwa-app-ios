@@ -5,9 +5,14 @@
 import UIKit
 
 class RiskLegendDotBodyCell: UITableViewCell {
-
-	var dotView: UIView!
-	var label: ENALabel!
+	
+	// MARK: - Init
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	// MARK: - Overrides
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -18,24 +23,29 @@ class RiskLegendDotBodyCell: UITableViewCell {
 		dotView.layer.masksToBounds = true
 		dotView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(dotView)
-		dotView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: 8).isActive = true
-		dotView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -8).isActive = true
-		dotView.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor).isActive = true
-		dotView.heightAnchor.constraint(equalToConstant: 16).isActive = true
-		dotView.widthAnchor.constraint(equalToConstant: 16).isActive = true
+		NSLayoutConstraint.activate([
+			dotView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor, constant: 8),
+			dotView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -8),
+			dotView.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor),
+			dotView.heightAnchor.constraint(equalToConstant: 16),
+			dotView.widthAnchor.constraint(equalToConstant: 16)
+		])
 		// label
 		label = ENALabel()
 		label.style = .body
 		label.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(label)
-		label.leadingAnchor.constraint(equalTo: dotView.trailingAnchor, constant: 24).isActive = true
-		label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -8).isActive = true
-		label.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor).isActive = true
-		label.topAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.topAnchor, constant: 8).isActive = true
-		label.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -8).isActive = true
+		NSLayoutConstraint.activate([
+			label.leadingAnchor.constraint(equalTo: dotView.trailingAnchor, constant: 24),
+			label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -8),
+			label.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor),
+			label.topAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.topAnchor, constant: 8),
+			label.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -8)
+		])
 	}
 	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+	// MARK: - Internal
+	
+	var dotView: UIView!
+	var label: ENALabel!
 }
