@@ -47,6 +47,8 @@ class HomeStatisticsCardViewModel {
 
 	@OpenCombine.Published private(set) var footnote: String?
 
+	var titleAccessiblityIdentifier: String?
+	
 	// MARK: - Private
 
 	private lazy var dateFormatter: DateFormatter = {
@@ -60,7 +62,8 @@ class HomeStatisticsCardViewModel {
 
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
-
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.Infections.title
+		
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
 		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
@@ -93,6 +96,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.KeySubmissions.title
 
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
@@ -128,6 +132,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.Incidence.title
 
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
@@ -147,6 +152,7 @@ class HomeStatisticsCardViewModel {
 
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
+		titleAccessiblityIdentifier = AccessibilityIdentifiers.Statistics.Card.ReproductionNumber.title
 
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 

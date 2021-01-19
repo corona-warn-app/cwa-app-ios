@@ -122,6 +122,7 @@ class HomeStatisticsCardView: UIView {
 			.sink { [weak self] in
 				self?.titleLabel.isHidden = $0 == nil
 				self?.titleLabel.text = $0
+				self?.titleLabel.accessibilityIdentifier = viewModel.titleAccessiblityIdentifier
 			}
 			.store(in: &subscriptions)
 
