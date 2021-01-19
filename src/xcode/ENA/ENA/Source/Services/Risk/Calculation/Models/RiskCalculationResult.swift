@@ -20,6 +20,7 @@ struct RiskCalculationResult: Codable {
 	let numberOfDaysWithHighRisk: Int
 
 	let calculationDate: Date
+	let riskLevelPerDate: [Date: RiskLevel]
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
 		switch riskLevel {
