@@ -89,12 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
-
 		riskProvider.requestRisk(userInitiated: false)
-
 		let state = exposureManager.exposureManagerState
-
 		updateExposureState(state)
+		
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
