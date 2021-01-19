@@ -31,6 +31,8 @@ class RiskCalculationResultTests: XCTestCase {
 		// THEN
 		XCTAssertNotNil(riskCalculationResult)
 		XCTAssertEqual(riskCalculationResult?.riskLevelPerDate.count, 3)
+		XCTAssertEqual(riskCalculationResult?.minimumDistinctEncountersWithLowRisk, 3)
+		XCTAssertEqual(riskCalculationResult?.minimumDistinctEncountersWithHighRisk, 0)
 	}
 
 	func testGIVEN_OldFormattedData_WHEN_ParseJson_THEN_RiskCalculationResultModelGetsCreated() {
