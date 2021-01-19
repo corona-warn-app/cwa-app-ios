@@ -23,6 +23,7 @@ class HomeTableViewModelTests: XCTestCase {
 				)
 			)
 		)
+		
 		// Number of Sections
 		XCTAssertEqual(sut.numberOfSections, 6, "Number of sections does not match.")
 		
