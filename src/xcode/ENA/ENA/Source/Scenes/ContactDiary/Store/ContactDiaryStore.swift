@@ -368,6 +368,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
+	// implementation is part of TASK #4616
+	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
+		Log.debug("Insert to contact database here - missign at the moment")
+		return .success(0)
+	}
+
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		var result: DiaryStoringVoidResult?
 
@@ -623,8 +629,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	// MARK: - Private
 
-	private let dataRetentionPeriodInDays = 16 // Including today.
-	private let userVisiblePeriodInDays = 14 // Including today.
+	private let dataRetentionPeriodInDays = 17 // Including today.
+	private let userVisiblePeriodInDays = 15 // Including today.
 	private let key: String
 	private let dateProvider: DateProviding
 	private let schema: ContactDiarySchemaProtocol
@@ -822,7 +828,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			// ToDO: set exposure encouter / riskLevel
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, exposureEncounter: .none)
 			diaryDays.append(diaryDay)
 		}
 

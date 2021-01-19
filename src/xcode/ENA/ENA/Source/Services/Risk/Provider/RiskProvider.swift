@@ -14,6 +14,7 @@ final class RiskProvider: RiskProviding {
 	init(
 		configuration: RiskProvidingConfiguration,
 		store: Store,
+		contactDiaryStore: DiaryStoring,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
@@ -23,6 +24,7 @@ final class RiskProvider: RiskProviding {
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
+		self.contactDiaryStore = contactDiaryStore
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
@@ -95,6 +97,7 @@ final class RiskProvider: RiskProviding {
     private typealias Completion = (RiskProviderResult) -> Void
 
 	private let store: Store
+	private let contactDiaryStore: DiaryStoring
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
 	private let riskCalculation: RiskCalculationProtocol
@@ -304,6 +307,7 @@ final class RiskProvider: RiskProviding {
 			)
 
 			store.riskCalculationResult = riskCalculationResult
+			contactDiaryStore.addRiskLevelPerDate(riskCalculationResult.riskLevelPerDate)
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 
 			completion(.success(risk))
@@ -446,7 +450,8 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
-				calculationDate: Date()
+				calculationDate: Date(),
+				riskLevelPerDate: [Date(): .high]
 			)
 		default:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -457,7 +462,8 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
-				calculationDate: Date()
+				calculationDate: Date(),
+				riskLevelPerDate: [Date(): .low]
 			)
 		}
 		successOnTargetQueue(risk: risk)

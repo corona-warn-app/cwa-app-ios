@@ -27,6 +27,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -74,6 +75,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -120,7 +122,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -140,6 +143,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -178,6 +182,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -217,6 +222,7 @@ final class RiskProviderTests: XCTestCase {
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -473,6 +479,7 @@ final class RiskProviderTests: XCTestCase {
 		return RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -510,7 +517,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -535,6 +543,7 @@ final class RiskProviderTests: XCTestCase {
 		return RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(riskLevel: newRiskLevel),
@@ -565,7 +574,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -600,6 +610,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -642,7 +653,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -676,6 +688,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -718,7 +731,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -753,6 +767,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -795,7 +810,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -829,6 +845,7 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
+			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -873,7 +890,8 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [:]
 		)
 	}
 
