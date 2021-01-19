@@ -17,6 +17,7 @@
                 <outlet property="inviteButton" destination="2LC-6G-8aG" id="rOU-nX-nYI"/>
                 <outlet property="scrollView" destination="trV-a9-TSD" id="iyV-qf-fCZ"/>
                 <outlet property="subtitleLabel" destination="JPW-sW-z7R" id="FQJ-aK-HoL"/>
+                <outlet property="subtitleLabelTopConstraint" destination="OBb-2u-zuM" id="ebr-4P-Otu"/>
                 <outlet property="titleLabel" destination="u4k-WH-Si3" id="daO-w5-mLd"/>
                 <outlet property="view" destination="y4L-vA-lkE" id="Bh0-Nu-RaS"/>
             </connections>
