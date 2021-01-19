@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Baz-s9-y9N">
-                        <rect key="frame" x="12" y="16" width="369" height="207"/>
+                        <rect key="frame" x="12" y="0.0" width="369" height="239"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-Hy-aUd">
-                                <rect key="frame" x="0.0" y="0.0" width="369" height="207"/>
+                                <rect key="frame" x="0.0" y="0.0" width="369" height="239"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyc-lh-yUE">
-                                        <rect key="frame" x="0.0" y="0.0" width="369" height="207"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="369" height="239"/>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,8 +49,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="Baz-s9-y9N" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="YWV-c4-yhK"/>
-                    <constraint firstAttribute="bottom" secondItem="Baz-s9-y9N" secondAttribute="bottom" constant="16" id="fhD-NG-SgH"/>
+                    <constraint firstItem="Baz-s9-y9N" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="YWV-c4-yhK"/>
+                    <constraint firstAttribute="bottom" secondItem="Baz-s9-y9N" secondAttribute="bottom" id="fhD-NG-SgH"/>
                     <constraint firstAttribute="trailing" secondItem="Baz-s9-y9N" secondAttribute="trailing" constant="65" id="hFj-JQ-gfN"/>
                     <constraint firstItem="Baz-s9-y9N" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="wfg-Tw-rFM"/>
                 </constraints>
@@ -58,8 +58,10 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="bottomConstraint" destination="fhD-NG-SgH" id="MD0-Hb-udE"/>
                 <outlet property="scrollView" destination="Baz-s9-y9N" id="SMK-kU-UM8"/>
                 <outlet property="stackView" destination="zyc-lh-yUE" id="Uqs-gy-wdr"/>
+                <outlet property="topConstraint" destination="YWV-c4-yhK" id="QPf-f0-rS6"/>
             </connections>
             <point key="canvasLocation" x="226.08695652173915" y="217.96875"/>
         </tableViewCell>

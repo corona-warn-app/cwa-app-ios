@@ -172,6 +172,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.heightForFooter(in: section)
 	}
 
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return viewModel.heightForRow(at: indexPath)
+	}
+
 	// MARK: - Protocol UITableViewDelegate
 	
 	// swiftlint:disable:next cyclomatic_complexity

@@ -62,7 +62,7 @@ class HomeTableViewModel {
 		case .riskAndTest:
 			return riskAndTestRows.count
 		case .statistics:
-			return state.statistics.supportedCardIDSequence.isEmpty ? 0 : 1
+			return 1
 		case .diary:
 			return 1
 		case .infos:
@@ -72,6 +72,14 @@ class HomeTableViewModel {
 		case .none:
 			fatalError("Invalid section")
 		}
+	}
+
+	func heightForRow(at indexPath: IndexPath) -> CGFloat {
+		if state.statistics.supportedCardIDSequence.isEmpty && HomeTableViewModel.Section(rawValue: indexPath.section) == .statistics {
+			return 0
+		}
+
+		return UITableView.automaticDimension
 	}
 
 	func heightForHeader(in section: Int) -> CGFloat {
