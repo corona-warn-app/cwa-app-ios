@@ -608,6 +608,7 @@
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
 		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
+		EB1C221225B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C221125B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift */; };
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */; };
 		EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */; };
@@ -1317,6 +1318,7 @@
 		EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/external/exposurenotification/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
 		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
 		EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+KeyPackageStorage.swift"; sourceTree = "<group>"; };
+		EB1C221125B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_08_UpdateOSUITests.swift; sourceTree = "<group>"; };
 		EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModel.swift; sourceTree = "<group>"; };
 		EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewBulletPointCell.swift; sourceTree = "<group>"; };
 		EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewController.swift; sourceTree = "<group>"; };
@@ -2428,18 +2430,19 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				941B68AD253F005600DC1962 /* Helper */,
+				13E5046A248E3CE60086641C /* AppInformation */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
 				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
-				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
-				130CB19A246D92F800ADE602 /* Onboarding */,
+				941B68AD253F005600DC1962 /* Helper */,
 				134F0DB8247578FF00D88934 /* Home */,
-				13E5046A248E3CE60086641C /* AppInformation */,
+				130CB19A246D92F800ADE602 /* Onboarding */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
+				EB1C221625B718FA00A5CA6E /* UpdateOS */,
+				85D7596524570491008175F0 /* Info.plist */,
+				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
-				85D7596524570491008175F0 /* Info.plist */,
 			);
 			path = ENAUITests;
 			sourceTree = "<group>";
@@ -3536,6 +3539,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		EB1C221625B718FA00A5CA6E /* UpdateOS */ = {
+			isa = PBXGroup;
+			children = (
+				EB1C221125B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift */,
+			);
+			path = UpdateOS;
+			sourceTree = "<group>";
+		};
 		EB41DC0624E53D3F0029C6F7 /* BackgroundAppRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -4530,6 +4541,7 @@
 				A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */,
 				948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
+				EB1C221225B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift in Sources */,
 				356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
 				52EAAB512566BB0500204373 /* ExposureSubmission+TestResult.swift in Sources */,

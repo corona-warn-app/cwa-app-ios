@@ -24,6 +24,7 @@ class UpdateOSView: UIView {
 		let imageView = UIImageView()
 		imageView.contentMode = .center
 		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.UpdateOSScreen.mainImage
 		return imageView
 	}()
 	
@@ -31,6 +32,7 @@ class UpdateOSView: UIView {
 		let imageView = UIImageView()
 		imageView.contentMode = .center
 		imageView.translatesAutoresizingMaskIntoConstraints = false
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.UpdateOSScreen.logo
 		return imageView
 	}()
 	
@@ -41,6 +43,7 @@ class UpdateOSView: UIView {
 		label.numberOfLines = 0
 		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.accessibilityIdentifier = AccessibilityIdentifiers.UpdateOSScreen.title
 		return label
 	}()
 	
@@ -51,6 +54,7 @@ class UpdateOSView: UIView {
 		label.numberOfLines = 0
 		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false
+		label.accessibilityIdentifier = AccessibilityIdentifiers.UpdateOSScreen.text
 		return label
 	}()
 	
