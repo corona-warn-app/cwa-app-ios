@@ -17,10 +17,20 @@ class ENAUITests_Statistics: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
 
-    func testExample() throws {
+	func test_StatisticsCardTitles() throws {
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .medium))
-    }
+		app.swipeUp()
+		
+		let title1 = AccessibilityLabels.localized(AppStrings.Statistics.Card.Infections.title)
+		let title2 = AccessibilityLabels.localized(AppStrings.Statistics.Card.Incidence.title)
+		let title3 = AccessibilityLabels.localized(AppStrings.Statistics.Card.KeySubmissions.title)
+		let title4 = AccessibilityLabels.localized(AppStrings.Statistics.Card.ReproductionNumber.title)
 
+		XCTAssert(app.staticTexts[title1].waitForExistence(timeout: .short))
+		XCTAssert(app.staticTexts[title2].waitForExistence(timeout: .zero))
+		XCTAssert(app.staticTexts[title3].waitForExistence(timeout: .zero))
+		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .zero))
+				
+	}
 }
