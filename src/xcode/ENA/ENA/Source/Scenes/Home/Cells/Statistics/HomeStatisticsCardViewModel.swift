@@ -10,6 +10,28 @@ class HomeStatisticsCardViewModel {
 	// MARK: - Init
 
 	init(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
+		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+			primaryValue = primaryFigure.formattedValue
+
+			primaryTrendImage = primaryFigure.trendImage
+			primaryTrendImageTintColor = primaryFigure.trendTintColor
+			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
+			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
+		}
+
+		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
+			secondaryValue = secondaryFigure.formattedValue
+
+			secondaryTrendImage = secondaryFigure.trendImage
+			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
+			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
+			secondaryTrendAccessibilityValue = secondaryFigure.trendAccessibilityValue
+		}
+
+		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
+			tertiaryValue = tertiaryFigure.formattedValue
+		}
+
 		switch HomeStatisticsCard(rawValue: keyFigureCard.header.cardID) {
 		case .infections:
 			setupInfections(for: keyFigureCard)
@@ -51,81 +73,47 @@ class HomeStatisticsCardViewModel {
 
 	// MARK: - Private
 
-	private lazy var dateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .none
-
-		return dateFormatter
-	}()
-
 	private func setupInfections(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Infections.title
-
 		illustrationImage = UIImage(named: "Illu_Bestaetigte_Neuinfektionen")
 
-		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = formatted(updateDate, for: .infections)
-
-			primaryValue = primaryFigure.formattedValue
-
-			primaryTrendImage = primaryFigure.trendImage
-			primaryTrendImageTintColor = primaryFigure.trendTintColor
-			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
-			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.Infections.today,
+				yesterdayString: AppStrings.Statistics.Card.Infections.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Infections.date
+			)
 		}
 
-		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
 			secondaryTitle = AppStrings.Statistics.Card.Infections.secondaryLabelTitle
-
-			secondaryValue = secondaryFigure.formattedValue
-
-			secondaryTrendImage = secondaryFigure.trendImage
-			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
-			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
-			secondaryTrendAccessibilityValue = secondaryFigure.trendAccessibilityValue
 		}
 
-		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
 			tertiaryTitle = AppStrings.Statistics.Card.Infections.tertiaryLabelTitle
-
-			tertiaryValue = tertiaryFigure.formattedValue
 		}
 	}
 
 	private func setupKeySubmissions(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.KeySubmissions.title
-
 		illustrationImage = UIImage(named: "Illu_Warnende_Personen")
 
-		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = formatted(updateDate, for: .keySubmissions)
-
-			primaryValue = primaryFigure.formattedValue
-
-			primaryTrendImage = primaryFigure.trendImage
-			primaryTrendImageTintColor = primaryFigure.trendTintColor
-			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
-			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.KeySubmissions.today,
+				yesterdayString: AppStrings.Statistics.Card.KeySubmissions.yesterday,
+				otherDateString: AppStrings.Statistics.Card.KeySubmissions.date
+			)
 		}
 
-		if let secondaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .secondary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .secondary }) {
 			secondaryTitle = AppStrings.Statistics.Card.KeySubmissions.secondaryLabelTitle
-
-			secondaryValue = secondaryFigure.formattedValue
-
-			secondaryTrendImage = secondaryFigure.trendImage
-			secondaryTrendImageTintColor = secondaryFigure.trendTintColor
-			secondaryTrendAccessibilityLabel = secondaryFigure.trendAccessibilityLabel
-			secondaryTrendAccessibilityValue = secondaryFigure.trendAccessibilityValue
 		}
 
-		if let tertiaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .tertiary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .tertiary }) {
 			tertiaryTitle = AppStrings.Statistics.Card.KeySubmissions.tertiaryLabelTitle
-
-			tertiaryValue = tertiaryFigure.formattedValue
 		}
 
 		footnote = AppStrings.Statistics.Card.KeySubmissions.footnote
@@ -133,19 +121,15 @@ class HomeStatisticsCardViewModel {
 
 	private func setupIncidence(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.Incidence.title
-
 		illustrationImage = UIImage(named: "Illu_7-Tage-Inzidenz")
 
-		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = formatted(updateDate, for: .incidence)
-
-			primaryValue = primaryFigure.formattedValue
-
-			primaryTrendImage = primaryFigure.trendImage
-			primaryTrendImageTintColor = primaryFigure.trendTintColor
-			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
-			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.Incidence.today,
+				yesterdayString: AppStrings.Statistics.Card.Incidence.yesterday,
+				otherDateString: AppStrings.Statistics.Card.Incidence.date
+			)
 		}
 
 		secondaryTitle = AppStrings.Statistics.Card.Incidence.secondaryLabelTitle
@@ -153,65 +137,39 @@ class HomeStatisticsCardViewModel {
 
 	private func setupReproductionNumber(for keyFigureCard: SAP_Internal_Stats_KeyFigureCard) {
 		title = AppStrings.Statistics.Card.ReproductionNumber.title
-
 		illustrationImage = UIImage(named: "Illu_7-Tage-R-Wert")
 
-		if let primaryFigure = keyFigureCard.keyFigures.first(where: { $0.rank == .primary }) {
+		if keyFigureCard.keyFigures.contains(where: { $0.rank == .primary }) {
 			let updateDate = Date(timeIntervalSince1970: TimeInterval(keyFigureCard.header.updatedAt))
-			primaryTitle = formatted(updateDate, for: .reproductionNumber)
-
-			primaryValue = primaryFigure.formattedValue
-
-			primaryTrendImage = primaryFigure.trendImage
-			primaryTrendImageTintColor = primaryFigure.trendTintColor
-			primaryTrendAccessibilityLabel = primaryFigure.trendAccessibilityLabel
-			primaryTrendAccessibilityValue = primaryFigure.trendAccessibilityValue
+			primaryTitle = updateDate.formatted(
+				todayString: AppStrings.Statistics.Card.ReproductionNumber.today,
+				yesterdayString: AppStrings.Statistics.Card.ReproductionNumber.yesterday,
+				otherDateString: AppStrings.Statistics.Card.ReproductionNumber.date
+			)
 		}
 
 		secondaryTitle = AppStrings.Statistics.Card.ReproductionNumber.secondaryLabelTitle
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
-	private func formatted(_ date: Date, for card: HomeStatisticsCard) -> String {
-		if Calendar.current.isDate(date, inSameDayAs: Date()) {
-			switch card {
-			case .infections:
-				return AppStrings.Statistics.Card.Infections.today
-			case .incidence:
-				return AppStrings.Statistics.Card.Incidence.today
-			case .keySubmissions:
-				return AppStrings.Statistics.Card.KeySubmissions.today
-			case .reproductionNumber:
-				return AppStrings.Statistics.Card.ReproductionNumber.today
-			}
-		}
+}
 
+private extension Date {
+
+	func formatted(todayString: String, yesterdayString: String, otherDateString: String) -> String {
+		if Calendar.current.isDate(self, inSameDayAs: Date()) {
+			return todayString
+		}
 
 		if let yesterday = Calendar.current.date(byAdding: DateComponents(day: -1), to: Date()),
-		   Calendar.current.isDate(date, inSameDayAs: yesterday) {
-			switch card {
-			case .infections:
-				return AppStrings.Statistics.Card.Infections.yesterday
-			case .incidence:
-				return AppStrings.Statistics.Card.Incidence.yesterday
-			case .keySubmissions:
-				return AppStrings.Statistics.Card.KeySubmissions.yesterday
-			case .reproductionNumber:
-				return AppStrings.Statistics.Card.ReproductionNumber.yesterday
-			}
+		   Calendar.current.isDate(self, inSameDayAs: yesterday) {
+			return yesterdayString
 		}
 
-		let formattedDate = dateFormatter.string(from: date)
-		switch card {
-		case .infections:
-			return String(format: AppStrings.Statistics.Card.Infections.date, formattedDate)
-		case .incidence:
-			return String(format: AppStrings.Statistics.Card.Incidence.date, formattedDate)
-		case .keySubmissions:
-			return String(format: AppStrings.Statistics.Card.KeySubmissions.date, formattedDate)
-		case .reproductionNumber:
-			return String(format: AppStrings.Statistics.Card.ReproductionNumber.date, formattedDate)
-		}
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .none
+
+		return String(format: otherDateString, dateFormatter.string(from: self))
 	}
 
 }
@@ -290,10 +248,10 @@ private extension SAP_Internal_Stats_KeyFigure {
 		switch trendSemantic {
 		case .negative:
 			return AppStrings.Statistics.Card.trendSemanticNegative
-		case .positive:
-			return AppStrings.Statistics.Card.trendSemanticPositive
 		case .neutral:
 			return AppStrings.Statistics.Card.trendSemanticNeutral
+		case .positive:
+			return AppStrings.Statistics.Card.trendSemanticPositive
 		case .unspecifiedTrendSemantic:
 			return nil
 		case .UNRECOGNIZED:
