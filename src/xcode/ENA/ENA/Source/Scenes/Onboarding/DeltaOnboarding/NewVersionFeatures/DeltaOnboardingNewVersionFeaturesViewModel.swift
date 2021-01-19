@@ -22,7 +22,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					header: .image(
-						UIImage(named: "Illu_EUTracingOnboarding"),
+						UIImage(named: "Illu_NewVersion_Features"),
 						accessibilityLabel: AppStrings.DeltaOnboarding.accImageLabel,
 						accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.accImageDescription,
 						height: 250
