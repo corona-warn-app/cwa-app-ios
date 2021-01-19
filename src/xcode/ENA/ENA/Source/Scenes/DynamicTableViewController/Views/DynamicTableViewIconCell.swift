@@ -54,4 +54,15 @@ class DynamicTableViewIconCell: UITableViewCell {
 	@IBOutlet private weak var iconImageView: UIImageView!
 	@IBOutlet private weak var contentTextLabel: ENALabel!
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		// hinding a stack views subview forces the stack view to update its layout
+		// this is how we solve the layout bug when reusing stack views in table view cells
+		iconImageView.isHidden = true
+		contentTextLabel.isHidden = true
+		stackView.setNeedsLayout()
+		stackView.layoutIfNeeded()
+		iconImageView.isHidden = false
+		contentTextLabel.isHidden = false
+	}
 }
