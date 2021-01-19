@@ -1259,6 +1259,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
+"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "New version features";
+
 "DeltaOnboarding_Headline" = "Länderübergreifende Risiko-Ermittlung";
 
 "DeltaOnboarding_Description" = "Die Funktion der Corona-Warn-App wurde erweitert. Es arbeiten nun mehrere Länder zusammen, um über einen gemeinsam betriebenen Austausch-Server länderübergreifende Warnungen zu ermöglichen. So können bei der Risiko-Ermittlung jetzt auch die Kontakte mit Nutzern einer offiziellen Corona-App anderer teilnehmender Länder berücksichtigt werden.\n\nHierfür lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis zur Warnung anderer über ihre App geteilt haben. Diese Liste wird dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs verglichen.\n\nDie Downloads der Listen sind für Sie in der Regel kostenlos. Das heißt: Das von der App verursachte Datenvolumen wird von den Mobilfunk-Betreibern nicht angerechnet und im EU-Ausland werden Ihnen keine Roaming-Gebühren berechnet. Näheres erfahren Sie von Ihrem Mobilfunk-Betreiber.";
