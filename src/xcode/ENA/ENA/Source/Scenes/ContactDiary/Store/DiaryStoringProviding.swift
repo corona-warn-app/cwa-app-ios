@@ -30,9 +30,6 @@ protocol DiaryStoring {
 	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringGroupResult
 
 	@discardableResult
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult
-
-	@discardableResult
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult
 	@discardableResult
 	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult
