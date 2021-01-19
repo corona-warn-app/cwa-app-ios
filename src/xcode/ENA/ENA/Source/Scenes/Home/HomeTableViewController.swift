@@ -307,16 +307,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		guard tableView.visibleCells.contains(cell) else { return }
+		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
+		// https://developer.apple.com/forums/thread/117537
+		DispatchQueue.main.async { [self] in
+			guard tableView.visibleCells.contains(cell) else { return }
 
-		// Animate the changed cell height
-		tableView.beginUpdates()
-		tableView.endUpdates()
+			// Animate the changed cell height
+			tableView.beginUpdates()
+			tableView.endUpdates()
 
-		// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
-		for cell in tableView.visibleCells {
-			cell.layer.masksToBounds = false
-			cell.contentView.layer.masksToBounds = false
+			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			for cell in tableView.visibleCells {
+				cell.layer.masksToBounds = false
+				cell.contentView.layer.masksToBounds = false
+			}
 		}
 	}
 
