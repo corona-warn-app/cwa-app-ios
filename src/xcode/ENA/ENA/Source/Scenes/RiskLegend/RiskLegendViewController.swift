@@ -61,8 +61,10 @@ class RiskLegendViewController: DynamicTableViewController {
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		tableView.register(RiskLegendDotBodyCell.self,
-						   forCellReuseIdentifier: RiskLegendViewController.CellReuseIdentifier.dotBody.rawValue)
+		tableView.register(
+			RiskLegendDotBodyCell.self,
+			forCellReuseIdentifier: RiskLegendViewController.CellReuseIdentifier.dotBody.rawValue
+		)
 	}
 
 	private var model: DynamicTableViewModel {
