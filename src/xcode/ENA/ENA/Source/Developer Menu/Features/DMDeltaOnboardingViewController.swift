@@ -11,6 +11,9 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	private let store: Store
 	private var textField: UITextField!
 	private var currentVersionLabel: UILabel!
+	
+	private var currentNewFeaturesShownForVersionLabel: UILabel!
+	private var currentNewFeaturesShownForVersionTextField: UITextField!
 
 	// MARK: - Initializers
 
@@ -34,6 +37,10 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 
 		currentVersionLabel = UILabel(frame: .zero)
 		currentVersionLabel.translatesAutoresizingMaskIntoConstraints = false
+		
+		currentNewFeaturesShownForVersionLabel = UILabel(frame: .zero)
+		currentNewFeaturesShownForVersionLabel.translatesAutoresizingMaskIntoConstraints = false
+		
 		updateCurrentVersionLabel()
 
 		let button = UIButton(frame: .zero)
@@ -41,13 +48,24 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		button.setTitle("Save Onboarding Version", for: .normal)
 		button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 		button.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
+		
+		let saveNewFeatureVersionbutton = UIButton(frame: .zero)
+		saveNewFeatureVersionbutton.translatesAutoresizingMaskIntoConstraints = false
+		saveNewFeatureVersionbutton.setTitle("Save New Version", for: .normal)
+		saveNewFeatureVersionbutton.addTarget(self, action: #selector(saveNewFeatureVersionButtonTapped), for: .touchUpInside)
+		saveNewFeatureVersionbutton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
 
 		textField = UITextField(frame: .zero)
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.delegate = self
 		textField.borderStyle = .bezel
+		
+		currentNewFeaturesShownForVersionTextField = UITextField(frame: .zero)
+		currentNewFeaturesShownForVersionTextField.translatesAutoresizingMaskIntoConstraints = false
+		currentNewFeaturesShownForVersionTextField.delegate = self
+		currentNewFeaturesShownForVersionTextField.borderStyle = .bezel
 
-		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, button])
+		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, button, currentNewFeaturesShownForVersionLabel, currentNewFeaturesShownForVersionTextField, saveNewFeatureVersionbutton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.spacing = 20
@@ -55,7 +73,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		view.addSubview(stackView)
 		NSLayoutConstraint.activate([
 			stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100.0)
 		])
 	}
 
@@ -63,8 +81,21 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 
 	private func updateCurrentVersionLabel() {
 		currentVersionLabel.text = "Current onboarding version: \(store.onboardingVersion)"
+		currentNewFeaturesShownForVersionLabel.text = "New Features info shown for version: \(store.newVersionFeaturesShownForVersion)"
 	}
 
+	
+	
+	@objc
+	private func saveNewFeatureVersionButtonTapped() {
+		store.newVersionFeaturesShownForVersion = currentNewFeaturesShownForVersionTextField.text ?? store.newVersionFeaturesShownForVersion
+		
+		updateCurrentVersionLabel()
+		let alert = UIAlertController(title: "Saved features shown for version: \(store.newVersionFeaturesShownForVersion)", message: "", preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+		present(alert, animated: true)
+	}
+	
 	@objc
 	private func buttonTapped() {
 		store.onboardingVersion = textField.text ?? ""
