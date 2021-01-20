@@ -659,7 +659,7 @@ cwa-app-iosit eines weiteren SARS-CoV-2-Tests bestehen.";
 
 "ExposureSubmissionSymptoms_Title" = "Symptome";
 
-"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Die Angabe von Symptomen ist freiwillig. Wenn Sie keine Symptome mitteilen wollen, wählen Sie „Keine Angabe“.";
+"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen Personen genauer berechnet werden. Die Angabe von Symptomen ist freiwillig. Wenn Sie keine Symptome mitteilen wollen, wählen Sie „Keine Angabe“.";
 
 "ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen eines oder mehrere der folgenden Symptome aufgetreten?";
 
