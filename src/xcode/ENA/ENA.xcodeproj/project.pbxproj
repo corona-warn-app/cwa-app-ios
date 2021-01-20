@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0105D89325B8768A007E288B /* CachingHTTPClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */; };
-		0105D8A125B8782A007E288B /* sample_stats.sha256 in Resources */ = {isa = PBXBuildFile; fileRef = 35E1219F25B19D8C0098D754 /* sample_stats.sha256 */; };
-		0105D8A225B8782A007E288B /* sample_stats.bin in Resources */ = {isa = PBXBuildFile; fileRef = 35E1219E25B19D8C0098D754 /* sample_stats.bin */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
@@ -3819,6 +3817,7 @@
 				85D759382457048F008175F0 /* Frameworks */,
 				85D759392457048F008175F0 /* Resources */,
 				B102BDB924603FD600CD55A2 /* Embed Frameworks */,
+				0105D8B925B882E3007E288B /* Copy Sample Stats for Tests */,
 			);
 			buildRules = (
 			);
@@ -3959,7 +3958,6 @@
 				01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */,
 				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
 				01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */,
-				0105D8A125B8782A007E288B /* sample_stats.sha256 in Resources */,
 				016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */,
 				01A4DC9D259247AF007D5794 /* HomeRiskTableViewCell.xib in Resources */,
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
@@ -3995,7 +3993,6 @@
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
 				01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
-				0105D8A225B8782A007E288B /* sample_stats.bin in Resources */,
 				016E25F425AF13EA0077C64C /* HomeStatisticsTableViewCell.xib in Resources */,
 				01D02704258BBCC700B6389A /* DescriptionTableViewCell.xib in Resources */,
 				01D0262E258A791C00B6389A /* OnboardingInfoViewController.xib in Resources */,
@@ -4064,6 +4061,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0105D8B925B882E3007E288B /* Copy Sample Stats for Tests */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Sample Stats for Tests";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Copy mock statistics data to bundle in Debug configuration\nif [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    cp -r \"$SRCROOT/ENA/Source/Services/Risk/Provider/Helper/__tests__/sample_stats/\" \"${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}\"\nfi\n";
+		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
