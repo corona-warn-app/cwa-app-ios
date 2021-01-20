@@ -316,7 +316,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Corona-Warn-App kann dadurch keine Benachrichtigungen zum COVID-19-Risikostatus versenden und empfangen.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Wenn Sie die Risiko-Ermittlung nicht aktivieren, kann die App keine Benachrichtigungen zu Ihrem Risikostatus senden und empfangen.";
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
 
