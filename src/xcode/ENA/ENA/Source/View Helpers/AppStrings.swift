@@ -976,5 +976,10 @@ enum AppStrings {
 		}
 	}
 	
+	enum UpdateOS {
+		static let title = NSLocalizedString("UpdateOS_title", comment: "")
+		static let text = NSLocalizedString("UpdateOS_text", comment: "")
+	}
+	
 	// swiftlint:disable:next file_length
 }
