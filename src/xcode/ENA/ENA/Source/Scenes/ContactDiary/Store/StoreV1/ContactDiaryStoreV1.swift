@@ -165,15 +165,9 @@ class ContactDiaryStoreV1: DiaryStoringV2, DiaryProvidingV2 {
 				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
 			"""
 
-			let sqlRiskLevelPerDate = """
-				DELETE FROM RiskLevelPerDate
-				WHERE date < date('\(todayDateString)','-\(dataRetentionPeriodInDays - 1) days')
-			"""
-
 			do {
 				try database.executeUpdate(sqlContactPersonEncounter, values: nil)
 				try database.executeUpdate(sqlLocationVisit, values: nil)
-				try database.executeUpdate(sqlRiskLevelPerDate, values: nil)
 
 			} catch {
 				logLastErrorCode(from: database)
