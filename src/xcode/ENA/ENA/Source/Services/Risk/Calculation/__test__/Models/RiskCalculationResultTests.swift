@@ -7,7 +7,7 @@ import XCTest
 
 class RiskCalculationResultTests: XCTestCase {
 
-	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLeevlPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
+	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
 		// GIVEN
 		let newFormattedData = "{\"minimumDistinctEncountersWithHighRisk\":0,\"riskLevelPerDate\":[],\"numberOfDaysWithLowRisk\":0,\"calculationDate\":632684966.21907699,\"numberOfDaysWithHighRisk\":0,\"minimumDistinctEncountersWithLowRisk\":0,\"riskLevel\":1}"
 			.data(using: .utf8)
