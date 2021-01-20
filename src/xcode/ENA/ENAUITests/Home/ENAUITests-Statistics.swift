@@ -27,10 +27,10 @@ class ENAUITests_Statistics: XCTestCase {
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
-		app.swipeUp()
+		app.swipeUp(velocity: .slow)
 
 		// THEN
-		XCTAssert(app.staticTexts[title1].waitForExistence(timeout: .short))
+		XCTAssert(app.staticTexts[title1].waitForExistence(timeout: .medium))
 		XCTAssert(app.staticTexts[title2].exists)
 		XCTAssert(app.staticTexts[title3].exists)
 		XCTAssert(app.staticTexts[title4].exists)
