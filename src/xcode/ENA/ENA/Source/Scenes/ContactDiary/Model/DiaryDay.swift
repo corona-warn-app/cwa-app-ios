@@ -10,24 +10,16 @@ struct DiaryDay: Equatable {
 
 	init(
 		dateString: String,
-		entries: [DiaryEntry],
-		exposureEncounter: HistoryExposure
+		entries: [DiaryEntry]
 	) {
 		self.dateString = dateString
 		self.entries = entries
-		self.exposureEncounter = exposureEncounter
 	}
 
 	// MARK: - Internal
 
-	enum HistoryExposure: Equatable {
-		case encounter(RiskLevel)
-		case none
-	}
-
 	let dateString: String
 	let entries: [DiaryEntry]
-	let exposureEncounter: HistoryExposure
 
 	var selectedEntries: [DiaryEntry] {
 		entries.filter { $0.isSelected }
@@ -40,9 +32,7 @@ struct DiaryDay: Equatable {
 		return dateFormatter.string(from: date)
 	}
 
-	// MARK: - Private
-
-	private var date: Date {
+	var date: Date {
 		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
 
 		guard let date = dateFormatter.date(from: dateString) else {
@@ -52,5 +42,7 @@ struct DiaryDay: Equatable {
 
 		return date
 	}
+
+	// MARK: - Private
 
 }
