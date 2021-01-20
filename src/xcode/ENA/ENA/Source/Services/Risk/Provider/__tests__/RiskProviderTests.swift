@@ -27,7 +27,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -75,7 +74,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -143,7 +141,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -184,7 +181,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -236,7 +232,6 @@ final class RiskProviderTests: XCTestCase {
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -603,7 +598,6 @@ final class RiskProviderTests: XCTestCase {
 		return RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -667,7 +661,6 @@ final class RiskProviderTests: XCTestCase {
 		return RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(riskLevel: newRiskLevel),
@@ -734,7 +727,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -812,7 +804,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -891,7 +882,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
@@ -969,7 +959,6 @@ final class RiskProviderTests: XCTestCase {
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			contactDiaryStore: MockDiaryStore(),
 			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
