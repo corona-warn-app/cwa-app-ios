@@ -307,10 +307,11 @@ enum AccessibilityIdentifiers {
 	}
 	
 	enum Statistics {
-		static let Infections = "AppStrings.Statistics.Card.Infections.title"
-		static let Incidence = "AppStrings.Statistics.Card.Incidence.title"
-		static let KeySubmissions = "AppStrings.Statistics.Card.KeySubmissions.title"
-		static let ReproductionNumber = "AppStrings.Statistics.Card.ReproductionNumber.title"
+		static let cell = "AccessibilityIdentifiers.Statistics.cell"
+		static let infections = "AppStrings.Statistics.Card.Infections.title"
+		static let incidence = "AppStrings.Statistics.Card.Incidence.title"
+		static let keySubmissions = "AppStrings.Statistics.Card.KeySubmissions.title"
+		static let reproductionNumber = "AppStrings.Statistics.Card.ReproductionNumber.title"
 	}
 
 }

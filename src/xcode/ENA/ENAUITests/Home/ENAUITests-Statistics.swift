@@ -19,10 +19,10 @@ class ENAUITests_Statistics: XCTestCase {
 
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Infections
-		let title2 = AccessibilityIdentifiers.Statistics.Incidence
-		let title3 = AccessibilityIdentifiers.Statistics.KeySubmissions
-		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber
+		let title1 = AccessibilityIdentifiers.Statistics.infections
+		let title2 = AccessibilityIdentifiers.Statistics.incidence
+		let title3 = AccessibilityIdentifiers.Statistics.keySubmissions
+		let title4 = AccessibilityIdentifiers.Statistics.reproductionNumber
 
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
@@ -30,10 +30,12 @@ class ENAUITests_Statistics: XCTestCase {
 		app.swipeUp()
 
 		// THEN
-		XCTAssert(app.staticTexts[title1].waitForExistence(timeout: .short))
-		XCTAssert(app.staticTexts[title2].exists)
-		XCTAssert(app.staticTexts[title3].exists)
-		XCTAssert(app.staticTexts[title4].exists)
+		let cell = app.cells[AccessibilityIdentifiers.Statistics.cell]
+		XCTAssertTrue(cell.exists)
+		XCTAssert(cell.staticTexts[title1].exists)
+		XCTAssert(cell.staticTexts[title2].exists)
+		XCTAssert(cell.staticTexts[title3].exists)
+		XCTAssert(cell.staticTexts[title4].exists)
 	}
 	
 }

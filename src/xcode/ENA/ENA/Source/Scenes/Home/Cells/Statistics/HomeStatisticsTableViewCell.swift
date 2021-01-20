@@ -96,6 +96,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 16
 
 		accessibilityElements = stackView.arrangedSubviews
+		accessibilityIdentifier = AccessibilityIdentifiers.Statistics.cell
 	}
 
 }
