@@ -105,6 +105,29 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(consentGivenCell.waitForExistence(timeout: .long))
 	}
 	
+	func test_SubmitTAN_Screenshot_SymptomsOptionYes() {
+		var screenshotCounter = 0
+		
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+		
+		// launch and nagivate to the desired screen
+		launch()
+		navigateToSymptomsScreen()
+		
+		// capturing and selecting Yes button
+		let optionYes = app.buttons["AppStrings.ExposureSubmissionSymptoms.answerOptionYes"]
+		optionYes.tap()
+
+		// take snapshot of the selection
+		snapshot("tan_submissionflow_symptoms_selection\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
 	func test_SubmitTAN_SymptomsOptionNo() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
