@@ -1256,8 +1256,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Active_Tracing_Interval_Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
 
-/* Delta Onboarding */
-"DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
+/* Delta Onboarding - New Version Features */
 
 "DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "Neue Funktionen der Version";
 
@@ -1268,6 +1267,23 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
 
 "DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
+
+/* New Version Features */
+
+"NewVersionFeature_112_statistics_title" = "Statistiken";
+
+"NewVersionFeature_112_statistics_description" = "Sie bekommen einen Überblick mit aktuellen Kennzahlen zum Infektionsgeschehen in Deutschland.";
+
+"NewVersionFeature_112_exposure_history_title" = "Begegnungshistorie";
+
+"NewVersionFeature_112_exposure_history_description" = "Sie können in Ihrem Kontakt-Tagebuch sehen, an welchen Tagen Sie ein niedriges oder erhöhtes Risiko aufgrund der von der App ausgewerteten Begegnungen hatten. Sie können damit Personen warnen, die Sie an diesen Tagen begleitet haben, wenn diese die Corona-Warn-App nicht nutzen. Diese Personen waren möglicherweise einem vergleichbaren Risiko ausgesetzt. Die Personen und Orte in Ihrem Kontakt-Tagebuch müssen nicht in Zusammenhang mit den angezeigten Risiko-Begegnungen stehen.";
+
+"NewVersionFeature_112_ios125_support_title" = "App nun ab iOS 12.5 verfügbar";
+
+"NewVersionFeature_112_ios125_support_description" = "Sie können die Corona-Warn-App nun ab iOS-Version 12.5 nutzen.";
+
+/* Delta Onboarding */
+"DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
 "DeltaOnboarding_Headline" = "Länderübergreifende Risiko-Ermittlung";
 
