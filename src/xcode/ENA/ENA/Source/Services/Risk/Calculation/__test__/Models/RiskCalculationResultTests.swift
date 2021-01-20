@@ -20,7 +20,7 @@ class RiskCalculationResultTests: XCTestCase {
 		XCTAssertEqual(riskCalculationResult?.riskLevelPerDate.count, 0)
 	}
 
-	func testGIVEN_NewFormatRiskCalculationResultWithThreeRiskLeevlPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
+	func testGIVEN_NewFormatRiskCalculationResultWithThreeRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
 		// GIVEN
 		let newFormattedData = "{\"minimumDistinctEncountersWithHighRisk\":0,\"mostRecentDateWithLowRisk\":632530800,\"riskLevelPerDate\":[632530800,1,632444400,1,632358000,1],\"numberOfDaysWithLowRisk\":3,\"calculationDate\":632756849.53607297,\"numberOfDaysWithHighRisk\":0,\"minimumDistinctEncountersWithLowRisk\":3,\"riskLevel\":1}"
 			.data(using: .utf8)
