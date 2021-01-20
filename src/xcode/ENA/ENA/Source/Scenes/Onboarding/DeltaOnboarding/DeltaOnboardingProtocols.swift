@@ -17,6 +17,7 @@ protocol DeltaOnboarding {
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol
 }
 
+// [KGA] Enhance versioning with regards to new version feature delta
 extension DeltaOnboarding {
 	var isFinished: Bool {
 		return store.onboardingVersion.numericGreaterOrEqual(then: version)
