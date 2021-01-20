@@ -1527,6 +1527,10 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
 
+/* Error */
+
+"Statistics_LoadingError" = "Beim Laden der Statistiken ist ein Fehler aufgetreten. Öffnen Sie die App neu, um es erneut zu versuchen.";
+
 /* - Info Screen */
 
 "Statistics_Info_Title" = "Kennzahlen";

@@ -978,6 +978,8 @@ enum AppStrings {
 
 	enum Statistics {
 
+		static let error = NSLocalizedString("Statistics_LoadingError", comment: "")
+
 		enum Card {
 
 			enum Infections {

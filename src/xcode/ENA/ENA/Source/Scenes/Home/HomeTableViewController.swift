@@ -51,6 +51,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.store(in: &subscriptions)
 
 		viewModel.state.$testResultLoadingError
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] testResultLoadingError in
 				guard let self = self, let testResultLoadingError = testResultLoadingError else { return }
 
@@ -79,6 +80,20 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 					return
 				}
 				self?.reload()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.state.$statisticsLoadingError
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] statisticsLoadingError in
+				guard let self = self, statisticsLoadingError != nil else { return }
+
+				self.viewModel.state.statisticsLoadingError = nil
+
+				self.alertError(
+					message: AppStrings.Statistics.error,
+					title: nil
+				)
 			}
 			.store(in: &subscriptions)
 	}
