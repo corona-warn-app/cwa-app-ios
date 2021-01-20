@@ -171,6 +171,8 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.riskCalculationResult = nil
+		store.positiveTestResultWasShown = false
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -192,12 +194,22 @@ final class RiskProviderTests: XCTestCase {
 
 		let consumer = RiskConsumer()
 
-		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+
 		consumer.didCalculateRisk = { _ in
-			didCalculateRiskCalled.fulfill()
+			didCalculateRiskExpectation.fulfill()
 		}
 		consumer.didFailCalculateRisk = { _ in
-			XCTFail("didFailCalculateRisk should not be called.")
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -211,6 +223,8 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.riskCalculationResult = nil
+		store.positiveTestResultWasShown = false
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -231,21 +245,130 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let consumer = RiskConsumer()
-		let didCalculateRiskFailedCalled = expectation(
-			description: "expect didFailCalculateRisk to be called"
-		)
+
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+		didCalculateRiskExpectation.isInverted = true
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
 
 		consumer.didCalculateRisk = { _ in
-			XCTFail("didCalculateRisk should not be called.")
+			didCalculateRiskExpectation.fulfill()
 		}
-
 		consumer.didFailCalculateRisk = { _ in
-			didCalculateRiskFailedCalled.fulfill()
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
 		}
 
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
 		
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testThatDetectionIsNotRequestedIfPositiveTestResultWasShown() throws {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.riskCalculationResult = nil
+		store.positiveTestResultWasShown = true
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+		let consumer = RiskConsumer()
+
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
+		didCalculateRiskExpectation.isInverted = true
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState not to be called")
+		didChangeActivityStateExpectation.isInverted = true
+
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+
+		riskProvider.observeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: true)
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testThatDetectionIsNotRequestedIfKeysWereSubmitted() throws {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.riskCalculationResult = nil
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+		let consumer = RiskConsumer()
+
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
+		didCalculateRiskExpectation.isInverted = true
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState not to be called")
+		didChangeActivityStateExpectation.isInverted = true
+
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+
+		riskProvider.observeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: true)
+
 		waitForExpectations(timeout: .medium)
 	}
 
