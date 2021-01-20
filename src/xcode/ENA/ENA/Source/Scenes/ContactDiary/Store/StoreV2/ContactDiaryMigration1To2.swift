@@ -21,9 +21,9 @@ final class ContactDiaryMigration1To2: Migration {
 	func execute() throws {
 		
 		var finalSQL: String?
-		databaseQueue.inDatabase { database in
+		databaseQueue.inDatabase { [weak self] database in
 			let tableNames = ["ContactPerson", "Location"]
-			self.database = database
+			self?.database = database
 			for tableName in tableNames {
 				let queryResult = database.prepare("PRAGMA table_info(" + tableName + ")" )
 				

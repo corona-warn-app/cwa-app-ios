@@ -10,8 +10,6 @@ import OpenCombine
 // swiftlint:disable:next type_body_length
 class ContactDiaryStoreV1: DiaryStoringV2, DiaryProvidingV2 {
 
-	typealias DiaryDay = DiaryDayV2
-
 	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
 	// MARK: - Init
@@ -72,7 +70,7 @@ class ContactDiaryStoreV1: DiaryStoringV2, DiaryProvidingV2 {
 	
 	// MARK: - Protocol DiaryProviding
 
-	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
+	var diaryDaysPublisher = CurrentValueSubject<[DiaryDayV2], Never>([])
 
 	func export() -> Result<String, SQLiteErrorCode> {
 		var result: Result<String, SQLiteErrorCode>?
@@ -868,7 +866,7 @@ class ContactDiaryStoreV1: DiaryStoringV2, DiaryProvidingV2 {
 
 	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
-		var diaryDays = [DiaryDay]()
+		var diaryDays = [DiaryDayV2]()
 
 		for index in 0..<userVisiblePeriodInDays {
 			guard let date = Calendar.current.date(byAdding: .day, value: -index, to: dateProvider.today) else {
@@ -901,7 +899,7 @@ class ContactDiaryStoreV1: DiaryStoringV2, DiaryProvidingV2 {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
+			let diaryDay = DiaryDayV2(dateString: dateString, entries: diaryEntries)
 			diaryDays.append(diaryDay)
 		}
 
