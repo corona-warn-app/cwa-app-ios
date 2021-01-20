@@ -20,7 +20,8 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	func configure(
 		with cellModel: HomeStatisticsCellModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
+		onAccessibilityFocus: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
 	) {
 		guard !isConfigured else { return }
 
@@ -32,6 +33,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
+				onUpdate()
 			}
 			.store(in: &subscriptions)
 

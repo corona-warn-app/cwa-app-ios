@@ -441,6 +441,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			onAccessibilityFocus: { [weak self] in
 				self?.tableView.contentOffset.x = 0
 				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+			},
+			onUpdate: { [weak self] in
+				self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
 			}
 		)
 
