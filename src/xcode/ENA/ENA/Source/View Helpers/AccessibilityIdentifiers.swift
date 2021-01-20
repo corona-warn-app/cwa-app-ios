@@ -305,5 +305,13 @@ enum AccessibilityIdentifiers {
 	enum ThankYouScreen {
 		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
 	}
+	
+	enum Statistics {
+		static let cell = "AccessibilityIdentifiers.Statistics.cell"
+		static let infections = "AppStrings.Statistics.Card.Infections.title"
+		static let incidence = "AppStrings.Statistics.Card.Incidence.title"
+		static let keySubmissions = "AppStrings.Statistics.Card.KeySubmissions.title"
+		static let reproductionNumber = "AppStrings.Statistics.Card.ReproductionNumber.title"
+	}
 
 }

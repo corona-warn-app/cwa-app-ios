@@ -13,11 +13,6 @@ final class CachedAppConfiguration {
 		let etag: String?
 	}
 
-	enum CacheError: Error {
-		case dataFetchError(message: String?)
-		case dataVerificationError(message: String?)
-	}
-
 	/// A reference to the key package store to directly allow removal of invalidated key packages
 	weak var packageStore: DownloadedPackagesStore?
 
