@@ -42,6 +42,22 @@ class Coordinator: RequiresAppDependencies {
 			store: self.store
 		)
 	}()
+
+	private lazy var statisticsProvider: StatisticsProvider = {
+		#if DEBUG
+		if isUITesting {
+			return StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
+		}
+		#endif
+
+		return StatisticsProvider(
+			client: CachingHTTPClient(clientConfiguration: client.configuration),
+			store: store
+		)
+	}()
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
@@ -67,10 +83,7 @@ class Coordinator: RequiresAppDependencies {
 				exposureManagerState: exposureManager.exposureManagerState,
 				enState: enStateHandler.state,
 				exposureSubmissionService: exposureSubmissionService,
-				statisticsProvider: StatisticsProvider(
-					client: CachingHTTPClient(clientConfiguration: client.configuration),
-					store: store
-				)
+				statisticsProvider: statisticsProvider
 			)
 
 			let homeController = HomeTableViewController(
