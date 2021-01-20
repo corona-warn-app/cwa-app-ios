@@ -724,7 +724,6 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(numberOfEntriesAfterRescue, 15)
 	}
 
-	// TODO bring that to run :)
 	func test_when_newDatabaseVersionExist_then_migrationIsExcuted() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryV1Store(with: databaseQueue)
@@ -898,12 +897,12 @@ class ContactDiaryStoreTests: XCTestCase {
 		return store
 	}
 
-	private func makeContactDiaryV1Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
+	private func makeContactDiaryV1Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStoreV1 {
 		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
 		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue), ContactDiaryMigration2To3(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 3, migrations: migrations)
 
-		guard let store = ContactDiaryStore(
+		guard let store = ContactDiaryStoreV1(
 			databaseQueue: databaseQueue,
 			schema: schema,
 			key: "Dummy",
@@ -916,12 +915,12 @@ class ContactDiaryStoreTests: XCTestCase {
 		return store
 	}
 
-	private func makeContactDiaryV2Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
+	private func makeContactDiaryV2Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStoreV2 {
 		let schema = ContactDiaryStoreSchemaV2(databaseQueue: databaseQueue)
 		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
 		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 2, migrations: migrations)
 
-		guard let store = ContactDiaryStore(
+		guard let store = ContactDiaryStoreV2(
 			databaseQueue: databaseQueue,
 			schema: schema,
 			key: "Dummy",
