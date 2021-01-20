@@ -10,8 +10,11 @@ import OpenCombine
 class DiaryOverviewViewModelTest: XCTestCase {
 
 	func testDaysAreUpdatedWhenStoreChanges() throws {
-		let store = makeMockStore()
+		let diaryStore = makeMockStore()
+		let store = MockTestStore()
+
 		let viewModel = DiaryOverviewViewModel(
+			diaryStore: diaryStore,
 			store: store
 		)
 
@@ -23,14 +26,15 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			daysPublisherExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		store.addContactPerson(name: "Martin Augst")
+		diaryStore.addContactPerson(name: "Martin Augst")
 
 		waitForExpectations(timeout: .medium)
 	}
 
 	func testNumberOfSections() throws {
 		let viewModel = DiaryOverviewViewModel(
-			store: makeMockStore()
+			diaryStore: makeMockStore(),
+			store: MockTestStore()
 		)
 
 		XCTAssertEqual(viewModel.numberOfSections, 2)
@@ -38,7 +42,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 	func testNumberOfRows() throws {
 		let viewModel = DiaryOverviewViewModel(
-			store: makeMockStore()
+			diaryStore: makeMockStore(),
+			store: MockTestStore()
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
