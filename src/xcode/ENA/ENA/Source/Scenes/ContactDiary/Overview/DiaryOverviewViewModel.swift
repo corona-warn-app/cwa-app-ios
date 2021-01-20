@@ -9,10 +9,14 @@ class DiaryOverviewViewModel {
 
 	// MARK: - Init
 
-	init(store: DiaryStoringProviding) {
-		self.store = store
+	init(
+		diaryStore: DiaryStoringProviding,
+		store: Store
+	) {
+		self.diaryStore = diaryStore
+		self.secureStore = store
 
-		store.diaryDaysPublisher.sink { [weak self] in
+		diaryStore.diaryDaysPublisher.sink { [weak self] in
 			self?.days = $0
 		}.store(in: &subscriptions)
 	}
@@ -41,10 +45,24 @@ class DiaryOverviewViewModel {
 		}
 	}
 
+	func cellModel(for indexPath: IndexPath) -> DiaryOverviewDayCellModel {
+		let diaryDay = days[indexPath.row]
+		let currentHistoryExposure = historyExposure(by: diaryDay.date)
+		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure)
+	}
+
 	// MARK: - Private
 
-	private let store: DiaryStoringProviding
+	private let diaryStore: DiaryStoringProviding
+	private let secureStore: Store
 
 	private var subscriptions: [AnyCancellable] = []
+
+	private func historyExposure(by date: Date) -> HistoryExposure {
+		guard let riskLevelPerDate = secureStore.riskCalculationResult?.riskLevelPerDate[date] else {
+			return .none
+		}
+		return .encounter(riskLevelPerDate)
+	}
 
 }

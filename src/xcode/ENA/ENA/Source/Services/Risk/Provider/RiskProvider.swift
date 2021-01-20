@@ -317,8 +317,6 @@ final class RiskProvider: RiskProviding {
 			)
 
 			store.riskCalculationResult = riskCalculationResult
-			// TODO
-			// observe risk
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 
 			completion(.success(risk))

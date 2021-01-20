@@ -60,6 +60,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
+	/** the export is not required to be localized at the moment - tests can check for specific locale text at the moment*/
 	func export() -> Result<String, SQLiteErrorCode> {
 		var result: Result<String, SQLiteErrorCode>?
 
@@ -822,8 +823,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			// ToDO: set exposure encouter / riskLevel
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, exposureEncounter: .none)
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
 			diaryDays.append(diaryDay)
 		}
 

@@ -62,7 +62,10 @@ class DiaryCoordinator {
 
 	private lazy var overviewScreen: DiaryOverviewTableViewController = {
 		return DiaryOverviewTableViewController(
-			viewModel: DiaryOverviewViewModel(store: diaryStore),
+			viewModel: DiaryOverviewViewModel(
+				diaryStore: diaryStore,
+				store: store
+			),
 			onCellSelection: { [weak self] day in
 				self?.showDayScreen(day: day)
 			},

@@ -128,8 +128,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
-		let model = viewModel.days[indexPath.row]
-		cell.configure(cellViewModel: DiaryOverviewDayCellModel(model))
+		cell.configure(cellViewModel: viewModel.cellModel(for: indexPath))
 		return cell
 	}
 	
