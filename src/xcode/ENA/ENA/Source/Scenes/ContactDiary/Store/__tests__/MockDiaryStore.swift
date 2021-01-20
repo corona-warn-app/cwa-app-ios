@@ -64,21 +64,6 @@ class MockDiaryStore: DiaryStoringProviding {
 		return .success(id)
 	}
 
-	@discardableResult
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
-		var addedIDs: [Int] = []
-		for (date, riskLevel) in riskLevelPerDate {
-			let id = (risklevelPerDays.map { $0.id }.max() ?? -1) + 1
-			risklevelPerDays.append(RiskLevelPerDay(id: id, date: date, risklevel: riskLevel))
-			addedIDs.append(id)
-		}
-
-		updateDays()
-
-		let maxID = addedIDs.max() ?? 0
-		return .success(maxID)
-	}
-
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
 		contactPersons[index] = DiaryContactPerson(id: id, name: name)
@@ -182,7 +167,6 @@ class MockDiaryStore: DiaryStoringProviding {
 	private var locations: [DiaryLocation] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
 	private var locationVisits: [LocationVisit] = []
-	private var risklevelPerDays: [RiskLevelPerDay] = []
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
@@ -190,7 +174,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]
 
-		for dayDifference in 0..<14 {
+		for dayDifference in 0..<15 {
 			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: Date()) else { continue }
 			let dateString = dateFormatter.string(from: date)
 
@@ -223,11 +207,4 @@ class MockDiaryStore: DiaryStoringProviding {
 		diaryDaysPublisher.send(diaryDays)
 	}
 
-}
-
-extension RiskLevel: Comparable {
-
-	public static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
-		lhs.rawValue < rhs.rawValue
-	}
 }
