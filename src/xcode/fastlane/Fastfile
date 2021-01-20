@@ -89,6 +89,7 @@ platform :ios do
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
       
     end 
       # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.

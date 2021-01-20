@@ -314,6 +314,13 @@ extension SecureStore: AppConfigCaching {
 	}
 }
 
+extension SecureStore: StatisticsCaching {
+	var statistics: StatisticsMetadata? {
+		get { kvStore["statistics"] as StatisticsMetadata? ?? nil }
+		set { kvStore["statistics"] = newValue }
+	}
+}
+
 extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
