@@ -1259,7 +1259,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
-"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "New version features";
+"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "Neue Funktionen der Version";
+
+"DeltaOnboarding_NewVersionFeatures_Title" = "Neue Funktionen";
+
+"DeltaOnboarding_NewVersionFeatures_Release" = "Release";
+
+"DeltaOnboarding_NewVersionFeatures_Button_Contionue" = "Weiter";
+
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
 
 "DeltaOnboarding_Headline" = "Länderübergreifende Risiko-Ermittlung";
 
