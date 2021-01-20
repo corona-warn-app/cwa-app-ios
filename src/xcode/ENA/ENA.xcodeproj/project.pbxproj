@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
+		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
@@ -719,6 +720,7 @@
 
 /* Begin PBXFileReference section */
 		0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationCellModel.swift; sourceTree = "<group>"; };
+		0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_KeyFigure+Formatting.swift"; sourceTree = "<group>"; };
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
 		010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModelTests.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -1476,6 +1478,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0105D88B25B87300007E288B /* HomeStatisticsCardView */ = {
+			isa = PBXGroup;
+			children = (
+				016E260225AF20300077C64C /* HomeStatisticsCardView.swift */,
+				016E260725AF20540077C64C /* HomeStatisticsCardView.xib */,
+				016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */,
+			);
+			path = HomeStatisticsCardView;
+			sourceTree = "<group>";
+		};
+		0105D88F25B8731D007E288B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */,
+				0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		010B3D8425ADE5EC00EB44AB /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1509,11 +1530,9 @@
 				016E25F125AF13EA0077C64C /* HomeStatisticsTableViewCell.swift */,
 				016E25F225AF13EA0077C64C /* HomeStatisticsTableViewCell.xib */,
 				0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */,
-				016E260225AF20300077C64C /* HomeStatisticsCardView.swift */,
-				016E260725AF20540077C64C /* HomeStatisticsCardView.xib */,
-				016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */,
 				0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */,
-				0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */,
+				0105D88B25B87300007E288B /* HomeStatisticsCardView */,
+				0105D88F25B8731D007E288B /* Extensions */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -4342,6 +4361,7 @@
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
+				0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
 				AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */,
