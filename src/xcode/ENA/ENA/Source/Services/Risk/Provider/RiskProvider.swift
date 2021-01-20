@@ -317,7 +317,8 @@ final class RiskProvider: RiskProviding {
 			)
 
 			store.riskCalculationResult = riskCalculationResult
-			contactDiaryStore.addRiskLevelPerDate(riskCalculationResult.riskLevelPerDate)
+			// TODO
+			// observe risk
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 
 			completion(.success(risk))
