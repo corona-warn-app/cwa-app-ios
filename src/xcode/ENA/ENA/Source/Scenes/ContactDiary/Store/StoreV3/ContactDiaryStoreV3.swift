@@ -29,7 +29,7 @@ class ContactDiaryStoreV3: DiaryStoringProviding {
 		self.schema = schema
 		self.migrator = migrator
 
-		//opens and prepares the database - triggers migration if needed
+		// opens and prepares the database - triggers migration if needed
 		guard case .success = openAndSetup() else {
 			return nil
 		}
