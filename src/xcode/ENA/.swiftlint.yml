@@ -208,7 +208,7 @@ included:
 
 # Excluded paths (takes precedence over 'included')
 excluded: # paths to ignore during linting. Takes precedence over `included`.
-
+  - ENA/Backend # generated files
 
 # Rules use by 'swiftlint analyze' (experimental)
 analyzer_rules:
