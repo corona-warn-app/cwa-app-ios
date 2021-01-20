@@ -7,6 +7,35 @@ import XCTest
 
 class RiskCalculationResultTests: XCTestCase {
 
+	/*** init a new model all values get stored as expected*/
+	func testGIVEN_InitRiskCalculationResult_THEN_AllValuesGetStored() {
+	// GIVEN
+		let today = Date()
+	let riskCalculationResult = RiskCalculationResult(
+		riskLevel: .low,
+		minimumDistinctEncountersWithLowRisk: 0,
+		minimumDistinctEncountersWithHighRisk: 5,
+		mostRecentDateWithLowRisk: today,
+		mostRecentDateWithHighRisk: today,
+		numberOfDaysWithLowRisk: 10,
+		numberOfDaysWithHighRisk: 3,
+		calculationDate: today,
+		riskLevelPerDate: [today: .high]
+	)
+
+	// THEN
+		XCTAssertEqual(riskCalculationResult.riskLevel, .low)
+		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithLowRisk, 0)
+		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithHighRisk, 5)
+		XCTAssertEqual(riskCalculationResult.mostRecentDateWithLowRisk, today)
+		XCTAssertEqual(riskCalculationResult.mostRecentDateWithHighRisk, today)
+		XCTAssertEqual(riskCalculationResult.numberOfDaysWithLowRisk, 10)
+		XCTAssertEqual(riskCalculationResult.numberOfDaysWithHighRisk, 3)
+		XCTAssertEqual(riskCalculationResult.calculationDate, today)
+		XCTAssertEqual(riskCalculationResult.riskLevelPerDate, [today: .high])
+	}
+
+
 	/*** new json format with empty 'riskLevelPerDate' should init without problems */
 	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
 		// GIVEN
