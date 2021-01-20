@@ -866,34 +866,6 @@ class ContactDiaryStoreV2: DiaryStoringV2, DiaryProvidingV2 {
 		return .success(locations)
 	}
 
-	private func fetchRiskLevelPerDate(for date: String, in database: FMDatabase) -> Result<RiskLevel?, DiaryStoringError> {
-		var riskLevel: RiskLevel?
-
-		let sql = """
-				SELECT RiskLevelPerDate.date, MAX(RiskLevelPerDate.riskLevel) AS riskLevel
-				FROM RiskLevelPerDate
-				WHERE RiskLevelPerDate.date = ?
-			"""
-
-		do {
-			let queryResult = try database.executeQuery(sql, values: [date])
-			defer {
-				queryResult.close()
-			}
-
-			while queryResult.next() {
-				if let fetchedRiskLevel = RiskLevel(rawValue: queryResult.long(forColumn: "riskLevel")) {
-					riskLevel = fetchedRiskLevel
-				}
-			}
-		} catch {
-			logLastErrorCode(from: database)
-			return .failure(dbError(from: database))
-		}
-
-		return .success(riskLevel)
-	}
-
 	@discardableResult
 	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
 		var diaryDays = [DiaryDay]()
@@ -929,7 +901,6 @@ class ContactDiaryStoreV2: DiaryStoringV2, DiaryProvidingV2 {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			// ToDO: set exposure encouter / riskLevel
 			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
 			diaryDays.append(diaryDay)
 		}
@@ -982,7 +953,6 @@ class ContactDiaryStoreV2: DiaryStoringV2, DiaryProvidingV2 {
 					DROP TABLE LocationVisit;
 					DROP TABLE ContactPerson;
 					DROP TABLE ContactPersonEncounter;
-					DROP TABLE RiskLevelPerDate;
 					VACUUM;
 				"""
 
