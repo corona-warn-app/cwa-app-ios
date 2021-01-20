@@ -128,3 +128,13 @@ final class CachedAppConfigurationTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 }
+
+extension Int {
+
+	/// A date n seconds ago
+	var secondsAgo: Date? {
+		let components = DateComponents(second: -(self))
+		return Calendar.autoupdatingCurrent.date(byAdding: components, to: Date())
+	}
+
+}
