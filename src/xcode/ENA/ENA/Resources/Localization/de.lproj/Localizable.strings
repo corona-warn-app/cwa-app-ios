@@ -368,11 +368,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Onboarding EU Keys */
 
