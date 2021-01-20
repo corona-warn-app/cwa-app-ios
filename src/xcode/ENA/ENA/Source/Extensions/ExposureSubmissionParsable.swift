@@ -73,7 +73,10 @@ extension SubmissionError: ExposureSubmissionErrorTransformable {
 
 // MARK: - URLSession.Response.Failure: ExposureSubmissionErrorTransformable extension.
 
-extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
+extension URLSessionError: ExposureSubmissionErrorTransformable {
+
+	// swiftlint:disable cyclomatic_complexity
+	/// no clue why we still have this…
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
 		case let .httpError(wrapped, _):
@@ -94,8 +97,11 @@ extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
 			return .noNetworkConnection
 		case let .serverError(code):
 			return .serverError(code)
+		case .notModified:
+			return .serverError(304)
 		case .fakeResponse:
 			return .fakeResponse
 		}
 	}
+	// swiftlint:enable cyclomatic_complexity
 }
