@@ -22,8 +22,9 @@ extension DeltaOnboarding {
 	var isFinished: Bool {
 		return store.onboardingVersion.numericGreaterOrEqual(then: version)
 	}
-
+	
 	func finish() {
 		store.onboardingVersion = version
 	}
+
 }

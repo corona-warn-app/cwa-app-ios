@@ -13,6 +13,24 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		supportedCountries: [Country]
 	) {
 		self.supportedCountries = supportedCountries.sortedByLocalizedName
+		
+		// Exposure History Feature
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle,
+							  description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
+		)
+		
+		// iOS 12.5 Support
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112iOS125SupportTitle,
+							  description: AppStrings.NewVersionFeatures.feature112iOS125SupportDescription)
+		)
+		
+		// Statistics
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112StatisticsTitle,
+							  description: AppStrings.NewVersionFeatures.feature112StatisticsDescription)
+		)
 	}
 
 	// MARK: - Internal
@@ -21,105 +39,54 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		DynamicTableViewModel.with {
 			$0.add(
 				.section(
+					cells: [
+						.title1(
+							text: AppStrings.NewVersionFeatures.title,
+							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.sectionTitle
+						),
+						// [KGA] TODO: Add version number
+						.body(text: AppStrings.NewVersionFeatures.release)
+					]
+				)
+			)
+			$0.add(
+				.section(
 					header: .image(
 						UIImage(named: "Illu_NewVersion_Features"),
-						accessibilityLabel: AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel,
+						accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
 						accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
 						height: 250
 					),
 					cells: [
-						.title2(
-							text: AppStrings.DeltaOnboarding.title,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.sectionTitle
-						),
-						.title2(
-							text: AppStrings.DeltaOnboarding.title,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.sectionTitle
-						),
-						.title2(
-							text: AppStrings.DeltaOnboarding.title,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.sectionTitle
-						),
-						.body(
-							text: AppStrings.DeltaOnboarding.description,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.description
-						),
-						.space(height: 16)
+						.body(text: AppStrings.NewVersionFeatures.generalDescription)
 					]
 				)
 			)
 			$0.add(
 				.section(
 					separators: .none,
-					cells: buildCountryCells()
+					cells: buildNewFeaturesCells()
 				)
 			)
-			$0.add(
-				.section(
-					separators: .inBetween,
-					cells: supportedCountries.map {
-						DynamicCell.icon($0.flag, text: .string($0.localizedName), iconWidth: 28) { _, cell, _ in
-							cell.contentView.layoutMargins.left = 32
-							cell.contentView.layoutMargins.right = 32
-						}
-					}
-				)
-			)
-			$0.add(
-				.section(
-					cells: [
-						.space(height: 20),
-						.custom(
-							withIdentifier: DeltaOnboardingV15ViewController.CustomCellReuseIdentifiers.roundedCell,
-							configure: { _, cell, _ in
-								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
-
-								cell.configure(
-									title: NSMutableAttributedString(
-										string: AppStrings.DeltaOnboarding.legalDataProcessingInfoTitle
-									),
-									body: NSMutableAttributedString(
-										string: AppStrings.DeltaOnboarding.legalDataProcessingInfoContent
-									),
-									textColor: .textPrimary1,
-									bgColor: .separator
-								)
-							}
-						),
-						.space(height: 8),
-						.body(text: AppStrings.DeltaOnboarding.termsDescription1)
-					]
-				)
-			)
-			$0.add(
-				.section(
-					separators: .all,
-					cells: [
-						.headline(
-							text: AppStrings.DeltaOnboarding.termsButtonTitle,
-							style: .label,
-							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
-							configure: { _, cell, _ in
-								cell.accessoryType = .disclosureIndicator
-								cell.selectionStyle = .default
-							}
-						)
-					]
-				)
-			)
-			$0.add(
-				.section(
-					cells: [
-						.body(text: AppStrings.DeltaOnboarding.termsDescription2)
-					]
-				)
-			)
+			
 		}
 	}
 
 	// MARK: - Private
+	
+	private var newVersionFeatures: [NewVersionFeature] = []
 
+	// [kga] think about revoming
 	private let supportedCountries: [Country]
+	
+	private func buildNewFeaturesCells() -> [DynamicCell] {
+		var cells: [DynamicCell] = []
+		for feature in newVersionFeatures {
+			cells.append(.headline(text: feature.title))
+			cells.append(.body(text: feature.description))
+		}
+		return cells
+	}
 
 	private func buildCountryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []

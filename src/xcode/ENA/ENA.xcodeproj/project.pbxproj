@@ -382,6 +382,7 @@
 		94EAF87125B6CA9D00BE1F40 /* DeltaOnboardingNewVersionFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86C25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeatures.swift */; };
 		94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86D25B6C84900BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift */; };
 		94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */; };
+		94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF89B25B8162200BE1F40 /* NewVersionFeature.swift */; };
 		94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F594612521CBF50077681B /* DeltaOnboardingV15ViewModel.swift */; };
 		A124E64A249BF4EF00E95F72 /* ExposureDetectionExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124E648249BF4EB00E95F72 /* ExposureDetectionExecutorTests.swift */; };
 		A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A124E64B249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift */; };
@@ -1092,6 +1093,7 @@
 		94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesViewModel.swift; sourceTree = "<group>"; };
 		94EAF86C25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeatures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeatures.swift; sourceTree = "<group>"; };
 		94EAF86D25B6C84900BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesViewController.swift; sourceTree = "<group>"; };
+		94EAF89B25B8162200BE1F40 /* NewVersionFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVersionFeature.swift; sourceTree = "<group>"; };
 		94F594612521CBF50077681B /* DeltaOnboardingV15ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15ViewModel.swift; sourceTree = "<group>"; };
 		A124E648249BF4EB00E95F72 /* ExposureDetectionExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionExecutorTests.swift; sourceTree = "<group>"; };
 		A124E64B249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAPDownloadedPackagesStore+Helpers.swift"; sourceTree = "<group>"; };
@@ -2587,6 +2589,7 @@
 				94EAF86C25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeatures.swift */,
 				94EAF86D25B6C84900BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift */,
 				94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */,
+				94EAF89B25B8162200BE1F40 /* NewVersionFeature.swift */,
 			);
 			path = NewVersionFeatures;
 			sourceTree = "<group>";
@@ -4191,6 +4194,7 @@
 				ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */,
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
+				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
