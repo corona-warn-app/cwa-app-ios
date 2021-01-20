@@ -6,6 +6,50 @@ import Foundation
 
 struct RiskCalculationResult: Codable {
 
+	// MARK: - Init
+
+	init(
+		riskLevel: RiskLevel,
+		minimumDistinctEncountersWithLowRisk: Int,
+		minimumDistinctEncountersWithHighRisk: Int,
+		mostRecentDateWithLowRisk: Date?,
+		mostRecentDateWithHighRisk: Date?,
+		numberOfDaysWithLowRisk: Int,
+		numberOfDaysWithHighRisk: Int,
+		calculationDate: Date,
+		riskLevelPerDate: [Date: RiskLevel]
+	) {
+		self.riskLevel = riskLevel
+		self.minimumDistinctEncountersWithLowRisk = minimumDistinctEncountersWithLowRisk
+		self.minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRisk
+		self.mostRecentDateWithLowRisk = mostRecentDateWithLowRisk
+		self.mostRecentDateWithHighRisk = mostRecentDateWithHighRisk
+		self.numberOfDaysWithLowRisk = numberOfDaysWithLowRisk
+		self.numberOfDaysWithHighRisk = numberOfDaysWithHighRisk
+		self.calculationDate = calculationDate
+		self.riskLevelPerDate = riskLevelPerDate
+	}
+
+	// MARK: - Protocol Decodable
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		riskLevel = try container.decode(RiskLevel.self, forKey: .riskLevel)
+
+		minimumDistinctEncountersWithLowRisk = try container.decode(Int.self, forKey: .minimumDistinctEncountersWithLowRisk)
+		minimumDistinctEncountersWithHighRisk = try container.decode(Int.self, forKey: .minimumDistinctEncountersWithHighRisk)
+
+		mostRecentDateWithLowRisk = try? container.decode(Date?.self, forKey: .mostRecentDateWithLowRisk)
+		mostRecentDateWithHighRisk = try? container.decode(Date?.self, forKey: .mostRecentDateWithHighRisk)
+
+		numberOfDaysWithLowRisk = try container.decode(Int.self, forKey: .numberOfDaysWithLowRisk)
+		numberOfDaysWithHighRisk = try container.decode(Int.self, forKey: .numberOfDaysWithHighRisk)
+
+		calculationDate = try container.decode(Date.self, forKey: .calculationDate)
+		riskLevelPerDate = (try? container.decode([Date: RiskLevel].self, forKey: .riskLevelPerDate)) ?? [:]
+	}
+
 	// MARK: - Internal
 
 	let riskLevel: RiskLevel
