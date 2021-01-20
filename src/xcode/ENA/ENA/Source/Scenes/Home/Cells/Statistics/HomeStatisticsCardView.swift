@@ -49,6 +49,7 @@ class HomeStatisticsCardView: UIView {
 
 			if let infoButton = self.infoButton {
 				accessibilityElements.append(infoButton)
+				infoButton.accessibilityIdentifier = viewModel?.infoButtonAccessiblityIdentifier
 			}
 
 			if viewModel?.primaryTitle != nil, let primaryTitleLabel = self.primaryTitleLabel {

@@ -16,28 +16,121 @@ class ENAUITests_Statistics: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
-
+	
 	func test_StatisticsCardTitles() throws {
 		// GIVEN
-		let title1 = AccessibilityIdentifiers.Statistics.Infections
-		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions
-		let title3 = AccessibilityIdentifiers.Statistics.Incidence
-		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber
-
+		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-
+		
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+		
 		// THEN
+		switch layoutDirection {
+		case .rightToLeft:
+			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title4].swipeLeft()
+			XCTAssert(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			app.staticTexts[title3].swipeLeft()
+			XCTAssert(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			app.staticTexts[title2].swipeLeft()
+			XCTAssert(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			app.staticTexts[title1].swipeRight()
+		default:
+			XCTAssert(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			app.staticTexts[title1].swipeLeft()
+			XCTAssert(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			app.staticTexts[title2].swipeLeft()
+			XCTAssert(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			app.staticTexts[title3].swipeLeft()
+			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title4].swipeRight()
+		}
+	}
+	
+	func test_StatisticsCardInfoButtons() throws {
+		// GIVEN
+		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		
+		// WHEN
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		
+		// THEN
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+		
+		// THEN
+		switch layoutDirection {
+		case .rightToLeft:
+			cardReproductionNumberInfoScreenTest(title4)
+			app.staticTexts[title4].swipeLeft()
+
+			cardIncidenceInfoScreenTest(title3)
+			app.staticTexts[title3].swipeLeft()
+
+			cardKeySubmissionsInfoScreenTest(title2)
+			app.staticTexts[title2].swipeLeft()
+
+			cardInfectionsInfoScreenTest(title1)
+			app.staticTexts[title1].swipeRight()
+
+		default:
+			cardInfectionsInfoScreenTest(title1)
+			app.staticTexts[title1].swipeLeft()
+			
+			cardKeySubmissionsInfoScreenTest(title2)
+			app.staticTexts[title2].swipeLeft()
+			
+			cardIncidenceInfoScreenTest(title3)
+			app.staticTexts[title3].swipeLeft()
+			
+			cardReproductionNumberInfoScreenTest(title4)
+			app.staticTexts[title4].swipeRight()
+		}
+	}
+	
+	// MARK: - Private
+	
+	private func cardInfectionsInfoScreenTest(_ title1: String) {
 		XCTAssert(app.staticTexts[title1].waitForExistence(timeout: .medium))
-		app.staticTexts[title1].swipeLeft()
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].exists)
+		app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].tap()
+		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+	}
+	
+	private func cardKeySubmissionsInfoScreenTest(_ title2: String) {
 		XCTAssert(app.staticTexts[title2].waitForExistence(timeout: .medium))
-		app.staticTexts[title2].swipeLeft()
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].exists)
+		app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].tap()
+		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+	}
+	
+	private func cardIncidenceInfoScreenTest(_ title3: String) {
 		XCTAssert(app.staticTexts[title3].waitForExistence(timeout: .medium))
-		app.staticTexts[title3].swipeLeft()
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].exists)
+		app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].tap()
+		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+	}
+	
+	private func cardReproductionNumberInfoScreenTest(_ title4: String) {
 		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
-		app.staticTexts[title4].swipeRight()
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
+		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].tap()
+		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
 	
 }
