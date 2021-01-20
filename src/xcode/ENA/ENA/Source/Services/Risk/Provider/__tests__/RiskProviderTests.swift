@@ -274,6 +274,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
+
 		store.riskCalculationResult = nil
 		store.positiveTestResultWasShown = true
 
