@@ -827,7 +827,7 @@ enum AppStrings {
 		
 		static let newVersionFeaturesRelease = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Release", comment: "")
 		
-		static let newVersionFeaturesButtonContinue = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Button_Contionue", comment: "")
+		static let newVersionFeaturesButtonContinue = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Button_Continue", comment: "")
 		
 		static let newVersionFeaturesDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
