@@ -48,8 +48,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 
-		XCTAssertEqual(viewModel.days.count, 14)
-		XCTAssertEqual(viewModel.numberOfRows(in: 1), 14)
+		XCTAssertEqual(viewModel.days.count, 15)
+		XCTAssertEqual(viewModel.numberOfRows(in: 1), 15)
 	}
 
 	func testGIVEN_DiaryOverviewViewModel_WHEN_noneHistoryExposureIsInStore_THEN_NoneHistoryExposureIsReturned() {
