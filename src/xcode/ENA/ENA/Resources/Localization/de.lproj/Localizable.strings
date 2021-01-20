@@ -1529,7 +1529,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Error */
 
-"Statistics_LoadingError" = "Beim Laden der Statistiken ist ein Fehler aufgetreten. Öffnen Sie die App neu, um es erneut zu versuchen.";
+"Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
 
 /* - Info Screen */
 
