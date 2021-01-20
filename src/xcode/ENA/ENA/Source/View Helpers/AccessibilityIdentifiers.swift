@@ -305,5 +305,12 @@ enum AccessibilityIdentifiers {
 	enum ThankYouScreen {
 		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
 	}
+	
+	enum UpdateOSScreen {
+		static let mainImage = "UpdateOSScreen.mainImage"
+		static let logo = "UpdateOSScreen.logo"
+		static let title = "UpdateOSScreen.title"
+		static let text = "UpdateOSScreen.text"
+	}
 
 }
