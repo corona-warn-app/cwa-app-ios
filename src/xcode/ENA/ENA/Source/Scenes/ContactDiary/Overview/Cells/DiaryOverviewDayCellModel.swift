@@ -21,6 +21,8 @@ final class DiaryOverviewDayCellModel {
 
 	// MARK: - Internal
 
+	let historyExposure: HistoryExposure
+
 	var hideExposureHistory: Bool {
 		switch historyExposure {
 		case .none:
@@ -82,6 +84,5 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Private
 
 	private let diaryDay: DiaryDay
-	private let historyExposure: HistoryExposure
 
 }
