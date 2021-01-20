@@ -128,9 +128,12 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// WHEN
 		let diaryOverviewDayCellModel = viewModel.cellModel(for: IndexPath(row: 7, section: 0))
+		let diaryOverviewDayCellModelNone = viewModel.cellModel(for: IndexPath(row: 5, section: 0))
 
 		// THEN
 		XCTAssertEqual(diaryOverviewDayCellModel.historyExposure, .encounter(.high))
+		XCTAssertEqual(diaryOverviewDayCellModelNone.historyExposure, .none)
+
 	}
 
 	// MARK: - Private Helpers
