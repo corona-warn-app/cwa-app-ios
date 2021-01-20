@@ -51,7 +51,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		
 		let saveNewFeatureVersionbutton = UIButton(frame: .zero)
 		saveNewFeatureVersionbutton.translatesAutoresizingMaskIntoConstraints = false
-		saveNewFeatureVersionbutton.setTitle("Save New Version", for: .normal)
+		saveNewFeatureVersionbutton.setTitle("Save New Features Shown Version", for: .normal)
 		saveNewFeatureVersionbutton.addTarget(self, action: #selector(saveNewFeatureVersionButtonTapped), for: .touchUpInside)
 		saveNewFeatureVersionbutton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
 
