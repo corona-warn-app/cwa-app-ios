@@ -64,6 +64,7 @@ class ENAUITests: XCTestCase {
 		
 		app.swipeUp(velocity: .slow)
 		// ScreenShot_0008: Statistics on Home screen
+		XCTAssert(app.staticTexts[AccessibilityIdentifiers.Statistics.Infections].exists)
 		if snapshotsActive { snapshot("AppStore_0008") }
 		
 		// ScreenShot_0004: Settings > Risk exposure
