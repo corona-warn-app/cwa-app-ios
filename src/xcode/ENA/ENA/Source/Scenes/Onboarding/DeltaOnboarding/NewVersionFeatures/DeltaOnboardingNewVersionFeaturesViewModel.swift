@@ -33,10 +33,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.title1(
-							text: AppStrings.NewVersionFeatures.title,
-							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.sectionTitle
-						),
 						.body(text: AppStrings.NewVersionFeatures.release + " " + Bundle.main.appVersion)
 					]
 				)
