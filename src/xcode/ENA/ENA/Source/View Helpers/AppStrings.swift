@@ -767,6 +767,8 @@ enum AppStrings {
 		static let actionLater = NSLocalizedString("Update_Message_Action_Later", comment: "")
 	}
 	enum AppInformation {
+		
+		static let newFeaturesNavigation = NSLocalizedString("App_Information_New_Features_Navigation", comment: "")
 		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
 		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")
 		static let aboutTitle = NSLocalizedString("App_Information_About_Title", comment: "")
