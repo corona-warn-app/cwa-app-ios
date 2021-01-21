@@ -26,7 +26,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 }
 
 // swiftlint:disable:next type_body_length
-class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, UNUserNotificationCenterDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
+class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
 	// MARK: - Init
 
@@ -40,6 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
+
+		super.init()
+	}
+
+	deinit {
+		self.taskExecutionDelegate = nil
 	}
 
 	// MARK: - Protocol UIApplicationDelegate
@@ -57,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
-			
 			return true
 		}
 		
@@ -65,7 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
-		taskScheduler.delegate = self
+		// some delegates
+		taskScheduler.delegate = taskExecutionDelegate
+		UNUserNotificationCenter.current().delegate = notificationManager
 
 		// Setup DeadmanNotification after AppLaunch
 		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
@@ -76,8 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider.observeRisk(consumer)
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
-
-		UNUserNotificationCenter.current().delegate = self
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
@@ -101,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
 		// explicitely disabled as per #EXPOSUREAPP-2214
-		executeFakeRequestOnAppLaunch(probability: 0.0)
+		plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -121,6 +126,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
     let store: Store
     let contactDiaryStore = ContactDiaryStore.make()
     let serverEnvironment: ServerEnvironment
+
+	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
+		PlausibleDeniabilityService(
+			exposureManager: self.exposureManager,
+			appConfigurationProvider: self.appConfigurationProvider,
+			client: self.client,
+			store: self.store,
+			warnOthersReminder: WarnOthersReminder(store: self.store)
+		)
+	}()
 
 	lazy var appConfigurationProvider: AppConfigurationProviding = {
 		#if DEBUG
@@ -179,10 +194,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	lazy var exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 
+
+	/// A set of required dependencies
+	///
+	/// Computed instead of lazy 'fixed' var because previous implementation created multiple instances of the `WarnOthersReminder` for themselfs.
+	/// Currently we copy this behavior until further checks where made to refactor this.
+	var exposureSubmissionServiceDependencies: ExposureSubmissionServiceDependencies {
+		ExposureSubmissionServiceDependencies(
+			exposureManager: self.exposureManager,
+			appConfigurationProvider: self.appConfigurationProvider,
+			client: self.client,
+			store: self.store,
+			warnOthersReminder: WarnOthersReminder(store: store))
+	}
+
 	func requestUpdatedExposureState() {
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
 	}
+
+	// MARK: - Delegate properties
+
+	// swiftlint:disable:next weak_delegate
+	lazy var taskExecutionDelegate: ENATaskExecutionDelegate! = {
+		// will be released in `deinit`
+		TaskExecutionHandler(
+			riskProvider: self.riskProvider,
+			plausibleDeniabilityService: self.plausibleDeniabilityService,
+			contactDiaryStore: self.contactDiaryStore,
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies)
+	}()
+
+	var notificationManager: NotificationManager! = NotificationManager()
 
 	// MARK: - Protocol ENAExposureManagerObserver
 
@@ -218,8 +261,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		} catch {
 			fatalError("Creating new database key failed")
 		}
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
+		downloadedPackagesStore.reset()
+		downloadedPackagesStore.open()
 		exposureManager.reset {
 			self.exposureManager.observeExposureNotificationStatus(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
@@ -229,46 +272,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 		
 		// Reset contact diary
-		UIApplication.coronaWarnDelegate().contactDiaryStore.reset()
-	}
-
-	// MARK: - Protocol UNUserNotificationCenterDelegate
-
-	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-		completionHandler([.alert, .badge, .sound])
-	}
-
-	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		switch response.notification.request.identifier {
-		case ActionableNotificationIdentifier.riskDetection.identifier,
-			 ActionableNotificationIdentifier.deviceTimeCheck.identifier:
-			showHome()
-
-		case ActionableNotificationIdentifier.warnOthersReminder1.identifier,
-			 ActionableNotificationIdentifier.warnOthersReminder2.identifier:
-			showPositiveTestResultIfNeeded()
-
-		case ActionableNotificationIdentifier.testResult.identifier:
-			let testIdenifier = ActionableNotificationIdentifier.testResult.identifier
-			guard let testResultRawValue = response.notification.request.content.userInfo[testIdenifier] as? Int,
-				  let testResult = TestResult(rawValue: testResultRawValue) else {
-				showHome()
-				return
-			}
-
-			switch testResult {
-			case .positive, .negative:
-				showTestResultFromNotification(with: testResult)
-			case .invalid:
-				showHome()
-			case .expired, .pending:
-				assertionFailure("Expired and Pending Test Results should not trigger the Local Notification")
-			}
-
-		default: break
-		}
-
-		completionHandler()
+		contactDiaryStore.reset()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
@@ -286,10 +290,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Log.info("AppDelegate got EnState update: \(state)", log: .api)
 		coordinator.updateEnState(state)
 	}
-
-	// MARK: - Internal
-
-	let backgroundTaskConsumer = RiskConsumer()
 
 	// MARK: - Private
 
@@ -390,10 +390,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private lazy var coordinator = Coordinator(
+	private(set) lazy var coordinator = Coordinator(
 		self,
 		navigationController,
-		contactDiaryStore: UIApplication.coronaWarnDelegate().contactDiaryStore
+		contactDiaryStore: self.contactDiaryStore
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -444,7 +444,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
 	}
 
-	private func showHome() {
+	func showHome() {
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
@@ -469,20 +469,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		coordinator.showHome(enStateHandler: enStateHandler)
-	}
-
-	private func showPositiveTestResultIfNeeded() {
-		let warnOthersReminder = WarnOthersReminder(store: store)
-		guard warnOthersReminder.positiveTestResultWasShown else {
-			return
-		}
-
-		showTestResultFromNotification(with: .positive)
-	}
-	
-	private func showTestResultFromNotification(with testResult: TestResult) {
-		// we should show screens based on test result regardless wether positiveTestResultWasShown before or not
-		coordinator.showTestResultFromNotification(with: testResult)
 	}
 	
 	private func showOnboarding() {

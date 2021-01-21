@@ -171,7 +171,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 						return
 					}
 					Log.info("Starting backgroundTask via Bluetooth", log: .background)
-					appDelegate.executeENABackgroundTask(completion: { success in
+					appDelegate.taskExecutionDelegate.executeENABackgroundTask(completion: { success in
 						Log.info("Background task was: \(success)", log: .background)
 					})
 				}

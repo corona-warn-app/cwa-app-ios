@@ -57,3 +57,11 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().serverEnvironment
 	}
 }
+
+private extension UIApplication {
+	class func coronaWarnDelegate() -> CoronaWarnAppDelegate {
+		// Normally there should be an AppDelegate, but not for unit tests (see `main.swift`)
+		// In that case we use a blank app delegate
+		shared.delegate as? CoronaWarnAppDelegate ?? AppDelegate()
+	}
+}

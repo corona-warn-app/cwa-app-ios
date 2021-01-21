@@ -35,6 +35,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}.store(in: &subscriptions)
 	}
 
+	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
+		self.init(
+			diagnosisKeysRetrieval: dependencies.exposureManager,
+			appConfigurationProvider: dependencies.appConfigurationProvider,
+			client: dependencies.client,
+			store: dependencies.store,
+			warnOthersReminder: dependencies.warnOthersReminder)
+	}
+
 	// MARK: - Protocol ExposureSubmissionService
 
 	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
