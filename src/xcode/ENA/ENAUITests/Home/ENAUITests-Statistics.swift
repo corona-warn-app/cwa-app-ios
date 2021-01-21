@@ -8,7 +8,8 @@ import ExposureNotification
 class ENAUITests_Statistics: XCTestCase {
 	var app: XCUIApplication!
 	
-	override func setUpWithError() throws {
+	override func setUp() {
+		super.setUp()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		app.setDefaults()
@@ -23,13 +24,12 @@ class ENAUITests_Statistics: XCTestCase {
 		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
 		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
-		
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-		
-		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// THEN
 		switch layoutDirection {
@@ -60,14 +60,12 @@ class ENAUITests_Statistics: XCTestCase {
 		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
 		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-		
-		// THEN
-		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// THEN
 		switch layoutDirection {
