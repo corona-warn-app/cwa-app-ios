@@ -137,7 +137,6 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		} else {
 			navigationItem.largeTitleDisplayMode = .never
 		}
-		navigationItem.largeTitleDisplayMode = .never
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
 		navigationController?.pushViewController(vc, animated: true)
 	}
