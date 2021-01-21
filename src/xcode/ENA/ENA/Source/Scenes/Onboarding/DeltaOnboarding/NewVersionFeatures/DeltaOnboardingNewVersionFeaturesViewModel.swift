@@ -83,7 +83,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		]
 		
 		for feature in newVersionFeatures {
-			let featureBulletPoint = NSMutableAttributedString(string: feature.title, attributes: boldTextAttribute)
+			let featureBulletPoint = NSMutableAttributedString(string: feature.title+"\n\t", attributes: boldTextAttribute)
 			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
 			cells.append(.bulletPoint(attributedText: featureBulletPoint))
 		}
