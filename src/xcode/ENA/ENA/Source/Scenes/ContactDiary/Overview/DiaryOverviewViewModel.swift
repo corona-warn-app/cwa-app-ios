@@ -18,10 +18,9 @@ class DiaryOverviewViewModel {
 		self.secureStore = store
 
 		$days
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
-				DispatchQueue.main.async {
-					self?.refreshTableView?()
-				}
+				self?.refreshTableView?()
 			}
 			.store(in: &subscriptions)
 
@@ -30,14 +29,13 @@ class DiaryOverviewViewModel {
 		}.store(in: &subscriptions)
 
 		homeState?.$riskState
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] updatedRiskState in
-				DispatchQueue.main.async {
-					switch updatedRiskState {
-					case .risk:
-						self?.refreshTableView?()
-					default:
-						break
-					}
+				switch updatedRiskState {
+				case .risk:
+					self?.refreshTableView?()
+				default:
+					break
 				}
 			}
 			.store(in: &subscriptions)
