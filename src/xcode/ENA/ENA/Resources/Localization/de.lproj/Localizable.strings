@@ -455,7 +455,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die Hotline an und fragen Sie nach einer TAN.";
+"ExposureSubmissionHotline_SectionDescription1" = "Rufen Sie die bundesweite Hotline an und fragen Sie nach einer TAN.";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Schritt 1 von 2";
 
@@ -1079,7 +1079,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
 
-"App_Information_Contact_Description" = "Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere technische Hotline wenden.";
+"App_Information_Contact_Description" = "Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere bundesweite technische Hotline wenden.";
 
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
 
