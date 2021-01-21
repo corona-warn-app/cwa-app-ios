@@ -35,16 +35,17 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 			alert.buttons.firstMatch.tap()
 		}
 
-		let tablesQuery = XCUIApplication().tables
+		let tablesQuery = app.tables
 		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
 		
 		
 		// Close (X) Button
-		XCTAssertTrue(XCUIApplication().navigationBars["ENA.DeltaOnboardingV15View"].buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5))
-		
-		// Continue Button
-		XCTAssertTrue(XCUIApplication().buttons["AppStrings.DeltaOnboarding.primaryButton"].waitForExistence(timeout: 5))
-		XCUIApplication().buttons["AppStrings.DeltaOnboarding.primaryButton"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5))
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+
+		// On homescreen?
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
 	}
 	
 	func test_screenshotDeltaOnboardingV15View() throws {
