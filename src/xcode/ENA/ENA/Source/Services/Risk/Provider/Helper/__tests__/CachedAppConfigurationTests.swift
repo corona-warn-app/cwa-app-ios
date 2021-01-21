@@ -72,7 +72,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheEmptySupportedCountries() throws {
@@ -93,7 +93,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 
 	// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-3781
