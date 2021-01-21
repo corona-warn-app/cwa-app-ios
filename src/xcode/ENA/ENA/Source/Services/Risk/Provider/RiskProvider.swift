@@ -481,7 +481,7 @@ extension RiskProvider {
 				calculationDate: Date(),
 				riskLevelPerDate: [
 					today: .low,
-					someDaysAgo: .high
+					someDaysAgo: .low
 				]
 			)
 		}
