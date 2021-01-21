@@ -18,9 +18,10 @@ class DiaryOverviewViewModel {
 		self.secureStore = store
 
 		$days
-			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] _ in
-				self?.refreshTableView?()
+				DispatchQueue.main.async {
+					self?.refreshTableView?()
+				}
 			}
 			.store(in: &subscriptions)
 
@@ -29,13 +30,14 @@ class DiaryOverviewViewModel {
 		}.store(in: &subscriptions)
 
 		homeState?.$riskState
-			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] updatedRiskState in
-				switch updatedRiskState {
-				case .risk:
-					self?.refreshTableView?()
-				default:
-					Log.debug("risk state ")
+				DispatchQueue.main.async {
+					switch updatedRiskState {
+					case .risk:
+						self?.refreshTableView?()
+					default:
+						break
+					}
 				}
 			}
 			.store(in: &subscriptions)
@@ -55,10 +57,6 @@ class DiaryOverviewViewModel {
 	}
 
 	var refreshTableView: (() -> Void)?
-
-	var count: Int {
-		days.count
-	}
 
 	func day(by indexPath: IndexPath) -> DiaryDay {
 		return days[indexPath.row]
