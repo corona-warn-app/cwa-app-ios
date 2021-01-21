@@ -377,6 +377,7 @@
 		948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */; };
 		948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */; };
 		948DCDC3252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */; };
+		94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesTests.swift */; };
 		94B255A62551B7C800649B4C /* WarnOthersReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A52551B7C800649B4C /* WarnOthersReminder.swift */; };
 		94C24B3F25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */; };
 		94EAF87125B6CA9D00BE1F40 /* DeltaOnboardingNewVersionFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EAF86C25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeatures.swift */; };
@@ -1088,6 +1089,7 @@
 		948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersRemindable.swift; sourceTree = "<group>"; };
 		948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+WarnOthers.swift"; sourceTree = "<group>"; };
 		948DCDC2252EFC9A00CDE020 /* ENAUITests_05_ExposureLogging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_05_ExposureLogging.swift; sourceTree = "<group>"; };
+		94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesTests.swift; sourceTree = "<group>"; };
 		94B255A52551B7C800649B4C /* WarnOthersReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersReminder.swift; sourceTree = "<group>"; };
 		94C24B3E25304B4400F8C004 /* ENAUITestsDeltaOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsDeltaOnboarding.swift; sourceTree = "<group>"; };
 		94EAF86B25B6C84800BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNewVersionFeaturesViewModel.swift; sourceTree = "<group>"; };
@@ -2831,6 +2833,7 @@
 			children = (
 				AB7420DC251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift */,
 				9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */,
+				94ABF76A25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4430,6 +4433,7 @@
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
+				94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesTests.swift in Sources */,
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,

@@ -7,8 +7,11 @@ import Foundation
 
 final class MockTestStore: Store, AppConfigCaching {
 	
+	var newVersionFeaturesShownForVersion: String = "1.12"
+	
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
+	
 	var positiveTestResultWasShown: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?

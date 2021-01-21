@@ -10,26 +10,25 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	// MARK: - Init
 
 	init(
+		
+		// [KGA] Thing about removing this
 		supportedCountries: [Country]
 	) {
 		self.supportedCountries = supportedCountries.sortedByLocalizedName
 		
 		// Exposure History Feature
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle,
-							  description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle, description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
 		)
 		
 		// iOS 12.5 Support
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112iOS125SupportTitle,
-							  description: AppStrings.NewVersionFeatures.feature112iOS125SupportDescription)
+			NewVersionFeature( title: AppStrings.NewVersionFeatures.feature112iOS125SupportTitle, description: AppStrings.NewVersionFeatures.feature112iOS125SupportDescription)
 		)
 		
 		// Statistics
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112StatisticsTitle,
-							  description: AppStrings.NewVersionFeatures.feature112StatisticsDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112StatisticsTitle, description: AppStrings.NewVersionFeatures.feature112StatisticsDescription)
 		)
 	}
 
@@ -44,8 +43,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 							text: AppStrings.NewVersionFeatures.title,
 							accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.sectionTitle
 						),
-						// [KGA] TODO: Add version number
-						.body(text: AppStrings.NewVersionFeatures.release)
+						.body(text: AppStrings.NewVersionFeatures.release + " " + Bundle.main.appVersion)
 					]
 				)
 			)

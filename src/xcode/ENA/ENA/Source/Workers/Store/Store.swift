@@ -8,7 +8,10 @@ import ExposureNotification
 protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
+	
+	/// Keeps the version for which the new features of this version have been show
 	var newVersionFeaturesShownForVersion: String { get set }
+	
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
