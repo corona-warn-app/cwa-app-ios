@@ -64,6 +64,10 @@ class HomeState: ENStateHandlerUpdating {
 		case error(Error)
 	}
 
+	enum StatisticsLoadingError {
+		case dataVerificationError
+	}
+
 	let store: Store
 
 	@OpenCombine.Published var riskState: RiskState
@@ -77,6 +81,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
 	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
+	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
 
@@ -158,11 +163,15 @@ class HomeState: ENStateHandlerUpdating {
 	func updateStatistics() {
 		statisticsProvider.statistics()
 			.sink(
-				receiveCompletion: { result in
+				receiveCompletion: { [weak self] result in
 					switch result {
 					case .finished:
 						break
 					case .failure(let error):
+						// Propagate signature verification error to the user
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							self?.statisticsLoadingError = .dataVerificationError
+						}
 						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
 					}
 				}, receiveValue: { [weak self] in

@@ -20,17 +20,20 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	func configure(
 		with cellModel: HomeStatisticsCellModel,
 		onInfoButtonTap: @escaping () -> Void,
-		onAccessibilityFocus: @escaping () -> Void
+		onAccessibilityFocus: @escaping () -> Void,
+		onUpdate: @escaping () -> Void
 	) {
 		guard !isConfigured else { return }
 
 		cellModel.$keyFigureCards
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] in
 				self?.configure(
 					for: $0,
 					onInfoButtonTap: onInfoButtonTap,
 					onAccessibilityFocus: onAccessibilityFocus
 				)
+				onUpdate()
 			}
 			.store(in: &subscriptions)
 
