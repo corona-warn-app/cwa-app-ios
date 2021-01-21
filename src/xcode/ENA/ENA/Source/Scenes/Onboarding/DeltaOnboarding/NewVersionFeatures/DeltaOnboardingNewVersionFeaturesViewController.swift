@@ -15,7 +15,7 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	init(
 		supportedCountries: [Country]
 	) {
-		self.viewModel = DeltaOnboardingNewVersionFeaturesViewModel(supportedCountries: supportedCountries)
+		self.viewModel = DeltaOnboardingNewVersionFeaturesViewModel()
 		
 		super.init(nibName: nil, bundle: nil)
 	}

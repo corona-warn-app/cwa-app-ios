@@ -11,14 +11,12 @@ class DeltaOnboardingNewVersionFeatures: DeltaOnboarding {
 	let supportedCountries: [Country]
 	
 	
-	// [KGA] Code kommentieren
-	// [kga] Code auf new version features ummünzen
+	/// Overwrites DeltaOnboarding isFinished to use 'store.newVersionFeaturesShowVersion' for boolean check
 	var isFinished: Bool {
 		return store.newVersionFeaturesShownForVersion.numericGreaterOrEqual(then: version)
 	}
 
-	// [KGA] Code kommentieren
-	// [kga] Code auf new version features ummünzen
+	/// Overwrites DeltaOnboarding isFinished to use 'store.newVersionFeaturesShownForVersion' for boolean check
 	func finish() {
 		store.newVersionFeaturesShownForVersion = version
 	}

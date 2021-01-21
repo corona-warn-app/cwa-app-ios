@@ -420,7 +420,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private func showDeltaOnboardingAndAlertsIfNeeded() {
 		
-		// [KGA] Hier reinhängen, new features sind wie delta onboarding
 		showDeltaOnboardingIfNeeded(completion: { [weak self] in
 			self?.showInformationHowRiskDetectionWorksIfNeeded(completion: {
 				self?.showBackgroundFetchAlertIfNeeded(completion: {

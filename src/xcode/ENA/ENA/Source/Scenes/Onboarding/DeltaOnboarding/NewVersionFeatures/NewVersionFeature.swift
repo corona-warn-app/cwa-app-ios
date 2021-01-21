@@ -4,10 +4,8 @@
 
 import Foundation
 
-
-// [KGA] Add struct documentation with hint about AppStrings etc.
+/// The `NewVersionFeature` struct keeps information about the new feature (`title`) and a detailed `description`.
 struct NewVersionFeature {
-	
 	
 	// MARK: - Init
 	

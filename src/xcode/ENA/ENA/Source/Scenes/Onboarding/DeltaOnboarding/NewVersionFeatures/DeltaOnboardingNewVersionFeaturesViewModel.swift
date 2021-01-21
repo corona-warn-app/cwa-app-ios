@@ -9,13 +9,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	
 	// MARK: - Init
 
-	init(
-		
-		// [KGA] Thing about removing this
-		supportedCountries: [Country]
-	) {
-		self.supportedCountries = supportedCountries.sortedByLocalizedName
-		
+	init() {
 		// Exposure History Feature
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle, description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
@@ -74,9 +68,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	
 	private var newVersionFeatures: [NewVersionFeature] = []
 
-	// [kga] think about revoming
-	private let supportedCountries: [Country]
-	
 	private func buildNewFeaturesCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
 		for feature in newVersionFeatures {
@@ -86,25 +77,25 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		return cells
 	}
 
-	private func buildCountryCells() -> [DynamicCell] {
-		var cells: [DynamicCell] = []
-		if supportedCountries.isEmpty {
-			cells = [
-				.headline(
-					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailableTitle
-				),
-				.body(
-					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailable,
-						 accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailable
-					 )
-			]
-		} else {
-			cells.append(.headline(
-				text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-						 accessibilityIdentifier: nil
-					 ))
-		}
-		return cells
-	}
+//	private func buildCountryCells() -> [DynamicCell] {
+//		var cells: [DynamicCell] = []
+//		if supportedCountries.isEmpty {
+//			cells = [
+//				.headline(
+//					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle,
+//					accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailableTitle
+//				),
+//				.body(
+//					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailable,
+//						 accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailable
+//					 )
+//			]
+//		} else {
+//			cells.append(.headline(
+//				text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
+//						 accessibilityIdentifier: nil
+//					 ))
+//		}
+//		return cells
+//	}
 }
