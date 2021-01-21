@@ -125,5 +125,9 @@ protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
 
-/// Convenience protocol
-protocol Store: StoreProtocol, AppConfigCaching {}
+protocol StatisticsCaching: AnyObject {
+	var statistics: StatisticsMetadata? { get set }
+}
+
+/// Wrapper protocol
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching {}

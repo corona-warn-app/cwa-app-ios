@@ -68,4 +68,8 @@ final class MockTestStore: Store, AppConfigCaching {
 	// MARK: - AppConfigCaching
 	
 	var appConfigMetadata: AppConfigMetadata?
+
+	// MARK: - StatisticsCaching
+
+	var statistics: StatisticsMetadata?
 }
