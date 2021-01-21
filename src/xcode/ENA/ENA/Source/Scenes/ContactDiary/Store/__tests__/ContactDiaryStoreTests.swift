@@ -450,15 +450,15 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		let today = Date()
 
-		guard let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -18, to: today) else {
+		guard let eightteenDaysAgo = Calendar.current.date(byAdding: .day, value: -18, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
 		let emmaHicksPersonId = addContactPerson(name: "Emma Hicks", to: store)
 		let kincardineLocationId = addLocation(name: "Kincardine", to: store)
 
-		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: seventeenDaysAgo, store: store)
-		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
+		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: eightteenDaysAgo, store: store)
+		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: eightteenDaysAgo, store: store)
 
 		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
 		XCTAssertNotNil(personEncouterBeforeCleanupResult)

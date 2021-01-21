@@ -80,7 +80,6 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-		XCTAssertEqual(viewModel.count, 15)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 15)
 	}
 
