@@ -8,7 +8,8 @@ class DeltaOnboardingNewVersionFeatures: DeltaOnboarding {
 
 	let version = Bundle.main.appVersion
 	let store: Store
-	let supportedCountries: [Country]
+	// [KGA] Code cleanup
+	//let supportedCountries: [Country]
 	
 	
 	/// Overwrites DeltaOnboarding isFinished to use 'store.newVersionFeaturesShowVersion' for boolean check
@@ -21,14 +22,20 @@ class DeltaOnboardingNewVersionFeatures: DeltaOnboarding {
 		store.newVersionFeaturesShownForVersion = version
 	}
 
+// [KGA] Code cleanup
+//	init(store: Store, supportedCountries: [Country]) {
+//		self.store = store
+//		// [KGA] Remove
+//		self.supportedCountries = supportedCountries
+//	}
 	init(store: Store, supportedCountries: [Country]) {
 		self.store = store
-		self.supportedCountries = supportedCountries
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
 		let deltaOnboardingViewController = DeltaOnboardingNewVersionFeaturesViewController(
-			supportedCountries: supportedCountries
+			// [KGA] Code cleanup
+			//supportedCountries: supportedCountries
 		)
 
 		let navigationController = DeltaOnboardingNavigationController(rootViewController: deltaOnboardingViewController)
