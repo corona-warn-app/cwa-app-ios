@@ -114,7 +114,7 @@ class ENAUITests_01_Home: XCTestCase {
 		
 		// find an element with localized text "Keine Risiko-Begegnungen"
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), numberOfDaysWithLowRisk)
-		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
+		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .long))
 		
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
