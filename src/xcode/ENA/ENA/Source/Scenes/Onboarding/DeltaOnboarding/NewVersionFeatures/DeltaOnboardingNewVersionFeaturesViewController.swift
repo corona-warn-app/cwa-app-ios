@@ -12,9 +12,9 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 
 	// MARK: - Initializers
 	
-	init() {
+	init(hasCloseButton: Bool = true) {
 		self.viewModel = DeltaOnboardingNewVersionFeaturesViewModel()
-		
+		self.hasCloseButton = hasCloseButton
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -31,8 +31,29 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 		self.navigationController?.presentationController?.delegate = self
 
 		setupView()
-		setupRightBarButtonItem()
+
+		if hasCloseButton {
+			setupRightBarButtonItem()
+		}
 	}
+
+	// MARK: - Overrides
+
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.NewVersionFeatures.buttonContinue
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = AppStrings.NewVersionFeatures.title
+
+		return item
+	}()
 	
 	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
 	
@@ -49,6 +70,7 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	// MARK: - Private API
 
 	private let viewModel: DeltaOnboardingNewVersionFeaturesViewModel
+	private let hasCloseButton: Bool
 
 	private func setupRightBarButtonItem() {
 		let closeButton = UIButton(type: .custom)
@@ -64,8 +86,6 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	}
 
 	private func setupView() {
-		navigationFooterItem?.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.DeltaOnboarding.primaryButton
 		setupTableView()
 	}
 
