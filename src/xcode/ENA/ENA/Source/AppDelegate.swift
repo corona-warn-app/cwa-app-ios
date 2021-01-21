@@ -25,7 +25,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	func requestUpdatedExposureState()
 }
 
-@UIApplicationMain
 // swiftlint:disable:next type_body_length
 class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, UNUserNotificationCenterDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
