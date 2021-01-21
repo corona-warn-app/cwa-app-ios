@@ -84,8 +84,6 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		currentNewFeaturesShownForVersionLabel.text = "New Features info shown for version: \(store.newVersionFeaturesShownForVersion)"
 	}
 
-	
-	
 	@objc
 	private func saveNewFeatureVersionButtonTapped() {
 		store.newVersionFeaturesShownForVersion = currentNewFeaturesShownForVersionTextField.text ?? store.newVersionFeaturesShownForVersion

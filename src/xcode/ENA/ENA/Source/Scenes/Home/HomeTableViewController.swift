@@ -436,8 +436,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		})
 	}
 	
-	
-
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
