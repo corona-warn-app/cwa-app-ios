@@ -79,9 +79,16 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let store = MockTestStore()
 		var config = CachingHTTPClientMock.staticAppConfig
 		config.supportedCountries = []
-		let client = CachingHTTPClientMock(store: store)
 
 		let gotValue = expectation(description: "got countries list")
+		gotValue.expectedFulfillmentCount = 2
+
+		let client = CachingHTTPClientMock(store: store)
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			completeWith((.success(config), nil))
+			gotValue.fulfill()
+		}
 
 		let cache = CachedAppConfiguration(client: client, store: store)
 		cache
