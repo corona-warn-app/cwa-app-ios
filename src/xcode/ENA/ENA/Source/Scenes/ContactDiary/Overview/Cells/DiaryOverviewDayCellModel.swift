@@ -32,6 +32,20 @@ final class DiaryOverviewDayCellModel {
 		}
 	}
 
+	var exposureHistoryAccessibilityIdentifier: String? {
+		switch historyExposure {
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow
+			case .high:
+				return AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh
+			}
+		case .none:
+			return nil
+		}
+	}
+
 	var exposureHistoryImage: UIImage? {
 		switch historyExposure {
 		case let .encounter(risk):
