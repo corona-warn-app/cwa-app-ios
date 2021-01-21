@@ -11,14 +11,34 @@ class DiaryOverviewViewModel {
 
 	init(
 		diaryStore: DiaryStoringProviding,
-		store: Store
+		store: Store,
+		homeState: HomeState? = nil
 	) {
 		self.diaryStore = diaryStore
 		self.secureStore = store
 
+		$days
+			.receive(on: RunLoop.main.ocombine)
+			.sink { [weak self] _ in
+				self?.refreshTableView?()
+			}
+			.store(in: &subscriptions)
+
 		diaryStore.diaryDaysPublisher.sink { [weak self] in
 			self?.days = $0
 		}.store(in: &subscriptions)
+
+		homeState?.$riskState
+			.receive(on: RunLoop.main.ocombine)
+			.sink { [weak self] updatedRiskState in
+				switch updatedRiskState {
+				case .risk:
+					self?.refreshTableView?()
+				default:
+					Log.debug("risk state ")
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -28,10 +48,20 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@OpenCombine.Published private(set) var days: [DiaryDay] = []
+	@OpenCombine.Published private var days: [DiaryDay] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
+	}
+
+	var refreshTableView: (() -> Void)?
+
+	var count: Int {
+		days.count
+	}
+
+	func day(by indexPath: IndexPath) -> DiaryDay {
+		return days[indexPath.row]
 	}
 
 	func numberOfRows(in section: Int) -> Int {
