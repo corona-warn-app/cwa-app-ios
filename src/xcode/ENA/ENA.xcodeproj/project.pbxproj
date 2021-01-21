@@ -1599,6 +1599,7 @@
 				019C9F31258951B900B26392 /* LocationVisit.swift */,
 				2E67C33225B987D2008C6C90 /* DiaryExportItem.swift */,
 				BAB953D525B86015007B80C7 /* HistoryExposure.swift */,
+				2E67C39F25BAF7CB008C6C90 /* DiaryExportItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4389,6 +4390,7 @@
 				AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */,
 				2E67C33325B987D2008C6C90 /* DiaryExportItem.swift in Sources */,
 				B1E8C99D2479D4E7006DC678 /* DMSubmissionStateViewController.swift in Sources */,
+				2E67C3A025BAF7CB008C6C90 /* DiaryExportItem.swift in Sources */,
 				016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */,
 				71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */,
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
