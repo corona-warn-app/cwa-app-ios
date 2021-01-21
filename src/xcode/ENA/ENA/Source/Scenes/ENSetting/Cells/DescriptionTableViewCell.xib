@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,8 +20,8 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="whe-1h-PN2">
                         <rect key="frame" x="20" y="16" width="374" height="422"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65e-59-ALZ" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="374" height="26.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title 2" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65e-59-ALZ" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                 <nil key="highlightedColor"/>
@@ -28,8 +29,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-Vw-0Nj" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="46.5" width="374" height="81.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-Vw-0Nj" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="40.5" width="374" height="61"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -38,8 +39,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gn0-Ed-aNw" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="148" width="374" height="90"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gn0-Ed-aNw" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="121.5" width="374" height="101.5"/>
                                 <string key="text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -48,8 +49,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGF-Ve-ueV" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="258" width="374" height="72"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGF-Ve-ueV" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="243" width="374" height="81.5"/>
                                 <string key="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -58,8 +59,8 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFv-zp-TTb" userLabel="Label4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="350" width="374" height="72"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFv-zp-TTb" userLabel="Label4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="344.5" width="374" height="77.5"/>
                                 <string key="text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -92,19 +93,19 @@
     </objects>
     <designables>
         <designable name="65e-59-ALZ">
-            <size key="intrinsicContentSize" width="63.5" height="26.5"/>
+            <size key="intrinsicContentSize" width="47.5" height="20.5"/>
         </designable>
         <designable name="fFv-zp-TTb">
-            <size key="intrinsicContentSize" width="1190" height="18"/>
+            <size key="intrinsicContentSize" width="1320" height="20.5"/>
         </designable>
         <designable name="gn0-Ed-aNw">
-            <size key="intrinsicContentSize" width="1402.5" height="18"/>
+            <size key="intrinsicContentSize" width="1554.5" height="20.5"/>
         </designable>
         <designable name="h6c-Vw-0Nj">
-            <size key="intrinsicContentSize" width="1115.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="1068.5" height="20.5"/>
         </designable>
         <designable name="oGF-Ve-ueV">
-            <size key="intrinsicContentSize" width="1190" height="18"/>
+            <size key="intrinsicContentSize" width="1320" height="20.5"/>
         </designable>
     </designables>
     <resources>

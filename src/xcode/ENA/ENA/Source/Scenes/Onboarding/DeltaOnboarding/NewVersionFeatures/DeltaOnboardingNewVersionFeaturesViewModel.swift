@@ -35,7 +35,8 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.body(text: AppStrings.NewVersionFeatures.release + " " + Bundle.main.appVersion)
+						.subheadline(text: AppStrings.NewVersionFeatures.release + " " + Bundle.main.appVersion,
+									 color: UIColor.enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesVersionInfo)
 					]
 				)
 			)
@@ -48,16 +49,13 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 						height: 250
 					),
 					cells: [
-						.body(text: AppStrings.NewVersionFeatures.generalDescription)
+						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
 					]
 				)
 			)
 			$0.add(
 				.section(
 					separators: .none,
-//					cells: [
-//						.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
-//					]
 					cells: buildNewFeaturesCells()
 				)
 			)
@@ -81,6 +79,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		for feature in newVersionFeatures {
 			let featureBulletPoint = NSMutableAttributedString(string: feature.title+"\n\t", attributes: boldTextAttribute)
 			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
 			cells.append(.bulletPoint(attributedText: featureBulletPoint))
 		}
 		return cells
