@@ -41,20 +41,21 @@ class CacheAppConfigMockTests: XCTestCase {
 	}
 
 	func testCacheSupportedCountries() throws {
-		var config = CachingHTTPClientMock.staticAppConfig
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
 		let gotValue = expectation(description: "got countries list")
 
-		CachedAppConfigurationMock(with: config)
+		let subscription = CachedAppConfigurationMock(with: config)
 			.supportedCountries()
 			.sink { countries in
 				XCTAssertEqual(countries.count, 6)
 				gotValue.fulfill()
 			}
-			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
+
+		subscription.cancel()
 	}
 
 	func testCacheEmptySupportedCountries() throws {
@@ -69,6 +70,6 @@ class CacheAppConfigMockTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 	}
 }
