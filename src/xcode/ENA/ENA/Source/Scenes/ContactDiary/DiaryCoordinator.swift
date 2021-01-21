@@ -169,9 +169,9 @@ class DiaryCoordinator {
 		} else {
 			exportString = ""
 		}
-
+		let exportItem = DiaryExportItem(subject: "", body: exportString)
 		let viewController = UIActivityViewController(
-			activityItems: [exportString],
+			activityItems: [exportItem],
 			applicationActivities: nil
 		)
 		parentNavigationController?.present(viewController, animated: true, completion: nil)
