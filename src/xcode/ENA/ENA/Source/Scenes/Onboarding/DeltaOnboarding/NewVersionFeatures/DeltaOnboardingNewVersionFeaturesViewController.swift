@@ -12,9 +12,7 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 
 	// MARK: - Initializers
 	
-	init(
-		supportedCountries: [Country]
-	) {
+	init() {
 		self.viewModel = DeltaOnboardingNewVersionFeaturesViewModel()
 		
 		super.init(nibName: nil, bundle: nil)

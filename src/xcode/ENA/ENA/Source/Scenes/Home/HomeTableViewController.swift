@@ -456,7 +456,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store, supportedCountries: supportedCountries)
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
 				]
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
