@@ -27,6 +27,8 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	}
 
 	// MARK: - Internal
+	
+	typealias DynamicNewVersionFeatureCell = DynamicLegalCell
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
@@ -53,6 +55,9 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			$0.add(
 				.section(
 					separators: .none,
+//					cells: [
+//						.bulletPoint(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1, spacing: .large),
+//					]
 					cells: buildNewFeaturesCells()
 				)
 			)
@@ -63,35 +68,21 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	// MARK: - Private
 	
 	private var newVersionFeatures: [NewVersionFeature] = []
-
+	
 	private func buildNewFeaturesCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
+		let boldTextAttribute: [NSAttributedString.Key: Any] = [
+			NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+		]
+		let normalTextAttribute: [NSAttributedString.Key: Any] = [
+			NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+		]
+		
 		for feature in newVersionFeatures {
-			cells.append(.headline(text: feature.title))
-			cells.append(.body(text: feature.description))
+			let featureBulletPoint = NSMutableAttributedString(string: feature.title+"\n\t", attributes: boldTextAttribute)
+			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+			cells.append(.bulletPoint(attributedText: featureBulletPoint))
 		}
 		return cells
 	}
-
-//	private func buildCountryCells() -> [DynamicCell] {
-//		var cells: [DynamicCell] = []
-//		if supportedCountries.isEmpty {
-//			cells = [
-//				.headline(
-//					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle,
-//					accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailableTitle
-//				),
-//				.body(
-//					text: AppStrings.DeltaOnboarding.participatingCountriesListUnavailable,
-//						 accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.participatingCountriesListUnavailable
-//					 )
-//			]
-//		} else {
-//			cells.append(.headline(
-//				text: AppStrings.ExposureSubmissionWarnOthers.supportedCountriesTitle,
-//						 accessibilityIdentifier: nil
-//					 ))
-//		}
-//		return cells
-//	}
 }
