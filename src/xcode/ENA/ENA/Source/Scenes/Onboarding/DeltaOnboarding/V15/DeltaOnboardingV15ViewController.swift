@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate {
+class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate, DismissHandling {
 
 	// MARK: - Attributes
 
@@ -30,15 +30,13 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.navigationController?.presentationController?.delegate = self
-
 		setupView()
 		setupRightBarButtonItem()
 	}
 	
-	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+	// MARK: - Protocol DismissHandling
 	
-	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+	func wasAttemptedToBeDismissed() {
 		finished?()
 	}
 	
