@@ -73,7 +73,7 @@ class DiaryOverviewViewModel {
 
 	func cellModel(for indexPath: IndexPath) -> DiaryOverviewDayCellModel {
 		let diaryDay = days[indexPath.row]
-		let currentHistoryExposure = historyExposure(by: diaryDay.date)
+		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
 		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure)
 	}
 
