@@ -14,7 +14,6 @@ final class RiskProvider: RiskProviding {
 	init(
 		configuration: RiskProvidingConfiguration,
 		store: Store,
-		contactDiaryStore: DiaryStoring,
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
@@ -24,7 +23,6 @@ final class RiskProvider: RiskProviding {
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
-		self.contactDiaryStore = contactDiaryStore
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
@@ -107,7 +105,6 @@ final class RiskProvider: RiskProviding {
     private typealias Completion = (RiskProviderResult) -> Void
 
 	private let store: Store
-	private let contactDiaryStore: DiaryStoring
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
 	private let riskCalculation: RiskCalculationProtocol
@@ -317,7 +314,6 @@ final class RiskProvider: RiskProviding {
 			)
 
 			store.riskCalculationResult = riskCalculationResult
-			contactDiaryStore.addRiskLevelPerDate(riskCalculationResult.riskLevelPerDate)
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 
 			completion(.success(risk))
@@ -450,6 +446,13 @@ extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
 
+		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let todayString = dateFormatter.string(from: Date())
+		guard let today = dateFormatter.date(from: todayString),
+			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
+			fatalError("Could not create date test data for riskLevelPerDate.")
+		}
+
 		switch risk.level {
 		case .high:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -461,7 +464,10 @@ extension RiskProvider {
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
 				calculationDate: Date(),
-				riskLevelPerDate: [Date(): .high]
+				riskLevelPerDate: [
+					today: .high,
+					someDaysAgo: .low
+				]
 			)
 		default:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -473,7 +479,10 @@ extension RiskProvider {
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
 				calculationDate: Date(),
-				riskLevelPerDate: [Date(): .low]
+				riskLevelPerDate: [
+					today: .low,
+					someDaysAgo: .low
+				]
 			)
 		}
 		successOnTargetQueue(risk: risk)

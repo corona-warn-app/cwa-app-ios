@@ -60,12 +60,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
+	/** the export is not required to be localized at the moment - tests can check for specific locale text at the moment*/
 	func export() -> Result<String, SQLiteErrorCode> {
 		var result: Result<String, SQLiteErrorCode>?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] export entries.", log: .localData)
-			var contentHeader = "Kontakte der letzten 14 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
+			var contentHeader = "Kontakte der letzten 15 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
 
 			let endExportDate = dateProvider.today
 			guard let startExportDate = Calendar.current.date(byAdding: .day, value: -(userVisiblePeriodInDays - 1), to: endExportDate) else {
@@ -366,12 +367,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		}
 
 		return _result
-	}
-
-	// implementation is part of TASK #4616
-	func addRiskLevelPerDate(_ riskLevelPerDate: [Date: RiskLevel]) -> DiaryStoringResult {
-		Log.debug("Insert to contact database here - missign at the moment")
-		return .success(0)
 	}
 
 	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
@@ -828,8 +823,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			let diaryEntries = personDiaryEntries + locationDiaryEntries
-			// ToDO: set exposure encouter / riskLevel
-			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries, exposureEncounter: .none)
+			let diaryDay = DiaryDay(dateString: dateString, entries: diaryEntries)
 			diaryDays.append(diaryDay)
 		}
 

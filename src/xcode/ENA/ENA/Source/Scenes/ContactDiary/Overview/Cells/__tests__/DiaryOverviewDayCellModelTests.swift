@@ -11,10 +11,9 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
-			entries: [],
-			exposureEncounter: .none
+			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .none)
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -33,10 +32,9 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
-			entries: [],
-			exposureEncounter: .encounter(.low)
+			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -53,10 +51,9 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
-			entries: [],
-			exposureEncounter: .encounter(.high)
+			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high))
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -73,10 +70,9 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
-			entries: [],
-			exposureEncounter: .encounter(.low)
+			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -94,10 +90,9 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
 				.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
-			],
-			exposureEncounter: .encounter(.low)
+			]
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
 
 		// WHEN
 		let detail = cellViewModel.exposureHistoryDetail

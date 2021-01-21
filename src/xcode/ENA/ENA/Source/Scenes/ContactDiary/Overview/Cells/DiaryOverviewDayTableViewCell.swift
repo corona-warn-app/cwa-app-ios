@@ -14,6 +14,7 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
 		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
+		exposureHistoryTitleLabel.accessibilityIdentifier = cellViewModel.exposureHistoryAccessibilityIdentifier
 		exposureHistoryDetailLabel.text = cellViewModel.exposureHistoryDetail
 
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -26,6 +27,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			])
 
 			let label = ENALabel()
+			label.adjustsFontForContentSizeCategory = true
+			label.style = .body
 
 			let entryStackView = UIStackView()
 			entryStackView.axis = .horizontal

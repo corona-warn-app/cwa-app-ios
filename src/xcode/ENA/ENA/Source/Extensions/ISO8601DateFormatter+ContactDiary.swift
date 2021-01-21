@@ -14,4 +14,11 @@ extension ISO8601DateFormatter {
 		return dateFormatter
 	}
 
+	static var contactDiaryUTCFormatter: ISO8601DateFormatter {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
+
+		return dateFormatter
+	}
+
 }

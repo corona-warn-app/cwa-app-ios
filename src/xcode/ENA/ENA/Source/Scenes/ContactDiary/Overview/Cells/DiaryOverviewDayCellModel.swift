@@ -9,16 +9,22 @@ final class DiaryOverviewDayCellModel {
 
 	// MARK: - Init
 
-	init(_ diaryDay: DiaryDay) {
+	init(
+		_ diaryDay: DiaryDay,
+		historyExposure: HistoryExposure
+	) {
 		self.diaryDay = diaryDay
+		self.historyExposure = historyExposure
 	}
 
 	// MARK: - Public
 
 	// MARK: - Internal
 
+	let historyExposure: HistoryExposure
+
 	var hideExposureHistory: Bool {
-		switch diaryDay.exposureEncounter {
+		switch historyExposure {
 		case .none:
 			return true
 		case .encounter:
@@ -26,8 +32,22 @@ final class DiaryOverviewDayCellModel {
 		}
 	}
 
+	var exposureHistoryAccessibilityIdentifier: String? {
+		switch historyExposure {
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow
+			case .high:
+				return AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh
+			}
+		case .none:
+			return nil
+		}
+	}
+
 	var exposureHistoryImage: UIImage? {
-		switch diaryDay.exposureEncounter {
+		switch historyExposure {
 		case let .encounter(risk):
 			switch risk {
 			case .low:
@@ -41,7 +61,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryTitle: String? {
-		switch diaryDay.exposureEncounter {
+		switch historyExposure {
 		case let .encounter(risk):
 			switch risk {
 			case .low:
@@ -56,7 +76,7 @@ final class DiaryOverviewDayCellModel {
 	}
 
 	var exposureHistoryDetail: String? {
-		switch diaryDay.exposureEncounter {
+		switch historyExposure {
 		case .encounter:
 			return selectedEntries.isEmpty ?
 				AppStrings.ContactDiary.Overview.riskText1 :

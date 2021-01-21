@@ -10,24 +10,16 @@ struct DiaryDay: Equatable {
 
 	init(
 		dateString: String,
-		entries: [DiaryEntry],
-		exposureEncounter: HistoryExposure
+		entries: [DiaryEntry]
 	) {
 		self.dateString = dateString
 		self.entries = entries
-		self.exposureEncounter = exposureEncounter
 	}
 
 	// MARK: - Internal
 
-	enum HistoryExposure: Equatable {
-		case encounter(RiskLevel)
-		case none
-	}
-
 	let dateString: String
 	let entries: [DiaryEntry]
-	let exposureEncounter: HistoryExposure
 
 	var selectedEntries: [DiaryEntry] {
 		entries.filter { $0.isSelected }
@@ -37,12 +29,23 @@ struct DiaryDay: Equatable {
 		let dateFormatter = DateFormatter()
 		dateFormatter.setLocalizedDateFormatFromTemplate("EEEEddMMyy")
 
-		return dateFormatter.string(from: date)
+		return dateFormatter.string(from: localMidnightDate)
+	}
+
+	var utcMidnightDate: Date {
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+
+		guard let date = dateFormatter.date(from: dateString) else {
+			Log.error("Could not get date from date string", log: .contactdiary)
+			return Date()
+		}
+
+		return date
 	}
 
 	// MARK: - Private
 
-	private var date: Date {
+	private var localMidnightDate: Date {
 		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
 
 		guard let date = dateFormatter.date(from: dateString) else {
