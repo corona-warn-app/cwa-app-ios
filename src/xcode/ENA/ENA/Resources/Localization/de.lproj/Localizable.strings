@@ -387,7 +387,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
 
 /* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "+498007540002";
+"ExposureSubmission_Hotline_Number" = "08007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
 
@@ -461,7 +461,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Schritt 2 von 2";
 
-"ExposureSubmission_PhoneNumber" = "+49 800 7540002";
+"ExposureSubmission_PhoneNumber" = "0800 7540002";
 
 "ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\ntäglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
@@ -1083,9 +1083,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
 
-"App_Information_Contact_Hotline_Text" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Text" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+498007540001";
+"App_Information_Contact_Hotline_Number" = "8007540001";
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 
