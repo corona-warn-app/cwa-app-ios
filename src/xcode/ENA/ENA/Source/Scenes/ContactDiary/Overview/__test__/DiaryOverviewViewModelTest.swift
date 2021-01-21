@@ -9,6 +9,40 @@ import OpenCombine
 
 class DiaryOverviewViewModelTest: XCTestCase {
 
+	/** riksupdate on homeState must trigger refrashTableview*/
+	func testGIVEN_ViewModel_WHEN_ChangeRiskLevel_THEN_Refresh() {
+		// GIVEN
+		let diaryStore = makeMockStore()
+		let store = MockTestStore()
+		let homeState = HomeState(
+			store: store,
+			riskProvider: MockRiskProvider(),
+			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
+			enState: .enabled,
+			exposureSubmissionService: MockExposureSubmissionService()
+		)
+		homeState.detectionMode = .automatic
+
+		let viewModel = DiaryOverviewViewModel(
+			diaryStore: diaryStore,
+			store: store,
+			homeState: homeState
+		)
+
+		let expectationRefreshTableView = expectation(description: "Refresh Tableview")
+		/*** why 4 times: 1 - initial value days + 1 - initial value homeState + 1 update HomeStat + 1 updata Diary days  */
+		expectationRefreshTableView.expectedFulfillmentCount = 4
+
+		viewModel.refreshTableView = {
+			expectationRefreshTableView.fulfill()
+		}
+
+		// WHEN
+		homeState.riskState = .risk(.mocked)
+		// THEN
+		wait(for: [expectationRefreshTableView], timeout: .medium)
+	}
+
 	func testDaysAreUpdatedWhenStoreChanges() throws {
 		let diaryStore = makeMockStore()
 		let store = MockTestStore()
@@ -19,13 +53,12 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 
 		let daysPublisherExpectation = expectation(description: "Days publisher called")
-		daysPublisherExpectation.expectedFulfillmentCount = 2
+		/*** why 3 times: 1 - initial value days + 1 - initial value homeState  + 1 updata Diary days  */
+		daysPublisherExpectation.expectedFulfillmentCount = 3
 
-		var subscriptions = [AnyCancellable]()
-		viewModel.$days.sink { _ in
+		viewModel.refreshTableView = {
 			daysPublisherExpectation.fulfill()
-		}.store(in: &subscriptions)
-
+		}
 		diaryStore.addContactPerson(name: "Martin Augst")
 
 		waitForExpectations(timeout: .medium)
@@ -47,8 +80,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
-
-		XCTAssertEqual(viewModel.days.count, 15)
+		XCTAssertEqual(viewModel.count, 15)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 15)
 	}
 
@@ -155,5 +187,5 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		return store
 	}
-	
+
 }

@@ -11,11 +11,13 @@ class DiaryCoordinator {
 	init(
 		store: Store,
 		diaryStore: DiaryStoringProviding,
-		parentNavigationController: UINavigationController
+		parentNavigationController: UINavigationController,
+		homeState: HomeState?
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
 		self.parentNavigationController = parentNavigationController
+		self.homeState = homeState
 	}
 
 	// MARK: - Internal
@@ -50,6 +52,7 @@ class DiaryCoordinator {
 
 	private let store: Store
 	private let diaryStore: DiaryStoringProviding
+	private let homeState: HomeState?
 
 	private weak var parentNavigationController: UINavigationController?
 
@@ -64,7 +67,8 @@ class DiaryCoordinator {
 		return DiaryOverviewTableViewController(
 			viewModel: DiaryOverviewViewModel(
 				diaryStore: diaryStore,
-				store: store
+				store: store,
+				homeState: homeState
 			),
 			onCellSelection: { [weak self] day in
 				self?.showDayScreen(day: day)
