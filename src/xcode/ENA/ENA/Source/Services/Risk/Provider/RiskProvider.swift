@@ -446,6 +446,13 @@ extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
 
+		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let todayString = dateFormatter.string(from: Date())
+		guard let today = dateFormatter.date(from: todayString),
+			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
+			fatalError("Could not create date test data for riskLevelPerDate.")
+		}
+
 		switch risk.level {
 		case .high:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -457,7 +464,10 @@ extension RiskProvider {
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
 				calculationDate: Date(),
-				riskLevelPerDate: [Date(): .high]
+				riskLevelPerDate: [
+					today: .high,
+					someDaysAgo: .low
+				]
 			)
 		default:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -469,7 +479,10 @@ extension RiskProvider {
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
 				calculationDate: Date(),
-				riskLevelPerDate: [Date(): .low]
+				riskLevelPerDate: [
+					today: .low,
+					someDaysAgo: .high
+				]
 			)
 		}
 		successOnTargetQueue(risk: risk)

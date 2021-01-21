@@ -14,8 +14,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryStackView.isHidden = cellViewModel.hideExposureHistory
 		exposureHistoryNoticeImageView.image = cellViewModel.exposureHistoryImage
 		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
+		exposureHistoryTitleLabel.accessibilityIdentifier = cellViewModel.exposureHistoryAccessibilityIdentifier
 		exposureHistoryDetailLabel.text = cellViewModel.exposureHistoryDetail
-
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		for entry in cellViewModel.selectedEntries {
