@@ -884,6 +884,7 @@ enum AppStrings {
 				static let exportActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionTitle", comment: "")
 				static let editPersonTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditPersonTitle", comment: "")
 				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
+				static let exportActionSubject = NSLocalizedString("ContactDiary_Overview_ActionSheet_ExportActionSubject", comment: "")
 			}
 		}
 
