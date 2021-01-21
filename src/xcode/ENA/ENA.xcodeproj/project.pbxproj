@@ -1543,9 +1543,9 @@
 			isa = PBXGroup;
 			children = (
 				019C9F5A2589537300B26392 /* __test__ */,
+				01F2A560257FC79F00DA96A6 /* Cells */,
 				01909845257E61350065D050 /* DiaryOverviewTableViewController.swift */,
 				019C9F1D25894CDD00B26392 /* DiaryOverviewViewModel.swift */,
-				01F2A560257FC79F00DA96A6 /* Cells */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
