@@ -25,7 +25,9 @@ final class CachedAppConfiguration {
 		guard shouldFetch() else { return }
 
 		// check for updated or fetch initial app configuration
-		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag).sink(receiveValue: { _ in }).store(in: &subscriptions)
+		getAppConfig(with: store.appConfigMetadata?.lastAppConfigETag)
+			.sink(receiveValue: { _ in })
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
