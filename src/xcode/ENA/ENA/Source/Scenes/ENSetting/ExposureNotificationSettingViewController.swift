@@ -36,7 +36,6 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		view.backgroundColor = .enaColor(for: .background)
 
 		title = AppStrings.ExposureNotificationSetting.title
-		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
 
 		registerCells()
@@ -47,7 +46,8 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
+		
+		navigationItem.largeTitleDisplayMode = .always
 		tableView.reloadData()
 	}
 
@@ -131,7 +131,12 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		let content = model.content[section]
 
 		guard content.cellType == .euTracingCell else { return }
-
+		
+		if #available(iOS 13, *) {
+			navigationItem.largeTitleDisplayMode = .always
+		} else {
+			navigationItem.largeTitleDisplayMode = .never
+		}
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
 		navigationController?.pushViewController(vc, animated: true)
 	}
