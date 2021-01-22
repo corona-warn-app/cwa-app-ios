@@ -446,7 +446,7 @@ extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
 
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
 		let todayString = dateFormatter.string(from: Date())
 		guard let today = dateFormatter.date(from: todayString),
 			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
