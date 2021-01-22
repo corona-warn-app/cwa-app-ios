@@ -125,7 +125,7 @@ struct FileLogger {
 	}()
 	private let logDateFormatter = ISO8601DateFormatter()
 
-	func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
+	private func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
 		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
 		return makeWriteFileHandle(with: logFileURL)
 	}
@@ -145,7 +145,7 @@ struct FileLogger {
 		return fileHandle
 	}
 
-	func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
+	private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
 		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
 		return makeReadFileHandle(with: logFileURL)
 	}
