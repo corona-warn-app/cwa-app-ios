@@ -121,7 +121,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt am %@ mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
-"ExposureDetection_Explanation_Text_High" = "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
+"ExposureDetection_Explanation_Text_High" = "Ihr Infektionsrisiko wird daher als erhöht eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen finden Sie in den FAQ.";
 
@@ -316,7 +316,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Corona-Warn-App kann dadurch keine Benachrichtigungen zum COVID-19-Risikostatus versenden und empfangen.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Wenn Sie die Risiko-Ermittlung nicht aktivieren, kann die App keine Benachrichtigungen zu Ihrem Risikostatus senden und empfangen.";
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
 
@@ -368,11 +368,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Onboarding EU Keys */
 
@@ -656,7 +656,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionSymptoms_Title" = "Symptome";
 
-"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen App-Nutzern genauer berechnet werden. Die Angabe von Symptomen ist freiwillig. Wenn Sie keine Symptome mitteilen wollen, wählen Sie „Keine Angabe“.";
+"ExposureSubmissionSymptoms_Introduction" = "Wenn Sie angeben, ob und wann eventuelle Corona-Symptome bei Ihnen aufgetreten sind, kann das Infektionsrisiko von anderen Personen genauer berechnet werden. Die Angabe von Symptomen ist freiwillig. Wenn Sie keine Symptome mitteilen wollen, wählen Sie „Keine Angabe“.";
 
 "ExposureSubmissionSymptoms_Description" = "Sind bei Ihnen in den letzten Tagen eines oder mehrere der folgenden Symptome aufgetreten?";
 
@@ -968,13 +968,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Thank_You_Card_Further_Info_Item_Title" = "Weitere Infos:";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
+"Home_Thank_You_Card_14Days_Item_Title" = "Die Quarantänezeit beträgt in der Regel 14 Tage. Bitte beobachten Sie genau, wie sich Ihre Symptome entwickeln.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Erfassen Sie dabei alle Personen, zu denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten. Nutzen Sie hierfür Ihr Kontakt-Tagebuch. Sie können die Einträge einfach exportieren und ausdrucken oder als E-Mail verschicken.";
 
 "Home_Thank_You_Card_App_Item_Title" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone besitzen oder die App nicht installiert haben.";
 
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend 
+sein.";
 
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Befund positiv";
@@ -1054,7 +1055,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Alert_RiskStatusLowered_Title" = "Änderung Ihres Risikostatus";
 
-"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als 14 Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n1. Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n2. Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
+"Home_Alert_RiskStatusLowered_Message" = "Die Risiko-Begegnung, die zu einem erhöhten Risiko für Sie geführt hat, liegt mehr als 14 Tage zurück. Daher wird das Infektionsrisiko wieder als niedrig für Sie eingestuft.\n\nSo verhalten Sie sich richtig:\n Wenn Sie keine Symptome von COVID-19 aufweisen, halten Sie sich an die allgemein geltenden Verhaltensregeln zu Abstand und Hygiene.\n Wenn Sie Symptome von COVID-19 aufweisen, empfehlen wir, dass Sie Ihren Arzt aufsuchen und sich testen lassen.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
