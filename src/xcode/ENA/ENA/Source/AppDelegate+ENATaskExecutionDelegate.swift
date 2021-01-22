@@ -100,6 +100,12 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
+		// First check if user activated notification setting
+		guard self.store.allowTestsStatusNotification else {
+			completion(false)
+			return
+		}
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
@@ -121,11 +127,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				// Do not trigger notifications for pending or expired results.
 				Log.info("TestResult pending or expired", log: .api)
 			case .success(let testResult):
-				// Before presenting a local notification, first check if user activated notification setting
-				guard self.store.allowTestsStatusNotification else {
-					Log.info("Successfuly got TestResult: \(testResult.stringValue)", log: .api)
-					return
-				}
 				Log.info("Triggering Notification to inform user about TestResult: \(testResult.stringValue)", log: .api)
 				// We attach the test result to determine which screen to show when user taps the notification
 				UNUserNotificationCenter.current().presentNotification(
