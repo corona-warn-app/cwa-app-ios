@@ -26,12 +26,9 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 		super.init(style: .plain)
 
-		viewModel.$days
-			.receive(on: RunLoop.main.ocombine)
-			.sink { [weak self] _ in
-				self?.tableView.reloadData()
-			}
-			.store(in: &subscriptions)
+		self.viewModel.refreshTableView = { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	@available(*, unavailable)
@@ -86,7 +83,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 			return
 		}
 
-		onCellSelection(viewModel.days[indexPath.row])
+		onCellSelection(viewModel.day(by: indexPath))
 	}
 
 	// MARK: - Private
@@ -128,9 +125,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
-
-		cell.configure(day: viewModel.days[indexPath.row])
-
+		cell.configure(cellViewModel: viewModel.cellModel(for: indexPath))
 		return cell
 	}
 	
