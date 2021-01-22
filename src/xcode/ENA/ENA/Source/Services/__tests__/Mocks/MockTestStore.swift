@@ -52,7 +52,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
-	var diaryInfoScreenShown: Bool = false
+	var journalWithExposureHistoryInfoScreenShown: Bool = false
 
 	#if !RELEASE
 	// Settings from the debug menu.
