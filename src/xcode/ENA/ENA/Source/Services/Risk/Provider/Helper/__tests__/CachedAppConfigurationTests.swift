@@ -54,6 +54,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 	}
 
 	func testCacheSupportedCountries() throws {
+		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
+
 		let store = MockTestStore()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
@@ -62,32 +64,45 @@ final class CachedAppConfigurationTests: XCTestCase {
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
+			fetchedFromClientExpectation.fulfill()
 		}
 
 		let gotValue = expectation(description: "got countries list")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
-		let subscription = cache
-			.supportedCountries()
-			.sink { countries in
-				XCTAssertEqual(countries.count, 6)
-				gotValue.fulfill()
-			}
+		wait(for: [fetchedFromClientExpectation], timeout: .medium)
 
-		waitForExpectations(timeout: .medium)
+		let subscription = cache
+				.supportedCountries()
+				.sink { countries in
+					XCTAssertEqual(countries.count, 6)
+					gotValue.fulfill()
+				}
+
+		wait(for: [gotValue], timeout: .medium)
 
 		subscription.cancel()
 	}
 
 	func testCacheEmptySupportedCountries() throws {
+		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
+
 		let store = MockTestStore()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
+
 		let client = CachingHTTPClientMock(store: store)
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			completeWith((.success(config), nil))
+			fetchedFromClientExpectation.fulfill()
+		}
 
 		let gotValue = expectation(description: "got countries list")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
+		wait(for: [fetchedFromClientExpectation], timeout: .medium)
+
 		let subscription = cache
 			.supportedCountries()
 			.sink { countries in
@@ -96,7 +111,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 				gotValue.fulfill()
 			}
 
-		waitForExpectations(timeout: .medium)
+		wait(for: [gotValue], timeout: .medium)
 
 		subscription.cancel()
 	}
