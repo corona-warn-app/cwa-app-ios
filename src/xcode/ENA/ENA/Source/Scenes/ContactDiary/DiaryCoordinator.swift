@@ -11,11 +11,13 @@ class DiaryCoordinator {
 	init(
 		store: Store,
 		diaryStore: DiaryStoringProviding,
-		parentNavigationController: UINavigationController
+		parentNavigationController: UINavigationController,
+		homeState: HomeState?
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
 		self.parentNavigationController = parentNavigationController
+		self.homeState = homeState
 	}
 
 	// MARK: - Internal
@@ -25,8 +27,8 @@ class DiaryCoordinator {
 
 		#if DEBUG
 		if isUITesting {
-			if let diaryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
-				store.diaryInfoScreenShown = (diaryInfoScreenShown != "NO")
+			if let journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
+				store.journalWithExposureHistoryInfoScreenShown = (journalWithExposureHistoryInfoScreenShown != "NO")
 			}
 
 			if let journalRemoveAllPersons = UserDefaults.standard.string(forKey: "journalRemoveAllPersons"),
@@ -50,19 +52,24 @@ class DiaryCoordinator {
 
 	private let store: Store
 	private let diaryStore: DiaryStoringProviding
+	private let homeState: HomeState?
 
 	private weak var parentNavigationController: UINavigationController?
 
 	private var infoScreenShown: Bool {
-		get { store.diaryInfoScreenShown }
-		set { store.diaryInfoScreenShown = newValue }
+		get { store.journalWithExposureHistoryInfoScreenShown }
+		set { store.journalWithExposureHistoryInfoScreenShown = newValue }
 	}
 
 	// MARK: Show Screens
 
 	private lazy var overviewScreen: DiaryOverviewTableViewController = {
 		return DiaryOverviewTableViewController(
-			viewModel: DiaryOverviewViewModel(store: diaryStore),
+			viewModel: DiaryOverviewViewModel(
+				diaryStore: diaryStore,
+				store: store,
+				homeState: homeState
+			),
 			onCellSelection: { [weak self] day in
 				self?.showDayScreen(day: day)
 			},

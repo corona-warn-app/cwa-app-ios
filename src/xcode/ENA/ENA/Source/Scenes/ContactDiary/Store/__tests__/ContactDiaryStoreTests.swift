@@ -366,7 +366,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		store.diaryDaysPublisher.sink { diaryDays in
 			// Only the last 14 days (including today) should be returned.
-			XCTAssertEqual(diaryDays.count, 14)
+			XCTAssertEqual(diaryDays.count, 15)
 
 			XCTAssertEqual(diaryDays[0].formattedDate, "Donnerstag, 31.12.20")
 		}.store(in: &subscriptions)
@@ -379,7 +379,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		let today = Date()
 
 		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
-			  let thirteenDaysAgo = Calendar.current.date(byAdding: .day, value: -13, to: today),
+			  let fourteenDaysAgo = Calendar.current.date(byAdding: .day, value: -14, to: today),
 			  let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -17, to: today) else {
 			fatalError("Could not create test dates.")
 		}
@@ -399,9 +399,9 @@ class ContactDiaryStoreTests: XCTestCase {
 		addLocationVisit(locationId: kincardineLocationId, date: tenDaysAgo, store: store)
 		addPersonEncounter(personId: maryBarryPersonId, date: tenDaysAgo, store: store)
 
-		// 16 days ago (should not be persisted)
-		addPersonEncounter(personId: maryBarryPersonId, date: thirteenDaysAgo, store: store)
-		addPersonEncounter(personId: emmaHicksPersonId, date: thirteenDaysAgo, store: store)
+		// 14 days ago (should not be persisted)
+		addPersonEncounter(personId: maryBarryPersonId, date: fourteenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksPersonId, date: fourteenDaysAgo, store: store)
 
 		// 17 days ago (should not be persisted)
 		addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
@@ -409,7 +409,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		store.diaryDaysPublisher.sink { diaryDays in
 			// Only the last 14 days (including today) should be returned.
-			XCTAssertEqual(diaryDays.count, 14)
+			XCTAssertEqual(diaryDays.count, 15)
 
 			for diaryDay in diaryDays {
 				XCTAssertEqual(diaryDay.entries.count, 4)
@@ -434,31 +434,31 @@ class ContactDiaryStoreTests: XCTestCase {
 			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: true)
 
 			// Test the data for thirteen days ago
-			let sixteenDaysAgoDiaryDay = diaryDays[13]
-			self.checkPersonEntry(entry: sixteenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: true)
-			self.checkPersonEntry(entry: sixteenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
+			let fourteenDaysAgoDiaryDay = diaryDays[14]
+			self.checkPersonEntry(entry: fourteenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: true)
+			self.checkPersonEntry(entry: fourteenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
 
-			self.checkLocationEntry(entry: sixteenDaysAgoDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: false)
-			self.checkLocationEntry(entry: sixteenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: false)
+			self.checkLocationEntry(entry: fourteenDaysAgoDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: false)
+			self.checkLocationEntry(entry: fourteenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: false)
 
 		}.store(in: &subscriptions)
 	}
 
-	func test_When_cleanupIsCalled_Then_EntriesOlderThen16DaysAreDeleted() {
+	func test_When_cleanupIsCalled_Then_EntriesOlderThen17DaysAreDeleted() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
 		let today = Date()
 
-		guard let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -17, to: today) else {
+		guard let eightteenDaysAgo = Calendar.current.date(byAdding: .day, value: -18, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
 		let emmaHicksPersonId = addContactPerson(name: "Emma Hicks", to: store)
 		let kincardineLocationId = addLocation(name: "Kincardine", to: store)
 
-		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: seventeenDaysAgo, store: store)
-		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
+		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: eightteenDaysAgo, store: store)
+		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: eightteenDaysAgo, store: store)
 
 		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
 		XCTAssertNotNil(personEncouterBeforeCleanupResult)
@@ -597,7 +597,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
-			  let thirteenDaysAgo = Calendar.current.date(byAdding: .day, value: -13, to: today) else {
+			  let fourteenDaysAgo = Calendar.current.date(byAdding: .day, value: -14, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
@@ -620,10 +620,10 @@ class ContactDiaryStoreTests: XCTestCase {
 		addLocationVisit(locationId: amsterdamLocationId, date: tenDaysAgo, store: store)
 		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
 
-		addLocationVisit(locationId: amsterdamLocationId, date: thirteenDaysAgo, store: store)
-		addLocationVisit(locationId: berlinId, date: thirteenDaysAgo, store: store)
-		addPersonEncounter(personId: emmaHicksId, date: thirteenDaysAgo, store: store)
-		addPersonEncounter(personId: adamSandaleId, date: thirteenDaysAgo, store: store)
+		addLocationVisit(locationId: amsterdamLocationId, date: fourteenDaysAgo, store: store)
+		addLocationVisit(locationId: berlinId, date: fourteenDaysAgo, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: fourteenDaysAgo, store: store)
+		addPersonEncounter(personId: adamSandaleId, date: fourteenDaysAgo, store: store)
 
 		let exportResult = store.export()
 		guard case let .success(exportString) = exportResult else {
@@ -632,7 +632,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		let expectedString = """
-			Kontakte der letzten 14 Tage (02.12.2020 - 15.12.2020)
+			Kontakte der letzten 15 Tage (01.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
 			15.12.2020 Adam Sandale
@@ -641,10 +641,10 @@ class ContactDiaryStoreTests: XCTestCase {
 			15.12.2020 Berlin
 			05.12.2020 Emma Hicks
 			05.12.2020 Amsterdam
-			02.12.2020 Adam Sandale
-			02.12.2020 Emma Hicks
-			02.12.2020 Amsterdam
-			02.12.2020 Berlin
+			01.12.2020 Adam Sandale
+			01.12.2020 Emma Hicks
+			01.12.2020 Amsterdam
+			01.12.2020 Berlin
 
 			"""
 
@@ -699,7 +699,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		let store = ContactDiaryStore.make()
 		_ = store.addContactPerson(name: "Some Name")
 		let numberOfEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
-		XCTAssertEqual(numberOfEntries, 14)
+		XCTAssertEqual(numberOfEntries, 15)
 		store.close()
 
 		let fileManager = FileManager.default
@@ -721,7 +721,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		let storeAfterRescue = ContactDiaryStore.make()
 		_ = storeAfterRescue.addContactPerson(name: "Some Name")
 		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
-		XCTAssertEqual(numberOfEntriesAfterRescue, 14)
+		XCTAssertEqual(numberOfEntriesAfterRescue, 15)
 	}
 
 	func test_when_newDatabaseVersionExist_then_migrationIsExcuted() {
