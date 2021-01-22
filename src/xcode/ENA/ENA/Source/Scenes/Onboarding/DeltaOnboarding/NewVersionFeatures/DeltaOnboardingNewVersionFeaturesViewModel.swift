@@ -10,6 +10,11 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	// MARK: - Init
 
 	init() {
+		
+		// ADD NEW FEATURES HERE
+		
+		self.featureVersion = "1.12"
+		
 		// Exposure History Feature
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle, description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
@@ -29,13 +34,15 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 	// MARK: - Internal
 	
 	typealias DynamicNewVersionFeatureCell = DynamicLegalCell
+	
+	let featureVersion: String
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
 			$0.add(
 				.section(
 					cells: [
-						.subheadline(text: AppStrings.NewVersionFeatures.release + " " + Bundle.main.appVersion,
+						.subheadline(text: "\(AppStrings.NewVersionFeatures.release) \(self.featureVersion)",
 									 color: UIColor.enaColor(for: .textPrimary1), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesVersionInfo)
 					]
 				)
@@ -77,7 +84,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		]
 		
 		for feature in newVersionFeatures {
-			let featureBulletPoint = NSMutableAttributedString(string: feature.title+"\n\t", attributes: boldTextAttribute)
+			let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
 			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
 			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
 			cells.append(.bulletPoint(attributedText: featureBulletPoint))

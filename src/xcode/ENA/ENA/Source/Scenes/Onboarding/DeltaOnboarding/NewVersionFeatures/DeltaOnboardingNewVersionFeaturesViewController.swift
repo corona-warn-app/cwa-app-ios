@@ -12,7 +12,7 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 
 	// MARK: - Initializers
 	
-	init(hasCloseButton: Bool = true) {
+	init(featureVersion: String = "", hasCloseButton: Bool = true) {
 		self.viewModel = DeltaOnboardingNewVersionFeaturesViewModel()
 		self.hasCloseButton = hasCloseButton
 		super.init(nibName: nil, bundle: nil)
