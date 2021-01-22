@@ -30,7 +30,7 @@ class DiaryInfoViewModelTest: XCTestCase {
 
 		// THEN
 		switch dynamicHeader {
-		case .image(let image, _, _, _):
+		case .image(let image, _, _, _, _):
 			XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Illu_ContactDiary-Information"))
 		default:
 			XCTFail("Found wrong header image")
