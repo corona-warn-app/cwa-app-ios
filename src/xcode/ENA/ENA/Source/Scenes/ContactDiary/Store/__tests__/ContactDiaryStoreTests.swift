@@ -365,8 +365,8 @@ class ContactDiaryStoreTests: XCTestCase {
 		let store = makeContactDiaryStore(with: databaseQueue, dateProvider: dateProviderStub)
 
 		store.diaryDaysPublisher.sink { diaryDays in
-			// Only the last 14 days (including today) should be returned.
-			XCTAssertEqual(diaryDays.count, 15)
+			// Only the userVisiblePeriodInDays should be returned.
+			XCTAssertEqual(diaryDays.count, store.userVisiblePeriodInDays)
 
 			XCTAssertEqual(diaryDays[0].formattedDate, "Donnerstag, 31.12.20")
 		}.store(in: &subscriptions)
@@ -375,12 +375,16 @@ class ContactDiaryStoreTests: XCTestCase {
 	func test_When_sinkOnDiaryDays_Then_diaryDaysWithCorrectEntriesAreReturned() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
+		let tenDays = 10
+		let daysVisible = store.userVisiblePeriodInDays
+		let daysRetention = store.dataRetentionPeriodInDays
 
 		let today = Date()
 
-		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
-			  let fourteenDaysAgo = Calendar.current.date(byAdding: .day, value: -14, to: today),
-			  let seventeenDaysAgo = Calendar.current.date(byAdding: .day, value: -17, to: today) else {
+		guard daysVisible > tenDays,
+			  let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -tenDays, to: today),
+			  let daysVisibleMinusOne = Calendar.current.date(byAdding: .day, value: -(daysVisible - 1), to: today),
+			  let retensionDate = Calendar.current.date(byAdding: .day, value: -daysRetention, to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
@@ -395,21 +399,21 @@ class ContactDiaryStoreTests: XCTestCase {
 		addLocationVisit(locationId: kincardineLocationId, date: today, store: store)
 		addPersonEncounter(personId: emmaHicksPersonId, date: today, store: store)
 
-		// 10 days ago
+		// tenDaysAgoDate
 		addLocationVisit(locationId: kincardineLocationId, date: tenDaysAgo, store: store)
 		addPersonEncounter(personId: maryBarryPersonId, date: tenDaysAgo, store: store)
 
-		// 14 days ago (should not be persisted)
-		addPersonEncounter(personId: maryBarryPersonId, date: fourteenDaysAgo, store: store)
-		addPersonEncounter(personId: emmaHicksPersonId, date: fourteenDaysAgo, store: store)
+		// daysVisibleMinusOne ago (should not be persisted)
+		addPersonEncounter(personId: maryBarryPersonId, date: daysVisibleMinusOne, store: store)
+		addPersonEncounter(personId: emmaHicksPersonId, date: daysVisibleMinusOne, store: store)
 
-		// 17 days ago (should not be persisted)
-		addLocationVisit(locationId: kincardineLocationId, date: seventeenDaysAgo, store: store)
-		addLocationVisit(locationId: conistonLocationId, date: seventeenDaysAgo, store: store)
+		// retensionDate ago (should not be persisted)
+		addLocationVisit(locationId: kincardineLocationId, date: retensionDate, store: store)
+		addLocationVisit(locationId: conistonLocationId, date: retensionDate, store: store)
 
 		store.diaryDaysPublisher.sink { diaryDays in
-			// Only the last 14 days (including today) should be returned.
-			XCTAssertEqual(diaryDays.count, 15)
+			// Only the last daysVisible (including today) should be returned.
+			XCTAssertEqual(diaryDays.count, daysVisible)
 
 			for diaryDay in diaryDays {
 				XCTAssertEqual(diaryDay.entries.count, 4)
@@ -425,7 +429,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			self.checkLocationEntry(entry: todayDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: true)
 
 			// Test the data for ten days ago
-			let tenDaysAgoDiaryDay = diaryDays[10]
+			let tenDaysAgoDiaryDay = diaryDays[tenDays]
 
 			self.checkPersonEntry(entry: tenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: false)
 			self.checkPersonEntry(entry: tenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
@@ -433,8 +437,8 @@ class ContactDiaryStoreTests: XCTestCase {
 			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[2], name: "Coniston", id: conistonLocationId, isSelected: false)
 			self.checkLocationEntry(entry: tenDaysAgoDiaryDay.entries[3], name: "Kincardine", id: kincardineLocationId, isSelected: true)
 
-			// Test the data for thirteen days ago
-			let fourteenDaysAgoDiaryDay = diaryDays[14]
+			// Test the data for daysVisible - 1 days ago
+			let fourteenDaysAgoDiaryDay = diaryDays[daysVisible - 1]
 			self.checkPersonEntry(entry: fourteenDaysAgoDiaryDay.entries[0], name: "Emma Hicks", id: emmaHicksPersonId, isSelected: true)
 			self.checkPersonEntry(entry: fourteenDaysAgoDiaryDay.entries[1], name: "Mary Barry", id: maryBarryPersonId, isSelected: true)
 
@@ -444,21 +448,22 @@ class ContactDiaryStoreTests: XCTestCase {
 		}.store(in: &subscriptions)
 	}
 
-	func test_When_cleanupIsCalled_Then_EntriesOlderThen17DaysAreDeleted() {
+	func test_When_cleanupIsCalled_Then_EntriesOlderThenRetentionDaysAreDeleted() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
+		let daysRetention = store.dataRetentionPeriodInDays
 
 		let today = Date()
 
-		guard let eightteenDaysAgo = Calendar.current.date(byAdding: .day, value: -18, to: today) else {
+		guard let daysRetentionAgoDate = Calendar.current.date(byAdding: .day, value: -(daysRetention + 1), to: today) else {
 			fatalError("Could not create test dates.")
 		}
 
 		let emmaHicksPersonId = addContactPerson(name: "Emma Hicks", to: store)
 		let kincardineLocationId = addLocation(name: "Kincardine", to: store)
 
-		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: eightteenDaysAgo, store: store)
-		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: eightteenDaysAgo, store: store)
+		let personEncounterId = addPersonEncounter(personId: emmaHicksPersonId, date: daysRetentionAgoDate, store: store)
+		let locationVisitId = addLocationVisit(locationId: kincardineLocationId, date: daysRetentionAgoDate, store: store)
 
 		let personEncouterBeforeCleanupResult = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue)
 		XCTAssertNotNil(personEncouterBeforeCleanupResult)
@@ -596,15 +601,18 @@ class ContactDiaryStoreTests: XCTestCase {
 			fatalError("Failed to create date.")
 		}
 
-		guard let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -10, to: today),
-			  let fourteenDaysAgo = Calendar.current.date(byAdding: .day, value: -14, to: today) else {
-			fatalError("Could not create test dates.")
-		}
-
 		let dateProviderStub = DateProviderStub(today: today)
-
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue, dateProvider: dateProviderStub)
+
+		let tenDays = 10
+		let daysVisible = store.userVisiblePeriodInDays
+
+		guard daysVisible > tenDays,
+			  let tenDaysAgo = Calendar.current.date(byAdding: .day, value: -tenDays, to: today),
+			  let daysVisibleAgo = Calendar.current.date(byAdding: .day, value: -(daysVisible - 1), to: today) else {
+			fatalError("Could not create test dates.")
+		}
 
 		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
 		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
@@ -620,10 +628,10 @@ class ContactDiaryStoreTests: XCTestCase {
 		addLocationVisit(locationId: amsterdamLocationId, date: tenDaysAgo, store: store)
 		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
 
-		addLocationVisit(locationId: amsterdamLocationId, date: fourteenDaysAgo, store: store)
-		addLocationVisit(locationId: berlinId, date: fourteenDaysAgo, store: store)
-		addPersonEncounter(personId: emmaHicksId, date: fourteenDaysAgo, store: store)
-		addPersonEncounter(personId: adamSandaleId, date: fourteenDaysAgo, store: store)
+		addLocationVisit(locationId: amsterdamLocationId, date: daysVisibleAgo, store: store)
+		addLocationVisit(locationId: berlinId, date: daysVisibleAgo, store: store)
+		addPersonEncounter(personId: emmaHicksId, date: daysVisibleAgo, store: store)
+		addPersonEncounter(personId: adamSandaleId, date: daysVisibleAgo, store: store)
 
 		let exportResult = store.export()
 		guard case let .success(exportString) = exportResult else {
@@ -632,7 +640,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		let expectedString = """
-			Kontakte der letzten 15 Tage (01.12.2020 - 15.12.2020)
+			Kontakte der letzten \(daysVisible) Tage (01.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
 			15.12.2020 Adam Sandale
@@ -698,8 +706,10 @@ class ContactDiaryStoreTests: XCTestCase {
 	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() {
 		let store = ContactDiaryStore.make()
 		_ = store.addContactPerson(name: "Some Name")
+		let daysVisible = store.userVisiblePeriodInDays
+
 		let numberOfEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
-		XCTAssertEqual(numberOfEntries, 15)
+		XCTAssertEqual(numberOfEntries, daysVisible)
 		store.close()
 
 		let fileManager = FileManager.default
@@ -721,7 +731,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		let storeAfterRescue = ContactDiaryStore.make()
 		_ = storeAfterRescue.addContactPerson(name: "Some Name")
 		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
-		XCTAssertEqual(numberOfEntriesAfterRescue, 15)
+		XCTAssertEqual(numberOfEntriesAfterRescue, daysVisible)
 	}
 
 	func test_when_newDatabaseVersionExist_then_migrationIsExcuted() {
