@@ -142,6 +142,35 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual("PommesBude-RotWeiss", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
+	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
+		var screenshotCounter = 0
+		
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).tap()
+		
+		// add a person
+		addPersonToDayEntry("Andrea")
+		
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+		
+		// add a location
+		addLocationToDayEntry("Physiotherapie")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		
+		//take screenshot
+		snapshot("contact_journal_listing_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func testAddTwoPersonsAndOneLocationToDate() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
