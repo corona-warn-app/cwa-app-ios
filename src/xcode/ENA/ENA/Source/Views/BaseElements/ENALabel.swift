@@ -7,6 +7,36 @@ import UIKit
 
 @IBDesignable
 class ENALabel: DynamicTypeLabel {
+
+	// MARK: - Init
+
+	// MARK: - Overrides
+
+	override func prepareForInterfaceBuilder() {
+		self.applyStyle()
+		super.prepareForInterfaceBuilder()
+	}
+
+	override func awakeFromNib() {
+		self.applyStyle()
+		super.awakeFromNib()
+	}
+
+	override func accessibilityElementDidBecomeFocused() {
+		super.accessibilityElementDidBecomeFocused()
+
+		onAccessibilityFocus?()
+	}
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	var style: Style = .body { didSet { applyStyle() } }
+	var onAccessibilityFocus: (() -> Void)?
+
+	// MARK: - Private
+
 	@IBInspectable private var ibEnaStyle: String = "body" {
 		didSet {
 			if let style = Style(rawValue: ibEnaStyle) {
@@ -18,23 +48,12 @@ class ENALabel: DynamicTypeLabel {
 		}
 	}
 	
-	var style: Style = .body { didSet { applyStyle() } }
-	
-	override func prepareForInterfaceBuilder() {
-		self.applyStyle()
-		super.prepareForInterfaceBuilder()
-	}
-	
-	override func awakeFromNib() {
-		self.applyStyle()
-		super.awakeFromNib()
-	}
-	
 	private func applyStyle() {
 		self.font = UIFont.preferredFont(forTextStyle: self.style.textStyle)
 		self.dynamicTypeSize = self.style.fontSize
 		self.dynamicTypeWeight = self.style.fontWeight
 	}
+	
 }
 
 extension ENALabel {
