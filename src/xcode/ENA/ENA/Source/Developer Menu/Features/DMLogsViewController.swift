@@ -7,39 +7,40 @@
 import UIKit
 import os.log
 
-private extension OSLogType {
+enum LogSegment: Int, CaseIterable {
+	case all
+	case error
+	case debug
+	case info
+	case warning
 
-	static var allCases: [OSLogType] {
-		return [.error, .debug, .info, .default]
-	}
-
-	var index: Int {
+	var title: String {
 		switch self {
+		case .all:
+			return "All"
 		case .error:
-			return 0
+			return "Error"
 		case .debug:
-			return 1
+			return "Debug"
 		case .info:
-			return 2
-		case .default:
-			return 3
-		default:
-			return -1
+			return "Info"
+		case .warning:
+			return "Warning"
 		}
 	}
 
-	static func logType(for index: Int) -> OSLogType? {
-		switch index {
-		case 0:
-			return .error
-		case 1:
-			return .debug
-		case 2:
-			return .info
-		case 3:
-			return .default
-		default:
+	var osLogType: OSLogType? {
+		switch self {
+		case .all:
 			return nil
+		case .error:
+			return .error
+		case .debug:
+			return .debug
+		case .info:
+			return .info
+		case .warning:
+			return .default
 		}
 	}
 }
@@ -47,7 +48,8 @@ private extension OSLogType {
 /// A view controller that displays all logs that are usually logged via `Log.`.
 final class DMLogsViewController: UIViewController {
 
-	// MARK: Creating an Errors View Controller
+	// MARK: - Init
+
 	init() {
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -57,7 +59,7 @@ final class DMLogsViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: UIViewController
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -65,10 +67,9 @@ final class DMLogsViewController: UIViewController {
 		view.backgroundColor = ColorCompatibility.systemBackground
 		textView.textColor = ColorCompatibility.label
 
-		let segementedControlItems = OSLogType.allCases.map { $0.title }
+		let segementedControlItems = LogSegment.allCases.map { $0.title }
 		segmentedControl = UISegmentedControl(items: segementedControlItems)
-		segmentedControl.selectedSegmentIndex = OSLogType.error.index
-		updateTextView()
+		segmentedControl.selectedSegmentIndex = 0
 		segmentedControl.translatesAutoresizingMaskIntoConstraints = false
 		segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
 
@@ -85,6 +86,8 @@ final class DMLogsViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		updateTextView()
+
 		navigationController?.setToolbarHidden(false, animated: animated)
 		let exportItem = UIBarButtonItem(
 			title: "Export",
@@ -92,7 +95,7 @@ final class DMLogsViewController: UIViewController {
 			target: self,
 			action: #selector(exportErrorLog)
 		)
-		
+
 		let deleteItem = UIBarButtonItem(
 			title: "Delete Logs",
 			style: .plain,
@@ -100,7 +103,7 @@ final class DMLogsViewController: UIViewController {
 			action: #selector(deleteErrorLog)
 		)
 		deleteItem.tintColor = .red
-		
+
 		setToolbarItems(
 			[
 				exportItem,
@@ -116,7 +119,8 @@ final class DMLogsViewController: UIViewController {
 		super.viewWillAppear(animated)
 	}
 
-	// MARK: Properties
+	// MARK: - Private
+
 	/// Text view that displays the error messages.
 	private let textView: UITextView = {
 		let view = UITextView()
@@ -130,34 +134,29 @@ final class DMLogsViewController: UIViewController {
 
 	private var segmentedControl: UISegmentedControl!
 
-	private var selectedLogType: OSLogType {
-		return OSLogType.logType(for: segmentedControl.selectedSegmentIndex) ?? .error
-	}
-
-	// MAKR: Exporting the error messages
 	@objc
-	func exportErrorLog() {
+	private func exportErrorLog() {
 		let fileLogger = FileLogger()
 		let logString = fileLogger.readAllLogs()
 		let activityViewController = UIActivityViewController(activityItems: [logString], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)
 	}
-	
+
 	@objc
-	func deleteErrorLog() {
+	private func deleteErrorLog() {
 		let alert = UIAlertController(title: "Logs", message: "Do you really want to delete ALL logs?", preferredStyle: .alert)
-		
+
 		let cancelAction = UIAlertAction(title: "No, i want to keep them", style: .cancel, handler: nil)
 		alert.addAction(cancelAction)
-		
+
 		let deleteAction = UIAlertAction(title: "Yes, delete them ALL!", style: .destructive, handler: { [weak self] _ in
 			let fileLogger = FileLogger()
 			fileLogger.deleteLogs()
 			self?.updateTextView()
 		})
 		alert.addAction(deleteAction)
-		
+
 		self.present(alert, animated: true, completion: nil)
 	}
 
@@ -168,7 +167,18 @@ final class DMLogsViewController: UIViewController {
 
 	private func updateTextView() {
 		let fileLogger = FileLogger()
-		let logString = fileLogger.read(logType: selectedLogType)
+		let logString: String
+
+		guard let selectedSegment = LogSegment(rawValue: segmentedControl.selectedSegmentIndex) else {
+			return
+		}
+
+		if let osLogType = selectedSegment.osLogType {
+			logString = fileLogger.read(logType: osLogType)
+		} else {
+			logString = fileLogger.readAllLogs()
+		}
+
 		textView.text = logString
 	}
 }
