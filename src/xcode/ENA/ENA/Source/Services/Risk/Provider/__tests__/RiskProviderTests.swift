@@ -120,7 +120,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -268,6 +269,7 @@ final class RiskProviderTests: XCTestCase {
 		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
+
 		store.riskCalculationResult = nil
 		store.positiveTestResultWasShown = true
 
@@ -633,7 +635,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -688,7 +691,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -765,7 +769,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -841,7 +846,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -918,7 +924,8 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -996,7 +1003,8 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [:]
 		)
 	}
 

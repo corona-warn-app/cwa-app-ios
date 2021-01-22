@@ -246,7 +246,8 @@ class Coordinator: RequiresAppDependencies {
 		diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
-			parentNavigationController: rootViewController
+			parentNavigationController: rootViewController,
+			homeState: homeState
 		)
 
 		diaryCoordinator?.start()

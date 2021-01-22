@@ -51,6 +51,7 @@ final class ResetViewController: UIViewController {
 	@IBOutlet private weak var infoDescriptionLabel: UILabel!
 	@IBOutlet private weak var infoView: UIView!
 	@IBOutlet private weak var subtitleLabel: UILabel!
+	@IBOutlet private weak var subtitleLabelTopConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var footerView: UIView!
 	@IBOutlet private weak var imageView: UIImageView!
@@ -90,6 +91,12 @@ final class ResetViewController: UIViewController {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
+		
+		if #available(iOS 13, *) {
+			subtitleLabelTopConstraint.constant = 0
+		} else {
+			subtitleLabelTopConstraint.constant = 10
+		}
 
 		subtitleLabel.text = AppStrings.Reset.subtitle
 

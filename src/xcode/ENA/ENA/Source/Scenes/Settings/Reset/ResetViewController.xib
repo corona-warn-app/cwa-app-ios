@@ -22,6 +22,7 @@
                 <outlet property="resetButton" destination="8Zu-rF-tBG" id="f6s-hg-ldf"/>
                 <outlet property="scrollView" destination="ttx-BR-FJ6" id="rBy-95-0hA"/>
                 <outlet property="subtitleLabel" destination="FQR-bV-m9P" id="WQp-PP-NwE"/>
+                <outlet property="subtitleLabelTopConstraint" destination="GMI-Qe-ZYk" id="8ec-vc-fTV"/>
                 <outlet property="view" destination="rh8-Dg-42m" id="a3c-SD-r7C"/>
             </connections>
         </placeholder>
