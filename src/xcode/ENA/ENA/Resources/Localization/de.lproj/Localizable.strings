@@ -1365,6 +1365,8 @@ sein.";
 
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";
 
+"ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mein Kontakt-Tagebuch";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
 
