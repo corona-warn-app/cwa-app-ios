@@ -107,6 +107,10 @@ extension URLSession {
 	}
 }
 
+// MARK: Needs refactoring!
+
+typealias URLSessionError = URLSession.Response.Failure
+
 extension URLSession.Response {
 	enum Failure: Error {
 		/// The session received an `Error`.
@@ -119,6 +123,9 @@ extension URLSession.Response {
 		case noNetworkConnection
 		case serverError(Int)
 		case fakeResponse
+
+		/// HTTP 304 – Content on server has not changed from the given `If-None-Match` header in the request
+		case notModified
 
 		/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
 		///

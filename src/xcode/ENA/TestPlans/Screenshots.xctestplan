@@ -25,6 +25,7 @@
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_activeExposureLogging()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_noExposureLogging()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_Screenshot_SymptomsOptionYes()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmissionNotPossible()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitQR()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitTAN()",

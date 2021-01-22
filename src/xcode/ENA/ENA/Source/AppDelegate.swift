@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
-			setupAppDisabledUI()
+			setupUpdateOSUI()
 			
 			return true
 		}
@@ -89,12 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.riskProvidingConfiguration.detectionMode = detectionMode
-
 		riskProvider.requestRisk(userInitiated: false)
-
 		let state = exposureManager.exposureManagerState
-
 		updateExposureState(state)
+		
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
@@ -544,6 +542,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 	
 	private static func isAppDisabled() -> Bool {
+		#if DEBUG
+		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
+			return true
+		}
+		#endif
 		if #available(iOS 13.7, *) {
 			return false
 		} else if #available(iOS 13.5, *) {
@@ -555,9 +558,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 	
-	private func setupAppDisabledUI() {
+	private func setupUpdateOSUI() {
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = AppDisabledViewController()
+		window?.rootViewController = UpdateOSViewController()
 		window?.makeKeyAndVisible()
 	}
 
