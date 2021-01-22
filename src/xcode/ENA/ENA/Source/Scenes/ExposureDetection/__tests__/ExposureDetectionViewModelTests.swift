@@ -73,7 +73,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: calculationDate
+			calculationDate: calculationDate,
+			riskLevelPerDate: [mostRecentDateWithLowRisk: .low]
 		)
 
 		let homeState = HomeState(
@@ -180,7 +181,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: calculationDate
+			calculationDate: calculationDate,
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
 		)
 
 		let homeState = HomeState(
@@ -426,7 +428,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [Date(): .low]
 		)
 
 		let homeState = HomeState(
@@ -479,7 +482,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [Date(): .high]
 		)
 
 		let homeState = HomeState(

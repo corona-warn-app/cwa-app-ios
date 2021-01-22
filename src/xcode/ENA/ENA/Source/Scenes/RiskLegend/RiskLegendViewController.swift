@@ -68,9 +68,17 @@ class RiskLegendViewController: DynamicTableViewController {
 	}
 
 	private var model: DynamicTableViewModel {
-		DynamicTableViewModel([
+		var insets: UIEdgeInsets
+		if #available(iOS 13, *) {
+			insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+		} else {
+			insets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
+		}
+		return DynamicTableViewModel([
+			
 			.navigationSubtitle(
 				text: AppStrings.RiskLegend.subtitle,
+				insets: insets,
 				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle),
 			.section(
 				header: .image(UIImage(named: "Illu_Legende-Overview"),

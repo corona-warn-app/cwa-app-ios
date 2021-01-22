@@ -60,12 +60,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	var diaryDaysPublisher = CurrentValueSubject<[DiaryDay], Never>([])
 
+	/** the export is not required to be localized at the moment - tests can check for specific locale text at the moment*/
 	func export() -> Result<String, SQLiteErrorCode> {
 		var result: Result<String, SQLiteErrorCode>?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] export entries.", log: .localData)
-			var contentHeader = "Kontakte der letzten 14 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
+			var contentHeader = "Kontakte der letzten 15 Tage (%@ - %@)\nDie nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG."
 
 			let endExportDate = dateProvider.today
 			guard let startExportDate = Calendar.current.date(byAdding: .day, value: -(userVisiblePeriodInDays - 1), to: endExportDate) else {
@@ -623,8 +624,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	// MARK: - Private
 
-	private let dataRetentionPeriodInDays = 16 // Including today.
-	private let userVisiblePeriodInDays = 14 // Including today.
+	private let dataRetentionPeriodInDays = 17 // Including today.
+	private let userVisiblePeriodInDays = 15 // Including today.
 	private let key: String
 	private let dateProvider: DateProviding
 	private let schema: ContactDiarySchemaProtocol

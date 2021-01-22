@@ -173,11 +173,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	func testAddTwoPersonsAndOneLocationToDate() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
 
 		navigateToJournalOverview()
 
-		// check count for overview: day cell 14 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
 
 		// select 3th cell
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
@@ -209,8 +210,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
 
-		// check count for overview: day cell 14 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
 
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		let dayCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3)
@@ -225,8 +226,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		navigateToJournalOverview()
 
-		// check count for overview: day cell 14 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
 
 		// select 3th cell
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
@@ -251,8 +252,8 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		navigateToJournalOverview()
 
-		// check count for overview: day cell 14 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 14 + 1)
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
 
 		// select 3rd cell
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
@@ -308,6 +309,21 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+	}
+
+	func testOverviewWithRiskLevelHighOnToday() throws {
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+
+		navigateToJournalOverview()
+
+		// check count for overview: day cell 15 days plus 1 description cell
+		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
+
+		let highRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		XCTAssertNotNil( highRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh])
+
+		let lowRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		XCTAssertNotNil( lowRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow])
 	}
 
 	// MARK: - Private
