@@ -18,6 +18,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
+		onStatisticsInfoButtonTap: @escaping () -> Void,
 		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
@@ -32,6 +33,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
+		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
 		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
@@ -49,6 +51,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			.store(in: &subscriptions)
 
 		viewModel.state.$testResultLoadingError
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] testResultLoadingError in
 				guard let self = self, let testResultLoadingError = testResultLoadingError else { return }
 
@@ -66,6 +69,31 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 						title: AppStrings.Home.resultCardLoadingErrorTitle
 					)
 				}
+			}
+			.store(in: &subscriptions)
+
+		viewModel.state.$statistics
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] newStatistics in
+				// Only reload if stats change
+				guard newStatistics != viewModel.state.statistics else {
+					return
+				}
+				self?.reload()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.state.$statisticsLoadingError
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] statisticsLoadingError in
+				guard let self = self, statisticsLoadingError != nil else { return }
+
+				self.viewModel.state.statisticsLoadingError = nil
+
+				self.alertError(
+					message: AppStrings.Statistics.error,
+					title: nil
+				)
 			}
 			.store(in: &subscriptions)
 	}
@@ -86,9 +114,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		navigationItem.largeTitleDisplayMode = .never
 		tableView.backgroundColor = .enaColor(for: .separator)
 
-		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
 		viewModel.state.updateTestResult()
+		viewModel.state.updateStatistics()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -113,6 +142,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -128,6 +158,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .thankYou:
 				return thankYouCell(forRowAt: indexPath)
 			}
+		case .statistics:
+			return statisticsCell(forRowAt: indexPath)
 		case .diary:
 			return diaryCell(forRowAt: indexPath)
 		case .infos:
@@ -155,6 +187,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.heightForFooter(in: section)
 	}
 
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return viewModel.heightForRow(at: indexPath)
+	}
+
 	// MARK: - Protocol UITableViewDelegate
 	
 	// swiftlint:disable:next cyclomatic_complexity
@@ -171,6 +207,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			case .thankYou:
 				break
 			}
+		case .statistics:
+			break
 		case .diary:
 			onDiaryCellTap()
 		case .infos:
@@ -217,6 +255,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
+	private let onStatisticsInfoButtonTap: () -> Void
 	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
@@ -265,6 +304,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeThankYouTableViewCell.self)
 		)
 		tableView.register(
+			UINib(nibName: String(describing: HomeStatisticsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
+		)
+		tableView.register(
 			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
 		)
@@ -281,23 +324,27 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		guard tableView.visibleCells.contains(cell) else {
-			return
-		}
+		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
+		// https://developer.apple.com/forums/thread/117537
+		DispatchQueue.main.async { [self] in
+			guard tableView.visibleCells.contains(cell) else {
+				return
+			}
 
-		// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
-		guard viewModel.riskAndTestRows.count == 2 else {
-			tableView.reloadData()
-			return
-		}
+			// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
+			guard viewModel.riskAndTestRows.count == 2 else {
+				tableView.reloadData()
+				return
+			}
 
-		// Animate the changed cell height
-		tableView.performBatchUpdates(nil, completion: nil)
+			// Animate the changed cell height
+			tableView.performBatchUpdates(nil, completion: nil)
 
-		// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
-		for cell in tableView.visibleCells {
-			cell.layer.masksToBounds = false
-			cell.contentView.layer.masksToBounds = false
+			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			for cell in tableView.visibleCells {
+				cell.layer.masksToBounds = false
+				cell.contentView.layer.masksToBounds = false
+			}
 		}
 	}
 
@@ -377,6 +424,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		let cellModel = HomeThankYouCellModel()
 		cell.configure(with: cellModel)
+
+		return cell
+	}
+
+	private func statisticsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
+			fatalError("Could not dequeue HomeStatisticsTableViewCell")
+		}
+
+		cell.configure(
+			with: HomeStatisticsCellModel(homeState: viewModel.state),
+			onInfoButtonTap: { [weak self] in
+				self?.onStatisticsInfoButtonTap()
+			},
+			onAccessibilityFocus: { [weak self] in
+				self?.tableView.contentOffset.x = 0
+				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+			},
+			onUpdate: { [weak self] in
+				self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+			}
+		)
 
 		return cell
 	}
@@ -579,7 +648,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
 		viewModel.state.updateTestResult()
+		viewModel.state.updateStatistics()
 		showDeltaOnboardingAndAlertsIfNeeded()
 	}
 
+	// swiftlint:disable:next file_length
 }

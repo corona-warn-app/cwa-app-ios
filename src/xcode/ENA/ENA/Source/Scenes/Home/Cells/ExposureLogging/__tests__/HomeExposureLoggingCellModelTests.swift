@@ -99,12 +99,18 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 	}
 	
 	private func makeHomeState(with enState: ENStateHandler.State) -> HomeState {
-		HomeState(
-			store: MockTestStore(),
+		let store = MockTestStore()
+
+		return HomeState(
+			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: .init(),
 			enState: enState,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 	}
 }
