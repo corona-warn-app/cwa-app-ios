@@ -31,6 +31,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 		completionExpectation.expectedFulfillmentCount = 2
+		wait(for: [fetchedFromClientExpectation], timeout: .medium)
 
 		cache.appConfiguration()
 			.sink { config in
@@ -50,7 +51,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .medium)
+		wait(for: [completionExpectation], timeout: .medium)
 	}
 
 	func testCacheSupportedCountries() throws {
@@ -144,7 +145,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 		_ = CachedAppConfiguration(client: client, store: store)
 
 		XCTAssertNotNil(store.appConfigMetadata)
-		XCTAssertEqual(fetchedFromClientExpectation.expectedFulfillmentCount, 1)
 		waitForExpectations(timeout: .medium)
 	}
 }
