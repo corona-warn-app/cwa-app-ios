@@ -117,7 +117,8 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
 			numberOfDaysWithLowRisk: numberOfDaysWithLowRisk,
 			numberOfDaysWithHighRisk: numberOfDaysWithHighRisk,
-			calculationDate: calculationDate
+			calculationDate: calculationDate,
+			riskLevelPerDate: riskLevelPerDate
 		)
 	}
 

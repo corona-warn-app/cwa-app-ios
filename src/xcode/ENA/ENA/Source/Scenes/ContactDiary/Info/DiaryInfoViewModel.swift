@@ -78,8 +78,8 @@ struct DiaryInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
-						text: .string(AppStrings.ContactDiary.Information.exportTextformat),
+						UIImage(imageLiteralResourceName: "Icons_Attention_high_small"),
+						text: .string(AppStrings.ContactDiary.Information.exposureHistory),
 						alignment: .top
 					)
 				]

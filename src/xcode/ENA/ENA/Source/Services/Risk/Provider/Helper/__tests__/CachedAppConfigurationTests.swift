@@ -8,9 +8,8 @@ import OpenCombine
 
 final class CachedAppConfigurationTests: XCTestCase {
 
-	private var subscriptions = [AnyCancellable]()
-
 	func testCachedRequests() {
+		var subscriptions = Set<AnyCancellable>()
 
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
@@ -33,26 +32,30 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let completionExpectation = expectation(description: "app configuration completion called")
 		completionExpectation.expectedFulfillmentCount = 2
 
-		cache.appConfiguration().sink { config in
-			XCTAssertEqual(config, expectedConfig)
-			completionExpectation.fulfill()
-		}.store(in: &subscriptions)
+		cache.appConfiguration()
+			.sink { config in
+				XCTAssertEqual(config, expectedConfig)
+				completionExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
 
 		XCTAssertNotNil(store.appConfigMetadata)
 
 		// Should not trigger another call (expectation) to the actual client or a new risk calculation
 		// Remember: `expectedFulfillmentCount = 1`
-		cache.appConfiguration().sink { config in
-			XCTAssertEqual(config, expectedConfig)
-			completionExpectation.fulfill()
-		}.store(in: &subscriptions)
+		cache.appConfiguration()
+			.sink { config in
+				XCTAssertEqual(config, expectedConfig)
+				completionExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
 
 		waitForExpectations(timeout: .medium)
 	}
 
 	func testCacheSupportedCountries() throws {
 		let store = MockTestStore()
-		var config = CachingHTTPClientMock.staticAppConfig
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
 		let client = CachingHTTPClientMock(store: store)
@@ -64,36 +67,38 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let gotValue = expectation(description: "got countries list")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
-		cache
+		let subscription = cache
 			.supportedCountries()
 			.sink { countries in
 				XCTAssertEqual(countries.count, 6)
 				gotValue.fulfill()
 			}
-			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
+
+		subscription.cancel()
 	}
 
 	func testCacheEmptySupportedCountries() throws {
 		let store = MockTestStore()
-		var config = CachingHTTPClientMock.staticAppConfig
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
 		let client = CachingHTTPClientMock(store: store)
 
 		let gotValue = expectation(description: "got countries list")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
-		cache
+		let subscription = cache
 			.supportedCountries()
 			.sink { countries in
 				XCTAssertEqual(countries.count, 1)
 				XCTAssertEqual(countries.first, .defaultCountry())
 				gotValue.fulfill()
 			}
-			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
+
+		subscription.cancel()
 	}
 
 	// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-3781
