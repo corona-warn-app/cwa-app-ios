@@ -138,8 +138,7 @@ final class DMLogsViewController: UIViewController {
 	@objc
 	func exportErrorLog() {
 		let fileLogger = FileLogger()
-		var logString = String()
-		OSLogType.allCases.forEach { logString.append(fileLogger.read(logType: $0)) }
+		let logString = fileLogger.readAllLogs()
 		let activityViewController = UIActivityViewController(activityItems: [logString], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)

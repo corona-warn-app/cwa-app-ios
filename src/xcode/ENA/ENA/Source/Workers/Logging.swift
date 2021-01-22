@@ -118,18 +118,27 @@ struct FileLogger {
 		let fileManager = FileManager.default
 		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
 	}()
+	private let allLogsFileURL: URL = {
+		let fileManager = FileManager.default
+		let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+		return baseURL.appendingPathComponent("AllLogTypes.txt")
+	}()
 	private let logDateFormatter = ISO8601DateFormatter()
 
 	func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
-		let fileManager = FileManager.default
 		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
+		return makeWriteFileHandle(with: logFileURL)
+	}
 
-		if !fileManager.fileExists(atPath: logFileURL.path) {
+	private func makeWriteFileHandle(with url: URL) -> FileHandle? {
+		let fileManager = FileManager.default
+
+		if !fileManager.fileExists(atPath: url.path) {
 			try? fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
-			fileManager.createFile(atPath: logFileURL.path, contents: nil)
+			fileManager.createFile(atPath: url.path, contents: nil)
 		}
 
-		guard let fileHandle = try? FileHandle(forWritingTo: logFileURL) else {
+		guard let fileHandle = try? FileHandle(forWritingTo: url) else {
 			return nil
 		}
 
@@ -138,12 +147,11 @@ struct FileLogger {
 
 	func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
 		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
+		return makeReadFileHandle(with: logFileURL)
+	}
 
-		guard let fileHandle = try? FileHandle(forReadingFrom: logFileURL) else {
-			return nil
-		}
-
-		return fileHandle
+	private func makeReadFileHandle(with url: URL) -> FileHandle? {
+		return try? FileHandle(forReadingFrom: url)
 	}
 
 	func log(_ logMessage: String, logType: OSLogType) {
@@ -153,14 +161,28 @@ struct FileLogger {
 			  let logMessageData = prefixedLogMessage.data(using: encoding) else {
 			return
 		}
-
 		fileHandle.seekToEndOfFile()
 		fileHandle.write(logMessageData)
 		fileHandle.closeFile()
+
+		guard let allLogsFileHandle = makeWriteFileHandle(with: allLogsFileURL) else {
+			return
+		}
+		allLogsFileHandle.seekToEndOfFile()
+		allLogsFileHandle.write(logMessageData)
+		allLogsFileHandle.closeFile()
 	}
 
 	func read(logType: OSLogType) -> String {
 		guard let fileHandle = makeReadFileHandle(with: logType),
+			  let logString = String(data: fileHandle.readDataToEndOfFile(), encoding: encoding) else {
+			return ""
+		}
+		return logString
+	}
+
+	func readAllLogs() -> String {
+		guard let fileHandle = makeReadFileHandle(with: allLogsFileURL),
 			  let logString = String(data: fileHandle.readDataToEndOfFile(), encoding: encoding) else {
 			return ""
 		}
