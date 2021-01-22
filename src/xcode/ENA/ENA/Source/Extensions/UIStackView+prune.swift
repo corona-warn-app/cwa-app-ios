@@ -23,4 +23,13 @@ extension UIStackView {
 		// Remove the views from self
 		removedSubviews.forEach({ $0.removeFromSuperview() })
 	}
+	
+	func forceLayoutUpdate() {
+		// hiding a stack views subview forces the stack view to update its layout
+		// this is how we solve the layout bug when reusing stack views in table view cells
+		arrangedSubviews.forEach({ $0.isHidden = true })
+		setNeedsLayout()
+		layoutIfNeeded()
+		arrangedSubviews.forEach({ $0.isHidden = false })
+	}
 }

@@ -62,7 +62,7 @@ class RiskLegendViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		tableView.register(
-			UINib(nibName: String(describing: RiskLegendDotBodyCell.self), bundle: nil),
+			RiskLegendDotBodyCell.self,
 			forCellReuseIdentifier: RiskLegendViewController.CellReuseIdentifier.dotBody.rawValue
 		)
 	}
@@ -197,7 +197,7 @@ private extension DynamicCell {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
 			guard let cell = cell as? RiskLegendDotBodyCell else { return }
 			cell.dotView.backgroundColor = color
-			cell.textLabel?.text = text
+			cell.label.text = text
 			cell.accessibilityLabel = "\(text)\n\n\(accessibilityLabelColor)"
 			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
