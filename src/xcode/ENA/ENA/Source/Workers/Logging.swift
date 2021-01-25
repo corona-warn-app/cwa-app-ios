@@ -113,38 +113,7 @@ extension OSLogType {
 
 struct FileLogger {
 
-	private let encoding: String.Encoding = .utf8
-	private let logFileBaseURL: URL = {
-		let fileManager = FileManager.default
-		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
-	}()
-	private let logDateFormatter = ISO8601DateFormatter()
-
-	func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
-		let fileManager = FileManager.default
-		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
-
-		if !fileManager.fileExists(atPath: logFileURL.path) {
-			try? fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
-			fileManager.createFile(atPath: logFileURL.path, contents: nil)
-		}
-
-		guard let fileHandle = try? FileHandle(forWritingTo: logFileURL) else {
-			return nil
-		}
-
-		return fileHandle
-	}
-
-	func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
-		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
-
-		guard let fileHandle = try? FileHandle(forReadingFrom: logFileURL) else {
-			return nil
-		}
-
-		return fileHandle
-	}
+	// MARK: - Internal
 
 	func log(_ logMessage: String, logType: OSLogType) {
 		let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(logMessage)\n\n"
@@ -153,10 +122,16 @@ struct FileLogger {
 			  let logMessageData = prefixedLogMessage.data(using: encoding) else {
 			return
 		}
-
 		fileHandle.seekToEndOfFile()
 		fileHandle.write(logMessageData)
 		fileHandle.closeFile()
+
+		guard let allLogsFileHandle = makeWriteFileHandle(with: allLogsFileURL) else {
+			return
+		}
+		allLogsFileHandle.seekToEndOfFile()
+		allLogsFileHandle.write(logMessageData)
+		allLogsFileHandle.closeFile()
 	}
 
 	func read(logType: OSLogType) -> String {
@@ -166,9 +141,60 @@ struct FileLogger {
 		}
 		return logString
 	}
-	
+
+	func readAllLogs() -> String {
+		guard let fileHandle = makeReadFileHandle(with: allLogsFileURL),
+			  let logString = String(data: fileHandle.readDataToEndOfFile(), encoding: encoding) else {
+			return ""
+		}
+		return logString
+	}
+
 	func deleteLogs() {
 		try? FileManager.default.removeItem(at: logFileBaseURL)
+	}
+
+	// MARK: - Private
+
+	private let encoding: String.Encoding = .utf8
+	private let logFileBaseURL: URL = {
+		let fileManager = FileManager.default
+		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+	}()
+	private let allLogsFileURL: URL = {
+		let fileManager = FileManager.default
+		let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+		return baseURL.appendingPathComponent("AllLogTypes.txt")
+	}()
+	private let logDateFormatter = ISO8601DateFormatter()
+
+	private func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
+		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
+		return makeWriteFileHandle(with: logFileURL)
+	}
+
+	private func makeWriteFileHandle(with url: URL) -> FileHandle? {
+		let fileManager = FileManager.default
+
+		if !fileManager.fileExists(atPath: url.path) {
+			try? fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+			fileManager.createFile(atPath: url.path, contents: nil)
+		}
+
+		guard let fileHandle = try? FileHandle(forWritingTo: url) else {
+			return nil
+		}
+
+		return fileHandle
+	}
+
+	private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
+		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
+		return makeReadFileHandle(with: logFileURL)
+	}
+
+	private func makeReadFileHandle(with url: URL) -> FileHandle? {
+		return try? FileHandle(forReadingFrom: url)
 	}
 }
 

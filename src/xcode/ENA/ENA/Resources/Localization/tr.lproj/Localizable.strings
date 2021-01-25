@@ -854,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Bazı ülkeler, ortak bir exchange sunucusu üzerinden uluslararası uyarıları etkinleştirmek üzere birlikte çalışma yürütmektedir. Örneğin, diğer katılımcı ülkelerin resmi koronavirüs uygulamasının kullanıcıları ile temaslar da maruz kalma günlüğünde hesaba katılabilir.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Bunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır. \n\nRastgele kimlik listelerinin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
+"ExposureNotificationSetting_EU_Desc_2" = "Bunun için uygulama kendi uygulamalarından diğer kullanıcıları uyarmak için test sonuçlarını paylaşan tüm kullanıcıların rastgele kimliklerinden oluşan ve günlük olarak güncellenen listeleri indirir. Ardından bu liste iPhone'unuzun kaydettiği rastgele kimliklerle karşılaştırılır. \n\nListelerin indirmeleri genellikle ücretsizdir. Buna göre, mobil ağ operatörleri uygulamanın bu bağlamda kullandığı veriler için ücret almaz ve bu doğrultuda, diğer AB ülkelerindeki kullanımlar için dolaşım ücreti almaz. Daha fazla bilgi için lütfen mobil ağ operatörünüzle iletişime geçin.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Aşağıdaki ülkeler, uluslararası maruz kalma günlüğüne katılmaktadır:";
 
@@ -1258,7 +1258,7 @@
 
 "DeltaOnboarding_Terms_Button" = "Kullanım koşullarını görüntüle";
 
-"DeltaOnboarding_Terms_Description2" = "Kullanım Koşulları ve gizlilik bildirimi \"Uygulama Bilgileri\" başlığındaki menüde ve uygulama mağazanızdaki uygulama açıklamasında yer almaktadır. Değişiklikler, uygulamayı nasıl kullandığınızı etkilemeyecektir. Uygulamayı kullanmaya devam eder veya uygulamayı yeniden açarsanız güncellenen Kullanım Koşullarını kabul ettiğinizi varsayacağız.";
+"DeltaOnboarding_Terms_Description2" = "Kullanım koşulları ve gizlilik bildirimi \"Uygulama Bilgileri\" başlığındaki menüde ve uygulama mağazanızdaki uygulama açıklamasında yer almaktadır. Değişiklikler, uygulamayı nasıl kullandığınızı etkilemeyecektir. Uygulamayı kullanmaya devam eder veya uygulamayı yeniden açarsanız güncellenen kullanım koşullarını kabul ettiğinizi varsayacağız.";
 
 /* Warn other notifications */
 "WarnOthersNotification_Title" = "Yardımcı olabilirsiniz!";
@@ -1433,4 +1433,130 @@
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder" = "Kişi";
+
+/* - Trend on Cards */
+"Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
+
+"Statistics_Card_Trend_Decreasing" = "Trend: Aşağı";
+
+"Statistics_Card_Trend_Stable" = "Trend: Sabit";
+
+"Statistics_Card_TrendSemantic_Negative" = "Negatif";
+
+"Statistics_Card_TrendSemantic_Positive" = "Pozitif";
+
+"Statistics_Card_TrendSemantic_Neutral" = "Nötr";
+
+/* - Number Formatting */
+"Statistics_Card_Million" = "%@ Milyon";
+
+/* - Infections Card */
+"Statistics_Card_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
+
+"Statistics_Card_Infections_Today" = "Bugün";
+
+"Statistics_Card_Infections_Yesterday" = "Dün";
+
+"Statistics_Card_Infections_Date" = "%@";
+
+"Statistics_Card_Infections_SecondaryLabelTitle" = "7 günlük ortalama";
+
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Toplam";
+
+/* - Incidence Card */
+"Statistics_Card_Incidence_Title" = "7 Günlük Olay";
+
+"Statistics_Card_Incidence_Today" = "Bugüne kadar";
+
+"Statistics_Card_Incidence_Yesterday" = "Düne kadar";
+
+"Statistics_Card_Incidence_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_Incidence_SecondaryLabelTitle" = "her 100.000 vatandaşta onaylanan yeni enfeksiyon sayısı";
+
+/* - Key Submissions Card */
+"Statistics_Card_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
+
+"Statistics_Card_KeySubmissions_Today" = "Bugün";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Dün";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
+
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7 günlük ortalama";
+
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Toplam";
+
+"Statistics_Card_KeySubmissions_Footnote" = "Corona-Warn-App Hakkında";
+
+/* - Reproduction Number Card */
+"Statistics_Card_ReproductionNumber_Title" = "7 Günlük R Değeri";
+
+"Statistics_Card_ReproductionNumber_Today" = "Şu Anda";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Dün";
+
+"Statistics_Card_ReproductionNumber_Date" = "%@ tarihine kadar";
+
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "enfekte olan kişi başına ortalama enfeksiyon sayısı";
+
+/* Error */
+"Statistics_LoadingError" = "İstatistikler yüklenemiyor. Lütfen uygulamayı kapatın ve tekrar deneyin.";
+
+/* - Info Screen */
+"Statistics_Info_Title" = "Önemli Değerler";
+
+"Statistics_Info_Subtitle" = "Ülke geneli istatistiklerin açıklaması";
+
+"Statistics_Info_Infections_Title" = "Onaylanan Yeni Enfeksiyon Sayısı";
+
+"Statistics_Info_Infections_Text" = "Koronavirüs tanısı koyulan ve RKI’ye bildirilen kişi sayısı";
+
+"Statistics_Info_KeySubmissions_Title" = "Uygulama Kullanıcılarının Uyarıları";
+
+"Statistics_Info_KeySubmissions_Text" = "Koronavirüs tanısı koyulan ve uygulama üzerinden diğer kullanıcıları uyaran uygulama kullanıcılarının sayısı";
+
+"Statistics_Info_Incidence_Title" = "7 Günlük Olay";
+
+"Statistics_Info_Incidence_Text" = "Her 100.000 vatandaşta son 7 günde (bildirme tarihine göre) onaylanan toplam yeni enfeksiyon sayısı";
+
+"Statistics_Info_ReproductionNumber_Title" = "7 Günlük R Değeri";
+
+"Statistics_Info_ReproductionNumber_Text" = "Reprodüksiyon değeri R, enfekte olan bir kişinin ortalama olarak kaç kişiyi enfekte ettiğini belirtir. Geçerli değerde, en fazla son 5 günün verileri dikkate alınır.";
+
+"Statistics_Info_FAQLink_Text" = "Daha fazla bilgi için, istatistiklere ilişkin";
+
+"Statistics_Info_FAQLink_Title" = "SSS bölümüne bakın.";
+
+"Statistics_Info_Definitions_Title" = "Açıklama";
+
+"Statistics_Info_Period_Title" = "Dönem";
+
+"Statistics_Info_Yesterday_Title" = "Dün/Düne kadar";
+
+"Statistics_Info_Yesterday_Text" = "Önceki güne ait/önceki güne kadar olan sayıdır. Önceki güne ait hiçbir değer yoksa değer olan son güne ait veriler görüntülenir.";
+
+"Statistics_Info_Mean_Title" = "7 Günlük Ortalama";
+
+"Statistics_Info_Mean_Text" = "Son 7 güne ait ortalama değer";
+
+"Statistics_Info_Total_Title" = "Toplam";
+
+"Statistics_Info_Total_Text" = "Yıl başından ya da uygulamanın kullanıma sunulmasından itibaren toplam sayı (15 Haziran 2020)";
+
+"Statistics_Info_Trend_Title" = "Trend";
+
+"Statistics_Info_Trend_Text" = "Ok yönü trendin arttığını, azaldığını ya da sabit kaldığını belirtir. Sabit kalması, önceki güne göre %1’den az veya önceki haftaya göre %5’ten az sapma olduğu anlamına gelir. Renk ise bu trendin pozitif (yeşil), negatif (kırmızı) ya da nötr (gri) olduğunu belirtir. Trend için, önceki güne ait değer iki gün önceki değerle karşılaştırılır ya da 7 günlük trendler için son 7 güne ait ortalama değer ondan önceki 7 güne ait ortalama değerle karşılaştırılır.";
+
+"Statistics_Info_Trends_Title" = "Şu trendler gösterilebilir:";
+
+"Statistics_Info_Trends_Increasing" = "Trend: Yukarı";
+
+"Statistics_Info_Trends_Decreasing" = "Trend: Aşağı";
+
+"Statistics_Info_Trends_Stable" = "Trend: Sabit";
+
+"Statistics_Info_Trends_Footnote" = "Uygulama kullanıcıları tarafından yapılan uyarılara ilişkin trend değerlendirmesi geçerli enfeksiyon seviyesine göre değişiklik gösterir. Bu nedenle trend her zaman nötr olarak görüntülenir.";
+
+"Statistics_Info_Image_AccLabel" = "Bilgi için dört yer tutucu bulunan bir akıllı telefonun soyut resmi";
 
