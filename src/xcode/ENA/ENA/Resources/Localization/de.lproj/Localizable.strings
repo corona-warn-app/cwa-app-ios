@@ -1393,6 +1393,8 @@ sein.";
 
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Orte bearbeiten";
 
+"ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mein Kontakt-Tagebuch";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
 
@@ -1567,6 +1569,10 @@ sein.";
 "Statistics_Card_ReproductionNumber_Date" = "Bis %@";
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
+
+/* Error */
+
+"Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
 
 /* - Info Screen */
 

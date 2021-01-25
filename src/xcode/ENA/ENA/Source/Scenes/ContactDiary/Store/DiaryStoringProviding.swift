@@ -54,8 +54,21 @@ protocol DiaryStoring {
 
 protocol DiaryProviding {
 
+	var dataRetentionPeriodInDays: Int { get }
+	var userVisiblePeriodInDays: Int { get }
 	var diaryDaysPublisher: OpenCombine.CurrentValueSubject<[DiaryDay], Never> { get }
 
 	func export() -> Result<String, SQLiteErrorCode>
 	
+}
+
+/**
+This extension provides a default implementation for the properties.
+So we make sure to not declare the properties in any other implementations of this protocol, expecially in the unit tests. So the values are always the same.
+*/
+
+extension DiaryProviding {
+
+	var dataRetentionPeriodInDays: Int { 17 } // Including today.
+	var userVisiblePeriodInDays: Int { 15 } // Including today.
 }
