@@ -79,8 +79,8 @@ class RiskLegendViewController: DynamicTableViewController {
 			.navigationSubtitle(
 				text: AppStrings.RiskLegend.subtitle,
 				insets: insets,
-				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle,
-				accessibilityTraits: .none),
+				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle
+			),
 			.section(
 				header: .image(UIImage(named: "Illu_Legende-Overview"),
 							   accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel,

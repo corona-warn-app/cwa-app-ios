@@ -38,7 +38,7 @@ extension DynamicSection {
 		text: String,
 		insets: UIEdgeInsets = .init(top: 0, left: 16, bottom: 8, right: 16),
 		accessibilityIdentifier: String?,
-		accessibilityTraits: UIAccessibilityTraits = .header
+		accessibilityTraits: UIAccessibilityTraits = .none
 		) -> Self {
 		.section(cells: [
 			.subheadline(text: text, color: .enaColor(for: .textPrimary2), accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
