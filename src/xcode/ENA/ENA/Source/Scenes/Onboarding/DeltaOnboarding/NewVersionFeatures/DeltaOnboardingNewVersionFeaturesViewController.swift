@@ -28,8 +28,7 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-
-		setupView()
+		setupTableView()
 
 		if hasCloseButton {
 			setupRightBarButtonItem()
@@ -82,10 +81,6 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		navigationItem.rightBarButtonItem = barButtonItem
-	}
-
-	private func setupView() {
-		setupTableView()
 	}
 
 	private func setupTableView() {
