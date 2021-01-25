@@ -77,16 +77,11 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	private let hasCloseButton: Bool
 
 	private func setupRightBarButtonItem() {
-		let closeButton = UIButton(type: .custom)
-		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
-		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
-		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
-
-		let barButtonItem = UIBarButtonItem(customView: closeButton)
-		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
-
-		navigationItem.rightBarButtonItem = barButtonItem
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.finished?()
+			}
+		)
 	}
 
 	private func setupTableView() {
@@ -99,11 +94,6 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
-	}
-
-	@objc
-	func close() {
-		finished?()
 	}
 }
 
