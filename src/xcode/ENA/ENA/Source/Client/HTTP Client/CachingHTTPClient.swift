@@ -5,6 +5,12 @@
 import Foundation
 
 class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
+
+	enum CacheError: Error {
+		case dataFetchError(message: String?)
+		case dataVerificationError(message: String?)
+	}
+
 	/// The client configuration - mostly server endpoints per environment
 	let configuration: HTTPClient.Configuration
 
@@ -13,7 +19,6 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 
 	/// Verifier for the fetched & signed protobuf packages
 	let packageVerifier: SAPDownloadedPackage.Verifier
-
 
 	/// Initializer for the caching client.
 	///
@@ -108,13 +113,13 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 			let data = response.body,
 			let package = SAPDownloadedPackage(compressedData: data)
 		else {
-			let error = CachedAppConfiguration.CacheError.dataFetchError(message: "Failed to create downloaded package for app config.")
+			let error = CacheError.dataFetchError(message: "Failed to create downloaded package.")
 			throw error
 		}
 
 		// data verified?
 		guard self.packageVerifier(package) else {
-			let error = CachedAppConfiguration.CacheError.dataVerificationError(message: "Failed to verify app config signature")
+			let error = CacheError.dataVerificationError(message: "Failed to verify signature")
 			throw error
 		}
 

@@ -63,6 +63,7 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			label.numberOfLines = 0
 			label.lineBreakMode = .byWordWrapping
 			label.attributedText = string
+			label.setContentCompressionResistancePriority(.required, for: .vertical)
 			contentStackView1.addArrangedSubview(label)
 		}
 		
@@ -72,6 +73,7 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			label.numberOfLines = 0
 			label.lineBreakMode = .byWordWrapping
 			label.attributedText = string
+			label.setContentCompressionResistancePriority(.required, for: .vertical)
 			contentStackView2.addArrangedSubview(label)
 		}
 		

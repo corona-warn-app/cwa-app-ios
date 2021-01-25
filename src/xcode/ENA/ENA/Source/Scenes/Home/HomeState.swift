@@ -14,7 +14,8 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
 		enState: ENStateHandler.State,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		statisticsProvider: StatisticsProviding
 	) {
 		if let riskCalculationResult = store.riskCalculationResult {
 			self.riskState = .risk(
@@ -43,6 +44,7 @@ class HomeState: ENStateHandlerUpdating {
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
 		self.exposureSubmissionService = exposureSubmissionService
+		self.statisticsProvider = statisticsProvider
 
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
@@ -62,19 +64,26 @@ class HomeState: ENStateHandlerUpdating {
 		case error(Error)
 	}
 
+	enum StatisticsLoadingError {
+		case dataVerificationError
+	}
+
 	let store: Store
 
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
-	@OpenCombine.Published var detectionMode: DetectionMode = .fromBackgroundStatus()
-	@OpenCombine.Published var exposureManagerState: ExposureManagerState
+	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
+	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
 	@OpenCombine.Published var testResult: TestResult?
 	@OpenCombine.Published var testResultIsLoading: Bool = false
 	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
 
-	@OpenCombine.Published var exposureDetectionInterval: Int
+	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
+	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
+
+	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvider.manualExposureDetectionState
@@ -151,7 +160,32 @@ class HomeState: ENStateHandlerUpdating {
 		}
 	}
 
+	func updateStatistics() {
+		statisticsProvider.statistics()
+			.sink(
+				receiveCompletion: { [weak self] result in
+					switch result {
+					case .finished:
+						break
+					case .failure(let error):
+						// Propagate signature verification error to the user
+						if case CachingHTTPClient.CacheError.dataVerificationError = error {
+							self?.statisticsLoadingError = .dataVerificationError
+						}
+						Log.error("[HomeState] Could not load statistics: \(error)", log: .api)
+					}
+				}, receiveValue: { [weak self] in
+					self?.statistics = $0
+				}
+			)
+			.store(in: &subscriptions)
+	}
+
 	// MARK: - Private
+
+
+	private let statisticsProvider: StatisticsProviding
+	private var subscriptions = Set<AnyCancellable>()
 
 	private let exposureSubmissionService: ExposureSubmissionService
 

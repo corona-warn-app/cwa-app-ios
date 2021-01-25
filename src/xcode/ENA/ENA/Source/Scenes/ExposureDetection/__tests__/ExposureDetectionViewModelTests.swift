@@ -19,9 +19,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
@@ -82,9 +86,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
@@ -157,13 +165,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Check that button is shown in manual mode
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 
 		// Check that button is hidden again in automatic mode
 
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
@@ -190,9 +198,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
@@ -261,13 +273,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Check that button is shown in manual mode
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 
 		// Check that button is hidden again in automatic mode
 
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
@@ -280,9 +292,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 		homeState.riskState = .inactive
 
 		let viewModel = ExposureDetectionViewModel(
@@ -353,9 +369,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 		homeState.riskState = .detectionFailed
 
 		let viewModel = ExposureDetectionViewModel(
@@ -437,9 +457,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		var subscriptions = Set<AnyCancellable>()
 
@@ -491,9 +515,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		var subscriptions = Set<AnyCancellable>()
 
@@ -534,7 +562,11 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 		homeState.riskState = .inactive
 
@@ -576,7 +608,11 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 		homeState.riskState = .detectionFailed
 
