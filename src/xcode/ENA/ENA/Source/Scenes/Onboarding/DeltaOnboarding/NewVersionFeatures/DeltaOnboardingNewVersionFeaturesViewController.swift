@@ -55,9 +55,9 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 		return item
 	}()
 	
-	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+	// MARK: - Protocol DismissHandling
 	
-	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+	func wasAttemptedToBeDismissed() {
 		finished?()
 	}
 	
