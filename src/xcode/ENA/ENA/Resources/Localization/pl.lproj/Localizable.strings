@@ -854,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Kilka krajów współpracuje ze sobą w zakresie aktywacji transgranicznych alertów wysyłanych poprzez wspólny serwer wymiany danych. Podczas rejestrowania narażenia można na przykład uwzględniać również kontakty z użytkownikami oficjalnej aplikacji koronawirusowej z innych współpracujących krajów.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "W tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów za pośrednictwem swojej aplikacji, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój Iphone. \n\nPobieranie list losowych identyfikatorów jest zazwyczaj bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych z tego tytułu w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
+"ExposureNotificationSetting_EU_Desc_2" = "W tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów za pośrednictwem swojej aplikacji, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój IPhone. \n\nPobieranie list jest zazwyczaj bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych z tego tytułu w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Następujące kraje uczestniczą obecnie w międzynarodowym rejestrowaniu narażenia:";
 
@@ -1258,7 +1258,7 @@
 
 "DeltaOnboarding_Terms_Button" = "Wyświetl warunki korzystania";
 
-"DeltaOnboarding_Terms_Description2" = "Warunki korzystania i informacje o prywatności danych można znaleźć w menu w sekcji „Informacje aplikacji” oraz w opisie aplikacji w Twoim App Store. Zmiany nie będą miały wpływu na korzystanie przez Ciebie z aplikacji. W przypadku dalszego korzystania z aplikacji lub jej ponownego otwarcia, zakładamy, że użytkownik zgadza się na zaktualizowane warunki korzystania.";
+"DeltaOnboarding_Terms_Description2" = "Warunki korzystania i oświadczenie o ochronie prywatności znajdują się w menu w sekcji „Informacje o aplikacji” oraz w opisie aplikacji w Twoim sklepie z aplikacjami. Zmiany nie będą miały wpływu na korzystanie przez Ciebie z aplikacji. Dalsze korzystanie z aplikacji lub jej ponowne otwarcie będzie oznaczać akceptację zaktualizowanych warunków korzystania.";
 
 /* Warn other notifications */
 "WarnOthersNotification_Title" = "Możesz pomóc!";
@@ -1433,4 +1433,130 @@
 "ContactDiary_AddEditEntry_PersonTitle" = "Osoba";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder" = "Osoba";
+
+/* - Trend on Cards */
+"Statistics_Card_Trend_Increasing" = "Trend: Rosnący";
+
+"Statistics_Card_Trend_Decreasing" = "Trend: Malejący";
+
+"Statistics_Card_Trend_Stable" = "Trend: Stabilny";
+
+"Statistics_Card_TrendSemantic_Negative" = "Brak zakażenia";
+
+"Statistics_Card_TrendSemantic_Positive" = "Zakażenie";
+
+"Statistics_Card_TrendSemantic_Neutral" = "Wynik niejednoznaczny";
+
+/* - Number Formatting */
+"Statistics_Card_Million" = "%@ mln";
+
+/* - Infections Card */
+"Statistics_Card_Infections_Title" = "Potwierdzone nowe zakażenia";
+
+"Statistics_Card_Infections_Today" = "Dzisiaj";
+
+"Statistics_Card_Infections_Yesterday" = "Wczoraj";
+
+"Statistics_Card_Infections_Date" = "%@";
+
+"Statistics_Card_Infections_SecondaryLabelTitle" = "7-dniowa średnia";
+
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Suma";
+
+/* - Incidence Card */
+"Statistics_Card_Incidence_Title" = "7-dniowa zapadalność";
+
+"Statistics_Card_Incidence_Today" = "Do dzisiaj";
+
+"Statistics_Card_Incidence_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_Incidence_Date" = "Do %@";
+
+"Statistics_Card_Incidence_SecondaryLabelTitle" = "potwierdzone nowe zakażenia na 100 000 mieszkańców";
+
+/* - Key Submissions Card */
+"Statistics_Card_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
+
+"Statistics_Card_KeySubmissions_Today" = "Dzisiaj";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Wczoraj";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
+
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7-dniowa średnia";
+
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Suma";
+
+"Statistics_Card_KeySubmissions_Footnote" = "Informacje o aplikacji Corona-Warn-App";
+
+/* - Reproduction Number Card */
+"Statistics_Card_ReproductionNumber_Title" = "7-dniowa wartość R";
+
+"Statistics_Card_ReproductionNumber_Today" = "Aktualna";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Wczoraj";
+
+"Statistics_Card_ReproductionNumber_Date" = "Do %@";
+
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "Średnia liczba zakażeń na zakażoną osobę";
+
+/* Error */
+"Statistics_LoadingError" = "Nie można załadować statystyk. Zamknij aplikację i spróbuj ponownie.";
+
+/* - Info Screen */
+"Statistics_Info_Title" = "Wskaźniki";
+
+"Statistics_Info_Subtitle" = "Objaśnienie ogólnokrajowych statystyk";
+
+"Statistics_Info_Infections_Title" = "Potwierdzone nowe zakażenia";
+
+"Statistics_Info_Infections_Text" = "Liczba osób ze zdiagnozowanym zakażeniem koronawirusem zgłoszonych do RKI";
+
+"Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
+
+"Statistics_Info_KeySubmissions_Text" = "Liczba użytkowników aplikacji ze zdiagnozowanym zakażeniem koronawirusem, którzy ostrzegli innych za pomocą aplikacji";
+
+"Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
+
+"Statistics_Info_Incidence_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców";
+
+"Statistics_Info_ReproductionNumber_Title" = "7-dniowa wartość R";
+
+"Statistics_Info_ReproductionNumber_Text" = "Współczynnik reprodukcji R wskazuje liczbę osób, którą zaraża przeciętna osoba zakażona. Bieżąca wartość uwzględnia dane z ostatnich 5 dni.";
+
+"Statistics_Info_FAQLink_Text" = "Więcej informacji można znaleźć w";
+
+"Statistics_Info_FAQLink_Title" = "na stronie „Często zadawane pytania” w odpowiedziach dotyczących statystyk.";
+
+"Statistics_Info_Definitions_Title" = "Legenda";
+
+"Statistics_Info_Period_Title" = "Okres";
+
+"Statistics_Info_Yesterday_Title" = "Wczoraj/do wczoraj";
+
+"Statistics_Info_Yesterday_Text" = "Liczba dotycząca dnia poprzedniego/okresu do dnia poprzedniego. Jeśli dane liczbowe za poprzedni dzień nie są jeszcze dostępne, wyświetlana jest ostatnia data, dla której istnieją dane.";
+
+"Statistics_Info_Mean_Title" = "7-dniowa średnia";
+
+"Statistics_Info_Mean_Text" = "Średnia wartość z ostatnich 7 dni";
+
+"Statistics_Info_Total_Title" = "Suma";
+
+"Statistics_Info_Total_Text" = "Łączna liczba od początku roku lub wprowadzenia aplikacji na rynek (15 czerwca 2020 r.)";
+
+"Statistics_Info_Trend_Title" = "Trend";
+
+"Statistics_Info_Trend_Text" = "Kierunek strzałki wskazuje, czy trend rośnie, maleje, czy też pozostaje stabilny, czyli wykazuje odchylenie mniejsze niż 1% w porównaniu z poprzednim dniem lub 5% w porównaniu z poprzednim tygodniem. Kolor wskazuje, że trend jest pozytywny (zielony), negatywny (czerwony) lub neutralny (szary). Trend ustala się poprzez porównanie wartości z poprzedniego dnia z wartością sprzed dwóch dni. W przypadku trendów 7-dniowych porównywana jest średnia wartość z ostatnich 7 dni ze średnią wartością z 7 dni je poprzedzających.";
+
+"Statistics_Info_Trends_Title" = "Można przedstawić następujące trendy:";
+
+"Statistics_Info_Trends_Increasing" = "Trend: Rosnący";
+
+"Statistics_Info_Trends_Decreasing" = "Trend: Malejący";
+
+"Statistics_Info_Trends_Stable" = "Trend: Stabilny";
+
+"Statistics_Info_Trends_Footnote" = "Ocena trendu dotyczącego ostrzeżeń wysyłanych przez użytkowników aplikacji zmienia się w zależności od aktualnych poziomów zakażenia, dlatego trend ten jest zawsze wyświetlany jako neutralny.";
+
+"Statistics_Info_Image_AccLabel" = "Abstrakcyjne zdjęcie smartfona z czterema symbolami zastępczymi do celów informacyjnych";
 

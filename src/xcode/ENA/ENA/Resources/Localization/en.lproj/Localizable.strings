@@ -764,7 +764,7 @@
 
 "ExposureSubmissionError_defaultError" = "Error during key transmission";
 
-"ExposureSubmissionError_noAppConfiguration" = "Your internet connection was lost. Please check the connection and then reopen the app.";
+"ExposureSubmissionError_noAppConfiguration" = "Your Internet connection was lost. Please check the connection and then reopen the app.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
@@ -854,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Several countries are working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can also be taken into account for exposure logging.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads lists, which are updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone. \n\nThe downloads of the lists of random IDs are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
+"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads lists, which are updated daily, of the random IDs of all users who have shared their test results to warn others via their own app. This list is then compared with the random IDs recorded by your iPhone. \n\nThe downloads of the lists are usually free of charge for you. Specifically, this means that mobile network operators do not charge you for the data used by the app in this context, nor do they apply roaming charges for this in other EU countries. Please contact your mobile network operator for more information.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "The following countries currently participate in transnational exposure logging:";
 
@@ -1258,7 +1258,7 @@
 
 "DeltaOnboarding_Terms_Button" = "Display terms of use";
 
-"DeltaOnboarding_Terms_Description2" = "The Terms of Use and privacy notice can also be found in the menu under “App Information” and in the app description in your app store. The changes will not affect how you use the app. If you continue to use the app or reopen it, we will assume that you agree to the updated Terms of Use.";
+"DeltaOnboarding_Terms_Description2" = "The terms of use and privacy notice can also be found in the menu under “App Information” and in the app description in your app store. The changes will not affect how you use the app. If you continue to use the app or reopen it, we will assume that you agree to the updated terms of use.";
 
 /* Warn other notifications */
 "WarnOthersNotification_Title" = "You can help!";
@@ -1433,4 +1433,130 @@
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+
+/* - Trend on Cards */
+"Statistics_Card_Trend_Increasing" = "Trend: Upwards";
+
+"Statistics_Card_Trend_Decreasing" = "Trend: Downwards";
+
+"Statistics_Card_Trend_Stable" = "Trend: Steady";
+
+"Statistics_Card_TrendSemantic_Negative" = "Negative";
+
+"Statistics_Card_TrendSemantic_Positive" = "Positive";
+
+"Statistics_Card_TrendSemantic_Neutral" = "Neutral";
+
+/* - Number Formatting */
+"Statistics_Card_Million" = "%@ Million";
+
+/* - Infections Card */
+"Statistics_Card_Infections_Title" = "Confirmed New Infections";
+
+"Statistics_Card_Infections_Today" = "Today";
+
+"Statistics_Card_Infections_Yesterday" = "Yesterday";
+
+"Statistics_Card_Infections_Date" = "%@";
+
+"Statistics_Card_Infections_SecondaryLabelTitle" = "7-day average";
+
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Total";
+
+/* - Incidence Card */
+"Statistics_Card_Incidence_Title" = "7-Day Incidence";
+
+"Statistics_Card_Incidence_Today" = "Up to today";
+
+"Statistics_Card_Incidence_Yesterday" = "Up to yesterday";
+
+"Statistics_Card_Incidence_Date" = "Up to %@";
+
+"Statistics_Card_Incidence_SecondaryLabelTitle" = "confirmed new infections per 100,000 residents";
+
+/* - Key Submissions Card */
+"Statistics_Card_KeySubmissions_Title" = "Warnings by App Users";
+
+"Statistics_Card_KeySubmissions_Today" = "Today";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Yesterday";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
+
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7-day average";
+
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_KeySubmissions_Footnote" = "About Corona-Warn-App";
+
+/* - Reproduction Number Card */
+"Statistics_Card_ReproductionNumber_Title" = "7-Day R Value";
+
+"Statistics_Card_ReproductionNumber_Today" = "Currently";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Yesterday";
+
+"Statistics_Card_ReproductionNumber_Date" = "Up to %@";
+
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "average infections by each infected person";
+
+/* Error */
+"Statistics_LoadingError" = "The statistics cannot be loaded. Please close the app and try again.";
+
+/* - Info Screen */
+"Statistics_Info_Title" = "Key Figures";
+
+"Statistics_Info_Subtitle" = "Explanation of nationwide statistics";
+
+"Statistics_Info_Infections_Title" = "Confirmed New Infections";
+
+"Statistics_Info_Infections_Text" = "Number of persons who have been diagnosed with coronavirus and reported to the RKI";
+
+"Statistics_Info_KeySubmissions_Title" = "Warnings by App Users";
+
+"Statistics_Info_KeySubmissions_Text" = "Number of app users who have been diagnosed with coronavirus and have warned others through the app";
+
+"Statistics_Info_Incidence_Title" = "7-Day Incidence";
+
+"Statistics_Info_Incidence_Text" = "Total number of confirmed new infections in the last 7 days (by reporting date) per 100,000 residents";
+
+"Statistics_Info_ReproductionNumber_Title" = "7-Day R Value";
+
+"Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
+
+"Statistics_Info_FAQLink_Text" = "For more information, refer to the";
+
+"Statistics_Info_FAQLink_Title" = "FAQ for the statistics.";
+
+"Statistics_Info_Definitions_Title" = "Legend";
+
+"Statistics_Info_Period_Title" = "Time Period";
+
+"Statistics_Info_Yesterday_Title" = "Yesterday/Up to yesterday";
+
+"Statistics_Info_Yesterday_Text" = "Number for the previous day/up to the previous day. If no figures are available yet for the previous day, the last date for which figures are available is displayed.";
+
+"Statistics_Info_Mean_Title" = "7-Day Average";
+
+"Statistics_Info_Mean_Text" = "Average value from the past 7 days";
+
+"Statistics_Info_Total_Title" = "Total";
+
+"Statistics_Info_Total_Text" = "Total number since the start of the year or launch of the app (June 15, 2020)";
+
+"Statistics_Info_Trend_Title" = "Trend";
+
+"Statistics_Info_Trend_Text" = "The arrow direction indicates whether the trend is increasing, decreasing, or remaining steady – that is, demonstrates a deviation of less than 1% compared to the previous day or 5% compared to the previous week. The color indicates this trend as positive (green), negative (red), or neutral (gray). The trend compares the value from the previous day with the value from two days ago or, for the 7-day trends, the average value from the last 7 days with the average value from the 7 days prior to that.";
+
+"Statistics_Info_Trends_Title" = "The following trends can be shown:";
+
+"Statistics_Info_Trends_Increasing" = "Trend: Upwards";
+
+"Statistics_Info_Trends_Decreasing" = "Trend: Downwards";
+
+"Statistics_Info_Trends_Stable" = "Trend: Steady";
+
+"Statistics_Info_Trends_Footnote" = "The assessment of the trend for warnings by app users changes depending on current infection levels, which is why this trend is always displayed as neutral.";
+
+"Statistics_Info_Image_AccLabel" = "Abstract picture of a smartphone with four placeholders for information";
 

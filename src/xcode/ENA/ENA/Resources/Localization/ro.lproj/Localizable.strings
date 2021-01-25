@@ -854,7 +854,7 @@
 
 "ExposureNotificationSetting_EU_Desc_1" = "Mai multe țări colaborează pentru a susține alarmele transnaționale printr-un server de schimb comun. De exemplu, contactele cu utilizatorii unei aplicații oficiale anticoronavirus din alte țări participante pot fi, de asemenea, luate în considerare pentru înregistrarea în jurnal a expunerilor.";
 
-"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. \n\nDescărcările listelor de ID-uri aleatorii sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
+"ExposureNotificationSetting_EU_Desc_2" = "Pentru aceasta, aplicația descarcă o listă, care este actualizată zilnic, de ID-uri aleatorii ale tuturor utilizatorilor care și-au partajat rezultatele testelor pentru a-i avertiza pe ceilalți prin intermediul propriei aplicații. Apoi, această listă este comparată cu ID-urile aleatorii înregistrate de iPhone-ul dvs. \n\nDescărcările listelor sunt, de obicei, gratuite pentru dvs. În mod specific, aceasta înseamnă că operatorii de rețele mobile nu percep costuri pentru datele utilizate de aplicație în acest context și nu aplică niciun fel de costuri de roaming pentru această opțiune în alte țări UE. Contactați operatorul rețelei mobile pentru mai multe informații.";
 
 "ExposureNotificationSetting_EU_Desc_3" = "Următoarele țări participă în prezent la înregistrarea în jurnal a expunerilor la nivel transnațional:";
 
@@ -1258,7 +1258,7 @@
 
 "DeltaOnboarding_Terms_Button" = "Afișare condiții de utilizare";
 
-"DeltaOnboarding_Terms_Description2" = "Condițiile de utilizare și înștiințarea privind confidențialitatea pot fi găsite, de asemenea, în meniu la „Informații aplicație”, dar și în descrierea aplicației din App Store. Modificările nu vor afecta modul în care utilizați aplicația. Dacă veți continua să utilizați aplicația sau dacă o redeschideți, vom presupune că sunteți de acord cu Condițiile de utilizare actualizate.";
+"DeltaOnboarding_Terms_Description2" = "Condițiile de utilizare și înștiințarea privind confidențialitatea pot fi găsite, de asemenea, în meniu la „Informații aplicație”, dar și în descrierea aplicației din App Store. Modificările nu vor afecta modul în care utilizați aplicația. Dacă veți continua să utilizați aplicația sau dacă o redeschideți, vom presupune că sunteți de acord cu condițiile de utilizare actualizate.";
 
 /* Warn other notifications */
 "WarnOthersNotification_Title" = "Puteți fi de ajutor!";
@@ -1433,4 +1433,130 @@
 "ContactDiary_AddEditEntry_PersonTitle" = "Persoană";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder" = "Persoană";
+
+/* - Trend on Cards */
+"Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
+
+"Statistics_Card_Trend_Decreasing" = "Tendință: descendentă";
+
+"Statistics_Card_Trend_Stable" = "Tendință: constantă";
+
+"Statistics_Card_TrendSemantic_Negative" = "Negativă";
+
+"Statistics_Card_TrendSemantic_Positive" = "Pozitivă";
+
+"Statistics_Card_TrendSemantic_Neutral" = "Neutră";
+
+/* - Number Formatting */
+"Statistics_Card_Million" = "%@ milion(e)";
+
+/* - Infections Card */
+"Statistics_Card_Infections_Title" = "Infecții noi confirmate";
+
+"Statistics_Card_Infections_Today" = "Astăzi";
+
+"Statistics_Card_Infections_Yesterday" = "Ieri";
+
+"Statistics_Card_Infections_Date" = "%@";
+
+"Statistics_Card_Infections_SecondaryLabelTitle" = "Media pe 7 zile";
+
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Total";
+
+/* - Incidence Card */
+"Statistics_Card_Incidence_Title" = "Incidența pe 7 zile";
+
+"Statistics_Card_Incidence_Today" = "Până astăzi";
+
+"Statistics_Card_Incidence_Yesterday" = "Până ieri";
+
+"Statistics_Card_Incidence_Date" = "Până la %@";
+
+"Statistics_Card_Incidence_SecondaryLabelTitle" = "infecții noi confirmate la 100.000 de locuitori";
+
+/* - Key Submissions Card */
+"Statistics_Card_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
+
+"Statistics_Card_KeySubmissions_Today" = "Astăzi";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Ieri";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
+
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "Media pe 7 zile";
+
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
+
+"Statistics_Card_KeySubmissions_Footnote" = "Despre aplicația Corona-Warn";
+
+/* - Reproduction Number Card */
+"Statistics_Card_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
+
+"Statistics_Card_ReproductionNumber_Today" = "Curentă";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Ieri";
+
+"Statistics_Card_ReproductionNumber_Date" = "Până %@";
+
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "infecții medii de la fiecare persoană infectată";
+
+/* Error */
+"Statistics_LoadingError" = "Statistica nu poate fi încărcată. Închideți aplicația și reîncercați.";
+
+/* - Info Screen */
+"Statistics_Info_Title" = "Indicatori";
+
+"Statistics_Info_Subtitle" = "Explicația statisticii la nivel național";
+
+"Statistics_Info_Infections_Title" = "Infecții noi confirmate";
+
+"Statistics_Info_Infections_Text" = "Numărul de persoane care au fost diagnosticate cu coronavirus și raportate la RKI";
+
+"Statistics_Info_KeySubmissions_Title" = "Avertizări de la utilizatorii aplicației";
+
+"Statistics_Info_KeySubmissions_Text" = "Numărul de utilizatori ai aplicației care au fost diagnosticați cu coronavirus și care i-au avertizat pe ceilalți prin aplicație";
+
+"Statistics_Info_Incidence_Title" = "Incidența pe 7 zile";
+
+"Statistics_Info_Incidence_Text" = "Numărul total de infecții noi confirmate în ultimele 7 zile (după data de raportare) la 100.000 de locuitori";
+
+"Statistics_Info_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
+
+"Statistics_Info_ReproductionNumber_Text" = "Numărul de reproducție R indică câte persoane a infectat mai departe, în medie, o persoană infectată. Valoarea curentă ia în considerare cel mult ultimele 5 zile.";
+
+"Statistics_Info_FAQLink_Text" = "Pentru mai multe informații, consultați";
+
+"Statistics_Info_FAQLink_Title" = "Întrebările frecvente pentru statistică.";
+
+"Statistics_Info_Definitions_Title" = "Legendă";
+
+"Statistics_Info_Period_Title" = "Perioadă de timp";
+
+"Statistics_Info_Yesterday_Title" = "Ieri/Până ieri";
+
+"Statistics_Info_Yesterday_Text" = "Numărul pentru ziua anterioară/până la ziua anterioară. Dacă încă nu sunt disponibile cifrele pentru ziua anterioară, este afișată ultima dată pentru care sunt disponibile cifrele.";
+
+"Statistics_Info_Mean_Title" = "Media pe 7 zile";
+
+"Statistics_Info_Mean_Text" = "Valoarea medie din ultimele 7 zile";
+
+"Statistics_Info_Total_Title" = "Total";
+
+"Statistics_Info_Total_Text" = "Numărul total de la începutul anului sau de la lansarea aplicației (15 iunie 2020)";
+
+"Statistics_Info_Trend_Title" = "Tendință";
+
+"Statistics_Info_Trend_Text" = "Direcția săgeții indică dacă tendința este în creștere, în scădere sau dacă rămâne constantă – mai exact, demonstrează o abatere de sub 1% în comparație cu ziua precedentă sau de 5% în comparație cu săptămâna precedentă. Culoarea indică faptul că tendința este pozitivă (verde), negativă (roșu) sau neutră (gri). Tendința compară valoarea din ziua precedentă cu valoarea de acum două zile sau, pentru tendințele pe 7 zile, valoarea medie din ultimele 7 zile cu valoarea medie din ultimele 7 zile anterioare acesteia.";
+
+"Statistics_Info_Trends_Title" = "Pot fi afișate următoarele tendințe:";
+
+"Statistics_Info_Trends_Increasing" = "Tendință: ascendentă";
+
+"Statistics_Info_Trends_Decreasing" = "Tendință: descendentă";
+
+"Statistics_Info_Trends_Stable" = "Tendință: constantă";
+
+"Statistics_Info_Trends_Footnote" = "Evaluarea tendinței pentru avertizările de către utilizatorii aplicației se modifică în funcție de nivelul de infectare curent, de aceea această tendință este afișată întotdeauna ca neutră.";
+
+"Statistics_Info_Image_AccLabel" = "O imagine abstractă a unui smartphone cu patru substituenți pentru informații";
 

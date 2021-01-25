@@ -1434,3 +1434,129 @@
 
 "ContactDiary_AddEditEntry_PersonPlaceholder" = "Лице";
 
+/* - Trend on Cards */
+"Statistics_Card_Trend_Increasing" = "Тенденция: Нагоре";
+
+"Statistics_Card_Trend_Decreasing" = "Тенденция: Надолу";
+
+"Statistics_Card_Trend_Stable" = "Тенденция: Стабилизиране";
+
+"Statistics_Card_TrendSemantic_Negative" = "Отрицателна";
+
+"Statistics_Card_TrendSemantic_Positive" = "Положителен";
+
+"Statistics_Card_TrendSemantic_Neutral" = "Неутрална";
+
+/* - Number Formatting */
+"Statistics_Card_Million" = "%@ милиона";
+
+/* - Infections Card */
+"Statistics_Card_Infections_Title" = "Потвърдени нови случаи на заразяване";
+
+"Statistics_Card_Infections_Today" = "Днес";
+
+"Statistics_Card_Infections_Yesterday" = "Вчера";
+
+"Statistics_Card_Infections_Date" = "%@";
+
+"Statistics_Card_Infections_SecondaryLabelTitle" = "7 дни средно";
+
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Общо";
+
+/* - Incidence Card */
+"Statistics_Card_Incidence_Title" = "7-дневна заболеваемост";
+
+"Statistics_Card_Incidence_Today" = "До днес";
+
+"Statistics_Card_Incidence_Yesterday" = "До вчера";
+
+"Statistics_Card_Incidence_Date" = "До %@";
+
+"Statistics_Card_Incidence_SecondaryLabelTitle" = "Потвърдени нови случаи на заразяване на 100 000 души";
+
+/* - Key Submissions Card */
+"Statistics_Card_KeySubmissions_Title" = "Лица, които изпращат предупреждения";
+
+"Statistics_Card_KeySubmissions_Today" = "Днес";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Вчера";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
+
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7 дни средно";
+
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Общо";
+
+"Statistics_Card_KeySubmissions_Footnote" = "Относно приложението Corona-Warn-App";
+
+/* - Reproduction Number Card */
+"Statistics_Card_ReproductionNumber_Title" = "7-дневно репродуктивно число R";
+
+"Statistics_Card_ReproductionNumber_Today" = "В момента";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Вчера";
+
+"Statistics_Card_ReproductionNumber_Date" = "До %@";
+
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "среден брой заразени от всяко заразено лице";
+
+/* Error */
+"Statistics_LoadingError" = "Статистиката не може да бъде заредена. Моля, затворете приложението и опитайте отново.";
+
+/* - Info Screen */
+"Statistics_Info_Title" = "Показатели";
+
+"Statistics_Info_Subtitle" = "Разяснение на националната статистиката";
+
+"Statistics_Info_Infections_Title" = "Потвърдени нови случаи на заразяване";
+
+"Statistics_Info_Infections_Text" = "Брой диагностицирани с коронавирус лица, регистрирани в института “Роберт Кох”";
+
+"Statistics_Info_KeySubmissions_Title" = "Лица, които изпращат предупреждения";
+
+"Statistics_Info_KeySubmissions_Text" = "Брой потребители, диагностицирани с коронавирус, които са предупредили другите потребители чрез приложението";
+
+"Statistics_Info_Incidence_Title" = "7-дневна заболеваемост";
+
+"Statistics_Info_Incidence_Text" = "Общ брой потвърдени нови случаи на заразяване за последните 7 дни (по дата на регистриране) на 100 000 души";
+
+"Statistics_Info_ReproductionNumber_Title" = "7-дневно репродуктивно число R";
+
+"Statistics_Info_ReproductionNumber_Text" = "Репродуктивното число R указва средно колко души заразява от своя страна едно заразено лице. Текущата стойност взема предвид данните от последните 5 дни.";
+
+"Statistics_Info_FAQLink_Text" = "За повече информация вижте";
+
+"Statistics_Info_FAQLink_Title" = "статистическите данни в ЧЗВ.";
+
+"Statistics_Info_Definitions_Title" = "Легенда";
+
+"Statistics_Info_Period_Title" = "Период от време";
+
+"Statistics_Info_Yesterday_Title" = "Вчера/до вчера";
+
+"Statistics_Info_Yesterday_Text" = "Брой за предишния ден/до предишния ден. Ако все още няма данни за предишния ден, се показва последната дата, за която има данни.";
+
+"Statistics_Info_Mean_Title" = "7 дни средно";
+
+"Statistics_Info_Mean_Text" = "Средна стойност за последните 7 дни";
+
+"Statistics_Info_Total_Title" = "Общо";
+
+"Statistics_Info_Total_Text" = "Общ брой от началото на годината или от стартирането на приложението (15 юни 2020 г.)";
+
+"Statistics_Info_Trend_Title" = "Тенденция";
+
+"Statistics_Info_Trend_Text" = "Посоката на стрелката указва дали тенденцията е към нарастване, намаляване или стабилизиране, т.е. отклонението е по-малко от 1% спрямо предишния ден или от 5% спрямо предишната седмица. Цветът указва тенденцията като положителна (зелено), отрицателна (червено) или неутрална (сиво). За определяне на тeнденцията стойността от предишния ден се сравнява с тази от преди два дни, а при 7-дневната тенденция средната стойност за последните 7 дни се сравнява със съответната стойност за предишния 7-дневен период.";
+
+"Statistics_Info_Trends_Title" = "Възможни са следните тенденции:";
+
+"Statistics_Info_Trends_Increasing" = "Тенденция: Нагоре";
+
+"Statistics_Info_Trends_Decreasing" = "Тенденция: Надолу";
+
+"Statistics_Info_Trends_Stable" = "Тенденция: Стабилизиране";
+
+"Statistics_Info_Trends_Footnote" = "Оценката на тенденцията за броя предупреждения от потребители на приложението се променя в зависимост от текущите нива на заразяване, поради което тази тенденция винаги се показва като неутрална.";
+
+"Statistics_Info_Image_AccLabel" = "Абстрактно изображение на смартфон с 4 контейнера за данни";
+
