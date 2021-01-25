@@ -438,55 +438,55 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 
-//	func test_screenshot_SubmitQR() {
-//		var screenshotCounter = 0
-//
-//		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-//		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-//		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
-//		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
-//		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
-//		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
-//
-//		if #available(iOS 13.4, *) {
-//			app.resetAuthorizationStatus(for: .camera)
-//		}
-//		launch()
-//
-//		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
-//		// see https://developer.apple.com/videos/play/wwdc2020/10220/
-//		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
-//			return false
-//		}
-//
-//		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
-//
-//		// Open Intro screen.
-//		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-//		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-//		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-//
-//		// Overview Screen: click TAN button.
-//		XCTAssertTrue(app
-//			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
-//			.waitForExistence(timeout: .medium)
-//		)
-//		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
-//
-//		// QR Info screen
-//		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-//		// "Einverstanden"
-//		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-//		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-//
-//		// QR view
-//		// fake tap to trigger interruption handler in case of privacy alerts
-//		let flashButton = app.buttons["AppStrings.ExposureSubmissionQRScanner.flash"]
-//		if flashButton.waitForExistence(timeout: .long) {
-//			flashButton.tap()
-//		}
-//		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
-//	}
+	func test_screenshot_SubmitQR() {
+		var screenshotCounter = 0
+
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.loadSupportedCountriesSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getTemporaryExposureKeysSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
+
+		if #available(iOS 13.4, *) {
+			app.resetAuthorizationStatus(for: .camera)
+		}
+		launch()
+
+		// monitor system dialogues and use default handler to simply dismiss any alert – we don't care for the result
+		// see https://developer.apple.com/videos/play/wwdc2020/10220/
+		addUIInterruptionMonitor(withDescription: "System Dialog") { _ -> Bool in
+			return false
+		}
+
+		snapshot("tan_submissionflow_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Open Intro screen.
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Overview Screen: click TAN button.
+		XCTAssertTrue(app
+			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
+			.waitForExistence(timeout: .medium)
+		)
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
+
+		// QR Info screen
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		// "Einverstanden"
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
+		// QR view
+		// fake tap to trigger interruption handler in case of privacy alerts
+		let flashButton = app.buttons["AppStrings.ExposureSubmissionQRScanner.flash"]
+		if flashButton.waitForExistence(timeout: .long) {
+			flashButton.tap()
+		}
+		snapshot("tan_submissionflow_qr_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
 
 	func test_screenshot_SubmissionNotPossible() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
