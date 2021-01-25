@@ -28,7 +28,6 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.navigationController?.presentationController?.delegate = self
 
 		setupView()
 
