@@ -48,7 +48,7 @@ extension AppInformationViewController {
 		.versionInfo: AppInformationCellModel(
 			text: AppStrings.AppInformation.newFeaturesNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
-			action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false	))
+			action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
 		)
 	]
 
