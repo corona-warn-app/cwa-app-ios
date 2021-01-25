@@ -172,6 +172,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testAddTwoPersonsAndOneLocationToDate() throws {
+		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
 
@@ -209,6 +210,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		snapshot("contact_journal_listing2_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// check count for overview: day cell 15 days plus 1 description cell
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
