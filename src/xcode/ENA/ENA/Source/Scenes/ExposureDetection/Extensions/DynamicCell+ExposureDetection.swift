@@ -109,8 +109,13 @@ extension DynamicCell {
 
 	static func riskLoading(text: String) -> DynamicCell {
 		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.riskLoading) { viewController, cell, _ in
-			cell.backgroundColor = viewController.viewModel.riskBackgroundColor
-			cell.textLabel?.text = text
+			let cell = cell as? ExposureDetectionLoadingCell
+			let viewModel = viewController.viewModel
+
+			cell?.backgroundColor = viewModel.riskBackgroundColor
+			cell?.textLabel?.textColor = viewModel.titleTextColor
+			cell?.textLabel?.text = text
+			cell?.activityIndicatorView.color = viewModel.titleTextColor
 		}
 	}
 
@@ -139,7 +144,7 @@ extension DynamicCell {
 	}
 
 	static func link(text: String, url: URL?) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
+		.custom(withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
 		}
 	}

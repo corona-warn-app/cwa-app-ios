@@ -29,6 +29,12 @@ final class InviteFriendsViewController: UIViewController, UIActivityItemSource 
 
 		navigationItem.title = AppStrings.InviteFriends.navigationBarTitle
 
+		if #available(iOS 13, *) {
+			subtitleLabelTopConstraint.constant = 0
+		} else {
+			subtitleLabelTopConstraint.constant = 10
+		}
+
 		subtitleLabel.text = AppStrings.InviteFriends.subtitle
 		titleLabel.text = AppStrings.InviteFriends.title
 		descriptionLabel.text = AppStrings.InviteFriends.description
@@ -84,6 +90,7 @@ final class InviteFriendsViewController: UIViewController, UIActivityItemSource 
 	@IBOutlet private weak var descriptionLabel: UILabel!
 	@IBOutlet private weak var inviteButton: ENAButton!
 	@IBOutlet private weak var subtitleLabel: UILabel!
+	@IBOutlet private weak var subtitleLabelTopConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var scrollView: UIScrollView!
 	@IBOutlet private weak var footerView: UIView!
 	@IBOutlet private weak var imageView: UIImageView!

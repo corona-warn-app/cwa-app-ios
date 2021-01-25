@@ -42,6 +42,23 @@ class Coordinator: RequiresAppDependencies {
 			store: self.store
 		)
 	}()
+
+	private lazy var statisticsProvider: StatisticsProvider = {
+		#if DEBUG
+		let useMockDataForStatistics = UserDefaults.standard.string(forKey: "useMockDataForStatistics")
+		if isUITesting, useMockDataForStatistics == "YES" {
+			return StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
+		}
+		#endif
+
+		return StatisticsProvider(
+			client: CachingHTTPClient(clientConfiguration: client.configuration),
+			store: store
+		)
+	}()
 	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
@@ -66,7 +83,8 @@ class Coordinator: RequiresAppDependencies {
 				riskProvider: riskProvider,
 				exposureManagerState: exposureManager.exposureManagerState,
 				enState: enStateHandler.state,
-				exposureSubmissionService: exposureSubmissionService
+				exposureSubmissionService: exposureSubmissionService,
+				statisticsProvider: statisticsProvider
 			)
 
 			let homeController = HomeTableViewController(
@@ -86,6 +104,9 @@ class Coordinator: RequiresAppDependencies {
 				},
 				onTestResultCellTap: { [weak self] testResult in
 					self?.showExposureSubmission(with: testResult)
+				},
+				onStatisticsInfoButtonTap: { [weak self] in
+					self?.showStatisticsInfo()
 				},
 				onDiaryCellTap: { [weak self] in
 					self?.showDiary()
@@ -242,11 +263,25 @@ class Coordinator: RequiresAppDependencies {
 		coordinator.start(with: result)
 	}
 
+	func showStatisticsInfo() {
+		let statisticsInfoController = StatisticsInfoViewController(
+			onDismiss: { [weak rootViewController] in
+				rootViewController?.dismiss(animated: true)
+			}
+		)
+
+		rootViewController.present(
+			UINavigationController(rootViewController: statisticsInfoController),
+			animated: true
+		)
+	}
+
 	private func showDiary() {
 		diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
-			parentNavigationController: rootViewController
+			parentNavigationController: rootViewController,
+			homeState: homeState
 		)
 
 		diaryCoordinator?.start()

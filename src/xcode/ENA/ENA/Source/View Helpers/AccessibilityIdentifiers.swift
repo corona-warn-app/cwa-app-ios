@@ -49,6 +49,11 @@ enum AccessibilityIdentifiers {
 		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
+
+		enum Overview {
+			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
+			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
+		}
 	}
 
 	enum Onboarding {
@@ -308,6 +313,25 @@ enum AccessibilityIdentifiers {
 	
 	enum ThankYouScreen {
 		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
+	}
+	
+	enum Statistics {
+		enum Infections {
+			static let title = "AppStrings.Statistics.Card.Infections.title"
+			static let infoButton = "AppStrings.Statistics.Card.Infections.infoButton"
+		}
+		enum Incidence {
+			static let title = "AppStrings.Statistics.Card.Incidence.title"
+			static let infoButton = "AppStrings.Statistics.Card.Incidence.infoButton"
+		}
+		enum KeySubmissions {
+			static let title = "AppStrings.Statistics.Card.KeySubmissions.title"
+			static let infoButton = "AppStrings.Statistics.Card.KeySubmissions.infoButton"
+		}
+		enum ReproductionNumber {
+			static let title = "AppStrings.Statistics.Card.ReproductionNumber.title"
+			static let infoButton = "AppStrings.Statistics.Card.ReproductionNumber.infoButton"
+		}
 	}
 	
 	enum UpdateOSScreen {

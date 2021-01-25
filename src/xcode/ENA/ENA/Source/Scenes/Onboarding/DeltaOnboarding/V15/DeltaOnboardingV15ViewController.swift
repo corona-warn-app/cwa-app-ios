@@ -4,13 +4,9 @@
 
 import UIKit
 
-class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate {
+class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate, DismissHandling {
 
-	// MARK: - Attributes
-
-	var finished: (() -> Void)?
-
-	// MARK: - Initializers
+	// MARK: - Init
 	
 	init(
 		supportedCountries: [Country]
@@ -25,20 +21,21 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View Lifecycle Methods
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.navigationController?.presentationController?.delegate = self
-
 		setupView()
-		setupRightBarButtonItem()
+	}
+
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
 	}
 	
-	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+	// MARK: - Protocol DismissHandling
 	
-	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+	func wasAttemptedToBeDismissed() {
 		finished?()
 	}
 	
@@ -48,22 +45,29 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 		finished?()
 	}
 
-	// MARK: - Private API
+	// MARK: - Internal
+
+	var finished: (() -> Void)?
+
+	// MARK: - Private
 
 	private let viewModel: DeltaOnboardingV15ViewModel
 
-	private func setupRightBarButtonItem() {
-		let closeButton = UIButton(type: .custom)
-		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
-		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
-		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
 
-		let barButtonItem = UIBarButtonItem(customView: closeButton)
-		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+		item.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
 
-		navigationItem.rightBarButtonItem = barButtonItem
-	}
+		item.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.finished?()
+			}
+		)
+
+		return item
+	}()
 
 	private func setupView() {
 		navigationFooterItem?.primaryButtonTitle = AppStrings.DeltaOnboarding.primaryButton
@@ -81,11 +85,6 @@ class DeltaOnboardingV15ViewController: DynamicTableViewController, DeltaOnboard
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
-	}
-
-	@objc
-	func close() {
-		finished?()
 	}
 }
 

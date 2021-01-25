@@ -256,11 +256,11 @@ final class SecureStore: Store {
 		set { kvStore["submissionSymptomsOnset"] = newValue }
 	}
 
-	var diaryInfoScreenShown: Bool {
-		get { kvStore["diaryInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["diaryInfoScreenShown"] = newValue }
+	var journalWithExposureHistoryInfoScreenShown: Bool {
+		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
-	
+
 	#if !RELEASE
 
 	// Settings from the debug menu.

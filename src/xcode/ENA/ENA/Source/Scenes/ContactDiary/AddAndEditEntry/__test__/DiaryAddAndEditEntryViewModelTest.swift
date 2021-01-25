@@ -278,7 +278,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 				.contactPerson(DiaryContactPerson(id: 0, name: "Nick Gündling")),
 				.contactPerson(DiaryContactPerson(id: 9, name: "Omar Ahmed")),
 				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause")),
-				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali"))			]
+				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali"))
+			]
 		)
 	}
 	
