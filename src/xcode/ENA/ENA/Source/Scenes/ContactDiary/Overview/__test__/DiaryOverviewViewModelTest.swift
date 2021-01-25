@@ -19,9 +19,13 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: diaryStore,
