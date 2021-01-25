@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate {
+class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Attributes
 
@@ -28,7 +28,6 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.navigationController?.presentationController?.delegate = self
 
 		setupView()
 
@@ -55,9 +54,9 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 		return item
 	}()
 	
-	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+	// MARK: - Protocol DismissHandling
 	
-	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+	func wasAttemptedToBeDismissed() {
 		finished?()
 	}
 	
