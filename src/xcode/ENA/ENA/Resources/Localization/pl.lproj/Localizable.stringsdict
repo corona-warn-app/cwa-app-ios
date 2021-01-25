@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Brak narażeń</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Narażenia z niskim ryzykiem w ciągu jednego dnia</string>
@@ -25,7 +25,7 @@
 			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
+			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
@@ -43,7 +43,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
+			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Narażenia w ciągu jednego dnia z podwyższonym ryzykiem</string>
@@ -55,7 +55,7 @@
 			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>
+			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
@@ -73,7 +73,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Aktualizacja za %02u:%2$#@sekund@ sekund</string>
+			<string>Aktualizacja za %02u:%2$#@sekundy@ minuty</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Aktualizacja za %02u:%2$#@sekundę@ minutę</string>
@@ -128,8 +128,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Rejestrowanie narażenia jest aktywne krócej niż jeden dzień.
-Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Rejestrowanie narażenia jest aktywne od %u dnia.
@@ -142,7 +141,7 @@ Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia 
 			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Rejestrowanie narażenia jest aktywne od %u dni. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
+			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Rejestrowanie narażenia jest aktywne od %u dnia. Sprawdzanie narażeń jest wiarygodne tylko wtedy, gdy rejestrowanie narażenia jest aktywowane na stałe.</string>

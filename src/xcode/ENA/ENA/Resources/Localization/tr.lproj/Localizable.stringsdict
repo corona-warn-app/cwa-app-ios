@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Hiçbir maruz kalma yok</string>
+			<string>%u gün için düşük riskli maruz kalmalar</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Bir gün için düşük riskli maruz kalmalar</string>
@@ -73,7 +73,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>%02u:%2$#@seconds@ saniye içinde güncelle</string>
+			<string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>%02u:%2$#@seconds@ dakika içinde güncelle</string>
@@ -128,7 +128,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Maruz kalma günlüğü bir günden az süredir etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
