@@ -31,10 +31,17 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
 
 		setupBindings()
 		setupView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.sizeToFit()
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
