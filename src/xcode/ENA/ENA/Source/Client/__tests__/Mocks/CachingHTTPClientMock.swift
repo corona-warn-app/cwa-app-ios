@@ -8,8 +8,7 @@ import Foundation
 final class CachingHTTPClientMock: CachingHTTPClient {
 
 	convenience init(store: Store = MockTestStore()) {
-		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
-		self.init(clientConfiguration: configuration)
+		self.init(serverEnvironmentProvider: store)
 	}
 
 	static let staticAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
