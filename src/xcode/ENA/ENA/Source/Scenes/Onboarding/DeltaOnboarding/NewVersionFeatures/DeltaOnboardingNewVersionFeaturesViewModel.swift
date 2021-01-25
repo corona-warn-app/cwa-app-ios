@@ -24,11 +24,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		self.newVersionFeatures.append(
 			NewVersionFeature( title: AppStrings.NewVersionFeatures.feature112iOS125SupportTitle, description: AppStrings.NewVersionFeatures.feature112iOS125SupportDescription)
 		)
-		
-		// Statistics
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112StatisticsTitle, description: AppStrings.NewVersionFeatures.feature112StatisticsDescription)
-		)
 	}
 
 	// MARK: - Internal
