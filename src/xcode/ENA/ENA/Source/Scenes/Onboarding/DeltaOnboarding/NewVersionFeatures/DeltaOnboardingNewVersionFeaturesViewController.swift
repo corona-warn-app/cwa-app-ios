@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, UIAdaptivePresentationControllerDelegate {
+class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, DismissHandling {
 
 	// MARK: - Attributes
 
