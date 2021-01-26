@@ -50,7 +50,7 @@ class StatisticsProvider: StatisticsProviding {
 						break
 					}
 					// always return cached stats if available an from current day
-					if let stats = self.store.statistics, stats.lastStatisticsFetch.ageInDays == 0 {
+					if let stats = self.store.statistics, Calendar.current.isDateInToday(stats.lastStatisticsFetch) {
 						promise(.success(stats.statistics))
 					} else {
 						// otherwise return error
