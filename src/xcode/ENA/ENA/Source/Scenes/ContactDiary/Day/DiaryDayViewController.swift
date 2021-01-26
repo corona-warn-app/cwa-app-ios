@@ -96,6 +96,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	private var subscriptions = [AnyCancellable]()
 
+	@IBOutlet weak var topSpaceConstraint: NSLayoutConstraint!
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 
@@ -107,6 +108,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		if #available(iOS 13, *) {
 		} else {
 			Log.debug("setup segmented control for iOS 12", log: .ui)
+			topSpaceConstraint.constant = 8.0
 			segmentedControl.tintColor = .enaColor(for: .cellBackground)
 			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
 			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
