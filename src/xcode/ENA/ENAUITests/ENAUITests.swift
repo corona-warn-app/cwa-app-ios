@@ -103,8 +103,6 @@ class ENAUITests: XCTestCase {
 	}
 	
 	func test_0003_Generate_Screenshot_For_AppStore_Statistics() throws {
-		
-		let snapshotsActive = true
 
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
