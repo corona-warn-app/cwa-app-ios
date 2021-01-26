@@ -117,7 +117,7 @@ final class SecureStore: Store {
 		get { kvStore["onboardingVersion"] as String? ?? "1.4" }
 		set { kvStore["onboardingVersion"] = newValue }
 	}
-
+	
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
 		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue }

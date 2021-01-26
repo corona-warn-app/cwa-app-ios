@@ -61,7 +61,8 @@ class ENAUITests: XCTestCase {
 		// ScreenShot_0004: Settings > Risk exposure
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
-		app.swipeUp()
+		app.swipeUp(velocity: .slow)
+		// ScreenShot_0004: Settings > Risk exposure
 		app.swipeUp() // the home screen got loger and for some reason we have to scroll to `tap()`
 		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: .extraLong))
 		app.cells["AppStrings.Home.settingsCardTitle"].tap()
@@ -98,6 +99,20 @@ class ENAUITests: XCTestCase {
 		print("Snapshot.screenshotsDirectory")
 		print(Snapshot.screenshotsDirectory?.path ?? "unknown output directory")
 
+	}
+	
+	func test_0003_Generate_Screenshot_For_AppStore_Statistics() throws {
+
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "YES"]) // prevent failing tests for 1.11; use "NO" for 1.12
+		app.launch()
+
+		app.swipeUp(velocity: .slow)
+		// ScreenShot_0008: Statistics on Home screen
+		XCTAssert(app.staticTexts[AccessibilityIdentifiers.Statistics.Infections.title].exists)
+		snapshot("AppStore_0008")
 	}
 
 	func test_0001_Generate_Screenshots_For_AppStore_Submission() throws {

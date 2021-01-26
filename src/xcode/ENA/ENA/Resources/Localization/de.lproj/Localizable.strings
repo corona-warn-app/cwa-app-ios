@@ -387,7 +387,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
 
 /* Exposure Submission */
-// phone number; no spacing allowed
+/* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
@@ -462,7 +462,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Schritt 2 von 2";
 
-// UI text; spacing allowed
+/* UI text; spacing allowed */
 "ExposureSubmission_PhoneNumber" = "0800 7540002";
 
 "ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\ntäglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
@@ -1095,6 +1095,8 @@ sein.";
 "App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
 
 /* App Information - Imprint */
+"App_Information_New_Features_Navigation" = "Neue Funktionen";
+
 "App_Information_Imprint_Navigation" = "Impressum";
 
 "App_Information_Imprint_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Paragraphenzeichen als Symbol für das Impressum.";
@@ -1258,6 +1260,32 @@ sein.";
 "Active_Tracing_Interval_Partially_Active" = "Risiko-Ermittlung war für %1$u der letzten 14 Tage aktiv";
 
 "Active_Tracing_Interval_Permanently_Active" = "Risiko-Ermittlung dauerhaft aktiv";
+
+/* Delta Onboarding - New Version Features */
+
+"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "Neue Funktionen der Version";
+
+"DeltaOnboarding_NewVersionFeatures_Title" = "Neue Funktionen";
+
+"DeltaOnboarding_NewVersionFeatures_Release" = "Release";
+
+"DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Weiter";
+
+"DeltaOnboarding_NewVersionFeatures_Description" = "Mit diesem Update stellen wir Ihnen neben Fehlerbehebungen auch neue und erweiterte Funktionen zur Verfügung.";
+
+/* New Version Features */
+
+"NewVersionFeature_112_statistics_title" = "Statistiken";
+
+"NewVersionFeature_112_statistics_description" = "Sie bekommen einen Überblick mit aktuellen Kennzahlen zum Infektionsgeschehen in Deutschland.";
+
+"NewVersionFeature_112_exposure_history_title" = "Begegnungshistorie";
+
+"NewVersionFeature_112_exposure_history_description" = "Sie können in Ihrem Kontakt-Tagebuch sehen, an welchen Tagen Sie ein niedriges oder erhöhtes Risiko aufgrund der von der App ausgewerteten Begegnungen hatten. Sie können damit Personen warnen, die Sie an diesen Tagen begleitet haben, wenn diese die Corona-Warn-App nicht nutzen. Diese Personen waren möglicherweise einem vergleichbaren Risiko ausgesetzt. Die Personen und Orte in Ihrem Kontakt-Tagebuch müssen nicht in Zusammenhang mit den angezeigten Risiko-Begegnungen stehen.";
+
+"NewVersionFeature_112_ios125_support_title" = "App nun ab iOS 12.5 verfügbar";
+
+"NewVersionFeature_112_ios125_support_description" = "Sie können die Corona-Warn-App nun ab iOS-Version 12.5 nutzen.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1541,6 +1569,10 @@ sein.";
 "Statistics_Card_ReproductionNumber_Date" = "Bis %@";
 
 "Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "durchschnittliche Ansteckungen pro infizierter Person";
+
+/* Error */
+
+"Statistics_LoadingError" = "Die Statistiken konnten nicht geladen werden. Bitte schließen Sie die App und versuchen Sie es erneut.";
 
 /* - Info Screen */
 

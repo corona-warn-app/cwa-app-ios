@@ -117,7 +117,7 @@ extension HTTPClient {
 
 		var statisticsURL: URL {
 			endpoints
-				.submission
+				.distribution
 				.appending(
 					"version",
 					apiVersion,

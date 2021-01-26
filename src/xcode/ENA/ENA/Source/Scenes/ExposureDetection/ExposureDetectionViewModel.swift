@@ -234,15 +234,15 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func setupForDownloadingState() {
-		titleText = AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
-
 		setupForLoadingState()
+
+		titleText = AppStrings.ExposureDetection.riskCardStatusDownloadingTitle
 	}
 
 	private func setupForDetectingState() {
-		titleText = AppStrings.ExposureDetection.riskCardStatusDetectingTitle
-
 		setupForLoadingState()
+
+		titleText = AppStrings.ExposureDetection.riskCardStatusDetectingTitle
 	}
 
 	private func setupForLoadingState() {
@@ -309,8 +309,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	private var inactiveModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			.section(
-				header: .none,
+			riskDataSection(
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.offText),
@@ -328,8 +327,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	private var failureModel: DynamicTableViewModel {
 		DynamicTableViewModel([
-			.section(
-				header: .none,
+			riskDataSection(
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.riskCardFailedCalculationBody),
@@ -351,11 +349,13 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 		return DynamicTableViewModel([
 			riskDataSection(
+				footer: .riskTint(height: 16),
 				cells: [
-				.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-			]),
+					.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+				]
+			),
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
@@ -377,12 +377,15 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private func highRiskModel(risk: Risk) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		return DynamicTableViewModel([
-			riskDataSection(cells: [
-				.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
-				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
-				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-			]),
+			riskDataSection(
+				footer: .riskTint(height: 16),
+				cells: [
+					.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
+					.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
+					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+				]
+			),
 			riskLoadingSection,
 			.section(
 				header: .backgroundSpace(height: 16),
@@ -414,17 +417,13 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	// MARK: Sections
 
-	private func riskSection(isHidden: @escaping (DynamicTableViewController) -> Bool, cells: [DynamicCell]) -> DynamicSection {
+	private func riskDataSection(
+		footer: DynamicHeader,
+		cells: [DynamicCell]
+	) -> DynamicSection {
 		.section(
 			header: .none,
-			footer: .riskTint(height: 16),
-			isHidden: isHidden,
-			cells: cells
-		)
-	}
-
-	private func riskDataSection(cells: [DynamicCell]) -> DynamicSection {
-		riskSection(
+			footer: footer,
 			isHidden: { (($0 as? ExposureDetectionViewController)?.viewModel.riskProviderActivityState.isActive ?? false) },
 			cells: cells
 		)

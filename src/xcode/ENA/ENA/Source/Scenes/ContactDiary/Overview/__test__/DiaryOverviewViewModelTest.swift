@@ -19,9 +19,13 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: diaryStore,
@@ -100,7 +104,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testGIVEN_DiaryOverviewViewModel_WHEN_lowHistoryExposureIsInStore_THEN_LowHistoryExposureIsReturned() throws {
 
 		// GIVEN
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
 
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
@@ -133,7 +137,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testGIVEN_DiaryOverviewViewModel_WHEN_highHistoryExposureIsInStore_THEN_HighHistoryExposureIsReturned() throws {
 
 		// GIVEN
-		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
 
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))

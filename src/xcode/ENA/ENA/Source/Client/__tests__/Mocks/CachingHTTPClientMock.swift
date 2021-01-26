@@ -3,11 +3,11 @@
 //
 
 import Foundation
-@testable import ENA
 
+#if DEBUG
 final class CachingHTTPClientMock: CachingHTTPClient {
 
-	convenience init(store: Store = MockTestStore()) {
+	convenience init(store: Store) {
 		self.init(serverEnvironmentProvider: store)
 	}
 
@@ -55,3 +55,4 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		handler(etag, completion)
 	}
 }
+#endif
