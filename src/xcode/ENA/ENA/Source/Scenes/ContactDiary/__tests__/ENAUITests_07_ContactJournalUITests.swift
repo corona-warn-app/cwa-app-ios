@@ -152,7 +152,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		navigateToJournalOverview()
 		
 		// select first cell
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).tap()
+		app.cells.element(boundBy: 1).tap()
 		
 		// add a person
 		addPersonToDayEntry("Andrea")
@@ -166,16 +166,16 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// go back
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
 		
-		// select first cell
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4).tap()
+		// select fourth cell
+		app.cells.element(boundBy: 4).tap()
 		
 		// add a person
 		addPersonToDayEntry("Michael")
 		
 		// go back
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
-		app.swipeDown()
 		
+		app.swipeDown()
 		//take screenshot
 		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
