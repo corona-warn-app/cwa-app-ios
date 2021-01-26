@@ -768,6 +768,7 @@ enum AppStrings {
 	}
 
 	enum AppInformation {
+		static let newFeaturesNavigation = NSLocalizedString("App_Information_New_Features_Navigation", comment: "")
 		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
 		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")
 		static let aboutTitle = NSLocalizedString("App_Information_About_Title", comment: "")
@@ -819,8 +820,33 @@ enum AppStrings {
 		static let characterIndex = NSLocalizedString("ENATanInput_CharacterIndex", comment: "")
 	}
 	
+	enum NewVersionFeatures {
+		static let accImageLabel = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel", comment: "")
+		
+		static let title = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Title", comment: "")
+		
+		static let release = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Release", comment: "")
+		
+		static let buttonContinue = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Button_Continue", comment: "")
+		
+		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
+		
+		static let feature112StatisticsTitle = NSLocalizedString("NewVersionFeature_112_statistics_title", comment: "")
+		
+		static let feature112StatisticsDescription = NSLocalizedString("NewVersionFeature_112_statistics_description", comment: "")
+		
+		static let feature112ExposureHistoryTitle = NSLocalizedString("NewVersionFeature_112_exposure_history_title", comment: "")
+		
+		static let feature112ExposureHistoryDescription = NSLocalizedString("NewVersionFeature_112_exposure_history_description", comment: "")
+		
+		static let feature112iOS125SupportTitle = NSLocalizedString("NewVersionFeature_112_ios125_support_title", comment: "")
+		
+		static let feature112iOS125SupportDescription = NSLocalizedString("NewVersionFeature_112_ios125_support_description", comment: "")
+	}
+	
 	enum DeltaOnboarding {
 		static let accImageLabel = NSLocalizedString("DeltaOnboarding_AccessibilityImageLabel", comment: "")
+		
 		static let title = NSLocalizedString("DeltaOnboarding_Headline", comment: "")
 		
 		static let description = NSLocalizedString("DeltaOnboarding_Description", comment: "")

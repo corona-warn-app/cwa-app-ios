@@ -507,7 +507,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			})
 		})
 	}
-
+	
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
@@ -527,7 +527,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries)
+					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
 				]
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
