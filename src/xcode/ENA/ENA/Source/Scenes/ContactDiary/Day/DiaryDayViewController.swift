@@ -100,11 +100,27 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var tableView: UITableView!
 
 	private func setupSegmentedControl() {
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline)], for: .normal)
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold)], for: .selected)
-
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
+
+		// not working correct at the moment
+		if #available(*, iOS 12) {
+			segmentedControl.tintColor = .lightGray
+			let unselectedBackgroundImage = UIImage.with(color: .lightGray)
+			let selectedBackgroundImage = UIImage.with(color: .white)
+
+			segmentedControl.setBackgroundImage(unselectedBackgroundImage, for: .normal, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .selected, barMetrics: .default)
+
+			segmentedControl.layer.borderWidth = 1.0
+			segmentedControl.layer.masksToBounds = true
+			segmentedControl.layer.cornerRadius = 5.0
+			segmentedControl.layer.borderColor = UIColor.lightGray.cgColor
+		} else {
+			segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+			segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+		}
+
 	}
 
 	private func setupTableView() {
