@@ -144,7 +144,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
 		var screenshotCounter = 0
-		let numberOfDaysWithHighRisk = 1
 		// setting up launch arguments
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
