@@ -50,12 +50,6 @@ class DeltaOnboardingNewVersionFeaturesViewController: DynamicTableViewControlle
 
 		item.title = AppStrings.NewVersionFeatures.title
 
-		item.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.finished?()
-			}
-		)
-		
 		return item
 	}()
 	
