@@ -7,5 +7,5 @@
 # These are the default owners for the whole content of this repository. The default owners are automatically added as reviewers when you open a pull request, unless different owners are specified in the file.
 * @corona-warn-app/cwa-app-ios-members
 
-# Code Onwer of all german texts
+# Code owners of all german texts
 /src/xcode/ENA/ENA/Resources/Localization/de.lproj/* @janetback @SabineLoss @tcfos
