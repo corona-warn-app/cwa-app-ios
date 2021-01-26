@@ -142,7 +142,50 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual("PommesBude-RotWeiss", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
+	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
+		var screenshotCounter = 0
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.cells.element(boundBy: 1).tap()
+		
+		// add a person
+		addPersonToDayEntry("Andrea")
+
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+		
+		// add a location
+		addLocationToDayEntry("Physiotherapie")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		
+		// select fourth cell
+		app.cells.element(boundBy: 4).tap()
+		
+		// add a person
+		addPersonToDayEntry("Michael")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		
+		app.swipeDown()
+		// take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		app.swipeUp()
+		// take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func testAddTwoPersonsAndOneLocationToDate() throws {
+		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
 
@@ -180,6 +223,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		snapshot("contact_journal_listing2_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// check count for overview: day cell 15 days plus 1 description cell
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)

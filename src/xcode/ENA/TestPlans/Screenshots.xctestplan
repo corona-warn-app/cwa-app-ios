@@ -31,7 +31,9 @@
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitTAN()",
         "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLogging()",
         "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLoggingOff()",
-        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()"
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()",
+        "ENAUITests_07_ContactJournalUITests\/testAddTwoPersonsAndOneLocationToDate()",
+        "ENAUITests_07_ContactJournalUITests\/testScreenshotTwoPersonsOneLocationAndMessages()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
