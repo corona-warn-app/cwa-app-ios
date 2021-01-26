@@ -54,4 +54,8 @@ class DynamicTableViewIconCell: UITableViewCell {
 	@IBOutlet private weak var iconImageView: UIImageView!
 	@IBOutlet private weak var contentTextLabel: ENALabel!
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		stackView.forceLayoutUpdate()
+	}
 }

@@ -62,15 +62,23 @@ class RiskLegendViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		tableView.register(
-			UINib(nibName: String(describing: RiskLegendDotBodyCell.self), bundle: nil),
+			RiskLegendDotBodyCell.self,
 			forCellReuseIdentifier: RiskLegendViewController.CellReuseIdentifier.dotBody.rawValue
 		)
 	}
 
 	private var model: DynamicTableViewModel {
-		DynamicTableViewModel([
+		var insets: UIEdgeInsets
+		if #available(iOS 13, *) {
+			insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+		} else {
+			insets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
+		}
+		return DynamicTableViewModel([
+			
 			.navigationSubtitle(
 				text: AppStrings.RiskLegend.subtitle,
+				insets: insets,
 				accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.subtitle),
 			.section(
 				header: .image(UIImage(named: "Illu_Legende-Overview"),
@@ -197,7 +205,7 @@ private extension DynamicCell {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
 			guard let cell = cell as? RiskLegendDotBodyCell else { return }
 			cell.dotView.backgroundColor = color
-			cell.textLabel?.text = text
+			cell.label.text = text
 			cell.accessibilityLabel = "\(text)\n\n\(accessibilityLabelColor)"
 			cell.accessibilityIdentifier = accessibilityIdentifier
 		}

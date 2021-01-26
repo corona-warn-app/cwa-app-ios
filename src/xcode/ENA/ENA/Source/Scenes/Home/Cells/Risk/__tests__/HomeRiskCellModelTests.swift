@@ -22,7 +22,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [Date(): .low]
 		)
 
 		store.riskCalculationResult = riskCalculationResult
@@ -32,9 +33,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = HomeRiskCellModel(
 			homeState: homeState,
@@ -115,13 +120,13 @@ class HomeRiskCellModelTests: XCTestCase {
 
 		// Check that button is shown in manual mode
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 
 		// Check that button is hidden again in automatic mode
 
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
@@ -137,7 +142,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [Date(): .high]
 		)
 
 		store.riskCalculationResult = riskCalculationResult
@@ -147,9 +153,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		let viewModel = HomeRiskCellModel(
 			homeState: homeState,
@@ -230,13 +240,13 @@ class HomeRiskCellModelTests: XCTestCase {
 
 		// Check that button is shown in manual mode
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 
 		// Check that button is hidden again in automatic mode
 
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
@@ -249,9 +259,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 		homeState.riskState = .inactive
 
 		let viewModel = HomeRiskCellModel(
@@ -337,13 +351,13 @@ class HomeRiskCellModelTests: XCTestCase {
 
 		// Check that button is shown in manual mode
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 
 		// Check that button is shown in automatic mode
 
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 	}
@@ -356,9 +370,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 		homeState.riskState = .detectionFailed
 
 		let viewModel = HomeRiskCellModel(
@@ -444,13 +462,13 @@ class HomeRiskCellModelTests: XCTestCase {
 
 		// Check that button is shown in manual mode
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 
 		// Check that button is shown in automatic mode
 
-		homeState.detectionMode = .automatic
+		homeState.updateDetectionMode(.automatic)
 
 		XCTAssertFalse(viewModel.isButtonHidden)
 	}
@@ -465,7 +483,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [Date(): .low]
 		)
 
 		let homeState = HomeState(
@@ -473,9 +492,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		var subscriptions = Set<AnyCancellable>()
 
@@ -519,7 +542,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [Date(): .high]
 		)
 
 		let homeState = HomeState(
@@ -527,9 +551,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		var subscriptions = Set<AnyCancellable>()
 
@@ -571,7 +599,11 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 		homeState.riskState = .inactive
 
@@ -607,12 +639,18 @@ class HomeRiskCellModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInFailedState() {
+		let store = MockTestStore()
+
 		let homeState = HomeState(
-			store: MockTestStore(),
+			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 		homeState.riskState = .inactive
 
@@ -655,7 +693,11 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 
 		let onUpdateExpectation = expectation(description: "onUpdate is called")
@@ -684,7 +726,11 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 
 		let onUpdateExpectation = expectation(description: "onUpdate is called")
@@ -713,7 +759,11 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService()
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
 		)
 
 		let onUpdateExpectation = expectation(description: "onUpdate is called")
@@ -726,7 +776,7 @@ class HomeRiskCellModelTests: XCTestCase {
 			onUpdate: { onUpdateExpectation.fulfill() }
 		)
 
-		homeState.detectionMode = .manual
+		homeState.updateDetectionMode(.manual)
 
 		waitForExpectations(timeout: .medium)
 

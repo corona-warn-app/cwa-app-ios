@@ -8,9 +8,8 @@ import OpenCombine
 
 final class CachedAppConfigurationTests: XCTestCase {
 
-	private var subscriptions = [AnyCancellable]()
-
 	func testCachedRequests() {
+		var subscriptions = Set<AnyCancellable>()
 
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
 		// we trigger a config fetch twice but expect only one http request (plus one cached result)
@@ -32,75 +31,90 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		let completionExpectation = expectation(description: "app configuration completion called")
 		completionExpectation.expectedFulfillmentCount = 2
+		wait(for: [fetchedFromClientExpectation], timeout: .medium)
 
-		cache.appConfiguration().sink { config in
-			XCTAssertEqual(config, expectedConfig)
-			completionExpectation.fulfill()
-		}.store(in: &subscriptions)
+		cache.appConfiguration()
+			.sink { config in
+				XCTAssertEqual(config, expectedConfig)
+				completionExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
 
 		XCTAssertNotNil(store.appConfigMetadata)
 
 		// Should not trigger another call (expectation) to the actual client or a new risk calculation
 		// Remember: `expectedFulfillmentCount = 1`
-		cache.appConfiguration().sink { config in
-			XCTAssertEqual(config, expectedConfig)
-			completionExpectation.fulfill()
-		}.store(in: &subscriptions)
+		cache.appConfiguration()
+			.sink { config in
+				XCTAssertEqual(config, expectedConfig)
+				completionExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .medium)
+		wait(for: [completionExpectation], timeout: .medium)
 	}
 
 	func testCacheSupportedCountries() throws {
+		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
+
 		let store = MockTestStore()
-		var config = CachingHTTPClientMock.staticAppConfig
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
+			fetchedFromClientExpectation.fulfill()
 		}
 
 		let gotValue = expectation(description: "got countries list")
 
 		let cache = CachedAppConfiguration(client: client, store: store)
-		cache
-			.supportedCountries()
-			.sink { countries in
-				XCTAssertEqual(countries.count, 6)
-				gotValue.fulfill()
-			}
-			.store(in: &subscriptions)
+		wait(for: [fetchedFromClientExpectation], timeout: .medium)
 
-		waitForExpectations(timeout: .medium)
+		let subscription = cache
+				.supportedCountries()
+				.sink { countries in
+					XCTAssertEqual(countries.count, 6)
+					gotValue.fulfill()
+				}
+
+		wait(for: [gotValue], timeout: .medium)
+
+		subscription.cancel()
 	}
 
 	func testCacheEmptySupportedCountries() throws {
-		let store = MockTestStore()
-		var config = CachingHTTPClientMock.staticAppConfig
-		config.supportedCountries = []
+		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
 
-		let gotValue = expectation(description: "got countries list")
-		gotValue.expectedFulfillmentCount = 2
+		let store = MockTestStore()
+		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		config.supportedCountries = []
 
 		let client = CachingHTTPClientMock(store: store)
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
-			gotValue.fulfill()
+			fetchedFromClientExpectation.fulfill()
 		}
 
+		let gotValue = expectation(description: "got countries list")
+
 		let cache = CachedAppConfiguration(client: client, store: store)
-		cache
+		wait(for: [fetchedFromClientExpectation], timeout: .medium)
+
+		let subscription = cache
 			.supportedCountries()
 			.sink { countries in
 				XCTAssertEqual(countries.count, 1)
 				XCTAssertEqual(countries.first, .defaultCountry())
 				gotValue.fulfill()
 			}
-			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: .medium)
+		wait(for: [gotValue], timeout: .medium)
+
+		subscription.cancel()
 	}
 
 	// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-3781

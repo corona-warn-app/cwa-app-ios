@@ -119,6 +119,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
+		// First check if user activated notification setting
+		guard self.store.allowTestsStatusNotification else {
+			completion(false)
+			return
+		}
+		
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: dependencies.exposureManager,
 			appConfigurationProvider: dependencies.appConfigurationProvider,

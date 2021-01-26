@@ -174,7 +174,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]
 
-		for dayDifference in 0..<14 {
+		for dayDifference in 0..<15 {
 			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: Date()) else { continue }
 			let dateString = dateFormatter.string(from: date)
 
@@ -196,7 +196,12 @@ class MockDiaryStore: DiaryStoringProviding {
 					return DiaryEntry.location(location)
 				}
 
-			diaryDays.append(DiaryDay(dateString: dateString, entries: contactPersonEntries + locationEntries))
+			diaryDays.append(
+				DiaryDay(
+					dateString: dateString,
+					entries: contactPersonEntries + locationEntries
+				)
+			)
 		}
 
 		diaryDaysPublisher.send(diaryDays)

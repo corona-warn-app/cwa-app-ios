@@ -37,8 +37,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 
 		let tablesQuery = app.tables
 		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
-		
-		
+				
 		// Close (X) Button
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
@@ -77,7 +76,22 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		
+	}
+	
+	func test_DeltaOnboardingScreenCloseButton() throws {
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.3"])
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
 		
+		XCTAssert(app.staticTexts["AppStrings.DeltaOnboarding.title"].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].exists)
+		
+		// close delta onboarding
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		
+		XCTAssertFalse(app.staticTexts["AppStrings.DeltaOnboarding.title"].exists)
+		XCTAssertFalse(app.staticTexts["AppStrings.AccessibilityLabel.close"].exists)
+			
 	}
 
 }
