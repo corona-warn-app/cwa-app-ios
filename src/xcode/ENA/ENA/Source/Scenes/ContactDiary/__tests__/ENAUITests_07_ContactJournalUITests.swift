@@ -176,11 +176,11 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
 		
 		app.swipeDown()
-		//take screenshot
+		// take screenshot
 		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		app.swipeUp()
-		//take screenshot
+		// take screenshot
 		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
