@@ -111,7 +111,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		setupBarButtonItems()
 		setupTableView()
 
-		navigationItem.largeTitleDisplayMode = .never
+		navigationItem.largeTitleDisplayMode = .automatic
 		tableView.backgroundColor = .enaColor(for: .separator)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -122,6 +122,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
+		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
+		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationController?.navigationBar.sizeToFit()
 
 		viewModel.state.requestRisk(userInitiated: false)
 	}
@@ -503,7 +507,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			})
 		})
 	}
-
+	
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
@@ -523,7 +527,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries)
+					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
 				]
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
