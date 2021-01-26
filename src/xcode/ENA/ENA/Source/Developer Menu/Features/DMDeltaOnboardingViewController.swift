@@ -34,6 +34,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 
 		currentVersionLabel = UILabel(frame: .zero)
 		currentVersionLabel.translatesAutoresizingMaskIntoConstraints = false
+		
 		updateCurrentVersionLabel()
 
 		let button = UIButton(frame: .zero)
@@ -41,7 +42,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		button.setTitle("Save Onboarding Version", for: .normal)
 		button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 		button.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
-
+		
 		textField = UITextField(frame: .zero)
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.delegate = self
@@ -55,7 +56,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		view.addSubview(stackView)
 		NSLayoutConstraint.activate([
 			stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+			stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100.0)
 		])
 	}
 
@@ -64,7 +65,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	private func updateCurrentVersionLabel() {
 		currentVersionLabel.text = "Current onboarding version: \(store.onboardingVersion)"
 	}
-
+	
 	@objc
 	private func buttonTapped() {
 		store.onboardingVersion = textField.text ?? ""

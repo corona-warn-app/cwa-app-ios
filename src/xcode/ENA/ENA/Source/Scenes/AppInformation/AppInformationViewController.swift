@@ -44,6 +44,7 @@ extension AppInformationViewController {
 		case legal
 		case contact
 		case imprint
+		case versionInfo
 	}
 }
 
