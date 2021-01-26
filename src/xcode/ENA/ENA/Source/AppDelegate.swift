@@ -439,6 +439,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
+
+		appearance.shadowImage = UIImage()
 	}
 
 	private func setupAlertViewAppearance() {
