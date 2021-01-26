@@ -165,6 +165,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 			httpRequest.fulfill()
 		}
 
+		var subscriptions = [AnyCancellable]()
 		for _ in 0...gotValue.expectedFulfillmentCount {
 			let cache = CachedAppConfiguration(client: client, store: store)
 			cache

@@ -120,7 +120,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
 		// First check if user activated notification setting
-		guard self.store.allowTestsStatusNotification else {
+		guard self.dependencies.store.allowTestsStatusNotification else {
 			completion(false)
 			return
 		}
