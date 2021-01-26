@@ -33,6 +33,32 @@ class StatisticsProviderTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testFetchLiveStats() {
+		let fetchedFromClientExpectation = expectation(description: "stats fetched from client")
+		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+
+		let store = MockTestStore()
+		XCTAssertNil(store.appConfigMetadata)
+
+		let config = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+		let client = CachingHTTPClient(clientConfiguration: config)
+		client.fetchStatistics(etag: "foo") { result in
+			switch result {
+			case .success(let response): // StatisticsFetchingResponse
+				XCTAssertEqual(response.stats.keyFigureCards.count, 4)
+				XCTAssertEqual(response.stats.cardIDSequence.count, response.stats.keyFigureCards.count)
+
+				// check that we dont fetch mock data
+				XCTAssertNotEqual(CachingHTTPClientMock.staticStatistics, response.stats)
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			}
+			fetchedFromClientExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .medium)
+	}
+
 	func testStatisticsProviding() throws {
 		let valueReceived = expectation(description: "Value received")
 		valueReceived.expectedFulfillmentCount = 1
