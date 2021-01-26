@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Nicio expunere</string>
+			<string>Expuneri cu risc redus în %u de zile</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Expuneri cu risc redus într-o zi</string>
@@ -22,10 +22,10 @@
 			<string>Expuneri cu risc redus în %u zile</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Expuneri cu risc redus în %u zile</string>
+			<string>Expuneri cu risc redus în %u de zile</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Expuneri cu risc redus în %u zile</string>
+			<string>Expuneri cu risc redus în %u de zile</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Expuneri cu risc redus în %u de zile</string>
@@ -43,7 +43,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Expuneri cu risc crescut în %u zile</string>
+			<string>Expuneri cu risc crescut în %u de zile</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Expuneri cu risc crescut într-o zi</string>
@@ -52,10 +52,10 @@
 			<string>Expuneri cu risc crescut în %u zile</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Expuneri cu risc crescut în %u zile</string>
+			<string>Expuneri cu risc crescut în %u de zile</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Expuneri cu risc crescut în %u zile</string>
+			<string>Expuneri cu risc crescut în %u de zile</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Expuneri cu risc crescut în %u de zile</string>
@@ -73,7 +73,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Actualizare în %02u:%2$#@seconds@ secunde</string>
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Actualizare în %02u:%2$#@seconds@ minut</string>
@@ -82,10 +82,10 @@
 			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
@@ -128,7 +128,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Înregistrarea în jurnal a expunerilor a fost activă mai puțin de o zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
@@ -137,10 +137,10 @@
 			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
