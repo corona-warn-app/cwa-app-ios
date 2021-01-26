@@ -106,7 +106,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		// required to make segement control look a bit like iOS 13
 		if #available(iOS 13, *) {
 		} else {
-			Log.debug("setup segmented control for iOS 12")
+			Log.debug("setup segmented control for iOS 12", log: .ui)
 			segmentedControl.tintColor = .enaColor(for: .cellBackground)
 			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
 			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
