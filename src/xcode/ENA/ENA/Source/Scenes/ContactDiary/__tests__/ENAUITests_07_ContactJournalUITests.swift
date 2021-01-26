@@ -144,7 +144,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
 		var screenshotCounter = 0
-		
+		let numberOfDaysWithHighRisk = 1
 		// setting up launch arguments
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
@@ -157,7 +157,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		
 		// add a person
 		addPersonToDayEntry("Andrea")
-		
+
 		// switch to places
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 		
@@ -167,8 +167,22 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// go back
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
 		
+		// select first cell
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4).tap()
+		
+		// add a person
+		addPersonToDayEntry("Michael")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+		app.swipeDown()
+		
 		//take screenshot
-		snapshot("contact_journal_listing_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		app.swipeUp()
+		//take screenshot
+		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func testAddTwoPersonsAndOneLocationToDate() throws {
