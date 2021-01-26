@@ -233,13 +233,4 @@ private extension DynamicCell {
 		}
 	}
 
-	static func dotBodyCell(color: UIColor, text: String, accessibilityLabelColor: String, accessibilityIdentifier: String?) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
-			guard let cell = cell as? RiskLegendDotBodyCell else { return }
-			cell.dotView.backgroundColor = color
-			cell.textLabel?.text = text
-			cell.accessibilityLabel = "\(text)\n\n\(accessibilityLabelColor)"
-			cell.accessibilityIdentifier = accessibilityIdentifier
-		}
-	}
 }
