@@ -103,23 +103,27 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
 
-		// not working correct at the moment
-		if #available(*, iOS 12) {
-			segmentedControl.tintColor = .lightGray
-			let unselectedBackgroundImage = UIImage.with(color: .lightGray)
-			let selectedBackgroundImage = UIImage.with(color: .white)
+		// why isn't #available(*, iOS 12) working herer - I don't know at the moment
+		if #available(iOS 13, *) {
+		} else {
+			Log.debug("setup segmented control for iOS 12")
+			segmentedControl.tintColor = .enaColor(for: .cellBackground)
+			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
+			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
 
 			segmentedControl.setBackgroundImage(unselectedBackgroundImage, for: .normal, barMetrics: .default)
 			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .selected, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .highlighted, barMetrics: .default)
 
-			segmentedControl.layer.borderWidth = 1.0
+			segmentedControl.tintAdjustmentMode = .normal
+
+			segmentedControl.layer.borderWidth = 2.5
 			segmentedControl.layer.masksToBounds = true
 			segmentedControl.layer.cornerRadius = 5.0
-			segmentedControl.layer.borderColor = UIColor.lightGray.cgColor
-		} else {
-			segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
-			segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
 		}
+		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 
 	}
 
