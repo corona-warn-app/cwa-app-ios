@@ -23,27 +23,32 @@ extension AppInformationViewController {
 		.terms: AppInformationCellModel(
 			text: AppStrings.AppInformation.termsTitle,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsNavigation,
-			action: .push(model: AppInformationModel.termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
+			action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation)
 		),
 		.privacy: AppInformationCellModel(
 			text: AppStrings.AppInformation.privacyNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyNavigation,
-			action: .push(model: AppInformationModel.privacyModel, withTitle:  AppStrings.AppInformation.privacyNavigation)
+			action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyNavigation)
 		),
 		.legal: AppInformationCellModel(
 			text: AppStrings.AppInformation.legalNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.legalNavigation,
-			action: .push(model: legalModel, separators: true, withTitle:  AppStrings.AppInformation.legalNavigation)
+			action: .push(model: legalModel, separators: true, withTitle: AppStrings.AppInformation.legalNavigation)
 		),
 		.contact: AppInformationCellModel(
 			text: AppStrings.AppInformation.contactNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
-			action: .push(model: AppInformationModel.contactModel, withTitle:  AppStrings.AppInformation.contactNavigation)
+			action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
 		),
 		.imprint: AppInformationCellModel(
 			text: AppStrings.AppInformation.imprintNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
-			action: .push(model: imprintViewModel.dynamicTable, withTitle:  AppStrings.AppInformation.imprintNavigation)
+			action: .push(model: imprintViewModel.dynamicTable, withTitle: AppStrings.AppInformation.imprintNavigation)
+		),
+		.versionInfo: AppInformationCellModel(
+			text: AppStrings.AppInformation.newFeaturesNavigation,
+			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.newFeaturesNavigation,
+			action: .push(viewController: DeltaOnboardingNewVersionFeaturesViewController(hasCloseButton: false))
 		)
 	]
 
