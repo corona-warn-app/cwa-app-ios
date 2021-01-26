@@ -112,7 +112,7 @@ class ENAUITests: XCTestCase {
 		app.swipeUp(velocity: .slow)
 		// ScreenShot_0008: Statistics on Home screen
 		XCTAssert(app.staticTexts[AccessibilityIdentifiers.Statistics.Infections.title].exists)
-		if snapshotsActive { snapshot("AppStore_0008") }
+		snapshot("AppStore_0008")
 	}
 
 	func test_0001_Generate_Screenshots_For_AppStore_Submission() throws {
