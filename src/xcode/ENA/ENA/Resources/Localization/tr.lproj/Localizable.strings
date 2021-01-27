@@ -1487,7 +1487,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Toplam";
 
-"Statistics_Card_KeySubmissions_Footnote" = "Corona-Warn-App Hakkında";
+"Statistics_Card_KeySubmissions_Footnote" = "Corona-Warn-App üzerinden";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7 Günlük R Değeri";

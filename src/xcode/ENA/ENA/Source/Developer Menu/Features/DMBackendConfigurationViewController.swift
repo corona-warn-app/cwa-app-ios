@@ -11,15 +11,9 @@ final class DMBackendConfigurationViewController: UITableViewController {
 	// MARK: Creating a Configuration View Controller
 
 	init(
-		distributionURL: String?,
-		submissionURL: String?,
-		verificationURL: String?,
-		exposureSubmissionService: ExposureSubmissionService
+		serverEnvironmentProvider: ServerEnvironmentProviding
 	) {
-		self.distributionURL = distributionURL
-		self.submissionURL = submissionURL
-		self.verificationURL = verificationURL
-		self.exposureSubmissionService = exposureSubmissionService
+		self.serverEnvironmentProvider = serverEnvironmentProvider
 
 		super.init(style: .plain)
 		title = "⚙️ Backend Configuration"
@@ -32,10 +26,17 @@ final class DMBackendConfigurationViewController: UITableViewController {
 
 	// MARK: Properties
 
-	private let distributionURL: String?
-	private let submissionURL: String?
-	private let verificationURL: String?
-	private let exposureSubmissionService: ExposureSubmissionService
+	private let serverEnvironmentProvider: ServerEnvironmentProviding
+
+	private var distributionURL: String {
+		serverEnvironmentProvider.selectedServerEnvironment.distributionURL.absoluteString
+	}
+	private var submissionURL: String {
+		serverEnvironmentProvider.selectedServerEnvironment.submissionURL.absoluteString
+	}
+	private var verificationURL: String {
+		serverEnvironmentProvider.selectedServerEnvironment.verificationURL.absoluteString
+	}
 
 	// MARK: UIViewController
 
@@ -59,13 +60,13 @@ final class DMBackendConfigurationViewController: UITableViewController {
 		switch indexPath.row {
 		case 0:
 			title = "Distribution URL"
-			subtitle = distributionURL ?? "<none>"
+			subtitle = distributionURL
 		case 1:
 			title = "Submission URL"
-			subtitle = submissionURL ?? "<none>"
+			subtitle = submissionURL
 		case 2:
 			title = "Verification URL"
-			subtitle = verificationURL ?? "<none>"
+			subtitle = verificationURL
 		default:
 			title = nil
 			subtitle = nil

@@ -13,8 +13,7 @@ class WifiHTTPClientTest: XCTestCase {
 	func testWHEN_WifiClient_THEN_wifiOnlyIsActive() {
 		// WHEN
 		let mockStore = MockTestStore()
-		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: mockStore)
-		let wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+		let wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: mockStore)
 
 		// THEN
 		XCTAssertEqual(wifiClient.isWifiOnlyActive, true)
@@ -23,8 +22,7 @@ class WifiHTTPClientTest: XCTestCase {
 	func testGIVEN_WifiOnlyClient_WHEN_updateSessionWifiFalse_THEN_WifiOnlyIsDisabled() {
 		// GIVEN
 		let mockStore = MockTestStore()
-		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: mockStore)
-		let wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+		let wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: mockStore)
 
 		// WHEN
 		wifiClient.updateSession(wifiOnly: false)
@@ -36,8 +34,7 @@ class WifiHTTPClientTest: XCTestCase {
 	func testGIVEN_WifiOnlyClient_WHEN_updateSessionWifiTrue_THEN_WifiOnlyIsDisabled() {
 		// GIVEN
 		let mockStore = MockTestStore()
-		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: mockStore)
-		let wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+		let wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: mockStore)
 
 		// WHEN
 		wifiClient.updateSession(wifiOnly: true)
@@ -49,8 +46,7 @@ class WifiHTTPClientTest: XCTestCase {
 	func testWHEN_WifiOnlyClient_THEN_disableHourlyDownloadIsFalse() {
 		// WHEN
 		let mockStore = MockTestStore()
-		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: mockStore)
-		let wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+		let wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: mockStore)
 
 		// THEN
 		XCTAssertEqual(wifiClient.disableHourlyDownload, false)

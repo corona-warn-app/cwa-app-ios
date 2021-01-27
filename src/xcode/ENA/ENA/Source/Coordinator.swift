@@ -55,7 +55,7 @@ class Coordinator: RequiresAppDependencies {
 		#endif
 
 		return StatisticsProvider(
-			client: CachingHTTPClient(clientConfiguration: client.configuration),
+			client: CachingHTTPClient(serverEnvironmentProvider: store),
 			store: store
 		)
 	}()
