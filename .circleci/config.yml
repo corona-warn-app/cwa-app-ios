@@ -156,7 +156,7 @@ jobs:
           at: .
       - run:
           name: Package Screenshots
-          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' screenshots && cd -
       - store_artifacts:
           path: src/xcode/screenshots/screenshots.tar
   testflight-release:
