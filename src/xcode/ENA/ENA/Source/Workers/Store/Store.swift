@@ -72,8 +72,6 @@ protocol StoreProtocol: AnyObject {
 	/// The time when the playbook was executed in background.
 	var firstPlaybookExecution: Date? { get set }
 
-	var selectedServerEnvironment: ServerEnvironmentData { get set }
-	
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationOneTimer: TimeInterval { get set }
 	
@@ -117,6 +115,10 @@ protocol StoreProtocol: AnyObject {
 
 }
 
+protocol ServerEnvironmentProviding {
+	var selectedServerEnvironment: ServerEnvironmentData { get set }
+}
+
 protocol AppConfigCaching: AnyObject {
 	var appConfigMetadata: AppConfigMetadata? { get set }
 }
@@ -126,4 +128,4 @@ protocol StatisticsCaching: AnyObject {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding {}

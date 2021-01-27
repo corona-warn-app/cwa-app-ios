@@ -36,9 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
 
-		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
-		self.client = HTTPClient(configuration: configuration)
-		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+		self.client = HTTPClient(serverEnvironmentProvider: store)
+		self.wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: store)
 
 		self.downloadedPackagesStore.keyValueStore = self.store
 	}
@@ -131,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
-		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
+		let appFetchingClient = CachingHTTPClient(serverEnvironmentProvider: store)
 
 		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
 		// used to remove invalidated key packages
@@ -210,15 +209,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	/// Resets all stores and notifies the Onboarding and resets all pending notifications
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
-
 		exposureSubmissionService.reset()
 
+		// Reset key value store.
 		do {
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 		} catch {
 			fatalError("Creating new database key failed")
 		}
+
+		// Reset key packages store
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {

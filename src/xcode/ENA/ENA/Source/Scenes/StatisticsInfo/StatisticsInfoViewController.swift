@@ -168,7 +168,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						color: .enaColor(for: .textPrimary2),
 						accessibilityIdentifier: nil
 					),
-					.body(
+					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.yesterdayText,
 						accessibilityIdentifier: nil
 					),
@@ -178,7 +178,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						color: .enaColor(for: .textPrimary2),
 						accessibilityIdentifier: nil
 					),
-					.body(
+					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.meanText,
 						accessibilityIdentifier: nil
 					),
@@ -188,7 +188,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						color: .enaColor(for: .textPrimary2),
 						accessibilityIdentifier: nil
 					),
-					.body(
+					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.totalText,
 						accessibilityIdentifier: nil
 					)
@@ -202,7 +202,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.trendTitle,
 						accessibilityIdentifier: nil
 					),
-					.body(
+					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.trendText,
 						accessibilityIdentifier: nil
 					),
@@ -227,18 +227,10 @@ class StatisticsInfoViewController: DynamicTableViewController {
 private extension DynamicCell {
 	static func headlineWithoutBottomInset(text: String, color: UIColor? = nil, accessibilityIdentifier: String?) -> Self {
 		.headline(text: text, color: color, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
+			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
 			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 
-	static func dotBodyCell(color: UIColor, text: String, accessibilityLabelColor: String, accessibilityIdentifier: String?) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
-			guard let cell = cell as? RiskLegendDotBodyCell else { return }
-			cell.dotView.backgroundColor = color
-			cell.textLabel?.text = text
-			cell.accessibilityLabel = "\(text)\n\n\(accessibilityLabelColor)"
-			cell.accessibilityIdentifier = accessibilityIdentifier
-		}
-	}
 }

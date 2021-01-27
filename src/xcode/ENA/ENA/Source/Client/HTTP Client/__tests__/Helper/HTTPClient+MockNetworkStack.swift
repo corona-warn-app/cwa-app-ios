@@ -48,7 +48,7 @@ extension HTTPClient {
 	/// Configure a `HTTPClient` with `.fake` configuration and mocked `URLSession`
 	static func makeWith(mock stack: MockNetworkStack) -> HTTPClient {
 		HTTPClient(
-			configuration: HTTPClient.Configuration.makeDefaultConfiguration(store: MockTestStore()),
+			serverEnvironmentProvider: MockTestStore(),
 			packageVerifier: stack.packageVerifier,
 			session: stack.urlSession
 		)
@@ -58,7 +58,7 @@ extension HTTPClient {
 extension WifiOnlyHTTPClient {
 	static func makeWith(mock stack: MockNetworkStack) -> WifiOnlyHTTPClient {
 		WifiOnlyHTTPClient(
-			configuration: HTTPClient.Configuration.makeDefaultConfiguration(store: MockTestStore()),
+			serverEnvironmentProvider: MockTestStore(),
 			session: stack.urlSession
 		)
 	}
