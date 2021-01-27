@@ -1487,7 +1487,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
 
-"Statistics_Card_KeySubmissions_Footnote" = "About Corona-Warn-App";
+"Statistics_Card_KeySubmissions_Footnote" = "through the Corona-Warn-App";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7-Day R Value";

@@ -6,13 +6,19 @@ import Foundation
 
 class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 
+	private let serverEnvironmentProvider: ServerEnvironmentProviding
+
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
 		case dataVerificationError(message: String?)
 	}
 
 	/// The client configuration - mostly server endpoints per environment
-	let configuration: HTTPClient.Configuration
+	var configuration: HTTPClient.Configuration {
+		HTTPClient.Configuration.makeDefaultConfiguration(
+			serverEnvironmentProvider: serverEnvironmentProvider
+		)
+	}
 
 	/// The underlying URLSession for all network requests
 	let session: URLSession
@@ -27,11 +33,11 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
 	///   - packageVerifier: The verifier to use for package validation.
 	init(
-		clientConfiguration: HTTPClient.Configuration,
+		serverEnvironmentProvider: ServerEnvironmentProviding,
 		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
 		packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
 		self.session = session
-		self.configuration = clientConfiguration
+		self.serverEnvironmentProvider = serverEnvironmentProvider
 		self.packageVerifier = packageVerifier
 	}
 

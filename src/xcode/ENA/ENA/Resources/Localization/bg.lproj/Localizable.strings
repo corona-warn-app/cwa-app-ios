@@ -1487,7 +1487,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Общо";
 
-"Statistics_Card_KeySubmissions_Footnote" = "Относно приложението Corona-Warn-App";
+"Statistics_Card_KeySubmissions_Footnote" = "чрез приложението Corona-Warn-App";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7-дневно репродуктивно число R";
