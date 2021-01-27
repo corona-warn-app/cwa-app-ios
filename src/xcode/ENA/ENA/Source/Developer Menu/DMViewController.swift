@@ -165,14 +165,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	}
 
 	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
-		guard let client = client as? HTTPClient else {
-			fatalError("the developer menu only supports apps using a real http client")
-		}
 		return DMBackendConfigurationViewController(
-			distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
-			submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
-			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString,
-			exposureSubmissionService: exposureSubmissionService
+			serverEnvironmentProvider: store
 		)
 	}
 
