@@ -166,7 +166,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		}
 
 		var subscriptions = [AnyCancellable]()
-		for _ in 0...gotValue.expectedFulfillmentCount {
+		for _ in 0..<gotValue.expectedFulfillmentCount {
 			let cache = CachedAppConfiguration(client: client, store: store)
 			cache
 				.supportedCountries()
