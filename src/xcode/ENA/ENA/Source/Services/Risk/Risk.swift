@@ -29,7 +29,12 @@ extension Risk {
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0,
-			// here default value is 14 days if launch argument is not defined
+			/*
+			 * We need to first cast it as NSString to get a doubleValue because
+			 * string don't support that conversion
+			 * The default value is 14 days if the lauch argument is not given
+			 * 24 x 3600 because a days has 24 hours and each hour has 3600 seconds
+			 */
 			activeTracing: .init(interval: ((UserDefaults.standard.string(forKey: "activeTracingDays") as NSString?)?.doubleValue ?? 14) * 24 * 3600),
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true
