@@ -387,7 +387,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Die teilnehmenden Länder können Sie jederzeit in den Details zur Risiko-Ermittlung einsehen.";
 
 /* Exposure Submission */
-// phone number; no spacing allowed
+/* phone number; no spacing allowed */
 "ExposureSubmission_Hotline_Number" = "08007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Einwilligungserklärung";
@@ -462,7 +462,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Schritt 2 von 2";
 
-// UI text; spacing allowed
+/* UI text; spacing allowed */
 "ExposureSubmission_PhoneNumber" = "0800 7540002";
 
 "ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\ntäglich 24 Stunden\n\nDer Anruf ist kostenfrei.\n\nFür gesundheitliche Fragen wenden Sie sich bitte an Ihre Hausarztpraxis oder die Hotline des ärztlichen Bereitschaftsdienstes 116 117.";
@@ -1596,9 +1596,9 @@ sein.";
 
 "Statistics_Info_ReproductionNumber_Text" = "Die Reproduktionszahl R gibt an, wie viele Personen im Durchschnitt von einer infizierten Person angesteckt wurden. Der aktuelle Wert berücksichtigt Daten bis vor 5 Tagen.";
 
-"Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in der";
+"Statistics_Info_FAQLink_Text" = "Weitere Informationen finden Sie in den FAQ:";
 
-"Statistics_Info_FAQLink_Title" = "FAQ zu den Statistiken.";
+"Statistics_Info_FAQLink_Title" = "FAQ zu Statistiken";
 
 "Statistics_Info_Definitions_Title" = "Legende";
 

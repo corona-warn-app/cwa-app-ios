@@ -96,15 +96,36 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	private var subscriptions = [AnyCancellable]()
 
+	@IBOutlet weak var topSpaceConstraint: NSLayoutConstraint!
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 
 	private func setupSegmentedControl() {
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline)], for: .normal)
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold)], for: .selected)
-
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
+
+		// required to make segement control look a bit like iOS 13
+		if #available(iOS 13, *) {
+		} else {
+			Log.debug("setup segmented control for iOS 12", log: .ui)
+			topSpaceConstraint.constant = 8.0
+			segmentedControl.tintColor = .enaColor(for: .cellBackground)
+			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
+			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
+
+			segmentedControl.setBackgroundImage(unselectedBackgroundImage, for: .normal, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .selected, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .highlighted, barMetrics: .default)
+
+			segmentedControl.tintAdjustmentMode = .normal
+
+			segmentedControl.layer.borderWidth = 2.5
+			segmentedControl.layer.masksToBounds = true
+			segmentedControl.layer.cornerRadius = 5.0
+			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
+		}
+		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 	}
 
 	private func setupTableView() {

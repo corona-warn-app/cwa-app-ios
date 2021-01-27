@@ -15,7 +15,6 @@ class ENAUITests: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchEnvironment["IsOnboarded"] = "NO"
-		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "NO"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
 
@@ -107,6 +106,7 @@ class ENAUITests: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "YES"]) // prevent failing tests for 1.11; use "NO" for 1.12
 		app.launch()
 
 		app.swipeUp(velocity: .slow)

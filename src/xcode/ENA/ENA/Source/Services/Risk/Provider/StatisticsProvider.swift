@@ -44,16 +44,16 @@ class StatisticsProvider: StatisticsProviding {
 				case .failure(let error):
 					switch error {
 					case URLSessionError.notModified:
-						if let stats = self.store.statistics {
-							// like app config, we update `lastStatisticsFetch`
-							self.store.statistics?.refeshLastFetchDate()
-							// return cached stats
-							promise(.success(stats.statistics))
-						} else {
-							// in the unlikely case that we dont have any stats but an ETag, we don't retry and simply return the error
-							promise(.failure(error))
-						}
-					default: // pass all other errors
+						// like app config, we update `lastStatisticsFetch`
+						self.store.statistics?.refeshLastFetchDate()
+					default:
+						break
+					}
+					// always return cached stats if available an from current day
+					if let stats = self.store.statistics, Calendar.current.isDateInToday(stats.lastStatisticsFetch) {
+						promise(.success(stats.statistics))
+					} else {
+						// otherwise return error
 						promise(.failure(error))
 					}
 				}

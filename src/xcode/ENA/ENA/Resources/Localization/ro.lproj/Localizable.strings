@@ -1487,7 +1487,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
 
-"Statistics_Card_KeySubmissions_Footnote" = "Despre aplicația Corona-Warn";
+"Statistics_Card_KeySubmissions_Footnote" = "prin aplicația Corona-Warn";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "Valoarea R pe 7 zile";

@@ -11,12 +11,12 @@ final class HTTPClient: Client {
 	// MARK: - Init
 
 	init(
-		configuration: Configuration,
+		serverEnvironmentProvider: ServerEnvironmentProviding,
 		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
 		session: URLSession = .coronaWarnSession()
 	) {
+		self.serverEnvironmentProvider = serverEnvironmentProvider
 		self.session = session
-		self.configuration = configuration
 		self.packageVerifier = packageVerifier
 	}
 
@@ -234,10 +234,15 @@ final class HTTPClient: Client {
 
 	// MARK: - Internal
 
-	let configuration: Configuration
+	var configuration: Configuration {
+		Configuration.makeDefaultConfiguration(
+			serverEnvironmentProvider: serverEnvironmentProvider
+		)
+	}
 
 	// MARK: - Private
 
+	private let serverEnvironmentProvider: ServerEnvironmentProviding
 	private let session: URLSession
 	private let packageVerifier: SAPDownloadedPackage.Verification
 	private var retries: [URL: Int] = [:]
