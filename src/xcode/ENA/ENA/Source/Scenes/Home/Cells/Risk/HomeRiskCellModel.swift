@@ -263,6 +263,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		isButtonHidden = homeState.detectionMode == .automatic
 		isButtonEnabled = homeState.manualExposureDetectionState == .possible
 
+		let activeTracing = risk.details.activeTracing
+
 		let mostRecentDateWithHighRisk = risk.details.mostRecentDateWithRiskLevel
 		var formattedMostRecentDateWithHighRisk = ""
 		assert(mostRecentDateWithHighRisk != nil, "mostRecentDateWithHighRisk must be set on high risk state")
@@ -272,8 +274,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
 		}
 
-		let activeTracing = risk.details.activeTracing
-		let activeTracingDays = HomeImageItemViewModel(
+		let activeTracingDaysModel = HomeImageItemViewModel(
 			title: activeTracing.localizedDuration,
 			titleColor: titleColor,
 			iconImageName: activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
@@ -284,7 +285,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		    separatorColor: separatorColor,
 		    containerInsets: nil
 	    )
-		let recentRiskDays = HomeImageItemViewModel(
+		let recentRiskDaysModel = HomeImageItemViewModel(
 			title: String(
 		    format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
 			   formattedMostRecentDateWithHighRisk
@@ -310,7 +311,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				separatorColor: separatorColor,
 				containerInsets: nil
 			),
-			risk.details.numberOfDaysWithRiskLevel > 0 ? recentRiskDays : activeTracingDays,
+			risk.details.numberOfDaysWithRiskLevel > 0 ? recentRiskDaysModel : activeTracingDaysModel,
 			HomeImageItemViewModel(
 				title: String(
 					format: AppStrings.Home.riskCardDateItemTitle,
