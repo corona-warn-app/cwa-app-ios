@@ -265,13 +265,12 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 		let activeTracing = risk.details.activeTracing
 
-		let mostRecentDateWithHighRisk = risk.details.mostRecentDateWithRiskLevel
-		var formattedMostRecentDateWithHighRisk = ""
-		assert(mostRecentDateWithHighRisk != nil, "mostRecentDateWithHighRisk must be set on high risk state")
-		if let mostRecentDateWithHighRisk = mostRecentDateWithHighRisk {
+		let mostRecentDateWithLowRisk = risk.details.mostRecentDateWithRiskLevel
+		var formattedMostRecentDateWithLowRisk = ""
+		if let mostRecentDateWithLowRisk = mostRecentDateWithLowRisk {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateStyle = .medium
-			formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+			formattedMostRecentDateWithLowRisk = dateFormatter.string(from: mostRecentDateWithLowRisk)
 		}
 
 		let activeTracingDaysModel = HomeImageItemViewModel(
@@ -287,8 +286,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 	    )
 		let recentRiskDaysModel = HomeImageItemViewModel(
 			title: String(
-		    format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
-			   formattedMostRecentDateWithHighRisk
+				format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
+				formattedMostRecentDateWithLowRisk
 		    ),
 		    titleColor: titleColor,
 		    iconImageName: "Icons_Calendar",
