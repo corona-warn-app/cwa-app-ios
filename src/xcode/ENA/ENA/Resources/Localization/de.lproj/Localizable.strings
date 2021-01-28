@@ -1275,6 +1275,36 @@ sein.";
 
 /* New Version Features */
 
+"NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Einstellungen unter dem Menüpunkt „Neue Funktionen”."
+
+/* Version 1.13 */
+
+"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Umfrage";
+
+"NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Umfrage des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
+
+"NewVersionFeature_113_data_donation_title" = "Einwilligung zur Datenspende (optional)";
+
+"NewVersionFeature_113_data_donation_description" = "Sie haben nun die Möglichkeit, Ihre Nutzungsdaten zur Verfügung zu stellen und uns somit bei der Verbesserung der App zu unterstützen.";
+
+"NewVersionFeature_113_risk_cards_title" = "Anpassungen der Risiko-Karten";
+
+"NewVersionFeature_113_risk_cards_description" = "Die Texte auf den Risiko-Karten wurden leicht angepasst.";
+
+"NewVersionFeature_113_risk_determination_random_id_title" = "Fortführung der Risiko-Ermittlung nach Teilung der Zufalls-IDs";
+
+"NewVersionFeature_113_risk_determination_random_id_description" = "Nachdem Sie Ihre verschlüsselten Zufalls-IDs geteilt haben können Sie entscheiden, ob und wann Sie die Risiko-Ermittlung wieder einschalten möchten.";
+
+"NewVersionFeature_113_new_tabbar_title" = "Einführung von Registerkarten";
+
+"NewVersionFeature_113_new_tabbar_description" = "Es gibt nun eine eigene Registerkarte für das Kontakt-Tagebuch. Somit können Sie schneller auf Ihr Tagebuch zugreifen und vom Kontakt-Tagebuch wieder zurück auf die Startseite der App wechseln.";
+
+"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Mehr Informationen zum Testablauf";
+
+"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "Die App enthält nun detaillierte Informationen zum Testablauf.";
+
+/* Version 1.12 */
+
 "NewVersionFeature_112_statistics_title" = "Statistiken";
 
 "NewVersionFeature_112_statistics_description" = "Sie bekommen einen Überblick mit aktuellen Kennzahlen zum Infektionsgeschehen in Deutschland.";
