@@ -32,7 +32,7 @@ class RootCoordinator: RequiresAppDependencies {
 	// MARK: - Public
 	
 	// MARK: - Internal
-	private let viewController = UIViewController()
+	let viewController = UIViewController()
 	
 	// MARK: - Private
 	private weak var delegate: CoordinatorDelegate?
@@ -71,7 +71,15 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 
 	func showHome(enStateHandler: ENStateHandler) {
+		viewController.clearChildViewController()
+		
 		// Embeed HomeCoordinator VC
+		let tabbarVC = UITabBarController()
+		tabbarVC.setViewControllers([UIViewController(), UIViewController()], animated: false)
+		
+		viewController.embedViewController(childViewController: tabbarVC)
+		
+		
 	}
 	
 	func showTestResultFromNotification(with result: TestResult) {
@@ -166,7 +174,26 @@ class RootCoordinator: RequiresAppDependencies {
 			enStateUpdateList.add(anyObject)
 		}
 	}
+	
 
+
+}
+
+// TODO MOVE to own file
+extension UIViewController {
+	func clearChildViewController() {
+		for childVC in children {
+			childVC.willMove(toParent: nil)
+			childVC.view.removeFromSuperview()
+			childVC.removeFromParent()
+		}
+	}
+	
+	func embedViewController(childViewController: UIViewController) {
+		view.addSubview(childViewController.view)
+		addChild(childViewController)
+		childViewController.didMove(toParent: self)
+	}
 }
 
 extension RootCoordinator: ExposureSubmissionCoordinatorDelegate {
