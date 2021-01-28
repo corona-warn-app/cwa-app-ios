@@ -122,6 +122,31 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
+	func test_screenshot_homescreen_riskCardLow_14days() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let activeTracingDays = "14"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
+		app.launch()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_14days\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_riskCardLow_Ndays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		// change the value based on N
+		let activeTracingDays = "12"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
+		app.launch()
+		
+		snapshot("homescreenrisk_level_\(riskLevel)_\(activeTracingDays)days\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func test_screenshot_homescreen_riskCardInactive() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 		var screenshotCounter = 0
