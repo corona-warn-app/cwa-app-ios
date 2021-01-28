@@ -392,9 +392,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private lazy var coordinator = Coordinator(
+	private lazy var coordinator = RootCoordinator(
 		self,
-		navigationController,
 		contactDiaryStore: UIApplication.coronaWarnDelegate().contactDiaryStore
 	)
 

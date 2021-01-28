@@ -5,13 +5,6 @@
 import UIKit
 
 /**
-	A delegate protocol for reseting the state of the app, when Reset functionality is used.
-*/
-protocol CoordinatorDelegate: AnyObject {
-	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService)
-}
-
-/**
 	The object for coordination of communication between first and second level view controllers, including navigation.
 
 	This class is the first point of contact for handling navigation inside the app.
@@ -20,7 +13,7 @@ protocol CoordinatorDelegate: AnyObject {
 	Should be used as a delegate in view controllers that need to communicate with other view controllers, either for navigation, or something else (e.g. transfering state).
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
-class Coordinator: RequiresAppDependencies {
+class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let rootViewController: UINavigationController
@@ -154,25 +147,6 @@ class Coordinator: RequiresAppDependencies {
 		}
 	}
 	
-	
-	func showOnboarding() {
-		rootViewController.navigationBar.prefersLargeTitles = false
-		rootViewController.setViewControllers(
-			[
-				OnboardingInfoViewController(
-					pageType: .togetherAgainstCoronaPage,
-					exposureManager: self.exposureManager,
-					store: self.store,
-					client: self.client
-				)
-			],
-			animated: false
-		)
-
-		// Reset the homeController, so its freshly recreated after onboarding.
-		homeController = nil
-	}
-
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
@@ -335,21 +309,21 @@ class Coordinator: RequiresAppDependencies {
 
 }
 
-extension Coordinator: ExposureSubmissionCoordinatorDelegate {
+extension HomeCoordinator: ExposureSubmissionCoordinatorDelegate {
 	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
 		homeController?.reload()
 		homeState?.updateTestResult()
 	}
 }
 
-extension Coordinator: ExposureStateUpdating {
+extension HomeCoordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeState?.updateExposureManagerState(state)
 		settingsController?.updateExposureState(state)
 	}
 }
 
-extension Coordinator: ENStateHandlerUpdating {
+extension HomeCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeState?.updateEnState(state)
 		updateAllState(state)
