@@ -97,7 +97,7 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func test_screenshot_homescreen_riskCardHighMultipleDays() throws {
+	func test_screenshot_homescreen_riskCardHigh_riskMultipleDays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
 		let numberOfDaysWithHighRisk = "4"
@@ -148,7 +148,7 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
-	func test_screenshot_homescreen_riskCardLowOneDay() throws {
+	func test_screenshot_homescreen_riskCardLow_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "1"
@@ -174,7 +174,7 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func test_screenshot_homescreen_riskCardLowMultipleDays() throws {
+	func test_screenshot_homescreen_riskCardLow_riskMultipleDays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "4"
