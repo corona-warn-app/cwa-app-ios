@@ -73,13 +73,25 @@ class RootCoordinator: RequiresAppDependencies {
 	func showHome(enStateHandler: ENStateHandler) {
 		viewController.clearChildViewController()
 		
+		// Home
 		let homeCoordinator = HomeCoordinator(self.delegate!, contactDiaryStore: self.contactDiaryStore)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		
-		// Embeed HomeCoordinator VC
+		
+		// ContactJournal
+		let diaryNavVC = AppNavigationController()
+		diaryCoordinator = DiaryCoordinator(
+			store: store,
+			diaryStore: contactDiaryStore,
+			parentNavigationController: diaryNavVC,
+			homeState: homeState
+		)
+
+		diaryCoordinator?.start()
+		
 		let tabbarVC = UITabBarController()
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, UIViewController()], animated: false)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryNavVC], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)
 		
