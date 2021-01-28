@@ -17,7 +17,9 @@ struct PPACToken {
 	let deviceToken: String
 }
 
+
 protocol PrivacyPreservingAccessControl {
+	func invalidateAPIToken()
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 }
 
@@ -47,8 +49,9 @@ final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessContro
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
-	private var apiToken: String {
-		return UUID().uuidString
+	// this will invalidat a stored API token
+	func invalidateAPIToken() {
+
 	}
 
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
@@ -67,8 +70,31 @@ final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessContro
 
 	// MARK: - Internal
 
+	struct Token: Codable {
+		let token: String
+		let timestamp: Date
+	}
+
 	// MARK: - Private
 
 	private let store: Store
+	
+	private var apiToken: Token {
+		guard let storedToken = store.apiToken else {
+			return generateAndStoreFreshAPIToken()
+		}
+
+		// check if still valid
+
+		return storedToken
+	}
+
+	private func generateAndStoreFreshAPIToken() -> Token {
+		let uuid = UUID().uuidString
+		let utcDate = Date() // todo: check if this is a UTC date!
+		let token = Token(token: uuid, timestamp: utcDate)
+		store.apiToken = token
+		return token
+	}
 
 }

@@ -18,6 +18,10 @@ final class PPACServiceMock: PrivacyPreservingAccessControl {
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
+	func invalidateAPIToken() {
+		Log.debug("invalidate api token")
+	}
+
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		completion(.success(ppacToken))
 	}
