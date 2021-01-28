@@ -16,7 +16,7 @@ import UIKit
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
-	private let rootViewController: UINavigationController
+	let rootViewController: UINavigationController = AppNavigationController() // Renaming?
 	private let contactDiaryStore: DiaryStoringProviding
 
 	private var homeController: HomeTableViewController?
@@ -57,11 +57,9 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	init(
 		_ delegate: CoordinatorDelegate,
-		_ rootViewController: UINavigationController,
 		contactDiaryStore: DiaryStoringProviding
 	) {
 		self.delegate = delegate
-		self.rootViewController = rootViewController
 		self.contactDiaryStore = contactDiaryStore
 	}
 

@@ -39,13 +39,13 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private let contactDiaryStore: DiaryStoringProviding
 
+	private var homeCoordinator: HomeCoordinator?
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
 
 	private var settingsController: SettingsViewController?
 
 	private var diaryCoordinator: DiaryCoordinator?
-	private var settingsCoordinator: SettingsCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
@@ -73,9 +73,13 @@ class RootCoordinator: RequiresAppDependencies {
 	func showHome(enStateHandler: ENStateHandler) {
 		viewController.clearChildViewController()
 		
+		let homeCoordinator = HomeCoordinator(self.delegate!, contactDiaryStore: self.contactDiaryStore)
+		self.homeCoordinator = homeCoordinator
+		homeCoordinator.showHome(enStateHandler: enStateHandler)
+		
 		// Embeed HomeCoordinator VC
 		let tabbarVC = UITabBarController()
-		tabbarVC.setViewControllers([UIViewController(), UIViewController()], animated: false)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, UIViewController()], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)
 		
@@ -101,8 +105,12 @@ class RootCoordinator: RequiresAppDependencies {
 			client: self.client
 		)
 		
+		let navigationVC = AppNavigationController()
 		
-		viewController.view.addSubview(onboardingVC.view)
+		navigationVC.setViewControllers([onboardingVC], animated: false)
+		
+		viewController.clearChildViewController()
+		viewController.embedViewController(childViewController: navigationVC)
 //		rootViewController.navigationBar.prefersLargeTitles = false
 //		rootViewController.setViewControllers(
 //			[
