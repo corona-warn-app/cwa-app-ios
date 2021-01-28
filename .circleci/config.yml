@@ -73,6 +73,7 @@ jobs:
       - run:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
+          no_output_timeout: 20m
       - restore_cache:
           key: sonar-cloud-v2
       - run:
@@ -141,6 +142,7 @@ jobs:
               clear_previous_screenshots:"false" \
               output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
             cd -
+          no_output_timeout: 20m
       - persist_to_workspace:
           root: .
           paths:
@@ -154,7 +156,7 @@ jobs:
           at: .
       - run:
           name: Package Screenshots
-          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' screenshots && cd -
       - store_artifacts:
           path: src/xcode/screenshots/screenshots.tar
   testflight-release:
