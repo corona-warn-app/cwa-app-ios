@@ -43,9 +43,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		// Additional Information about test procedure
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113AddInfoAboutTestProcedureTitle, description: AppStrings.NewVersionFeatures.feature113AddInfoAboutTestProcedureDescription)
-		)
-		
-		
+		)		
 	}
 
 	// MARK: - Internal
