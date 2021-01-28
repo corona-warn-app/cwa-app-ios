@@ -96,7 +96,33 @@ class ENAUITests_01_Home: XCTestCase {
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
-	
+
+	func test_screenshot_homescreen_riskCardHighMultipleDays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "high"
+		let numberOfDaysWithHighRisk = "4"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithHighRisk])
+		app.launch()
+		
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+
+		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssert(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
+		
+		// find an element with localized text "Begegnungen an 4 Tag mit erhöhtem Risiko"
+		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), 4)
+		XCTAssert(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
+		
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func test_screenshot_homescreen_riskCardLow() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
@@ -122,6 +148,58 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 	
+	func test_screenshot_homescreen_riskCardLowOneDay() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launch()
+		
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		
+		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssertNotNil(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardLowTitle)].waitForExistence(timeout: .short))
+		
+		// find an element with localized text "Keine Risiko-Begegnungen"
+		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), 1)
+		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
+		
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_riskCardLowMultipleDays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "4"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launch()
+		
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		
+		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssertNotNil(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardLowTitle)].waitForExistence(timeout: .short))
+		
+		// find an element with localized text "Keine Risiko-Begegnungen"
+		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), 4)
+		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
+		
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func test_screenshot_homescreen_riskCardInactive() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 		var screenshotCounter = 0
