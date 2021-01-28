@@ -908,6 +908,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Home_Risk_Last_Contact_Item_Title" = "Zuletzt am %@";
 
+"Home_Risk_Last_Contact_Item_Title_One_Risk_Day" = "Am %@";
+
 "Home_Risk_Last_Activate_Item_Title" = "Letzte Risiko-Überprüfung: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
