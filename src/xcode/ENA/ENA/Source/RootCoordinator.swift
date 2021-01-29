@@ -21,42 +21,9 @@ protocol CoordinatorDelegate: AnyObject {
 	Helps to decouple different view controllers from each other and to remove navigation responsibility from view controllers.
 */
 class RootCoordinator: RequiresAppDependencies {
-	
-	
+
 	// MARK: - Init
 	
-	// MARK: - Overrides
-	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	let viewController = UIViewController()
-	
-	// MARK: - Private
-	private weak var delegate: CoordinatorDelegate?
-
-	private let contactDiaryStore: DiaryStoringProviding
-
-	private var homeCoordinator: HomeCoordinator?
-	private var homeState: HomeState?
-
-	private var settingsController: SettingsViewController?
-
-	private var diaryCoordinator: DiaryCoordinator?
-
-	private lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosisKeysRetrieval: self.exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: self.client,
-			store: self.store
-		)
-	}()
-	
-	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
-
 	init(
 		_ delegate: CoordinatorDelegate,
 		contactDiaryStore: DiaryStoringProviding
@@ -68,12 +35,19 @@ class RootCoordinator: RequiresAppDependencies {
 	deinit {
 		enStateUpdateList.removeAllObjects()
 	}
-
+	
+	// MARK: - Internal
+	let viewController = UIViewController()
+	
 	func showHome(enStateHandler: ENStateHandler) {
 		viewController.clearChildViewController()
 		
 		// Home
-		let homeCoordinator = HomeCoordinator(self.delegate!, contactDiaryStore: self.contactDiaryStore)
+		guard let delegate = delegate else {
+			return
+		}
+		
+		let homeCoordinator = HomeCoordinator(delegate, contactDiaryStore: self.contactDiaryStore)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		
@@ -89,12 +63,12 @@ class RootCoordinator: RequiresAppDependencies {
 
 		diaryCoordinator?.start()
 		
+		
+		// Tabbar
 		let tabbarVC = UITabBarController()
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryNavVC], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)
-		
-		
 	}
 	
 	func showTestResultFromNotification(with result: TestResult) {
@@ -124,16 +98,40 @@ class RootCoordinator: RequiresAppDependencies {
 		homeState?.updateDetectionMode(detectionMode)
 		homeCoordinator?.updateDetectionMode(detectionMode)
 	}
+	
+	// MARK: - Private
+	
+	private weak var delegate: CoordinatorDelegate?
+
+	private let contactDiaryStore: DiaryStoringProviding
+
+	private var homeCoordinator: HomeCoordinator?
+	private var homeState: HomeState?
+
+	private var diaryCoordinator: DiaryCoordinator?
+
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ExposureSubmissionServiceFactory.create(
+			diagnosisKeysRetrieval: self.exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			client: self.client,
+			store: self.store
+		)
+	}()
+	
+	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 }
 
+// MARK: - Protocol ExposureStateUpdating
 extension RootCoordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeState?.updateExposureManagerState(state)
-		settingsController?.updateExposureState(state)
+		homeCoordinator?.updateExposureState(state)
 	}
 }
 
+// MARK: - Protocol ENStateHandlerUpdating
 extension RootCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeState?.updateEnState(state)
