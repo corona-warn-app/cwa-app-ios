@@ -190,13 +190,10 @@
 		01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */; };
 		01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */; };
 		01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17712590F03000E98E02 /* HomeCardView.swift */; };
-		01EA17992590F03600E98E02 /* HomeDiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */; };
 		01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */; };
 		01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */; };
-		01EA17D12591366200E98E02 /* HomeDiaryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */; };
 		01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */; };
 		01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */; };
-		01EA17F325913A5900E98E02 /* HomeDiaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */; };
 		01EA17FE259217B100E98E02 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17FD259217B100E98E02 /* HomeState.swift */; };
 		01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */; };
 		01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */; };
@@ -614,7 +611,6 @@
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
 		BAFBF35725ADD734003F5DC2 /* HomeThankYouCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */; };
-		BAFBF36025ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF35F25ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
@@ -910,10 +906,7 @@
 		01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeExposureLoggingTableViewCell.xib; sourceTree = "<group>"; };
 		01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoTableViewCell.swift; sourceTree = "<group>"; };
-		01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDiaryTableViewCell.xib; sourceTree = "<group>"; };
-		01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryTableViewCell.swift; sourceTree = "<group>"; };
 		01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModel.swift; sourceTree = "<group>"; };
-		01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCellModel.swift; sourceTree = "<group>"; };
 		01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModel.swift; sourceTree = "<group>"; };
 		01EA17FD259217B100E98E02 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModelTests.swift; sourceTree = "<group>"; };
@@ -1355,7 +1348,6 @@
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
 		BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouCellModelTests.swift; sourceTree = "<group>"; };
-		BAFBF35F25ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCellModelTests.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
@@ -1956,7 +1948,6 @@
 				01A4DC8025922EC3007D5794 /* TestResult */,
 				01A4DCA125924FFE007D5794 /* ThankYou */,
 				016E25E825AF138B0077C64C /* Statistics */,
-				01EA17C02591347800E98E02 /* Diary */,
 				01EA17C42591348100E98E02 /* Info */,
 			);
 			path = Cells;
@@ -1971,17 +1962,6 @@
 				01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */,
 			);
 			path = ExposureLogging;
-			sourceTree = "<group>";
-		};
-		01EA17C02591347800E98E02 /* Diary */ = {
-			isa = PBXGroup;
-			children = (
-				BAFBF35E25ADDE42003F5DC2 /* __tests__ */,
-				01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */,
-				01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */,
-				01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */,
-			);
-			path = Diary;
 			sourceTree = "<group>";
 		};
 		01EA17C42591348100E98E02 /* Info */ = {
@@ -3653,14 +3633,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BAFBF35E25ADDE42003F5DC2 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				BAFBF35F25ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		BAFBF36725ADE0AA003F5DC2 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -4040,7 +4012,6 @@
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */,
 				01A4DCB125925121007D5794 /* HomeThankYouTableViewCell.xib in Resources */,
-				01EA17F325913A5900E98E02 /* HomeDiaryTableViewCell.xib in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
 				01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */,
 				710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */,
@@ -4324,8 +4295,6 @@
 				01734B5F255D6C4500E60A8B /* app_config_ios.pb.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
-				01EA17992590F03600E98E02 /* HomeDiaryTableViewCell.swift in Sources */,
-				01EA17D12591366200E98E02 /* HomeDiaryCellModel.swift in Sources */,
 				EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */,
 				0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
@@ -4653,7 +4622,6 @@
 				010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
 				01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */,
-				BAFBF36025ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift in Sources */,
 				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */,
