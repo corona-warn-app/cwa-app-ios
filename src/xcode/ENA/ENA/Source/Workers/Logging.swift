@@ -21,7 +21,8 @@ extension OSLog {
 	static let contactdiary = OSLog(subsystem: subsystem, category: "contactdiary")
 	/// Background - Stuff that happens in the Background.
 	static let background = OSLog(subsystem: subsystem, category: "background")
-
+	/// PPAC
+	static let ppac = OSLog(subsystem: subsystem, category: "ppac")
 }
 
 /// Logging
