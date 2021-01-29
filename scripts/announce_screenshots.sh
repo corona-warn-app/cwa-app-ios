@@ -10,7 +10,7 @@ CIRCLE_BRANCH="CIRCLE_BRANCH"
 CIRCLE_BUILD_NUM="CIRCLE_BUILD_NUM"
 
 if curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"; then
-  curl --output /dev/null --silent $SAP_TEAMS_WEBHOOK_DEV \
+  curl --output /dev/null --silent $SAP_TEAMS_WEBHOOK \
   -H 'Content-Type: application/json' \
   --data-binary @- << EOF
 {
