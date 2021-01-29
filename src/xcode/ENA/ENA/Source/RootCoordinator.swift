@@ -65,7 +65,17 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		
 		// Tabbar
+		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), tag: 1)
+		startTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.home
+		homeCoordinator.rootViewController.tabBarItem = startTabbarItem
+		
+		
+		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), tag: 1)
+		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
+		diaryNavVC.tabBarItem = diaryTabbarItem
+		
 		let tabbarVC = UITabBarController()
+		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryNavVC], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)

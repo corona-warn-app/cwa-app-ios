@@ -340,5 +340,10 @@ enum AccessibilityIdentifiers {
 		static let title = "UpdateOSScreen.title"
 		static let text = "UpdateOSScreen.text"
 	}
+	
+	enum Tabbar {
+		static let home = "Tabbar.home"
+		static let diary = "Tabbar.diary"
+	}
 
 }
