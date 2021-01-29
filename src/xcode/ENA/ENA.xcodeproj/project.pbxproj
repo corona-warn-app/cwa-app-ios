@@ -612,6 +612,8 @@
 		BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */; };
 		BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7F825C462E600E042FB /* PPACToken.swift */; };
 		BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7FD25C4630800E042FB /* PPACError.swift */; };
+		BAB6C80A25C4640500E042FB /* TimestampedTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */; };
+		BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */; };
 		BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB953D525B86015007B80C7 /* HistoryExposure.swift */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */; };
@@ -1358,6 +1360,8 @@
 		BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedToken.swift; sourceTree = "<group>"; };
 		BAB6C7F825C462E600E042FB /* PPACToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACToken.swift; sourceTree = "<group>"; };
 		BAB6C7FD25C4630800E042FB /* PPACError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACError.swift; sourceTree = "<group>"; };
+		BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedTokenTests.swift; sourceTree = "<group>"; };
+		BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACTokenTests.swift; sourceTree = "<group>"; };
 		BAB953D525B86015007B80C7 /* HistoryExposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExposure.swift; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryTextField.swift; sourceTree = "<group>"; };
@@ -3494,6 +3498,7 @@
 		BA07735A25C2FC5E00EAF6B8 /* PPAC */ = {
 			isa = PBXGroup;
 			children = (
+				BAB6C80825C463DB00E042FB /* __tests__ */,
 				BAB6C7ED25C4624E00E042FB /* Model */,
 				BA07735B25C2FCB800EAF6B8 /* PPACService.swift */,
 				BA07736025C3125600EAF6B8 /* PPACServiceMock.swift */,
@@ -3640,6 +3645,15 @@
 				BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BAB6C80825C463DB00E042FB /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */,
+				BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAC0A4DC25768017002B5361 /* __tests__ */ = {
@@ -4680,6 +4694,7 @@
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
+				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
@@ -4790,6 +4805,7 @@
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
 				EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */,
 				352DEA6F25B08966006751D1 /* StatisticsProviderTests.swift in Sources */,
+				BAB6C80A25C4640500E042FB /* TimestampedTokenTests.swift in Sources */,
 				AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */,
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
