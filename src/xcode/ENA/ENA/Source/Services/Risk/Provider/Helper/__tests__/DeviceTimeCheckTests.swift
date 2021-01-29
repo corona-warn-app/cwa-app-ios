@@ -20,7 +20,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 			deviceTime: deviceTime
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -38,7 +38,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 			deviceTime: deviceTime
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -56,7 +56,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 			deviceTime: deviceTime
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -74,7 +74,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 			deviceTime: deviceTime
 		)
 
-		XCTAssertFalse(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .incorrect)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -92,7 +92,7 @@ final class DeviceTimeCheckTest: XCTestCase {
 			deviceTime: deviceTime
 		)
 
-		XCTAssertFalse(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .incorrect)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -112,19 +112,19 @@ final class DeviceTimeCheckTest: XCTestCase {
 			deviceTime: deviceTime
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .assumedCorrect)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_ResetDeviceTimeFlagsToDefault_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.isDeviceTimeCorrect = false
+		fakeStore.deviceTimeCheckResult = .incorrect
 		fakeStore.wasDeviceTimeErrorShown = true
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.resetDeviceTimeFlags()
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 

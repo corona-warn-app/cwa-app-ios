@@ -47,7 +47,8 @@ final class MockTestStore: Store, AppConfigCaching {
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
-	var isDeviceTimeCorrect = true
+	var deviceTimeLastStateChange: Date = Date()
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
 	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
