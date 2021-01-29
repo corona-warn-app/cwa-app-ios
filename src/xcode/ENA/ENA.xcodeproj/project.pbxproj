@@ -614,6 +614,7 @@
 		BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7FD25C4630800E042FB /* PPACError.swift */; };
 		BAB6C80A25C4640500E042FB /* TimestampedTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */; };
 		BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */; };
+		BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C82225C4666900E042FB /* PPACServiceTest.swift */; };
 		BAB953D625B86015007B80C7 /* HistoryExposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB953D525B86015007B80C7 /* HistoryExposure.swift */; };
 		BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */; };
 		BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */; };
@@ -1362,6 +1363,7 @@
 		BAB6C7FD25C4630800E042FB /* PPACError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACError.swift; sourceTree = "<group>"; };
 		BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedTokenTests.swift; sourceTree = "<group>"; };
 		BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACTokenTests.swift; sourceTree = "<group>"; };
+		BAB6C82225C4666900E042FB /* PPACServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACServiceTest.swift; sourceTree = "<group>"; };
 		BAB953D525B86015007B80C7 /* HistoryExposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExposure.swift; sourceTree = "<group>"; };
 		BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModelTests.swift; sourceTree = "<group>"; };
 		BAC42DC32583AF9D001A94C0 /* DiaryEntryTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryTextField.swift; sourceTree = "<group>"; };
@@ -3652,6 +3654,7 @@
 			children = (
 				BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */,
 				BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */,
+				BAB6C82225C4666900E042FB /* PPACServiceTest.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4792,6 +4795,7 @@
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
 				F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */,
+				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
 				A1E4195D249818060016E52A /* RiskTests.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
