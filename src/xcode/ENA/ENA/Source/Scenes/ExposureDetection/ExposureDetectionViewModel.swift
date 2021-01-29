@@ -346,20 +346,28 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private func lowRiskModel(risk: Risk) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
-
+		let riskDataSectionWithExposure = riskDataSection(
+		   footer: .riskTint(height: 16),
+		   cells: [
+			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+			   .riskLastExposure(text: numberOfExposures == 1 ?
+								   AppStrings.ExposureDetection.lastExposureOneRiskDay :
+								   AppStrings.ExposureDetection.lastExposure,
+								 image: UIImage(named: "Icons_Calendar")),
+			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		   ]
+		)
+		let riskDataSectionWithOutExposure = riskDataSection(
+		   footer: .riskTint(height: 16),
+		   cells: [
+			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		   ]
+		)
 		return DynamicTableViewModel([
-			riskDataSection(
-				footer: .riskTint(height: 16),
-				cells: [
-					.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-					.riskLastExposure(text: numberOfExposures == 1 ?
-										AppStrings.ExposureDetection.lastExposureOneRiskDay :
-										AppStrings.ExposureDetection.lastExposure,
-									  image: UIImage(named: "Icons_Calendar")),
-					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-				]
-			),
+			numberOfExposures > 0 ? riskDataSectionWithExposure : riskDataSectionWithOutExposure,
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
