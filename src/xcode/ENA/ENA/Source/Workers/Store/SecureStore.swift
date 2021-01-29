@@ -266,8 +266,8 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	var apiToken: PrivacyPreservingAccessControlService.Token? {
-		get { kvStore["apiToken"] as PrivacyPreservingAccessControlService.Token? }
+	var apiToken: TimestampedToken? {
+		get { kvStore["apiToken"] as TimestampedToken? }
 		set { kvStore["apiToken"] = newValue }
 	}
 
