@@ -6,10 +6,19 @@ import Foundation
 
 enum OTPError: Error {
 	case ppacFailed
+	case apiTokenAlreadyIssued
+	case apiTokenExpired
+	case apiTokenQuotaExceeded
+	case deviceTokenInvalid
+	case deviceTokenRedeemed
+	case deviceTokenSyntaxError
+	case deviceTokenNotSupported
+	case deviceTimeIncorrect
+	case deviceTimeUnverified
 }
 
 protocol OTPServiceProviding {
-	func getValidOTP(_ completion: @escaping (Result<String, Error>) -> Void)
+	func getValidOTP(completion: @escaping (Result<String, Error>) -> Void)
 }
 
 final class OTPService: OTPServiceProviding {
@@ -30,20 +39,59 @@ final class OTPService: OTPServiceProviding {
 
 	// MARK: - Protocol OTPServiceProviding
 
-	func getValidOTP(_ completion: @escaping (Result<String, Error>) -> Void) {
+	func getValidOTP(completion: @escaping (Result<String, Error>) -> Void) {
 
-		// generates otp
+		checkAndValidateExistingOTP()
 
-		// stores it in the store
+		// if fail -> generate otp
 
-		// get PPACToken
+		ppac.getPPACToken({ [weak self] result in
+			switch result {
+			case .success(let ppacToken):
+				// request server for validation of OTP
 
-		// requests server for validation of OTP
+				self?.authorizeOTP(with: ppacToken, completion: { result in
+					switch result {
 
-		// error: pass error to PPAC
+					case .success(let timestamp):
+						self?.updateOTP(with: timestamp)
+						guard let token = self?.store.otpToken?.token else {
+							// TODO
+							return
+						}
+						completion(.success(token))
+					case .failure(let serverError):
+						switch serverError {
+						case .apiTokenAlreadyIssued:
+							completion(.failure(OTPError.apiTokenAlreadyIssued))
+						case .apiTokenExpired:
+							completion(.failure(OTPError.apiTokenExpired))
+						case .apiTokenQuotaExceeded:
+							completion(.failure(OTPError.apiTokenQuotaExceeded))
+						case .deviceTokenInvalid:
+							completion(.failure(OTPError.deviceTokenInvalid))
+						case .deviceTokenRedeemed:
+							completion(.failure(OTPError.deviceTokenRedeemed))
+						case .deviceTokenSyntaxError:
+							completion(.failure(OTPError.deviceTokenSyntaxError))
+						}
+					}
+				})
 
-		// success: return valid OTP
+			case .failure(let error):
+				switch error {
+				case .generationFailed:
+					completion(.failure(OTPError.ppacFailed))
+				case .deviceNotSupported:
+					completion(.failure(OTPError.deviceTokenNotSupported))
+				case .timeIncorrect:
+					completion(.failure(OTPError.deviceTimeIncorrect))
+				case .timeUnverified:
+					completion(.failure(OTPError.deviceTimeUnverified))
+				}
+			}
 
+		})
 	}
 
 	// MARK: - Public
@@ -52,7 +100,46 @@ final class OTPService: OTPServiceProviding {
 
 	// MARK: - Private
 
+	private enum OTPServerError: Error {
+		case apiTokenAlreadyIssued
+		case apiTokenExpired
+		case apiTokenQuotaExceeded
+		case deviceTokenInvalid
+		case deviceTokenRedeemed
+		case deviceTokenSyntaxError
+	}
+
 	private let store: Store
 	private let ppac: PrivacyPreservingAccessControl
+
+	private func checkAndValidateExistingOTP() {
+
+	}
+
+	private func generateAndStoreFreshOTPToken() -> TimestampedToken {
+		let uuid = UUID().uuidString
+		let utcDate = Date()
+		let token = TimestampedToken(token: uuid, timestamp: utcDate)
+		store.otpToken = token
+		return token
+	}
+
+	private func updateOTP(with newTimestamp: Date) {
+		guard let verifiedOTP = store.otpToken?.token else {
+			// TODO
+			return
+		}
+		let newToken = TimestampedToken(token: verifiedOTP, timestamp: newTimestamp)
+		store.otpToken = newToken
+	}
+
+	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<Date, OTPServerError>) -> Void) {
+
+		let apiToken = ppacToken.apiToken
+		let deviceToken = ppacToken.deviceToken
+		let otpToken = store.otpToken
+
+		// request with the three params
+	}
 
 }
