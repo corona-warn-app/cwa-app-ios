@@ -40,7 +40,6 @@ class RootCoordinator: RequiresAppDependencies {
 	private let contactDiaryStore: DiaryStoringProviding
 
 	private var homeCoordinator: HomeCoordinator?
-	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
 
 	private var settingsController: SettingsViewController?
@@ -99,13 +98,7 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 	
 	func showTestResultFromNotification(with result: TestResult) {
-//		if let presentedViewController = rootViewController.presentedViewController {
-//			presentedViewController.dismiss(animated: true) {
-//				self.showExposureSubmission(with: result)
-//			}
-//		} else {
-//			self.showExposureSubmission(with: result)
-//		}
+		homeCoordinator?.showTestResultFromNotification(with: result)
 	}
 	
 	
@@ -123,104 +116,15 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		viewController.clearChildViewController()
 		viewController.embedViewController(childViewController: navigationVC)
-//		rootViewController.navigationBar.prefersLargeTitles = false
-//		rootViewController.setViewControllers(
-//			[
-//				OnboardingInfoViewController(
-//					pageType: .togetherAgainstCoronaPage,
-//					exposureManager: self.exposureManager,
-//					store: self.store,
-//					client: self.client
-//				)
-//			],
-//			animated: false
-//		)
-
-		// Reset the homeController, so its freshly recreated after onboarding.
-		homeController = nil
 	}
 
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
 		homeState?.updateDetectionMode(detectionMode)
+		homeCoordinator?.updateDetectionMode(detectionMode)
 	}
 
-	#if !RELEASE
-	private var developerMenu: DMDeveloperMenu?
-	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
-
-		developerMenu = DMDeveloperMenu(
-			presentingViewController: controller,
-			client: client,
-			wifiClient: wifiClient,
-			store: store,
-			exposureManager: exposureManager,
-			developerStore: UserDefaults.standard,
-			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment
-		)
-		developerMenu?.enableIfAllowed()
-	}
-	#endif
-
-	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
-		if enabled {
-			exposureManager.enable(completion: completion)
-		} else {
-			exposureManager.disable(completion: completion)
-		}
-	}
-
-	private func showDiary() {
-//		diaryCoordinator = DiaryCoordinator(
-//			store: store,
-//			diaryStore: contactDiaryStore,
-//			parentNavigationController: rootViewController,
-//			homeState: homeState
-//		)
-//
-//		diaryCoordinator?.start()
-	}
-
-	private func showWebPage(from viewController: UIViewController, urlString: String) {
-		LinkHelper.showWebPage(from: viewController, urlString: urlString)
-	}
-
-
-	private func addToEnStateUpdateList(_ anyObject: AnyObject?) {
-		if let anyObject = anyObject,
-		   anyObject is ENStateHandlerUpdating {
-			enStateUpdateList.add(anyObject)
-		}
-	}
-	
-
-
-}
-
-// TODO MOVE to own file
-extension UIViewController {
-	func clearChildViewController() {
-		for childVC in children {
-			childVC.willMove(toParent: nil)
-			childVC.view.removeFromSuperview()
-			childVC.removeFromParent()
-		}
-	}
-	
-	func embedViewController(childViewController: UIViewController) {
-		view.addSubview(childViewController.view)
-		addChild(childViewController)
-		childViewController.didMove(toParent: self)
-	}
-}
-
-extension RootCoordinator: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
-		homeController?.reload()
-		homeState?.updateTestResult()
-	}
 }
 
 extension RootCoordinator: ExposureStateUpdating {
