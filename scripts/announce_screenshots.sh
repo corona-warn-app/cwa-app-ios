@@ -4,11 +4,6 @@ set -euo pipefail
 
 SCREENSHOT_URL=$1
 
-CIRCLE_PROJECT_REPONAME="CWA"
-CIRCLE_USERNAME="CIRCLE_USERNAME"
-CIRCLE_BRANCH="CIRCLE_BRANCH"
-CIRCLE_BUILD_NUM="CIRCLE_BUILD_NUM"
-
 if curl --output /dev/null --silent --head --fail "$SCREENSHOT_URL"; then
   curl --output /dev/null --silent $SAP_TEAMS_WEBHOOK \
   -H 'Content-Type: application/json' \
