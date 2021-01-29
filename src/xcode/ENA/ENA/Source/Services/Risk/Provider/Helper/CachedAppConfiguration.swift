@@ -164,7 +164,7 @@ final class CachedAppConfiguration {
 							configUpdateSuccessful: updatedSuccessful
 						)
 					} else {
-						self.deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: updatedSuccessful)
+						self.deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: false)
 					}
 				}
 			}
