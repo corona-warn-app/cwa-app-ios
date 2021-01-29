@@ -492,6 +492,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			cells: [
 				.body(
 					text: "SurveyDummy",
+					color: .red,
 					action: .execute(block: { [weak self] _, _ in
 						self?.onSurveyTap()
 					})
