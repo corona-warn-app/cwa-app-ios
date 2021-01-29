@@ -1101,5 +1101,9 @@ enum AppStrings {
 		static let text = NSLocalizedString("UpdateOS_text", comment: "")
 	}
 	
+	enum Tabbar {
+		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
+		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+	}
 	// swiftlint:disable:next file_length
 }
