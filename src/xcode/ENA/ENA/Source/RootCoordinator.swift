@@ -47,7 +47,7 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
-		let homeCoordinator = HomeCoordinator(delegate, contactDiaryStore: self.contactDiaryStore)
+		let homeCoordinator = HomeCoordinator(delegate)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		

@@ -8,14 +8,12 @@ class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	let rootViewController: UINavigationController = AppNavigationController() // Renaming?
-	private let contactDiaryStore: DiaryStoringProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
 
 	private var settingsController: SettingsViewController?
 
-	private var diaryCoordinator: DiaryCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
@@ -47,11 +45,9 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(
-		_ delegate: CoordinatorDelegate,
-		contactDiaryStore: DiaryStoringProviding
+		_ delegate: CoordinatorDelegate
 	) {
 		self.delegate = delegate
-		self.contactDiaryStore = contactDiaryStore
 	}
 
 	deinit {
@@ -89,9 +85,6 @@ class HomeCoordinator: RequiresAppDependencies {
 				},
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
-				},
-				onDiaryCellTap: { [weak self] in
-					self?.showDiary()
 				},
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
@@ -237,17 +230,6 @@ class HomeCoordinator: RequiresAppDependencies {
 			UINavigationController(rootViewController: statisticsInfoController),
 			animated: true
 		)
-	}
-
-	private func showDiary() {
-		diaryCoordinator = DiaryCoordinator(
-			store: store,
-			diaryStore: contactDiaryStore,
-			parentNavigationController: rootViewController,
-			homeState: homeState
-		)
-
-		diaryCoordinator?.start()
 	}
 
 	private func showInviteFriends() {

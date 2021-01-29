@@ -19,7 +19,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
-		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
@@ -34,7 +33,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
-		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
@@ -146,7 +144,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -164,8 +161,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
-		case .diary:
-			return diaryCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -213,8 +208,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
-		case .diary:
-			onDiaryCellTap()
 		case .infos:
 			if indexPath.row == 0 {
 				onInviteFriendsCellTap()
@@ -260,7 +253,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
-	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
@@ -312,10 +304,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
-		)
-		tableView.register(
 			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeInfoTableViewCell.self)
 		)
@@ -323,7 +311,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 
-		// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		// Overestimate to fix auto layout warnings and fix a problem that showed the test cell behind other cells when opening app from the background in manual mode
 		tableView.estimatedRowHeight = 500
 	}
 
@@ -448,21 +436,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			},
 			onUpdate: { [weak self] in
 				self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
-			}
-		)
-
-		return cell
-	}
-
-	private func diaryCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeDiaryTableViewCell.self), for: indexPath) as? HomeDiaryTableViewCell else {
-			fatalError("Could not dequeue HomeDiaryTableViewCell")
-		}
-
-		cell.configure(
-			with: HomeDiaryCellModel(),
-			onPrimaryAction: { [weak self] in
-				self?.onDiaryCellTap()
 			}
 		)
 
