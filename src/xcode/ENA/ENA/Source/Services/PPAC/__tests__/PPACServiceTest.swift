@@ -13,6 +13,7 @@ class PPACServiceTest: XCTestCase {
 		let store = MockTestStore()
 		store.deviceTimeCheckResult = .incorrect
 		let failedExpectation = expectation(description: "Init failed")
+
 		// WHEN
 		do {
 			_ = try PrivacyPreservingAccessControlService(store: store)
@@ -31,6 +32,7 @@ class PPACServiceTest: XCTestCase {
 		let store = MockTestStore()
 		store.deviceTimeCheckResult = .assumedCorrect
 		let failedExpectation = expectation(description: "Init failed")
+
 		// WHEN
 		do {
 			_ = try PrivacyPreservingAccessControlService(store: store)
@@ -48,6 +50,7 @@ class PPACServiceTest: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.deviceTimeCheckResult = .correct
+
 		// WHEN
 		do {
 			let ppacService = try PrivacyPreservingAccessControlService(store: store)
@@ -59,6 +62,32 @@ class PPACServiceTest: XCTestCase {
 		} catch {
 			XCTFail("unexpected error")
 		}
+	}
+
+	/// todo: this test only work for a reak device
+	func testGIVEN_StoreHasNoAPIToken_WHEN_getPPACToken_THEN_APITokenIsInStore() throws {
+		// GIVEN
+		let store = MockTestStore()
+		store.deviceTimeCheckResult = .correct
+		let ppacExpectation = expectation(description: "Init failed")
+
+		// WHEN
+
+		let ppacService = try? XCTUnwrap(PrivacyPreservingAccessControlService(store: store))
+		ppacService?.getPPACToken({ result in
+			switch result {
+			case let .success(pppaToken):
+				ppacExpectation.fulfill()
+				XCTAssertNotNil(store.apiToken)
+				XCTAssertEqual(store.apiToken?.token, pppaToken.apiToken)
+
+			case .failure:
+				XCTFail("Unexpected error happend")
+			}
+		})
+
+		// THEN
+		wait(for: [ppacExpectation], timeout: .medium)
 	}
 
 }
