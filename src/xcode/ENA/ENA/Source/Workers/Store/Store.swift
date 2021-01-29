@@ -84,8 +84,10 @@ protocol StoreProtocol: AnyObject {
 
 	var lastKeyPackageDownloadDate: Date { get set }
 
-    var isDeviceTimeCorrect: Bool { get set }
-	
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
+
+	var deviceTimeLastStateChange: Date { get set }
+
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var positiveTestResultWasShown: Bool { get set }
