@@ -46,7 +46,7 @@ final class OnboardingInfoViewController: UIViewController {
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
 		setupAccessibility()
-
+		setupNavigationBar()
 		if pageType == .togetherAgainstCoronaPage { loadCountryList() }
 	}
 
@@ -112,6 +112,14 @@ final class OnboardingInfoViewController: UIViewController {
 		)
 	}
 
+	private func setupNavigationBar() {
+		if #available(iOS 13, *) {
+			navigationItem.largeTitleDisplayMode = .always
+		} else {
+			navigationItem.largeTitleDisplayMode = .never
+		}
+	}
+	
 	private func openSettings() {
 		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
