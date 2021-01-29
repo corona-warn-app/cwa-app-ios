@@ -72,7 +72,7 @@ class ENAUITests_01_Home: XCTestCase {
 		// snapshot("ScreenShot_\(#function)")
 	}
 	
-	func test_screenshot_homescreen_riskCardHigh() throws {
+	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
 		let numberOfDaysWithHighRisk = 1
@@ -92,9 +92,9 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssert(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardHigh_riskMultipleDays() throws {
@@ -118,12 +118,12 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssert(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func test_screenshot_homescreen_riskCardLow() throws {
+	func test_screenshot_homescreen_riskCardLow_riskNoDays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = 0
@@ -143,9 +143,9 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_no_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_no_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardLow_riskOneDay() throws {
@@ -169,9 +169,9 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardLow_riskMultipleDays() throws {
@@ -195,9 +195,9 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
 		
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardLow_14days() throws {
