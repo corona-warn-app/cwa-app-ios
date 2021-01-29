@@ -23,6 +23,8 @@
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh_activeExposureLogging()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardInactive()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_14days()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_Ndays()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_activeExposureLogging()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_noExposureLogging()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_Screenshot_SymptomsOptionYes()",
