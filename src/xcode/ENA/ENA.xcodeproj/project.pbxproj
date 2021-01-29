@@ -1938,6 +1938,7 @@
 			isa = PBXGroup;
 			children = (
 				EBD2D07C25A86144006E4220 /* __tests__ */,
+				CDA262F724AB808800612E15 /* HomeCoordinator.swift */,
 				01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */,
 				01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */,
 				01EA17FD259217B100E98E02 /* HomeState.swift */,
@@ -2370,7 +2371,6 @@
 				85D7593E2457048F008175F0 /* AppDelegate.swift */,
 				A3552CC524DD6E78008C91BE /* AppDelegate+ENATaskExecutionDelegate.swift */,
 				A3552CC324DD6E16008C91BE /* AppDelegate+PlausibleDeniability.swift */,
-				CDA262F724AB808800612E15 /* HomeCoordinator.swift */,
 				EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */,
 				516E430324B89AF60008CC30 /* __tests__ */,
 			);
