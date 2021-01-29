@@ -29,7 +29,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { _ in },
+			onSurveyTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -96,7 +97,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { _ in },
+			onSurveyTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -208,7 +210,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { _ in },
+			onSurveyTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -303,7 +306,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { _ in },
+			onSurveyTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -380,7 +384,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { _ in },
+			onSurveyTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -486,7 +491,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
+			onSurveyTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -544,7 +550,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
+			onSurveyTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -590,7 +597,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
+			onSurveyTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -636,7 +644,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
+			onSurveyTap: { }
 		)
 
 		viewModel.onButtonTap()
@@ -739,14 +748,18 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
 
-		// Active tracing section
+		// Survey section
 		section = dynamicTableViewModel.section(3)
+		XCTAssertEqual(section.cells.count, 1)
+
+		// Active tracing section
+		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 
 		// Explanation section
-		section = dynamicTableViewModel.section(4)
+		section = dynamicTableViewModel.section(5)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
