@@ -41,8 +41,9 @@ final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessContro
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+		/// can not be called on the simulator
 		DCDevice.current.generateToken { [weak self] tokenData, error in
-			guard error != nil,
+			guard error == nil,
 				  let deviceToken = tokenData?.base64EncodedString(),
 				  let apiToken = self?.apiToken.token else {
 				Log.error("Failed to creatd DeviceCheck token", log: .ppac)
