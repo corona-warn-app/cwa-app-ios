@@ -24,6 +24,8 @@ class HomeStatisticsCardView: UIView {
 		]
 
 		focusableLabels.forEach {
+			$0.adjustsFontSizeToFitWidth = true
+			$0.allowsDefaultTighteningForTruncation = true
 			$0.onAccessibilityFocus = { [weak self] in
 				self?.onAccessibilityFocus?()
 			}
