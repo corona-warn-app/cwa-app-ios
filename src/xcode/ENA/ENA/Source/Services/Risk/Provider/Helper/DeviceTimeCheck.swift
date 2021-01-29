@@ -5,8 +5,8 @@
 import Foundation
 
 protocol DeviceTimeCheckProtocol {
-	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date)
-	func resetDeviceTimeFlags()
+	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool)
+	func resetDeviceTimeFlags(configUpdateSuccessful: Bool)
 
 	var isDeviceTimeCorrect: Bool { get }
 }
@@ -30,15 +30,16 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 	}
 
 	var isDeviceTimeCorrect: Bool {
-		return store.deviceTimeCheckResult == .correct
+		return store.deviceTimeCheckResult == .correct || store.deviceTimeCheckResult == .assumedCorrect
 	}
 
-	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date) {
+	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) {
 		let oldState = store.deviceTimeCheckResult
 		store.deviceTimeCheckResult = isDeviceTimeCorrect(
-            serverTime: serverTime,
-            deviceTime: deviceTime
-        )
+			serverTime: serverTime,
+			deviceTime: deviceTime,
+			configUpdateSuccessful: configUpdateSuccessful
+		)
 		// store change date only if a state change was detected
 		if oldState != store.deviceTimeCheckResult {
 			store.deviceTimeLastStateChange = Date()
@@ -49,8 +50,8 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
         }
 	}
 
-	func resetDeviceTimeFlags() {
-		store.deviceTimeCheckResult = .correct
+	func resetDeviceTimeFlags(configUpdateSuccessful: Bool) {
+		store.deviceTimeCheckResult = configUpdateSuccessful ? .correct : .assumedCorrect
 		store.deviceTimeLastStateChange = Date()
 		store.wasDeviceTimeErrorShown = false
 	}
@@ -59,9 +60,10 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	private let store: Store
 
-	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date) -> TimeCheckResult {
+	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
         let killSwitchActive = isDeviceTimeCheckKillSwitchActive(config: store.appConfigMetadata?.appConfig)
-		guard !killSwitchActive else {
+		guard !killSwitchActive,
+			  configUpdateSuccessful else {
             return .assumedCorrect
         }
 		let twoHourIntevall: Double = 2 * 60 * 60

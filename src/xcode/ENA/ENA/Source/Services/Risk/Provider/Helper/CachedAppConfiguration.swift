@@ -115,6 +115,7 @@ final class CachedAppConfiguration {
 			self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
 				queue.async(flags: .barrier) {
 					guard let self = self else { return }
+                    var updatedSuccessful = true
 
 					switch result.0 {
 					case .success(let response):
@@ -151,6 +152,7 @@ final class CachedAppConfiguration {
 
 						default:
 							defaultFailureHandler()
+                            updatedSuccessful = false
 						}
 					}
 
@@ -158,10 +160,11 @@ final class CachedAppConfiguration {
 					if let serverTime = result.1 {
 						self.deviceTimeCheck.updateDeviceTimeFlags(
 							serverTime: serverTime,
-							deviceTime: Date()
+							deviceTime: Date(),
+							configUpdateSuccessful: updatedSuccessful
 						)
 					} else {
-						self.deviceTimeCheck.resetDeviceTimeFlags()
+						self.deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: updatedSuccessful)
 					}
 				}
 			}
