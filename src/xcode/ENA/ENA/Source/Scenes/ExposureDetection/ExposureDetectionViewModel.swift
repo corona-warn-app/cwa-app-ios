@@ -15,10 +15,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	init(
 		homeState: HomeState,
-		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
+		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void,
+		onSurveyTap: @escaping () -> Void
 	) {
 		self.homeState = homeState
 		self.onInactiveButtonTap = onInactiveButtonTap
+		self.onSurveyTap = onSurveyTap
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -159,6 +161,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	private let homeState: HomeState
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
+	private let onSurveyTap: () -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
@@ -401,6 +404,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					])
 				]
 			),
+			surveySection(),
 			activeTracingSection(
 				risk: risk,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
@@ -478,6 +482,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				.body(
 					text: AppStrings.ExposureDetection.lowRiskExposureBody,
 					accessibilityIdentifier: accessibilityIdentifier
+				)
+			]
+		)
+	}
+
+	private func surveySection() -> DynamicSection {
+		return .section(
+			cells: [
+				.body(
+					text: "SurveyDummy",
+					action: .execute(block: { [weak self] _, _ in
+						self?.onSurveyTap()
+					})
 				)
 			]
 		)
