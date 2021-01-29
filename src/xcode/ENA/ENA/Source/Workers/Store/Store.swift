@@ -84,8 +84,10 @@ protocol StoreProtocol: AnyObject {
 
 	var lastKeyPackageDownloadDate: Date { get set }
 
-    var isDeviceTimeCorrect: Bool { get set }
-	
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
+
+	var deviceTimeLastStateChange: Date { get set }
+
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var positiveTestResultWasShown: Bool { get set }
@@ -101,7 +103,7 @@ protocol StoreProtocol: AnyObject {
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
 	/// PPAC Token storage
-	var apiToken: Token? { get set }
+	var apiToken: PrivacyPreservingAccessControlService.Token? { get set }
 
 	func clearAll(key: String?)
 

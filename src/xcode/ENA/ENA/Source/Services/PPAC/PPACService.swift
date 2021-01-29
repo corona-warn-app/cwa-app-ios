@@ -31,16 +31,21 @@ final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessContro
 	init(store: Store) throws {
 		self.store = store
 
-		let deviceTimeCheck = DeviceTimeCheck(store: store)
-		guard deviceTimeCheck.isDeviceTimeCorrect else {
-			// add loggin here
+		// check if time isn't incorrect
+		if store.deviceTimeCheckResult == .incorrect {
+			Log.error("device time is incorrect", log: .ppac)
 			throw PPACError.timeIncorrect
 		}
 
-		// add new time check here
+		// check if time isn't unknown
+		if store.deviceTimeCheckResult == .assumedCorrect {
+			Log.error("device time is unverified", log: .ppac)
+			throw PPACError.timeUnverified
+		}
 
+		// check if device supports DeviceCheck
 		guard DCDevice.current.isSupported else {
-			// add loggin here
+			Log.error("device token not supported", log: .ppac)
 			throw PPACError.deviceNotSupported
 		}
 	}
