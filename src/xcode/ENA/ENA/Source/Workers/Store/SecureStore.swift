@@ -261,6 +261,11 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
+	var apiToken: Token? {
+		get { kvStore["apiToken"] as Token? }
+		set { kvStore["apiToken"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
