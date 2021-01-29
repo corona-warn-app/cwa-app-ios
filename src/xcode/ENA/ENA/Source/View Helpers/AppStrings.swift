@@ -312,6 +312,7 @@ enum AppStrings {
 		static let highColorName = NSLocalizedString("ExposureDetection_High_Red_Color", comment: "")
 
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
+		static let lastExposureOneRiskDay = NSLocalizedString("ExposureDetection_LastExposure_One_Risk_Day", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")

@@ -65,6 +65,8 @@
 
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
+"ExposureDetection_LastExposure_One_Risk_Day" = "Am %@";
+
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
