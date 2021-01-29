@@ -23,13 +23,17 @@ extension Risk {
 
 #if DEBUG
 extension Risk {
+	// We need to first cast it as NSString to get a doubleValue because string don't support that conversion
+	static let activeTracingDays = (UserDefaults.standard.string(forKey: "activeTracingDays") as NSString?)?.doubleValue
+	static let secondsInADay: Double = 24 * 60 * 60
+	static let defaultDays: Double = 14
 	static let mocked = Risk(
 		// UITests can set app.launchArguments "-riskLevel"
 		level: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0,
-			activeTracing: .init(interval: 336 * 3600),  // two weeks
+			activeTracing: .init(interval: (activeTracingDays ?? defaultDays) * secondsInADay),
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true
 	)
