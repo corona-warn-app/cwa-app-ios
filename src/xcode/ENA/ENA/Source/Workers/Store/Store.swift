@@ -102,6 +102,9 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
+	/// OTP for user survey link generation
+	var otpToken: TimestampedToken? { get set }
+
 	/// PPAC Token storage
 	var apiToken: TimestampedToken? { get set }
 
