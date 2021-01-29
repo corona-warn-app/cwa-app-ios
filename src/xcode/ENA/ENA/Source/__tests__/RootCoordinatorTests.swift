@@ -29,7 +29,7 @@ private class MockCoordinatorDelegate: CoordinatorDelegate {
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) { }
 }
 
-class MockCoordinator: Coordinator {
+class MockCoordinator: RootCoordinator {
 
 	fileprivate var mockNavigationController: MockNavigationController
 	// swiftlint:disable:next weak_delegate
@@ -38,11 +38,11 @@ class MockCoordinator: Coordinator {
 	init() {
 		mockNavigationController = MockNavigationController()
 		mockDelegate = MockCoordinatorDelegate()
-		super.init(mockDelegate, mockNavigationController, contactDiaryStore: MockDiaryStore())
+		super.init(mockDelegate, contactDiaryStore: MockDiaryStore())
 	}
 }
 
-class CoordinatorTests: XCTestCase {
+class RootCoordinatorTests: XCTestCase {
 
 	var coordinator: MockCoordinator!
 
