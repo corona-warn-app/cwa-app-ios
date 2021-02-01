@@ -6,6 +6,7 @@ import ExposureNotification
 import Foundation
 import ZIPFoundation
 
+// swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
 
 	// MARK: - Init
@@ -245,65 +246,14 @@ final class HTTPClient: Client {
 			return
 		}
 
-		session.response(for: request, isFake: isFake, completion: { result in
+		session.response(for: request, isFake: isFake, completion: { [weak self] result in
 			switch result {
 			case let .success(response):
 				switch response.statusCode {
 				case 200:
-					guard let responseBody = response.body else {
-						Log.error("Failed to authorize OTP - response error", log: .api)
-						Log.error(String(response.statusCode), log: .api)
-						completion(.failure(.invalidResponseError))
-						return
-					}
-					do {
-						let decodedResponse = try JSONDecoder().decode(
-							GetOTPExpirationTimestampResponse.self,
-							from: responseBody
-						)
-						guard let expirationTimestamp = decodedResponse.expirationTimestamp else {
-							Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
-							completion(.failure(.invalidResponseError))
-							return
-						}
-						completion(.success(expirationTimestamp))
-					} catch _ {
-						Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
-						completion(.failure(.invalidResponseError))
-					}
+					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
 				case 400, 401, 403:
-					guard let responseBody = response.body else {
-						Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
-						Log.error(String(response.statusCode), log: .api)
-						completion(.failure(.invalidResponseError))
-						return
-					}
-					do {
-						let errorCode = try JSONDecoder().decode(
-							OTPServerErrorCode.self,
-							from: responseBody
-						)
-						switch errorCode {
-
-						case .API_TOKEN_ALREADY_ISSUED:
-							completion(.failure(.apiTokenAlreadyIssued))
-						case .API_TOKEN_EXPIRED:
-							completion(.failure(.apiTokenExpired))
-						case .API_TOKEN_QUOTA_EXCEEDED:
-							completion(.failure(.apiTokenQuotaExceeded))
-						case .DEVICE_TOKEN_INVALID:
-							completion(.failure(.deviceTokenInvalid))
-						case .DEVICE_TOKEN_REDEEMED:
-							completion(.failure(.deviceTokenRedeemed))
-						case .DEVICE_TOKEN_SYNTAX_ERROR:
-							completion(.failure(.deviceTokenSyntaxError))
-						default:
-							completion(.failure(.otherServerError))
-						}
-					} catch _ {
-						Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
-						completion(.failure(.invalidResponseError))
-					}
+					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
 				case 500:
 					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
 					completion(.failure(.internalServerError))
@@ -422,6 +372,72 @@ final class HTTPClient: Client {
 					completeWith(.failure(error))
 				}
 			}
+		}
+	}
+
+
+	private func otpAuthorizationSuccessHandler(
+		for response: URLSession.Response,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let responseBody = response.body else {
+			Log.error("Failed to authorize OTP - response error", log: .api)
+			Log.error(String(response.statusCode), log: .api)
+			completion(.failure(.invalidResponseError))
+			return
+		}
+		do {
+			let decodedResponse = try JSONDecoder().decode(
+				GetOTPExpirationTimestampResponse.self,
+				from: responseBody
+			)
+			guard let expirationTimestamp = decodedResponse.expirationTimestamp else {
+				Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+				completion(.failure(.invalidResponseError))
+				return
+			}
+			completion(.success(expirationTimestamp))
+		} catch _ {
+			Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+			completion(.failure(.invalidResponseError))
+		}
+	}
+
+	private func otpAuthorizationFailureHandler(
+		for response: URLSession.Response,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let responseBody = response.body else {
+			Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
+			Log.error(String(response.statusCode), log: .api)
+			completion(.failure(.invalidResponseError))
+			return
+		}
+		do {
+			let errorCode = try JSONDecoder().decode(
+				OTPServerErrorCode.self,
+				from: responseBody
+			)
+			switch errorCode {
+
+			case .API_TOKEN_ALREADY_ISSUED:
+				completion(.failure(.apiTokenAlreadyIssued))
+			case .API_TOKEN_EXPIRED:
+				completion(.failure(.apiTokenExpired))
+			case .API_TOKEN_QUOTA_EXCEEDED:
+				completion(.failure(.apiTokenQuotaExceeded))
+			case .DEVICE_TOKEN_INVALID:
+				completion(.failure(.deviceTokenInvalid))
+			case .DEVICE_TOKEN_REDEEMED:
+				completion(.failure(.deviceTokenRedeemed))
+			case .DEVICE_TOKEN_SYNTAX_ERROR:
+				completion(.failure(.deviceTokenSyntaxError))
+			default:
+				completion(.failure(.otherServerError))
+			}
+		} catch _ {
+			Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+			completion(.failure(.invalidResponseError))
 		}
 	}
 }
@@ -681,4 +697,6 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
+
+	// swiftlint:disable:next file_length
 }
