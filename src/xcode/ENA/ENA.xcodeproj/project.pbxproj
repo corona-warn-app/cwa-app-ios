@@ -2202,6 +2202,7 @@
 		504C9CC725C44BE60005875B /* OTP */ = {
 			isa = PBXGroup;
 			children = (
+				505F509C25C8A0FD004920EB /* __tests__ */,
 				505F508125C897A6004920EB /* Model */,
 				504C9CC825C44C180005875B /* OTPService.swift */,
 			);
@@ -2225,6 +2226,13 @@
 				505F508225C897B3004920EB /* OTPError.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		505F509C25C8A0FD004920EB /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		50BD2E6724FE26F300932566 /* __test__ */ = {
@@ -2715,12 +2723,12 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				504C9CC725C44BE60005875B /* OTP */,
 				B15382DC248270220010F007 /* __tests__ */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
 				2FA9E39124D2F2620030561C /* Exposure Submission */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
+				504C9CC725C44BE60005875B /* OTP */,
 				BA07735A25C2FC5E00EAF6B8 /* PPAC */,
 				B1175211248A837300C3325C /* Risk */,
 			);
