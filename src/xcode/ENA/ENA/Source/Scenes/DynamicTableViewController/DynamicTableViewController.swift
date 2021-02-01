@@ -41,7 +41,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTypeTableViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeLabel.rawValue)
 		tableView.register(DynamicTableViewTextViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeTextView.rawValue)
 		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.space.rawValue)
-		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
+		tableView.register(DynamicTableViewIconCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
 		tableView.register(DynamicTableViewBulletPointCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.bulletPoint.rawValue)
 	}
 }
