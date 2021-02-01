@@ -15,7 +15,7 @@
 			<key>zero</key>
 			<string>Keine Risiko-Begegnungen</string>
 			<key>one</key>
-			<string>Begegnungen mit niedrigem Risiko an einem Tag</string>
+			<string>Begegnungen mit niedrigem Risiko an 1 Tag</string>
 			<key>few</key>
 			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
 			<key>many</key>
