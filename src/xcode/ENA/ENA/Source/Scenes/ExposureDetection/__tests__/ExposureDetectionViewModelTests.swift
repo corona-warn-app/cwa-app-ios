@@ -656,17 +656,17 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	) {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
-		if hasAtLeastOneDayWithLowRiskLevel == false {
-			XCTAssertEqual(section.cells.count, 3)
-			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
-			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
-			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-		} else {
+		if hasAtLeastOneDayWithLowRiskLevel {
 			XCTAssertEqual(section.cells.count, 4)
 			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
+		} else {
+			XCTAssertEqual(section.cells.count, 3)
+			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
+			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
+			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
 		}
 		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? true : false)
 
