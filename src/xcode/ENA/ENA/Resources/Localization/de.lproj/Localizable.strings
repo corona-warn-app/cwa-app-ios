@@ -318,9 +318,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Wenn Sie die Risiko-Ermittlung nicht aktivieren, kann die App keine Benachrichtigungen zu Ihrem Risikostatus senden und empfangen.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Wenn Sie die Risiko-Ermittlung nicht aktivieren, kann die App Ihren Risikostatus nicht ermitteln und Sie erhalten keine Informationen zu Ihrem Risiko in der App.";
 
-"Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
+"Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Risiko-Ermittlung jederzeit wieder aktivieren.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Eine vielfältige Gruppe in einer Stadt benutzt Smartphones.";
 
