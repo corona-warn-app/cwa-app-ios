@@ -50,7 +50,8 @@ class StatisticsProviderTests: XCTestCase {
 
 				// check that we dont fetch mock data
 				XCTAssertNotEqual(CachingHTTPClientMock.staticStatistics, response.stats)
-				XCTAssertNotNil(store.statistics)
+				// caching is not done here but in `StatisticsProvider`!
+				XCTAssertNil(store.statistics)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			}
