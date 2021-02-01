@@ -15,7 +15,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		do {
-			_ = try PrivacyPreservingAccessControlService(store: store)
+			_ = try PPACService(store: store)
 		} catch PPACError.timeIncorrect {
 			failedExpectation.fulfill()
 		} catch {
@@ -34,7 +34,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		do {
-			_ = try PrivacyPreservingAccessControlService(store: store)
+			_ = try PPACService(store: store)
 		} catch PPACError.timeUnverified {
 			failedExpectation.fulfill()
 		} catch {
@@ -52,7 +52,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 		do {
-			let ppacService = try PrivacyPreservingAccessControlService(store: store)
+			let ppacService = try PPACService(store: store)
 			// THEN
 			XCTAssertNotNil(ppacService)
 
@@ -71,7 +71,7 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 
-		let ppacService = try? XCTUnwrap(PrivacyPreservingAccessControlServiceMock(store: store))
+		let ppacService = try? XCTUnwrap(PPAServiceMock(store: store))
 		ppacService?.getPPACToken({ result in
 			switch result {
 			case let .success(ppaToken):

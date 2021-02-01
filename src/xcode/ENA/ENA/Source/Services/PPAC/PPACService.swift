@@ -9,7 +9,7 @@ protocol PrivacyPreservingAccessControl {
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 }
 
-class PrivacyPreservingAccessControlService: PrivacyPreservingAccessControl {
+class PPACService: PrivacyPreservingAccessControl {
 
 	// MARK: - Init
 

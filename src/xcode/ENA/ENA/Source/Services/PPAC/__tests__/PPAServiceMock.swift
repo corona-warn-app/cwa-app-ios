@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-final class PrivacyPreservingAccessControlServiceMock: PrivacyPreservingAccessControlService {
+final class PPAServiceMock: PPACService {
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
