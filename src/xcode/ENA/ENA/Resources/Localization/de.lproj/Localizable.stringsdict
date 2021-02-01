@@ -39,7 +39,7 @@
 			<key>zero</key>
 			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
 			<key>one</key>
-			<string>Begegnungen an einem Tag mit erhöhtem Risiko</string>
+			<string>Begegnungen an 1 Tag mit erhöhtem Risiko</string>
 			<key>few</key>
 			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
 			<key>many</key>

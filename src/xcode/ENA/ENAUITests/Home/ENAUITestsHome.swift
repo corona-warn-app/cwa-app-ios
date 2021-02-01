@@ -87,7 +87,7 @@ class ENAUITests_01_Home: XCTestCase {
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
 		XCTAssert(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
 		
-		// find an element with localized text "Begegnungen an einem Tag mit erhöhtem Risiko"
+		// find an element with localized text "Begegnungen an 1 Tag mit erhöhtem Risiko"
 		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), numberOfDaysWithHighRisk)
 		XCTAssert(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
