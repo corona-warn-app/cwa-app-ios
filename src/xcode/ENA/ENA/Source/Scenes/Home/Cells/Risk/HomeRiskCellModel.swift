@@ -265,9 +265,8 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 		let activeTracing = risk.details.activeTracing
 
-		let mostRecentDateWithLowRisk = risk.details.mostRecentDateWithRiskLevel
 		var formattedMostRecentDateWithLowRisk = ""
-		if let mostRecentDateWithLowRisk = mostRecentDateWithLowRisk {
+		if let mostRecentDateWithLowRisk = risk.details.mostRecentDateWithRiskLevel {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateStyle = .medium
 			formattedMostRecentDateWithLowRisk = dateFormatter.string(from: mostRecentDateWithLowRisk)
