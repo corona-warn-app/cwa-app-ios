@@ -62,7 +62,7 @@ class PrivacyPreservingAccessControlService: PrivacyPreservingAccessControl {
 
 	private let store: Store
 
-	/// will return the current API Token amd create a new one if needed
+	/// will return the current API Token and create a new one if needed
 	var apiToken: TimestampedToken {
 		let today = Date()
 		/// check if we alread have a token and if it was created in this month / year
