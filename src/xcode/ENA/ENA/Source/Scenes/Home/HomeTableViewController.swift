@@ -72,17 +72,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 			.store(in: &subscriptions)
 
-		viewModel.state.$statistics
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] newStatistics in
-				// Only reload if stats change
-				guard newStatistics != viewModel.state.statistics else {
-					return
-				}
-				self?.reload()
-			}
-			.store(in: &subscriptions)
-
 		viewModel.state.$statisticsLoadingError
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] statisticsLoadingError in
