@@ -74,8 +74,8 @@ class RiskLegendViewController: DynamicTableViewController {
 		} else {
 			insets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
 		}
+
 		return DynamicTableViewModel([
-			
 			.navigationSubtitle(
 				text: AppStrings.RiskLegend.subtitle,
 				insets: insets,
