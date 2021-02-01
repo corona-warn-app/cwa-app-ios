@@ -103,7 +103,7 @@ protocol StoreProtocol: AnyObject {
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
 	/// PPAC Token storage
-	var apiToken: TimestampedToken? { get set }
+	var ppacApiToken: TimestampedToken? { get set }
 
 	func clearAll(key: String?)
 
