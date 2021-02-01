@@ -48,10 +48,15 @@ enum AccessibilityIdentifiers {
 		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
+		
+		enum EditEntries {
+			static let tableView = "AppStrings.ContactDiary.EditEntries.tableView"
+		}
 
 		enum Overview {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
+			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
 		}
 	}
 
