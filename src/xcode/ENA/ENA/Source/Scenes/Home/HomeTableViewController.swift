@@ -323,28 +323,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 
-		// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		/// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
 		tableView.estimatedRowHeight = 500
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
-		// https://developer.apple.com/forums/thread/117537
+		/// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
+		/// https://developer.apple.com/forums/thread/117537
 		DispatchQueue.main.async { [self] in
 			guard tableView.visibleCells.contains(cell) else {
 				return
 			}
 
-			// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
+			/// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
 			guard viewModel.riskAndTestRows.count == 2 else {
 				tableView.reloadData()
 				return
 			}
 
-			// Animate the changed cell height
+			/// Animate the changed cell height
 			tableView.performBatchUpdates(nil, completion: nil)
 
-			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			/// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
 			for cell in tableView.visibleCells {
 				cell.layer.masksToBounds = false
 				cell.contentView.layer.masksToBounds = false
@@ -514,13 +514,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 
-			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
+			/// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
 			var delay = 0.5
 
 			#if DEBUG
 			if isUITesting {
-				// In UI Testing we need to increase the delaye slightly again.
-				// Otherwise UI Tests fail
+				/// In UI Testing we need to increase the delay slightly again. Otherwise UI Tests fail.
 				delay = 1.5
 			}
 			#endif
