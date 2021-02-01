@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
 
-"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your smartphone and try again tomorrow.";
 
 "Common_ENError13_Description" = "Error 13: Your exposure logging for today has already been carried out. Please try again in 24 hours.";
 
@@ -75,7 +75,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Last exposure check: %@";
 
-"ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
+"ExposureDetection_OffText" = "Activate exposure logging to enable calculation of your current risk status.";
 
 "ExposureDetection_OutdatedText" = "Your risk calculation logging has not been updated for more than 48 hours. Please update the calculation.";
 
@@ -121,7 +121,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were last exposed on %@ over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.";
 
-"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
+"ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "For further information, please see our FAQ page.";
 
@@ -311,7 +311,7 @@
 
 "Onboarding_DoNotActivate_actionText" = "Do Not Activate";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "This means the Corona-Warn-App cannot send or receive notifications about your COVID-19 risk status.";
+"Onboarding_DeactivateExposureConfirmation_title" = "If you do not activate exposure logging, the app cannot send or receive notifications about your risk status.";
 
 "Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
 
@@ -339,7 +339,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify any possible exposure, you need to enable exposure logging.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other app users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
@@ -355,19 +355,19 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "An encrypted positive test diagnosis is transmitted to the system, which will now warn other users.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with COVID-19 …";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with coronavirus";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone’s health.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "If you receive a positive test result, please report this in the app. Sharing your test results is voluntary and secure. Please do this for the sake of everyone’s health.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
 
 "OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her Corona-Warn-App.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Receive Warnings and Identify Risks";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive warnings and identify risks";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-isolate to protect others and find out where you can get tested.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-quarantine to protect others and find out where you can get tested.";
 
 /* Onboarding EU Keys */
 "onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Transnational Exposure Logging";
@@ -380,8 +380,8 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "You can view the participating countries in the exposure logging details.";
 
-/* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "+498007540002";
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number" = "08007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Consent";
 
@@ -403,9 +403,7 @@
 
 "ExposureSubmissionTanEntry_EntryField" = "TAN Entry Field";
 
-"ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
-
-"ExposureSubmissionTanEntry_Description" = "Please enter the 10-digit TAN that you were given.";
+"ExposureSubmissionTanEntry_Description" = "Enter the 10-digit TAN that you were given.";
 
 "ExposureSubmissionTanEntry_Submit" = "Next";
 
@@ -449,17 +447,18 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "How this works:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Call the hotline and request a TAN:";
+"ExposureSubmissionHotline_SectionDescription1" = "Call the nationwide hotline and request a TAN:";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Step 1 of 2";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Step 2 of 2";
 
-"ExposureSubmission_PhoneNumber" = "+49 800 7540002";
+/* UI text; spacing allowed */
+"ExposureSubmission_PhoneNumber" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Languages:\nGerman, English, Turkish\n\nBusiness hours:\nMonday to Sunday: 24 hours\n\nThe call is free of charge.\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Languages:\nGerman, English, Turkish\n\nBusiness hours:\n24/7\n\nThe call is free of charge.\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Register the test by entering the TAN in the app.";
+"ExposureSubmission_SectionDescription2" = "Register your test by entering the TAN in the app.";
 
 "ExposureSubmission_CallButtonTitle" = "Call";
 
@@ -540,13 +539,13 @@
 
 "ExposureSubmissionSuccess_listItem2" = "You are infectious. Isolate yourself from other people.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Your quarantine period is usually 14 days. Please observe your symptoms and monitor how they develop.";
+"ExposureSubmissionSuccess_listItem2_1" = "Your quarantine period is usually 14 days. Please monitor how your symptoms develop closely.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by the public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
+"ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious, so please follow the designated quarantine period.";
 
 /* Exposure Submission Testresult available */
 "ExposureSubmissionTestresultAvailable_Title" = "Your test result is available";
@@ -600,7 +599,7 @@
 
 "ExposureSubmissionResult_warnOthers" = "Warn Others";
 
-"ExposureSubmissionResult_warnOthersDesc" = "Share your random IDs and warn others.\nHelp determine the risk of infection for others more accurately by also indicating when you first noticed any coronavirus symptoms.";
+"ExposureSubmissionResult_warnOthersDesc" = "Please share your random IDs and warn others.\nHelp determine the risk of infection for others more accurately by also indicating when you first noticed any coronavirus symptoms.";
 
 "ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
 
@@ -616,11 +615,11 @@
 
 "ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need another SARS-CoV-2 test.";
 
-"ExposureSubmissionResult_testInvalid" = "Test has errors";
+"ExposureSubmissionResult_testInvalid" = "Your test cannot be evaluated";
 
 "ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the test center or laboratory involved to find out how to proceed.";
 
-"ExposureSubmissionResult_testExpired" = "Test has errors";
+"ExposureSubmissionResult_testExpired" = "Your test cannot be evaluated";
 
 "ExposureSubmissionResult_testExpiredDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
 
@@ -647,7 +646,7 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Symptoms";
 
-"ExposureSubmissionSymptoms_Introduction" = "You can indicate whether and when you noticed any coronavirus symptoms, to allow the app to calculate more accurately the risk of infection to other app users. This step is voluntary. If you do not want to provide information about your symptoms, select “No answer”.";
+"ExposureSubmissionSymptoms_Introduction" = "You can indicate whether and when you noticed any coronavirus symptoms, to allow the app to calculate the risk of infection of other people more accurately. This step is voluntary. If you do not want to provide information about your symptoms, select “No answer”.";
 
 "ExposureSubmissionSymptoms_Description" = "Have you experienced one or more of the following symptoms in the last few days?";
 
@@ -674,6 +673,8 @@
 "ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "No answer";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Next";
+
+"ExposureSubmissionSymptoms_DoneButton" = "Done";
 
 /* ExposureSubmissionSymptomsOnset */
 "ExposureSubmissionSymptomsOnset_Title" = "Onset of Symptoms";
@@ -783,7 +784,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "You need to enable the exposure logging feature so that the app can determine whether you are at risk after encountering an infected app user. The exposure logging feature works transnationally, meaning any possible exposure involving users is also detected by other official coronavirus apps.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their smartphones. Every day, the app downloads lists containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared their test results (more specifically: their random IDs) via their app. These lists are then compared with the random IDs of other users that have been recorded by your iPhone, in order to calculate the likelihood that you have also been infected and to warn you if necessary.";
+"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other app users and passing your own random ID to their smartphones. Every day, the app downloads lists containing the random IDs – along with any voluntary information about the onset of symptoms – of all users who have tested positive for the virus and voluntarily shared their test results (more specifically: their random IDs) via their app. These lists are then compared with the random IDs of other users that have been recorded by your iPhone, in order to calculate the likelihood that you have also been infected and to warn you if necessary.";
 
 "ExposureNotificationSetting_DescriptionText3" = "You can use the toggle switch to disable exposure logging at any time.";
 
@@ -795,7 +796,7 @@
 
 "ExposureNotificationSetting_Activate_Internet" = "Open Internet connection";
 
-"ExposureNotificationSetting_Internet_Description" = "Exposure logging requires an Internet connection to calculate exposures. Please turn on WIFI or mobile data in your device settings.";
+"ExposureNotificationSetting_Internet_Description" = "Exposure logging requires an Internet connection to calculate your risk of infection. Please turn on Wi-Fi or mobile data in your device settings.";
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Open Device Settings";
 
@@ -950,9 +951,9 @@
 
 "Home_Thank_You_Card_Further_Info_Item_Title" = "Other information:";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Your quarantine period is usually 14 days. Please observe your symptoms and monitor how they develop.";
+"Home_Thank_You_Card_14Days_Item_Title" = "Your quarantine period is usually 14 days. Please monitor how your symptoms develop closely.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you became ill. You can use your contact journal for this: simply export the entries and then print them out or send them via e-mail.";
 
 "Home_Thank_You_Card_App_Item_Title" = "Please particularly consider people who will not be notified directly by the app since they don’t own a smartphone, or haven’t installed the app.";
 
@@ -985,9 +986,9 @@
 /* Home Diary card */
 "Home_DiaryCard_Title" = "Contact Journal";
 
-"Home_DiaryCard_Body" = "Keep track of where you have been and whom you met.";
+"Home_DiaryCard_Body" = "Keep track of where you have been and whom you met. Even if you do not enter any contacts, you will still see when you had exposures.";
 
-"Home_DiaryCard_Button" = "Manage Journal";
+"Home_DiaryCard_Button" = "Open Journal";
 
 "Home_InfoCard_ShareTitle" = "Share the Corona-Warn-App";
 
@@ -1012,7 +1013,7 @@
 
 "Home_resultCard_RetrieveResultButton" = "Retrieve Test Result";
 
-"Home_resultCard_LoadingBody" = "Current data is being downloaded.\nThis can take several minutes.";
+"Home_resultCard_LoadingBody" = "Current data is being downloaded and checked. This can take several minutes.";
 
 "Home_resultCard_LoadingTitle" = "Update in progress …";
 
@@ -1035,7 +1036,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
 
-"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again.\n\nThis is what you should do:\n1. If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n2. If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
+"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again.\n\nWhat you should do:\n If you do not have any COVID-19 symptoms, continue to follow the prevailing rules regarding distancing and hygiene.\n If you have COVID-19 symptoms, we recommend that you visit your doctor and get tested.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1062,26 +1063,28 @@
 
 "App_Information_Contact_Title" = "How can we help you?";
 
-"App_Information_Contact_Description" = "For technical questions about the Corona-Warn-App, please contact our hotline.";
+"App_Information_Contact_Description" = "For technical questions about the Corona-Warn-App, please contact our nationwide hotline.";
 
 "App_Information_Contact_Hotline_Title" = "Technical Hotline";
 
-"App_Information_Contact_Hotline_Text" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Text" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Number" = "08007540001";
 
 "App_Information_Contact_Hotline_Description" = "Our customer service is here to help.";
 
 "App_Information_Contact_Hotline_Terms" = "Languages: German, English, Turkish\n\nBusiness hours:\nMonday to Saturday: 7am - 10pm\n(except national holidays)\n\nThe call is free of charge.\n\nIf you have any health-related questions, please contact your general practitioner or the medical emergency service hotline; telephone: 116 117.";
 
 /* App Information - Imprint */
+"App_Information_New_Features_Navigation" = "New Features";
+
 "App_Information_Imprint_Navigation" = "Imprint";
 
 "App_Information_Imprint_ImageDescription" = "A hand holds a smartphone displaying a large body of text on the screen. Next to the text is a section symbol representing the imprint.";
 
 "App_Information_Imprint_Section1_Title" = "Published by";
 
-"App_Information_Imprint_Section1_Text" = "(responsible in accordance with § 5, para. 1 TMG, § 55 para. 1 RStV, DS-GVO, BDSG)";
+"App_Information_Imprint_Section1_Text" = "(responsible in accordance with § 5 (1) TMG, § 18 (1) MStV)";
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
@@ -1117,9 +1120,9 @@
 "App_Information_Terms_Title" = "Terms of Use";
 
 /* Invite Friends */
-"InviteFriends_NavTitle" = "Share";
+"InviteFriends_NavTitle" = "Recommend Us";
 
-"InviteFriends_Subtitle" = "Share the Corona-Warn-App";
+"InviteFriends_Subtitle" = "Recommend the Corona-Warn-App";
 
 "InviteFriends_Title" = "Let’s fight coronavirus together";
 
@@ -1176,11 +1179,11 @@
 
 "RiskLegend_Legend1_Title" = "Exposure Logging";
 
-"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people’s devices are logged. You don’t have to do anything else.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people’s smartphones are logged automatically.";
 
 "RiskLegend_Legend2_Title" = "Risk of Infection";
 
-"RiskLegend_Legend2_Text" = "If you have had contact within the last 14 days with a person who was diagnosed with COVID-19, the app calculates your personal risk of infection. It does this by measuring duration and proximity of the exposure.";
+"RiskLegend_Legend2_Text" = "When exposure logging is active, the app calculates your personal risk of infection. It does this by measuring duration and proximity of your exposure to people who have been diagnosed with coronavirus over the last 14 days.";
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
 
@@ -1190,7 +1193,7 @@
 
 "RiskLegend_Legend3_Title" = "Notifying Other Users";
 
-"RiskLegend_Legend3_Text" = "Another central feature is registering your test and retrieving the result. If you are diagnosed with COVID-19, you can notify others and break the chain of infection.";
+"RiskLegend_Legend3_Text" = "You can register your test and retrieve your test result in the app. If you are diagnosed with coronavirus, you can notify others and break the chain of infection.";
 
 "RiskLegend_Definitions_Title" = "Definition of Terms";
 
@@ -1200,7 +1203,7 @@
 
 "RiskLegend_Check_Title" = "Exposure Check";
 
-"RiskLegend_Check_Text" = "Exposure log data is retrieved and synchronized with reported infections of other users. Your risk is checked automatically several times per day.";
+"RiskLegend_Check_Text" = "Exposure log data is retrieved and synchronized with risk notifications from other users. Your risk is checked automatically several times per day.";
 
 "RiskLegend_Contact_Title" = "Exposure Risk";
 
@@ -1238,6 +1241,30 @@
 "Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past 14 days.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
+
+/* Delta Onboarding - New Version Features */
+"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "New Features in This Version";
+
+"DeltaOnboarding_NewVersionFeatures_Title" = "New Features";
+
+"DeltaOnboarding_NewVersionFeatures_Release" = "Release";
+
+"DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Next";
+
+"DeltaOnboarding_NewVersionFeatures_Description" = "Along with bug fixes, this update also includes new and enhanced features.";
+
+/* New Version Features */
+"NewVersionFeature_112_statistics_title" = "Statistics";
+
+"NewVersionFeature_112_statistics_description" = "See an overview of the latest key figures for the infection numbers in Germany.";
+
+"NewVersionFeature_112_exposure_history_title" = "Exposure History";
+
+"NewVersionFeature_112_exposure_history_description" = "Your contact journal shows you the days on which you have a low or increased risk based on the encounters evaluated by the app. This means you can warn people you have been with on these days if they do not use the Corona-Warn-App themselves. These people may have been exposed to a comparable risk. The people and places in your contact journal are not necessarily related to the indicated exposures, however.";
+
+"NewVersionFeature_112_ios125_support_title" = "App now available for iOS 12.5 and later";
+
+"NewVersionFeature_112_ios125_support_description" = "You can now use the Corona-Warn-App in iOS version 12.5 and later.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1325,7 +1352,15 @@
 
 "ContactDiary_Overview_Title" = "Contact Journal";
 
-"ContactDiary_Overview_Description" = "Write down the people you have met and places you have visited. ";
+"ContactDiary_Overview_Description" = "Write down the people you have met and places you have visited. If a risk is displayed for a day, you can warn people you have been with on that day if they do not use the Corona-Warn-App themselves.";
+
+"ContactDiary_Overview_Increased_Risk_Title" = "Increased Risk";
+
+"ContactDiary_Overview_Low_Risk_Title" = "Low Risk";
+
+"ContactDiary_Overview_Risk_Text_1" = "based on the encounters evaluated by the app.";
+
+"ContactDiary_Overview_Risk_Text_2" = "They are not necessarily related to the people and places you have recorded.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
@@ -1335,6 +1370,8 @@
 "ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Edit People";
 
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edit Places";
+
+"ContactDiary_Overview_ActionSheet_ExportActionSubject" = "My Contact Journal";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "People";
@@ -1405,7 +1442,7 @@
 
 "ContactDiary_Information_DescriptionTitle" = "Keep track of your contacts.";
 
-"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed. Your exposures are also displayed here.";
 
 "ContactDiary_Information_Item_Person_Title" = "Enter the people you have met.";
 
@@ -1416,6 +1453,8 @@
 "ContactDiary_Information_Item_DeletedAutomatically_Title" = "You can remove entries for people and places from your journal at any time. Journal entries will be deleted automatically after 16 days.";
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "You can export your contact journal in plain text format and then print out the entries, edit them, or provide them to your public health office as needed.";
+
+"ContactDiary_Information_Item_ExposureHistory_Title" = "The indicated exposures are not necessarily related to the people and places you have recorded. Please don’t draw any wrong conclusions.";
 
 "ContactDiary_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
 
@@ -1487,7 +1526,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
 
-"Statistics_Card_KeySubmissions_Footnote" = "through the Corona-Warn-App";
+"Statistics_Card_KeySubmissions_Footnote" = "About Corona-Warn-App";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7-Day R Value";
@@ -1524,9 +1563,9 @@
 
 "Statistics_Info_ReproductionNumber_Text" = "The reproduction figure, R, indicates how many people an average infected person has infected further. The current value takes data up to the last 5 days into account.";
 
-"Statistics_Info_FAQLink_Text" = "For more information, refer to the";
+"Statistics_Info_FAQLink_Text" = "For further information, please see our FAQ page:";
 
-"Statistics_Info_FAQLink_Title" = "FAQ for the statistics.";
+"Statistics_Info_FAQLink_Title" = "FAQ for the statistics";
 
 "Statistics_Info_Definitions_Title" = "Legend";
 
@@ -1559,4 +1598,9 @@
 "Statistics_Info_Trends_Footnote" = "The assessment of the trend for warnings by app users changes depending on current infection levels, which is why this trend is always displayed as neutral.";
 
 "Statistics_Info_Image_AccLabel" = "Abstract picture of a smartphone with four placeholders for information";
+
+/* Update OS */
+"UpdateOS_title" = "Please update your iOS.";
+
+"UpdateOS_text" = "You need the current iOS version to install the Corona-Warn-App.\nTo do so, open the settings in your iPhone and select General -> Software Update.";
 
