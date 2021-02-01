@@ -68,7 +68,7 @@ class RiskLegendViewController: DynamicTableViewController {
 	}
 
 	private var model: DynamicTableViewModel {
-		var insets: UIEdgeInsets
+		let insets: UIEdgeInsets
 		if #available(iOS 13, *) {
 			insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
 		} else {
