@@ -10,12 +10,13 @@ class PPACServiceTest: XCTestCase {
 	func testGIVEN_DeviceTimeIsIncorract_WHEN_InitPPACService_THEN_FailWithError() {
 		// GIVEN
 		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .incorrect
 		let failedExpectation = expectation(description: "Init failed")
 
 		// WHEN
 		do {
-			_ = try PPACService(store: store)
+			_ = try PPACService(store: store, deviceCheck: deviceCheck)
 		} catch PPACError.timeIncorrect {
 			failedExpectation.fulfill()
 		} catch {
@@ -29,12 +30,13 @@ class PPACServiceTest: XCTestCase {
 	func testGIVEN_DeviceTimeIsAssumeCorrect_WHEN_InitPPACService_THEN_FailWithError() {
 		// GIVEN
 		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .assumedCorrect
 		let failedExpectation = expectation(description: "Init failed")
 
 		// WHEN
 		do {
-			_ = try PPACService(store: store)
+			_ = try PPACService(store: store, deviceCheck: deviceCheck)
 		} catch PPACError.timeUnverified {
 			failedExpectation.fulfill()
 		} catch {
@@ -48,11 +50,12 @@ class PPACServiceTest: XCTestCase {
 	func testGIVEN_DeviceTimeIsCorrect_WHEN_InitPPACService_THEN_Success() {
 		// GIVEN
 		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .correct
 
 		// WHEN
 		do {
-			let ppacService = try PPACService(store: store)
+			let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
 			// THEN
 			XCTAssertNotNil(ppacService)
 
@@ -66,12 +69,14 @@ class PPACServiceTest: XCTestCase {
 	func testGIVEN_StoreHasNoAPIToken_WHEN_getPPACToken_THEN_APITokenIsInStore() throws {
 		// GIVEN
 		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+
 		store.deviceTimeCheckResult = .correct
 		let ppacExpectation = expectation(description: "Init failed")
 
 		// WHEN
 
-		let ppacService = try? XCTUnwrap(PPAServiceMock(store: store))
+		let ppacService = try? XCTUnwrap(PPACService(store: store, deviceCheck: deviceCheck))
 		ppacService?.getPPACToken({ result in
 			switch result {
 			case let .success(ppaToken):
