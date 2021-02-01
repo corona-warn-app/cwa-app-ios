@@ -7,6 +7,7 @@ import Foundation
 enum OTPError: Error {
 	case generalError
 	case ppacFailed
+	case otpAlreadyUsedThisMonth
 	case apiTokenAlreadyIssued
 	case apiTokenExpired
 	case apiTokenQuotaExceeded
@@ -42,10 +43,19 @@ final class OTPService: OTPServiceProviding {
 
 	func getValidOTP(completion: @escaping (Result<String, Error>) -> Void) {
 
-		// 1. check for existing otp. If we have none, create one.
-		checkAndValidateExistingOTP()
+		// 1. Check for existing otp. If we have none, create one.
+		if let token = store.otpToken {
+			// 1a: We have a token, check now if it is not from the current month.
+			let timestamp = token.timestamp
+			guard Calendar.current.isDate(timestamp, equalTo: Date(), toGranularity: .month) else {
+				return completion(.failure(OTPError.otpAlreadyUsedThisMonth))
+			}
+		} else {
+			// 1b: We have not aleady a token, generate a new one.
+			generateAndStoreFreshOTPToken()
+		}
 
-		// 2. get ppacToken from ppacService.
+		// 2. Get ppacToken from ppacService.
 		ppac.getPPACToken({ [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
@@ -55,11 +65,11 @@ final class OTPService: OTPServiceProviding {
 
 			switch result {
 			case .success(let ppacToken):
-				// 3a Success: We autohorize the otp with the ppacToken at our server.
+				// 2a Success: We autohorize the otp with the ppacToken at our server.
 				self.authorizeOTP(with: ppacToken, completion: { result in
 					switch result {
 					case .success(let timestamp):
-						// 4a Success: We store the timestamp of the authorized otp and return the token.
+						// 3a Success: We store the timestamp of the authorized otp and return the token.
 						self.updateOTP(with: timestamp)
 						guard let token = self.store.otpToken?.token else {
 							Log.error("could not retrieve otp from store", log: .otp)
@@ -68,13 +78,13 @@ final class OTPService: OTPServiceProviding {
 						}
 						completion(.success(token))
 					case .failure(let serverError):
-						// 4b Failure: The server return error. We return that to our caller.
+						// 3b Failure: The server return error. We return that to our caller.
 						completion(.failure(self.otpError(from: serverError)))
 					}
 				})
 
 			case .failure(let ppacError):
-				// 3b Failure: Getting a ppacToken failed, so return the error.
+				// 2b Failure: Getting a ppacToken failed, so return the error.
 				completion(.failure(self.otpError(from: ppacError)))
 
 			}
@@ -101,9 +111,7 @@ final class OTPService: OTPServiceProviding {
 	private let ppac: PrivacyPreservingAccessControl
 
 	private func checkAndValidateExistingOTP() {
-		// TODO validation check
-		// check if none there otherwise
-		generateAndStoreFreshOTPToken()
+
 	}
 
 	private func generateAndStoreFreshOTPToken() {
@@ -129,6 +137,8 @@ final class OTPService: OTPServiceProviding {
 		let otpToken = store.otpToken
 
 		// request with the three params
+
+
 	}
 
 	private func otpError(from serverError: OTPServerError) -> OTPError {
