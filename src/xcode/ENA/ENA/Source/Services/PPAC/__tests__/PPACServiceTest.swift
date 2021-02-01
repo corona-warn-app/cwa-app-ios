@@ -66,6 +66,29 @@ class PPACServiceTest: XCTestCase {
 		}
 	}
 
+	func testGIVEN_DeviceIsNotSupported_WHEN_PPACService_THEN_ErrorDeviceNotSupported() {
+		// GIVEN
+		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(false, deviceToken: "iPhone")
+		store.deviceTimeCheckResult = .correct
+		let failedExpectation = expectation(description: "device not supported")
+
+		// WHEN
+		do {
+			let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+			// THEN
+			XCTAssertNotNil(ppacService)
+
+		} catch PPACError.deviceNotSupported {
+			failedExpectation.fulfill()
+		} catch {
+			XCTFail("unexpected error")
+		}
+
+		// THEN
+		wait(for: [failedExpectation], timeout: .medium)
+	}
+
 	func testGIVEN_StoreHasNoAPIToken_WHEN_getPPACToken_THEN_APITokenIsInStore() throws {
 		// GIVEN
 		let store = MockTestStore()
