@@ -34,6 +34,8 @@ class Coordinator: RequiresAppDependencies {
 	private var diaryCoordinator: DiaryCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
+	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
+
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
 			diagnosisKeysRetrieval: self.exposureManager,
@@ -236,18 +238,15 @@ class Coordinator: RequiresAppDependencies {
 			return
 		}
 
-		let vc = ExposureDetectionViewController(
-			viewModel: ExposureDetectionViewModel(
-				homeState: homeState,
-				onInactiveButtonTap: { [weak self] completion in
-					self?.setExposureManagerEnabled(true, then: completion)
-				}
-			),
-			store: store
+		exposureDetectionCoordinator = ExposureDetectionCoordinator(
+			rootViewController: rootViewController,
+			store: store,
+			homeState: homeState,
+			exposureManager: exposureManager
 		)
-
-		rootViewController.present(vc, animated: true)
+		exposureDetectionCoordinator?.start()
 	}
+
 
 	private func showExposureSubmission(with result: TestResult? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller

@@ -152,6 +152,8 @@ enum AccessibilityIdentifiers {
 		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
 		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
+		static let surveySection = "AppStrings.ExposureDetection.surveySection"
+		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
 	}
 
 	enum ExposureSubmissionQRScanner {
