@@ -19,6 +19,7 @@ protocol Client {
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
+	typealias OTPAuthorizationCompletionHandler = (Result<Int, OTPError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -78,6 +79,21 @@ protocol Client {
 		payload: CountrySubmissionPayload,
 		isFake: Bool,
 		completion: @escaping KeySubmissionResponse
+	)
+
+	// MARK: OTP Authorization
+
+	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// - Parameters:
+	///   - otp: the otp to authorize
+	///   - ppacToken: the ppac token which is generated previously by the PPACService
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the submission call, which contains the expirationTimestamp of the otp
+	func authorize(
+		otp: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 }
 

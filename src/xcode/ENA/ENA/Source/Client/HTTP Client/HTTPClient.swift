@@ -230,6 +230,95 @@ final class HTTPClient: Client {
 		}
 	}
 
+	func authorize(
+		otp: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let request = try? URLRequest.authorizeOTPRequest(
+				configuration: configuration,
+				otp: otp,
+				ppacToken: ppacToken,
+				isFake: isFake) else {
+			completion(.failure(.invalidResponseError))
+			return
+		}
+
+		session.response(for: request, isFake: isFake, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let responseBody = response.body else {
+						Log.error("Failed to authorize OTP - response error", log: .api)
+						Log.error(String(response.statusCode), log: .api)
+						completion(.failure(.invalidResponseError))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							GetOTPExpirationTimestampResponse.self,
+							from: responseBody
+						)
+						guard let expirationTimestamp = decodedResponse.expirationTimestamp else {
+							Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+							completion(.failure(.invalidResponseError))
+							return
+						}
+						completion(.success(expirationTimestamp))
+					} catch _ {
+						Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+						completion(.failure(.invalidResponseError))
+					}
+				case 400, 401, 403:
+					guard let responseBody = response.body else {
+						Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
+						Log.error(String(response.statusCode), log: .api)
+						completion(.failure(.invalidResponseError))
+						return
+					}
+					do {
+						let errorCode = try JSONDecoder().decode(
+							OTPServerErrorCode.self,
+							from: responseBody
+						)
+						switch errorCode {
+
+						case .API_TOKEN_ALREADY_ISSUED:
+							completion(.failure(.apiTokenAlreadyIssued))
+						case .API_TOKEN_EXPIRED:
+							completion(.failure(.apiTokenExpired))
+						case .API_TOKEN_QUOTA_EXCEEDED:
+							completion(.failure(.apiTokenQuotaExceeded))
+						case .DEVICE_TOKEN_INVALID:
+							completion(.failure(.deviceTokenInvalid))
+						case .DEVICE_TOKEN_REDEEMED:
+							completion(.failure(.deviceTokenRedeemed))
+						case .DEVICE_TOKEN_SYNTAX_ERROR:
+							completion(.failure(.deviceTokenSyntaxError))
+						default:
+							completion(.failure(.otherServerError))
+						}
+					} catch _ {
+						Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+						completion(.failure(.invalidResponseError))
+					}
+				case 500:
+					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
+					completion(.failure(.internalServerError))
+				default:
+					Log.error("Failed to authorize OTP - response error", log: .api)
+					Log.error(String(response.statusCode), log: .api)
+					completion(.failure(.invalidResponseError))
+				}
+			case let .failure(error):
+				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
+				completion(.failure(.invalidResponseError))
+			}
+		})
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -350,6 +439,10 @@ private extension HTTPClient {
 	
 	struct GetTANForExposureSubmitResponse: Codable {
 		let tan: String?
+	}
+
+	struct GetOTPExpirationTimestampResponse: Codable {
+		let expirationTimestamp: Int?
 	}
 }
 
@@ -516,6 +609,46 @@ private extension URLRequest {
 		
 		return request
 	}
+
+	static func authorizeOTPRequest(
+		configuration: HTTPClient.Configuration,
+		otp: String,
+		ppacToken: PPACToken,
+		isFake: Bool
+	) throws -> URLRequest {
+
+		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let payload = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
+			$0.otp = otp
+		}
+
+		let protoBufRequest = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
+			$0.payload = payload
+			$0.authentication = ppacIos
+		}
+
+		let url = configuration.otpAuthorizationURL
+
+		let body = try protoBufRequest.serializedData()
+
+		var request = URLRequest(url: url)
+
+		request.httpMethod = "POST"
+
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpBody = body
+
+		return request
+	}
+
 	
 	// MARK: - Helper methods for adding padding to the requests.
 	
