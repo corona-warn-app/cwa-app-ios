@@ -4,23 +4,11 @@
 
 import Foundation
 
-enum OTPError: Error {
-	case generalError
-	case otpAlreadyUsedThisMonth
-	case apiTokenAlreadyIssued
-	case apiTokenExpired
-	case apiTokenQuotaExceeded
-	case deviceTokenInvalid
-	case deviceTokenRedeemed
-	case deviceTokenSyntaxError
-}
-
 protocol OTPServiceProviding {
-	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, Error>) -> Void)
+	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
 }
 
 final class OTPService: OTPServiceProviding {
-
 
 	// MARK: - Init
 
@@ -36,7 +24,7 @@ final class OTPService: OTPServiceProviding {
 
 	// MARK: - Protocol OTPServiceProviding
 
-	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, Error>) -> Void) {
+	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 
 		// 1. Check for existing otp. If we have none, create one.
 		if let token = store.otpToken {
@@ -102,41 +90,23 @@ final class OTPService: OTPServiceProviding {
 		store.otpToken = token
 	}
 
-	private func updateOTP(with newTimestamp: Date) {
+	private func updateOTP(with newTimestamp: Int) {
 		guard let verifiedOTP = store.otpToken?.token else {
 			Log.error("could not retrieve otp token from store", log: .otp)
 			return
 		}
-		let newToken = TimestampedToken(token: verifiedOTP, timestamp: newTimestamp)
+		// TODO INT or DATE?
+		let date = Date()
+		let newToken = TimestampedToken(token: verifiedOTP, timestamp: date)
 		store.otpToken = newToken
 	}
 
-	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<Date, OTPError>) -> Void) {
+	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<Int, OTPError>) -> Void) {
 		guard let otp = store.otpToken?.token else {
 			Log.error("could not retrieve otp token from store", log: .otp)
 			completion(.failure(OTPError.generalError))
 			return
 		}
-
-		let serverOTPToken = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
-			$0.otp = otp
-		}
-
-		let serverPPACToken = SAP_Internal_Ppdd_PPACIOS.with {
-			$0.apiToken = ppacToken.apiToken
-			$0.deviceToken = ppacToken.deviceToken
-		}
-
-		let requestOTP = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
-			$0.payload = serverOTPToken
-			$0.authentication = serverPPACToken
-		}
-
-		client.authorizeOTP(otpRequest: requestOTP, isFake: false, completion: { result in
-
-
-
-
-		})
+		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: completion)
 	}
 }
