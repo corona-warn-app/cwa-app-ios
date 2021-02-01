@@ -6,7 +6,6 @@ import Foundation
 
 enum OTPError: Error {
 	case generalError
-	case ppacFailed
 	case otpAlreadyUsedThisMonth
 	case apiTokenAlreadyIssued
 	case apiTokenExpired
@@ -14,13 +13,10 @@ enum OTPError: Error {
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
-	case deviceTokenNotSupported
-	case deviceTimeIncorrect
-	case deviceTimeUnverified
 }
 
 protocol OTPServiceProviding {
-	func getValidOTP(completion: @escaping (Result<String, Error>) -> Void)
+	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, Error>) -> Void)
 }
 
 final class OTPService: OTPServiceProviding {
@@ -28,20 +24,19 @@ final class OTPService: OTPServiceProviding {
 
 	// MARK: - Init
 
-	init(store: Store) throws {
+	init(
+		store: Store,
+		client: Client
+	) {
 		self.store = store
-		do {
-			self.ppac = try PrivacyPreservingAccessControlService(store: store)
-		} catch {
-			throw OTPError.ppacFailed
-		}
+		self.client = client
 	}
 
 	// MARK: - Overrides
 
 	// MARK: - Protocol OTPServiceProviding
 
-	func getValidOTP(completion: @escaping (Result<String, Error>) -> Void) {
+	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, Error>) -> Void) {
 
 		// 1. Check for existing otp. If we have none, create one.
 		if let token = store.otpToken {
@@ -55,8 +50,9 @@ final class OTPService: OTPServiceProviding {
 			generateAndStoreFreshOTPToken()
 		}
 
-		// 2. Get ppacToken from ppacService.
-		ppac.getPPACToken({ [weak self] result in
+		// 2a Success: We autohorize the otp with the ppacToken at our server.
+		authorizeOTP(with: ppacToken, completion: { [weak self] result in
+
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
 				completion(.failure(OTPError.generalError))
@@ -64,31 +60,19 @@ final class OTPService: OTPServiceProviding {
 			}
 
 			switch result {
-			case .success(let ppacToken):
-				// 2a Success: We autohorize the otp with the ppacToken at our server.
-				self.authorizeOTP(with: ppacToken, completion: { result in
-					switch result {
-					case .success(let timestamp):
-						// 3a Success: We store the timestamp of the authorized otp and return the token.
-						self.updateOTP(with: timestamp)
-						guard let token = self.store.otpToken?.token else {
-							Log.error("could not retrieve otp from store", log: .otp)
-							completion(.failure(OTPError.generalError))
-							return
-						}
-						completion(.success(token))
-					case .failure(let serverError):
-						// 3b Failure: The server return error. We return that to our caller.
-						completion(.failure(self.otpError(from: serverError)))
-					}
-				})
-
-			case .failure(let ppacError):
-				// 2b Failure: Getting a ppacToken failed, so return the error.
-				completion(.failure(self.otpError(from: ppacError)))
-
+			case .success(let timestamp):
+				// 3a Success: We store the timestamp of the authorized otp and return the token.
+				self.updateOTP(with: timestamp)
+				guard let token = self.store.otpToken?.token else {
+					Log.error("could not retrieve otp token from store", log: .otp)
+					completion(.failure(OTPError.generalError))
+					return
+				}
+				completion(.success(token))
+			case .failure(let error):
+				// 3b Failure: The server return error. We return that to our caller.
+				completion(.failure(error))
 			}
-
 		})
 	}
 
@@ -99,6 +83,7 @@ final class OTPService: OTPServiceProviding {
 	// MARK: - Private
 
 	private enum OTPServerError: Error {
+		case generalError
 		case apiTokenAlreadyIssued
 		case apiTokenExpired
 		case apiTokenQuotaExceeded
@@ -108,11 +93,7 @@ final class OTPService: OTPServiceProviding {
 	}
 
 	private let store: Store
-	private let ppac: PrivacyPreservingAccessControl
-
-	private func checkAndValidateExistingOTP() {
-
-	}
+	private let client: Client
 
 	private func generateAndStoreFreshOTPToken() {
 		let uuid = UUID().uuidString
@@ -123,52 +104,39 @@ final class OTPService: OTPServiceProviding {
 
 	private func updateOTP(with newTimestamp: Date) {
 		guard let verifiedOTP = store.otpToken?.token else {
-			Log.error("could not retrieve otp from store", log: .otp)
+			Log.error("could not retrieve otp token from store", log: .otp)
 			return
 		}
 		let newToken = TimestampedToken(token: verifiedOTP, timestamp: newTimestamp)
 		store.otpToken = newToken
 	}
 
-	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<Date, OTPServerError>) -> Void) {
-		// TODO request
-		let apiToken = ppacToken.apiToken
-		let deviceToken = ppacToken.deviceToken
-		let otpToken = store.otpToken
-
-		// request with the three params
-
-
-	}
-
-	private func otpError(from serverError: OTPServerError) -> OTPError {
-		switch serverError {
-		case .apiTokenAlreadyIssued:
-			return OTPError.apiTokenAlreadyIssued
-		case .apiTokenExpired:
-			return OTPError.apiTokenExpired
-		case .apiTokenQuotaExceeded:
-			return OTPError.apiTokenQuotaExceeded
-		case .deviceTokenInvalid:
-			 return OTPError.deviceTokenInvalid
-		case .deviceTokenRedeemed:
-			return OTPError.deviceTokenRedeemed
-		case .deviceTokenSyntaxError:
-			return OTPError.deviceTokenSyntaxError
+	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<Date, OTPError>) -> Void) {
+		guard let otp = store.otpToken?.token else {
+			Log.error("could not retrieve otp token from store", log: .otp)
+			completion(.failure(OTPError.generalError))
+			return
 		}
-	}
 
-	private func otpError(from ppacError: PPACError) -> OTPError {
-		switch ppacError {
-		case .generationFailed:
-			return OTPError.ppacFailed
-		case .deviceNotSupported:
-			return OTPError.deviceTokenNotSupported
-		case .timeIncorrect:
-			 return OTPError.deviceTimeIncorrect
-		case .timeUnverified:
-			return OTPError.deviceTimeUnverified
+		let serverOTPToken = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
+			$0.otp = otp
 		}
-	}
 
+		let serverPPACToken = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let requestOTP = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
+			$0.payload = serverOTPToken
+			$0.authentication = serverPPACToken
+		}
+
+		client.authorizeOTP(otpRequest: requestOTP, isFake: false, completion: { result in
+
+
+
+
+		})
+	}
 }
