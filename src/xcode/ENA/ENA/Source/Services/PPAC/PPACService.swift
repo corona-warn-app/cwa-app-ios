@@ -50,7 +50,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	private let deviceCheck: DeviceCheckable
 
 	/// will return the current API Token and create a new one if needed
-	var apiToken: TimestampedToken {
+	private var apiToken: TimestampedToken {
 		let today = Date()
 		/// check if we alread have a token and if it was created in this month / year
 		guard let storedToken = store.ppacApiToken,
