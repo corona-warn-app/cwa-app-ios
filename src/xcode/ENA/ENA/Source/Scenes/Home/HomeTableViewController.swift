@@ -268,6 +268,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
 
+	private var riskCell: UITableViewCell?
+	private var testResultCell: UITableViewCell?
+	private var statisticsCell: UITableViewCell?
+
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupBarButtonItems() {
@@ -363,6 +367,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func riskCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let riskCell = riskCell {
+			return riskCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeRiskTableViewCell.self), for: indexPath) as? HomeRiskTableViewCell else {
 			fatalError("Could not dequeue HomeRiskTableViewCell")
 		}
@@ -380,10 +388,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 		cell.configure(with: cellModel)
 
+		riskCell = cell
+
 		return cell
 	}
 
 	private func testResultCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let testResultCell = testResultCell {
+			return testResultCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTestResultTableViewCell.self), for: indexPath) as? HomeTestResultTableViewCell else {
 			fatalError("Could not dequeue HomeTestResultTableViewCell")
 		}
@@ -401,6 +415,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self.onTestResultCellTap(self.viewModel.state.testResult)
 			}
 		)
+
+		testResultCell = cell
 
 		return cell
 	}
@@ -433,6 +449,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func statisticsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let statisticsCell = statisticsCell {
+			return statisticsCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
@@ -450,6 +470,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
 			}
 		)
+
+		statisticsCell = cell
 
 		return cell
 	}
