@@ -358,7 +358,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 		   ]
 		)
-		let riskDataSectionWithOutExposure = riskDataSection(
+		let riskDataSectionWithoutExposure = riskDataSection(
 		   footer: .riskTint(height: 16),
 		   cells: [
 			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
@@ -367,7 +367,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		   ]
 		)
 		return DynamicTableViewModel([
-			numberOfExposures > 0 ? riskDataSectionWithExposure : riskDataSectionWithOutExposure,
+			numberOfExposures > 0 ? riskDataSectionWithExposure : riskDataSectionWithoutExposure,
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
