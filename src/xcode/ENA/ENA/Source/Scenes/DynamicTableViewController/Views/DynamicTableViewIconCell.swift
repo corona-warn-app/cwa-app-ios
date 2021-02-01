@@ -33,13 +33,14 @@ class DynamicTableViewIconCell: UITableViewCell {
 		contentTextLabel.adjustsFontForContentSizeCategory = true
 		contentTextLabel.textColor = .enaColor(for: .textPrimary1)
 		contentTextLabel.numberOfLines = 0
+		contentTextLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 		stackView.addArrangedSubview(contentTextLabel)
 
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			stackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-			stackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			stackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+			stackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+			stackView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			stackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+			stackView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
 			iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
 		])
 	}
