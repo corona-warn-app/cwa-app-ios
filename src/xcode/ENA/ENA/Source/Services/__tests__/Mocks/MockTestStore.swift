@@ -55,6 +55,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
+	var ppacApiToken: TimestampedToken?
 
 	#if !RELEASE
 	// Settings from the debug menu.
