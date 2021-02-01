@@ -398,7 +398,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						AppStrings.ExposureDetection.guideHotline2,
 						AppStrings.ExposureDetection.guideHotline3,
 						AppStrings.ExposureDetection.guideHotline4
-					])
+					]),
+					.guide(attributedString: faqLinkText(), image: UIImage(named: "Icons - Empty"))
 				]
 			),
 			activeTracingSection(
@@ -413,6 +414,18 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
 		])
+	}
+
+	private func faqLinkText(tintColor: UIColor = .enaColor(for: .textTint)) -> NSAttributedString {
+		let rawString = String(format: AppStrings.ExposureDetection.guideFAQ, AppStrings.ExposureDetection.guideFAQLinkText)
+		let string = NSMutableAttributedString(string: rawString)
+		let range = string.mutableString.range(of: AppStrings.ExposureDetection.guideFAQLinkText)
+		if range.location != NSNotFound {
+			Log.debug("[FAQ] adding link to string: \(AppStrings.Links.exposureDetectionFAQ)", log: .ui)
+			string.addAttribute(.link, value: AppStrings.Links.exposureDetectionFAQ, range: range)
+			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
+		}
+		return string
 	}
 
 	// MARK: Sections
