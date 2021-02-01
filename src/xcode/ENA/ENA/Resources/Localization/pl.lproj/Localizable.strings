@@ -25,7 +25,7 @@
 
 "Common_ENError5_Description" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
 
-"Common_ENError11_Description" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Zrestartuj urządzenie i spróbuj ponownie jutro.";
+"Common_ENError11_Description" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Zrestartuj smartfon i spróbuj ponownie jutro.";
 
 "Common_ENError13_Description" = "Błąd 13: Rejestrowanie narażenia dla bieżącego dnia zostało już wykonane. Spróbuj ponownie za 24 godziny.";
 
@@ -75,7 +75,7 @@
 
 "ExposureDetection_LastRiskLevel" = "Ostatnie sprawdzenie narażenia: %@";
 
-"ExposureDetection_OffText" = "Aktywuj rejestrowanie narażenia, aby już dziś ocenić swoje ryzyko.";
+"ExposureDetection_OffText" = "Aktywuj rejestrowanie narażenia, aby umożliwić obliczenie Twojego aktualnego statusu ryzyka.";
 
 "ExposureDetection_OutdatedText" = "Rejestrowanie obliczenia ryzyka nie było aktualizowane przez okres dłuższy niż 48 godzin. Aktualizuj obliczenie.";
 
@@ -121,7 +121,7 @@
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ w dniu %@ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.";
 
-"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.\nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
+"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone. \nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie na smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane. \nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
 
 "ExposureDetection_Explanation_FAQ_Link_Text" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
 
@@ -311,7 +311,7 @@
 
 "Onboarding_DoNotActivate_actionText" = "Nie aktywuj";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Oznacza to, że Corona-Warn-App nie może wysyłać ani odbierać powiadomień o Twoim statusie ryzyka COVID-19.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Jeśli nie aktywujesz rejestrowania narażenia, aplikacja nie będzie mogła wysyłać ani odbierać powiadomień o Twoim statusie ryzyka.";
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Możesz dezaktywować tę funkcję w dowolnym momencie.";
 
@@ -339,7 +339,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Aby zidentyfikować ewentualne narażenie, musisz aktywować funkcję rejestrowania narażenia.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój Iphone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie kontaktu, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób na podstawie losowych identyfikatorów nie jest możliwe.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój IPhone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników aplikacji i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie kontaktu, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób na podstawie losowych identyfikatorów nie jest możliwe.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limit wieku: 16 i więcej";
 
@@ -355,9 +355,9 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu, który będzie teraz ostrzegał innych użytkowników.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Jeśli zdiagnozowano u Ciebie COVID-19 ...";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Jeśli zdiagnozowano u Ciebie koronawirusa";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… zgłoś ten fakt w Corona-Warn-App. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Jeżeli otrzymasz pozytywny wynik testu, zgłoś ten fakt w aplikacji. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twoje urządzenie, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
 
@@ -380,8 +380,8 @@
 
 "onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Możesz wyświetlić kraje uczestniczące w danych rejestrowania narażenia.";
 
-/* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "+498007540002";
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number" = "08007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Zgoda";
 
@@ -402,8 +402,6 @@
 "ExposureSubmissionTanEntry_Title" = "Wpisz TAN";
 
 "ExposureSubmissionTanEntry_EntryField" = "Pole wpisu numeru TAN";
-
-"ExposureSubmissionTanEntry_Info" = "Wpisz numer TAN, który otrzymałeś(-aś):";
 
 "ExposureSubmissionTanEntry_Description" = "Wpisz 10-cyfrowy numer TAN, który otrzymałeś(-aś).";
 
@@ -449,17 +447,18 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Jak to działa:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Zadzwoń na infolinię i poproś o numer TAN:";
+"ExposureSubmissionHotline_SectionDescription1" = "Zadzwoń na ogólnokrajową infolinię i poproś o numer TAN:";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel1" = "Krok 1 z 2";
 
 "ExposureSubmissionHotline_iconAccessibilityLabel2" = "Krok 2 z 2";
 
-"ExposureSubmission_PhoneNumber" = "+49 800 7540002";
+/* UI text; spacing allowed */
+"ExposureSubmission_PhoneNumber" = "0800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Języki: \nniemiecki, angielski, turecki\n\nGodziny pracy:\nod poniedziałku do niedzieli: 24 godziny na dobę\n\nPołączenie jest bezpłatne.\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
+"ExposureSubmission_PhoneDetailDescription" = "Języki: \nniemiecki, angielski, turecki\n\nGodziny pracy:\ncałodobowo\n\nPołączenie jest bezpłatne.\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
-"ExposureSubmission_SectionDescription2" = "Zarejestruj test poprzez wpisanie numeru TAN w aplikacji.";
+"ExposureSubmission_SectionDescription2" = "Zarejestruj swój test poprzez wpisanie numeru TAN w aplikacji.";
 
 "ExposureSubmission_CallButtonTitle" = "Zadzwoń";
 
@@ -542,11 +541,11 @@
 
 "ExposureSubmissionSuccess_listItem2_1" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
-"ExposureSubmissionSuccess_listItem2_4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać.";
+"ExposureSubmissionSuccess_listItem2_4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu kwarantanny.";
 
 /* Exposure Submission Testresult available */
 "ExposureSubmissionTestresultAvailable_Title" = "Twój wynik testu jest dostępny";
@@ -616,11 +615,11 @@
 
 "ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Jeśli objawy nasilą się, może być konieczne wykonanie kolejnego testu na SARS-CoV-2.";
 
-"ExposureSubmissionResult_testInvalid" = "Test zawiera błędy";
+"ExposureSubmissionResult_testInvalid" = "Ustalenie wyniku Twojego testu jest niemożliwe";
 
 "ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy laboratorium, aby dowiedzieć się, jak dalej postępować.";
 
-"ExposureSubmissionResult_testExpired" = "Test zawiera błędy";
+"ExposureSubmissionResult_testExpired" = "Ustalenie wyniku Twojego testu jest niemożliwe";
 
 "ExposureSubmissionResult_testExpiredDesc" = "Podczas ustalania wyniku testu pojawił się błąd. Twój kod QR wygasł.";
 
@@ -647,7 +646,7 @@
 /* ExposureSubmissionSymptoms */
 "ExposureSubmissionSymptoms_Title" = "Objawy";
 
-"ExposureSubmissionSymptoms_Introduction" = "Możesz podać, czy i kiedy zauważyłeś(-łaś) objawy koronawirusa, aby umożliwić aplikacji dokładniejsze obliczenie ryzyka zakażenia innych użytkowników aplikacji. Ten krok jest dobrowolny. Jeśli nie chcesz podawać informacji o objawach, wybierz opcję „Brak odpowiedzi”.";
+"ExposureSubmissionSymptoms_Introduction" = "Możesz podać, czy i kiedy zauważyłeś(-łaś) objawy koronawirusa, aby umożliwić aplikacji dokładniejsze obliczenie ryzyka zakażenia innych osób. Ten krok jest dobrowolny. Jeśli nie chcesz podawać informacji o objawach, wybierz opcję „Brak odpowiedzi”.";
 
 "ExposureSubmissionSymptoms_Description" = "Czy w ciągu ostatnich kilku dni wystąpił u Ciebie jeden lub kilka z wymienionych poniżej objawów?";
 
@@ -674,6 +673,8 @@
 "ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
 
 "ExposureSubmissionSymptoms_ContinueButton" = "Dalej";
+
+"ExposureSubmissionSymptoms_DoneButton" = "Gotowe";
 
 /* ExposureSubmissionSymptomsOnset */
 "ExposureSubmissionSymptomsOnset_Title" = "Początek wystąpienia objawów";
@@ -783,7 +784,7 @@
 
 "ExposureNotificationSetting_DescriptionText1" = "Musisz włączyć funkcję rejestrowania narażenia, aby aplikacja mogła ustalić, czy dotyczy Cię ryzyko zakażenia po kontakcie z zainfekowanym użytkownikiem aplikacji. Funkcja rejestrowania narażenia działa we wszystkich uczestniczących krajach, co oznacza, że potencjalne narażenie użytkowników jest wykrywane również przez inne oficjalne aplikacje koronawirusowe.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój iPhone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników i przekazywaniu Twoich własnych, losowych identyfikatorów do ich smartfonów. Codziennie aplikacja pobiera listy losowych identyfikatorów – wraz z wszelkimi opcjonalnie podawanymi informacjami o wystąpieniu objawów – wszystkich użytkowników, którzy mieli pozytywny wynik testu na obecność koronawirusa i dobrowolnie udostępnili tę informację (a dokładnie swoje losowe identyfikatory) poprzez swoją aplikację. Listy te są następnie porównywane z losowymi identyfikatorami innych użytkowników, które zarejestrował Twój iPhone, w celu obliczenia prawdopodobieństwa Twojego zakażenia i ostrzeżenia Cię w razie potrzeby.";
+"ExposureNotificationSetting_DescriptionText2" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój iPhone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników aplikacji i przekazywaniu Twoich własnych, losowych identyfikatorów do ich smartfonów. Codziennie aplikacja pobiera listy losowych identyfikatorów – wraz z wszelkimi opcjonalnie podawanymi informacjami o wystąpieniu objawów – wszystkich użytkowników, którzy mieli pozytywny wynik testu na obecność koronawirusa i dobrowolnie udostępnili tę informację (a dokładnie swoje losowe identyfikatory) poprzez swoją aplikację. Listy te są następnie porównywane z losowymi identyfikatorami innych użytkowników, które zarejestrował Twój iPhone, w celu obliczenia prawdopodobieństwa Twojego zakażenia i ostrzeżenia Cię w razie potrzeby.";
 
 "ExposureNotificationSetting_DescriptionText3" = "Funkcję rejestrowania narażenia można wyłączyć w dowolnym momencie.";
 
@@ -795,7 +796,7 @@
 
 "ExposureNotificationSetting_Activate_Internet" = "Otwórz połączenie z Internetem";
 
-"ExposureNotificationSetting_Internet_Description" = "Rejestrowanie narażenia wymaga połączenia z Internetem w celu obliczenia narażeń. Włącz WIFI lub dane komórkowe w ustawieniach swojego urządzenia.";
+"ExposureNotificationSetting_Internet_Description" = "Rejestrowanie narażenia wymaga połączenia z Internetem w celu obliczenia ryzyka zakażenia. Włącz WI-FI lub dane komórkowe w ustawieniach swojego urządzenia.";
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Otwórz ustawienia urządzenia";
 
@@ -867,7 +868,7 @@
 
 "ExposureNotificationSetting_EU_Empty_Error_Title" = "Nie można teraz wyświetlić krajów";
 
-"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Twoje połączenie z Internetem mogło zostać utracone. Upewnij się, że masz połączenie z Internetem.";
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Twoje połączenie z Internetem mogło zostać utracone. Zadbaj o jego przywrócenie.";
 
 "ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Otwórz ustawienia urządzenia";
 
@@ -952,7 +953,7 @@
 
 "Home_Thank_You_Card_14Days_Item_Title" = "Okres kwarantanny wynosi zazwyczaj 14 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni przed wystąpieniem objawów.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 15 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
 
 "Home_Thank_You_Card_App_Item_Title" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
 
@@ -985,9 +986,9 @@
 /* Home Diary card */
 "Home_DiaryCard_Title" = "Dziennik kontaktów";
 
-"Home_DiaryCard_Body" = "Rejestruj odwiedzane miejsca i spotykane osoby.";
+"Home_DiaryCard_Body" = "Rejestruj odwiedzane miejsca i spotykane osoby. Nawet jeśli nie wprowadzisz żadnych kontaktów, nadal będziesz mieć możliwość sprawdzenia czasu wystąpienia narażenia.";
 
-"Home_DiaryCard_Button" = "Zarządzaj dziennikiem";
+"Home_DiaryCard_Button" = "Otwórz dziennik";
 
 "Home_InfoCard_ShareTitle" = "Udostępnij Corona-Warn-App";
 
@@ -1012,7 +1013,7 @@
 
 "Home_resultCard_RetrieveResultButton" = "Pobierz wynik testu";
 
-"Home_resultCard_LoadingBody" = "Bieżące dane są pobierane.\nMoże to potrwać kilka minut.";
+"Home_resultCard_LoadingBody" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
 
 "Home_resultCard_LoadingTitle" = "Aktualizacja w toku …";
 
@@ -1035,7 +1036,7 @@
 /* Home Alert Risk Lowered */
 "Home_Alert_RiskStatusLowered_Title" = "Zmiana Twojego statusu ryzyka";
 
-"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad 14 dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\n1. Jeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\n2. Jeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
+"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad 14 dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\nJeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\nJeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
 
 "Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
 
@@ -1062,26 +1063,28 @@
 
 "App_Information_Contact_Title" = "Jak możemy Ci pomóc?";
 
-"App_Information_Contact_Description" = "W przypadku pytań technicznych dotyczących Corona-Warn-App prosimy o kontakt z naszą infolinią.";
+"App_Information_Contact_Description" = "W przypadku pytań technicznych dotyczących Corona-Warn-App prosimy o kontakt z naszą ogólnokrajową infolinią.";
 
 "App_Information_Contact_Hotline_Title" = "Infolinia techniczna";
 
-"App_Information_Contact_Hotline_Text" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Text" = "0800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Number" = "08007540001";
 
 "App_Information_Contact_Hotline_Description" = "Nasz zespół obsługi klienta jest gotowy do pomocy.";
 
 "App_Information_Contact_Hotline_Terms" = "Języki: niemiecki, angielski, turecki\n\nGodziny pracy:\nod poniedziałku do soboty: od 7:00 do 10:00\n(oprócz świąt)\n\nPołączenie jest bezpłatne.\n\nW razie jakichkolwiek pytań związanych ze zdrowiem skontaktuj się z lekarzem rodzinnym lub lekarzem dyżurnym pod numerem: 116 117.";
 
 /* App Information - Imprint */
+"App_Information_New_Features_Navigation" = "Nowe funkcje";
+
 "App_Information_Imprint_Navigation" = "Impressum";
 
 "App_Information_Imprint_ImageDescription" = "W ręce trzymany jest smartfon z dużą ilością tekstu na ekranie. Obok tekstu znajduje się symbol paragrafu reprezentujący impressum.";
 
 "App_Information_Imprint_Section1_Title" = "Opublikowane przez";
 
-"App_Information_Imprint_Section1_Text" = "(odpowiedzialny zgodnie z § 5, par. 1 TMG, § 55 par. 1 RStV, DS-GVO, BDSG)";
+"App_Information_Imprint_Section1_Text" = "(odpowiedzialny zgodnie z § 5 (1) TMG, § 18 (1) MStV)";
 
 "App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
 
@@ -1117,9 +1120,9 @@
 "App_Information_Terms_Title" = "Warunki korzystania";
 
 /* Invite Friends */
-"InviteFriends_NavTitle" = "Udostępnij";
+"InviteFriends_NavTitle" = "Poleć nas";
 
-"InviteFriends_Subtitle" = "Udostępnij Corona-Warn-App";
+"InviteFriends_Subtitle" = "Poleć aplikację Corona-Warn-App";
 
 "InviteFriends_Title" = "Razem pokonajmy koronawirusa";
 
@@ -1176,11 +1179,11 @@
 
 "RiskLegend_Legend1_Title" = "Rejestrowanie narażenia";
 
-"RiskLegend_Legend1_Text" = "Rejestrowanie narażenia jest jedną z trzech głównych funkcji aplikacji. Po jej aktywacji rejestrowane są kontakty z urządzeniami innych osób. Nie musisz robić nic więcej.";
+"RiskLegend_Legend1_Text" = "Rejestrowanie narażenia jest jedną z trzech głównych funkcji aplikacji. Po jej aktywacji automatycznie rejestrowane są kontakty ze smartfonami innych osób.";
 
 "RiskLegend_Legend2_Title" = "Ryzyko zakażenia";
 
-"RiskLegend_Legend2_Text" = "Jeśli w ciągu ostatnich 14 dni miałeś(-aś) kontakt z osobą, u której zdiagnozowano COVID-19, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości kontaktu.";
+"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni.";
 
 "RiskLegend_Legend2_RiskLevels" = "Może wyświetlić się następujący status ryzyka:";
 
@@ -1190,7 +1193,7 @@
 
 "RiskLegend_Legend3_Title" = "Powiadamianie innych użytkowników";
 
-"RiskLegend_Legend3_Text" = "Inną kluczową funkcją jest rejestracja testu i pobranie wyniku. W przypadku zdiagnozowania u Ciebie COVID-19 będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
+"RiskLegend_Legend3_Text" = "Możesz zarejestrować swój test i pobrać jego wynik w aplikacji. W przypadku zdiagnozowania u Ciebie koronawirusa będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
 
 "RiskLegend_Definitions_Title" = "Definicja terminów";
 
@@ -1200,7 +1203,7 @@
 
 "RiskLegend_Check_Title" = "Sprawdzanie narażenia";
 
-"RiskLegend_Check_Text" = "Odczytanie danych dziennika narażeń i porównanie ze zgłoszonymi zakażeniami innych użytkowników. Ryzyko jest sprawdzane automatycznie kilka razy dziennie.";
+"RiskLegend_Check_Text" = "Odczytanie danych dziennika narażeń i porównanie z powiadomieniami o ryzyku otrzymanymi od innych użytkowników. Ryzyko jest sprawdzane automatycznie kilka razy dziennie.";
 
 "RiskLegend_Contact_Title" = "Ryzyko narażenia";
 
@@ -1238,6 +1241,30 @@
 "Active_Tracing_Interval_Partially_Active" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich 14 dni.";
 
 "Active_Tracing_Interval_Permanently_Active" = "Rejestrowanie narażenia stale aktywne";
+
+/* Delta Onboarding - New Version Features */
+"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "Nowe funkcje w tej wersji";
+
+"DeltaOnboarding_NewVersionFeatures_Title" = "Nowe funkcje";
+
+"DeltaOnboarding_NewVersionFeatures_Release" = "Wersja";
+
+"DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Dalej";
+
+"DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
+
+/* New Version Features */
+"NewVersionFeature_112_statistics_title" = "Statystyka";
+
+"NewVersionFeature_112_statistics_description" = "Zobacz przegląd najnowszych kluczowych danych na temat liczby zakażeń w Niemczech.";
+
+"NewVersionFeature_112_exposure_history_title" = "Historia narażeń";
+
+"NewVersionFeature_112_exposure_history_description" = "W dzienniku kontaktów odnotowane są dni wystąpienia niskiego lub podwyższonego ryzyka ustalonego na podstawie kontaktów ocenionych przez aplikację. Na podstawie tych informacji możesz ostrzegać inne osoby, z którymi przebywałeś(-aś) w takich dniach, jeśli nie używają one aplikacji Corona-Warn-App. Osoby te mogły być narażone na porównywalne ryzyko. Osoby i miejsca zapisane w Twoim dzienniku kontaktów nie muszą być jednak powiązane ze wskazanymi narażeniami.";
+
+"NewVersionFeature_112_ios125_support_title" = "Aplikacja dostępna na system iOS od wersji 12.5";
+
+"NewVersionFeature_112_ios125_support_description" = "Możesz teraz używać aplikacji Corona-Warn-App w systemie iOS w wersji 12.5 i nowszych.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1325,7 +1352,15 @@
 
 "ContactDiary_Overview_Title" = "Dziennik kontaktów";
 
-"ContactDiary_Overview_Description" = "Zapisuj dane spotykanych osób i odwiedzanych miejsc.";
+"ContactDiary_Overview_Description" = "Zapisuj dane spotykanych osób i odwiedzanych miejsc. W przypadku wystąpienia ryzyka w danym dniu możesz ostrzec osoby, z którymi przebywałeś(-aś) w tym dniu, jeśli nie używają one aplikacji Corona-Warn-App.";
+
+"ContactDiary_Overview_Increased_Risk_Title" = "Podwyższone ryzyko";
+
+"ContactDiary_Overview_Low_Risk_Title" = "Niskie ryzyko";
+
+"ContactDiary_Overview_Risk_Text_1" = "na podstawie kontaktów ocenionych przez aplikację.";
+
+"ContactDiary_Overview_Risk_Text_2" = "Niekoniecznie są one związane z zarejestrowanymi przez Ciebie osobami i miejscami.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informacje";
@@ -1335,6 +1370,8 @@
 "ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Edytuj osoby";
 
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edytuj miejsca";
+
+"ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mój dziennik kontaktów";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Osoby";
@@ -1417,6 +1454,8 @@
 
 "ContactDiary_Information_Item_ExportTextFormat_Title" = "Możesz wyeksportować swój dziennik kontaktów w formacie zwykłego tekstu, a następnie wydrukować wpisy, edytować je lub w razie potrzeby przekazać do organu ds. zdrowia publicznego.";
 
+"ContactDiary_Information_Item_ExposureHistory_Title" = "Wskazane narażenia niekoniecznie są związane z zarejestrowanymi przez Ciebie osobami i miejscami. Nie wyciągaj błędnych wniosków.";
+
 "ContactDiary_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
 
 "ContactDiary_Information_PrimaryButton_Title" = "Zarządzaj dziennikiem";
@@ -1487,7 +1526,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Suma";
 
-"Statistics_Card_KeySubmissions_Footnote" = "za pośrednictwem Corona-Warn-App";
+"Statistics_Card_KeySubmissions_Footnote" = "Informacje o aplikacji Corona-Warn-App";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7-dniowa wartość R";
@@ -1524,9 +1563,9 @@
 
 "Statistics_Info_ReproductionNumber_Text" = "Współczynnik reprodukcji R wskazuje liczbę osób, którą zaraża przeciętna osoba zakażona. Bieżąca wartość uwzględnia dane z ostatnich 5 dni.";
 
-"Statistics_Info_FAQLink_Text" = "Więcej informacji można znaleźć w";
+"Statistics_Info_FAQLink_Text" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”:";
 
-"Statistics_Info_FAQLink_Title" = "na stronie „Często zadawane pytania” w odpowiedziach dotyczących statystyk.";
+"Statistics_Info_FAQLink_Title" = "Często zadawane pytania dotyczące statystyk";
 
 "Statistics_Info_Definitions_Title" = "Legenda";
 
@@ -1559,4 +1598,9 @@
 "Statistics_Info_Trends_Footnote" = "Ocena trendu dotyczącego ostrzeżeń wysyłanych przez użytkowników aplikacji zmienia się w zależności od aktualnych poziomów zakażenia, dlatego trend ten jest zawsze wyświetlany jako neutralny.";
 
 "Statistics_Info_Image_AccLabel" = "Abstrakcyjne zdjęcie smartfona z czterema symbolami zastępczymi do celów informacyjnych";
+
+/* Update OS */
+"UpdateOS_title" = "Zaktualizuj swój iOS.";
+
+"UpdateOS_text" = "Instalacja Corona-Warn-App wymaga posiadania aktualnej wersji iOS.\nJeśli jej nie masz, otwórz ustawienia w swoim iPhonie i wybierz opcje: Ogólne -> Aktualizacja oprogramowania.";
 
