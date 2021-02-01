@@ -14,7 +14,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		onInfoBarButtonItemTap: @escaping () -> Void,
-		onExposureDetectionCellTap: @escaping (ENStateHandler.State) -> Void,
+		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
@@ -29,7 +29,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.appConfigurationProvider = appConfigurationProvider
 
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
-		self.onExposureDetectionCellTap = onExposureDetectionCellTap
+		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
@@ -72,17 +72,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 			.store(in: &subscriptions)
 
-		viewModel.state.$statistics
-			.receive(on: DispatchQueue.OCombine(.main))
-			.sink { [weak self] newStatistics in
-				// Only reload if stats change
-				guard newStatistics != viewModel.state.statistics else {
-					return
-				}
-				self?.reload()
-			}
-			.store(in: &subscriptions)
-
 		viewModel.state.$statisticsLoadingError
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] statisticsLoadingError in
@@ -118,6 +107,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		viewModel.state.updateTestResult()
 		viewModel.state.updateStatistics()
+
+		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
+		riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+		testResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+		statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -150,7 +144,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
-			return exposureDetectionCell(forRowAt: indexPath)
+			return exposureLoggingCell(forRowAt: indexPath)
 		case .riskAndTest:
 			switch viewModel.riskAndTestRows[indexPath.row] {
 			case .risk:
@@ -201,7 +195,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
-			onExposureDetectionCellTap(viewModel.state.enState)
+			onExposureLoggingCellTap(viewModel.state.enState)
 		case .riskAndTest:
 			switch viewModel.riskAndTestRows[indexPath.row] {
 			case .risk:
@@ -255,7 +249,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let appConfigurationProvider: AppConfigurationProviding
 
 	private let onInfoBarButtonItemTap: () -> Void
-	private let onExposureDetectionCellTap: (ENStateHandler.State) -> Void
+	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
@@ -267,6 +261,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onSettingsCellTap: (ENStateHandler.State) -> Void
 
 	private var deltaOnboardingCoordinator: DeltaOnboardingCoordinator?
+
+	private var riskCell: UITableViewCell?
+	private var testResultCell: UITableViewCell?
+	private var statisticsCell: UITableViewCell?
 
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -323,28 +321,28 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 
-		// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		/// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
 		tableView.estimatedRowHeight = 500
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
-		// https://developer.apple.com/forums/thread/117537
+		/// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
+		/// https://developer.apple.com/forums/thread/117537
 		DispatchQueue.main.async { [self] in
 			guard tableView.visibleCells.contains(cell) else {
 				return
 			}
 
-			// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
+			/// Only animate changes as long as the risk and the test result cell are both still supposed to be there, otherwise reload the table view
 			guard viewModel.riskAndTestRows.count == 2 else {
 				tableView.reloadData()
 				return
 			}
 
-			// Animate the changed cell height
+			/// Animate the changed cell height
 			tableView.performBatchUpdates(nil, completion: nil)
 
-			// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
+			/// Keep the other visible cells maskToBounds off during the animation to avoid flickering shadows due to them being cut off (https://stackoverflow.com/a/59581645)
 			for cell in tableView.visibleCells {
 				cell.layer.masksToBounds = false
 				cell.contentView.layer.masksToBounds = false
@@ -352,7 +350,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
-	private func exposureDetectionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func exposureLoggingCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeExposureLoggingTableViewCell.self), for: indexPath) as? HomeExposureLoggingTableViewCell else {
 			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
 		}
@@ -363,6 +361,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func riskCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let riskCell = riskCell {
+			return riskCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeRiskTableViewCell.self), for: indexPath) as? HomeRiskTableViewCell else {
 			fatalError("Could not dequeue HomeRiskTableViewCell")
 		}
@@ -380,10 +382,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 		cell.configure(with: cellModel)
 
+		riskCell = cell
+
 		return cell
 	}
 
 	private func testResultCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let testResultCell = testResultCell {
+			return testResultCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTestResultTableViewCell.self), for: indexPath) as? HomeTestResultTableViewCell else {
 			fatalError("Could not dequeue HomeTestResultTableViewCell")
 		}
@@ -401,6 +409,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self.onTestResultCellTap(self.viewModel.state.testResult)
 			}
 		)
+
+		testResultCell = cell
 
 		return cell
 	}
@@ -433,6 +443,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func statisticsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let statisticsCell = statisticsCell {
+			return statisticsCell
+		}
+
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeStatisticsTableViewCell.self), for: indexPath) as? HomeStatisticsTableViewCell else {
 			fatalError("Could not dequeue HomeStatisticsTableViewCell")
 		}
@@ -450,6 +464,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
 			}
 		)
+
+		statisticsCell = cell
 
 		return cell
 	}
@@ -514,13 +530,12 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			let supportedCountries = configuration.supportedCountries.compactMap({ Country(countryCode: $0) })
 
-			// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
+			/// As per feature requirement, the delta onboarding should appear with a slight delay of 0.5
 			var delay = 0.5
 
 			#if DEBUG
 			if isUITesting {
-				// In UI Testing we need to increase the delaye slightly again.
-				// Otherwise UI Tests fail
+				/// In UI Testing we need to increase the delay slightly again. Otherwise UI Tests fail.
 				delay = 1.5
 			}
 			#endif
