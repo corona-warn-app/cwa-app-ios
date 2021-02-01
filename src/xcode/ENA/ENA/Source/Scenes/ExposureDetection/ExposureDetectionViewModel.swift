@@ -493,6 +493,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				.body(
 					text: "SurveyDummy",
 					color: .red,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.surveySection,
 					action: .execute(block: { [weak self] _, _ in
 						self?.onSurveyTap()
 					})

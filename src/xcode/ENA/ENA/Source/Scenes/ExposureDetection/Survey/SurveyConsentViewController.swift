@@ -42,6 +42,7 @@ final class SurveyConsentViewController: UIViewController {
 		button.setTitle("Start Survey", for: .normal)
 		button.setTitleColor(.red, for: .normal)
 		button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.ExposureDetection.surveyStartButton
 		view.addSubview(button)
 
 		button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
