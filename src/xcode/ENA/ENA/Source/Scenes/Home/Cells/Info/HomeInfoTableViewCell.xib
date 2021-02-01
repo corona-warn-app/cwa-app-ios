@@ -63,7 +63,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="FTz-bb-785" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" id="7ql-HA-52f"/>
                             <constraint firstItem="XM7-LT-Nfc" firstAttribute="top" secondItem="U6l-FR-h2s" secondAttribute="topMargin" id="ItR-Qk-ioa"/>
@@ -109,9 +108,6 @@
     </designables>
     <resources>
         <image name="Icons_Chevron_plain" width="7" height="12"/>
-        <namedColor name="ENA Background Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Chevron Color">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
