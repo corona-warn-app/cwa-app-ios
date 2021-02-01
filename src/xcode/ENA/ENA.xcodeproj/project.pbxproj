@@ -573,13 +573,13 @@
 		B1FF6B6E2497D0B50041CF02 /* CWASQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = B1FF6B6C2497D0B50041CF02 /* CWASQLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1FF6B772497D2330041CF02 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DFCC2712484DC8400E2811D /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA056F1B259B89B50022B0A4 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */; };
-		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
-		BA07736125C3125600EAF6B8 /* PPACServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07736025C3125600EAF6B8 /* PPACServiceMock.swift */; };
+		BA07735C25C2FCB800EAF6B8 /* PrivacyPreservingAccessControlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PrivacyPreservingAccessControlService.swift */; };
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
+		BA46938E25C817FC004B2DBB /* PrivacyPreservingAccessControlServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07736025C3125600EAF6B8 /* PrivacyPreservingAccessControlServiceMock.swift */; };
 		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* ENARange.swift */; };
@@ -1322,8 +1322,8 @@
 		B1FF6B6C2497D0B50041CF02 /* CWASQLite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CWASQLite.h; sourceTree = "<group>"; };
 		B1FF6B6D2497D0B50041CF02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
-		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
-		BA07736025C3125600EAF6B8 /* PPACServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACServiceMock.swift; sourceTree = "<group>"; };
+		BA07735B25C2FCB800EAF6B8 /* PrivacyPreservingAccessControlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPreservingAccessControlService.swift; sourceTree = "<group>"; };
+		BA07736025C3125600EAF6B8 /* PrivacyPreservingAccessControlServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPreservingAccessControlServiceMock.swift; sourceTree = "<group>"; };
 		BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelPerDay.swift; sourceTree = "<group>"; };
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
@@ -3502,8 +3502,7 @@
 			children = (
 				BAB6C80825C463DB00E042FB /* __tests__ */,
 				BAB6C7ED25C4624E00E042FB /* Model */,
-				BA07735B25C2FCB800EAF6B8 /* PPACService.swift */,
-				BA07736025C3125600EAF6B8 /* PPACServiceMock.swift */,
+				BA07735B25C2FCB800EAF6B8 /* PrivacyPreservingAccessControlService.swift */,
 			);
 			path = PPAC;
 			sourceTree = "<group>";
@@ -3652,9 +3651,10 @@
 		BAB6C80825C463DB00E042FB /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */,
-				BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */,
 				BAB6C82225C4666900E042FB /* PPACServiceTest.swift */,
+				BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */,
+				BA07736025C3125600EAF6B8 /* PrivacyPreservingAccessControlServiceMock.swift */,
+				BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4379,7 +4379,7 @@
 				0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */,
-				BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */,
+				BA07735C25C2FCB800EAF6B8 /* PrivacyPreservingAccessControlService.swift in Sources */,
 				A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */,
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
@@ -4608,7 +4608,6 @@
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
 				01A4DCFE25926A66007D5794 /* HomeImageItemViewModel.swift in Sources */,
-				BA07736125C3125600EAF6B8 /* PPACServiceMock.swift in Sources */,
 				01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */,
 				EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
@@ -4781,6 +4780,7 @@
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */,
 				941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */,
+				BA46938E25C817FC004B2DBB /* PrivacyPreservingAccessControlServiceMock.swift in Sources */,
 				BAFBF35725ADD734003F5DC2 /* HomeThankYouCellModelTests.swift in Sources */,
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,

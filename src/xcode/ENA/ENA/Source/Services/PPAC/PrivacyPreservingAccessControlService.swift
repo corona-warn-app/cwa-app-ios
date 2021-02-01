@@ -5,12 +5,11 @@
 import Foundation
 import DeviceCheck
 
-
 protocol PrivacyPreservingAccessControl {
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
 }
 
-final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessControl {
+class PrivacyPreservingAccessControlService: PrivacyPreservingAccessControl {
 
 	// MARK: - Init
 
@@ -36,8 +35,6 @@ final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessContro
 		}
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
@@ -61,18 +58,14 @@ final class PrivacyPreservingAccessControlService: PrivacyPreservingAccessContro
 		}
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let store: Store
 
 	/// will return the current API Token amd create a new one if needed
-	private var apiToken: TimestampedToken {
+	var apiToken: TimestampedToken {
 		let today = Date()
-		/// check if we alread hav a token and if it was created in this month / year
+		/// check if we alread have a token and if it was created in this month / year
 		guard let storedToken = store.apiToken,
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .month),
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .year)

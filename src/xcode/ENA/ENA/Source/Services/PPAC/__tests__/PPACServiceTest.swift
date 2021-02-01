@@ -73,13 +73,13 @@ class PPACServiceTest: XCTestCase {
 
 		// WHEN
 
-		let ppacService = try? XCTUnwrap(PrivacyPreservingAccessControlService(store: store))
+		let ppacService = try? XCTUnwrap(PrivacyPreservingAccessControlServiceMock(store: store))
 		ppacService?.getPPACToken({ result in
 			switch result {
-			case let .success(pppaToken):
+			case let .success(ppaToken):
 				ppacExpectation.fulfill()
 				XCTAssertNotNil(store.apiToken)
-				XCTAssertEqual(store.apiToken?.token, pppaToken.apiToken)
+				XCTAssertEqual(store.apiToken?.token, ppaToken.apiToken)
 
 			case .failure:
 				XCTFail("Unexpected error happend")
@@ -87,7 +87,7 @@ class PPACServiceTest: XCTestCase {
 		})
 
 		// THEN
-		wait(for: [ppacExpectation], timeout: .medium)
+		wait(for: [ppacExpectation], timeout: .long)
 	}
 
 }
