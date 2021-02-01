@@ -8,9 +8,9 @@ final class DMPPCViewModel {
 
 	// MARK: - Init
 
-	init(_ store: Store) {
+	init(_ store: Store, deviceCheck: DeviceCheckable) {
 		do {
-			self.ppacService = try? PrivacyPreservingAccessControlService(store: store)
+			self.ppacService = try? PPACService(store: store, deviceCheck: deviceCheck)
 		}
 	}
 

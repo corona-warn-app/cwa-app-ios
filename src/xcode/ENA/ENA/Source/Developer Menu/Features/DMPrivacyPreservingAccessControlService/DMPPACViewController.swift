@@ -8,8 +8,8 @@ class DMPPACViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init( _ store: Store) {
-		self.viewModel = DMPPCViewModel(store)
+	init( _ store: Store, deviceCheck: DeviceCheckable) {
+		self.viewModel = DMPPCViewModel(store, deviceCheck: deviceCheck)
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
 		} else {
