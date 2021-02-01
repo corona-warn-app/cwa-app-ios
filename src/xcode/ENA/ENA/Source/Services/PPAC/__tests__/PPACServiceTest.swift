@@ -76,8 +76,8 @@ class PPACServiceTest: XCTestCase {
 			switch result {
 			case let .success(ppaToken):
 				ppacExpectation.fulfill()
-				XCTAssertNotNil(store.apiToken)
-				XCTAssertEqual(store.apiToken?.token, ppaToken.apiToken)
+				XCTAssertNotNil(store.ppacApiToken)
+				XCTAssertEqual(store.ppacApiToken?.token, ppaToken.apiToken)
 
 			case .failure:
 				XCTFail("Unexpected error happend")

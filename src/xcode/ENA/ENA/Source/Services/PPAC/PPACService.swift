@@ -66,7 +66,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	var apiToken: TimestampedToken {
 		let today = Date()
 		/// check if we alread have a token and if it was created in this month / year
-		guard let storedToken = store.apiToken,
+		guard let storedToken = store.ppacApiToken,
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .month),
 			  storedToken.timestamp.isEqual(to: today, toGranularity: .year)
 		else {
@@ -80,7 +80,7 @@ class PPACService: PrivacyPreservingAccessControl {
 		let uuid = UUID().uuidString
 		let utcDate = Date()
 		let token = TimestampedToken(token: uuid, timestamp: utcDate)
-		store.apiToken = token
+		store.ppacApiToken = token
 		return token
 	}
 
