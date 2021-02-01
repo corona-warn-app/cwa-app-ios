@@ -1293,7 +1293,7 @@ sein.";
 
 "NewVersionFeature_113_risk_determination_random_id_title" = "Fortführung der Risiko-Ermittlung nach Teilung der Zufalls-IDs";
 
-"NewVersionFeature_113_risk_determination_random_id_description" = "Nachdem Sie Ihre verschlüsselten Zufalls-IDs geteilt haben können Sie entscheiden, ob und wann Sie die Risiko-Ermittlung wieder einschalten möchten.";
+"NewVersionFeature_113_risk_determination_random_id_description" = "Nachdem Sie Ihre verschlüsselten Zufalls-IDs geteilt haben, können Sie entscheiden, ob und wann Sie die Risiko-Ermittlung wieder einschalten.";
 
 "NewVersionFeature_113_new_tabbar_title" = "Einführung von Registerkarten";
 
