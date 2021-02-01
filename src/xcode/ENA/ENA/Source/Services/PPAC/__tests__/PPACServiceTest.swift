@@ -7,7 +7,6 @@ import XCTest
 
 class PPACServiceTest: XCTestCase {
 
-
 	func testGIVEN_DeviceTimeIsIncorract_WHEN_InitPPACService_THEN_FailWithError() {
 		// GIVEN
 		let store = MockTestStore()
@@ -64,7 +63,6 @@ class PPACServiceTest: XCTestCase {
 		}
 	}
 
-	/// todo: this test only work for a reak device
 	func testGIVEN_StoreHasNoAPIToken_WHEN_getPPACToken_THEN_APITokenIsInStore() throws {
 		// GIVEN
 		let store = MockTestStore()
