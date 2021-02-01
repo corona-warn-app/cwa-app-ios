@@ -14,7 +14,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		viewModel: HomeTableViewModel,
 		appConfigurationProvider: AppConfigurationProviding,
 		onInfoBarButtonItemTap: @escaping () -> Void,
-		onExposureDetectionCellTap: @escaping (ENStateHandler.State) -> Void,
+		onExposureLoggingCellTap: @escaping (ENStateHandler.State) -> Void,
 		onRiskCellTap: @escaping (HomeState) -> Void,
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
@@ -29,7 +29,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.appConfigurationProvider = appConfigurationProvider
 
 		self.onInfoBarButtonItemTap = onInfoBarButtonItemTap
-		self.onExposureDetectionCellTap = onExposureDetectionCellTap
+		self.onExposureLoggingCellTap = onExposureLoggingCellTap
 		self.onRiskCellTap = onRiskCellTap
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
@@ -150,7 +150,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
-			return exposureDetectionCell(forRowAt: indexPath)
+			return exposureLoggingCell(forRowAt: indexPath)
 		case .riskAndTest:
 			switch viewModel.riskAndTestRows[indexPath.row] {
 			case .risk:
@@ -201,7 +201,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
-			onExposureDetectionCellTap(viewModel.state.enState)
+			onExposureLoggingCellTap(viewModel.state.enState)
 		case .riskAndTest:
 			switch viewModel.riskAndTestRows[indexPath.row] {
 			case .risk:
@@ -255,7 +255,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let appConfigurationProvider: AppConfigurationProviding
 
 	private let onInfoBarButtonItemTap: () -> Void
-	private let onExposureDetectionCellTap: (ENStateHandler.State) -> Void
+	private let onExposureLoggingCellTap: (ENStateHandler.State) -> Void
 	private let onRiskCellTap: (HomeState) -> Void
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
@@ -352,7 +352,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 	}
 
-	private func exposureDetectionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func exposureLoggingCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeExposureLoggingTableViewCell.self), for: indexPath) as? HomeExposureLoggingTableViewCell else {
 			fatalError("Could not dequeue HomeExposureLoggingTableViewCell")
 		}
