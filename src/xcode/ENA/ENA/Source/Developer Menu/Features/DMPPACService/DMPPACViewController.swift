@@ -56,6 +56,11 @@ class DMPPACViewController: UITableViewController {
 		viewModel.numberOfRows(in: section)
 	}
 
+	// MARK: - Protocol UITableViewDelegate
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		viewModel.didTapCell(indexPath)
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -69,6 +74,14 @@ class DMPPACViewController: UITableViewController {
 		tableView.rowHeight = UITableView.automaticDimension
 
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
+
+		// wire up tableview with the viewModel
+		viewModel.refreshTableView = { indexSet in
+			DispatchQueue.main.async { [weak self] in
+				self?.tableView.reloadSections(indexSet, with: .fade)
+			}
+		}
+
 	}
 
 }

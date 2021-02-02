@@ -3315,7 +3315,7 @@
 				B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */,
 				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
 				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
-				BA4693AF25C82ED3004B2DBB /* DMPrivacyPreservingAccessControlService */,
+				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -3549,13 +3549,13 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		BA4693AF25C82ED3004B2DBB /* DMPrivacyPreservingAccessControlService */ = {
+		BA4693AF25C82ED3004B2DBB /* DMPPACService */ = {
 			isa = PBXGroup;
 			children = (
 				BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */,
 				BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */,
 			);
-			path = DMPrivacyPreservingAccessControlService;
+			path = DMPPACService;
 			sourceTree = "<group>";
 		};
 		BA6C8A8E254D60E0008344F5 /* Calculation */ = {

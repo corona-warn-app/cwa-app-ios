@@ -11,12 +11,15 @@ final class DMPPCViewModel {
 	init(
 		_ store: Store,
 		deviceCheck: DeviceCheckable) {
+		self.store = store
 		self.ppacService = try? PPACService(store: store, deviceCheck: deviceCheck)
 	}
 	
 	// MARK: - Public
 	
 	// MARK: - Internal
+
+	var refreshTableView: (IndexSet) -> Void = { _ in }
 	
 	var numberOfSections: Int {
 		TableViewSections.allCases.count
@@ -37,16 +40,38 @@ final class DMPPCViewModel {
 		
 		switch section {
 		case .apiTokenWithCreatinDate:
-			return DMKeyValueCellViewModel(key: "API Token", value: "12345")
+			let ppacApiToken = store.ppacApiToken?.token ?? "no API Token generated yet"
+			return DMKeyValueCellViewModel(key: "API Token", value: ppacApiToken)
 		case .generateDeviceToken:
-			return DMKeyValueCellViewModel(key: "renew", value: "tap to generate a new API Token")
+			return DMKeyValueCellViewModel(key: "Device Token", value: "tap to generate a new API Token")
 		case .generateAPIToken:
 			return DMKeyValueCellViewModel(key: "API Token", value: "A12345 \n tap to generate a new one")
 		}
-		
 	}
-	
-	
+
+	func didTapCell(_ indexPath: IndexPath) {
+		guard let section = TableViewSections(rawValue: indexPath.section) else {
+			fatalError("Unknown cell requested - stop")
+		}
+
+		switch section {
+//		case .generateDeviceToken:
+//			<#code#>
+		case .generateAPIToken:
+			generatePpacAPIToken()
+		default:
+			break
+		}
+
+	}
+
+	private func generatePpacAPIToken() {
+		guard (ppacService?.generateNewAPIToken()) != nil else {
+			return
+		}
+		refreshTableView([TableViewSections.apiTokenWithCreatinDate.rawValue])
+	}
+
 	// MARK: - Private
 	
 	private enum TableViewSections: Int, CaseIterable {
@@ -55,8 +80,9 @@ final class DMPPCViewModel {
 		case generateAPIToken
 		// todo: force API Token authorization -> OTP
 	}
-	
+
+	private let store: Store
 	private let ppacService: PrivacyPreservingAccessControl?
-	
+
 }
 #endif

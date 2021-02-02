@@ -6,6 +6,9 @@ import Foundation
 
 protocol PrivacyPreservingAccessControl {
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void)
+	#if !RELEASE
+	func generateNewAPIToken() -> TimestampedToken
+	#endif
 }
 
 class PPACService: PrivacyPreservingAccessControl {
@@ -43,6 +46,13 @@ class PPACService: PrivacyPreservingAccessControl {
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
 		deviceCheck.deviceToken(apiToken.token, completion: completion)
 	}
+
+	#if !RELEASE
+	// needed to mak it possible to get called from rhe developer menu
+	func generateNewAPIToken() -> TimestampedToken {
+		return generateAndStoreFreshAPIToken()
+	}
+	#endif
 
 	// MARK: - Private
 
