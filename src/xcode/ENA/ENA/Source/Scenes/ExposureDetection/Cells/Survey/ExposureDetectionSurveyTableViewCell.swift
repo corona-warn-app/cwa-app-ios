@@ -62,6 +62,9 @@ class ExposureDetectionSurveyTableViewCell: UITableViewCell {
 
 	private func setup() {
 		updateIllustration(for: traitCollection)
+
+		cardView.backgroundColor = .enaColor(for: .darkBackground)
+		
 		clipsToBounds = false
 
 		// This is needed for the shadow of the cardView to appear correctly on the cell beneath the survey cell.
