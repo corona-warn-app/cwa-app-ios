@@ -339,23 +339,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				if #available(iOS 14.4, *) {
 					self?.exposureManager.preAuthorizeKeys(completion: { error in
-						if let error = error as? ENError {
-							switch error.toExposureSubmissionError() {
-							case .notAuthorized:
-								// user did not authorize -> continue to scanning the qr code
-								self?.showQRScreen(isLoading: isLoading)
-							default:
-								// present alert
-								DispatchQueue.main.async {
+						DispatchQueue.main.async { [weak self] in
+							if let error = error as? ENError {
+								switch error.toExposureSubmissionError() {
+								case .notAuthorized:
+									// user did not authorize -> continue to scanning the qr code
+									self?.showQRScreen(isLoading: isLoading)
+								default:
+									// present alert
 									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
 										self?.showQRScreen(isLoading: isLoading)
 									})
 									self?.navigationController?.present(alert, animated: true, completion: nil)
 								}
+							} else {
+								// continue to scanning the qr code
+								self?.showQRScreen(isLoading: isLoading)
 							}
-						} else {
-							// continue to scanning the qr code
-							self?.showQRScreen(isLoading: isLoading)
 						}
 					})
 				} else {
