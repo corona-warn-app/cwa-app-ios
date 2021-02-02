@@ -6,10 +6,6 @@
 
 import UIKit
 
-protocol ConfigureAbleCell {
-	func configure<T>(cellViewModel: T)
-}
-
 class DMSwitchTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Init

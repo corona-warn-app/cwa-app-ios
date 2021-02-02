@@ -1,7 +1,7 @@
 ////
 // 🦠 Corona-Warn-App
 //
-
+#if !RELEASE
 import Foundation
 
 final class DMPPCViewModel {
@@ -30,14 +30,12 @@ final class DMPPCViewModel {
 		return 1
 	}
 	
-	func cellViewModel(by indexPath: IndexPath) -> DMKeyValueCellViewModel {
+	func cellViewModel(by indexPath: IndexPath) -> Any {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
 			fatalError("Unknown cell requested - stop")
 		}
 		
 		switch section {
-		case .deviceTimeCheckState:
-			return DMKeyValueCellViewModel(key: "DeviceTime status", value: "unknown")
 		case .apiTokenWithCreatinDate:
 			return DMKeyValueCellViewModel(key: "API Token", value: "12345")
 		case .generateDeviceToken:
@@ -52,7 +50,6 @@ final class DMPPCViewModel {
 	// MARK: - Private
 	
 	private enum TableViewSections: Int, CaseIterable {
-		case deviceTimeCheckState
 		case apiTokenWithCreatinDate
 		case generateDeviceToken
 		case generateAPIToken
@@ -62,3 +59,4 @@ final class DMPPCViewModel {
 	private let ppacService: PrivacyPreservingAccessControl?
 	
 }
+#endif

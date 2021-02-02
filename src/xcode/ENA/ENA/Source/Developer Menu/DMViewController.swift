@@ -153,7 +153,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			#else
 			deviceCheck = PPACDeviceCheck()
 			#endif
-			vc = DMPPACViewController(store, deviceCheck: deviceCheck)
+			vc = DMPPACViewController(store)
 		}
 		
 		if let vc = vc {
