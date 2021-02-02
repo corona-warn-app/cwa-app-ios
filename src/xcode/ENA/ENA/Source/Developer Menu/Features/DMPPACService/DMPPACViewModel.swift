@@ -45,7 +45,13 @@ final class DMPPCViewModel {
 		case .generateDeviceToken:
 			return DMKeyValueCellViewModel(key: "Device Token", value: "tap to generate a new API Token")
 		case .generateAPIToken:
-			return DMButtonCellViewModel(text: "Generate API Token", textColor: .enaColor(for: .textPrimary1), backgroundColor: .enaColor(for: .buttonPrimary))
+			return DMButtonCellViewModel(text: "Generate API Token",
+										 textColor: .enaColor(for: .textPrimary1),
+										 backgroundColor: .enaColor(for: .buttonPrimary),
+										 action: { [weak self] in
+											self?.didTapCell(indexPath)
+										 }
+			)
 		}
 	}
 

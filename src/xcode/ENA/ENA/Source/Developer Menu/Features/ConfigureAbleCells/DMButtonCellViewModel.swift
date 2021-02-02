@@ -12,5 +12,6 @@ struct DMButtonCellViewModel {
 	let text: String
 	let textColor: UIColor
 	let backgroundColor: UIColor
+	let action: () -> Void
 
 }

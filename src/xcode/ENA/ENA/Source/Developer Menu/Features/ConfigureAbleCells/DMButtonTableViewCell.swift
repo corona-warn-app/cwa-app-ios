@@ -27,9 +27,12 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 		guard let cellViewModel = cellViewModel as? DMButtonCellViewModel else {
 			fatalError("CellViewModel doesn't macht expecations")
 		}
-		buttonLabel.text = cellViewModel.text
-		buttonLabel.textColor = cellViewModel.textColor
-		buttonLabel.backgroundColor = cellViewModel.backgroundColor
+		buttonAction = cellViewModel.action
+		button.setTitle(cellViewModel.text, for: .normal)
+		button.setTitleColor(cellViewModel.textColor, for: .normal)
+		let backgroundImage = UIImage.with(color: cellViewModel.backgroundColor)
+		button.setBackgroundImage(backgroundImage, for: .normal)
+		button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
 	}
 
 	// MARK: - Public
@@ -37,35 +40,36 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 	// MARK: - Internal
 
 	// MARK: - Private
-	private let buttonLabel = UILabel()
+
+	private let button = UIButton(type: .custom)
+	private var buttonAction: (() -> Void)?
 
 	private func layoutViews() {
 		backgroundColor = .clear
 
-		buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-		buttonLabel.font = .enaFont(for: .body)
-		buttonLabel.numberOfLines = 0
-		buttonLabel.textAlignment = .center
-		buttonLabel.layer.cornerRadius = 8.0
-		buttonLabel.layer.masksToBounds = true
-		buttonLabel.layer.borderWidth = 1.0
-		buttonLabel.layer.borderColor = UIColor.white.cgColor
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.titleLabel?.font = .enaFont(for: .body)
+		button.titleLabel?.textAlignment = .center
+		button.layer.cornerRadius = 8.0
+		button.layer.masksToBounds = true
+		button.layer.borderWidth = 1.0
+		button.layer.borderColor = UIColor.white.cgColor
 
-
-//		if #available(iOS 13.0, *) {
-//			buttonLabel.layer.cornerCurve = .circular
-//		}
-
-		contentView.addSubview(buttonLabel)
+		contentView.addSubview(button)
 
 		NSLayoutConstraint.activate([
-			buttonLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-			buttonLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
-			buttonLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-			buttonLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
+			button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
+			button.topAnchor.constraint(equalTo: contentView.topAnchor),
+			button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 35.0)
 		])
 
+	}
+
+	@objc
+	private func didTapButton() {
+		buttonAction?()
 	}
 
 }
