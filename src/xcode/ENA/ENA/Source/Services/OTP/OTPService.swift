@@ -95,7 +95,7 @@ final class OTPService: OTPServiceProviding {
 			Log.error("could not retrieve otp token from store", log: .otp)
 			return
 		}
-		// TODO INT or DATE?
+		// TODO we receive Int from the server, but we expected Date. TBA
 		let date = Date()
 		let newToken = TimestampedToken(token: verifiedOTP, timestamp: date)
 		store.otpToken = newToken
