@@ -23,8 +23,8 @@ extension HTTPClient {
 					baseURL: serverEnvironmentProvider.selectedServerEnvironment.verificationURL,
 					requiresTrailingSlash: false
 				),
-				data: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.dataURL,
+				dataDonation: .init(
+					baseURL: serverEnvironmentProvider.selectedServerEnvironment.dataDonationURL,
 					requiresTrailingSlash: false
 				)
 			)
@@ -171,7 +171,7 @@ extension HTTPClient {
 
 		var otpAuthorizationURL: URL {
 			endpoints
-				.data
+				.dataDonation
 				.appending(
 					"version",
 					apiVersion,
@@ -221,6 +221,6 @@ extension HTTPClient.Configuration {
 		let distribution: Endpoint
 		let submission: Endpoint
 		let verification: Endpoint
-		let data: Endpoint
+		let dataDonation: Endpoint
 	}
 }
