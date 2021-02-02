@@ -107,15 +107,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		viewModel.state.updateTestResult()
 		viewModel.state.updateStatistics()
-
-		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
-		riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTest.rawValue))
-		testResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTest.rawValue))
-		statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
+		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
+		if statisticsCell == nil {
+			riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+			testResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
+		}
 
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
 		navigationController?.navigationBar.prefersLargeTitles = false
