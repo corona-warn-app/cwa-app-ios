@@ -149,6 +149,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		case longGuide = "longGuideCell"
 		case link = "linkCell"
 		case hotline = "hotlineCell"
+		case survey = "surveyCell"
 	}
 
 	let viewModel: ExposureDetectionViewModel
@@ -227,6 +228,11 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		tableView.register(
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
 			forCellReuseIdentifier: ReusableCellIdentifier.link.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionSurveyTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.survey.rawValue
 		)
 	}
 	

@@ -490,14 +490,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private func surveySection() -> DynamicSection {
 		return .section(
 			cells: [
-				.body(
-					text: "SurveyDummy",
-					color: .red,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.surveySection,
+				.custom(
+					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
 					action: .execute(block: { [weak self] _, _ in
 						self?.onSurveyTap()
+					}),
+					accessoryAction: .none,
+					configure: { _, cell, _ in
+						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
+							surveyCell.configure(with: ExposureDetectionSurveyCellModel()) { [weak self] in
+								self?.onSurveyTap()
+							}
+						}
 					})
-				)
 			]
 		)
 	}
