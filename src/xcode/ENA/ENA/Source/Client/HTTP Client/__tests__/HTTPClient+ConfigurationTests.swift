@@ -24,11 +24,16 @@ final class BackendConfigurationTests: XCTestCase {
 			baseURL: URL(staticString: "http://localhost/verification"),
 			requiresTrailingSlash: true
 		)
+		let data = Endpoint(
+			baseURL: URL(staticString: "http://localhost/dist"),
+			requiresTrailingSlash: true
+		)
 
 		let endpoints = Configuration.Endpoints(
 			distribution: distribution,
 			submission: submission,
-			verification: verification
+			verification: verification,
+			data: data
 		)
 
 		let config = Configuration(

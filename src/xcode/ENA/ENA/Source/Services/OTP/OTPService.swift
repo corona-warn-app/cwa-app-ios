@@ -58,16 +58,6 @@ final class OTPService: OTPServiceProviding {
 
 	// MARK: - Private
 
-	private enum OTPServerError: Error {
-		case generalError
-		case apiTokenAlreadyIssued
-		case apiTokenExpired
-		case apiTokenQuotaExceeded
-		case deviceTokenInvalid
-		case deviceTokenRedeemed
-		case deviceTokenSyntaxError
-	}
-
 	private let store: Store
 	private let client: Client
 
@@ -80,7 +70,7 @@ final class OTPService: OTPServiceProviding {
 	}
 
 	private func authorize(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
-
+		
 		// We autohorize the otp with the ppacToken at our server.
 		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { [weak self] result in
 			guard let self = self else {
@@ -110,8 +100,6 @@ final class OTPService: OTPServiceProviding {
 			case .failure(let error):
 				completion(.failure(error))
 			}
-
-
 		})
 	}
 }
