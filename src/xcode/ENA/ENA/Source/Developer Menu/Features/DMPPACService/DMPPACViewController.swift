@@ -62,17 +62,6 @@ class DMPPACViewController: UITableViewController {
 		viewModel.numberOfRows(in: section)
 	}
 
-	// MARK: - Protocol UITableViewDelegate
-	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-		viewModel.didTapCell(indexPath)
-	}
-
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-//			tableView.deselectRow(at: indexPath, animated: true)
-//		}
-	}
-
 	// MARK: - Public
 
 	// MARK: - Internal

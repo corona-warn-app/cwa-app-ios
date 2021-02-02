@@ -10,12 +10,11 @@ final class DMPPCViewModel {
 	
 	init(
 		_ store: Store,
-		deviceCheck: DeviceCheckable) {
+		deviceCheck: DeviceCheckable
+	) {
 		self.store = store
 		self.ppacService = try? PPACService(store: store, deviceCheck: deviceCheck)
 	}
-	
-	// MARK: - Public
 	
 	// MARK: - Internal
 
@@ -42,29 +41,46 @@ final class DMPPCViewModel {
 		case .apiTokenWithCreatinDate:
 			let ppacApiToken = store.ppacApiToken?.token ?? "no API Token generated yet"
 			return DMKeyValueCellViewModel(key: "API Token", value: ppacApiToken)
-		case .generateDeviceToken:
-			return DMKeyValueCellViewModel(key: "Device Token", value: "tap to generate a new API Token")
+		case .deviceToken:
+			let deviceToken = lastKnownDeviceToken ?? "no device token created"
+			return DMKeyValueCellViewModel(key: "Device Token", value: deviceToken)
 		case .generateAPIToken:
-			return DMButtonCellViewModel(text: "Generate API Token",
-										 textColor: .enaColor(for: .textPrimary1),
-										 backgroundColor: .enaColor(for: .buttonPrimary),
-										 action: { [weak self] in
-											self?.didTapCell(indexPath)
-										 }
+			return DMButtonCellViewModel(
+				text: "Generate new API Token",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.didTapCell(indexPath)
+				}
+			)
+		case .generateDeviceToken:
+			return DMButtonCellViewModel(
+				text: "Generate Device Token",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.didTapCell(indexPath)
+				}
 			)
 		}
 	}
 
-	func didTapCell(_ indexPath: IndexPath) {
+	// MARK: - Private
+
+	private let store: Store
+	private let ppacService: PrivacyPreservingAccessControl?
+	private var lastKnownDeviceToken: String?
+
+	private func didTapCell(_ indexPath: IndexPath) {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
 			fatalError("Unknown cell requested - stop")
 		}
 
 		switch section {
-//		case .generateDeviceToken:
-//			<#code#>
 		case .generateAPIToken:
 			generatePpacAPIToken()
+		case .generateDeviceToken:
+			Log.debug("we need to create a device token")
 		default:
 			break
 		}
@@ -78,17 +94,13 @@ final class DMPPCViewModel {
 		refreshTableView([TableViewSections.apiTokenWithCreatinDate.rawValue])
 	}
 
-	// MARK: - Private
-	
 	private enum TableViewSections: Int, CaseIterable {
 		case apiTokenWithCreatinDate
-		case generateDeviceToken
 		case generateAPIToken
+		case deviceToken
+		case generateDeviceToken
 		// todo: force API Token authorization -> OTP
 	}
-
-	private let store: Store
-	private let ppacService: PrivacyPreservingAccessControl?
 
 }
 #endif
