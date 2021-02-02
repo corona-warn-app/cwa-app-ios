@@ -11,6 +11,7 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		selectionStyle = .none
 		layoutViews()
 	}
 
@@ -19,18 +20,11 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		// Initialization code
-	}
-
 	// MARK: - Internal
 
 	func configure<T>(cellViewModel: T) {
 		guard let cellViewModel = cellViewModel as? DMKeyValueCellViewModel else {
-			fatalError("CellViewModel doesn't macht expectations")
+			fatalError("CellViewModel doesn't macht expecations")
 		}
 		keyLabel.text = cellViewModel.key
 		valueLabel.text = cellViewModel.value
@@ -43,25 +37,27 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	private func layoutViews() {
 		keyLabel.translatesAutoresizingMaskIntoConstraints = false
-		keyLabel.font = .enaFont(for: .subheadline)
+		keyLabel.font = .enaFont(for: .headline)
 		keyLabel.numberOfLines = 0
 		keyLabel.textAlignment = .left
 
 		valueLabel.translatesAutoresizingMaskIntoConstraints = false
 		valueLabel.font = .enaFont(for: .subheadline)
-		valueLabel.numberOfLines = 0
-		valueLabel.textAlignment = .right
+		valueLabel.numberOfLines = 1
+		valueLabel.textAlignment = .left
+		valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
 		let stackView = UIStackView(arrangedSubviews: [keyLabel, valueLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .fill
-		stackView.axis = .horizontal
+		stackView.axis = .vertical
+		stackView.distribution = .fillProportionally
 
 		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
+			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10.0),
+			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10.0),
 			stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
 			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45.0)

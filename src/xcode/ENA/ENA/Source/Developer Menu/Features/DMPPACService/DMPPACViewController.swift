@@ -39,8 +39,14 @@ class DMPPACViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
+//		let testCell = tableView.dequeueReusableCell(cellType: cellViewModel.self, for: indexPath)
+
 		if cellViewModel is DMKeyValueCellViewModel {
 			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+		} else if cellViewModel is DMButtonCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		} else {
@@ -74,6 +80,7 @@ class DMPPACViewController: UITableViewController {
 		tableView.rowHeight = UITableView.automaticDimension
 
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
+		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 
 		// wire up tableview with the viewModel
 		viewModel.refreshTableView = { indexSet in
