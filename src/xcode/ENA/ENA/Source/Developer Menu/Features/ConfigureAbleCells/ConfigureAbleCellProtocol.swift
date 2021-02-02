@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+#if !RELEASE
+
 import Foundation
 
 protocol ConfigureAbleCell {
@@ -18,3 +20,4 @@ extension ConfigureAbleCell {
 	}
 
 }
+#endif

@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+#if !RELEASE
+
 import Foundation
 import UIKit
 
@@ -15,3 +17,5 @@ struct DMButtonCellViewModel {
 	let action: () -> Void
 
 }
+
+#endif

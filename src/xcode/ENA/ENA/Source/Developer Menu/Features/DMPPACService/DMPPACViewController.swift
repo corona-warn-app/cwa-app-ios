@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 #if !RELEASE
+
 import UIKit
 
 class DMPPACViewController: UITableViewController {
@@ -60,10 +61,6 @@ class DMPPACViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		viewModel.numberOfRows(in: section)
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 

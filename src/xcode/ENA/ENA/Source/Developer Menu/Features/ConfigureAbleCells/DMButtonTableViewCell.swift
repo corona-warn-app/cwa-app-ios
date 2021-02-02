@@ -1,7 +1,7 @@
 ////
 // 🦠 Corona-Warn-App
 //
-
+#if !RELEASE
 import UIKit
 
 class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
@@ -19,8 +19,6 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol ConfigureAbleCell
 
 	func configure<T>(cellViewModel: T) {
@@ -34,10 +32,6 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 		button.setBackgroundImage(backgroundImage, for: .normal)
 		button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
@@ -73,3 +67,4 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 	}
 
 }
+#endif

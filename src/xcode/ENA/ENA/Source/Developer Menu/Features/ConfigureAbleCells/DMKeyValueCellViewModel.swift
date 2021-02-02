@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+#if !RELEASE
+
 import Foundation
 
 struct DMKeyValueCellViewModel {
@@ -12,3 +14,4 @@ struct DMKeyValueCellViewModel {
 	let value: String
 	
 }
+#endif

@@ -68,10 +68,6 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: DMDeviceTimeCheckViewModel

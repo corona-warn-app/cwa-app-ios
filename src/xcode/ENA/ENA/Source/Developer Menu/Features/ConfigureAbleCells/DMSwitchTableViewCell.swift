@@ -8,8 +8,6 @@ import UIKit
 
 class DMSwitchTableViewCell: UITableViewCell, ConfigureAbleCell {
 
-	// MARK: - Init
-
 	// MARK: - Overrides
 
 	override func awakeFromNib() {
@@ -17,8 +15,6 @@ class DMSwitchTableViewCell: UITableViewCell, ConfigureAbleCell {
 		infoLabel.font = .enaFont(for: .subheadline)
 		toggleSwitch.addTarget(self, action: #selector(toggleHit), for: .valueChanged)
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
