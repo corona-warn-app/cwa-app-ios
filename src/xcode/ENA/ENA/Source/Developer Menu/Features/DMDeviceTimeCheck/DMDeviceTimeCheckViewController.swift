@@ -33,18 +33,39 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	// MARK: - Protocol UITableViewDataSource
 
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		return viewModel.numberOfSections
+	}
+
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.itemsCount
+		viewModel.itemsCount
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMSwitchTableViewCell") as? DMSwitchTableViewCell else {
-			let dummy = UITableViewCell(style: .default, reuseIdentifier: "DummyFallBackCell")
-			dummy.textLabel?.text = "Fallback cell"
-			return dummy
+		guard let section = DMDeviceTimeCheckViewModel.menuItems(rawValue: indexPath.section) else {
+			fatalError("unknonw tableview section")
 		}
-		cell.configure(cellViewModel: viewModel.cellViewModel(for: indexPath))
-		return cell
+
+		let cellViewModel = viewModel.cellViewModel(for: indexPath)
+
+		switch section {
+		case .deviceTimeCheckState:
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMKeyValueTableViewCell") as? DMKeyValueTableViewCell else {
+				fatalError("Failed to deque cell")
+			}
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+
+		case .killDeviceTimeCheck:
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMSwitchTableViewCell") as? DMSwitchTableViewCell else {
+				let dummy = UITableViewCell(style: .default, reuseIdentifier: "DummyFallBackCell")
+				dummy.textLabel?.text = "Fallback cell"
+				return dummy
+			}
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+		}
+
 	}
 
 	// MARK: - Public
@@ -57,6 +78,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 	private func setupTableView() {
 		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "DMSwitchTableViewCell")
+		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: "DMKeyValueTableViewCell")
 	}
 }
 

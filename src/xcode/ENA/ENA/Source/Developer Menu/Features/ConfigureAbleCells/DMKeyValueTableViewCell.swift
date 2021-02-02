@@ -1,15 +1,11 @@
 ////
 // 🦠 Corona-Warn-App
 //
+#if !RELEASE
 
 import UIKit
 
-struct DMKeyValueCellViewModel {
-	let key: String
-	let value: String
-}
-
-class DMKeyValueTableViewCell: UITableViewCell {
+class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Init
 
@@ -30,13 +26,12 @@ class DMKeyValueTableViewCell: UITableViewCell {
 		// Initialization code
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
-	func configure(_ cellViewModel: DMKeyValueCellViewModel) {
+	func configure<T>(cellViewModel: T) {
+		guard let cellViewModel = cellViewModel as? DMKeyValueCellViewModel else {
+			fatalError("CellViewModel doesn't macht expectations")
+		}
 		keyLabel.text = cellViewModel.key
 		valueLabel.text = cellViewModel.value
 	}
@@ -72,3 +67,5 @@ class DMKeyValueTableViewCell: UITableViewCell {
 	}
 
 }
+
+#endif

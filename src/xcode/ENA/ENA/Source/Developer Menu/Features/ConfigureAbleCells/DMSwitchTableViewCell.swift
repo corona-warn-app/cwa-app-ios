@@ -6,7 +6,11 @@
 
 import UIKit
 
-class DMSwitchTableViewCell: UITableViewCell {
+protocol ConfigureAbleCell {
+	func configure<T>(cellViewModel: T)
+}
+
+class DMSwitchTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Init
 
@@ -21,7 +25,11 @@ class DMSwitchTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(cellViewModel: DMSwitchCellViewModel) {
+	func configure<T>(cellViewModel: T) {
+		guard let cellViewModel = cellViewModel as? DMSwitchCellViewModel else {
+			Log.debug("can't configure cell")
+			return
+		}
 		infoLabel.text = cellViewModel.labelText
 		toggleSwitch.isOn = cellViewModel.isOn()
 		self.cellViewModel = cellViewModel

@@ -21,15 +21,24 @@ final class DMDeviceTimeCheckViewModel {
 
 	// MARK: - Internal
 
-	var itemsCount: Int {
+	enum menuItems: Int, CaseIterable {
+		case deviceTimeCheckState
+		case killDeviceTimeCheck
+	}
+
+	let itemsCount: Int = 1
+
+	var numberOfSections: Int {
 		return menuItems.allCases.count
 	}
 
-	func cellViewModel(for indexPath: IndexPath) -> DMSwitchCellViewModel {
-		guard let item = menuItems(rawValue: indexPath.row) else {
-			fatalError("failed to create cellViewModel")
+	func cellViewModel(for indexPath: IndexPath) -> Any {
+		guard let section = menuItems(rawValue: indexPath.section) else {
+			fatalError("Invalid tableview section")
 		}
-		switch item {
+		switch section {
+		case .deviceTimeCheckState:
+			return DMKeyValueCellViewModel(key: "Time Check state:", value: "unknown")
 
 		case .killDeviceTimeCheck:
 			return DMSwitchCellViewModel(
@@ -47,9 +56,6 @@ final class DMDeviceTimeCheckViewModel {
 	
 	private let store: Store
 
-	private enum menuItems: Int, CaseIterable {
-		case killDeviceTimeCheck
-	}
 
 }
 
