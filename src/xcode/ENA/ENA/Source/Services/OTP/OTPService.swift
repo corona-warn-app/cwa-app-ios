@@ -50,13 +50,21 @@ final class OTPService: OTPServiceProviding {
 			switch result {
 			case .success(let timestamp):
 				// 3a Success: We store the timestamp of the authorized otp and return the token.
-				self.updateOTP(with: timestamp)
-				guard let token = self.store.otpToken?.token else {
+				guard let verifiedOTP = self.store.otpToken?.token else {
 					Log.error("could not retrieve otp token from store", log: .otp)
 					completion(.failure(OTPError.generalError))
 					return
 				}
-				completion(.success(token))
+
+				guard let date = ISO8601DateFormatter().date(from: timestamp) else {
+					Log.error("could not create date from the new timedate", log: .otp)
+					completion(.failure(OTPError.generalError))
+					return
+				}
+				let verifiedToken = TimestampedToken(token: verifiedOTP, timestamp: date)
+				self.store.otpToken = verifiedToken
+
+				completion(.success(verifiedToken.token))
 			case .failure(let error):
 				// 3b Failure: The server return error. We return that to our caller.
 				completion(.failure(error))
@@ -90,18 +98,7 @@ final class OTPService: OTPServiceProviding {
 		store.otpToken = token
 	}
 
-	private func updateOTP(with newTimestamp: Int) {
-		guard let verifiedOTP = store.otpToken?.token else {
-			Log.error("could not retrieve otp token from store", log: .otp)
-			return
-		}
-		// TODO we receive Int from the server, but we expected Date. TBA
-		let date = Date()
-		let newToken = TimestampedToken(token: verifiedOTP, timestamp: date)
-		store.otpToken = newToken
-	}
-
-	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<Int, OTPError>) -> Void) {
+	private func authorizeOTP(with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		guard let otp = store.otpToken?.token else {
 			Log.error("could not retrieve otp token from store", log: .otp)
 			completion(.failure(OTPError.generalError))

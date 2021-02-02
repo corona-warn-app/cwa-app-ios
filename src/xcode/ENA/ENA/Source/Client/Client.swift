@@ -19,7 +19,7 @@ protocol Client {
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
-	typealias OTPAuthorizationCompletionHandler = (Result<Int, OTPError>) -> Void
+	typealias OTPAuthorizationCompletionHandler = (Result<String, OTPError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -88,7 +88,7 @@ protocol Client {
 	///   - otp: the otp to authorize
 	///   - ppacToken: the ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
-	///   - completion: The completion handler of the submission call, which contains the expirationTimestamp of the otp
+	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
 	func authorize(
 		otp: String,
 		ppacToken: PPACToken,

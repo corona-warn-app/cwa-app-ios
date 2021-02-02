@@ -388,17 +388,17 @@ final class HTTPClient: Client {
 		}
 		do {
 			let decodedResponse = try JSONDecoder().decode(
-				GetOTPExpirationTimestampResponse.self,
+				GetOTPExpirationDateResponse.self,
 				from: responseBody
 			)
-			guard let expirationTimestamp = decodedResponse.expirationTimestamp else {
-				Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+			guard let expirationDate = decodedResponse.expirationDate else {
+				Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
 				completion(.failure(.invalidResponseError))
 				return
 			}
-			completion(.success(expirationTimestamp))
+			completion(.success(expirationDate))
 		} catch _ {
-			Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+			Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
 			completion(.failure(.invalidResponseError))
 		}
 	}
@@ -436,7 +436,7 @@ final class HTTPClient: Client {
 				completion(.failure(.otherServerError))
 			}
 		} catch _ {
-			Log.error("Failed to get expirationTimestamp because of invalid response payload structure", log: .api)
+			Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
 			completion(.failure(.invalidResponseError))
 		}
 	}
@@ -457,8 +457,8 @@ private extension HTTPClient {
 		let tan: String?
 	}
 
-	struct GetOTPExpirationTimestampResponse: Codable {
-		let expirationTimestamp: Int?
+	struct GetOTPExpirationDateResponse: Codable {
+		let expirationDate: String?
 	}
 }
 
