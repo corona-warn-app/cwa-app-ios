@@ -78,6 +78,12 @@ struct ExposureManagerState: Equatable {
 	@objc dynamic var exposureNotificationStatus: ENStatus { get }
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+	@available(iOS 14.4, *)
+	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? { get }
+	@available(iOS 14.4, *)
+	func preAuthorizedKeys(completion: @escaping  ENErrorHandler)
+	@available(iOS 14.4, *)
+	func requestPreAuthorizedKeys(completion: @escaping  ENErrorHandler)
 }
 
 extension ENManager: Manager {
@@ -93,6 +99,20 @@ extension ENManager: Manager {
 		getExposureWindows(summary: summary, completionHandler: completionHandler)
 	}
 
+	@available(iOS 14.4, *)
+	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? {
+		return diagnosisKeysAvailableHandler
+	}
+	
+	@available(iOS 14.4, *)
+	func preAuthorizedKeys(completion: @escaping ENErrorHandler) {
+		preAuthorizeDiagnosisKeys(completionHandler: completion)
+	}
+	
+	@available(iOS 14.4, *)
+	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler) {
+		requestPreAuthorizedDiagnosisKeys(completionHandler: completion)
+	}
 }
 
 protocol ExposureManagerLifeCycle {
@@ -126,10 +146,21 @@ protocol ExposureManagerObserving {
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
 }
 
+protocol PreauthorizeKeyRelease {
+	@available(iOS 14.4, *)
+	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? { get }
+	@available(iOS 14.4, *)
+	func preAuthorizedKeys(completion: @escaping ENErrorHandler)
+	@available(iOS 14.4, *)
+	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler)
+}
 
-typealias ExposureManager = ExposureManagerLifeCycle &
+typealias ExposureManager =
+	ExposureManagerLifeCycle &
 	DiagnosisKeysRetrieval &
-	ExposureDetector & ExposureManagerObserving
+	ExposureDetector &
+	ExposureManagerObserving &
+	PreauthorizeKeyRelease
 
 
 protocol ENAExposureManagerObserver: AnyObject {
@@ -320,7 +351,23 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		// see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
 		manager.getDiagnosisKeys(completionHandler: completionHandler)
 	}
+	
+	// MARK: Protocol PreauthorizeKeyRelease
 
+	@available(iOS 14.4, *)
+	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? {
+		return manager.keysAvailableHandler
+	}
+	@available(iOS 14.4, *)
+	func preAuthorizedKeys(completion: @escaping ENErrorHandler) {
+		manager.preAuthorizedKeys(completion: completion)
+	}
+	
+	@available(iOS 14.4, *)
+	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler) {
+		manager.requestPreAuthorizedKeys(completion: completion)
+	}
+	
 	// MARK: Error Handling
 
 	private func handleENError(error: Error, completion: @escaping CompletionHandler) {
