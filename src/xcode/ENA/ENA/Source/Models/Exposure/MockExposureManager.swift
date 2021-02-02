@@ -101,4 +101,17 @@ extension MockExposureManager: ExposureManager {
 		completionHandler()
 		#endif
 	}
+	
+	@available(iOS 14.4, *)
+	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? {
+		return nil
+	}
+	
+	func preAuthorizedKeys(completion: @escaping ENErrorHandler) {
+		completion(nil)
+	}
+	
+	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler) {
+		completion(nil)
+	}
 }
