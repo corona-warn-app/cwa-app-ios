@@ -145,14 +145,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
-
 		case .ppacService:
-			var deviceCheck: DeviceCheckable
-			#if targetEnvironment(simulator)
-			deviceCheck = PPACDeviceCheckMock(true, deviceToken: "MockedTestToken")
-			#else
-			deviceCheck = PPACDeviceCheck()
-			#endif
 			vc = DMPPACViewController(store)
 		}
 		
