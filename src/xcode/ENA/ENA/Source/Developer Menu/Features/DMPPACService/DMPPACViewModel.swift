@@ -23,6 +23,17 @@ final class DMPPCViewModel {
 	var numberOfSections: Int {
 		TableViewSections.allCases.count
 	}
+
+	var deviceTokenText: String? {
+		let deviceTokenText: String?
+		switch lastKnownDeviceToken {
+		case .none, .some(.failure):
+			deviceTokenText = nil
+		case .some(.success(let ppacToken)):
+			deviceTokenText = ppacToken.deviceToken
+		}
+		return deviceTokenText
+	}
 	
 	func numberOfRows(in section: Int) -> Int {
 		guard TableViewSections.allCases.indices.contains(section) else {
@@ -52,14 +63,8 @@ final class DMPPCViewModel {
 			return DMKeyValueCellViewModel(key: "creation date", value: creationDate)
 
 		case .deviceToken:
-			var deviceTokenText: String
-			switch lastKnownDeviceToken {
-			case .none, .some(.failure):
-				deviceTokenText = "no device token created"
-			case .some(.success(let ppacToken)):
-				deviceTokenText = ppacToken.deviceToken
-			}
-			return DMKeyValueCellViewModel(key: "Device Token", value: deviceTokenText)
+			let deviceTokenValue = deviceTokenText ?? "no device token created"
+			return DMKeyValueCellViewModel(key: "Device Token", value: deviceTokenValue)
 
 		case .generateAPIToken:
 			return DMButtonCellViewModel(

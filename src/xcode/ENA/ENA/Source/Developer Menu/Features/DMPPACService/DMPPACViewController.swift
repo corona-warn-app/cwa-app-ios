@@ -31,7 +31,7 @@ class DMPPACViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		title = "PPAC Service 🏄‍♂️"
+		setupNavigationBar()
 		setupTableView()
 	}
 
@@ -82,7 +82,28 @@ class DMPPACViewController: UITableViewController {
 				self?.tableView.reloadSections(indexSet, with: .fade)
 			}
 		}
+	}
 
+	private func setupNavigationBar() {
+		title = "PPAC Service 🏄‍♂️"
+		let shareBarButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShareButton))
+		navigationItem.rightBarButtonItem = shareBarButton
+	}
+
+	@objc
+	private func didTapShareButton() {
+		// the device toke gets generated every time, tt's not stored
+		guard let deviceToken = viewModel.deviceTokenText else {
+			let alert = UIAlertController(
+				title: "Missing device token",
+				message: "Before sharing please create a device token",
+				preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Ok", style: .default))
+			present(alert, animated: true)
+			return
+		}
+		let activityViewController = UIActivityViewController(activityItems: [deviceToken], applicationActivities: nil)
+		present(activityViewController, animated: true)
 	}
 
 }
