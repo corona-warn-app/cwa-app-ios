@@ -101,7 +101,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		setupTableView()
 
 		navigationItem.largeTitleDisplayMode = .automatic
-		tableView.backgroundColor = .enaColor(for: .separator)
+		tableView.backgroundColor = .enaColor(for: .darkBackground)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
