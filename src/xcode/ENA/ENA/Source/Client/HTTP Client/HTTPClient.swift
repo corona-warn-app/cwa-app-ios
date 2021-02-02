@@ -260,7 +260,7 @@ final class HTTPClient: Client {
 				default:
 					Log.error("Failed to authorize OTP - response error", log: .api)
 					Log.error(String(response.statusCode), log: .api)
-					completion(.failure(.invalidResponseError))
+					completion(.failure(.internalServerError))
 				}
 			case let .failure(error):
 				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
@@ -442,7 +442,7 @@ final class HTTPClient: Client {
 				completion(.failure(.otherServerError))
 			}
 		} catch _ {
-			Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
+			Log.error("Failed to get errorCode because json could not be decoded", log: .api)
 			completion(.failure(.invalidResponseError))
 		}
 	}
