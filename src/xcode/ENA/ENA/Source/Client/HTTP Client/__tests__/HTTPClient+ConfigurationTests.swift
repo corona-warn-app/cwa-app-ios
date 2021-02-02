@@ -24,8 +24,8 @@ final class BackendConfigurationTests: XCTestCase {
 			baseURL: URL(staticString: "http://localhost/verification"),
 			requiresTrailingSlash: true
 		)
-		let data = Endpoint(
-			baseURL: URL(staticString: "http://localhost/dist"),
+		let dataDonation = Endpoint(
+			baseURL: URL(staticString: "http://localhost/dataDonation"),
 			requiresTrailingSlash: true
 		)
 
@@ -33,7 +33,7 @@ final class BackendConfigurationTests: XCTestCase {
 			distribution: distribution,
 			submission: submission,
 			verification: verification,
-			data: data
+			dataDonation: dataDonation
 		)
 
 		let config = Configuration(

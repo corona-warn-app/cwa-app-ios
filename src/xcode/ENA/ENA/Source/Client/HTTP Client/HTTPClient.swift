@@ -387,8 +387,10 @@ final class HTTPClient: Client {
 			return
 		}
 		do {
-			let decodedResponse = try JSONDecoder().decode(
-				GetOTPExpirationDateResponse.self,
+			let decoder = JSONDecoder()
+			decoder.dateDecodingStrategy = .iso8601
+			let decodedResponse = try decoder.decode(
+				OTPResponseProperties.self,
 				from: responseBody
 			)
 			guard let expirationDate = decodedResponse.expirationDate else {
@@ -414,12 +416,17 @@ final class HTTPClient: Client {
 			return
 		}
 		do {
-			let errorCode = try JSONDecoder().decode(
-				OTPServerErrorCode.self,
+			let decodedResponse = try JSONDecoder().decode(
+				OTPResponseProperties.self,
 				from: responseBody
 			)
-			switch errorCode {
+			guard let errorCode = decodedResponse.errorCode else {
+				Log.error("Failed to get errorCode because of invalid response payload structure", log: .api)
+				completion(.failure(.invalidResponseError))
+				return
+			}
 
+			switch errorCode {
 			case .API_TOKEN_ALREADY_ISSUED:
 				completion(.failure(.apiTokenAlreadyIssued))
 			case .API_TOKEN_EXPIRED:
@@ -455,10 +462,6 @@ private extension HTTPClient {
 	
 	struct GetTANForExposureSubmitResponse: Codable {
 		let tan: String?
-	}
-
-	struct GetOTPExpirationDateResponse: Codable {
-		let expirationDate: String?
 	}
 }
 

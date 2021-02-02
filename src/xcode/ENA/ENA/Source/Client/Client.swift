@@ -19,7 +19,7 @@ protocol Client {
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
-	typealias OTPAuthorizationCompletionHandler = (Result<String, OTPError>) -> Void
+	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 
 	// MARK: Interacting with a Client
 

@@ -88,12 +88,7 @@ final class OTPService: OTPServiceProviding {
 					return
 				}
 
-				guard let date = ISO8601DateFormatter().date(from: timestamp) else {
-					Log.error("could not create date from the new timedate", log: .otp)
-					completion(.failure(OTPError.generalError))
-					return
-				}
-				let verifiedToken = TimestampedToken(token: verifiedOTP, timestamp: date)
+				let verifiedToken = TimestampedToken(token: verifiedOTP, timestamp: timestamp)
 				self.store.otpToken = verifiedToken
 
 				completion(.success(verifiedToken.token))
