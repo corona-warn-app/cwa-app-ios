@@ -79,11 +79,7 @@ struct ExposureManagerState: Equatable {
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	@available(iOS 14.4, *)
-	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? { get }
-	@available(iOS 14.4, *)
-	func preAuthorizedKeys(completion: @escaping  ENErrorHandler)
-	@available(iOS 14.4, *)
-	func requestPreAuthorizedKeys(completion: @escaping  ENErrorHandler)
+	func preAuthorizeKeys(completion: @escaping  ENErrorHandler)
 }
 
 extension ENManager: Manager {
@@ -100,18 +96,8 @@ extension ENManager: Manager {
 	}
 
 	@available(iOS 14.4, *)
-	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? {
-		return diagnosisKeysAvailableHandler
-	}
-	
-	@available(iOS 14.4, *)
-	func preAuthorizedKeys(completion: @escaping ENErrorHandler) {
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler) {
 		preAuthorizeDiagnosisKeys(completionHandler: completion)
-	}
-	
-	@available(iOS 14.4, *)
-	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler) {
-		requestPreAuthorizedDiagnosisKeys(completionHandler: completion)
 	}
 }
 
@@ -148,11 +134,7 @@ protocol ExposureManagerObserving {
 
 protocol PreauthorizeKeyRelease {
 	@available(iOS 14.4, *)
-	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? { get }
-	@available(iOS 14.4, *)
-	func preAuthorizedKeys(completion: @escaping ENErrorHandler)
-	@available(iOS 14.4, *)
-	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler)
 }
 
 typealias ExposureManager =
@@ -336,7 +318,18 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	// MARK: Diagnosis Keys
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		manager.getTestDiagnosisKeys(completionHandler: completionHandler)
+		if #available(iOS 14.4, *), let manager = manager as? ENManager {
+			manager.diagnosisKeysAvailableHandler = { keys in
+				completionHandler(keys, nil)
+			}
+			manager.requestPreAuthorizedDiagnosisKeys { error in
+				if let error = error {
+					completionHandler(nil, error)
+				}
+			}
+		} else {
+			manager.getTestDiagnosisKeys(completionHandler: completionHandler)
+		}
 	}
 
 	/// Wrapper for `ENManager.getDiagnosisKeys`
@@ -352,20 +345,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		manager.getDiagnosisKeys(completionHandler: completionHandler)
 	}
 	
-	// MARK: Protocol PreauthorizeKeyRelease
-
 	@available(iOS 14.4, *)
-	var keysAvailableHandler: ENDiagnosisKeysAvailableHandler? {
-		return manager.keysAvailableHandler
-	}
-	@available(iOS 14.4, *)
-	func preAuthorizedKeys(completion: @escaping ENErrorHandler) {
-		manager.preAuthorizedKeys(completion: completion)
-	}
-	
-	@available(iOS 14.4, *)
-	func requestPreAuthorizedKeys(completion: @escaping ENErrorHandler) {
-		manager.requestPreAuthorizedKeys(completion: completion)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler) {
+		manager.preAuthorizeKeys(completion: completion)
 	}
 	
 	// MARK: Error Handling

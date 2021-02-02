@@ -338,7 +338,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.acceptPairing()
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				if #available(iOS 14.4, *) {
-					self?.exposureManager.preAuthorizedKeys(completion: { error in
+					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						if let error = error as? ENError {
 							switch error.toExposureSubmissionError() {
 							case .notAuthorized:
