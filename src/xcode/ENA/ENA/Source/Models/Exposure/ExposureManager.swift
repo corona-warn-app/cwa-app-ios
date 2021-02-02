@@ -319,9 +319,18 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		if #available(iOS 14.4, *), let manager = manager as? ENManager {
+			// This handler receives preauthorized keys. Once the handler is called,
+			// the preauthorization expires, so the handler should only be called
+			// once per preauthorization request. If the user doesn't authorize
+			// release, this handler isn't called.
 			manager.diagnosisKeysAvailableHandler = { keys in
 				completionHandler(keys, nil)
 			}
+			// This call requests preauthorized keys. The request fails if the
+			// user doesn't authorize release or if more than five days pass after
+			// authorization. If requestPreAuthorizedDiagnosisKeys(:) has already
+			// been called since the last time the user preauthorized, the call
+			// doesn't fail but also doesn't return any keys.
 			manager.requestPreAuthorizedDiagnosisKeys { error in
 				if let error = error {
 					completionHandler(nil, error)
