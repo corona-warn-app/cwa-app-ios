@@ -53,7 +53,7 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 		button.layer.cornerRadius = 8.0
 		button.layer.masksToBounds = true
 		button.layer.borderWidth = 1.0
-		button.layer.borderColor = UIColor.white.cgColor
+		button.layer.borderColor = UIColor.enaColor(for: .background).cgColor
 
 		contentView.addSubview(button)
 
