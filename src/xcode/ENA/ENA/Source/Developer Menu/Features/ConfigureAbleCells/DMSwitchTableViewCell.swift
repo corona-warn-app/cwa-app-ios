@@ -18,6 +18,7 @@ class DMSwitchTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		infoLabel.font = .enaFont(for: .subheadline)
 		toggleSwitch.addTarget(self, action: #selector(toggleHit), for: .valueChanged)
 	}
 

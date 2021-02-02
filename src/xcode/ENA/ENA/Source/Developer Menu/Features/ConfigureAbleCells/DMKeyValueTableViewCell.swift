@@ -45,10 +45,12 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 		keyLabel.translatesAutoresizingMaskIntoConstraints = false
 		keyLabel.font = .enaFont(for: .subheadline)
 		keyLabel.numberOfLines = 0
+		keyLabel.textAlignment = .left
 
 		valueLabel.translatesAutoresizingMaskIntoConstraints = false
 		valueLabel.font = .enaFont(for: .subheadline)
 		valueLabel.numberOfLines = 0
+		valueLabel.textAlignment = .right
 
 		let stackView = UIStackView(arrangedSubviews: [keyLabel, valueLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +61,7 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 		NSLayoutConstraint.activate([
 			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
-			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20.0),
+			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
 			stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
 			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45.0)
