@@ -153,6 +153,12 @@
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Erneut starten";
 
+"ExposureDetection_Survey_Card_Title" = "Befragung zur Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Helfen Sie uns, die App zu verbessern, indem Sie einige einfache Fragen beantworten.";
+
+"ExposureDetection_Survey_Card_Button" = "Zur Befragung";
+
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
 
