@@ -248,15 +248,15 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 
-		waitForExpectations(timeout: 5, handler: { (erro) in
+		waitForExpectations(timeout: 5, handler: { [weak self] _ in
 			if survayEnabled {
-				self.checkHighRiskConfigurationWithSurvayEnabled(
+				self?.checkHighRiskConfigurationWithSurvayEnabled(
 					of: viewModel.dynamicTableViewModel,
 					viewController: viewController,
 					isLoading: false
 				)
 			} else {
-				self.checkHighRiskConfiguration(
+				self?.checkHighRiskConfiguration(
 					of: viewModel.dynamicTableViewModel,
 					viewController: viewController,
 					isLoading: false
