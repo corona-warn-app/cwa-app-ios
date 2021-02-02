@@ -375,7 +375,6 @@ final class HTTPClient: Client {
 		}
 	}
 
-
 	private func otpAuthorizationSuccessHandler(
 		for response: URLSession.Response,
 		completion: @escaping OTPAuthorizationCompletionHandler
@@ -394,12 +393,12 @@ final class HTTPClient: Client {
 				from: responseBody
 			)
 			guard let expirationDate = decodedResponse.expirationDate else {
-				Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
+				Log.error("Failed to get expirationDate out of decoded response", log: .api)
 				completion(.failure(.invalidResponseError))
 				return
 			}
 			completion(.success(expirationDate))
-		} catch _ {
+		} catch {
 			Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
 			completion(.failure(.invalidResponseError))
 		}

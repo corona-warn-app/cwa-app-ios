@@ -4,10 +4,8 @@
 
 import Foundation
 
-typealias OTPResponseProperties = Properties
-
-// Needed to decode the server response
-struct Properties: Codable {
+// Do not edit this struct as it has the properties as we get them from the server response.
+struct OTPResponseProperties: Codable {
 	let expirationDate: Date?
 	let errorCode: OTPServerErrorCode?
 }

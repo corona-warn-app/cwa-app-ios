@@ -166,8 +166,7 @@ extension ClientMock: Client {
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
 		guard let onGetOTP = self.onGetOTP else {
-			let dateString = ISO8601DateFormatter().string(from: Date())
-			completion(.success(dateString))
+			completion(.success(Date()))
 			return
 		}
 
