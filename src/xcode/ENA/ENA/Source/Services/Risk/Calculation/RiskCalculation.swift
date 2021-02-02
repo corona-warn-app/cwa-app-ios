@@ -39,6 +39,8 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) throws -> RiskCalculationResult {
+		Log.info("[RiskCalculation] Started risk calculation", log: .riskDetection)
+
 		mappedExposureWindows = exposureWindows
 			.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 
@@ -62,6 +64,9 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 					.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
 					.map({ $0.riskLevel })
 			else {
+				Log.error("[RiskCalculation] Risk calculation failed: normalized time \(normalizedTime) is not contained in \(configuration.normalizedTimePerDayToRiskLevelMapping)\n\nRiskCalculationConfiguration: \(configuration)\n\nmappedExposureWindows: \(mappedExposureWindows)\n\nnormalizedTimePerDate \(normalizedTimePerDate)", log: .riskDetection)
+
+
 				throw RiskCalculationError.invalidConfiguration
 			}
 
@@ -106,6 +111,8 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 		/// 12. Determine `Number of Days With High Risk`
 		numberOfDaysWithHighRisk = riskLevelPerDate.filter { $0.value == .high }.count
+
+		Log.info("[RiskCalculation] Finished risk calculation", log: .riskDetection)
 
 		calculationDate = Date()
 
