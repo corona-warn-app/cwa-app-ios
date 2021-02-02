@@ -16,13 +16,22 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	init(
 		homeState: HomeState,
 		appConfigurationProvider: AppConfigurationProviding,
-		onSurveyTap: @escaping () -> Void,
+		onSurveyTap: @escaping (String?) -> Void,
 		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
 		self.homeState = homeState
 		self.appConfigurationProvider = appConfigurationProvider
 		self.onInactiveButtonTap = onInactiveButtonTap
 		self.onSurveyTap = onSurveyTap
+
+		appConfigurationProvider.appConfiguration()
+			.sink { [weak self] in
+				self?.appConfiguration = $0
+				if let state = self?.homeState.riskState {
+					self?.setup(for: state)
+				}
+			}
+			.store(in: &subscriptions)
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -165,10 +174,10 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	// MARK: - Private
 
 	private let homeState: HomeState
-	private let appConfigurationProvider: AppConfigurationProviding
+	let appConfigurationProvider: AppConfigurationProviding
 
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
-	private let onSurveyTap: () -> Void
+	private let onSurveyTap: (String?) -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
@@ -397,12 +406,9 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func highRiskModel(risk: Risk) -> DynamicTableViewModel {
-		// make [DynamicCells]
-		//add them to viewModel,
-		
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
-		return DynamicTableViewModel([
+		var sections: [DynamicSection] = [
 			riskDataSection(
 				footer: .riskTint(height: 16),
 				cells: [
@@ -430,7 +436,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					])
 				]
 			),
-			surveySection(),
 			activeTracingSection(
 				risk: risk,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
@@ -442,7 +447,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
-		])
+		]
+		let survayParameters = appConfiguration.eventDrivenUserSurveyParameters.common
+		if survayParameters.surveyOnHighRiskEnabled && !survayParameters.surveyOnHighRiskURL.isEmpty {
+			sections.insert(surveySection(), at: 3)
+		}
+		return DynamicTableViewModel(sections)
 	}
 
 	// MARK: Sections
@@ -519,19 +529,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				.custom(
 					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
 					action: .execute(block: { [weak self] _, _ in
-						self?.onSurveyTap()
+										self?.onSurveyTap(self?.surveyOnHighRiskURL)
 					}),
 					accessoryAction: .none,
 					configure: { _, cell, _ in
 						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
 							surveyCell.configure(with: ExposureDetectionSurveyCellModel()) { [weak self] in
-								self?.onSurveyTap()
-							}
+								self?.onSurveyTap(self?.surveyOnHighRiskURL)							}
 						}
 					})
 			]
 		)
 	}
+
 
 	private func activeTracingSection(risk: Risk, accessibilityIdentifier: String?) -> DynamicSection {
 		let p0 = NSLocalizedString(
@@ -628,18 +638,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
-	}
-	
-	// should detect returning from background also from viewDidLoad from the VC
-	func updateAppConfiguration() {
-		appConfigurationProvider.appConfiguration().sink { [weak self] in
-			self?.appConfiguration = $0
-			if let state = self?.homeState.riskState {
-				self?.setup(for: state)
-			}
-			print("%%%\($0.eventDrivenUserSurveyParameters.common.surveyOnHighRiskEnabled)")
-		}
-		.store(in: &subscriptions)
 	}
 }
 

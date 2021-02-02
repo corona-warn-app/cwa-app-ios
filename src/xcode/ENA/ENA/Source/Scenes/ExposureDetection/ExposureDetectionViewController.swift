@@ -97,7 +97,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 
 		viewModel.$isButtonEnabled.assign(to: \.isEnabled, on: checkButton).store(in: &subscriptions)
 		viewModel.$buttonTitle.assign(to: \.accessibilityLabel, on: checkButton).store(in: &subscriptions)
-		viewModel.updateAppConfiguration()
 	}
 
 	override func viewDidLayoutSubviews() {

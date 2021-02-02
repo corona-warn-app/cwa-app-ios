@@ -29,8 +29,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -97,8 +98,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -178,7 +180,21 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
 
-	func testHighRiskState() {
+	func testHighRiskStateWithDisabledSurvay() {
+		highRiskTesting(survayEnabled: false)
+		highRiskHomeStatesTesting(survayEnabled: false)
+
+	}
+	
+	func testHighRiskStateWithEnabledSurvay() {
+		highRiskTesting(survayEnabled: true)
+		highRiskHomeStatesTesting(survayEnabled: true)
+	}
+
+
+	private func highRiskTesting(survayEnabled: Bool) {
+		var subscriptions = Set<AnyCancellable>()
+		
 		let store = MockTestStore()
 
 		let mostRecentDateWithHighRisk = Date()
@@ -207,21 +223,46 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			)
 		)
 		homeState.updateDetectionMode(.automatic)
-
+		
+		let configuration: AppConfigurationProviding
+		if survayEnabled {
+			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: true, isEventSurvayUrlAvailable: true)
+		} else {
+			configuration = CachedAppConfigurationMock()
+		}
+		
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in },
-			onSurveyTap: { }
+			appConfigurationProvider: configuration,
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
 		)
-
+		
 		// Needed to check the isHidden state of sections
 		let viewController = ExposureDetectionViewController(viewModel: viewModel, store: store)
+		
+		let appConfigurationExpectation = expectation(description: "appConfigurationIsSet")
+		viewModel.appConfigurationProvider.appConfiguration()
+			.sink { _ in
+				appConfigurationExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
 
-		checkHighRiskConfiguration(
-			of: viewModel.dynamicTableViewModel,
-			viewController: viewController,
-			isLoading: false
-		)
+		waitForExpectations(timeout: 5, handler: { (erro) in
+			if survayEnabled {
+				self.checkHighRiskConfigurationWithSurvayEnabled(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: false
+				)
+			} else {
+				self.checkHighRiskConfiguration(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: false
+				)
+			}
+		})
 
 		XCTAssertEqual(viewModel.titleText, AppStrings.ExposureDetection.high)
 		XCTAssertEqual(viewModel.riskBackgroundColor, .enaColor(for: .riskHigh))
@@ -244,36 +285,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			)
 		)
 
-		// Check downloading state
-
-		homeState.riskProviderActivityState = .downloading
-
-		checkHighRiskConfiguration(
-			of: viewModel.dynamicTableViewModel,
-			viewController: viewController,
-			isLoading: true
-		)
-
-		// Check detecting state
-
-		homeState.riskProviderActivityState = .detecting
-
-		checkHighRiskConfiguration(
-			of: viewModel.dynamicTableViewModel,
-			viewController: viewController,
-			isLoading: true
-		)
-
-		// Check idle state
-
-		homeState.riskProviderActivityState = .idle
-
-		checkHighRiskConfiguration(
-			of: viewModel.dynamicTableViewModel,
-			viewController: viewController,
-			isLoading: false
-		)
-
 		// Check that button is shown in manual mode
 
 		homeState.updateDetectionMode(.manual)
@@ -286,7 +297,130 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
+	
+	func highRiskHomeStatesTesting(survayEnabled: Bool) {
+		var subscriptions = Set<AnyCancellable>()
 
+		let store = MockTestStore()
+
+		let mostRecentDateWithHighRisk = Date()
+		let calculationDate = Date()
+		store.riskCalculationResult = RiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 1,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: calculationDate,
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
+
+		let homeState = HomeState(
+			store: store,
+			riskProvider: MockRiskProvider(),
+			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
+			enState: .enabled,
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
+		)
+		homeState.updateDetectionMode(.automatic)
+		
+		let configuration: AppConfigurationProviding
+		if survayEnabled {
+			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: true, isEventSurvayUrlAvailable: true)
+		} else {
+			configuration = CachedAppConfigurationMock()
+		}
+		
+		let viewModel = ExposureDetectionViewModel(
+			homeState: homeState,
+			appConfigurationProvider: configuration,
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
+		)
+		
+		// Needed to check the isHidden state of sections
+		let viewController = ExposureDetectionViewController(viewModel: viewModel, store: store)
+		
+		let appConfigurationExpectation = expectation(description: "appConfigurationIsSet")
+		viewModel.appConfigurationProvider.appConfiguration()
+			.sink { _ in
+				appConfigurationExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		waitForExpectations(timeout: 5, handler: { [weak self] _ in
+			if survayEnabled {
+				
+				// Check downloading state
+				
+				homeState.riskProviderActivityState = .downloading
+				
+				self?.checkHighRiskConfigurationWithSurvayEnabled(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: true
+				)
+				
+				// Check detecting state
+				
+				homeState.riskProviderActivityState = .detecting
+				
+				self?.checkHighRiskConfigurationWithSurvayEnabled(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: true
+				)
+				
+				// Check idle state
+				
+				homeState.riskProviderActivityState = .idle
+				
+				self?.checkHighRiskConfigurationWithSurvayEnabled(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: false
+				)
+			} else {
+				
+				// Check downloading state
+				
+				homeState.riskProviderActivityState = .downloading
+				
+				self?.checkHighRiskConfiguration(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: true
+				)
+				
+				// Check detecting state
+				
+				homeState.riskProviderActivityState = .detecting
+				
+				self?.checkHighRiskConfiguration(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: true
+				)
+				
+				// Check idle state
+				
+				homeState.riskProviderActivityState = .idle
+				
+				self?.checkHighRiskConfiguration(
+					of: viewModel.dynamicTableViewModel,
+					viewController: viewController,
+					isLoading: false
+				)
+			}
+		})
+	}
+	
 	func testInactiveState() {
 		let store = MockTestStore()
 
@@ -306,8 +440,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -384,8 +519,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -491,8 +627,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -550,8 +687,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -597,8 +735,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -642,10 +781,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let onInactiveButtonTapExpectation = expectation(description: "onInactiveButtonTap not called")
 		onInactiveButtonTapExpectation.isInverted = true
 
+
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() },
-			onSurveyTap: { }
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -756,6 +897,47 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
 
+		// Active tracing section
+		section = dynamicTableViewModel.section(3)
+		XCTAssertEqual(section.cells.count, 2)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
+
+		// Explanation section
+		section = dynamicTableViewModel.section(4)
+		XCTAssertEqual(section.cells.count, 2)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
+	}
+
+	private func checkHighRiskConfigurationWithSurvayEnabled(
+		of dynamicTableViewModel: DynamicTableViewModel,
+		viewController: ExposureDetectionViewController,
+		isLoading: Bool
+	) {
+		// Risk data section
+		var section = dynamicTableViewModel.section(0)
+		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
+		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
+		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
+		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? true : false)
+
+		// Loading section
+		section = dynamicTableViewModel.section(1)
+		XCTAssertEqual(section.cells.count, 1)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskLoadingCell")
+		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? false : true)
+
+		// Behaviour section
+		section = dynamicTableViewModel.section(2)
+		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
+		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
+
 		// Survey section
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 1)
@@ -772,7 +954,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}
-
+	
 	private func checkInactiveOrFailedConfiguration(
 		of dynamicTableViewModel: DynamicTableViewModel,
 		viewController: ExposureDetectionViewController,
