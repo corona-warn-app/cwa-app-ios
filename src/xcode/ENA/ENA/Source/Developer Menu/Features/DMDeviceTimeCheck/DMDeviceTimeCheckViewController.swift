@@ -42,14 +42,14 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let section = DMDeviceTimeCheckViewModel.menuItems(rawValue: indexPath.section) else {
+		guard let section = DMDeviceTimeCheckViewModel.Sections(rawValue: indexPath.section) else {
 			fatalError("unknonw tableview section")
 		}
 
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
-
 		switch section {
-		case .deviceTimeCheckState:
+
+		case .deviceTimeCheckState, .timestampLastChange:
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: "DMKeyValueTableViewCell") as? DMKeyValueTableViewCell else {
 				fatalError("Failed to deque cell")
 			}
@@ -77,6 +77,9 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 	private let viewModel: DMDeviceTimeCheckViewModel
 
 	private func setupTableView() {
+		tableView.estimatedRowHeight = 45.0
+		tableView.rowHeight = UITableView.automaticDimension
+		
 		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "DMSwitchTableViewCell")
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: "DMKeyValueTableViewCell")
 	}

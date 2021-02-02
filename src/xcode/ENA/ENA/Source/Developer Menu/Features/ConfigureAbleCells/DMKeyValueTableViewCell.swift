@@ -58,10 +58,11 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20.0),
+			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20.0),
 			stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 45.0)
 		])
 
 	}
