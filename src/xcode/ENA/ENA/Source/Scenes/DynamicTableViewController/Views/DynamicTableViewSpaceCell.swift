@@ -26,7 +26,7 @@ class DynamicTableViewSpaceCell: UITableViewCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		contentView.translatesAutoresizingMaskIntoConstraints = false
+
 		height = UITableView.automaticDimension
 		backgroundColor = nil
 	}
