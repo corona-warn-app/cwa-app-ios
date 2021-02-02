@@ -25,6 +25,8 @@ class DMPPACViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		title = "PPAC Service 🏄‍♂️"
 	}
 
 	// MARK: - Protocol <#Name#>
