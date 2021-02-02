@@ -64,6 +64,10 @@ class ExposureDetectionSurveyTableViewCell: UITableViewCell {
 		updateIllustration(for: traitCollection)
 		clipsToBounds = false
 
+		// This is needed for the shadow of the cardView to appear correctly on the cell beneath the survey cell.
+		// If this is not set the shadow will, in some cases (based on order of cell dequeuing) not not appear on the cell beneath the survey cell.
+		layer.zPosition = 42
+
 		setupAccessibility()
 	}
 
