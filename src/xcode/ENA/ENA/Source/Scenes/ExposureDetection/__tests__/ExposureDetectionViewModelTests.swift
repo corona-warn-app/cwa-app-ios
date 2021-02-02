@@ -191,6 +191,65 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		highRiskHomeStatesTesting(survayEnabled: true)
 	}
 
+	func testEventSurvayDisabled_cellShouldBeHidden() {
+		var subscriptions = Set<AnyCancellable>()
+		
+		let store = MockTestStore()
+		
+		let mostRecentDateWithHighRisk = Date()
+		let calculationDate = Date()
+		store.riskCalculationResult = RiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 1,
+			mostRecentDateWithLowRisk: nil,
+			mostRecentDateWithHighRisk: mostRecentDateWithHighRisk,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: calculationDate,
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
+		
+		let homeState = HomeState(
+			store: store,
+			riskProvider: MockRiskProvider(),
+			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
+			enState: .enabled,
+			exposureSubmissionService: MockExposureSubmissionService(),
+			statisticsProvider: StatisticsProvider(
+				client: CachingHTTPClientMock(store: store),
+				store: store
+			)
+		)
+		homeState.updateDetectionMode(.automatic)
+		
+		let configuration = CachedAppConfigurationMock(isEventSurvayEnabled: false, isEventSurvayUrlAvailable: false)
+		
+		let viewModel = ExposureDetectionViewModel(
+			homeState: homeState,
+			appConfigurationProvider: configuration,
+			onSurveyTap: { _ in },
+			onInactiveButtonTap: { _ in }
+		)
+		
+		// Needed to check the isHidden state of sections
+		let viewController = ExposureDetectionViewController(viewModel: viewModel, store: store)
+		
+		let appConfigurationExpectation = expectation(description: "appConfigurationIsSet")
+		viewModel.appConfigurationProvider.appConfiguration()
+			.sink { _ in
+				appConfigurationExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+		
+		waitForExpectations(timeout: 5, handler: { [weak self] _ in
+			self?.checkHighRiskConfiguration(
+				of: viewModel.dynamicTableViewModel,
+				viewController: viewController,
+				isLoading: false
+			)
+		})
+	}
 
 	private func highRiskTesting(survayEnabled: Bool) {
 		var subscriptions = Set<AnyCancellable>()
@@ -226,7 +285,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		let configuration: AppConfigurationProviding
 		if survayEnabled {
-			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: true, isEventSurvayUrlAvailable: true)
+			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: survayEnabled, isEventSurvayUrlAvailable: true)
 		} else {
 			configuration = CachedAppConfigurationMock()
 		}
@@ -298,7 +357,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
 	
-	func highRiskHomeStatesTesting(survayEnabled: Bool) {
+	private func highRiskHomeStatesTesting(survayEnabled: Bool) {
 		var subscriptions = Set<AnyCancellable>()
 
 		let store = MockTestStore()
@@ -332,7 +391,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		let configuration: AppConfigurationProviding
 		if survayEnabled {
-			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: true, isEventSurvayUrlAvailable: true)
+			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: survayEnabled, isEventSurvayUrlAvailable: true)
 		} else {
 			configuration = CachedAppConfigurationMock()
 		}
