@@ -81,7 +81,7 @@ class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePrese
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
 			  let dismissableViewController = topViewController as? DismissHandling  else {
-			// this is the default behavior
+			// this is the default behaviour
 			dismiss(animated: true)
 			return
 		}
