@@ -93,6 +93,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	// MARK: - Internal
 
+	let appConfigurationProvider: AppConfigurationProviding
+
 	enum CloseButtonStyle {
 		case normal
 		case contrast
@@ -174,7 +176,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	// MARK: - Private
 
 	private let homeState: HomeState
-	let appConfigurationProvider: AppConfigurationProviding
 
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
 	private let onSurveyTap: (String?) -> Void
