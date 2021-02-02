@@ -43,7 +43,7 @@ class DMKeyValueTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 		valueLabel.translatesAutoresizingMaskIntoConstraints = false
 		valueLabel.font = .enaFont(for: .subheadline)
-		valueLabel.numberOfLines = 1
+		valueLabel.numberOfLines = 0
 		valueLabel.textAlignment = .left
 		valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 

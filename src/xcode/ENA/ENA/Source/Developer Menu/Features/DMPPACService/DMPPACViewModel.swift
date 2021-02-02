@@ -38,9 +38,18 @@ final class DMPPCViewModel {
 		}
 		
 		switch section {
-		case .apiTokenWithCreatinDate:
+		case .ppacApiToken:
 			let ppacApiToken = store.ppacApiToken?.token ?? "no API Token generated yet"
 			return DMKeyValueCellViewModel(key: "API Token", value: ppacApiToken)
+
+		case .ppacApiTokenLastChange:
+			let creationDate: String
+			if let timestamp = store.ppacApiToken?.timestamp {
+				creationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
+			} else {
+				creationDate = "unknown"
+			}
+			return DMKeyValueCellViewModel(key: "creation date", value: creationDate)
 
 		case .deviceToken:
 			var deviceTokenText: String
@@ -58,7 +67,7 @@ final class DMPPCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					self?.didTapCell(indexPath)
+					self?.generatePpacAPIToken()
 				}
 			)
 
@@ -68,7 +77,11 @@ final class DMPPCViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					self?.didTapCell(indexPath)
+					self?.ppacService?.getPPACToken({ [weak self] result in
+						self?.lastKnownDeviceToken = result
+						self?.refreshTableView([TableViewSections.deviceToken.rawValue])
+					})
+
 				}
 			)
 		}
@@ -80,40 +93,22 @@ final class DMPPCViewModel {
 	private let ppacService: PrivacyPreservingAccessControl?
 	private var lastKnownDeviceToken: Result<PPACToken, PPACError>?
 
-	private func didTapCell(_ indexPath: IndexPath) {
-		guard let section = TableViewSections(rawValue: indexPath.section) else {
-			fatalError("Unknown cell requested - stop")
-		}
-
-		switch section {
-		case .generateAPIToken:
-			generatePpacAPIToken()
-		case .generateDeviceToken:
-			Log.debug("we need to create a device token")
-			ppacService?.getPPACToken({ [weak self] result in
-				self?.lastKnownDeviceToken = result
-				self?.refreshTableView([TableViewSections.deviceToken.rawValue])
-			})
-
-		default:
-			break
-		}
-
-	}
-
 	private func generatePpacAPIToken() {
 		guard (ppacService?.generateNewAPIToken()) != nil else {
 			return
 		}
-		refreshTableView([TableViewSections.apiTokenWithCreatinDate.rawValue])
+		refreshTableView(
+			[TableViewSections.ppacApiToken.rawValue,
+			 TableViewSections.ppacApiTokenLastChange.rawValue]
+		)
 	}
 
 	private enum TableViewSections: Int, CaseIterable {
-		case apiTokenWithCreatinDate
+		case ppacApiToken
+		case ppacApiTokenLastChange
 		case generateAPIToken
 		case deviceToken
 		case generateDeviceToken
-		// todo: force API Token authorization -> OTP
 	}
 
 }

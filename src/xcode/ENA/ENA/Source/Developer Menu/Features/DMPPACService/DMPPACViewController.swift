@@ -38,9 +38,8 @@ class DMPPACViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		// by help of a protocol for cellViewModel we might simplyfiy this even more
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
-//		let testCell = tableView.dequeueReusableCell(cellType: cellViewModel.self, for: indexPath)
-
 		if cellViewModel is DMKeyValueCellViewModel {
 			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
