@@ -121,22 +121,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		navigationController?.setNavigationBarHidden(false, animated: false)
 	}
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = super.tableView(tableView, cellForRowAt: indexPath)
-
-		(cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
-
-		if cell.backgroundView == nil {
-			cell.backgroundView = UIView()
-		}
-
-		if cell.backgroundColor == nil || cell.backgroundColor == .clear {
-			cell.backgroundView?.backgroundColor = .enaColor(for: .background)
-		}
-
-		return cell
-	}
-
 	// MARK: - Internal
 
 	enum ReusableCellIdentifier: String, TableViewCellReuseIdentifiers {
