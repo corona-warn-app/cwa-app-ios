@@ -41,9 +41,17 @@ final class DMPPCViewModel {
 		case .apiTokenWithCreatinDate:
 			let ppacApiToken = store.ppacApiToken?.token ?? "no API Token generated yet"
 			return DMKeyValueCellViewModel(key: "API Token", value: ppacApiToken)
+
 		case .deviceToken:
-			let deviceToken = lastKnownDeviceToken ?? "no device token created"
-			return DMKeyValueCellViewModel(key: "Device Token", value: deviceToken)
+			var deviceTokenText: String
+			switch lastKnownDeviceToken {
+			case .none, .some(.failure):
+				deviceTokenText = "no device token created"
+			case .some(.success(let ppacToken)):
+				deviceTokenText = ppacToken.deviceToken
+			}
+			return DMKeyValueCellViewModel(key: "Device Token", value: deviceTokenText)
+
 		case .generateAPIToken:
 			return DMButtonCellViewModel(
 				text: "Generate new API Token",
@@ -53,6 +61,7 @@ final class DMPPCViewModel {
 					self?.didTapCell(indexPath)
 				}
 			)
+
 		case .generateDeviceToken:
 			return DMButtonCellViewModel(
 				text: "Generate Device Token",
@@ -69,7 +78,7 @@ final class DMPPCViewModel {
 
 	private let store: Store
 	private let ppacService: PrivacyPreservingAccessControl?
-	private var lastKnownDeviceToken: String?
+	private var lastKnownDeviceToken: Result<PPACToken, PPACError>?
 
 	private func didTapCell(_ indexPath: IndexPath) {
 		guard let section = TableViewSections(rawValue: indexPath.section) else {
@@ -81,6 +90,11 @@ final class DMPPCViewModel {
 			generatePpacAPIToken()
 		case .generateDeviceToken:
 			Log.debug("we need to create a device token")
+			ppacService?.getPPACToken({ [weak self] result in
+				self?.lastKnownDeviceToken = result
+				self?.refreshTableView([TableViewSections.deviceToken.rawValue])
+			})
+
 		default:
 			break
 		}
