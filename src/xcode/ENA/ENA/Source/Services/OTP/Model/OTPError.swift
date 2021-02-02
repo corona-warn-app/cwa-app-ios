@@ -18,6 +18,7 @@ enum OTPError: Error {
 	case deviceTokenSyntaxError
 }
 
+// Do not edit this cases as they are decoded as they are from the server.
 enum OTPServerErrorCode: String, Codable {
 	case API_TOKEN_ALREADY_ISSUED
 	case API_TOKEN_EXPIRED
