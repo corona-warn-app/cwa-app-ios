@@ -28,7 +28,14 @@ class DiaryInfoViewController: DynamicTableViewController, ENANavigationControll
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		setupView()
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			onTap: { [weak self] in
+				self?.onDismiss()
+			}
+		)
 		navigationController?.navigationBar.prefersLargeTitles = true
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 	}
