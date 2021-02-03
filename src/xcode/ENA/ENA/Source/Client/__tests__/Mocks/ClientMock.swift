@@ -163,6 +163,7 @@ extension ClientMock: Client {
 		otp: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
+		ppacHeader: Bool = false,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
 		guard let onGetOTP = self.onGetOTP else {

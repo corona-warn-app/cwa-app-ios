@@ -300,6 +300,11 @@ final class SecureStore: Store {
 		set { kvStore["mostRecentRiskCalculationConfiguration"] = newValue }
 	}
 
+	var forceAPITokenAuthorization: Bool {
+		get { kvStore["forceAPITokenAuthorization"] as Bool? ?? false }
+		set { kvStore["forceAPITokenAuthorization"] = newValue }
+	}
+
 	#endif
 }
 

@@ -71,7 +71,13 @@ final class OTPService: OTPServiceProviding {
 	private func authorize(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		
 		// We autohorize the otp with the ppacToken at our server.
-		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, completion: { [weak self] result in
+
+		var ppacHeader = false
+		#if !RELEASE
+		ppacHeader = store.forceAPITokenAuthorization
+		#endif
+
+		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, ppacHeader: ppacHeader, completion: { [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
 				completion(.failure(OTPError.generalError))

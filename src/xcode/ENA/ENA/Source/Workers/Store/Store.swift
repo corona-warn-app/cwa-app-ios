@@ -119,6 +119,9 @@ protocol StoreProtocol: AnyObject {
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
 	var dmKillDeviceTimeCheck: Bool { get set }
+
+	var forceAPITokenAuthorization: Bool { get set }
+
 	#endif
 
 }

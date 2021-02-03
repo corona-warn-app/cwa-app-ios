@@ -49,6 +49,12 @@ class DMPPACViewController: UITableViewController {
 			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
+		} else if cellViewModel is DMSwitchCellViewModel {
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: DMSwitchTableViewCell.reuseIdentifier) as? DMSwitchTableViewCell else {
+				fatalError("unsopported cellViewModel - can't find a matching cell")
+			}
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
 		} else {
 			fatalError("unsopported cellViewModel - can't find a matching cell")
 		}
@@ -72,6 +78,7 @@ class DMPPACViewController: UITableViewController {
 
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
 		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
+		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: DMSwitchTableViewCell.reuseIdentifier)
 
 		// wire up tableview with the viewModel
 		viewModel.refreshTableView = { indexSet in

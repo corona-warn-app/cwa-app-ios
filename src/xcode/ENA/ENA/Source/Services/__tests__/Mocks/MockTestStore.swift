@@ -64,6 +64,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var mostRecentRiskCalculation: RiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
+	var forceAPITokenAuthorization = false
 	#endif
 
 	// MARK: - AppConfigCaching
