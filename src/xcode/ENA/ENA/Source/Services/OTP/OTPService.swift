@@ -20,8 +20,6 @@ final class OTPService: OTPServiceProviding {
 		self.client = client
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol OTPServiceProviding
 
 	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
@@ -32,7 +30,8 @@ final class OTPService: OTPServiceProviding {
 			// We have a token, check now if it is not from the current month or the expirationDate is not reeched
 			let timestamp = token.timestamp
 			if Date() <= token.timestamp {
-				guard Calendar.current.isDate(timestamp, equalTo: Date(), toGranularity: .month) else {
+				guard timestamp.isEqual(to: Date(), toGranularity: .month),
+					  timestamp.isEqual(to: Date(), toGranularity: .year) else {
 					Log.warning("OTP was already used this month", log: .otp)
 					return completion(.failure(OTPError.otpAlreadyUsedThisMonth))
 				}
@@ -51,10 +50,6 @@ final class OTPService: OTPServiceProviding {
 			})
 		}
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
