@@ -1515,7 +1515,7 @@ sein.";
 
 "ContactDiary_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
 
-"ContactDiary_Information_PrimaryButton_Title" = "Tagebuch führen";
+"ContactDiary_Information_PrimaryButton_Title" = "Tagebuch öffnen";
 
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Speichern";
