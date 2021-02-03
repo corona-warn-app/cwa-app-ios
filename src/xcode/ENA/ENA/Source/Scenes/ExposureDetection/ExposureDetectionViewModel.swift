@@ -24,15 +24,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		self.onInactiveButtonTap = onInactiveButtonTap
 		self.onSurveyTap = onSurveyTap
 
-		appConfigurationProvider.appConfiguration()
-			.sink { [weak self] in
-				self?.appConfiguration = $0
-				if let state = self?.homeState.riskState {
-					self?.setup(for: state)
-				}
-			}
-			.store(in: &subscriptions)
-
 		homeState.$riskState
 			.sink { [weak self] in
 				self?.scheduleCountdownTimer()
@@ -114,7 +105,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
 	@OpenCombine.Published var exposureNotificationError: ExposureNotificationError?
-	@OpenCombine.Published var appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS = SAP_Internal_V2_ApplicationConfigurationIOS()
 
 	var previousRiskTitle: String {
 		switch homeState.lastRiskCalculationResult?.riskLevel {
@@ -184,7 +174,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private var timeUntilUpdate: String?
 
 	private var riskProviderActivityState: RiskProviderActivityState = .idle
-
+	private var surveyOnHighRiskURL: String?
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
@@ -280,7 +270,16 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		case .low:
 			dynamicTableViewModel = lowRiskModel(risk: risk)
 		case .high:
-			dynamicTableViewModel = highRiskModel(risk: risk)
+			appConfigurationProvider.appConfiguration()
+				.sink { [weak self] in
+					let survayParameters = $0.eventDrivenUserSurveyParameters.common
+					let isSurvayEnabled = survayParameters.surveyOnHighRiskEnabled && !survayParameters.surveyOnHighRiskURL.isEmpty
+					self?.surveyOnHighRiskURL = survayParameters.surveyOnHighRiskURL
+					if let dynamicViewModel = self?.highRiskModel(risk: risk, isSurvayEnabled: isSurvayEnabled) {
+						self?.dynamicTableViewModel = dynamicViewModel
+					}
+				}
+				.store(in: &subscriptions)
 		}
 
 		titleText = risk.level.text
@@ -406,7 +405,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
-	private func highRiskModel(risk: Risk) -> DynamicTableViewModel {
+	private func highRiskModel(risk: Risk, isSurvayEnabled: Bool) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
 		var sections: [DynamicSection] = [
@@ -449,8 +448,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
 		]
-		let survayParameters = appConfiguration.eventDrivenUserSurveyParameters.common
-		if survayParameters.surveyOnHighRiskEnabled && !survayParameters.surveyOnHighRiskURL.isEmpty {
+		if isSurvayEnabled {
 			sections.insert(surveySection(), at: 3)
 		}
 		return DynamicTableViewModel(sections)
@@ -530,13 +528,14 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				.custom(
 					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
 					action: .execute(block: { [weak self] _, _ in
-										self?.onSurveyTap(self?.surveyOnHighRiskURL)
+						self?.onSurveyTap(self?.surveyOnHighRiskURL)
 					}),
 					accessoryAction: .none,
 					configure: { _, cell, _ in
 						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
 							surveyCell.configure(with: ExposureDetectionSurveyCellModel()) { [weak self] in
-								self?.onSurveyTap(self?.surveyOnHighRiskURL)							}
+								self?.onSurveyTap(self?.surveyOnHighRiskURL)
+							}
 						}
 					})
 			]
