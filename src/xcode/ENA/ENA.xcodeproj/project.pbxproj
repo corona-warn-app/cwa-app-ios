@@ -3634,15 +3634,7 @@
 			isa = PBXGroup;
 			children = (
 				BA3D8DA525C98A910020655E /* DMConfigureableCell.swift */,
-				BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */,
-				BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */,
-				BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */,
-				BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */,
-				BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */,
-				BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */,
-				BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */,
-				BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */,
-				BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */,
+				BAA8BB0C25CAEF0000E29CFE /* CellsAndViewModels */,
 			);
 			path = ConfigureAbleCells;
 			sourceTree = "<group>";
@@ -3661,6 +3653,22 @@
 				BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAA8BB0C25CAEF0000E29CFE /* CellsAndViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */,
+				BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */,
+				BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */,
+				BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */,
+				BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */,
+				BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */,
+				BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */,
+				BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */,
+				BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */,
+			);
+			path = CellsAndViewModels;
 			sourceTree = "<group>";
 		};
 		BAB1239A25729FEA00A179FB /* TANInputViewController */ = {
