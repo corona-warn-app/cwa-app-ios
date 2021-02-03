@@ -40,12 +40,15 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		self.config = config
 	}
 	
-	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
-		 isEventSurvayEnabled: Bool,
-		 isEventSurvayUrlAvailable: Bool) {
+	init(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
+		isEventSurvayEnabled: Bool,
+		isEventSurvayUrlAvailable: Bool
+	) {
 		self.config = config
-		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(isEnabled: isEventSurvayEnabled,
-																							 isCorrectURL: isEventSurvayUrlAvailable)
+		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
+			isEnabled: isEventSurvayEnabled,
+			isCorrectURL: isEventSurvayUrlAvailable)
 	}
 	
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
