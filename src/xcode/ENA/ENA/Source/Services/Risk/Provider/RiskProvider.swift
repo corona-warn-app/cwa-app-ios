@@ -71,36 +71,34 @@ final class RiskProvider: RiskProviding {
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
-		successOnTargetQueue(risk: Risk.mocked)
+		guard activityState == .idle else {
+			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)
+			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
+			return
+		}
 
-//		guard activityState == .idle else {
-//			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)
-//			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
-//			return
-//		}
-//
-//		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-//			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
-//			return
-//		}
-//
-//		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-//			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
-//			return
-//		}
-//
-//		queue.async {
-//			self.updateActivityState(.riskRequested)
-//
-//			#if DEBUG
-//			if isUITesting {
-//				self._requestRiskLevel_Mock(userInitiated: userInitiated)
-//				return
-//			}
-//			#endif
-//
-//			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
-//		}
+		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+			return
+		}
+
+		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+			return
+		}
+
+		queue.async {
+			self.updateActivityState(.riskRequested)
+
+			#if DEBUG
+			if isUITesting {
+				self._requestRiskLevel_Mock(userInitiated: userInitiated)
+				return
+			}
+			#endif
+
+			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
+		}
 	}
 
 	// MARK: - Private

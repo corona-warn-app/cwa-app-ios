@@ -25,7 +25,7 @@ extension Risk {
 extension Risk {
 	static let mocked = Risk(
 		// UITests can set app.launchArguments "-riskLevel"
-		level: .high, //UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
+		level: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0,
