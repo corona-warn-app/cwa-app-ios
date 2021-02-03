@@ -4,7 +4,7 @@
 #if !RELEASE
 import UIKit
 
-class DMButtonTableViewCell: UITableViewCell, DMConfigureAbleCell {
+class DMButtonTableViewCell: UITableViewCell, DMConfigureableCell {
 
 	// MARK: - Init
 
