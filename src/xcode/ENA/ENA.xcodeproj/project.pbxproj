@@ -3517,6 +3517,8 @@
 			children = (
 				BAB6C80825C463DB00E042FB /* __tests__ */,
 				BAB6C7ED25C4624E00E042FB /* Model */,
+				BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */,
+				BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */,
 				BA07735B25C2FCB800EAF6B8 /* PPACService.swift */,
 			);
 			path = PPAC;
@@ -3669,7 +3671,6 @@
 		BAB6C7ED25C4624E00E042FB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */,
 				BAB6C7FD25C4630800E042FB /* PPACError.swift */,
 				BAB6C7F825C462E600E042FB /* PPACToken.swift */,
 				BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */,
@@ -3680,7 +3681,6 @@
 		BAB6C80825C463DB00E042FB /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */,
 				BAB6C82225C4666900E042FB /* PPACServiceTest.swift */,
 				BAB6C81125C4652D00E042FB /* PPACTokenTests.swift */,
 				BAB6C80925C4640500E042FB /* TimestampedTokenTests.swift */,
