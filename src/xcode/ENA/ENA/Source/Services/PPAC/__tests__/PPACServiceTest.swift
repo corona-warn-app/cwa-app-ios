@@ -47,23 +47,17 @@ class PPACServiceTest: XCTestCase {
 		wait(for: [failedExpectation], timeout: .medium)
 	}
 
-	func testGIVEN_DeviceTimeIsCorrect_WHEN_InitPPACService_THEN_Success() {
+	func testGIVEN_DeviceTimeIsCorrect_WHEN_InitPPACService_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .correct
 
 		// WHEN
-		do {
-			let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
-			// THEN
-			XCTAssertNotNil(ppacService)
+		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+		// THEN
+		XCTAssertNotNil(ppacService)
 
-		} catch PPACError.deviceNotSupported {
-			XCTFail("device not supported")
-		} catch {
-			XCTFail("unexpected error")
-		}
 	}
 
 	func testGIVEN_DeviceIsNotSupported_WHEN_PPACService_THEN_ErrorDeviceNotSupported() {
@@ -98,9 +92,8 @@ class PPACServiceTest: XCTestCase {
 		let ppacExpectation = expectation(description: "Init failed")
 
 		// WHEN
-
-		let ppacService = try? XCTUnwrap(PPACService(store: store, deviceCheck: deviceCheck))
-		ppacService?.getPPACToken({ result in
+		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+		ppacService.getPPACToken({ result in
 			switch result {
 			case let .success(ppaToken):
 				ppacExpectation.fulfill()
@@ -116,17 +109,13 @@ class PPACServiceTest: XCTestCase {
 		wait(for: [ppacExpectation], timeout: .long)
 	}
 
-	func testGIVEN_NoStoredAPIToken_WHEN_generateAPITokenb_THEN_NewTokenCreatedAndStored() {
+	func testGIVEN_NoStoredAPIToken_WHEN_generateAPIToken_THEN_NewTokenCreatedAndStored() throws {
 		// GIVEN
-
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 
 		// WHEN
-		guard let ppacService = try? PPACService(store: store, deviceCheck: deviceCheck) else {
-			XCTFail("failed to create ppacService")
-			return
-		}
+		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
 		let timestampedToken = ppacService.generateNewAPIToken()
 
 		// THEN
@@ -135,9 +124,8 @@ class PPACServiceTest: XCTestCase {
 		XCTAssertEqual(timestampedToken.token, store.ppacApiToken?.token)
 	}
 
-	func testGIVEN_ValidStoredAPIToken_WHEN_generateAPITokenb_THEN_NewTokenCreatedAndStored() {
+	func testGIVEN_ValidStoredAPIToken_WHEN_generateAPITokenb_THEN_NewTokenCreatedAndStored() throws {
 		// GIVEN
-
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 
@@ -146,10 +134,7 @@ class PPACServiceTest: XCTestCase {
 		store.ppacApiToken = TimestampedToken(token: uuid, timestamp: today)
 
 		// WHEN
-		guard let ppacService = try? PPACService(store: store, deviceCheck: deviceCheck) else {
-			XCTFail("failed to create ppacService")
-			return
-		}
+		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
 		let timestampedToken = ppacService.generateNewAPIToken()
 
 		// THEN
