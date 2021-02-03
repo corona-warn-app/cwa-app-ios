@@ -213,14 +213,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Reset key value store.
 		do {
-			/// ppac API Toke is excluded from the reset
-			/// read ecluded value from the current store
+			/// ppac API Token is excluded from the reset
+			/// read value from the current store
 			let ppacAPIToken = store.ppacApiToken
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
-			/// write excluded values back to the new store
+			/// write excluded value back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
 		} catch {
 			fatalError("Creating new database key failed")
