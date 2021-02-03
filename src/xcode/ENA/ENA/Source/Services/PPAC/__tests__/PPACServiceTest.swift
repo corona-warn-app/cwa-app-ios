@@ -116,4 +116,48 @@ class PPACServiceTest: XCTestCase {
 		wait(for: [ppacExpectation], timeout: .long)
 	}
 
+	func testGIVEN_NoStoredAPIToken_WHEN_generateAPITokenb_THEN_NewTokenCreatedAndStored() {
+		// GIVEN
+
+		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+
+		// WHEN
+		guard let ppacService = try? PPACService(store: store, deviceCheck: deviceCheck) else {
+			XCTFail("failed to create ppacService")
+			return
+		}
+		let timestampedToken = ppacService.generateNewAPIToken()
+
+		// THEN
+		XCTAssertNotNil(store.ppacApiToken)
+		XCTAssertEqual(timestampedToken.timestamp, store.ppacApiToken?.timestamp)
+		XCTAssertEqual(timestampedToken.token, store.ppacApiToken?.token)
+	}
+
+	func testGIVEN_ValidStoredAPIToken_WHEN_generateAPITokenb_THEN_NewTokenCreatedAndStored() {
+		// GIVEN
+
+		let store = MockTestStore()
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+
+		let uuid = UUID().uuidString
+		let today = Date()
+		store.ppacApiToken = TimestampedToken(token: uuid, timestamp: today)
+
+		// WHEN
+		guard let ppacService = try? PPACService(store: store, deviceCheck: deviceCheck) else {
+			XCTFail("failed to create ppacService")
+			return
+		}
+		let timestampedToken = ppacService.generateNewAPIToken()
+
+		// THEN
+		XCTAssertNotNil(store.ppacApiToken)
+		XCTAssertNotEqual(timestampedToken.timestamp, today)
+		XCTAssertNotEqual(timestampedToken.token, uuid)
+		XCTAssertEqual(timestampedToken.timestamp, store.ppacApiToken?.timestamp)
+		XCTAssertEqual(timestampedToken.token, store.ppacApiToken?.token)
+	}
+
 }
