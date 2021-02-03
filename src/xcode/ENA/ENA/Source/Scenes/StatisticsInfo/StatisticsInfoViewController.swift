@@ -73,9 +73,17 @@ class StatisticsInfoViewController: DynamicTableViewController {
 	}
 
 	private var model: DynamicTableViewModel {
-		DynamicTableViewModel([
+		let insets: UIEdgeInsets
+		if #available(iOS 13, *) {
+			insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+		} else {
+			insets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 0)
+		}
+
+		return DynamicTableViewModel([
 			.navigationSubtitle(
 				text: AppStrings.Statistics.Info.subtitle,
+				insets: insets,
 				accessibilityIdentifier: nil
 			),
 			.section(
