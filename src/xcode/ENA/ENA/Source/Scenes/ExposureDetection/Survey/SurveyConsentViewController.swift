@@ -4,7 +4,7 @@
 
 import UIKit
 
-final class SurveyConsentViewController: UIViewController {
+final class SurveyConsentViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Init
 
@@ -18,6 +18,7 @@ final class SurveyConsentViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -26,8 +27,10 @@ final class SurveyConsentViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = .white
-		createAndLayoutViewHierarchy()
+		setupView()
+
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.SurveyConsent.acceptButton
+		footerView?.isHidden = false
 	}
 
 	// MARK: - Protocol
@@ -36,17 +39,37 @@ final class SurveyConsentViewController: UIViewController {
 
 	// MARK: - Internal
 
-	func createAndLayoutViewHierarchy() {
-		let button = UIButton(type: .custom)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		button.setTitle("Start Survey", for: .normal)
-		button.setTitleColor(.red, for: .normal)
-		button.addTarget(self, action: #selector(didTap), for: .touchUpInside)
-		button.accessibilityIdentifier = AccessibilityIdentifiers.ExposureDetection.surveyStartButton
-		view.addSubview(button)
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
+	}
 
-		button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-		button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+	// MARK: - Private
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.SurveyConsent.acceptButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+
+		return item
+	}()
+
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .background)
+
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
+		)
+
+//		tableView.register(
+//			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
+//			forCellReuseIdentifier: ReuseIdentifiers.countries.rawValue
+//		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+		tableView.separatorStyle = .none
 	}
 
 	@objc

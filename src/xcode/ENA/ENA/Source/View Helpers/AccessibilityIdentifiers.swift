@@ -156,6 +156,12 @@ enum AccessibilityIdentifiers {
 		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
 	}
 
+	enum SurveyConsent {
+		static let acceptButton = "AppStrings.SurveyConsent.acceptButton"
+		static let titleImage = "AppStrings.SurveyConsent.titleImage"
+		static let title = "AppStrings.SurveyConsent.title"
+	}
+
 	enum ExposureSubmissionQRScanner {
 		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
 	}
