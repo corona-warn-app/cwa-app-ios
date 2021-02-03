@@ -73,7 +73,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
+			<string>Actualizare în %02u:%2$#@seconds@ secunde</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Actualizare în %02u:%2$#@seconds@ minut</string>
@@ -128,7 +128,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<string>Înregistrarea în jurnal a expunerilor a fost activă mai puțin de o zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
