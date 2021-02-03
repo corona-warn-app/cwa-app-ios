@@ -62,6 +62,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	// MARK: - Protocol CountdownTimerDelegate
 
 	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		timeUntilUpdate = nil
+		
 		if case .risk = homeState.riskState, homeState.manualExposureDetectionState == .possible {
 			buttonTitle = AppStrings.Home.riskCardUpdateButton
 			isButtonEnabled = true

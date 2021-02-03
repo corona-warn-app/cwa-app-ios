@@ -7,7 +7,7 @@ import ExposureNotification
 
 /// Determines the risk level for one exposure window
 /// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#determine-risk-level-for-exposure-windows
-final class RiskCalculationExposureWindow: Codable {
+final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible {
 
 	// MARK: - Init
 
@@ -17,6 +17,21 @@ final class RiskCalculationExposureWindow: Codable {
 	) {
 		self.exposureWindow = exposureWindow
 		self.configuration = configuration
+	}
+
+	// MARK: - CustomDebugStringConvertible
+
+	var debugDescription: String {
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+		encoder.dateEncodingStrategy = .iso8601
+
+		if let data = try? encoder.encode(self),
+		   let jsonString = String(data: data, encoding: .utf8) {
+			return jsonString
+		}
+
+		return "RiskCalculationExposureWindow"
 	}
 
 	// MARK: - Protocol Codable
