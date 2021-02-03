@@ -609,6 +609,8 @@
 		BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */; };
 		BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */; };
 		BA9E4B0125B5DFCB00F284EF /* RiskLevelPerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */; };
+		BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */; };
+		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
 		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
 		BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */; };
@@ -1365,6 +1367,8 @@
 		BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModel.swift; sourceTree = "<group>"; };
 		BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModelTests.swift; sourceTree = "<group>"; };
 		BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModelTest.swift; sourceTree = "<group>"; };
+		BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextCellViewModel.swift; sourceTree = "<group>"; };
+		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
 		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
 		BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedToken.swift; sourceTree = "<group>"; };
@@ -3630,6 +3634,8 @@
 			isa = PBXGroup;
 			children = (
 				BA3D8DA525C98A910020655E /* DMConfigureableCell.swift */,
+				BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */,
+				BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */,
 				BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */,
 				BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */,
 				BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */,
@@ -4386,6 +4392,7 @@
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
+				BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */,
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
@@ -4648,6 +4655,7 @@
 				EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */,
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
+				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				01A4DC6E25922EB4007D5794 /* HomeImageItemView.swift in Sources */,
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,
