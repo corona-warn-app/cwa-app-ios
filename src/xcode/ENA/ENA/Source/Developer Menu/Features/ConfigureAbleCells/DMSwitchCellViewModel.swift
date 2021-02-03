@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-struct DMSwitchCellViewModel {
+public struct DMSwitchCellViewModel {
 
 	let labelText: String
 	let isOn: () -> Bool
