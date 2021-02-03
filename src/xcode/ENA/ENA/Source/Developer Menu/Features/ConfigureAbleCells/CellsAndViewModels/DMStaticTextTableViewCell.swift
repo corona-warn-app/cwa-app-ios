@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+#if !RELEASE
+
 import UIKit
 
 class DMStaticTextTableViewCell: UITableViewCell, DMConfigureableCell {
@@ -55,3 +57,4 @@ class DMStaticTextTableViewCell: UITableViewCell, DMConfigureableCell {
 	}
 
 }
+#endif
