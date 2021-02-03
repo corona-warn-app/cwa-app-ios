@@ -54,13 +54,13 @@ final class AppleFilesWriterTests: XCTestCase {
 		let hasBin = url0.pathExtension == "bin" || url1.pathExtension == "bin"
 		XCTAssertTrue(hasBin)
 
-		let writtenFiles = try? FileManager().contentsOfDirectory(
+		let writtenFiles = try FileManager().contentsOfDirectory(
 			at: rootDir,
 			includingPropertiesForKeys: nil,
 			options: .skipsHiddenFiles
 		)
 
-		XCTAssertEqual(writtenFiles?.count, 2)
+		XCTAssertEqual(writtenFiles.count, 2)
 
 		writer.writtenPackages.cleanUp()
 	

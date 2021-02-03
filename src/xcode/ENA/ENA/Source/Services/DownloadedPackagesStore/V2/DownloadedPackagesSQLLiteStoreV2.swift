@@ -62,7 +62,11 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
 				// tbd: what to do on errors?
-				try? self.migrator.migrate()
+				do {
+					try self.migrator.migrate()
+				} catch {
+					Log.error("Migration error", log: .localData, error: error)
+				}
 			} else {
 				self.database.executeStatements(
 				"""
@@ -93,8 +97,11 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 	}
 
 	func close() {
-		_ = queue.sync {
-			self.database.close()
+		queue.sync {
+			guard self.database.close() else {
+				Log.error("Can't close database!", log: .localData, error: nil)
+				return
+			}
 		}
 	}
 
