@@ -158,7 +158,10 @@ jobs:
           name: Package Screenshots
           command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' screenshots && cd -
       - store_artifacts:
-          path: src/xcode/screenshots/screenshots.tar
+          path: src/xcode/screenshots/screenshots.tar.gz
+      - run:
+          name: Announce new screenshots to MS Teams
+          command: ./scripts/announce_screenshots.sh https://${CIRCLE_BUILD_NUM}-268042230-gh.circle-artifacts.com/0/src/xcode/screenshots/screenshots.tar.gz
   testflight-release:
     macos:
       xcode: *xcode_version
