@@ -136,6 +136,7 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
+                            <color key="backgroundColor" name="ENA Background Color"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="FjB-4L-7aG" secondAttribute="trailing" id="Akp-t7-mD7"/>
                                 <constraint firstAttribute="bottom" secondItem="FjB-4L-7aG" secondAttribute="bottom" constant="16" id="Ddu-y1-zu8"/>
