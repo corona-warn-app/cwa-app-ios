@@ -70,7 +70,7 @@ final class CachedAppConfiguration {
 
 	private func getAppConfig(with etag: String? = nil) -> Future<AppConfigResponse, Never> {
 		return Future { promise in
-			Self.queue.async(flags: .barrier) {
+			Self.queue.sync(flags: .barrier) {
 				guard !self.requestIsRunning else {
 					Log.debug("Return immediately because request allready running.", log: .appConfig)
 					Log.debug("Append promise.", log: .appConfig)
