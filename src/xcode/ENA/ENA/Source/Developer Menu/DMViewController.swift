@@ -145,6 +145,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
+		case .ppacService:
+			vc = DMPPACViewController(store)
 		}
 		
 		if let vc = vc {

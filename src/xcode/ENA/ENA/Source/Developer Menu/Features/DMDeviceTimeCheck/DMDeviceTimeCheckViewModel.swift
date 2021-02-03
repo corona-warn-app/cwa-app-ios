@@ -15,21 +15,32 @@ final class DMDeviceTimeCheckViewModel {
 		self.store = store
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
-	var itemsCount: Int {
-		return menuItems.allCases.count
+	enum Sections: Int, CaseIterable {
+		case deviceTimeCheckState
+		case timestampLastChange
+		case killDeviceTimeCheck
 	}
 
-	func cellViewModel(for indexPath: IndexPath) -> DMSwitchCellViewModel {
-		guard let item = menuItems(rawValue: indexPath.row) else {
-			fatalError("failed to create cellViewModel")
+	let itemsCount: Int = 1
+
+	var numberOfSections: Int {
+		return Sections.allCases.count
+	}
+
+	func cellViewModel(for indexPath: IndexPath) -> Any {
+		guard let section = Sections(rawValue: indexPath.section) else {
+			fatalError("Invalid tableview section")
 		}
-		switch item {
+		switch section {
+		case .deviceTimeCheckState:
+			let status = String(describing: store.deviceTimeCheckResult)
+			return DMKeyValueCellViewModel(key: "Time Check state:", value: status)
+
+		case .timestampLastChange:
+			let timestampString = DateFormatter.localizedString(from: store.deviceTimeLastStateChange, dateStyle: .medium, timeStyle: .medium)
+			return DMKeyValueCellViewModel(key: "Last state change:", value: timestampString)
 
 		case .killDeviceTimeCheck:
 			return DMSwitchCellViewModel(
@@ -46,10 +57,6 @@ final class DMDeviceTimeCheckViewModel {
 	// MARK: - Private
 	
 	private let store: Store
-
-	private enum menuItems: Int, CaseIterable {
-		case killDeviceTimeCheck
-	}
 
 }
 
