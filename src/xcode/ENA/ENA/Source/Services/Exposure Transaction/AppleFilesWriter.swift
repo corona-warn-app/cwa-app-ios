@@ -14,13 +14,16 @@ struct WrittenPackages {
 		guard let directoryURL = urls.first?.deletingLastPathComponent() else {
 			return
 		}
-		
+			
 		let fileManager = FileManager()
 		Log.info("Removing: \(directoryURL)", log: .localData)
-		
-		// Remove the whole directory, instead of removing each file and than forget to remove the directory
-		try? fileManager.removeItem(at: directoryURL)
-		
+
+		do {
+			// Remove the whole directory, instead of removing each file and than forget to remove the directory
+			try fileManager.removeItem(at: directoryURL)
+		} catch {
+			Log.error("Can't remove item at \(directoryURL)", log: .localData, error: error)
+		}
 	}
 
 	mutating func add(_ url: URL) {
