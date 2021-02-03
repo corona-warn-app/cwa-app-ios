@@ -304,6 +304,7 @@
 		505F508325C897B3004920EB /* OTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F508225C897B3004920EB /* OTPError.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
+		50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5057C25CAEF5C00EEA380 /* OTPToken.swift */; };
 		50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6124FE1E8700932566 /* AppInformationModel.swift */; };
 		50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */; };
 		50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */; };
@@ -1052,6 +1053,7 @@
 		505F508225C897B3004920EB /* OTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPError.swift; sourceTree = "<group>"; };
 		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
+		50B5057C25CAEF5C00EEA380 /* OTPToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPToken.swift; sourceTree = "<group>"; };
 		50BD2E6124FE1E8700932566 /* AppInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModel.swift; sourceTree = "<group>"; };
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
 		50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImprintTest.swift; sourceTree = "<group>"; };
@@ -2243,6 +2245,7 @@
 			children = (
 				505F508225C897B3004920EB /* OTPError.swift */,
 				5021532825C988D80006842D /* OTPResponse.swift */,
+				50B5057C25CAEF5C00EEA380 /* OTPToken.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4311,6 +4314,7 @@
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				B120C7CA24AFF12D00F68FF1 /* ActiveTracing.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
+				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
 				01909877257E64BD0065D050 /* DiaryEditEntriesViewController.swift in Sources */,
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,

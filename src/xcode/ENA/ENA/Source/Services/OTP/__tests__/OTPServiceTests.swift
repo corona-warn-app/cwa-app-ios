@@ -50,7 +50,7 @@ class OTPServiceTests: XCTestCase {
 			XCTFail("Could not create iso8601 date")
 			return
 		}
-		let oldToken = TimestampedToken(token: "otpTokenFake", timestamp: isoDate)
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: isoDate)
 		store.otpToken = oldToken
 		var expectedOtp: String?
 
@@ -88,7 +88,7 @@ class OTPServiceTests: XCTestCase {
 			XCTFail("Could not create iso8601 date")
 			return
 		}
-		let oldToken = TimestampedToken(token: "otpTokenFake", timestamp: isoDate)
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: isoDate)
 		store.otpToken = oldToken
 		var expectedOtp: String?
 
@@ -129,7 +129,7 @@ class OTPServiceTests: XCTestCase {
 			XCTFail("Could not create iso8601 date")
 			return
 		}
-		let oldToken = TimestampedToken(token: "otpTokenFake", timestamp: isoDate)
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: isoDate)
 		store.otpToken = oldToken
 		var expectedError: OTPError?
 

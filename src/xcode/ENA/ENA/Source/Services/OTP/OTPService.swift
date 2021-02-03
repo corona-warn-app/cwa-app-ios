@@ -28,10 +28,14 @@ final class OTPService: OTPServiceProviding {
 		if let token = store.otpToken {
 
 			// We have a token, check now if it is not from the current month or the expirationDate is not reeched
-			let timestamp = token.timestamp
-			if Date() <= token.timestamp {
-				guard !timestamp.isEqual(to: Date(), toGranularity: .month),
-					  !timestamp.isEqual(to: Date(), toGranularity: .year) else {
+			guard let expirationDate = token.expirationDate else {
+				Log.error("could not create date of tokens expirationDate", log: .otp)
+				completion(.failure(OTPError.generalError))
+				return
+			}
+			if Date() <= expirationDate {
+				guard !expirationDate.isEqual(to: Date(), toGranularity: .month),
+					  !expirationDate.isEqual(to: Date(), toGranularity: .year) else {
 					Log.warning("OTP was already used this month", log: .otp)
 					return completion(.failure(OTPError.otpAlreadyUsedThisMonth))
 				}
@@ -59,7 +63,7 @@ final class OTPService: OTPServiceProviding {
 	private func generateAndStoreFreshOTPToken(completion: @escaping (String) -> Void ) {
 		let uuid = UUID().uuidString
 		let utcDate = Date()
-		let token = TimestampedToken(token: uuid, timestamp: utcDate)
+		let token = OTPToken(token: uuid, timestamp: utcDate, expirationDate: nil)
 		store.otpToken = token
 		completion(token.token)
 	}
@@ -77,13 +81,13 @@ final class OTPService: OTPServiceProviding {
 			switch result {
 			case .success(let timestamp):
 				// Success: We store the timestamp of the authorized otp and return the token.
-				guard let verifiedOTP = self.store.otpToken?.token else {
+				guard let verifiedOTP = self.store.otpToken else {
 					Log.error("could not retrieve otp token from store", log: .otp)
 					completion(.failure(OTPError.generalError))
 					return
 				}
 
-				let verifiedToken = TimestampedToken(token: verifiedOTP, timestamp: timestamp)
+				let verifiedToken = OTPToken(token: verifiedOTP.token, timestamp: verifiedOTP.timestamp, expirationDate: timestamp)
 				self.store.otpToken = verifiedToken
 
 				completion(.success(verifiedToken.token))
