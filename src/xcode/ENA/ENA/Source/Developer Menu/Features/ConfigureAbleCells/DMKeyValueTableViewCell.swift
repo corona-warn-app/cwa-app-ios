@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMKeyValueTableViewCell: UITableViewCell, DMConfigureAbleCell {
+class DMKeyValueTableViewCell: UITableViewCell, DMConfigureableCell {
 
 	// MARK: - Init
 
