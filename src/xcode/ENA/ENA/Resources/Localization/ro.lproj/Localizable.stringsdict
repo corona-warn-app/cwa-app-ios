@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Expuneri cu risc redus în %u de zile</string>
+			<string>Nicio expunere</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Expuneri cu risc redus într-o zi</string>
