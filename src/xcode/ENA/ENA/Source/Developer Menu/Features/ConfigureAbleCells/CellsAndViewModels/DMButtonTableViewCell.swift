@@ -1,7 +1,9 @@
 ////
 // 🦠 Corona-Warn-App
 //
+
 #if !RELEASE
+
 import UIKit
 
 class DMButtonTableViewCell: UITableViewCell, DMConfigureableCell {
