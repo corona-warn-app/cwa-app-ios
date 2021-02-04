@@ -10,8 +10,11 @@ class DMOTPServiceViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init( _ store: Store ) {
-		self.viewModel = DMOTPServiceViewModel(store)
+	init(
+		store: Store,
+		client: Client
+	) {
+		self.viewModel = DMOTPServiceViewModel(store: store, client: client)
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -40,6 +43,10 @@ class DMOTPServiceViewController: UITableViewController {
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
 		if cellViewModel is DMKeyValueCellViewModel {
 			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+		} else if cellViewModel is DMButtonCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 		} else {

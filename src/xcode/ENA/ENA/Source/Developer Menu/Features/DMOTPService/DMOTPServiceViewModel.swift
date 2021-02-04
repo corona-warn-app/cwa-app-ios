@@ -10,8 +10,12 @@ final class DMOTPServiceViewModel {
 
 	// MARK: - Init
 
-	init( _ store: Store) {
+	init(
+		store: Store,
+		client: Client
+	) {
 		self.store = store
+		self.otpService = OTPService(store: store, client: client)
 	}
 
 	// MARK: - Internal
@@ -55,7 +59,18 @@ final class DMOTPServiceViewModel {
 				expirationDate = "The OTP was not authorized and so has no expirationDate"
 			}
 			return DMKeyValueCellViewModel(key: "otp expiration date", value: expirationDate)
+		case .discardOtp:
+			return DMButtonCellViewModel(
+				text: "Discard OTP Token",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.otpService.discardOTP()
+					self?.refreshTableView([TableViewSections.otpToken.rawValue, TableViewSections.otpExpirationDate.rawValue, TableViewSections.otpTimestamp.rawValue])
+				}
+			)
 		}
+
 	}
 
 	// MARK: - Private
@@ -64,9 +79,11 @@ final class DMOTPServiceViewModel {
 		case otpToken
 		case otpTimestamp
 		case otpExpirationDate
+		case discardOtp
 	}
 
 	private let store: Store
+	private let otpService: OTPService
 
 	private var lastKnownDeviceToken: Result<PPACToken, PPACError>?
 }
