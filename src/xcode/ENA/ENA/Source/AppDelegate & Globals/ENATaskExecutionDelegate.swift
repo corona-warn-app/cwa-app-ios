@@ -2,11 +2,30 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import BackgroundTasks
+import Foundation
 import UIKit
 
-extension AppDelegate: ENATaskExecutionDelegate {
+class TaskExecutionHandler: ENATaskExecutionDelegate {
+
+	var riskProvider: RiskProvider
+	var pdService: PlausibleDeniability
+	var contactDiaryStore: ContactDiaryStore
+
+	var dependencies: ExposureSubmissionServiceDependencies
+	private let backgroundTaskConsumer = RiskConsumer()
+
+	init(
+		riskProvider: RiskProvider,
+		plausibleDeniabilityService: PlausibleDeniabilityService,
+		contactDiaryStore: ContactDiaryStore,
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies) {
+		self.riskProvider = riskProvider
+		self.pdService = plausibleDeniabilityService
+		self.contactDiaryStore = contactDiaryStore
+		self.dependencies = exposureSubmissionDependencies
+	}
+
 
 	/// This method executes the background tasks needed for fetching test results, performing exposure detection
 	/// and executing plausible deniability fake requests.
@@ -50,7 +69,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		group.enter()
 		DispatchQueue.global().async {
 			Log.info("Starting FakeRequests…", log: .background)
-			self.executeFakeRequests {
+			self.pdService.executeFakeRequests {
 				group.leave()
 				Log.info("Done sending FakeRequests…", log: .background)
 			}
@@ -74,11 +93,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		Log.info("[ENATaskExecutionDelegate] Attempt submission of temporary exposure keys.", log: .api)
 
 		let service = ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			warnOthersReminder: WarnOthersReminder(store: store)
+			diagnosisKeysRetrieval: dependencies.exposureManager,
+			appConfigurationProvider: dependencies.appConfigurationProvider,
+			client: dependencies.client,
+			store: dependencies.store,
+			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
 		)
 
 		service.submitExposure { error in
@@ -101,20 +120,20 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	/// part of the app, a local notification is shown.
 	private func executeFetchTestResults(completion: @escaping ((Bool) -> Void)) {
 		// First check if user activated notification setting
-		guard self.store.allowTestsStatusNotification else {
+		guard self.dependencies.store.allowTestsStatusNotification else {
 			completion(false)
 			return
 		}
 		
 		let service = ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			warnOthersReminder: WarnOthersReminder(store: store)
+			diagnosisKeysRetrieval: dependencies.exposureManager,
+			appConfigurationProvider: dependencies.appConfigurationProvider,
+			client: dependencies.client,
+			store: dependencies.store,
+			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
 		)
 
-		guard store.registrationToken != nil && store.testResultReceivedTimeStamp == nil else {
+		guard dependencies.store.registrationToken != nil && dependencies.store.testResultReceivedTimeStamp == nil else {
 			completion(false)
 			return
 		}
@@ -186,13 +205,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			switch error {
 			case .failedRiskDetection(let reason):
 				if case .wrongDeviceTime = reason {
-					if !self.store.wasDeviceTimeErrorShown {
+					if !self.dependencies.store.wasDeviceTimeErrorShown {
 						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.WrongDeviceTime.errorPushNotificationTitle,
 							body: AppStrings.WrongDeviceTime.errorPushNotificationText,
 							identifier: ActionableNotificationIdentifier.deviceTimeCheck.identifier
 						)
-						self.store.wasDeviceTimeErrorShown = true
+						self.dependencies.store.wasDeviceTimeErrorShown = true
 					}
 				}
 			default:
