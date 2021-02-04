@@ -72,7 +72,7 @@ final class OTPService: OTPServiceProviding {
 
 	func discardOTP() {
 		store.otpToken = nil
-		Log.info("OTP was discarded.")
+		Log.info("OTP was discarded.", log: .otp)
 	}
 
 	// MARK: - Private
