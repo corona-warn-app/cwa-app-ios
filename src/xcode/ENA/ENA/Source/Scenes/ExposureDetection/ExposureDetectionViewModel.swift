@@ -15,10 +15,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	init(
 		homeState: HomeState,
-		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void,
-		onSurveyTap: @escaping () -> Void
+		appConfigurationProvider: AppConfigurationProviding,
+		onSurveyTap: @escaping (String?) -> Void,
+		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
 		self.homeState = homeState
+		self.appConfigurationProvider = appConfigurationProvider
 		self.onInactiveButtonTap = onInactiveButtonTap
 		self.onSurveyTap = onSurveyTap
 
@@ -81,6 +83,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	// MARK: - Internal
+
+	let appConfigurationProvider: AppConfigurationProviding
 
 	enum CloseButtonStyle {
 		case normal
@@ -162,14 +166,15 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	// MARK: - Private
 
 	private let homeState: HomeState
+
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
-	private let onSurveyTap: () -> Void
+	private let onSurveyTap: (String?) -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
 
 	private var riskProviderActivityState: RiskProviderActivityState = .idle
-
+	private var surveyOnHighRiskURL: String?
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
@@ -265,9 +270,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		case .low:
 			dynamicTableViewModel = lowRiskModel(risk: risk)
 		case .high:
-			dynamicTableViewModel = highRiskModel(risk: risk)
+			appConfigurationProvider.appConfiguration()
+				.sink { [weak self] in
+					guard let self = self else {
+						Log.debug("failed to get strong self")
+						return
+					}
+					let surveyParameters = $0.eventDrivenUserSurveyParameters.common
+					let isSurveyEnabled = surveyParameters.surveyOnHighRiskEnabled && !surveyParameters.surveyOnHighRiskURL.isEmpty
+					self.surveyOnHighRiskURL = surveyParameters.surveyOnHighRiskURL
+					self.dynamicTableViewModel = self.highRiskModel(risk: risk, isSurveyEnabled: isSurveyEnabled)
+				}
+				.store(in: &subscriptions)
 		}
-
 		titleText = risk.level.text
 		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
 
@@ -391,10 +406,10 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
-	private func highRiskModel(risk: Risk) -> DynamicTableViewModel {
+	private func highRiskModel(risk: Risk, isSurveyEnabled: Bool) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
-		return DynamicTableViewModel([
+		var sections: [DynamicSection] = [
 			riskDataSection(
 				footer: .riskTint(height: 16),
 				cells: [
@@ -422,7 +437,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					])
 				]
 			),
-			surveySection(),
 			activeTracingSection(
 				risk: risk,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
@@ -434,7 +448,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
-		])
+		]
+		if isSurveyEnabled {
+			sections.insert(surveySection(), at: 3)
+		}
+		return DynamicTableViewModel(sections)
 	}
 
 	// MARK: Sections
@@ -511,19 +529,20 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				.custom(
 					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
 					action: .execute(block: { [weak self] _, _ in
-						self?.onSurveyTap()
+						self?.onSurveyTap(self?.surveyOnHighRiskURL)
 					}),
 					accessoryAction: .none,
 					configure: { _, cell, _ in
 						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
 							surveyCell.configure(with: ExposureDetectionSurveyCellModel()) { [weak self] in
-								self?.onSurveyTap()
+								self?.onSurveyTap(self?.surveyOnHighRiskURL)
 							}
 						}
 					})
 			]
 		)
 	}
+
 
 	private func activeTracingSection(risk: Risk, accessibilityIdentifier: String?) -> DynamicSection {
 		let p0 = NSLocalizedString(
@@ -621,7 +640,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			]
 		)
 	}
-
 }
 
 extension RiskLevel {

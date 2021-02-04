@@ -59,7 +59,7 @@ extension DynamicCell {
 			cell.textView.delegate = viewController as? UITextViewDelegate
 			cell.textView.isUserInteractionEnabled = true
 			cell.textView.dataDetectorTypes = [.link, .phoneNumber]
-			
+
 			if let url = url {
 				cell.textView.load(from: url)
 			}

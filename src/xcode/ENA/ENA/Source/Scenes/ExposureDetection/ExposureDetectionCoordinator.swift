@@ -11,28 +11,32 @@ final class ExposureDetectionCoordinator {
 	private let store: Store
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
+	private let appConfigurationProvider: AppConfigurationProviding
 
 	init(
 		rootViewController: UIViewController,
 		store: Store,
 		homeState: HomeState,
-		exposureManager: ExposureManager
+		exposureManager: ExposureManager,
+		appConfigurationProvider: AppConfigurationProviding
 	) {
 		self.rootViewController = rootViewController
 		self.store = store
 		self.homeState = homeState
 		self.exposureManager = exposureManager
+		self.appConfigurationProvider = appConfigurationProvider
 	}
 
 	func start() {
 		let exposureDetectionController = ExposureDetectionViewController(
 			viewModel: ExposureDetectionViewModel(
 				homeState: homeState,
+				appConfigurationProvider: appConfigurationProvider,
+				onSurveyTap: { [weak self] urlString in
+					self?.showSurveyConsent(for: urlString)
+				},
 				onInactiveButtonTap: { [weak self] completion in
 					self?.setExposureManagerEnabled(true, then: completion)
-				},
-				onSurveyTap: { [weak self] in
-					self?.showSurveyConsent()
 				}
 			),
 			store: store
@@ -45,10 +49,10 @@ final class ExposureDetectionCoordinator {
 		rootViewController.present(_navigationController, animated: true)
 	}
 
-	private func showSurveyConsent() {
+	private func showSurveyConsent(for surveyURL: String?) {
 		setNavigationBarHidden(false)
-
-		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel()) { [weak self] url in
+		
+		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(urlString: surveyURL)) { [weak self] url in
 			self?.showSurveyWebpage(url: url)
 		}
 		navigationController?.pushViewController(surveyConsentViewController, animated: true)
