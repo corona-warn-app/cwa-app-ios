@@ -93,7 +93,7 @@ class Coordinator: RequiresAppDependencies {
 				onInfoBarButtonItemTap: { [weak self] in
 					self?.showRiskLegend()
 				},
-				onExposureDetectionCellTap: { [weak self] enState in
+				onExposureLoggingCellTap: { [weak self] enState in
 					self?.showExposureNotificationSetting(enState: enState)
 				},
 				onRiskCellTap: { [weak self] homeState in
