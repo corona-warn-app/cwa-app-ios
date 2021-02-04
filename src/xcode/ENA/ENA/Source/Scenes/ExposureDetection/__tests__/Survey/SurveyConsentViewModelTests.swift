@@ -8,7 +8,8 @@ import XCTest
 class SurveyConsentViewModelTests: XCTestCase {
 
 	func testDynamicTableViewModel() {
-		let viewModel = SurveyConsentViewModel()
+		let placeHolderString = "https://www.test.de"
+		let viewModel = SurveyConsentViewModel(urlString: placeHolderString)
 
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
