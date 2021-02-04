@@ -130,6 +130,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 
 		client.onFetchAppConfiguration = { _, completeWith in
+			sleep(2) // network
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
@@ -144,7 +145,38 @@ final class CachedAppConfigurationTests: XCTestCase {
 		_ = CachedAppConfiguration(client: client, store: store)
 		_ = CachedAppConfiguration(client: client, store: store)
 
+		waitForExpectations(timeout: .medium)
 		XCTAssertNotNil(store.appConfigMetadata)
+	}
+
+	func testMultipleRequestsForSupportedCountries() throws {
+		let store = MockTestStore()
+		var config = CachingHTTPClientMock.staticAppConfig
+		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
+
+		let httpRequest = expectation(description: "server request")
+		let gotValue = expectation(description: "got countries list")
+		gotValue.expectedFulfillmentCount = 3
+
+		let client = CachingHTTPClientMock(store: store)
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			completeWith((.success(config), nil))
+			httpRequest.fulfill()
+		}
+
+		var subscriptions = [AnyCancellable]()
+		for _ in 0..<gotValue.expectedFulfillmentCount {
+			let cache = CachedAppConfiguration(client: client, store: store)
+			cache
+				.supportedCountries()
+				.sink { countries in
+					XCTAssertEqual(countries.count, 6)
+					gotValue.fulfill()
+				}
+				.store(in: &subscriptions)
+		}
+
 		waitForExpectations(timeout: .medium)
 	}
 }

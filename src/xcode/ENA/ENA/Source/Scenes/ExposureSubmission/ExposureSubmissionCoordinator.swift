@@ -5,6 +5,7 @@
 import Foundation
 import UIKit
 import OpenCombine
+import ExposureNotification
 
 /// Coordinator for the exposure submission flow.
 /// This protocol hides the creation of view controllers and their transitions behind a slim interface.
@@ -338,7 +339,30 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			onPrimaryButtonTap: { [weak self] isLoading in
 				self?.model.exposureSubmissionService.acceptPairing()
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
-				self?.showQRScreen(isLoading: isLoading)
+				if #available(iOS 14.4, *) {
+					self?.exposureManager.preAuthorizeKeys(completion: { error in
+						DispatchQueue.main.async { [weak self] in
+							if let error = error as? ENError {
+								switch error.toExposureSubmissionError() {
+								case .notAuthorized:
+									// user did not authorize -> continue to scanning the qr code
+									self?.showQRScreen(isLoading: isLoading)
+								default:
+									// present alert
+									let alert = UIAlertController.errorAlert(message: error.localizedDescription, completion: { [weak self] in
+										self?.showQRScreen(isLoading: isLoading)
+									})
+									self?.navigationController?.present(alert, animated: true, completion: nil)
+								}
+							} else {
+								// continue to scanning the qr code
+								self?.showQRScreen(isLoading: isLoading)
+							}
+						}
+					})
+				} else {
+					self?.showQRScreen(isLoading: isLoading)
+				}
 			}
 		)
 
