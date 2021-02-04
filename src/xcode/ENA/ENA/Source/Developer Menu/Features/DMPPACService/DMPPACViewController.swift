@@ -49,6 +49,10 @@ class DMPPACViewController: UITableViewController {
 			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
+		} else if cellViewModel is DMStaticTextCellViewModel {
+			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
 		} else {
 			fatalError("unsopported cellViewModel - can't find a matching cell")
 		}

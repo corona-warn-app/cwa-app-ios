@@ -154,7 +154,11 @@ struct FileLogger {
 	}
 
 	func deleteLogs() {
-		try? FileManager.default.removeItem(at: logFileBaseURL)
+		do {
+			try FileManager.default.removeItem(at: logFileBaseURL)
+		} catch {
+			Log.error("Can't remove logs at \(logFileBaseURL)", log: .localData, error: error)
+		}
 	}
 
 	// MARK: - Private

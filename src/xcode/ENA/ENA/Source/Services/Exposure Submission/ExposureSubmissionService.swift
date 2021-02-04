@@ -83,6 +83,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
 			if countries.isEmpty {
+				Log.debug("App config provided empty country list. Falling back to default country", log: .appConfig)
 				self.supportedCountries = [.defaultCountry()]
 			} else {
 				self.supportedCountries = countries

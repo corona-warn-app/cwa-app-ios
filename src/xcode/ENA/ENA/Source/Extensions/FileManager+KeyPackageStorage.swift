@@ -42,7 +42,11 @@ extension FileManager {
 		while let elementURL = en?.nextObject() as? URL {
 			if elementURL.absoluteString.hasSuffix("sig") || elementURL.absoluteString.hasSuffix("bin") {
 				Log.debug("Removing: \(elementURL)", log: .localData)
-				try? removeItem(at: elementURL.deletingLastPathComponent())  // Remove the directory the file was contained in
+				do {
+					try removeItem(at: elementURL.deletingLastPathComponent())  // Remove the directory the file was contained in
+				} catch {
+					Log.error("Error while removing orphaned package: \(elementURL): \(error)", log: .localData)
+				}
 			}
 		}
 		Log.info("Finsihed removing orphaned KeyPackages", log: .localData)
