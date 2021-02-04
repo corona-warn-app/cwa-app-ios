@@ -118,6 +118,7 @@ final class CachedAppConfiguration {
 							self.resolvePromises(with: .success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
 						default:
 							self.defaultFailureHandler()
+                            updatedSuccessful = false
 						}
 					}
 
