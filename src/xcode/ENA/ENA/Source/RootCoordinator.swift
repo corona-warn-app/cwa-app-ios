@@ -73,6 +73,7 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
+		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)
