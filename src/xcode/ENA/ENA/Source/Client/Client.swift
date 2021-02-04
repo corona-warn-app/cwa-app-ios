@@ -93,6 +93,7 @@ protocol Client {
 		otp: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
+		ppacHeader: Bool,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 }

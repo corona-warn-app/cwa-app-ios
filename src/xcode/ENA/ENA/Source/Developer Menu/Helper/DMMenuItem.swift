@@ -27,6 +27,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case warnOthersNotifications
 	case deviceTimeCheck
 	case ppacService
+	case otpService
 }
 
 extension DMMenuItem {
@@ -63,6 +64,7 @@ extension DMMenuItem {
 		case .warnOthersNotifications: return "Warn Others Notifications"
 		case .deviceTimeCheck: return "Device Time Check"
 		case .ppacService: return "PPAC Service / API Token"
+		case .otpService: return "OTP Token"
 		}
 	}
 	var subtitle: String {
@@ -86,7 +88,8 @@ extension DMMenuItem {
 		case .listPendingNotifications: return "List all pending Notifications"
 		case .warnOthersNotifications: return "Settings for the warn others notifications"
 		case .deviceTimeCheck: return "Enable or Disable Device Time Check"
-		case .ppacService: return "Inspect and force updates to the PPAC / OTP Token"
+		case .ppacService: return "Inspect and force updates to the PPAC Token"
+		case .otpService: return "Inspect the OTP Token"
 		}
 	}
 }

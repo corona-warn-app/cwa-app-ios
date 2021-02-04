@@ -91,6 +91,15 @@ final class DMPPCViewModel {
 
 				}
 			)
+		case .forceHTTPHeader:
+			return DMSwitchCellViewModel(
+				labelText: "Force API Token Authorization",
+				isOn: { [store] in
+					return store.forceAPITokenAuthorization
+				},
+				toggle: { [store] in
+					store.forceAPITokenAuthorization.toggle()
+				})
 		}
 	}
 
@@ -116,6 +125,7 @@ final class DMPPCViewModel {
 		case generateAPIToken
 		case deviceToken
 		case generateDeviceToken
+		case forceHTTPHeader
 	}
 
 }

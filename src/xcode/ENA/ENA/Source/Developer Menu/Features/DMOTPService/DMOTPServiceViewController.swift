@@ -1,20 +1,20 @@
 ////
 // 🦠 Corona-Warn-App
 //
+
 #if !RELEASE
 
 import UIKit
 
-class DMPPACViewController: UITableViewController {
+class DMOTPServiceViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init( _ store: Store) {
-		#if targetEnvironment(simulator)
-		self.viewModel = DMPPCViewModel(store, deviceCheck: PPACDeviceCheckMock(true, deviceToken: "Simulator DeviceCheck unavailable"))
-		#else
-		self.viewModel = DMPPCViewModel(store, deviceCheck: PPACDeviceCheck())
-		#endif
+	init(
+		store: Store,
+		client: Client
+	) {
+		self.viewModel = DMOTPServiceViewModel(store: store, client: client)
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -49,16 +49,6 @@ class DMPPACViewController: UITableViewController {
 			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
-		} else if cellViewModel is DMSwitchCellViewModel {
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: DMSwitchTableViewCell.reuseIdentifier) as? DMSwitchTableViewCell else {
-				fatalError("unsopported cellViewModel - can't find a matching cell")
-			}
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-		} else if cellViewModel is DMStaticTextCellViewModel {
-			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
 		} else {
 			fatalError("unsopported cellViewModel - can't find a matching cell")
 		}
@@ -74,7 +64,7 @@ class DMPPACViewController: UITableViewController {
 
 	// MARK: - Private
 
-	private let viewModel: DMPPCViewModel
+	private let viewModel: DMOTPServiceViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
@@ -82,7 +72,6 @@ class DMPPACViewController: UITableViewController {
 
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
 		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
-		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: DMSwitchTableViewCell.reuseIdentifier)
 
 		// wire up tableview with the viewModel
 		viewModel.refreshTableView = { indexSet in
@@ -93,26 +82,7 @@ class DMPPACViewController: UITableViewController {
 	}
 
 	private func setupNavigationBar() {
-		title = "PPAC Service 🏄‍♂️"
-		let shareBarButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShareButton))
-		navigationItem.rightBarButtonItem = shareBarButton
+		title = "OTP Token 🔑"
 	}
-
-	@objc
-	private func didTapShareButton() {
-		// the device toke gets generated every time, tt's not stored
-		guard let deviceToken = viewModel.deviceTokenText else {
-			let alert = UIAlertController(
-				title: "Missing device token",
-				message: "Before sharing please create a device token",
-				preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Ok", style: .default))
-			present(alert, animated: true)
-			return
-		}
-		let activityViewController = UIActivityViewController(activityItems: [deviceToken], applicationActivities: nil)
-		present(activityViewController, animated: true)
-	}
-
 }
 #endif

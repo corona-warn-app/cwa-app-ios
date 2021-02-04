@@ -147,6 +147,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMDeviceTimeCheckViewController(store: store)
 		case .ppacService:
 			vc = DMPPACViewController(store)
+		case .otpService:
+			vc = DMOTPServiceViewController(store: store, client: client)
 		}
 		
 		if let vc = vc {

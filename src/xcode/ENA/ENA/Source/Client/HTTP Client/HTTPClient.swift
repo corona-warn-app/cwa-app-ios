@@ -235,13 +235,15 @@ final class HTTPClient: Client {
 		otp: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
+		ppacHeader: Bool = false,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
 		guard let request = try? URLRequest.authorizeOTPRequest(
 				configuration: configuration,
 				otp: otp,
 				ppacToken: ppacToken,
-				isFake: isFake) else {
+				isFake: isFake,
+				ppacHeader: ppacHeader) else {
 			completion(.failure(.invalidResponseError))
 			return
 		}
@@ -632,7 +634,8 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		otp: String,
 		ppacToken: PPACToken,
-		isFake: Bool
+		isFake: Bool,
+		ppacHeader: Bool
 	) throws -> URLRequest {
 
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
@@ -661,6 +664,15 @@ private extension URLRequest {
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
 		)
+
+		#if !RELEASE
+		if ppacHeader {
+			request.setValue(
+				"1",
+				forHTTPHeaderField: "cwa-ppac-ios-accept-api-token"
+			)
+		}
+		#endif
 
 		request.httpBody = body
 
