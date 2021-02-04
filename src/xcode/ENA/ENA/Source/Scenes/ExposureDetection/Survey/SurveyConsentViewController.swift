@@ -33,7 +33,18 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 		footerView?.isHidden = false
 	}
 
-	// MARK: - Protocol
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
+
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		guard let url = URL(string: "https://www.test.de") else {
+			return
+		}
+		onStartSurveyTap(url)
+	}
 
 	// MARK: - Public
 
@@ -63,21 +74,10 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 
-//		tableView.register(
-//			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
-//			forCellReuseIdentifier: ReuseIdentifiers.countries.rawValue
-//		)
-
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
-	}
 
-	@objc
-	func didTap() {
-		guard let url = URL(string: "https://www.test.de") else {
-			return
-		}
-		onStartSurveyTap(url)
+		navigationFooterItem?.isPrimaryButtonLoading = true
 	}
 
 	// MARK: - Private
