@@ -102,8 +102,6 @@ class DiaryCoordinator {
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
 					detailViewController.separatorStyle = .none
-					// hides the footerview as well
-					detailViewController.hidesBottomBarWhenPushed = true
 					self?.viewController.pushViewController(detailViewController, animated: true)
 				},
 				hidesCloseButton: !modalPresentation
