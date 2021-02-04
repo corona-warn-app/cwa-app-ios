@@ -363,6 +363,10 @@ enum AppStrings {
 		static let riskCardFailedCalculationTitle = NSLocalizedString("ExposureDetection_Risk_Failed_Title", comment: "")
 		static let riskCardFailedCalculationBody = NSLocalizedString("ExposureDetection_Risk_Failed_Body", comment: "")
 		static let riskCardFailedCalculationRestartButtonTitle = NSLocalizedString("ExposureDetection_Risk_Restart_Button_Title", comment: "")
+
+		static let surveyCardTitle = NSLocalizedString("ExposureDetection_Survey_Card_Title", comment: "")
+		static let surveyCardBody = NSLocalizedString("ExposureDetection_Survey_Card_Body", comment: "")
+		static let surveyCardButton = NSLocalizedString("ExposureDetection_Survey_Card_Button", comment: "")
 	}
 
 	enum SurveyConsent {
