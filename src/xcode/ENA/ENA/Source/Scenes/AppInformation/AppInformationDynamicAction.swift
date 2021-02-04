@@ -18,7 +18,13 @@ extension DynamicAction {
 			detailViewController.title = title
 			detailViewController.dynamicTableViewModel = model
 			detailViewController.separatorStyle = separators ? .singleLine : .none
-			viewController.navigationController?.pushViewController(detailViewController, animated: true)
+			
+			// remove the close button from the navigation controller before pushing the viewController
+			guard let navigationController = viewController.navigationController else {
+				return
+			}
+			navigationController.navigationItem.rightBarButtonItem = nil
+			navigationController.pushViewController(detailViewController, animated: true)
 		}
 	}
 
