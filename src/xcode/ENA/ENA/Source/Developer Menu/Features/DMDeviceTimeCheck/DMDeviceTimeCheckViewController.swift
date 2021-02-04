@@ -49,10 +49,13 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
 		switch section {
 
+		case .notice:
+			let cell = tableView.dequeueReusableCell(cellType: DMStaticTextTableViewCell.self, for: indexPath)
+			cell.configure(cellViewModel: cellViewModel)
+			return cell
+
 		case .deviceTimeCheckState, .timestampLastChange:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: DMKeyValueTableViewCell.reuseIdentifier) as? DMKeyValueTableViewCell else {
-				fatalError("Failed to deque cell")
-			}
+			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
 
@@ -78,6 +81,7 @@ final class DMDeviceTimeCheckViewController: UITableViewController {
 
 		tableView.register(UINib(nibName: "DMSwitchTableViewCell", bundle: nil), forCellReuseIdentifier: "DMSwitchTableViewCell")
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
+		tableView.register(DMStaticTextTableViewCell.self, forCellReuseIdentifier: DMStaticTextTableViewCell.reuseIdentifier)
 	}
 }
 

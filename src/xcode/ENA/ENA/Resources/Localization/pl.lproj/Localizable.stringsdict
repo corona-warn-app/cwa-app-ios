@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Narażenia z niskim ryzykiem w ciągu %u dnia</string>
+			<string>Brak narażeń</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Narażenia z niskim ryzykiem w ciągu jednego dnia</string>

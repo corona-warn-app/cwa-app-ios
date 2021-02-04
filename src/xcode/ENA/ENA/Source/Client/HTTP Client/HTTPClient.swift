@@ -443,8 +443,8 @@ final class HTTPClient: Client {
 			default:
 				completion(.failure(.otherServerError))
 			}
-		} catch _ {
-			Log.error("Failed to get errorCode because json could not be decoded", log: .api)
+		} catch {
+			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
 			completion(.failure(.invalidResponseError))
 		}
 	}

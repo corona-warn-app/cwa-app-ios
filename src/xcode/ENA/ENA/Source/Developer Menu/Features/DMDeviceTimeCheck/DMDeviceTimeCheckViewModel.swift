@@ -18,6 +18,7 @@ final class DMDeviceTimeCheckViewModel {
 	// MARK: - Internal
 
 	enum Sections: Int, CaseIterable {
+		case notice
 		case deviceTimeCheckState
 		case timestampLastChange
 		case killDeviceTimeCheck
@@ -34,6 +35,14 @@ final class DMDeviceTimeCheckViewModel {
 			fatalError("Invalid tableview section")
 		}
 		switch section {
+		case .notice:
+			return DMStaticTextCellViewModel(
+				staticText: "Note: Changes to the Device Time Check can take up to 5 minutes to become active.",
+				font: .enaFont(for: .subheadline),
+				textColor: .enaColor(for: .textPrimary1),
+				alignment: .center
+			)
+
 		case .deviceTimeCheckState:
 			let status = String(describing: store.deviceTimeCheckResult)
 			return DMKeyValueCellViewModel(key: "Time Check state:", value: status)

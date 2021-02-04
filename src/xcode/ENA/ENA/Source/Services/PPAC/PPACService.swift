@@ -48,7 +48,7 @@ class PPACService: PrivacyPreservingAccessControl {
 	}
 
 	#if !RELEASE
-	// needed to mak it possible to get called from rhe developer menu
+	// needed to make it possible to get called from the developer menu
 	func generateNewAPIToken() -> TimestampedToken {
 		return generateAndStoreFreshAPIToken()
 	}
