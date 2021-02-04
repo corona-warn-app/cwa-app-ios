@@ -15,7 +15,7 @@ protocol OTPServiceProviding {
 	/// - Returns:
 	///   - success: the authorized and stored otp as String
 	///   - failure: an OTPError, for which the caller can build a dedicated error handling
-	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
 	/// discards any stored otp.
 	func discardOTP()
 }
@@ -38,7 +38,7 @@ final class OTPService: OTPServiceProviding {
 		return store.otpToken?.expirationDate != nil ? true : false
 	}
 
-	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		// Check for existing otp. If we have none, create one and proceed.
 		if let token = store.otpToken {
 

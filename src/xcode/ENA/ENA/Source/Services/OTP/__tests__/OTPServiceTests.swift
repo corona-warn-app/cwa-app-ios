@@ -20,7 +20,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedOtp: String?
 
 		// WHEN
-		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTP(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -57,7 +57,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedOtp: String?
 
 		// WHEN
-		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTP(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -95,7 +95,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedOtp: String?
 
 		// WHEN
-		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTP(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -136,7 +136,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedError: OTPError?
 
 		// WHEN
-		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTP(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not success")
@@ -166,7 +166,7 @@ class OTPServiceTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called without an error")
 		var expectedOtp: String?
 
-		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTP(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
@@ -215,7 +215,7 @@ class OTPServiceTests: XCTestCase {
 		var expectedOtp: String?
 
 
-		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+		otpService.getOTP(ppacToken: ppacToken, completion: { result in
 			switch result {
 			case .success(let otp):
 				expectedOtp = otp
