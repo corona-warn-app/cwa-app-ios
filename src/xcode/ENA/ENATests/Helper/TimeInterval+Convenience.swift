@@ -14,13 +14,13 @@ extension TimeInterval {
 		self = Double(days * 24 * 60 * 60)
 	}
 
-	/// two seconds
-	static let short = 2.0
-	/// five seconds
-	static let medium = 5.0
-	/// ten seconds
-	static let long = 10.0
-	// twentyfive seconds
-	static let extraLong = 25.0
+	/// 5 seconds
+	static let short = 5.0
+	/// 10 seconds
+	static let medium = 10.0
+	/// 20 seconds
+	static let long = 20.0
+	/// 30 seconds
+	static let extraLong = 30.0
 
 }

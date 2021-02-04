@@ -16,6 +16,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryTitleLabel.text = cellViewModel.exposureHistoryTitle
 		exposureHistoryTitleLabel.accessibilityIdentifier = cellViewModel.exposureHistoryAccessibilityIdentifier
 		exposureHistoryDetailLabel.text = cellViewModel.exposureHistoryDetail
+		exposureHistoryTitleLabel.style = .body
+		exposureHistoryDetailLabel.style = .subheadline
+		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 

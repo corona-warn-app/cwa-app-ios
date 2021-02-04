@@ -2,7 +2,7 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.3.0
+  - xcode_version: &xcode_version 12.4.0
   - resource_class: &resource_class large
 
 commands:
@@ -158,7 +158,10 @@ jobs:
           name: Package Screenshots
           command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' screenshots && cd -
       - store_artifacts:
-          path: src/xcode/screenshots/screenshots.tar
+          path: src/xcode/screenshots/screenshots.tar.gz
+      - run:
+          name: Announce new screenshots to MS Teams
+          command: ./scripts/announce_screenshots.sh https://${CIRCLE_BUILD_NUM}-268042230-gh.circle-artifacts.com/0/src/xcode/screenshots/screenshots.tar.gz
   testflight-release:
     macos:
       xcode: *xcode_version
@@ -203,7 +206,7 @@ workflows:
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN", "ro-RO", "pl-PL", "tr-TR"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
@@ -252,7 +255,7 @@ workflows:
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN", "ro-RO", "pl-PL", "tr-TR"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies

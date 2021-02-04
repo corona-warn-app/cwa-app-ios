@@ -18,48 +18,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="280" height="106"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLq-Pk-WqT">
-                        <rect key="frame" x="-32" y="5" width="344" height="96"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Hye-vn-7dV">
-                                <rect key="frame" x="32" y="16" width="312" height="64"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngm-Ku-E5a" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="22" width="280" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Ngm-Ku-E5a" secondAttribute="trailing" constant="36" id="2MN-4i-V5S"/>
-                                </constraints>
-                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" name="ENA Cell Background Color"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Hye-vn-7dV" secondAttribute="bottom" constant="16" id="OVR-1v-x9h"/>
-                            <constraint firstAttribute="trailing" secondItem="Hye-vn-7dV" secondAttribute="trailing" id="Wit-Qr-f26"/>
-                            <constraint firstItem="Hye-vn-7dV" firstAttribute="leading" secondItem="gLq-Pk-WqT" secondAttribute="leading" constant="32" id="bCJ-ap-pJo"/>
-                            <constraint firstItem="Hye-vn-7dV" firstAttribute="top" secondItem="gLq-Pk-WqT" secondAttribute="top" constant="16" id="cQv-nC-gkR"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngm-Ku-E5a" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                        <rect key="frame" x="16" y="32" width="248" height="42"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="14"/>
-                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="gLq-Pk-WqT" firstAttribute="top" secondItem="Rn5-Sr-V5h" secondAttribute="top" constant="5" id="dQK-6Q-Md4"/>
-                    <constraint firstAttribute="bottom" secondItem="gLq-Pk-WqT" secondAttribute="bottom" constant="5" id="h1g-45-LAS"/>
-                    <constraint firstItem="gLq-Pk-WqT" firstAttribute="leading" secondItem="Rn5-Sr-V5h" secondAttribute="leading" constant="-32" id="jSg-Gm-apx"/>
-                    <constraint firstAttribute="trailing" secondItem="gLq-Pk-WqT" secondAttribute="trailing" constant="-32" id="oJM-s5-hGv"/>
+                    <constraint firstItem="Ngm-Ku-E5a" firstAttribute="top" secondItem="Rn5-Sr-V5h" secondAttribute="top" constant="32" id="AXQ-1o-0jC"/>
+                    <constraint firstAttribute="bottom" secondItem="Ngm-Ku-E5a" secondAttribute="bottom" constant="32" id="BLd-lN-iOU"/>
+                    <constraint firstAttribute="trailing" secondItem="Ngm-Ku-E5a" secondAttribute="trailing" constant="16" id="HEv-Cr-SsE"/>
+                    <constraint firstItem="Ngm-Ku-E5a" firstAttribute="leading" secondItem="Rn5-Sr-V5h" secondAttribute="leading" constant="16" id="ugC-ex-AcK"/>
                 </constraints>
                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="32" bottom="8" trailing="32"/>
             </tableViewCellContentView>
@@ -78,9 +52,6 @@
         </designable>
     </designables>
     <resources>
-        <namedColor name="ENA Cell Background Color">
-            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Tint Color">
             <color red="0.0" green="0.49803921568627452" blue="0.67843137254901964" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

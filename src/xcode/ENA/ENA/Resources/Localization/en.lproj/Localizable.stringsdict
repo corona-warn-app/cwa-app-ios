@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Exposures with low risk on %u days</string>
+			<string>No exposures</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Exposures with low risk on one day</string>
@@ -73,7 +73,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<string>Update in %02u:%2$#@seconds@ seconds</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Update in %02u:%2$#@seconds@ minute</string>
@@ -128,7 +128,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Exposure logging has been active for less than one day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Exposure logging has been active for %u day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
