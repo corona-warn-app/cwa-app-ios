@@ -47,6 +47,9 @@ class DiaryCoordinator {
 				guard let self = self else { return }
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
+			},
+			showDetail: { detailViewController in
+				self.viewController.pushViewController(detailViewController, animated: true)
 			}))
 		} else {
 			return ENANavigationControllerWithFooter(rootViewController: overviewScreen)
@@ -94,15 +97,19 @@ class DiaryCoordinator {
 	}()
 	
 
-	private func infoScreen(modalPresentation: Bool, dismissAction: @escaping (() -> Void)) -> UIViewController {
+	private func infoScreen(
+		modalPresentation: Bool,
+		dismissAction: @escaping (() -> Void),
+		showDetail: @escaping ((UIViewController) -> Void)
+	) -> UIViewController {
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
-				presentDisclaimer: { [weak self] in
+				presentDisclaimer: {
 					let detailViewController = AppInformationDetailViewController()
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
 					detailViewController.separatorStyle = .none
-					self?.viewController.pushViewController(detailViewController, animated: true)
+					showDetail(detailViewController)
 				},
 				hidesCloseButton: !modalPresentation
 			),
@@ -121,7 +128,11 @@ class DiaryCoordinator {
 			modalPresentation: true,
 			dismissAction: {
 				navigationController.dismiss(animated: true)
+			},
+			showDetail: { detailViewController in
+				navigationController.pushViewController(detailViewController, animated: true)
 			}
+
 		)
 							
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
