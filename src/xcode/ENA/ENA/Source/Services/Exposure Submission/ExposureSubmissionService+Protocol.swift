@@ -49,3 +49,11 @@ protocol ExposureSubmissionService: class {
 	func reset()
 
 }
+
+struct ExposureSubmissionServiceDependencies {
+	let exposureManager: DiagnosisKeysRetrieval
+	let appConfigurationProvider: AppConfigurationProviding
+	let client: Client
+	let store: Store
+	let warnOthersReminder: WarnOthersRemindable
+}

@@ -247,7 +247,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		}
 		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
 
-		UIApplication.coronaWarnDelegate().requestUpdatedExposureState()
+		// should only fail when running tests (see `main.swift`)
+		if let delegate = UIApplication.shared.delegate as? CoronaWarnAppDelegate {
+			delegate.requestUpdatedExposureState()
+		}
 		tableView.reloadData()
 	}
 
