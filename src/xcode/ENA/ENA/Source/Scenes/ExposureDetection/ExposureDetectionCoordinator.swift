@@ -34,7 +34,8 @@ final class ExposureDetectionCoordinator {
 				appConfigurationProvider: appConfigurationProvider,
 				onSurveyTap: { [weak self] urlString in
 					self?.showSurveyConsent(for: urlString)
-				}, onInactiveButtonTap: { [weak self] completion in
+				}, 
+				onInactiveButtonTap: { [weak self] completion in
 					self?.setExposureManagerEnabled(true, then: completion)
 				}
 			),
