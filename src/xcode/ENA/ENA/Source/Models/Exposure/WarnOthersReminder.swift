@@ -54,11 +54,14 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
 	func evaluateShowingTestResult(_ testResult: TestResult) {
-		// If incoming test restuls are others than positive, we don't deal with them
+		/// If incoming test restuls are others than positive, we don't deal with them
 		guard testResult == .positive, !positiveTestResultWasShown else { return }
 		
-		// We are "clean" to go. So lock the door until result was removed
+		/// We are "clean" to go. So lock the door until result was removed
 		positiveTestResultWasShown = true
+
+		/// Deactivate deadman notification for end-of-life-state
+		DeadmanNotificationManager(store: store).resetDeadmanNotification()
 		
 		guard !isSubmissionConsentGiven else { return }
 		

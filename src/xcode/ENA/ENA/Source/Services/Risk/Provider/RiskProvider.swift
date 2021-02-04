@@ -77,8 +77,8 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
 
 			// Keep downloading key packages for plausible deniability
 			downloadKeyPackages()
@@ -86,8 +86,8 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
 
 			// Keep downloading key packages for plausible deniability
 			downloadKeyPackages()
@@ -293,9 +293,6 @@ final class RiskProvider: RiskProviding {
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
 
 				let exposureWindows = detectedExposureWindows.map { ExposureWindow(from: $0) }
-
-				/// We were able to calculate a risk so we have to reset the deadman notification
-				UNUserNotificationCenter.current().resetDeadmanNotification()
 				completion(.success(exposureWindows))
 			case .failure(let error):
 				Log.error("RiskProvider: Detect exposure failed", log: .riskDetection, error: error)
@@ -327,7 +324,7 @@ final class RiskProvider: RiskProviding {
 			completion(.success(risk))
 
 			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			UNUserNotificationCenter.current().resetDeadmanNotification()
+			DeadmanNotificationManager(store: store).resetDeadmanNotification()
 		} catch {
 			completion(.failure(.failedRiskCalculation))
 		}

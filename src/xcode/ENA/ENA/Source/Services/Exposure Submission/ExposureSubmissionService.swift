@@ -435,10 +435,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow.
+	/// This method removes all left over persisted objects part of the `submitExposure` flow.
 	private func submitExposureCleanup() {
-		warnOthersReminder.cancelNotifications()
+		/// Cancel warn others notifications and set positiveTestResultWasShown = false
+		warnOthersReminder.reset()
+
+		/// Deactivate deadman notification for end-of-life-state
+		DeadmanNotificationManager(store: store).resetDeadmanNotification()
 
 		store.registrationToken = nil
 		store.tan = nil
