@@ -388,7 +388,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private lazy var coordinator = RootCoordinator(
+	lazy var coordinator = RootCoordinator(
 		self,
 		contactDiaryStore: self.contactDiaryStore
 	)
