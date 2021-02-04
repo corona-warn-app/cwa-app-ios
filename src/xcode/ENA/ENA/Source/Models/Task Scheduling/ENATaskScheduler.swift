@@ -17,6 +17,10 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
+	var pdService: PlausibleDeniability { get set }
+	var contactDiaryStore: ContactDiaryStore { get set }
+	var dependencies: ExposureSubmissionServiceDependencies { get set }
+
 	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void))
 }
 

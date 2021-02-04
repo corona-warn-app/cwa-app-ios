@@ -5,9 +5,21 @@
 import Foundation
 import UIKit
 
-// MARK: - Plausible deniability.
+protocol PlausibleDeniability {
+	typealias CompletionHandler = () -> Void
 
-extension AppDelegate {
+	func executeFakeRequests(_ completion: CompletionHandler?)
+	func executeFakeRequestOnAppLaunch(probability p: Double) -> Bool
+}
+
+struct PlausibleDeniabilityService: PlausibleDeniability {
+
+	var exposureManager: DiagnosisKeysRetrieval
+	var appConfigurationProvider: AppConfigurationProviding
+	var client: Client
+	var store: Store
+	var warnOthersReminder: WarnOthersRemindable
+
 
 	private enum Constants {
 		static let minHoursToNextBackgroundExecution = 0.0
@@ -51,7 +63,6 @@ extension AppDelegate {
 			completion?()
 		}
 	}
-
 
 	/// Randomly execute a fake request
 	/// - Parameter propability: the probability p to execute a fake request. Accepting values between 0 and 1.
