@@ -272,7 +272,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		case .high:
 			appConfigurationProvider.appConfiguration()
 				.sink { [weak self] in
-					let survayParameters = $0.eventDrivenUserSurveyParameters.common
+					let surveyParameters = $0.eventDrivenUserSurveyParameters.common
 					let isSurvayEnabled = survayParameters.surveyOnHighRiskEnabled && !survayParameters.surveyOnHighRiskURL.isEmpty
 					self?.surveyOnHighRiskURL = survayParameters.surveyOnHighRiskURL
 					if let dynamicViewModel = self?.highRiskModel(risk: risk, isSurvayEnabled: isSurvayEnabled) {
