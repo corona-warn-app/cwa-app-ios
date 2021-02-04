@@ -7,7 +7,7 @@ import UIKit
 final class ExposureDetectionCoordinator {
 
 	private let rootViewController: UIViewController
-	private var navigationController: UINavigationController?
+	private var navigationController: ENANavigationControllerWithFooter?
 	private let store: Store
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
@@ -38,7 +38,7 @@ final class ExposureDetectionCoordinator {
 			store: store
 		)
 
-		let _navigationController = UINavigationController(rootViewController: exposureDetectionController)
+		let _navigationController = ENANavigationControllerWithFooter(rootViewController: exposureDetectionController)
 		navigationController = _navigationController
 		setNavigationBarHidden(true)
 		

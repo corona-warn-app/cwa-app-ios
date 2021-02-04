@@ -369,6 +369,23 @@ enum AppStrings {
 		static let surveyCardButton = NSLocalizedString("ExposureDetection_Survey_Card_Button", comment: "")
 	}
 
+	enum SurveyConsent {
+		static let imageDescription = NSLocalizedString("SurveyConsent_Image_Description", comment: "")
+		static let title = NSLocalizedString("SurveyConsent_Title", comment: "")
+		static let body1 = NSLocalizedString("SurveyConsent_Body1", comment: "")
+		static let body2 = NSLocalizedString("SurveyConsent_Body2", comment: "")
+		static let body3 = NSLocalizedString("SurveyConsent_Body3", comment: "")
+		static let legalTitle = NSLocalizedString("SurveyConsent_Legal_Title", comment: "")
+		static let legalBody1 = NSLocalizedString("SurveyConsent_Legal_Body1", comment: "")
+		static let legalBody2 = NSLocalizedString("SurveyConsent_Legal_Body2", comment: "")
+		static let legalBullet1 = NSLocalizedString("SurveyConsent_Legal_Bullet1", comment: "")
+		static let legalBullet2 = NSLocalizedString("SurveyConsent_Legal_Bullet2", comment: "")
+		static let acceptButtonTitle = NSLocalizedString("SurveyConsent_Accept_Button_Title", comment: "")
+		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", comment: "")
+		static let legalDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
+		static let legalDetailsBody = NSLocalizedString("SurveyConsent_Legal_Details_Body", comment: "")
+	}
+
 	enum ExposureDetectionError {
 		static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
 		static let errorAlertFullDistSpaceMessage = NSLocalizedString("ExposureDetectionError_Alert_FullDiskSpace_Message", comment: "")

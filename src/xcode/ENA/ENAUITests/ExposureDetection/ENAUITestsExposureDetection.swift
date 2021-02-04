@@ -32,8 +32,8 @@ class ENAUITestsExposureDetection: XCTestCase {
 		app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell].tap()
 
 		// Tap the survey start button.
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ExposureDetection.surveyStartButton].waitForExistence(timeout: .long))
-		app.buttons[AccessibilityIdentifiers.ExposureDetection.surveyStartButton].tap()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].waitForExistence(timeout: .long))
+		app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].tap()
 
 		// Wait for safari.
 		let safari = XCUIApplication(bundleIdentifier: "com.apple.mobilesafari")
