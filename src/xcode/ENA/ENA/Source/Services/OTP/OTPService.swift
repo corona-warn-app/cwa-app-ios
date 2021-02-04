@@ -5,6 +5,8 @@
 import Foundation
 
 protocol OTPServiceProviding {
+	/// Returns true if we have a stored and authorized otp token. If it is not authorized or we do not have one stored, we return false
+	var isStoredOTPAuthorized: Bool { get }
 	/// Checks if there is a valid stored otp. If so, we check if we can reuse it beacuse it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
 	/// After these validation checks, the service tries to authorize the otp against the server.
 	/// - Parameters:
@@ -29,8 +31,12 @@ final class OTPService: OTPServiceProviding {
 		self.store = store
 		self.client = client
 	}
-
+	
 	// MARK: - Protocol OTPServiceProviding
+
+	var isStoredOTPAuthorized: Bool {
+		return store.otpToken?.expirationDate != nil ? true : false
+	}
 
 	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		// Check for existing otp. If we have none, create one and proceed.

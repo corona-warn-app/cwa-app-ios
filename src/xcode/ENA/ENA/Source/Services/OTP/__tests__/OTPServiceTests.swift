@@ -7,6 +7,8 @@ import XCTest
 
 class OTPServiceTests: XCTestCase {
 
+	// MARK: - getValidOTP
+
 	func testGIVEN_OTPService_WHEN_NoOtpIsStored_THEN_SuccessAndOtpIsGeneratedAndReturned() {
 		// GIVEN
 		let store = MockTestStore()
@@ -152,6 +154,8 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertEqual(responseError, .otpAlreadyUsedThisMonth)
 	}
 
+	// MARK: - discardOTP
+
 	func testGIVEN_StoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsNil() {
 		// GIVEN
 		let store = MockTestStore()
@@ -196,5 +200,69 @@ class OTPServiceTests: XCTestCase {
 
 		// THEN
 		XCTAssertNil(store.otpToken)
+	}
+
+	// MARK: - isStoredOTPAuthorized
+
+	func testGIVEN_StoredAndAuthorizedOTP_WHEN_isStoredOTPAuthorized_THEN_TrueIsReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let otpService = OTPService(store: store, client: client)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		var expectedOtp: String?
+
+
+		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		waitForExpectations(timeout: .short)
+		XCTAssertNotNil(expectedOtp)
+		XCTAssertNotNil(store.otpToken)
+		XCTAssertEqual(expectedOtp, store.otpToken?.token)
+
+		// WHEN
+		let isAuthorized = otpService.isStoredOTPAuthorized
+
+		// THEN
+		XCTAssertTrue(isAuthorized)
+	}
+
+	func testGIVEN_NoStoredOTP_WHEN_isStoredOTPAuthorized_THEN_FalseIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let otpService = OTPService(store: store, client: client)
+
+		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
+		store.otpToken = oldToken
+
+		// WHEN
+		let isAuthorized = otpService.isStoredOTPAuthorized
+
+		// THEN
+		XCTAssertFalse(isAuthorized)
+	}
+
+	func testGIVEN_StoredButNotAuthorizedOTP_WHEN_isStoredOTPAuthorized_THEN_FalseIsReturned() throws {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let otpService = OTPService(store: store, client: client)
+
+		// WHEN
+		let isAuthorized = otpService.isStoredOTPAuthorized
+
+		// THEN
+		XCTAssertFalse(isAuthorized)
 	}
 }
