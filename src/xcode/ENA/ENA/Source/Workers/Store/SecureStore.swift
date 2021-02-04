@@ -266,6 +266,11 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
+	var otpToken: OTPToken? {
+		get { kvStore["otpToken"] as OTPToken? }
+		set { kvStore["otpToken"] = newValue }
+	}
+
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }

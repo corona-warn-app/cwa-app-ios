@@ -6,6 +6,7 @@ import ExposureNotification
 import Foundation
 import ZIPFoundation
 
+// swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
 
 	// MARK: - Init
@@ -230,6 +231,44 @@ final class HTTPClient: Client {
 		}
 	}
 
+	func authorize(
+		otp: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let request = try? URLRequest.authorizeOTPRequest(
+				configuration: configuration,
+				otp: otp,
+				ppacToken: ppacToken,
+				isFake: isFake) else {
+			completion(.failure(.invalidResponseError))
+			return
+		}
+
+		session.response(for: request, isFake: isFake, completion: { [weak self] result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
+				case 400, 401, 403:
+					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
+				case 500:
+					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
+					completion(.failure(.internalServerError))
+				default:
+					Log.error("Failed to authorize OTP - response error", log: .api)
+					Log.error(String(response.statusCode), log: .api)
+					completion(.failure(.internalServerError))
+				}
+			case let .failure(error):
+				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
+				completion(.failure(.invalidResponseError))
+			}
+		})
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -333,6 +372,78 @@ final class HTTPClient: Client {
 					completeWith(.failure(error))
 				}
 			}
+		}
+	}
+
+	private func otpAuthorizationSuccessHandler(
+		for response: URLSession.Response,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let responseBody = response.body else {
+			Log.error("Failed to authorize OTP - response error", log: .api)
+			Log.error(String(response.statusCode), log: .api)
+			completion(.failure(.invalidResponseError))
+			return
+		}
+		do {
+			let decoder = JSONDecoder()
+			decoder.dateDecodingStrategy = .iso8601
+			let decodedResponse = try decoder.decode(
+				OTPResponseProperties.self,
+				from: responseBody
+			)
+			guard let expirationDate = decodedResponse.expirationDate else {
+				Log.error("Failed to get expirationDate out of decoded response", log: .api)
+				completion(.failure(.invalidResponseError))
+				return
+			}
+			completion(.success(expirationDate))
+		} catch {
+			Log.error("Failed to get expirationDate because of invalid response payload structure", log: .api)
+			completion(.failure(.invalidResponseError))
+		}
+	}
+
+	private func otpAuthorizationFailureHandler(
+		for response: URLSession.Response,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let responseBody = response.body else {
+			Log.error("Failed to get authorized OTP - no 200 status code", log: .api)
+			Log.error(String(response.statusCode), log: .api)
+			completion(.failure(.invalidResponseError))
+			return
+		}
+		do {
+			let decodedResponse = try JSONDecoder().decode(
+				OTPResponseProperties.self,
+				from: responseBody
+			)
+			guard let errorCode = decodedResponse.errorCode else {
+				Log.error("Failed to get errorCode because of invalid response payload structure", log: .api)
+				completion(.failure(.invalidResponseError))
+				return
+			}
+
+			switch errorCode {
+			case .API_TOKEN_ALREADY_ISSUED:
+				completion(.failure(.apiTokenAlreadyIssued))
+			case .API_TOKEN_EXPIRED:
+				completion(.failure(.apiTokenExpired))
+			case .API_TOKEN_QUOTA_EXCEEDED:
+				completion(.failure(.apiTokenQuotaExceeded))
+			case .DEVICE_TOKEN_INVALID:
+				completion(.failure(.deviceTokenInvalid))
+			case .DEVICE_TOKEN_REDEEMED:
+				completion(.failure(.deviceTokenRedeemed))
+			case .DEVICE_TOKEN_SYNTAX_ERROR:
+				completion(.failure(.deviceTokenSyntaxError))
+			default:
+				completion(.failure(.otherServerError))
+			}
+		} catch {
+			Log.error("Failed to get errorCode because json could not be decoded", log: .api, error: error)
+			completion(.failure(.invalidResponseError))
 		}
 	}
 }
@@ -516,6 +627,46 @@ private extension URLRequest {
 		
 		return request
 	}
+
+	static func authorizeOTPRequest(
+		configuration: HTTPClient.Configuration,
+		otp: String,
+		ppacToken: PPACToken,
+		isFake: Bool
+	) throws -> URLRequest {
+
+		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let payload = SAP_Internal_Ppdd_EDUSOneTimePassword.with {
+			$0.otp = otp
+		}
+
+		let protoBufRequest = SAP_Internal_Ppdd_EDUSOneTimePasswordRequestIOS.with {
+			$0.payload = payload
+			$0.authentication = ppacIos
+		}
+
+		let url = configuration.otpAuthorizationURL
+
+		let body = try protoBufRequest.serializedData()
+
+		var request = URLRequest(url: url)
+
+		request.httpMethod = "POST"
+
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		request.httpBody = body
+
+		return request
+	}
+
 	
 	// MARK: - Helper methods for adding padding to the requests.
 	
@@ -548,4 +699,6 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
+
+	// swiftlint:disable:next file_length
 }

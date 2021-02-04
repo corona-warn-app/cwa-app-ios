@@ -14,7 +14,7 @@ struct Map: Codable {
 
 struct ServerEnvironmentData: Codable {
 	let name: String
-	let distributionURL, submissionURL, verificationURL: URL
+	let distributionURL, submissionURL, verificationURL, dataDonationURL: URL
 }
 
 // MARK: - ServerEnvironment access.

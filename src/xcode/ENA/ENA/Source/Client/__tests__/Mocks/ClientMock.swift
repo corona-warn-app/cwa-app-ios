@@ -55,6 +55,7 @@ final class ClientMock {
 	var onGetRegistrationToken: ((String, String, Bool, @escaping RegistrationHandler) -> Void)?
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
+	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -156,5 +157,19 @@ extension ClientMock: Client {
 		}
 
 		onGetTANForExposureSubmit(device, isFake, completeWith)
+	}
+
+	func authorize(
+		otp: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let onGetOTP = self.onGetOTP else {
+			completion(.success(Date()))
+			return
+		}
+
+		onGetOTP(otp, ppacToken, isFake, completion)
 	}
 }
