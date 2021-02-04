@@ -95,7 +95,7 @@ class DiaryCoordinator {
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
 				presentDisclaimer: {
-					let detailViewController = AppInformationDetailViewController()
+					let detailViewController = DataPrivacyViewControllerDisablingSwipeToDismiss()
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
 					detailViewController.separatorStyle = .none
