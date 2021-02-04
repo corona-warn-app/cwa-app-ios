@@ -5,7 +5,19 @@
 import Foundation
 
 protocol OTPServiceProviding {
-	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	/// Returns true if we have a stored and authorized otp token. If it is not authorized or we do not have one stored, we return false
+	var isStoredOTPAuthorized: Bool { get }
+	/// Checks if there is a valid stored otp. If so, we check if we can reuse it beacuse it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
+	/// After these validation checks, the service tries to authorize the otp against the server.
+	/// - Parameters:
+	///   - ppacToken: a generated and valid PPACToken from the PPACService
+	///   - completion: The completion handler
+	/// - Returns:
+	///   - success: the authorized and stored otp as String
+	///   - failure: an OTPError, for which the caller can build a dedicated error handling
+	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void)
+	/// discards any stored otp.
+	func discardOTP()
 }
 
 final class OTPService: OTPServiceProviding {
@@ -19,11 +31,14 @@ final class OTPService: OTPServiceProviding {
 		self.store = store
 		self.client = client
 	}
-
+	
 	// MARK: - Protocol OTPServiceProviding
 
-	func getValidOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
+	var isStoredOTPAuthorized: Bool {
+		return store.otpToken?.expirationDate != nil ? true : false
+	}
 
+	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		// Check for existing otp. If we have none, create one and proceed.
 		if let token = store.otpToken {
 
@@ -53,6 +68,11 @@ final class OTPService: OTPServiceProviding {
 				self?.authorize(otp, with: ppacToken, completion: completion)
 			})
 		}
+	}
+
+	func discardOTP() {
+		store.otpToken = nil
+		Log.info("OTP was discarded.", log: .otp)
 	}
 
 	// MARK: - Private
