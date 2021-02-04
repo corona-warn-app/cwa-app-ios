@@ -7,7 +7,7 @@ import UIKit
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
-	let rootViewController: UINavigationController = AppNavigationController() // Renaming?
+	let rootViewController: UINavigationController = AppNavigationController()
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?

@@ -43,7 +43,7 @@ class DiaryCoordinator {
 
 	lazy var viewController: ENANavigationControllerWithFooter = {
 		if !infoScreenShown {
-			return ENANavigationControllerWithFooter(rootViewController: infoScreen(modalPresentation: false, dismissAction: { [weak self] in
+			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
 				guard let self = self else { return }
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
@@ -97,7 +97,7 @@ class DiaryCoordinator {
 	
 
 	private func infoScreen(
-		modalPresentation: Bool,
+		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
@@ -110,7 +110,7 @@ class DiaryCoordinator {
 					detailViewController.separatorStyle = .none
 					showDetail(detailViewController)
 				},
-				hidesCloseButton: !modalPresentation
+				hidesCloseButton: hidesCloseButton
 			),
 			onDismiss: {
 				dismissAction()
@@ -124,7 +124,6 @@ class DiaryCoordinator {
 		// this is needed to resolve an inset issue with large titles
 		var navigationController: ENANavigationControllerWithFooter!
 		let infoVC = infoScreen(
-			modalPresentation: true,
 			dismissAction: {
 				navigationController.dismiss(animated: true)
 			},
