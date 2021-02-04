@@ -95,6 +95,15 @@ struct SAP_Internal_V2_ApplicationConfigurationIOS {
   /// Clears the value of `exposureConfiguration`. Subsequent reads from it will return its default value.
   mutating func clearExposureConfiguration() {_uniqueStorage()._exposureConfiguration = nil}
 
+  var eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS {
+    get {return _storage._eventDrivenUserSurveyParameters ?? SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()}
+    set {_uniqueStorage()._eventDrivenUserSurveyParameters = newValue}
+  }
+  /// Returns true if `eventDrivenUserSurveyParameters` has been explicitly set.
+  var hasEventDrivenUserSurveyParameters: Bool {return _storage._eventDrivenUserSurveyParameters != nil}
+  /// Clears the value of `eventDrivenUserSurveyParameters`. Subsequent reads from it will return its default value.
+  mutating func clearEventDrivenUserSurveyParameters() {_uniqueStorage()._eventDrivenUserSurveyParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -155,6 +164,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     6: .same(proto: "exposureDetectionParameters"),
     7: .same(proto: "riskCalculationParameters"),
     8: .same(proto: "exposureConfiguration"),
+    9: .same(proto: "eventDrivenUserSurveyParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -166,6 +176,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     var _exposureDetectionParameters: SAP_Internal_V2_ExposureDetectionParametersIOS? = nil
     var _riskCalculationParameters: SAP_Internal_V2_RiskCalculationParameters? = nil
     var _exposureConfiguration: SAP_Internal_V2_ExposureConfiguration? = nil
+    var _eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -180,6 +191,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       _exposureDetectionParameters = source._exposureDetectionParameters
       _riskCalculationParameters = source._riskCalculationParameters
       _exposureConfiguration = source._exposureConfiguration
+      _eventDrivenUserSurveyParameters = source._eventDrivenUserSurveyParameters
     }
   }
 
@@ -206,6 +218,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         case 6: try { try decoder.decodeSingularMessageField(value: &_storage._exposureDetectionParameters) }()
         case 7: try { try decoder.decodeSingularMessageField(value: &_storage._riskCalculationParameters) }()
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._exposureConfiguration) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._eventDrivenUserSurveyParameters) }()
         default: break
         }
       }
@@ -238,6 +251,9 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       if let v = _storage._exposureConfiguration {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
       }
+      if let v = _storage._eventDrivenUserSurveyParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -255,6 +271,7 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         if _storage._exposureDetectionParameters != rhs_storage._exposureDetectionParameters {return false}
         if _storage._riskCalculationParameters != rhs_storage._riskCalculationParameters {return false}
         if _storage._exposureConfiguration != rhs_storage._exposureConfiguration {return false}
+        if _storage._eventDrivenUserSurveyParameters != rhs_storage._eventDrivenUserSurveyParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}

@@ -4,7 +4,8 @@
 			"name": "Default",
 			"distributionURL": "https://svc90.main.px.t-online.de",
 			"submissionURL": "https://submission.coronawarn.app",
-			"verificationURL": "https://verification.coronawarn.app"
+			"verificationURL": "https://verification.coronawarn.app",
+            "dataDonationURL": "https://data.coronawarn.app"
 		}
 	]
 }
