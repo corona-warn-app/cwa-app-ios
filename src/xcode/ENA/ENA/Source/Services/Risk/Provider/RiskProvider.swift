@@ -79,11 +79,19 @@ final class RiskProvider: RiskProviding {
 
 		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
 			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+
+			// Keep downloading key packages for plausible deniability
+			downloadKeyPackages()
+
 			return
 		}
 
 		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
 			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+
+			// Keep downloading key packages for plausible deniability
+			downloadKeyPackages()
+
 			return
 		}
 
@@ -174,13 +182,13 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func downloadKeyPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {
+	private func downloadKeyPackages(completion: ((Result<Void, RiskProviderError>) -> Void)? = nil) {
 		// The result of a hour package download is not handled, because for the risk detection it is irrelevant if it fails or not.
 		self.downloadHourPackages { [weak self] in
 			guard let self = self else { return }
 
 			self.downloadDayPackages(completion: { result in
-				completion(result)
+				completion?(result)
 			})
 		}
 	}
