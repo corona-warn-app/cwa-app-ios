@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			// provide a static app configuration for ui tests to prevent validation errors
-			return CachedAppConfigurationMock(isEventSurvayEnabled: true, isEventSurvayUrlAvailable: true)
+			return CachedAppConfigurationMock(isEventSurveyEnabled: true, isEventSurveyUrlAvailable: true)
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms

@@ -42,13 +42,13 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 	
 	init(
 		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
-		isEventSurvayEnabled: Bool,
-		isEventSurvayUrlAvailable: Bool
+		isEventSurveyEnabled: Bool,
+		isEventSurveyUrlAvailable: Bool
 	) {
 		self.config = config
 		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
-			isEnabled: isEventSurvayEnabled,
-			isCorrectURL: isEventSurvayUrlAvailable)
+			isEnabled: isEventSurveyEnabled,
+			isCorrectURL: isEventSurveyUrlAvailable)
 	}
 	
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
@@ -68,10 +68,10 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 		}).eraseToAnyPublisher()
 	}
 	private func eventDrivenUserSurveyParametersEnabled(isEnabled: Bool, isCorrectURL: Bool) -> SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS {
-		var survayParameters = SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()
-		survayParameters.common.surveyOnHighRiskURL = isCorrectURL ? "https://www.test.de" : "https://w.test.de"
-		survayParameters.common.surveyOnHighRiskEnabled = isEnabled ? true : false
-		return survayParameters
+		var surveyParameters = SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()
+		surveyParameters.common.surveyOnHighRiskURL = isCorrectURL ? "https://www.test.de" : "https://w.test.de"
+		surveyParameters.common.surveyOnHighRiskEnabled = isEnabled ? true : false
+		return surveyParameters
 	}
 }
 #endif

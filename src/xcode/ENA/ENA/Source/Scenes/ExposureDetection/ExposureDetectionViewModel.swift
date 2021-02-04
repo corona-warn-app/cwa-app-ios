@@ -272,16 +272,17 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		case .high:
 			appConfigurationProvider.appConfiguration()
 				.sink { [weak self] in
-					let surveyParameters = $0.eventDrivenUserSurveyParameters.common
-					let isSurvayEnabled = survayParameters.surveyOnHighRiskEnabled && !survayParameters.surveyOnHighRiskURL.isEmpty
-					self?.surveyOnHighRiskURL = survayParameters.surveyOnHighRiskURL
-					if let dynamicViewModel = self?.highRiskModel(risk: risk, isSurvayEnabled: isSurvayEnabled) {
-						self?.dynamicTableViewModel = dynamicViewModel
+					guard let self = self else {
+						Log.debug("failed to get strong self")
+						return
 					}
+					let surveyParameters = $0.eventDrivenUserSurveyParameters.common
+					let isSurveyEnabled = surveyParameters.surveyOnHighRiskEnabled && !surveyParameters.surveyOnHighRiskURL.isEmpty
+					self.surveyOnHighRiskURL = surveyParameters.surveyOnHighRiskURL
+					self.dynamicTableViewModel = self.highRiskModel(risk: risk, isSurveyEnabled: isSurveyEnabled)
 				}
 				.store(in: &subscriptions)
 		}
-
 		titleText = risk.level.text
 		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
 
@@ -405,7 +406,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
-	private func highRiskModel(risk: Risk, isSurvayEnabled: Bool) -> DynamicTableViewModel {
+	private func highRiskModel(risk: Risk, isSurveyEnabled: Bool) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
 		var sections: [DynamicSection] = [
@@ -448,7 +449,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
 		]
-		if isSurvayEnabled {
+		if isSurveyEnabled {
 			sections.insert(surveySection(), at: 3)
 		}
 		return DynamicTableViewModel(sections)

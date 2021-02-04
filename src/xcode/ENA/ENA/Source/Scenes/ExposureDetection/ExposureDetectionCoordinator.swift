@@ -34,7 +34,7 @@ final class ExposureDetectionCoordinator {
 				appConfigurationProvider: appConfigurationProvider,
 				onSurveyTap: { [weak self] urlString in
 					self?.showSurveyConsent(for: urlString)
-				}, 
+				},
 				onInactiveButtonTap: { [weak self] completion in
 					self?.setExposureManagerEnabled(true, then: completion)
 				}
@@ -49,10 +49,10 @@ final class ExposureDetectionCoordinator {
 		rootViewController.present(_navigationController, animated: true)
 	}
 
-	private func showSurveyConsent(for survayURL: String?) {
+	private func showSurveyConsent(for surveyURL: String?) {
 		setNavigationBarHidden(false)
 		
-		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(urlString: survayURL)) { [weak self] url in
+		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(urlString: surveyURL)) { [weak self] url in
 			self?.showSurveyWebpage(url: url)
 		}
 		navigationController?.pushViewController(surveyConsentViewController, animated: true)

@@ -180,18 +180,18 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
 
-	func testHighRiskStateWithDisabledSurvay() {
-		highRiskTesting(survayEnabled: false)
-		highRiskHomeStatesTesting(survayEnabled: false)
+	func testHighRiskStateWithDisabledSurvey() {
+		highRiskTesting(surveyEnabled: false)
+		highRiskHomeStatesTesting(surveyEnabled: false)
 
 	}
 	
-	func testHighRiskStateWithEnabledSurvay() {
-		highRiskTesting(survayEnabled: true)
-		highRiskHomeStatesTesting(survayEnabled: true)
+	func testHighRiskStateWithEnabledSurvey() {
+		highRiskTesting(surveyEnabled: true)
+		highRiskHomeStatesTesting(surveyEnabled: true)
 	}
 
-	func testEventSurvayDisabled_cellShouldBeHidden() {
+	func testEventSurveyDisabled_cellShouldBeHidden() {
 		var subscriptions = Set<AnyCancellable>()
 		
 		let store = MockTestStore()
@@ -223,7 +223,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		)
 		homeState.updateDetectionMode(.automatic)
 		
-		let configuration = CachedAppConfigurationMock(isEventSurvayEnabled: false, isEventSurvayUrlAvailable: false)
+		let configuration = CachedAppConfigurationMock(isEventSurveyEnabled: false, isEventSurveyUrlAvailable: false)
 		
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
@@ -251,7 +251,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		})
 	}
 
-	private func highRiskTesting(survayEnabled: Bool) {
+	private func highRiskTesting(surveyEnabled: Bool) {
 		var subscriptions = Set<AnyCancellable>()
 		
 		let store = MockTestStore()
@@ -284,8 +284,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		homeState.updateDetectionMode(.automatic)
 		
 		let configuration: AppConfigurationProviding
-		if survayEnabled {
-			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: survayEnabled, isEventSurvayUrlAvailable: true)
+		if surveyEnabled {
+			configuration = CachedAppConfigurationMock(isEventSurveyEnabled: surveyEnabled, isEventSurveyUrlAvailable: true)
 		} else {
 			configuration = CachedAppConfigurationMock()
 		}
@@ -308,8 +308,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			.store(in: &subscriptions)
 
 		waitForExpectations(timeout: 5, handler: { [weak self] _ in
-			if survayEnabled {
-				self?.checkHighRiskConfigurationWithSurvayEnabled(
+			if surveyEnabled {
+				self?.checkHighRiskConfigurationWithSurveyEnabled(
 					of: viewModel.dynamicTableViewModel,
 					viewController: viewController,
 					isLoading: false
@@ -357,7 +357,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isButtonHidden)
 	}
 	
-	private func highRiskHomeStatesTesting(survayEnabled: Bool) {
+	private func highRiskHomeStatesTesting(surveyEnabled: Bool) {
 		var subscriptions = Set<AnyCancellable>()
 
 		let store = MockTestStore()
@@ -390,8 +390,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		homeState.updateDetectionMode(.automatic)
 		
 		let configuration: AppConfigurationProviding
-		if survayEnabled {
-			configuration = CachedAppConfigurationMock(isEventSurvayEnabled: survayEnabled, isEventSurvayUrlAvailable: true)
+		if surveyEnabled {
+			configuration = CachedAppConfigurationMock(isEventSurveyEnabled: surveyEnabled, isEventSurveyUrlAvailable: true)
 		} else {
 			configuration = CachedAppConfigurationMock()
 		}
@@ -414,13 +414,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			.store(in: &subscriptions)
 
 		waitForExpectations(timeout: 5, handler: { [weak self] _ in
-			if survayEnabled {
+			if surveyEnabled {
 				
 				// Check downloading state
 				
 				homeState.riskProviderActivityState = .downloading
 				
-				self?.checkHighRiskConfigurationWithSurvayEnabled(
+				self?.checkHighRiskConfigurationWithSurveyEnabled(
 					of: viewModel.dynamicTableViewModel,
 					viewController: viewController,
 					isLoading: true
@@ -430,7 +430,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 				
 				homeState.riskProviderActivityState = .detecting
 				
-				self?.checkHighRiskConfigurationWithSurvayEnabled(
+				self?.checkHighRiskConfigurationWithSurveyEnabled(
 					of: viewModel.dynamicTableViewModel,
 					viewController: viewController,
 					isLoading: true
@@ -440,7 +440,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 				
 				homeState.riskProviderActivityState = .idle
 				
-				self?.checkHighRiskConfigurationWithSurvayEnabled(
+				self?.checkHighRiskConfigurationWithSurveyEnabled(
 					of: viewModel.dynamicTableViewModel,
 					viewController: viewController,
 					isLoading: false
@@ -969,7 +969,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}
 
-	private func checkHighRiskConfigurationWithSurvayEnabled(
+	private func checkHighRiskConfigurationWithSurveyEnabled(
 		of dynamicTableViewModel: DynamicTableViewModel,
 		viewController: ExposureDetectionViewController,
 		isLoading: Bool
