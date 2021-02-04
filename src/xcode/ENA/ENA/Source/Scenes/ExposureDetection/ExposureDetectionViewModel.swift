@@ -417,7 +417,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						AppStrings.ExposureDetection.guideHotline3,
 						AppStrings.ExposureDetection.guideHotline4
 					]),
-					faqLinkCell()
+					.guide(attributedString: faqLinkText(), image: UIImage(named: "Icons - Empty"), accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ)
 				]
 			),
 			activeTracingSection(
@@ -432,12 +432,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
 		])
-	}
-
-	private func faqLinkCell() -> DynamicCell {
-		let cell = DynamicCell.guide(attributedString: faqLinkText(), image: UIImage(named: "Icons - Empty")) as UITableViewCell
-		cell.accessibilityIdentifier = AccessibilityIdentifiers.ExposureDetection.guideFAQ
-		return cell
 	}
 
 	private func faqLinkText(tintColor: UIColor = .enaColor(for: .textTint)) -> NSAttributedString {
