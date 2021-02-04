@@ -11,20 +11,12 @@ class DiaryCoordinator {
 	init(
 		store: Store,
 		diaryStore: DiaryStoringProviding,
-		parentNavigationController: UINavigationController,
 		homeState: HomeState?
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
-		self.parentNavigationController = parentNavigationController
 		self.homeState = homeState
-	}
-
-	// MARK: - Internal
-
-	func start() {
-		parentNavigationController?.pushViewController(overviewScreen, animated: true)
-
+		
 		#if DEBUG
 		if isUITesting {
 			if let journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
@@ -43,11 +35,24 @@ class DiaryCoordinator {
 
 		}
 		#endif
-		if !infoScreenShown {
-			showInfoScreen()
-		}
+				
+		
 	}
 
+	// MARK: - Internal
+
+	lazy var viewController: ENANavigationControllerWithFooter = {
+		if !infoScreenShown {
+			return ENANavigationControllerWithFooter(rootViewController: infoScreen(modalPresentation: false, dismissAction: { [weak self] in
+				guard let self = self else { return }
+				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
+				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
+			}))
+		} else {
+			return ENANavigationControllerWithFooter(rootViewController: overviewScreen)
+		}
+	}()
+	
 	// MARK: - Private
 
 	private let store: Store
@@ -74,7 +79,7 @@ class DiaryCoordinator {
 				self?.showDayScreen(day: day)
 			},
 			onInfoButtonTap: { [weak self] in
-				self?.showInfoScreen()
+				self?.presentInfoScreen()
 			},
 			onExportButtonTap: { [weak self] in
 				self?.showExportActivity()
@@ -87,35 +92,45 @@ class DiaryCoordinator {
 			}
 		)
 	}()
+	
 
-	private func showInfoScreen() {
-		// Promise the navigation view controller will be available,
-		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
+	private func infoScreen(modalPresentation: Bool, dismissAction: @escaping (() -> Void)) -> UIViewController {
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
-				presentDisclaimer: {
+				presentDisclaimer: { [weak self] in
 					let detailViewController = AppInformationDetailViewController()
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
 					detailViewController.separatorStyle = .none
 					// hides the footerview as well
 					detailViewController.hidesBottomBarWhenPushed = true
-					navigationController.pushViewController(detailViewController, animated: true)
+					self?.viewController.pushViewController(detailViewController, animated: true)
 				}
 			),
 			onDismiss: {
+				dismissAction()
+			}
+		)
+		return viewController
+	}
+	
+	private func presentInfoScreen() {
+		// Promise the navigation view controller will be available,
+		// this is needed to resolve an inset issue with large titles
+		var navigationController: ENANavigationControllerWithFooter!
+		let infoVC = infoScreen(
+			modalPresentation: true,
+			dismissAction: {
 				navigationController.dismiss(animated: true)
 			}
 		)
+							
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
-		parentNavigationController?.present(navigationController, animated: true) {
-			self.infoScreenShown = true
-		}
+		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+		viewController.present(navigationController, animated: true)
 	}
-
+	
 	private func showDayScreen(day: DiaryDay) {
 		let viewController = DiaryDayViewController(
 			viewModel: DiaryDayViewModel(

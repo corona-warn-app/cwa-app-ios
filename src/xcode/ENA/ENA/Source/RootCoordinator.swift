@@ -53,15 +53,12 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		
 		// ContactJournal
-		let diaryNavVC = AppNavigationController()
-		diaryCoordinator = DiaryCoordinator(
+		let diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
-			parentNavigationController: diaryNavVC,
 			homeState: homeState
 		)
-
-		diaryCoordinator?.start()
+		self.diaryCoordinator = diaryCoordinator
 		
 		
 		// Tabbar
@@ -72,11 +69,11 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), tag: 1)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
-		diaryNavVC.tabBarItem = diaryTabbarItem
+		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 		
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryNavVC], animated: false)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
