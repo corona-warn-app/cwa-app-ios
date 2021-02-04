@@ -13,7 +13,13 @@ extension DynamicAction {
 
 	static func push(model: DynamicTableViewModel, separators: Bool = false, withTitle title: String, completion: (() -> Void)? = nil) -> Self {
 		.execute { viewController, _ in
-			let detailViewController = AppInformationDetailViewController()
+			let detailViewController: AppInformationDetailViewController
+			if title != AppStrings.AppInformation.privacyTitle {
+				detailViewController = AppInformationDetailViewController()
+			} else {
+				detailViewController = DataPrivacyViewControllerDisablingSwipeToDismiss()
+			}
+
 			detailViewController.dismissHandeling = completion
 			detailViewController.title = title
 			detailViewController.dynamicTableViewModel = model
