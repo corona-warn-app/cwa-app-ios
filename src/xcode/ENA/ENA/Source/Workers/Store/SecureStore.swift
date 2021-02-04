@@ -12,6 +12,9 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 	private var serverEnvironment: ServerEnvironment
+	
+	// [KGA]
+	// private let deltaOnboardingsPresented: [String: [String]]
 
 	init(
 		at directoryURL: URL,
@@ -21,6 +24,9 @@ final class SecureStore: Store {
 		self.directoryURL = directoryURL
 		self.kvStore = try SQLiteKeyValueStore(with: directoryURL, key: key)
 		self.serverEnvironment = serverEnvironment
+		
+		// [KGA]
+		// self.deltaOnboardingsPresented = [String: [String]]()
 	}
 
 	/// Removes most key/value pairs.
@@ -111,6 +117,12 @@ final class SecureStore: Store {
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
+	}
+	
+	// [KGA]
+	var finishedDeltaOnboardings: [String: [String]] {
+		get { kvStore["finishedDeltaOnboardings"] as [String: [String]]? ?? [String: [String]]() }
+		set { kvStore["finishedDeltaOnboardings"] = newValue }
 	}
 
 	var onboardingVersion: String {
