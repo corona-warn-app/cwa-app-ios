@@ -151,4 +151,50 @@ class OTPServiceTests: XCTestCase {
 		XCTAssertNotNil(store.otpToken)
 		XCTAssertEqual(responseError, .otpAlreadyUsedThisMonth)
 	}
+
+	func testGIVEN_StoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsNil() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let otpService = OTPService(store: store, client: client)
+		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+
+		let expectation = self.expectation(description: "completion handler is called without an error")
+		var expectedOtp: String?
+
+		otpService.getValidOTP(ppacToken: ppacToken, completion: { result in
+			switch result {
+			case .success(let otp):
+				expectedOtp = otp
+				expectation.fulfill()
+			case .failure:
+				XCTFail("Test should not fail")
+			}
+		})
+
+		waitForExpectations(timeout: .short)
+		XCTAssertNotNil(expectedOtp)
+		XCTAssertNotNil(store.otpToken)
+		XCTAssertEqual(expectedOtp, store.otpToken?.token)
+
+		// WHEN
+		otpService.discardOTP()
+
+		// THEN
+		XCTAssertNil(store.otpToken)
+	}
+
+	func testGIVEN_NoStoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsStillNil() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let otpService = OTPService(store: store, client: client)
+		XCTAssertNil(store.otpToken)
+
+		// WHEN
+		otpService.discardOTP()
+
+		// THEN
+		XCTAssertNil(store.otpToken)
+	}
 }
