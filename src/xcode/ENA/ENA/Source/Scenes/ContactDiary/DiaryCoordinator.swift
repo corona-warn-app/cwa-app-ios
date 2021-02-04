@@ -63,8 +63,6 @@ class DiaryCoordinator {
 	private let diaryStore: DiaryStoringProviding
 	private let homeState: HomeState?
 
-	private weak var parentNavigationController: UINavigationController?
-
 	private var infoScreenShown: Bool {
 		get { store.journalWithExposureHistoryInfoScreenShown }
 		set { store.journalWithExposureHistoryInfoScreenShown = newValue }
@@ -153,11 +151,11 @@ class DiaryCoordinator {
 			)
 		)
 
-		parentNavigationController?.pushViewController(viewController, animated: true)
+		self.viewController.pushViewController(viewController, animated: true)
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from fromViewController: UIViewController? = nil) {
-		let presentingViewController = fromViewController ?? parentNavigationController
+		let presentingViewController = fromViewController ?? viewController
 
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
@@ -167,12 +165,12 @@ class DiaryCoordinator {
 		let viewController = DiaryAddAndEditEntryViewController(
 			viewModel: viewModel,
 			dismiss: {
-				presentingViewController?.dismiss(animated: true)
+				presentingViewController.dismiss(animated: true)
 			}
 		)
 		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
-		presentingViewController?.present(navigationController, animated: true)
+		presentingViewController.present(navigationController, animated: true)
 	}
 
 	private func showEditEntriesScreen(entryType: DiaryEntryType) {
@@ -188,11 +186,11 @@ class DiaryCoordinator {
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
+				self?.viewController.dismiss(animated: true)
 			}
 		)
 		navigationController = UINavigationController(rootViewController: viewController)
-		parentNavigationController?.present(navigationController, animated: true)
+		self.viewController.present(navigationController, animated: true)
 	}
 
 	private func showExportActivity() {
@@ -207,7 +205,7 @@ class DiaryCoordinator {
 			activityItems: [exportItem],
 			applicationActivities: nil
 		)
-		parentNavigationController?.present(viewController, animated: true, completion: nil)
+		self.viewController.present(viewController, animated: true, completion: nil)
 	}
 	
 }
