@@ -47,6 +47,7 @@ class DiaryCoordinator {
 				guard let self = self else { return }
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
+				self.infoScreenShown = true
 			},
 			showDetail: { detailViewController in
 				self.viewController.pushViewController(detailViewController, animated: true)
