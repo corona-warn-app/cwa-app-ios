@@ -105,7 +105,8 @@ class DiaryCoordinator {
 					// hides the footerview as well
 					detailViewController.hidesBottomBarWhenPushed = true
 					self?.viewController.pushViewController(detailViewController, animated: true)
-				}
+				},
+				hidesCloseButton: !modalPresentation
 			),
 			onDismiss: {
 				dismissAction()
