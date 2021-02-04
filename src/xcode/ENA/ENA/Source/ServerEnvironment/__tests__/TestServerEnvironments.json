@@ -4,19 +4,22 @@
 			"name": "Default",
 			"distributionURL": "https://Default.distribution",
 			"submissionURL": "https://Default.submission",
-			"verificationURL": "https://Default.verification"
+			"verificationURL": "https://Default.verification",
+			"dataDonationURL": "https://Default.datadonation"
 		},
 		{
 			"name": "TestEnvironment1",
 			"distributionURL": "https://TestEnvironment1.distribution",
 			"submissionURL": "https://TestEnvironment1.submission",
-			"verificationURL": "https://TestEnvironment1.verification"
+			"verificationURL": "https://TestEnvironment1.verification",
+			"dataDonationURL": "https://TestEnvironment1.datadonation"
 		},
 		{
 			"name": "TestEnvironment2",
 			"distributionURL": "https://TestEnvironment2.distribution",
 			"submissionURL": "https://TestEnvironment2.submission",
-			"verificationURL": "https://TestEnvironment2.verification"
+			"verificationURL": "https://TestEnvironment2.verification",
+			"dataDonationURL": "https://TestEnvironment2.datadonation"
 		}
 	]
 }

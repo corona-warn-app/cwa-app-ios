@@ -5,11 +5,10 @@
 import Foundation
 
 protocol DeviceTimeCheckProtocol {
-	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date)
-	func resetDeviceTimeFlags()
+	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool)
+	func resetDeviceTimeFlags(configUpdateSuccessful: Bool)
 
 	var isDeviceTimeCorrect: Bool { get }
-	var wasDeviceTimeErrorShown: Bool { get }
 }
 
 final class DeviceTimeCheck: DeviceTimeCheckProtocol {
@@ -24,28 +23,36 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	// MARK: - Internal
 
+	enum TimeCheckResult: Int, Codable {
+		case correct
+		case assumedCorrect
+		case incorrect
+	}
+
 	var isDeviceTimeCorrect: Bool {
-		store.isDeviceTimeCorrect
+		return store.deviceTimeCheckResult == .correct || store.deviceTimeCheckResult == .assumedCorrect
 	}
 
-	var wasDeviceTimeErrorShown: Bool {
-		store.isDeviceTimeCorrect
-	}
-
-	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date) {
-		self.persistDeviceTimeCheckFlags(
-			isDeviceTimeCorrect: self.isDeviceTimeCorrect(
-				serverTime: serverTime,
-				deviceTime: deviceTime
-			),
-			isDeviceTimeCheckKillSwitchActive: self.isDeviceTimeCheckKillSwitchActive(
-				config: self.store.appConfigMetadata?.appConfig
-			)
+	func updateDeviceTimeFlags(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) {
+		let oldState = store.deviceTimeCheckResult
+		store.deviceTimeCheckResult = isDeviceTimeCorrect(
+			serverTime: serverTime,
+			deviceTime: deviceTime,
+			configUpdateSuccessful: configUpdateSuccessful
 		)
+		// store change date only if a state change was detected
+		if oldState != store.deviceTimeCheckResult {
+			store.deviceTimeLastStateChange = Date()
+		}
+
+        if store.deviceTimeCheckResult == .correct {
+            store.wasDeviceTimeErrorShown = false
+        }
 	}
 
-	func resetDeviceTimeFlags() {
-		store.isDeviceTimeCorrect = true
+	func resetDeviceTimeFlags(configUpdateSuccessful: Bool) {
+		store.deviceTimeCheckResult = configUpdateSuccessful ? .correct : .assumedCorrect
+		store.deviceTimeLastStateChange = Date()
 		store.wasDeviceTimeErrorShown = false
 	}
 
@@ -53,21 +60,16 @@ final class DeviceTimeCheck: DeviceTimeCheckProtocol {
 
 	private let store: Store
 
-	private func persistDeviceTimeCheckFlags(
-		isDeviceTimeCorrect: Bool,
-		isDeviceTimeCheckKillSwitchActive: Bool
-	) {
-		store.isDeviceTimeCorrect = isDeviceTimeCheckKillSwitchActive ? true : isDeviceTimeCorrect
-		if store.isDeviceTimeCorrect {
-			store.wasDeviceTimeErrorShown = false
-		}
-	}
-
-	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date) -> Bool {
+	private func isDeviceTimeCorrect(serverTime: Date, deviceTime: Date, configUpdateSuccessful: Bool) -> TimeCheckResult {
+        let killSwitchActive = isDeviceTimeCheckKillSwitchActive(config: store.appConfigMetadata?.appConfig)
+		guard !killSwitchActive,
+			  configUpdateSuccessful else {
+            return .assumedCorrect
+        }
 		let twoHourIntevall: Double = 2 * 60 * 60
 		let serverTimeMinus2Hours = serverTime.addingTimeInterval(-twoHourIntevall)
 		let serverTimePlus2Hours = serverTime.addingTimeInterval(twoHourIntevall)
-		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime)
+		return (serverTimeMinus2Hours ... serverTimePlus2Hours).contains(deviceTime) ? .correct : .incorrect
 	}
 
 	private func isDeviceTimeCheckKillSwitchActive(config: SAP_Internal_V2_ApplicationConfigurationIOS?) -> Bool {

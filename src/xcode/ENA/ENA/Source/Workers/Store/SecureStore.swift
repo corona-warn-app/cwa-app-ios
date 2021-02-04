@@ -214,10 +214,15 @@ final class SecureStore: Store {
 		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
     }
-    
-	var isDeviceTimeCorrect: Bool {
-		get { kvStore["isDeviceTimeCorrect"] as Bool? ?? true }
-		set { kvStore["isDeviceTimeCorrect"] = newValue }
+
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
+		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
+		set { kvStore["deviceTimeCheckResult"] = newValue }
+	}
+
+	var deviceTimeLastStateChange: Date {
+		get { kvStore["deviceTimeLastStateChange"] as Date? ?? Date() }
+		set { kvStore["deviceTimeLastStateChange"] = newValue }
 	}
 
 	var wasDeviceTimeErrorShown: Bool {
@@ -261,6 +266,16 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
+	var otpToken: OTPToken? {
+		get { kvStore["otpToken"] as OTPToken? }
+		set { kvStore["otpToken"] = newValue }
+	}
+
+	var ppacApiToken: TimestampedToken? {
+		get { kvStore["ppacApiToken"] as TimestampedToken? }
+		set { kvStore["ppacApiToken"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -283,6 +298,11 @@ final class SecureStore: Store {
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? {
 		get { kvStore["mostRecentRiskCalculationConfiguration"] as RiskCalculationConfiguration? }
 		set { kvStore["mostRecentRiskCalculationConfiguration"] = newValue }
+	}
+
+	var forceAPITokenAuthorization: Bool {
+		get { kvStore["forceAPITokenAuthorization"] as Bool? ?? false }
+		set { kvStore["forceAPITokenAuthorization"] = newValue }
 	}
 
 	#endif
