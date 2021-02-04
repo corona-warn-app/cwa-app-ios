@@ -250,9 +250,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					self?.showSymptomsScreen()
 				},
 				onContinueWarnOthersButtonTap: { [weak self] isLoading in
+					Log.debug("\(#function) will load app config", log: .appConfig)
 					self?.model.exposureSubmissionService.loadSupportedCountries(
 						isLoading: isLoading,
 						onSuccess: { supportedCountries in
+							Log.debug("\(#function) did load app config", log: .appConfig)
 							self?.showWarnOthersScreen(supportedCountries: supportedCountries)
 						}
 					)
@@ -436,6 +438,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
 					} else {
+						Log.error("\(#function) error", log: .ui, error: error)
 						self?.showErrorAlert(for: error)
 					}
 				}

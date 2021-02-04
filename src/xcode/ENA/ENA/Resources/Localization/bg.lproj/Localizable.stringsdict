@@ -13,7 +13,7 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Брой дни с излагания на нисък риск: %u</string>
+			<string>Няма излагане на риск</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
 			<string>Брой дни с излагания на нисък риск: 1</string>

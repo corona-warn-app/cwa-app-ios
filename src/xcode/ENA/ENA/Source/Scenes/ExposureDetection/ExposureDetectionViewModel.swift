@@ -62,6 +62,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	// MARK: - Protocol CountdownTimerDelegate
 
 	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		timeUntilUpdate = nil
+		
 		if case .risk = homeState.riskState, homeState.manualExposureDetectionState == .possible {
 			buttonTitle = AppStrings.Home.riskCardUpdateButton
 			isButtonEnabled = true
@@ -346,16 +348,28 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private func lowRiskModel(risk: Risk) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
-
+		let riskDataSectionWithExposure = riskDataSection(
+		   footer: .riskTint(height: 16),
+		   cells: [
+			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+			   .riskLastExposure(text: numberOfExposures == 1 ?
+								   AppStrings.ExposureDetection.lastExposureOneRiskDay :
+								   AppStrings.ExposureDetection.lastExposure,
+								 image: UIImage(named: "Icons_Calendar")),
+			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		   ]
+		)
+		let riskDataSectionWithoutExposure = riskDataSection(
+		   footer: .riskTint(height: 16),
+		   cells: [
+			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		   ]
+		)
 		return DynamicTableViewModel([
-			riskDataSection(
-				footer: .riskTint(height: 16),
-				cells: [
-					.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-				]
-			),
+			numberOfExposures > 0 ? riskDataSectionWithExposure : riskDataSectionWithoutExposure,
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
@@ -376,12 +390,16 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	private func highRiskModel(risk: Risk) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
+		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
 		return DynamicTableViewModel([
 			riskDataSection(
 				footer: .riskTint(height: 16),
 				cells: [
 					.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
-					.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
+					.riskLastExposure(text: numberOfExposures == 1 ?
+										AppStrings.ExposureDetection.lastExposureOneRiskDay :
+										AppStrings.ExposureDetection.lastExposure,
+									  image: UIImage(named: "Icons_Calendar")),
 					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
