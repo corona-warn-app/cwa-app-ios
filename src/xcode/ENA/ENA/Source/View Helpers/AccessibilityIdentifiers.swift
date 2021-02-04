@@ -160,6 +160,7 @@ enum AccessibilityIdentifiers {
 		static let acceptButton = "AppStrings.SurveyConsent.acceptButton"
 		static let titleImage = "AppStrings.SurveyConsent.titleImage"
 		static let title = "AppStrings.SurveyConsent.title"
+		static let legalDetailsButton = "AppStrings.SurveyConsent.legalDetailsButton"
 	}
 
 	enum ExposureSubmissionQRScanner {

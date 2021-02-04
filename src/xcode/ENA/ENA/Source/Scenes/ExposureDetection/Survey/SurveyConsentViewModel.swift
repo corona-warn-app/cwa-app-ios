@@ -63,10 +63,10 @@ final class SurveyConsentViewModel {
 		model.add(
 			.section(separators: .all, cells: [
 				.body(
-					text: "Some Text",
-					accessibilityIdentifier: "Some acc identifier",
+					text: AppStrings.SurveyConsent.legalDetailsButtonTitle,
+					accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.legalDetailsButton,
 					accessibilityTraits: UIAccessibilityTraits.button,
-					action: .push(model: privacyDetailsModel, withTitle: "Some Title"),
+					action: .push(model: privacyDetailsModel, withTitle: ""),
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 						cell.selectionStyle = .default
@@ -83,17 +83,11 @@ final class SurveyConsentViewModel {
 		.section(
 			cells: [
 				.title1(
-					text: "Some Title",
+					text: AppStrings.SurveyConsent.legalDetailsTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
 				),
 				.body(
-					text: "Some Body"
-				),
-				.body(
-					text: "Some Body"
-				),
-				.body(
-					text: "Some Body"
+					text: AppStrings.SurveyConsent.legalDetailsBody
 				)
 			]
 		)

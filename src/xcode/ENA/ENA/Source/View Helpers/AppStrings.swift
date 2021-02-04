@@ -378,6 +378,8 @@ enum AppStrings {
 		static let legalBullet2 = NSLocalizedString("SurveyConsent_Legal_Bullet2", comment: "")
 		static let acceptButtonTitle = NSLocalizedString("SurveyConsent_Accept_Button_Title", comment: "")
 		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", comment: "")
+		static let legalDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
+		static let legalDetailsBody = NSLocalizedString("SurveyConsent_Legal_Details_Body", comment: "")
 	}
 
 	enum ExposureDetectionError {
