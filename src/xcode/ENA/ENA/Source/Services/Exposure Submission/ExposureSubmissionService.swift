@@ -229,6 +229,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.devicePairingConsentAccept = false
 		store.devicePairingSuccessfulTimestamp = nil
 		store.devicePairingConsentAcceptTimestamp = nil
+
+		isSubmissionConsentGiven = false
 	}
 
 	var exposureManagerState: ExposureManagerState {
