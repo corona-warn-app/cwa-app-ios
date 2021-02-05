@@ -16,5 +16,5 @@ final class SelectValueCellViewModel {
 	// MARK: - Internal
 
 	let text: String
-	var isSelected: Bool
+	let isSelected: Bool
 }

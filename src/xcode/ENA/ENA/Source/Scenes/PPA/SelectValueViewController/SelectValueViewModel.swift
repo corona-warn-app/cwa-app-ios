@@ -11,20 +11,18 @@ final class SelectValueViewModel {
 
 	init(_ allValues: [String], preselected: String?) {
 		self.allValues = ["keine Angabe"] + allValues
-		if let preselected = preselected {
-			self.selectedIndex = self.allValues.firstIndex(of: preselected)
-		} else {
-			self.selectedIndex = 0
+		guard let preselected = preselected,
+			  let selectedIndex = self.allValues.firstIndex(of: preselected) else {
+			self.selectedIndex = (nil, 0)
+			return
 		}
+		self.selectedIndex = (nil, selectedIndex)
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
+
+	/// this tupel represents the change (oldVlaue, currentValue)
+	@OpenCombine.Published private (set) var selectedIndex: (Int?, Int)
 
 	var numberOfSelectableValues: Int {
 		return allValues.count
@@ -33,13 +31,20 @@ final class SelectValueViewModel {
 	func cellViewModel(for indexPath: IndexPath) -> SelectValueCellViewModel {
 		SelectValueCellViewModel(
 			text: allValues[indexPath.row],
-			isSelected: selectedIndex == indexPath.row
+			isSelected: selectedIndex.1 == indexPath.row
 		)
+	}
+
+	func selectValue(at indexPath: IndexPath) {
+		guard allValues.indices.contains(indexPath.row) else {
+			Log.debug("unpossible value selection found, ignored it", log: .ppac)
+			return
+		}
+		selectedIndex = (selectedIndex.1, indexPath.row)
 	}
 
 	// MARK: - Private
 
 	private let allValues: [String]
-	private var selectedIndex: Int?
 
 }

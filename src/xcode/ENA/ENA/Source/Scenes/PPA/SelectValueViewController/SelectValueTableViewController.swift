@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 final class SelectValueTableViewController: UITableViewController {
 
@@ -14,6 +15,7 @@ final class SelectValueTableViewController: UITableViewController {
 	) {
 		self.viewModel = viewModel
 		self.dissmiss = dissmiss
+		self.subscriptions = []
 		super.init(style: .plain)
 	}
 
@@ -45,7 +47,7 @@ final class SelectValueTableViewController: UITableViewController {
 	// MARK: - Protocol UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		Log.debug("Did changed selection")
+		viewModel.selectValue(at: indexPath)
 	}
 
 	// MARK: - Public
@@ -56,12 +58,29 @@ final class SelectValueTableViewController: UITableViewController {
 
 	private let viewModel: SelectValueViewModel
 	private let dissmiss: () -> Void
+	private var subscriptions: [AnyCancellable]
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
 		tableView.rowHeight = UITableView.automaticDimension
 
 		tableView.register(SelectValueTableViewCell.self, forCellReuseIdentifier: SelectValueTableViewCell.reuseIdentifier)
+
+		// wire up tabelview to react on viewmodel changes
+		viewModel.$selectedIndex
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] rowChange in
+				let newSelectionIndexPath = IndexPath(row: rowChange.1, section: 0)
+				let oldSelcetionIndexPath: IndexPath?
+				if let oldRow = rowChange.0 {
+					oldSelcetionIndexPath = IndexPath(row: oldRow, section: 0)
+				} else {
+					oldSelcetionIndexPath = nil
+				}
+				guard newSelectionIndexPath != oldSelcetionIndexPath else { return }
+				self?.tableView.reloadRows(at: [oldSelcetionIndexPath, newSelectionIndexPath].compactMap({ $0 }), with: .automatic)
+			}
+			.store(in: &subscriptions)
 	}
 
 }
