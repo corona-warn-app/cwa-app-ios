@@ -7,29 +7,29 @@ import XCTest
 
 class DeltaOnboardingCoordinatorTests: XCTestCase {
 
-//	func test_When_NoOnboardingIsCurrent_Then_NoDeltaOnboardingIsShown() {
-//		let mockStore = MockTestStore()
-//		mockStore.onboardingVersion = "1.0.0"
-//
-//		let deltaViewControllerDummy = DeltaOnboardingViewControllerDummy()
-//		let deltaOnboardingSpy = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy)
-//
-//		let viewControllerPresentSpy = ViewControllerPresentSpy()
-//
-//		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy])
-//
-//		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
-//
-//		sut_DeltaOnboardingCoordinator.finished = {
-//			finishedExpectation.fulfill()
-//
-//			XCTAssertFalse(viewControllerPresentSpy.presentWasCalled)
-//		}
-//
-//		sut_DeltaOnboardingCoordinator.startOnboarding()
-//
-//		waitForExpectations(timeout: .medium)
-//	}
+	func test_When_NoOnboardingIsCurrent_Then_NoDeltaOnboardingIsShown() {
+		let mockStore = MockTestStore()
+		mockStore.onboardingVersion = "1.0.0"
+
+		let deltaViewControllerDummy = DeltaOnboardingViewControllerDummy()
+		let deltaOnboardingSpy = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy)
+
+		let viewControllerPresentSpy = ViewControllerPresentSpy()
+
+		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy])
+
+		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
+
+		sut_DeltaOnboardingCoordinator.finished = {
+			finishedExpectation.fulfill()
+
+			XCTAssertFalse(viewControllerPresentSpy.presentWasCalled)
+		}
+
+		sut_DeltaOnboardingCoordinator.startOnboarding()
+
+		waitForExpectations(timeout: .medium)
+	}
 
 	func test_When_OneOnboardingIsCurrent_Then_DeltaOnboardingIsShown() {
 		let mockStore = MockTestStore()
@@ -86,13 +86,15 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
-	func test_When_OneOfTwoOnboardingsIsCurrent_Then_DeltaOnboardingIsShownTwice() {
+	func test_When_OneOfTwoOnboardingsIsCurrent_Then_DeltaOnboardingIsShownOnce() {
 
 		let mockStore = MockTestStore()
 		mockStore.onboardingVersion = "1.0.0"
+		
 
 		let deltaViewControllerDummy100 = DeltaOnboardingViewControllerDummy()
 		let deltaOnboardingSpy100 = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy100)
+		deltaOnboardingSpy100.finish()
 
 		let deltaViewControllerDummy110 = DeltaOnboardingViewControllerDummy()
 		let deltaOnboardingSpy110 = DeltaOnboardingSpy(version: "1.1.0", store: mockStore, deltaViewController: deltaViewControllerDummy110)
@@ -106,7 +108,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		sut_DeltaOnboardingCoordinator.finished = {
 			finishedExpectation.fulfill()
 
-			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 2)
+			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 1)
 		}
 
 		sut_DeltaOnboardingCoordinator.startOnboarding()
