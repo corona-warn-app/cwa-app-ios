@@ -7,29 +7,29 @@ import XCTest
 
 class DeltaOnboardingCoordinatorTests: XCTestCase {
 
-	func test_When_NoOnboardingIsCurrent_Then_NoDeltaOnboardingIsShown() {
-		let mockStore = MockTestStore()
-		mockStore.onboardingVersion = "1.0.0"
-
-		let deltaViewControllerDummy = DeltaOnboardingViewControllerDummy()
-		let deltaOnboardingSpy = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy)
-
-		let viewControllerPresentSpy = ViewControllerPresentSpy()
-
-		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy])
-
-		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
-
-		sut_DeltaOnboardingCoordinator.finished = {
-			finishedExpectation.fulfill()
-
-			XCTAssertFalse(viewControllerPresentSpy.presentWasCalled)
-		}
-
-		sut_DeltaOnboardingCoordinator.startOnboarding()
-
-		waitForExpectations(timeout: .medium)
-	}
+//	func test_When_NoOnboardingIsCurrent_Then_NoDeltaOnboardingIsShown() {
+//		let mockStore = MockTestStore()
+//		mockStore.onboardingVersion = "1.0.0"
+//
+//		let deltaViewControllerDummy = DeltaOnboardingViewControllerDummy()
+//		let deltaOnboardingSpy = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy)
+//
+//		let viewControllerPresentSpy = ViewControllerPresentSpy()
+//
+//		let sut_DeltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: viewControllerPresentSpy, onboardings: [deltaOnboardingSpy])
+//
+//		let finishedExpectation = expectation(description: "Finished is called by DeltaOnboardingCoordinator.")
+//
+//		sut_DeltaOnboardingCoordinator.finished = {
+//			finishedExpectation.fulfill()
+//
+//			XCTAssertFalse(viewControllerPresentSpy.presentWasCalled)
+//		}
+//
+//		sut_DeltaOnboardingCoordinator.startOnboarding()
+//
+//		waitForExpectations(timeout: .medium)
+//	}
 
 	func test_When_OneOnboardingIsCurrent_Then_DeltaOnboardingIsShown() {
 		let mockStore = MockTestStore()
