@@ -7,7 +7,7 @@ import Foundation
 struct UserMetadata: Codable {
 	var federalState: String
 	var administrativeUnit: String
-	var ageGroup: String
+	var ageGroup: AgeGroup
 
 	enum CodingKeys: String, CodingKey {
 		case federalState
@@ -18,7 +18,7 @@ struct UserMetadata: Codable {
 	init(
 		federalState: String,
 		administrativeUnit: String,
-		ageGroup: String
+		ageGroup: AgeGroup
 	) {
 		self.federalState = federalState
 		self.administrativeUnit = administrativeUnit
@@ -30,6 +30,6 @@ struct UserMetadata: Codable {
 
 		federalState = try container.decode(String.self, forKey: .federalState)
 		administrativeUnit = try container.decode(String.self, forKey: .administrativeUnit)
-		ageGroup = try container.decode(String.self, forKey: .ageGroup)
+		ageGroup = try container.decode(AgeGroup.self, forKey: .ageGroup)
 	}
 }
