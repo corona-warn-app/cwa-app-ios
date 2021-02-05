@@ -598,6 +598,7 @@
 		BA69A7E625CD7D1E00023265 /* SelectValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */; };
 		BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7F725CD87C200023265 /* SelectValueCellViewModel.swift */; };
 		BA69A80525CDA6B300023265 /* SelectValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A80425CDA6B300023265 /* SelectValueCellViewModelTests.swift */; };
+		BA69A80D25CDA80600023265 /* SelectValueViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A80C25CDA80600023265 /* SelectValueViewModelTests.swift */; };
 		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* ENARange.swift */; };
@@ -1374,6 +1375,7 @@
 		BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewCell.swift; sourceTree = "<group>"; };
 		BA69A7F725CD87C200023265 /* SelectValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA69A80425CDA6B300023265 /* SelectValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueCellViewModelTests.swift; sourceTree = "<group>"; };
+		BA69A80C25CDA80600023265 /* SelectValueViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueViewModelTests.swift; sourceTree = "<group>"; };
 		BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exposure-windows-risk-calculation.json"; sourceTree = "<group>"; };
 		BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCasesWithConfiguration.swift; sourceTree = "<group>"; };
 		BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationConfiguration.swift; sourceTree = "<group>"; };
@@ -3696,6 +3698,7 @@
 		BA69A80225CDA68500023265 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				BA69A80C25CDA80600023265 /* SelectValueViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4908,6 +4911,7 @@
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift in Sources */,
+				BA69A80D25CDA80600023265 /* SelectValueViewModelTests.swift in Sources */,
 				AB453F602534B04400D8339E /* ExposureManagerTests.swift in Sources */,
 				94ABF76B25B9676F004AB56F /* DeltaOnboardingNewVersionFeaturesControllerTests.swift in Sources */,
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,

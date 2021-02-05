@@ -12,7 +12,7 @@ final class SelectValueViewModel {
 	init(
 		_ allValues: [String],
 		title: String,
-		preselected: String?
+		preselected: String? = nil
 	) {
 		self.allValues = ["keine Angabe"] + allValues
 		self.title = title
