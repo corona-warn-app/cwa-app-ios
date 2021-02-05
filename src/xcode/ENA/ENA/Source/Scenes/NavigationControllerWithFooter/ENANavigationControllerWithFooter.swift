@@ -81,7 +81,7 @@ class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePrese
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
 			  let dismissableViewController = topViewController as? DismissHandling  else {
-			// this is the default behavior
+			// this is the default behaviour
 			dismiss(animated: true)
 			return
 		}
@@ -227,7 +227,11 @@ extension ENANavigationControllerWithFooter {
 		navigationItemObserver?.invalidate()
 
 		self.footerView.apply(navigationItem: viewController.hidesBottomBarWhenPushed ? nil : viewController.navigationItem)
-		self.setFooterViewHidden(viewController.hidesBottomBarWhenPushed)
+		
+		/// If we didn't set a ENANavigationFooterItem it is nicer to hide the footerView instead of showing a white rectangle
+		let enaNavigationFooterItem = viewController.navigationItem as? ENANavigationFooterItem
+		
+		self.setFooterViewHidden(viewController.hidesBottomBarWhenPushed || enaNavigationFooterItem == nil)
 		self.updateAdditionalSafeAreaInsets()
 		self.layoutFooterView()
 
