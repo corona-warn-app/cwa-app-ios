@@ -9,8 +9,13 @@ final class SelectValueViewModel {
 
 	// MARK: - Init
 
-	init(_ allValues: [String], preselected: String?) {
+	init(
+		_ allValues: [String],
+		title: String,
+		preselected: String?
+	) {
 		self.allValues = ["keine Angabe"] + allValues
+		self.title = title
 		guard let preselected = preselected,
 			  let selectedIndex = self.allValues.firstIndex(of: preselected) else {
 			self.selectedIndex = (nil, 0)
@@ -20,6 +25,8 @@ final class SelectValueViewModel {
 	}
 
 	// MARK: - Internal
+
+	let title: String
 
 	/// this tupel represents the change (oldVlaue, currentValue)
 	@OpenCombine.Published private (set) var selectedIndex: (Int?, Int)

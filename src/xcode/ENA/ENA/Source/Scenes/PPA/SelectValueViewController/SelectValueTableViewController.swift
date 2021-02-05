@@ -28,7 +28,7 @@ final class SelectValueTableViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		setupNavigationBar()
 		setupTableView()
 	}
 
@@ -81,6 +81,12 @@ final class SelectValueTableViewController: UITableViewController {
 				self?.tableView.reloadRows(at: [oldSelcetionIndexPath, newSelectionIndexPath].compactMap({ $0 }), with: .automatic)
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func setupNavigationBar() {
+		title = viewModel.title
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dissmiss)
 	}
 
 }
