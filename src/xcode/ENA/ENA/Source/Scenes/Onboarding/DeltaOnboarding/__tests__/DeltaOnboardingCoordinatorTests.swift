@@ -76,7 +76,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		sut_DeltaOnboardingCoordinator.finished = {
 			finishedExpectation.fulfill()
 
-			XCTAssertEqual(viewControllerPresentSpy.numberOfPresenCalls, 2)
+			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 2)
 		}
 
 		sut_DeltaOnboardingCoordinator.startOnboarding()
@@ -106,7 +106,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		sut_DeltaOnboardingCoordinator.finished = {
 			finishedExpectation.fulfill()
 
-			XCTAssertEqual(viewControllerPresentSpy.numberOfPresenCalls, 1)
+			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 1)
 		}
 
 		sut_DeltaOnboardingCoordinator.startOnboarding()
@@ -119,12 +119,12 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 }
 
 private class ViewControllerPresentSpy: UIViewController {
-	var numberOfPresenCalls = 0
+	var numberOfPresentCalls = 0
 	var presentWasCalled = false
 
 	override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
 		presentWasCalled = true
-		numberOfPresenCalls += 1
+		numberOfPresentCalls += 1
 	}
 }
 
