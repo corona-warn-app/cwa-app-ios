@@ -597,6 +597,7 @@
 		BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */; };
 		BA69A7E625CD7D1E00023265 /* SelectValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */; };
 		BA69A7F825CD87C200023265 /* SelectValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7F725CD87C200023265 /* SelectValueCellViewModel.swift */; };
+		BA69A80525CDA6B300023265 /* SelectValueCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A80425CDA6B300023265 /* SelectValueCellViewModelTests.swift */; };
 		BA6C8A9E254D634E008344F5 /* RiskCalculationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */; };
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* ENARange.swift */; };
@@ -1372,6 +1373,7 @@
 		BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueViewModel.swift; sourceTree = "<group>"; };
 		BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewCell.swift; sourceTree = "<group>"; };
 		BA69A7F725CD87C200023265 /* SelectValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueCellViewModel.swift; sourceTree = "<group>"; };
+		BA69A80425CDA6B300023265 /* SelectValueCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueCellViewModelTests.swift; sourceTree = "<group>"; };
 		BA6C8A8F254D61F4008344F5 /* exposure-windows-risk-calculation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "exposure-windows-risk-calculation.json"; sourceTree = "<group>"; };
 		BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCasesWithConfiguration.swift; sourceTree = "<group>"; };
 		BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationConfiguration.swift; sourceTree = "<group>"; };
@@ -3673,6 +3675,7 @@
 		BA69A7D625CD782900023265 /* SelectValueViewController */ = {
 			isa = PBXGroup;
 			children = (
+				BA69A80225CDA68500023265 /* __tests__ */,
 				BA69A7E125CD796600023265 /* Cell */,
 				BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */,
 				BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */,
@@ -3683,10 +3686,26 @@
 		BA69A7E125CD796600023265 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				BA69A80325CDA69900023265 /* __tests__ */,
 				BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */,
 				BA69A7F725CD87C200023265 /* SelectValueCellViewModel.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		BA69A80225CDA68500023265 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA69A80325CDA69900023265 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA69A80425CDA6B300023265 /* SelectValueCellViewModelTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA6C8A8E254D60E0008344F5 /* Calculation */ = {
@@ -4933,6 +4952,7 @@
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
+				BA69A80525CDA6B300023265 /* SelectValueCellViewModelTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
 				CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */,
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
