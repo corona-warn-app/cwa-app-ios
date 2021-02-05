@@ -101,4 +101,9 @@ extension MockExposureManager: ExposureManager {
 		completionHandler()
 		#endif
 	}
+	
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler) {
+		completion(nil)
+	}
 }

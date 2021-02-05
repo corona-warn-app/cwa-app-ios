@@ -141,6 +141,8 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		tableView.estimatedRowHeight = 60
 
 		tableView.isEditing = true
+		
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.tableView
 	}
 
 	@IBAction private func didTapDeleteAllButton(_ sender: ENAButton) {

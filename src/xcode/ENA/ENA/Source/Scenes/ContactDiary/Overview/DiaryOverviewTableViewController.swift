@@ -118,6 +118,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
+		
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.tableView
 	}
 
 	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {

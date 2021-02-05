@@ -97,6 +97,15 @@ struct SAP_Internal_V2_ApplicationConfigurationAndroid {
   /// Clears the value of `dailySummariesConfig`. Subsequent reads from it will return its default value.
   mutating func clearDailySummariesConfig() {_uniqueStorage()._dailySummariesConfig = nil}
 
+  var eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersAndroid {
+    get {return _storage._eventDrivenUserSurveyParameters ?? SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersAndroid()}
+    set {_uniqueStorage()._eventDrivenUserSurveyParameters = newValue}
+  }
+  /// Returns true if `eventDrivenUserSurveyParameters` has been explicitly set.
+  var hasEventDrivenUserSurveyParameters: Bool {return _storage._eventDrivenUserSurveyParameters != nil}
+  /// Clears the value of `eventDrivenUserSurveyParameters`. Subsequent reads from it will return its default value.
+  mutating func clearEventDrivenUserSurveyParameters() {_uniqueStorage()._eventDrivenUserSurveyParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -158,6 +167,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
     7: .same(proto: "riskCalculationParameters"),
     8: .same(proto: "diagnosisKeysDataMapping"),
     9: .same(proto: "dailySummariesConfig"),
+    10: .same(proto: "eventDrivenUserSurveyParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -170,6 +180,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
     var _riskCalculationParameters: SAP_Internal_V2_RiskCalculationParameters? = nil
     var _diagnosisKeysDataMapping: SAP_Internal_V2_DiagnosisKeysDataMapping? = nil
     var _dailySummariesConfig: SAP_Internal_V2_DailySummariesConfig? = nil
+    var _eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersAndroid? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -185,6 +196,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
       _riskCalculationParameters = source._riskCalculationParameters
       _diagnosisKeysDataMapping = source._diagnosisKeysDataMapping
       _dailySummariesConfig = source._dailySummariesConfig
+      _eventDrivenUserSurveyParameters = source._eventDrivenUserSurveyParameters
     }
   }
 
@@ -212,6 +224,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
         case 7: try { try decoder.decodeSingularMessageField(value: &_storage._riskCalculationParameters) }()
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._diagnosisKeysDataMapping) }()
         case 9: try { try decoder.decodeSingularMessageField(value: &_storage._dailySummariesConfig) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._eventDrivenUserSurveyParameters) }()
         default: break
         }
       }
@@ -247,6 +260,9 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
       if let v = _storage._dailySummariesConfig {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
       }
+      if let v = _storage._eventDrivenUserSurveyParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -265,6 +281,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
         if _storage._riskCalculationParameters != rhs_storage._riskCalculationParameters {return false}
         if _storage._diagnosisKeysDataMapping != rhs_storage._diagnosisKeysDataMapping {return false}
         if _storage._dailySummariesConfig != rhs_storage._dailySummariesConfig {return false}
+        if _storage._eventDrivenUserSurveyParameters != rhs_storage._eventDrivenUserSurveyParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}

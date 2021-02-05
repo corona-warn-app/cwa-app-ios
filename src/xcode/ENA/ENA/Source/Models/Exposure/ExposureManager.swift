@@ -78,6 +78,8 @@ struct ExposureManagerState: Equatable {
 	@objc dynamic var exposureNotificationStatus: ENStatus { get }
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping  ENErrorHandler)
 }
 
 extension ENManager: Manager {
@@ -93,6 +95,10 @@ extension ENManager: Manager {
 		getExposureWindows(summary: summary, completionHandler: completionHandler)
 	}
 
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler) {
+		preAuthorizeDiagnosisKeys(completionHandler: completion)
+	}
 }
 
 protocol ExposureManagerLifeCycle {
@@ -126,10 +132,17 @@ protocol ExposureManagerObserving {
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
 }
 
+protocol PreauthorizeKeyRelease {
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler)
+}
 
-typealias ExposureManager = ExposureManagerLifeCycle &
+typealias ExposureManager =
+	ExposureManagerLifeCycle &
 	DiagnosisKeysRetrieval &
-	ExposureDetector & ExposureManagerObserving
+	ExposureDetector &
+	ExposureManagerObserving &
+	PreauthorizeKeyRelease
 
 
 protocol ENAExposureManagerObserver: AnyObject {
@@ -317,10 +330,41 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completionHandler(nil, error)
 			return
 		}
-		// see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
-		manager.getDiagnosisKeys(completionHandler: completionHandler)
+		if #available(iOS 14.4, *), let manager = manager as? ENManager {
+			// This handler receives preauthorized keys. Once the handler is called,
+			// the preauthorization expires, so the handler should only be called
+			// once per preauthorization request. If the user doesn't authorize
+			// release, this handler isn't called.
+			manager.diagnosisKeysAvailableHandler = { keys in
+				if keys.isEmpty {
+					// fall back to legacy method
+					manager.getDiagnosisKeys(completionHandler: completionHandler)
+				} else {
+					completionHandler(keys, nil)
+				}
+			}
+			// This call requests preauthorized keys. The request fails if the
+			// user doesn't authorize release or if more than five days pass after
+			// authorization. If requestPreAuthorizedDiagnosisKeys(:) has already
+			// been called since the last time the user preauthorized, the call
+			// doesn't fail but also doesn't return any keys.
+			manager.requestPreAuthorizedDiagnosisKeys { error in
+				if error != nil {
+					// fall back to legacy method
+					manager.getDiagnosisKeys(completionHandler: completionHandler)
+				}
+			}
+		} else {
+			// see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
+			manager.getDiagnosisKeys(completionHandler: completionHandler)
+		}
 	}
-
+	
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler) {
+		manager.preAuthorizeKeys(completion: completion)
+	}
+	
 	// MARK: Error Handling
 
 	private func handleENError(error: Error, completion: @escaping CompletionHandler) {
