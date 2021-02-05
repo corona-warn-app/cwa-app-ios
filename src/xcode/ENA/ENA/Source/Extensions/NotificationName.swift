@@ -10,4 +10,5 @@ private func _withPrefix(_ name: String) -> Notification.Name {
 
 extension Notification.Name {
 	static let isOnboardedDidChange = _withPrefix("isOnboardedDidChange")
+	static let riskStatusLowerd = _withPrefix("risKStatusLowerd")
 }
