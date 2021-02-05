@@ -56,6 +56,7 @@ final class ClientMock {
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -172,5 +173,21 @@ extension ClientMock: Client {
 		}
 
 		onGetOTP(otp, ppacToken, isFake, completion)
+	}
+
+	func submit(
+		payload: SAP_Internal_Ppdd_PPADataIOS,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool,
+		completion: @escaping PPAnalyticsSubmitionCompletionHandler
+	) {
+		guard let onSubmitAnalytics = self.onSubmitAnalytics else {
+			completion(.success(()))
+			return
+		}
+
+		onSubmitAnalytics(payload, ppacToken, isFake, completion)
+
 	}
 }
