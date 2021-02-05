@@ -516,12 +516,36 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let store = MockTestStore()
 		store.registrationToken = registrationToken
+		store.isSubmissionConsentGiven = true
 
 		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+
 		XCTAssertTrue(service.hasRegistrationToken)
+		XCTAssertTrue(service.isSubmissionConsentGiven)
+
+		/// Check that isSubmissionConsentGiven publisher is updated
+		let expectedValues = [true, false]
+		var receivedValues = [Bool]()
+
+		let publisherExpectation = expectation(description: "isSubmissionConsentGivenPublisher published")
+		publisherExpectation.expectedFulfillmentCount = 2
+
+		let subscription = service.isSubmissionConsentGivenPublisher
+			.sink {
+				receivedValues.append($0)
+				publisherExpectation.fulfill()
+			}
 
 		service.deleteTest()
+
 		XCTAssertFalse(service.hasRegistrationToken)
+		XCTAssertFalse(service.isSubmissionConsentGiven)
+
+		waitForExpectations(timeout: .medium)
+
+		XCTAssertEqual(receivedValues, expectedValues)
+
+		subscription.cancel()
 	}
 
 	// MARK: - Country Loading
