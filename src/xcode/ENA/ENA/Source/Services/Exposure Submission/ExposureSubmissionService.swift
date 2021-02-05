@@ -35,6 +35,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}.store(in: &subscriptions)
 	}
 
+	convenience init(dependencies: ExposureSubmissionServiceDependencies) {
+		self.init(
+			diagnosisKeysRetrieval: dependencies.exposureManager,
+			appConfigurationProvider: dependencies.appConfigurationProvider,
+			client: dependencies.client,
+			store: dependencies.store,
+			warnOthersReminder: dependencies.warnOthersReminder)
+	}
+
 	// MARK: - Protocol ExposureSubmissionService
 
 	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
@@ -83,6 +92,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
 			if countries.isEmpty {
+				Log.debug("App config provided empty country list. Falling back to default country", log: .appConfig)
 				self.supportedCountries = [.defaultCountry()]
 			} else {
 				self.supportedCountries = countries

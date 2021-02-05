@@ -1005,13 +1005,6 @@ sein.";
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
 
-/* Home Diary card */
-"Home_DiaryCard_Title" = "Kontakt-Tagebuch";
-
-"Home_DiaryCard_Body" = "Notieren Sie sich, wo Sie waren und wen Sie getroffen haben. Auch wenn Sie keine Kontakte eintragen, sehen Sie wann Sie Risiko-Begegnungen hatten.";
-
-"Home_DiaryCard_Button" = "Tagebuch öffnen";
-
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
 "Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
@@ -1666,8 +1659,14 @@ sein.";
 
 "Statistics_Info_Image_AccLabel" = "Abstrakte Darstellung eines Smartphones mit vier Platzhaltern für Informationen";
 
-/* Update OS*/
+/* Update OS */
 
 "UpdateOS_title" = "Führen Sie ein iOS-Update durch.";
 
 "UpdateOS_text" = "Für die Corona-Warn-App benötigen Sie die aktuelle iOS-Version.\nGehen Sie dafür in die Einstellungen Ihres iPhones und wählen Sie Allgemein -> Softwareupdate.";
+
+/* Tabbar */
+
+"Tabbar_Home_Title" = "Startseite";
+
+"Tabbar_Diary_Title" = "Tagebuch";

@@ -25,15 +25,14 @@ class HomeTableViewModelTests: XCTestCase {
 		)
 
 		// Number of Sections
-		XCTAssertEqual(viewModel.numberOfSections, 6, "Number of sections does not match.")
+		XCTAssertEqual(viewModel.numberOfSections, 5, "Number of sections does not match.")
 		
 		// Number of Rows per Section
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1, "Number of rows in section 0 does not match.")
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2, "Number of rows in section 1 does not match.")
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1, "Number of rows in section 2 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 3), 1, "Number of rows in section 2 does not match.")
+		XCTAssertEqual(viewModel.numberOfRows(in: 3), 2, "Number of rows in section 2 does not match.")
 		XCTAssertEqual(viewModel.numberOfRows(in: 4), 2, "Number of rows in section 3 does not match.")
-		XCTAssertEqual(viewModel.numberOfRows(in: 5), 2, "Number of rows in section 4 does not match.")
 		
 		// Check riskAndTestRows
 		XCTAssertEqual(viewModel.riskAndTestRows, [.risk, .testResult], "Risk and Test Rows does not match.")
@@ -42,17 +41,15 @@ class HomeTableViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.heightForHeader(in: 0), 0, "Height for Header in Section 0 does not match.")
 		XCTAssertEqual(viewModel.heightForHeader(in: 1), 0, "Height for Header in Section 1 does not match.")
 		XCTAssertEqual(viewModel.heightForHeader(in: 2), 0, "Height for Header in Section 2 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 3), 0, "Height for Header in Section 2 does not match.")
+		XCTAssertEqual(viewModel.heightForHeader(in: 3), 16, "Height for Header in Section 2 does not match.")
 		XCTAssertEqual(viewModel.heightForHeader(in: 4), 16, "Height for Header in Section 3 does not match.")
-		XCTAssertEqual(viewModel.heightForHeader(in: 5), 16, "Height for Header in Section 4 does not match.")
 		
 		// Height for Footer
 		XCTAssertEqual(viewModel.heightForFooter(in: 0), 0, "Height for Footer in Section 0 does not match.")
 		XCTAssertEqual(viewModel.heightForFooter(in: 1), 0, "Height for Footer in Section 1 does not match.")
 		XCTAssertEqual(viewModel.heightForFooter(in: 2), 0, "Height for Footer in Section 2 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 3), 0, "Height for Footer in Section 2 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 4), 16, "Height for Footer in Section 3 does not match.")
-		XCTAssertEqual(viewModel.heightForFooter(in: 5), 32, "Height for Footer in Section 4 does not match.")
+		XCTAssertEqual(viewModel.heightForFooter(in: 3), 16, "Height for Footer in Section 2 does not match.")
+		XCTAssertEqual(viewModel.heightForFooter(in: 4), 32, "Height for Footer in Section 3 does not match.")
 		
 	}
 

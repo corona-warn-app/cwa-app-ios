@@ -29,7 +29,7 @@ final class SerialDatabaseQueueMigrator: SerialMigratorProtocol {
 		queue.inDatabase { database in
 			serialMigrator = SerialMigrator(latestVersion: latestVersion, database: database, migrations: migrations)
 		}
-		try? serialMigrator?.migrate()
+		try serialMigrator?.migrate()
 	}
 }
 
