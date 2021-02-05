@@ -7,9 +7,9 @@ import XCTest
 
 class SurveyConsentViewModelTests: XCTestCase {
 
-	func testDynamicTableViewModel() throws {
+	func test_WHEN_dynamicTableViewModel_THEN_CorrectModelIsReturned() throws {
 		let store = MockTestStore()
-		let client =  ClientMock()
+		let client = ClientMock()
 		let otpService = OTPService(store: store, client: client)
 
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
@@ -18,7 +18,7 @@ class SurveyConsentViewModelTests: XCTestCase {
 		let viewModel = SurveyConsentViewModel(
 			configurationProvider: CachedAppConfigurationMock(),
 			ppacService: ppacService,
-			otpService:	otpService
+			otpService: otpService
 		)
 
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
@@ -27,5 +27,32 @@ class SurveyConsentViewModelTests: XCTestCase {
 		XCTAssertEqual(dynamicTableViewModel.section(0).cells.count, 4)
 		XCTAssertEqual(dynamicTableViewModel.section(1).cells.count, 1)
 		XCTAssertEqual(dynamicTableViewModel.section(2).cells.count, 1)
+	}
+
+	func test_WHEN_getURLIsCalled_THEN_AnURLIstReturned() throws {
+		let store = MockTestStore()
+		let client = ClientMock()
+		let otpService = OTPService(store: store, client: client)
+
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+
+		let viewModel = SurveyConsentViewModel(
+			configurationProvider: CachedAppConfigurationMock(),
+			ppacService: ppacService,
+			otpService: otpService
+		)
+
+		let urlExpectation = expectation(description: "URL is returned.")
+		viewModel.getURL { result in
+			switch result {
+			case .success:
+				urlExpectation.fulfill()
+			case .failure:
+				XCTFail("Error not expected.")
+			}
+		}
+
+		waitForExpectations(timeout: .long)
 	}
 }
