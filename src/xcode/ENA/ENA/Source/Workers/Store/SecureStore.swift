@@ -321,6 +321,20 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: RiskExposureMetadataProviding {
+	var riskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["riskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["riskExposureMetadata"] = newValue }
+	}
+}
+
+extension SecureStore: UserMetadataProviding {
+	var userMetadata: UserMetadata? {
+		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
+		set { kvStore["userMetadata"] = newValue }
+	}
+}
+
 extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"

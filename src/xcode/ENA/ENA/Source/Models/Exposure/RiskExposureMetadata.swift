@@ -1,5 +1,40 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
 import Foundation
+
+struct RiskExposureMetadata: Codable {
+	var riskLevel: RiskLevel
+	var riskLevelChangedComparedToPreviousSubmission: Bool
+	var mostRecentDateAtRiskLevel: Date
+	var dateChangedComparedToPreviousSubmission: Bool
+
+	enum CodingKeys: String, CodingKey {
+		case riskLevel
+		case riskLevelChangedComparedToPreviousSubmission
+		case mostRecentDateAtRiskLevel
+		case dateChangedComparedToPreviousSubmission
+	}
+
+	init(
+		riskLevel: RiskLevel,
+		riskLevelChangedComparedToPreviousSubmission: Bool,
+		mostRecentDateAtRiskLevel: Date,
+		dateChangedComparedToPreviousSubmission: Bool
+	) {
+		self.riskLevel = riskLevel
+		self.riskLevelChangedComparedToPreviousSubmission = riskLevelChangedComparedToPreviousSubmission
+		self.mostRecentDateAtRiskLevel = mostRecentDateAtRiskLevel
+		self.dateChangedComparedToPreviousSubmission = dateChangedComparedToPreviousSubmission
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+
+		riskLevel = try container.decode(RiskLevel.self, forKey: .riskLevel)
+		riskLevelChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .riskLevelChangedComparedToPreviousSubmission)
+		mostRecentDateAtRiskLevel = try container.decode(Date.self, forKey: .mostRecentDateAtRiskLevel)
+		dateChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .dateChangedComparedToPreviousSubmission)
+	}
+}
