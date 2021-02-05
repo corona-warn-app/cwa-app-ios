@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SelectValueCellViewModel {
 
@@ -10,11 +11,11 @@ final class SelectValueCellViewModel {
 
 	init(text: String, isSelected: Bool) {
 		self.text = text
-		self.isSelected = isSelected
+		self.checkmarkImage = isSelected ? UIImage(imageLiteralResourceName: "Icons_Checkmark") : nil
 	}
 
 	// MARK: - Internal
 
 	let text: String
-	let isSelected: Bool
+	let checkmarkImage: UIImage?
 }

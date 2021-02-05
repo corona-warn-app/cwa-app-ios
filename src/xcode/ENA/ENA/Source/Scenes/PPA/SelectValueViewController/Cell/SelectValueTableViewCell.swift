@@ -11,6 +11,7 @@ final class SelectValueTableViewCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .none
+
 		layoutViews()
 	}
 
@@ -27,7 +28,7 @@ final class SelectValueTableViewCell: UITableViewCell {
 
 	func configure(_ cellViewModel: SelectValueCellViewModel) {
 		selectableValueLabel.text = cellViewModel.text
-		accessoryType = cellViewModel.isSelected ? .checkmark : .none
+		accessoryView = UIImageView(image: cellViewModel.checkmarkImage)
 	}
 
 	// MARK: - Internal
@@ -37,10 +38,10 @@ final class SelectValueTableViewCell: UITableViewCell {
 	}
 	// MARK: - Private
 
-	private let selectableValueLabel = UILabel()
+	private let selectableValueLabel = ENALabel()
 
 	private func layoutViews() {
-		backgroundColor = .enaColor(for: .cellBackground)
+		backgroundColor = .enaColor(for: .background)
 
 		selectableValueLabel.translatesAutoresizingMaskIntoConstraints = false
 		selectableValueLabel.font = .enaFont(for: .body)
@@ -53,7 +54,7 @@ final class SelectValueTableViewCell: UITableViewCell {
 			selectableValueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20.0),
 			selectableValueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
 			selectableValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 35.0)
+			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44.0)
 		])
 
 	}

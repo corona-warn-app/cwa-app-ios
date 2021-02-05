@@ -16,7 +16,8 @@ final class SelectValueTableViewController: UITableViewController {
 		self.viewModel = viewModel
 		self.dissmiss = dissmiss
 		self.subscriptions = []
-		super.init(style: .plain)
+		/// we use .grouped to make seperators end with the last value
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -28,6 +29,7 @@ final class SelectValueTableViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		setupNavigationBar()
 		setupTableView()
 	}
@@ -44,15 +46,11 @@ final class SelectValueTableViewController: UITableViewController {
 		return cell
 	}
 
-	// MARK: - Protocol UITableViewDataSource
+	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		viewModel.selectValue(at: indexPath)
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
@@ -63,6 +61,13 @@ final class SelectValueTableViewController: UITableViewController {
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0
 		tableView.rowHeight = UITableView.automaticDimension
+		tableView.separatorInset = .init(top: 0, left: 17, bottom: 0, right: 17)
+		tableView.backgroundColor = .enaColor(for: .background)
+
+		/// get rid of table view grouped header inset
+		var frame = CGRect.zero
+		frame.size.height = .leastNormalMagnitude
+		tableView.tableHeaderView = UIView(frame: frame)
 
 		tableView.register(SelectValueTableViewCell.self, forCellReuseIdentifier: SelectValueTableViewCell.reuseIdentifier)
 
