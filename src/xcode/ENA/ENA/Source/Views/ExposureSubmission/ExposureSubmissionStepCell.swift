@@ -93,6 +93,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 	
 	private func setup() {
 		backgroundColor = .enaColor(for: .background)
+		contentView.preservesSuperviewLayoutMargins = false
 		contentView.layoutMargins.top = 0
 		// iconView
 		iconView = UIImageView(image: UIImage(named: "Icons_Grey_Check"))
