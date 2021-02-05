@@ -132,13 +132,13 @@ final class StoreTests: XCTestCase {
 	}
 	
 	func testDeviceTimeSettings_initalAfterInitialization() {
-		XCTAssertEqual(store.isDeviceTimeCorrect, true)
+		XCTAssertEqual(store.deviceTimeCheckResult, .correct)
 		XCTAssertEqual(store.wasDeviceTimeErrorShown, false)
 		
-		store.isDeviceTimeCorrect = false
+		store.deviceTimeCheckResult = .incorrect
 		store.wasDeviceTimeErrorShown = true
 		
-		XCTAssertEqual(store.isDeviceTimeCorrect, false)
+		XCTAssertEqual(store.deviceTimeCheckResult, .incorrect)
 		XCTAssertEqual(store.wasDeviceTimeErrorShown, true)
 	}
 

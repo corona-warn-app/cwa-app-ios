@@ -85,8 +85,10 @@ protocol StoreProtocol: AnyObject {
 
 	var lastKeyPackageDownloadDate: Date { get set }
 
-    var isDeviceTimeCorrect: Bool { get set }
-	
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
+
+	var deviceTimeLastStateChange: Date { get set }
+
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var positiveTestResultWasShown: Bool { get set }
@@ -101,6 +103,12 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
+	/// OTP for user survey link generation
+	var otpToken: OTPToken? { get set }
+
+	/// PPAC Token storage
+	var ppacApiToken: TimestampedToken? { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
@@ -112,6 +120,9 @@ protocol StoreProtocol: AnyObject {
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
 	var dmKillDeviceTimeCheck: Bool { get set }
+
+	var forceAPITokenAuthorization: Bool { get set }
+
 	#endif
 
 }

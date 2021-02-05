@@ -47,13 +47,16 @@ final class MockTestStore: Store, AppConfigCaching {
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
-	var isDeviceTimeCorrect = true
+	var deviceTimeLastStateChange: Date = Date()
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
 	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
+	var ppacApiToken: TimestampedToken?
+	var otpToken: OTPToken?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -61,6 +64,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var mostRecentRiskCalculation: RiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
+	var forceAPITokenAuthorization = false
 	#endif
 
 	// MARK: - AppConfigCaching

@@ -6,22 +6,23 @@
 
 import UIKit
 
-class DMSwitchTableViewCell: UITableViewCell {
-
-	// MARK: - Init
+class DMSwitchTableViewCell: UITableViewCell, DMConfigureableCell {
 
 	// MARK: - Overrides
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		infoLabel.font = .enaFont(for: .subheadline)
 		toggleSwitch.addTarget(self, action: #selector(toggleHit), for: .valueChanged)
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
-	func configure(cellViewModel: DMSwitchCellViewModel) {
+	func configure<T>(cellViewModel: T) {
+		guard let cellViewModel = cellViewModel as? DMSwitchCellViewModel else {
+			Log.debug("can't configure cell")
+			return
+		}
 		infoLabel.text = cellViewModel.labelText
 		toggleSwitch.isOn = cellViewModel.isOn()
 		self.cellViewModel = cellViewModel
