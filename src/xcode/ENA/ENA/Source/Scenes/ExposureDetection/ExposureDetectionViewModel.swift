@@ -439,8 +439,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		let string = NSMutableAttributedString(string: rawString)
 		let range = string.mutableString.range(of: AppStrings.ExposureDetection.guideFAQLinkText)
 		if range.location != NSNotFound {
-			Log.debug("[FAQ] adding link to string: \(AppStrings.Links.exposureDetectionFAQ)", log: .ui)
-			string.addAttribute(.link, value: AppStrings.Links.exposureDetectionFAQ, range: range)
+			// Links don't work in UILabels so we fake it here. Link handling in done in view controller on cell tap.
+			string.addAttribute(.foregroundColor, value: tintColor, range: range)
 			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
 		}
 		return string
