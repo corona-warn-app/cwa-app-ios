@@ -35,16 +35,17 @@ final class OTPService: OTPServiceProviding {
 	// MARK: - Protocol OTPServiceProviding
 
 	var isStoredOTPAuthorized: Bool {
-		return store.otpToken?.expirationDate != nil ? true : false
+		store.otpToken?.isAuthorized ?? false
 	}
 
+	// ToDo: Mit Pascal abklären: getOTP darf nich gecalled werden, falls isStoredOTPAuthorized true liefert.
 	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		// Check for existing otp. If we have none, create one and proceed.
 		if let token = store.otpToken {
 
 			guard !token.isAuthorizedInCurrentMonth else {
 				Log.error("The latest successful request for an OTP was in the current month.", log: .otp)
-				completion(.failure(OTPError.otpAlreadyUsedThisMonth))
+				completion(.failure(OTPError.otpAlreadyUsedThisMonth)) // Fehler
 				return
 			}
 
@@ -120,7 +121,7 @@ final class OTPService: OTPServiceProviding {
 fileprivate extension OTPToken {
 
 	var isAuthorized: Bool {
-		return expirationDate != nil
+		return authorizationDate != nil
 	}
 
 	var isExpired: Bool {
