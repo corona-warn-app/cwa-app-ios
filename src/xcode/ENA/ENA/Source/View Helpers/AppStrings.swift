@@ -661,10 +661,6 @@ enum AppStrings {
 		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
 		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
 
-		static let diaryCardTitle = NSLocalizedString("Home_DiaryCard_Title", comment: "")
-		static let diaryCardBody = NSLocalizedString("Home_DiaryCard_Body", comment: "")
-		static let diaryCardButton = NSLocalizedString("Home_DiaryCard_Button", comment: "")
-
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
@@ -1130,5 +1126,9 @@ enum AppStrings {
 		static let text = NSLocalizedString("UpdateOS_text", comment: "")
 	}
 	
+	enum Tabbar {
+		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
+		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+	}
 	// swiftlint:disable:next file_length
 }

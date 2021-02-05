@@ -190,13 +190,10 @@
 		01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */; };
 		01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17722590F03000E98E02 /* HomeExposureLoggingTableViewCell.swift */; };
 		01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17712590F03000E98E02 /* HomeCardView.swift */; };
-		01EA17992590F03600E98E02 /* HomeDiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */; };
 		01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */; };
 		01EA17C92591353200E98E02 /* HomeExposureLoggingCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */; };
-		01EA17D12591366200E98E02 /* HomeDiaryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */; };
 		01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */; };
 		01EA17EF259139B900E98E02 /* HomeInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */; };
-		01EA17F325913A5900E98E02 /* HomeDiaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */; };
 		01EA17FE259217B100E98E02 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17FD259217B100E98E02 /* HomeState.swift */; };
 		01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */; };
 		01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */; };
@@ -322,7 +319,6 @@
 		50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F9130C253F1D7800DFE683 /* OnboardingPageType.swift */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
 		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
-		516E430224B89AED0008CC30 /* CoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E430124B89AED0008CC30 /* CoordinatorTests.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
@@ -389,7 +385,6 @@
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595BF5E246032D90056EA27 /* ENASwitch.swift */; };
 		859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859DD511248549790073D59F /* MockDiagnosisKeysRetrieval.swift */; };
-		85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7593E2457048F008175F0 /* AppDelegate.swift */; };
 		85D7594B24570491008175F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594A24570491008175F0 /* Assets.xcassets */; };
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
@@ -450,7 +445,6 @@
 		A32842652491136E006B1F09 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */; };
 		A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */; };
-		A3552CC424DD6E16008C91BE /* PlausibleDeniabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3552CC324DD6E16008C91BE /* PlausibleDeniabilityService.swift */; };
 		A36FACC424C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */; };
 		A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372DA3A24BDA075003248BB /* ExposureSubmissionCoordinator.swift */; };
 		A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372DA3E24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift */; };
@@ -645,14 +639,13 @@
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAFBF35725ADD734003F5DC2 /* HomeThankYouCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */; };
-		BAFBF36025ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF35F25ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
 		CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8638522477EBD400A5A07C /* SettingsViewModel.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
-		CDA262F824AB808800612E15 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA262F724AB808800612E15 /* Coordinator.swift */; };
+		CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA262F724AB808800612E15 /* HomeCoordinator.swift */; };
 		CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */; };
 		CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D8247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift */; };
 		CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11DA247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift */; };
@@ -670,11 +663,14 @@
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
 		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
+		EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */; };
+		EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */; };
 		EB1C221225B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C221125B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift */; };
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */; };
 		EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */; };
 		EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */; };
+		EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */; };
 		EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */; };
 		EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */; };
 		EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB7057D624E6BACA002235B4 /* InfoBoxView.xib */; };
@@ -688,6 +684,7 @@
 		EB873540253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */; };
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
 		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
+		EBA3BE3C25C2FAA800F1C2AC /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */; };
 		EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */; };
 		EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */; };
 		EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */; };
@@ -939,10 +936,7 @@
 		01EA17732590F03000E98E02 /* HomeInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeInfoTableViewCell.xib; sourceTree = "<group>"; };
 		01EA17752590F03100E98E02 /* HomeExposureLoggingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeExposureLoggingTableViewCell.xib; sourceTree = "<group>"; };
 		01EA17762590F03100E98E02 /* HomeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoTableViewCell.swift; sourceTree = "<group>"; };
-		01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeDiaryTableViewCell.xib; sourceTree = "<group>"; };
-		01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryTableViewCell.swift; sourceTree = "<group>"; };
 		01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModel.swift; sourceTree = "<group>"; };
-		01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCellModel.swift; sourceTree = "<group>"; };
 		01EA17E42591399200E98E02 /* HomeInfoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModel.swift; sourceTree = "<group>"; };
 		01EA17FD259217B100E98E02 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModelTests.swift; sourceTree = "<group>"; };
@@ -1078,7 +1072,6 @@
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeue.swift"; sourceTree = "<group>"; };
-		516E430124B89AED0008CC30 /* CoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorTests.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* ENAColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
@@ -1156,7 +1149,6 @@
 		8595BF5E246032D90056EA27 /* ENASwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENASwitch.swift; sourceTree = "<group>"; };
 		859DD511248549790073D59F /* MockDiagnosisKeysRetrieval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDiagnosisKeysRetrieval.swift; sourceTree = "<group>"; };
 		85D7593B2457048F008175F0 /* ENA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ENA.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		85D7593E2457048F008175F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85D7594A24570491008175F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85D7594D24570491008175F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85D7594F24570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1223,7 +1215,6 @@
 		A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionUITests.swift; sourceTree = "<group>"; };
 		A32842662492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionNavigationControllerChild.swift; sourceTree = "<group>"; };
 		A32C046424D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+PlausibeDeniabilityTests.swift"; sourceTree = "<group>"; };
-		A3552CC324DD6E16008C91BE /* PlausibleDeniabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlausibleDeniabilityService.swift; sourceTree = "<group>"; };
 		A36FACC324C5EA1500DED947 /* ExposureDetectionViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerTests.swift; sourceTree = "<group>"; };
 		A372DA3A24BDA075003248BB /* ExposureSubmissionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinator.swift; sourceTree = "<group>"; };
 		A372DA3C24BE01D9003248BB /* MockExposureSubmissionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionCoordinator.swift; sourceTree = "<group>"; };
@@ -1415,7 +1406,6 @@
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouCellModelTests.swift; sourceTree = "<group>"; };
-		BAFBF35F25ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDiaryCellModelTests.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
@@ -1425,7 +1415,7 @@
 		CD8638522477EBD400A5A07C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C92461A47C00BF12AF /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
-		CDA262F724AB808800612E15 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		CDA262F724AB808800612E15 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
 		CDCE11D8247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOnTableViewCell.swift; sourceTree = "<group>"; };
 		CDCE11DA247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOffTableViewCell.swift; sourceTree = "<group>"; };
@@ -1444,12 +1434,15 @@
 		EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/external/exposurenotification/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
 		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
 		EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+KeyPackageStorage.swift"; sourceTree = "<group>"; };
+		EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlausibleDeniabilityService.swift; sourceTree = "<group>"; };
 		EB1C221125B7140B00A5CA6E /* ENAUITests_08_UpdateOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_08_UpdateOSUITests.swift; sourceTree = "<group>"; };
 		EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAppRefreshViewModel.swift; sourceTree = "<group>"; };
 		EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewBulletPointCell.swift; sourceTree = "<group>"; };
 		EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewController.swift; sourceTree = "<group>"; };
 		EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewControllerTests.swift; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
+		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewController.swift; sourceTree = "<group>"; };
 		EB6B5D8C2539B36100B0ED57 /* DMNotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationCell.swift; sourceTree = "<group>"; };
 		EB7057D624E6BACA002235B4 /* InfoBoxView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoBoxView.xib; sourceTree = "<group>"; };
@@ -1460,6 +1453,7 @@
 		EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+DeadManSwitch.swift"; sourceTree = "<group>"; };
 		EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
+		EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
@@ -1998,6 +1992,7 @@
 			isa = PBXGroup;
 			children = (
 				EBD2D07C25A86144006E4220 /* __tests__ */,
+				CDA262F724AB808800612E15 /* HomeCoordinator.swift */,
 				01EA17612590EAAF00E98E02 /* HomeTableViewController.swift */,
 				01EA17692590EF4E00E98E02 /* HomeTableViewModel.swift */,
 				01EA17FD259217B100E98E02 /* HomeState.swift */,
@@ -2015,7 +2010,6 @@
 				01A4DC8025922EC3007D5794 /* TestResult */,
 				01A4DCA125924FFE007D5794 /* ThankYou */,
 				016E25E825AF138B0077C64C /* Statistics */,
-				01EA17C02591347800E98E02 /* Diary */,
 				01EA17C42591348100E98E02 /* Info */,
 			);
 			path = Cells;
@@ -2030,17 +2024,6 @@
 				01EA17C82591353200E98E02 /* HomeExposureLoggingCellModel.swift */,
 			);
 			path = ExposureLogging;
-			sourceTree = "<group>";
-		};
-		01EA17C02591347800E98E02 /* Diary */ = {
-			isa = PBXGroup;
-			children = (
-				BAFBF35E25ADDE42003F5DC2 /* __tests__ */,
-				01EA17792590F03200E98E02 /* HomeDiaryTableViewCell.swift */,
-				01EA17782590F03100E98E02 /* HomeDiaryTableViewCell.xib */,
-				01EA17D02591366200E98E02 /* HomeDiaryCellModel.swift */,
-			);
-			path = Diary;
 			sourceTree = "<group>";
 		};
 		01EA17C42591348100E98E02 /* Info */ = {
@@ -2195,10 +2178,10 @@
 		35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */ = {
 			isa = PBXGroup;
 			children = (
+				EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */,
+				EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */,
 				35B2FAA925B9CE8F009ABC8E /* main.swift */,
 				353412CB2525EE4A0086D15C /* Globals.swift */,
-				85D7593E2457048F008175F0 /* AppDelegate.swift */,
-				A3552CC324DD6E16008C91BE /* PlausibleDeniabilityService.swift */,
 				35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */,
 				3518DD6425BA2D060090A26B /* NotificationManager.swift */,
 			);
@@ -2351,14 +2334,6 @@
 			path = UITableView;
 			sourceTree = "<group>";
 		};
-		516E430324B89AF60008CC30 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				516E430124B89AED0008CC30 /* CoordinatorTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		51B5B41A246E059700DC5D3E /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -2443,6 +2418,7 @@
 				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
 				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
+				EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */,
 				13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */,
 				EB87353F253704D100325C6C /* UNUserNotificationCenter+DeadManSwitch.swift */,
 				948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */,
@@ -2473,7 +2449,6 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				516E430324B89AF60008CC30 /* __tests__ */,
 				35B2FAAE25B9D362009ABC8E /* AppDelegate & Globals */,
 				AB126871254C0598006E9194 /* Utils */,
 				AB1FCBCA2521FC21005930BA /* ServerEnvironment */,
@@ -2487,7 +2462,7 @@
 				85D759712457059A008175F0 /* Scenes */,
 				51D420B224583AA400AD70CA /* Workers */,
 				51D420B524583B5100AD70CA /* Extensions */,
-				CDA262F724AB808800612E15 /* Coordinator.swift */,
+				EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -2654,7 +2629,6 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
-				BA37538B25AC671A0015C8FC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -3637,13 +3611,6 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
-		BA37538B25AC671A0015C8FC /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		BA4693AF25C82ED3004B2DBB /* DMPPACService */ = {
 			isa = PBXGroup;
 			children = (
@@ -3825,14 +3792,6 @@
 			isa = PBXGroup;
 			children = (
 				BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		BAFBF35E25ADDE42003F5DC2 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				BAFBF35F25ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4216,7 +4175,6 @@
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */,
 				01A4DCB125925121007D5794 /* HomeThankYouTableViewCell.xib in Resources */,
-				01EA17F325913A5900E98E02 /* HomeDiaryTableViewCell.xib in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
 				01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */,
 				710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */,
@@ -4410,6 +4368,7 @@
 				BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */,
 				35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
+				EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */,
 				01A4DC6D25922EB4007D5794 /* HomeLoadingItemView.swift in Sources */,
 				CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */,
 				0105D89325B8768A007E288B /* CachingHTTPClientMock.swift in Sources */,
@@ -4431,7 +4390,6 @@
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
-				A3552CC424DD6E16008C91BE /* PlausibleDeniabilityService.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
@@ -4506,8 +4464,6 @@
 				01734B5F255D6C4500E60A8B /* app_config_ios.pb.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
-				01EA17992590F03600E98E02 /* HomeDiaryTableViewCell.swift in Sources */,
-				01EA17D12591366200E98E02 /* HomeDiaryCellModel.swift in Sources */,
 				EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */,
 				0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
@@ -4530,6 +4486,7 @@
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
+				EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */,
 				EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */,
 				B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */,
 				71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */,
@@ -4591,6 +4548,7 @@
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
+				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
@@ -4620,6 +4578,7 @@
 				017AD114259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift in Sources */,
 				0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */,
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
+				EBA3BE3C25C2FAA800F1C2AC /* RootCoordinator.swift in Sources */,
 				352F25A824EFCBDE00ACDFF3 /* ServerEnvironment.swift in Sources */,
 				01A4DD0825926A6E007D5794 /* HomeListItemViewModel.swift in Sources */,
 				AB5F84BE24FE2DC9000400D4 /* DownloadedPackagesSQLLiteStoreV0.swift in Sources */,
@@ -4631,7 +4590,6 @@
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */,
-				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
 				0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
@@ -4672,10 +4630,9 @@
 				EB08F1782541CE3300D11FA9 /* risk_score_classification.pb.swift in Sources */,
 				505F506E25C833AA004920EB /* edus_otp_request_ios.pb.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
-				CDA262F824AB808800612E15 /* Coordinator.swift in Sources */,
+				CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */,
 				503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */,
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
-				A3552CC624DD6E78008C91BE /* AppDelegate+ENATaskExecutionDelegate.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
 				01734B5C255D6C4500E60A8B /* key_download_parameters.pb.swift in Sources */,
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
@@ -4856,7 +4813,6 @@
 				010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
 				01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */,
-				BAFBF36025ADDE7C003F5DC2 /* HomeDiaryCellModelTests.swift in Sources */,
 				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */,
@@ -4879,7 +4835,6 @@
 				0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */,
 				B120C7C924AFE7B800F68FF1 /* ActiveTracingTests.swift in Sources */,
 				35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */,
-				516E430224B89AED0008CC30 /* CoordinatorTests.swift in Sources */,
 				01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */,
 				01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */,
 				9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */,

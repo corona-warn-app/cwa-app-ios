@@ -8,12 +8,16 @@ import UIKit
 struct DiaryInfoViewModel {
 
 	init(
-		presentDisclaimer: @escaping () -> Void
+		presentDisclaimer: @escaping () -> Void,
+		hidesCloseButton: Bool = false
 	) {
 		self.presentDisclaimer = presentDisclaimer
+		self.hidesCloseButton = hidesCloseButton
 	}
 
 	// MARK: - Internal
+	
+	let hidesCloseButton: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
