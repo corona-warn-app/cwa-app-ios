@@ -26,18 +26,24 @@ class ExposureSubmissionStepCell: UITableViewCell {
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		hairline = .none
 	}
-	
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		switch hairline {
 		case .none:
-			break
+			line.opacity = 0
 		case .topAttached:
-			hairlineView.isHidden = false
-			hairlineTopConstraint.isActive = true
+			let path = UIBezierPath()
+			path.move(to: CGPoint(x: iconView.frame.midX, y: 0))
+			path.addLine(to: CGPoint(x: iconView.frame.midX, y: iconView.frame.minY))
+			line.path = path.cgPath
+			line.opacity = 1
 		case .iconAttached:
-			hairlineView.isHidden = false
-			hairlineTopConstraint.isActive = false
+			let path = UIBezierPath()
+			path.move(to: CGPoint(x: iconView.frame.midX, y: iconView.frame.maxY))
+			path.addLine(to: CGPoint(x: iconView.frame.midX, y: contentView.bounds.height))
+			line.path = path.cgPath
+			line.opacity = 1
 		}
 	}
 
@@ -57,13 +63,15 @@ class ExposureSubmissionStepCell: UITableViewCell {
 			descriptionLabel.isHidden = false
 			NSLayoutConstraint.activate(descriptionLabelConstraints)
 		}
+		
+		contentView.setNeedsLayout()
+		contentView.layoutIfNeeded()
 	}
 
 	func configure(style: ENAFont, color: UIColor = .enaColor(for: .textPrimary1), title: String, icon: UIImage?, iconTint: UIColor?, hairline: Hairline, bottomSpacing: Spacing) {
-		configure(title: title, description: nil, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
-
 		titleLabel.style = style.labelStyle
 		titleLabel.textColor = color
+		configure(title: title, description: nil, icon: icon, iconTint: iconTint, hairline: hairline, bottomSpacing: bottomSpacing)
 	}
 
 
@@ -73,6 +81,13 @@ class ExposureSubmissionStepCell: UITableViewCell {
 	
 	// MARK: - Private
 	
+	private lazy var line: CAShapeLayer = {
+		let line = CAShapeLayer()
+		line.lineWidth = 1
+		line.strokeColor = UIColor.enaColor(for: .hairline).cgColor
+		contentView.layer.insertSublayer(line, at: 0)
+		return line
+	}()
 	private var hairline = Hairline.none
 	private var descriptionLabelConstraints = [NSLayoutConstraint]()
 	
@@ -109,13 +124,13 @@ class ExposureSubmissionStepCell: UITableViewCell {
 			iconView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -17),
 			iconView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 			iconView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor),
-			iconView.heightAnchor.constraint(equalToConstant: 32),
-			iconView.widthAnchor.constraint(equalToConstant: 32),
+			iconView.heightAnchor.constraint(equalToConstant: Spacing.large.rawValue),
+			iconView.widthAnchor.constraint(equalToConstant: Spacing.large.rawValue),
 			// titleLabel constraints
 			titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 9),
 			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17),
 			titleLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-			titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 32),
+			titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Spacing.large.rawValue),
 			titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
