@@ -25,12 +25,9 @@ extension DeltaOnboarding {
 		
 		Log.debug("DeltaOnboarding \(id) already presented? \(presented).")
 		if !store.onboardingVersion.numericGreater(then: version) && !presented {
-			Log.debug("isFinished -> false")
 			return false
 		}
-		Log.debug("isFinished -> true")
 		return true
-		
 	}
 	
 	/// The `id` is a identifier generated out of the version of the concrete delta onboarding implementation and the corresponding class name
