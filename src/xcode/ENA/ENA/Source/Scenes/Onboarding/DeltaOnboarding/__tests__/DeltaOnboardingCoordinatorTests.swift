@@ -13,6 +13,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 
 		let deltaViewControllerDummy = DeltaOnboardingViewControllerDummy()
 		let deltaOnboardingSpy = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy)
+		deltaOnboardingSpy.finish()
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
