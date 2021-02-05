@@ -550,6 +550,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
 					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
 				]
+				Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
