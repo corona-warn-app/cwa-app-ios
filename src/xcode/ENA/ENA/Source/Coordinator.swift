@@ -239,10 +239,12 @@ class Coordinator: RequiresAppDependencies {
 		}
 
 		exposureDetectionCoordinator = ExposureDetectionCoordinator(
+			appConfigurationProvider: appConfigurationProvider,
 			rootViewController: rootViewController,
 			store: store,
 			homeState: homeState,
-			exposureManager: exposureManager
+			exposureManager: exposureManager,
+			client: client
 		)
 		exposureDetectionCoordinator?.start()
 	}

@@ -385,6 +385,14 @@ enum AppStrings {
 		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", comment: "")
 		static let legalDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
 		static let legalDetailsBody = NSLocalizedString("SurveyConsent_Legal_Details_Body", comment: "")
+
+		// Errors
+
+		static let errorTryAgainLater = NSLocalizedString("SurveyConsent_Error_TryAgainLater", comment: "")
+		static let errorDeviceNotSupported = NSLocalizedString("SurveyConsent_Error_DeviceNotSupported", comment: "")
+		static let errorChangeDeviceTime = NSLocalizedString("SurveyConsent_Error_ChangeDeviceTime", comment: "")
+		static let errorTryAgainNextMonth = NSLocalizedString("SurveyConsent_Error_TryAgainNextMonth", comment: "")
+		static let errorAlreadyParticipated = NSLocalizedString("SurveyConsent_Error_AlreadyParticipated", comment: "")
 	}
 
 	enum ExposureDetectionError {

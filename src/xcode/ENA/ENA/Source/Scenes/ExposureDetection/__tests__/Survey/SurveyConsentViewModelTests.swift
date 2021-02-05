@@ -7,8 +7,19 @@ import XCTest
 
 class SurveyConsentViewModelTests: XCTestCase {
 
-	func testDynamicTableViewModel() {
-		let viewModel = SurveyConsentViewModel()
+	func testDynamicTableViewModel() throws {
+		let store = MockTestStore()
+		let client =  ClientMock()
+		let otpService = OTPService(store: store, client: client)
+
+		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
+		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+
+		let viewModel = SurveyConsentViewModel(
+			configurationProvider: CachedAppConfigurationMock(),
+			ppacService: ppacService,
+			otpService:	otpService
+		)
 
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
