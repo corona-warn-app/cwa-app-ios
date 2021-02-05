@@ -2759,7 +2759,7 @@
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
 				504C9CC725C44BE60005875B /* OTP */,
-				BA07735A25C2FC5E00EAF6B8 /* PPAC */,
+				BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */,
 				B1175211248A837300C3325C /* Risk */,
 			);
 			path = Services;
@@ -3581,7 +3581,7 @@
 			path = CWASQLite;
 			sourceTree = "<group>";
 		};
-		BA07735A25C2FC5E00EAF6B8 /* PPAC */ = {
+		BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */ = {
 			isa = PBXGroup;
 			children = (
 				BAB6C80825C463DB00E042FB /* __tests__ */,
@@ -3590,7 +3590,7 @@
 				BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */,
 				BA07735B25C2FCB800EAF6B8 /* PPACService.swift */,
 			);
-			path = PPAC;
+			path = PPAccessControl;
 			sourceTree = "<group>";
 		};
 		BA0FC256259C9A6600EF7E6B /* Cell */ = {
