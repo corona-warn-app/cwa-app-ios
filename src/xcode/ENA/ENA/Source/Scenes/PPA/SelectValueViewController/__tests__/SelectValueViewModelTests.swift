@@ -34,7 +34,7 @@ class SelectValueViewModelTests: XCTestCase {
 		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
 
 		// WHEN
-		let selected = viewModel.selectedIndex
+		let selected = viewModel.selectedTupel
 
 		// THEN
 		XCTAssertEqual(nil, selected.0)

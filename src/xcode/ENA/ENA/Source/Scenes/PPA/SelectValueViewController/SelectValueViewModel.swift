@@ -18,10 +18,10 @@ final class SelectValueViewModel {
 		self.title = title
 		guard let preselected = preselected,
 			  let selectedIndex = self.allValues.firstIndex(of: preselected) else {
-			self.selectedIndex = (nil, 0)
+			self.selectedTupel = (nil, 0)
 			return
 		}
-		self.selectedIndex = (nil, selectedIndex)
+		self.selectedTupel = (nil, selectedIndex)
 	}
 
 	// MARK: - Internal
@@ -29,7 +29,7 @@ final class SelectValueViewModel {
 	let title: String
 
 	/// this tupel represents the change (oldVlaue, currentValue)
-	@OpenCombine.Published private (set) var selectedIndex: (Int?, Int)
+	@OpenCombine.Published private (set) var selectedTupel: (Int?, Int)
 
 	var numberOfSelectableValues: Int {
 		return allValues.count
@@ -38,7 +38,7 @@ final class SelectValueViewModel {
 	func cellViewModel(for indexPath: IndexPath) -> SelectValueCellViewModel {
 		SelectValueCellViewModel(
 			text: allValues[indexPath.row],
-			isSelected: selectedIndex.1 == indexPath.row
+			isSelected: selectedTupel.1 == indexPath.row
 		)
 	}
 
@@ -47,7 +47,7 @@ final class SelectValueViewModel {
 			Log.debug("unpossible value selection found, ignored it", log: .ppac)
 			return
 		}
-		selectedIndex = (selectedIndex.1, indexPath.row)
+		selectedTupel = (selectedTupel.1, indexPath.row)
 	}
 
 	// MARK: - Private

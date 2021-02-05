@@ -72,7 +72,7 @@ final class SelectValueTableViewController: UITableViewController {
 		tableView.register(SelectValueTableViewCell.self, forCellReuseIdentifier: SelectValueTableViewCell.reuseIdentifier)
 
 		// wire up tabelview to react on viewmodel changes
-		viewModel.$selectedIndex
+		viewModel.$selectedTupel
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] rowChange in
 				let newSelectionIndexPath = IndexPath(row: rowChange.1, section: 0)
