@@ -54,16 +54,20 @@ final class ExposureDetectionCoordinator {
 	private func showSurveyConsent() {
 		setNavigationBarHidden(false)
 
-		// MARK: TODO Replace with real services
+		// ToDo: Replace with real services
+
 		let deviceCheckMock = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		let ppacService = try? PPACService(
+		guard let ppacService = try? PPACService(
 			store: store,
 			deviceCheck: deviceCheckMock
-		)
+		) else {
+			return
+		}
+
 		let otpService = OTPService(store: store, client: client)
 		let viewModel = SurveyConsentViewModel(
 			configurationProvider: appConfigurationProvider,
-			ppacService: ppacService!,
+			ppacService: ppacService,
 			otpService: otpService
 		)
 

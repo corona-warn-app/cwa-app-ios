@@ -387,7 +387,7 @@ enum AppStrings {
 		static let legalDetailsBody = NSLocalizedString("SurveyConsent_Legal_Details_Body", comment: "")
 
 		// Errors
-
+		static let errorTitle = NSLocalizedString("SurveyConsent_Error_Title", comment: "")
 		static let errorTryAgainLater = NSLocalizedString("SurveyConsent_Error_TryAgainLater", comment: "")
 		static let errorDeviceNotSupported = NSLocalizedString("SurveyConsent_Error_DeviceNotSupported", comment: "")
 		static let errorChangeDeviceTime = NSLocalizedString("SurveyConsent_Error_ChangeDeviceTime", comment: "")
