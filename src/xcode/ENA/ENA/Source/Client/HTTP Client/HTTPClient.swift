@@ -235,7 +235,7 @@ final class HTTPClient: Client {
 		otp: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
-		ppacHeader: Bool = false,
+		forceApiTokenHeader: Bool = false,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	) {
 		guard let request = try? URLRequest.authorizeOTPRequest(
@@ -243,7 +243,7 @@ final class HTTPClient: Client {
 				otp: otp,
 				ppacToken: ppacToken,
 				isFake: isFake,
-				ppacHeader: ppacHeader) else {
+				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.invalidResponseError))
 			return
 		}
@@ -267,6 +267,65 @@ final class HTTPClient: Client {
 			case let .failure(error):
 				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
 				completion(.failure(.invalidResponseError))
+			}
+		})
+	}
+
+	func submit(
+		payload: SAP_Internal_Ppdd_PPADataIOS,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool = false,
+		completion: @escaping PPAnalyticsSubmitionCompletionHandler
+	) {
+		guard let request = try? URLRequest.ppaSubmit(
+				configuration: configuration,
+				payload: payload,
+				ppacToken: ppacToken,
+				isFake: isFake,
+				forceApiTokenHeader: forceApiTokenHeader) else {
+			completion(.failure(.urlCreationError))
+			return
+		}
+
+		session.response(for: request, isFake: isFake, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 204:
+					completion(.success(()))
+				case 400, 401, 403:
+					guard let responseBody = response.body else {
+						Log.error("Error in response body: \(response.statusCode)", log: .api)
+						completion(.failure(.responseError(response.statusCode)))
+						return
+					}
+					do {
+						let decodedResponse = try JSONDecoder().decode(
+							PPACResponse.self,
+							from: responseBody
+						)
+						guard let errorState = decodedResponse.errorState else {
+							Log.error("Error at converting decodedResponse to PPACResponse", log: .api)
+							completion(.failure(.jsonError))
+							return
+						}
+						Log.error("Server error at submitting anatlytics data", log: .api)
+						completion(.failure(.serverError(errorState)))
+					} catch {
+						Log.error("Error at decoding server response json", log: .api, error: error)
+						completion(.failure(.jsonError))
+					}
+				case 500:
+					Log.error("Server error at submitting anatlytics data", log: .api)
+					completion(.failure(.responseError(500)))
+				default:
+					Log.error("Error in response body: \(response.statusCode)", log: .api)
+					completion(.failure(.responseError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Error in response body: \(error)", log: .api)
+				completion(.failure(.serverFailure(error)))
 			}
 		})
 	}
@@ -635,7 +694,7 @@ private extension URLRequest {
 		otp: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
-		ppacHeader: Bool
+		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
 		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
@@ -653,9 +712,45 @@ private extension URLRequest {
 		}
 
 		let url = configuration.otpAuthorizationURL
-
 		let body = try protoBufRequest.serializedData()
+		var request = URLRequest(url: url)
 
+		request.httpMethod = "POST"
+
+		// Add header padding.
+		request.setValue(
+			"",
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+
+		#if !RELEASE
+		if forceApiTokenHeader {
+			request.setValue(
+				"1",
+				forHTTPHeaderField: "cwa-ppac-ios-accept-api-token"
+			)
+		}
+		#endif
+
+		request.httpBody = body
+		return request
+	}
+
+	static func ppaSubmit(
+		configuration: HTTPClient.Configuration,
+		payload: SAP_Internal_Ppdd_PPADataIOS,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool
+	) throws -> URLRequest {
+
+		let url = configuration.ppaSubmitURL
+		let body = try payload.serializedData()
 		var request = URLRequest(url: url)
 
 		request.httpMethod = "POST"
@@ -665,8 +760,10 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 
+		// TO DO: brauchen wir hier auch ein padding, und auch im otpAuthorize?
+
 		#if !RELEASE
-		if ppacHeader {
+		if forceApiTokenHeader {
 			request.setValue(
 				"1",
 				forHTTPHeaderField: "cwa-ppac-ios-accept-api-token"
@@ -675,7 +772,6 @@ private extension URLRequest {
 		#endif
 
 		request.httpBody = body
-
 		return request
 	}
 

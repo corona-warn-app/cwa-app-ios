@@ -92,12 +92,12 @@ final class OTPService: OTPServiceProviding {
 		
 		// We autohorize the otp with the ppacToken at our server.
 
-		var ppacHeader = false
+		var forceApiTokenHeader = false
 		#if !RELEASE
-		ppacHeader = store.forceAPITokenAuthorization
+		forceApiTokenHeader = store.forceAPITokenAuthorization
 		#endif
 
-		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, ppacHeader: ppacHeader, completion: { [weak self] result in
+		client.authorize(otp: otp, ppacToken: ppacToken, isFake: false, forceApiTokenHeader: forceApiTokenHeader, completion: { [weak self] result in
 			guard let self = self else {
 				Log.error("could not create strong self", log: .otp)
 				completion(.failure(OTPError.generalError))
