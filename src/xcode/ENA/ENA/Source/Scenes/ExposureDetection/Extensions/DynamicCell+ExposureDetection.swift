@@ -136,8 +136,12 @@ extension DynamicCell {
 		}
 	}
 
-	static func guide(attributedString text: NSAttributedString, image: UIImage?, accessibilityIdentifier: String? = nil) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.guide) { viewController, cell, _ in
+	static func guide(attributedString text: NSAttributedString, image: UIImage?, link: URL? = nil, accessibilityIdentifier: String? = nil) -> DynamicCell {
+		var action: DynamicAction = .none
+		if let url = link {
+			action = .open(url: url)
+		}
+		return .exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.guide, action: action) { viewController, cell, _ in
 			cell.tintColor = viewController.viewModel.riskTintColor
 			cell.textLabel?.attributedText = text
 			cell.imageView?.image = image

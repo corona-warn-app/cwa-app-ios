@@ -417,7 +417,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						AppStrings.ExposureDetection.guideHotline3,
 						AppStrings.ExposureDetection.guideHotline4
 					]),
-					.guide(attributedString: faqLinkText(), image: UIImage(named: "Icons - Test Tube"), accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ)
+					.guide(
+						attributedString: faqLinkText(),
+						image: UIImage(named: "Icons - Test Tube"),
+						link: URL(string: AppStrings.Links.exposureDetectionFAQ),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ)
 				]
 			),
 			activeTracingSection(

@@ -127,16 +127,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		return cell
 	}
 
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// No need to refactor the whole UI for this one-off 'link in a label' thing
-		if
-			let cell = tableView.cellForRow(at: indexPath),
-			cell.accessibilityIdentifier == AccessibilityIdentifiers.ExposureDetection.guideFAQ,
-			let url = URL(string: AppStrings.Links.exposureDetectionFAQ) {
-			LinkHelper.open(withUrl: url, from: self)
-		}
-	}
-
 	// MARK: - Internal
 
 	enum ReusableCellIdentifier: String, TableViewCellReuseIdentifiers {
