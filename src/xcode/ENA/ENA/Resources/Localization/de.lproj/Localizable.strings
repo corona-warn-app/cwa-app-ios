@@ -1161,9 +1161,9 @@ sein.";
 
 "Reset_Discard" = "Abbrechen";
 
-"Reset_InfoTitle" = "Begegnungs-Aufzeichnung löschen";
+"Reset_InfoTitle" = "Begegnungsaufzeichnung löschen";
 
-"Reset_InfoDescription" = "Die Begegnungs-Aufzeichnung muss separat in den Geräte-Einstellungen gelöscht werden.";
+"Reset_InfoDescription" = "Die Begegnungsaufzeichnung muss separat in den Geräte-Einstellungen gelöscht werden.";
 
 "Reset_Subtitle" = "Anwendung zurücksetzen";
 
