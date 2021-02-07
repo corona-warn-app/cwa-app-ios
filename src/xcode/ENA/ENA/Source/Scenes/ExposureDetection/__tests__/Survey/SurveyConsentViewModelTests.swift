@@ -8,7 +8,7 @@ import XCTest
 class SurveyConsentViewModelTests: XCTestCase {
 
 	func testDynamicTableViewModel() {
-		if let url = URL(string: "https://www.test.de") {
+		if let url = URL(string: "https://www.example.com") {
 			let viewModel = SurveyConsentViewModel(url: url)
 
 			let dynamicTableViewModel = viewModel.dynamicTableViewModel
