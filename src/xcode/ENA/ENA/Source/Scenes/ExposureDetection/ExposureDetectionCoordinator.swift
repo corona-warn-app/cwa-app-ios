@@ -62,7 +62,7 @@ final class ExposureDetectionCoordinator {
 	private func showSurveyConsent(for surveyURL: URL) {
 		setNavigationBarHidden(false)
 		
-		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(urlString: surveyURL)) { [weak self] url in
+		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(url: surveyURL)) { [weak self] url in
 			self?.showSurveyWebpage(url: url)
 		}
 		navigationController?.pushViewController(surveyConsentViewController, animated: true)
