@@ -12,19 +12,22 @@ final class ExposureDetectionCoordinator {
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
 	private let appConfigurationProvider: AppConfigurationProviding
-
+	private let otpServie: OTPServiceProviding
+	
 	init(
 		rootViewController: UIViewController,
 		store: Store,
 		homeState: HomeState,
 		exposureManager: ExposureManager,
-		appConfigurationProvider: AppConfigurationProviding
+		appConfigurationProvider: AppConfigurationProviding,
+		client: Client
 	) {
 		self.rootViewController = rootViewController
 		self.store = store
 		self.homeState = homeState
 		self.exposureManager = exposureManager
 		self.appConfigurationProvider = appConfigurationProvider
+		self.otpServie = OTPService(store: store, client: client)
 	}
 
 	func start() {
@@ -32,8 +35,15 @@ final class ExposureDetectionCoordinator {
 			viewModel: ExposureDetectionViewModel(
 				homeState: homeState,
 				appConfigurationProvider: appConfigurationProvider,
-				onSurveyTap: { [weak self] urlString in
-					self?.showSurveyConsent(for: urlString)
+				onSurveyTap: { [weak self] url in
+					guard let self = self, let url = url else {
+						return
+					}
+					if self.otpServie.isStoredOTPAuthorized {
+						self.showSurveyWebpage(url: url)
+					} else {
+						self.showSurveyConsent(for: url)
+					}
 				},
 				onInactiveButtonTap: { [weak self] completion in
 					self?.setExposureManagerEnabled(true, then: completion)
@@ -49,7 +59,7 @@ final class ExposureDetectionCoordinator {
 		rootViewController.present(_navigationController, animated: true)
 	}
 
-	private func showSurveyConsent(for surveyURL: String?) {
+	private func showSurveyConsent(for surveyURL: URL) {
 		setNavigationBarHidden(false)
 		
 		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(urlString: surveyURL)) { [weak self] url in
