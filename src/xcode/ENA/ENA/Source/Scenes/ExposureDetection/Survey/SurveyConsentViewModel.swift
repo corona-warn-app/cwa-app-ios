@@ -6,6 +6,14 @@ import UIKit
 
 enum SurveyConsentError: Error {
 
+	case tryAgainLater
+	case tryAgainNextMonth
+	case deviceNotSupported
+	case changeDeviceTime
+	case alreadyParticipated
+
+	// MARK: - Init
+
 	init(ppacError: PPACError) {
 		switch ppacError {
 		case .generationFailed, .timeUnverified:
@@ -28,11 +36,7 @@ enum SurveyConsentError: Error {
 		}
 	}
 
-	case tryAgainLater
-	case tryAgainNextMonth
-	case deviceNotSupported
-	case changeDeviceTime
-	case alreadyParticipated
+	// MARK: - Internal
 
 	var description: String {
 		switch self {
