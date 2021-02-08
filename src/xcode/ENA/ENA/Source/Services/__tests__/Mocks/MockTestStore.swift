@@ -28,6 +28,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
 	var onboardingVersion: String = ""
+	var finishedDeltaOnboardings: [String: [String]] = [String: [String]]()
 	var dateOfAcceptedPrivacyNotice: Date?
 	var allowsCellularUse: Bool = false
 	var developerSubmissionBaseURLOverride: String?
