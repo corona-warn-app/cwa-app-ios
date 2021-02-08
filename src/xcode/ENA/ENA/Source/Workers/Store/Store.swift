@@ -9,6 +9,7 @@ protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardedDate: Date? { get set }
 	var onboardingVersion: String { get set }
+	var finishedDeltaOnboardings: [String: [String]] { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
