@@ -214,10 +214,19 @@ final class SQLiteKeyValueStore {
 	/// - returns: `Data` if the key/value pair is found (even if the value BLOB is empty), or nil if no value exists for the given key.
 	subscript(key: String) -> Data? {
 		get {
-			try? getData(for: key)
+			do {
+				return try getData(for: key)
+			} catch {
+				Log.error("Cant fetch data for key '\(key)'", log: .localData, error: error)
+				return nil
+			}
 		}
 		set {
-			try? setData(newValue, for: key)
+			do {
+				try setData(newValue, for: key)
+			} catch {
+				Log.error("Cant set data for key '\(key)'", log: .localData, error: error)
+			}
 		}
 	}
 

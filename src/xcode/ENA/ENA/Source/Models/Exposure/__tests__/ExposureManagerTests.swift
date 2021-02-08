@@ -98,4 +98,6 @@ private final class ManagerSpy: NSObject, Manager {
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) { }
 
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping  ENErrorHandler) { }
 }
