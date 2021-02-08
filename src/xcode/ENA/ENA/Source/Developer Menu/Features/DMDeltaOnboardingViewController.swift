@@ -43,12 +43,18 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
 		button.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
 		
+		let resetButton = UIButton(frame: .zero)
+		resetButton.translatesAutoresizingMaskIntoConstraints = false
+		resetButton.setTitle("Reset presented delta onboardings", for: .normal)
+		resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
+		resetButton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
+		
 		textField = UITextField(frame: .zero)
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.delegate = self
 		textField.borderStyle = .bezel
 
-		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, button])
+		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, button, resetButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.spacing = 20
@@ -71,6 +77,14 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		store.onboardingVersion = textField.text ?? ""
 		updateCurrentVersionLabel()
 		let alert = UIAlertController(title: "Saved onboarding version: \(store.onboardingVersion)", message: "", preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+		present(alert, animated: true)
+	}
+	
+	@objc
+	private func resetButtonTapped() {
+		store.finishedDeltaOnboardings = [String: [String]]()
+		let alert = UIAlertController(title: "Presented delta onboarding screens have been resetted.", message: "", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
 		present(alert, animated: true)
 	}
