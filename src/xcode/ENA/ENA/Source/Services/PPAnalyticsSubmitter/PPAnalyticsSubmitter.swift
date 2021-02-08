@@ -168,10 +168,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			ppacToken: ppacToken,
 			isFake: false,
 			forceApiTokenHeader: forceApiTokenHeader,
-			completion: { result in
+			completion: { [weak self] result in
 				switch result {
 				case .success:
 					Log.info("Analytics data succesfully submitted", log: .ppa)
+					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
+					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 				case let .failure(error):
 					Log.error("Analytics data were not submitted", log: .ppa, error: error)
 				}
