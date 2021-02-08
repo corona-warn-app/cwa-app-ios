@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Icons_Checkmark.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

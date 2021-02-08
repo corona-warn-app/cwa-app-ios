@@ -6,13 +6,8 @@ import Foundation
 import OpenCombine
 
 class StatisticsProvider: StatisticsProviding {
-	/// Most likely a HTTP client
-	private let client: StatisticsFetching
 
-	/// The place where the app config and last etag is stored
-	private let store: StatisticsCaching
-
-	private var subscriptions = [AnyCancellable]()
+	// MARK: - Init
 
 	/// Default initializer
 	/// - Parameters:
@@ -23,6 +18,8 @@ class StatisticsProvider: StatisticsProviding {
 		self.store = store
 	}
 
+	// MARK: - Internal
+
 	func statistics() -> AnyPublisher<SAP_Internal_Stats_Statistics, Error> {
 		guard let cached = store.statistics, !shouldFetch() else {
 			return fetchStatistics().eraseToAnyPublisher()
@@ -32,6 +29,14 @@ class StatisticsProvider: StatisticsProviding {
 			.setFailureType(to: Error.self)
 			.eraseToAnyPublisher()
 	}
+
+	// MARK: - Private
+
+	/// Most likely a HTTP client
+	private let client: StatisticsFetching
+
+	/// The place where the app config and last etag is stored
+	private let store: StatisticsCaching
 
 	private func fetchStatistics(with etag: String? = nil) -> Future<SAP_Internal_Stats_Statistics, Error> {
 		return Future { promise in
