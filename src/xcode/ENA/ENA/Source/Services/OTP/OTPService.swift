@@ -40,6 +40,7 @@ final class OTPService: OTPServiceProviding {
 
 	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
 		if let otpToken = store.otpToken {
+			Log.info("Existing OTP was requested.", log: .otp)
 			completion(.success(otpToken.token))
 			return
 		}
@@ -69,7 +70,8 @@ final class OTPService: OTPServiceProviding {
 	}
 
 	private func authorize(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
-		
+		Log.info("Authorization of a new OTP started.", log: .otp)
+
 		// We autohorize the otp with the ppacToken at our server.
 
 		var ppacHeader = false
@@ -96,8 +98,11 @@ final class OTPService: OTPServiceProviding {
 				self.store.otpToken = verifiedToken
 				self.store.otpAuthorizationDate = Date()
 
+				Log.info("A new OTP was authorized and persisted.", log: .otp)
+
 				completion(.success(verifiedToken.token))
 			case .failure(let error):
+				Log.error("Authorization of a new OTP failed with error: \(error)", log: .otp)
 				completion(.failure(error))
 			}
 		})
