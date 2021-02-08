@@ -9,7 +9,7 @@ import ZIPFoundation
 #if DEBUG
 final class CachedAppConfigurationMock: AppConfigurationProviding {
 
-	private let config: SAP_Internal_V2_ApplicationConfigurationIOS
+	private var config: SAP_Internal_V2_ApplicationConfigurationIOS
 
 
 	/// A special configuration for screenshots.
@@ -30,8 +30,8 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 			let url = Bundle.main.url(forResource: "default_app_config_113", withExtension: ""),
 			let data = try? Data(contentsOf: url),
 			let zip = Archive(data: data, accessMode: .read),
-			let staticConfig = try? zip.extractAppConfiguration() else {
-				fatalError("Could not fetch static app config")
+			var staticConfig = try? zip.extractAppConfiguration() else {
+			fatalError("Could not fetch static app config")
 		}
 		return staticConfig
 	}()
@@ -39,7 +39,18 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 	init(with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration) {
 		self.config = config
 	}
-
+	
+	init(
+		with config: SAP_Internal_V2_ApplicationConfigurationIOS = CachedAppConfigurationMock.defaultAppConfiguration,
+		isEventSurveyEnabled: Bool,
+		isEventSurveyUrlAvailable: Bool
+	) {
+		self.config = config
+		self.config.eventDrivenUserSurveyParameters = eventDrivenUserSurveyParametersEnabled(
+			isEnabled: isEventSurveyEnabled,
+			isCorrectURL: isEventSurveyUrlAvailable)
+	}
+	
 	func appConfiguration(forceFetch: Bool) -> AnyPublisher<SAP_Internal_V2_ApplicationConfigurationIOS, Never> {
 		return Just(config)
 			.receive(on: DispatchQueue.main.ocombine)
@@ -55,6 +66,12 @@ final class CachedAppConfigurationMock: AppConfigurationProviding {
 			let countries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
 			return countries.isEmpty ? [.defaultCountry()] : countries
 		}).eraseToAnyPublisher()
+	}
+	private func eventDrivenUserSurveyParametersEnabled(isEnabled: Bool, isCorrectURL: Bool) -> SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS {
+		var surveyParameters = SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS()
+		surveyParameters.common.surveyOnHighRiskURL = isCorrectURL ? "https://www.test.de" : "https://w.test.de"
+		surveyParameters.common.surveyOnHighRiskEnabled = isEnabled ? true : false
+		return surveyParameters
 	}
 }
 #endif
