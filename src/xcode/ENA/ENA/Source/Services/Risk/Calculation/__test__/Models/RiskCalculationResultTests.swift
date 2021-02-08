@@ -37,7 +37,7 @@ class RiskCalculationResultTests: XCTestCase {
 
 
 	/*** new json format with empty 'riskLevelPerDate' should init without problems */
-	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
+	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() throws {
 		// GIVEN
 		let newFormattedData = """
 			{
@@ -53,15 +53,14 @@ class RiskCalculationResultTests: XCTestCase {
 			.data(using: .utf8)
 
 		// WHEN
-		let riskCalculationResult = try? JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
+		let riskCalculationResult = try JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
 
 		// THEN
-		XCTAssertNotNil(riskCalculationResult)
-		XCTAssertEqual(riskCalculationResult?.riskLevelPerDate.count, 0)
+		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 0)
 	}
 
 	/*** new json format with given 'riskLevelPerDate' should init without problems */
-	func testGIVEN_NewFormatRiskCalculationResultWithThreeRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() {
+	func testGIVEN_NewFormatRiskCalculationResultWithThreeRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() throws {
 		// GIVEN
 		let newFormattedData = """
 			{
@@ -85,17 +84,16 @@ class RiskCalculationResultTests: XCTestCase {
 			.data(using: .utf8)
 
 		// WHEN
-		let riskCalculationResult = try? JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
+		let riskCalculationResult = try JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
 
 		// THEN
-		XCTAssertNotNil(riskCalculationResult)
-		XCTAssertEqual(riskCalculationResult?.riskLevelPerDate.count, 3)
-		XCTAssertEqual(riskCalculationResult?.minimumDistinctEncountersWithLowRisk, 3)
-		XCTAssertEqual(riskCalculationResult?.minimumDistinctEncountersWithHighRisk, 0)
+		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 3)
+		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithLowRisk, 3)
+		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithHighRisk, 0)
 	}
 
 	/*** 'old' json format without 'riskLevelPerDate' should init without problems */
-	func testGIVEN_OldFormattedData_WHEN_ParseJson_THEN_RiskCalculationResultModelGetsCreated() {
+	func testGIVEN_OldFormattedData_WHEN_ParseJson_THEN_RiskCalculationResultModelGetsCreated() throws {
 		// GIVEN
 		let oldFormattedData = """
 			{
@@ -110,11 +108,10 @@ class RiskCalculationResultTests: XCTestCase {
 			.data(using: .utf8)
 
 		// WHEN
-		let riskCalculationResult = try? JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(oldFormattedData))
+		let riskCalculationResult = try JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(oldFormattedData))
 
 		// THEN
-		XCTAssertNotNil(riskCalculationResult)
-		XCTAssertEqual(riskCalculationResult?.riskLevelPerDate.count, 0)
+		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 0)
 	}
 
 }

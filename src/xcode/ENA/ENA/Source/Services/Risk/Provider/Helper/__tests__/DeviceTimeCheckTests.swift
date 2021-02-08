@@ -17,10 +17,11 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
-			deviceTime: deviceTime
+			deviceTime: deviceTime,
+			configUpdateSuccessful: true
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -35,10 +36,11 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
-			deviceTime: deviceTime
+			deviceTime: deviceTime,
+			configUpdateSuccessful: true
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -53,10 +55,11 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
-			deviceTime: deviceTime
+			deviceTime: deviceTime,
+			configUpdateSuccessful: true
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -71,10 +74,11 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
-			deviceTime: deviceTime
+			deviceTime: deviceTime,
+			configUpdateSuccessful: true
 		)
 
-		XCTAssertFalse(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .incorrect)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -89,10 +93,11 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
-			deviceTime: deviceTime
+			deviceTime: deviceTime,
+			configUpdateSuccessful: true
 		)
 
-		XCTAssertFalse(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .incorrect)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
@@ -109,22 +114,23 @@ final class DeviceTimeCheckTest: XCTestCase {
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
 		deviceTimeCheck.updateDeviceTimeFlags(
 			serverTime: serverTime,
-			deviceTime: deviceTime
+			deviceTime: deviceTime,
+			configUpdateSuccessful: true
 		)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .assumedCorrect)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 
 	func test_WHEN_ResetDeviceTimeFlagsToDefault_THEN_DeviceTimeIsCorrectIsSavedToStore() {
 		let fakeStore = MockTestStore()
-		fakeStore.isDeviceTimeCorrect = false
+		fakeStore.deviceTimeCheckResult = .incorrect
 		fakeStore.wasDeviceTimeErrorShown = true
 
 		let deviceTimeCheck = DeviceTimeCheck(store: fakeStore)
-		deviceTimeCheck.resetDeviceTimeFlags()
+		deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: true)
 
-		XCTAssertTrue(fakeStore.isDeviceTimeCorrect)
+		XCTAssertEqual(fakeStore.deviceTimeCheckResult, .correct)
 		XCTAssertFalse(fakeStore.wasDeviceTimeErrorShown)
 	}
 

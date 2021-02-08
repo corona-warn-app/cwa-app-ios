@@ -69,7 +69,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(ExposureSubmissionStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		dynamicTableViewModel = DynamicTableViewModel(
 			[

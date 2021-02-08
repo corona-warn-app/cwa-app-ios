@@ -14,6 +14,7 @@ extension Bundle {
 			let xml = FileManager.default.contents(atPath: path),
 			let plistDict = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String: String]
 		else {
+			assertionFailure("could not parse \(name)")
 			return nil
 		}
 
@@ -29,6 +30,7 @@ extension Bundle {
 			let xml = FileManager.default.contents(atPath: path),
 			let plistArr = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String]
 		else {
+			assertionFailure("could not parse \(name)")
 			return nil
 		}
 

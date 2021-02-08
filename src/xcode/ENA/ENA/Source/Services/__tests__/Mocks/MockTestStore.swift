@@ -30,6 +30,7 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
 	var onboardingVersion: String = ""
+	var finishedDeltaOnboardings: [String: [String]] = [String: [String]]()
 	var dateOfAcceptedPrivacyNotice: Date?
 	var allowsCellularUse: Bool = false
 	var developerSubmissionBaseURLOverride: String?
@@ -49,13 +50,16 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
-	var isDeviceTimeCorrect = true
+	var deviceTimeLastStateChange: Date = Date()
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
 	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
+	var ppacApiToken: TimestampedToken?
+	var otpToken: OTPToken?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -63,6 +67,7 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var mostRecentRiskCalculation: RiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
+	var forceAPITokenAuthorization = false
 	#endif
 
 	// MARK: - AppConfigCaching
