@@ -113,6 +113,11 @@ final class SecureStore: Store {
 		set { kvStore["isOnboarded"] = newValue }
 	}
 
+	var onboardedDate: Date? {
+		get { kvStore["onboardedDate"] as Date? }
+		set { kvStore["onboardedDate"] = newValue }
+	}
+
 	var onboardingVersion: String {
 		get { kvStore["onboardingVersion"] as String? ?? "1.4" }
 		set { kvStore["onboardingVersion"] = newValue }
@@ -274,6 +279,16 @@ final class SecureStore: Store {
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
+	}
+
+	var submissionAnalytics: Date? {
+		get { kvStore["submissionAnalytics"] as Date? }
+		set { kvStore["submissionAnalytics"] = newValue }
+	}
+
+	var lastAppReset: Date? {
+		get { kvStore["lastAppReset"] as Date? }
+		set { kvStore["lastAppReset"] = newValue }
 	}
 
 	#if !RELEASE

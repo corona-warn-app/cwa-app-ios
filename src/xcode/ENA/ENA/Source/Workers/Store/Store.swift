@@ -7,6 +7,7 @@ import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
+	var onboardedDate: Date? { get set }
 	var onboardingVersion: String { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
@@ -107,6 +108,10 @@ protocol StoreProtocol: AnyObject {
 
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }
+
+	var submissionAnalytics: Date? { get set }
+
+	var lastAppReset: Date? { get set }
 
 	func clearAll(key: String?)
 
