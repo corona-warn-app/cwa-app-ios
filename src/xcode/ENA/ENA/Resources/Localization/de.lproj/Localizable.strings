@@ -1213,13 +1213,13 @@ sein.";
 
 "RiskLegend_Definitions_Title" = "Wichtige Begriffe";
 
-"RiskLegend_Store_Title" = "Begegnungs-Aufzeichnung";
+"RiskLegend_Store_Title" = "Begegnungsaufzeichnung";
 
 "RiskLegend_Store_Text" = "Liste der empfangenen und vorübergehend im Betriebssystemspeicher abgelegten kurzlebigen Zufalls-IDs. Diese Liste wird bei der Risiko-Überprüfung gelesen. Alle Zufalls-IDs werden nach 14 Tagen automatisch gelöscht.";
 
 "RiskLegend_Check_Title" = "Risiko-Überprüfung";
 
-"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den Risiko-Mitteilungen anderer Personen. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
+"RiskLegend_Check_Text" = "Abfrage der Begegnungsaufzeichnung und Abgleich mit den Risiko-Mitteilungen anderer Personen. Ihr Risiko wird mehrmals täglich automatisch überprüft.";
 
 "RiskLegend_Contact_Title" = "Risiko-Begegnung";
 
