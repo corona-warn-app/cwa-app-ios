@@ -11,11 +11,12 @@ class UserMetadataTests: XCTestCase {
 		let store = MockTestStore()
 		store.userMetadata = UserMetadata(
 			federalState: "Baden-Württemberg",
-			administrativeUnit: "Walldorf",
+			// Rhein-Neckar-Kreis
+			administrativeUnit: 11008226,
 			ageGroup: .ageBelow29
 		)
 		XCTAssertEqual(store.userMetadata?.federalState, "Baden-Württemberg")
-		XCTAssertEqual(store.userMetadata?.administrativeUnit, "Walldorf")
+		XCTAssertEqual(store.userMetadata?.administrativeUnit, 11008226)
 		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBelow29)
 	}
 	
@@ -23,11 +24,12 @@ class UserMetadataTests: XCTestCase {
 		let store = MockTestStore()
 		store.userMetadata = UserMetadata(
 			federalState: "Baden-Württemberg",
-			administrativeUnit: "Heidelberg",
+			// Heidelberg
+			administrativeUnit: 11008221,
 			ageGroup: .ageBetween30And59
 		)
 		XCTAssertEqual(store.userMetadata?.federalState, "Baden-Württemberg")
-		XCTAssertEqual(store.userMetadata?.administrativeUnit, "Heidelberg")
+		XCTAssertEqual(store.userMetadata?.administrativeUnit, 11008221)
 		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBetween30And59)
 	}
 	
@@ -35,11 +37,12 @@ class UserMetadataTests: XCTestCase {
 		let store = MockTestStore()
 		store.userMetadata = UserMetadata(
 			federalState: "Baden-Württemberg",
-			administrativeUnit: "Mannheim",
+			// Mannheim
+			administrativeUnit: 11008222,
 			ageGroup: .age60OrAbove
 		)
 		XCTAssertEqual(store.userMetadata?.federalState, "Baden-Württemberg")
-		XCTAssertEqual(store.userMetadata?.administrativeUnit, "Mannheim")
+		XCTAssertEqual(store.userMetadata?.administrativeUnit, 11008222)
 		XCTAssertEqual(store.userMetadata?.ageGroup, .age60OrAbove)
 	}
 
