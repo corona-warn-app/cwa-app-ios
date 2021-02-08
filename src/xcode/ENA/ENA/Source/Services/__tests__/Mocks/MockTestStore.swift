@@ -5,7 +5,9 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching {
+final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataProviding, PreviousRiskExposureMetadataProviding, UserMetadataProviding {
+	var currentRiskExposureMetadata: RiskExposureMetadata?
+	var previousRiskExposureMetadata: RiskExposureMetadata?
 	
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -70,4 +72,10 @@ final class MockTestStore: Store, AppConfigCaching {
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
+	
+	// MARK: - RiskExposureMetadata
+	var riskExposureMetadata: RiskExposureMetadata?
+	
+	// MARK: - UserMetadata
+	var userMetadata: UserMetadata?
 }
