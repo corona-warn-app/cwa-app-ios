@@ -33,7 +33,7 @@ extension DeltaOnboarding {
 	/// The `id` is a identifier generated out of the version of the concrete delta onboarding implementation and the corresponding class name
 	/// This ensures that we
 	/// a) can have multiple delta onboardings for the same version
-	/// b) can reuse existing prodotocl implementation (e. g. new features) by just changing the version.
+	/// b) can reuse existing protocol implementation (e. g. new features) by just changing the version.
 	var id: String {
 		return version + String(describing: self)
 	}
