@@ -43,7 +43,7 @@ final class HTTPClientSubmitAnalyticsDataTests: XCTestCase {
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(isSuccess, true)
+		XCTAssertTrue(isSuccess)
 	}
 
 	func testGIVEN_SubmitAnalyticsData_WHEN_FailureNoResponseData_THEN_CompletionHasFailureNoResponse() throws {
