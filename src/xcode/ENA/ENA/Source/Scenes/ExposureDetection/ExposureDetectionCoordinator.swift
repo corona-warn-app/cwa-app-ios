@@ -15,30 +15,31 @@ final class ExposureDetectionCoordinator {
 	private let client: Client
 
 	init(
-		appConfigurationProvider: AppConfigurationProviding,
 		rootViewController: UIViewController,
 		store: Store,
 		homeState: HomeState,
 		exposureManager: ExposureManager,
-		client: Client
+		client: Client,
+		appConfigurationProvider: AppConfigurationProviding
 	) {
-		self.appConfigurationProvider = appConfigurationProvider
 		self.rootViewController = rootViewController
 		self.store = store
 		self.homeState = homeState
 		self.exposureManager = exposureManager
 		self.client = client
+		self.appConfigurationProvider = appConfigurationProvider
 	}
 
 	func start() {
 		let exposureDetectionController = ExposureDetectionViewController(
 			viewModel: ExposureDetectionViewModel(
 				homeState: homeState,
+				appConfigurationProvider: appConfigurationProvider,
+				onSurveyTap: { [weak self] urlString in
+					self?.showSurveyConsent(for: urlString)
+				},
 				onInactiveButtonTap: { [weak self] completion in
 					self?.setExposureManagerEnabled(true, then: completion)
-				},
-				onSurveyTap: { [weak self] in
-					self?.showSurveyConsent()
 				}
 			),
 			store: store
@@ -51,7 +52,7 @@ final class ExposureDetectionCoordinator {
 		rootViewController.present(_navigationController, animated: true)
 	}
 
-	private func showSurveyConsent() {
+	private func showSurveyConsent(for surveyURL: String?) {
 		setNavigationBarHidden(false)
 
 		// ToDo: Replace with real services
