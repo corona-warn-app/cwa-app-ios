@@ -741,7 +741,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 5)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")

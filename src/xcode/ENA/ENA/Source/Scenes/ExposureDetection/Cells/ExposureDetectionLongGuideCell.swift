@@ -9,6 +9,11 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 	@IBOutlet private var stackView: UIStackView!
 
 	func configure(image: UIImage?, text: [String]) {
+		let strings = text.map { NSAttributedString(string: $0) }
+		configure(image: image, attributedText: strings)
+	}
+
+	func configure(image: UIImage?, attributedText text: [NSAttributedString]) {
 		for subview in stackView.arrangedSubviews {
 			stackView.removeArrangedSubview(subview)
 			subview.removeFromSuperview()
@@ -16,7 +21,7 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 
 		if let text = text.first {
 			imageView?.image = image
-			textLabel?.text = text
+			textLabel?.attributedText = text
 		}
 
 		for text in text[1...] {
@@ -26,7 +31,7 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 
 			let label = DynamicTypeLabel()
 			label.translatesAutoresizingMaskIntoConstraints = false
-			label.text = text
+			label.attributedText = text
 			label.textColor = .enaColor(for: .textPrimary1)
 			label.numberOfLines = 0
 			label.adjustsFontForContentSizeCategory = true
