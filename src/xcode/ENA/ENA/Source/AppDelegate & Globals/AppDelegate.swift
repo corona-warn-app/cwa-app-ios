@@ -401,10 +401,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private(set) lazy var coordinator = Coordinator(
+	lazy var coordinator = RootCoordinator(
 		self,
-		navigationController,
 		contactDiaryStore: self.contactDiaryStore
 	)
 
@@ -426,7 +424,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = navigationController
+		window?.rootViewController = coordinator.viewController
 		window?.makeKeyAndVisible()
 		
 		#if DEBUG

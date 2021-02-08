@@ -13,6 +13,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 
 		let deltaViewControllerDummy = DeltaOnboardingViewControllerDummy()
 		let deltaOnboardingSpy = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy)
+		deltaOnboardingSpy.finish()
 
 		let viewControllerPresentSpy = ViewControllerPresentSpy()
 
@@ -76,7 +77,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		sut_DeltaOnboardingCoordinator.finished = {
 			finishedExpectation.fulfill()
 
-			XCTAssertEqual(viewControllerPresentSpy.numberOfPresenCalls, 2)
+			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 2)
 		}
 
 		sut_DeltaOnboardingCoordinator.startOnboarding()
@@ -90,9 +91,11 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 
 		let mockStore = MockTestStore()
 		mockStore.onboardingVersion = "1.0.0"
+		
 
 		let deltaViewControllerDummy100 = DeltaOnboardingViewControllerDummy()
 		let deltaOnboardingSpy100 = DeltaOnboardingSpy(version: "1.0.0", store: mockStore, deltaViewController: deltaViewControllerDummy100)
+		deltaOnboardingSpy100.finish()
 
 		let deltaViewControllerDummy110 = DeltaOnboardingViewControllerDummy()
 		let deltaOnboardingSpy110 = DeltaOnboardingSpy(version: "1.1.0", store: mockStore, deltaViewController: deltaViewControllerDummy110)
@@ -106,7 +109,7 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 		sut_DeltaOnboardingCoordinator.finished = {
 			finishedExpectation.fulfill()
 
-			XCTAssertEqual(viewControllerPresentSpy.numberOfPresenCalls, 1)
+			XCTAssertEqual(viewControllerPresentSpy.numberOfPresentCalls, 1)
 		}
 
 		sut_DeltaOnboardingCoordinator.startOnboarding()
@@ -119,12 +122,12 @@ class DeltaOnboardingCoordinatorTests: XCTestCase {
 }
 
 private class ViewControllerPresentSpy: UIViewController {
-	var numberOfPresenCalls = 0
+	var numberOfPresentCalls = 0
 	var presentWasCalled = false
 
 	override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
 		presentWasCalled = true
-		numberOfPresenCalls += 1
+		numberOfPresentCalls += 1
 	}
 }
 

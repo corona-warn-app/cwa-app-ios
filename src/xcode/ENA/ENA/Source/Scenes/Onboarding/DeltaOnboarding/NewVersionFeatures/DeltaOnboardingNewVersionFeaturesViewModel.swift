@@ -13,16 +13,36 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.12"
+		self.featureVersion = "1.13"
 		
-		// Exposure History Feature
+		// RKI Survey
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle, description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113RkiSurveyTitle, description: AppStrings.NewVersionFeatures.feature113RkiSurveyDescription)
 		)
 		
-		// iOS 12.5 Support
+		// Data Donation
 		self.newVersionFeatures.append(
-			NewVersionFeature( title: AppStrings.NewVersionFeatures.feature112iOS125SupportTitle, description: AppStrings.NewVersionFeatures.feature112iOS125SupportDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113DataDonationTitle, description: AppStrings.NewVersionFeatures.feature113DataDonationDescription)
+		)
+		
+		// Enhanced Risk Cards
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113RiskCardTitle, description: AppStrings.NewVersionFeatures.feature113RiskCardDescription)
+		)
+		
+		// Risk Determination Random ID
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113RiskDeterminationRandomIdTitle, description: AppStrings.NewVersionFeatures.feature113RiskDeterminationRandomIdDescription)
+		)
+		
+		// Introduction of the tab bar
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113NewTabBarTitle, description: AppStrings.NewVersionFeatures.feature113NewTabBarDescription)
+		)
+		
+		// Additional Information about test procedure
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113AddInfoAboutTestProcedureTitle, description: AppStrings.NewVersionFeatures.feature113AddInfoAboutTestProcedureDescription)
 		)
 	}
 

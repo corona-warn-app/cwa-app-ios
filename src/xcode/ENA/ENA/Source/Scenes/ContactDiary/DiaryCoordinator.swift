@@ -11,20 +11,12 @@ class DiaryCoordinator {
 	init(
 		store: Store,
 		diaryStore: DiaryStoringProviding,
-		parentNavigationController: UINavigationController,
 		homeState: HomeState?
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
-		self.parentNavigationController = parentNavigationController
 		self.homeState = homeState
-	}
-
-	// MARK: - Internal
-
-	func start() {
-		parentNavigationController?.pushViewController(overviewScreen, animated: true)
-
+		
 		#if DEBUG
 		if isUITesting {
 			if let journalWithExposureHistoryInfoScreenShown = UserDefaults.standard.string(forKey: "diaryInfoScreenShown") {
@@ -43,18 +35,33 @@ class DiaryCoordinator {
 
 		}
 		#endif
-		if !infoScreenShown {
-			showInfoScreen()
-		}
+				
+		
 	}
 
+	// MARK: - Internal
+
+	lazy var viewController: ENANavigationControllerWithFooter = {
+		if !infoScreenShown {
+			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+				guard let self = self else { return }
+				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
+				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
+				self.infoScreenShown = true
+			},
+			showDetail: { detailViewController in
+				self.viewController.pushViewController(detailViewController, animated: true)
+			}))
+		} else {
+			return ENANavigationControllerWithFooter(rootViewController: overviewScreen)
+		}
+	}()
+	
 	// MARK: - Private
 
 	private let store: Store
 	private let diaryStore: DiaryStoringProviding
 	private let homeState: HomeState?
-
-	private weak var parentNavigationController: UINavigationController?
 
 	private var infoScreenShown: Bool {
 		get { store.journalWithExposureHistoryInfoScreenShown }
@@ -74,7 +81,7 @@ class DiaryCoordinator {
 				self?.showDayScreen(day: day)
 			},
 			onInfoButtonTap: { [weak self] in
-				self?.showInfoScreen()
+				self?.presentInfoScreen()
 			},
 			onExportButtonTap: { [weak self] in
 				self?.showExportActivity()
@@ -87,35 +94,51 @@ class DiaryCoordinator {
 			}
 		)
 	}()
+	
 
-	private func showInfoScreen() {
-		// Promise the navigation view controller will be available,
-		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
+	private func infoScreen(
+		hidesCloseButton: Bool = false,
+		dismissAction: @escaping (() -> Void),
+		showDetail: @escaping ((UIViewController) -> Void)
+	) -> UIViewController {
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
 				presentDisclaimer: {
-					let detailViewController = AppInformationDetailViewController()
+					let detailViewController = DataPrivacyViewControllerDisablingSwipeToDismiss()
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
 					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
 					detailViewController.separatorStyle = .none
-					// hides the footerview as well
-					detailViewController.hidesBottomBarWhenPushed = true
-					navigationController.pushViewController(detailViewController, animated: true)
-				}
+					showDetail(detailViewController)
+				},
+				hidesCloseButton: hidesCloseButton
 			),
 			onDismiss: {
-				navigationController.dismiss(animated: true)
+				dismissAction()
 			}
 		)
+		return viewController
+	}
+	
+	private func presentInfoScreen() {
+		// Promise the navigation view controller will be available,
+		// this is needed to resolve an inset issue with large titles
+		var navigationController: ENANavigationControllerWithFooter!
+		let infoVC = infoScreen(
+			dismissAction: {
+				navigationController.dismiss(animated: true)
+			},
+			showDetail: { detailViewController in
+				navigationController.pushViewController(detailViewController, animated: true)
+			}
+
+		)
+							
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
-		parentNavigationController?.present(navigationController, animated: true) {
-			self.infoScreenShown = true
-		}
+		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+		viewController.present(navigationController, animated: true)
 	}
-
+	
 	private func showDayScreen(day: DiaryDay) {
 		let viewController = DiaryDayViewController(
 			viewModel: DiaryDayViewModel(
@@ -127,11 +150,11 @@ class DiaryCoordinator {
 			)
 		)
 
-		parentNavigationController?.pushViewController(viewController, animated: true)
+		self.viewController.pushViewController(viewController, animated: true)
 	}
 
 	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from fromViewController: UIViewController? = nil) {
-		let presentingViewController = fromViewController ?? parentNavigationController
+		let presentingViewController = fromViewController ?? viewController
 
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: mode,
@@ -141,12 +164,12 @@ class DiaryCoordinator {
 		let viewController = DiaryAddAndEditEntryViewController(
 			viewModel: viewModel,
 			dismiss: {
-				presentingViewController?.dismiss(animated: true)
+				presentingViewController.dismiss(animated: true)
 			}
 		)
 		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
-		presentingViewController?.present(navigationController, animated: true)
+		presentingViewController.present(navigationController, animated: true)
 	}
 
 	private func showEditEntriesScreen(entryType: DiaryEntryType) {
@@ -162,11 +185,11 @@ class DiaryCoordinator {
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
+				self?.viewController.dismiss(animated: true)
 			}
 		)
 		navigationController = UINavigationController(rootViewController: viewController)
-		parentNavigationController?.present(navigationController, animated: true)
+		self.viewController.present(navigationController, animated: true)
 	}
 
 	private func showExportActivity() {
@@ -181,7 +204,7 @@ class DiaryCoordinator {
 			activityItems: [exportItem],
 			applicationActivities: nil
 		)
-		parentNavigationController?.present(viewController, animated: true, completion: nil)
+		self.viewController.present(viewController, animated: true, completion: nil)
 	}
 	
 }

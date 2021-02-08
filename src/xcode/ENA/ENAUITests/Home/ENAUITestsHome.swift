@@ -263,4 +263,21 @@ class ENAUITests_01_Home: XCTestCase {
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
+
+	func test_riskCardHigh_details_faqLink() throws {
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
+		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
+		faqCell.tap()
+
+		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
+	}
 }
