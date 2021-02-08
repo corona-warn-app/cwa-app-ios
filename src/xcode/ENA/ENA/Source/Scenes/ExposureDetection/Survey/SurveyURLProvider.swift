@@ -26,6 +26,16 @@ final class SurveyURLProvider: SurveyURLProvidable {
 	// MARK: - Internal
 
 	func getURL(_ completion: @escaping (Result<URL, SurveyConsentError>) -> Void) {
+		#if DEBUG
+		if isUITesting {
+			// Provide a dummy URL in case of UI-Testing
+			guard let dummyURL = URL(string: "https:///www.sap.com") else {
+				return
+			}
+			return completion(.success(dummyURL))
+		}
+		#endif
+		
 		Log.info("Request Survey URL.", log: .survey)
 		getPPACToken(completion: completion)
 	}
