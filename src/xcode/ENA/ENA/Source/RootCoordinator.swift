@@ -84,6 +84,15 @@ class RootCoordinator: RequiresAppDependencies {
 		#endif
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
+
+	// MARK: - Datadonation Stuff
+
+	private func presentCountrySelection(preselection: String?) {
+		
+	}
+
+	// MARK: -
+
 	
 	func showTestResultFromNotification(with result: TestResult) {
 		homeCoordinator?.showTestResultFromNotification(with: result)
