@@ -1133,5 +1133,44 @@ enum AppStrings {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
 		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
+	
+	enum DataDonation {
+		enum Info {
+			static let title = NSLocalizedString("DataDonation_Info_Title", comment: "")
+			static let legalHeadline = NSLocalizedString("", tableName: "Localizable.legal", comment: "")
+			static let legalParagraph = NSLocalizedString("", tableName: "Localizable.legal", comment: "")
+			static let headline = NSLocalizedString("DataDonation_", comment: "")
+			static let paragraph1 = NSLocalizedString("DataDonation_Info_Paragraph1", comment: "")
+			static let paragraph2 = NSLocalizedString("DataDonation_Info_Paragraph2", comment: "")
+			static let paragraph3 = NSLocalizedString("DataDonation_Info_Paragraph3", comment: "")
+			static let paragraph4 = NSLocalizedString("DataDonation_Info_Paragraph4", comment: "")
+			static let paragraph5 = NSLocalizedString("DataDonation_Info_Paragraph5", comment: "")
+			static let paragraph6 = NSLocalizedString("DataDonation_Info_Paragraph6", comment: "")
+			static let bullet1 = NSLocalizedString("DataDonation_Info_Bullet1", comment: "")
+			static let bullet2 = NSLocalizedString("DataDonation_Info_Bullet2", comment: "")
+			static let bullet3 = NSLocalizedString("DataDonation_Info_Bullet3", comment: "")
+			static let bullet4 = NSLocalizedString("DataDonation_Info_Bullet4", comment: "")
+			static let bullet5 = NSLocalizedString("DataDonation_Info_Bullet5", comment: "")
+			static let bullet6 = NSLocalizedString("DataDonation_Info_Bullet6", comment: "")
+			static let bullet7 = NSLocalizedString("DataDonation_Info_Bullet7", comment: "")
+			static let bullet8 = NSLocalizedString("DataDonation_Info_Bullet8", comment: "")
+			static let bullet9 = NSLocalizedString("DataDonation_Info_Bullet9", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet10", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet11", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet12", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet13", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet14", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet15", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet16", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet17", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet18", comment: "")
+			static let bullet10 = NSLocalizedString("DataDonation_Info_Bullet19", comment: "")
+			static let bullet22 = NSLocalizedString("DataDonation_Info_Bullet20", comment: "")
+			static let bullet21 = NSLocalizedString("DataDonation_Info_Bullet21", comment: "")
+			static let bullet22 = NSLocalizedString("DataDonation_Info_Bullet22", comment: "")
+			static let bullet23 = NSLocalizedString("DataDonation_Info_Bullet23", comment: "")
+		}
+	}
+	
 	// swiftlint:disable:next file_length
 }
