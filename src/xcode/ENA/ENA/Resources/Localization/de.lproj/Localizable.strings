@@ -1676,3 +1676,25 @@ sein.";
 "Tabbar_Home_Title" = "Startseite";
 
 "Tabbar_Diary_Title" = "Tagebuch";
+
+/* Data Donation */
+
+"DataDonation_Headline" = "Datenspende";
+
+"DataDonation_Description" = "Sie können uns helfen, die Corona-Warn-App zu verbessern. Teilen Sie Daten über Ihre App-Nutzung mit dem RKI. Sie helfen damit dem RKI bei der Bewertung der Wirksamkeit der App. Ihre Daten ermöglichen außerdem, die Funktionen und Nutzerfreundlichkeit der App zu verbessern.";
+
+"DataDonation_SubHead_YourState" = "Ihr Bundesland (optional)";
+
+"DataDonation_SubHead_AgeGroup" = "Ihre Altersgruppe (optional)";
+
+"DataDonation_State_NoSelection_Text" = "Bundesland";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Angabe zu Ihrem Alter";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA";
+
+"DataDonation_Button_OK" = "Einverstanden";
+
+"DataDonation_Button_NotOK" = "Nicht einverstanden";
+
+
