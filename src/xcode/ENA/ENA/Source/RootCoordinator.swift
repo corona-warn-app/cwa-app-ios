@@ -70,12 +70,18 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
-		
+
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
+		#if DEBUG
+		let dummyDataDonationViewControllre = DataDonationViewController(didTapSelectCountry: {}, didTapSelectRegion: {}, didTapSelectAge: {})
+		dummyDataDonationViewControllre.tabBarItem = UITabBarItem(title: "Dummy", image: UIImage(named: "bolt"), selectedImage: UIImage(named: "bolt.fill"))
+		let navigationController = UINavigationController(rootViewController: dummyDataDonationViewControllre)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, navigationController], animated: false)
+		#else
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
-		
+		#endif
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
 	
