@@ -38,11 +38,11 @@ final class StoreTests: XCTestCase {
 	}
 
 	func testInitialSubmitCompleted_Success() {
-		XCTAssertEqual(store.initialSubmitCompleted, false)
+		XCTAssertFalse(store.initialSubmitCompleted)
 		store.initialSubmitCompleted = true
-		XCTAssertEqual(store.initialSubmitCompleted, true)
+		XCTAssertTrue(store.initialSubmitCompleted)
 		store.initialSubmitCompleted = false
-		XCTAssertEqual(store.initialSubmitCompleted, false)
+		XCTAssertFalse(store.initialSubmitCompleted)
 	}
 
 	func testRegistrationToken_Success() {
@@ -64,9 +64,9 @@ final class StoreTests: XCTestCase {
 		store.tracingStatusHistory.append(entry2)
 
 		XCTAssertEqual(store.tracingStatusHistory.count, 2)
-		XCTAssertEqual(store.tracingStatusHistory[0].on, true)
+		XCTAssertTrue(store.tracingStatusHistory[0].on)
 		XCTAssertEqual(store.tracingStatusHistory[0].date.description, date1.description)
-		XCTAssertEqual(store.tracingStatusHistory[1].on, false)
+		XCTAssertFalse(store.tracingStatusHistory[1].on)
 		XCTAssertEqual(store.tracingStatusHistory[1].date.description, date2.description)
 
 		store.flush()
@@ -123,9 +123,9 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
 
 		XCTAssertEqual(tmpStore.tracingStatusHistory.count, 2)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[0].on, true)
+		XCTAssertTrue(tmpStore.tracingStatusHistory[0].on)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
+		XCTAssertFalse(tmpStore.tracingStatusHistory[1].on)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
 
 		
@@ -133,13 +133,13 @@ final class StoreTests: XCTestCase {
 	
 	func testDeviceTimeSettings_initalAfterInitialization() {
 		XCTAssertEqual(store.deviceTimeCheckResult, .correct)
-		XCTAssertEqual(store.wasDeviceTimeErrorShown, false)
+		XCTAssertFalse(store.wasDeviceTimeErrorShown)
 		
 		store.deviceTimeCheckResult = .incorrect
 		store.wasDeviceTimeErrorShown = true
 		
 		XCTAssertEqual(store.deviceTimeCheckResult, .incorrect)
-		XCTAssertEqual(store.wasDeviceTimeErrorShown, true)
+		XCTAssertTrue(store.wasDeviceTimeErrorShown)
 	}
 
 	func testValueToggles() throws {
