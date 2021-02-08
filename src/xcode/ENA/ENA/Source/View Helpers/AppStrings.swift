@@ -39,6 +39,7 @@ enum AppStrings {
 		static let appFaqENError5 = NSLocalizedString("General_moreInfo_URL_EN5", tableName: "Localizable.links", comment: "")
 		static let appFaqENError11 = NSLocalizedString("General_moreInfo_URL_EN11", tableName: "Localizable.links", comment: "")
 		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", tableName: "Localizable.links", comment: "")
+		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
 	}
 
 	enum AccessibilityLabel {
@@ -335,6 +336,8 @@ enum AppStrings {
 		static let guideHotline2 = NSLocalizedString("ExposureDetection_Guide_Hotline2", comment: "")
 		static let guideHotline3 = NSLocalizedString("ExposureDetection_Guide_Hotline3", comment: "")
 		static let guideHotline4 = NSLocalizedString("ExposureDetection_Guide_Hotline4", comment: "")
+		static let guideFAQ = NSLocalizedString("ExposureDetection_Guide_FAQ", comment: "Placeholder points to `ExposureDetection_LinkText`")
+		static let guideFAQLinkText = NSLocalizedString("ExposureDetection_Guide_FAQ_LinkText", comment: "The 'tapable' text containing the link to the faq")
 
 		static let explanationTitle = NSLocalizedString("ExposureDetection_Explanation_Title", comment: "")
 		static let explanationSubtitle = NSLocalizedString("ExposureDetection_Explanation_Subtitle", comment: "")
