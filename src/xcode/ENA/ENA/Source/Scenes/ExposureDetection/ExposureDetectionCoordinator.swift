@@ -65,10 +65,15 @@ final class ExposureDetectionCoordinator {
 		}
 
 		let otpService = OTPService(store: store, client: client)
-		let viewModel = SurveyConsentViewModel(
+
+		let surveyURLProvider = SurveyURLProvider(
 			configurationProvider: appConfigurationProvider,
 			ppacService: ppacService,
 			otpService: otpService
+		)
+
+		let viewModel = SurveyConsentViewModel(
+			surveyURLProvider: surveyURLProvider
 		)
 
 		let surveyConsentViewController = SurveyConsentViewController(viewModel: viewModel) { [weak self] url in
