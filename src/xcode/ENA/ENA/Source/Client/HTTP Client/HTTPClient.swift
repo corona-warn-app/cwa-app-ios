@@ -759,9 +759,7 @@ private extension URLRequest {
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
 		)
-
-		// TO DO: brauchen wir hier auch ein padding, und auch im otpAuthorize?
-
+		
 		#if !RELEASE
 		if forceApiTokenHeader {
 			request.setValue(
