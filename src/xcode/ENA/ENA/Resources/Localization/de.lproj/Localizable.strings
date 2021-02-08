@@ -107,6 +107,12 @@
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
 
+/* Placeholder points to `ExposureDetection_LinkText` */
+"ExposureDetection_Guide_FAQ" = "Falls Sie sich testen lassen, finden Sie weitere Informationen in der %@.";
+
+/* The 'tapable' text containing the link to the faq */
+"ExposureDetection_Guide_FAQ_LinkText" = "FAQ zum Testablauf";
+
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
 "ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt.";
