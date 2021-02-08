@@ -338,6 +338,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func finishOnBoarding() {
 		store.isOnboarded = true
+		store.onboardedDate = Date()
 		store.onboardingVersion = Bundle.main.appVersion
 
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)

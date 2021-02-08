@@ -30,19 +30,29 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	func triggerSubmitData() {
 
-		// 1. Check Configuration Parameter
-		let random = Double.random(in: 0...1)
-		if random > probabilityToSubmit {
-			Log.warning("Randomness prevents submitting analytics data", log: .ppa)
+		// 1. Check configuration parameter
+		guard Double.random(in: 0...1) < probabilityToSubmit else {
+			Log.warning("Analytics submission abord due to randomness", log: .ppa)
 			return
 		}
 
-		// 2. last submition check:
+		// 2. Last submission check
+		if submissionWithinLast23Hours {
+			Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+			return
+		}
 
+		// 3. Onboarding check
+		if onboardingCompletedWithinLast24Hours {
+			Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+			return
+		}
 
-		// if lastCheck >= 23 hours || lastcheck == nil, proceed
-
-		// 3. onnboarding completed >= 24 hours && app reset >= 24 hours, proceed
+		// 3. App Reset check
+		if appResetWithinLast24Hours {
+			Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+			return
+		}
 
 		// 4. obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
@@ -54,9 +64,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacService.getPPACToken { [weak self] result in
 			switch result {
 			case let .success(token):
+
+				// 5. submit analytics data
 				self?.submitData(with: token)
 			case let .failure(error):
-				Log.error("Could not submit analytics data due to ppac error", log: .ppa, error: error)
+				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
 				return
 			}
 		}
@@ -70,6 +82,35 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private var subscriptions = [AnyCancellable]()
 	private var probabilityToSubmit: Double
+
+	private var submissionWithinLast23Hours: Bool {
+		guard let lastSubmission = store.submissionAnalytics,
+			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()) else {
+				return false
+		}
+		let lastTwentyThreeHours = twentyThreeHoursAgo...Date()
+		return lastTwentyThreeHours.contains(lastSubmission)
+	}
+
+	private var onboardingCompletedWithinLast24Hours: Bool {
+		guard let onbaordedDate = store.onboardedDate,
+			  let twentyFourHoursAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date()) else {
+
+			return false
+		}
+		let lastTwentyFourHours = twentyFourHoursAgo...Date()
+		return lastTwentyFourHours.contains(onbaordedDate)
+	}
+
+	private var appResetWithinLast24Hours: Bool {
+		guard let lastResetDate = store.lastAppReset,
+			  let twentyFourHoursAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date()) else {
+
+			return false
+		}
+		let lastTwentyFourHours = twentyFourHoursAgo...Date()
+		return lastTwentyFourHours.contains(lastResetDate)
+	}
 
 	private var ppaUsageData: SAP_Internal_Ppdd_PPADataIOS {
 		let exposureRiskMetadataSet = SAP_Internal_Ppdd_ExposureRiskMetadata.with {

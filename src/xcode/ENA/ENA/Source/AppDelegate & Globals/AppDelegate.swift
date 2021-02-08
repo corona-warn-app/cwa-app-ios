@@ -265,6 +265,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 			/// write excluded value back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
+			store.lastAppReset = Date()
 		} catch {
 			fatalError("Creating new database key failed")
 		}
