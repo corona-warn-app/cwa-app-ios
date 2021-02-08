@@ -20,14 +20,13 @@ final class SelectValueTableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
+	// MARK: - Internal
 
 	func configure(_ cellViewModel: SelectValueCellViewModel) {
 		selectableValueLabel.text = cellViewModel.text
 		accessoryView = UIImageView(image: cellViewModel.checkmarkImage)
 	}
 
-	// MARK: - Internal
 
 	static var reuseIdentifier: String {
 		String(describing: self)
