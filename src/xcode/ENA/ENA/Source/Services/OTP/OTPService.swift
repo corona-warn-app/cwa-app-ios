@@ -86,16 +86,10 @@ final class OTPService: OTPServiceProviding {
 
 			switch result {
 			case .success(let expirationDate):
-				// Success: We store the timestamp of the authorized otp and return the token.
-				guard let verifiedOTP = self.store.otpToken else {
-					Log.error("could not retrieve otp token from store", log: .otp)
-					completion(.failure(OTPError.generalError))
-					return
-				}
-
+				// Success: We store the authorized otp with timestamp and return the token.
 				let verifiedToken = OTPToken(
-					token: verifiedOTP.token,
-					timestamp: verifiedOTP.timestamp,
+					token: otp,
+					timestamp: Date(),
 					expirationDate: expirationDate
 				)
 
@@ -107,10 +101,6 @@ final class OTPService: OTPServiceProviding {
 				completion(.failure(error))
 			}
 		})
-	}
-
-	var isAuthorized: Bool {
-		return store.otpAuthorizationDate != nil
 	}
 
 	var isAuthorizedInCurrentMonth: Bool {

@@ -57,6 +57,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var ppacApiToken: TimestampedToken?
 	var otpToken: OTPToken?
+	var otpAuthorizationDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
