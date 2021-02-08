@@ -21,7 +21,8 @@ class HomeTableViewModelTests: XCTestCase {
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
-			)
+			),
+			store: store
 		)
 
 		// Number of Sections
@@ -71,7 +72,8 @@ class HomeTableViewModelTests: XCTestCase {
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
-			)
+			),
+			store: store
 		)
 		
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1, "Number of rows in section 1 does not match.")
@@ -95,7 +97,8 @@ class HomeTableViewModelTests: XCTestCase {
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
-			)
+			),
+			store: store
 		)
 		sut.state.testResult = .positive
 		
@@ -117,7 +120,8 @@ class HomeTableViewModelTests: XCTestCase {
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
-			)
+			),
+			store: store
 		)
 		viewModel.state.statistics.keyFigureCards = []
 
@@ -145,7 +149,8 @@ class HomeTableViewModelTests: XCTestCase {
 					client: CachingHTTPClientMock(store: store),
 					store: store
 				)
-			)
+			),
+			store: store
 		)
 		viewModel.state.updateStatistics()
 

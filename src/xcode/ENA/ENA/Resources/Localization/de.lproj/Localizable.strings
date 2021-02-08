@@ -994,6 +994,14 @@ sein.";
 
 "Home_Reenable_Card_TestResult_Registration" = "Test registriert am %@";
 
+"Home_Reenable_Alert_Title" = "Risiko-Ermittlung aktivieren";
+
+"Home_Reenable_Alert_Message" = "Ihr aktueller Test wird aus der App gelöscht, damit Sie bei Bedarf einen neuen Test registrieren können.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Aktivieren";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "Abbrechen";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Befund positiv";
 

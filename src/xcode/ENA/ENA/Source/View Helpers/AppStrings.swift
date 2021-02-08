@@ -653,6 +653,10 @@ enum AppStrings {
 		static let reenableCardTestResultTitle = NSLocalizedString("Home_Reenable_Card_TestResult_Title", comment: "")
 		static let reenableCardTestResultSubtitle = NSLocalizedString("Home_Reenable_Card_TestResult_Subtitle", comment: "")
 		static let reenableCardTestResultRegistration = NSLocalizedString("Home_Reenable_Card_TestResult_Registration", comment: "")
+		static let reenableAlertTitle = NSLocalizedString("Home_Reenable_Alert_Title", comment: "")
+		static let reenableAlertMessage = NSLocalizedString("Home_Reenable_Alert_Message", comment: "")
+		static let reenableAlertConfirmButtonTitle = NSLocalizedString("Home_Reenable_Alert_ConfirmButtonTitle", comment: "")
+		static let reenableAlertCancelButtonTitle = NSLocalizedString("Home_Reenable_Alert_CancelButtonTitle", comment: "")
 
 		// Finding positive card
 		static let findingPositiveCardTitle = NSLocalizedString("Home_Finding_Positive_Card_Title", comment: "")
