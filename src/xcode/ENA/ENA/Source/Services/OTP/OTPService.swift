@@ -5,8 +5,8 @@
 import Foundation
 
 protocol OTPServiceProviding {
-	/// Returns true if we have a stored and authorized otp token. If it is not authorized or we do not have one stored, we return false
-	var isStoredOTPAuthorized: Bool { get }
+	/// Returns true if we have a stored and authorized otp token, else false.
+	var isOTPAvailable: Bool { get }
 	/// Checks if there is a valid stored otp. If so, we check if we can reuse it beacuse it was not already used, or if it was already used. If so, we return a failure.  If there is not a stored otp token, or if the stored token's expiration date is reached, a new fresh otp token is generated and stored.
 	/// After these validation checks, the service tries to authorize the otp against the server.
 	/// - Parameters:
@@ -34,28 +34,24 @@ final class OTPService: OTPServiceProviding {
 	
 	// MARK: - Protocol OTPServiceProviding
 
-	var isStoredOTPAuthorized: Bool {
-		store.otpToken?.isAuthorized ?? false
+	var isOTPAvailable: Bool {
+		store.otpToken != nil
 	}
 
-	// ToDo: Mit Pascal abklären: getOTP darf nich gecalled werden, falls isStoredOTPAuthorized true liefert.
 	func getOTP(ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
-		// Check for existing otp. If we have none, create one and proceed.
-		if let token = store.otpToken {
-
-			guard !token.isAuthorizedInCurrentMonth else {
-				Log.error("The latest successful request for an OTP was in the current month.", log: .otp)
-				completion(.failure(OTPError.otpAlreadyUsedThisMonth)) // Fehler
-				return
-			}
-
-			let otp = generateAndStoreFreshOTPToken()
-			authorize(otp, with: ppacToken, completion: completion)
-
-		} else {
-			let otp = generateAndStoreFreshOTPToken()
-			authorize(otp, with: ppacToken, completion: completion)
+		if let otpToken = store.otpToken {
+			completion(.success(otpToken.token))
+			return
 		}
+
+		if isAuthorizedInCurrentMonth {
+			Log.warning("The latest successful request for an OTP was in the current month.", log: .otp)
+			completion(.failure(OTPError.otpAlreadyUsedThisMonth)) // Fehler
+			return
+		}
+
+		let otp = generateOTPToken()
+		authorize(otp, with: ppacToken, completion: completion)
 	}
 
 	func discardOTP() {
@@ -68,12 +64,8 @@ final class OTPService: OTPServiceProviding {
 	private let store: Store
 	private let client: Client
 
-	private func generateAndStoreFreshOTPToken() -> String {
-		let uuid = UUID().uuidString
-		let utcDate = Date()
-		let token = OTPToken(token: uuid, timestamp: utcDate, expirationDate: nil, authorizationDate: nil)
-		store.otpToken = token
-		return token.token
+	private func generateOTPToken() -> String {
+		return UUID().uuidString
 	}
 
 	private func authorize(_ otp: String, with ppacToken: PPACToken, completion: @escaping (Result<String, OTPError>) -> Void) {
@@ -104,11 +96,11 @@ final class OTPService: OTPServiceProviding {
 				let verifiedToken = OTPToken(
 					token: verifiedOTP.token,
 					timestamp: verifiedOTP.timestamp,
-					expirationDate: expirationDate,
-					authorizationDate: Date()
+					expirationDate: expirationDate
 				)
 
 				self.store.otpToken = verifiedToken
+				self.store.otpAuthorizationDate = Date()
 
 				completion(.success(verifiedToken.token))
 			case .failure(let error):
@@ -116,23 +108,13 @@ final class OTPService: OTPServiceProviding {
 			}
 		})
 	}
-}
-
-fileprivate extension OTPToken {
 
 	var isAuthorized: Bool {
-		return authorizationDate != nil
-	}
-
-	var isExpired: Bool {
-		guard let expirationDate = expirationDate else {
-			return true
-		}
-		return expirationDate < Date()
+		return store.otpAuthorizationDate != nil
 	}
 
 	var isAuthorizedInCurrentMonth: Bool {
-		guard let authorizationDate = authorizationDate else {
+		guard let authorizationDate = store.otpAuthorizationDate else {
 			return false
 		}
 		return authorizationDate.isEqual(to: Date(), toGranularity: .month) &&
