@@ -30,8 +30,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	func triggerSubmitData() {
 
+		// 0. Check if user has given his consent to collect data
+		if userProhibitedAnalyticsCollectionConsent {
+			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
+			return
+		}
+
 		// 1. Check configuration parameter
-		guard Double.random(in: 0...1) < probabilityToSubmit else {
+		if Double.random(in: 0...1) > probabilityToSubmit {
 			Log.warning("Analytics submission abord due to randomness", log: .ppa)
 			return
 		}
@@ -42,13 +48,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 
-		// 3. Onboarding check
+		// 3a. Onboarding check
 		if onboardingCompletedWithinLast24Hours {
 			Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
 			return
 		}
 
-		// 3. App Reset check
+		// 3b. App Reset check
 		if appResetWithinLast24Hours {
 			Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
 			return
@@ -61,12 +67,15 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 
+
+		// 5. obtain usage data
+		let payload = obtainUsageData()
+
+		// 5. submit analytics data
 		ppacService.getPPACToken { [weak self] result in
 			switch result {
 			case let .success(token):
-
-				// 5. submit analytics data
-				self?.submitData(with: token)
+				self?.submitData(with: token, for: payload)
 			case let .failure(error):
 				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
 				return
@@ -80,8 +89,17 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	// MARK: - Private
 
+	private let store: Store
+	private let client: Client
+	private let configurationProvider: AppConfigurationProviding
+
 	private var subscriptions = [AnyCancellable]()
 	private var probabilityToSubmit: Double
+
+	private var userProhibitedAnalyticsCollectionConsent: Bool {
+		// TODO: What is here the flag?
+		return true
+	}
 
 	private var submissionWithinLast23Hours: Bool {
 		guard let lastSubmission = store.submissionAnalytics,
@@ -112,35 +130,39 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return lastTwentyFourHours.contains(lastResetDate)
 	}
 
-	private var ppaUsageData: SAP_Internal_Ppdd_PPADataIOS {
-		let exposureRiskMetadataSet = SAP_Internal_Ppdd_ExposureRiskMetadata.with {
-			$0.riskLevel = .riskLevelHigh
-		}
-
-		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
-			$0.exposureRiskMetadataSet = [exposureRiskMetadataSet]
-		}
-
-		return payload
-	}
-
 	private func subscripeAppConfig() {
 		configurationProvider.appConfiguration().sink { [weak self] configuration in
 			self?.probabilityToSubmit = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit
 		}.store(in: &subscriptions)
 	}
 
-	private func submitData(with ppacToken: PPACToken) {
+	private func obtainUsageData() -> SAP_Internal_Ppdd_PPADataIOS {
+
+		let exposureRiskMetadata = gatherExposureRiskMetadata()
+		// already created for EXPOSUREAPP-4790
+		/*
+		let newExposureWindows = gatherNewExposureWindows()
+		let testResultMetadata = gatherTestResultMetadata()
+		let keySubmissionMetadata = gatherKeySubmissionMetadata()
+		let clientMetadata = gatherClientMetadata()
+		*/
+		let userMetadata = gatherUserMetadata()
+
+		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
+			$0.exposureRiskMetadataSet = exposureRiskMetadata
+			$0.userMetadata = userMetadata
+		}
+
+		return payload
+	}
+
+	private func submitData(with ppacToken: PPACToken, for payload: SAP_Internal_Ppdd_PPADataIOS) {
 
 		var forceApiTokenHeader = false
 		#if !RELEASE
 		forceApiTokenHeader = store.forceAPITokenAuthorization
 		#endif
 
-		// 5. obtain usage data
-		let payload = ppaUsageData
-
-		// 6. submit data finally
 		client.submit(
 			payload: payload,
 			ppacToken: ppacToken,
@@ -157,9 +179,69 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		)
 	}
 
-	private let store: Store
-	private let client: Client
+	private func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
+		guard let storedUsageData = store.currentRiskExposureMetadata else {
+			return []
+		}
+		return [SAP_Internal_Ppdd_ExposureRiskMetadata.with {
+			$0.riskLevel = convert(storedUsageData.riskLevel)
+			$0.riskLevelChangedComparedToPreviousSubmission = storedUsageData.riskLevelChangedComparedToPreviousSubmission
+			$0.mostRecentDateAtRiskLevel = mostRecentDate(for: storedUsageData.mostRecentDateAtRiskLevel)
+			$0.dateChangedComparedToPreviousSubmission = storedUsageData.dateChangedComparedToPreviousSubmission
+		}]
+	}
 
-	private let configurationProvider: AppConfigurationProviding
+	// already created for EXPOSUREAPP-4790
+	/*
+	private func gatherNewExposureWindows() -> [SAP_Internal_Ppdd_PPANewExposureWindow] {
+	}
 
+	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
+	}
+
+	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
+	}
+
+	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
+	}
+	*/
+
+	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
+		guard let storedUserData = store.userMetadata else {
+			return SAP_Internal_Ppdd_PPAUserMetadata.with { _ in }
+		}
+
+		return SAP_Internal_Ppdd_PPAUserMetadata.with {
+			// TODO: Wait for correct data type
+//			$0.federalState = storedUserData.federalState
+			// TODO: Wait for correct data type
+//			$0.administrativeUnit = storedUserData.administrativeUnit
+			$0.ageGroup = convert(storedUserData.ageGroup)
+		}
+	}
+
+	private func convert(_ riskLevel: RiskLevel) -> SAP_Internal_Ppdd_PPARiskLevel {
+		switch riskLevel {
+		case .low:
+			return .riskLevelLow
+		case .high:
+			return .riskLevelHigh
+		}
+	}
+
+	private func mostRecentDate(for date: Date) -> Int64 {
+		// TODO check if correct
+		return Int64(Date().timeIntervalSince1970)
+	}
+
+	private func convert(_ ageGroup: AgeGroup) -> SAP_Internal_Ppdd_PPAAgeGroup {
+		switch ageGroup {
+		case .ageBelow29:
+			return .ageGroup0To29
+		case .ageBetween30And59:
+			return .ageGroup30To59
+		case .age60OrAbove:
+			return .ageGroupFrom60
+		}
+	}
 }
