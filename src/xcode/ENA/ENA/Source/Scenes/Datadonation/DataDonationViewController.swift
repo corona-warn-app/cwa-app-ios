@@ -10,11 +10,16 @@ class DataDonationViewController: UIViewController {
 	init(
 		didTapSelectCountry: @escaping () -> Void,
 		didTapSelectRegion: @escaping () -> Void,
-		didTapSelectAge: @escaping () -> Void
+		didTapSelectAge: @escaping () -> Void,
+		didTapLegal: @escaping () -> Void
 	) {
 		self.didTapSelectAge = didTapSelectAge
 		self.didTapSelectRegion = didTapSelectRegion
 		self.didTapSelectCountry = didTapSelectCountry
+		self.didTapLegal = didTapLegal
+
+		self.viewModel = DataDonationViewModel()
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -42,9 +47,12 @@ class DataDonationViewController: UIViewController {
 	private let didTapSelectCountry: () -> Void
 	private let didTapSelectRegion: () -> Void
 	private let didTapSelectAge: () -> Void
+	private let didTapLegal: () -> Void
+
+	private let viewModel: DataDonationViewModel
 
 	private func setupDummyView() {
-		title = "DataDonation Dummy"
+		title = "DataDonation"
 		view.backgroundColor = .enaColor(for: .background)
 
 		let firstButton = UIButton(type: .custom)
