@@ -15,8 +15,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	private var ppacToken: PPACToken!
 	private var store: MockTestStore!
 	private var client: Client!
-	private var riskExpectation: XCTestExpectation?
-	
+
 	override func setUp() {
 		super.setUp()
 		
@@ -24,15 +23,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		self.client = ClientMock()
 		self.otpService = OTPService(store: store, client: client)
 		self.ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
-	}
-	
-	override func tearDown() {
-		otpService = nil
-		ppacToken = nil
-		client = nil
-		store = nil
-		
-		super.tearDown()
 	}
 	
 	func testInitialLowRiskStateWithoutEncounters() {
@@ -657,8 +647,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		)
 	}
 	
-	func testIfRishChangeFromHighToLow_thenOTPisReseted() throws {
-		
+	func testIfRiscChangesToLow_thenOTPisReseted() throws {
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
@@ -673,15 +662,18 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		homeState.updateDetectionMode(.automatic)
 		homeState.riskState = .detectionFailed
 
-		otpService.getOTP(ppacToken: PPACToken(apiToken: "test", deviceToken: "test")) { result in
+		let otpExpectation = expectation(description: "otp success returned")
+
+		otpService.getOTP(ppacToken: PPACToken(apiToken: "test", deviceToken: "test")) { [otpService] result in
 			switch result {
 			case .success:
-				XCTAssert(true)
+				XCTAssertTrue(otpService?.isStoredOTPAuthorized ?? false)
+				otpExpectation.fulfill()
 			case .failure(let error):
-				XCTFail(error.localizedDescription)
+				XCTFail("Error not expected: \(error.localizedDescription)")
 			}
 		}
-		// we need the "let" or the viewModel instance will be deallocated when the expectations closure in line 701 returns
+
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
@@ -693,11 +685,18 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		store.shouldShowRiskStatusLoweredAlert = false
 		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .low, store: store)
+		let riskExpectation = expectation(description: "Risk did recalculate.")
+
+		let riskConsumer = RiskConsumer()
+		riskConsumer.didCalculateRisk = { [otpService] _ in
+			XCTAssertFalse(otpService?.isStoredOTPAuthorized ?? false)
+			riskExpectation.fulfill()
+		}
+		riskProvider.observeRisk(riskConsumer)
+
 		riskProvider.requestRisk(userInitiated: true)
-		
-		self.riskExpectation = expectation(description: "otp token reset expectation")
-		NotificationCenter.default.addObserver(self, selector: #selector(didReciveNotificationForRiskLevelChange(_:)), name: .riskStatusLowerd, object: nil)
-		waitForExpectations(timeout: 10) { [weak self] _ in
+
+		waitForExpectations(timeout: .long) { [weak self] _ in
 			guard let self = self else { return }
 			XCTAssertNil(self.store.otpToken, "Token should be reseted after changing risk from high to low")
 		}
@@ -1110,10 +1109,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}
-	
-	@objc private func didReciveNotificationForRiskLevelChange(_: NSNotification) {
-		self.riskExpectation?.fulfill()
-	}
+
 	private func riskProviderChangingRiskLevel(from previousRiskLevel: RiskLevel, to newRiskLevel: RiskLevel, store: MockTestStore) throws -> RiskProvider {
 		let duration = DateComponents(day: 2)
 

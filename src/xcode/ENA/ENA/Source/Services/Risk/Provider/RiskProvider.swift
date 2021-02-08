@@ -343,7 +343,6 @@ final class RiskProvider: RiskProviding {
 			switch risk.level {
 			case .low:
 				store.shouldShowRiskStatusLoweredAlert = true
-				NotificationCenter.default.post(name: .riskStatusLowerd, object: nil)
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
 			}

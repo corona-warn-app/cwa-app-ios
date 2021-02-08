@@ -25,8 +25,13 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		self.onInactiveButtonTap = onInactiveButtonTap
 		self.onSurveyTap = onSurveyTap
 		self.otpService = otpService
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(resetOTP(_:)), name: .riskStatusLowerd, object: nil)
+
+		homeState.$risk.sink { risk in
+			if risk.level == .low {
+				otpService.discardOTP()
+			}
+		}
+		.store(in: &subscriptions)
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -65,12 +70,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				self?.scheduleCountdownTimer()
 			}
 			.store(in: &subscriptions)
-	}
-	
-	
-	@objc
-	private func resetOTP(_: NSNotification) {
-		otpService.discardOTP()
 	}
 
 	// MARK: - Protocol CountdownTimerDelegate
