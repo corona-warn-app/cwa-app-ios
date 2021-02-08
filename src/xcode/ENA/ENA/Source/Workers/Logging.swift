@@ -25,6 +25,8 @@ extension OSLog {
 	static let ppac = OSLog(subsystem: subsystem, category: "ppac")
 	/// OTP
 	static let otp = OSLog(subsystem: subsystem, category: "otp")
+	/// PP Anaylitics
+	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
 }
 
 /// Logging
