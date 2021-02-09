@@ -60,6 +60,7 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var ppacApiToken: TimestampedToken?
 	var otpToken: OTPToken?
+	var privacyPreservingAnalyticsConsentAccept: Bool = false
 
 	#if !RELEASE
 	// Settings from the debug menu.
