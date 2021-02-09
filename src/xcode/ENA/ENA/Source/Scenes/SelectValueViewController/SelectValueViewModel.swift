@@ -14,7 +14,7 @@ final class SelectValueViewModel {
 		title: String,
 		preselected: String? = nil
 	) {
-		self.allValues = ["keine Angabe"] + allowedValues.sorted()
+		self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues.sorted()
 		self.title = title
 		guard let preselected = preselected,
 			  let selectedIndex = self.allValues.firstIndex(of: preselected) else {

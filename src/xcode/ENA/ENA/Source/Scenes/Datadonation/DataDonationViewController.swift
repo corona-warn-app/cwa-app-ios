@@ -58,7 +58,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		firstButton.setTitle("Land", for: .normal)
 		firstButton.setTitleColor(.black, for: .normal)
 		firstButton.backgroundColor = .enaColor(for: .buttonPrimary)
-		firstButton.addTarget(self, action: #selector(didTapSelectCountryButton), for: .touchUpInside)
+		firstButton.addTarget(self, action: #selector(didTapSelectStateButton), for: .touchUpInside)
 
 		let secondButton = UIButton(type: .custom)
 		secondButton.translatesAutoresizingMaskIntoConstraints = false
@@ -108,8 +108,12 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	}
 
 	@objc
-	private func didTapSelectCountryButton() {
-		let selectValueViewModel = SelectValueViewModel(viewModel.allFederalStateNames, title: "Select a Country", preselected: viewModel.federalStateName)
+	private func didTapSelectStateButton() {
+		let selectValueViewModel = SelectValueViewModel(
+			viewModel.allFederalStateNames,
+			title: AppStrings.DataDonation.ValueSelection.Title.State,
+			preselected: viewModel.federalStateName
+		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
 			guard self?.viewModel.federalStateName != federalState else {
 				return
@@ -130,7 +134,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		let selectValueViewModel = SelectValueViewModel(
 			viewModel.allRegions(by: federalStateName),
-			title: "Select a Region",
+			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: viewModel.region
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] region in

@@ -1135,6 +1135,15 @@ enum AppStrings {
 	}
 	
 	enum DataDonation {
+		enum ValueSelection {
+			static let noValue = NSLocalizedString("DataDonation_ValueSelection_None", comment: "")
+			enum Title {
+				static let State = NSLocalizedString("DataDonation_ValueSelection_Title_State", comment: "")
+				static let Region = NSLocalizedString("DataDonation_ValueSelection_Title_Region", comment: "")
+				static let Age = NSLocalizedString("DataDonation_ValueSelection_Title_Age", comment: "")
+			}
+		}
+
 		enum Info {
 			static let accImageDescription = NSLocalizedString("DataDonation_AccImageDescription", comment: "")
 			static let title = NSLocalizedString("DataDonation_Headline", comment: "")
