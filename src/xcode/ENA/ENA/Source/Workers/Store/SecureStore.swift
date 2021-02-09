@@ -72,6 +72,11 @@ final class SecureStore: Store {
 		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
 		set { kvStore["exposureActivationConsentAccept"] = newValue }
 	}
+	
+	var privacyPreservingAnalyticsConsentAccept: Bool {
+		get { kvStore["privacyPreservingAnalyticsConsentAccept"] as Bool? ?? false }
+		set { kvStore["privacyPreservingAnalyticsConsentAccept"] = newValue }
+	}
 
 	var registrationToken: String? {
 		get { kvStore["registrationToken"] as String? }

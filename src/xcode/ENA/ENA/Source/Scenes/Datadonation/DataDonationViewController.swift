@@ -3,23 +3,20 @@
 //
 
 import UIKit
+import OpenCombine
 
 class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol {
 
 	// MARK: - Init
 	init(
-		didTapSelectCountry: @escaping () -> Void,
-		didTapSelectRegion: @escaping () -> Void,
-		didTapSelectAge: @escaping () -> Void,
+		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
 		didTapLegal: @escaping () -> Void
 	) {
-		self.didTapSelectAge = didTapSelectAge
-		self.didTapSelectRegion = didTapSelectRegion
-		self.didTapSelectCountry = didTapSelectCountry
-		self.didTapLegal = didTapLegal
 
+		self.presentSelectValueList = presentSelectValueList
+		self.didTapLegal = didTapLegal
 		self.viewModel = DataDonationViewModel()
-		
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -33,8 +30,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		//setupDummyView()
-		setupTableView()
+		setupDummyView()
+//		setupTableView()
 	}
 
 	// MARK: - Protocol <#Name#>
@@ -46,13 +43,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	var finished: (() -> Void)?
 
 	// MARK: - Private
-
-	private let didTapSelectCountry: () -> Void
-	private let didTapSelectRegion: () -> Void
-	private let didTapSelectAge: () -> Void
+	private let presentSelectValueList: (SelectValueViewModel) -> Void
 	private let didTapLegal: () -> Void
 
 	private let viewModel: DataDonationViewModel
+	private var subscriptions: [AnyCancellable] = []
 
 	private func setupDummyView() {
 		title = "DataDonation"
@@ -109,12 +104,38 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	@objc
 	private func didTapSelectCountryButton() {
-		Log.debug("Did hit select country Button")
+		let selectValueViewModel = SelectValueViewModel(viewModel.allFederalStateNames, title: "Select a Country", preselected: viewModel.federalStateName)
+		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+			guard self?.viewModel.federalStateName != federalState else {
+				return
+			}
+			// if a new fedaral state got selected reset region as well
+			self?.viewModel.federalStateName = federalState
+			self?.viewModel.region = nil
+		}.store(in: &subscriptions)
+		presentSelectValueList(selectValueViewModel)
 	}
 
 	@objc
 	private func didTapSelectRegionButton() {
-		Log.debug("Did hit select region Button")
+		guard let federalStateName = viewModel.federalStateName else {
+			Log.debug("Missing federal state to load regions", log: .ppac)
+			return
+		}
+
+		let selectValueViewModel = SelectValueViewModel(
+			viewModel.allRegions(by: federalStateName),
+			title: "Select a Region",
+			preselected: viewModel.region
+		)
+		selectValueViewModel.$selectedValue .sink { [weak self] region in
+			guard self?.viewModel.region != region else {
+				return
+			}
+			self?.viewModel.region = region
+		}.store(in: &subscriptions)
+
+		presentSelectValueList(selectValueViewModel)
 	}
 
 	@objc

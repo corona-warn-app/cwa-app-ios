@@ -257,7 +257,6 @@
 		3466A3FC25CD5B90002CC49D /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3FB25CD5B90002CC49D /* AgeGroup.swift */; };
 		3466A40A25D19813002CC49D /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */; };
 		3466A41E25D1A20C002CC49D /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */; };
-		3466A43925D1FD5C002CC49D /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A43825D1FD5C002CC49D /* District.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -591,6 +590,7 @@
 		B1FF6B772497D2330041CF02 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DFCC2712484DC8400E2811D /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA0073BE25D18A5B0036DFDD /* DataDonationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0073BD25D18A5B0036DFDD /* DataDonationViewController.swift */; };
 		BA0073EA25D196900036DFDD /* DataDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0073E925D196900036DFDD /* DataDonationViewModel.swift */; };
+		BA00740025D1A1810036DFDD /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0073FF25D1A1810036DFDD /* District.swift */; };
 		BA056F1B259B89B50022B0A4 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */; };
 		BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07735B25C2FCB800EAF6B8 /* PPACService.swift */; };
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
@@ -627,6 +627,7 @@
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
+		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
 		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
@@ -1026,7 +1027,6 @@
 		3466A3FB25CD5B90002CC49D /* AgeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
 		3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RiskExposureMetadataTests.swift; path = ENA/Source/Models/Exposure/__tests__/RiskExposureMetadataTests.swift; sourceTree = SOURCE_ROOT; };
 		3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
-		3466A43825D1FD5C002CC49D /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
@@ -1381,6 +1381,7 @@
 		B1FF6B6D2497D0B50041CF02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA0073BD25D18A5B0036DFDD /* DataDonationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationViewController.swift; sourceTree = "<group>"; };
 		BA0073E925D196900036DFDD /* DataDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationViewModel.swift; sourceTree = "<group>"; };
+		BA0073FF25D1A1810036DFDD /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		BA056F19259B89B50022B0A4 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
 		BA07735B25C2FCB800EAF6B8 /* PPACService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACService.swift; sourceTree = "<group>"; };
 		BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelPerDay.swift; sourceTree = "<group>"; };
@@ -1418,6 +1419,7 @@
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
+		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
 		BA904CA52576A0B900692110 /* ENAInputLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAInputLabel.swift; sourceTree = "<group>"; };
@@ -2221,14 +2223,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		3466A43725D1FD04002CC49D /* Datadonation */ = {
-			isa = PBXGroup;
-			children = (
-				3466A43825D1FD5C002CC49D /* District.swift */,
-			);
-			path = Datadonation;
-			sourceTree = "<group>";
-		};
 		35075C002526367700DE92F7 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
@@ -2792,11 +2786,10 @@
 				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,
-				BA69A7D525CD780F00023265 /* PPA */,
+				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				51D420C224583D7B00AD70CA /* Settings */,
-				3466A43725D1FD04002CC49D /* Datadonation */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
 			);
@@ -2806,6 +2799,7 @@
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */,
 				EBBABC46256402A9005B7C07 /* default_app_config_18 */,
 				AB628A1D251CDAA700CF61D2 /* ServerEnvironment */,
 				014891B224F90D0B002A6F77 /* ENA.plist */,
@@ -3682,6 +3676,7 @@
 				BA0073E925D196900036DFDD /* DataDonationViewModel.swift */,
 				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
 				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
+				BA0073FF25D1A1810036DFDD /* District.swift */,
 			);
 			path = Datadonation;
 			sourceTree = "<group>";
@@ -3729,14 +3724,6 @@
 				BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */,
 			);
 			path = DMPPACService;
-			sourceTree = "<group>";
-		};
-		BA69A7D525CD780F00023265 /* PPA */ = {
-			isa = PBXGroup;
-			children = (
-				BA69A7D625CD782900023265 /* SelectValueViewController */,
-			);
-			path = PPA;
 			sourceTree = "<group>";
 		};
 		BA69A7D625CD782900023265 /* SelectValueViewController */ = {
@@ -4332,6 +4319,7 @@
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */,
 				01A4DCB125925121007D5794 /* HomeThankYouTableViewCell.xib in Resources */,
+				BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
 				01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
@@ -4536,6 +4524,7 @@
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
+				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
@@ -4581,7 +4570,6 @@
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
 				948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */,
-				3466A43925D1FD5C002CC49D /* District.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
