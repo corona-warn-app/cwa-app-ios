@@ -1713,9 +1713,9 @@ sein.";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Die Bedienung der App soll erleichtert werden. Hierfür werden Angaben über die einzelnen Schritte ausgewertet, die Nutzer in der App vornehmen. So können Beschriftungen und Hinweistexte klarer gestaltet und Bedienelemente so platziert werden, dass sie besser gefunden werden können. Außerdem können Darstellungen für verschiedene Smartphone-Modelle angepasst werden.";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen"
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z.B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden."
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z.B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
 
 "DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Verbesserung der Statistiken über den Pandemieverlauf";
 
@@ -1743,10 +1743,6 @@ sein.";
 "DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Angaben zum Zeitraum zwischen der letzten Mitteilung eines erhöhten Risikos und der Testregistrierung.";
 
 "DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Angaben dazu, ob Sie Ihr Testergebnis geteilt und andere gewarnt haben.";
-
-"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_" = "";
-
-"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_" = "";
 
 "DetailedInfosDataDonation_SubHead_WarnOthers" = "Wenn Sie andere über eine mögliche Risiko-Begegnung gewarnt haben:";
 
