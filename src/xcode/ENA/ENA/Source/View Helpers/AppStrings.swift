@@ -1147,8 +1147,8 @@ enum AppStrings {
 			static let buttonOK = NSLocalizedString("DataDonation_Button_OK", comment: "")
 			static let buttonNOK = NSLocalizedString("DataDonation_Button_NotOK", comment: "")
 		}
-		
-		enum DetailedInfo {
+
+        enum DetailedInfo {
 			static let title = NSLocalizedString("DetailedInfosDataDonation_Headline", comment: "")
 			
 			static let legalHeadline = NSLocalizedString("DataDonation_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
