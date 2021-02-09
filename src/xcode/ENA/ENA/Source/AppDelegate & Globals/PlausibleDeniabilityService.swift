@@ -65,7 +65,7 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 	}
 
 	/// Randomly execute a fake request
-	/// - Parameter propability: the probability p to execute a fake request. Accepting values between 0 and 1.
+	/// - Parameter probability: the probability p to execute a fake request. Accepting values between 0 and 1.
 	/// - Returns: Bool to indicate wether the fake request has been sent
 	@discardableResult
 	func executeFakeRequestOnAppLaunch(probability p: Double) -> Bool {
