@@ -386,10 +386,6 @@ enum AppStrings {
 		static let acceptButtonTitle = NSLocalizedString("SurveyConsent_Accept_Button_Title", comment: "")
 		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", comment: "")
 		
-		static let legalDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
-
-		static let legalDetailsBody = NSLocalizedString("SurveyConsent_Legal_Details_Body", comment: "")
-
 		// Errors
 		static let errorTitle = NSLocalizedString("SurveyConsent_Error_Title", comment: "")
 		static let errorTryAgainLater = NSLocalizedString("SurveyConsent_Error_TryAgainLater", comment: "")
@@ -402,6 +398,16 @@ enum AppStrings {
 		static let legalDetailsBody1 = NSLocalizedString("SurveyConsent_Legal_Details_Section1_Body", comment: "")
 		static let legalDetailsHeader2 = NSLocalizedString("SurveyConsent_Legal_Details_Section2_Title_BoldText", comment: "")
 		static let legalDetailsBody2 = NSLocalizedString("SurveyConsent_Legal_Details_Section2_Body", comment: "")
+
+		static let surveyDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
+
+		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
+		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", comment: "")
+		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", comment: "")
+ 
+		static let surveyDetailsHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
+		static let surveyDetailsBody = NSLocalizedString("SurveyConsent_Details_Body", comment: "")
+
 	}
 
 	enum ExposureDetectionError {

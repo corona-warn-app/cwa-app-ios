@@ -151,7 +151,7 @@ final class SurveyConsentViewModel {
 			.section(
 				cells: [
 					.title1(
-						text: AppStrings.SurveyConsent.legalDetailsTitle,
+						text: AppStrings.SurveyConsent.surveyDetailsTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
 					)]
 			)
@@ -161,8 +161,10 @@ final class SurveyConsentViewModel {
 			.section(
 				cells: [
 					.acknowledgement(
-						title: NSAttributedString(string: AppStrings.SurveyConsent.legalDetailsHeader1),
-						description: NSAttributedString(string: AppStrings.SurveyConsent.legalDetailsBody1)
+						title: NSAttributedString(string: AppStrings.SurveyConsent.surveyDetailsLegalHeader),
+						description: NSAttributedString(
+							string: AppStrings.SurveyConsent.surveyDetailsLegalBody1 + "\n" + AppStrings.SurveyConsent.surveyDetailsLegalBody2
+						)
 					)
 				])
 		)
@@ -171,11 +173,11 @@ final class SurveyConsentViewModel {
 			.section(
 				cells: [
 					.headline(
-						text: AppStrings.SurveyConsent.legalDetailsHeader2,
+						text: AppStrings.SurveyConsent.surveyDetailsHeader,
 						accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
 					),
 					.body(
-						text: AppStrings.SurveyConsent.legalDetailsBody2
+						text: AppStrings.SurveyConsent.surveyDetailsBody
 					)
 				])
 		)
