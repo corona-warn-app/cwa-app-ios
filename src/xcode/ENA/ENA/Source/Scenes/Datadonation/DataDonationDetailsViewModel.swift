@@ -6,7 +6,9 @@ import UIKit
 
 final class DataDonationDetailsViewModel {
 	// MARK: - Init
-	
+	init() {
+		setUp()
+	}
 	// MARK: - Overrides
 	
 	// MARK: - Protocol <#Name#>
@@ -41,7 +43,14 @@ final class DataDonationDetailsViewModel {
 							}
 						),
 						.space(height: 8),
-						.body(text: AppStrings.DeltaOnboarding.termsDescription1)
+						.title2(text: AppStrings.DataDonation.DetailedInfo.headline, accessibilityIdentifier: "XXX"),
+						.space(height: 8),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph1, accessibilityIdentifier: "XXX"),
+						.space(height: 8),
+						self.cells[0],
+						self.cells[1],
+						self.cells[2],
+						self.cells[3]
 					]
 				)
 			)
@@ -49,4 +58,37 @@ final class DataDonationDetailsViewModel {
 	}
 	
 	// MARK: - Private
+	
+//	private var newVersionFeatures: [NewVersionFeature] = []
+	var cells: [DynamicCell] = []
+	let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+	
+	func setUp() {
+		var featureBulletPoint = NSMutableAttributedString(string: "\(AppStrings.DataDonation.DetailedInfo.bullet01_title)" + "\n\t", attributes: boldTextAttribute)
+		featureBulletPoint.append(NSAttributedString(string: AppStrings.DataDonation.DetailedInfo.bullet01_text, attributes: normalTextAttribute))
+		featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+		cells.append(.bulletPoint(attributedText: featureBulletPoint))
+		
+		featureBulletPoint = NSMutableAttributedString(string: "\(AppStrings.DataDonation.DetailedInfo.bullet02_title)" + "\n\t", attributes: boldTextAttribute)
+		featureBulletPoint.append(NSAttributedString(string: AppStrings.DataDonation.DetailedInfo.bullet02_text, attributes: normalTextAttribute))
+		featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+		cells.append(.bulletPoint(attributedText: featureBulletPoint))
+		
+		featureBulletPoint = NSMutableAttributedString(string: "\(AppStrings.DataDonation.DetailedInfo.bullet03_title)" + "\n\t", attributes: boldTextAttribute)
+		featureBulletPoint.append(NSAttributedString(string: AppStrings.DataDonation.DetailedInfo.bullet03_text, attributes: normalTextAttribute))
+		featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+		cells.append(.bulletPoint(attributedText: featureBulletPoint))
+		
+		featureBulletPoint = NSMutableAttributedString(string: "\(AppStrings.DataDonation.DetailedInfo.bullet04_title)" + "\n\t", attributes: boldTextAttribute)
+		featureBulletPoint.append(NSAttributedString(string: AppStrings.DataDonation.DetailedInfo.bullet04_text, attributes: normalTextAttribute))
+		featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+		cells.append(.bulletPoint(attributedText: featureBulletPoint))
+		
+	}
+	
 }
