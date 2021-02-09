@@ -376,12 +376,12 @@ enum AppStrings {
 		static let body1 = NSLocalizedString("SurveyConsent_Body1", comment: "")
 		static let body2 = NSLocalizedString("SurveyConsent_Body2", comment: "")
 		static let body3 = NSLocalizedString("SurveyConsent_Body3", comment: "")
-		static let legalTitle = NSLocalizedString("SurveyConsent_LegalTitle_BoldText", comment: "")
-		static let legalBody1 = NSLocalizedString("SurveyConsent_LegalBody1", comment: "")
-		static let legalBody2 = NSLocalizedString("SurveyConsent_LegalBody2", comment: "")
-		static let legalBullet1 = NSLocalizedString("SurveyConsent_Legal_Bullet1", comment: "")
-		static let legalBullet2 = NSLocalizedString("SurveyConsent_Legal_Bullet2", comment: "")
-		static let legalBullet3 = NSLocalizedString("SurveyConsent_Legal_Bullet3", comment: "")
+		static let legalTitle = NSLocalizedString("SurveyConsent_LegalTitle_BoldText", tableName: "Localizable.legal", comment: "")
+		static let legalBody1 = NSLocalizedString("SurveyConsent_LegalBody1", tableName: "Localizable.legal", comment: "")
+		static let legalBody2 = NSLocalizedString("SurveyConsent_LegalBody2", tableName: "Localizable.legal", comment: "")
+		static let legalBullet1 = NSLocalizedString("SurveyConsent_Legal_Bullet1", tableName: "Localizable.legal", comment: "")
+		static let legalBullet2 = NSLocalizedString("SurveyConsent_Legal_Bullet2", tableName: "Localizable.legal", comment: "")
+		static let legalBullet3 = NSLocalizedString("SurveyConsent_Legal_Bullet3", tableName: "Localizable.legal", comment: "")
 
 		static let acceptButtonTitle = NSLocalizedString("SurveyConsent_Accept_Button_Title", comment: "")
 		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", comment: "")
@@ -394,16 +394,11 @@ enum AppStrings {
 		static let errorTryAgainNextMonth = NSLocalizedString("SurveyConsent_Error_TryAgainNextMonth", comment: "")
 		static let errorAlreadyParticipated = NSLocalizedString("SurveyConsent_Error_AlreadyParticipated", comment: "")
 
-		static let legalDetailsHeader1 = NSLocalizedString("SurveyConsent_Legal_Details_Section1_Title_BoldText", comment: "")
-		static let legalDetailsBody1 = NSLocalizedString("SurveyConsent_Legal_Details_Section1_Body", comment: "")
-		static let legalDetailsHeader2 = NSLocalizedString("SurveyConsent_Legal_Details_Section2_Title_BoldText", comment: "")
-		static let legalDetailsBody2 = NSLocalizedString("SurveyConsent_Legal_Details_Section2_Body", comment: "")
-
 		static let surveyDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
 
-		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
-		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", comment: "")
-		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", comment: "")
+		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Details_Headline", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", tableName: "Localizable.legal", comment: "")
  
 		static let surveyDetailsHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
 		static let surveyDetailsBody = NSLocalizedString("SurveyConsent_Details_Body", comment: "")
