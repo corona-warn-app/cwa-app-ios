@@ -1137,23 +1137,14 @@ enum AppStrings {
 	enum DataDonation {
 		enum Info {
 			static let accImageDescription = NSLocalizedString("DataDonation_AccImageDescription", comment: "")
-			
 			static let title = NSLocalizedString("DataDonation_Headline", comment: "")
-			
 			static let description = NSLocalizedString("DataDonation_Description", comment: "")
-			
 			static let subHeadState = NSLocalizedString("DataDonation_SubHead_YourState", comment: "")
-			
 			static let subHeadAgeGroup = NSLocalizedString("DataDonation_SubHead_AgeGroup", comment: "")
-			
 			static let noSelectionState = NSLocalizedString("DataDonation_State_NoSelection_Text", comment: "")
-			
 			static let noSelectionAgeGroup = NSLocalizedString("DataDonation_AgeGroup_NoSelection_Text", comment: "")
-			
 			static let dataProcessingDetails = NSLocalizedString("DataDonation_DetailedInformation_DataProcessing", comment: "")
-			
 			static let buttonOK = NSLocalizedString("DataDonation_Button_OK", comment: "")
-			
 			static let buttonNOK = NSLocalizedString("DataDonation_Button_NotOK", comment: "")
 		}
 		

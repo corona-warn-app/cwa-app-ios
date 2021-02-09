@@ -21,10 +21,6 @@ final class DataDonationViewModel {
 	var region: String?
 	var age: String?
 	
-	// [KGA] add accessibilityLabel and identifier back to cell
-//	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
-//	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
-	
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
 			
@@ -32,8 +28,8 @@ final class DataDonationViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_DataDonation"),
-						accessibilityLabel: "AppStrings.NewVersionFeatures.accImageLabel",
-						accessibilityIdentifier: "AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription",
+						accessibilityLabel: "AppStrings.DataDonation.Info.accImageDescription",
+						accessibilityIdentifier: "AccessibilityIdentifiers.DataDonation.accImageDescription",
 						height: 250
 					),
 					cells: [
