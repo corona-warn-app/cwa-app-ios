@@ -21,7 +21,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		self.store = MockTestStore()
 		self.client = ClientMock()
-		self.otpService = OTPService(store: store, client: client)
+		self.otpService = OTPService(store: store, client: client, riskProvider: MockRiskProvider())
 		self.ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 	}
 	

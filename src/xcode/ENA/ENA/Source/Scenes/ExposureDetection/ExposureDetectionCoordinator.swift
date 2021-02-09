@@ -20,14 +20,14 @@ final class ExposureDetectionCoordinator {
 		homeState: HomeState,
 		exposureManager: ExposureManager,
 		appConfigurationProvider: AppConfigurationProviding,
-		client: Client
+		otpService: OTPServiceProviding
 	) {
 		self.rootViewController = rootViewController
 		self.store = store
 		self.homeState = homeState
 		self.exposureManager = exposureManager
 		self.appConfigurationProvider = appConfigurationProvider
-		self.otpService = OTPService(store: store, client: client)
+		self.otpService = otpService
 	}
 
 	func start() {

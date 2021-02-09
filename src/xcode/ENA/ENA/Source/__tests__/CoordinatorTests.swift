@@ -38,7 +38,13 @@ class MockCoordinator: Coordinator {
 	init() {
 		mockNavigationController = MockNavigationController()
 		mockDelegate = MockCoordinatorDelegate()
-		super.init(mockDelegate, mockNavigationController, contactDiaryStore: MockDiaryStore())
+		let otpService = OTPService(
+			store: MockTestStore(),
+			client: ClientMock(),
+			riskProvider: MockRiskProvider()
+		)
+
+		super.init(mockDelegate, mockNavigationController, contactDiaryStore: MockDiaryStore(), otpService: otpService)
 	}
 }
 
