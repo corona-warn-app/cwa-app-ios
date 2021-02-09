@@ -75,7 +75,12 @@ class RootCoordinator: RequiresAppDependencies {
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		#if DEBUG
-		let dummyDataDonationViewControllre = DataDonationViewController(didTapSelectCountry: {}, didTapSelectRegion: {}, didTapSelectAge: {}, didTapLegal: {})
+		let dummyDataDonationViewControllre = DataDonationViewController(
+			didTapSelectCountry: presentCountrySelection,
+			didTapSelectRegion: { _ in },
+			didTapSelectAge: { _ in },
+			didTapLegal: {}
+		)
 		dummyDataDonationViewControllre.tabBarItem = UITabBarItem(title: "Dummy", image: UIImage(named: "bolt"), selectedImage: UIImage(named: "bolt.fill"))
 		let navigationController = UINavigationController(rootViewController: dummyDataDonationViewControllre)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, navigationController], animated: false)
@@ -85,10 +90,16 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
 
-	// MARK: - Datadonation Stuff
+	// MARK: - Datadonation Test Code
 
-	private func presentCountrySelection(preselection: String?) {
-		
+	private func presentCountrySelection(selectValueViewModel: SelectValueViewModel) {
+		let selectValueViewController = SelectValueTableViewController(
+			selectValueViewModel,
+			dissmiss: { [weak self] in
+				self?.viewController.dismiss(animated: true)
+			})
+		let navigationController = UINavigationController(rootViewController: selectValueViewController)
+		viewController.present(navigationController, animated: true)
 	}
 
 	// MARK: -

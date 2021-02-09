@@ -22,7 +22,7 @@ struct DistrictElement: Codable {
 	}
 }
 
-enum FederalStateName: String, Codable {
+enum FederalStateName: String, CaseIterable, Codable {
 	case badenWürttemberg = "Baden-Württemberg"
 	case bayern = "Bayern"
 	case berlin = "Berlin"

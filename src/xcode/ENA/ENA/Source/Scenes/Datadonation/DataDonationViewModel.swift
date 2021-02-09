@@ -40,7 +40,11 @@ final class DataDonationViewModel {
 	var country: String?
 	var region: String?
 	var age: String?
-	
+
+	var allCountries: [String] {
+		FederalStateName.allCases.map { $0.rawValue }
+	}
+
 	// [KGA] add accessibilityLabel and identifier back to cell
 //	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
 //	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,

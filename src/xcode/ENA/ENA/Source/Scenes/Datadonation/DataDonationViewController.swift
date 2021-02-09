@@ -3,14 +3,15 @@
 //
 
 import UIKit
+import OpenCombine
 
 class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol {
 
 	// MARK: - Init
 	init(
-		didTapSelectCountry: @escaping () -> Void,
-		didTapSelectRegion: @escaping () -> Void,
-		didTapSelectAge: @escaping () -> Void,
+		didTapSelectCountry: @escaping (SelectValueViewModel) -> Void,
+		didTapSelectRegion: @escaping (SelectValueViewModel) -> Void,
+		didTapSelectAge: @escaping (SelectValueViewModel) -> Void,
 		didTapLegal: @escaping () -> Void
 	) {
 		self.didTapSelectAge = didTapSelectAge
@@ -47,12 +48,13 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	// MARK: - Private
 
-	private let didTapSelectCountry: () -> Void
-	private let didTapSelectRegion: () -> Void
-	private let didTapSelectAge: () -> Void
+	private let didTapSelectCountry: (SelectValueViewModel) -> Void
+	private let didTapSelectRegion: (SelectValueViewModel) -> Void
+	private let didTapSelectAge: (SelectValueViewModel) -> Void
 	private let didTapLegal: () -> Void
 
 	private let viewModel: DataDonationViewModel
+	private var subscriptions: [AnyCancellable] = []
 
 	private func setupDummyView() {
 		title = "DataDonation"
@@ -109,7 +111,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	@objc
 	private func didTapSelectCountryButton() {
-		Log.debug("Did hit select country Button")
+		let selectValueViewModel = SelectValueViewModel(viewModel.allCountries, title: "Select a Country", preselected: viewModel.country)
+		selectValueViewModel.$selectedValue .sink { [weak self] newValue in
+			self?.viewModel.country = newValue
+		}.store(in: &subscriptions)
+		didTapSelectCountry(selectValueViewModel)
 	}
 
 	@objc
