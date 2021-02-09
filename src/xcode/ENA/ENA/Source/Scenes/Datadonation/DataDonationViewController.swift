@@ -33,8 +33,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		//setupDummyView()
-		setupTableView()
+		setupDummyView()
+//		setupTableView()
 	}
 
 	// MARK: - Protocol <#Name#>
