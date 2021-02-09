@@ -16,15 +16,13 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	init(
 		homeState: HomeState,
 		appConfigurationProvider: AppConfigurationProviding,
-		otpService: OTPServiceProviding,
-		onSurveyTap: @escaping (URL?) -> Void,
+		onSurveyTap: @escaping () -> Void,
 		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
 		self.homeState = homeState
 		self.appConfigurationProvider = appConfigurationProvider
 		self.onInactiveButtonTap = onInactiveButtonTap
 		self.onSurveyTap = onSurveyTap
-		self.otpService = otpService
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -167,17 +165,15 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	// MARK: - Private
 	
-	private let otpService: OTPServiceProviding
 	private let homeState: HomeState
 
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
-	private let onSurveyTap: (URL?) -> Void
+	private let onSurveyTap: () -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
 
 	private var riskProviderActivityState: RiskProviderActivityState = .idle
-	private var surveyOnHighRiskURL: String = ""
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
@@ -279,10 +275,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						Log.debug("failed to get strong self")
 						return
 					}
-					let surveyParameters = $0.eventDrivenUserSurveyParameters.common
-					let isSurveyEnabled = surveyParameters.surveyOnHighRiskEnabled && !surveyParameters.surveyOnHighRiskURL.isEmpty
-					self.surveyOnHighRiskURL = surveyParameters.surveyOnHighRiskURL
-					self.dynamicTableViewModel = self.highRiskModel(risk: risk, isSurveyEnabled: isSurveyEnabled)
+
+					self.dynamicTableViewModel = self.highRiskModel(risk: risk, isSurveyEnabled: self.isSurveyEnabled($0))
 				}
 				.store(in: &subscriptions)
 		}
@@ -296,6 +290,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		buttonTitle = riskButtonTitle
 		isButtonHidden = homeState.detectionMode == .automatic
 		isButtonEnabled = homeState.manualExposureDetectionState == .possible
+	}
+
+	private func isSurveyEnabled(_ appConfig: SAP_Internal_V2_ApplicationConfigurationIOS) -> Bool {
+		let surveyParameters = appConfig.eventDrivenUserSurveyParameters.common
+		return surveyParameters.surveyOnHighRiskEnabled && !surveyParameters.surveyOnHighRiskURL.isEmpty
 	}
 
 	private func setupForInactiveState() {
@@ -527,20 +526,22 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func surveySection() -> DynamicSection {
-		let url = URL(string: surveyOnHighRiskURL)
 		return .section(
 			cells: [
 				.custom(
 					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
 					action: .execute(block: { [weak self] _, _ in
-						self?.onSurveyTap(url)
+						self?.onSurveyTap()
 					}),
 					accessoryAction: .none,
 					configure: { _, cell, _ in
 						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
-							surveyCell.configure(with: ExposureDetectionSurveyCellModel()) { [weak self] in
-								self?.onSurveyTap(url)
-							}
+							surveyCell.configure(
+								with: ExposureDetectionSurveyCellModel(),
+								onPrimaryAction: { [weak self] in
+									self?.onSurveyTap()
+								}
+							)
 						}
 					})
 			]

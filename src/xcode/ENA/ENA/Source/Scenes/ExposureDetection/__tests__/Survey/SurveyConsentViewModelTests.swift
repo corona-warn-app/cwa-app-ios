@@ -22,5 +22,5 @@ class SurveyConsentViewModelTests: XCTestCase {
 }
 
 private struct SurveyURLProviderFake: SurveyURLProvidable {
-	func getURL(_ completion: @escaping (Result<URL, SurveyConsentError>) -> Void) { }
+	func getURL(_ completion: @escaping (Result<URL, SurveyError>) -> Void) { }
 }
