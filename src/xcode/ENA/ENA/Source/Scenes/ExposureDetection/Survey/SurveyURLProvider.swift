@@ -7,33 +7,33 @@ import OpenCombine
 
 enum SurveyError: Error {
 
-	case tryAgainLater
-	case tryAgainNextMonth
-	case deviceNotSupported
-	case changeDeviceTime
-	case alreadyParticipated
+	case tryAgainLater(String)
+	case tryAgainNextMonth(String)
+	case deviceNotSupported(String)
+	case changeDeviceTime(String)
+	case alreadyParticipated(String)
 
 	// MARK: - Init
 
 	init(ppacError: PPACError) {
 		switch ppacError {
 		case .generationFailed, .timeUnverified:
-			self = .tryAgainLater
+			self = .tryAgainLater(ppacError.description)
 		case .deviceNotSupported:
-			self = .deviceNotSupported
+			self = .deviceNotSupported(ppacError.description)
 		case .timeIncorrect:
-			self = .changeDeviceTime
+			self = .changeDeviceTime(ppacError.description)
 		}
 	}
 
 	init(otpError: OTPError) {
 		switch otpError {
 		case .generalError, .invalidResponseError, .internalServerError, .otherServerError, .apiTokenExpired, .deviceTokenInvalid, .deviceTokenRedeemed, .deviceTokenSyntaxError:
-			self = .tryAgainLater
+			self = .tryAgainLater(otpError.description)
 		case .apiTokenAlreadyIssued, .otpAlreadyUsedThisMonth:
-			self = .tryAgainNextMonth
+			self = .tryAgainNextMonth(otpError.description)
 		case .apiTokenQuotaExceeded:
-			self = .alreadyParticipated
+			self = .alreadyParticipated(otpError.description)
 		}
 	}
 
@@ -41,16 +41,16 @@ enum SurveyError: Error {
 
 	var description: String {
 		switch self {
-		case .tryAgainLater:
-			return AppStrings.SurveyConsent.errorTryAgainLater
-		case .tryAgainNextMonth:
-			return AppStrings.SurveyConsent.errorTryAgainNextMonth
-		case .deviceNotSupported:
-			return AppStrings.SurveyConsent.errorDeviceNotSupported
-		case .changeDeviceTime:
-			return AppStrings.SurveyConsent.errorChangeDeviceTime
-		case .alreadyParticipated:
-			return AppStrings.SurveyConsent.errorAlreadyParticipated
+		case .tryAgainLater(let errorCode):
+			return String(format: AppStrings.SurveyConsent.errorTryAgainLater, errorCode)
+		case .tryAgainNextMonth(let errorCode):
+			return String(format: AppStrings.SurveyConsent.errorTryAgainNextMonth, errorCode)
+		case .deviceNotSupported(let errorCode):
+			return String(format: AppStrings.SurveyConsent.errorDeviceNotSupported, errorCode)
+		case .changeDeviceTime(let errorCode):
+			return String(format: AppStrings.SurveyConsent.errorChangeDeviceTime, errorCode)
+		case .alreadyParticipated(let errorCode):
+			return String(format: AppStrings.SurveyConsent.errorAlreadyParticipated, errorCode)
 		}
 	}
 }
@@ -128,7 +128,7 @@ final class SurveyURLProvider: SurveyURLProvidable {
 				completion(.success(surveyURL))
 			} else {
 				Log.error("Failed to create URL based on app config.", log: .survey)
-				completion(.failure(.tryAgainLater))
+				completion(.failure(.tryAgainLater("surveyURLCreationFailed")))
 			}
 		}.store(in: &subscriptions)
 	}
