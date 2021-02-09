@@ -17,9 +17,6 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 		
 		let dataDonationViewController = DataDonationViewController(
 			presentSelectValueList: { _ in },
-			didTapSelectCountry: { _ in },
-			didTapSelectRegion: { _ in },
-			didTapSelectAge: { _ in },
 			didTapLegal: {}
 		)
 

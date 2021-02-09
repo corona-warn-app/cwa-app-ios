@@ -10,20 +10,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Init
 	init(
 		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
-		didTapSelectCountry: @escaping (SelectValueViewModel) -> Void,
-		didTapSelectRegion: @escaping (SelectValueViewModel) -> Void,
-		didTapSelectAge: @escaping (SelectValueViewModel) -> Void,
 		didTapLegal: @escaping () -> Void
 	) {
 
 		self.presentSelectValueList = presentSelectValueList
 		self.didTapLegal = didTapLegal
-
-		
-		self.didTapSelectAge = didTapSelectAge
-		self.didTapSelectRegion = didTapSelectRegion
-		self.didTapSelectCountry = didTapSelectCountry
-
 		self.viewModel = DataDonationViewModel()
 
 		super.init(nibName: nil, bundle: nil)
@@ -53,10 +44,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	// MARK: - Private
 	private let presentSelectValueList: (SelectValueViewModel) -> Void
-
-	private let didTapSelectCountry: (SelectValueViewModel) -> Void
-	private let didTapSelectRegion: (SelectValueViewModel) -> Void
-	private let didTapSelectAge: (SelectValueViewModel) -> Void
 	private let didTapLegal: () -> Void
 
 	private let viewModel: DataDonationViewModel

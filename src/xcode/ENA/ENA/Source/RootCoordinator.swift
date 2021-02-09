@@ -79,9 +79,6 @@ class RootCoordinator: RequiresAppDependencies {
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
 			},
-			didTapSelectCountry: { _ in },
-			didTapSelectRegion: { _ in },
-			didTapSelectAge: { _ in },
 			didTapLegal: {}
 		)
 		dummyDataDonationViewControllre.tabBarItem = UITabBarItem(title: "Dummy", image: UIImage(named: "bolt"), selectedImage: UIImage(named: "bolt.fill"))
