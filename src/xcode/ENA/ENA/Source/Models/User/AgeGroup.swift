@@ -25,8 +25,6 @@ enum AgeGroup: Int, CaseIterable, Codable {
 
 	// MARK: - Internal
 
-	// MARK: - Private
-
 	var text: String {
 		switch self {
 		case .ageBelow29:
