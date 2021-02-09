@@ -271,6 +271,11 @@ final class SecureStore: Store {
 		set { kvStore["otpToken"] = newValue }
 	}
 
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
+	}
+
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }

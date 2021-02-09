@@ -40,7 +40,8 @@ final class ExposureDetectionCoordinator {
 					guard let self = self, let url = url else {
 						return
 					}
-					if self.otpService.isStoredOTPAuthorized {
+
+					if self.otpService.isOTPAvailable {
 						self.showSurveyWebpage(url: url)
 					} else {
 						self.showSurveyConsent(for: url)
