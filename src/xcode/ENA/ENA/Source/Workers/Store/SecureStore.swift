@@ -9,10 +9,8 @@ import ExposureNotification
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
 
-	private let directoryURL: URL
-	private let kvStore: SQLiteKeyValueStore
-	private var serverEnvironment: ServerEnvironment
-	
+	// MARK: - Init
+
 	init(
 		at directoryURL: URL,
 		key: String,
@@ -23,26 +21,10 @@ final class SecureStore: Store {
 		self.serverEnvironment = serverEnvironment
 	}
 
-	/// Removes most key/value pairs.
-	///
-	/// Keys whose values are not removed:
-	/// * `developerSubmissionBaseURLOverride`
-	/// * `developerDistributionBaseURLOverride`
-	/// * `developerVerificationBaseURLOverride`
-	///
-	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
-	func flush() {
-		try? kvStore.flush()
-	}
+	// MARK: - Protocol Store
 
-	/// Database reset & re-initialization with a given key
-	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
-	///
-	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
-	func clearAll(key: String?) {
-		try? kvStore.clearAll(key: key)
-	}
-	
+	var analyticsSubmitter: PPAnalyticsSubmitter?
+
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
@@ -296,6 +278,14 @@ final class SecureStore: Store {
 		set { kvStore["lastAppReset"] = newValue }
 	}
 
+	/// Database reset & re-initialization with a given key
+	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
+	func clearAll(key: String?) {
+		try? kvStore.clearAll(key: key)
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -326,6 +316,27 @@ final class SecureStore: Store {
 	}
 
 	#endif
+
+	// MARK: - Internal
+
+	/// Removes most key/value pairs.
+	///
+	/// Keys whose values are not removed:
+	/// * `developerSubmissionBaseURLOverride`
+	/// * `developerDistributionBaseURLOverride`
+	/// * `developerVerificationBaseURLOverride`
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
+	func flush() {
+		try? kvStore.flush()
+	}
+
+	// MARK: - Private
+
+	private let directoryURL: URL
+	private let kvStore: SQLiteKeyValueStore
+	private var serverEnvironment: ServerEnvironment
+
 }
 
 extension SecureStore {
@@ -371,14 +382,20 @@ extension SecureStore: PreviousRiskExposureMetadataProviding {
 extension SecureStore: CurrentRiskExposureMetadataProviding {
 	var currentRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["currentRiskExposureMetadata"] = newValue }
+		set {
+			kvStore["currentRiskExposureMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
 	}
 }
 
 extension SecureStore: UserMetadataProviding {
 	var userMetadata: UserMetadata? {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
-		set { kvStore["userMetadata"] = newValue }
+		set {
+			kvStore["userMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
 	}
 }
 

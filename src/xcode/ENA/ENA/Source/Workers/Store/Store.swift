@@ -6,6 +6,7 @@ import Foundation
 import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
+	var analyticsSubmitter: PPAnalyticsSubmitter? { get set }
 	var isOnboarded: Bool { get set }
 	var onboardedDate: Date? { get set }
 	var onboardingVersion: String { get set }
