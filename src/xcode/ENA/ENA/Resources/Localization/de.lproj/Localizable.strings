@@ -189,9 +189,9 @@
 
 "SurveyConsent_Legal_Details_Title" = "Ausführliche Informationen zur Datenverarbeitung bei der Teilnahme an der Befragung";
 
-"SurveyConsent_Legal_Details_Section2_Title_BoldText" = "Zur Befragung durch das RKI";
+"SurveyConsent_Details_Headline" = "Zur Befragung durch das RKI";
 
-"SurveyConsent_Legal_Details_Section2_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z.B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
+"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z.B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
 
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
