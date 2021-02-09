@@ -37,7 +37,9 @@ final class DataDonationViewModel {
 						height: 250
 					),
 					cells: [
-						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
+						// [KGA] To be updated ;-)
+//						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
+						.subheadline(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis hendrerit leo. Vivamus suscipit arcu vitae enim gravida, ac sagittis arcu scelerisque. Sed pretium enim dui, in faucibus leo sagittis ac. Nam at ex eget nulla finibus condimentum at sed tortor. Quisque faucibus, dui sed maximus rhoncus, lacus augue tincidunt arcu, vitae ultricies eros erat non ipsum. Suspendisse varius lacus felis, a posuere nisi elementum eget. Etiam posuere purus vitae ligula euismod, quis viverra turpis condimentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis ac risus ac urna volutpat pulvinar. Donec finibus, quam id congue varius, quam augue semper quam, quis finibus sapien mauris et diam. Proin augue tortor, faucibus at consequat vitae, ullamcorper vel neque. Donec scelerisque mauris pharetra dui sagittis, vel aliquam diam rutrum.", accessibilityIdentifier: "datanoation.wip")
 					]
 				)
 			)
