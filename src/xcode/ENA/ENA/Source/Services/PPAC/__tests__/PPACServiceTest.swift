@@ -7,60 +7,74 @@ import XCTest
 
 class PPACServiceTest: XCTestCase {
 
-	func testGIVEN_DeviceTimeIsIncorract_WHEN_InitPPACService_THEN_FailWithError() {
+	func testGIVEN_DeviceTimeIsIncorract_WHEN_getPPACToken_THEN_FailWithError() {
 		// GIVEN
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .incorrect
-		let failedExpectation = expectation(description: "Init failed")
+		let failedExpectation = expectation(description: "getPPACToken failed")
 
-		// WHEN
-		do {
-			_ = try PPACService(store: store, deviceCheck: deviceCheck)
-		} catch PPACError.timeIncorrect {
-			failedExpectation.fulfill()
-		} catch {
-			XCTFail("unexpected error")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		ppacService.getPPACToken { result in
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(.timeIncorrect, error)
+				failedExpectation.fulfill()
+			case .success:
+				XCTFail("Success was not expected.")
+			}
 		}
 
 		// THEN
 		wait(for: [failedExpectation], timeout: .medium)
 	}
 
-	func testGIVEN_DeviceTimeIsAssumeCorrect_WHEN_InitPPACService_THEN_FailWithError() {
+	func testGIVEN_DeviceTimeIsAssumeCorrect_WHEN_getPPACToken_THEN_FailWithError() {
 		// GIVEN
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .assumedCorrect
-		let failedExpectation = expectation(description: "Init failed")
+		let failedExpectation = expectation(description: "getPPACToken failed")
 
 		// WHEN
-		do {
-			_ = try PPACService(store: store, deviceCheck: deviceCheck)
-		} catch PPACError.timeUnverified {
-			failedExpectation.fulfill()
-		} catch {
-			XCTFail("unexpected error")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		ppacService.getPPACToken { result in
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(.timeUnverified, error)
+				failedExpectation.fulfill()
+			case .success:
+				XCTFail("Success was not expected.")
+			}
 		}
 
 		// THEN
 		wait(for: [failedExpectation], timeout: .medium)
 	}
 
-	func testGIVEN_DeviceTimeIsCorrect_WHEN_InitPPACService_THEN_Success() throws {
+	func testGIVEN_DeviceTimeIsCorrect_WHEN_getPPACToken_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 		store.deviceTimeCheckResult = .correct
+		let successExpectation = expectation(description: "getPPACToken succeeded")
 
 		// WHEN
-		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
-		// THEN
-		XCTAssertNotNil(ppacService)
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		ppacService.getPPACToken { result in
+			switch result {
+			case .failure:
+				XCTFail("Failure not expected.")
+			case .success:
+				successExpectation.fulfill()
+			}
+		}
 
+		// THEN
+		wait(for: [successExpectation], timeout: .medium)
 	}
 
-	func testGIVEN_DeviceIsNotSupported_WHEN_PPACService_THEN_ErrorDeviceNotSupported() {
+	func testGIVEN_DeviceIsNotSupported_WHEN_getPPACToken_THEN_ErrorDeviceNotSupported() {
 		// GIVEN
 		let store = MockTestStore()
 		let deviceCheck = PPACDeviceCheckMock(false, deviceToken: "iPhone")
@@ -68,15 +82,15 @@ class PPACServiceTest: XCTestCase {
 		let failedExpectation = expectation(description: "device not supported")
 
 		// WHEN
-		do {
-			let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
-			// THEN
-			XCTAssertNotNil(ppacService)
-
-		} catch PPACError.deviceNotSupported {
-			failedExpectation.fulfill()
-		} catch {
-			XCTFail("unexpected error")
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
+		ppacService.getPPACToken { result in
+			switch result {
+			case .failure(let error):
+				XCTAssertEqual(.deviceNotSupported, error)
+				failedExpectation.fulfill()
+			case .success:
+				XCTFail("Success was not expected.")
+			}
 		}
 
 		// THEN
@@ -92,7 +106,7 @@ class PPACServiceTest: XCTestCase {
 		let ppacExpectation = expectation(description: "Init failed")
 
 		// WHEN
-		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		ppacService.getPPACToken({ result in
 			switch result {
 			case let .success(ppaToken):
@@ -115,7 +129,7 @@ class PPACServiceTest: XCTestCase {
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "iPhone")
 
 		// WHEN
-		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let timestampedToken = ppacService.generateNewAPIToken()
 
 		// THEN
@@ -134,7 +148,7 @@ class PPACServiceTest: XCTestCase {
 		store.ppacApiToken = TimestampedToken(token: uuid, timestamp: today)
 
 		// WHEN
-		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		let timestampedToken = ppacService.generateNewAPIToken()
 
 		// THEN

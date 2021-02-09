@@ -13,7 +13,8 @@ final class ExposureDetectionCoordinator {
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
 	private let otpService: OTPServiceProviding
-	
+	private let surveyURLProvider: SurveyURLProvidable
+
 	init(
 		rootViewController: UIViewController,
 		store: Store,
@@ -28,6 +29,16 @@ final class ExposureDetectionCoordinator {
 		self.exposureManager = exposureManager
 		self.appConfigurationProvider = appConfigurationProvider
 		self.otpService = otpService
+
+		let ppacService = PPACService(
+			store: store,
+			deviceCheck: PPACDeviceCheck()
+		)
+		self.surveyURLProvider = SurveyURLProvider(
+			configurationProvider: appConfigurationProvider,
+			ppacService: ppacService,
+			otpService: otpService
+		)
 	}
 
 	func start() {
@@ -35,16 +46,15 @@ final class ExposureDetectionCoordinator {
 			viewModel: ExposureDetectionViewModel(
 				homeState: homeState,
 				appConfigurationProvider: appConfigurationProvider,
-				otpService: otpService,
-				onSurveyTap: { [weak self] url in
-					guard let self = self, let url = url else {
+				onSurveyTap: { [weak self] in
+					guard let self = self else {
 						return
 					}
 
 					if self.otpService.isOTPAvailable {
-						self.showSurveyWebpage(url: url)
+						self.showSurveyWebpage()
 					} else {
-						self.showSurveyConsent(for: url)
+						self.showSurveyConsent()
 					}
 				},
 				onInactiveButtonTap: { [weak self] completion in
@@ -61,37 +71,42 @@ final class ExposureDetectionCoordinator {
 		rootViewController.present(_navigationController, animated: true)
 	}
 
-	private func showSurveyConsent(for surveyURL: URL) {
+	private func showSurveyConsent() {
 		setNavigationBarHidden(false)
-
-		// ToDo: Replace with real services
-
-		let deviceCheckMock = PPACDeviceCheckMock(true, deviceToken: "iPhone")
-		guard let ppacService = try? PPACService(
-			store: store,
-			deviceCheck: deviceCheckMock
-		) else {
-			return
-		}
-
-		let surveyURLProvider = SurveyURLProvider(
-			configurationProvider: appConfigurationProvider,
-			ppacService: ppacService,
-			otpService: otpService
-		)
 
 		let viewModel = SurveyConsentViewModel(
 			surveyURLProvider: surveyURLProvider
 		)
 
 		let surveyConsentViewController = SurveyConsentViewController(viewModel: viewModel) { [weak self] url in
-			self?.showSurveyWebpage(url: url)
+			self?.showSurveyWebpage(with: url)
 		}
 		navigationController?.pushViewController(surveyConsentViewController, animated: true)
 	}
 
-	private func showSurveyWebpage(url: URL) {
-		UIApplication.shared.open(url)
+	private func showSurveyWebpage() {
+		surveyURLProvider.getURL { [weak self] result in
+			switch result {
+			case .success(let url):
+				self?.showSurveyWebpage(with: url)
+			case .failure(let error):
+				self?.showSurveyErrorAlert(with: error)
+			}
+		}
+	}
+
+	private func showSurveyErrorAlert(with error: SurveyError) {
+		let errorAlert = UIAlertController.errorAlert(
+			title: AppStrings.SurveyConsent.errorTitle,
+			message: error.description
+		)
+		navigationController?.present(errorAlert, animated: true)
+	}
+
+	private func showSurveyWebpage(with url: URL) {
+		if UIApplication.shared.canOpenURL(url) {
+			UIApplication.shared.open(url)
+		}
 	}
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {

@@ -83,7 +83,7 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 		tableView.separatorStyle = .none
 	}
 
-	private func showErrorAlert(with error: SurveyConsentError) {
+	private func showErrorAlert(with error: SurveyError) {
 		let errorAlert = UIAlertController.errorAlert(
 			title: AppStrings.SurveyConsent.errorTitle,
 			message: error.description
