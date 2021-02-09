@@ -103,6 +103,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 			DynamicTableViewRoundedCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
+		
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.acknowledgement.rawValue
+		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
@@ -128,5 +133,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 extension DataDonationViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
+		case acknowledgement = "DynamicLegalCell"
 	}
 }

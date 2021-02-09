@@ -47,8 +47,39 @@ final class DataDonationViewModel {
 				)
 			)
 			
+			$0.add(
+				.section(
+					cells: [
+						.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
+							   description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
+							   textBlocks: [
+								acknowledgementString,
+								NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
+							   ],
+							   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+						.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
+						.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
+						.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+						.space(height: 16)
+					]
+				)
+			)
+			
 		}
 	}
 
 	// MARK: - Private
+	private let acknowledgementString: NSAttributedString = {
+		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
+		let normalText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_2
+		let string = NSMutableAttributedString(string: "\(boldText) \(normalText)")
+
+		// highlighted text
+		let attributes: [NSAttributedString.Key: Any] = [
+			.font: UIFont.preferredFont(forTextStyle: .headline)
+		]
+		string.addAttributes(attributes, range: NSRange(location: 0, length: boldText.count))
+
+		return string
+	}()
 }
