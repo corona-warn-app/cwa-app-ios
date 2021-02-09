@@ -350,5 +350,9 @@ enum AccessibilityIdentifiers {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
 	}
+	
+	enum DataDonation {
+		static let accImageDescription = "AppStrings.DataDonation.Info.accImageDescription"
+	}
 
 }
