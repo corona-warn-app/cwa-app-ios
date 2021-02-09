@@ -10,24 +10,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeThankYouTableViewCell" rowHeight="773" id="bNr-0F-dED" customClass="HomeThankYouTableViewCell" customModule="ENA" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="773"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeThankYouTableViewCell" rowHeight="1210" id="bNr-0F-dED" customClass="HomeThankYouTableViewCell" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="1210"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bNr-0F-dED" id="zwy-lX-HwZ">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="773"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="1210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="2Hn-z6-FQL">
-                        <rect key="frame" x="16" y="16" width="382" height="741"/>
+                        <rect key="frame" x="16" y="16" width="382" height="1178"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KL-tv-0fo" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="382" height="364"/>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KL-tv-0fo" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="382" height="773"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7r0-tC-NXI">
-                                        <rect key="frame" x="0.0" y="16" width="382" height="332"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7r0-tC-NXI">
+                                        <rect key="frame" x="0.0" y="16" width="382" height="741"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vH-2n-zB9" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="0.0" width="350" height="19"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vH-2n-zB9" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="0.0" width="350" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -35,11 +35,11 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Home_VielenDank" translatesAutoresizingMaskIntoConstraints="NO" id="gib-Lj-L9x">
-                                                <rect key="frame" x="19.5" y="35" width="343" height="0.0"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Home_VielenDank" translatesAutoresizingMaskIntoConstraints="NO" id="gib-Lj-L9x">
+                                                <rect key="frame" x="19.5" y="49.5" width="343" height="178"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="249" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjR-ul-n67" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="51" width="350" height="0.0"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="249" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjR-ul-n67" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="243.5" width="350" height="163.5"/>
                                                 <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -48,8 +48,8 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kx4-69-edp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="67" width="350" height="0.0"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kx4-69-edp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="423" width="350" height="26.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -58,10 +58,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8VS-I3-yNF">
-                                                <rect key="frame" x="16" y="83" width="350" height="167"/>
+                                                <rect key="frame" x="16" y="465.5" width="350" height="167"/>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 More Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5t-z9-0Jg" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="266" width="350" height="0.0"/>
+                                                <rect key="frame" x="16" y="648.5" width="350" height="26.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BEI-EV-nwa">
-                                                <rect key="frame" x="16" y="282" width="350" height="50"/>
+                                                <rect key="frame" x="16" y="691" width="350" height="50"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -89,7 +89,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="ENA Background Color"/>
                                 <constraints>
                                     <constraint firstItem="7r0-tC-NXI" firstAttribute="top" secondItem="6KL-tv-0fo" secondAttribute="topMargin" id="EOn-Yj-pgv"/>
                                     <constraint firstItem="7r0-tC-NXI" firstAttribute="leading" secondItem="6KL-tv-0fo" secondAttribute="leadingMargin" id="RhA-qX-uYy"/>
@@ -98,14 +98,14 @@
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="16" left="0.0" bottom="16" right="0.0"/>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQD-Bz-yHJ" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="396" width="382" height="345"/>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQD-Bz-yHJ" userLabel="Container View" customClass="HomeCardView" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="805" width="382" height="373"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qs8-Km-Vko">
-                                        <rect key="frame" x="16" y="16" width="350" height="313"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qs8-Km-Vko">
+                                        <rect key="frame" x="16" y="16" width="350" height="341"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugg-Kt-YJ2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="350" height="5.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugg-Kt-YJ2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -113,18 +113,23 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ob9-SI-4Gh" userLabel="Status Container View">
-                                                <rect key="frame" x="0.0" y="21.5" width="350" height="128"/>
+                                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ob9-SI-4Gh" userLabel="Status Container View">
+                                                <rect key="frame" x="0.0" y="49.5" width="350" height="128"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="EQ3-Wh-U6Z">
                                                         <rect key="frame" x="2" y="0.0" width="336" height="128"/>
                                                         <subviews>
-                                                            <view clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i53-J4-kQN" userLabel="Vertical View" customClass="ExposureDetectionRoundedView" customModule="ENA" customModuleProvider="target">
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i53-J4-kQN" userLabel="Vertical View">
                                                                 <rect key="frame" x="0.0" y="0.0" width="4" height="128"/>
                                                                 <color key="backgroundColor" name="ENA Risk High Color"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="4" id="veI-uU-rhN"/>
                                                                 </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOC-lZ-QL9" userLabel="Spacer">
                                                                 <rect key="frame" x="16" y="0.0" width="4" height="128"/>
@@ -178,8 +183,8 @@
                                                 </constraints>
                                                 <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5e-Me-YLn" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="165.5" width="350" height="81.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5e-Me-YLn" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="193.5" width="350" height="81.5"/>
                                                 <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -188,8 +193,8 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpM-hn-nlY" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="263" width="350" height="50"/>
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpM-hn-nlY" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="291" width="350" height="50"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="didTapReenableButton:" destination="bNr-0F-dED" eventType="touchUpInside" id="be7-jd-OMl"/>
@@ -198,7 +203,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="ENA Background Color"/>
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="qs8-Km-Vko" secondAttribute="bottom" id="17o-O8-EO8"/>
                                     <constraint firstItem="qs8-Km-Vko" firstAttribute="top" secondItem="kQD-Bz-yHJ" secondAttribute="topMargin" id="UoO-rd-8gC"/>
@@ -235,7 +240,7 @@
                 <outlet property="testResultTitleLabel" destination="irP-Gc-Uf6" id="eoN-NC-PrE"/>
                 <outlet property="titleLabel" destination="4vH-2n-zB9" id="TF9-KU-aSp"/>
             </connections>
-            <point key="canvasLocation" x="-1036.231884057971" y="90.736607142857139"/>
+            <point key="canvasLocation" x="-1036.231884057971" y="237.05357142857142"/>
         </tableViewCell>
     </objects>
     <designables>
@@ -270,6 +275,9 @@
     <resources>
         <image name="Illu_Home_PositivTestErgebnis" width="64" height="81"/>
         <image name="Illu_Home_VielenDank" width="343" height="178"/>
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="ENA Risk High Color">
             <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
