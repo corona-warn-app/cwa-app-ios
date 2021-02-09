@@ -51,6 +51,6 @@ class RiskLegendeTest: XCTestCase {
 		let cell = RiskLegendDotBodyCell()
 		XCTAssertNotNil(cell)
 		XCTAssertEqual(cell.dotView.backgroundColor, .enaColor(for: .riskHigh))
-		XCTAssertEqual(cell.label.text, nil)
+		XCTAssertNil(cell.label.text)
 	}
 }
