@@ -13,7 +13,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -42,7 +43,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -80,7 +82,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -119,7 +122,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -156,11 +160,38 @@ class OTPServiceTests: XCTestCase {
 
 	// MARK: - discardOTP
 
+	func testGIVEN_StoredOtp_WHEN_RiskChangesToLow_THEN_OtpIsDiscarded() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+
+		let otpToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
+		store.otpToken = otpToken
+
+		riskProvider.result = .success(Risk.mocked(level: .low))
+
+		let riskExpectation = expectation(description: "didCalculateRisk was called.")
+		let consumer = RiskConsumer()
+		consumer.didCalculateRisk = { _ in
+			riskExpectation.fulfill()
+		}
+		riskProvider.observeRisk(consumer)
+
+		riskProvider.requestRisk(userInitiated: true, timeoutInterval: 1.0)
+
+		waitForExpectations(timeout: 1.0)
+		XCTAssertNil(store.otpToken)
+		XCTAssertFalse(otpService.isStoredOTPAuthorized)
+	}
+
 	func testGIVEN_StoredOtp_WHEN_OtpIsDiscarded_THEN_OtpIsNil() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -192,7 +223,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		XCTAssertNil(store.otpToken)
 
 		// WHEN
@@ -208,7 +240,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 		let ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -241,7 +274,8 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
 
 		let oldToken = OTPToken(token: "otpTokenFake", timestamp: Date(), expirationDate: nil)
 		store.otpToken = oldToken
@@ -257,8 +291,9 @@ class OTPServiceTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()
-		let otpService = OTPService(store: store, client: client)
-
+		let riskProvider = MockRiskProvider()
+		let otpService = OTPService(store: store, client: client, riskProvider: riskProvider)
+		
 		// WHEN
 		let isAuthorized = otpService.isStoredOTPAuthorized
 

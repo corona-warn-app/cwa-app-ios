@@ -39,5 +39,18 @@ extension Risk {
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true
 	)
+
+	static func mocked(
+		level: RiskLevel = .low) -> Risk {
+		Risk(
+			level: level,
+			details: Risk.Details(
+				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
+				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
+				activeTracing: .init(interval: (activeTracingDays ?? defaultDays) * secondsInADay),
+				exposureDetectionDate: Date()),
+			riskLevelHasChanged: true
+		)
+	}
 }
 #endif

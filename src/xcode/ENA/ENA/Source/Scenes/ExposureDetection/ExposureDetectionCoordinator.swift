@@ -12,8 +12,7 @@ final class ExposureDetectionCoordinator {
 	private let store: Store
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
-	private let client: Client
-	private let otpServie: OTPServiceProviding
+	private let otpService: OTPServiceProviding
 	
 	init(
 		rootViewController: UIViewController,
@@ -21,15 +20,14 @@ final class ExposureDetectionCoordinator {
 		homeState: HomeState,
 		exposureManager: ExposureManager,
 		appConfigurationProvider: AppConfigurationProviding,
-		client: Client
+		otpService: OTPServiceProviding
 	) {
 		self.rootViewController = rootViewController
 		self.store = store
 		self.homeState = homeState
 		self.exposureManager = exposureManager
-		self.client = client
 		self.appConfigurationProvider = appConfigurationProvider
-		self.otpServie = OTPService(store: store, client: client)
+		self.otpService = otpService
 	}
 
 	func start() {
@@ -37,11 +35,12 @@ final class ExposureDetectionCoordinator {
 			viewModel: ExposureDetectionViewModel(
 				homeState: homeState,
 				appConfigurationProvider: appConfigurationProvider,
+				otpService: otpService,
 				onSurveyTap: { [weak self] url in
 					guard let self = self, let url = url else {
 						return
 					}
-					if self.otpServie.isStoredOTPAuthorized {
+					if self.otpService.isStoredOTPAuthorized {
 						self.showSurveyWebpage(url: url)
 					} else {
 						self.showSurveyConsent(for: url)
@@ -73,8 +72,6 @@ final class ExposureDetectionCoordinator {
 		) else {
 			return
 		}
-
-		let otpService = OTPService(store: store, client: client)
 
 		let surveyURLProvider = SurveyURLProvider(
 			configurationProvider: appConfigurationProvider,

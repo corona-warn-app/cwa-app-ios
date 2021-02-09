@@ -13,11 +13,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	init(
 		client: Client,
 		wifiClient: WifiOnlyHTTPClient,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		otpService: OTPServiceProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
+		self.otpService = otpService
+
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
 	}
@@ -31,6 +34,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let client: Client
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
+	private let otpService: OTPServiceProviding
+
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
@@ -148,7 +153,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .ppacService:
 			vc = DMPPACViewController(store)
 		case .otpService:
-			vc = DMOTPServiceViewController(store: store, client: client)
+			vc = DMOTPServiceViewController(store: store, otpService: otpService)
 		}
 		
 		if let vc = vc {

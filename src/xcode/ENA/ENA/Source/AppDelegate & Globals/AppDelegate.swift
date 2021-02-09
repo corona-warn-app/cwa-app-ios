@@ -182,6 +182,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 
+	private lazy var otpService: OTPServiceProviding = OTPService(
+		store: store,
+		client: client,
+		riskProvider: riskProvider
+	)
+
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -399,7 +405,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private(set) lazy var coordinator = Coordinator(
 		self,
 		navigationController,
-		contactDiaryStore: self.contactDiaryStore
+		contactDiaryStore: self.contactDiaryStore,
+		otpService: otpService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
