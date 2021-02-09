@@ -153,6 +153,64 @@
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Erneut starten";
 
+"ExposureDetection_Survey_Card_Title" = "Befragung zur Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Helfen Sie uns, die App zu verbessern, indem Sie einige einfache Fragen beantworten.";
+
+"ExposureDetection_Survey_Card_Button" = "Zur Befragung";
+
+/* Survey Errors */
+
+"SurveyConsent_Error_Title" = "Fehler";
+
+"SurveyConsent_Error_TryAgainLater" = "Die Umfrage kann aktuell nicht aufgerufen werden. Bitte versuchen Sie es später noch mal (Fehlercode {0}).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "Die Umfrage kann nicht aufgerufen werden (Fehlercode {0}).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones (Fehlercode {0}).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "Die Umfrage konnte aus Sicherheitsgründen nicht aufgerufen werden. Sie können im nächsten Kalendermonat wieder teilnehmen (Fehlercode {0}).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "Sie haben bereits an der Umfrage teilgenommen. Sie können nur einmal im Monat an der Umfrage teilnehmen (Fehlercode {0}).";
+
+/* Survey Consent Screen */
+
+"SurveyConsent_Title" = "Befragung zur Bewertung und Verbesserung der Corona-Warn-App";
+
+"SurveyConsent_Body1" = "Helfen Sie dabei, die Corona-Warn-App zu verbessern. Nehmen Sie dazu an einer Befragung zu Ihrer Erfahrung mit der Corona-Warn-App teil. Sie helfen damit dem RKI, die Wirksamkeit der App zu bewerten, die App zu verbessern und zu verstehen, wie sich Warnungen über die App auf das Verhalten von Personen mit erhöhtem Risiko auswirken.";
+
+"SurveyConsent_Body2" = "Die Befragung richtet sich nur an Personen, denen die App eine Begegnung mit erhöhtem Risiko angezeigt hat. Die Befragung findet auf einer Webseite des RKI statt. Zur Weiterleitung auf diese Webseite wird Ihnen im nächsten Schritt ein Teilnahmelink angezeigt. Vorher muss jedoch die Echtheit Ihrer App bestätigt werden. Dafür ist Ihr Einverständnis erforderlich.";
+
+"SurveyConsent_Body3" = "Nach Antippen des Teilnahmelinks erhalten Sie weitere Informationen zur Befragung. Vor der Teilnahme werden Sie dann noch einmal gesondert um Ihr Einverständnis zur Teilnahme an der Befragung gebeten.";
+
+"SurveyConsent_LegalTitle_BoldText" = "Ihr Einverständnis";
+"SurveyConsent_LegalBody1" = "Durch Antippen von „Einverstanden“ willigen Sie ein:";
+
+"SurveyConsent_LegalBody2" = "Bevor Ihnen der Teilnahmelink angezeigt werden kann, wird die Echtheit Ihrer App hierbei einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Weitere Angaben aus der App erhält Apple  hierbei nicht. So wird sichergestellt, dass jeder Nutzer nur einmal an der Befragung teilnehmen kann und die Statistiken nicht verfälscht werden.";
+
+"SurveyConsent_Legal_Bullet1" = "Ihr Einverständnis ist freiwillig. Sie können die App vollständig nutzen, auch wenn Sie Ihr Einverständnis für die Zwecke der Befragung nicht erteilen.";
+
+"SurveyConsent_Legal_Bullet2" = "Auch nachdem Sie Ihr Einverständnis erklärt haben, müssen Sie nicht an der Befragung teilzunehmen. Sie können die Befragung jederzeit abbrechen.";
+
+"SurveyConsent_Legal_Bullet3" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+
+"SurveyConsent_Legal_Details_Button_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
+
+"SurveyConsent_Accept_Button_Title" = "Einverstanden";
+
+/* Survey Consent Legal Details Screen */
+
+"SurveyConsent_Legal_Details_Title" = "Ausführliche Informationen zur Datenverarbeitung bei der Teilnahme an der Befragung";
+
+"SurveyConsent_Legal_Details_Section1_Title_BoldText" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"SurveyConsent_Legal_Details_Section1_Body" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um zu verhindern, dass Nutzer mehrfach der Befragung teilnehmen und so die Ergebnisse der Befragung verfälschen. Die Kennung wird hier einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA kommen. Dort besteht kein dem europäischen Recht angemessenes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass US-Sicherheitsbehörden, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die weiteren Angaben über Ihre Teilnahme an der Befragung erhält Apple  nicht.
+Wenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Teilnahme an dieser Befragung ist dann jedoch nicht möglich.";
+
+"SurveyConsent_Legal_Details_Section2_Title_BoldText" = "Zur Befragung durch das RKI";
+
+"SurveyConsent_Legal_Details_Section2_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z.B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
+
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
 
