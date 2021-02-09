@@ -243,7 +243,8 @@ class Coordinator: RequiresAppDependencies {
 			store: store,
 			homeState: homeState,
 			exposureManager: exposureManager,
-			appConfigurationProvider: appConfigurationProvider
+			appConfigurationProvider: appConfigurationProvider,
+			client: client
 		)
 		exposureDetectionCoordinator?.start()
 	}

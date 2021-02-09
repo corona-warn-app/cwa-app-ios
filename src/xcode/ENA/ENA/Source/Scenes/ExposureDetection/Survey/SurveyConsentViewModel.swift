@@ -93,9 +93,9 @@ final class SurveyConsentViewModel {
 		)
 	])
 	
-	let urlString: String?
+	let url: URL
 	
-	init(urlString: String?) {
-		self.urlString = urlString
+	init(url: URL) {
+		self.url = url
 	}
 }
