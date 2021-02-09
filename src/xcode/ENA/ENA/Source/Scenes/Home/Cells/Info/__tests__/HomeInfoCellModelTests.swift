@@ -35,7 +35,7 @@ class HomeInfoCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(homeInfoCellModel.title, AppStrings.Home.appInformationCardTitle)
-		XCTAssertEqual(homeInfoCellModel.description, nil)
+		XCTAssertNil(homeInfoCellModel.description)
 		XCTAssertEqual(homeInfoCellModel.position, .first)
 		XCTAssertEqual(homeInfoCellModel.accessibilityIdentifier, AccessibilityIdentifiers.Home.appInformationCardTitle)
 	}
@@ -46,7 +46,7 @@ class HomeInfoCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(homeInfoCellModel.title, AppStrings.Home.settingsCardTitle)
-		XCTAssertEqual(homeInfoCellModel.description, nil)
+		XCTAssertNil(homeInfoCellModel.description)
 		XCTAssertEqual(homeInfoCellModel.position, .last)
 		XCTAssertEqual(homeInfoCellModel.accessibilityIdentifier, AccessibilityIdentifiers.Home.settingsCardTitle)
 	}

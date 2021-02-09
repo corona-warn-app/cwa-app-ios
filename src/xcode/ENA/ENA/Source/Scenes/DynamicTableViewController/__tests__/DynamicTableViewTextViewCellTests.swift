@@ -34,8 +34,8 @@ class DynamicTableViewTextViewCellTests: XCTestCase {
 	func testSetup_UITextView_LikeLabel() throws {
 		// `setup` should be called when using the below constructor
 		let sut = try DynamicTableViewTextViewCell(style: .default, reuseIdentifier: "Foo").getTextView()
-		XCTAssertEqual(sut.isScrollEnabled, false)
-		XCTAssertEqual(sut.isEditable, false)
+		XCTAssertFalse(sut.isScrollEnabled)
+		XCTAssertFalse(sut.isEditable)
 		XCTAssertEqual(sut.textContainerInset, .zero)
 		XCTAssertEqual(sut.textContainer.lineFragmentPadding, .zero)
 	}
@@ -151,7 +151,7 @@ class DynamicTableViewTextViewCellTests: XCTestCase {
 private extension DynamicTableViewTextViewCell {
 	func testMargins() {
 		XCTAssertEqual(contentView.layoutMargins, UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
-		XCTAssertEqual(contentView.insetsLayoutMarginsFromSafeArea, false)
+		XCTAssertFalse(contentView.insetsLayoutMarginsFromSafeArea)
 	}
 
 	func testDefaultConfiguration() throws {

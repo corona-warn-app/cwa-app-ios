@@ -1679,6 +1679,8 @@ sein.";
 
 /* Data Donation */
 
+"DataDonation_AccImageDescription" = "Weibliche Person mit Mobiltelefon, welche ihre Daten teilt";
+
 "DataDonation_Headline" = "Datenspende";
 
 "DataDonation_Description" = "Sie können uns helfen, die Corona-Warn-App zu verbessern. Teilen Sie Daten über Ihre App-Nutzung mit dem RKI. Sie helfen damit dem RKI bei der Bewertung der Wirksamkeit der App. Ihre Daten ermöglichen außerdem, die Funktionen und Nutzerfreundlichkeit der App zu verbessern.";
