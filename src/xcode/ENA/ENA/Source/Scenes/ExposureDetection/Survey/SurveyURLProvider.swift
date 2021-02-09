@@ -16,7 +16,7 @@ final class SurveyURLProvider: SurveyURLProvidable {
 	init(
 		configurationProvider: AppConfigurationProviding,
 		ppacService: PPACService,
-		otpService: OTPService
+		otpService: OTPServiceProviding
 	) {
 		self.configurationProvider = configurationProvider
 		self.ppacService = ppacService
@@ -34,7 +34,7 @@ final class SurveyURLProvider: SurveyURLProvidable {
 
 	private let configurationProvider: AppConfigurationProviding
 	private let ppacService: PPACService
-	private let otpService: OTPService
+	private let otpService: OTPServiceProviding
 	private var subscriptions = [AnyCancellable]()
 
 	private func getPPACToken(completion: @escaping (Result<URL, SurveyConsentError>) -> Void) {

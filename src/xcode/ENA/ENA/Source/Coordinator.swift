@@ -25,6 +25,7 @@ class Coordinator: RequiresAppDependencies {
 
 	private let rootViewController: UINavigationController
 	private let contactDiaryStore: DiaryStoringProviding
+	private let otpService: OTPServiceProviding
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?
@@ -67,11 +68,13 @@ class Coordinator: RequiresAppDependencies {
 	init(
 		_ delegate: CoordinatorDelegate,
 		_ rootViewController: UINavigationController,
-		contactDiaryStore: DiaryStoringProviding
+		contactDiaryStore: DiaryStoringProviding,
+		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
 		self.rootViewController = rootViewController
 		self.contactDiaryStore = contactDiaryStore
+		self.otpService = otpService
 	}
 
 	deinit {
@@ -193,7 +196,8 @@ class Coordinator: RequiresAppDependencies {
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment
+			serverEnvironment: serverEnvironment,
+			otpService: otpService
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -244,7 +248,7 @@ class Coordinator: RequiresAppDependencies {
 			homeState: homeState,
 			exposureManager: exposureManager,
 			appConfigurationProvider: appConfigurationProvider,
-			client: client
+			otpService: otpService
 		)
 		exposureDetectionCoordinator?.start()
 	}

@@ -11,8 +11,21 @@ import OpenCombine
 // swiftlint:disable:next type_body_length
 class ExposureDetectionViewModelTests: XCTestCase {
 
+	private var otpService: OTPServiceProviding!
+	private var ppacToken: PPACToken!
+	private var store: MockTestStore!
+	private var client: Client!
+
+	override func setUp() {
+		super.setUp()
+		
+		self.store = MockTestStore()
+		self.client = ClientMock()
+		self.otpService = OTPService(store: store, client: client, riskProvider: MockRiskProvider())
+		self.ppacToken = PPACToken(apiToken: "apiTokenFake", deviceToken: "deviceTokenFake")
+	}
+	
 	func testInitialLowRiskStateWithoutEncounters() {
-		let store = MockTestStore()
 
 		let homeState = HomeState(
 			store: store,
@@ -30,6 +43,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -67,7 +81,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testLowRiskStateWithEncounters() {
-		let store = MockTestStore()
 
 		let mostRecentDateWithLowRisk = Date()
 		let calculationDate = Date()
@@ -99,6 +112,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -193,9 +207,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 	func testEventSurveyDisabled_cellShouldBeHidden() {
 		var subscriptions = Set<AnyCancellable>()
-		
-		let store = MockTestStore()
-		
+				
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
 		store.riskCalculationResult = RiskCalculationResult(
@@ -228,6 +240,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: configuration,
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -254,8 +267,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	private func highRiskTesting(surveyEnabled: Bool) {
 		var subscriptions = Set<AnyCancellable>()
 		
-		let store = MockTestStore()
-
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
 		store.riskCalculationResult = RiskCalculationResult(
@@ -288,6 +299,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: configuration,
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -355,8 +367,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	private func highRiskHomeStatesTesting(surveyEnabled: Bool) {
 		var subscriptions = Set<AnyCancellable>()
 
-		let store = MockTestStore()
-
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
 		store.riskCalculationResult = RiskCalculationResult(
@@ -389,6 +399,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: configuration,
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -471,8 +482,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 	
 	func testInactiveState() {
-		let store = MockTestStore()
-
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
@@ -490,6 +499,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -550,8 +560,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testFailedState() {
-		let store = MockTestStore()
-
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
@@ -569,6 +577,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in }
 		)
@@ -627,9 +636,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			isLoading: false
 		)
 	}
-
+	
 	func testOnButtonTapInLowRiskStateAndManualMode() {
-		let store = MockTestStore()
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 2,
@@ -677,6 +685,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
@@ -689,7 +698,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInHighRiskStateAndManualMode() {
-		let store = MockTestStore()
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
@@ -737,6 +745,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
@@ -749,8 +758,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInInactiveState() {
-		let store = MockTestStore()
-
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
@@ -785,6 +792,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
@@ -797,8 +805,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInFailedState() {
-		let store = MockTestStore()
-
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
@@ -834,6 +840,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
+			otpService: otpService,
 			onSurveyTap: { _ in },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
@@ -1037,5 +1044,4 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}
-
 }

@@ -26,10 +26,19 @@ final class OTPService: OTPServiceProviding {
 
 	init(
 		store: Store,
-		client: Client
+		client: Client,
+		riskProvider: RiskProviding
 	) {
 		self.store = store
 		self.client = client
+
+		self.riskConsumer = RiskConsumer()
+		self.riskConsumer.didCalculateRisk = { [weak self] risk in
+			if risk.level == .low {
+				self?.discardOTP()
+			}
+		}
+		riskProvider.observeRisk(self.riskConsumer)
 	}
 	
 	// MARK: - Protocol OTPServiceProviding
@@ -64,6 +73,7 @@ final class OTPService: OTPServiceProviding {
 
 	private let store: Store
 	private let client: Client
+	private let riskConsumer: RiskConsumer
 
 	private func generateOTPToken() -> String {
 		return UUID().uuidString
