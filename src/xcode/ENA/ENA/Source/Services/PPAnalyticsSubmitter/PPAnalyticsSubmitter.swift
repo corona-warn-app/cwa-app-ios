@@ -21,9 +21,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.store = store
 		self.client = client
 		self.configurationProvider = appConfig
-		self.probabilityToSubmit = 2
-
-		subscripeAppConfig()
 	}
 
 	// MARK: - Protocol PPAnalyticsSubmitting
@@ -36,51 +33,59 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 
-		// 1. Check configuration parameter
-		if Double.random(in: 0...1) > probabilityToSubmit {
-			Log.warning("Analytics submission abord due to randomness", log: .ppa)
-			return
-		}
+		configurationProvider.appConfiguration().sink { [weak self] configuration in
 
-		// 2. Last submission check
-		if submissionWithinLast23Hours {
-			Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
-			return
-		}
-
-		// 3a. Onboarding check
-		if onboardingCompletedWithinLast24Hours {
-			Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
-			return
-		}
-
-		// 3b. App Reset check
-		if appResetWithinLast24Hours {
-			Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
-			return
-		}
-
-		// 4. obtain authentication data
-		let deviceCheck = PPACDeviceCheck()
-		guard let ppacService = try? PPACService(store: store, deviceCheck: deviceCheck) else {
-			Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
-			return
-		}
-
-
-		// 5. obtain usage data
-		let payload = obtainUsageData()
-
-		// 6. submit analytics data
-		ppacService.getPPACToken { [weak self] result in
-			switch result {
-			case let .success(token):
-				self?.submitData(with: token, for: payload)
-			case let .failure(error):
-				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+			guard let self = self else {
+				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
 				return
 			}
-		}
+
+			// 1. Check configuration parameter
+			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
+				Log.warning("Analytics submission abord due to randomness", log: .ppa)
+				return
+			}
+
+			// 2. Last submission check
+			if self.submissionWithinLast23Hours {
+				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+				return
+			}
+
+			// 3a. Onboarding check
+			if self.onboardingCompletedWithinLast24Hours {
+				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+				return
+			}
+
+			// 3b. App Reset check
+			if self.appResetWithinLast24Hours {
+				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+				return
+			}
+
+			// 4. obtain authentication data
+			let deviceCheck = PPACDeviceCheck()
+			guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
+				Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
+				return
+			}
+
+			// 5. obtain usage data
+			let payload = self.obtainUsageData()
+
+			// 6. submit analytics data
+			ppacService.getPPACToken { [weak self] result in
+				switch result {
+				case let .success(token):
+					self?.submitData(with: token, for: payload)
+				case let .failure(error):
+					Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+					return
+				}
+			}
+
+		}.store(in: &subscriptions)
 	}
 
 	// MARK: - Public
@@ -94,7 +99,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let configurationProvider: AppConfigurationProviding
 
 	private var subscriptions = [AnyCancellable]()
-	private var probabilityToSubmit: Double
 
 	private var userDeclinedAnalyticsCollectionConsent: Bool {
 		return !store.privacyPreservingAnalyticsConsentAccept
@@ -129,12 +133,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return lastTwentyFourHours.contains(lastResetDate)
 	}
 
-	private func subscripeAppConfig() {
-		configurationProvider.appConfiguration().sink { [weak self] configuration in
-			self?.probabilityToSubmit = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit
-		}.store(in: &subscriptions)
-	}
-
 	private func obtainUsageData() -> SAP_Internal_Ppdd_PPADataIOS {
 
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
@@ -149,6 +147,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
+			// already created for EXPOSUREAPP-4790
+			/*
+			$0.newExposureWindows = newExposureWindows
+			$0.testResultMetadataSet = testResultMetadata
+			$0.keySubmissionMetadataSet = keySubmissionMetadata
+			$0.clientMetadata = clientMetadata
+			*/
 			$0.userMetadata = userMetadata
 		}
 
@@ -185,9 +190,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return []
 		}
 		return [SAP_Internal_Ppdd_ExposureRiskMetadata.with {
-			$0.riskLevel = convert(storedUsageData.riskLevel)
+			$0.riskLevel = convertToProto(storedUsageData.riskLevel)
 			$0.riskLevelChangedComparedToPreviousSubmission = storedUsageData.riskLevelChangedComparedToPreviousSubmission
-			$0.mostRecentDateAtRiskLevel = mostRecentDate(for: storedUsageData.mostRecentDateAtRiskLevel)
+			$0.mostRecentDateAtRiskLevel = convertToProto(for: storedUsageData.mostRecentDateAtRiskLevel)
 			$0.dateChangedComparedToPreviousSubmission = storedUsageData.dateChangedComparedToPreviousSubmission
 		}]
 	}
@@ -213,13 +218,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 
 		return SAP_Internal_Ppdd_PPAUserMetadata.with {
-			$0.federalState = convert(storedUserData.federalState)
+			$0.federalState = convertToProto(storedUserData.federalState)
 			$0.administrativeUnit = Int32(storedUserData.administrativeUnit)
-			$0.ageGroup = convert(storedUserData.ageGroup)
+			$0.ageGroup = convertToProto(storedUserData.ageGroup)
 		}
 	}
 
-	private func convert(_ riskLevel: RiskLevel) -> SAP_Internal_Ppdd_PPARiskLevel {
+	private func convertToProto(_ riskLevel: RiskLevel) -> SAP_Internal_Ppdd_PPARiskLevel {
 		switch riskLevel {
 		case .low:
 			return .riskLevelLow
@@ -228,12 +233,18 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 
-	private func mostRecentDate(for date: Date) -> Int64 {
-		// TODO check if correct
-		return Int64(Date().timeIntervalSince1970)
+	private func convertToProto(for date: Date) -> Int64 {
+		let utcDataFormatter = ISO8601DateFormatter()
+		utcDataFormatter.formatOptions = [.withFullDate]
+
+		guard let utcDate = utcDataFormatter.date(from: utcDataFormatter.string(from: date)) else {
+			Log.warning("Trouble with converting date to utc midnight date", log: .ppa)
+			return Int64(date.timeIntervalSince1970)
+		}
+		return Int64(utcDate.timeIntervalSince1970)
 	}
 
-	private func convert(_ ageGroup: AgeGroup) -> SAP_Internal_Ppdd_PPAAgeGroup {
+	private func convertToProto(_ ageGroup: AgeGroup) -> SAP_Internal_Ppdd_PPAAgeGroup {
 		switch ageGroup {
 		case .ageBelow29:
 			return .ageGroup0To29
@@ -245,7 +256,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	// swiftlint:disable cyclomatic_complexity
-	private func convert(_ federalState: FederalStateName) -> SAP_Internal_Ppdd_PPAFederalState {
+	private func convertToProto(_ federalState: FederalStateName) -> SAP_Internal_Ppdd_PPAFederalState {
 		switch federalState {
 		case .badenWürttemberg:
 			return .federalStateBw
