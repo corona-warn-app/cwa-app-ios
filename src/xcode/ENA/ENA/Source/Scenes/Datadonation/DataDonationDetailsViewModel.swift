@@ -20,16 +20,28 @@ final class DataDonationDetailsViewModel {
 			
 			$0.add(
 				.section(
-					header: .image(
-						UIImage(named: "Illu_DataDonation"),
-						accessibilityLabel: "AppStrings.DataDonation.Info.accImageDescription",
-						accessibilityIdentifier: "AccessibilityIdentifiers.DataDonation.accImageDescription",
-						height: 250
-					),
 					cells: [
-						// [KGA] To be updated ;-)
-//						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
-						.subheadline(text: AppStrings.DataDonation.Info.description, accessibilityIdentifier: "")
+						.title1(text: AppStrings.DataDonation.DetailedInfo.title, accessibilityIdentifier: "XXX"),
+						.space(height: 20),
+						.custom(
+							withIdentifier: DataDonationDetailsViewController.CustomCellReuseIdentifiers.roundedCell,
+							configure: { _, cell, _ in
+								guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+								
+								cell.configure(
+									title: NSMutableAttributedString(
+										string: AppStrings.DataDonation.DetailedInfo.legalHeadline
+									),
+									body: NSMutableAttributedString(
+										string: AppStrings.DataDonation.DetailedInfo.legalParagraph
+									),
+									textColor: .textPrimary1,
+									bgColor: .separator
+								)
+							}
+						),
+						.space(height: 8),
+						.body(text: AppStrings.DeltaOnboarding.termsDescription1)
 					]
 				)
 			)
