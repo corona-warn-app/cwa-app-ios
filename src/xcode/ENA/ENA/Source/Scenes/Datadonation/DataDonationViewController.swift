@@ -9,15 +9,20 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	// MARK: - Init
 	init(
+		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
 		didTapSelectCountry: @escaping (SelectValueViewModel) -> Void,
 		didTapSelectRegion: @escaping (SelectValueViewModel) -> Void,
 		didTapSelectAge: @escaping (SelectValueViewModel) -> Void,
 		didTapLegal: @escaping () -> Void
 	) {
+
+		self.presentSelectValueList = presentSelectValueList
+		self.didTapLegal = didTapLegal
+
+		
 		self.didTapSelectAge = didTapSelectAge
 		self.didTapSelectRegion = didTapSelectRegion
 		self.didTapSelectCountry = didTapSelectCountry
-		self.didTapLegal = didTapLegal
 
 		self.viewModel = DataDonationViewModel()
 
@@ -47,6 +52,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	var finished: (() -> Void)?
 
 	// MARK: - Private
+	private let presentSelectValueList: (SelectValueViewModel) -> Void
 
 	private let didTapSelectCountry: (SelectValueViewModel) -> Void
 	private let didTapSelectRegion: (SelectValueViewModel) -> Void
@@ -111,16 +117,38 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	@objc
 	private func didTapSelectCountryButton() {
-		let selectValueViewModel = SelectValueViewModel(viewModel.allCountries, title: "Select a Country", preselected: viewModel.country)
-		selectValueViewModel.$selectedValue .sink { [weak self] newValue in
-			self?.viewModel.country = newValue
+		let selectValueViewModel = SelectValueViewModel(viewModel.allFederalStateNames, title: "Select a Country", preselected: viewModel.federalStateName)
+		selectValueViewModel.$selectedValue .sink { [weak self] federalState in
+			guard self?.viewModel.federalStateName != federalState else {
+				return
+			}
+			// if a new fedaral state got selected reset region as well
+			self?.viewModel.federalStateName = federalState
+			self?.viewModel.region = nil
 		}.store(in: &subscriptions)
-		didTapSelectCountry(selectValueViewModel)
+		presentSelectValueList(selectValueViewModel)
 	}
 
 	@objc
 	private func didTapSelectRegionButton() {
-		Log.debug("Did hit select region Button")
+		guard let federalStateName = viewModel.federalStateName else {
+			Log.debug("Missing federal state to load regions", log: .ppac)
+			return
+		}
+
+		let selectValueViewModel = SelectValueViewModel(
+			viewModel.allRegions(by: federalStateName),
+			title: "Select a Region",
+			preselected: viewModel.region
+		)
+		selectValueViewModel.$selectedValue .sink { [weak self] region in
+			guard self?.viewModel.region != region else {
+				return
+			}
+			self?.viewModel.region = region
+		}.store(in: &subscriptions)
+
+		presentSelectValueList(selectValueViewModel)
 	}
 
 	@objc

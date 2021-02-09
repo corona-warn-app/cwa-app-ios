@@ -14,7 +14,14 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 	}
 
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		let dataDonationViewController = DataDonationViewController(didTapSelectCountry: { _ in }, didTapSelectRegion: { _ in }, didTapSelectAge: { _ in }, didTapLegal: {})
+		
+		let dataDonationViewController = DataDonationViewController(
+			presentSelectValueList: { _ in },
+			didTapSelectCountry: { _ in },
+			didTapSelectRegion: { _ in },
+			didTapSelectAge: { _ in },
+			didTapLegal: {}
+		)
 
 		let navigationController = DeltaOnboardingNavigationController(rootViewController: dataDonationViewController)
 		navigationController.navigationBar.prefersLargeTitles = true

@@ -10,7 +10,7 @@ final class DataDonationViewModel {
 	// MARK: - Init
 
 	init() {
-		self.country = nil
+		self.federalStateName = nil
 		self.region = nil
 		self.age = nil
 
@@ -37,12 +37,19 @@ final class DataDonationViewModel {
 
 	// MARK: - Internal
 
-	var country: String?
+	var federalStateName: String?
 	var region: String?
 	var age: String?
 
-	var allCountries: [String] {
+	var allFederalStateNames: [String] {
 		FederalStateName.allCases.map { $0.rawValue }
+	}
+
+	func allRegions(by federalStateName: String) -> [String] {
+		allDistricts.filter { (district) -> Bool in
+			district.federalStateName.rawValue == federalStateName
+		}
+		.map { $0.districtName }
 	}
 
 	// [KGA] add accessibilityLabel and identifier back to cell

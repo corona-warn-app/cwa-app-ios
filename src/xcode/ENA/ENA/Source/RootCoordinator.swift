@@ -76,7 +76,10 @@ class RootCoordinator: RequiresAppDependencies {
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		#if DEBUG
 		let dummyDataDonationViewControllre = DataDonationViewController(
-			didTapSelectCountry: presentCountrySelection,
+			presentSelectValueList: { [weak self] selectValueViewModel in
+				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
+			},
+			didTapSelectCountry: { _ in },
 			didTapSelectRegion: { _ in },
 			didTapSelectAge: { _ in },
 			didTapLegal: {}
@@ -92,7 +95,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 	// MARK: - Datadonation Test Code
 
-	private func presentCountrySelection(selectValueViewModel: SelectValueViewModel) {
+	private func presentSelectValueList(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
 			selectValueViewModel,
 			dissmiss: { [weak self] in
