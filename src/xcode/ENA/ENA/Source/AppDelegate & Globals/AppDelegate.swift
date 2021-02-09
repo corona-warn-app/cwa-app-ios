@@ -76,6 +76,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// Setup DeadmanNotification after AppLaunch
 		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
 
+		consumer.didCalculateRisk = { [weak self] risk in
+			guard let self = self else {
+				return
+			}
+			if risk.level == .low {
+				let otpService = OTPService(store: self.store, client: self.client)
+				otpService.discardOTP()
+			}
+		}
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
 		}

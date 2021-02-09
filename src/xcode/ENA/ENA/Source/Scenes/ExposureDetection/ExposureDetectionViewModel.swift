@@ -26,13 +26,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		self.onSurveyTap = onSurveyTap
 		self.otpService = otpService
 
-		homeState.$risk.sink { risk in
-			if risk.level == .low {
-				otpService.discardOTP()
-			}
-		}
-		.store(in: &subscriptions)
-
 		homeState.$riskState
 			.sink { [weak self] in
 				self?.scheduleCountdownTimer()

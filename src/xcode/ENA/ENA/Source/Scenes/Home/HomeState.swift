@@ -18,25 +18,25 @@ class HomeState: ENStateHandlerUpdating {
 		statisticsProvider: StatisticsProviding
 	) {
 		if let riskCalculationResult = store.riskCalculationResult {
-			let risk = Risk(
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				riskCalculationResult: riskCalculationResult
-			)
-			self.riskState = .risk(risk)
-			self.risk = risk
-		} else {
-			let risk = Risk(
-				level: .low,
-				details: .init(
-					mostRecentDateWithRiskLevel: nil,
-					numberOfDaysWithRiskLevel: 0,
+			self.riskState = .risk(
+				Risk(
 					activeTracing: store.tracingStatusHistory.activeTracing(),
-					exposureDetectionDate: nil
-				),
-				riskLevelHasChanged: false
+					riskCalculationResult: riskCalculationResult
+				)
 			)
-			self.riskState = .risk(risk)
-			self.risk = risk
+		} else {
+			self.riskState = .risk(
+				Risk(
+					level: .low,
+					details: .init(
+						mostRecentDateWithRiskLevel: nil,
+						numberOfDaysWithRiskLevel: 0,
+						activeTracing: store.tracingStatusHistory.activeTracing(),
+						exposureDetectionDate: nil
+					),
+					riskLevelHasChanged: false
+				)
+			)
 		}
 
 		self.store = store
@@ -70,7 +70,6 @@ class HomeState: ENStateHandlerUpdating {
 
 	let store: Store
 
-	@OpenCombine.Published var risk: Risk
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
 	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
@@ -199,7 +198,6 @@ class HomeState: ENStateHandlerUpdating {
 		}
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
-			self?.risk = risk
 			self?.riskState = .risk(risk)
 		}
 
