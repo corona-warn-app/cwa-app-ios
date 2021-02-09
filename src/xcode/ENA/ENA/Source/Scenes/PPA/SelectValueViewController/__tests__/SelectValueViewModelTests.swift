@@ -37,7 +37,7 @@ class SelectValueViewModelTests: XCTestCase {
 		let selected = viewModel.selectedTupel
 
 		// THEN
-		XCTAssertEqual(nil, selected.0)
+		XCTAssertNil(selected.0)
 		XCTAssertEqual(2, selected.1)
 	}
 
@@ -54,7 +54,7 @@ class SelectValueViewModelTests: XCTestCase {
 		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
 
 		XCTAssertEqual("keine Angabe", unselectedCellViewModel.text)
-		XCTAssertEqual(nil, unselectedCellViewModel.checkmarkImage)
+		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
 	}
 
 
@@ -72,7 +72,7 @@ class SelectValueViewModelTests: XCTestCase {
 		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
 
 		XCTAssertEqual("3", unselectedCellViewModel.text)
-		XCTAssertEqual(nil, unselectedCellViewModel.checkmarkImage)
+		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
 	}
 
 }
