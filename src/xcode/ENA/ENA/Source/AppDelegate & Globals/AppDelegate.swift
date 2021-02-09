@@ -83,6 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
+		store.analyticsSubmitter = self.analyticsSubmitter
+
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
@@ -180,6 +182,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#endif
+	}()
+
+	lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
+		return PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider
+		)
 	}()
 
 	#if targetEnvironment(simulator) || COMMUNITY

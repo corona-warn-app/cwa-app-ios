@@ -98,7 +98,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private var userProhibitedAnalyticsCollectionConsent: Bool {
 		// TODO: What is here the flag?
-		return true
+		return false
 	}
 
 	private var submissionWithinLast23Hours: Bool {
