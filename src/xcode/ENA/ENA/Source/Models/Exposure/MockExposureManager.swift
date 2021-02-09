@@ -60,12 +60,20 @@ extension MockExposureManager: ExposureManager {
 		ExposureManagerState(authorized: true, enabled: true, status: .active)
 	}
 
-	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler _: @escaping ENDetectExposuresHandler) -> Progress {
-		Progress()
+	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+		DispatchQueue.main.async {
+			// assuming successfull execution and no exposures
+			completionHandler(ENExposureDetectionSummary(), nil)
+		}
+		return Progress()
 	}
 
 	func getExposureWindows(summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
-		Progress()
+		DispatchQueue.main.async {
+			// assuming successfull execution and empty list of exposure windows
+			completionHandler([], nil)
+		}
+		return Progress()
 	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
@@ -82,7 +90,12 @@ extension MockExposureManager: ExposureManager {
 		
 	}
 
-	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? { return nil }
+	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? {
+		DispatchQueue.main.async {
+			completion()
+		}
+		return nil
+	}
 
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
 		#if COMMUNITY
@@ -100,5 +113,10 @@ extension MockExposureManager: ExposureManager {
 		#else
 		completionHandler()
 		#endif
+	}
+	
+	@available(iOS 14.4, *)
+	func preAuthorizeKeys(completion: @escaping ENErrorHandler) {
+		completion(nil)
 	}
 }

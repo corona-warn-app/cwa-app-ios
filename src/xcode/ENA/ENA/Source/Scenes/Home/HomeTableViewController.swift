@@ -19,7 +19,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
-		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
@@ -34,7 +33,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
-		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
@@ -107,15 +105,17 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 		viewModel.state.updateTestResult()
 		viewModel.state.updateStatistics()
-
-		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
-		riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTest.rawValue))
-		testResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTest.rawValue))
-		statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
+		/// preload expensive and updating cells to increase initial scrolling performance (especially of the statistics cell) and prevent animation on initial appearance
+		if statisticsCell == nil {
+			riskCell = riskCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+			testResultCell = testResultCell(forRowAt: IndexPath(row: 1, section: HomeTableViewModel.Section.riskAndTest.rawValue))
+			statisticsCell = statisticsCell(forRowAt: IndexPath(row: 0, section: HomeTableViewModel.Section.statistics.rawValue))
+		}
 
 		/** navigationbar is a shared property - so we need to trigger a resizing because others could have set it to true*/
 		navigationController?.navigationBar.prefersLargeTitles = false
@@ -140,7 +140,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -158,8 +157,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
-		case .diary:
-			return diaryCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -207,8 +204,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
-		case .diary:
-			onDiaryCellTap()
 		case .infos:
 			if indexPath.row == 0 {
 				onInviteFriendsCellTap()
@@ -254,7 +249,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
-	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
@@ -310,10 +304,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
-		)
-		tableView.register(
 			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeInfoTableViewCell.self)
 		)
@@ -321,7 +311,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 
-		/// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		/// Overestimate to fix auto layout warnings and fix a problem that showed the test cell behind other cells when opening app from the background in manual mode
 		tableView.estimatedRowHeight = 500
 	}
 
@@ -470,21 +460,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func diaryCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeDiaryTableViewCell.self), for: indexPath) as? HomeDiaryTableViewCell else {
-			fatalError("Could not dequeue HomeDiaryTableViewCell")
-		}
-
-		cell.configure(
-			with: HomeDiaryCellModel(),
-			onPrimaryAction: { [weak self] in
-				self?.onDiaryCellTap()
-			}
-		)
-
-		return cell
-	}
-
 	private func infoCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeInfoTableViewCell.self), for: indexPath) as? HomeInfoTableViewCell else {
 			fatalError("Could not dequeue HomeInfoTableViewCell")
@@ -525,6 +500,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 	
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
+		
+		guard deltaOnboardingCoordinator == nil else { return }
+		
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
 			guard let self = self else { return }
 
@@ -545,6 +523,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
 					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
 				]
+				Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in

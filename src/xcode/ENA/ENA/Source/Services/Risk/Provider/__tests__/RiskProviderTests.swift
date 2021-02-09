@@ -533,7 +533,6 @@ final class RiskProviderTests: XCTestCase {
 	}
 
 	// MARK: - RiskProvider stress test
-
 	func test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk() {
 
 		let numberOfRequestRiskCalls = 30
@@ -570,7 +569,7 @@ final class RiskProviderTests: XCTestCase {
 		appDelegate.riskProvider = riskProvider
 
 		for _ in 0...numberOfExecuteENABackgroundTask - 1 {
-			appDelegate.executeENABackgroundTask { _ in }
+			appDelegate.taskExecutionDelegate.executeENABackgroundTask { _ in }
 		}
 
 		waitForExpectations(timeout: .extraLong)
