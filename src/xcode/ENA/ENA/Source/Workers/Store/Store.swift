@@ -139,5 +139,17 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
+protocol CurrentRiskExposureMetadataProviding: AnyObject {
+	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
+}
+
+protocol PreviousRiskExposureMetadataProviding: AnyObject {
+	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
+}
+
+protocol UserMetadataProviding: AnyObject {
+	var userMetadata: UserMetadata? { get set }
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, CurrentRiskExposureMetadataProviding, PreviousRiskExposureMetadataProviding, UserMetadataProviding {}
