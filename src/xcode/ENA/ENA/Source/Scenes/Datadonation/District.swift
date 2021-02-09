@@ -6,14 +6,16 @@ import Foundation
 
 struct DistrictElement: Codable {
 
-	let districtName, districtShortName: String
+	let districtName: String
+	let districtShortName: String
 	let districtID: Int
 	let federalStateName: FederalStateName
 	let federalStateShortName: FederalStateShortName
 	let federalStateID: Int
 
 	enum CodingKeys: String, CodingKey {
-		case districtName, districtShortName
+		case districtName
+		case districtShortName
 		case districtID = "districtId"
 		case federalStateName, federalStateShortName
 		case federalStateID = "federalStateId"

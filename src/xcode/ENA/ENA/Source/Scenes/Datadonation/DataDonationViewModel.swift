@@ -9,6 +9,26 @@ final class DataDonationViewModel {
 
 	// MARK: - Init
 
+	init() {
+		self.country = nil
+		self.region = nil
+		self.age = nil
+
+		guard let jsonFileUrl = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			Log.debug("Failed to find url to json file", log: .ppac)
+			self.allDistricts = []
+			return
+		}
+
+		do {
+			let jsonData = try Data(contentsOf: jsonFileUrl)
+			self.allDistricts = try JSONDecoder().decode([DistrictElement].self, from: jsonData)
+		} catch {
+			Log.debug("Failed to read / parse district json", log: .ppac)
+			self.allDistricts = []
+		}
+	}
+
 	// MARK: - Overrides
 
 	// MARK: - Protocol <#Name#>
@@ -47,4 +67,7 @@ final class DataDonationViewModel {
 	}
 
 	// MARK: - Private
+
+	private let allDistricts: [DistrictElement]
+
 }

@@ -19,7 +19,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		self.didTapLegal = didTapLegal
 
 		self.viewModel = DataDonationViewModel()
-		
+
 		super.init(nibName: nil, bundle: nil)
 	}
 

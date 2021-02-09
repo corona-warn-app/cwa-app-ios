@@ -257,7 +257,6 @@
 		3466A3FC25CD5B90002CC49D /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3FB25CD5B90002CC49D /* AgeGroup.swift */; };
 		3466A40A25D19813002CC49D /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */; };
 		3466A41E25D1A20C002CC49D /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */; };
-		3466A43925D1FD5C002CC49D /* District.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A43825D1FD5C002CC49D /* District.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -1026,7 +1025,6 @@
 		3466A3FB25CD5B90002CC49D /* AgeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
 		3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RiskExposureMetadataTests.swift; path = ENA/Source/Models/Exposure/__tests__/RiskExposureMetadataTests.swift; sourceTree = SOURCE_ROOT; };
 		3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
-		3466A43825D1FD5C002CC49D /* District.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = District.swift; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
@@ -2221,14 +2219,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		3466A43725D1FD04002CC49D /* Datadonation */ = {
-			isa = PBXGroup;
-			children = (
-				3466A43825D1FD5C002CC49D /* District.swift */,
-			);
-			path = Datadonation;
-			sourceTree = "<group>";
-		};
 		35075C002526367700DE92F7 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
@@ -2792,11 +2782,10 @@
 				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,
-				BA69A7D525CD780F00023265 /* PPA */,
+				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				51D420C224583D7B00AD70CA /* Settings */,
-				3466A43725D1FD04002CC49D /* Datadonation */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
 			);
@@ -3731,14 +3720,6 @@
 			path = DMPPACService;
 			sourceTree = "<group>";
 		};
-		BA69A7D525CD780F00023265 /* PPA */ = {
-			isa = PBXGroup;
-			children = (
-				BA69A7D625CD782900023265 /* SelectValueViewController */,
-			);
-			path = PPA;
-			sourceTree = "<group>";
-		};
 		BA69A7D625CD782900023265 /* SelectValueViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -4583,7 +4564,6 @@
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
 				948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */,
-				3466A43925D1FD5C002CC49D /* District.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
