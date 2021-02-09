@@ -396,7 +396,7 @@ enum AppStrings {
 
 		static let surveyDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
 
-		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Details_Headline", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Legal_Details_Headline", tableName: "Localizable.legal", comment: "")
 		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", tableName: "Localizable.legal", comment: "")
 		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", tableName: "Localizable.legal", comment: "")
  
