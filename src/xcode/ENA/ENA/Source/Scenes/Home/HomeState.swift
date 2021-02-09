@@ -25,7 +25,7 @@ class HomeState: ENStateHandlerUpdating {
 			self.riskState = .risk(risk)
 			self.risk = risk
 		} else {
-			let risk = 				Risk(
+			let risk = Risk(
 				level: .low,
 				details: .init(
 					mostRecentDateWithRiskLevel: nil,
