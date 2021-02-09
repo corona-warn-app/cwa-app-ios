@@ -37,7 +37,7 @@ class SelectValueViewModelTests: XCTestCase {
 		let selected = viewModel.selectedTupel
 
 		// THEN
-		XCTAssertEqual(nil, selected.0)
+		XCTAssertNil(selected.0)
 		XCTAssertEqual(2, selected.1)
 	}
 
@@ -54,7 +54,7 @@ class SelectValueViewModelTests: XCTestCase {
 		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
 
 		XCTAssertEqual("keine Angabe", unselectedCellViewModel.text)
-		XCTAssertEqual(nil, unselectedCellViewModel.checkmarkImage)
+		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
 	}
 
 
@@ -72,7 +72,30 @@ class SelectValueViewModelTests: XCTestCase {
 		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
 
 		XCTAssertEqual("3", unselectedCellViewModel.text)
-		XCTAssertEqual(nil, unselectedCellViewModel.checkmarkImage)
+		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
+	}
+
+	func testGIVEN_ViewModel_WHEN_SelectNoValue_THEN_SelectedValueIsNil() {
+		// GIVEN
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+
+		// WHEN
+		viewModel.selectValue(at: IndexPath(row: 0, section: 0))
+
+		// THEN
+		XCTAssertNil(viewModel.selectedValue)
+	}
+
+	func testGIVEN_ViewModel_WHEN_SelectOutOfBoundsValue_THEN_SelectedValueIsUnchanged() {
+		// GIVEN
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+
+		// WHEN
+		viewModel.selectValue(at: IndexPath(row: 1, section: 0))
+		viewModel.selectValue(at: IndexPath(row: 5, section: 0))
+
+		// THEN
+		XCTAssertEqual(viewModel.selectedValue, "1")
 	}
 
 }
