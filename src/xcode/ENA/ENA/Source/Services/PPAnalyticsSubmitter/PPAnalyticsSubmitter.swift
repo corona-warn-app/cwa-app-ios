@@ -31,7 +31,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	func triggerSubmitData() {
 
 		// 0. Check if user has given his consent to collect data
-		if userProhibitedAnalyticsCollectionConsent {
+		if userDeclinedAnalyticsCollectionConsent {
 			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
 			return
 		}
@@ -63,7 +63,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		// 4. obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
 		guard let ppacService = try? PPACService(store: store, deviceCheck: deviceCheck) else {
-			Log.error("Could not initialize ppac", log: .ppa)
+			Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
 			return
 		}
 
@@ -71,7 +71,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		// 5. obtain usage data
 		let payload = obtainUsageData()
 
-		// 5. submit analytics data
+		// 6. submit analytics data
 		ppacService.getPPACToken { [weak self] result in
 			switch result {
 			case let .success(token):
@@ -96,9 +96,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private var subscriptions = [AnyCancellable]()
 	private var probabilityToSubmit: Double
 
-	private var userProhibitedAnalyticsCollectionConsent: Bool {
-		// TODO: What is here the flag?
-		return false
+	private var userDeclinedAnalyticsCollectionConsent: Bool {
+		return !store.privacyPreservingAnalyticsConsentAccept
 	}
 
 	private var submissionWithinLast23Hours: Bool {
