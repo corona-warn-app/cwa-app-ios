@@ -5,8 +5,9 @@
 import Foundation
 
 struct UserMetadata: Codable {
-	var federalState: String
-	var administrativeUnit: String
+	var federalState: FederalStateName
+	// reference districtID
+	var administrativeUnit: Int
 	var ageGroup: AgeGroup
 
 	enum CodingKeys: String, CodingKey {
@@ -16,8 +17,8 @@ struct UserMetadata: Codable {
 	}
 
 	init(
-		federalState: String,
-		administrativeUnit: String,
+		federalState: FederalStateName,
+		administrativeUnit: Int,
 		ageGroup: AgeGroup
 	) {
 		self.federalState = federalState
@@ -28,8 +29,8 @@ struct UserMetadata: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		federalState = try container.decode(String.self, forKey: .federalState)
-		administrativeUnit = try container.decode(String.self, forKey: .administrativeUnit)
+		federalState = try container.decode(FederalStateName.self, forKey: .federalState)
+		administrativeUnit = try container.decode(Int.self, forKey: .administrativeUnit)
 		ageGroup = try container.decode(AgeGroup.self, forKey: .ageGroup)
 	}
 }
