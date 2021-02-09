@@ -25,12 +25,6 @@ class DataDonationDetailsViewController: DynamicTableViewController {
 		setupTableView()
 	}
 	
-	// MARK: - Protocol <#Name#>
-	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
 	// MARK: - Private
 	
 	private let viewModel: DataDonationDetailsViewModel
@@ -38,12 +32,12 @@ class DataDonationDetailsViewController: DynamicTableViewController {
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
 		tableView.separatorStyle = .none
-
+		
 		tableView.register(
 			DynamicTableViewRoundedCell.self,
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
-
+		
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 	}
 	
