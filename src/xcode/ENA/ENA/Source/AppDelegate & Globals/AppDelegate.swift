@@ -104,8 +104,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-		// explicitely disabled as per #EXPOSUREAPP-2214
-		plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		if !AppDelegate.isAppDisabled() {
+			// explicitly disabled as per #EXPOSUREAPP-2214
+			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		}
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
