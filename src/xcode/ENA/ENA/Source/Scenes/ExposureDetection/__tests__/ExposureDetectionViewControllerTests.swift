@@ -19,6 +19,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 
 	private func createVC() -> ExposureDetectionViewController {
 		let store = MockTestStore()
+		let client = ClientMock()
+		let riskProvider = MockRiskProvider()
 
 		let homeState = HomeState(
 			store: store,
@@ -36,7 +38,8 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 			viewModel: ExposureDetectionViewModel(
 				homeState: homeState,
 				appConfigurationProvider: CachedAppConfigurationMock(),
-				onSurveyTap: { },
+				otpService: OTPService(store: store, client: client, riskProvider: riskProvider),
+				onSurveyTap: { _ in },
 				onInactiveButtonTap: { _ in }
 			),
 			store: store
