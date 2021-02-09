@@ -17,7 +17,11 @@ final class SurveyConsentViewModel {
 	// MARK: - Internal
 
 	func getURL(_ completion: @escaping (Result<URL, SurveyError>) -> Void) {
-		surveyURLProvider.getURL(completion)
+		surveyURLProvider.getURL { result in
+			DispatchQueue.main.async {
+				completion(result)
+			}
+		}
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
