@@ -355,5 +355,7 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.DataDonation.Info.accImageDescription"
 		static let accDataDonationTitle = "AppStrings.DataDonation.Info.title"
 		static let accDataDonationDescription = "AppStrings.DataDonation.Info.description"
+		static let accSubHeadState = "AppStrings.DataDonation.Info.subHeadState"
+		static let accSubHeadAgeGroup = "AppStrings.DataDonation.Info.subHeadAgeGroup"
 	}
 }
