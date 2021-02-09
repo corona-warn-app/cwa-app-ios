@@ -50,7 +50,31 @@ final class DataDonationDetailsViewModel {
 						self.cells[0],
 						self.cells[1],
 						self.cells[2],
-						self.cells[3]
+						self.cells[3],
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph2, accessibilityIdentifier: "XXX"),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet05_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet06_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet07_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet08_text),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph3, accessibilityIdentifier: "XXX"),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet09_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet10_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet11_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet12_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet13_text),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph4, accessibilityIdentifier: "XXX"),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet14_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet15_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet16_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet17_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet18_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet19_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet20_text),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph5, accessibilityIdentifier: "XXX"),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet21_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet22_text),
+						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet23_text),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph6, accessibilityIdentifier: "XXX")
 					]
 				)
 			)
