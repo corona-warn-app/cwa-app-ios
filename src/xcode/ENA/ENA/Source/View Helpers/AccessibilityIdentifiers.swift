@@ -353,6 +353,7 @@ enum AccessibilityIdentifiers {
 	
 	enum DataDonation {
 		static let accImageDescription = "AppStrings.DataDonation.Info.accImageDescription"
+		static let accDataDonationTitle = "AppStrings.DataDonation.Info.title"
+		static let accDataDonationDescription = "AppStrings.DataDonation.Info.description"
 	}
-
 }

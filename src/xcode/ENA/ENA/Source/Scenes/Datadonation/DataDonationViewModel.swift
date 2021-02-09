@@ -33,9 +33,8 @@ final class DataDonationViewModel {
 						height: 250
 					),
 					cells: [
-						// [KGA] To be updated ;-)
-//						.subheadline(text: AppStrings.NewVersionFeatures.generalDescription, color: UIColor.enaColor(for: .textPrimary2), accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralDescription)
-						.subheadline(text: AppStrings.DataDonation.Info.description, accessibilityIdentifier: "")
+						.title1(text: AppStrings.DataDonation.Info.title, accessibilityIdentifier: ""),
+						.body(text: AppStrings.DataDonation.Info.description)
 					]
 				)
 			)
