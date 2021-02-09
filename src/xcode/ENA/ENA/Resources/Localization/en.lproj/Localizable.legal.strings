@@ -71,3 +71,9 @@
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "If you have already warned other users, you can withdraw your consent by deleting the app.";
 
+
+/* Data Donation */
+
+"DataDonation_DetailedInformation_Headline" = "DataDonation_DetailedInformation_Headline";
+
+"DataDonation_DetailedInformation_Text" = "DataDonation_DetailedInformation_Text";
