@@ -169,15 +169,15 @@
 
 "SurveyConsent_Error_Title" = "Fehler";
 
-"SurveyConsent_Error_TryAgainLater" = "Die Umfrage kann aktuell nicht aufgerufen werden. Bitte versuchen Sie es später noch mal (Fehlercode {%@}).";
+"SurveyConsent_Error_TryAgainLater" = "Die Umfrage kann aktuell nicht aufgerufen werden. Bitte versuchen Sie es später noch mal (Fehlercode %@).";
 
-"SurveyConsent_Error_DeviceNotSupported" = "Die Umfrage kann nicht aufgerufen werden (Fehlercode {%@}).";
+"SurveyConsent_Error_DeviceNotSupported" = "Die Umfrage kann nicht aufgerufen werden (Fehlercode %@).";
 
-"SurveyConsent_Error_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones (Fehlercode {%@}).";
+"SurveyConsent_Error_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones (Fehlercode %@).";
 
-"SurveyConsent_Error_TryAgainNextMonth" = "Die Umfrage konnte aus Sicherheitsgründen nicht aufgerufen werden. Sie können im nächsten Kalendermonat wieder teilnehmen (Fehlercode {%@}).";
+"SurveyConsent_Error_TryAgainNextMonth" = "Die Umfrage konnte aus Sicherheitsgründen nicht aufgerufen werden. Sie können im nächsten Kalendermonat wieder teilnehmen (Fehlercode %@).";
 
-"SurveyConsent_Error_AlreadyParticipated" = "Sie haben bereits an der Umfrage teilgenommen. Sie können nur einmal im Monat an der Umfrage teilnehmen (Fehlercode {%@}).";
+"SurveyConsent_Error_AlreadyParticipated" = "Sie haben bereits an der Umfrage teilgenommen. Sie können nur einmal im Monat an der Umfrage teilnehmen (Fehlercode %@).";
 
 /* Survey Consent Screen */
 
