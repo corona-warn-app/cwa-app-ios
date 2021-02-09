@@ -13,7 +13,7 @@ final class ExposureDetectionCoordinator {
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
 	private let client: Client
-	private let otpServie: OTPServiceProviding
+	private let otpService: OTPServiceProviding
 	
 	init(
 		rootViewController: UIViewController,
@@ -29,7 +29,7 @@ final class ExposureDetectionCoordinator {
 		self.exposureManager = exposureManager
 		self.client = client
 		self.appConfigurationProvider = appConfigurationProvider
-		self.otpServie = OTPService(store: store, client: client)
+		self.otpService = OTPService(store: store, client: client)
 	}
 
 	func start() {
@@ -41,7 +41,7 @@ final class ExposureDetectionCoordinator {
 					guard let self = self, let url = url else {
 						return
 					}
-					if self.otpServie.isStoredOTPAuthorized {
+					if self.otpService.isOTPAvailable {
 						self.showSurveyWebpage(url: url)
 					} else {
 						self.showSurveyConsent(for: url)
