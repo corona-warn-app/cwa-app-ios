@@ -1135,10 +1135,12 @@ enum AppStrings {
 	}
 	
 	enum DataDonation {
-		enum Info {
+		enum DetailedInfo {
 			static let title = NSLocalizedString("DetailedInfosDataDonation_Headline", comment: "")
-			static let legalHeadline = NSLocalizedString("", tableName: "Localizable.legal", comment: "")
-			static let legalParagraph = NSLocalizedString("", tableName: "Localizable.legal", comment: "")
+			
+			static let legalHeadline = NSLocalizedString("DataDonation_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
+			static let legalParagraph = NSLocalizedString("DataDonation_DetailedInformation_Text", tableName: "Localizable.legal", comment: "")
+			
 			static let headline = NSLocalizedString("DetailedInfosDataDonation_SubHead_DataProcessing", comment: "")
 			static let paragraph1 = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination", comment: "")
 			static let paragraph2 = NSLocalizedString("DetailedInfosDataDonation_SubHead_RKI_DataCollection", comment: "")
@@ -1146,6 +1148,7 @@ enum AppStrings {
 			static let paragraph4 = NSLocalizedString("DetailedInfosDataDonation_SubHead_WarnOthers", comment: "")
 			static let paragraph5 = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_MiscInformation", comment: "")
 			static let paragraph6 = NSLocalizedString("DetailedInfosDataDonation_General_Privacy_Infos", comment: "")
+			
 			static let bullet01_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle", comment: "")
 			static let bullet02_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle", comment: "")
 			static let bullet03_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle", comment: "")

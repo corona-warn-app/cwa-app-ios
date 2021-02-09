@@ -61,3 +61,10 @@
 "ContactDiary_Information_Legal_Text_3" = "Bitte prüfen Sie genau, mit wem und auf welche Weise Sie die in Ihrem Kontakt-Tagebuch erfassten Informationen teilen. Die Informationen sollen Ihnen als Gedächtnisstütze dienen – sie sind nicht für Dritte bestimmt. Wenn das Gesundheitsamt Sie im Rahmen der Kontaktnachverfolgung um Ihre Mithilfe bittet, ist die Weitergabe von Einträgen sachgerecht.";
 
 "ContactDiary_Information_Legal_Text_4" = "Private Personen oder Unternehmen dürfen von Ihnen nicht die Weitergabe der von Ihnen erfassten Informationen verlangen. Bitte respektieren Sie, wenn jemand nicht im Kontakt-Tagebuch erfasst werden möchte.";
+
+
+/* Data Donation */
+
+"DataDonation_DetailedInformation_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"DataDonation_DetailedInformation_Text" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um zu verhindern, dass Daten mehrfach oder missbräuchlich an das RKI übermittelt werden und so die Ergebnisse der Analyse verfälschen. Die Kennung wird an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA kommen. Dort besteht kein dem europäischen Recht angemessenes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass US-Sicherheitsbehörden, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die weiteren Angaben über Ihre Nutzung der Corona-Warn-App erhält Apple nicht.\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, die Datenspende ist dann jedoch nicht möglich.";
