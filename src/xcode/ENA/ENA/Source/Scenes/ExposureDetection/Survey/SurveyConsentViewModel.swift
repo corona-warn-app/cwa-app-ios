@@ -89,7 +89,7 @@ final class SurveyConsentViewModel {
 						text: AppStrings.SurveyConsent.title,
 						accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
 					),
-					.body(
+					.headline(
 						text: AppStrings.SurveyConsent.body1
 					),
 					.body(
@@ -107,13 +107,14 @@ final class SurveyConsentViewModel {
 		model.add(
 			.section(cells: [
 				.acknowledgement(
-					title: NSAttributedString(string: AppStrings.SurveyConsent.title),
+					title: NSAttributedString(string: AppStrings.SurveyConsent.legalTitle),
 					description: NSAttributedString(
-						string: AppStrings.SurveyConsent.body1 + "\n\n" + AppStrings.SurveyConsent.body2
+						string: AppStrings.SurveyConsent.legalBody1 + "\n\n" + AppStrings.SurveyConsent.legalBody2
 					),
 					bulletPoints: [
 						NSAttributedString(string: AppStrings.SurveyConsent.legalBullet1),
-						NSAttributedString(string: AppStrings.SurveyConsent.legalBullet2)
+						NSAttributedString(string: AppStrings.SurveyConsent.legalBullet2),
+						NSAttributedString(string: AppStrings.SurveyConsent.legalBullet3)
 					],
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle
 				)
@@ -143,17 +144,47 @@ final class SurveyConsentViewModel {
 
 	private let surveyURLProvider: SurveyURLProvidable
 
-	private var privacyDetailsModel = DynamicTableViewModel([
-		.section(
-			cells: [
-				.title1(
-					text: AppStrings.SurveyConsent.legalDetailsTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
-				),
-				.body(
-					text: AppStrings.SurveyConsent.legalDetailsBody
-				)
-			]
+	private var privacyDetailsModel: DynamicTableViewModel {
+		
+		var model = DynamicTableViewModel([])
+		model.add(
+			.section(
+				cells: [
+					.title1(
+						text: AppStrings.SurveyConsent.legalDetailsTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
+					)]
+			)
 		)
-	])
+
+		model.add(
+			.section(
+				cells: [
+					.acknowledgement(
+						title: NSAttributedString(string: AppStrings.SurveyConsent.legalDetailsHeader1),
+						description: NSAttributedString(string: AppStrings.SurveyConsent.legalDetailsBody1)
+					)
+				])
+		)
+		
+		model.add(
+			.section(
+				cells: [
+					.headline(
+						text: AppStrings.SurveyConsent.legalDetailsHeader2,
+						accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.title
+					),
+					.body(
+						text: AppStrings.SurveyConsent.legalDetailsBody2
+					)
+				])
+		)
+		return model
+	}
+	
+	let urlString: String?
+	
+	init(urlString: String?) {
+		self.urlString = urlString
+	}
 }
