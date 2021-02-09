@@ -214,10 +214,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 
 		return SAP_Internal_Ppdd_PPAUserMetadata.with {
-			// TODO: Wait for correct data type
-//			$0.federalState = storedUserData.federalState
-			// TODO: Wait for correct data type
-//			$0.administrativeUnit = storedUserData.administrativeUnit
+			$0.federalState = convert(storedUserData.federalState)
+			$0.administrativeUnit = Int32(storedUserData.administrativeUnit)
 			$0.ageGroup = convert(storedUserData.ageGroup)
 		}
 	}
@@ -244,6 +242,44 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return .ageGroup30To59
 		case .age60OrAbove:
 			return .ageGroupFrom60
+		}
+	}
+
+	// swiftlint:disable cyclomatic_complexity
+	private func convert(_ federalState: FederalStateName) -> SAP_Internal_Ppdd_PPAFederalState {
+		switch federalState {
+		case .badenWürttemberg:
+			return .federalStateBw
+		case .bayern:
+			return .federalStateBy
+		case .berlin:
+			return .federalStateBe
+		case .brandenburg:
+			return .federalStateBb
+		case .bremen:
+			return .federalStateHb
+		case .hamburg:
+			return .federalStateHh
+		case .hessen:
+			return .federalStateHe
+		case .mecklenburgVorpommern:
+			return .federalStateMv
+		case .niedersachsen:
+			return .federalStateNi
+		case .nordrheinWestfalen:
+			return .federalStateNrw
+		case .rheinlandPfalz:
+			return .federalStateRp
+		case .saarland:
+			return .federalStateSl
+		case .sachsen:
+			return .federalStateSn
+		case .sachsenAnhalt:
+			return .federalStateSt
+		case .schleswigHolstein:
+			return .federalStateSh
+		case .thüringen:
+			return .federalStateTh
 		}
 	}
 }
