@@ -283,12 +283,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		)
 		homeState.updateDetectionMode(.automatic)
 		
-		let configuration: AppConfigurationProviding
-		if surveyEnabled {
-			configuration = CachedAppConfigurationMock(isEventSurveyEnabled: surveyEnabled, isEventSurveyUrlAvailable: true)
-		} else {
-			configuration = CachedAppConfigurationMock()
-		}
+		let configuration = CachedAppConfigurationMock(isEventSurveyEnabled: surveyEnabled, isEventSurveyUrlAvailable: surveyEnabled)
 		
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
@@ -389,12 +384,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		)
 		homeState.updateDetectionMode(.automatic)
 		
-		let configuration: AppConfigurationProviding
-		if surveyEnabled {
-			configuration = CachedAppConfigurationMock(isEventSurveyEnabled: surveyEnabled, isEventSurveyUrlAvailable: true)
-		} else {
-			configuration = CachedAppConfigurationMock()
-		}
+		let configuration = CachedAppConfigurationMock(isEventSurveyEnabled: surveyEnabled, isEventSurveyUrlAvailable: surveyEnabled)
 		
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,

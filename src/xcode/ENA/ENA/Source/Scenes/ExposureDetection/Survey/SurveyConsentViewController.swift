@@ -10,10 +10,10 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 
 	init(
 		viewModel: SurveyConsentViewModel,
-		onStartSurveyTap: @escaping (URL) -> Void
+		completion: @escaping (URL) -> Void
 	) {
 		self.viewModel = viewModel
-		self.onStartSurveyTap = onStartSurveyTap
+		self.completion = completion
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -40,13 +40,18 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		guard let url = URL(string: "https://www.test.de") else {
-			return
-		}
-		onStartSurveyTap(url)
-	}
+		navigationFooterItem?.isPrimaryButtonLoading = true
 
-	// MARK: - Public
+		viewModel.getURL { [weak self] result in
+			switch result {
+			case .success(let url):
+				self?.completion(url)
+			case .failure(let error):
+				self?.showErrorAlert(with: error)
+			}
+			self?.navigationFooterItem?.isPrimaryButtonLoading = false
+		}
+	}
 
 	// MARK: - Internal
 
@@ -76,12 +81,18 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 		tableView.separatorStyle = .none
+	}
 
-		navigationFooterItem?.isPrimaryButtonLoading = true
+	private func showErrorAlert(with error: SurveyConsentError) {
+		let errorAlert = UIAlertController.errorAlert(
+			title: AppStrings.SurveyConsent.errorTitle,
+			message: error.description
+		)
+		present(errorAlert, animated: true)
 	}
 
 	// MARK: - Private
 
-	private let onStartSurveyTap: (URL) -> Void
+	private let completion: (URL) -> Void
 	private let viewModel: SurveyConsentViewModel
 }
