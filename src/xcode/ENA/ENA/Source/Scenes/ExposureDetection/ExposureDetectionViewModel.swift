@@ -17,7 +17,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		homeState: HomeState,
 		appConfigurationProvider: AppConfigurationProviding,
 		otpService: OTPServiceProviding,
-		onSurveyTap: @escaping (String?) -> Void,
+		onSurveyTap: @escaping (URL?) -> Void,
 		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
 		self.homeState = homeState
@@ -171,13 +171,13 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private let homeState: HomeState
 
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
-	private let onSurveyTap: (String?) -> Void
+	private let onSurveyTap: (URL?) -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
 
 	private var riskProviderActivityState: RiskProviderActivityState = .idle
-	private var surveyOnHighRiskURL: String?
+	private var surveyOnHighRiskURL: String = ""
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
@@ -527,18 +527,19 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func surveySection() -> DynamicSection {
+		let url = URL(string: surveyOnHighRiskURL)
 		return .section(
 			cells: [
 				.custom(
 					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
 					action: .execute(block: { [weak self] _, _ in
-						self?.onSurveyTap(self?.surveyOnHighRiskURL)
+						self?.onSurveyTap(url)
 					}),
 					accessoryAction: .none,
 					configure: { _, cell, _ in
 						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
 							surveyCell.configure(with: ExposureDetectionSurveyCellModel()) { [weak self] in
-								self?.onSurveyTap(self?.surveyOnHighRiskURL)
+								self?.onSurveyTap(url)
 							}
 						}
 					})

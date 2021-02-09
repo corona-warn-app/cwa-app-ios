@@ -160,7 +160,7 @@ class OTPServiceTests: XCTestCase {
 
 	// MARK: - discardOTP
 
-	func testGIVEN_StoredOtp_WHEN_RiskChangesToLog_THEN_OtpIsDiscarded() {
+	func testGIVEN_StoredOtp_WHEN_RiskChangesToLow_THEN_OtpIsDiscarded() {
 		// GIVEN
 		let store = MockTestStore()
 		let client = ClientMock()

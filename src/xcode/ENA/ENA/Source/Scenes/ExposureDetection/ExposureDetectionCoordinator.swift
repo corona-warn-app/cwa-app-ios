@@ -6,12 +6,12 @@ import UIKit
 
 final class ExposureDetectionCoordinator {
 
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let rootViewController: UIViewController
 	private var navigationController: ENANavigationControllerWithFooter?
 	private let store: Store
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
-	private let appConfigurationProvider: AppConfigurationProviding
 	private let otpService: OTPServiceProviding
 	
 	init(
@@ -36,8 +36,15 @@ final class ExposureDetectionCoordinator {
 				homeState: homeState,
 				appConfigurationProvider: appConfigurationProvider,
 				otpService: otpService,
-				onSurveyTap: { [weak self] urlString in
-					self?.showSurveyConsent(for: urlString)
+				onSurveyTap: { [weak self] url in
+					guard let self = self, let url = url else {
+						return
+					}
+					if self.otpService.isStoredOTPAuthorized {
+						self.showSurveyWebpage(url: url)
+					} else {
+						self.showSurveyConsent(for: url)
+					}
 				},
 				onInactiveButtonTap: { [weak self] completion in
 					self?.setExposureManagerEnabled(true, then: completion)
@@ -53,10 +60,30 @@ final class ExposureDetectionCoordinator {
 		rootViewController.present(_navigationController, animated: true)
 	}
 
-	private func showSurveyConsent(for surveyURL: String?) {
+	private func showSurveyConsent(for surveyURL: URL) {
 		setNavigationBarHidden(false)
-		
-		let surveyConsentViewController = SurveyConsentViewController(viewModel: SurveyConsentViewModel(urlString: surveyURL)) { [weak self] url in
+
+		// ToDo: Replace with real services
+
+		let deviceCheckMock = PPACDeviceCheckMock(true, deviceToken: "iPhone")
+		guard let ppacService = try? PPACService(
+			store: store,
+			deviceCheck: deviceCheckMock
+		) else {
+			return
+		}
+
+		let surveyURLProvider = SurveyURLProvider(
+			configurationProvider: appConfigurationProvider,
+			ppacService: ppacService,
+			otpService: otpService
+		)
+
+		let viewModel = SurveyConsentViewModel(
+			surveyURLProvider: surveyURLProvider
+		)
+
+		let surveyConsentViewController = SurveyConsentViewController(viewModel: viewModel) { [weak self] url in
 			self?.showSurveyWebpage(url: url)
 		}
 		navigationController?.pushViewController(surveyConsentViewController, animated: true)
