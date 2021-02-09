@@ -105,7 +105,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	@objc
 	private func didTapSelectCountryButton() {
 		let selectValueViewModel = SelectValueViewModel(viewModel.allFederalStateNames, title: "Select a Country", preselected: viewModel.federalStateName)
-		selectValueViewModel.$selectedValue .sink { [weak self] federalState in
+		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
 			guard self?.viewModel.federalStateName != federalState else {
 				return
 			}
