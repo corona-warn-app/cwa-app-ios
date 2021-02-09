@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DataDonationViewController: UIViewController {
+class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol {
 
 	// MARK: - Init
 	init(
@@ -33,7 +33,8 @@ class DataDonationViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupDummyView()
+		//setupDummyView()
+		setupTableView()
 	}
 
 	// MARK: - Protocol <#Name#>
@@ -41,6 +42,8 @@ class DataDonationViewController: UIViewController {
 	// MARK: - Public
 
 	// MARK: - Internal
+	
+	var finished: (() -> Void)?
 
 	// MARK: - Private
 
@@ -91,6 +94,18 @@ class DataDonationViewController: UIViewController {
 			firstButton.heightAnchor.constraint(equalToConstant: 40.0)
 		])
 	}
+	
+	private func setupTableView() {
+		view.backgroundColor = .enaColor(for: .background)
+		tableView.separatorStyle = .none
+
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+		)
+
+		dynamicTableViewModel = viewModel.dynamicTableViewModel
+	}
 
 	@objc
 	private func didTapSelectCountryButton() {
@@ -106,5 +121,12 @@ class DataDonationViewController: UIViewController {
 	private func didTapAgeButton() {
 		Log.debug("Did hit select age Button")
 	}
+}
 
+// MARK: - Cell reuse identifiers.
+
+extension DataDonationViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case roundedCell
+	}
 }

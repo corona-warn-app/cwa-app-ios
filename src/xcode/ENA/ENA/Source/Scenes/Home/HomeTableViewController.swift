@@ -521,7 +521,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store),
+					DeltaOnboardingDataDonation(store: self.viewModel.state.store)
 				]
 				Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
