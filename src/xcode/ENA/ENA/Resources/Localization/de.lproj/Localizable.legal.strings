@@ -76,8 +76,11 @@
 
 "SurveyConsent_Legal_Bullet3" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
-"SurveyConsent_Legal_Details_Section1_Title_BoldText" = "Prüfung der Echtheit und Drittlandsübermittlung";
+"SurveyConsent_Legal_Details_Button_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
 
-"SurveyConsent_Legal_Details_Section1_Body" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um zu verhindern, dass Nutzer mehrfach der Befragung teilnehmen und so die Ergebnisse der Befragung verfälschen. Die Kennung wird hier einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA kommen. Dort besteht kein dem europäischen Recht angemessenes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass US-Sicherheitsbehörden, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die weiteren Angaben über Ihre Teilnahme an der Befragung erhält Apple  nicht.
-Wenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Teilnahme an dieser Befragung ist dann jedoch nicht möglich.";
+"SurveyConsent_Legal_Details_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"SurveyConsent_Details_Legal_Body1" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um zu verhindern, dass Nutzer mehrfach der Befragung teilnehmen und so die Ergebnisse der Befragung verfälschen. Die Kennung wird hier einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA kommen. Dort besteht kein dem europäischen Recht angemessenes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass US-Sicherheitsbehörden, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die weiteren Angaben über Ihre Teilnahme an der Befragung erhält Apple  nicht.";
+
+"SurveyConsent_Details_Legal_Body2" = "Wenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Teilnahme an dieser Befragung ist dann jedoch nicht möglich.";
 

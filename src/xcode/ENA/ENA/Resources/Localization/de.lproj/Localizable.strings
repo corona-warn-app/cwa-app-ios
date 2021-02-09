@@ -183,8 +183,6 @@
 
 "SurveyConsent_Body3" = "Nach Antippen des Teilnahmelinks erhalten Sie weitere Informationen zur Befragung. Vor der Teilnahme werden Sie dann noch einmal gesondert um Ihr Einverständnis zur Teilnahme an der Befragung gebeten.";
 
-"SurveyConsent_Legal_Details_Button_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
-
 "SurveyConsent_Accept_Button_Title" = "Einverstanden";
 
 /* Survey Consent Legal Details Screen */
