@@ -149,7 +149,19 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	@objc
 	private func didTapAgeButton() {
-		Log.debug("Did hit select age Button")
+		let selectValueViewModel = SelectValueViewModel(
+			AgeGroup.allCases.map({ $0.text }),
+			title: AppStrings.DataDonation.ValueSelection.Title.Age,
+			preselected: viewModel.age
+		)
+		selectValueViewModel.$selectedValue .sink { [weak self] age in
+			guard self?.viewModel.age != age else {
+				return
+			}
+			self?.viewModel.age = age
+		}.store(in: &subscriptions)
+
+		presentSelectValueList(selectValueViewModel)
 	}
 }
 

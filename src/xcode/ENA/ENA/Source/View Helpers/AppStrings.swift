@@ -1142,6 +1142,11 @@ enum AppStrings {
 				static let Region = NSLocalizedString("DataDonation_ValueSelection_Title_Region", comment: "")
 				static let Age = NSLocalizedString("DataDonation_ValueSelection_Title_Age", comment: "")
 			}
+			enum Ages {
+				static let Below29 = NSLocalizedString("DataDonation_ValueSelection_Age_Below29", comment: "")
+				static let Between30And59 = NSLocalizedString("DataDonation_ValueSelection_Age_Between30And59", comment: "")
+				static let Min60OrAbove = NSLocalizedString("DataDonation_ValueSelection_Age_Min60OrAbove", comment: "")
+			}
 		}
 
 		enum Info {
