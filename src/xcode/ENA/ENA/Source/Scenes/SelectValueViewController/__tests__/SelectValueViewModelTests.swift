@@ -75,4 +75,28 @@ class SelectValueViewModelTests: XCTestCase {
 		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
 	}
 
+
+	func testGIVEN_ViewModel_WHEN_SelectNoValue_THEN_SelectedValueIsNil() {
+		// GIVEN
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+
+		// WHEN
+		viewModel.selectValue(at: IndexPath(row: 0, section: 0))
+
+		// THEN
+		XCTAssertNil(viewModel.selectedValue)
+	}
+
+	func testGIVEN_ViewModel_WHEN_SelectOutOfBoundsValue_THEN_SelectedValueIsUnchanged() {
+		// GIVEN
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+
+		// WHEN
+		viewModel.selectValue(at: IndexPath(row: 1, section: 0))
+		viewModel.selectValue(at: IndexPath(row: 5, section: 0))
+
+		// THEN
+		XCTAssertEqual(viewModel.selectedValue, "1")
+	}
+
 }
