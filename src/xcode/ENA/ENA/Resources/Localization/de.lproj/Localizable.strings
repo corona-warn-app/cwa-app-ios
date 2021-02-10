@@ -1027,6 +1027,27 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend 
 sein.";
 
+/* Home Reenable card */
+"Home_Reenable_Card_Title" = "Risiko-Überprüfung beendet";
+
+"Home_Reenable_Card_Body" = "Die automatische Risiko-Überprüfung wurde beendet, weil Sie sich aufgrund Ihres positiven Tests aktuell in Isolation befinden. Sie können die Risiko-Überprüfung jederzeit wieder einschalten. Ihr registrierter Test wird dann automatisch gelöscht.";
+
+"Home_Reenable_Card_Button_Title" = "Risiko-Überprüfung einschalten";
+
+"Home_Reenable_Card_TestResult_Title" = "SARS-CoV-2-positiv";
+
+"Home_Reenable_Card_TestResult_Subtitle" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
+
+"Home_Reenable_Card_TestResult_Registration" = "Test registriert am %@";
+
+"Home_Reenable_Alert_Title" = "Risiko-Überprüfung aktivieren";
+
+"Home_Reenable_Alert_Message" = "Ihr aktueller Test wird aus der App gelöscht, damit Sie bei Bedarf einen neuen Test registrieren können.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Aktivieren";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "Abbrechen";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Befund positiv";
 
