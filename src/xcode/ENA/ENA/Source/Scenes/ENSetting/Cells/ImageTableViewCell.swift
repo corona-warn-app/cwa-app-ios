@@ -10,7 +10,8 @@ protocol ConfigurableENSettingCell: UITableViewCell {
 }
 
 class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-	@IBOutlet var imageContainerView: UIImageView!
+	
+	private var imageContainerView: UIImageView!
 
 	private struct BannerImageConfig {
 		init(
@@ -27,9 +28,28 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		let accessibilityIdentifier: String?
 	}
 	
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		separatorInset.left = bounds.width
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		// self
+		selectionStyle = .none
+		contentView.backgroundColor = .enaColor(for: .background)
+		// imageContainerView
+		imageContainerView = UIImageView()
+		imageContainerView.contentMode = .scaleAspectFit
+		imageContainerView.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(imageContainerView)
+		// activate constrinats
+		NSLayoutConstraint.activate([
+			// imageContainerView
+			imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			imageContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			imageContainerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+			imageContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+		])
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	func configure(for state: ENStateHandler.State) {

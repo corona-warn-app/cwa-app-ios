@@ -201,7 +201,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: ImageTableViewCell.self), bundle: nil),
+			ImageTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.banner.rawValue
 		)
 
