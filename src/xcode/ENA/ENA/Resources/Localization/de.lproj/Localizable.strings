@@ -1699,6 +1699,22 @@ sein.";
 
 "DataDonation_Button_NotOK" = "Nicht einverstanden";
 
+/* Value selection */
+
+"DataDonation_ValueSelection_None" = "keine Angabe";
+
+"DataDonation_ValueSelection_Title_State" = "Ihr Bundesland ";
+
+"DataDonation_ValueSelection_Title_Region" = "Ihr Kreis / Bezirk";
+
+"DataDonation_ValueSelection_Title_Age" = "Ihre Altersgruppe";
+
+"DataDonation_ValueSelection_Age_Below29" = "0-29 Jahre";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 Jahre";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "60+ Jahre";
+
 /* Detailed Infos Data Donation */
 
 "DetailedInfosDataDonation_Headline" = "Ausführliche Informationen zur Datenspende";
