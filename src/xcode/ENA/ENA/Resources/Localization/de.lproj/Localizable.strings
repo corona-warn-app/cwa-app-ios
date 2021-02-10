@@ -1000,7 +1000,7 @@ sein.";
 
 "Home_Reenable_Card_TestResult_Registration" = "Test registriert am %@";
 
-"Home_Reenable_Alert_Title" = "Risiko-Ermittlung aktivieren";
+"Home_Reenable_Alert_Title" = "Risiko-Überprüfung aktivieren";
 
 "Home_Reenable_Alert_Message" = "Ihr aktueller Test wird aus der App gelöscht, damit Sie bei Bedarf einen neuen Test registrieren können.";
 
