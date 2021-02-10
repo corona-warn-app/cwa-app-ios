@@ -7,7 +7,7 @@ import Foundation
 struct RiskExposureMetadata: Codable {
 	var riskLevel: RiskLevel
 	var riskLevelChangedComparedToPreviousSubmission: Bool
-	var mostRecentDateAtRiskLevel: Date
+	var mostRecentDateAtRiskLevel: Date?
 	var dateChangedComparedToPreviousSubmission: Bool
 
 	enum CodingKeys: String, CodingKey {
