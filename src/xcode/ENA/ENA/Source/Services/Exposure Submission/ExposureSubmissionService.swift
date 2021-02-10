@@ -21,13 +21,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
-		warnOthersReminder: WarnOthersRemindable
+		warnOthersReminder: WarnOthersRemindable,
+		deadmanNotificationManager: DeadmanNotificationManager? = nil
 	) {
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
@@ -41,7 +43,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
-			warnOthersReminder: dependencies.warnOthersReminder)
+			warnOthersReminder: dependencies.warnOthersReminder
+		)
 	}
 
 	// MARK: - Protocol ExposureSubmissionService
@@ -275,6 +278,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let client: Client
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
+	private let deadmanNotificationManager: DeadmanNotificationManager
 
 	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 
@@ -453,7 +457,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		warnOthersReminder.reset()
 
 		/// Deactivate deadman notification for end-of-life-state
-		DeadmanNotificationManager(store: store).resetDeadmanNotification()
+		deadmanNotificationManager.resetDeadmanNotification()
 
 		store.registrationToken = nil
 		store.tan = nil
