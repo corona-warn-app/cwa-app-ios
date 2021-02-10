@@ -172,15 +172,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
-		let payload = self.obtainUsageData()
-
+		let payload = obtainUsageData()
 		let deviceCheck = PPACDeviceCheck()
-		guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
-			Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
-			completion(.failure(.ppacError))
-			return
-		}
-
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 		ppacService.getPPACToken { [weak self] result in
 			switch result {
 			case let .success(token):
