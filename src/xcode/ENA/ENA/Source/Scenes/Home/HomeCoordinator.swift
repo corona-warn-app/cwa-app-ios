@@ -66,7 +66,10 @@ class HomeCoordinator: RequiresAppDependencies {
 			)
 
 			let homeController = HomeTableViewController(
-				viewModel: HomeTableViewModel(state: homeState),
+				viewModel: HomeTableViewModel(
+					state: homeState,
+					store: store
+				),
 				appConfigurationProvider: appConfigurationProvider,
 				onInfoBarButtonItemTap: { [weak self] in
 					self?.showRiskLegend()
