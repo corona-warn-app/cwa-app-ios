@@ -55,13 +55,15 @@ class TracingHistoryTableViewCell: UITableViewCell {
 			subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
 			subtitleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			// historyLabel
-			historyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20 + 52 + 16),
-			historyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-			historyLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20),
+			historyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16 + 52 + 16),
+			historyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			historyLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 8),
 			historyLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
 			// circleView
 			circleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			circleView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16),
+			historyLabel.topAnchor.constraint(greaterThanOrEqualTo: historyLabel.topAnchor, constant: 8),
+			circleView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			circleView.centerYAnchor.constraint(equalTo: historyLabel.centerYAnchor),
 			circleView.widthAnchor.constraint(equalToConstant: 52),
 			circleView.heightAnchor.constraint(equalToConstant: 52)

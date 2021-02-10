@@ -54,7 +54,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in _: UITableView) -> Int {
-		model.content.count
+		sections.count
 	}
 
 	override func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
@@ -62,7 +62,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		switch model.content[section] {
+		switch sections[section] {
 		case .actionCell:
 			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
 				return UITableView.automaticDimension
@@ -74,7 +74,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch model.content[section] {
+		switch sections[section] {
 		case .actionCell:
 			return AppStrings.ExposureNotificationSetting.actionCellHeader
 		default:
@@ -90,47 +90,52 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		_ tableView: UITableView,
 		cellForRowAt indexPath: IndexPath
 	) -> UITableViewCell {
-		let section = indexPath.section
-		let content = model.content[section]
-
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell else {
-			return UITableViewCell()
-		}
-
-		switch content {
+		let section = sections[indexPath.section]
+		switch section {
 		case .banner:
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? ImageTableViewCell else {
+				return UITableViewCell()
+			}
 			cell.configure(for: enState)
+			return cell
 		case .actionCell:
 			if let lastActionCell = lastActionCell {
 				return lastActionCell
 			}
-			if let cell = cell as? ActionCell {
-				cell.configure(for: enState, delegate: self)
-				lastActionCell = cell
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? ActionTableViewCell else {
+				return UITableViewCell()
 			}
+			cell.configure(for: enState, delegate: self)
+			lastActionCell = cell
+			return cell
 		case .euTracingCell:
 			return euTracingCell(for: indexPath, in: tableView)
-		case .tracingCell, .actionDetailCell:
+		case .tracingCell:
 			switch enState {
 			case .enabled, .disabled:
 				return tracingCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
-				(cell as? ActionCell)?.configure(for: enState, delegate: self)
+				guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? ActionCell else {
+					return UITableViewCell()
+				}
+				cell.configure(for: enState, delegate: self)
+				return cell
 			}
 		case .descriptionCell:
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? DescriptionTableViewCell else {
+				return UITableViewCell()
+			}
 			cell.configure(for: enState)
+			return cell
 		}
-
-		return cell
 	}
 
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = indexPath.section
-		let content = model.content[section]
+		let section = sections[indexPath.section]
 
-		guard content.cellType == .euTracingCell else { return }
+		guard section == .euTracingCell else { return }
 		
 		if #available(iOS 13, *) {
 			navigationItem.largeTitleDisplayMode = .always
@@ -165,7 +170,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	// MARK: - Internal
 
-	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
+	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .tracingCell, .descriptionCell]
 	let store: Store
 	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
@@ -182,11 +187,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		case actionCell
 		case euTracingCell
 		case tracingCell
-		case actionDetailCell
 		case descriptionCell
 	}
 
-	private var lastActionCell: ActionCell?
+	private var lastActionCell: ActionTableViewCell?
 
 	private let setExposureManagerEnabled: (Bool, @escaping (ExposureNotificationError?) -> Void) -> Void
 
@@ -289,7 +293,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
+		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.euTracingCell.rawValue, for: indexPath)
 		guard let euTracingCell = dequeuedEUTracingCell as? EuTracingTableViewCell else {
 			return UITableViewCell()
 		}
@@ -299,7 +303,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		let dequeuedTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
+		let dequeuedTracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.tracingCell.rawValue, for: indexPath)
 		guard let tracingCell = dequeuedTracingCell as? TracingHistoryTableViewCell else {
 			return UITableViewCell()
 		}
@@ -326,27 +330,6 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		)
 
 		return tracingCell
-	}
-
-}
-
-private extension ENSettingModel.Content {
-
-	var cellType: ExposureNotificationSettingViewController.ReusableCellIdentifier {
-		switch self {
-		case .banner:
-			return .banner
-		case .actionCell:
-			return .actionCell
-		case .euTracingCell:
-			return .euTracingCell
-		case .tracingCell:
-			return .tracingCell
-		case .actionDetailCell:
-			return .actionDetailCell
-		case .descriptionCell:
-			return .descriptionCell
-		}
 	}
 
 }
