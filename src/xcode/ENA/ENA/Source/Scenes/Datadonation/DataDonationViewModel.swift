@@ -16,9 +16,7 @@ final class DataDonationViewModel {
 		self.presentSelectValueList = presentSelectValueList
 		self.reloadTableView = false
 
-		self.federalStateName = nil
-		self.region = nil
-		self.age = nil
+		self.dataDonationModel = DataDonationModel()
 
 		guard let jsonFileUrl = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
 			Log.debug("Failed to find url to json file", log: .ppac)
@@ -108,26 +106,26 @@ final class DataDonationViewModel {
 	// MARK: - Private
 
 	private let presentSelectValueList: (SelectValueViewModel) -> Void
+	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
 
-	private var federalStateName: String?
-	private var region: String?
-	private var age: String?
+
+//	private var federalStateName: String?
+//	private var region: String?
+//	private var age: String?
 
 	private var friendlyFederalStateName: String {
 		Log.debug("read friendlyFederalStateName")
-		return federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
+		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
 	}
 
 	private var friendlyRegionName: String {
-		return region ?? AppStrings.DataDonation.Info.noSelectionState
+		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionState
 	}
 
 	private var friendlyAgeName: String {
-		return age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
+		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
 	}
-
-
 
 	private var allFederalStateNames: [String] {
 		FederalStateName.allCases.map { $0.rawValue }
@@ -160,15 +158,15 @@ final class DataDonationViewModel {
 		let selectValueViewModel = SelectValueViewModel(
 			allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.State,
-			preselected: federalStateName
+			preselected: dataDonationModel.federalStateName
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
-			guard self?.federalStateName != federalState else {
+			guard self?.dataDonationModel.federalStateName != federalState else {
 				return
 			}
 			// if a new fedaral state got selected reset region as well
-			self?.federalStateName = federalState
-			self?.region = nil
+			self?.dataDonationModel.federalStateName = federalState
+			self?.dataDonationModel.region = nil
 			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 		presentSelectValueList(selectValueViewModel)
