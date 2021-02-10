@@ -688,6 +688,18 @@ enum AppStrings {
 		static let thankYouCardAppItemTitle = NSLocalizedString("Home_Thank_You_Card_App_Item_Title", comment: "")
 		static let thankYouCardNoSymptomsItemTitle = NSLocalizedString("Home_Thank_You_Card_NoSymptoms_Item_Title", comment: "")
 
+		// Reenable card
+		static let reenableCardTitle = NSLocalizedString("Home_Reenable_Card_Title", comment: "")
+		static let reenableCardBody = NSLocalizedString("Home_Reenable_Card_Body", comment: "")
+		static let reenableCardButtonTitle = NSLocalizedString("Home_Reenable_Card_Button_Title", comment: "")
+		static let reenableCardTestResultTitle = NSLocalizedString("Home_Reenable_Card_TestResult_Title", comment: "")
+		static let reenableCardTestResultSubtitle = NSLocalizedString("Home_Reenable_Card_TestResult_Subtitle", comment: "")
+		static let reenableCardTestResultRegistration = NSLocalizedString("Home_Reenable_Card_TestResult_Registration", comment: "")
+		static let reenableAlertTitle = NSLocalizedString("Home_Reenable_Alert_Title", comment: "")
+		static let reenableAlertMessage = NSLocalizedString("Home_Reenable_Alert_Message", comment: "")
+		static let reenableAlertConfirmButtonTitle = NSLocalizedString("Home_Reenable_Alert_ConfirmButtonTitle", comment: "")
+		static let reenableAlertCancelButtonTitle = NSLocalizedString("Home_Reenable_Alert_CancelButtonTitle", comment: "")
+
 		// Finding positive card
 		static let findingPositiveCardTitle = NSLocalizedString("Home_Finding_Positive_Card_Title", comment: "")
 		static let findingPositiveCardStatusTitle = NSLocalizedString("Home_Finding_Positive_Card_Status_Title", comment: "")

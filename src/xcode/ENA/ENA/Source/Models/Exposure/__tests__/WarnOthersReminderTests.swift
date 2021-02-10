@@ -17,7 +17,6 @@ class WarnOthersReminderTests: XCTestCase {
 	}
 	
 	func testWarnOthers_allVariablesAreInitial() throws {
-		
 		let store = MockTestStore()
 		
 		let warnOthersReminder = WarnOthersReminder(store: store)
@@ -29,7 +28,6 @@ class WarnOthersReminderTests: XCTestCase {
 		XCTAssertEqual(Double(warnOthersReminder.notificationTwoTimeInterval), timerTwoTime, "Notification timeInterval two has not the intial value of \(timerTwoTime)")
 		
 		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
-		
 	}
 	
 	func testWarnOthers_changedValuesShouldBeCorrect() throws {
@@ -48,10 +46,28 @@ class WarnOthersReminderTests: XCTestCase {
 		warnOthersReminder.reset()
 		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
 	}
-	
+
+	func testWarnOthers_ShowingPositiveTestResultResetsDeadmanNotification() throws {
+		let store = MockTestStore()
+
+		var deadmanNotificationManager = MockDeadmanNotificationManager()
+
+		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
+		deadmanNotificationManager.resetDeadmanNotificationCalled = {
+			deadmanResetExpectation.fulfill()
+		}
+
+		let warnOthersReminder = WarnOthersReminder(
+			store: store,
+			deadmanNotificationManager: deadmanNotificationManager
+		)
+
+		warnOthersReminder.evaluateShowingTestResult(.positive)
+
+		waitForExpectations(timeout: .medium)
+	}
 	
 	func testWarnOthers_SubmissionConsentGiven() throws {
-		
 		let store = MockTestStore()
 		store.isSubmissionConsentGiven = true
 		
