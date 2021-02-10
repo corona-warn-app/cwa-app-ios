@@ -46,6 +46,10 @@ struct DataDonationModel {
 	var region: String?
 	var age: String?
 
+	var allFederalStateNames: [String] {
+		FederalStateName.allCases.map { $0.rawValue }
+	}
+
 	func allRegions(by federalStateName: String) -> [String] {
 		allDistricts.filter { district -> Bool in
 			district.federalStateName.rawValue == federalStateName
@@ -53,13 +57,48 @@ struct DataDonationModel {
 		.map { $0.districtName }
 	}
 
-	var allFederalStateNames: [String] {
-		FederalStateName.allCases.map { $0.rawValue }
-	}
+	func save() {
+		store.privacyPreservingAnalyticsConsentAccept = isConsentGiven
 
+		/* optional data for later use
+
+		let ageGroup = AgeGroup(from: self.age)
+		let district = allDistricts.first(where: { districtElement -> Bool in
+				districtElement.districtName == region
+			  }
+		)
+		let federalStateNameEnum: FederalStateName?
+		if let federaStateName = federalStateName {
+			federalStateNameEnum = FederalStateName(rawValue: federaStateName)
+		}
+*/
+
+		guard let ageGroup = AgeGroup(from: self.age),
+			  let district = allDistricts.first(where: { districtElement -> Bool in
+				districtElement.districtName == region
+			  }),
+			  let federaStateName = federalStateName,
+
+			  let federalStateNameEnum = FederalStateName(rawValue: federaStateName) else {
+			return
+		}
+
+		let userMetaData = UserMetadata(
+			federalState: federalStateNameEnum,
+			administrativeUnit: district.districtID,
+			ageGroup: ageGroup)
+
+		store.userMetadata = userMetaData
+	}
 
 	// MARK: - Private
 
 	private let store: Store
 	private let allDistricts: [DistrictElement]
+
+	private mutating func load() {
+//		isConsentGiven = store.privacyPreservingAnalyticsConsentAccept
+//		let userMetaData =
+	}
+
 }

@@ -24,10 +24,11 @@ final class DataDonationViewModel {
 	// MARK: - Protocol <#Name#>
 
 	// MARK: - Public
-	
-	func setConsent(consentGiven: Bool) {
+
+	func save(consentGiven: Bool) {
 		dataDonationModel.isConsentGiven = consentGiven
 		Log.debug("DataDonation consent value set to '\(consentGiven)'")
+		dataDonationModel.save()
 	}
 
 	// MARK: - Internal
