@@ -278,7 +278,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return [SAP_Internal_Ppdd_ExposureRiskMetadata.with {
 			$0.riskLevel = storedUsageData.riskLevel.protobuf
 			$0.riskLevelChangedComparedToPreviousSubmission = storedUsageData.riskLevelChangedComparedToPreviousSubmission
-			$0.mostRecentDateAtRiskLevel = formatToUTCMidnightUnixTimestamp(for: storedUsageData.mostRecentDateAtRiskLevel)
+			$0.mostRecentDateAtRiskLevel = formatToUnixTimestamp(for: storedUsageData.mostRecentDateAtRiskLevel)
 			$0.dateChangedComparedToPreviousSubmission = storedUsageData.dateChangedComparedToPreviousSubmission
 		}]
 	}
@@ -310,15 +310,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 
-	private func formatToUTCMidnightUnixTimestamp(for date: Date?) -> Int64 {
+	private func formatToUnixTimestamp(for date: Date?) -> Int64 {
 		guard let date = date else {
 			Log.warning("mostRecentDate is nil", log: .ppa)
 			return -1
 		}
-		guard let formatted = date.utcMidnightUnixTimestamp else {
-			Log.warning("Trouble with converting date to utc midnight date", log: .ppa)
-			return -1
-		}
-		return formatted
+		return date.unixTimestamp
 	}
 }
