@@ -32,13 +32,13 @@ struct DeadmanNotificationManager {
 			return
 		}
 
-		// Check if Deadman Notification is already scheduled
+		/// Check if Deadman Notification is already scheduled
 		userNotificationCenter.getPendingNotificationRequests { notificationRequests in
 			if notificationRequests.contains(where: { $0.identifier == Self.deadmanNotificationIdentifier }) {
-				// Deadman Notification already setup -> return
+				/// Deadman Notification already setup -> return
 				return
 			} else {
-				// No Deadman Notification setup, continue to setup a new one
+				/// No Deadman Notification setup, continue to setup a new one
 				let content = UNMutableNotificationContent()
 				content.title = AppStrings.Common.deadmanAlertTitle
 				content.body = AppStrings.Common.deadmanAlertBody
