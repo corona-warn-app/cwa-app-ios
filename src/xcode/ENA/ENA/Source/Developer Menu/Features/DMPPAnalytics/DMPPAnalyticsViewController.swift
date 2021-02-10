@@ -52,11 +52,7 @@ class DMPPAnalyticsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// by help of a protocol for cellViewModel we might simplyfiy this even more
 		let cellViewModel = viewModel.cellViewModel(by: indexPath)
-		if cellViewModel is DMTextViewCellViewModel {
-			let cell = tableView.dequeueReusableCell(cellType: DMTextViewTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
-		} else if cellViewModel is DMButtonCellViewModel {
+		if cellViewModel is DMButtonCellViewModel {
 			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
@@ -81,7 +77,6 @@ class DMPPAnalyticsViewController: UITableViewController {
 		tableView.estimatedRowHeight = 45.0
 		tableView.rowHeight = UITableView.automaticDimension
 
-		tableView.register(DMTextViewTableViewCell.self, forCellReuseIdentifier: DMTextViewTableViewCell.reuseIdentifier)
 		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 
 		// wire up tableview with the viewModel

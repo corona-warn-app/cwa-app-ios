@@ -66,6 +66,7 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var onboardedDate: Date?
 	var submissionAnalytics: Date?
 	var lastAppReset: Date?
+	var lastSubmittedPPAData: String?
 
 	#if !RELEASE
 	// Settings from the debug menu.

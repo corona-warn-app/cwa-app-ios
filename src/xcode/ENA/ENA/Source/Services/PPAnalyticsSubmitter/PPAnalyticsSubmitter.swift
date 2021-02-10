@@ -15,6 +15,10 @@ protocol PPAnalyticsSubmitting {
 	#if !RELEASE
 	// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
+	// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
+	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS
+	// ONLY FOR TESTING. Returns the last submitted data.
+	func lastSubmittedDataMessage() -> String?
 	#endif
 }
 
@@ -138,7 +142,17 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 		}
 	}
+
+	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
+		return obtainUsageData()
+	}
+
 	#endif
+
+	func lastSubmittedDataMessage() -> String? {
+		return store.lastSubmittedPPAData
+	}
+
 
 	// MARK: - Public
 
@@ -228,6 +242,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					Log.info("Analytics data succesfully submitted", log: .ppa)
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
+					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted", log: .ppa, error: error)

@@ -283,6 +283,11 @@ final class SecureStore: Store {
 		set { kvStore["lastAppReset"] = newValue }
 	}
 
+	var lastSubmittedPPAData: String? {
+		get { kvStore["lastSubmittedPPAData"] as String? }
+		set { kvStore["lastSubmittedPPAData"] = newValue }
+	}
+
 	/// Database reset & re-initialization with a given key
 	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
 	///

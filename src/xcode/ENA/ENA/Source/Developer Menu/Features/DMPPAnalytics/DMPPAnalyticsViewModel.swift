@@ -47,12 +47,6 @@ final class DMPPAnalyticsViewModel {
 		}
 
 		switch section {
-		case .mostRecentSubmission:
-			let mostRecentSubmission = "Hallo"
-			return DMTextViewCellViewModel(text: mostRecentSubmission)
-		case .captureUsageData:
-			let data = "Data"
-			return DMTextViewCellViewModel(text: data)
 		case .forceSubmission:
 			return DMButtonCellViewModel(
 				text: "Force Analytics Submission",
@@ -62,13 +56,13 @@ final class DMPPAnalyticsViewModel {
 					self?.submitter.forcedSubmitData(completion: { [weak self] result in
 						switch result {
 						case .success:
-							self?.refreshTableView([TableViewSections.mostRecentSubmission.rawValue, TableViewSections.captureUsageData.rawValue, TableViewSections.forceSubmission.rawValue])
+							self?.refreshTableView([TableViewSections.forceSubmission.rawValue])
 						case let .failure(error):
 							let alert = UIAlertController(title: "Data submission error", message: "Error code: \(error)", preferredStyle: .alert)
 							alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
 							self?.showAlert?(alert)
 
-							self?.refreshTableView([TableViewSections.mostRecentSubmission.rawValue, TableViewSections.captureUsageData.rawValue, TableViewSections.forceSubmission.rawValue])
+							self?.refreshTableView([TableViewSections.forceSubmission.rawValue])
 						}
 					})
 				}
@@ -80,8 +74,6 @@ final class DMPPAnalyticsViewModel {
 	// MARK: - Private
 
 	private enum TableViewSections: Int, CaseIterable {
-		case mostRecentSubmission
-		case captureUsageData
 		case forceSubmission
 	}
 
