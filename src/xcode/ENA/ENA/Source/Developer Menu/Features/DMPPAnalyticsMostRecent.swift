@@ -79,7 +79,7 @@ class DMPPAnalyticsMostRecent: UIViewController {
 		])
 
 		var text = "No data was submitted before."
-		if let message = submitter.lastSubmittedDataMessage() {
+		if let message = submitter.mostRecentAnalyticsData() {
 			text = message
 		}
 		textView.text = text
