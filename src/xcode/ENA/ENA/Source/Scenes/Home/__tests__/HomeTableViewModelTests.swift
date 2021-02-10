@@ -161,4 +161,31 @@ class HomeTableViewModelTests: XCTestCase {
 		}
 	}
 
+	func testReenableRiskDetection() {
+		let store = MockTestStore()
+
+		let viewModel = HomeTableViewModel(
+			state: .init(
+				store: store,
+				riskProvider: MockRiskProvider(),
+				exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+				enState: .enabled,
+				exposureSubmissionService: MockExposureSubmissionService(),
+				statisticsProvider: StatisticsProvider(
+					client: CachingHTTPClientMock(store: store),
+					store: store
+				)
+			),
+			store: store
+		)
+
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		store.testResultReceivedTimeStamp = 23456789
+
+		viewModel.reenableRiskDetection()
+
+		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
+		XCTAssertNil(store.testResultReceivedTimeStamp)
+	}
+
 }
