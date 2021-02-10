@@ -47,14 +47,14 @@ final class DataDonationViewModel {
 	// MARK: - Internal
 
 	// [KGA] add accessibilityLabel and identifier back to cell
-//	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
-//	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
+	//	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
+	//	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
 
 	@OpenCombine.Published private (set) var reloadTableView: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
-		DynamicTableViewModel.with {
-			
+		/// create the top section with the illustration and title text
+		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
 				.section(
 					header: .image(
@@ -69,55 +69,67 @@ final class DataDonationViewModel {
 					]
 				)
 			)
-
-			$0.add(
-				.section(
-					cells: [
-						.headline(text: AppStrings.DataDonation.Info.subHeadState),
-						.body(text: friendlyFederalStateName, style: .label, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-							self?.didTapSelectStateButton()
-						}), configure: { _, cell, _ in
-							cell.accessoryType = .disclosureIndicator
-						}),
-						.body(text: friendlyRegionName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-							self?.didTapSelectRegionButton()
-						}), configure: { _, cell, _ in
-							cell.accessoryType = .disclosureIndicator
-						}),
-						.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup),
-						.body(text: friendlyAgeName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-							self?.didTapAgeButton()
-						}), configure: { _, cell, _ in
-							cell.accessoryType = .disclosureIndicator
-						})
-					]
-				)
-			)
-
-			$0.add(
-				.section(
-					cells: [
-						.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
-							   description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
-							   textBlocks: [
-								acknowledgementString,
-								NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
-							   ],
-							   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
-						.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
-						.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-						.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
-						.space(height: 16)
-					]
-				)
-			)
-
 		}
+
+		/// section to show input fields with already given data
+		/// this will change numer of cells by the already entered data
+		let sectionCells: [DynamicCell] = [
+			.headline(text: AppStrings.DataDonation.Info.subHeadState),
+
+			.body(text: friendlyFederalStateName, style: .label, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+				self?.didTapSelectStateButton()
+			}), configure: { _, cell, _ in
+				cell.accessoryType = .disclosureIndicator
+			}),
+			dataDonationModel.federalStateName != nil ?
+				.body(text: friendlyRegionName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+					self?.didTapSelectRegionButton()
+				}), configure: { _, cell, _ in
+					cell.accessoryType = .disclosureIndicator
+				}) :
+				nil,
+			.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup),
+			.body(text: friendlyAgeName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+				self?.didTapAgeButton()
+			}), configure: { _, cell, _ in
+				cell.accessoryType = .disclosureIndicator
+			})
+		]
+		.compactMap { $0 }
+
+		dynamicTableViewModel.add(
+			.section(
+				cells: sectionCells
+			)
+		)
+
+		/// section for the legal texts
+		dynamicTableViewModel.add(
+			.section(
+				cells: [
+					.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
+						   description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
+						   textBlocks: [
+							acknowledgementString,
+							NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
+						   ],
+						   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
+					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
+					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+					.space(height: 16)
+				]
+			)
+		)
+
+		return dynamicTableViewModel
 	}
 
 	// MARK: - Private
 
 	private let presentSelectValueList: (SelectValueViewModel) -> Void
+	private let allDistricts: [DistrictElement]
+
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
 
@@ -157,8 +169,6 @@ final class DataDonationViewModel {
 
 		return string
 	}()
-
-	private let allDistricts: [DistrictElement]
 
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
