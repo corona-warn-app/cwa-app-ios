@@ -49,6 +49,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
+		store.positiveTestResultWasShown = true
+		store.testResultReceivedTimeStamp = 12345678
+
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
 		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
@@ -72,10 +75,15 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertNil(store.registrationToken)
 		XCTAssertNil(store.tan)
 
+		/// The date of the test result is still needed because it is shown on the home screen after the submission
+		XCTAssertNotNil(store.testResultReceivedTimeStamp)
+
 		XCTAssertFalse(service.isSubmissionConsentGiven)
 		XCTAssertNil(store.submissionKeys)
 		XCTAssertTrue(store.submissionCountries.isEmpty)
 		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertFalse(store.positiveTestResultWasShown)
+
 		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
