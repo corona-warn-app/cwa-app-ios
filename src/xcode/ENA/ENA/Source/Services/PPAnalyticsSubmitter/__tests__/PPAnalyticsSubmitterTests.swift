@@ -24,7 +24,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.onboardedDate = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -90,7 +90,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		// WHEN
 		var ppasError: PPASError?
@@ -123,7 +123,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		// WHEN
 		var ppasError: PPASError?
@@ -156,7 +156,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
 		// WHEN
@@ -190,7 +190,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.onboardedDate = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
@@ -225,7 +225,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.onboardedDate = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
@@ -261,7 +261,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.privacyPreservingAnalyticsConsentAccept = true
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.onboardedDate = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -281,5 +281,56 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(ppasError, .ppacError)
+	}
+
+	// MARK: - Conversion to protobuf
+
+	func testGIVEN_AgeGroup_WHEN_Converting_THEN_ProtobufAgeGroupIsReturned() {
+		// GIVEN
+		let ageGroup: AgeGroup = .ageBetween30And59
+
+		// WHEN
+		let expectation = ageGroup.protobuf
+
+		// THEN
+		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPAAgeGroup.ageGroup30To59)
+	}
+
+	func testGIVEN_FederalState_WHEN_Converting_THEN_ProtobufFederalStateIsReturned() {
+		// GIVEN
+		let federalState: FederalStateName = .hessen
+
+		// WHEN
+		let expectation = federalState.protobuf
+
+		// THEN
+		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPAFederalState.federalStateHe)
+	}
+
+	func testGIVEN_RiskLevel_WHEN_Converting_THEN_ProtobufRiskLevelIsReturned() {
+		// GIVEN
+		let riskLevel: RiskLevel = .high
+
+		// WHEN
+		let expectation = riskLevel.protobuf
+
+		// THEN
+		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPARiskLevel.riskLevelHigh)
+	}
+
+	func testGIVEN_Date_WHEN_Converting_THEN_UnixTimestampIsReturned() throws {
+		// GIVEN
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy/MM/dd HH:mm"
+		let someDateTime = formatter.date(from: "1986/01/09 04:22")
+		let date = try XCTUnwrap(someDateTime)
+
+		// WHEN
+		let formatted = date.unixTimestamp
+
+		// THEN
+
+		XCTAssertEqual(formatted, 505624920)
+
 	}
 }

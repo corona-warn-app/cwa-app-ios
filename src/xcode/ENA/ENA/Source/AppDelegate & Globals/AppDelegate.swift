@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		taskScheduler.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
-		// Setup DeadmanNotification after AppLaunch
-		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
+		/// Setup DeadmanNotification after AppLaunch
+		DeadmanNotificationManager(store: store).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
@@ -233,7 +233,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies)
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			analyticsSubmitter: self.analyticsSubmitter
+			)
 	}()
 
 	var notificationManager: NotificationManager! = NotificationManager()

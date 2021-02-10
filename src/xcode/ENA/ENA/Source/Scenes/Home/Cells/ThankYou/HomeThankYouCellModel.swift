@@ -14,14 +14,21 @@ struct HomeThankYouCellModel {
 	let imageName = "Illu_Submission_VielenDank"
 
 	let body = AppStrings.Home.thankYouCardBody
-
 	let noteTitle = AppStrings.Home.thankYouCardNoteTitle
-
 	let furtherInfoTitle = AppStrings.Home.thankYouCardFurtherInfoItemTitle
 
 	let backgroundColor = UIColor.enaColor(for: .background)
-
 	let iconColor: UIColor = .enaColor(for: .riskHigh)
+
+	let reenableTitle = AppStrings.Home.reenableCardTitle
+	let reenableBody = AppStrings.Home.reenableCardBody
+	let reenableButtonTitle = AppStrings.Home.reenableCardButtonTitle
+
+	let reenableTestResultTitle = AppStrings.Home.reenableCardTestResultTitle
+	let reenableTestResultSubtitle = AppStrings.Home.reenableCardTestResultSubtitle
+	let reenableTestResultRegistration = AppStrings.Home.reenableCardTestResultRegistration
+
+	let testResultTimestamp: Int64?
 
 	var homeItemViewModels: [HomeItemViewModel] {
 		[

@@ -9,7 +9,7 @@ class HomeThankYouCellModelTests: XCTestCase {
 
 	func testGIVEN_CellModel_THEN_InitilizedAsExpected() {
 		// GIVEN
-		let cellModel = HomeThankYouCellModel()
+		let cellModel = HomeThankYouCellModel(testResultTimestamp: 0)
 
 		// THEN
 		XCTAssertEqual(cellModel.title, AppStrings.Home.thankYouCardTitle)
@@ -26,7 +26,7 @@ class HomeThankYouCellModelTests: XCTestCase {
 
 	func testGIVEN_CellModel_WHEN_HomeItemViewModels_THEN_InitilizedAsExpected() throws {
 		// GIVEN
-		let cellModel = HomeThankYouCellModel()
+		let cellModel = HomeThankYouCellModel(testResultTimestamp: 0)
 
 		// WHEN
 		let firstHomeItemViewModels = try XCTUnwrap(cellModel.homeItemViewModels[0] as? HomeImageItemViewModel)
@@ -50,7 +50,7 @@ class HomeThankYouCellModelTests: XCTestCase {
 
 	func testGIVEN_CellModel_WHEN_FurtherHomeItemViewModels_THEN_InitilizedAsExpected() throws {
 		// GIVEN
-		let cellModel = HomeThankYouCellModel()
+		let cellModel = HomeThankYouCellModel(testResultTimestamp: 0)
 
 		// WHEN
 		let firstHomeItemViewModels = try XCTUnwrap(cellModel.furtherHomeItemViewModels[0] as? HomeListItemViewModel)
