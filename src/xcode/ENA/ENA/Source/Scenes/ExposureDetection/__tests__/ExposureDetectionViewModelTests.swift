@@ -62,7 +62,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.titleTextColor, .enaColor(for: .textContrast))
 		XCTAssertEqual(viewModel.closeButtonStyle, .contrast)
 
-		XCTAssertEqual(viewModel.isButtonHidden, true)
+		XCTAssertTrue(viewModel.isButtonHidden)
 
 		XCTAssertEqual(viewModel.riskTintColor, .enaColor(for: .riskLow))
 		XCTAssertEqual(viewModel.riskContrastTintColor, .enaColor(for: .textContrast))
@@ -513,8 +513,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.closeButtonStyle, .normal)
 
 		XCTAssertEqual(viewModel.buttonTitle, AppStrings.Home.riskCardInactiveNoCalculationPossibleButton)
-		XCTAssertEqual(viewModel.isButtonEnabled, true)
-		XCTAssertEqual(viewModel.isButtonHidden, false)
+		XCTAssertTrue(viewModel.isButtonEnabled)
+		XCTAssertFalse(viewModel.isButtonHidden)
 
 		XCTAssertEqual(viewModel.riskTintColor, .enaColor(for: .riskNeutral))
 		XCTAssertEqual(viewModel.riskContrastTintColor, .enaColor(for: .riskNeutral))
@@ -590,8 +590,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.closeButtonStyle, .normal)
 
 		XCTAssertEqual(viewModel.buttonTitle, AppStrings.Home.riskCardFailedCalculationRestartButtonTitle)
-		XCTAssertEqual(viewModel.isButtonEnabled, true)
-		XCTAssertEqual(viewModel.isButtonHidden, false)
+		XCTAssertTrue(viewModel.isButtonEnabled)
+		XCTAssertFalse(viewModel.isButtonHidden)
 
 		XCTAssertEqual(viewModel.riskTintColor, .enaColor(for: .riskNeutral))
 		XCTAssertEqual(viewModel.riskContrastTintColor, .enaColor(for: .riskNeutral))
@@ -936,7 +936,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 5)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
@@ -977,7 +977,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Behaviour section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 5)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")

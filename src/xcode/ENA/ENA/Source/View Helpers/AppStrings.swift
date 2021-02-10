@@ -39,6 +39,7 @@ enum AppStrings {
 		static let appFaqENError5 = NSLocalizedString("General_moreInfo_URL_EN5", tableName: "Localizable.links", comment: "")
 		static let appFaqENError11 = NSLocalizedString("General_moreInfo_URL_EN11", tableName: "Localizable.links", comment: "")
 		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", tableName: "Localizable.links", comment: "")
+		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
 	}
 
 	enum AccessibilityLabel {
@@ -335,6 +336,8 @@ enum AppStrings {
 		static let guideHotline2 = NSLocalizedString("ExposureDetection_Guide_Hotline2", comment: "")
 		static let guideHotline3 = NSLocalizedString("ExposureDetection_Guide_Hotline3", comment: "")
 		static let guideHotline4 = NSLocalizedString("ExposureDetection_Guide_Hotline4", comment: "")
+		static let guideFAQ = NSLocalizedString("ExposureDetection_Guide_FAQ", comment: "Placeholder points to `ExposureDetection_LinkText`")
+		static let guideFAQLinkText = NSLocalizedString("ExposureDetection_Guide_FAQ_LinkText", comment: "The 'tapable' text containing the link to the faq")
 
 		static let explanationTitle = NSLocalizedString("ExposureDetection_Explanation_Title", comment: "")
 		static let explanationSubtitle = NSLocalizedString("ExposureDetection_Explanation_Subtitle", comment: "")
@@ -700,10 +703,6 @@ enum AppStrings {
 		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
 		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
 
-		static let diaryCardTitle = NSLocalizedString("Home_DiaryCard_Title", comment: "")
-		static let diaryCardBody = NSLocalizedString("Home_DiaryCard_Body", comment: "")
-		static let diaryCardButton = NSLocalizedString("Home_DiaryCard_Button", comment: "")
-
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
@@ -872,6 +871,33 @@ enum AppStrings {
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
+		/* Version 1.13 */
+		
+		static let feature113RkiSurveyTitle = NSLocalizedString("NewVersionFeature_113_rki_survey_title", comment: "")
+		
+		static let feature113RkiSurveyDescription = NSLocalizedString("NewVersionFeature_113_rki_survey_description", comment: "")
+		
+		static let feature113DataDonationTitle = NSLocalizedString("NewVersionFeature_113_data_donation_title", comment: "")
+		
+		static let feature113DataDonationDescription = NSLocalizedString("NewVersionFeature_113_data_donation_description", comment: "")
+		
+		static let feature113RiskCardTitle = NSLocalizedString("NewVersionFeature_113_risk_cards_title", comment: "")
+		
+		static let feature113RiskCardDescription = NSLocalizedString("NewVersionFeature_113_risk_cards_description", comment: "")
+		
+		static let feature113RiskDeterminationRandomIdTitle = NSLocalizedString("NewVersionFeature_113_risk_determination_random_id_title", comment: "")
+		
+		static let feature113RiskDeterminationRandomIdDescription = NSLocalizedString("NewVersionFeature_113_risk_determination_random_id_description", comment: "")
+		
+		static let feature113NewTabBarTitle = NSLocalizedString("NewVersionFeature_113_new_tabbar_title", comment: "")
+		
+		static let feature113NewTabBarDescription = NSLocalizedString("NewVersionFeature_113_new_tabbar_description", comment: "")
+		
+		static let feature113AddInfoAboutTestProcedureTitle = NSLocalizedString("NewVersionFeature_113_additonal_info_about_test_procedure_title", comment: "")
+		
+		static let feature113AddInfoAboutTestProcedureDescription = NSLocalizedString("NewVersionFeature_113_additonal_info_about_test_procedure_description", comment: "")
+		
+		/* Version 1.12 */
 		static let feature112StatisticsTitle = NSLocalizedString("NewVersionFeature_112_statistics_title", comment: "")
 		
 		static let feature112StatisticsDescription = NSLocalizedString("NewVersionFeature_112_statistics_description", comment: "")
@@ -1142,5 +1168,9 @@ enum AppStrings {
 		static let text = NSLocalizedString("UpdateOS_text", comment: "")
 	}
 	
+	enum Tabbar {
+		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
+		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+	}
 	// swiftlint:disable:next file_length
 }

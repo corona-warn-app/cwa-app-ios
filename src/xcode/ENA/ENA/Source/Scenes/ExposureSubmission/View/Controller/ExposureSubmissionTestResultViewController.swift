@@ -94,9 +94,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
 		)
 		tableView.register(
-			UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil),
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
-		)
+			ExposureSubmissionStepCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 	}
 
 	private func setUpBindings() {

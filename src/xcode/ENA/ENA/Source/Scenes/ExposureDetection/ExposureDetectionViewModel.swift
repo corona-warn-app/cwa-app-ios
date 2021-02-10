@@ -436,7 +436,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						AppStrings.ExposureDetection.guideHotline2,
 						AppStrings.ExposureDetection.guideHotline3,
 						AppStrings.ExposureDetection.guideHotline4
-					])
+					]),
+					.guide(
+						attributedString: faqLinkText(),
+						image: UIImage(named: "Icons - Test Tube"),
+						link: URL(string: AppStrings.Links.exposureDetectionFAQ),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ)
 				]
 			),
 			activeTracingSection(
@@ -455,6 +460,18 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			sections.insert(surveySection(), at: 3)
 		}
 		return DynamicTableViewModel(sections)
+	}
+
+	private func faqLinkText(tintColor: UIColor = .enaColor(for: .textTint)) -> NSAttributedString {
+		let rawString = String(format: AppStrings.ExposureDetection.guideFAQ, AppStrings.ExposureDetection.guideFAQLinkText)
+		let string = NSMutableAttributedString(string: rawString)
+		let range = string.mutableString.range(of: AppStrings.ExposureDetection.guideFAQLinkText)
+		if range.location != NSNotFound {
+			// Links don't work in UILabels so we fake it here. Link handling in done in view controller on cell tap.
+			string.addAttribute(.foregroundColor, value: tintColor, range: range)
+			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
+		}
+		return string
 	}
 
 	// MARK: Sections

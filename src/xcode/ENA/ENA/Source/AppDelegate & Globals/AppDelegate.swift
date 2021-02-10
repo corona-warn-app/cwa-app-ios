@@ -104,8 +104,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-		// explicitely disabled as per #EXPOSUREAPP-2214
-		plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		if !AppDelegate.isAppDisabled() {
+			// explicitly disabled as per #EXPOSUREAPP-2214
+			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		}
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -122,9 +124,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let wifiClient: WifiOnlyHTTPClient
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-    let store: Store
     let contactDiaryStore = ContactDiaryStore.make()
     let serverEnvironment: ServerEnvironment
+	var store: Store
 
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
@@ -259,7 +261,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
 		exposureSubmissionService.reset()
 
-		// Reset key value store.
+		// Reset key value store. Preserve environment settings.
+		let environment = store.selectedServerEnvironment
 		do {
 			/// ppac API Token is excluded from the reset
 			/// read value from the current store
@@ -273,8 +276,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		} catch {
 			fatalError("Creating new database key failed")
 		}
+		store.selectedServerEnvironment = environment
+
+		// Reset packages store
 		downloadedPackagesStore.reset()
 		downloadedPackagesStore.open()
+
+		// Reset exposureManager
 		exposureManager.reset {
 			self.exposureManager.observeExposureNotificationStatus(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
@@ -401,10 +409,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private(set) lazy var coordinator = Coordinator(
+	lazy var coordinator = RootCoordinator(
 		self,
-		navigationController,
 		contactDiaryStore: self.contactDiaryStore,
 		otpService: otpService
 	)
@@ -427,7 +433,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = navigationController
+		window?.rootViewController = coordinator.viewController
 		window?.makeKeyAndVisible()
 		
 		#if DEBUG
