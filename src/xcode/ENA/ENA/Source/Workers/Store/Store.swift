@@ -8,9 +8,6 @@ import ExposureNotification
 protocol StoreProtocol: AnyObject {
 	var analyticsSubmitter: PPAnalyticsSubmitter? { get set }
 	var isOnboarded: Bool { get set }
-
-	/// PPA onboarding completed date
-	var onboardedDate: Date? { get set }
 	var onboardingVersion: String { get set }
 	var finishedDeltaOnboardings: [String: [String]] { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }

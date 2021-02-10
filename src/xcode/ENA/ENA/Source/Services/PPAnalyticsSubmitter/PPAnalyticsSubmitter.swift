@@ -200,7 +200,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private var onboardingCompletedWithinLast24Hours: Bool {
-		guard let onbaordedDate = store.onboardedDate,
+		// why the date of acceptedPrivacyNotice? See https://github.com/corona-warn-app/cwa-app-tech-spec/pull/19#discussion_r572826236
+		guard let onbaordedDate = store.dateOfAcceptedPrivacyNotice,
 			  let twentyFourHoursAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date()) else {
 			return false
 		}

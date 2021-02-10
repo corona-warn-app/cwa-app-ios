@@ -26,7 +26,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-		store.onboardedDate = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
 
@@ -192,7 +192,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-		store.onboardedDate = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
 		// WHEN
 		var ppasError: PPASError?
@@ -227,7 +227,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-		store.onboardedDate = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
 		// WHEN
@@ -263,7 +263,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called with an error")
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.submissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
-		store.onboardedDate = Calendar.current.date(byAdding: .day, value: -5, to: Date())
+		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 
 		// WHEN
