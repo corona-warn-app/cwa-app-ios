@@ -69,16 +69,22 @@ final class DataDonationViewModel {
 				.section(
 					cells: [
 						.headline(text: AppStrings.DataDonation.Info.subHeadState),
-						.body(text: friendlyFederalStateName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+						.body(text: friendlyFederalStateName, style: .label, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
 							self?.didTapSelectStateButton()
-						})),
+						}), configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+						}),
 						.body(text: friendlyRegionName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
 							self?.didTapSelectRegionButton()
-						})),
+						}), configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+						}),
 						.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup),
 						.body(text: friendlyAgeName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
 							self?.didTapAgeButton()
-						}))
+						}), configure: { _, cell, _ in
+							cell.accessoryType = .disclosureIndicator
+						})
 					]
 				)
 			)
