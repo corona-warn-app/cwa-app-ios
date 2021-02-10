@@ -14,12 +14,13 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	private let tableView = UITableView()
 	private var characters = ["Link", "Zelda", "Ganondorf", "Midna"]
 	private var safeArea: UILayoutGuide!
+	private var dataSource:[(key:String,values:[String])]
 
 	// MARK: - Initializers
 
 	init(store: Store) {
 		self.store = store
-
+		dataSource = store.finishedDeltaOnboardings.compactMap({(key:$0,values:$1)})
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -32,6 +33,9 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		tableView.delegate = self
+		tableView.dataSource = self
+		
 		safeArea = view.layoutMarginsGuide
 		
 		view.backgroundColor = ColorCompatibility.systemBackground
@@ -107,13 +111,23 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	}
 }
 
-extension DMDeltaOnboardingViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-	return characters.count
-  }
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-	let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-	cell.textLabel?.text = characters[indexPath.row]
-	return cell
-  }
+extension DMDeltaOnboardingViewController: UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return dataSource[section].values.count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+		cell.textLabel?.text = dataSource[indexPath.section].values[indexPath.row]
+		return cell
+	}
+	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return dataSource.count
+	}
+	
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return dataSource[section].key
+	}
+	
 }
