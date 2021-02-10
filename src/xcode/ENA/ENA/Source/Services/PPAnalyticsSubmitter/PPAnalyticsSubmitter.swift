@@ -187,7 +187,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private var subscriptions = [AnyCancellable]()
 
 	private var userDeclinedAnalyticsCollectionConsent: Bool {
-		return !store.privacyPreservingAnalyticsConsentAccept
+		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
 
 	private var submissionWithinLast23Hours: Bool {
