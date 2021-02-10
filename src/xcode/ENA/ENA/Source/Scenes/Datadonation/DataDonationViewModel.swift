@@ -66,26 +66,23 @@ final class DataDonationViewModel {
 			)
 
 			$0.add(
-				.section(cells: [
-					.body(text: friendlyFederalStateName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-						self?.didTapSelectStateButton()
-					})),
-					.body(text: friendlyRegionName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-						self?.didTapSelectRegionButton()
-					}))
-
-				])
-			)
-
-			$0.add(
 				.section(
 					cells: [
 						.headline(text: AppStrings.DataDonation.Info.subHeadState),
-						.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup)
+						.body(text: friendlyFederalStateName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+							self?.didTapSelectStateButton()
+						})),
+						.body(text: friendlyRegionName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+							self?.didTapSelectRegionButton()
+						})),
+						.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup),
+						.body(text: friendlyAgeName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+							self?.didTapAgeButton()
+						}))
 					]
 				)
 			)
-/*
+
 			$0.add(
 				.section(
 					cells: [
@@ -103,7 +100,7 @@ final class DataDonationViewModel {
 					]
 				)
 			)
-*/
+
 		}
 	}
 
@@ -192,5 +189,21 @@ final class DataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
+	private func didTapAgeButton() {
+		let selectValueViewModel = SelectValueViewModel(
+			AgeGroup.allCases.map({ $0.text }),
+			title: AppStrings.DataDonation.ValueSelection.Title.Age,
+			preselected: dataDonationModel.age
+		)
+		selectValueViewModel.$selectedValue .sink { [weak self] age in
+			guard self?.dataDonationModel.age != age else {
+				return
+			}
+			self?.dataDonationModel.age = age
+			self?.reloadTableView.toggle()
+		}.store(in: &subscriptions)
+
+		presentSelectValueList(selectValueViewModel)
+	}
 
 }
