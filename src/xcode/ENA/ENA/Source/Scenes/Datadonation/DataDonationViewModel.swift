@@ -77,7 +77,7 @@ final class DataDonationViewModel {
 				.section(
 					cells: [
 						.headline(text: AppStrings.DataDonation.Info.subHeadState),
-						.headline(text: AppStrings.DataDonation.Info.subHeadState)
+						.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup)
 					]
 				)
 			)
