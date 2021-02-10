@@ -74,10 +74,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 			// 4. obtain authentication data
 			let deviceCheck = PPACDeviceCheck()
-			guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
-				Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
-				return
-			}
+			let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
 
 			// 6. submit analytics data
 			ppacService.getPPACToken { [weak self] result in
@@ -150,11 +147,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			} else {
 				// 4. obtain authentication data
 				let deviceCheck = PPACDeviceCheck()
-				guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
-					Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
-					completion?(.failure(.ppacError))
-					return
-				}
+				let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
 
 				// 6. submit analytics data
 				ppacService.getPPACToken { [weak self] result in
