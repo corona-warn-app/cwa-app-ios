@@ -15,6 +15,9 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		// self
+		selectionStyle = .none
+		contentView.backgroundColor = .enaColor(for: .background)
 		// titleLabel
 		titleLabel = ENALabel()
 		titleLabel.style = .title2
@@ -48,28 +51,28 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		// activate constrinats
 		NSLayoutConstraint.activate([
 			// titleLabel
-			titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
 			titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			// label1
-			label1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-			label1.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			label1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label1.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			label1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
 			label1.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			// label2
-			label2.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-			label2.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			label2.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label2.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 20),
 			label2.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			// label3
-			label3.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-			label3.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			label3.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label3.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			label3.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 20),
 			label3.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			// label4
-			label4.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-			label4.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+			label4.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label4.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 			label4.topAnchor.constraint(equalTo: label3.bottomAnchor, constant: 20),
 			label4.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
 		])

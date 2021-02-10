@@ -11,9 +11,19 @@ class TracingHistoryTableViewCell: UITableViewCell {
 	private var subtitleLabel: ENALabel!
 	private var circleView: CircularProgressView!
 	private var historyLabel: ENALabel!
+	private lazy var line: CAShapeLayer = {
+		let line = CAShapeLayer()
+		line.lineWidth = 1
+		line.strokeColor = UIColor.enaColor(for: .hairline).cgColor
+		contentView.layer.insertSublayer(line, at: 0)
+		return line
+	}()
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		// self
+		selectionStyle = .none
+		contentView.backgroundColor = .enaColor(for: .background)
 		// titleLabel
 		titleLabel = ENALabel()
 		titleLabel.style = .title2

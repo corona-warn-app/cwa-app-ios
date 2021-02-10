@@ -26,6 +26,11 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		let label: String?
 		let accessibilityIdentifier: String?
 	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		separatorInset.left = bounds.width
+	}
 
 	func configure(for state: ENStateHandler.State) {
 		let imageConfiguration = bannerImageConfig(for: state)

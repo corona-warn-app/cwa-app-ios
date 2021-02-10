@@ -56,11 +56,11 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	override func numberOfSections(in _: UITableView) -> Int {
 		sections.count
 	}
-
-	override func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-		0
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNormalMagnitude
 	}
-
+	
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch sections[section] {
 		case .actionCell:
@@ -69,7 +69,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			}
 			return 40
 		default:
-			return 0
+			return CGFloat.leastNormalMagnitude
 		}
 	}
 
@@ -83,7 +83,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		1
+		return 1
 	}
 
 	override func tableView(
@@ -216,7 +216,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: EuTracingTableViewCell.self), bundle: nil),
+			EuTracingTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.euTracingCell.rawValue
 		)
 	}
