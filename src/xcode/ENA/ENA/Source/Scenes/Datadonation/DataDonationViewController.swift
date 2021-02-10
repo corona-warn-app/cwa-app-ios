@@ -5,8 +5,8 @@
 import UIKit
 import OpenCombine
 
-class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol {
-
+class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, DismissHandling {
+	
 	// MARK: - Init
 	init(
 		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
@@ -30,11 +30,35 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		setupDummyView()
-//		setupTableView()
+//		setupDummyView()
+		setupTableView()
 	}
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
+	
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
 
-	// MARK: - Protocol <#Name#>
+		item.primaryButtonTitle = AppStrings.DataDonation.Info.buttonOK
+		item.isPrimaryButtonEnabled = true
+		
+		item.secondaryButtonTitle = AppStrings.DataDonation.Info.buttonNOK
+		item.secondaryButtonHasBackground = true
+		item.isSecondaryButtonHidden = false
+		item.isSecondaryButtonEnabled = true
+
+		item.title = AppStrings.DataDonation.Info.title
+
+		return item
+	}()
+
+	// MARK: - Protocol DismissHandling
+	
+	
+	func wasAttemptedToBeDismissed() {
+		finished?()
+	}
 
 	// MARK: - Public
 
