@@ -58,13 +58,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		setupOnboardingForTesting()
 		#endif
-		
+
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
 			return true
 		}
-		
+
 		setupUI()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -144,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			// provide a static app configuration for ui tests to prevent validation errors
-			return CachedAppConfigurationMock()
+			return CachedAppConfigurationMock(isEventSurveyEnabled: true, isEventSurveyUrlAvailable: true)
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
@@ -193,6 +193,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfig: appConfigurationProvider
 		)
 	}()
+
+	private lazy var otpService: OTPServiceProviding = OTPService(
+		store: store,
+		client: client,
+		riskProvider: riskProvider
+	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -297,7 +303,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Remove all pending notifications
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-		
+
 		// Reset contact diary
 		contactDiaryStore.reset()
 	}
@@ -418,7 +424,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
-		contactDiaryStore: self.contactDiaryStore
+		contactDiaryStore: self.contactDiaryStore,
+		otpService: otpService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -441,7 +448,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = coordinator.viewController
 		window?.makeKeyAndVisible()
-		
+
 		#if DEBUG
 		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
 		if isUITesting {
@@ -495,7 +502,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		coordinator.showHome(enStateHandler: enStateHandler)
 	}
-	
+
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
@@ -550,7 +557,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self.privacyProtectionWindow = nil
 		}
 	}
-	
+
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
 		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
@@ -567,7 +574,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 	}
-	
+
 	private func setupUpdateOSUI() {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = UpdateOSViewController()

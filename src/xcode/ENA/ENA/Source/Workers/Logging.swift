@@ -25,7 +25,9 @@ extension OSLog {
 	static let ppac = OSLog(subsystem: subsystem, category: "ppac")
 	/// OTP
 	static let otp = OSLog(subsystem: subsystem, category: "otp")
-	/// PP Anaylitics
+	/// Survey
+	static let survey = OSLog(subsystem: subsystem, category: "otp")
+	/// PP Analytics
 	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
 }
 
@@ -43,7 +45,7 @@ enum Log {
 	#if !RELEASE
 
 	private static let fileLogger = FileLogger()
-	
+
 	#endif
 
     static func debug(_ message: String, log: OSLog = .default) {
