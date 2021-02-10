@@ -69,7 +69,11 @@ final class DataDonationViewModel {
 				.section(cells: [
 					.body(text: friendlyFederalStateName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
 						self?.didTapSelectStateButton()
-					}), configure: nil)
+					})),
+					.body(text: friendlyRegionName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+						self?.didTapSelectRegionButton()
+					}))
+
 				])
 			)
 
@@ -109,18 +113,12 @@ final class DataDonationViewModel {
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
 
-
-//	private var federalStateName: String?
-//	private var region: String?
-//	private var age: String?
-
 	private var friendlyFederalStateName: String {
-		Log.debug("read friendlyFederalStateName")
 		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
 	}
 
 	private var friendlyRegionName: String {
-		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionState
+		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
 	}
 
 	private var friendlyAgeName: String {
@@ -169,6 +167,28 @@ final class DataDonationViewModel {
 			self?.dataDonationModel.region = nil
 			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
+		presentSelectValueList(selectValueViewModel)
+	}
+
+	private func didTapSelectRegionButton() {
+		guard let federalStateName = dataDonationModel.federalStateName else {
+			Log.debug("Missing federal state to load regions", log: .ppac)
+			return
+		}
+
+		let selectValueViewModel = SelectValueViewModel(
+			allRegions(by: federalStateName),
+			title: AppStrings.DataDonation.ValueSelection.Title.Region,
+			preselected: dataDonationModel.region
+		)
+		selectValueViewModel.$selectedValue .sink { [weak self] region in
+			guard self?.dataDonationModel.region != region else {
+				return
+			}
+			self?.dataDonationModel.region = region
+			self?.reloadTableView.toggle()
+		}.store(in: &subscriptions)
+
 		presentSelectValueList(selectValueViewModel)
 	}
 
