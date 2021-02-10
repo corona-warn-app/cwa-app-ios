@@ -1691,6 +1691,8 @@ sein.";
 
 "DataDonation_State_NoSelection_Text" = "Bundesland";
 
+"DataDonation_Region_NoSelection_Text" = "Kreis / Bezirk (optional)";
+
 "DataDonation_AgeGroup_NoSelection_Text" = "Angabe zu Ihrem Alter";
 
 "DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA";
