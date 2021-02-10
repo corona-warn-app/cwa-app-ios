@@ -367,6 +367,45 @@ enum AppStrings {
 		static let riskCardFailedCalculationTitle = NSLocalizedString("ExposureDetection_Risk_Failed_Title", comment: "")
 		static let riskCardFailedCalculationBody = NSLocalizedString("ExposureDetection_Risk_Failed_Body", comment: "")
 		static let riskCardFailedCalculationRestartButtonTitle = NSLocalizedString("ExposureDetection_Risk_Restart_Button_Title", comment: "")
+
+		static let surveyCardTitle = NSLocalizedString("ExposureDetection_Survey_Card_Title", comment: "")
+		static let surveyCardBody = NSLocalizedString("ExposureDetection_Survey_Card_Body", comment: "")
+		static let surveyCardButton = NSLocalizedString("ExposureDetection_Survey_Card_Button", comment: "")
+	}
+
+	enum SurveyConsent {
+		static let imageDescription = NSLocalizedString("SurveyConsent_Image_Description", comment: "")
+		static let title = NSLocalizedString("SurveyConsent_Title", comment: "")
+		static let body1 = NSLocalizedString("SurveyConsent_Body1", comment: "")
+		static let body2 = NSLocalizedString("SurveyConsent_Body2", comment: "")
+		static let body3 = NSLocalizedString("SurveyConsent_Body3", comment: "")
+		static let legalTitle = NSLocalizedString("SurveyConsent_LegalTitle_BoldText", tableName: "Localizable.legal", comment: "")
+		static let legalBody1 = NSLocalizedString("SurveyConsent_LegalBody1", tableName: "Localizable.legal", comment: "")
+		static let legalBody2 = NSLocalizedString("SurveyConsent_LegalBody2", tableName: "Localizable.legal", comment: "")
+		static let legalBullet1 = NSLocalizedString("SurveyConsent_Legal_Bullet1", tableName: "Localizable.legal", comment: "")
+		static let legalBullet2 = NSLocalizedString("SurveyConsent_Legal_Bullet2", tableName: "Localizable.legal", comment: "")
+		static let legalBullet3 = NSLocalizedString("SurveyConsent_Legal_Bullet3", tableName: "Localizable.legal", comment: "")
+
+		static let acceptButtonTitle = NSLocalizedString("SurveyConsent_Accept_Button_Title", comment: "")
+		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", tableName: "Localizable.legal", comment: "")
+		
+		// Errors
+		static let errorTitle = NSLocalizedString("SurveyConsent_Error_Title", comment: "")
+		static let errorTryAgainLater = NSLocalizedString("SurveyConsent_Error_TryAgainLater", comment: "")
+		static let errorDeviceNotSupported = NSLocalizedString("SurveyConsent_Error_DeviceNotSupported", comment: "")
+		static let errorChangeDeviceTime = NSLocalizedString("SurveyConsent_Error_ChangeDeviceTime", comment: "")
+		static let errorTryAgainNextMonth = NSLocalizedString("SurveyConsent_Error_TryAgainNextMonth", comment: "")
+		static let errorAlreadyParticipated = NSLocalizedString("SurveyConsent_Error_AlreadyParticipated", comment: "")
+
+		static let surveyDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
+
+		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Legal_Details_Headline", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", tableName: "Localizable.legal", comment: "")
+ 
+		static let surveyDetailsHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
+		static let surveyDetailsBody = NSLocalizedString("SurveyConsent_Details_Body", comment: "")
+
 	}
 
 	enum ExposureDetectionError {

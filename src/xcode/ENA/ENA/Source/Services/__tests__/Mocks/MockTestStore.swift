@@ -9,10 +9,10 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
-	
+
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
-	
+
 	var positiveTestResultWasShown: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
@@ -66,6 +66,7 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
+	var otpAuthorizationDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -77,16 +78,16 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	#endif
 
 	// MARK: - AppConfigCaching
-	
+
 	var appConfigMetadata: AppConfigMetadata?
 
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
-	
+
 	// MARK: - RiskExposureMetadata
 	var riskExposureMetadata: RiskExposureMetadata?
-	
+
 	// MARK: - UserMetadata
 	var userMetadata: UserMetadata?
 }
