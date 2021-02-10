@@ -160,7 +160,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		Log.info("Get the new state: \(enState)", log: .api)
 		self.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
-		self.tableView.reloadData()
+		tableView.reloadData()
 	}
 
 	// MARK: - Internal
@@ -202,12 +202,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: ActionDetailTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
-		)
-
-		tableView.register(
-			UINib(nibName: String(describing: DescriptionTableViewCell.self), bundle: nil),
+			DescriptionTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.descriptionCell.rawValue
 		)
 
