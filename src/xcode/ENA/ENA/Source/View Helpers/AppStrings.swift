@@ -1135,6 +1135,20 @@ enum AppStrings {
 	}
 	
 	enum DataDonation {
+		enum ValueSelection {
+			static let noValue = NSLocalizedString("DataDonation_ValueSelection_None", comment: "")
+			enum Title {
+				static let State = NSLocalizedString("DataDonation_ValueSelection_Title_State", comment: "")
+				static let Region = NSLocalizedString("DataDonation_ValueSelection_Title_Region", comment: "")
+				static let Age = NSLocalizedString("DataDonation_ValueSelection_Title_Age", comment: "")
+			}
+			enum Ages {
+				static let Below29 = NSLocalizedString("DataDonation_ValueSelection_Age_Below29", comment: "")
+				static let Between30And59 = NSLocalizedString("DataDonation_ValueSelection_Age_Between30And59", comment: "")
+				static let Min60OrAbove = NSLocalizedString("DataDonation_ValueSelection_Age_Min60OrAbove", comment: "")
+			}
+		}
+
 		enum Info {
 			static let accImageDescription = NSLocalizedString("DataDonation_AccImageDescription", comment: "")
 			static let title = NSLocalizedString("DataDonation_Headline", comment: "")
@@ -1146,6 +1160,13 @@ enum AppStrings {
 			static let dataProcessingDetails = NSLocalizedString("DataDonation_DetailedInformation_DataProcessing", comment: "")
 			static let buttonOK = NSLocalizedString("DataDonation_Button_OK", comment: "")
 			static let buttonNOK = NSLocalizedString("DataDonation_Button_NotOK", comment: "")
+			
+			static let legalTitle = NSLocalizedString("DataDonation_Acknowledgement_Title", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementContent = NSLocalizedString("DataDonation_Acknowledgement_Content", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementBulletPoint1 = NSLocalizedString("DataDonation_Acknowledgement_BulletPoint_1", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementBulletPoint2 = NSLocalizedString("DataDonation_Acknowledgement_BulletPoint_2", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementBulletPoint3 = NSLocalizedString("DataDonation_Acknowledgement_BulletPoint_3", tableName: "Localizable.legal", comment: "")
+			
 		}
 
         enum DetailedInfo {

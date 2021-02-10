@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum AgeGroup: Int, Codable {
+enum AgeGroup: Int, CaseIterable, Codable {
 
 	case ageBelow29 = 1
 	case ageBetween30And59 = 2
@@ -20,6 +20,19 @@ enum AgeGroup: Int, Codable {
 			self = .ageBetween30And59
 		case .age60OrAbove:
 			self = .age60OrAbove
+		}
+	}
+
+	// MARK: - Internal
+
+	var text: String {
+		switch self {
+		case .ageBelow29:
+			return AppStrings.DataDonation.ValueSelection.Ages.Below29
+		case .ageBetween30And59:
+			return AppStrings.DataDonation.ValueSelection.Ages.Between30And59
+		case .age60OrAbove:
+			return AppStrings.DataDonation.ValueSelection.Ages.Min60OrAbove
 		}
 	}
 
