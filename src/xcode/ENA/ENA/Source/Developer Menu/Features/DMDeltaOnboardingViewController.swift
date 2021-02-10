@@ -14,14 +14,16 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	private let tableView = UITableView()
 	private var characters = ["Link", "Zelda", "Ganondorf", "Midna"]
 	private var safeArea: UILayoutGuide!
-	private var dataSource:[(key:String,values:[String])]
+	private var dataSource = [(key:String, values:[String])]()
 
 	// MARK: - Initializers
 
 	init(store: Store) {
 		self.store = store
-		dataSource = store.finishedDeltaOnboardings.compactMap({(key:$0,values:$1)})
 		super.init(nibName: nil, bundle: nil)
+		buildDataSource()
+		
+		
 	}
 
 	@available(*, unavailable)
@@ -85,8 +87,8 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 
 	// MARK: - Private API
 	
-	private func setupTableView() {
-		
+	private func buildDataSource() {
+		dataSource = store.finishedDeltaOnboardings.compactMap({(key:$0, values:$1)})
 	}
 
 	private func updateCurrentVersionLabel() {
@@ -108,6 +110,8 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		let alert = UIAlertController(title: "Presented delta onboarding screens have been resetted.", message: "", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
 		present(alert, animated: true)
+		buildDataSource()
+		tableView.reloadData()
 	}
 }
 
@@ -128,6 +132,22 @@ extension DMDeltaOnboardingViewController: UITableViewDelegate, UITableViewDataS
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return dataSource[section].key
+	}
+	
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+			if editingStyle == .delete {
+				
+				let key = dataSource[indexPath.section].key
+				dataSource[indexPath.section].values.remove(at: indexPath.row)
+				tableView.deleteRows(at: [indexPath], with: .fade)
+				store.finishedDeltaOnboardings[key]?.remove(at: indexPath.row)
+				if let storeKey = store.finishedDeltaOnboardings[key] {
+					if storeKey.isEmpty {
+						store.finishedDeltaOnboardings.removeValue(forKey: key)
+					}
+				}
+			}
+		
 	}
 	
 }
