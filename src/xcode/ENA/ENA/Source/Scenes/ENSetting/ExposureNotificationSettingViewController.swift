@@ -192,7 +192,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func registerCells() {
 		tableView.register(
-			UINib(nibName: String(describing: TracingHistoryTableViewCell.self), bundle: nil),
+			TracingHistoryTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
 		)
 

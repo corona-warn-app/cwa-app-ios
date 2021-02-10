@@ -162,7 +162,7 @@
 		01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026AC258BA2FD00B6389A /* ExposureDetectionLinkCell.xib */; };
 		01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */; };
 		01D02705258BBCC700B6389A /* EuTracingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026ED258BB70100B6389A /* EuTracingTableViewCell.xib */; };
-		01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */; };
+		01D02706258BBCC700B6389A /* _TracingHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026DC258BB6CC00B6389A /* _TracingHistoryTableViewCell.xib */; };
 		01D02707258BBCC700B6389A /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */; };
 		01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D0270F258BC17500B6389A /* InviteFriendsViewController.xib */; };
 		01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0271A258BC78100B6389A /* SettingsCoordinator.swift */; };
@@ -898,7 +898,7 @@
 		01D026AA258BA2F900B6389A /* ExposureDetectionRiskTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionRiskTextCell.xib; sourceTree = "<group>"; };
 		01D026AB258BA2FA00B6389A /* ExposureDetectionGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionGuideCell.xib; sourceTree = "<group>"; };
 		01D026AC258BA2FD00B6389A /* ExposureDetectionLinkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionLinkCell.xib; sourceTree = "<group>"; };
-		01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracingHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		01D026DC258BB6CC00B6389A /* _TracingHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = _TracingHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
 		01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionTableViewCell.xib; sourceTree = "<group>"; };
 		01D026ED258BB70100B6389A /* EuTracingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EuTracingTableViewCell.xib; sourceTree = "<group>"; };
@@ -1905,7 +1905,7 @@
 			isa = PBXGroup;
 			children = (
 				EE22DB84247FB43A001B0A71 /* TracingHistoryTableViewCell.swift */,
-				01D026DC258BB6CC00B6389A /* TracingHistoryTableViewCell.xib */,
+				01D026DC258BB6CC00B6389A /* _TracingHistoryTableViewCell.xib */,
 				EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */,
 				01D026E3258BB6D800B6389A /* ImageTableViewCell.xib */,
 				EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */,
@@ -4167,7 +4167,7 @@
 				017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */,
 				01A4DCB125925121007D5794 /* HomeThankYouTableViewCell.xib in Resources */,
 				EB7057D724E6BACA002235B4 /* InfoBoxView.xib in Resources */,
-				01D02706258BBCC700B6389A /* TracingHistoryTableViewCell.xib in Resources */,
+				01D02706258BBCC700B6389A /* _TracingHistoryTableViewCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */,
 				01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */,
