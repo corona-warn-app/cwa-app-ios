@@ -115,7 +115,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			case .enabled, .disabled:
 				return tracingCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
-				guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? ActionCell else {
+				guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? ActionTableViewCell else {
 					return UITableViewCell()
 				}
 				cell.configure(for: enState, delegate: self)
@@ -211,7 +211,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: ActionTableViewCell.self), bundle: nil),
+			ActionTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.actionCell.rawValue
 		)
 
