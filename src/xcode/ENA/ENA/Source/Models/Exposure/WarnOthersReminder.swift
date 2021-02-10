@@ -13,8 +13,12 @@ class WarnOthersReminder: WarnOthersRemindable {
 	
 	// MARK: - Init
 
-	init(store: Store) {
+	init(
+		store: Store,
+		deadmanNotificationManager: DeadmanNotificationManageable? = nil
+	) {
 		self.store = store
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 	}
 
 	// MARK: - Protocol WarnOthersRemindable
@@ -61,7 +65,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 		positiveTestResultWasShown = true
 
 		/// Deactivate deadman notification for end-of-life-state
-		DeadmanNotificationManager(store: store).resetDeadmanNotification()
+		deadmanNotificationManager.resetDeadmanNotification()
 		
 		guard !isSubmissionConsentGiven else { return }
 		
@@ -83,6 +87,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	// MARK: - Private
 
 	private let store: Store
+	private let deadmanNotificationManager: DeadmanNotificationManageable
 	
 	private func scheduleNotifications() {
 		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(

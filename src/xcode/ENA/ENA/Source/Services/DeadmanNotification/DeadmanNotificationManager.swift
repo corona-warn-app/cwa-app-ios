@@ -4,7 +4,12 @@
 
 import UserNotifications
 
-struct DeadmanNotificationManager {
+protocol DeadmanNotificationManageable {
+	func scheduleDeadmanNotificationIfNeeded()
+	func resetDeadmanNotification()
+}
+
+struct DeadmanNotificationManager: DeadmanNotificationManageable {
 
 	// MARK: - Init
 

@@ -22,7 +22,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client: Client,
 		store: Store,
 		warnOthersReminder: WarnOthersRemindable,
-		deadmanNotificationManager: DeadmanNotificationManager? = nil
+		deadmanNotificationManager: DeadmanNotificationManageable? = nil
 	) {
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
@@ -278,7 +278,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let client: Client
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
-	private let deadmanNotificationManager: DeadmanNotificationManager
+	private let deadmanNotificationManager: DeadmanNotificationManageable
 
 	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 

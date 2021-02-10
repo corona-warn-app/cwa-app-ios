@@ -30,6 +30,8 @@
 		0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE0250924CC00B0857C /* SymptomsOnset.swift */; };
 		0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */; };
 		0144BDED250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */; };
+		0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144DD8025D40C2100CFB1D1 /* MockDeadmanNotificationManager.swift */; };
+		0144DD9B25D40CC900CFB1D1 /* MockUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* MockUserNotificationCenter.swift */; };
 		014891B324F90D0B002A6F77 /* ENA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 014891B224F90D0B002A6F77 /* ENA.plist */; };
 		015178C22507D2E50074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */; };
 		015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */; };
@@ -216,7 +218,6 @@
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		01FD3EDB25D2F0DF0049497A /* UserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */; };
 		01FD3EE325D2F1020049497A /* DeadmanNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */; };
-		01FD3EE725D2F11A0049497A /* MockUserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87353F253704D100325C6C /* MockUserNotificationCenter.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
 		0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD260FE248D549B007C3B2C /* KeychainHelper.swift */; };
 		0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB96248AD616007E8B0C /* AppUpdateCheckHelper.swift */; };
@@ -781,6 +782,7 @@
 		0144BDE0250924CC00B0857C /* SymptomsOnset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnset.swift; sourceTree = "<group>"; };
 		0144BDE22509288B00B0857C /* SymptomsOnsetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymptomsOnsetTests.swift; sourceTree = "<group>"; };
 		0144BDEC250A3E5300B0857C /* ExposureSubmissionCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCoordinatorModel.swift; sourceTree = "<group>"; };
+		0144DD8025D40C2100CFB1D1 /* MockDeadmanNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeadmanNotificationManager.swift; sourceTree = "<group>"; };
 		014891B224F90D0B002A6F77 /* ENA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ENA.plist; path = ../../../ENA.plist; sourceTree = "<group>"; };
 		015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewControllerTests.swift; sourceTree = "<group>"; };
 		015692E324B48C3F0033F35E /* TimeInterval+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "TimeInterval+Convenience.swift"; sourceTree = "<group>"; };
@@ -1605,6 +1607,24 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
+		0144DD8B25D40C9700CFB1D1 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				0144DDA225D40CD100CFB1D1 /* Mocks */,
+				0156F05B25D2DA2300543640 /* DeadmanNotificationManagerTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		0144DDA225D40CD100CFB1D1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				0144DD8025D40C2100CFB1D1 /* MockDeadmanNotificationManager.swift */,
+				EB87353F253704D100325C6C /* MockUserNotificationCenter.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		016E25E825AF138B0077C64C /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -2083,9 +2103,9 @@
 		01FD3ED625D2F0D00049497A /* DeadmanNotification */ = {
 			isa = PBXGroup;
 			children = (
+				0144DD8B25D40C9700CFB1D1 /* __tests__ */,
 				01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */,
 				01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */,
-				EB87353F253704D100325C6C /* MockUserNotificationCenter.swift */,
 			);
 			path = DeadmanNotification;
 			sourceTree = "<group>";
@@ -3290,7 +3310,6 @@
 			isa = PBXGroup;
 			children = (
 				B15382E0248273A50010F007 /* Mocks */,
-				0156F05B25D2DA2300543640 /* DeadmanNotificationManagerTests.swift */,
 				CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */,
 			);
 			path = __tests__;
@@ -4857,6 +4876,7 @@
 				01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */,
 				01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */,
 				9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */,
+				0144DD9B25D40CC900CFB1D1 /* MockUserNotificationCenter.swift in Sources */,
 				01B605C4258A30C70093DB8E /* DiaryOverviewViewModelTest.swift in Sources */,
 				B11655932491437600316087 /* RiskProvidingConfigurationTests.swift in Sources */,
 				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
@@ -4877,7 +4897,6 @@
 				A372DA4124BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift in Sources */,
 				01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */,
 				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
-				01FD3EE725D2F11A0049497A /* MockUserNotificationCenter.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
@@ -4927,6 +4946,7 @@
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
+				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,

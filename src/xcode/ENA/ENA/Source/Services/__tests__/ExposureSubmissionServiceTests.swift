@@ -54,11 +54,25 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		var deadmanNotificationManager = MockDeadmanNotificationManager()
+
+		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
+		deadmanNotificationManager.resetDeadmanNotificationCalled = {
+			deadmanResetExpectation.fulfill()
+		}
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store),
+			deadmanNotificationManager: deadmanNotificationManager
+		)
 		service.isSubmissionConsentGiven = true
 		service.symptomsOnset = .lastSevenDays
 
-		let expectation = self.expectation(description: "Success")
+		let successExpectation = self.expectation(description: "Success")
 
 		// Act
 		service.getTemporaryExposureKeys { error in
@@ -66,7 +80,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 			service.submitExposure { error in
 				XCTAssertNil(error)
-				expectation.fulfill()
+				successExpectation.fulfill()
 			}
 		}
 
