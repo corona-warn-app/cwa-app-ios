@@ -67,6 +67,15 @@ final class DMPPAnalyticsViewModel {
 					})
 				}
 			)
+		case .generateFakedTestData:
+			return DMButtonCellViewModel(
+				text: "Generate Fake Data",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: { [weak self] in
+					self?.store.userMetadata = UserMetadata(federalState: .hessen, administrativeUnit: 0, ageGroup: .ageBelow29)
+				}
+			)
 		}
 
 	}
@@ -75,6 +84,7 @@ final class DMPPAnalyticsViewModel {
 
 	private enum TableViewSections: Int, CaseIterable {
 		case forceSubmission
+		case generateFakedTestData
 	}
 
 	private let store: Store
