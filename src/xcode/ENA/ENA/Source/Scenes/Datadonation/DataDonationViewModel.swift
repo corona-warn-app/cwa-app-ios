@@ -38,6 +38,10 @@ final class DataDonationViewModel {
 	// MARK: - Protocol <#Name#>
 
 	// MARK: - Public
+	
+	func setConsent(consentGiven: Bool) {
+		dataDonationModel.isConsentGiven = consentGiven
+	}
 
 	// MARK: - Internal
 

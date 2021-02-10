@@ -52,9 +52,20 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		return item
 	}()
+	
+	// MARK: - Protocol ENANavigationControllerWithFooterChild
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		viewModel.setConsent(consentGiven: true)
+		finished?()
+	}
+	
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
+		viewModel.setConsent(consentGiven: false)
+		finished?()
+	}
 
 	// MARK: - Protocol DismissHandling
-	
 	
 	func wasAttemptedToBeDismissed() {
 		finished?()
