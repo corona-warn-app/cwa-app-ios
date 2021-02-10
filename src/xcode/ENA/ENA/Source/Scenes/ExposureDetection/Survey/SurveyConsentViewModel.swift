@@ -4,70 +4,24 @@
 
 import UIKit
 
-enum SurveyConsentError: Error {
-
-	case tryAgainLater
-	case tryAgainNextMonth
-	case deviceNotSupported
-	case changeDeviceTime
-	case alreadyParticipated
-
-	// MARK: - Init
-
-	init(ppacError: PPACError) {
-		switch ppacError {
-		case .generationFailed, .timeUnverified:
-			self = .tryAgainLater
-		case .deviceNotSupported:
-			self = .deviceNotSupported
-		case .timeIncorrect:
-			self = .changeDeviceTime
-		}
-	}
-
-	init(otpError: OTPError) {
-		switch otpError {
-		case .generalError, .invalidResponseError, .internalServerError, .otherServerError, .apiTokenExpired, .deviceTokenInvalid, .deviceTokenRedeemed, .deviceTokenSyntaxError:
-			self = .tryAgainLater
-		case .apiTokenAlreadyIssued, .otpAlreadyUsedThisMonth:
-			self = .tryAgainNextMonth
-		case .apiTokenQuotaExceeded:
-			self = .alreadyParticipated
-		}
-	}
-
-	// MARK: - Internal
-
-	var description: String {
-		switch self {
-		case .tryAgainLater:
-			return AppStrings.SurveyConsent.errorTryAgainLater
-		case .tryAgainNextMonth:
-			return AppStrings.SurveyConsent.errorTryAgainNextMonth
-		case .deviceNotSupported:
-			return AppStrings.SurveyConsent.errorDeviceNotSupported
-		case .changeDeviceTime:
-			return AppStrings.SurveyConsent.errorChangeDeviceTime
-		case .alreadyParticipated:
-			return AppStrings.SurveyConsent.errorAlreadyParticipated
-		}
-	}
-}
-
 final class SurveyConsentViewModel {
 
 	// MARK: - Init
 
 	init(
-		surveyURLProvider: SurveyURLProvidable
+		surveyURLProvider: SurveyURLProviding
 	) {
 		self.surveyURLProvider = surveyURLProvider
 	}
 
 	// MARK: - Internal
 
-	func getURL(_ completion: @escaping (Result<URL, SurveyConsentError>) -> Void) {
-		surveyURLProvider.getURL(completion)
+	func getURL(_ completion: @escaping (Result<URL, SurveyError>) -> Void) {
+		surveyURLProvider.getURL { result in
+			DispatchQueue.main.async {
+				completion(result)
+			}
+		}
 	}
 
 	var dynamicTableViewModel: DynamicTableViewModel {
@@ -142,7 +96,7 @@ final class SurveyConsentViewModel {
 
 	// MARK: - Private
 
-	private let surveyURLProvider: SurveyURLProvidable
+	private let surveyURLProvider: SurveyURLProviding
 
 	private var privacyDetailsModel: DynamicTableViewModel {
 		

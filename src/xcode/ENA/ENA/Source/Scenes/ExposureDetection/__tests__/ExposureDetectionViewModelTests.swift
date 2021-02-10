@@ -43,8 +43,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 
@@ -112,8 +111,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 
@@ -240,8 +238,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: configuration,
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 		
@@ -299,8 +296,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: configuration,
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 		
@@ -399,8 +395,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: configuration,
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 		
@@ -499,8 +494,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 
@@ -577,8 +571,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in }
 		)
 
@@ -685,8 +678,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
@@ -745,8 +737,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
@@ -792,8 +783,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
@@ -840,8 +830,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		let viewModel = ExposureDetectionViewModel(
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
-			otpService: otpService,
-			onSurveyTap: { _ in },
+			onSurveyTap: { },
 			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 

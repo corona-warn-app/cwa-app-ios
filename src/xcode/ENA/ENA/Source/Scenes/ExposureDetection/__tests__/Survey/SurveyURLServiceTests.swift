@@ -7,13 +7,13 @@ import XCTest
 
 class SurveyURLServiceTests: XCTestCase {
 
-	func test_WHEN_getURLIsCalled_THEN_AnURLIstReturned() throws {
+	func test_WHEN_getURLIsCalled_THEN_aURLIsReturned() {
 		let store = MockTestStore()
 		let client = ClientMock()
 		let otpService = OTPService(store: store, client: client, riskProvider: MockRiskProvider())
 
 		let deviceCheck = PPACDeviceCheckMock(true, deviceToken: "SomeToken")
-		let ppacService = try PPACService(store: store, deviceCheck: deviceCheck)
+		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 
 		let surveyURLService = SurveyURLProvider(
 			configurationProvider: CachedAppConfigurationMock(),
