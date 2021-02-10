@@ -15,7 +15,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		self.presentSelectValueList = presentSelectValueList
 		self.didTapLegal = didTapLegal
-		self.viewModel = DataDonationViewModel()
+		self.viewModel = DataDonationViewModel(presentSelectValueList: presentSelectValueList)
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -73,6 +73,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	private let viewModel: DataDonationViewModel
 	private var subscriptions: [AnyCancellable] = []
 
+	/*
 	private func setupDummyView() {
 		title = "DataDonation"
 		view.backgroundColor = .enaColor(for: .background)
@@ -113,6 +114,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 			firstButton.heightAnchor.constraint(equalToConstant: 40.0)
 		])
 	}
+*/
 	
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -129,8 +131,17 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		)
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
+
+		viewModel.$reloadTableView
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				guard let self = self else { return }
+				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
+				self.tableView.reloadData()
+			}.store(in: &subscriptions)
 	}
 
+	/*
 	@objc
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
@@ -187,6 +198,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		presentSelectValueList(selectValueViewModel)
 	}
+	*/
 }
 
 // MARK: - Cell reuse identifiers.

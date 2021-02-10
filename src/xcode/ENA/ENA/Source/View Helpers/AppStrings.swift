@@ -1156,6 +1156,7 @@ enum AppStrings {
 			static let subHeadState = NSLocalizedString("DataDonation_SubHead_YourState", comment: "")
 			static let subHeadAgeGroup = NSLocalizedString("DataDonation_SubHead_AgeGroup", comment: "")
 			static let noSelectionState = NSLocalizedString("DataDonation_State_NoSelection_Text", comment: "")
+			static let noSelectionRegion = NSLocalizedString("DataDonation_Region_NoSelection_Text", comment: "")
 			static let noSelectionAgeGroup = NSLocalizedString("DataDonation_AgeGroup_NoSelection_Text", comment: "")
 			static let dataProcessingDetails = NSLocalizedString("DataDonation_DetailedInformation_DataProcessing", comment: "")
 			static let buttonOK = NSLocalizedString("DataDonation_Button_OK", comment: "")

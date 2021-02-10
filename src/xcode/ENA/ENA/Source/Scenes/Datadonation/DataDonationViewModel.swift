@@ -4,12 +4,18 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
 final class DataDonationViewModel {
 
 	// MARK: - Init
 
-	init() {
+	init(
+		presentSelectValueList: @escaping (SelectValueViewModel) -> Void
+	) {
+		self.presentSelectValueList = presentSelectValueList
+		self.reloadTableView = false
+
 		self.federalStateName = nil
 		self.region = nil
 		self.age = nil
@@ -37,24 +43,11 @@ final class DataDonationViewModel {
 
 	// MARK: - Internal
 
-	var federalStateName: String?
-	var region: String?
-	var age: String?
-
-	var allFederalStateNames: [String] {
-		FederalStateName.allCases.map { $0.rawValue }
-	}
-
-	func allRegions(by federalStateName: String) -> [String] {
-		allDistricts.filter { district -> Bool in
-			district.federalStateName.rawValue == federalStateName
-		}
-		.map { $0.districtName }
-	}
-
 	// [KGA] add accessibilityLabel and identifier back to cell
 //	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
 //	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
+
+	@OpenCombine.Published private (set) var reloadTableView: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel.with {
@@ -73,6 +66,15 @@ final class DataDonationViewModel {
 					]
 				)
 			)
+
+			$0.add(
+				.section(cells: [
+					.body(text: friendlyFederalStateName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
+						self?.didTapSelectStateButton()
+					}), configure: nil)
+				])
+			)
+
 			$0.add(
 				.section(
 					cells: [
@@ -81,7 +83,7 @@ final class DataDonationViewModel {
 					]
 				)
 			)
-			
+/*
 			$0.add(
 				.section(
 					cells: [
@@ -99,11 +101,44 @@ final class DataDonationViewModel {
 					]
 				)
 			)
-			
+*/
 		}
 	}
 
 	// MARK: - Private
+
+	private let presentSelectValueList: (SelectValueViewModel) -> Void
+	private var subscriptions: [AnyCancellable] = []
+
+	private var federalStateName: String?
+	private var region: String?
+	private var age: String?
+
+	private var friendlyFederalStateName: String {
+		Log.debug("read friendlyFederalStateName")
+		return federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
+	}
+
+	private var friendlyRegionName: String {
+		return region ?? AppStrings.DataDonation.Info.noSelectionState
+	}
+
+	private var friendlyAgeName: String {
+		return age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
+	}
+
+
+
+	private var allFederalStateNames: [String] {
+		FederalStateName.allCases.map { $0.rawValue }
+	}
+
+	private func allRegions(by federalStateName: String) -> [String] {
+		allDistricts.filter { district -> Bool in
+			district.federalStateName.rawValue == federalStateName
+		}
+		.map { $0.districtName }
+	}
 
 	private let acknowledgementString: NSAttributedString = {
 		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
@@ -119,7 +154,25 @@ final class DataDonationViewModel {
 		return string
 	}()
 
-
 	private let allDistricts: [DistrictElement]
+
+	private func didTapSelectStateButton() {
+		let selectValueViewModel = SelectValueViewModel(
+			allFederalStateNames,
+			title: AppStrings.DataDonation.ValueSelection.Title.State,
+			preselected: federalStateName
+		)
+		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
+			guard self?.federalStateName != federalState else {
+				return
+			}
+			// if a new fedaral state got selected reset region as well
+			self?.federalStateName = federalState
+			self?.region = nil
+			self?.reloadTableView.toggle()
+		}.store(in: &subscriptions)
+		presentSelectValueList(selectValueViewModel)
+	}
+
 
 }
