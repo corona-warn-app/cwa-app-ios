@@ -712,12 +712,18 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
 						message: error.localizedDescription
 					)
-
-					self?.navigationController?.present(alert, animated: true, completion: nil)
 				case .qrAlreadyUsed:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
-						message: error.localizedDescription
+						message: error.localizedDescription,
+						okTitle: AppStrings.Common.alertActionCancel,
+						secondaryActionTitle: AppStrings.Common.alertActionRetry,
+						completion: { [weak self] in
+							self?.navigationController?.dismiss(animated: true)
+						},
+						secondaryActionCompletion: { [weak self] in
+							self?.showQRScreen(isLoading: isLoading)
+						}
 					)
 				case .qrExpired:
 					alert = UIAlertController.errorAlert(

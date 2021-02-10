@@ -1703,7 +1703,7 @@ sein.";
 
 "DetailedInfosDataDonation_Headline" = "Ausführliche Informationen zur Datenspende";
 
-"DetailedInfosDataDonation_SubHead_DataProcessing" = "Datenverarbeitung im Rahmen der Datenspende ";
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Datenverarbeitung im Rahmen der Datenspende";
 
 "DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten werden zu unterschiedlichen Zwecken ausgewertet:";
 
@@ -1735,7 +1735,6 @@ sein.";
 
 "DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Wenn Sie ein Testergebnis über die App abgerufen haben:";
 
-
 "DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Angaben dazu, ob Sie ein positives oder negatives Testergebnis über die App erhalten haben.";
 
 "DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Angaben zum berechneten Risiko zum Zeitpunkt der Testregistrierung.";
@@ -1745,10 +1744,6 @@ sein.";
 "DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Angaben zum Zeitraum zwischen der letzten Mitteilung eines erhöhten Risikos und der Testregistrierung.";
 
 "DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Angaben dazu, ob Sie Ihr Testergebnis geteilt und andere gewarnt haben.";
-
-"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_" = "";
-
-"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_" = "";
 
 "DetailedInfosDataDonation_SubHead_WarnOthers" = "Wenn Sie andere über eine mögliche Risiko-Begegnung gewarnt haben:";
 
@@ -1776,5 +1771,3 @@ sein.";
 
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
 Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";
-
-
