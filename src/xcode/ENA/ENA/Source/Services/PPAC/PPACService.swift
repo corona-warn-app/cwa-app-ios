@@ -18,32 +18,36 @@ class PPACService: PrivacyPreservingAccessControl {
 	init(
 		store: Store,
 		deviceCheck: DeviceCheckable
-	) throws {
+	) {
 		self.store = store
 		self.deviceCheck = deviceCheck
-
-		// check if time isn't incorrect
-		if store.deviceTimeCheckResult == .incorrect {
-			Log.error("device time is incorrect", log: .ppac)
-			throw PPACError.timeIncorrect
-		}
-
-		// check if time isn't unknown
-		if store.deviceTimeCheckResult == .assumedCorrect {
-			Log.error("device time is unverified", log: .ppac)
-			throw PPACError.timeUnverified
-		}
-
-		// check if device supports DeviceCheck
-		guard deviceCheck.isSupported else {
-			Log.error("device token not supported", log: .ppac)
-			throw PPACError.deviceNotSupported
-		}
 	}
 
 	// MARK: - Protocol PrivacyPreservingAccessControl
 
 	func getPPACToken(_ completion: @escaping (Result<PPACToken, PPACError>) -> Void) {
+
+		// check if time isn't incorrect
+		if store.deviceTimeCheckResult == .incorrect {
+			Log.error("device time is incorrect", log: .ppac)
+			completion(.failure(PPACError.timeIncorrect))
+			return
+		}
+
+		// check if time isn't unknown
+		if store.deviceTimeCheckResult == .assumedCorrect {
+			Log.error("device time is unverified", log: .ppac)
+			completion(.failure(PPACError.timeUnverified))
+			return
+		}
+
+		// check if device supports DeviceCheck
+		guard deviceCheck.isSupported else {
+			Log.error("device token not supported", log: .ppac)
+			completion(.failure(PPACError.deviceNotSupported))
+			return
+		}
+
 		deviceCheck.deviceToken(apiToken.token, completion: completion)
 	}
 
