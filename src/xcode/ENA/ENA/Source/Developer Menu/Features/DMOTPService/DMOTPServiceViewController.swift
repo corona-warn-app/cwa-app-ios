@@ -12,9 +12,9 @@ class DMOTPServiceViewController: UITableViewController {
 
 	init(
 		store: Store,
-		client: Client
+		otpService: OTPServiceProviding
 	) {
-		self.viewModel = DMOTPServiceViewModel(store: store, client: client)
+		self.viewModel = DMOTPServiceViewModel(store: store, otpService: otpService)
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
