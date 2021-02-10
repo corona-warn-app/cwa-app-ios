@@ -41,6 +41,7 @@ final class DataDonationViewModel {
 	
 	func setConsent(consentGiven: Bool) {
 		dataDonationModel.isConsentGiven = consentGiven
+		Log.debug("DataDonation consent value set to '\(consentGiven)'")
 	}
 
 	// MARK: - Internal
