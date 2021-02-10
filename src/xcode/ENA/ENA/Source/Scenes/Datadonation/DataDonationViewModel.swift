@@ -11,26 +11,12 @@ final class DataDonationViewModel {
 	// MARK: - Init
 
 	init(
+		store: Store,
 		presentSelectValueList: @escaping (SelectValueViewModel) -> Void
 	) {
 		self.presentSelectValueList = presentSelectValueList
 		self.reloadTableView = false
-
-		self.dataDonationModel = DataDonationModel()
-
-		guard let jsonFileUrl = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-			Log.debug("Failed to find url to json file", log: .ppac)
-			self.allDistricts = []
-			return
-		}
-
-		do {
-			let jsonData = try Data(contentsOf: jsonFileUrl)
-			self.allDistricts = try JSONDecoder().decode([DistrictElement].self, from: jsonData)
-		} catch {
-			Log.debug("Failed to read / parse district json", log: .ppac)
-			self.allDistricts = []
-		}
+		self.dataDonationModel = DataDonationModel(store: store)
 	}
 
 	// MARK: - Overrides
@@ -38,10 +24,11 @@ final class DataDonationViewModel {
 	// MARK: - Protocol <#Name#>
 
 	// MARK: - Public
-	
-	func setConsent(consentGiven: Bool) {
+
+	func save(consentGiven: Bool) {
 		dataDonationModel.isConsentGiven = consentGiven
 		Log.debug("DataDonation consent value set to '\(consentGiven)'")
+		dataDonationModel.save()
 	}
 
 	// MARK: - Internal
@@ -148,7 +135,6 @@ final class DataDonationViewModel {
 	// MARK: - Private
 
 	private let presentSelectValueList: (SelectValueViewModel) -> Void
-	private let allDistricts: [DistrictElement]
 
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
@@ -163,17 +149,6 @@ final class DataDonationViewModel {
 
 	private var friendlyAgeName: String {
 		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
-	}
-
-	private var allFederalStateNames: [String] {
-		FederalStateName.allCases.map { $0.rawValue }
-	}
-
-	private func allRegions(by federalStateName: String) -> [String] {
-		allDistricts.filter { district -> Bool in
-			district.federalStateName.rawValue == federalStateName
-		}
-		.map { $0.districtName }
 	}
 
 	private let acknowledgementString: NSAttributedString = {
@@ -192,7 +167,7 @@ final class DataDonationViewModel {
 
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
-			allFederalStateNames,
+			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.State,
 			preselected: dataDonationModel.federalStateName
 		)
@@ -215,7 +190,7 @@ final class DataDonationViewModel {
 		}
 
 		let selectValueViewModel = SelectValueViewModel(
-			allRegions(by: federalStateName),
+			dataDonationModel.allRegions(by: federalStateName),
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: dataDonationModel.region
 		)

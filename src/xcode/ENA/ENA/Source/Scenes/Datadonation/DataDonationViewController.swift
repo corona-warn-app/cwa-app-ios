@@ -9,13 +9,14 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	
 	// MARK: - Init
 	init(
+		store: Store,
 		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
 		didTapLegal: @escaping () -> Void
 	) {
 
 		self.presentSelectValueList = presentSelectValueList
 		self.didTapLegal = didTapLegal
-		self.viewModel = DataDonationViewModel(presentSelectValueList: presentSelectValueList)
+		self.viewModel = DataDonationViewModel(store: store, presentSelectValueList: presentSelectValueList)
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -55,12 +56,12 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.setConsent(consentGiven: true)
+		viewModel.save(consentGiven: true)
 		finished?()
 	}
 	
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		viewModel.setConsent(consentGiven: false)
+		viewModel.save(consentGiven: false)
 		finished?()
 	}
 

@@ -23,6 +23,23 @@ enum AgeGroup: Int, CaseIterable, Codable {
 		}
 	}
 
+	init?(from displayName: String?) {
+		guard let displayName = displayName else {
+			return nil
+		}
+
+		switch displayName {
+		case AppStrings.DataDonation.ValueSelection.Ages.Below29:
+			self = .ageBelow29
+		case AppStrings.DataDonation.ValueSelection.Ages.Between30And59:
+			self = .ageBetween30And59
+		case AppStrings.DataDonation.ValueSelection.Ages.Min60OrAbove:
+			self = .age60OrAbove
+		default:
+			return nil
+		}
+	}
+
 	// MARK: - Internal
 
 	var text: String {
