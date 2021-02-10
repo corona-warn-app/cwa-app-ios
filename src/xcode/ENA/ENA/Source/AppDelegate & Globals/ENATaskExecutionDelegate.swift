@@ -93,7 +93,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 				group.leave()
 				Log.info("Done triggering analytics submission…", log: .background)
 			}
-			group.leave()
 		}
 
 		group.notify(queue: .main) {
