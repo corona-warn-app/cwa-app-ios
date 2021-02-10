@@ -41,6 +41,7 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		navigationFooterItem?.isPrimaryButtonLoading = true
+		navigationFooterItem?.isPrimaryButtonEnabled = false
 
 		viewModel.getURL { [weak self] result in
 			switch result {
@@ -50,6 +51,7 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 				self?.showErrorAlert(with: error)
 			}
 			self?.navigationFooterItem?.isPrimaryButtonLoading = false
+			self?.navigationFooterItem?.isPrimaryButtonEnabled = true
 		}
 	}
 
