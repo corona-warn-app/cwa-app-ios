@@ -76,13 +76,14 @@ class RootCoordinator: RequiresAppDependencies {
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		#if DEBUG
 		let dummyDataDonationViewControllre = DataDonationViewController(
+			store: self.store,
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
 			},
 			didTapLegal: {}
 		)
 		dummyDataDonationViewControllre.tabBarItem = UITabBarItem(title: "Dummy", image: UIImage(named: "bolt"), selectedImage: UIImage(named: "bolt.fill"))
-		let navigationController = UINavigationController(rootViewController: dummyDataDonationViewControllre)
+		let navigationController = ENANavigationControllerWithFooter(rootViewController: dummyDataDonationViewControllre)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, navigationController], animated: false)
 		#else
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)

@@ -16,6 +16,7 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
 		
 		let dataDonationViewController = DataDonationViewController(
+			store: store,
 			presentSelectValueList: { _ in },
 			didTapLegal: {}
 		)
