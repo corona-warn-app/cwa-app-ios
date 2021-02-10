@@ -121,6 +121,26 @@ final class DataDonationViewModel {
 				]
 			)
 		)
+		
+		// [AVO: TODO] - Show DataDonationDetails navigation
+		dynamicTableViewModel.add(
+			.section(separators: .all, cells: [
+				.body(
+					text: AppStrings.DataDonation.Info.dataProcessingDetails,
+					style: DynamicCell.TextCellStyle.label,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
+					accessibilityTraits: UIAccessibilityTraits.link,
+					action: .push(model: AppInformationModel.privacyModel,
+								  withTitle: AppStrings.AppInformation.privacyTitle,
+								  completion: nil
+					),
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+						cell.selectionStyle = .default
+					}),
+				.space(height: 12)
+			])
+		)
 
 		return dynamicTableViewModel
 	}
