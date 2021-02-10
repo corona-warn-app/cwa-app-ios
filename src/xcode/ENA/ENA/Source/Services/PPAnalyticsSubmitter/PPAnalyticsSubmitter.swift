@@ -11,6 +11,11 @@ protocol PPAnalyticsSubmitting {
 
 	/// ONLY FOR TESTING. Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
+
+	#if !RELEASE
+	// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
+	#endif
 }
 
 final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
@@ -110,6 +115,30 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		}.store(in: &subscriptions)
 	}
+
+	#if !RELEASE
+	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
+		let payload = self.obtainUsageData()
+
+		let deviceCheck = PPACDeviceCheck()
+		guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
+			Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
+			completion(.failure(.ppacError))
+			return
+		}
+
+		ppacService.getPPACToken { [weak self] result in
+			switch result {
+			case let .success(token):
+				self?.submitData(with: token, for: payload, completion: completion)
+			case let .failure(error):
+				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+				completion(.failure(.ppacError))
+				return
+			}
+		}
+	}
+	#endif
 
 	// MARK: - Public
 
@@ -246,6 +275,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			$0.ageGroup = convertToProto(storedUserData.ageGroup)
 		}
 	}
+
+	// TODO: Make as extenions to the corresponding files
 
 	private func convertToProto(_ riskLevel: RiskLevel) -> SAP_Internal_Ppdd_PPARiskLevel {
 		switch riskLevel {
