@@ -6,7 +6,11 @@ import Foundation
 import OpenCombine
 
 protocol PPAnalyticsSubmitting {
+	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. In all cases, NO completion is called.
 	func triggerSubmitData()
+
+	/// ONLY FOR TESTING. Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
+	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 }
 
 final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
@@ -26,10 +30,18 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	// MARK: - Protocol PPAnalyticsSubmitting
 
 	func triggerSubmitData() {
+		triggerSubmitData(ppacToken: nil, completion: nil)
+	}
+
+	func triggerSubmitData(
+		ppacToken: PPACToken?,
+		completion: ((Result<Void, PPASError>) -> Void)? = nil
+	) {
 
 		// 0. Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
 			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
+			completion?(.failure(.userConsentError))
 			return
 		}
 
@@ -37,51 +49,62 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 			guard let self = self else {
 				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
+				completion?(.failure(.generalError))
 				return
 			}
 
 			// 1. Check configuration parameter
 			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
 				Log.warning("Analytics submission abord due to randomness", log: .ppa)
+				completion?(.failure(.probibilityError))
 				return
 			}
 
 			// 2. Last submission check
 			if self.submissionWithinLast23Hours {
 				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+				completion?(.failure(.submission23hoursError))
 				return
 			}
 
 			// 3a. Onboarding check
 			if self.onboardingCompletedWithinLast24Hours {
 				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+				completion?(.failure(.onboardingError))
 				return
 			}
 
 			// 3b. App Reset check
 			if self.appResetWithinLast24Hours {
 				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
-				return
-			}
-
-			// 4. obtain authentication data
-			let deviceCheck = PPACDeviceCheck()
-			guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
-				Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
+				completion?(.failure(.appResetError))
 				return
 			}
 
 			// 5. obtain usage data
 			let payload = self.obtainUsageData()
 
-			// 6. submit analytics data
-			ppacService.getPPACToken { [weak self] result in
-				switch result {
-				case let .success(token):
-					self?.submitData(with: token, for: payload)
-				case let .failure(error):
-					Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+			if let token = ppacToken {
+				self.submitData(with: token, for: payload, completion: completion)
+			} else {
+				// 4. obtain authentication data
+				let deviceCheck = PPACDeviceCheck()
+				guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
+					Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
+					completion?(.failure(.ppacError))
 					return
+				}
+
+				// 6. submit analytics data
+				ppacService.getPPACToken { [weak self] result in
+					switch result {
+					case let .success(token):
+						self?.submitData(with: token, for: payload, completion: completion)
+					case let .failure(error):
+						Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+						completion?(.failure(.ppacError))
+						return
+					}
 				}
 			}
 
@@ -116,7 +139,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private var onboardingCompletedWithinLast24Hours: Bool {
 		guard let onbaordedDate = store.onboardedDate,
 			  let twentyFourHoursAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date()) else {
-
 			return false
 		}
 		let lastTwentyFourHours = twentyFourHoursAgo...Date()
@@ -126,7 +148,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private var appResetWithinLast24Hours: Bool {
 		guard let lastResetDate = store.lastAppReset,
 			  let twentyFourHoursAgo = Calendar.current.date(byAdding: .hour, value: -24, to: Date()) else {
-
 			return false
 		}
 		let lastTwentyFourHours = twentyFourHoursAgo...Date()
@@ -160,7 +181,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return payload
 	}
 
-	private func submitData(with ppacToken: PPACToken, for payload: SAP_Internal_Ppdd_PPADataIOS) {
+	private func submitData(with ppacToken: PPACToken, for payload: SAP_Internal_Ppdd_PPADataIOS, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 
 		var forceApiTokenHeader = false
 		#if !RELEASE
@@ -178,8 +199,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					Log.info("Analytics data succesfully submitted", log: .ppa)
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
+					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted", log: .ppa, error: error)
+					completion?(result)
 				}
 			}
 		)
@@ -233,7 +256,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 
-	private func convertToProto(for date: Date) -> Int64 {
+	private func convertToProto(for date: Date?) -> Int64 {
+		guard let date = date else {
+			return -1
+		}
 		let utcDataFormatter = ISO8601DateFormatter()
 		utcDataFormatter.formatOptions = [.withFullDate]
 
