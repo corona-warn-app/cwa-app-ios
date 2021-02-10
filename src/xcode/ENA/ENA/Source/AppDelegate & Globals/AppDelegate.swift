@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider.requestRisk(userInitiated: false)
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
-		
+		analyticsSubmitter.triggerSubmitData()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
