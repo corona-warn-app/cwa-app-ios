@@ -23,4 +23,15 @@ enum AgeGroup: Int, Codable {
 		}
 	}
 
+	var protobuf: SAP_Internal_Ppdd_PPAAgeGroup {
+		switch self {
+		case .ageBelow29:
+			return .ageGroup0To29
+		case .ageBetween30And59:
+			return .ageGroup30To59
+		case .age60OrAbove:
+			return .ageGroupFrom60
+		}
+	}
+
 }

@@ -9,8 +9,10 @@ protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. In all cases, NO completion is called.
 	func triggerSubmitData()
 
+	#if !RELEASE
 	/// ONLY FOR TESTING. Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
+	#endif
 }
 
 final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
@@ -30,9 +32,68 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	// MARK: - Protocol PPAnalyticsSubmitting
 
 	func triggerSubmitData() {
-		triggerSubmitData(ppacToken: nil, completion: nil)
+		// 0. Check if user has given his consent to collect data
+		if userDeclinedAnalyticsCollectionConsent {
+			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
+			return
+		}
+
+		configurationProvider.appConfiguration().sink { [weak self] configuration in
+
+			guard let self = self else {
+				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
+				return
+			}
+
+			// 1. Check configuration parameter
+			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
+				Log.warning("Analytics submission abord due to randomness", log: .ppa)
+				return
+			}
+
+			// 2. Last submission check
+			if self.submissionWithinLast23Hours {
+				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+				return
+			}
+
+			// 3a. Onboarding check
+			if self.onboardingCompletedWithinLast24Hours {
+				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+				return
+			}
+
+			// 3b. App Reset check
+			if self.appResetWithinLast24Hours {
+				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+				return
+			}
+
+			// 5. obtain usage data
+			let payload = self.obtainUsageData()
+
+			// 4. obtain authentication data
+			let deviceCheck = PPACDeviceCheck()
+			guard let ppacService = try? PPACService(store: self.store, deviceCheck: deviceCheck) else {
+				Log.error("Analytics submission abord due to error at initializing ppac", log: .ppa)
+				return
+			}
+
+			// 6. submit analytics data
+			ppacService.getPPACToken { [weak self] result in
+				switch result {
+				case let .success(token):
+					self?.submitData(with: token, for: payload, completion: nil)
+				case let .failure(error):
+					Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+					return
+				}
+			}
+
+		}.store(in: &subscriptions)
 	}
 
+	#if !RELEASE
 	func triggerSubmitData(
 		ppacToken: PPACToken?,
 		completion: ((Result<Void, PPASError>) -> Void)? = nil
@@ -110,6 +171,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		}.store(in: &subscriptions)
 	}
+
+	#endif
 
 	// MARK: - Public
 
@@ -213,9 +276,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return []
 		}
 		return [SAP_Internal_Ppdd_ExposureRiskMetadata.with {
-			$0.riskLevel = convertToProto(storedUsageData.riskLevel)
+			$0.riskLevel = storedUsageData.riskLevel.protobuf
 			$0.riskLevelChangedComparedToPreviousSubmission = storedUsageData.riskLevelChangedComparedToPreviousSubmission
-			$0.mostRecentDateAtRiskLevel = convertToProto(for: storedUsageData.mostRecentDateAtRiskLevel)
+			$0.mostRecentDateAtRiskLevel = formatToUTCMidnightUnixTimestamp(for: storedUsageData.mostRecentDateAtRiskLevel)
 			$0.dateChangedComparedToPreviousSubmission = storedUsageData.dateChangedComparedToPreviousSubmission
 		}]
 	}
@@ -241,81 +304,21 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 
 		return SAP_Internal_Ppdd_PPAUserMetadata.with {
-			$0.federalState = convertToProto(storedUserData.federalState)
+			$0.federalState = storedUserData.federalState.protobuf
 			$0.administrativeUnit = Int32(storedUserData.administrativeUnit)
-			$0.ageGroup = convertToProto(storedUserData.ageGroup)
+			$0.ageGroup = storedUserData.ageGroup.protobuf
 		}
 	}
 
-	private func convertToProto(_ riskLevel: RiskLevel) -> SAP_Internal_Ppdd_PPARiskLevel {
-		switch riskLevel {
-		case .low:
-			return .riskLevelLow
-		case .high:
-			return .riskLevelHigh
-		}
-	}
-
-	private func convertToProto(for date: Date?) -> Int64 {
+	private func formatToUTCMidnightUnixTimestamp(for date: Date?) -> Int64 {
 		guard let date = date else {
+			Log.warning("mostRecentDate is nil", log: .ppa)
 			return -1
 		}
-		let utcDataFormatter = ISO8601DateFormatter()
-		utcDataFormatter.formatOptions = [.withFullDate]
-
-		guard let utcDate = utcDataFormatter.date(from: utcDataFormatter.string(from: date)) else {
+		guard let formatted = date.utcMidnightUnixTimestamp else {
 			Log.warning("Trouble with converting date to utc midnight date", log: .ppa)
-			return Int64(date.timeIntervalSince1970)
+			return -1
 		}
-		return Int64(utcDate.timeIntervalSince1970)
-	}
-
-	private func convertToProto(_ ageGroup: AgeGroup) -> SAP_Internal_Ppdd_PPAAgeGroup {
-		switch ageGroup {
-		case .ageBelow29:
-			return .ageGroup0To29
-		case .ageBetween30And59:
-			return .ageGroup30To59
-		case .age60OrAbove:
-			return .ageGroupFrom60
-		}
-	}
-
-	// swiftlint:disable cyclomatic_complexity
-	private func convertToProto(_ federalState: FederalStateName) -> SAP_Internal_Ppdd_PPAFederalState {
-		switch federalState {
-		case .badenWürttemberg:
-			return .federalStateBw
-		case .bayern:
-			return .federalStateBy
-		case .berlin:
-			return .federalStateBe
-		case .brandenburg:
-			return .federalStateBb
-		case .bremen:
-			return .federalStateHb
-		case .hamburg:
-			return .federalStateHh
-		case .hessen:
-			return .federalStateHe
-		case .mecklenburgVorpommern:
-			return .federalStateMv
-		case .niedersachsen:
-			return .federalStateNi
-		case .nordrheinWestfalen:
-			return .federalStateNrw
-		case .rheinlandPfalz:
-			return .federalStateRp
-		case .saarland:
-			return .federalStateSl
-		case .sachsen:
-			return .federalStateSn
-		case .sachsenAnhalt:
-			return .federalStateSt
-		case .schleswigHolstein:
-			return .federalStateSh
-		case .thüringen:
-			return .federalStateTh
-		}
+		return formatted
 	}
 }

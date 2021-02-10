@@ -33,4 +33,6 @@ struct UserMetadata: Codable {
 		administrativeUnit = try container.decode(Int.self, forKey: .administrativeUnit)
 		ageGroup = try container.decode(AgeGroup.self, forKey: .ageGroup)
 	}
+
+
 }

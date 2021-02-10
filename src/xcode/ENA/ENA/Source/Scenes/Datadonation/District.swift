@@ -36,6 +36,43 @@ enum FederalStateName: String, Codable {
 	case sachsenAnhalt = "Sachsen-Anhalt"
 	case schleswigHolstein = "Schleswig-Holstein"
 	case thüringen = "Thüringen"
+
+	var protobuf: SAP_Internal_Ppdd_PPAFederalState {
+		switch self {
+		case .badenWürttemberg:
+			return .federalStateBw
+		case .bayern:
+			return .federalStateBy
+		case .berlin:
+			return .federalStateBe
+		case .brandenburg:
+			return .federalStateBb
+		case .bremen:
+			return .federalStateHb
+		case .hamburg:
+			return .federalStateHh
+		case .hessen:
+			return .federalStateHe
+		case .mecklenburgVorpommern:
+			return .federalStateMv
+		case .niedersachsen:
+			return .federalStateNi
+		case .nordrheinWestfalen:
+			return .federalStateNrw
+		case .rheinlandPfalz:
+			return .federalStateRp
+		case .saarland:
+			return .federalStateSl
+		case .sachsen:
+			return .federalStateSn
+		case .sachsenAnhalt:
+			return .federalStateSt
+		case .schleswigHolstein:
+			return .federalStateSh
+		case .thüringen:
+			return .federalStateTh
+		}
+	}
 }
 
 enum FederalStateShortName: String, Codable {
