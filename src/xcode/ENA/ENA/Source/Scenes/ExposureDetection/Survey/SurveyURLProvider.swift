@@ -55,11 +55,11 @@ enum SurveyError: Error {
 	}
 }
 
-protocol SurveyURLProvidable {
+protocol SurveyURLProviding {
 	func getURL(_ completion: @escaping (Result<URL, SurveyError>) -> Void)
 }
 
-final class SurveyURLProvider: SurveyURLProvidable {
+final class SurveyURLProvider: SurveyURLProviding {
 
 	// MARK: - Init
 

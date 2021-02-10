@@ -13,7 +13,7 @@ final class ExposureDetectionCoordinator {
 	private let homeState: HomeState
 	private let exposureManager: ExposureManager
 	private let otpService: OTPServiceProviding
-	private let surveyURLProvider: SurveyURLProvidable
+	private let surveyURLProvider: SurveyURLProviding
 
 	init(
 		rootViewController: UIViewController,

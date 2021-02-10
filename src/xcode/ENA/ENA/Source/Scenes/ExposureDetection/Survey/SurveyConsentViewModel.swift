@@ -9,7 +9,7 @@ final class SurveyConsentViewModel {
 	// MARK: - Init
 
 	init(
-		surveyURLProvider: SurveyURLProvidable
+		surveyURLProvider: SurveyURLProviding
 	) {
 		self.surveyURLProvider = surveyURLProvider
 	}
@@ -96,7 +96,7 @@ final class SurveyConsentViewModel {
 
 	// MARK: - Private
 
-	private let surveyURLProvider: SurveyURLProvidable
+	private let surveyURLProvider: SurveyURLProviding
 
 	private var privacyDetailsModel: DynamicTableViewModel {
 		
