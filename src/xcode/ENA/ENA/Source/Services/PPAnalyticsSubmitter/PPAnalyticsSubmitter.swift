@@ -309,6 +309,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			Log.warning("mostRecentDate is nil", log: .ppa)
 			return -1
 		}
-		return date.unixTimestamp
+		return Int64(date.unixTimestamp)
 	}
 }

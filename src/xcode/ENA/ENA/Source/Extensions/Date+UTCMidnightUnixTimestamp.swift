@@ -6,7 +6,7 @@ import Foundation
 
 extension Date {
 
-	var unixTimestamp: Int64 {
-		return Int64(self.timeIntervalSince1970)
+	var unixTimestamp: Int {
+		return Int(self.timeIntervalSince1970)
 	}
 }
