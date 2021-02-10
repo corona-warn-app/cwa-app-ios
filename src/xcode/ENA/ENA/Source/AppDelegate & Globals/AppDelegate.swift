@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			// provide a static app configuration for ui tests to prevent validation errors
-			return CachedAppConfigurationMock()
+			return CachedAppConfigurationMock(isEventSurveyEnabled: true, isEventSurveyUrlAvailable: true)
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
@@ -183,6 +183,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 		#endif
 	}()
+
+	private lazy var otpService: OTPServiceProviding = OTPService(
+		store: store,
+		client: client,
+		riskProvider: riskProvider
+	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -405,7 +411,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
-		contactDiaryStore: self.contactDiaryStore
+		contactDiaryStore: self.contactDiaryStore,
+		otpService: otpService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)

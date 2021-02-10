@@ -108,6 +108,7 @@ protocol StoreProtocol: AnyObject {
 
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }
+	var otpAuthorizationDate: Date? { get set }
 
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }

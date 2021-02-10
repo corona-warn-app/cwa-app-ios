@@ -12,10 +12,10 @@ final class DMOTPServiceViewModel {
 
 	init(
 		store: Store,
-		client: Client
+		otpService: OTPServiceProviding
 	) {
 		self.store = store
-		self.otpService = OTPService(store: store, client: client)
+		self.otpService = otpService
 	}
 
 	// MARK: - Internal
@@ -83,7 +83,7 @@ final class DMOTPServiceViewModel {
 	}
 
 	private let store: Store
-	private let otpService: OTPService
+	private let otpService: OTPServiceProviding
 
 	private var lastKnownDeviceToken: Result<PPACToken, PPACError>?
 }
