@@ -186,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 
-	lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
+	private lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
