@@ -105,11 +105,6 @@ final class SecureStore: Store {
 		set { kvStore["finishedDeltaOnboardings"] = newValue }
 	}
 
-	var onboardedDate: Date? {
-		get { kvStore["onboardedDate"] as Date? }
-		set { kvStore["onboardedDate"] = newValue }
-	}
-
 	var onboardingVersion: String {
 		get { kvStore["onboardingVersion"] as String? ?? "1.4" }
 		set { kvStore["onboardingVersion"] = newValue }
