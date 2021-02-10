@@ -1282,9 +1282,9 @@ sein.";
 
 /* Version 1.13 */
 
-"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Umfrage";
+"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Befragung";
 
-"NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Umfrage des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
+"NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Befragung des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
 
 "NewVersionFeature_113_data_donation_title" = "Einwilligung zur Datenspende (optional)";
 
