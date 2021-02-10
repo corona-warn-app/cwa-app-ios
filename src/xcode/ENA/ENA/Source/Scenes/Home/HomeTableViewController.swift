@@ -666,7 +666,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				style: .default,
 				handler: { [weak self] _ in
 					self?.viewModel.reenableRiskDetection()
-					self?.scrollToTop(animated: true)
+					self?.scrollToTop(animated: false)
 					self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTest.rawValue], with: .automatic)
 				}
 			)
