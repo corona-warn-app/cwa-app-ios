@@ -12,9 +12,16 @@ enum PPASError: Error {
 	case jsonError
 	case serverError(PPAServerErrorCode)
 	case serverFailure(Error)
+	case ppacError
+	case appResetError
+	case onboardingError
+	case submission23hoursError
+	case probibilityError
+	case userConsentError
 }
 
 extension PPASError: Equatable {
+	// swiftlint:disable cyclomatic_complexity
 	static func == (lhs: PPASError, rhs: PPASError) -> Bool {
 		switch(lhs, rhs) {
 		case (.generalError, .generalError):
@@ -28,6 +35,18 @@ extension PPASError: Equatable {
 		case let (.serverError(lhsError), .serverError(rhsError)):
 			return lhsError == rhsError ? true : false
 		case (.serverFailure, .serverFailure):
+			return true
+		case (.ppacError, .ppacError):
+			return true
+		case (.appResetError, .appResetError):
+			return true
+		case (.onboardingError, .onboardingError):
+			return true
+		case (.submission23hoursError, .submission23hoursError):
+			return true
+		case (.probibilityError, .probibilityError):
+			return true
+		case (.userConsentError, .userConsentError):
 			return true
 		default:
 			return false
