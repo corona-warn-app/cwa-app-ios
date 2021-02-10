@@ -130,8 +130,8 @@ final class DataDonationViewModel {
 					style: DynamicCell.TextCellStyle.label,
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
-					action: .push(model: AppInformationModel.privacyModel,
-								  withTitle: AppStrings.AppInformation.privacyTitle,
+					action: .pushDataDonationDetails(model: DataDonationDetailsViewModel().dynamicTableViewModel,
+								  withTitle: AppStrings.DataDonation.DetailedInfo.title,
 								  completion: nil
 					),
 					configure: { _, cell, _ in
