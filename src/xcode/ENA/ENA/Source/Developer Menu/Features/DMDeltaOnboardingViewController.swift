@@ -88,7 +88,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	// MARK: - Private API
 	
 	private func buildDataSource() {
-		dataSource = store.finishedDeltaOnboardings.compactMap({(key:$0, values:$1)})
+		dataSource = store.finishedDeltaOnboardings.compactMap({ (key:$0, values:$1) })
 	}
 
 	private func updateCurrentVersionLabel() {
@@ -147,7 +147,6 @@ extension DMDeltaOnboardingViewController: UITableViewDelegate, UITableViewDataS
 					}
 				}
 			}
-		
 	}
 	
 }
