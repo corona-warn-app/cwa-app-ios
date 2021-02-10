@@ -1716,3 +1716,98 @@ sein.";
 "Tabbar_Home_Title" = "Startseite";
 
 "Tabbar_Diary_Title" = "Tagebuch";
+
+/* Data Donation */
+
+"DataDonation_AccImageDescription" = "Weibliche Person mit Mobiltelefon, welche ihre Daten teilt";
+
+"DataDonation_Headline" = "Datenspende";
+
+"DataDonation_Description" = "Sie können uns helfen, die Corona-Warn-App zu verbessern. Teilen Sie Daten über Ihre App-Nutzung mit dem RKI. Sie helfen damit dem RKI bei der Bewertung der Wirksamkeit der App. Ihre Daten ermöglichen außerdem, die Funktionen und Nutzerfreundlichkeit der App zu verbessern.";
+
+"DataDonation_SubHead_YourState" = "Ihr Bundesland (optional)";
+
+"DataDonation_SubHead_AgeGroup" = "Ihre Altersgruppe (optional)";
+
+"DataDonation_State_NoSelection_Text" = "Bundesland";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Angabe zu Ihrem Alter";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA";
+
+"DataDonation_Button_OK" = "Einverstanden";
+
+"DataDonation_Button_NotOK" = "Nicht einverstanden";
+
+/* Detailed Infos Data Donation */
+
+"DetailedInfosDataDonation_Headline" = "Ausführliche Informationen zur Datenspende";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Datenverarbeitung im Rahmen der Datenspende";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten werden zu unterschiedlichen Zwecken ausgewertet:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Verbesserung der Risiko-Ermittlung";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Die Genauigkeit und Zuverlässigkeit der technischen Berechnung der Ansteckungsrisiken sollen verbessert werden. Hierfür werden Angaben über Risiko-Begegnungen und Ihnen angezeigte Warnungen ausgewertet. In der Folge kann die Berechnungsmethode verfeinert werden.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Verbesserung der Nutzerführung in der App";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Die Bedienung der App soll erleichtert werden. Hierfür werden Angaben über die einzelnen Schritte ausgewertet, die Nutzer in der App vornehmen. So können Beschriftungen und Hinweistexte klarer gestaltet und Bedienelemente so platziert werden, dass sie besser gefunden werden können. Außerdem können Darstellungen für verschiedene Smartphone-Modelle angepasst werden.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z.B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Verbesserung der Statistiken über den Pandemieverlauf";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Die Daten können Aufschluss über die zeitliche und räumliche Verteilung bestimmter Ereignisse des Pandemieverlaufs geben und es ermöglichen, auf bestimmte Entwicklungen schneller zu reagieren.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "Dazu erhebt das RKI folgende Daten:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "Das Datum der Übermittlung.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Änderungen der Warnungshistorie im Vergleich zum Vortag.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Angaben dazu, welches Risiko Ihnen zum Zeitpunkt der Übermittlung angezeigt wurde.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Angaben dazu, auf welcher Grundlage der Risikostatus in Zusammenhang mit einer Begegnung berechnet wurde.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Wenn Sie ein Testergebnis über die App abgerufen haben:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Angaben dazu, ob Sie ein positives oder negatives Testergebnis über die App erhalten haben.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Angaben zum berechneten Risiko zum Zeitpunkt der Testregistrierung.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Angaben zum Zeitraum zwischen der letzten Begegnung mit erhöhtem Risiko und der Testregistrierung.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Angaben zum Zeitraum zwischen der letzten Mitteilung eines erhöhten Risikos und der Testregistrierung.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Angaben dazu, ob Sie Ihr Testergebnis geteilt und andere gewarnt haben.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "Wenn Sie andere über eine mögliche Risiko-Begegnung gewarnt haben:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Angaben dazu, ob Sie die Schritte zur Warnung anderer abgebrochen haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Angaben dazu, ob Sie Angaben zum Symptombeginn gemacht haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Angaben dazu, wann Sie Ihr Einverständnis in die Warnung anderer erteilt haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Angaben dazu, bis zu welcher Meldung im Rahmen der Warnung anderer Sie gekommen sind.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Angaben dazu, wie viele Stunden es gedauert hat, bis Sie Ihr Testergebnisses erhalten haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Angaben dazu, wie viele Tage seit der letzten Mitteilung eines hohen Risikos vergangen sind.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Angaben dazu, wie viele Stunden seit der Testregistrierung vergangen sind.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Sonstige Informationen:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Angaben dazu, welche Altersgruppe Sie angegeben haben.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Angaben dazu, welche Region Sie angegeben haben.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Angaben zum Modell und der Version Ihres Smartphones und zur Version Ihrer App sowie dem verwendeten Betriebssystem.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
+Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";
