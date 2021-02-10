@@ -12,7 +12,6 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	private var textField: UITextField!
 	private var currentVersionLabel: UILabel!
 	private let tableView = UITableView()
-	private var characters = ["Link", "Zelda", "Ganondorf", "Midna"]
 	private var safeArea: UILayoutGuide!
 	private var dataSource = [(key:String, values:[String])]()
 
@@ -22,8 +21,6 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		self.store = store
 		super.init(nibName: nil, bundle: nil)
 		buildDataSource()
-		
-		
 	}
 
 	@available(*, unavailable)
@@ -136,7 +133,6 @@ extension DMDeltaOnboardingViewController: UITableViewDelegate, UITableViewDataS
 	
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 			if editingStyle == .delete {
-				
 				let key = dataSource[indexPath.section].key
 				dataSource[indexPath.section].values.remove(at: indexPath.row)
 				tableView.deleteRows(at: [indexPath], with: .fade)
