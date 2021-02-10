@@ -160,7 +160,6 @@
 		01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026AA258BA2F900B6389A /* ExposureDetectionRiskTextCell.xib */; };
 		01D026C1258BACCE00B6389A /* ExposureDetectionRiskRefreshCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026A9258BA2F600B6389A /* ExposureDetectionRiskRefreshCell.xib */; };
 		01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026AC258BA2FD00B6389A /* ExposureDetectionLinkCell.xib */; };
-		01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */; };
 		01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D0270F258BC17500B6389A /* InviteFriendsViewController.xib */; };
 		01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0271A258BC78100B6389A /* SettingsCoordinator.swift */; };
 		01D0272E258BD2B100B6389A /* BackgroundAppRefreshViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D0272D258BD2B100B6389A /* BackgroundAppRefreshViewController.xib */; };
@@ -894,7 +893,6 @@
 		01D026AA258BA2F900B6389A /* ExposureDetectionRiskTextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionRiskTextCell.xib; sourceTree = "<group>"; };
 		01D026AB258BA2FA00B6389A /* ExposureDetectionGuideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionGuideCell.xib; sourceTree = "<group>"; };
 		01D026AC258BA2FD00B6389A /* ExposureDetectionLinkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureDetectionLinkCell.xib; sourceTree = "<group>"; };
-		01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionTableViewCell.xib; sourceTree = "<group>"; };
 		01D0270F258BC17500B6389A /* InviteFriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteFriendsViewController.xib; sourceTree = "<group>"; };
 		01D0271A258BC78100B6389A /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		01D0272D258BD2B100B6389A /* BackgroundAppRefreshViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackgroundAppRefreshViewController.xib; sourceTree = "<group>"; };
@@ -1900,7 +1898,6 @@
 				EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */,
 				EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */,
 				EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */,
-				01D026E9258BB6DF00B6389A /* ActionTableViewCell.xib */,
 				941ADDAF2518C2B200E421D9 /* EuTracingTableViewCell.swift */,
 			);
 			path = Cells;
@@ -4181,7 +4178,6 @@
 				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
-				01D02703258BBCC700B6389A /* ActionTableViewCell.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
 				01D02733258BD36800B6389A /* MainSettingsCell.xib in Resources */,

@@ -2,7 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
 class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
