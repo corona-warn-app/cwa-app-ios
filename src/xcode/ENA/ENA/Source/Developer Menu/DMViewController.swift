@@ -149,6 +149,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPACViewController(store)
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, client: client)
+		case .ppaSubmission:
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		}
 		
 		if let vc = vc {
