@@ -233,7 +233,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies)
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			analyticsSubmitter: self.analyticsSubmitter
+			)
 	}()
 
 	var notificationManager: NotificationManager! = NotificationManager()
