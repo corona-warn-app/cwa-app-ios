@@ -8,11 +8,17 @@ struct DeadmanNotificationManager {
 
 	// MARK: - Init
 
-	init(store: Store) {
+	init(
+		store: Store,
+		userNotificationCenter: UserNotificationCenter = UNUserNotificationCenter.current()
+	) {
 		self.store = store
+		self.userNotificationCenter = userNotificationCenter
 	}
 
 	// MARK: - Internal
+
+	static let deadmanNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-deadman"
 	
 	/// Schedules a local notification to fire 36 hours from now, if there isn´t a notification already scheduled
 	func scheduleDeadmanNotificationIfNeeded() {
@@ -27,7 +33,7 @@ struct DeadmanNotificationManager {
 		}
 
 		// Check if Deadman Notification is already scheduled
-		UNUserNotificationCenter.current().getPendingNotificationRequests { notificationRequests in
+		userNotificationCenter.getPendingNotificationRequests { notificationRequests in
 			if notificationRequests.contains(where: { $0.identifier == Self.deadmanNotificationIdentifier }) {
 				// Deadman Notification already setup -> return
 				return
@@ -49,7 +55,7 @@ struct DeadmanNotificationManager {
 					trigger: trigger
 				)
 				
-				UNUserNotificationCenter.current().add(request) { error in
+				userNotificationCenter.add(request) { error in
 					if error != nil {
 						Log.error("Deadman notification could not be scheduled.")
 					}
@@ -66,13 +72,12 @@ struct DeadmanNotificationManager {
 	
 	// MARK: - Private
 
-	private var store: Store
-	
-	private static let deadmanNotificationIdentifier = (Bundle.main.bundleIdentifier ?? "") + ".notifications.cwa-deadman"
+	private let store: Store
+	private let userNotificationCenter: UserNotificationCenter
 
 	/// Cancels the Deadman Notification
 	private func cancelDeadmanNotification() {
-		UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [Self.deadmanNotificationIdentifier])
+		userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [Self.deadmanNotificationIdentifier])
 	}
 
 }
