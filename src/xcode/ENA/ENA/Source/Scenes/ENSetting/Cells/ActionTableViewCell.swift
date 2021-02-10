@@ -19,10 +19,11 @@ class ActionTableViewCell: UITableViewCell {
 	private var actionSwitch: ENASwitch!
 	private var detailLabel: ENALabel!
 	private var layoutConstraints = [NSLayoutConstraint]()
-
-	weak var delegate: ActionTableViewCellDelegate?
+	private var line: SeperatorLineLayer!
 	private var askForConsent = false
 
+	weak var delegate: ActionTableViewCellDelegate?
+	
 	@objc
 	private func switchValueDidChange() {
 		if askForConsent {
@@ -56,6 +57,9 @@ class ActionTableViewCell: UITableViewCell {
 		actionSwitch.addTarget(self, action: #selector(switchValueDidChange), for: .valueChanged)
 		actionSwitch.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(actionSwitch)
+		// line
+		line = SeperatorLineLayer()
+		contentView.layer.insertSublayer(line, at: 0)
 		// activate constraints
 		NSLayoutConstraint.activate([
 			// actionTitleLabel
@@ -78,6 +82,17 @@ class ActionTableViewCell: UITableViewCell {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		let path = UIBezierPath()
+		path.move(to: CGPoint(x: 0, y: 0))
+		path.addLine(to: CGPoint(x: contentView.bounds.width, y: 0))
+		let y = contentView.bounds.height - line.lineWidth / 2
+		path.move(to: CGPoint(x: 0, y: y))
+		path.addLine(to: CGPoint(x: contentView.bounds.width, y: y))
+		line.path = path.cgPath
 	}
 	
 	func turnSwitch(to on: Bool) {

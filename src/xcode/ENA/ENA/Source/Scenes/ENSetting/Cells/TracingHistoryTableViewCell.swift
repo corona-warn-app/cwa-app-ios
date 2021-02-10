@@ -6,18 +6,12 @@ import UIKit
 
 class TracingHistoryTableViewCell: UITableViewCell {
 	
+	private var line: SeperatorLineLayer!
 	private var titleLabel: ENALabel!
 	private var subtitleLabel: ENALabel!
 	private var circleView: CircularProgressView!
 	private var historyLabel: ENALabel!
-	private lazy var line: CAShapeLayer = {
-		let line = CAShapeLayer()
-		line.lineWidth = 1
-		line.strokeColor = UIColor.enaColor(for: .hairline).cgColor
-		contentView.layer.insertSublayer(line, at: 0)
-		return line
-	}()
-	
+
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		// self
@@ -51,6 +45,9 @@ class TracingHistoryTableViewCell: UITableViewCell {
 		circleView.circleColor = .enaColor(for: .hairline)
 		circleView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(circleView)
+		// line
+		line = SeperatorLineLayer()
+		contentView.layer.insertSublayer(line, at: 0)
 		// activate constrinats
 		NSLayoutConstraint.activate([
 			// titleLabel
@@ -81,6 +78,15 @@ class TracingHistoryTableViewCell: UITableViewCell {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		let y = line.lineWidth / 2
+		let path = UIBezierPath()
+		path.move(to: CGPoint(x: 0, y: y))
+		path.addLine(to: CGPoint(x: contentView.bounds.width, y: y))
+		line.path = path.cgPath
 	}
 	
 	func configure(
