@@ -44,7 +44,7 @@ struct RiskExposureMetadata: Codable {
 
 		riskLevel = try container.decode(RiskLevel.self, forKey: .riskLevel)
 		riskLevelChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .riskLevelChangedComparedToPreviousSubmission)
-		mostRecentDateAtRiskLevel = try? container.decode(Date.self, forKey: .mostRecentDateAtRiskLevel)
+		mostRecentDateAtRiskLevel = try container.decodeIfPresent(Date.self, forKey: .mostRecentDateAtRiskLevel)
 		dateChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .dateChangedComparedToPreviousSubmission)
 	}
 
