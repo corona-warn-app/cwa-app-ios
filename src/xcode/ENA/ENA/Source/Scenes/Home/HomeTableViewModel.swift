@@ -10,9 +10,11 @@ class HomeTableViewModel {
 	// MARK: - Init
 
 	init(
-		state: HomeState
+		state: HomeState,
+		store: Store
 	) {
 		self.state = state
+		self.store = store
 	}
 
 	// MARK: - Internal
@@ -32,7 +34,8 @@ class HomeTableViewModel {
 		case thankYou
 	}
 
-	var state: HomeState
+	let state: HomeState
+	let store: Store
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -101,6 +104,13 @@ class HomeTableViewModel {
 		case .none:
 			fatalError("Invalid section")
 		}
+	}
+
+	func reenableRiskDetection() {
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
+		store.testResultReceivedTimeStamp = nil
+		
+		state.requestRisk(userInitiated: true)
 	}
 
 }
