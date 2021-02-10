@@ -1303,7 +1303,7 @@ sein.";
 
 /* Version 1.13 */
 
-"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Umfrage";
+"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Befragung";
 
 "NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Umfrage des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
 
@@ -1712,6 +1712,8 @@ sein.";
 
 "DataDonation_State_NoSelection_Text" = "Bundesland";
 
+"DataDonation_Region_NoSelection_Text" = "Kreis / Bezirk (optional)";
+
 "DataDonation_AgeGroup_NoSelection_Text" = "Angabe zu Ihrem Alter";
 
 "DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA";
@@ -1719,6 +1721,22 @@ sein.";
 "DataDonation_Button_OK" = "Einverstanden";
 
 "DataDonation_Button_NotOK" = "Nicht einverstanden";
+
+/* Value selection */
+
+"DataDonation_ValueSelection_None" = "keine Angabe";
+
+"DataDonation_ValueSelection_Title_State" = "Ihr Bundesland ";
+
+"DataDonation_ValueSelection_Title_Region" = "Ihr Kreis / Bezirk";
+
+"DataDonation_ValueSelection_Title_Age" = "Ihre Altersgruppe";
+
+"DataDonation_ValueSelection_Age_Below29" = "0-29 Jahre";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 Jahre";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "60+ Jahre";
 
 /* Detailed Infos Data Donation */
 
