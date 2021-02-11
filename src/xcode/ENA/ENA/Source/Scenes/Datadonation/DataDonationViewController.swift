@@ -24,7 +24,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 			jsonFileURL: url
 		)
 
-		self.viewModel = DataDonationViewModel(
+		self.viewModel = DefaultDataDonationViewModel(
 			store: store,
 			presentSelectValueList: presentSelectValueList,
 			datadonationModel: datadonationModel
@@ -93,7 +93,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	private let presentSelectValueList: (SelectValueViewModel) -> Void
 	private let didTapLegal: () -> Void
 
-	private let viewModel: DataDonationViewModel
+	private let viewModel: DefaultDataDonationViewModel
 	private var subscriptions: [AnyCancellable] = []
 
 	private func setupTableView() {
