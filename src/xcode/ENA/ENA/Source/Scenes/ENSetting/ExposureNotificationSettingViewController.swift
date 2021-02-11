@@ -99,16 +99,12 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			return actionCell(for: indexPath, in: tableView)
 		case .euTracingCell:
 			return euTracingCell(for: indexPath, in: tableView)
-		case .tracingCell:
+		case .tracingCell, .actionDetailCell:
 			switch enState {
 			case .enabled, .disabled:
 				return tracingCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
-				guard let cell = tableView.dequeueReusableCell(withIdentifier: section.rawValue, for: indexPath) as? ActionTableViewCell else {
-					return UITableViewCell()
-				}
-				cell.configure(for: enState, delegate: self)
-				return cell
+				return actionDetailCell(for: indexPath, in: tableView)
 			}
 		case .descriptionCell:
 			return descriptionCell(for: indexPath, in: tableView)
@@ -172,6 +168,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		case actionCell
 		case euTracingCell
 		case tracingCell
+		case actionDetailCell
 		case descriptionCell
 	}
 
@@ -198,6 +195,11 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		tableView.register(
 			ActionTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.actionCell.rawValue
+		)
+		
+		tableView.register(
+			UINib(nibName: String(describing: ActionDetailTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
 		)
 
 		tableView.register(
@@ -298,14 +300,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 	
 	private func actionDetailCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		if let lastActionCell = lastActionCell {
-			return lastActionCell
-		}
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionCell.rawValue, for: indexPath) as? ActionTableViewCell else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue, for: indexPath) as? ActionDetailTableViewCell else {
 			return UITableViewCell()
 		}
 		cell.configure(for: enState, delegate: self)
-		lastActionCell = cell
 		return cell
 	}
 

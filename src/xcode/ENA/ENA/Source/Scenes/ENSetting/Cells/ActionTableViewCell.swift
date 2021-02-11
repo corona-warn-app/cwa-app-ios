@@ -68,7 +68,7 @@ class ActionTableViewCell: UITableViewCell {
 			actionTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
 			actionTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 			// detailLabel
-			detailLabel.leadingAnchor.constraint(equalTo: actionTitleLabel.trailingAnchor, constant: 8),
+			detailLabel.leadingAnchor.constraint(greaterThanOrEqualTo: actionTitleLabel.trailingAnchor, constant: 8),
 			detailLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
 			detailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 			// actionSwitch
@@ -179,7 +179,7 @@ class ActionTableViewCell: UITableViewCell {
 		} else if !detailLabel.isHidden {
 			layoutConstraints.append(contentsOf: [
 				// detailLabel
-				detailLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16)
+				detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
 			])
 		}
 		// activate constrints
