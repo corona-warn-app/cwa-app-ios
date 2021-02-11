@@ -119,7 +119,4 @@ class DataDonationModelTests: XCTestCase {
 
 	}
 
-
-
-
 }

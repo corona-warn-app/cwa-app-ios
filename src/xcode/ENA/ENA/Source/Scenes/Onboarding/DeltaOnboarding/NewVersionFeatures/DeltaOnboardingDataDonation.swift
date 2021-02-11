@@ -12,22 +12,33 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 	init(store: Store) {
 		self.store = store
 	}
-
+	
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
+		
+		weak var navigationController: DeltaOnboardingNavigationController?
 		
 		let dataDonationViewController = DataDonationViewController(
 			store: store,
-			presentSelectValueList: { _ in },
+			presentSelectValueList: { selectValueViewModel in
+				let selectValueViewController = SelectValueTableViewController(
+					selectValueViewModel,
+					dissmiss: {
+						navigationController?.dismiss(animated: true)
+					})
+				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
+				navigationController?.present(selectValueNavigationController, animated: true)
+			},
 			didTapLegal: {}
 		)
 
-		let navigationController = DeltaOnboardingNavigationController(rootViewController: dataDonationViewController)
-		navigationController.navigationBar.prefersLargeTitles = true
+		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: dataDonationViewController)
+		deltaOnboardingNavigationController.navigationBar.prefersLargeTitles = true
 
 		dataDonationViewController.finished = {
-			navigationController.finished?()
+			deltaOnboardingNavigationController.finished?()
 		}
 
-		return navigationController
+		navigationController = deltaOnboardingNavigationController
+		return deltaOnboardingNavigationController
 	}
 }
