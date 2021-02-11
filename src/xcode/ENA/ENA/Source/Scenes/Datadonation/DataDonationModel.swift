@@ -58,13 +58,18 @@ struct DataDonationModel {
 		.map { $0.districtName }
 	}
 
+	// store alle data if the user consent is given
+	// otherwise set all values to nil and store that consent isn't give only
 	func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
-
+		guard isConsentGiven else {
+			store.userMetadata = UserMetadata(federalState: nil, administrativeUnit: nil, ageGroup: nil)
+			return
+		}
 		let ageGroup = AgeGroup(from: self.age)
 		let district = allDistricts.first(where: { districtElement -> Bool in
-				districtElement.districtName == region
-			  }
+			districtElement.districtName == region
+		}
 		)
 
 		var federalStateNameEnum: FederalStateName?

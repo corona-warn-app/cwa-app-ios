@@ -3784,11 +3784,11 @@
 		BA0073BB25D189E50036DFDD /* Datadonation */ = {
 			isa = PBXGroup;
 			children = (
+				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
+				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
+				BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */,
 				BA0073BD25D18A5B0036DFDD /* DataDonationViewController.swift */,
 				BA0073E925D196900036DFDD /* DataDonationViewModel.swift */,
-				BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */,
-				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
-				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
 				BA0073FF25D1A1810036DFDD /* District.swift */,
 			);
 			path = Datadonation;
