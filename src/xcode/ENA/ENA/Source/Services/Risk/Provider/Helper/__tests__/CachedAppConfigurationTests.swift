@@ -90,7 +90,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		XCTAssertNil(store.clientMetadata, "Client metadata should be initially nil")
 		let client = CachingHTTPClientMock(store: store)
 		let cache = CachedAppConfiguration(client: client, store: store)
-		let expectationClientMetadata = expectation(description: "ClientMetaData")
+		let expectationClientMetadata = expectation(description: "ClientMetadata")
 		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
 			expectationClientMetadata.fulfill()
 		}
