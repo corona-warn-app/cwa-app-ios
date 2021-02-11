@@ -41,7 +41,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			keys = self.keys.sorted()
 		}
 	}
-	
+
 	// internal because of protocol RequiresAppDependencies
 	let wifiClient: WifiOnlyHTTPClient
 
@@ -154,8 +154,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPACViewController(store)
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, otpService: otpService)
+		case .ppaMostRecent:
+			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider)
+		case .ppaActual:
+			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
+		case .ppaSubmission:
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		}
-		
+
 		if let vc = vc {
 			navigationController?.pushViewController(
 				vc,

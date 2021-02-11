@@ -8,6 +8,15 @@ import OpenCombine
 protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
+
+	#if !RELEASE
+	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
+	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
+	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS
+	/// ONLY FOR TESTING. Returns the last submitted data.
+	func mostRecentAnalyticsData() -> String?
+	#endif
 }
 
 final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
@@ -74,32 +83,31 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				return
 			}
 
-			// Obtain usage data
-			let payload = self.obtainUsageData()
-
 			if let token = ppacToken {
 				// Submit analytics data with injected ppac token
-				self.submitData(with: token, for: payload, completion: completion)
+				self.submitData(with: token, completion: completion)
 			} else {
-				// Obtain authentication data
-				let deviceCheck = PPACDeviceCheck()
-				let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
-
-				// Submit analytics data with generated ppac token
-				ppacService.getPPACToken { [weak self] result in
-					switch result {
-					case let .success(token):
-						self?.submitData(with: token, for: payload, completion: completion)
-					case let .failure(error):
-						Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
-						completion?(.failure(.ppacError))
-						return
-					}
-				}
+				self.generatePPACAndSubmitData(completion: completion)
 			}
 
 		}.store(in: &subscriptions)
 	}
+
+	#if !RELEASE
+
+	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
+		generatePPACAndSubmitData(completion: completion)
+	}
+
+	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
+		return obtainUsageData()
+	}
+
+	func mostRecentAnalyticsData() -> String? {
+		return store.lastSubmittedPPAData
+	}
+
+	#endif
 
 	// MARK: - Public
 
@@ -145,6 +153,24 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return lastTwentyFourHours.contains(lastResetDate)
 	}
 
+	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+		// Obtain authentication data
+		let deviceCheck = PPACDeviceCheck()
+		let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
+
+		// Submit analytics data with generated ppac token
+		ppacService.getPPACToken { [weak self] result in
+			switch result {
+			case let .success(token):
+				self?.submitData(with: token, completion: completion)
+			case let .failure(error):
+				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+				completion?(.failure(.ppacError(error)))
+				return
+			}
+		}
+	}
+
 	private func obtainUsageData() -> SAP_Internal_Ppdd_PPADataIOS {
 
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
@@ -172,7 +198,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return payload
 	}
 
-	private func submitData(with ppacToken: PPACToken, for payload: SAP_Internal_Ppdd_PPADataIOS, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+	private func submitData(with ppacToken: PPACToken, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+
+		let payload = obtainUsageData()
 
 		var forceApiTokenHeader = false
 		#if !RELEASE
@@ -191,6 +219,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
+					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted", log: .ppa, error: error)
@@ -242,7 +271,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let ageGroup = storedUserData.ageGroup {
 				$0.ageGroup = ageGroup.protobuf
 			}
-
 		}
 	}
 
