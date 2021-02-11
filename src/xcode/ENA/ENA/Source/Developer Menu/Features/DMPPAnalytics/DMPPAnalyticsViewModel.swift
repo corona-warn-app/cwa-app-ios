@@ -56,6 +56,9 @@ final class DMPPAnalyticsViewModel {
 					self?.submitter.forcedSubmitData(completion: { [weak self] result in
 						switch result {
 						case .success:
+							let alert = UIAlertController(title: "Data submission success", message: nil, preferredStyle: .alert)
+							alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+							self?.showAlert?(alert)
 							self?.refreshTableView([TableViewSections.forceSubmission.rawValue])
 						case let .failure(error):
 							let alert = UIAlertController(title: "Data submission error", message: "Error code: \(error)", preferredStyle: .alert)
