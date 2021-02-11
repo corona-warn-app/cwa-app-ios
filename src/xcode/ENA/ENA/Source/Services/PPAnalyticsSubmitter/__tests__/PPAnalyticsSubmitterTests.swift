@@ -14,6 +14,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let store = MockTestStore()
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always succeed
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = 3
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
@@ -114,6 +115,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let store = MockTestStore()
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		// probability will always fail
 		config.privacyPreservingAnalyticsParameters.common.probabilityToSubmit = -1
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
 		let analyticsSubmitter = PPAnalyticsSubmitter(
