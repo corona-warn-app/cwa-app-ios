@@ -40,9 +40,9 @@ struct ClientMetaData: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		cwaVersion = try container.decode(Version?.self, forKey: .cwaVersion)
+		cwaVersion = try container.decodeIfPresent(Version.self, forKey: .cwaVersion)
 		iosVersion = try container.decode(Version.self, forKey: .iosVersion)
-		eTag = try container.decode(String?.self, forKey: .eTag)
+		eTag = try container.decodeIfPresent(String.self, forKey: .eTag)
 	}
 }
 
