@@ -60,32 +60,20 @@ struct DataDonationModel {
 	func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
 
-		/* optional data for later use
-
 		let ageGroup = AgeGroup(from: self.age)
 		let district = allDistricts.first(where: { districtElement -> Bool in
 				districtElement.districtName == region
 			  }
 		)
-		let federalStateNameEnum: FederalStateName?
+
+		var federalStateNameEnum: FederalStateName?
 		if let federaStateName = federalStateName {
 			federalStateNameEnum = FederalStateName(rawValue: federaStateName)
-		}
-*/
-
-		guard let ageGroup = AgeGroup(from: self.age),
-			  let district = allDistricts.first(where: { districtElement -> Bool in
-				districtElement.districtName == region
-			  }),
-			  let federaStateName = federalStateName,
-
-			  let federalStateNameEnum = FederalStateName(rawValue: federaStateName) else {
-			return
 		}
 
 		let userMetaData = UserMetadata(
 			federalState: federalStateNameEnum,
-			administrativeUnit: district.districtID,
+			administrativeUnit: district?.districtID,
 			ageGroup: ageGroup)
 
 		store.userMetadata = userMetaData
