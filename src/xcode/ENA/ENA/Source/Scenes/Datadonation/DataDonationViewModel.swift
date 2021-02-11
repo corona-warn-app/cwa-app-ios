@@ -90,23 +90,25 @@ final class DataDonationViewModel {
 			)
 		)
 
-		/// section for the legal texts
+		/// section for the legal text
 		dynamicTableViewModel.add(
 			.section(
 				cells: [
-					.legal(title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
-						   description: NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementContent),
-						   textBlocks: [ acknowledgementString ],
-						   accessibilityIdentifier: AppStrings.DataDonation.Info.legalTitle)
-//					.legalExtended(title: nil, subheadline1: nil, bulletPoints1: <#T##[NSAttributedString]?#>, subheadline2: <#T##NSAttributedString?#>, bulletPoints2: <#T##[NSAttributedString]?#>, accessibilityIdentifier: <#T##String?#>, configure: <#T##DynamicCell.CellConfigurator?##DynamicCell.CellConfigurator?##(DynamicTableViewController, UITableViewCell, IndexPath) -> Void#>)
-//					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
-//					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-//					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
-//					.space(height: 16)
+					.legalExtendedDataDonation(
+						title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
+						description: NSAttributedString(
+							string: AppStrings.DataDonation.Info.legalAcknowledgementContent,
+							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]),
+						bulletPoints: [
+							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint1),
+							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint2),
+							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint3)],
+						accessibilityIdentifier: AppStrings.DataDonation.Info.legalTitle
+					)
 				]
 			)
 		)
-		
+					
 		dynamicTableViewModel.add(
 			.section(separators: .all, cells: [
 				.body(
@@ -147,20 +149,6 @@ final class DataDonationViewModel {
 	private var friendlyAgeName: String {
 		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
 	}
-
-	private let acknowledgementString: NSAttributedString = {
-		let text1 = "legal bullet point 1"
-		let text2 = "legal bullet point 2"
-		let text3 = "legal bullet point 3"
-		
-		let string = NSMutableAttributedString(string: "\(text1) \(text2) \(text3)")
-
-		// highlighted text
-		let attributes: [NSAttributedString.Key: Any] = [
-			.font: UIFont.preferredFont(forTextStyle: .headline)
-		]
-		return string
-	}()
 
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
@@ -217,6 +205,34 @@ final class DataDonationViewModel {
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
+	}
+
+}
+
+extension DynamicCell {
+
+	/// A `legalExtendedDataDonation` to display legal text for Data Donation screen
+	/// - Parameters:
+	///   - title: The title/header for the legal foo.
+	///   - description: Optional description text.
+	///   - bulletPoints: A list of strings to be prefixed with bullet points.
+	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
+	///   - configure: Optional custom cell configuration
+	/// - Returns: A `DynamicCell` to display legal texts
+	static func legalExtendedDataDonation(
+		title: NSAttributedString,
+		description: NSAttributedString?,
+		bulletPoints: [NSAttributedString]? =  nil,
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(DataDonationViewController.CustomCellReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicLegalExtendedCell else {
+				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
+			}
+			cell.configure(title: title, description: description, bulletPoints: bulletPoints)
+			configure?(viewController, cell, indexPath)
+		}
 	}
 
 }
