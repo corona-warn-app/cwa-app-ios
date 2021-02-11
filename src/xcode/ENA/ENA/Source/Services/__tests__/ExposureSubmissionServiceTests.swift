@@ -49,13 +49,30 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
+		store.positiveTestResultWasShown = true
+		store.testResultReceivedTimeStamp = 12345678
+
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		var deadmanNotificationManager = MockDeadmanNotificationManager()
+
+		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
+		deadmanNotificationManager.resetDeadmanNotificationCalled = {
+			deadmanResetExpectation.fulfill()
+		}
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store),
+			deadmanNotificationManager: deadmanNotificationManager
+		)
 		service.isSubmissionConsentGiven = true
 		service.symptomsOnset = .lastSevenDays
 
-		let expectation = self.expectation(description: "Success")
+		let successExpectation = self.expectation(description: "Success")
 
 		// Act
 		service.getTemporaryExposureKeys { error in
@@ -63,7 +80,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 			service.submitExposure { error in
 				XCTAssertNil(error)
-				expectation.fulfill()
+				successExpectation.fulfill()
 			}
 		}
 
@@ -72,10 +89,15 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertNil(store.registrationToken)
 		XCTAssertNil(store.tan)
 
+		/// The date of the test result is still needed because it is shown on the home screen after the submission
+		XCTAssertNotNil(store.testResultReceivedTimeStamp)
+
 		XCTAssertFalse(service.isSubmissionConsentGiven)
 		XCTAssertNil(store.submissionKeys)
 		XCTAssertTrue(store.submissionCountries.isEmpty)
 		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertFalse(store.positiveTestResultWasShown)
+
 		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 

@@ -12,11 +12,12 @@ final class DataDonationViewModel {
 
 	init(
 		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void
+		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
+		datadonationModel: DataDonationModel
 	) {
 		self.presentSelectValueList = presentSelectValueList
 		self.reloadTableView = false
-		self.dataDonationModel = DataDonationModel(store: store)
+		self.dataDonationModel = datadonationModel
 	}
 
 	// MARK: - Overrides
@@ -32,10 +33,6 @@ final class DataDonationViewModel {
 	}
 
 	// MARK: - Internal
-
-	// [KGA] add accessibilityLabel and identifier back to cell
-	//	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
-	//	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
 
 	@OpenCombine.Published private (set) var reloadTableView: Bool
 

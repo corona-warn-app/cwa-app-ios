@@ -73,9 +73,9 @@ final class SecureStore: Store {
 		set { kvStore["exposureActivationConsentAccept"] = newValue }
 	}
 	
-	var privacyPreservingAnalyticsConsentAccept: Bool {
-		get { kvStore["privacyPreservingAnalyticsConsentAccept"] as Bool? ?? false }
-		set { kvStore["privacyPreservingAnalyticsConsentAccept"] = newValue }
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
+		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
+		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
 	}
 
 	var registrationToken: String? {
@@ -279,6 +279,11 @@ final class SecureStore: Store {
 	var otpToken: OTPToken? {
 		get { kvStore["otpToken"] as OTPToken? }
 		set { kvStore["otpToken"] = newValue }
+	}
+
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
 
 	var ppacApiToken: TimestampedToken? {

@@ -111,20 +111,14 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		}
 	}
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.setNavigationBarHidden(true, animated: false)
+	}
 
-		(cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
-
-		if cell.backgroundView == nil {
-			cell.backgroundView = UIView()
-		}
-
-		if cell.backgroundColor == nil || cell.backgroundColor == .clear {
-			cell.backgroundView?.backgroundColor = .enaColor(for: .background)
-		}
-
-		return cell
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: false)
 	}
 
 	// MARK: - Internal
@@ -139,6 +133,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		case longGuide = "longGuideCell"
 		case link = "linkCell"
 		case hotline = "hotlineCell"
+		case survey = "surveyCell"
 	}
 
 	let viewModel: ExposureDetectionViewModel
@@ -217,6 +212,11 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		tableView.register(
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
 			forCellReuseIdentifier: ReusableCellIdentifier.link.rawValue
+		)
+
+		tableView.register(
+			UINib(nibName: String(describing: ExposureDetectionSurveyTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: ReusableCellIdentifier.survey.rawValue
 		)
 	}
 	

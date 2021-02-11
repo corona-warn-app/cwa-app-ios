@@ -13,10 +13,22 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
 		didTapLegal: @escaping () -> Void
 	) {
-
 		self.presentSelectValueList = presentSelectValueList
 		self.didTapLegal = didTapLegal
-		self.viewModel = DataDonationViewModel(store: store, presentSelectValueList: presentSelectValueList)
+
+		guard let url = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+		let datadonationModel = DataDonationModel(
+			store: store,
+			jsonFileURL: url
+		)
+
+		self.viewModel = DataDonationViewModel(
+			store: store,
+			presentSelectValueList: presentSelectValueList,
+			datadonationModel: datadonationModel
+		)
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -48,7 +60,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		item.isSecondaryButtonHidden = false
 		item.isSecondaryButtonEnabled = true
 
-		item.title = AppStrings.DataDonation.Info.title
+		//item.title = AppStrings.DataDonation.Info.title
 
 		return item
 	}()
@@ -68,7 +80,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		finished?()
+		
 	}
 
 	// MARK: - Public
