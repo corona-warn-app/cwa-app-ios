@@ -1755,6 +1755,8 @@ sein.";
 
 "DataDonation_Description" = "Sie können uns helfen, die Corona-Warn-App zu verbessern. Teilen Sie Daten über Ihre App-Nutzung mit dem RKI. Sie helfen damit dem RKI bei der Bewertung der Wirksamkeit der App. Ihre Daten ermöglichen außerdem, die Funktionen und Nutzerfreundlichkeit der App zu verbessern.";
 
+"DataDonation_SubHead_Settings" = "EINSTELLUNG";
+
 "DataDonation_SubHead_YourState" = "Ihr Bundesland (optional)";
 
 "DataDonation_SubHead_AgeGroup" = "Ihre Altersgruppe (optional)";
