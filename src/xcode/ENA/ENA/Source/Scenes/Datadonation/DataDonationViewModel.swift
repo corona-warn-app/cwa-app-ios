@@ -20,10 +20,6 @@ final class DataDonationViewModel {
 		self.dataDonationModel = datadonationModel
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
 	// MARK: - Public
 
 	func save(consentGiven: Bool) {
