@@ -644,6 +644,8 @@
 		BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */; };
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
+		BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */; };
+		BA7D178125D549B3006B9EBF /* testData.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178025D549AA006B9EBF /* testData.json */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
@@ -1451,6 +1453,8 @@
 		BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
+		BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModelTests.swift; sourceTree = "<group>"; };
+		BA7D178025D549AA006B9EBF /* testData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testData.json; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
@@ -3784,6 +3788,7 @@
 		BA0073BB25D189E50036DFDD /* Datadonation */ = {
 			isa = PBXGroup;
 			children = (
+				BA7D177725D547BE006B9EBF /* __tests__ */,
 				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
 				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
 				BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */,
@@ -3953,6 +3958,15 @@
 				AB2F092225CD4C9C00C16309 /* default_app_config_113 */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		BA7D177725D547BE006B9EBF /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA7D178025D549AA006B9EBF /* testData.json */,
+				BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BA9BCF7525B09B3A00DD7974 /* __tests__ */ = {
@@ -4508,6 +4522,7 @@
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
 				01571B7A255E9A6F00E4E891 /* config-wru-2020-11-13 in Resources */,
 				AB2F092A25CD50F500C16309 /* default_app_config_113 in Resources */,
+				BA7D178125D549B3006B9EBF /* testData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5204,6 +5219,7 @@
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
 				F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */,
 				BAB6C82325C4666900E042FB /* PPACServiceTest.swift in Sources */,
+				BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */,
 				01B605E7258A4A980093DB8E /* DiaryContactPersonTest.swift in Sources */,
 				A1E4195D249818060016E52A /* RiskTests.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,

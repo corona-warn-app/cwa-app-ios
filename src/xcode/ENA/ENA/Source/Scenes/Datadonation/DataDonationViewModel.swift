@@ -12,11 +12,12 @@ final class DataDonationViewModel {
 
 	init(
 		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void
+		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
+		datadonationModel: DataDonationModel
 	) {
 		self.presentSelectValueList = presentSelectValueList
 		self.reloadTableView = false
-		self.dataDonationModel = DataDonationModel(store: store)
+		self.dataDonationModel = datadonationModel
 	}
 
 	// MARK: - Overrides

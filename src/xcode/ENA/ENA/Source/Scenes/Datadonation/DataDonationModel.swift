@@ -9,7 +9,9 @@ struct DataDonationModel {
 	// MARK: - Init
 
 	init(
-		store: Store
+		store: Store,
+		jsonFileURL: URL /*= Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json")*/
+//		fileName: String =
 	) {
 		self.store = store
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
@@ -18,15 +20,8 @@ struct DataDonationModel {
 		self.federalStateName = userMetadata?.federalState?.rawValue
 		self.age = userMetadata?.ageGroup?.text
 
-		guard let jsonFileUrl = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-			Log.debug("Failed to find url to json file", log: .ppac)
-			self.allDistricts = []
-			self.region = ""
-			return
-		}
-
 		do {
-			let jsonData = try Data(contentsOf: jsonFileUrl)
+			let jsonData = try Data(contentsOf: jsonFileURL)
 			self.allDistricts = try JSONDecoder().decode([DistrictElement].self, from: jsonData)
 		} catch {
 			Log.debug("Failed to read / parse district json", log: .ppac)
