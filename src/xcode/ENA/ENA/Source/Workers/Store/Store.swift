@@ -120,6 +120,9 @@ protocol StoreProtocol: AnyObject {
 	/// PPA last app reset date
 	var lastAppReset: Date? { get set }
 
+	/// PPA last submitted data
+	var lastSubmittedPPAData: String? { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
