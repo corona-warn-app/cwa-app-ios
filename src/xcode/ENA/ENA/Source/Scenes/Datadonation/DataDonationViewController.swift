@@ -9,26 +9,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	
 	// MARK: - Init
 	init(
-		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
+		viewModel: DataDonationViewModelProtocol,
 		didTapLegal: @escaping () -> Void
 	) {
-		self.presentSelectValueList = presentSelectValueList
+		self.viewModel = viewModel
 		self.didTapLegal = didTapLegal
-
-		guard let url = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-			preconditionFailure("missing json file")
-		}
-		let datadonationModel = DataDonationModel(
-			store: store,
-			jsonFileURL: url
-		)
-
-		self.viewModel = DefaultDataDonationViewModel(
-			store: store,
-			presentSelectValueList: presentSelectValueList,
-			datadonationModel: datadonationModel
-		)
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -90,10 +75,10 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	var finished: (() -> Void)?
 
 	// MARK: - Private
-	private let presentSelectValueList: (SelectValueViewModel) -> Void
+
 	private let didTapLegal: () -> Void
 
-	private let viewModel: DefaultDataDonationViewModel
+	private let viewModel: DataDonationViewModelProtocol
 	private var subscriptions: [AnyCancellable] = []
 
 	private func setupTableView() {
@@ -112,7 +97,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
-		viewModel.$reloadTableView
+		viewModel.reloadTableViewPublisher
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				guard let self = self else { return }

@@ -117,11 +117,23 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 	}
 
 	private func showDataDonationScreen() {
-		let dummyDataDonationViewControllre = DataDonationViewController(
-			store: self.store,
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
+		let viewModel = DefaultDataDonationViewModel(
+			store: store,
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
 			},
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: jsonFileURL
+			)
+		)
+
+		let dummyDataDonationViewControllre = DataDonationViewController(
+			viewModel: viewModel,
 			didTapLegal: {}
 		)
 		parentNavigationController?.pushViewController(dummyDataDonationViewControllre, animated: true)

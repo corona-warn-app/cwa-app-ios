@@ -8,7 +8,11 @@ import OpenCombine
 
 protocol DataDonationViewModelProtocol {
 
+	/// use these 3 to definde @published in a prorocol
 	var reloadTableView: Bool { get }
+	var reloadTableViewPublished: OpenCombine.Published<Bool> { get }
+	var reloadTableViewPublisher: OpenCombine.Published<Bool>.Publisher { get }
+
 	var friendlyFederalStateName: String { get }
 	var friendlyRegionName: String { get }
 	var friendlyAgeName: String { get }
@@ -33,7 +37,9 @@ final class DefaultDataDonationViewModel: DataDonationViewModelProtocol {
 
 	// MARK: - DataDonationViewModelProtocol
 
-	@OpenCombine.Published private (set) var reloadTableView: Bool
+	@OpenCombine.Published var reloadTableView: Bool
+	var reloadTableViewPublished: OpenCombine.Published<Bool> { _reloadTableView }
+	var reloadTableViewPublisher: OpenCombine.Published<Bool>.Publisher { $reloadTableView }
 
 	var friendlyFederalStateName: String {
 		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
