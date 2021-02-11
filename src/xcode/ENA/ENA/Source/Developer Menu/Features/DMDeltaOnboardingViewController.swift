@@ -11,6 +11,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 	private let store: Store
 	private var textField: UITextField!
 	private var currentVersionLabel: UILabel!
+	private var presentedDeltaOnboardingsLabel: UILabel!
 	private let tableView = UITableView()
 	private var safeArea: UILayoutGuide!
 	private var dataSource = [(key:String, values:[String])]()
@@ -41,6 +42,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		
 		currentVersionLabel = UILabel(frame: .zero)
 		currentVersionLabel.translatesAutoresizingMaskIntoConstraints = false
+		currentVersionLabel.textAlignment = .center
 		
 		updateCurrentVersionLabel()
 		
@@ -61,7 +63,12 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		textField.delegate = self
 		textField.borderStyle = .bezel
 		
-		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, tableView, button, resetButton])
+		presentedDeltaOnboardingsLabel = UILabel(frame: .zero)
+		presentedDeltaOnboardingsLabel.translatesAutoresizingMaskIntoConstraints = false
+		presentedDeltaOnboardingsLabel.text = "Finished DeltaOnboardings"
+		presentedDeltaOnboardingsLabel.textAlignment = .center
+		
+		let stackView = UIStackView(arrangedSubviews: [currentVersionLabel, textField, button, resetButton, presentedDeltaOnboardingsLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .vertical
 		stackView.spacing = 20
@@ -75,7 +82,7 @@ class DMDeltaOnboardingViewController: UIViewController, UITextFieldDelegate {
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
-		tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+		tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30.0).isActive = true
 		tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
 		tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 		tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
