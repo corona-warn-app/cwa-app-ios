@@ -94,22 +94,19 @@ final class DataDonationViewModel {
 		dynamicTableViewModel.add(
 			.section(
 				cells: [
-					.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
-						   description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
-						   textBlocks: [
-							acknowledgementString,
-							NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
-						   ],
+					.legal(title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
+						   description: NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementContent),
+						   textBlocks: [ acknowledgementString ],
 						   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
-					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
-					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
-					.space(height: 16)
+//					.legalExtended(title: nil, subheadline1: nil, bulletPoints1: <#T##[NSAttributedString]?#>, subheadline2: <#T##NSAttributedString?#>, bulletPoints2: <#T##[NSAttributedString]?#>, accessibilityIdentifier: <#T##String?#>, configure: <#T##DynamicCell.CellConfigurator?##DynamicCell.CellConfigurator?##(DynamicTableViewController, UITableViewCell, IndexPath) -> Void#>)
+//					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
+//					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
+//					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+//					.space(height: 16)
 				]
 			)
 		)
 		
-		// [AVO: TODO] - Show DataDonationDetails navigation
 		dynamicTableViewModel.add(
 			.section(separators: .all, cells: [
 				.body(
@@ -152,16 +149,16 @@ final class DataDonationViewModel {
 	}
 
 	private let acknowledgementString: NSAttributedString = {
-		let boldText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_1
-		let normalText = AppStrings.ExposureSubmissionWarnOthers.acknowledgement_1_2
-		let string = NSMutableAttributedString(string: "\(boldText) \(normalText)")
+		let text1 = "legal bullet point 1"
+		let text2 = "legal bullet point 2"
+		let text3 = "legal bullet point 3"
+		
+		let string = NSMutableAttributedString(string: "\(text1) \(text2) \(text3)")
 
 		// highlighted text
 		let attributes: [NSAttributedString.Key: Any] = [
 			.font: UIFont.preferredFont(forTextStyle: .headline)
 		]
-		string.addAttributes(attributes, range: NSRange(location: 0, length: boldText.count))
-
 		return string
 	}()
 

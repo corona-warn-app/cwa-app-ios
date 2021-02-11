@@ -17,7 +17,7 @@ extension DynamicAction {
 			detailViewController.tableView.register(
 				DynamicTableViewRoundedCell.self,
 				forCellReuseIdentifier: DataDonationDetailsViewController.CustomCellReuseIdentifiers.roundedCell.rawValue
-		 )
+			)
 			
 			detailViewController.dynamicTableViewModel = model
 			
