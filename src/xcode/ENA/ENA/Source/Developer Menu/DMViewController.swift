@@ -157,7 +157,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .ppaMostRecent:
 			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider)
 		case .ppaActual:
-			vc = DMPPAnalyticsActual(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
 		case .ppaSubmission:
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		}

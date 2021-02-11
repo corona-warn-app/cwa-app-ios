@@ -314,7 +314,7 @@
 		504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B0B25D400D000CAFBDF /* DMPPAnalyticsViewController.swift */; };
 		504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */; };
 		504E8B2C25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */; };
-		504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActual.swift */; };
+		504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */; };
 		5054C7A725CC3E2A009F8635 /* DataPrivacyViewControllerDisablingSwipeToDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5054C7A625CC3E2A009F8635 /* DataPrivacyViewControllerDisablingSwipeToDismiss.swift */; };
 		505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F2E512587738900697CC2 /* AccessibilityLabels.swift */; };
 		505F506E25C833AA004920EB /* edus_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */; };
@@ -1104,7 +1104,7 @@
 		504E8B0B25D400D000CAFBDF /* DMPPAnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewController.swift; sourceTree = "<group>"; };
 		504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewModel.swift; sourceTree = "<group>"; };
 		504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsMostRecent.swift; sourceTree = "<group>"; };
-		504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsActual.swift; sourceTree = "<group>"; };
+		504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsActualData.swift; sourceTree = "<group>"; };
 		5054C7A625CC3E2A009F8635 /* DataPrivacyViewControllerDisablingSwipeToDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPrivacyViewControllerDisablingSwipeToDismiss.swift; sourceTree = "<group>"; };
 		505F2E512587738900697CC2 /* AccessibilityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityLabels.swift; sourceTree = "<group>"; };
 		505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = edus_otp_request_ios.pb.swift; sourceTree = "<group>"; };
@@ -3607,7 +3607,7 @@
 				B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */,
 				B1D8CB2524DD4371008C6010 /* DMTracingHistoryViewController.swift */,
 				504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */,
-				504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActual.swift */,
+				504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */,
 				BA6D164D255ADD8600ED3492 /* DMWifiClient */,
 				EBDE11B6255EC2D7008C0F51 /* DMDeviceTimeCheck */,
 				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
@@ -4789,7 +4789,7 @@
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
-				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActual.swift in Sources */,
+				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,
 				2FA9E39B24D2F4A10030561C /* ExposureSubmissionService+Protocol.swift in Sources */,
