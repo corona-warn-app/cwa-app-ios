@@ -273,9 +273,9 @@ final class SecureStore: Store {
 		set { kvStore["ppacApiToken"] = newValue }
 	}
 
-	var submissionAnalytics: Date? {
-		get { kvStore["submissionAnalytics"] as Date? }
-		set { kvStore["submissionAnalytics"] = newValue }
+	var lastSubmissionAnalytics: Date? {
+		get { kvStore["lastSubmissionAnalytics"] as Date? }
+		set { kvStore["lastSubmissionAnalytics"] = newValue }
 	}
 
 	var lastAppReset: Date? {

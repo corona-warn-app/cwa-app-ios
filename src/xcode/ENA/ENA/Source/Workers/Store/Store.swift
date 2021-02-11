@@ -115,7 +115,7 @@ protocol StoreProtocol: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 
 	/// PPA last submission date
-	var submissionAnalytics: Date? { get set }
+	var lastSubmissionAnalytics: Date? { get set }
 
 	/// PPA last app reset date
 	var lastAppReset: Date? { get set }
