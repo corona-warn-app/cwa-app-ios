@@ -54,11 +54,6 @@ final class SecureStore: Store {
 		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
 		set { kvStore["exposureActivationConsentAccept"] = newValue }
 	}
-	
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
-		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
-		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
-	}
 
 	var registrationToken: String? {
 		get { kvStore["registrationToken"] as String? }
@@ -258,31 +253,6 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	var otpToken: OTPToken? {
-		get { kvStore["otpToken"] as OTPToken? }
-		set { kvStore["otpToken"] = newValue }
-	}
-
-	var otpAuthorizationDate: Date? {
-		get { kvStore["otpAuthorizationDate"] as Date? }
-		set { kvStore["otpAuthorizationDate"] = newValue }
-	}
-
-	var ppacApiToken: TimestampedToken? {
-		get { kvStore["ppacApiToken"] as TimestampedToken? }
-		set { kvStore["ppacApiToken"] = newValue }
-	}
-
-	var lastSubmissionAnalytics: Date? {
-		get { kvStore["lastSubmissionAnalytics"] as Date? }
-		set { kvStore["lastSubmissionAnalytics"] = newValue }
-	}
-
-	var lastAppReset: Date? {
-		get { kvStore["lastAppReset"] as Date? }
-		set { kvStore["lastAppReset"] = newValue }
-	}
-
 	/// Database reset & re-initialization with a given key
 	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
 	///
@@ -377,14 +347,43 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
-extension SecureStore: PreviousRiskExposureMetadataProviding {
-	var previousRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["previousRiskExposureMetadata"] = newValue }
-	}
-}
+extension SecureStore: PrivacyPreservingProviding {
 
-extension SecureStore: CurrentRiskExposureMetadataProviding {
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
+		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
+		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
+	}
+
+	var otpToken: OTPToken? {
+		get { kvStore["otpToken"] as OTPToken? }
+		set { kvStore["otpToken"] = newValue }
+	}
+
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
+	}
+
+	var ppacApiToken: TimestampedToken? {
+		get { kvStore["ppacApiToken"] as TimestampedToken? }
+		set { kvStore["ppacApiToken"] = newValue }
+	}
+
+	var lastSubmissionAnalytics: Date? {
+		get { kvStore["lastSubmissionAnalytics"] as Date? }
+		set { kvStore["lastSubmissionAnalytics"] = newValue }
+	}
+
+	var lastAppReset: Date? {
+		get { kvStore["lastAppReset"] as Date? }
+		set { kvStore["lastAppReset"] = newValue }
+	}
+
+	var lastSubmittedPPAData: String? {
+		get { kvStore["lastSubmittedPPAData"] as String? }
+		set { kvStore["lastSubmittedPPAData"] = newValue }
+	}
+
 	var currentRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set {
@@ -392,9 +391,12 @@ extension SecureStore: CurrentRiskExposureMetadataProviding {
 			analyticsSubmitter?.triggerSubmitData()
 		}
 	}
-}
 
-extension SecureStore: UserMetadataProviding {
+	var previousRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousRiskExposureMetadata"] = newValue }
+	}
+
 	var userMetadata: UserMetadata? {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
 		set {

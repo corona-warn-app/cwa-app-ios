@@ -12,7 +12,7 @@ enum PPASError: Error {
 	case jsonError
 	case serverError(PPAServerErrorCode)
 	case serverFailure(Error)
-	case ppacError
+	case ppacError(PPACError)
 	case appResetError
 	case onboardingError
 	case submission23hoursError
