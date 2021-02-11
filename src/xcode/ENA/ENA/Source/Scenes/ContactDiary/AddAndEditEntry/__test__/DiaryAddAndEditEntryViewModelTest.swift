@@ -12,7 +12,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
 	func testGIVEN_ContactPerson_WHEN_createEditModeViewModel_THEN_NameIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", encounterId: nil))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
@@ -44,7 +44,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
 	func testGIVEN_ContactPerson_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", encounterId: nil))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
@@ -190,7 +190,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
 	func testGIVEN_Location_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Office", encounterId: nil))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Office"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
