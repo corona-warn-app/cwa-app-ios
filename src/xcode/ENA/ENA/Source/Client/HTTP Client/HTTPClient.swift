@@ -755,6 +755,12 @@ private extension URLRequest {
 
 		request.httpMethod = "POST"
 
+		// Add header padding.
+		request.setValue(
+			"",
+			forHTTPHeaderField: "cwa-header-padding"
+		)
+
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
