@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMPPAnalyticsActual: UIViewController {
+class DMPPAnalyticsActualData: UIViewController {
 
 	// MARK: - Init
 
