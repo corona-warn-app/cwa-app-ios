@@ -76,7 +76,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			let deviceCheck = PPACDeviceCheck()
 			let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
 
-			// 6. submit analytics data
+			// 7. submit analytics data
 			ppacService.getPPACToken { [weak self] result in
 				switch result {
 				case let .success(token):
