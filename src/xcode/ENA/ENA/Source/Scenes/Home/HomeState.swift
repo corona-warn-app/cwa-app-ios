@@ -68,8 +68,6 @@ class HomeState: ENStateHandlerUpdating {
 		case dataVerificationError
 	}
 
-	let store: Store
-
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
 	@OpenCombine.Published private(set) var detectionMode: DetectionMode = .fromBackgroundStatus()
@@ -183,6 +181,7 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Private
 
+	private let store: Store
 
 	private let statisticsProvider: StatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()

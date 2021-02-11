@@ -16,7 +16,7 @@ struct DataDonationModel {
 	) {
 		self.store = store
 
-		self.isConsentGiven = store.privacyPreservingAnalyticsConsentAccept
+		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 		self.federalStateName = federalStateName
 		self.region = region
 		self.age = age
@@ -58,7 +58,7 @@ struct DataDonationModel {
 	}
 
 	func save() {
-		store.privacyPreservingAnalyticsConsentAccept = isConsentGiven
+		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
 
 		/* optional data for later use
 

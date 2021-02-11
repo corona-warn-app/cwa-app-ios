@@ -49,8 +49,8 @@ protocol StoreProtocol: AnyObject {
 	/// accepted to submit his diagnosisKeys with the CWA submission service.
 	var exposureActivationConsentAcceptTimestamp: Int64? { get set }
 
-	/// A boolean storing if the user has confirm to submit the data for PPA
-	var privacyPreservingAnalyticsConsentAccept: Bool { get set }
+	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
 
 	/// A boolean storing if the user has confirmed to submit
 	/// his diagnosiskeys to the CWA submission service.
@@ -108,6 +108,7 @@ protocol StoreProtocol: AnyObject {
 
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }
+	var otpAuthorizationDate: Date? { get set }
 
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }

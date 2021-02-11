@@ -23,7 +23,10 @@ final class HomeThankYouTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(with cellModel: HomeThankYouCellModel) {
+	func configure(
+		with cellModel: HomeThankYouCellModel,
+		onPrimaryAction: @escaping () -> Void
+	) {
 		containerView.backgroundColor = cellModel.backgroundColor
 
 		titleLabel.text = cellModel.title
@@ -69,27 +72,81 @@ final class HomeThankYouTableViewCell: UITableViewCell {
 		}
 
 		furtherInfoStackView.isHidden = furtherInfoStackView.arrangedSubviews.isEmpty
+
+		reenableTitleLabel.text = cellModel.reenableTitle
+		reenableBodyLabel.text = cellModel.reenableBody
+		reenableButton.setTitle(cellModel.reenableButtonTitle, for: .normal)
+
+		testResultTitleLabel.text = cellModel.reenableTestResultTitle
+
+		var testResultSubtitle = cellModel.reenableTestResultSubtitle
+
+		if let timeStamp = cellModel.testResultTimestamp {
+			let formatter = DateFormatter()
+			formatter.dateStyle = .medium
+			formatter.timeStyle = .none
+			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
+			let dateString = formatter.string(from: date)
+
+			testResultSubtitle += String(format: "\n\(cellModel.reenableTestResultRegistration)", dateString)
+		}
+
+		testResultSubtitleLabel.text = testResultSubtitle
+
+		self.onPrimaryAction = onPrimaryAction
 	}
 
 	// MARK: - Private
+
+	// MARK: Thank you card
+
+	@IBOutlet private weak var containerView: UIView!
+	@IBOutlet private weak var stackView: UIStackView!
 
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var headerImageView: UIImageView!
 	@IBOutlet private weak var bodyLabel: ENALabel!
 
 	@IBOutlet private weak var noteLabel: ENALabel!
+	@IBOutlet private weak var riskViewStackView: UIStackView!
 
 	@IBOutlet private weak var furtherInfoLabel: ENALabel!
-
-	@IBOutlet private weak var containerView: UIView!
-	@IBOutlet private weak var stackView: UIStackView!
-	@IBOutlet private weak var riskViewStackView: UIStackView!
 	@IBOutlet private weak var furtherInfoStackView: UIStackView!
 
+	// MARK: Reenable card
+
+	@IBOutlet private weak var reenableTitleLabel: ENALabel!
+	@IBOutlet private weak var testResultTitleLabel: ENALabel!
+	@IBOutlet private weak var testResultSubtitleLabel: ENALabel!
+	@IBOutlet private weak var reenableBodyLabel: ENALabel!
+	@IBOutlet private weak var reenableButton: ENAButton!
+
+	@IBAction func didTapReenableButton(_ sender: Any) {
+		onPrimaryAction?()
+	}
+
+	private var onPrimaryAction: (() -> Void)?
+
 	func setupAccessibility() {
-		containerView.accessibilityElements = [titleLabel as Any, bodyLabel as Any, noteLabel as Any, riskViewStackView as Any, furtherInfoLabel as Any, furtherInfoStackView as Any]
+		containerView.accessibilityElements = [
+			titleLabel as Any,
+			bodyLabel as Any,
+			noteLabel as Any,
+			riskViewStackView as Any,
+			furtherInfoLabel as Any,
+			furtherInfoStackView as Any,
+			reenableTitleLabel as Any,
+			testResultTitleLabel as Any,
+			testResultSubtitleLabel as Any,
+			reenableBodyLabel as Any,
+			reenableButton as Any
+		]
 
 		titleLabel.accessibilityTraits = .header
+	}
+
+	@IBAction private func primaryActionTriggered() {
+		onPrimaryAction?()
 	}
 
 }
