@@ -6,6 +6,7 @@ import Foundation
 @testable import ENA
 
 final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataProviding, PreviousRiskExposureMetadataProviding, UserMetadataProviding {
+
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 
@@ -60,6 +61,9 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var ppacApiToken: TimestampedToken?
 	var otpToken: OTPToken?
+	var analyticsSubmitter: PPAnalyticsSubmitter?
+	var lastSubmissionAnalytics: Date?
+	var lastAppReset: Date?
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
 	var otpAuthorizationDate: Date?
 
