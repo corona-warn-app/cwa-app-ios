@@ -5,6 +5,8 @@
 import Foundation
 import OpenCombine
 
+/*** this protocol gets used to provide different view model classes for the dataDonationViewController */
+
 protocol DataDonationViewModelProtocol {
 
 	/// use these 3 to definde @published in a prorocol

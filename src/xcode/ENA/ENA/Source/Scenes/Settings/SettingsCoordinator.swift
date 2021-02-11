@@ -121,7 +121,7 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 			preconditionFailure("missing json file")
 		}
 
-		let viewModel = DefaultDataDonationViewModel(
+		let viewModel = SettingsDataDonationViewModel(
 			store: store,
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
