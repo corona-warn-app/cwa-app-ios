@@ -78,25 +78,18 @@ final class StoreTests: XCTestCase {
 		// swiftlint:disable:next force_unwrapping
 		let testStoreSourceURL = Bundle(for: StoreTests.self).url(forResource: "testStore", withExtension: "sqlite")!
 
-		let tmpStore: Store = {
-			do {
-				let fileManager = FileManager.default
+		let fileManager = FileManager.default
+		let directoryURL = fileManager
+			.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+			.appendingPathComponent("testDatabase")
+		try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
+		let testStoreTargetURL = directoryURL.appendingPathComponent("secureStore.sqlite")
 
-				let directoryURL = fileManager
-					.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-					.appendingPathComponent("testDatabase")
-				try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
-				let testStoreTargetURL = directoryURL.appendingPathComponent("secureStore.sqlite")
+		XCTAssertTrue(fileManager.fileExists(atPath: testStoreSourceURL.path))
+		XCTAssertFalse(fileManager.fileExists(atPath: testStoreTargetURL.path))
+		try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-				print("Source exists: \(fileManager.fileExists(atPath: testStoreSourceURL.path))")
-				print("Target exists: \(fileManager.fileExists(atPath: testStoreTargetURL.path))")
-				try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
-
-				return try SecureStore(at: directoryURL, key: "12345678", serverEnvironment: ServerEnvironment())
-			} catch {
-				fatalError("Creating the database failed: \(error.localizedDescription)")
-			}
-		}()
+		let tmpStore: Store = try SecureStore(at: directoryURL, key: "12345678", serverEnvironment: ServerEnvironment())
 
 		// Prepare data
 		let testTimeStamp: Int64 = 1466467200  // 21.06.2016
@@ -127,8 +120,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
-
-		
 	}
 	
 	func testDeviceTimeSettings_initalAfterInitialization() {

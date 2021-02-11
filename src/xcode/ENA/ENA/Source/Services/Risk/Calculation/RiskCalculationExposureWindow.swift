@@ -31,7 +31,7 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 			return jsonString
 		}
 
-		return "RiskCalculationExposureWindow"
+		return String(describing: Self.self)
 	}
 
 	// MARK: - Protocol Codable

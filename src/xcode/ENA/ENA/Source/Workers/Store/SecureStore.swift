@@ -32,7 +32,11 @@ final class SecureStore: Store {
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
 	func flush() {
-		try? kvStore.flush()
+		do {
+			try kvStore.flush()
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
 	}
 
 	/// Database reset & re-initialization with a given key
@@ -40,7 +44,11 @@ final class SecureStore: Store {
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
 	func clearAll(key: String?) {
-		try? kvStore.clearAll(key: key)
+		do {
+			try kvStore.clearAll(key: key)
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
 	}
 	
 	var testResultReceivedTimeStamp: Int64? {
