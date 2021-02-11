@@ -6,6 +6,9 @@ import Foundation
 import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
+
+	var analyticsSubmitter: PPAnalyticsSubmitter? { get set }
+
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
 	var finishedDeltaOnboardings: [String: [String]] { get set }
@@ -103,13 +106,6 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
-	/// OTP for user survey link generation
-	var otpToken: OTPToken? { get set }
-	var otpAuthorizationDate: Date? { get set }
-
-	/// PPAC Token storage
-	var ppacApiToken: TimestampedToken? { get set }
-
 	func clearAll(key: String?)
 
 	#if !RELEASE
@@ -140,9 +136,30 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
-protocol ClientMetadataCaching: AnyObject {
+protocol PrivacyPreservingProviding: AnyObject {
+	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
+	/// OTP for user survey link generation
+	var otpToken: OTPToken? { get set }
+	/// Date of last otp authorization
+	var otpAuthorizationDate: Date? { get set }
+	/// PPAC Token storage
+	var ppacApiToken: TimestampedToken? { get set }
+	/// Last succesfull submission of analytics data. Needed for analytics submission.
+	var lastSubmissionAnalytics: Date? { get set }
+	/// Date of last app reset. Needed for analytics submission.
+	var lastAppReset: Date? { get set }
+	/// Content of last submitted data. Needed for analytics submission dev menu.
+	var lastSubmittedPPAData: String? { get set }
+	/// Analytics data.
+	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data.
+	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data.
+	var userMetadata: UserMetadata? { get set }
+    /// Analytics data.
 	var clientMetadata: ClientMetaData? { get set }
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ClientMetadataCaching, ServerEnvironmentProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
