@@ -654,6 +654,9 @@
 		BA7D178125D549B3006B9EBF /* testData.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178025D549AA006B9EBF /* testData.json */; };
 		BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178825D558FD006B9EBF /* testDataInvalid.json */; };
 		BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D178D25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift */; };
+		BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */; };
+		BA7D17BF25D593CB006B9EBF /* DynamicCell+LegalExtendedDataDonation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D17BE25D593CB006B9EBF /* DynamicCell+LegalExtendedDataDonation.swift */; };
+		BA7D17C725D593FF006B9EBF /* DataDonationViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D17C625D593FF006B9EBF /* DataDonationViewModelProtocol.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
@@ -1471,6 +1474,9 @@
 		BA7D178025D549AA006B9EBF /* testData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testData.json; sourceTree = "<group>"; };
 		BA7D178825D558FD006B9EBF /* testDataInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testDataInvalid.json; sourceTree = "<group>"; };
 		BA7D178D25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDataDonationViewModelTests.swift; sourceTree = "<group>"; };
+		BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataDonationViewModel.swift; sourceTree = "<group>"; };
+		BA7D17BE25D593CB006B9EBF /* DynamicCell+LegalExtendedDataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicCell+LegalExtendedDataDonation.swift"; sourceTree = "<group>"; };
+		BA7D17C625D593FF006B9EBF /* DataDonationViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationViewModelProtocol.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
@@ -2877,7 +2883,8 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BA0073BB25D189E50036DFDD /* Datadonation */,
+				BA7D17D025D5947B006B9EBF /* DataDonationDetails */,
+				BA0073BB25D189E50036DFDD /* DataDonation */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
@@ -3823,18 +3830,15 @@
 			path = CWASQLite;
 			sourceTree = "<group>";
 		};
-		BA0073BB25D189E50036DFDD /* Datadonation */ = {
+		BA0073BB25D189E50036DFDD /* DataDonation */ = {
 			isa = PBXGroup;
 			children = (
 				BA7D177725D547BE006B9EBF /* __tests__ */,
-				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
-				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
-				BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */,
+				BA7D17CC25D59465006B9EBF /* DataDonationModel */,
 				BA0073BD25D18A5B0036DFDD /* DataDonationViewController.swift */,
-				BA0073E925D196900036DFDD /* DefaultDataDonationViewModel.swift */,
-				BA0073FF25D1A1810036DFDD /* District.swift */,
+				BA7D17CB25D59440006B9EBF /* DataDonationViewModels */,
 			);
-			path = Datadonation;
+			path = DataDonation;
 			sourceTree = "<group>";
 		};
 		BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */ = {
@@ -4007,6 +4011,35 @@
 				BA7D178D25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA7D17CB25D59440006B9EBF /* DataDonationViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BA7D17BE25D593CB006B9EBF /* DynamicCell+LegalExtendedDataDonation.swift */,
+				BA7D17C625D593FF006B9EBF /* DataDonationViewModelProtocol.swift */,
+				BA0073E925D196900036DFDD /* DefaultDataDonationViewModel.swift */,
+				BA7D17B625D59373006B9EBF /* SettingsDataDonationViewModel.swift */,
+			);
+			path = DataDonationViewModels;
+			sourceTree = "<group>";
+		};
+		BA7D17CC25D59465006B9EBF /* DataDonationModel */ = {
+			isa = PBXGroup;
+			children = (
+				BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */,
+				BA0073FF25D1A1810036DFDD /* District.swift */,
+			);
+			path = DataDonationModel;
+			sourceTree = "<group>";
+		};
+		BA7D17D025D5947B006B9EBF /* DataDonationDetails */ = {
+			isa = PBXGroup;
+			children = (
+				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
+				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
+			);
+			path = DataDonationDetails;
 			sourceTree = "<group>";
 		};
 		BA9BCF7525B09B3A00DD7974 /* __tests__ */ = {
@@ -4716,6 +4749,7 @@
 				ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
+				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
@@ -4767,6 +4801,7 @@
 				AB1011592507C15000D392A2 /* TracingStatusHistory.swift in Sources */,
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
+				BA7D17BF25D593CB006B9EBF /* DynamicCell+LegalExtendedDataDonation.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
@@ -4854,6 +4889,7 @@
 				AB2F094A25D1687300C16309 /* SurveyURLProvider.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				5270E9B8256D20A900B08606 /* NSTextAttachment+ImageHeight.swift in Sources */,
+				BA7D17C725D593FF006B9EBF /* DataDonationViewModelProtocol.swift in Sources */,
 				B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */,
 				014086BD2589033A00E9E5B2 /* DiaryEditEntriesCellModel.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMBackendConfigurationViewController.swift in Sources */,
