@@ -35,7 +35,7 @@ class DiaryContactPersonTest: XCTestCase {
 				date: "2021-02-11",
 				contactPersonId: 0,
 				duration: .moreThan15Minutes,
-				maskSituation: nil,
+				maskSituation: .none,
 				locationType: .outside
 			)
 		)

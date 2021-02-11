@@ -22,7 +22,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func addLocation(name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringResult
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, locationType: ContactPersonEncounter.LocationType?, circumstances: String) -> DiaryStoringResult
+	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, locationType: ContactPersonEncounter.LocationType, circumstances: String) -> DiaryStoringResult
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringResult
 
@@ -31,7 +31,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func updateLocation(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, locationType: ContactPersonEncounter.LocationType?, circumstances: String) -> DiaryStoringVoidResult
+	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, locationType: ContactPersonEncounter.LocationType, circumstances: String) -> DiaryStoringVoidResult
 	@discardableResult
 	func updateLocationVisit(id: Int, locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringVoidResult
 
@@ -71,7 +71,7 @@ extension DiaryStoring {
 
 	@discardableResult
 	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult {
-		return addContactPersonEncounter(contactPersonId: contactPersonId, date: date, duration: nil, maskSituation: nil, locationType: nil, circumstances: "")
+		return addContactPersonEncounter(contactPersonId: contactPersonId, date: date, duration: .none, maskSituation: .none, locationType: .none, circumstances: "")
 	}
 
 	@discardableResult

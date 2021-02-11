@@ -9,24 +9,30 @@ struct ContactPersonEncounter: Equatable {
 	// MARK: - Init
 
 	enum Duration: Int {
-		case lessThan15Minutes, moreThan15Minutes
+		case none
+		case lessThan15Minutes
+		case moreThan15Minutes
 	}
 
 	enum MaskSituation: Int {
-		case withMask, withoutMask
+		case none
+		case withMask
+		case withoutMask
 	}
 
 	enum LocationType: Int {
-		case outside, inside
+		case none
+		case outside
+		case inside
 	}
 
 	init(
 		id: Int,
 		date: String,
 		contactPersonId: Int,
-		duration: Duration? = nil,
-		maskSituation: MaskSituation? = nil,
-		locationType: LocationType? = nil,
+		duration: Duration = .none,
+		maskSituation: MaskSituation = .none,
+		locationType: LocationType = .none,
 		circumstances: String = ""
 	) {
 		self.id = id
@@ -45,9 +51,9 @@ struct ContactPersonEncounter: Equatable {
 	let date: String
 	let contactPersonId: Int
 
-	let duration: Duration?
-	let maskSituation: MaskSituation?
-	let locationType: LocationType?
+	let duration: Duration
+	let maskSituation: MaskSituation
+	let locationType: LocationType
 
 	let circumstances: String
 	
