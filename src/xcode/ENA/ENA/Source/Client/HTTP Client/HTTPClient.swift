@@ -717,12 +717,6 @@ private extension URLRequest {
 
 		request.httpMethod = "POST"
 
-		// Add header padding.
-		request.setValue(
-			"",
-			forHTTPHeaderField: "cwa-header-padding"
-		)
-
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
@@ -749,8 +743,18 @@ private extension URLRequest {
 		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
+		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let protoBufRequest = SAP_Internal_Ppdd_PPADataRequestIOS.with {
+			$0.payload = payload
+			$0.authentication = ppacIos
+		}
+
 		let url = configuration.ppaSubmitURL
-		let body = try payload.serializedData()
+		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
 		request.httpMethod = "POST"
