@@ -21,35 +21,7 @@ enum PPASError: Error {
 }
 
 extension PPASError: Equatable {
-	// swiftlint:disable cyclomatic_complexity
 	static func == (lhs: PPASError, rhs: PPASError) -> Bool {
-		switch(lhs, rhs) {
-		case (.generalError, .generalError):
-			return true
-		case (.urlCreationError, .urlCreationError):
-			return true
-		case let (.responseError(lhsCode), .responseError(rhsCode)):
-			return lhsCode == rhsCode ? true : false
-		case (.jsonError, .jsonError):
-			return true
-		case let (.serverError(lhsError), .serverError(rhsError)):
-			return lhsError == rhsError ? true : false
-		case (.serverFailure, .serverFailure):
-			return true
-		case (.ppacError, .ppacError):
-			return true
-		case (.appResetError, .appResetError):
-			return true
-		case (.onboardingError, .onboardingError):
-			return true
-		case (.submission23hoursError, .submission23hoursError):
-			return true
-		case (.probibilityError, .probibilityError):
-			return true
-		case (.userConsentError, .userConsentError):
-			return true
-		default:
-			return false
-		}
+		lhs.localizedDescription == rhs.localizedDescription
 	}
 }

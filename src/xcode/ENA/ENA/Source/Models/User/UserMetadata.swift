@@ -5,10 +5,10 @@
 import Foundation
 
 struct UserMetadata: Codable {
-	var federalState: FederalStateName
+	var federalState: FederalStateName?
 	// reference districtID
-	var administrativeUnit: Int
-	var ageGroup: AgeGroup
+	var administrativeUnit: Int?
+	var ageGroup: AgeGroup?
 
 	enum CodingKeys: String, CodingKey {
 		case federalState
@@ -29,8 +29,8 @@ struct UserMetadata: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		federalState = try container.decode(FederalStateName.self, forKey: .federalState)
-		administrativeUnit = try container.decode(Int.self, forKey: .administrativeUnit)
-		ageGroup = try container.decode(AgeGroup.self, forKey: .ageGroup)
+		federalState = try container.decodeIfPresent(FederalStateName.self, forKey: .federalState)
+		administrativeUnit = try container.decodeIfPresent(Int.self, forKey: .administrativeUnit)
+		ageGroup = try container.decodeIfPresent(AgeGroup.self, forKey: .ageGroup)
 	}
 }

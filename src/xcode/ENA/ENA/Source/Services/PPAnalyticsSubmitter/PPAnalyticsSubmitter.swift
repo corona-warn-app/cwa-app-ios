@@ -329,9 +329,15 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 
 		return SAP_Internal_Ppdd_PPAUserMetadata.with {
-			$0.federalState = storedUserData.federalState.protobuf
-			$0.administrativeUnit = Int32(storedUserData.administrativeUnit)
-			$0.ageGroup = storedUserData.ageGroup.protobuf
+			if let federalState = storedUserData.federalState {
+				$0.federalState = federalState.protobuf
+			}
+			if let administrativeUnit = storedUserData.administrativeUnit {
+				$0.administrativeUnit = Int32(administrativeUnit)
+			}
+			if let ageGroup = storedUserData.ageGroup {
+				$0.ageGroup = ageGroup.protobuf
+			}
 		}
 	}
 
@@ -340,6 +346,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			Log.warning("mostRecentDate is nil", log: .ppa)
 			return -1
 		}
-		return date.unixTimestamp
+		return Int64(date.timeIntervalSince1970)
 	}
 }

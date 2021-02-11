@@ -317,20 +317,4 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(expectation, SAP_Internal_Ppdd_PPARiskLevel.riskLevelHigh)
 	}
-
-	func testGIVEN_Date_WHEN_Converting_THEN_UnixTimestampIsReturned() throws {
-		// GIVEN
-		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy/MM/dd HH:mm"
-		let someDateTime = formatter.date(from: "1986/01/09 04:22")
-		let date = try XCTUnwrap(someDateTime)
-
-		// WHEN
-		let formatted = date.unixTimestamp
-
-		// THEN
-
-		XCTAssertEqual(formatted, 505624920)
-
-	}
 }

@@ -20,7 +20,7 @@ struct RiskExposureMetadata: Codable {
 	init(
 		riskLevel: RiskLevel,
 		riskLevelChangedComparedToPreviousSubmission: Bool,
-		mostRecentDateAtRiskLevel: Date,
+		mostRecentDateAtRiskLevel: Date?,
 		dateChangedComparedToPreviousSubmission: Bool
 	) {
 		self.riskLevel = riskLevel
@@ -29,12 +29,23 @@ struct RiskExposureMetadata: Codable {
 		self.dateChangedComparedToPreviousSubmission = dateChangedComparedToPreviousSubmission
 	}
 
+	init(
+		riskLevel: RiskLevel,
+		riskLevelChangedComparedToPreviousSubmission: Bool,
+		dateChangedComparedToPreviousSubmission: Bool
+	) {
+		self.riskLevel = riskLevel
+		self.riskLevelChangedComparedToPreviousSubmission = riskLevelChangedComparedToPreviousSubmission
+		self.dateChangedComparedToPreviousSubmission = dateChangedComparedToPreviousSubmission
+	}
+	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
 		riskLevel = try container.decode(RiskLevel.self, forKey: .riskLevel)
 		riskLevelChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .riskLevelChangedComparedToPreviousSubmission)
-		mostRecentDateAtRiskLevel = try container.decode(Date.self, forKey: .mostRecentDateAtRiskLevel)
+		mostRecentDateAtRiskLevel = try container.decodeIfPresent(Date.self, forKey: .mostRecentDateAtRiskLevel)
 		dateChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .dateChangedComparedToPreviousSubmission)
 	}
+
 }
