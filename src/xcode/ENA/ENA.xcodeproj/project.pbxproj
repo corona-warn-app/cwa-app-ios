@@ -647,6 +647,7 @@
 		BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */; };
 		BA7D178125D549B3006B9EBF /* testData.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178025D549AA006B9EBF /* testData.json */; };
 		BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178825D558FD006B9EBF /* testDataInvalid.json */; };
+		BA7D178E25D55EB1006B9EBF /* DataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D178D25D55EB1006B9EBF /* DataDonationViewModelTests.swift */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
@@ -1457,6 +1458,7 @@
 		BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModelTests.swift; sourceTree = "<group>"; };
 		BA7D178025D549AA006B9EBF /* testData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testData.json; sourceTree = "<group>"; };
 		BA7D178825D558FD006B9EBF /* testDataInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testDataInvalid.json; sourceTree = "<group>"; };
+		BA7D178D25D55EB1006B9EBF /* DataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationViewModelTests.swift; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
@@ -3968,6 +3970,7 @@
 				BA7D178025D549AA006B9EBF /* testData.json */,
 				BA7D178825D558FD006B9EBF /* testDataInvalid.json */,
 				BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */,
+				BA7D178D25D55EB1006B9EBF /* DataDonationViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5144,6 +5147,7 @@
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */,
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
+				BA7D178E25D55EB1006B9EBF /* DataDonationViewModelTests.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
 				01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,

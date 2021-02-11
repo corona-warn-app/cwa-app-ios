@@ -36,6 +36,18 @@ final class DataDonationViewModel {
 
 	@OpenCombine.Published private (set) var reloadTableView: Bool
 
+	var friendlyFederalStateName: String {
+		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
+	}
+
+	var friendlyRegionName: String {
+		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
+	}
+
+	var friendlyAgeName: String {
+		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
+	}
+
 	var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
 		var dynamicTableViewModel = DynamicTableViewModel.with {
@@ -132,18 +144,6 @@ final class DataDonationViewModel {
 
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
-
-	private var friendlyFederalStateName: String {
-		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
-	}
-
-	private var friendlyRegionName: String {
-		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
-	}
-
-	private var friendlyAgeName: String {
-		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
-	}
 
 	private let acknowledgementString: NSAttributedString = {
 		let text1 = "legal bullet point 1"
