@@ -142,7 +142,7 @@ final class CachedAppConfiguration {
 		guard let store = self.store as? Store else {
 			return
 		}
-		store.clientMetadata = ClientMetaData(etag: eTag)
+		store.clientMetadata = ClientMetadata(etag: eTag)
 	}
 
 	private func defaultFailureHandler() {

@@ -4,7 +4,7 @@
 
 import UIKit
 
-struct ClientMetaData: Codable {
+struct ClientMetadata: Codable {
 	var cwaVersion: Version?
 	var iosVersion: Version
 	var eTag: String?
