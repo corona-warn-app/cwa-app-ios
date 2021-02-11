@@ -439,6 +439,13 @@ enum AppStrings {
 
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
 
+		enum Datadonation {
+			static let label = NSLocalizedString("Settings_DataDonation_Label", comment: "")
+			static let description = NSLocalizedString("Settings_DataDonation_Description", comment: "")
+			static let statusActive = NSLocalizedString("Settings_DataDonation_StatusActive", comment: "")
+			static let statusInactive = NSLocalizedString("Settings_DataDonation_StatusInactive", comment: "")
+		}
+
 	}
 
 	enum NotificationSettings {

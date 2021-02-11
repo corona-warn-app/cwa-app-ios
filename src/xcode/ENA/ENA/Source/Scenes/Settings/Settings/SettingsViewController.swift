@@ -85,6 +85,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 			return AppStrings.Settings.resetDescription
 		case .backgroundAppRefresh:
 			return AppStrings.Settings.backgroundAppRefreshDescription
+		case .datadonation:
+			return AppStrings.Settings.Datadonation.description
 		}
 	}
 
@@ -96,7 +98,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		switch section {
 		case .reset:
 			footerView.textLabel?.textAlignment = .center
-		case .tracing, .notifications, .backgroundAppRefresh:
+		case .tracing, .notifications, .backgroundAppRefresh, .datadonation:
 			footerView.textLabel?.textAlignment = .left
 		}
 	}
@@ -113,6 +115,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
 		case .backgroundAppRefresh:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.backgroundAppRefresh)
+		case .datadonation:
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.datadonation)
 		case .reset:
 			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? SettingsLabelCell else {
 				fatalError("No cell for reuse identifier.")
@@ -140,6 +144,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 			onNotificationsCellTap()
 		case .reset:
 			onResetCellTap()
+		case .datadonation:
+			Log.debug("NYD")
 		case .backgroundAppRefresh:
 			onBackgroundAppRefreshCellTap()
 		}
@@ -168,6 +174,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		case tracing
 		case notifications
 		case backgroundAppRefresh
+		case datadonation
 		case reset
 	}
 
