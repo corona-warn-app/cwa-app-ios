@@ -18,7 +18,7 @@ class ActionTableViewCell: UITableViewCell {
 	private var actionTitleLabel: ENALabel!
 	private var actionSwitch: ENASwitch!
 	private var detailLabel: ENALabel!
-	private var layoutConstraints = [NSLayoutConstraint]()
+	private var detailLabelTrailingAnchorConstrint: NSLayoutConstraint?
 	private var line: SeperatorLineLayer!
 	private var askForConsent = false
 
@@ -168,22 +168,16 @@ class ActionTableViewCell: UITableViewCell {
 	
 	private func setupConstraints() {
 		// clear
-		NSLayoutConstraint.deactivate(layoutConstraints)
-		layoutConstraints.removeAll()
+		detailLabelTrailingAnchorConstrint?.isActive = false
+		detailLabelTrailingAnchorConstrint = nil
 		// setup
 		if !detailLabel.isHidden && !actionSwitch.isHidden {
-			layoutConstraints.append(contentsOf: [
-				// detailLabel
-				detailLabel.trailingAnchor.constraint(equalTo: actionSwitch.leadingAnchor, constant: -8)
-			])
+			detailLabelTrailingAnchorConstrint = detailLabel.trailingAnchor.constraint(equalTo: actionSwitch.leadingAnchor, constant: -8)
+			detailLabelTrailingAnchorConstrint?.isActive = true
 		} else if !detailLabel.isHidden {
-			layoutConstraints.append(contentsOf: [
-				// detailLabel
-				detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-			])
+			detailLabelTrailingAnchorConstrint = detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+			detailLabelTrailingAnchorConstrint?.isActive = true
 		}
-		// activate constrints
-		NSLayoutConstraint.activate(layoutConstraints)
 	}
 
 	override func accessibilityActivate() -> Bool {

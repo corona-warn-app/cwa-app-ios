@@ -12,6 +12,7 @@ class SeperatorLineLayer: CAShapeLayer {
 		strokeColor = UIColor.enaColor(for: .hairline).cgColor
 	}
 	
+	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

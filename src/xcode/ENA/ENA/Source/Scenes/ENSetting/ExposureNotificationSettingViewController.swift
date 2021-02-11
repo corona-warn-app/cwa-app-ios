@@ -281,7 +281,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	
 	private func bannerCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.banner.rawValue, for: indexPath) as? ImageTableViewCell else {
-			return UITableViewCell()
+			fatalError("Cell is not registered")
 		}
 		cell.configure(for: enState)
 		return cell
@@ -292,7 +292,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			return lastActionCell
 		}
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionCell.rawValue, for: indexPath) as? ActionTableViewCell else {
-			return UITableViewCell()
+			fatalError("Cell is not registered")
 		}
 		cell.configure(for: enState, delegate: self)
 		lastActionCell = cell
@@ -301,7 +301,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	
 	private func actionDetailCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue, for: indexPath) as? ActionDetailTableViewCell else {
-			return UITableViewCell()
+			fatalError("Cell is not registered")
 		}
 		cell.configure(for: enState, delegate: self)
 		return cell
@@ -309,7 +309,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		guard let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.euTracingCell.rawValue, for: indexPath) as? EuTracingTableViewCell else {
-			return UITableViewCell()
+			fatalError("Cell is not registered")
 		}
 		euTracingCell.configure()
 		return euTracingCell
@@ -317,7 +317,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		guard let tracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.tracingCell.rawValue, for: indexPath) as? TracingHistoryTableViewCell else {
-			return UITableViewCell()
+			fatalError("Cell is not registered")
 		}
 
 		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
@@ -346,7 +346,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func descriptionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.descriptionCell.rawValue, for: indexPath) as? DescriptionTableViewCell else {
-			return UITableViewCell()
+			fatalError("Cell is not registered")
 		}
 		cell.configure(for: enState)
 		return cell
