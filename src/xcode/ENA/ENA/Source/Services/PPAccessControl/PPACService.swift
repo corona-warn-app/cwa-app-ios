@@ -60,8 +60,8 @@ class PPACService: PrivacyPreservingAccessControl {
 
 	// MARK: - Private
 
-	private let store: Store
 	private let deviceCheck: DeviceCheckable
+	private let store: Store
 
 	/// will return the current API Token and create a new one if needed
 	private var apiToken: TimestampedToken {

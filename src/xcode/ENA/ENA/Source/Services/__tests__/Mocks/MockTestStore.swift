@@ -5,10 +5,8 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataProviding, PreviousRiskExposureMetadataProviding, UserMetadataProviding {
-
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
+	var analyticsSubmitter: PPAnalyticsSubmitter?
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -59,14 +57,6 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var ppacApiToken: TimestampedToken?
-	var otpToken: OTPToken?
-	var analyticsSubmitter: PPAnalyticsSubmitter?
-	var lastSubmissionAnalytics: Date?
-	var lastAppReset: Date?
-	var lastSubmittedPPAData: String?
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
-	var otpAuthorizationDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -85,9 +75,17 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 
 	var statistics: StatisticsMetadata?
 
-	// MARK: - RiskExposureMetadata
-	var riskExposureMetadata: RiskExposureMetadata?
 
-	// MARK: - UserMetadata
+	// MARK: - PrivacyPreservingProviding
+
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
+	var otpToken: OTPToken?
+	var otpAuthorizationDate: Date?
+	var ppacApiToken: TimestampedToken?
+	var lastSubmissionAnalytics: Date?
+	var lastAppReset: Date?
+	var lastSubmittedPPAData: String?
+	var currentRiskExposureMetadata: RiskExposureMetadata?
+	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 }
