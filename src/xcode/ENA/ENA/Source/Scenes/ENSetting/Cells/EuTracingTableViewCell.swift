@@ -13,8 +13,8 @@ class EuTracingTableViewCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		// self
-		selectionStyle = .default
-		contentView.backgroundColor = .enaColor(for: .background)
+		selectionStyle = .none
+		backgroundColor = .enaColor(for: .background)
 		accessoryType = .disclosureIndicator
 		// iconView
 		iconView = UIImageView(image: UIImage(named: "flag.eu"))
@@ -70,8 +70,5 @@ class EuTracingTableViewCell: UITableViewCell {
 
 	func configure(using viewModel: ENSettingEuTracingViewModel = .init()) {
 		self.viewModel = viewModel
-		let backgroundView = UIView()
-		backgroundView.backgroundColor = UIColor.clear
-		self.selectedBackgroundView = backgroundView
 	}
 }
