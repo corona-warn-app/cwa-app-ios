@@ -20,7 +20,7 @@ final class DataDonationDetailsViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.title1(text: AppStrings.DataDonation.DetailedInfo.title, accessibilityIdentifier: "XXX"),
+						.title1(text: AppStrings.DataDonation.DetailedInfo.title, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.title),
 						.space(height: 20),
 						.custom(
 							withIdentifier: DataDonationDetailsViewController.CustomCellReuseIdentifiers.roundedCell,
@@ -40,9 +40,9 @@ final class DataDonationDetailsViewModel {
 							}
 						),
 						.space(height: 8),
-						.title2(text: AppStrings.DataDonation.DetailedInfo.headline, accessibilityIdentifier: "XXX"),
+						.headline(text: AppStrings.DataDonation.DetailedInfo.headline, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.headline),
 						.space(height: 8),
-						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph1, accessibilityIdentifier: "XXX"),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph1, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.paragraph1),
 						.space(height: 8),
 						
 						bulletPointCellWithBoldHeadline[0],
@@ -50,20 +50,20 @@ final class DataDonationDetailsViewModel {
 						bulletPointCellWithBoldHeadline[2],
 						bulletPointCellWithBoldHeadline[3],
 						
-						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph2, accessibilityIdentifier: "XXX"),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph2, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.paragraph2),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet05_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet06_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet07_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet08_text),
 						
-						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph3, accessibilityIdentifier: "XXX"),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph3, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.paragraph3),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet09_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet10_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet11_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet12_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet13_text),
 						
-						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph4, accessibilityIdentifier: "XXX"),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph4, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.paragraph4),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet14_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet15_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet16_text),
@@ -72,12 +72,12 @@ final class DataDonationDetailsViewModel {
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet19_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet20_text),
 						
-						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph5, accessibilityIdentifier: "XXX"),
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph5, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.paragraph5),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet21_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet22_text),
 						.bulletPoint(text: AppStrings.DataDonation.DetailedInfo.bullet23_text),
 						
-						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph6, accessibilityIdentifier: "XXX")
+						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph6, accessibilityIdentifier: AppStrings.DataDonation.DetailedInfo.paragraph6)
 					]
 				)
 			)

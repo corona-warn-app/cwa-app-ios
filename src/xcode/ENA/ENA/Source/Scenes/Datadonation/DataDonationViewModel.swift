@@ -97,7 +97,7 @@ final class DataDonationViewModel {
 					.legal(title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
 						   description: NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementContent),
 						   textBlocks: [ acknowledgementString ],
-						   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+						   accessibilityIdentifier: AppStrings.DataDonation.Info.legalTitle)
 //					.legalExtended(title: nil, subheadline1: nil, bulletPoints1: <#T##[NSAttributedString]?#>, subheadline2: <#T##NSAttributedString?#>, bulletPoints2: <#T##[NSAttributedString]?#>, accessibilityIdentifier: <#T##String?#>, configure: <#T##DynamicCell.CellConfigurator?##DynamicCell.CellConfigurator?##(DynamicTableViewController, UITableViewCell, IndexPath) -> Void#>)
 //					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
 //					.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
