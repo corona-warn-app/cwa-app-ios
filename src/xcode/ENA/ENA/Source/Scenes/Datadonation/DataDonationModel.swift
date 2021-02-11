@@ -9,21 +9,19 @@ struct DataDonationModel {
 	// MARK: - Init
 
 	init(
-		store: Store,
-		federalStateName: String? = nil,
-		region: String? = nil,
-		age: String? = nil
+		store: Store
 	) {
 		self.store = store
-
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
-		self.federalStateName = federalStateName
-		self.region = region
-		self.age = age
+
+		let userMetadata = store.userMetadata
+		self.federalStateName = userMetadata?.federalState?.rawValue
+		self.age = userMetadata?.ageGroup?.text
 
 		guard let jsonFileUrl = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
 			Log.debug("Failed to find url to json file", log: .ppac)
 			self.allDistricts = []
+			self.region = ""
 			return
 		}
 
@@ -35,6 +33,9 @@ struct DataDonationModel {
 			self.allDistricts = []
 		}
 
+		self.region = allDistricts.first { districtElement -> Bool in
+			districtElement.districtID == userMetadata?.administrativeUnit
+		}?.districtName
 	}
 
 	// MARK: - Public
@@ -83,10 +84,5 @@ struct DataDonationModel {
 
 	private let store: Store
 	private let allDistricts: [DistrictElement]
-
-	private mutating func load() {
-//		isConsentGiven = store.privacyPreservingAnalyticsConsentAccept
-//		let userMetaData =
-	}
 
 }
