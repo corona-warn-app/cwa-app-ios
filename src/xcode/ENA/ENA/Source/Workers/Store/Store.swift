@@ -6,6 +6,7 @@ import Foundation
 import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
+	var analyticsSubmitter: PPAnalyticsSubmitter? { get set }
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
 	var finishedDeltaOnboardings: [String: [String]] { get set }
@@ -112,6 +113,12 @@ protocol StoreProtocol: AnyObject {
 
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }
+
+	/// PPA last submission date
+	var lastSubmissionAnalytics: Date? { get set }
+
+	/// PPA last app reset date
+	var lastAppReset: Date? { get set }
 
 	func clearAll(key: String?)
 
