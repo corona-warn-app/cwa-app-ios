@@ -191,11 +191,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return obtainUsageData()
 	}
 
-	#endif
-
 	func mostRecentAnalyticsData() -> String? {
 		return store.lastSubmittedPPAData
 	}
+
+	#endif
 
 	// MARK: - Public
 
