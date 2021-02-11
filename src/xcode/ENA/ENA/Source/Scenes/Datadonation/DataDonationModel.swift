@@ -10,8 +10,7 @@ struct DataDonationModel {
 
 	init(
 		store: Store,
-		jsonFileURL: URL /*= Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json")*/
-//		fileName: String =
+		jsonFileURL: URL
 	) {
 		self.store = store
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
@@ -55,10 +54,13 @@ struct DataDonationModel {
 
 	// store alle data if the user consent is given
 	// otherwise set all values to nil and store that consent isn't give only
-	func save() {
+	mutating func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
 		guard isConsentGiven else {
 			store.userMetadata = UserMetadata(federalState: nil, administrativeUnit: nil, ageGroup: nil)
+			region = nil
+			federalStateName = nil
+			age = nil
 			return
 		}
 		let ageGroup = AgeGroup(from: self.age)

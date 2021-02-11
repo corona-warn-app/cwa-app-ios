@@ -646,6 +646,7 @@
 		BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */; };
 		BA7D177925D547D4006B9EBF /* DataDonationModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */; };
 		BA7D178125D549B3006B9EBF /* testData.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178025D549AA006B9EBF /* testData.json */; };
+		BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = BA7D178825D558FD006B9EBF /* testDataInvalid.json */; };
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
@@ -1455,6 +1456,7 @@
 		BA6D163F255ADD0400ED3492 /* DMSwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchCellViewModel.swift; sourceTree = "<group>"; };
 		BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModelTests.swift; sourceTree = "<group>"; };
 		BA7D178025D549AA006B9EBF /* testData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testData.json; sourceTree = "<group>"; };
+		BA7D178825D558FD006B9EBF /* testDataInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testDataInvalid.json; sourceTree = "<group>"; };
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
@@ -3964,6 +3966,7 @@
 			isa = PBXGroup;
 			children = (
 				BA7D178025D549AA006B9EBF /* testData.json */,
+				BA7D178825D558FD006B9EBF /* testDataInvalid.json */,
 				BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */,
 			);
 			path = __tests__;
@@ -4516,6 +4519,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
+				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */,
