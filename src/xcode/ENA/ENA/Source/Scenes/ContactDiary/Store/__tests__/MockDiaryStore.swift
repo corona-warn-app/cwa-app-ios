@@ -26,9 +26,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	// MARK: - Protocol DiaryStoring
 
 	@discardableResult
-	func addContactPerson(name: String) -> DiaryStoringResult {
+	func addContactPerson(name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringResult {
 		let id = (contactPersons.map { $0.id }.max() ?? -1) + 1
-		contactPersons.append(DiaryContactPerson(id: id, name: name))
+		contactPersons.append(DiaryContactPerson(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress))
 
 		updateDays()
 
@@ -36,9 +36,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addLocation(name: String) -> DiaryStoringResult {
+	func addLocation(name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringResult {
 		let id = (locations.map { $0.id }.max() ?? -1) + 1
-		locations.append(DiaryLocation(id: id, name: name))
+		locations.append(DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress))
 
 		updateDays()
 
@@ -46,9 +46,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult {
+	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, locationType: ContactPersonEncounter.LocationType?, circumstances: String) -> DiaryStoringResult {
 		let id = (contactPersonEncounters.map { $0.id }.max() ?? -1) + 1
-		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId))
+		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId, duration: duration, maskSituation: maskSituation, locationType: locationType, circumstances: circumstances))
 
 		updateDays()
 
@@ -56,27 +56,49 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult {
+	func addLocationVisit(locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringResult {
 		let id = (locationVisits.map { $0.id }.max() ?? -1) + 1
-		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId))
+		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId, duration: duration, circumstances: circumstances))
 
 		updateDays()
 
 		return .success(id)
 	}
 
-	func updateContactPerson(id: Int, name: String) -> DiaryStoringVoidResult {
+	@discardableResult
+	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult {
 		guard let index = contactPersons.firstIndex(where: { $0.id == id }) else { return .success(()) }
-		contactPersons[index] = DiaryContactPerson(id: id, name: name)
+		contactPersons[index] = DiaryContactPerson(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress)
 
 		updateDays()
 
 		return .success(())
 	}
 
-	func updateLocation(id: Int, name: String) -> DiaryStoringVoidResult {
+	@discardableResult
+	func updateLocation(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult {
 		guard let index = locations.firstIndex(where: { $0.id == id }) else { return .success(()) }
-		locations[index] = DiaryLocation(id: id, name: name)
+		locations[index] = DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress)
+
+		updateDays()
+
+		return .success(())
+	}
+
+	@discardableResult
+	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, locationType: ContactPersonEncounter.LocationType?, circumstances: String) -> DiaryStoringVoidResult {
+		guard let index = contactPersonEncounters.firstIndex(where: { $0.id == id }) else { return .success(()) }
+		contactPersonEncounters[index] = ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId, duration: duration, maskSituation: maskSituation, locationType: locationType, circumstances: circumstances)
+
+		updateDays()
+
+		return .success(())
+	}
+
+	@discardableResult
+	func updateLocationVisit(id: Int, locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringVoidResult {
+		guard let index = locationVisits.firstIndex(where: { $0.id == id }) else { return .success(()) }
+		locationVisits[index] = LocationVisit(id: id, date: date, locationId: locationId, duration: duration, circumstances: circumstances)
 
 		updateDays()
 
@@ -182,18 +204,18 @@ class MockDiaryStore: DiaryStoringProviding {
 			let contactPersonEntries = contactPersons
 				.sorted { $0.name < $1.name }
 				.map { contactPerson -> DiaryEntry in
-					let encounterId = contactPersonEncounters.first { $0.date == dateString && $0.contactPersonId == contactPerson.id }?.id
+					let encounter = contactPersonEncounters.first { $0.date == dateString && $0.contactPersonId == contactPerson.id }
 
-					let contactPerson = DiaryContactPerson(id: contactPerson.id, name: contactPerson.name, encounterId: encounterId)
+					let contactPerson = DiaryContactPerson(id: contactPerson.id, name: contactPerson.name, phoneNumber: contactPerson.phoneNumber, emailAddress: contactPerson.emailAddress, encounter: encounter)
 					return DiaryEntry.contactPerson(contactPerson)
 				}
 
 			let locationEntries = locations
 				.sorted { $0.name < $1.name }
 				.map { location -> DiaryEntry in
-					let visitId = locationVisits.first { $0.date == dateString && $0.locationId == location.id }?.id
+					let visit = locationVisits.first { $0.date == dateString && $0.locationId == location.id }
 
-					let location = DiaryLocation(id: location.id, name: location.name, visitId: visitId)
+					let location = DiaryLocation(id: location.id, name: location.name, phoneNumber: location.phoneNumber, emailAddress: location.emailAddress, visit: visit)
 					return DiaryEntry.location(location)
 				}
 
