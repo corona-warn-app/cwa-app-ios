@@ -42,6 +42,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 		tableView.sectionFooterHeight = 0.0
 		tableView.separatorStyle = .none
+		tableView.estimatedRowHeight = 1000 // this is need to prevent jumping of scroll position when tableview datasource is reloaded
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
