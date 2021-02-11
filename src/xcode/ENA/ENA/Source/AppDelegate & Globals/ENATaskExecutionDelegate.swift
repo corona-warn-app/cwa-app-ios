@@ -239,7 +239,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		self.analyticsSubmitter.triggerSubmitData()
-		completion()
+		self.analyticsSubmitter.triggerSubmitData(completion: { _ in
+			// Ignore the result of the call, so we just complete after the call is finished.
+			completion()
+		})
 	}
 }

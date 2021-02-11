@@ -6,11 +6,7 @@ import Foundation
 import OpenCombine
 
 protocol PPAnalyticsSubmitting {
-	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. In all cases, NO completion is called.
-	func triggerSubmitData()
-
-	#if !RELEASE
-	/// ONLY FOR TESTING. Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
+	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
@@ -37,72 +33,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	// MARK: - Protocol PPAnalyticsSubmitting
 
-	func triggerSubmitData() {
-		// 0. Check if user has given his consent to collect data
-		if userDeclinedAnalyticsCollectionConsent {
-			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
-			return
-		}
-
-		configurationProvider.appConfiguration().sink { [weak self] configuration in
-
-			guard let self = self else {
-				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
-				return
-			}
-
-			// 1. Check configuration parameter
-			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
-				Log.warning("Analytics submission abord due to randomness", log: .ppa)
-				return
-			}
-
-			// 2. Last submission check
-			if self.submissionWithinLast23Hours {
-				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
-				return
-			}
-
-			// 3a. Onboarding check
-			if self.onboardingCompletedWithinLast24Hours {
-				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
-				return
-			}
-
-			// 3b. App Reset check
-			if self.appResetWithinLast24Hours {
-				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
-				return
-			}
-
-			// 5. obtain usage data
-			let payload = self.obtainUsageData()
-
-			// 4. obtain authentication data
-			let deviceCheck = PPACDeviceCheck()
-			let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
-
-			// 6. submit analytics data
-			ppacService.getPPACToken { [weak self] result in
-				switch result {
-				case let .success(token):
-					self?.submitData(with: token, for: payload, completion: nil)
-				case let .failure(error):
-					Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
-					return
-				}
-			}
-
-		}.store(in: &subscriptions)
-	}
-
-	#if !RELEASE
 	func triggerSubmitData(
-		ppacToken: PPACToken?,
+		ppacToken: PPACToken? = nil,
 		completion: ((Result<Void, PPASError>) -> Void)? = nil
 	) {
 
-		// 0. Check if user has given his consent to collect data
+		// Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
 			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
 			completion?(.failure(.userConsentError))
@@ -117,45 +53,46 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				return
 			}
 
-			// 1. Check configuration parameter
+			// Check configuration parameter
 			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
 				Log.warning("Analytics submission abord due to randomness", log: .ppa)
 				completion?(.failure(.probibilityError))
 				return
 			}
 
-			// 2. Last submission check
+			// Last submission check
 			if self.submissionWithinLast23Hours {
 				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
 				completion?(.failure(.submission23hoursError))
 				return
 			}
 
-			// 3a. Onboarding check
+			// Onboarding check
 			if self.onboardingCompletedWithinLast24Hours {
 				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
 				completion?(.failure(.onboardingError))
 				return
 			}
 
-			// 3b. App Reset check
+			// App Reset check
 			if self.appResetWithinLast24Hours {
 				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
 				completion?(.failure(.appResetError))
 				return
 			}
 
-			// 5. obtain usage data
+			// Obtain usage data
 			let payload = self.obtainUsageData()
 
 			if let token = ppacToken {
+				// Submit analytics data with injected ppac token
 				self.submitData(with: token, for: payload, completion: completion)
 			} else {
-				// 4. obtain authentication data
+				// Obtain authentication data
 				let deviceCheck = PPACDeviceCheck()
 				let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
 
-				// 6. submit analytics data
+				// Submit analytics data with generated ppac token
 				ppacService.getPPACToken { [weak self] result in
 					switch result {
 					case let .success(token):
@@ -170,6 +107,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		}.store(in: &subscriptions)
 	}
+
+	#if !RELEASE
 
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
 		let payload = obtainUsageData()
@@ -214,7 +153,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private var submissionWithinLast23Hours: Bool {
-		guard let lastSubmission = store.submissionAnalytics,
+		guard let lastSubmission = store.lastSubmissionAnalytics,
 			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()) else {
 				return false
 		}

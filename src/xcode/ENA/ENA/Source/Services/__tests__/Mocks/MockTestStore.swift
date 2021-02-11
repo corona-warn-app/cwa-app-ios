@@ -62,7 +62,7 @@ final class MockTestStore: Store, AppConfigCaching, CurrentRiskExposureMetadataP
 	var ppacApiToken: TimestampedToken?
 	var otpToken: OTPToken?
 	var analyticsSubmitter: PPAnalyticsSubmitter?
-	var submissionAnalytics: Date?
+	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
