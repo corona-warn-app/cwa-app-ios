@@ -58,13 +58,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		setupOnboardingForTesting()
 		#endif
-		
+
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
 			return true
 		}
-		
+
 		setupUI()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -83,6 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
+		store.analyticsSubmitter = self.analyticsSubmitter
+
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
@@ -95,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider.requestRisk(userInitiated: false)
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
-		
+		analyticsSubmitter.triggerSubmitData()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
@@ -184,6 +186,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 
+	private lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
+		return PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider
+		)
+	}()
+
 	private lazy var otpService: OTPServiceProviding = OTPService(
 		store: store,
 		client: client,
@@ -229,7 +239,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies)
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
+			analyticsSubmitter: self.analyticsSubmitter
+			)
 	}()
 
 	var notificationManager: NotificationManager! = NotificationManager()
@@ -273,6 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 			/// write excluded value back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
+			store.lastAppReset = Date()
 		} catch {
 			fatalError("Creating new database key failed")
 		}
@@ -290,7 +303,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Remove all pending notifications
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-		
+
 		// Reset contact diary
 		contactDiaryStore.reset()
 	}
@@ -435,7 +448,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = coordinator.viewController
 		window?.makeKeyAndVisible()
-		
+
 		#if DEBUG
 		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
 		if isUITesting {
@@ -489,7 +502,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		coordinator.showHome(enStateHandler: enStateHandler)
 	}
-	
+
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
@@ -544,7 +557,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self.privacyProtectionWindow = nil
 		}
 	}
-	
+
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
 		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
@@ -561,7 +574,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 	}
-	
+
 	private func setupUpdateOSUI() {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = UpdateOSViewController()
