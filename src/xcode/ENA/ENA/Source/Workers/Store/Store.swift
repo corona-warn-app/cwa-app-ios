@@ -140,5 +140,9 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
+protocol ClientMetadataCaching: AnyObject {
+	var clientMetadata: ClientMetaData? { get set }
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ClientMetadataCaching, ServerEnvironmentProviding {}

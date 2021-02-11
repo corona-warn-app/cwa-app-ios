@@ -351,6 +351,13 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: ClientMetadataCaching {
+	var clientMetadata: ClientMetaData? {
+		get { kvStore["clientMetadata"] as ClientMetaData? ?? nil }
+		set { kvStore["clientMetadata"] = newValue }
+	}
+}
+
 extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"

@@ -19,7 +19,6 @@ final class CachedAppConfiguration {
 
 		self.client = client
 		self.store = store
-
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
 		guard shouldFetch() else { return }
@@ -94,7 +93,7 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
-
+						self.storeETagInClientMetadata(eTag: response.eTag)
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations
@@ -137,6 +136,13 @@ final class CachedAppConfiguration {
 				} // eo fetch
 			} // eo async
 		}
+	}
+	
+	private func storeETagInClientMetadata(eTag: String?) {
+		guard let store = self.store as? Store else {
+			return
+		}
+		store.clientMetadata = ClientMetaData(etag: eTag)
 	}
 
 	private func defaultFailureHandler() {
