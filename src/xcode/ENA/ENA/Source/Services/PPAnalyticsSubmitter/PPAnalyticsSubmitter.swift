@@ -165,7 +165,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				self?.submitData(with: token, completion: completion)
 			case let .failure(error):
 				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
-				completion?(.failure(.ppacError))
+				completion?(.failure(.ppacError(error)))
 				return
 			}
 		}
