@@ -34,10 +34,6 @@ final class DataDonationViewModel {
 
 	// MARK: - Internal
 
-	// [KGA] add accessibilityLabel and identifier back to cell
-	//	accessibilityLabel: AppStrings.NewVersionFeatures.accImageLabel,
-	//	accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription,
-
 	@OpenCombine.Published private (set) var reloadTableView: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
