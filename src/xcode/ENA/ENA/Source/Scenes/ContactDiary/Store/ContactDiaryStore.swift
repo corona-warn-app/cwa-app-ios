@@ -20,7 +20,7 @@ struct DateProvider: DateProviding {
 // swiftlint:disable:next type_body_length
 class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
-	static let encriptionKeyKey = "ContactDiaryStoreEncryptionKey"
+	static let encryptionKey = "ContactDiaryStoreEncryptionKey"
 
 	// MARK: - Init
 
@@ -304,9 +304,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addContactPersonEncounter(
 		contactPersonId: Int,
 		date: String,
-		lessThan15Minutes: Bool?,
-		withMask: Bool?,
-		metOutside: Bool?,
+		duration: ContactPersonEncounter.Duration?,
+		maskSituation: ContactPersonEncounter.MaskSituation?,
+		locationType: ContactPersonEncounter.LocationType?,
 		circumstances: String
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
@@ -318,17 +318,17 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				INSERT INTO ContactPersonEncounter (
 					date,
 					contactPersonId,
-					lessThan15Minutes,
-					withMask,
-					metOutside,
+					duration,
+					maskSituation,
+					locationType,
 					circumstances
 				)
 				VALUES (
 					date(:dateString),
 					:contactPersonId,
-					:lessThan15Minutes,
-					:withMask,
-					:metOutside,
+					:duration,
+					:maskSituation,
+					:locationType,
 					:circumstances
 				);
 			"""
@@ -337,9 +337,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				"dateString": date,
 				"contactPersonId": contactPersonId,
 				// CJE: Handle Optionals
-//				"lessThan15Minutes": lessThan15Minutes,
-//				"withMask": withMask,
-//				"metOutside": metOutside,
+//				"duration": duration?.rawValue,
+//				"maskSituation": maskSituation?.rawValue,
+//				"locationType": locationType?.rawValue,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -505,7 +505,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, lessThan15Minutes: Bool?, withMask: Bool?, metOutside: Bool?, circumstances: String) -> DiaryStoringVoidResult {
+	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, locationType: ContactPersonEncounter.LocationType?, circumstances: String) -> DiaryStoringVoidResult {
 		// CJE: Implement
 		return .success(())
 	}
@@ -1034,7 +1034,7 @@ extension ContactDiaryStore {
 		}
 
 		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encriptionKeyKey) {
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKey) {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
