@@ -6,6 +6,7 @@ import UIKit
 
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
+	private let otpService: OTPServiceProviding
 
 	let rootViewController: UINavigationController = AppNavigationController()
 
@@ -15,6 +16,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var settingsController: SettingsViewController?
 
 	private var settingsCoordinator: SettingsCoordinator?
+
+	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
@@ -45,9 +48,11 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(
-		_ delegate: CoordinatorDelegate
+		_ delegate: CoordinatorDelegate,
+		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
+		self.otpService = otpService
 	}
 
 	deinit {
@@ -66,7 +71,10 @@ class HomeCoordinator: RequiresAppDependencies {
 			)
 
 			let homeController = HomeTableViewController(
-				viewModel: HomeTableViewModel(state: homeState),
+				viewModel: HomeTableViewModel(
+					state: homeState,
+					store: store
+				),
 				appConfigurationProvider: appConfigurationProvider,
 				onInfoBarButtonItemTap: { [weak self] in
 					self?.showRiskLegend()
@@ -147,7 +155,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			exposureManager: exposureManager,
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
-			serverEnvironment: serverEnvironment
+			serverEnvironment: serverEnvironment,
+			otpService: otpService
 		)
 		developerMenu?.enableIfAllowed()
 	}
@@ -192,18 +201,17 @@ class HomeCoordinator: RequiresAppDependencies {
 			return
 		}
 
-		let vc = ExposureDetectionViewController(
-			viewModel: ExposureDetectionViewModel(
-				homeState: homeState,
-				onInactiveButtonTap: { [weak self] completion in
-					self?.setExposureManagerEnabled(true, then: completion)
-				}
-			),
-			store: store
+		exposureDetectionCoordinator = ExposureDetectionCoordinator(
+			rootViewController: rootViewController,
+			store: store,
+			homeState: homeState,
+			exposureManager: exposureManager,
+			appConfigurationProvider: appConfigurationProvider,
+			otpService: otpService
 		)
-
-		rootViewController.present(vc, animated: true)
+		exposureDetectionCoordinator?.start()
 	}
+
 
 	private func showExposureSubmission(with result: TestResult? = nil) {
 		// A strong reference to the coordinator is passed to the exposure submission navigation controller

@@ -156,7 +156,19 @@ enum AccessibilityIdentifiers {
 		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
 		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
+
 		static let guideFAQ = "AppStrings.ExposureDetection.guideFAQ"
+
+		static let surveyCardCell = "AppStrings.ExposureDetection.surveyCardCell"
+		static let surveyCardButton = "AppStrings.ExposureDetection.surveyCardButton"
+		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
+	}
+
+	enum SurveyConsent {
+		static let acceptButton = "AppStrings.SurveyConsent.acceptButton"
+		static let titleImage = "AppStrings.SurveyConsent.titleImage"
+		static let title = "AppStrings.SurveyConsent.title"
+		static let legalDetailsButton = "AppStrings.SurveyConsent.legalDetailsButton"
 	}
 
 	enum ExposureSubmissionQRScanner {

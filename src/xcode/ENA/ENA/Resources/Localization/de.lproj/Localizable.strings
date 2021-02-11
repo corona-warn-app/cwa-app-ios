@@ -159,6 +159,46 @@
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Erneut starten";
 
+"ExposureDetection_Survey_Card_Title" = "Befragung zur Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Helfen Sie uns, die App zu verbessern, indem Sie einige einfache Fragen beantworten.";
+
+"ExposureDetection_Survey_Card_Button" = "Zur Befragung";
+
+/* Survey Errors */
+
+"SurveyConsent_Error_Title" = "Fehler";
+
+"SurveyConsent_Error_TryAgainLater" = "Die Befragung kann aktuell nicht aufgerufen werden. Bitte versuchen Sie es später noch mal (Fehlercode %@).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "Die Befragung kann nicht aufgerufen werden (Fehlercode %@).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "Die Uhrzeit Ihres Smartphones stimmt nicht mit der aktuellen Zeit überein. Bitte korrigieren Sie die Uhrzeit in den Einstellungen Ihres Smartphones (Fehlercode %@).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "Die Befragung konnte aus Sicherheitsgründen nicht aufgerufen werden. Sie können im nächsten Kalendermonat wieder teilnehmen (Fehlercode %@).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "Sie haben bereits an der Befragung teilgenommen. Sie können nur einmal im Monat an der Befragung teilnehmen (Fehlercode %@).";
+
+/* Survey Consent Screen */
+
+"SurveyConsent_Title" = "Befragung zur Bewertung und Verbesserung der Corona-Warn-App";
+
+"SurveyConsent_Body1" = "Helfen Sie dabei, die Corona-Warn-App zu verbessern. Nehmen Sie dazu an einer Befragung zu Ihrer Erfahrung mit der Corona-Warn-App teil. Sie helfen damit dem RKI, die Wirksamkeit der App zu bewerten, die App zu verbessern und zu verstehen, wie sich Warnungen über die App auf das Verhalten von Personen mit erhöhtem Risiko auswirken.";
+
+"SurveyConsent_Body2" = "Die Befragung richtet sich nur an Personen, denen die App eine Begegnung mit erhöhtem Risiko angezeigt hat. Die Befragung findet auf einer Webseite des RKI statt. Zur Weiterleitung auf diese Webseite wird Ihnen im nächsten Schritt ein Teilnahmelink angezeigt. Vorher muss jedoch die Echtheit Ihrer App bestätigt werden. Dafür ist Ihr Einverständnis erforderlich.";
+
+"SurveyConsent_Body3" = "Nach Antippen des Teilnahmelinks erhalten Sie weitere Informationen zur Befragung. Vor der Teilnahme werden Sie dann noch einmal gesondert um Ihr Einverständnis zur Teilnahme an der Befragung gebeten.";
+
+"SurveyConsent_Accept_Button_Title" = "Einverstanden";
+
+/* Survey Consent Legal Details Screen */
+
+"SurveyConsent_Legal_Details_Title" = "Ausführliche Informationen zur Datenverarbeitung bei der Teilnahme an der Befragung";
+
+"SurveyConsent_Details_Headline" = "Zur Befragung durch das RKI";
+
+"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z.B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
+
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
 
@@ -987,6 +1027,27 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend 
 sein.";
 
+/* Home Reenable card */
+"Home_Reenable_Card_Title" = "Risiko-Überprüfung beendet";
+
+"Home_Reenable_Card_Body" = "Die automatische Risiko-Überprüfung wurde beendet, weil Sie sich aufgrund Ihres positiven Tests aktuell in Isolation befinden. Sie können die Risiko-Überprüfung jederzeit wieder einschalten. Ihr registrierter Test wird dann automatisch gelöscht.";
+
+"Home_Reenable_Card_Button_Title" = "Risiko-Überprüfung einschalten";
+
+"Home_Reenable_Card_TestResult_Title" = "SARS-CoV-2-positiv";
+
+"Home_Reenable_Card_TestResult_Subtitle" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
+
+"Home_Reenable_Card_TestResult_Registration" = "Test registriert am %@";
+
+"Home_Reenable_Alert_Title" = "Risiko-Überprüfung aktivieren";
+
+"Home_Reenable_Alert_Message" = "Ihr aktueller Test wird aus der App gelöscht, damit Sie bei Bedarf einen neuen Test registrieren können.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Aktivieren";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "Abbrechen";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Befund positiv";
 
@@ -1282,9 +1343,9 @@ sein.";
 
 /* Version 1.13 */
 
-"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Umfrage";
+"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Befragung";
 
-"NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Umfrage des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
+"NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Befragung des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
 
 "NewVersionFeature_113_data_donation_title" = "Einwilligung zur Datenspende (optional)";
 
@@ -1676,3 +1737,116 @@ sein.";
 "Tabbar_Home_Title" = "Startseite";
 
 "Tabbar_Diary_Title" = "Tagebuch";
+
+/* Data Donation */
+
+"DataDonation_AccImageDescription" = "Weibliche Person mit Mobiltelefon, welche ihre Daten teilt";
+
+"DataDonation_Headline" = "Datenspende";
+
+"DataDonation_Description" = "Sie können uns helfen, die Corona-Warn-App zu verbessern. Teilen Sie Daten über Ihre App-Nutzung mit dem RKI. Sie helfen damit dem RKI bei der Bewertung der Wirksamkeit der App. Ihre Daten ermöglichen außerdem, die Funktionen und Nutzerfreundlichkeit der App zu verbessern.";
+
+"DataDonation_SubHead_YourState" = "Ihr Bundesland (optional)";
+
+"DataDonation_SubHead_AgeGroup" = "Ihre Altersgruppe (optional)";
+
+"DataDonation_State_NoSelection_Text" = "Bundesland";
+
+"DataDonation_Region_NoSelection_Text" = "Kreis / Bezirk (optional)";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Angabe zu Ihrem Alter";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA";
+
+"DataDonation_Button_OK" = "Einverstanden";
+
+"DataDonation_Button_NotOK" = "Nicht einverstanden";
+
+/* Value selection */
+
+"DataDonation_ValueSelection_None" = "keine Angabe";
+
+"DataDonation_ValueSelection_Title_State" = "Ihr Bundesland ";
+
+"DataDonation_ValueSelection_Title_Region" = "Ihr Kreis / Bezirk";
+
+"DataDonation_ValueSelection_Title_Age" = "Ihre Altersgruppe";
+
+"DataDonation_ValueSelection_Age_Below29" = "0-29 Jahre";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 Jahre";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "60+ Jahre";
+
+/* Detailed Infos Data Donation */
+
+"DetailedInfosDataDonation_Headline" = "Ausführliche Informationen zur Datenspende";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Datenverarbeitung im Rahmen der Datenspende";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten werden zu unterschiedlichen Zwecken ausgewertet:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Verbesserung der Risiko-Ermittlung";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Die Genauigkeit und Zuverlässigkeit der technischen Berechnung der Ansteckungsrisiken sollen verbessert werden. Hierfür werden Angaben über Risiko-Begegnungen und Ihnen angezeigte Warnungen ausgewertet. In der Folge kann die Berechnungsmethode verfeinert werden.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Verbesserung der Nutzerführung in der App";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Die Bedienung der App soll erleichtert werden. Hierfür werden Angaben über die einzelnen Schritte ausgewertet, die Nutzer in der App vornehmen. So können Beschriftungen und Hinweistexte klarer gestaltet und Bedienelemente so platziert werden, dass sie besser gefunden werden können. Außerdem können Darstellungen für verschiedene Smartphone-Modelle angepasst werden.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z.B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Verbesserung der Statistiken über den Pandemieverlauf";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Die Daten können Aufschluss über die zeitliche und räumliche Verteilung bestimmter Ereignisse des Pandemieverlaufs geben und es ermöglichen, auf bestimmte Entwicklungen schneller zu reagieren.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "Dazu erhebt das RKI folgende Daten:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "Das Datum der Übermittlung.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Änderungen der Warnungshistorie im Vergleich zum Vortag.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Angaben dazu, welches Risiko Ihnen zum Zeitpunkt der Übermittlung angezeigt wurde.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Angaben dazu, auf welcher Grundlage der Risikostatus in Zusammenhang mit einer Begegnung berechnet wurde.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Wenn Sie ein Testergebnis über die App abgerufen haben:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Angaben dazu, ob Sie ein positives oder negatives Testergebnis über die App erhalten haben.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Angaben zum berechneten Risiko zum Zeitpunkt der Testregistrierung.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Angaben zum Zeitraum zwischen der letzten Begegnung mit erhöhtem Risiko und der Testregistrierung.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Angaben zum Zeitraum zwischen der letzten Mitteilung eines erhöhten Risikos und der Testregistrierung.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Angaben dazu, ob Sie Ihr Testergebnis geteilt und andere gewarnt haben.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "Wenn Sie andere über eine mögliche Risiko-Begegnung gewarnt haben:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Angaben dazu, ob Sie die Schritte zur Warnung anderer abgebrochen haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Angaben dazu, ob Sie Angaben zum Symptombeginn gemacht haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Angaben dazu, wann Sie Ihr Einverständnis in die Warnung anderer erteilt haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Angaben dazu, bis zu welcher Meldung im Rahmen der Warnung anderer Sie gekommen sind.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Angaben dazu, wie viele Stunden es gedauert hat, bis Sie Ihr Testergebnisses erhalten haben.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Angaben dazu, wie viele Tage seit der letzten Mitteilung eines hohen Risikos vergangen sind.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Angaben dazu, wie viele Stunden seit der Testregistrierung vergangen sind.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Sonstige Informationen:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Angaben dazu, welche Altersgruppe Sie angegeben haben.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Angaben dazu, welche Region Sie angegeben haben.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Angaben zum Modell und der Version Ihres Smartphones und zur Version Ihrer App sowie dem verwendeten Betriebssystem.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
+Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";

@@ -26,10 +26,12 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	init(
 		_ delegate: CoordinatorDelegate,
-		contactDiaryStore: DiaryStoringProviding
+		contactDiaryStore: DiaryStoringProviding,
+		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
 		self.contactDiaryStore = contactDiaryStore
+		self.otpService = otpService
 	}
 
 	deinit {
@@ -47,7 +49,7 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
-		let homeCoordinator = HomeCoordinator(delegate)
+		let homeCoordinator = HomeCoordinator(delegate, otpService: otpService)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		
@@ -112,6 +114,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let contactDiaryStore: DiaryStoringProviding
+	private let otpService: OTPServiceProviding
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?

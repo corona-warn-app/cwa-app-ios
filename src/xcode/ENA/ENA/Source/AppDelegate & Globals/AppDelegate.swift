@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		taskScheduler.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
-		// Setup DeadmanNotification after AppLaunch
-		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
+		/// Setup DeadmanNotification after AppLaunch
+		DeadmanNotificationManager(store: store).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
@@ -104,8 +104,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-		// explicitely disabled as per #EXPOSUREAPP-2214
-		plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		if !AppDelegate.isAppDisabled() {
+			// explicitly disabled as per #EXPOSUREAPP-2214
+			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		}
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -140,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			// provide a static app configuration for ui tests to prevent validation errors
-			return CachedAppConfigurationMock()
+			return CachedAppConfigurationMock(isEventSurveyEnabled: true, isEventSurveyUrlAvailable: true)
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
@@ -181,6 +183,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		)
 		#endif
 	}()
+
+	private lazy var otpService: OTPServiceProviding = OTPService(
+		store: store,
+		client: client,
+		riskProvider: riskProvider
+	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -403,7 +411,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
-		contactDiaryStore: self.contactDiaryStore
+		contactDiaryStore: self.contactDiaryStore,
+		otpService: otpService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
