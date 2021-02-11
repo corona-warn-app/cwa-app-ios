@@ -10,7 +10,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	var riskProvider: RiskProvider
 	var pdService: PlausibleDeniability
-	var contactDiaryStore: ContactDiaryStore
+	var contactDiaryStore: DiaryStoring
 
 	var dependencies: ExposureSubmissionServiceDependencies
 	private let backgroundTaskConsumer = RiskConsumer()
@@ -18,7 +18,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	init(
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
-		contactDiaryStore: ContactDiaryStore,
+		contactDiaryStore: DiaryStoring,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService

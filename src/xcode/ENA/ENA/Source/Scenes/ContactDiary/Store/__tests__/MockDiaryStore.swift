@@ -4,7 +4,8 @@
 
 import Foundation
 import OpenCombine
-@testable import ENA
+// CJE: Move back to ENATests target
+// @testable import ENA
 
 class MockDiaryStore: DiaryStoringProviding {
 

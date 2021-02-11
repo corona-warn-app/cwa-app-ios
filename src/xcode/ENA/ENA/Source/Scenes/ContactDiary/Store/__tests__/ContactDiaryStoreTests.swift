@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+// CJE: Include in ENATests target
+
 import XCTest
 import FMDB
 import OpenCombine
