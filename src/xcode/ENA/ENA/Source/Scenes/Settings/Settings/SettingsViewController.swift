@@ -17,7 +17,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		onTracingCellTap: @escaping () -> Void,
 		onNotificationsCellTap: @escaping () -> Void,
 		onBackgroundAppRefreshCellTap: @escaping () -> Void,
-		onResetCellTap: @escaping () -> Void
+		onResetCellTap: @escaping () -> Void,
+		onDataDonationCellTap: @escaping () -> Void
 	) {
 		self.store = store
 		self.enState = initialEnState
@@ -27,6 +28,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		self.onNotificationsCellTap = onNotificationsCellTap
 		self.onBackgroundAppRefreshCellTap = onBackgroundAppRefreshCellTap
 		self.onResetCellTap = onResetCellTap
+		self.onDataDonationCellTap = onDataDonationCellTap
 
 		super.init(style: .grouped)
 	}
@@ -145,7 +147,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		case .reset:
 			onResetCellTap()
 		case .datadonation:
-			Log.debug("NYD")
+			onDataDonationCellTap()
 		case .backgroundAppRefresh:
 			onBackgroundAppRefreshCellTap()
 		}
@@ -195,6 +197,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 	private let onNotificationsCellTap: () -> Void
 	private let onBackgroundAppRefreshCellTap: () -> Void
 	private let onResetCellTap: () -> Void
+	private let onDataDonationCellTap: () -> Void
 
 	@objc
 	private func updateUI() {

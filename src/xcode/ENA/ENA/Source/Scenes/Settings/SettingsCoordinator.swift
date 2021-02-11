@@ -67,7 +67,11 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 			},
 			onResetCellTap: { [weak self] in
 				self?.showResetScreen()
+			},
+			onDataDonationCellTap: { [weak self] in
+				self?.showDataDonationScreen()
 			}
+
 		)
 	}()
 
@@ -111,5 +115,26 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 
 		parentNavigationController?.pushViewController(viewController, animated: true)
 	}
-	
+
+	private func showDataDonationScreen() {
+		let dummyDataDonationViewControllre = DataDonationViewController(
+			store: self.store,
+			presentSelectValueList: { [weak self] selectValueViewModel in
+				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
+			},
+			didTapLegal: {}
+		)
+		parentNavigationController?.pushViewController(dummyDataDonationViewControllre, animated: true)
+	}
+
+	private func presentSelectValueList(selectValueViewModel: SelectValueViewModel) {
+		let selectValueViewController = SelectValueTableViewController(
+			selectValueViewModel,
+			dissmiss: { [weak self] in
+				self?.parentNavigationController?.dismiss(animated: true)
+			})
+		let navigationController = UINavigationController(rootViewController: selectValueViewController)
+		parentNavigationController?.present(navigationController, animated: true)
+	}
+
 }
