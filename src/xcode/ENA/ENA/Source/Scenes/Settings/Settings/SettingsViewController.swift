@@ -204,6 +204,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		checkTracingStatus()
 		checkNotificationSettings()
 		checkBackgroundAppRefresh()
+		checkDataDonationIsConsentGiven()
 	}
 
 	private func registerCells() {
@@ -271,6 +272,10 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		self.settingsViewModel.backgroundAppRefresh.setState(
 			state: UIApplication.shared.backgroundRefreshStatus == .available
 		)
+	}
+
+	private func checkDataDonationIsConsentGiven() {
+		settingsViewModel.datadonation.setState(state: store.isPrivacyPreservingAnalyticsConsentGiven)
 	}
 
 	private func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.CellModel) -> MainSettingsCell {
