@@ -83,28 +83,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				return
 			}
 
-			// Obtain usage data
-			let payload = self.obtainUsageData()
-
 			if let token = ppacToken {
 				// Submit analytics data with injected ppac token
-				self.submitData(with: token, for: payload, completion: completion)
+				self.submitData(with: token, completion: completion)
 			} else {
-				// Obtain authentication data
-				let deviceCheck = PPACDeviceCheck()
-				let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
-
-				// Submit analytics data with generated ppac token
-				ppacService.getPPACToken { [weak self] result in
-					switch result {
-					case let .success(token):
-						self?.submitData(with: token, for: payload, completion: completion)
-					case let .failure(error):
-						Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
-						completion?(.failure(.ppacError))
-						return
-					}
-				}
+				self.generatePPACAndSubmitData(completion: completion)
 			}
 
 		}.store(in: &subscriptions)
@@ -113,19 +96,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	#if !RELEASE
 
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
-		let payload = obtainUsageData()
-		let deviceCheck = PPACDeviceCheck()
-		let ppacService = PPACService(store: store, deviceCheck: deviceCheck)
-		ppacService.getPPACToken { [weak self] result in
-			switch result {
-			case let .success(token):
-				self?.submitData(with: token, for: payload, completion: completion)
-			case let .failure(error):
-				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
-				completion(.failure(.ppacError))
-				return
-			}
-		}
+		generatePPACAndSubmitData(completion: completion)
 	}
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
@@ -182,6 +153,24 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return lastTwentyFourHours.contains(lastResetDate)
 	}
 
+	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+		// Obtain authentication data
+		let deviceCheck = PPACDeviceCheck()
+		let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
+
+		// Submit analytics data with generated ppac token
+		ppacService.getPPACToken { [weak self] result in
+			switch result {
+			case let .success(token):
+				self?.submitData(with: token, completion: completion)
+			case let .failure(error):
+				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
+				completion?(.failure(.ppacError))
+				return
+			}
+		}
+	}
+
 	private func obtainUsageData() -> SAP_Internal_Ppdd_PPADataIOS {
 
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
@@ -209,7 +198,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return payload
 	}
 
-	private func submitData(with ppacToken: PPACToken, for payload: SAP_Internal_Ppdd_PPADataIOS, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+	private func submitData(with ppacToken: PPACToken, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+
+		let payload = obtainUsageData()
 
 		var forceApiTokenHeader = false
 		#if !RELEASE
