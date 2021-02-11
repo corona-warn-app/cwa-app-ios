@@ -72,7 +72,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			// 5. obtain usage data
 			let payload = self.obtainUsageData()
 
-			// 4. obtain authentication data
+			// 5. obtain authentication data
 			let deviceCheck = PPACDeviceCheck()
 			let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
 
