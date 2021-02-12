@@ -30,7 +30,7 @@ final class SelectValueViewModel {
 
 	let title: String
 
-	/// this tupel represents the change (oldVlaue, currentValue)
+	/// this tupel represents the change (oldValue, currentValue)
 	@OpenCombine.Published private (set) var selectedTupel: (Int?, Int)
 	@OpenCombine.Published private (set) var selectedValue: String?
 

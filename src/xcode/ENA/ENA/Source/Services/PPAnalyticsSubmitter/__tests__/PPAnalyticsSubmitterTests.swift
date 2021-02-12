@@ -282,7 +282,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(ppasError, .ppacError)
+		XCTAssertEqual(ppasError, .ppacError(.generationFailed))
 	}
 
 	// MARK: - Conversion to protobuf

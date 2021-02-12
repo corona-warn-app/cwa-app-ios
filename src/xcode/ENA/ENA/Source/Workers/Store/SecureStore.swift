@@ -21,7 +21,6 @@ final class SecureStore: Store {
 		self.serverEnvironment = serverEnvironment
 	}
 
-
 	// MARK: - Protocol Store
 
 	var analyticsSubmitter: PPAnalyticsSubmitter?
@@ -53,7 +52,7 @@ final class SecureStore: Store {
 			Log.error("kv store error", log: .localData, error: error)
 		}
 	}
-	
+
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
@@ -82,11 +81,6 @@ final class SecureStore: Store {
 	var exposureActivationConsentAccept: Bool {
 		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
 		set { kvStore["exposureActivationConsentAccept"] = newValue }
-	}
-	
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
-		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
-		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
 	}
 
 	var registrationToken: String? {
@@ -287,31 +281,6 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	var otpToken: OTPToken? {
-		get { kvStore["otpToken"] as OTPToken? }
-		set { kvStore["otpToken"] = newValue }
-	}
-
-	var otpAuthorizationDate: Date? {
-		get { kvStore["otpAuthorizationDate"] as Date? }
-		set { kvStore["otpAuthorizationDate"] = newValue }
-	}
-
-	var ppacApiToken: TimestampedToken? {
-		get { kvStore["ppacApiToken"] as TimestampedToken? }
-		set { kvStore["ppacApiToken"] = newValue }
-	}
-
-	var lastSubmissionAnalytics: Date? {
-		get { kvStore["lastSubmissionAnalytics"] as Date? }
-		set { kvStore["lastSubmissionAnalytics"] = newValue }
-	}
-
-	var lastAppReset: Date? {
-		get { kvStore["lastAppReset"] as Date? }
-		set { kvStore["lastAppReset"] = newValue }
-	}
-
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -342,9 +311,7 @@ final class SecureStore: Store {
 	}
 
 	#endif
-
-	// MARK: - Internal
-
+	
 	// MARK: - Private
 
 	private let directoryURL: URL
@@ -386,14 +353,43 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
-extension SecureStore: PreviousRiskExposureMetadataProviding {
-	var previousRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["previousRiskExposureMetadata"] = newValue }
-	}
-}
+extension SecureStore: PrivacyPreservingProviding {
 
-extension SecureStore: CurrentRiskExposureMetadataProviding {
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
+		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
+		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
+	}
+
+	var otpToken: OTPToken? {
+		get { kvStore["otpToken"] as OTPToken? }
+		set { kvStore["otpToken"] = newValue }
+	}
+
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
+	}
+
+	var ppacApiToken: TimestampedToken? {
+		get { kvStore["ppacApiToken"] as TimestampedToken? }
+		set { kvStore["ppacApiToken"] = newValue }
+	}
+
+	var lastSubmissionAnalytics: Date? {
+		get { kvStore["lastSubmissionAnalytics"] as Date? }
+		set { kvStore["lastSubmissionAnalytics"] = newValue }
+	}
+
+	var lastAppReset: Date? {
+		get { kvStore["lastAppReset"] as Date? }
+		set { kvStore["lastAppReset"] = newValue }
+	}
+
+	var lastSubmittedPPAData: String? {
+		get { kvStore["lastSubmittedPPAData"] as String? }
+		set { kvStore["lastSubmittedPPAData"] = newValue }
+	}
+
 	var currentRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
 		set {
@@ -401,9 +397,12 @@ extension SecureStore: CurrentRiskExposureMetadataProviding {
 			analyticsSubmitter?.triggerSubmitData()
 		}
 	}
-}
 
-extension SecureStore: UserMetadataProviding {
+	var previousRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousRiskExposureMetadata"] = newValue }
+	}
+
 	var userMetadata: UserMetadata? {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
 		set {

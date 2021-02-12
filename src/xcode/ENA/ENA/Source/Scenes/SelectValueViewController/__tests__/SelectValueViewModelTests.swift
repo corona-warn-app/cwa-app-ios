@@ -38,7 +38,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertNil(selected.0)
-		XCTAssertEqual(2, selected.1)
+		XCTAssertEqual(3, selected.1)
 	}
 
 	func testGIVEN_viewModel_WHEN_getTwoCellViewModel_THEN_selectionIsTrue() {
@@ -46,7 +46,7 @@ class SelectValueViewModelTests: XCTestCase {
 		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
 
 		// WHEN
-		let selectedCellViewModel = viewModel.cellViewModel(for: IndexPath(row: 2, section: 0))
+		let selectedCellViewModel = viewModel.cellViewModel(for: IndexPath(row: 3, section: 0))
 		let unselectedCellViewModel = viewModel.cellViewModel(for: IndexPath(row: 0, section: 0))
 
 		// THEN
@@ -71,7 +71,7 @@ class SelectValueViewModelTests: XCTestCase {
 		XCTAssertEqual("keine Angabe", selectedCellViewModel.text)
 		XCTAssertEqual(UIImage(imageLiteralResourceName: "Icons_Checkmark"), selectedCellViewModel.checkmarkImage)
 
-		XCTAssertEqual("3", unselectedCellViewModel.text)
+		XCTAssertEqual("2", unselectedCellViewModel.text)
 		XCTAssertNil(unselectedCellViewModel.checkmarkImage)
 	}
 
