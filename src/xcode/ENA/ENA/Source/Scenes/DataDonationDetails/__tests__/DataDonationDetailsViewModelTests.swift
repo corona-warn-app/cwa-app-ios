@@ -27,7 +27,7 @@ class DataDonationDetailsViewModelTests: XCTestCase {
 		XCTAssertEqual(numberOfCells, 36)
 	}
 
-	func testReuseIdentifierCell2() throws {
+	func testReuseIdentifierRoundedCell() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel
 		// WHEN
@@ -36,22 +36,42 @@ class DataDonationDetailsViewModelTests: XCTestCase {
 		XCTAssertEqual(cell2.cellReuseIdentifier.rawValue, "roundedCell")
 	}
 
-	func testReuseIdentifierCell34() throws {
+	// cells 8-11, 13-16, 18-22, 24-30, 32-34
+	func testReuseIdentifierBulletPointCell() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel
+		let indexSet = [8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 32, 33, 34]
 		// WHEN
-		let cell34 = tableViewModel.section(0).cells[34]
-		// THEN
-		XCTAssertEqual(cell34.cellReuseIdentifier.rawValue, "bulletPointCell")
+		for i in indexSet {
+			let cell = tableViewModel.section(0).cells[i]
+			// THEN
+			XCTAssertEqual(cell.cellReuseIdentifier.rawValue, "bulletPointCell")
+		}
 	}
 
-	func testReuseIdentifierCell35() throws {
+	// cells 0, 4, 6, 12, 17, 23, 31, 35
+	func testReuseIdentifierLabelCell() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel
+		let indexSet = [0, 4, 6, 12, 17, 23, 31, 35]
 		// WHEN
-		let cell35 = tableViewModel.section(0).cells[35]
-		// THEN
-		XCTAssertEqual(cell35.cellReuseIdentifier.rawValue, "labelCell")
+		for i in indexSet {
+			let cell = tableViewModel.section(0).cells[i]
+			// THEN
+			XCTAssertEqual(cell.cellReuseIdentifier.rawValue, "labelCell")
+		}
+	}
+	
+	func testReuseIdentifierSpaceCell() throws {
+		// GIVEN
+		let tableViewModel = model.dynamicTableViewModel
+		let indexSet = [1, 3, 5, 7]
+		// WHEN
+		for i in indexSet {
+			let cell = tableViewModel.section(0).cells[i]
+			// THEN
+			XCTAssertEqual(cell.cellReuseIdentifier.rawValue, "spaceCell")
+		}
 	}
 
 }
