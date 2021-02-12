@@ -91,12 +91,14 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
-		viewModel.reloadTableViewPublisher
+		viewModel.dataDonationModelPublisher
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
-				self.tableView.reloadData()
+				DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) {
+					self.tableView.reloadData()
+				}
 			}.store(in: &subscriptions)
 	}
 }

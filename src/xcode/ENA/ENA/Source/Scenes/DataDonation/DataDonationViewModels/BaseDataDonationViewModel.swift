@@ -10,10 +10,9 @@ import OpenCombine
 
 protocol DataDonationViewModelProtocol {
 
-	/// use these 3 to definde @published in a prorocol
-	var reloadTableView: Bool { get }
-	var reloadTableViewPublished: OpenCombine.Published<Bool> { get }
-	var reloadTableViewPublisher: OpenCombine.Published<Bool>.Publisher { get }
+	// dataDonationModel and it's Publisher to subscribe changes
+	var dataDonationModel: DataDonationModel { get }
+	var dataDonationModelPublisher: OpenCombine.Published<DataDonationModel>.Publisher { get }
 
 	var friendlyFederalStateName: String { get }
 	var friendlyRegionName: String { get }
@@ -33,7 +32,6 @@ class BaseDataDonationViewModel: DataDonationViewModelProtocol {
 		datadonationModel: DataDonationModel
 	) {
 		self.presentSelectValueList = presentSelectValueList
-		self.reloadTableView = false
 		self.dataDonationModel = datadonationModel
 	}
 
@@ -41,11 +39,9 @@ class BaseDataDonationViewModel: DataDonationViewModelProtocol {
 
 	let presentSelectValueList: (SelectValueViewModel) -> Void
 
-	@OpenCombine.Published var reloadTableView: Bool
+	@OpenCombine.Published var dataDonationModel: DataDonationModel
+	var dataDonationModelPublisher: OpenCombine.Published<DataDonationModel>.Publisher { $dataDonationModel }
 
-	var reloadTableViewPublished: OpenCombine.Published<Bool> { _reloadTableView }
-	var reloadTableViewPublisher: OpenCombine.Published<Bool>.Publisher { $reloadTableView }
-	var dataDonationModel: DataDonationModel
 	var subscriptions: [AnyCancellable] = []
 
 	var dynamicTableViewModel: DynamicTableViewModel {

@@ -156,9 +156,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 	@objc ///  consent given switch changes
 	func didToggleDatadonationSwitch(sender: UISwitch) {
 		save(consentGiven: sender.isOn)
-		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) { [weak self] in
-			self?.reloadTableView.toggle()
-		}
 	}
 
 	///  user tapped select state
@@ -176,7 +173,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			self?.dataDonationModel.federalStateName = federalState
 			self?.dataDonationModel.region = nil
 			self?.dataDonationModel.save()
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 		presentSelectValueList(selectValueViewModel)
 	}
@@ -199,7 +195,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			}
 			self?.dataDonationModel.region = region
 			self?.dataDonationModel.save()
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
@@ -218,7 +213,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			}
 			self?.dataDonationModel.age = age
 			self?.dataDonationModel.save()
-			self?.reloadTableView.toggle()
+//			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
