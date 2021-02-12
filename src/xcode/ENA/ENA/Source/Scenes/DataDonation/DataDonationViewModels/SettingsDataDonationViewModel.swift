@@ -8,6 +8,8 @@ import OpenCombine
 
 final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
+	// MARK: - Overrides
+
 	/// we use a slitly different string if no federal state was selected
 	override var friendlyFederalStateName: String {
 		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.subHeadState
@@ -149,15 +151,17 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		return dynamicTableViewModel
 	}
 
+	// MARK: - Internal
+
 	@objc /// called if the consent given switch changes
-	private func didToggleDatadonationSwitch(sender: UISwitch) {
+	func didToggleDatadonationSwitch(sender: UISwitch) {
 		save(consentGiven: sender.isOn)
 		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) { [weak self] in
 			self?.reloadTableView.toggle()
 		}
 	}
 
-	private func didTapSelectStateButton() {
+	func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.State,
@@ -176,7 +180,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
-	private func didTapSelectRegionButton() {
+	func didTapSelectRegionButton() {
 		guard let federalStateName = dataDonationModel.federalStateName else {
 			Log.debug("Missing federal state to load regions", log: .ppac)
 			return
@@ -199,7 +203,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
-	private func didTapAgeButton() {
+	func didTapAgeButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			AgeGroup.allCases.map({ $0.text }),
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
