@@ -24,7 +24,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringResult
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringResult
+	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringResult
 
 	@discardableResult
 	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult
@@ -33,7 +33,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringVoidResult
 	@discardableResult
-	func updateLocationVisit(id: Int, locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringVoidResult
+	func updateLocationVisit(id: Int, locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult
 
 	@discardableResult
 	func removeContactPerson(id: Int) -> DiaryStoringVoidResult
@@ -76,7 +76,7 @@ extension DiaryStoring {
 
 	@discardableResult
 	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult {
-		return addLocationVisit(locationId: locationId, date: date, duration: 0, circumstances: "")
+		return addLocationVisit(locationId: locationId, date: date, durationInMinutes: 0, circumstances: "")
 	}
 
 }

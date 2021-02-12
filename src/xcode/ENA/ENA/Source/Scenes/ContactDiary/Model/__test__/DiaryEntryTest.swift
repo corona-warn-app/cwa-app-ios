@@ -68,7 +68,7 @@ class DiaryEntryTest: XCTestCase {
 					id: 17,
 					date: "2021-02-11",
 					locationId: 0,
-					duration: 90,
+					durationInMinutes: 90,
 					circumstances: "Astronaut Training"
 				)
 			)

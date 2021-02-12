@@ -380,13 +380,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				INSERT INTO LocationVisit (
 					date,
 					locationId,
-					duration,
+					durationInMinutes,
 					circumstances
 				)
 				VALUES (
 					date(:dateString),
 					:locationId,
-					:duration,
+					:durationInMinutes,
 					:circumstances
 				);
 			"""
@@ -394,7 +394,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let parameters: [String: Any] = [
 				"dateString": date,
 				"locationId": locationId,
-				"duration": duration,
+				"durationInMinutes": duration,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {

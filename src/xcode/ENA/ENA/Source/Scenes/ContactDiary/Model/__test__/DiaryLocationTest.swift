@@ -34,7 +34,7 @@ class DiaryLocationTest: XCTestCase {
 				id: 17,
 				date: "2021-02-11",
 				locationId: 0,
-				duration: 90,
+				durationInMinutes: 90,
 				circumstances: "Astronaut Training"
 			)
 		)
@@ -46,7 +46,7 @@ class DiaryLocationTest: XCTestCase {
 		XCTAssertEqual(location.visit?.id, 17)
 		XCTAssertEqual(location.visit?.date, "2021-02-11")
 		XCTAssertEqual(location.visit?.locationId, 0)
-		XCTAssertEqual(location.visit?.duration, 90)
+		XCTAssertEqual(location.visit?.durationInMinutes, 90)
 		XCTAssertEqual(location.visit?.circumstances, "Astronaut Training")
 		XCTAssertTrue(location.isSelected)
 	}
