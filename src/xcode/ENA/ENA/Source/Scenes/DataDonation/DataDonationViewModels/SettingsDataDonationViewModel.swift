@@ -8,6 +8,16 @@ import OpenCombine
 
 final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
+	/// we use a slitly different string if no federal state was selected
+	override var friendlyFederalStateName: String {
+		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.subHeadState
+	}
+
+	/// we use a slitly different string if no age was given
+	override var friendlyAgeName: String {
+		return dataDonationModel.age ?? AppStrings.DataDonation.Info.subHeadAgeGroup
+	}
+
 	override var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
 		var dynamicTableViewModel = DynamicTableViewModel.with {
@@ -49,18 +59,20 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					toggleSwitch.addTarget(self, action: #selector(self.didToggleDatadonationSwitch), for: .valueChanged)
 				}),
 
-			.body(
-				text: friendlyFederalStateName,
-				style: .label,
-				accessibilityTraits: .button,
-				action: .execute(block: { [weak self] _, _ in
-					self?.didTapSelectStateButton()
-				}),
-				configure: { _, cell, _ in
-					cell.accessoryType = .disclosureIndicator
-				}),
+			dataDonationModel.isConsentGiven == true ?
+				.body(
+					text: friendlyFederalStateName,
+					style: .label,
+					accessibilityTraits: .button,
+					action: .execute(block: { [weak self] _, _ in
+						self?.didTapSelectStateButton()
+					}),
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+					}):
+				nil,
 
-			dataDonationModel.federalStateName != nil ?
+			dataDonationModel.isConsentGiven == true ?
 				.body(
 					text: friendlyRegionName,
 					style: .label, accessibilityIdentifier: nil,
@@ -73,18 +85,20 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					}) :
 				nil,
 
-			.body(
-				text: friendlyAgeName,
-				style: .label,
-				color: nil,
-				accessibilityIdentifier: nil,
-				accessibilityTraits: .button,
-				action: .execute(block: { [weak self] _, _ in
-					self?.didTapAgeButton()
-				}),
-				configure: { _, cell, _ in
-					cell.accessoryType = .disclosureIndicator
-				})
+			dataDonationModel.isConsentGiven == true ?
+				.body(
+					text: friendlyAgeName,
+					style: .label,
+					color: nil,
+					accessibilityIdentifier: nil,
+					accessibilityTraits: .button,
+					action: .execute(block: { [weak self] _, _ in
+						self?.didTapAgeButton()
+					}),
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+					}) :
+				nil
 		]
 		.compactMap { $0 }
 
