@@ -27,7 +27,6 @@ final class OnboardingInfoViewController: UIViewController {
 		self.store = store
 		self.client = client
 		self.supportedCountries = supportedCountries
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -134,7 +133,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func gotoNextScreen() {
 		guard let nextPageType = pageType.next() else {
-			finishOnBoarding()
+			gotoDataDonationScreen()
 			return
 		}
 		let next = OnboardingInfoViewController(
@@ -145,6 +144,28 @@ final class OnboardingInfoViewController: UIViewController {
 			supportedCountries: supportedCountries
 		)
 		navigationController?.pushViewController(next, animated: true)
+	}
+	
+	private func gotoDataDonationScreen() {
+		let dataDonationViewController = DataDonationViewController(
+			store: store,
+			presentSelectValueList: {  [weak self] selectValueViewModel in
+				let selectValueViewController = SelectValueTableViewController(
+					selectValueViewModel,
+					dissmiss: { [weak self] in
+						self?.navigationController?.dismiss(animated: true)
+					})
+				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
+				self?.navigationController?.present(selectValueNavigationController, animated: true)
+			},
+			didTapLegal: {}
+		)
+		
+		dataDonationViewController.finished = { [weak self] in
+			self?.finishOnBoarding()
+		}
+				
+		navigationController?.pushViewController(dataDonationViewController, animated: true)
 	}
 
 	private func loadCountryList() {

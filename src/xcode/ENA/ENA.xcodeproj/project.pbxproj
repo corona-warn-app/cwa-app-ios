@@ -425,6 +425,7 @@
 		941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941B689E253EFF2300DC1962 /* Int+Increment.swift */; };
 		941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */; };
 		94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */; };
+		945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */; };
 		9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
 		948AFE5F2552F6F60019579A /* WarnOthersReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */; };
 		948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */; };
@@ -1244,6 +1245,7 @@
 		941B689E253EFF2300DC1962 /* Int+Increment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Increment.swift"; sourceTree = "<group>"; };
 		941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSettingEuTracingViewModelTests.swift; sourceTree = "<group>"; };
 		94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersNotificationsTimeInterval.swift; sourceTree = "<group>"; };
+		945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersReminderTests.swift; sourceTree = "<group>"; };
 		948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersRemindable.swift; sourceTree = "<group>"; };
@@ -2697,6 +2699,7 @@
 			isa = PBXGroup;
 			children = (
 				71176E31248957C3004B0C9F /* AppNavigationController.swift */,
+				945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -4892,6 +4895,7 @@
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
+				945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift in Sources */,
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,

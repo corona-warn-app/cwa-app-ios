@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class AppNavigationController: UINavigationController {
+class AppOnboardingNavigationController: ENANavigationControllerWithFooter {
 	private var scrollViewObserver: NSKeyValueObservation?
 	
 	@available(iOS 13.0, *)
@@ -52,7 +52,7 @@ class AppNavigationController: UINavigationController {
 	}
 }
 
-extension AppNavigationController: UINavigationControllerDelegate {
+extension AppOnboardingNavigationController: UINavigationControllerDelegate {
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 		let previousScrollViewObserver = scrollViewObserver
 
@@ -136,14 +136,6 @@ extension AppNavigationController: UINavigationControllerDelegate {
 	}
 }
 
-extension UINavigationBar {
-	var backgroundView: UIView? { subviews.first }
-	var backgroundAlpha: CGFloat {
-		get { backgroundView?.alpha ?? 0 }
-		set { backgroundView?.alpha = newValue }
-	}
-}
-
 private extension UIViewController {
 	var scrollView: UIScrollView? {
 		([view] + view.subviews).first(ofType: UIScrollView.self)
@@ -158,17 +150,4 @@ private extension Array {
 	func last<T>(ofType _: T.Type) -> T? {
 		last(where: { $0 is T }) as? T
 	}
-}
-
-protocol NavigationBarOpacityDelegate: class {
-	var preferredNavigationBarOpacity: CGFloat { get }
-	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { get }
-	var preferredLargeTitleBackgroundColor: UIColor? { get }
-}
-
-extension NavigationBarOpacityDelegate {
-	var preferredNavigationBarOpacity: CGFloat { 1.0 }
-	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { nil }
-	var preferredLargeTitleBackgroundColor: UIColor? { nil }
-	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }

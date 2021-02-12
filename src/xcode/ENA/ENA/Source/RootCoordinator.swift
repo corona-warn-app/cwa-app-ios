@@ -94,7 +94,7 @@ class RootCoordinator: RequiresAppDependencies {
 			client: self.client
 		)
 		
-		let navigationVC = AppNavigationController()
+		let navigationVC = AppOnboardingNavigationController(rootViewController: onboardingVC)
 		
 		navigationVC.setViewControllers([onboardingVC], animated: false)
 		
