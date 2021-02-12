@@ -123,8 +123,8 @@ jobs:
       - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Run Fastlane smoke tests
-          command: cd src/xcode && bundle exec fastlane test
-          no_output_timeout: 20m
+          command: cd src/xcode && bundle exec fastlane test_community
+          no_output_timeout: 10m
   snapshot:
     macos:
       xcode: *xcode_version
@@ -213,6 +213,9 @@ workflows:
             requires:
               - dependencies
         - test:
+            requires:
+              - dependencies
+        - test-community:
             requires:
               - dependencies
         - snapshot:
