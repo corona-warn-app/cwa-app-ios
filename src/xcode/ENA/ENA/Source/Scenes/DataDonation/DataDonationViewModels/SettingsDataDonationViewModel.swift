@@ -8,6 +8,16 @@ import OpenCombine
 
 final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
+	/// we use a slitly different string if no federal state was selected
+	override var friendlyFederalStateName: String {
+		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.subHeadState
+	}
+
+	/// we use a slitly different string if no age was given
+	override var friendlyAgeName: String {
+		return dataDonationModel.age ?? AppStrings.DataDonation.Info.subHeadAgeGroup
+	}
+
 	override var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
 		var dynamicTableViewModel = DynamicTableViewModel.with {
@@ -62,7 +72,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					}):
 				nil,
 
-			dataDonationModel.isConsentGiven == true && dataDonationModel.federalStateName != nil ?
+			dataDonationModel.isConsentGiven == true ?
 				.body(
 					text: friendlyRegionName,
 					style: .label, accessibilityIdentifier: nil,
