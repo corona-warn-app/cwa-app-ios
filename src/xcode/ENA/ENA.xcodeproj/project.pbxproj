@@ -686,6 +686,7 @@
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BADBC81B25D6A7FF00488DB7 /* BaseDataDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC81A25D6A7FF00488DB7 /* BaseDataDonationViewModel.swift */; };
+		BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC82825D6BB6400488DB7 /* DistrictTests.swift */; };
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
@@ -1506,6 +1507,7 @@
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		BADBC81A25D6A7FF00488DB7 /* BaseDataDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataDonationViewModel.swift; sourceTree = "<group>"; };
+		BADBC82825D6BB6400488DB7 /* DistrictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictTests.swift; sourceTree = "<group>"; };
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
@@ -3843,8 +3845,7 @@
 		BA0073BB25D189E50036DFDD /* DataDonation */ = {
 			isa = PBXGroup;
 			children = (
-				BA7D177725D547BE006B9EBF /* __tests__ */,
-				BA7D17CC25D59465006B9EBF /* DataDonationModel */,
+				BA7D17CC25D59465006B9EBF /* Model */,
 				BA0073BD25D18A5B0036DFDD /* DataDonationViewController.swift */,
 				BA7D17CB25D59440006B9EBF /* DataDonationViewModels */,
 			);
@@ -4017,7 +4018,6 @@
 			children = (
 				BA7D178025D549AA006B9EBF /* testData.json */,
 				BA7D178825D558FD006B9EBF /* testDataInvalid.json */,
-				BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */,
 				BA7D178D25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift */,
 			);
 			path = __tests__;
@@ -4026,6 +4026,7 @@
 		BA7D17CB25D59440006B9EBF /* DataDonationViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				BA7D177725D547BE006B9EBF /* __tests__ */,
 				BA7D17BE25D593CB006B9EBF /* DynamicCell+LegalExtendedDataDonation.swift */,
 				BADBC81A25D6A7FF00488DB7 /* BaseDataDonationViewModel.swift */,
 				BA0073E925D196900036DFDD /* DefaultDataDonationViewModel.swift */,
@@ -4034,13 +4035,14 @@
 			path = DataDonationViewModels;
 			sourceTree = "<group>";
 		};
-		BA7D17CC25D59465006B9EBF /* DataDonationModel */ = {
+		BA7D17CC25D59465006B9EBF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BADBC82D25D6BD2800488DB7 /* __tests__ */,
 				BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */,
 				BA0073FF25D1A1810036DFDD /* District.swift */,
 			);
-			path = DataDonationModel;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BA7D17D025D5947B006B9EBF /* DataDonationDetails */ = {
@@ -4140,6 +4142,15 @@
 				BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */,
 			);
 			path = TestResultAvailable;
+			sourceTree = "<group>";
+		};
+		BADBC82D25D6BD2800488DB7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BA7D177825D547D4006B9EBF /* DataDonationModelTests.swift */,
+				BADBC82825D6BB6400488DB7 /* DistrictTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
@@ -5175,6 +5186,7 @@
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				A32C046524D96348005BEA61 /* HTTPClient+PlausibeDeniabilityTests.swift in Sources */,
+				BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */,
 				0156F05C25D2DA2300543640 /* DeadmanNotificationManagerTests.swift in Sources */,
 				A372DA4224BF3E29003248BB /* MockExposureSubmissionCoordinator.swift in Sources */,
 				BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */,
