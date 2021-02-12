@@ -322,6 +322,7 @@
 		505F508325C897B3004920EB /* OTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F508225C897B3004920EB /* OTPError.swift */; };
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
+		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
 		50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B5057C25CAEF5C00EEA380 /* OTPToken.swift */; };
@@ -1126,6 +1127,7 @@
 		505F508225C897B3004920EB /* OTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPError.swift; sourceTree = "<group>"; };
 		506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModel.swift; sourceTree = "<group>"; };
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
+		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
 		50B5057C25CAEF5C00EEA380 /* OTPToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPToken.swift; sourceTree = "<group>"; };
@@ -2453,6 +2455,14 @@
 			isa = PBXGroup;
 			children = (
 				50352C8A25C94961007193D2 /* OTPServiceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		508DB7D925D6B4AE00F153D6 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4036,6 +4046,7 @@
 		BA7D17D025D5947B006B9EBF /* DataDonationDetails */ = {
 			isa = PBXGroup;
 			children = (
+				508DB7D925D6B4AE00F153D6 /* __tests__ */,
 				506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */,
 				506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */,
 			);
@@ -5195,6 +5206,7 @@
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
 				50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */,
+				508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */,
 				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
