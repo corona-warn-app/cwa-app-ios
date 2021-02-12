@@ -7,6 +7,7 @@ import UIKit
 struct ClientMetadata: Codable {
 	var cwaVersion: Version?
 	var iosVersion: Version
+	// eTag from the last fetched appConfiguration
 	var eTag: String?
 
 	enum CodingKeys: String, CodingKey {
