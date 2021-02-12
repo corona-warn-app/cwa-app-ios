@@ -25,6 +25,9 @@
   "testTargets" : [
     {
       "parallelizable" : true,
+      "skippedTests" : [
+        "StatisticsProviderTests\/testFetchLiveStats()"
+      ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
         "identifier" : "85D7595324570491008175F0",
