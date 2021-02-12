@@ -210,7 +210,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 		}
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
 			requestObserver: verifyPostBodyContent
 		)
 

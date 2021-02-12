@@ -25,6 +25,34 @@ final class SecureStore: Store {
 
 	var analyticsSubmitter: PPAnalyticsSubmitter?
 
+	/// Removes most key/value pairs.
+	///
+	/// Keys whose values are not removed:
+	/// * `developerSubmissionBaseURLOverride`
+	/// * `developerDistributionBaseURLOverride`
+	/// * `developerVerificationBaseURLOverride`
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
+	func flush() {
+		do {
+			try kvStore.flush()
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
+	}
+
+	/// Database reset & re-initialization with a given key
+	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
+	///
+	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
+	func clearAll(key: String?) {
+		do {
+			try kvStore.clearAll(key: key)
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
+	}
+
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
@@ -291,20 +319,6 @@ final class SecureStore: Store {
 	}
 
 	#endif
-
-	// MARK: - Internal
-
-	/// Removes most key/value pairs.
-	///
-	/// Keys whose values are not removed:
-	/// * `developerSubmissionBaseURLOverride`
-	/// * `developerDistributionBaseURLOverride`
-	/// * `developerVerificationBaseURLOverride`
-	///
-	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
-	func flush() {
-		try? kvStore.flush()
-	}
 
 	// MARK: - Private
 
