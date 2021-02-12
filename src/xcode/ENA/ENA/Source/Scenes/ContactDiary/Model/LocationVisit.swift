@@ -12,13 +12,13 @@ struct LocationVisit: Equatable {
 		id: Int,
 		date: String,
 		locationId: Int,
-		duration: Int = 0,
+		durationInMinutes: Int = 0,
 		circumstances: String = ""
 	) {
 		self.id = id
 		self.date = date
 		self.locationId = locationId
-		self.duration = duration
+		self.durationInMinutes = durationInMinutes
 		self.circumstances = circumstances
 	}
 
@@ -29,7 +29,7 @@ struct LocationVisit: Equatable {
 	let date: String
 	let locationId: Int
 
-	let duration: Int
+	let durationInMinutes: Int
 	let circumstances: String
 
 }

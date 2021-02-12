@@ -306,7 +306,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		date: String,
 		duration: ContactPersonEncounter.Duration,
 		maskSituation: ContactPersonEncounter.MaskSituation,
-		locationType: ContactPersonEncounter.LocationType,
+		setting: ContactPersonEncounter.Setting,
 		circumstances: String
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
@@ -320,7 +320,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					contactPersonId,
 					duration,
 					maskSituation,
-					locationType,
+					setting,
 					circumstances
 				)
 				VALUES (
@@ -328,7 +328,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					:contactPersonId,
 					:duration,
 					:maskSituation,
-					:locationType,
+					:setting,
 					:circumstances
 				);
 			"""
@@ -339,7 +339,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				// CJE: Handle Optionals
 //				"duration": duration?.rawValue,
 //				"maskSituation": maskSituation?.rawValue,
-//				"locationType": locationType?.rawValue,
+//				"setting": setting?.rawValue,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -368,7 +368,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addLocationVisit(
 		locationId: Int,
 		date: String,
-		duration: Int,
+		durationInMinutes: Int,
 		circumstances: String
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
@@ -380,13 +380,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				INSERT INTO LocationVisit (
 					date,
 					locationId,
-					duration,
+					durationInMinutes,
 					circumstances
 				)
 				VALUES (
 					date(:dateString),
 					:locationId,
-					:duration,
+					:durationInMinutes,
 					:circumstances
 				);
 			"""
@@ -394,7 +394,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let parameters: [String: Any] = [
 				"dateString": date,
 				"locationId": locationId,
-				"duration": duration,
+				"durationInMinutes": durationInMinutes,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -511,7 +511,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		date: String,
 		duration: ContactPersonEncounter.Duration,
 		maskSituation: ContactPersonEncounter.MaskSituation,
-		locationType: ContactPersonEncounter.LocationType,
+		setting: ContactPersonEncounter.Setting,
 		circumstances: String
 	) -> DiaryStoringVoidResult {
 		// CJE: Implement
@@ -519,7 +519,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func updateLocationVisit(id: Int, locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringVoidResult {
+	func updateLocationVisit(id: Int, locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult {
 		// CJE: Implement
 		return .success(())
 	}

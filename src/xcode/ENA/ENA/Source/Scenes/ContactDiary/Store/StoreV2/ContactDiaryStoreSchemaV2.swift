@@ -29,15 +29,11 @@ class ContactDiaryStoreSchemaV2: ContactDiarySchemaProtocol {
 				CREATE TABLE IF NOT EXISTS ContactPerson (
 					id INTEGER PRIMARY KEY,
 					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
-					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= 250)
-					emailAddress TEXT CHECK (LENGTH(emailAddress) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS Location (
 					id INTEGER PRIMARY KEY,
 					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
-					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= 250)
-					emailAddress TEXT CHECK (LENGTH(emailAddress) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
@@ -50,8 +46,6 @@ class ContactDiaryStoreSchemaV2: ContactDiarySchemaProtocol {
 				CREATE TABLE IF NOT EXISTS LocationVisit (
 					id INTEGER PRIMARY KEY,
 					date TEXT NOT NULL,
-					duration INTEGER,
-					circumstances TEXT CHECK (LENGTH(circumstances) <= 250),
 					locationId INTEGER NOT NULL,
 					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);

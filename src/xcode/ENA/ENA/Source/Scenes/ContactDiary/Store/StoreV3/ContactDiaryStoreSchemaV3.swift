@@ -5,12 +5,7 @@
 import FMDB
 import CWASQLite
 
-
-protocol ContactDiarySchemaProtocol {
-	func create() -> Result<Void, SQLiteErrorCode>
-}
-
-class ContactDiaryStoreSchemaV2: ContactDiarySchemaProtocol {
+class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 
 	// MARK: - Init
 
@@ -28,17 +23,24 @@ class ContactDiaryStoreSchemaV2: ContactDiarySchemaProtocol {
 			let sql = """
 				CREATE TABLE IF NOT EXISTS ContactPerson (
 					id INTEGER PRIMARY KEY,
-					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= 250),
+					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= 250),
+					emailAddress TEXT CHECK (LENGTH(emailAddress) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS Location (
 					id INTEGER PRIMARY KEY,
-					name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= 250),
+					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= 250),
+					emailAddress TEXT CHECK (LENGTH(emailAddress) <= 250)
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
 					id INTEGER PRIMARY KEY,
 					date TEXT NOT NULL,
+					duration INTEGER,
+					maskSituation INTEGER,
+					setting INTEGER,
 					contactPersonId INTEGER NOT NULL,
 					FOREIGN KEY(contactPersonId) REFERENCES ContactPerson(id) ON DELETE CASCADE
 				);
@@ -46,6 +48,8 @@ class ContactDiaryStoreSchemaV2: ContactDiarySchemaProtocol {
 				CREATE TABLE IF NOT EXISTS LocationVisit (
 					id INTEGER PRIMARY KEY,
 					date TEXT NOT NULL,
+					durationInMinutes INTEGER,
+					circumstances TEXT CHECK (LENGTH(circumstances) <= 250),
 					locationId INTEGER NOT NULL,
 					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);

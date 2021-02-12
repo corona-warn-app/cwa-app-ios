@@ -4,7 +4,7 @@
 
 import FMDB
 
-final class ContactDiaryMigration1To2: Migration {
+final class ContactDiaryMigration2To3: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
 	private var database: FMDatabase?
@@ -16,45 +16,50 @@ final class ContactDiaryMigration1To2: Migration {
 
 	// MARK: - Protocol Migration
 
-	let version = 2
+	let version = 3
 
 	func execute() throws {
-		
-		var finalSQL: String?
+		var error: Error?
+
 		databaseQueue.inDatabase { database in
-			let tableNames = ["ContactPerson", "Location"]
-			self.database = database
-			for tableName in tableNames {
-				let queryResult = database.prepare("PRAGMA table_info(" + tableName + ")" )
-				
-				while queryResult.next() {
-					let name = queryResult.string(forColumn: "name")
-					let type = queryResult.string(forColumn: "type")
-					
-					// do migration for contact diary tables if the type of the Column "name" is "STRING"
-					if name == "name" && type == "STRING" {
-						finalSQL = """
-						CREATE TABLE tmp (
-						id INTEGER PRIMARY KEY,
-						name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
-						);
-						INSERT INTO tmp (id, name)
-						SELECT id, name
-						FROM \(tableName);
-						DROP TABLE \(tableName);
-						ALTER TABLE tmp RENAME TO \(tableName) ;
-						"""
-						
-						break
-					}
-				}
-				
-				queryResult.close()
-				guard let sql = finalSQL, database.executeStatements(sql) else {
-					error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
-					return
-				}
+			let sql = """
+				BEGIN TRANSACTION;
+
+				-- Add phoneNumber, emailAddress columns to ContactPerson
+				ALTER TABLE ContactPerson
+					ADD phoneNumber TEXT NULL;
+				ALTER TABLE ContactPerson
+					ADD emailAddress TEXT NULL;
+
+				-- add phoneNumber, emailAddress columns to Location
+				ALTER TABLE Location
+					ADD phoneNumber TEXT NULL;
+				ALTER TABLE Location
+					ADD emailAddress TEXT NULL;
+
+				-- add duration, maskSituation, setting columns to ContactPersonEncounter
+				ALTER TABLE ContactPersonEncounter
+					ADD duration INTEGER NULL;
+				ALTER TABLE ContactPersonEncounter
+					ADD maskSituation INTEGER NULL;
+				ALTER TABLE ContactPersonEncounter
+					ADD setting INTEGER NULL;
+
+				-- add durationInMinutes, circumstances columns to LocationVisit
+				ALTER TABLE LocationVisit
+					ADD durationInMinutes NULL;
+				ALTER TABLE LocationVisit
+					ADD circumstances TEXT NULL;
+
+				COMMIT;
+			"""
+
+			guard database.executeStatements(sql) else {
+				error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
+				return
 			}
+
+			database.userVersion = UInt32(version)
 		}
 		
 		if let error = error {
