@@ -10,7 +10,7 @@ final class SettingsViewModel {
 	var notifications: CellModel = .notifications
 	var backgroundAppRefresh: CellModel = .backgroundAppRefresh
 	var reset: String = AppStrings.Settings.resetLabel
-	var datadonation:CellModel = .dataDonation
+	var datadonation: CellModel = .dataDonation
 }
 
 extension SettingsViewModel {
