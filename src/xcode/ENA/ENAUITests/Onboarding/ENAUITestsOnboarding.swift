@@ -121,6 +121,9 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
 		
 //		Onboarding ends here. Next screen is the home screen.
 	}
