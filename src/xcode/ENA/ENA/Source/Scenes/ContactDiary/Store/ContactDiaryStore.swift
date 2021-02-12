@@ -20,7 +20,7 @@ struct DateProvider: DateProviding {
 // swiftlint:disable:next type_body_length
 class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
-	static let encryptionKey = "ContactDiaryStoreEncryptionKey"
+	static let encryptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
 	// MARK: - Init
 
@@ -304,9 +304,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addContactPersonEncounter(
 		contactPersonId: Int,
 		date: String,
-		duration: ContactPersonEncounter.Duration?,
-		maskSituation: ContactPersonEncounter.MaskSituation?,
-		locationType: ContactPersonEncounter.LocationType?,
+		duration: ContactPersonEncounter.Duration,
+		maskSituation: ContactPersonEncounter.MaskSituation,
+		locationType: ContactPersonEncounter.LocationType,
 		circumstances: String
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
@@ -505,7 +505,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, locationType: ContactPersonEncounter.LocationType?, circumstances: String) -> DiaryStoringVoidResult {
+	func updateContactPersonEncounter(
+		id: Int,
+		contactPersonId: Int,
+		date: String,
+		duration: ContactPersonEncounter.Duration,
+		maskSituation: ContactPersonEncounter.MaskSituation,
+		locationType: ContactPersonEncounter.LocationType,
+		circumstances: String
+	) -> DiaryStoringVoidResult {
 		// CJE: Implement
 		return .success(())
 	}
@@ -1034,7 +1042,7 @@ extension ContactDiaryStore {
 		}
 
 		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKey) {
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKeyKey) {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
