@@ -41,6 +41,7 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 					duration INTEGER,
 					maskSituation INTEGER,
 					setting INTEGER,
+					circumstances TEXT CHECK (LENGTH(circumstances) <= 250),
 					contactPersonId INTEGER NOT NULL,
 					FOREIGN KEY(contactPersonId) REFERENCES ContactPerson(id) ON DELETE CASCADE
 				);

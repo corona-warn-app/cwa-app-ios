@@ -37,13 +37,15 @@ final class ContactDiaryMigration2To3: Migration {
 				ALTER TABLE Location
 					ADD emailAddress TEXT NULL;
 
-				-- add duration, maskSituation, setting columns to ContactPersonEncounter
+				-- add duration, maskSituation, setting, circumstances columns to ContactPersonEncounter
 				ALTER TABLE ContactPersonEncounter
 					ADD duration INTEGER NULL;
 				ALTER TABLE ContactPersonEncounter
 					ADD maskSituation INTEGER NULL;
 				ALTER TABLE ContactPersonEncounter
 					ADD setting INTEGER NULL;
+				ALTER TABLE ContactPersonEncounter
+					ADD circumstances TEXT NULL;
 
 				-- add durationInMinutes, circumstances columns to LocationVisit
 				ALTER TABLE LocationVisit

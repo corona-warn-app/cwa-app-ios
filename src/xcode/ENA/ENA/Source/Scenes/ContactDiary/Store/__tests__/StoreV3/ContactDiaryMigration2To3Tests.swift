@@ -89,13 +89,14 @@ class ContactDiaryMigration2To3Tests: XCTestCase {
 		XCTAssertEqual(locationNames, ["Some Location Name", "Other Location Name"])
 
 		let contactPersonEncounterResult = fetch(column: "ContactPersonEncounter", from: databaseQueue)
-		XCTAssertEqual(contactPersonEncounterResult.columnCount, 6)
+		XCTAssertEqual(contactPersonEncounterResult.columnCount, 7)
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 0), "id")
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 1), "date")
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 2), "contactPersonId")
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 3), "duration")
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 4), "maskSituation")
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 5), "setting")
+		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 6), "circumstances")
 
 		var contactPersonEncounter = 0
 		var contactPersonEncounterDates = [String]()

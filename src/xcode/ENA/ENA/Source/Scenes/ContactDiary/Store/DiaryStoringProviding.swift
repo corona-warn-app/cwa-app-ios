@@ -31,9 +31,9 @@ protocol DiaryStoring {
 	@discardableResult
 	func updateLocation(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringVoidResult
+	func updateContactPersonEncounter(id: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringVoidResult
 	@discardableResult
-	func updateLocationVisit(id: Int, locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult
+	func updateLocationVisit(id: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult
 
 	@discardableResult
 	func removeContactPerson(id: Int) -> DiaryStoringVoidResult

@@ -336,10 +336,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let parameters: [String: Any] = [
 				"dateString": date,
 				"contactPersonId": contactPersonId,
-				// CJE: Handle Optionals
-//				"duration": duration?.rawValue,
-//				"maskSituation": maskSituation?.rawValue,
-//				"setting": setting?.rawValue,
+				"duration": duration.rawValue,
+				"maskSituation": maskSituation.rawValue,
+				"setting": setting.rawValue,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -507,21 +506,89 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	@discardableResult
 	func updateContactPersonEncounter(
 		id: Int,
-		contactPersonId: Int,
 		date: String,
 		duration: ContactPersonEncounter.Duration,
 		maskSituation: ContactPersonEncounter.MaskSituation,
 		setting: ContactPersonEncounter.Setting,
 		circumstances: String
 	) -> DiaryStoringVoidResult {
-		// CJE: Implement
-		return .success(())
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Update ContactPersonEncounter with id: \(id).", log: .localData)
+
+			let sql = """
+				UPDATE ContactPersonEncounter
+				SET date = SUBSTR(?, 1, 250), duration = ?, maskSituation = ?, setting = ?, circumstances = SUBSTR(?, 1, 250)
+				WHERE id = ?
+			"""
+
+			do {
+				try database.executeUpdate(sql, values: [date, duration, maskSituation, setting, circumstances, id])
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	@discardableResult
-	func updateLocationVisit(id: Int, locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult {
-		// CJE: Implement
-		return .success(())
+	func updateLocationVisit(
+		id: Int,
+		date: String,
+		durationInMinutes: Int,
+		circumstances: String
+	) -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Update LocationVisit with id: \(id).", log: .localData)
+
+			let sql = """
+				UPDATE LocationVisit
+				SET date = SUBSTR(?, 1, 250), durationInMinutes = ?, circumstances = SUBSTR(?, 1, 250)
+				WHERE id = ?
+			"""
+
+			do {
+				try database.executeUpdate(sql, values: [date, durationInMinutes, circumstances, id])
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeContactPerson(id: Int) -> DiaryStoringVoidResult {
@@ -767,7 +834,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		}
 		
 		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
-		// then we create the latest scheme
+		// then we create the latest schema
 		if let version = userVerson, version == 0 {
 			let schemaCreateResult = schema.create()
 			if case let .failure(error) = schemaCreateResult {
@@ -801,7 +868,16 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		var contactPersons = [DiaryContactPerson]()
 
 		let sql = """
-				SELECT ContactPerson.id AS contactPersonId, ContactPerson.name, ContactPerson.phoneNumber, ContactPerson.emailAddress, ContactPersonEncounter.id AS contactPersonEncounterId
+				SELECT ContactPerson.id AS contactPersonId,
+						ContactPerson.name,
+						ContactPerson.phoneNumber,
+						ContactPerson.emailAddress,
+						ContactPersonEncounter.id AS encounterId,
+						ContactPersonEncounter.date AS encounterDate,
+						ContactPersonEncounter.duration AS encounterDuration,
+						ContactPersonEncounter.maskSituation AS encounterMaskSituation,
+						ContactPersonEncounter.setting AS encounterSetting,
+						ContactPersonEncounter.circumstances AS encounterCircumstances
 				FROM ContactPerson
 				LEFT JOIN ContactPersonEncounter
 				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
@@ -816,13 +892,28 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
+				let encounter = ContactPersonEncounter(
+					id: Int(queryResult.int(forColumn: "contactPersonEncounterId")),
+					date: queryResult.string(forColumn: "encounterDate") ?? "",
+					contactPersonId: Int(queryResult.int(forColumn: "contactPersonId")),
+					duration: ContactPersonEncounter.Duration(
+						rawValue: Int(queryResult.int(forColumn: "encounterDuration"))
+					) ?? .none,
+					maskSituation: ContactPersonEncounter.MaskSituation(
+						rawValue: Int(queryResult.int(forColumn: "encounterMaskSituation"))
+					) ?? .none,
+					setting: ContactPersonEncounter.Setting(
+						rawValue: Int(queryResult.int(forColumn: "encounterSetting"))
+					) ?? .none,
+					circumstances: queryResult.string(forColumn: "encounterCircumstances") ?? ""
+				)
+
 				let contactPerson = DiaryContactPerson(
 					id: Int(queryResult.int(forColumn: "contactPersonId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					// CJE: Return encounter
-					encounter: nil
+					encounter: encounter
 				)
 				contactPersons.append(contactPerson)
 			}
@@ -838,7 +929,14 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		var locations = [DiaryLocation]()
 
 		let sql = """
-				SELECT Location.id AS locationId, Location.name, Location.phoneNumber, Location.emailAddress, LocationVisit.id AS locationVisitId
+				SELECT Location.id AS locationId,
+						Location.name,
+						Location.phoneNumber,
+						Location.emailAddress,
+						LocationVisit.id AS locationVisitId,
+						LocationVisit.date as locationVisitDate,
+						LocationVisit.durationInMinutes as locationVisitDuration,
+						LocationVisit.circumstances as locationVisitCircumstances
 				FROM Location
 				LEFT JOIN LocationVisit
 				ON Location.id = LocationVisit.locationId
@@ -853,13 +951,19 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
+				let locationVisit = LocationVisit(
+					id: Int(queryResult.int(forColumn: "locationVisitId")),
+					date: queryResult.string(forColumn: "locationVisitDate") ?? "",
+					locationId: Int(queryResult.int(forColumn: "locationId")),
+					durationInMinutes: Int(queryResult.int(forColumn: "locationVisitDuration")),
+					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? ""
+				)
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					// CJE: Return visit
-					visit: nil
+					visit: locationVisit
 				)
 				locations.append(location)
 			}
@@ -1058,18 +1162,25 @@ extension ContactDiaryStore {
 
 extension ContactDiaryStore {
 	convenience init?() {
-		let latestDBVersion = 2
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
 		}
-		
-		let schema = ContactDiaryStoreSchemaV2(
+
+		let latestDBVersion = 3
+		let schema = ContactDiaryStoreSchemaV3(
 			databaseQueue: databaseQueue
 		)
 		
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
-		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
+		let migrations: [Migration] = [
+			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
+			ContactDiaryMigration2To3(databaseQueue: databaseQueue)
+		]
+		let migrator = SerialDatabaseQueueMigrator(
+			queue: databaseQueue,
+			latestVersion: latestDBVersion,
+			migrations: migrations
+		)
 
 		self.init(
 			databaseQueue: databaseQueue,
