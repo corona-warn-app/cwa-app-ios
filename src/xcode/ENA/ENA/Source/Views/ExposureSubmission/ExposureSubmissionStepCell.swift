@@ -81,13 +81,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 	
 	// MARK: - Private
 	
-	private lazy var line: CAShapeLayer = {
-		let line = CAShapeLayer()
-		line.lineWidth = 1
-		line.strokeColor = UIColor.enaColor(for: .hairline).cgColor
-		contentView.layer.insertSublayer(line, at: 0)
-		return line
-	}()
+	private var line: SeperatorLineLayer!
 	private var hairline = Hairline.none
 	private var descriptionLabelConstraints = [NSLayoutConstraint]()
 	
@@ -118,6 +112,9 @@ class ExposureSubmissionStepCell: UITableViewCell {
 			descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
 			descriptionLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		]
+		// line
+		line = SeperatorLineLayer()
+		contentView.layer.insertSublayer(line, at: 0)
 		// activate constraints
 		NSLayoutConstraint.activate([
 			// titleLabel constraints
