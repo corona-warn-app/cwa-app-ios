@@ -84,7 +84,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Public
 
 	// MARK: - Internal
-	
+
+	/// Is called when when the one of the ENANavigationControllerWithFooter buttons is tapped.
 	var finished: (() -> Void)?
 
 	// MARK: - Private
