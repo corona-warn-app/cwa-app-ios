@@ -143,18 +143,6 @@ final class DataDonationViewModel {
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
 
-//	private var friendlyFederalStateName: String {
-//		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
-//	}
-//
-//	private var friendlyRegionName: String {
-//		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
-//	}
-//
-//	private var friendlyAgeName: String {
-//		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
-//	}
-
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
