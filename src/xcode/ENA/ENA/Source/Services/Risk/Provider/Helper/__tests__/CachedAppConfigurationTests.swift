@@ -111,7 +111,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
 			expectationClientMetadata.fulfill()
 		}
-		waitForExpectations(timeout: 1) { _ in
+		waitForExpectations(timeout: .medium) { _ in
 			XCTAssertNotNil(configuration, "configuration is not nil")
 			XCTAssertNotNil(store.clientMetadata, "Client metadata should be filled after fetching")
 			XCTAssertEqual(expectedAppVersion, store.clientMetadata?.cwaVersion, "AppVersion not equal clientMetaData appVerion")
