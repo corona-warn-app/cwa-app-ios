@@ -49,18 +49,20 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					toggleSwitch.addTarget(self, action: #selector(self.didToggleDatadonationSwitch), for: .valueChanged)
 				}),
 
-			.body(
-				text: friendlyFederalStateName,
-				style: .label,
-				accessibilityTraits: .button,
-				action: .execute(block: { [weak self] _, _ in
-					self?.didTapSelectStateButton()
-				}),
-				configure: { _, cell, _ in
-					cell.accessoryType = .disclosureIndicator
-				}),
+			dataDonationModel.isConsentGiven == true ?
+				.body(
+					text: friendlyFederalStateName,
+					style: .label,
+					accessibilityTraits: .button,
+					action: .execute(block: { [weak self] _, _ in
+						self?.didTapSelectStateButton()
+					}),
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+					}):
+				nil,
 
-			dataDonationModel.federalStateName != nil ?
+			dataDonationModel.isConsentGiven == true && dataDonationModel.federalStateName != nil ?
 				.body(
 					text: friendlyRegionName,
 					style: .label, accessibilityIdentifier: nil,
@@ -73,18 +75,20 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					}) :
 				nil,
 
-			.body(
-				text: friendlyAgeName,
-				style: .label,
-				color: nil,
-				accessibilityIdentifier: nil,
-				accessibilityTraits: .button,
-				action: .execute(block: { [weak self] _, _ in
-					self?.didTapAgeButton()
-				}),
-				configure: { _, cell, _ in
-					cell.accessoryType = .disclosureIndicator
-				})
+			dataDonationModel.isConsentGiven == true ?
+				.body(
+					text: friendlyAgeName,
+					style: .label,
+					color: nil,
+					accessibilityIdentifier: nil,
+					accessibilityTraits: .button,
+					action: .execute(block: { [weak self] _, _ in
+						self?.didTapAgeButton()
+					}),
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+					}) :
+				nil
 		]
 		.compactMap { $0 }
 
