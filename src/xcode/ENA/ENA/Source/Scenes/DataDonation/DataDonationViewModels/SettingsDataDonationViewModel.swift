@@ -99,9 +99,9 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			.section(
 				cells: [
 					.legalExtendedDataDonation(
-						title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
+						title: NSAttributedString(string: AppStrings.),
 						description: NSAttributedString(
-							string: AppStrings.DataDonation.Info.legalAcknowledgementContent,
+							string: AppStrings.DataDonation.AppSettings.ppaSettingsPrivacyInformationBody,
 							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]),
 						bulletPoints: [
 							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint1),
