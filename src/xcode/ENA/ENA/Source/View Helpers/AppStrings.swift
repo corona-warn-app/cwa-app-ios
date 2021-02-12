@@ -1184,5 +1184,88 @@ enum AppStrings {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
 		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
 	}
+	
+	enum DataDonation {
+		enum ValueSelection {
+			static let noValue = NSLocalizedString("DataDonation_ValueSelection_None", comment: "")
+			enum Title {
+				static let State = NSLocalizedString("DataDonation_ValueSelection_Title_State", comment: "")
+				static let Region = NSLocalizedString("DataDonation_ValueSelection_Title_Region", comment: "")
+				static let Age = NSLocalizedString("DataDonation_ValueSelection_Title_Age", comment: "")
+			}
+			enum Ages {
+				static let Below29 = NSLocalizedString("DataDonation_ValueSelection_Age_Below29", comment: "")
+				static let Between30And59 = NSLocalizedString("DataDonation_ValueSelection_Age_Between30And59", comment: "")
+				static let Min60OrAbove = NSLocalizedString("DataDonation_ValueSelection_Age_Min60OrAbove", comment: "")
+			}
+		}
+
+		enum Info {
+			static let accImageDescription = NSLocalizedString("DataDonation_AccImageDescription", comment: "")
+			static let title = NSLocalizedString("DataDonation_Headline", comment: "")
+			static let description = NSLocalizedString("DataDonation_Description", comment: "")
+			static let subHeadState = NSLocalizedString("DataDonation_SubHead_YourState", comment: "")
+			static let subHeadAgeGroup = NSLocalizedString("DataDonation_SubHead_AgeGroup", comment: "")
+			static let noSelectionState = NSLocalizedString("DataDonation_State_NoSelection_Text", comment: "")
+			static let noSelectionRegion = NSLocalizedString("DataDonation_Region_NoSelection_Text", comment: "")
+			static let noSelectionAgeGroup = NSLocalizedString("DataDonation_AgeGroup_NoSelection_Text", comment: "")
+			static let dataProcessingDetails = NSLocalizedString("DataDonation_DetailedInformation_DataProcessing", comment: "")
+			static let buttonOK = NSLocalizedString("DataDonation_Button_OK", comment: "")
+			static let buttonNOK = NSLocalizedString("DataDonation_Button_NotOK", comment: "")
+			
+			static let legalTitle = NSLocalizedString("DataDonation_Acknowledgement_Title", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementContent = NSLocalizedString("DataDonation_Acknowledgement_Content", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementBulletPoint1 = NSLocalizedString("DataDonation_Acknowledgement_BulletPoint_1", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementBulletPoint2 = NSLocalizedString("DataDonation_Acknowledgement_BulletPoint_2", tableName: "Localizable.legal", comment: "")
+			static let legalAcknowledgementBulletPoint3 = NSLocalizedString("DataDonation_Acknowledgement_BulletPoint_3", tableName: "Localizable.legal", comment: "")
+			
+		}
+
+        enum DetailedInfo {
+			static let title = NSLocalizedString("DetailedInfosDataDonation_Headline", comment: "")
+			
+			static let legalHeadline = NSLocalizedString("DataDonation_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
+			static let legalParagraph = NSLocalizedString("DataDonation_DetailedInformation_Text", tableName: "Localizable.legal", comment: "")
+			
+			static let headline = NSLocalizedString("DetailedInfosDataDonation_SubHead_DataProcessing", comment: "")
+			static let paragraph1 = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination", comment: "")
+			static let paragraph2 = NSLocalizedString("DetailedInfosDataDonation_SubHead_RKI_DataCollection", comment: "")
+			static let paragraph3 = NSLocalizedString("DetailedInfosDataDonation_SubHead_RetrievedTestResult", comment: "")
+			static let paragraph4 = NSLocalizedString("DetailedInfosDataDonation_SubHead_WarnOthers", comment: "")
+			static let paragraph5 = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_MiscInformation", comment: "")
+			static let paragraph6 = NSLocalizedString("DetailedInfosDataDonation_General_Privacy_Infos", comment: "")
+			
+			static let bullet01_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle", comment: "")
+			static let bullet02_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle", comment: "")
+			static let bullet03_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle", comment: "")
+			static let bullet04_title = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle", comment: "")
+
+			static let bullet01_text = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination", comment: "")
+			static let bullet02_text = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation", comment: "")
+			static let bullet03_text = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_AppSupport", comment: "")
+			static let bullet04_text = NSLocalizedString("DetailedInfosDataDonation_BulletPoint_ImprovedStatistics", comment: "")
+			
+			static let bullet05_text = NSLocalizedString("DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date", comment: "")
+			static let bullet06_text = NSLocalizedString("DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory", comment: "")
+			static let bullet07_text = NSLocalizedString("DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk", comment: "")
+			static let bullet08_text = NSLocalizedString("DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base", comment: "")
+			static let bullet09_text = NSLocalizedString("DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult", comment: "")
+			static let bullet10_text = NSLocalizedString("DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk", comment: "")
+			static let bullet11_text = NSLocalizedString("DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk", comment: "")
+			static let bullet12_text = NSLocalizedString("DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk", comment: "")
+			static let bullet13_text = NSLocalizedString("DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult", comment: "")
+			static let bullet14_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled", comment: "")
+			static let bullet15_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart", comment: "")
+			static let bullet16_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent", comment: "")
+			static let bullet17_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar", comment: "")
+			static let bullet18_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived", comment: "")
+			static let bullet19_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed", comment: "")
+			static let bullet20_text = NSLocalizedString("DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration", comment: "")
+			static let bullet21_text = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup", comment: "")
+			static let bullet22_text = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region", comment: "")
+			static let bullet23_text = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs", comment: "")
+		}
+	}
+
 	// swiftlint:disable:next file_length
 }

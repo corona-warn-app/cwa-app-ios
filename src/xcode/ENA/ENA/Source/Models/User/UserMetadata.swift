@@ -17,9 +17,9 @@ struct UserMetadata: Codable {
 	}
 
 	init(
-		federalState: FederalStateName,
-		administrativeUnit: Int,
-		ageGroup: AgeGroup
+		federalState: FederalStateName?,
+		administrativeUnit: Int?,
+		ageGroup: AgeGroup?
 	) {
 		self.federalState = federalState
 		self.administrativeUnit = administrativeUnit
