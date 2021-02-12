@@ -16,6 +16,33 @@ enum OTPError: Error {
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
+
+	var description: String {
+		switch self {
+		case .generalError:
+			return "generalError"
+		case .invalidResponseError:
+			return "invalidResponseError"
+		case .internalServerError:
+			return "internalServerError"
+		case .otpAlreadyUsedThisMonth:
+			return "otpAlreadyUsedThisMonth"
+		case .otherServerError:
+			return "otherServerError"
+		case .apiTokenAlreadyIssued:
+			return "apiTokenAlreadyIssued"
+		case .apiTokenExpired:
+			return "apiTokenExpired"
+		case .apiTokenQuotaExceeded:
+			return "apiTokenQuotaExceeded"
+		case .deviceTokenInvalid:
+			return "deviceTokenInvalid"
+		case .deviceTokenRedeemed:
+			return "deviceTokenRedeemed"
+		case .deviceTokenSyntaxError:
+			return "deviceTokenSyntaxError"
+		}
+	}
 }
 
 // Do not edit this cases as they are decoded as they are from the server.

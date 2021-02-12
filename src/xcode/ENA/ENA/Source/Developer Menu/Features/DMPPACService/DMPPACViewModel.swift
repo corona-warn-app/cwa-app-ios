@@ -15,7 +15,7 @@ final class DMPPCViewModel {
 		deviceCheck: DeviceCheckable
 	) {
 		self.store = store
-		self.ppacService = try? PPACService(store: store, deviceCheck: deviceCheck)
+		self.ppacService = PPACService(store: store, deviceCheck: deviceCheck)
 	}
 	
 	// MARK: - Internal

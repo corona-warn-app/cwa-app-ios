@@ -12,7 +12,7 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 	private var serverEnvironment: ServerEnvironment
-
+	
 	init(
 		at directoryURL: URL,
 		key: String,
@@ -119,6 +119,11 @@ final class SecureStore: Store {
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
+	}
+	
+	var finishedDeltaOnboardings: [String: [String]] {
+		get { kvStore["finishedDeltaOnboardings"] as [String: [String]]? ?? [String: [String]]() }
+		set { kvStore["finishedDeltaOnboardings"] = newValue }
 	}
 
 	var onboardingVersion: String {
@@ -277,6 +282,11 @@ final class SecureStore: Store {
 	var otpToken: OTPToken? {
 		get { kvStore["otpToken"] as OTPToken? }
 		set { kvStore["otpToken"] = newValue }
+	}
+
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
 	}
 
 	var ppacApiToken: TimestampedToken? {

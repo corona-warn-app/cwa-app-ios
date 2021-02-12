@@ -367,6 +367,45 @@ enum AppStrings {
 		static let riskCardFailedCalculationTitle = NSLocalizedString("ExposureDetection_Risk_Failed_Title", comment: "")
 		static let riskCardFailedCalculationBody = NSLocalizedString("ExposureDetection_Risk_Failed_Body", comment: "")
 		static let riskCardFailedCalculationRestartButtonTitle = NSLocalizedString("ExposureDetection_Risk_Restart_Button_Title", comment: "")
+
+		static let surveyCardTitle = NSLocalizedString("ExposureDetection_Survey_Card_Title", comment: "")
+		static let surveyCardBody = NSLocalizedString("ExposureDetection_Survey_Card_Body", comment: "")
+		static let surveyCardButton = NSLocalizedString("ExposureDetection_Survey_Card_Button", comment: "")
+	}
+
+	enum SurveyConsent {
+		static let imageDescription = NSLocalizedString("SurveyConsent_Image_Description", comment: "")
+		static let title = NSLocalizedString("SurveyConsent_Title", comment: "")
+		static let body1 = NSLocalizedString("SurveyConsent_Body1", comment: "")
+		static let body2 = NSLocalizedString("SurveyConsent_Body2", comment: "")
+		static let body3 = NSLocalizedString("SurveyConsent_Body3", comment: "")
+		static let legalTitle = NSLocalizedString("SurveyConsent_LegalTitle_BoldText", tableName: "Localizable.legal", comment: "")
+		static let legalBody1 = NSLocalizedString("SurveyConsent_LegalBody1", tableName: "Localizable.legal", comment: "")
+		static let legalBody2 = NSLocalizedString("SurveyConsent_LegalBody2", tableName: "Localizable.legal", comment: "")
+		static let legalBullet1 = NSLocalizedString("SurveyConsent_Legal_Bullet1", tableName: "Localizable.legal", comment: "")
+		static let legalBullet2 = NSLocalizedString("SurveyConsent_Legal_Bullet2", tableName: "Localizable.legal", comment: "")
+		static let legalBullet3 = NSLocalizedString("SurveyConsent_Legal_Bullet3", tableName: "Localizable.legal", comment: "")
+
+		static let acceptButtonTitle = NSLocalizedString("SurveyConsent_Accept_Button_Title", comment: "")
+		static let legalDetailsButtonTitle = NSLocalizedString("SurveyConsent_Legal_Details_Button_Title", tableName: "Localizable.legal", comment: "")
+		
+		// Errors
+		static let errorTitle = NSLocalizedString("SurveyConsent_Error_Title", comment: "")
+		static let errorTryAgainLater = NSLocalizedString("SurveyConsent_Error_TryAgainLater", comment: "")
+		static let errorDeviceNotSupported = NSLocalizedString("SurveyConsent_Error_DeviceNotSupported", comment: "")
+		static let errorChangeDeviceTime = NSLocalizedString("SurveyConsent_Error_ChangeDeviceTime", comment: "")
+		static let errorTryAgainNextMonth = NSLocalizedString("SurveyConsent_Error_TryAgainNextMonth", comment: "")
+		static let errorAlreadyParticipated = NSLocalizedString("SurveyConsent_Error_AlreadyParticipated", comment: "")
+
+		static let surveyDetailsTitle = NSLocalizedString("SurveyConsent_Legal_Details_Title", comment: "")
+
+		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Legal_Details_Headline", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", tableName: "Localizable.legal", comment: "")
+		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", tableName: "Localizable.legal", comment: "")
+ 
+		static let surveyDetailsHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
+		static let surveyDetailsBody = NSLocalizedString("SurveyConsent_Details_Body", comment: "")
+
 	}
 
 	enum ExposureDetectionError {
@@ -649,6 +688,18 @@ enum AppStrings {
 		static let thankYouCardAppItemTitle = NSLocalizedString("Home_Thank_You_Card_App_Item_Title", comment: "")
 		static let thankYouCardNoSymptomsItemTitle = NSLocalizedString("Home_Thank_You_Card_NoSymptoms_Item_Title", comment: "")
 
+		// Reenable card
+		static let reenableCardTitle = NSLocalizedString("Home_Reenable_Card_Title", comment: "")
+		static let reenableCardBody = NSLocalizedString("Home_Reenable_Card_Body", comment: "")
+		static let reenableCardButtonTitle = NSLocalizedString("Home_Reenable_Card_Button_Title", comment: "")
+		static let reenableCardTestResultTitle = NSLocalizedString("Home_Reenable_Card_TestResult_Title", comment: "")
+		static let reenableCardTestResultSubtitle = NSLocalizedString("Home_Reenable_Card_TestResult_Subtitle", comment: "")
+		static let reenableCardTestResultRegistration = NSLocalizedString("Home_Reenable_Card_TestResult_Registration", comment: "")
+		static let reenableAlertTitle = NSLocalizedString("Home_Reenable_Alert_Title", comment: "")
+		static let reenableAlertMessage = NSLocalizedString("Home_Reenable_Alert_Message", comment: "")
+		static let reenableAlertConfirmButtonTitle = NSLocalizedString("Home_Reenable_Alert_ConfirmButtonTitle", comment: "")
+		static let reenableAlertCancelButtonTitle = NSLocalizedString("Home_Reenable_Alert_CancelButtonTitle", comment: "")
+
 		// Finding positive card
 		static let findingPositiveCardTitle = NSLocalizedString("Home_Finding_Positive_Card_Title", comment: "")
 		static let findingPositiveCardStatusTitle = NSLocalizedString("Home_Finding_Positive_Card_Status_Title", comment: "")
@@ -832,6 +883,33 @@ enum AppStrings {
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
+		/* Version 1.13 */
+		
+		static let feature113RkiSurveyTitle = NSLocalizedString("NewVersionFeature_113_rki_survey_title", comment: "")
+		
+		static let feature113RkiSurveyDescription = NSLocalizedString("NewVersionFeature_113_rki_survey_description", comment: "")
+		
+		static let feature113DataDonationTitle = NSLocalizedString("NewVersionFeature_113_data_donation_title", comment: "")
+		
+		static let feature113DataDonationDescription = NSLocalizedString("NewVersionFeature_113_data_donation_description", comment: "")
+		
+		static let feature113RiskCardTitle = NSLocalizedString("NewVersionFeature_113_risk_cards_title", comment: "")
+		
+		static let feature113RiskCardDescription = NSLocalizedString("NewVersionFeature_113_risk_cards_description", comment: "")
+		
+		static let feature113RiskDeterminationRandomIdTitle = NSLocalizedString("NewVersionFeature_113_risk_determination_random_id_title", comment: "")
+		
+		static let feature113RiskDeterminationRandomIdDescription = NSLocalizedString("NewVersionFeature_113_risk_determination_random_id_description", comment: "")
+		
+		static let feature113NewTabBarTitle = NSLocalizedString("NewVersionFeature_113_new_tabbar_title", comment: "")
+		
+		static let feature113NewTabBarDescription = NSLocalizedString("NewVersionFeature_113_new_tabbar_description", comment: "")
+		
+		static let feature113AddInfoAboutTestProcedureTitle = NSLocalizedString("NewVersionFeature_113_additonal_info_about_test_procedure_title", comment: "")
+		
+		static let feature113AddInfoAboutTestProcedureDescription = NSLocalizedString("NewVersionFeature_113_additonal_info_about_test_procedure_description", comment: "")
+		
+		/* Version 1.12 */
 		static let feature112StatisticsTitle = NSLocalizedString("NewVersionFeature_112_statistics_title", comment: "")
 		
 		static let feature112StatisticsDescription = NSLocalizedString("NewVersionFeature_112_statistics_description", comment: "")

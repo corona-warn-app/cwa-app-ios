@@ -189,7 +189,7 @@ opt_in_rules:
   #  - vertical_whitespace_opening_braces             # Don't include vertical whitespace (empty line) after opening braces.
   - void_return                                       # Prefer `-> Void` over `-> ()`.
   - weak_delegate                                     # Delegates should be weak to avoid reference cycles.
-  #  - xct_specific_matcher                           # Prefer specific XCTest matchers over `XCTAssertEqual` and `XCTAssertNotEqual`
+  - xct_specific_matcher                           # Prefer specific XCTest matchers over `XCTAssertEqual` and `XCTAssertNotEqual`
   - xctfail_message                                   # An XCTFail call should include a description of the assertion.
   #  - yoda_condition                                 # The variable should be placed on the left, the constant on the right of a comparison operator.
 

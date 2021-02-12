@@ -52,9 +52,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		checkTracingStatus()
-		checkNotificationSettings()
-		checkBackgroundAppRefresh()
+		updateUI()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -192,7 +190,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 	private let onResetCellTap: () -> Void
 
 	@objc
-	private func willEnterForeground() {
+	private func updateUI() {
 		checkTracingStatus()
 		checkNotificationSettings()
 		checkBackgroundAppRefresh()
@@ -211,14 +209,19 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 	}
 
 	private func setupView() {
-		checkTracingStatus()
-		checkNotificationSettings()
-		checkBackgroundAppRefresh()
-
+		updateUI()
+		
 		NotificationCenter.default.addObserver(
 			self,
-			selector: #selector(willEnterForeground),
+			selector: #selector(updateUI),
 			name: UIApplication.willEnterForegroundNotification,
+			object: UIApplication.shared
+		)
+		
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(updateUI),
+			name: UIApplication.backgroundRefreshStatusDidChangeNotification,
 			object: UIApplication.shared
 		)
 	}

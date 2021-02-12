@@ -426,8 +426,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeThankYouTableViewCell")
 		}
 
-		let cellModel = HomeThankYouCellModel()
-		cell.configure(with: cellModel)
+		let cellModel = HomeThankYouCellModel(
+			testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
+		)
+		cell.configure(
+			with: cellModel,
+			onPrimaryAction: { [weak self] in
+				self?.showReenableConfirmationAlert()
+			}
+		)
 
 		return cell
 	}
@@ -500,7 +507,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 	
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		
 		guard deltaOnboardingCoordinator == nil else { return }
 		
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
@@ -520,9 +526,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
+					DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
 				]
+				Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
@@ -538,11 +545,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
 		#if DEBUG
 		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
-			viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
 		}
 		#endif
 
-		guard viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
+		guard viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			completion()
 			return
 		}
@@ -573,7 +580,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 
 		present(alert, animated: true) { [weak self] in
-			self?.viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+			self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 		}
 	}
 
@@ -582,7 +589,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func showBackgroundFetchAlertIfNeeded(completion: @escaping () -> Void = {}) {
 		let status = UIApplication.shared.backgroundRefreshStatus
 		let inLowPowerMode = ProcessInfo.processInfo.isLowPowerModeEnabled
-		let hasSeenAlertBefore = viewModel.state.store.hasSeenBackgroundFetchAlert
+		let hasSeenAlertBefore = viewModel.store.hasSeenBackgroundFetchAlert
 
 		/// The error alert should only be shown:
 		/// - once
@@ -600,7 +607,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
 			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
 			completion: { [weak self] in
-				self?.viewModel.state.store.hasSeenBackgroundFetchAlert = true
+				self?.viewModel.store.hasSeenBackgroundFetchAlert = true
 				completion()
 			},
 			secondaryActionCompletion: {
@@ -618,7 +625,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 
 	private func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {
-		guard viewModel.state.store.shouldShowRiskStatusLoweredAlert else {
+		guard viewModel.store.shouldShowRiskStatusLoweredAlert else {
 			completion()
 			return
 		}
@@ -639,8 +646,41 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		alert.addAction(alertAction)
 
 		present(alert, animated: true) { [weak self] in
-			self?.viewModel.state.store.shouldShowRiskStatusLoweredAlert = false
+			self?.viewModel.store.shouldShowRiskStatusLoweredAlert = false
 		}
+	}
+
+	private func showReenableConfirmationAlert() {
+		let title = AppStrings.Home.reenableAlertTitle
+		let message = AppStrings.Home.reenableAlertMessage
+
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Home.reenableAlertConfirmButtonTitle,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.viewModel.reenableRiskDetection()
+					self?.scrollToTop(animated: false)
+					self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTest.rawValue], with: .automatic)
+				}
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Home.reenableAlertCancelButtonTitle,
+				style: .cancel,
+				handler: nil
+			)
+		)
+
+		present(alert, animated: true)
 	}
 
 	@objc

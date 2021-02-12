@@ -20,6 +20,10 @@ class AppInformationDetailViewController: DynamicTableViewController, DismissHan
 
 		tableView.register(AppInformationLegalCell.self, forCellReuseIdentifier: CellReuseIdentifier.legal.rawValue)
 		tableView.register(DynamicTableViewHtmlCell.self, forCellReuseIdentifier: CellReuseIdentifier.html.rawValue)
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: CellReuseIdentifier.legalDetails.rawValue
+		)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,6 +54,7 @@ extension AppInformationDetailViewController {
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
 		case legal = "legalCell"
 		case html = "htmlCell"
+		case legalDetails = "DynamicLegalCell"
 	}
 }
 

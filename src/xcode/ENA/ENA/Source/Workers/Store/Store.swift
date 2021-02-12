@@ -8,6 +8,7 @@ import ExposureNotification
 protocol StoreProtocol: AnyObject {
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
+	var finishedDeltaOnboardings: [String: [String]] { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
@@ -104,6 +105,7 @@ protocol StoreProtocol: AnyObject {
 
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }
+	var otpAuthorizationDate: Date? { get set }
 
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }
