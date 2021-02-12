@@ -27,7 +27,6 @@ final class OnboardingInfoViewController: UIViewController {
 		self.store = store
 		self.client = client
 		self.supportedCountries = supportedCountries
-		
 		super.init(nibName: nil, bundle: nil)
 	}
 
