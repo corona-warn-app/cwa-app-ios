@@ -108,9 +108,9 @@ final class HTTPClient: Client {
 				completeWith(.failure(.invalidResponse))
 				return
 		}
-		Log.info("Requesting TestResult", log: .api)
+		Log.debug("Requesting TestResult", log: .api)
 		session.response(for: testResultRequest, isFake: isFake) { result in
-			Log.info("Received TestResult", log: .api)
+			Log.debug("Received TestResult", log: .api)
 			switch result {
 			case let .success(response):
 
