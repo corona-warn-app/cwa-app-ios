@@ -28,10 +28,10 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.launch()
 
 		// - Delta Onboarding 1.5
-		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
 
-		let closeButton = app.buttons["AppStrings.AccessibilityLabel.close"]
-		XCTAssertTrue(closeButton.waitForExistence(timeout: 5))
+		let closeButton = app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close]
+		XCTAssertTrue(closeButton.waitForExistence(timeout: .medium))
 		closeButton.tap()
 
 		checkNewFeaturesAndDataDonationScreen()
@@ -44,17 +44,16 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 		var screenshotCounter = 0
 		let screenshotLabel = "deltaOnboarding_V15"
+
+		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: .medium))
 		
-		let tablesQuery = XCUIApplication().tables
-		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
-		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 		app.swipeUp()
 		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 		app.swipeUp()
 		
-		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc())))")
 		app.swipeUp()
 	}
 	
@@ -73,17 +72,8 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		
 		var screenshotCounter = 0
 		let screenshotLabel = "deltaOnboarding_newVersionFeatures"
-		
-		// The "Information zur Funktionsweise der Risiko-Ermittlung"
-		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
-		// We dismiss it if present.
-		let alert = app.alerts.firstMatch
-		if alert.exists {
-			alert.buttons.firstMatch.tap()
-		}
 
-		let tablesQuery = XCUIApplication().tables
-		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
 		
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
@@ -92,11 +82,11 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 
 	func checkNewFeaturesAndDataDonationScreen() {
 		// - New Features Screen
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
 
 		// - Data Donation Screen
-		XCTAssertTrue(app.tables.images["AccessibilityIdentifiers.DataDonation.accImageDescription"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.tables.images["AccessibilityIdentifiers.DataDonation.accImageDescription"].waitForExistence(timeout: .medium))
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
 
 		// - On Home Screen?
