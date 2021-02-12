@@ -132,11 +132,8 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 			)
 		)
 
-		let dummyDataDonationViewControllre = DataDonationViewController(
-			viewModel: viewModel,
-			didTapLegal: {}
-		)
-		parentNavigationController?.pushViewController(dummyDataDonationViewControllre, animated: true)
+		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
+		parentNavigationController?.pushViewController(dataDonationViewController, animated: true)
 	}
 
 	private func presentSelectValueList(selectValueViewModel: SelectValueViewModel) {

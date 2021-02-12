@@ -147,9 +147,14 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func gotoDataDonationScreen() {
-		let dataDonationViewController = DataDonationViewController(
+
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
+		let viewModel = DefaultDataDonationViewModel(
 			store: store,
-			presentSelectValueList: {  [weak self] selectValueViewModel in
+			presentSelectValueList: { [weak self] selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
 					selectValueViewModel,
 					dissmiss: { [weak self] in
@@ -158,9 +163,14 @@ final class OnboardingInfoViewController: UIViewController {
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
 				self?.navigationController?.present(selectValueNavigationController, animated: true)
 			},
-			didTapLegal: {}
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: jsonFileURL
+			)
 		)
-		
+
+		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
+
 		dataDonationViewController.finished = { [weak self] in
 			self?.finishOnBoarding()
 		}

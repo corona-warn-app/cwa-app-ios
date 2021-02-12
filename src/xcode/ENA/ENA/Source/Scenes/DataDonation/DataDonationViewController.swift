@@ -9,11 +9,9 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	
 	// MARK: - Init
 	init(
-		viewModel: DataDonationViewModelProtocol,
-		didTapLegal: @escaping () -> Void
+		viewModel: DataDonationViewModelProtocol
 	) {
 		self.viewModel = viewModel
-		self.didTapLegal = didTapLegal
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -59,8 +57,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	var finished: (() -> Void)?
 
 	// MARK: - Private
-
-	private let didTapLegal: () -> Void
 
 	private let viewModel: DataDonationViewModelProtocol
 	private var subscriptions: [AnyCancellable] = []

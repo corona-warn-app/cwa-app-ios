@@ -37,11 +37,7 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 			)
 		)
 
-		let dataDonationViewController = DataDonationViewController(
-			viewModel: viewModel,
-			didTapLegal: {}
-		)
-
+		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
 		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: dataDonationViewController)
 		deltaOnboardingNavigationController.navigationBar.prefersLargeTitles = true
 
