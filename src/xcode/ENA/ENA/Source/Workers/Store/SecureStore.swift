@@ -407,7 +407,10 @@ extension SecureStore: PrivacyPreservingProviding {
 	
 	var clientMetadata: ClientMetadata? {
 		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
-		set { kvStore["clientMetadata"] = newValue }
+		set { 
+		    kvStore["clientMetadata"] = newValue 
+		    analyticsSubmitter?.triggerSubmitData()
+		}
 	}
 }
 
