@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -34,21 +34,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
-	
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.DataDonation.Info.buttonOK
-		item.isPrimaryButtonEnabled = true
-		
-		item.secondaryButtonTitle = AppStrings.DataDonation.Info.buttonNOK
-		item.secondaryButtonHasBackground = true
-		item.isSecondaryButtonHidden = false
-		item.isSecondaryButtonEnabled = true
-
-		return item
-	}()
-	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -64,10 +50,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		Log.debug("tried to dismiss")
+		Log.debug("attemptedToBeDismissed")
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -80,6 +64,20 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	private let viewModel: DataDonationViewModelProtocol
 	private var subscriptions: [AnyCancellable] = []
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.DataDonation.Info.buttonOK
+		item.isPrimaryButtonEnabled = true
+
+		item.secondaryButtonTitle = AppStrings.DataDonation.Info.buttonNOK
+		item.secondaryButtonHasBackground = true
+		item.isSecondaryButtonHidden = false
+		item.isSecondaryButtonEnabled = true
+
+		return item
+	}()
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -109,7 +107,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 // MARK: - Cell reuse identifiers.
 
-extension DataDonationViewController {
+internal extension DataDonationViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
 		case legalExtended = "DynamicLegalExtendedCell"

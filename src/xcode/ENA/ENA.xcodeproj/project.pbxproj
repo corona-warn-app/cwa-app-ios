@@ -2897,11 +2897,11 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BA7D17D025D5947B006B9EBF /* DataDonationDetails */,
-				BA0073BB25D189E50036DFDD /* DataDonation */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
+				BA0073BB25D189E50036DFDD /* DataDonation */,
+				BA7D17D025D5947B006B9EBF /* DataDonationDetails */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
 				514E81312461946E00636861 /* ExposureDetection */,
@@ -2911,9 +2911,9 @@
 				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,
-				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
+				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				51D420C224583D7B00AD70CA /* Settings */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,

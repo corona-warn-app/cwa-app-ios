@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -153,7 +153,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
 	// MARK: - Internal
 
-	@objc /// called if the consent given switch changes
+	@objc ///  consent given switch changes
 	func didToggleDatadonationSwitch(sender: UISwitch) {
 		save(consentGiven: sender.isOn)
 		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) { [weak self] in
@@ -161,6 +161,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		}
 	}
 
+	///  user tapped select state
 	func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
@@ -180,6 +181,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
+	///  user tapped select region
 	func didTapSelectRegionButton() {
 		guard let federalStateName = dataDonationModel.federalStateName else {
 			Log.debug("Missing federal state to load regions", log: .ppac)
@@ -203,6 +205,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
+	///  user tapped select age
 	func didTapAgeButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			AgeGroup.allCases.map({ $0.text }),

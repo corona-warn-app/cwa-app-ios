@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -37,7 +37,7 @@ class BaseDataDonationViewModel: DataDonationViewModelProtocol {
 		self.dataDonationModel = datadonationModel
 	}
 
-	// MARK: - DataDonationViewModelProtocol
+	// MARK: - Protocol DataDonationViewModelProtocol
 
 	let presentSelectValueList: (SelectValueViewModel) -> Void
 
