@@ -183,18 +183,19 @@ struct FileLogger {
 	}
 
 	private func makeWriteFileHandle(with url: URL) -> FileHandle? {
-		let fileManager = FileManager.default
+		do {
+			let fileManager = FileManager.default
+			if !fileManager.fileExists(atPath: url.path) {
+				try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+				fileManager.createFile(atPath: url.path, contents: nil)
+			}
 
-		if !fileManager.fileExists(atPath: url.path) {
-			try? fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
-			fileManager.createFile(atPath: url.path, contents: nil)
-		}
-
-		guard let fileHandle = try? FileHandle(forWritingTo: url) else {
+			let fileHandle = try? FileHandle(forWritingTo: url)
+			return fileHandle
+		} catch {
+			Log.error("File handle error", log: .localData, error: error)
 			return nil
 		}
-
-		return fileHandle
 	}
 
 	private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
@@ -203,7 +204,12 @@ struct FileLogger {
 	}
 
 	private func makeReadFileHandle(with url: URL) -> FileHandle? {
-		return try? FileHandle(forReadingFrom: url)
+		do {
+			return try FileHandle(forReadingFrom: url)
+		} catch {
+			Log.error("File handle error", log: .localData, error: error)
+			return nil
+		}
 	}
 }
 

@@ -13,7 +13,7 @@ final class HTTPClientTestResultTests: XCTestCase {
 		let testResult = 1234
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult))
+			responseData: try JSONEncoder().encode(GetTestResultResponse(testResult: testResult))
 		)
 
 		let successExpectation = expectation(
@@ -36,7 +36,7 @@ final class HTTPClientTestResultTests: XCTestCase {
 		let testResult = 1234
 		let stack = MockNetworkStack(
 			httpStatus: 302,
-			responseData: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult))
+			responseData: try JSONEncoder().encode(GetTestResultResponse(testResult: testResult))
 		)
 
 		let successExpectation = expectation(

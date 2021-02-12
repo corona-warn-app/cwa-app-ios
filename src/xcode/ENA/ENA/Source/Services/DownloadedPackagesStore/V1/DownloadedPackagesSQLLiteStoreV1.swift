@@ -53,7 +53,12 @@ extension DownloadedPackagesSQLLiteStoreV1: DownloadedPackagesStoreV1 {
 			self.database.open()
 
 			if self.database.tableExists("Z_DOWNLOADED_PACKAGE") {
-				try? self.migrator.migrate()
+				do {
+					try self.migrator.migrate()
+				} catch {
+					Log.error("Migration failed!", log: .localData, error: error)
+					fatalError("Migration failed! \(error)")
+				}
 			} else {
 				self.database.executeStatements(
 				"""
