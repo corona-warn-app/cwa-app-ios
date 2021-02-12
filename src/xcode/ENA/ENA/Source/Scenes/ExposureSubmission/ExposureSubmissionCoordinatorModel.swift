@@ -98,7 +98,7 @@ class ExposureSubmissionCoordinatorModel {
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
-
+		//QR code test fetch
 		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
 			isLoading(false)
 

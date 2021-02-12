@@ -85,6 +85,44 @@ final class CachedAppConfigurationTests: XCTestCase {
 		subscription.cancel()
 	}
 
+    func testClientMetadata_isUpdated_everytime_appconfiguration_isFetched() {
+		let store = MockTestStore()
+		XCTAssertNil(store.clientMetadata, "Client metadata should be initially nil")
+		let client = CachingHTTPClientMock(store: store)
+		let cache = CachedAppConfiguration(client: client, store: store)
+		let expectationClientMetadata = expectation(description: "ClientMetadata")
+		
+		//AppVersion
+		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
+		guard appVersionParts.count == 3,
+			  let majorAppVerson = Int(appVersionParts[0]),
+			  let minorAppVerson = Int(appVersionParts[1]),
+			  let patchAppVersion = Int((appVersionParts[2])) else {
+			return
+		}
+		let expectedAppVersion = Version(major: majorAppVerson, minor: minorAppVerson, patch: patchAppVersion)
+		//iOSVersion
+		let expectediosVersion = Version(
+			major: ProcessInfo().operatingSystemVersion.majorVersion,
+			minor: ProcessInfo().operatingSystemVersion.minorVersion,
+			patch: ProcessInfo().operatingSystemVersion.patchVersion
+		)
+		//
+		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
+			expectationClientMetadata.fulfill()
+		}
+		waitForExpectations(timeout: 1) { _ in
+			XCTAssertNotNil(configuration, "configuration is not nil")
+			XCTAssertNotNil(store.clientMetadata, "Client metadata should be filled after fetching")
+			
+			
+			
+			XCTAssertEqual(expectedAppVersion, store.clientMetadata?.cwaVersion)
+			XCTAssertEqual(expectediosVersion, store.clientMetadata?.iosVersion)
+
+		}
+	}
+
 	func testCacheEmptySupportedCountries() throws {
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
 
@@ -117,7 +155,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 		subscription.cancel()
 	}
 
-	// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-3781
 	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledOnce() {
 		// GIVEN
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client only once")

@@ -404,6 +404,20 @@ extension SecureStore: PrivacyPreservingProviding {
 			analyticsSubmitter?.triggerSubmitData()
 		}
 	}
+
+    var clientMetadata: ClientMetadata? {
+		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
+		set { kvStore["clientMetadata"] = newValue }
+	}
+	
+	var testResultMetadata: TestResultMetaData? {
+		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
+		set { kvStore["testResultaMetadata"] = newValue }
+	}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
 
 extension SecureStore {

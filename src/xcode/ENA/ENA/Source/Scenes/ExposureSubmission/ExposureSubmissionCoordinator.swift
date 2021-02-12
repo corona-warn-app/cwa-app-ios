@@ -692,6 +692,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Test Result Helper
 
 	private func getTestResults(for key: DeviceRegistrationKey, isLoading: @escaping (Bool) -> Void) {
+		// TODO: check for consentof PPA first else  no data collected
+
+		store.testResultMetadata = TestResultMetaData()
 		model.getTestResults(
 			for: key,
 			isLoading: isLoading,
@@ -704,6 +707,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			},
 			onError: { [weak self] error in
+				self?.store.testResultMetadata = nil
 				let alert: UIAlertController
 
 				switch error {
