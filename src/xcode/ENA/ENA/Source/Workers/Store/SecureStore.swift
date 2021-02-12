@@ -311,7 +311,6 @@ final class SecureStore: Store {
 	}
 
 	#endif
-	
 	// MARK: - Private
 
 	private let directoryURL: URL
