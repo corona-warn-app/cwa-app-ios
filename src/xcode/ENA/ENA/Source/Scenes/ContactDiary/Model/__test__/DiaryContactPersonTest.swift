@@ -48,7 +48,7 @@ class DiaryContactPersonTest: XCTestCase {
 		XCTAssertEqual(contactPerson.encounter?.date, "2021-02-11")
 		XCTAssertEqual(contactPerson.encounter?.contactPersonId, 0)
 		XCTAssertEqual(contactPerson.encounter?.duration, .moreThan15Minutes)
-		XCTAssertNil(contactPerson.encounter?.maskSituation)
+		XCTAssertEqual(contactPerson.encounter?.maskSituation, .none)
 		XCTAssertEqual(contactPerson.encounter?.setting, .outside)
 		XCTAssertEqual(contactPerson.encounter?.circumstances, "")
 		XCTAssertTrue(contactPerson.isSelected)
