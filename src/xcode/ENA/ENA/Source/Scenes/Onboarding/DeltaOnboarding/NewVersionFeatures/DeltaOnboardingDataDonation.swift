@@ -14,10 +14,13 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 	}
 	
 	func makeViewController() -> DeltaOnboardingViewControllerProtocol {
-		
+		guard let url = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
 		weak var navigationController: DeltaOnboardingNavigationController?
-		
-		let dataDonationViewController = DataDonationViewController(
+
+		let viewModel = DefaultDataDonationViewModel(
 			store: store,
 			presentSelectValueList: { selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
@@ -28,6 +31,14 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
 				navigationController?.present(selectValueNavigationController, animated: true)
 			},
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: url
+			)
+		)
+
+		let dataDonationViewController = DataDonationViewController(
+			viewModel: viewModel,
 			didTapLegal: {}
 		)
 

@@ -104,6 +104,7 @@ enum AccessibilityIdentifiers {
 		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
 		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
+		static let dataDonation = "AppStrings.Settings.Datadonation.description"
 	}
 
 	enum AppInformation {

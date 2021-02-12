@@ -11,10 +11,12 @@ final class SelectValueTableViewController: UITableViewController {
 
 	init(
 		_ viewModel: SelectValueViewModel,
-		dissmiss: @escaping () -> Void
+		dissmiss: @escaping () -> Void,
+		closeOnSelection: Bool = true
 	) {
 		self.viewModel = viewModel
 		self.dissmiss = dissmiss
+		self.closeOnSelection = closeOnSelection
 		self.subscriptions = []
 		/// we use .grouped to make seperators end with the last value
 		super.init(style: .grouped)
@@ -50,12 +52,16 @@ final class SelectValueTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		viewModel.selectValue(at: indexPath)
+		if closeOnSelection {
+			DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.38, execute: dissmiss)
+		}
 	}
 
 	// MARK: - Private
 
 	private let viewModel: SelectValueViewModel
 	private let dissmiss: () -> Void
+	private let closeOnSelection: Bool
 	private var subscriptions: [AnyCancellable]
 
 	private func setupTableView() {

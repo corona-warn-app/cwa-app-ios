@@ -439,6 +439,13 @@ enum AppStrings {
 
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
 
+		enum Datadonation {
+			static let label = NSLocalizedString("Settings_DataDonation_Label", comment: "")
+			static let description = NSLocalizedString("Settings_DataDonation_Description", comment: "")
+			static let statusActive = NSLocalizedString("Settings_DataDonation_StatusActive", comment: "")
+			static let statusInactive = NSLocalizedString("Settings_DataDonation_StatusInactive", comment: "")
+		}
+
 	}
 
 	enum NotificationSettings {
@@ -1201,6 +1208,7 @@ enum AppStrings {
 		}
 
 		enum Info {
+			static let settingsSubHeadline = NSLocalizedString("DataDonation_SubHead_Settings", comment: "")
 			static let accImageDescription = NSLocalizedString("DataDonation_AccImageDescription", comment: "")
 			static let title = NSLocalizedString("DataDonation_Headline", comment: "")
 			static let description = NSLocalizedString("DataDonation_Description", comment: "")
@@ -1264,6 +1272,10 @@ enum AppStrings {
 			static let bullet21_text = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup", comment: "")
 			static let bullet22_text = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region", comment: "")
 			static let bullet23_text = NSLocalizedString("DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs", comment: "")
+		}
+		
+		enum AppSettings {
+			static let ppaSettingsPrivacyInformationBody = NSLocalizedString("ppa_settings_privacy_information_body", tableName: "Localizable.legal", comment: "")
 		}
 	}
 

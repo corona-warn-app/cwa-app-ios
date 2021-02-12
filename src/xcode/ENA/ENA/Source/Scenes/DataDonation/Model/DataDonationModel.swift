@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -32,8 +32,6 @@ struct DataDonationModel {
 		}?.districtName
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	var isConsentGiven: Bool
@@ -57,7 +55,6 @@ struct DataDonationModel {
 	mutating func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
 		guard isConsentGiven else {
-			store.userMetadata = UserMetadata(federalState: nil, administrativeUnit: nil, ageGroup: nil)
 			region = nil
 			federalStateName = nil
 			age = nil
