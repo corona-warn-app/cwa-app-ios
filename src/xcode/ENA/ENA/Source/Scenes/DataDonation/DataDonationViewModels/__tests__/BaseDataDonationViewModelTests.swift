@@ -120,9 +120,9 @@ class BaseDataDonationViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertFalse(mockStore.isPrivacyPreservingAnalyticsConsentGiven)
-//		XCTAssertNil(mockStore.userMetadata?.ageGroup)
-//		XCTAssertNil(mockStore.userMetadata?.federalState)
-//		XCTAssertNil(mockStore.userMetadata?.administrativeUnit)
+		XCTAssertNil(mockStore.userMetadata?.ageGroup)
+		XCTAssertNil(mockStore.userMetadata?.federalState)
+		XCTAssertNil(mockStore.userMetadata?.administrativeUnit)
 	}
 
 }
