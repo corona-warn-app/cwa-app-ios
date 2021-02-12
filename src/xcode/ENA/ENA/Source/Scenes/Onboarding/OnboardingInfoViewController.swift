@@ -267,7 +267,11 @@ final class OnboardingInfoViewController: UIViewController {
 			textView.layoutMargins = .zero
 			textView.delegate = self
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
-				textView.load(from: url)
+				do {
+					try textView.load(from: url)
+				} catch {
+					Log.error("Could not load url \(url)", log: .ui, error: error)
+				}
 			}
 			stackView.addArrangedSubview(textView)
 			htmlTextView = textView
