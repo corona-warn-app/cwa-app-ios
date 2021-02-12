@@ -46,9 +46,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, locationType: ContactPersonEncounter.LocationType, circumstances: String) -> DiaryStoringResult {
+	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringResult {
 		let id = (contactPersonEncounters.map { $0.id }.max() ?? -1) + 1
-		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId, duration: duration, maskSituation: maskSituation, locationType: locationType, circumstances: circumstances))
+		contactPersonEncounters.append(ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId, duration: duration, maskSituation: maskSituation, setting: setting, circumstances: circumstances))
 
 		updateDays()
 
@@ -86,9 +86,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, locationType: ContactPersonEncounter.LocationType, circumstances: String) -> DiaryStoringVoidResult {
+	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringVoidResult {
 		guard let index = contactPersonEncounters.firstIndex(where: { $0.id == id }) else { return .success(()) }
-		contactPersonEncounters[index] = ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId, duration: duration, maskSituation: maskSituation, locationType: locationType, circumstances: circumstances)
+		contactPersonEncounters[index] = ContactPersonEncounter(id: id, date: date, contactPersonId: contactPersonId, duration: duration, maskSituation: maskSituation, setting: setting, circumstances: circumstances)
 
 		updateDays()
 

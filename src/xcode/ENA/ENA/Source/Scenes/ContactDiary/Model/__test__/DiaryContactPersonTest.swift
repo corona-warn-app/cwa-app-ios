@@ -36,7 +36,7 @@ class DiaryContactPersonTest: XCTestCase {
 				contactPersonId: 0,
 				duration: .moreThan15Minutes,
 				maskSituation: .none,
-				locationType: .outside
+				setting: .outside
 			)
 		)
 
@@ -49,7 +49,7 @@ class DiaryContactPersonTest: XCTestCase {
 		XCTAssertEqual(contactPerson.encounter?.contactPersonId, 0)
 		XCTAssertEqual(contactPerson.encounter?.duration, .moreThan15Minutes)
 		XCTAssertNil(contactPerson.encounter?.maskSituation)
-		XCTAssertEqual(contactPerson.encounter?.locationType, .outside)
+		XCTAssertEqual(contactPerson.encounter?.setting, .outside)
 		XCTAssertEqual(contactPerson.encounter?.circumstances, "")
 		XCTAssertTrue(contactPerson.isSelected)
 	}

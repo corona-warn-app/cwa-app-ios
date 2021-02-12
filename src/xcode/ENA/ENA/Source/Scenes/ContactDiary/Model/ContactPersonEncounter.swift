@@ -20,7 +20,7 @@ struct ContactPersonEncounter: Equatable {
 		case withoutMask
 	}
 
-	enum LocationType: Int {
+	enum Setting: Int {
 		case none
 		case outside
 		case inside
@@ -32,7 +32,7 @@ struct ContactPersonEncounter: Equatable {
 		contactPersonId: Int,
 		duration: Duration = .none,
 		maskSituation: MaskSituation = .none,
-		locationType: LocationType = .none,
+		setting: Setting = .none,
 		circumstances: String = ""
 	) {
 		self.id = id
@@ -40,7 +40,7 @@ struct ContactPersonEncounter: Equatable {
 		self.contactPersonId = contactPersonId
 		self.duration = duration
 		self.maskSituation = maskSituation
-		self.locationType = locationType
+		self.setting = setting
 		self.circumstances = circumstances
 	}
 
@@ -53,7 +53,7 @@ struct ContactPersonEncounter: Equatable {
 
 	let duration: Duration
 	let maskSituation: MaskSituation
-	let locationType: LocationType
+	let setting: Setting
 
 	let circumstances: String
 	
