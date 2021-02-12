@@ -19,5 +19,6 @@ protocol DataDonationViewModelProtocol {
 	var friendlyAgeName: String { get }
 	var dynamicTableViewModel: DynamicTableViewModel { get }
 
+	func autosave()
 	func save(consentGiven: Bool)
 }

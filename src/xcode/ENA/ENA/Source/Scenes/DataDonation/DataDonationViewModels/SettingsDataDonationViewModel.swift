@@ -165,6 +165,12 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 		return dynamicTableViewModel
 	}
 
+	/// will save the model in it's current state
+	func autosave() {
+		dataDonationModel.save()
+	}
+
+	// will set consent given and save the model afterwards
 	func save(consentGiven: Bool) {
 		dataDonationModel.isConsentGiven = consentGiven
 		Log.debug("DataDonation consent value set to '\(consentGiven)'")
@@ -178,11 +184,9 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
 
-	@objc
+	@objc /// called if the consent given switch changes
 	private func didToggleDatadonationSwitch(sender: UISwitch) {
-		Log.debug("datadonation toggle -> save change")
-		save(consentGiven: sender.isOn)
-		reloadTableView.toggle()
+		dataDonationModel.isConsentGiven = sender.isOn
 	}
 
 	private func didTapSelectStateButton() {

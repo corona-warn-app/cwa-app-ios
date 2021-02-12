@@ -30,6 +30,14 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		setupTableView()
 	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		if isMovingFromParent {
+			viewModel.autosave()
+		}
+	}
+
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
@@ -65,7 +73,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		Log.debug("tried to dissmis")
+		Log.debug("tried to dismiss")
 	}
 
 	// MARK: - Public

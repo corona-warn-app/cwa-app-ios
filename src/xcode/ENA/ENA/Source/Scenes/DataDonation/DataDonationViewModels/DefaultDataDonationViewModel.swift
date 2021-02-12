@@ -130,6 +130,10 @@ final class DefaultDataDonationViewModel: DataDonationViewModelProtocol {
 		return dynamicTableViewModel
 	}
 
+	func autosave() {
+		dataDonationModel.save()
+	}
+
 	func save(consentGiven: Bool) {
 		dataDonationModel.isConsentGiven = consentGiven
 		Log.debug("DataDonation consent value set to '\(consentGiven)'")
