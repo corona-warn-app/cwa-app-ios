@@ -134,8 +134,6 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func gotoNextScreen() {
 		guard let nextPageType = pageType.next() else {
-			// [KGA] Code clean-up
-			//finishOnBoarding()
 			gotoDataDonationScreen()
 			return
 		}

@@ -60,8 +60,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		item.isSecondaryButtonHidden = false
 		item.isSecondaryButtonEnabled = true
 
-		//item.title = AppStrings.DataDonation.Info.title
-
 		return item
 	}()
 	
