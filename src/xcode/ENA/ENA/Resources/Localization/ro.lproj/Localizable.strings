@@ -65,6 +65,8 @@
 
 "ExposureDetection_LastExposure" = "Cel mai recent pe %@";
 
+"ExposureDetection_LastExposure_One_Risk_Day" = "Pe %@";
+
 "ExposureDetection_Refreshed" = "Actualizată: %@";
 
 "ExposureDetection_Refreshed_Never" = "Necunoscut";
@@ -104,6 +106,12 @@
 "ExposureDetection_Guide_Hotline3" = "Serviciul general de urgență la numărul de telefon 112";
 
 "ExposureDetection_Guide_Hotline4" = "Direcția de sănătate publică relevantă";
+
+/* Placeholder points to `ExposureDetection_LinkText` */
+"ExposureDetection_Guide_FAQ" = "Dacă vă testați, veți găsi mai multe informații despre procedura de testare în %@.";
+
+/* The 'tapable' text containing the link to the faq */
+"ExposureDetection_Guide_FAQ_LinkText" = "Întrebări frecvente despre procedura de testare";
 
 "ExposureDetection_Explanation_Title" = "Risc de infectare";
 
@@ -150,6 +158,43 @@
 "ExposureDetection_Risk_Failed_Body" = "Sincronizarea ID-urilor aleatorii cu serverul a eșuat. Puteți relansa manual sincronizarea.";
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Relansare";
+
+"ExposureDetection_Survey_Card_Title" = "Sondaj despre Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Ajutați-ne să îmbunătățim aplicația răspunzând la câteva întrebări simple.";
+
+"ExposureDetection_Survey_Card_Button" = "Accesați sondajul";
+
+/* Survey Errors */
+"SurveyConsent_Error_Title" = "Eroare";
+
+"SurveyConsent_Error_TryAgainLater" = "Nu se poate obține sondajul chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "Nu se poate obține sondajul (cod de eroare %@).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "Ora de pe smartphone-ul dvs. nu corespunde cu ora curentă. Vă rugăm să corectați ora în setările smartphone-ului dvs. (cod de eroare %@).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "Nu se poate obține sondajul din cauza unor motive de securitate. Puteți participa din nou la sondaj în următoarea lună calendaristică (cod de eroare %@).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "Ați participat deja la sondaj. Puteți participa la sondaj doar o dată pe lună (cod de eroare %@).";
+
+/* Survey Consent Screen */
+"SurveyConsent_Title" = "Sondaj pentru evaluarea și îmbunătățirea aplicației Corona-Warn.";
+
+"SurveyConsent_Body1" = "Ajutați-ne să îmbunătățim aplicația Corona-Warn participând la un sondaj privind experiența dvs. cu aplicația. Astfel, ajutați RKI să evalueze eficacitatea aplicației, să îmbunătățească aplicația și să înțeleagă modul în care avertizările transmise prin aplicație afectează comportamentul persoanelor cu risc crescut.";
+
+"SurveyConsent_Body2" = "Sondajul este destinat persoanelor a căror aplicație a indicat o expunere cu risc crescut. Sondajul se desfășoară pe site-ul web al RKI. Pentru a vă redirecționa la site-ul web, la pasul următor va fi afișată o legătură către sondaj. Înainte de a fi afișată, trebuie confirmată autenticitatea aplicației dvs. Pentru aceasta, este nevoie de consimțământul dvs.";
+
+"SurveyConsent_Body3" = "Când apăsați pe legătura către sondaj, veți primi informații suplimentare despre acesta. De asemenea, vi se va solicita explicit să vă dați consimțământul din nou înainte de a începe sondajul.";
+
+"SurveyConsent_Accept_Button_Title" = "Accept";
+
+/* Survey Consent Legal Details Screen */
+"SurveyConsent_Legal_Details_Title" = "Informații detaliate despre prelucrarea datelor utilizate în timpul participării la sondaj";
+
+"SurveyConsent_Details_Headline" = "Despre sondajul RKI";
+
+"SurveyConsent_Details_Body" = "După verificarea autenticității aplicației dvs., aplicația vă redirecționează către un site web al RKI, utilizând o legătură personalizată către sondaj care a fost generată pentru dvs. Această legătură către sondaj conține o parolă de unică folosință care este generată de Corona-Warn-App. Când apăsați pe legătura către sondaj și apelați site-ul web cu sondajul, parola de unică folosință este stocată temporar în browserul dvs. Acest ecran conține informații suplimentare despre sondaj și note despre parcurgerea acestuia, de exemplu cum să începeți sondajul. La începerea sondajului, parola de unică folosință este transmisă la serverele Corona-Warn-App unde este marcată ca utilizată. Apoi serverul verifică dacă puteți efectua sondajul. Aceste acțiuni asigură faptul că fiecare utilizator poate participa la sondaj o singură dată.";
 
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Verificarea expunerii nu este posibilă";
@@ -215,6 +260,14 @@
 "Settings_Reset_Description" = "Ștergeți toate datele dvs. din aplicație.";
 
 "Settings_NavTitle" = "Setări";
+
+"Settings_DataDonation_Label" = "Partajare date";
+
+"Settings_DataDonation_Description" = "Permiteți transmiterea comportamentului dvs. de utilizare.";
+
+"Settings_DataDonation_StatusActive" = "Pornită";
+
+"Settings_DataDonation_StatusInactive" = "Oprită";
 
 /* Noticiation Settings */
 "NotificationSettings_On_Title" = "Doriți să activați notificările privind starea riscului de infectare cu COVID-19?";
@@ -311,9 +364,9 @@
 
 "Onboarding_DoNotActivate_actionText" = "Nu activați";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Dacă nu activați înregistrarea în jurnal a expunerilor, aplicația nu poate trimite sau primi notificări despre starea riscului dvs.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Dacă nu activați înregistrarea în jurnal a expunerilor, aplicația nu poate determina starea riscului dvs. Aceasta înseamnă că nu veți primi informații despre riscul dvs. în aplicație.";
 
-"Onboarding_DeactivateExposureConfirmation_message" = "Puteți oricând dezactiva această caracteristică.";
+"Onboarding_DeactivateExposureConfirmation_message" = "Puteți oricând reactiva înregistrarea în jurnal a expunerilor.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Un grup de persoane își utilizează dispozitivele prin oraș.";
 
@@ -893,6 +946,8 @@
 
 "Home_Risk_Last_Contact_Item_Title" = "Cel mai recent pe %@";
 
+"Home_Risk_Last_Contact_Item_Title_One_Risk_Day" = "Pe %@";
+
 "Home_Risk_Last_Activate_Item_Title" = "Ultima verificare a expunerilor: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Risc necunoscut";
@@ -959,6 +1014,27 @@
 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Chiar și când nu mai aveți simptome și vă simțiți din nou bine, tot puteți să fiți contagios.";
 
+/* Home Reenable card */
+"Home_Reenable_Card_Title" = "Verificarea expunerii s-a încheiat";
+
+"Home_Reenable_Card_Body" = "Verificarea automată a expunerii s-a încheiat deoarece ați fost diagnosticat cu coronavirus și în prezent sunteți în izolare. Puteți reactiva oricând testarea expunerii. Dacă faceți acest lucru, testul dvs. înregistrat va fi șters automat.";
+
+"Home_Reenable_Card_Button_Title" = "Pornire verificarea expunerii";
+
+"Home_Reenable_Card_TestResult_Title" = "Pozitiv la SARS-CoV-2";
+
+"Home_Reenable_Card_TestResult_Subtitle" = "Ați fost diagnosticat cu virusul SARS-CoV-2.";
+
+"Home_Reenable_Card_TestResult_Registration" = "Test înregistrat pe %@";
+
+"Home_Reenable_Alert_Title" = "Activați verificarea expunerii";
+
+"Home_Reenable_Alert_Message" = "Testul dvs. curent va fi șters din aplicație pentru a putea înregistra un test nou dacă este necesar.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Activare";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "Anulare";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Diagnostic pozitiv";
 
@@ -982,13 +1058,6 @@
 "Home_SubmitCard_Body" = "Ajutați la protejarea dvs. și a celorlalți.";
 
 "Home_SubmitCard_Button" = "Pașii următori";
-
-/* Home Diary card */
-"Home_DiaryCard_Title" = "Jurnal de contacte";
-
-"Home_DiaryCard_Body" = "Păstrați evidența locurilor prin care ați fost și a persoanelor cu care v-ați întâlnit. Chiar dacă nu introduceți contacte, tot veți vedea când ați avut expuneri.";
-
-"Home_DiaryCard_Button" = "Deschidere jurnal";
 
 "Home_InfoCard_ShareTitle" = "Partajați Corona-Warn-App";
 
@@ -1254,6 +1323,34 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Pe lângă remedierile de erori, această actualizare include și caracteristici noi și îmbunătățiri.";
 
 /* New Version Features */
+"NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în setările aplicației, la „Caracteristici noi”.";
+
+/* Version 1.13 */
+"NewVersionFeature_113_rki_survey_title" = "Legătură la sondajul RKI";
+
+"NewVersionFeature_113_rki_survey_description" = "Dacă aveți risc crescut, puteți începe cu participarea la un sondaj desfășurat de Institutul Robert Koch în aplicație.";
+
+"NewVersionFeature_113_data_donation_title" = "Consimțământ pentru partajarea datelor (opțional)";
+
+"NewVersionFeature_113_data_donation_description" = "Acum aveți opțiunea de partajare a datelor de utilizare, ceea ce ne va ajuta să îmbunătățim aplicația.";
+
+"NewVersionFeature_113_risk_cards_title" = "Modificări la mozaicurile riscului";
+
+"NewVersionFeature_113_risk_cards_description" = "Modificări minore ale textelor de pe mozaicurile riscului.";
+
+"NewVersionFeature_113_risk_determination_random_id_title" = "Continuarea înregistrării în jurnal a expunerilor după partajarea ID-urilor dvs. aleatorii";
+
+"NewVersionFeature_113_risk_determination_random_id_description" = "După ce ați partajat ID-urile dvs. aleatorii criptate, puteți decide dacă și când doriți să activați din nou înregistrarea în jurnal a expunerilor.";
+
+"NewVersionFeature_113_new_tabbar_title" = "Implementarea taburilor";
+
+"NewVersionFeature_113_new_tabbar_description" = "Acum există un tab separat pentru jurnalul dvs. de contacte. Acesta vă permite să accesați jurnalul dvs. și să comutați de la jurnalul de contacte înapoi la ecranul inițial al aplicației mai rapid.";
+
+"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Mai multe informații despre procedura de testare";
+
+"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "Aplicația conține acum informații mai detaliate despre procedura de testare.";
+
+/* Version 1.12 */
 "NewVersionFeature_112_statistics_title" = "Statistică";
 
 "NewVersionFeature_112_statistics_description" = "Consultați sumarul ultimilor indicatori ai cifrelor de infectare din Germania.";
@@ -1458,7 +1555,7 @@
 
 "ContactDiary_Information_Dataprivacy_Title" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate.";
 
-"ContactDiary_Information_PrimaryButton_Title" = "Gestionare jurnal";
+"ContactDiary_Information_PrimaryButton_Title" = "Deschidere jurnal";
 
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Salvare";
@@ -1526,7 +1623,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
 
-"Statistics_Card_KeySubmissions_Footnote" = "Despre aplicația Corona-Warn";
+"Statistics_Card_KeySubmissions_Footnote" = "prin aplicația Corona-Warn";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "Valoarea R pe 7 zile";
@@ -1603,4 +1700,120 @@
 "UpdateOS_title" = "Vă rugăm să vă actualizați versiunea iOS.";
 
 "UpdateOS_text" = "Aveți nevoie de versiunea iOS actuală pentru a instala Corona-Warn-App.\nPentru aceasta, deschideți configurările din iPhone și selectați General -> Actualizare software.";
+
+/* Tabbar */
+"Tabbar_Home_Title" = "Ecran inițial";
+
+"Tabbar_Diary_Title" = "Jurnal";
+
+/* Data Donation */
+"DataDonation_AccImageDescription" = "O femeie ține în mână un smartphone care îi partajează datele";
+
+"DataDonation_Headline" = "Partajare date";
+
+"DataDonation_Description" = "Ne puteți ajuta să îmbunătățim aplicația Corona-Warn. Partajați datele dvs. despre utilizarea aplicației cu institutul RKI. Astfel, ajutați RKI să evalueze eficacitatea aplicației. De asemenea, datele dvs. vor ajuta la îmbunătățirea caracteristicilor și utilizării aplicației.";
+
+"DataDonation_SubHead_Settings" = "SETARE";
+
+"DataDonation_SubHead_YourState" = "Statul dvs. federal (opțional)";
+
+"DataDonation_SubHead_AgeGroup" = "Grupul dvs. de vârstă (opțional)";
+
+"DataDonation_State_NoSelection_Text" = "Stat federal";
+
+"DataDonation_Region_NoSelection_Text" = "Districtul (județul) (opțional)";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Vârsta dvs.";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Informații detaliate despre prelucrarea acestor date și riscurile privind prelucrarea datelor în SUA";
+
+"DataDonation_Button_OK" = "Accept";
+
+"DataDonation_Button_NotOK" = "Resping";
+
+/* Value selection */
+"DataDonation_ValueSelection_None" = "Nu răspund";
+
+"DataDonation_ValueSelection_Title_State" = "Statul dvs. federal";
+
+"DataDonation_ValueSelection_Title_Region" = "Districtul (județul) dvs.";
+
+"DataDonation_ValueSelection_Title_Age" = "Grupul dvs. de vârstă";
+
+"DataDonation_ValueSelection_Age_Below29" = "0-29 de ani";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 de ani";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "Peste 60 de ani";
+
+/* Detailed Infos Data Donation */
+"DetailedInfosDataDonation_Headline" = "Informații detaliate despre partajarea datelor";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Prelucrarea datelor în procesul de partajare a datelor";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "Dacă sunteți de acord să partajați datele dvs., aplicația trimite diverse date către RKI în fiecare zi. Datele transmise vor fi analizate în scopuri variate:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Îmbunătățirea înregistrării în jurnal a expunerilor";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Dorim să îmbunătățim precizia și încrederea calculului tehnic al riscurilor de infectare. Pentru aceasta, vom evalua informațiile despre expunerile la risc și avertizările pe care le vedeți. Drept rezultat, vom putea rafina metoda de calcul.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Îmbunătățirea ghidării utilizatorului în aplicație";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Dorim să facem aplicația mai ușor de utilizat. Pentru aceasta, vom evalua informațiile despre pașii individuali făcuți de utilizatori în aplicație. Acest lucru ne va ajuta să facem mai clare etichetele și textele de informare și să aranjăm elementele de control pentru a le face mai ușor de găsit. De asemenea, vom putea personaliza aspectul pentru diferitele modele de smartphone-uri.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Facilitarea informării și ghidării în aplicație";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Dorim să putem afla dacă apar probleme la utilizarea aplicației în legătură cu anumite facilități și laboratoare de testare sau în anumite regiuni. Putem identifica acest lucru dacă, de exemplu, datele partajate indică întârzieri de furnizare a rezultatelor testărilor din anumite regiuni. De asemenea, autoritățile relevante de sănătate publică pot fi notificate punctual de posibila existență a unor probleme tehnice.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Îmbunătățirea statisticii despre cursul pandemiei";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Datele dvs. pot contribui la furnizarea unor analize legate de modul de răspândire a pandemiei în timp și spațiu și ne pot ajuta să răspundem mai rapid la anumite tendințe.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "În acest scop, RKI colectează următoarele date:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "Data transmiterii datelor.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Modificări ale istoricului de avertizare în comparație cu ziua precedentă.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Informații despre riscul care v-a fost afișat la momentul transmiterii datelor.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Informații despre baza de calcul a stării riscului în contextul unei expuneri.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Dacă ați primit un rezultat al unui test prin intermediul aplicației:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Informații dacă ați primit un rezultat de test pozitiv sau negativ prin aplicație.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Informații despre riscul calculat la momentul înregistrării testului.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Informații despre timpul dintre ultima dvs. expunere cu risc crescut și înregistrarea testului.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Informații despre timpul dintre ultima notificare de risc crescut și înregistrarea testului.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Informații dacă ați partajat rezultatul testului și i-ați avertizat pe ceilalți.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "Dacă i-ați avertizat pe ceilalți despre o posibilă expunere:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Informații dacă ați anulat pașii de avertizare a altor persoane.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Informații dacă ați furnizat detalii despre debutul simptomelor dvs.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Informații despre momentul în care ați acordat consimțământul să-i avertizați pe ceilalți.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Informații despre notificarea pe care ați obținut-o în contextul avertizării altor persoane.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Informații despre numărul de ore până la primirea rezultatului testului.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Informații despre numărul de zile care a trecut de la ultima notificare a unui risc crescut.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Informații despre numărul de ore care a trecut de la înregistrarea testului.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Alte informații:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Informații despre grupul de vârstă pe care l-ați specificat.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Informații despre regiunea pe care ați specificat-o.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Informații despre modelul și versiunea smartphone-ului dvs., versiunea aplicației și versiunea sistemului de operare.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "Aceste informații nu pot fi legate de dvs. în mod personal. Identitatea dvs. va rămâne confidențială.\nInformațiile vor fi analizate în scop statistic. Ele nu vor fi salvate pentru un profil.";
 
