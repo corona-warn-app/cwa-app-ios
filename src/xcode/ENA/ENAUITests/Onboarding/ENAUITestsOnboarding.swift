@@ -45,6 +45,10 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
+		// snapshot("ScreenShot_\(#function)_0005")
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
@@ -73,6 +77,10 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		// snapshot("ScreenShot_\(#function)_0005")
+		XCTAssertTrue(app.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
