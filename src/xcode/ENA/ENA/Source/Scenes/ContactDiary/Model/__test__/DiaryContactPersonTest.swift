@@ -40,17 +40,24 @@ class DiaryContactPersonTest: XCTestCase {
 			)
 		)
 
+		guard let encounter = contactPerson.encounter else {
+			XCTFail("Encounter should not be nil")
+			return
+		}
+
 		XCTAssertEqual(contactPerson.id, 0)
 		XCTAssertEqual(contactPerson.name, "Maximilian Lenkeit")
 		XCTAssertEqual(contactPerson.phoneNumber, "98765")
 		XCTAssertEqual(contactPerson.emailAddress, "")
-		XCTAssertEqual(contactPerson.encounter?.id, 17)
-		XCTAssertEqual(contactPerson.encounter?.date, "2021-02-11")
-		XCTAssertEqual(contactPerson.encounter?.contactPersonId, 0)
-		XCTAssertEqual(contactPerson.encounter?.duration, .moreThan15Minutes)
-		XCTAssertEqual(contactPerson.encounter?.maskSituation, .none)
-		XCTAssertEqual(contactPerson.encounter?.setting, .outside)
-		XCTAssertEqual(contactPerson.encounter?.circumstances, "")
+
+		XCTAssertEqual(encounter.id, 17)
+		XCTAssertEqual(encounter.date, "2021-02-11")
+		XCTAssertEqual(encounter.contactPersonId, 0)
+		XCTAssertEqual(encounter.duration, .moreThan15Minutes)
+		XCTAssertEqual(encounter.maskSituation, .none)
+		XCTAssertEqual(encounter.setting, .outside)
+		XCTAssertEqual(encounter.circumstances, "")
+
 		XCTAssertTrue(contactPerson.isSelected)
 	}
 	
