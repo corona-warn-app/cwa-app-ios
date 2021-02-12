@@ -517,6 +517,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.onboardingVersion = onboardingVersion
 		}
 
+		if let resetFinishedDeltaOnboardings = UserDefaults.standard.string(forKey: "resetFinishedDeltaOnboardings"), resetFinishedDeltaOnboardings == "YES" {
+			store.finishedDeltaOnboardings = [:]
+		}
+
 		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
 			store.onboardingVersion = Bundle.main.appVersion
 		}

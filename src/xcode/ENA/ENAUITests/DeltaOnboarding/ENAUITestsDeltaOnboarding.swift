@@ -18,48 +18,29 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.4"])
+		app.launchArguments.append(contentsOf: ["-resetFinishedDeltaOnboardings", "YES"])
+		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
 
-    func testDeltaOnboardingV15View() throws {
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+    func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.4"])
 		
 		app.launch()
-		
-		// The "Information zur Funktionsweise der Risiko-Ermittlung"
-		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
-		// We dismiss it if present.
-		let alert = app.alerts.firstMatch
-		if alert.exists {
-			alert.buttons.firstMatch.tap()
-		}
 
-		let tablesQuery = app.tables
-		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
-				
-		// Close (X) Button
-		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5))
-		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		// - Delta Onboarding 1.5
+		XCTAssertTrue(app.tables.images["AppStrings.DeltaOnboarding.accImageLabel"].waitForExistence(timeout: 5.0))
 
-		// On homescreen?
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		let closeButton = app.buttons["AppStrings.AccessibilityLabel.close"]
+		XCTAssertTrue(closeButton.waitForExistence(timeout: 5))
+		closeButton.tap()
+
+		checkNewFeaturesAndDataDonationScreen()
 	}
 	
-	func test_screenshotDeltaOnboardingV15View() throws {
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+	func test_screenshotDeltaOnboardingV15() throws {
 		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.4"])
 		
 		app.launch()
-		
-		// The "Information zur Funktionsweise der Risiko-Ermittlung"
-		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
-		// We dismiss it if present.
-		let alert = app.alerts.firstMatch
-		if alert.exists {
-			alert.buttons.firstMatch.tap()
-		}
 		
 		var screenshotCounter = 0
 		let screenshotLabel = "deltaOnboarding_V15"
@@ -77,27 +58,16 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.swipeUp()
 	}
 	
-	func testDeltaOnboardingNewVersionFeaturesView() throws {
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.11"])
+	func testDeltaOnboardingNewVersionFeatures() throws {
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
 		
 		app.launch()
-		
-		// The "Information zur Funktionsweise der Risiko-Ermittlung"
-		// appears on fresh installs (e.g. every CI-run) but not on already started apps.
-		// We dismiss it if present.
-		let alert = app.alerts.firstMatch
-		if alert.exists {
-			alert.buttons.firstMatch.tap()
-		}
 
-		let tablesQuery = XCUIApplication().tables
-		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"].waitForExistence(timeout: 5.0))
+		checkNewFeaturesAndDataDonationScreen()
 	}
 	
-	func test_screenshotDeltaOnboardingNewVersionFeaturesView() throws {
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.11"])
+	func test_screenshotDeltaOnboardingNewVersionFeatures() throws {
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
 		
 		app.launch()
 		
@@ -116,6 +86,22 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		XCTAssertTrue(tablesQuery.images["AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"].waitForExistence(timeout: 5.0))
 		
 		snapshot("\(screenshotLabel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	// MARK: - Private
+
+	func checkNewFeaturesAndDataDonationScreen() {
+		// - New Features Screen
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesAccImageDescription].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+
+		// - Data Donation Screen
+		XCTAssertTrue(app.tables.images["AccessibilityIdentifiers.DataDonation.accImageDescription"].waitForExistence(timeout: 5.0))
+		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
+
+		// - On Home Screen?
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
 	}
 
 }
