@@ -78,7 +78,7 @@ enum FederalStateName: String, CaseIterable, Codable {
 	}
 }
 
-enum FederalStateShortName: String, Codable {
+enum FederalStateShortName: String, CaseIterable, Codable {
 	case bb = "BB"
 	case be = "BE"
 	case bw = "BW"

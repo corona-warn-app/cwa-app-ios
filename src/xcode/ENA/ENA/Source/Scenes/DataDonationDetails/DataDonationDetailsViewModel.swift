@@ -39,11 +39,10 @@ final class DataDonationDetailsViewModel {
 								)
 							}
 						),
-						.space(height: 8),
+						.space(height: 20),
 						.headline(text: AppStrings.DataDonation.DetailedInfo.headline, accessibilityIdentifier: "AppStrings.DataDonation.DetailedInfo.headline"),
-						.space(height: 8),
+						.space(height: 20),
 						.body(text: AppStrings.DataDonation.DetailedInfo.paragraph1, accessibilityIdentifier: "AppStrings.DataDonation.DetailedInfo.paragraph1"),
-						.space(height: 8),
 						
 						bulletPointCellWithBoldHeadline[0],
 						bulletPointCellWithBoldHeadline[1],

@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -6,45 +6,12 @@ import Foundation
 import UIKit
 import OpenCombine
 
-final class DataDonationViewModel {
+final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 
-	// MARK: - Init
+	// MARK: - Overrides
 
-	init(
-		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
-		datadonationModel: DataDonationModel
-	) {
-		self.presentSelectValueList = presentSelectValueList
-		self.reloadTableView = false
-		self.dataDonationModel = datadonationModel
-	}
-
-	// MARK: - Public
-
-	func save(consentGiven: Bool) {
-		dataDonationModel.isConsentGiven = consentGiven
-		Log.debug("DataDonation consent value set to '\(consentGiven)'")
-		dataDonationModel.save()
-	}
-
-	// MARK: - Internal
-
-	@OpenCombine.Published private (set) var reloadTableView: Bool
-
-	var friendlyFederalStateName: String {
-		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
-	}
-
-	var friendlyRegionName: String {
-		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
-	}
-
-	var friendlyAgeName: String {
-		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
-	}
-
-	var dynamicTableViewModel: DynamicTableViewModel {
+	/// override layout of the dynamiv tableview model
+	override var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
 		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
@@ -136,14 +103,9 @@ final class DataDonationViewModel {
 		return dynamicTableViewModel
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
-	private let presentSelectValueList: (SelectValueViewModel) -> Void
-
-	private var dataDonationModel: DataDonationModel
-	private var subscriptions: [AnyCancellable] = []
-
-	private func didTapSelectStateButton() {
+	func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.State,
@@ -156,12 +118,11 @@ final class DataDonationViewModel {
 			// if a new fedaral state got selected reset region as well
 			self?.dataDonationModel.federalStateName = federalState
 			self?.dataDonationModel.region = nil
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 		presentSelectValueList(selectValueViewModel)
 	}
 
-	private func didTapSelectRegionButton() {
+	func didTapSelectRegionButton() {
 		guard let federalStateName = dataDonationModel.federalStateName else {
 			Log.debug("Missing federal state to load regions", log: .ppac)
 			return
@@ -177,13 +138,12 @@ final class DataDonationViewModel {
 				return
 			}
 			self?.dataDonationModel.region = region
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
 	}
 
-	private func didTapAgeButton() {
+	func didTapAgeButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			AgeGroup.allCases.map({ $0.text }),
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
@@ -194,38 +154,9 @@ final class DataDonationViewModel {
 				return
 			}
 			self?.dataDonationModel.age = age
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
-	}
-
-}
-
-extension DynamicCell {
-
-	/// A `legalExtendedDataDonation` to display legal text for Data Donation screen
-	/// - Parameters:
-	///   - title: The title/header for the legal foo.
-	///   - description: Optional description text.
-	///   - bulletPoints: A list of strings to be prefixed with bullet points.
-	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
-	///   - configure: Optional custom cell configuration
-	/// - Returns: A `DynamicCell` to display legal texts
-	static func legalExtendedDataDonation(
-		title: NSAttributedString,
-		description: NSAttributedString?,
-		bulletPoints: [NSAttributedString]? =  nil,
-		accessibilityIdentifier: String? = nil,
-		configure: CellConfigurator? = nil
-	) -> Self {
-		.identifier(DataDonationViewController.CustomCellReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
-			guard let cell = cell as? DynamicLegalExtendedCell else {
-				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
-			}
-			cell.configure(title: title, description: description, bulletPoints: bulletPoints)
-			configure?(viewController, cell, indexPath)
-		}
 	}
 
 }

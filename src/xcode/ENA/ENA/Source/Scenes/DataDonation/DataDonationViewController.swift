@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -9,26 +9,9 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	
 	// MARK: - Init
 	init(
-		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
-		didTapLegal: @escaping () -> Void
+		viewModel: DataDonationViewModelProtocol
 	) {
-		self.presentSelectValueList = presentSelectValueList
-		self.didTapLegal = didTapLegal
-
-		guard let url = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-			preconditionFailure("missing json file")
-		}
-		let datadonationModel = DataDonationModel(
-			store: store,
-			jsonFileURL: url
-		)
-
-		self.viewModel = DataDonationViewModel(
-			store: store,
-			presentSelectValueList: presentSelectValueList,
-			datadonationModel: datadonationModel
-		)
+		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -45,24 +28,11 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		setupTableView()
 	}
+
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
-	
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.DataDonation.Info.buttonOK
-		item.isPrimaryButtonEnabled = true
-		
-		item.secondaryButtonTitle = AppStrings.DataDonation.Info.buttonNOK
-		item.secondaryButtonHasBackground = true
-		item.isSecondaryButtonHidden = false
-		item.isSecondaryButtonEnabled = true
-
-		return item
-	}()
-	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -78,10 +48,8 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		
+		Log.debug("attemptedToBeDismissed")
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -89,11 +57,23 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	var finished: (() -> Void)?
 
 	// MARK: - Private
-	private let presentSelectValueList: (SelectValueViewModel) -> Void
-	private let didTapLegal: () -> Void
 
-	private let viewModel: DataDonationViewModel
+	private let viewModel: DataDonationViewModelProtocol
 	private var subscriptions: [AnyCancellable] = []
+
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.DataDonation.Info.buttonOK
+		item.isPrimaryButtonEnabled = true
+
+		item.secondaryButtonTitle = AppStrings.DataDonation.Info.buttonNOK
+		item.secondaryButtonHasBackground = true
+		item.isSecondaryButtonHidden = false
+		item.isSecondaryButtonEnabled = true
+
+		return item
+	}()
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -111,19 +91,21 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 		dynamicTableViewModel = viewModel.dynamicTableViewModel
 
-		viewModel.$reloadTableView
+		viewModel.dataDonationModelPublisher
 			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
-				self.tableView.reloadData()
+				DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) {
+					self.tableView.reloadData()
+				}
 			}.store(in: &subscriptions)
 	}
 }
 
 // MARK: - Cell reuse identifiers.
 
-extension DataDonationViewController {
+internal extension DataDonationViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
 		case legalExtended = "DynamicLegalExtendedCell"

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class DataDonationViewModelTests: XCTestCase {
+class BaseDataDonationViewModelTests: XCTestCase {
 
 	/// test if the view model will format texts correct
 	func testGIVEN_ViewModelWithStoredData_WHEN_getFriendlyTexts_THEN_ValuesAreEqualToStore() throws {
@@ -17,7 +17,7 @@ class DataDonationViewModelTests: XCTestCase {
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
 
-		let viewModel = DataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let viewModel = BaseDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
 
 		// WHEN
 		let friendlyFederalStateName = viewModel.friendlyFederalStateName
@@ -38,7 +38,7 @@ class DataDonationViewModelTests: XCTestCase {
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
 
-		let viewModel = DataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let viewModel = BaseDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
 
 		// WHEN
 		let friendlyFederalStateName = viewModel.friendlyFederalStateName
@@ -63,7 +63,7 @@ class DataDonationViewModelTests: XCTestCase {
 		model.federalStateName = "Hessen"
 		model.age = AgeGroup.ageBelow29.text
 
-		let viewModel = DataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let viewModel = BaseDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
 
 		// WHEN
 		viewModel.save(consentGiven: true)
@@ -88,7 +88,7 @@ class DataDonationViewModelTests: XCTestCase {
 		model.federalStateName = "Hessen"
 		model.age = AgeGroup.ageBelow29.text
 
-		let viewModel = DataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let viewModel = BaseDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
 
 		// WHEN
 		viewModel.save(consentGiven: true)
@@ -113,7 +113,7 @@ class DataDonationViewModelTests: XCTestCase {
 		model.federalStateName = "Hessen"
 		model.age = AgeGroup.ageBelow29.text
 
-		let viewModel = DataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let viewModel = BaseDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
 
 		// WHEN
 		viewModel.save(consentGiven: false)
