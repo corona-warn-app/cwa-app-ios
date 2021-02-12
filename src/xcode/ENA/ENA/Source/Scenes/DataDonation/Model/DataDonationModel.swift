@@ -32,8 +32,6 @@ struct DataDonationModel {
 		}?.districtName
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	var isConsentGiven: Bool

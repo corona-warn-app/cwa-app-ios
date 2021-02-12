@@ -8,6 +8,8 @@ import OpenCombine
 
 final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 
+	// MARK: - Overrides
+
 	/// override layout of the dynamiv tableview model
 	override var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
@@ -101,9 +103,9 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		return dynamicTableViewModel
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
-	private func didTapSelectStateButton() {
+	func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.State,
@@ -121,7 +123,7 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
-	private func didTapSelectRegionButton() {
+	func didTapSelectRegionButton() {
 		guard let federalStateName = dataDonationModel.federalStateName else {
 			Log.debug("Missing federal state to load regions", log: .ppac)
 			return
@@ -143,7 +145,7 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		presentSelectValueList(selectValueViewModel)
 	}
 
-	private func didTapAgeButton() {
+	func didTapAgeButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			AgeGroup.allCases.map({ $0.text }),
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,

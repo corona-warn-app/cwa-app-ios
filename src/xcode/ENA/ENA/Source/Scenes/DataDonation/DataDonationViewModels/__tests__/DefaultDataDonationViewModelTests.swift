@@ -7,8 +7,7 @@ import XCTest
 
 class DefaultDataDonationViewModelTests: XCTestCase {
 
-	/// test if the view model will format texts correct
-	func testGIVEN_ViewModelWithStoredData_WHEN_getFriendlyTexts_THEN_ValuesAreEqualToStore() throws {
+	func testGIVEN_DataDonationModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellCountsMatch() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
 		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
@@ -20,109 +19,74 @@ class DefaultDataDonationViewModelTests: XCTestCase {
 		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
 
 		// WHEN
-		let friendlyFederalStateName = viewModel.friendlyFederalStateName
-		let friendlyRegionName = viewModel.friendlyRegionName
-		let friendlyAgeName = viewModel.friendlyAgeName
+		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		// THEN
-		XCTAssertEqual(friendlyFederalStateName, FederalStateName.schleswigHolstein.rawValue)
-		XCTAssertEqual(friendlyRegionName, "Herzogtum Lauenburg")
-		XCTAssertEqual(friendlyAgeName, AgeGroup.ageBelow29.text)
+		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 4)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 2)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 5)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 3), 2)
 	}
 
-	/// test if the view model will format empty texts correct
-	func testGIVEN_ViewModelWithoutStoredData_WHEN_getFriendlyTexts_THEN_ValuesAreEqualToStore() throws {
+	func testGIVEN_DataDonationModel_WHEN_TapSelectState_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
+		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
+		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
-
-		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
-
-		// WHEN
-		let friendlyFederalStateName = viewModel.friendlyFederalStateName
-		let friendlyRegionName = viewModel.friendlyRegionName
-		let friendlyAgeName = viewModel.friendlyAgeName
-
-		// THEN
-
-		XCTAssertEqual(friendlyFederalStateName, AppStrings.DataDonation.Info.noSelectionState)
-		XCTAssertEqual(friendlyRegionName, AppStrings.DataDonation.Info.noSelectionRegion)
-		XCTAssertEqual(friendlyAgeName, AppStrings.DataDonation.Info.noSelectionAgeGroup)
-	}
-
-	// test if an empty store will update if the view model will save with consent given
-	func testGIVEN_ViewModelWithEmptyStore_WHEN_SaveWithConset_THEN_StoreIsUpdatedWithValues() throws {
-		// GIVEN
-		let mockStore = MockTestStore()
-
-		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
-		var model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
-		model.region = "Offenbach (Landkreis)" // ID = 11006438
-		model.federalStateName = "Hessen"
-		model.age = AgeGroup.ageBelow29.text
-
-		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let expectationPresentList = expectation(description: "Present value list hit")
+		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in
+			expectationPresentList.fulfill()
+		}, datadonationModel: model)
 
 		// WHEN
-		viewModel.save(consentGiven: true)
+		viewModel.didTapSelectStateButton()
 
 		// THEN
-		XCTAssertTrue(mockStore.isPrivacyPreservingAnalyticsConsentGiven)
-		XCTAssertEqual(mockStore.userMetadata?.ageGroup, .ageBelow29)
-		XCTAssertEqual(mockStore.userMetadata?.federalState, .hessen)
-		XCTAssertEqual(mockStore.userMetadata?.administrativeUnit, 11006438)
+		wait(for: [expectationPresentList], timeout: .medium)
 	}
 
-	// test if a non empty store will update if the view model will save with consent given
-	func testGIVEN_ViewModelWithStoredValues_WHEN_SaveWithConset_THEN_StoreIsUpdatedWithValues() throws {
+	func testGIVEN_DataDonationModel_WHEN_TapSelectRegion_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
 		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBetween30And59)
+		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
-		var model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
-		model.region = "Offenbach (Landkreis)" // ID = 11006438
-		model.federalStateName = "Hessen"
-		model.age = AgeGroup.ageBelow29.text
-
-		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
+		let expectationPresentList = expectation(description: "Present value list hit")
+		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in
+			expectationPresentList.fulfill()
+		}, datadonationModel: model)
 
 		// WHEN
-		viewModel.save(consentGiven: true)
+		viewModel.didTapSelectRegionButton()
 
 		// THEN
-		XCTAssertTrue(mockStore.isPrivacyPreservingAnalyticsConsentGiven)
-		XCTAssertEqual(mockStore.userMetadata?.ageGroup, .ageBelow29)
-		XCTAssertEqual(mockStore.userMetadata?.federalState, .hessen)
-		XCTAssertEqual(mockStore.userMetadata?.administrativeUnit, 11006438)
+		wait(for: [expectationPresentList], timeout: .medium)
 	}
 
-	// test if a non empty store will cleared if the view model will save with consent not given
-	func testGIVEN_ViewModelWithStoredValues_WHEN_SaveWithoutConset_THEN_StoreIsUpdatedWithValues() throws {
+	func testGIVEN_DataDonationModel_WHEN_TapSelectAge_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
 		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBetween30And59)
+		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
-		var model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
-		model.region = "Offenbach (Landkreis)" // ID = 11006438
-		model.federalStateName = "Hessen"
-		model.age = AgeGroup.ageBelow29.text
-
-		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in }, datadonationModel: model)
+		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
+		let expectationPresentList = expectation(description: "Present value list hit")
+		let viewModel = DefaultDataDonationViewModel(store: mockStore, presentSelectValueList: { _ in
+			expectationPresentList.fulfill()
+		}, datadonationModel: model)
 
 		// WHEN
-		viewModel.save(consentGiven: false)
+		viewModel.didTapAgeButton()
 
 		// THEN
-		XCTAssertFalse(mockStore.isPrivacyPreservingAnalyticsConsentGiven)
-		XCTAssertNil(mockStore.userMetadata?.ageGroup)
-		XCTAssertNil(mockStore.userMetadata?.federalState)
-		XCTAssertNil(mockStore.userMetadata?.administrativeUnit)
+		wait(for: [expectationPresentList], timeout: .medium)
 	}
 
 }
