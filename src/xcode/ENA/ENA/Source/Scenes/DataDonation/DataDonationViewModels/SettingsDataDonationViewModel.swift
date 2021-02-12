@@ -60,26 +60,61 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 		/// section to show input fields with already given data
 		/// this will change numer of cells by the already entered data
 		let sectionCells: [DynamicCell] = [
-			.headline(text: AppStrings.DataDonation.Info.subHeadState),
+			.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil),
+			.body(
+				text: AppStrings.Settings.Datadonation.label,
+				style: .label,
+				color: nil,
+				accessibilityIdentifier: nil,
+				accessibilityTraits: .staticText,
+				action: .none,
+				configure: { [weak self] _, cell, _ in
+					guard let self = self else {
+						return
+					}
+					let toggleSwitch = UISwitch()
+					cell.accessoryView = toggleSwitch
+					toggleSwitch.isOn = self.dataDonationModel.isConsentGiven
+					toggleSwitch.onTintColor = .enaColor(for: .tint)
+					toggleSwitch.addTarget(self, action: #selector(self.didToggleDatadonationSwitch), for: .valueChanged)
+				}),
 
-			.body(text: friendlyFederalStateName, style: .label, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-				self?.didTapSelectStateButton()
-			}), configure: { _, cell, _ in
-				cell.accessoryType = .disclosureIndicator
-			}),
-			dataDonationModel.federalStateName != nil ?
-				.body(text: friendlyRegionName, style: .label, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-					self?.didTapSelectRegionButton()
-				}), configure: { _, cell, _ in
+			.body(
+				text: friendlyFederalStateName,
+				style: .label,
+				accessibilityTraits: .button,
+				action: .execute(block: { [weak self] _, _ in
+					self?.didTapSelectStateButton()
+				}),
+				configure: { _, cell, _ in
 					cell.accessoryType = .disclosureIndicator
-				}) :
+				}),
+
+			dataDonationModel.federalStateName != nil ?
+				.body(
+					text: friendlyRegionName,
+					style: .label, accessibilityIdentifier: nil,
+					accessibilityTraits: .button,
+					action: .execute(block: { [weak self] _, _ in
+						self?.didTapSelectRegionButton()
+					}),
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+					}) :
 				nil,
-			.headline(text: AppStrings.DataDonation.Info.subHeadAgeGroup),
-			.body(text: friendlyAgeName, style: .label, color: nil, accessibilityIdentifier: nil, accessibilityTraits: .button, action: .execute(block: { [weak self] _, _ in
-				self?.didTapAgeButton()
-			}), configure: { _, cell, _ in
-				cell.accessoryType = .disclosureIndicator
-			})
+
+			.body(
+				text: friendlyAgeName,
+				style: .label,
+				color: nil,
+				accessibilityIdentifier: nil,
+				accessibilityTraits: .button,
+				action: .execute(block: { [weak self] _, _ in
+					self?.didTapAgeButton()
+				}),
+				configure: { _, cell, _ in
+					cell.accessoryType = .disclosureIndicator
+				})
 		]
 		.compactMap { $0 }
 
@@ -142,6 +177,13 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 
 	private var dataDonationModel: DataDonationModel
 	private var subscriptions: [AnyCancellable] = []
+
+	@objc
+	private func didToggleDatadonationSwitch(sender: UISwitch) {
+		Log.debug("datadonation toggle -> save change")
+		save(consentGiven: sender.isOn)
+		reloadTableView.toggle()
+	}
 
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(

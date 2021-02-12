@@ -65,7 +65,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		
+		Log.debug("tried to dissmis")
 	}
 
 	// MARK: - Public
