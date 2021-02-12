@@ -6,39 +6,9 @@ import Foundation
 import UIKit
 import OpenCombine
 
-final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
+final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
-	// MARK: - Init
-
-	init(
-		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
-		datadonationModel: DataDonationModel
-	) {
-		self.presentSelectValueList = presentSelectValueList
-		self.reloadTableView = false
-		self.dataDonationModel = datadonationModel
-	}
-
-	// MARK: - DataDonationViewModelProtocol
-
-	@OpenCombine.Published var reloadTableView: Bool
-	var reloadTableViewPublished: OpenCombine.Published<Bool> { _reloadTableView }
-	var reloadTableViewPublisher: OpenCombine.Published<Bool>.Publisher { $reloadTableView }
-
-	var friendlyFederalStateName: String {
-		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
-	}
-
-	var friendlyRegionName: String {
-		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
-	}
-
-	var friendlyAgeName: String {
-		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
-	}
-
-	var dynamicTableViewModel: DynamicTableViewModel {
+	override var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
 		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
@@ -165,28 +135,12 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 		return dynamicTableViewModel
 	}
 
-	/// will save the model in it's current state
-	func autosave() {
-		dataDonationModel.save()
-	}
-
-	// will set consent given and save the model afterwards
-	func save(consentGiven: Bool) {
-		dataDonationModel.isConsentGiven = consentGiven
-		Log.debug("DataDonation consent value set to '\(consentGiven)'")
-		dataDonationModel.save()
-	}
-
-	// MARK: - Private
-
-	private let presentSelectValueList: (SelectValueViewModel) -> Void
-
-	private var dataDonationModel: DataDonationModel
-	private var subscriptions: [AnyCancellable] = []
-
 	@objc /// called if the consent given switch changes
 	private func didToggleDatadonationSwitch(sender: UISwitch) {
-		dataDonationModel.isConsentGiven = sender.isOn
+		save(consentGiven: sender.isOn)
+		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) { [weak self] in
+			self?.reloadTableView.toggle()
+		}
 	}
 
 	private func didTapSelectStateButton() {
@@ -202,6 +156,7 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 			// if a new fedaral state got selected reset region as well
 			self?.dataDonationModel.federalStateName = federalState
 			self?.dataDonationModel.region = nil
+			self?.dataDonationModel.save()
 			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 		presentSelectValueList(selectValueViewModel)
@@ -223,6 +178,7 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 				return
 			}
 			self?.dataDonationModel.region = region
+			self?.dataDonationModel.save()
 			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
@@ -240,6 +196,7 @@ final class SettingsDataDonationViewModel: DataDonationViewModelProtocol {
 				return
 			}
 			self?.dataDonationModel.age = age
+			self?.dataDonationModel.save()
 			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 

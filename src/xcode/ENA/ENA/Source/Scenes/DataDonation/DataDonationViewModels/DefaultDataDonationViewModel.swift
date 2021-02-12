@@ -6,39 +6,10 @@ import Foundation
 import UIKit
 import OpenCombine
 
-final class DefaultDataDonationViewModel: DataDonationViewModelProtocol {
+final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 
-	// MARK: - Init
-
-	init(
-		store: Store,
-		presentSelectValueList: @escaping (SelectValueViewModel) -> Void,
-		datadonationModel: DataDonationModel
-	) {
-		self.presentSelectValueList = presentSelectValueList
-		self.reloadTableView = false
-		self.dataDonationModel = datadonationModel
-	}
-
-	// MARK: - DataDonationViewModelProtocol
-
-	@OpenCombine.Published var reloadTableView: Bool
-	var reloadTableViewPublished: OpenCombine.Published<Bool> { _reloadTableView }
-	var reloadTableViewPublisher: OpenCombine.Published<Bool>.Publisher { $reloadTableView }
-
-	var friendlyFederalStateName: String {
-		return dataDonationModel.federalStateName ?? AppStrings.DataDonation.Info.noSelectionState
-	}
-
-	var friendlyRegionName: String {
-		return dataDonationModel.region ?? AppStrings.DataDonation.Info.noSelectionRegion
-	}
-
-	var friendlyAgeName: String {
-		return dataDonationModel.age ?? AppStrings.DataDonation.Info.noSelectionAgeGroup
-	}
-
-	var dynamicTableViewModel: DynamicTableViewModel {
+	/// override layout of the dynamiv tableview model
+	override var dynamicTableViewModel: DynamicTableViewModel {
 		/// create the top section with the illustration and title text
 		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
@@ -130,22 +101,7 @@ final class DefaultDataDonationViewModel: DataDonationViewModelProtocol {
 		return dynamicTableViewModel
 	}
 
-	func autosave() {
-		dataDonationModel.save()
-	}
-
-	func save(consentGiven: Bool) {
-		dataDonationModel.isConsentGiven = consentGiven
-		Log.debug("DataDonation consent value set to '\(consentGiven)'")
-		dataDonationModel.save()
-	}
-
 	// MARK: - Private
-
-	private let presentSelectValueList: (SelectValueViewModel) -> Void
-
-	private var dataDonationModel: DataDonationModel
-	private var subscriptions: [AnyCancellable] = []
 
 	private func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(

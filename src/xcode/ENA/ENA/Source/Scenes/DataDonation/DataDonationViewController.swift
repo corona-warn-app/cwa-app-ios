@@ -31,13 +31,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		setupTableView()
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		if isMovingFromParent {
-			viewModel.autosave()
-		}
-	}
-
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
