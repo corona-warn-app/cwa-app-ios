@@ -281,14 +281,6 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	/// Database reset & re-initialization with a given key
-	/// - Parameter key: the key for the new database; if no key is given, no new database will be created
-	///
-	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
-	func clearAll(key: String?) {
-		try? kvStore.clearAll(key: key)
-	}
-
 	#if !RELEASE
 
 	// Settings from the debug menu.
