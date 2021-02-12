@@ -87,7 +87,6 @@
 "DataDonation_DetailedInformation_Headline" = "Orijinallik doğrulanması ve üçüncü ülkelere aktarım";
 
 "DataDonation_DetailedInformation_Text" = "Uygulamanızın orijinal olduğunu onaylamak adına akıllı telefonunuz, akıllı telefonunuzun sürümü ve Uygulamaya ilişkin veriler içeren benzersiz bir kimlik kodu oluşturur. Verilerin birden fazla veya suistimal amaçlı RKI’ye aktarılmasını ve dolayısıyla analiz sonuçlarının tahrif edilmesini önlemek için bu kodun oluşturulması gerekmektedir. Bu kimlik kodları, Apple’a  aktarılır. Bu süreçte verilerin ABD’ye aktarılması da söz konusu olabilir. Orada Avrupa hukukuna uygun kişisel verilerin koruma seviyesi bulunmamaktadır ve Avrupa’daki veri koruma haklarınız uygulanmayabilir. Bu bağlamda özellikle ABD güvenlik makamlarının, somut bir şüphe olmasa bile, Apple’a aktarılan bu verilere erişme ve örneğin verileri diğer bilgilerle ilişkilendirerek bunları değerlendirmeye alma olasılığı bulunmaktadır. Bu durum sadece Apple’a aktarılan kimlik kodları için söz konusudur. Apple Corona-Warn-App kullanımınız ile ilgili daha fazla bilgi almaz.\n\nÜçüncü ülkelere aktarımı kabul etmiyorsanız, lütfen “Kabul ediyorum” seçeneğine tıklamayın. Buna rağmen Uygulamayı kullanmaya devam edebilirsiniz, ancak veri bağışında bulunamazsınız.";
-";
 
 /* Survey Consent Screen */
 
