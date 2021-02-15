@@ -91,7 +91,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let client = CachingHTTPClientMock(store: store)
 		let cache = CachedAppConfiguration(client: client, store: store)
 		let expectationClientMetadata = expectation(description: "ClientMetadata")
-		//AppVersion
+		// AppVersion
 		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
 		guard appVersionParts.count == 3,
 			  let majorAppVerson = Int(appVersionParts[0]),
@@ -100,13 +100,13 @@ final class CachedAppConfigurationTests: XCTestCase {
 			return
 		}
 		let expectedAppVersion = Version(major: majorAppVerson, minor: minorAppVerson, patch: patchAppVersion)
-		//iOSVersion
+		// iOSVersion
 		let expectediosVersion = Version(
 			major: ProcessInfo().operatingSystemVersion.majorVersion,
 			minor: ProcessInfo().operatingSystemVersion.minorVersion,
 			patch: ProcessInfo().operatingSystemVersion.patchVersion
 		)
-		//eTag
+		// eTag
 		let expextedETag = "fake"
 		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
 			expectationClientMetadata.fulfill()
