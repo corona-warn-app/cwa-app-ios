@@ -93,13 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
 		// App launched via shortcut?
-		if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
-			Log.debug("\(#function)", log: .default)
-			handleShortcutItem(shortcutItem)
-			return false
-		}
-
-		return true
+		return handleQuickActions(with: launchOptions)
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
@@ -548,6 +542,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
+		setupQuickActions()
 	}
 
 	@objc
@@ -609,40 +604,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		window?.makeKeyAndVisible()
 	}
 
-}
-
-// MARK: - Quick Actions
-
-extension AppDelegate {
-
-	private static let shortcutIdDiaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
-
-	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-		Log.debug("\(#function)", log: .default)
-		handleShortcutItem(shortcutItem)
-	}
-
-	private func setupQuickActions() {
-		let application = UIApplication.shared
-		application.shortcutItems = [
-			UIApplicationShortcutItem(type: AppDelegate.shortcutIdDiaryNewEntry, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))
-		]
-	}
-
-	private func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
-		Log.debug("Did open app via shortcut \(shortcutItem.type)", log: .ui)
-		if shortcutItem.type == AppDelegate.shortcutIdDiaryNewEntry {
-			Log.info("Shortcut: Open new diary entry", log: .ui)
-			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 1
-		}
-	}
-}
-
-extension RootCoordinator {
-	var tabBarController: UITabBarController? {
-		viewController.children.compactMap({ $0 as? UITabBarController }).first
-	}
 }
 
 private extension Array where Element == URLQueryItem {
