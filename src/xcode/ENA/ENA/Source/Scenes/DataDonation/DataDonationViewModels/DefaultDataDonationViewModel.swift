@@ -123,7 +123,7 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 	func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
-			title: AppStrings.DataDonation.ValueSelection.Title.State,
+			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
 			preselected: dataDonationModel.federalStateName
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
