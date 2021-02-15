@@ -60,7 +60,12 @@ enum AppInformationModel {
 				.title2(
 					text: AppStrings.AppInformation.privacyTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyTitle),
-				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
+				.html(url: {
+					guard let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") else {
+						fatalError("No resource privacy-policy.html found!")
+					}
+					return url
+				}())
 			]
 		)
 	])
@@ -75,7 +80,12 @@ enum AppInformationModel {
 				.title2(
 					text: AppStrings.AppInformation.termsTitle,
 					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsTitle),
-				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
+				.html(url: {
+					guard let url = Bundle.main.url(forResource: "usage", withExtension: "html") else {
+						fatalError("No resource usage.html found!")
+					}
+					return url
+				}())
 			]
 		)
 	])

@@ -77,7 +77,16 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 
 	// MARK: - PrivacyPreservingProviding
 
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false {
+		didSet {
+			currentRiskExposureMetadata = nil
+			previousRiskExposureMetadata = nil
+			userMetadata = nil
+			lastSubmittedPPAData = nil
+			lastAppReset = nil
+			lastSubmissionAnalytics = nil
+		}
+	}
 	var otpToken: OTPToken?
 	var otpAuthorizationDate: Date?
 	var ppacApiToken: TimestampedToken?
