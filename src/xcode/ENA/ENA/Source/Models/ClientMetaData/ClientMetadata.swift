@@ -53,5 +53,12 @@ struct Version: Codable, Equatable {
 	let major: Int
 	let minor: Int
 	let patch: Int
-	
+
+	var protobuf: SAP_Internal_Ppdd_PPASemanticVersion {
+			var protobufVersion = SAP_Internal_Ppdd_PPASemanticVersion()
+			protobufVersion.major = UInt32(self.major)
+			protobufVersion.minor = UInt32(self.minor)
+			protobufVersion.patch = UInt32(self.patch)
+			return protobufVersion
+	}
 }
