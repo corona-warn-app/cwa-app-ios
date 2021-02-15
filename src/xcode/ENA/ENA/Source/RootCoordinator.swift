@@ -72,15 +72,15 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
-		
+
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
-		
+
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
-	
+
 	func showTestResultFromNotification(with result: TestResult) {
 		homeCoordinator?.showTestResultFromNotification(with: result)
 	}
@@ -94,7 +94,7 @@ class RootCoordinator: RequiresAppDependencies {
 			client: self.client
 		)
 		
-		let navigationVC = AppNavigationController()
+		let navigationVC = AppOnboardingNavigationController(rootViewController: onboardingVC)
 		
 		navigationVC.setViewControllers([onboardingVC], animated: false)
 		

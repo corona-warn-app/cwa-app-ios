@@ -10,6 +10,7 @@ final class SettingsViewModel {
 	var notifications: CellModel = .notifications
 	var backgroundAppRefresh: CellModel = .backgroundAppRefresh
 	var reset: String = AppStrings.Settings.resetLabel
+	var datadonation: CellModel = .dataDonation
 }
 
 extension SettingsViewModel {
@@ -46,6 +47,14 @@ extension SettingsViewModel.CellModel {
 		stateActive: AppStrings.Settings.backgroundAppRefreshStatusActive,
 		stateInactive: AppStrings.Settings.backgroundAppRefreshStatusInactive,
 		accessibilityIdentifier: AccessibilityIdentifiers.Settings.backgroundAppRefreshLabel
+	)
+
+	static let dataDonation = SettingsViewModel.CellModel(
+		icon: "Icons_Settings_Datenspende",
+		description: AppStrings.Settings.Datadonation.label,
+		stateActive: AppStrings.Settings.Datadonation.statusActive,
+		stateInactive: AppStrings.Settings.Datadonation.statusInactive,
+		accessibilityIdentifier: AccessibilityIdentifiers.Settings.dataDonation
 	)
 
 	mutating func setState(state newState: Bool) {
