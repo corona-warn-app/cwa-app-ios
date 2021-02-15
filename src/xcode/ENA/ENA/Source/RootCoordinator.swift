@@ -146,6 +146,7 @@ extension RootCoordinator: ExposureStateUpdating {
 extension RootCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeState?.updateEnState(state)
+		homeCoordinator?.updateEnState(state)
 		updateAllState(state)
 	}
 
