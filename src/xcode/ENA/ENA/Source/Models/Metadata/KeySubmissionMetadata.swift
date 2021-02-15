@@ -73,4 +73,3 @@ struct KeySubmissionMetadata: Codable {
 		submittedWithTeleTAN = try container.decode(Bool.self, forKey: .submittedWithTeleTAN)
 	}
 }
-
