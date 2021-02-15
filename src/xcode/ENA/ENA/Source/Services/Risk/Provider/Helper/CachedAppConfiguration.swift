@@ -19,7 +19,6 @@ final class CachedAppConfiguration {
 
 		self.client = client
 		self.store = store
-
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
 		guard shouldFetch() else { return }
@@ -52,7 +51,7 @@ final class CachedAppConfiguration {
 	private let client: AppConfigurationFetching
 
 	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching
+	private let store: AppConfigCaching & PrivacyPreservingProviding
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	private var subscriptions = [AnyCancellable]()
@@ -94,7 +93,7 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
-
+						self.storeETagInClientMetadata(eTag: response.eTag)
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations
@@ -137,6 +136,10 @@ final class CachedAppConfiguration {
 				} // eo fetch
 			} // eo async
 		}
+	}
+	
+	private func storeETagInClientMetadata(eTag: String?) {
+		store.clientMetadata = ClientMetadata(etag: eTag)
 	}
 
 	private func defaultFailureHandler() {

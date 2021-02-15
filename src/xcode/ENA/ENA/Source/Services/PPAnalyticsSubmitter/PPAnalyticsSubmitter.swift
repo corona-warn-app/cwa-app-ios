@@ -179,8 +179,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let newExposureWindows = gatherNewExposureWindows()
 		let testResultMetadata = gatherTestResultMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
-		let clientMetadata = gatherClientMetadata()
 		*/
+		
+		let clientMetadata = gatherClientMetadata()
 		let userMetadata = gatherUserMetadata()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
@@ -190,9 +191,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			$0.newExposureWindows = newExposureWindows
 			$0.testResultMetadataSet = testResultMetadata
 			$0.keySubmissionMetadataSet = keySubmissionMetadata
-			$0.clientMetadata = clientMetadata
 			*/
 			$0.userMetadata = userMetadata
+			$0.clientMetadata = clientMetadata
 		}
 
 		return payload
@@ -251,9 +252,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
 	}
-
-	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
-	}
 	*/
 
 	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
@@ -273,6 +271,23 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 		}
 	}
+	
+	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
+		guard let clientData = store.clientMetadata else {
+			return SAP_Internal_Ppdd_PPAClientMetadataIOS.with { _ in }
+		}
+		
+		return SAP_Internal_Ppdd_PPAClientMetadataIOS.with {
+			if let cwaVersion = clientData.cwaVersion {
+				$0.cwaVersion = cwaVersion.protobuf
+			}
+			if let eTag = clientData.eTag {
+				$0.appConfigEtag = eTag
+			}
+			$0.iosVersion = clientData.iosVersion.protobuf
+		}
+	}
+
 
 	private func formatToUnixTimestamp(for date: Date?) -> Int64 {
 		guard let date = date else {

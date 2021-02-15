@@ -157,6 +157,8 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
+     /// Analytics data.
+	var clientMetadata: ClientMetadata? { get set }
 }
 
 /// Wrapper protocol
