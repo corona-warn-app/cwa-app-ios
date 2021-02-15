@@ -414,10 +414,6 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 }
 
 extension SecureStore {
