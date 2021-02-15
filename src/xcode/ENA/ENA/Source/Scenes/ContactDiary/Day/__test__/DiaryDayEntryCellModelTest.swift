@@ -9,7 +9,12 @@ import XCTest
 class DiaryDayEntryCellModelTest: XCTestCase {
 
 	func testContactPersonUnselected() throws {
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Nick Guendling", encounterId: nil))
+		let entry: DiaryEntry = .contactPerson(
+			DiaryContactPerson(
+				id: 0,
+				name: "Nick Guendling"
+			)
+		)
 		let viewModel = DiaryDayEntryCellModel(entry: entry)
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
@@ -18,7 +23,17 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testContactPersonSelected() throws {
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Marcus Scherer", encounterId: 0))
+		let entry: DiaryEntry = .contactPerson(
+			DiaryContactPerson(
+				id: 0,
+				name: "Marcus Scherer",
+				encounter: ContactPersonEncounter(
+					id: 0,
+					date: "2021-02-11",
+					contactPersonId: 0
+				)
+			)
+		)
 		let viewModel = DiaryDayEntryCellModel(entry: entry)
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Selected"))
@@ -27,7 +42,12 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testLocationUnselected() throws {
-		let entry: DiaryEntry = .location(DiaryLocation(id: 0, name: "Bakery", visitId: nil))
+		let entry: DiaryEntry = .location(
+			DiaryLocation(
+				id: 0,
+				name: "Bakery"
+			)
+		)
 		let viewModel = DiaryDayEntryCellModel(entry: entry)
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
@@ -36,7 +56,17 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testLocationSelected() throws {
-		let entry: DiaryEntry = .location(DiaryLocation(id: 0, name: "Supermarket", visitId: 0))
+		let entry: DiaryEntry = .location(
+			DiaryLocation(
+				id: 0,
+				name: "Supermarket",
+				visit: LocationVisit(
+					id: 0,
+					date: "2021-02-11",
+					locationId: 0
+				)
+			)
+		)
 		let viewModel = DiaryDayEntryCellModel(entry: entry)
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Selected"))

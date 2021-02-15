@@ -92,17 +92,17 @@ class DiaryDayViewModel {
 	private func deselect(entry: DiaryEntry) {
 		switch entry {
 		case .location(let location):
-			guard let visitId = location.visitId else {
+			guard let visit = location.visit else {
 				Log.error("Trying to deselect unselected location", log: .contactdiary)
 				return
 			}
-			store.removeLocationVisit(id: visitId)
+			store.removeLocationVisit(id: visit.id)
 		case .contactPerson(let contactPerson):
-			guard let encounterId = contactPerson.encounterId else {
+			guard let encounter = contactPerson.encounter else {
 				Log.error("Trying to deselect unselected contact person", log: .contactdiary)
 				return
 			}
-			store.removeContactPersonEncounter(id: encounterId)
+			store.removeContactPersonEncounter(id: encounter.id)
 		}
 	}
 

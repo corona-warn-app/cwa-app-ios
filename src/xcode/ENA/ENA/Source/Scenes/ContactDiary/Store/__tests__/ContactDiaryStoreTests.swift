@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+// CJE: Include in ENATests target
+
 import XCTest
 import FMDB
 import OpenCombine
@@ -165,7 +167,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			return
 		}
 
-		let updateResult = store.updateContactPerson(id: id, name: "Updated Name")
+		let updateResult = store.updateContactPerson(id: id, name: "Updated Name", phoneNumber: "", emailAddress: "")
 
 		guard case .success = updateResult else {
 			XCTFail("Failed to update ContactPerson")
@@ -192,7 +194,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			return
 		}
 
-		let updateResult = store.updateLocation(id: id, name: "Updated Name")
+		let updateResult = store.updateLocation(id: id, name: "Updated Name", phoneNumber: "", emailAddress: "")
 
 		guard case .success = updateResult else {
 			XCTFail("Failed to update Location")
@@ -557,7 +559,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		XCTAssertEqual(name, expectedName)
 
-		let updateResult = store.updateContactPerson(id: personId, name: stringWith251Chars)
+		let updateResult = store.updateContactPerson(id: personId, name: stringWith251Chars, phoneNumber: "", emailAddress: "")
 
 		guard case .success = updateResult,
 			  let contactPersonUpdated = fetchEntries(for: "ContactPerson", with: personId, from: databaseQueue),
@@ -585,7 +587,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		XCTAssertEqual(name, expectedName)
 
-		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars)
+		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars, phoneNumber: "", emailAddress: "")
 
 		guard case .success = updateResult,
 			  let locationUpdated = fetchEntries(for: "Location", with: locationId, from: databaseQueue),

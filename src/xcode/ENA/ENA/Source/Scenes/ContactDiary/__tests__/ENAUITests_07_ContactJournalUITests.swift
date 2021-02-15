@@ -327,6 +327,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testOverviewWithRiskLevelHighOnToday() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
 
 		navigateToJournalOverview()

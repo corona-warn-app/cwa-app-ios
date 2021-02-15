@@ -52,13 +52,13 @@ class DiaryAddAndEditEntryViewModel {
 		case let .add(day, type):
 			switch type {
 			case .location:
-				let result = store.addLocation(name: textInput)
+				let result = store.addLocation(name: textInput, phoneNumber: "", emailAddress: "")
 
 				if case let .success(id) = result {
 					store.addLocationVisit(locationId: id, date: day.dateString)
 				}
 			case .contactPerson:
-				let result = store.addContactPerson(name: textInput)
+				let result = store.addContactPerson(name: textInput, phoneNumber: "", emailAddress: "")
 
 				if case let .success(id) = result {
 					store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
@@ -69,10 +69,10 @@ class DiaryAddAndEditEntryViewModel {
 			switch entry {
 			case .location(let location):
 				let id = location.id
-				store.updateLocation(id: id, name: textInput)
+				store.updateLocation(id: id, name: textInput, phoneNumber: "", emailAddress: "")
 			case .contactPerson(let person):
 				let id = person.id
-				store.updateContactPerson(id: id, name: textInput)
+				store.updateContactPerson(id: id, name: textInput, phoneNumber: "", emailAddress: "")
 			}
 		}
 	}

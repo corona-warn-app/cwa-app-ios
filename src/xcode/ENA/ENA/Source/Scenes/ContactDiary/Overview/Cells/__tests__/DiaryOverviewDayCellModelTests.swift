@@ -88,8 +88,28 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
 			entries: [
-				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
-				.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
+				.contactPerson(
+					DiaryContactPerson(
+						id: 0,
+						name: "Thomas Mesow",
+						encounter: ContactPersonEncounter(
+							id: 0,
+							date: "2021-01-14",
+							contactPersonId: 0
+						)
+					)
+				),
+				.location(
+					DiaryLocation(
+						id: 1,
+						name: "Supermarkt",
+						visit: LocationVisit(
+							id: 0,
+							date: "2021-01-14",
+							locationId: 1
+						)
+					)
+				)
 			]
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
