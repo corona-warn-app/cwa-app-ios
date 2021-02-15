@@ -1861,3 +1861,6 @@ sein.";
 
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
 Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Tagebuch Eintrag für heute hinzufügen";
