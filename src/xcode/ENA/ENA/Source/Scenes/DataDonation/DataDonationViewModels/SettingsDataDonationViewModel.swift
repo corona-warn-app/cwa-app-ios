@@ -65,6 +65,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 				.body(
 					text: friendlyFederalStateName,
 					style: .label,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateName,
 					accessibilityTraits: .button,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didTapSelectStateButton()
@@ -77,7 +78,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			dataDonationModel.isConsentGiven == true ?
 				.body(
 					text: friendlyRegionName,
-					style: .label, accessibilityIdentifier: nil,
+					style: .label,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionName,
 					accessibilityTraits: .button,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didTapSelectRegionButton()
@@ -92,7 +94,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					text: friendlyAgeName,
 					style: .label,
 					color: nil,
-					accessibilityIdentifier: nil,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroup,
 					accessibilityTraits: .button,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didTapAgeButton()

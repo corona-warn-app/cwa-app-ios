@@ -42,6 +42,10 @@ class ENAUITests_03_Settings: XCTestCase {
 		app.cells["AppStrings.Settings.Datadonation.description"].tap()
 
 		XCTAssertTrue(app.tables.images["AccessibilityIdentifiers.DataDonation.accImageDescription"].waitForExistence(timeout: .medium))
+		app.swipeUp(velocity: .slow)
+		XCTAssertTrue(app.cells["AppStrings.DataDonation.Info.noSelectionState"].waitForExistence(timeout: .medium))
+
+		app.cells["AppStrings.DataDonation.Info.noSelectionState"].tap()
 	}
 
 	func test_0031_SettingsFlow_BackgroundAppRefresh() throws {
