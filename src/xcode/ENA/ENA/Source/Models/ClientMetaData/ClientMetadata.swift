@@ -53,5 +53,4 @@ struct Version: Codable, Equatable {
 	let major: Int
 	let minor: Int
 	let patch: Int
-	
 }

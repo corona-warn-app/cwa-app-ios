@@ -312,6 +312,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.failure(.other("Failed to parse TestResult")))
 					return
 				}
+				self.updateTestResultMetadata(with: testResult)
 				switch testResult {
 				case .negative, .positive, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
@@ -500,5 +501,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completionHandler?(.fakeResponse)
 			}
 		}
+	}
+	
+	private func updateTestResultMetadata(with testResult: TestResult) {
+		let testService = TestResultMetadataService(store: store)
+		testService.updateResult(testResult: testResult)
+
 	}
 }

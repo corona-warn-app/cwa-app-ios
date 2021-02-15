@@ -60,6 +60,8 @@ protocol StoreProtocol: AnyObject {
 
 	var riskCalculationResult: RiskCalculationResult? { get set }
 
+	var dateOfConversionToHighRisk: Date? { get set }
+	
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 

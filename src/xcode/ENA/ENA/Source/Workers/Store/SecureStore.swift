@@ -414,6 +414,11 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}
+	
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
 }
 
 extension SecureStore {

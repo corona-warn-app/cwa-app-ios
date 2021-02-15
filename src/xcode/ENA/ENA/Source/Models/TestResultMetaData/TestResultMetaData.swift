@@ -11,7 +11,6 @@ struct TestResultMetaData: Codable {
 
 	// positive or negative “First time received” = time of test result - time of test registration
 	// Pending: "everytime" current timestamp - time of test registration
-	// question: current time of reciveing the pending test result or time of submittion????
 	var hoursSinceTestRegistration: Int? = 0
 	
 	// the risk level on the riskcard i.e totalRiskLevel
@@ -35,11 +34,7 @@ struct TestResultMetaData: Codable {
 		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		case hoursSinceHighRiskWarningAtTestRegistration
 	}
-
-	init() {
-		self.testRegisterationDate = Date()
-	}
-
+	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
@@ -58,48 +53,80 @@ struct TestResultMetaData: Codable {
 }
 
 class TestResultMetadataService {
-	
-	var testRegisterationDate: Date?
-	
-	private var testResultDate: Date?
+		
+	private var testResultDate: Int64?
 	private var secureStore: Store
 	
+	// MARK: - Init.
+
 	init(store: Store) {
 		secureStore = store
 	}
+	
+	// MARK: - Private Helpers.
 
-	func saveTestRegisterationDate() {
+	func registerNewTestMetadata(date: Date = Date()) {
+		guard let riskLevel = secureStore.riskCalculationResult?.riskLevel  else {
+			return
+		}
 		secureStore.testResultMetadata = TestResultMetaData()
+		secureStore.testResultMetadata?.testRegisterationDate = date
+		secureStore.testResultMetadata?.riskLevelAtTestRegistration = riskLevel
+		secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = secureStore.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel
+		
+		switch riskLevel {
+		case .high:
+			guard let timeOfRiskChangeToHigh = secureStore.dateOfConversionToHighRisk,
+				  let registrationTime = secureStore.testResultMetadata?.testRegisterationDate else {
+				Log.debug("Time Risk Change was not stored Correctly.")
+				return
+			}
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
+			secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+		case .low:
+			secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+		}
+	}
+
+	func updateResult(testResult: TestResult) {
+		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
+		guard let _ = secureStore.testResultMetadata?.testRegisterationDate else {
+			return
+		}
+		
+		let storedTestResult = secureStore.testResultMetadata?.testRsult
+		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
+		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
+		// if storedTestResult == newTestResult ---> do nothing
+
+		if storedTestResult == nil || storedTestResult != testResult {
+			switch testResult {
+			case .positive, .negative, .pending:
+				secureStore.testResultMetadata?.testRsult = testResult
+				testResultDate = secureStore.testResultReceivedTimeStamp
+				saveHoursSinceTestRegistration()
+				
+			case .expired, .invalid:
+				break
+			}
+		}
 	}
 	
-	func saveHoursSinceTestRegistration() {
+	// MARK: - Private Helpers.
+	
+	private func saveHoursSinceTestRegistration() {
 		guard var testMetadata = secureStore.testResultMetadata,
-			  let resultDate = testResultDate,
-			  let registrationDate = testRegisterationDate
+			  let registrationDate = secureStore.testResultMetadata?.testRegisterationDate
 		else {
 			return
 		}
 		
 		switch testMetadata.testRsult {
-		case .positive, .negative:
-			let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: resultDate)
-			testMetadata.hoursSinceTestRegistration = diffComponents.hour
-		case .pending:
-			// double check if this works and what it means by today date
+		case .positive, .negative, .pending:
 			let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 			testMetadata.hoursSinceTestRegistration = diffComponents.hour
 		default:
 			testMetadata.hoursSinceTestRegistration = nil
-		}
-	}
-	
-	func saveTestResult(testResult: TestResult) {
-		switch testResult {
-		case .positive, .negative, .pending:
-			secureStore.testResultMetadata?.testRsult = testResult
-			testResultDate = Date()
-		case .expired, .invalid:
-			break
 		}
 	}
 }
