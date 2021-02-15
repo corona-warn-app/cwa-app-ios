@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	deinit {
+		// We are (intentionally) keeping strong references for delegates. Let's clean them ups.
 		self.taskExecutionDelegate = nil
 	}
 
@@ -544,7 +545,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self.privacyProtectionWindow = nil
 		}
 	}
-	
+
+
+	/// Is the app able to function with the current iOS version?
+	///
+	/// Due to the backport of the Exposure Notification Framework to iOS 12.5 the app has a certain range of iOS versions that aren't supported.
+	///
+	/// - Returns: Returns `true` if the app is in the *disabled* state and requires the user to upgrade the os.
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
 		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
