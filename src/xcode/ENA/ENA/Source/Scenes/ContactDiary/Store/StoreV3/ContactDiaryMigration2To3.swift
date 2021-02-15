@@ -7,7 +7,6 @@ import FMDB
 final class ContactDiaryMigration2To3: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
-	private var database: FMDatabase?
 	private var error: Error?
 	
 	init(databaseQueue: FMDatabaseQueue) {

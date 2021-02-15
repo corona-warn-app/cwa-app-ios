@@ -487,6 +487,9 @@
 		AB68881625DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68881525DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift */; };
 		AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68881D25DA734100907465 /* ContactDiaryAccess.swift */; };
 		AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68882925DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift */; };
+		AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68883425DACD0B00907465 /* SerialDatabaseQueueMigrator.swift */; };
+		AB68883A25DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68883925DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift */; };
+		AB68884225DACD8C00907465 /* MigrationStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68884125DACD8C00907465 /* MigrationStub.swift */; };
 		AB7420AC251B67A8006666AC /* DeltaOnboardingV15.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */; };
 		AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */; };
 		AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */; };
@@ -1262,6 +1265,9 @@
 		AB68881525DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2Tests.swift; sourceTree = "<group>"; };
 		AB68881D25DA734100907465 /* ContactDiaryAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryAccess.swift; sourceTree = "<group>"; };
 		AB68882925DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2Tests.swift; sourceTree = "<group>"; };
+		AB68883425DACD0B00907465 /* SerialDatabaseQueueMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialDatabaseQueueMigrator.swift; sourceTree = "<group>"; };
+		AB68883925DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerialDatabaseQueueMigratorTests.swift; sourceTree = "<group>"; };
+		AB68884125DACD8C00907465 /* MigrationStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationStub.swift; sourceTree = "<group>"; };
 		AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15.swift; sourceTree = "<group>"; };
 		AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinator.swift; sourceTree = "<group>"; };
 		AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingProtocols.swift; sourceTree = "<group>"; };
@@ -3020,6 +3026,7 @@
 			children = (
 				AB5F84AC24F8F7A1000400D4 /* SerialMigrator.swift */,
 				AB5F84AF24F8F7C3000400D4 /* Migration.swift */,
+				AB68883425DACD0B00907465 /* SerialDatabaseQueueMigrator.swift */,
 			);
 			path = Migration;
 			sourceTree = "<group>";
@@ -3130,6 +3137,7 @@
 			isa = PBXGroup;
 			children = (
 				AB8BC3462551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift */,
+				AB68884125DACD8C00907465 /* MigrationStub.swift */,
 			);
 			path = Doubles;
 			sourceTree = "<group>";
@@ -3390,6 +3398,7 @@
 				AB5F84A924F8F6C7000400D4 /* Migration */,
 				B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */,
 				AB5F84B324F8FA26000400D4 /* SerialMigratorTests.swift */,
+				AB68883925DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4396,6 +4405,7 @@
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
+				AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */,
 				01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */,
 				357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
@@ -4860,6 +4870,7 @@
 				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
+				AB68884225DACD8C00907465 /* MigrationStub.swift in Sources */,
 				50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */,
 				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
@@ -4870,6 +4881,7 @@
 				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */,
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
+				AB68883A25DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift in Sources */,
 				01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */,
 				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,

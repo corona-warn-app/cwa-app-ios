@@ -913,6 +913,39 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(numberOfEntriesAfterRescue, daysVisible)
 	}
 
+	func test_when_DatabaseUserVersionIs0_then_SchemaCreateIsCalled_and_MigrateIsNOTCalled() {
+		let databaseQueue = makeDatabaseQueue()
+		let schemaSpy = ContactDiarySchemaSpy(databaseQueue: databaseQueue)
+		let migratorSpy = MigratorSpy(queue: databaseQueue, latestVersion: 0, migrations: [])
+
+		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaSpy, migrator: migratorSpy)
+
+		XCTAssertTrue(schemaSpy.createWasCalled)
+		XCTAssertFalse(migratorSpy.migrateWasCalled)
+	}
+
+	func test_when_DatabaseUserVersionIsNot0_then_MigrationIsCalled_and_SchemaCreateIsNOTCalled() {
+		let databaseQueue = makeDatabaseQueue()
+		let schemaV3 = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
+
+		// Create database with schemaV3. This will set userVersion to 3.
+		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaV3)
+
+		let schemaSpy = ContactDiarySchemaSpy(databaseQueue: databaseQueue)
+		let migratorSpy = MigratorSpy(
+			queue: databaseQueue,
+			latestVersion: 4,
+			migrations: [FakeMigration()]
+		)
+
+		// Create database again.
+		// This time, migrator should be called, because a schema was allready created before and userVersion is >0.
+		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaSpy, migrator: migratorSpy)
+
+		XCTAssertFalse(schemaSpy.createWasCalled)
+		XCTAssertTrue(migratorSpy.migrateWasCalled)
+	}
+
 	private func deleteDatabse() throws {
 		try FileManager.default.removeItem(at: ContactDiaryStore.storeURL)
 	}
@@ -1009,16 +1042,33 @@ class ContactDiaryStoreTests: XCTestCase {
 		return databaseQueue
 	}
 
-	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
-		let schema = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
-		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 3, migrations: [])
+	private func makeContactDiaryStore(
+		with databaseQueue: FMDatabaseQueue,
+		dateProvider: DateProviding = DateProvider(),
+		schema: ContactDiarySchemaProtocol? = nil,
+		migrator: SerialMigratorProtocol? = nil
+	) -> ContactDiaryStore {
+
+		let _schema: ContactDiarySchemaProtocol
+		if let schema = schema {
+			_schema = schema
+		} else {
+			_schema = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
+		}
+
+		let _migrator: SerialMigratorProtocol
+		if let migrator = migrator {
+			_migrator = migrator
+		} else {
+			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 3, migrations: [])
+		}
 
 		guard let store = ContactDiaryStore(
 			databaseQueue: databaseQueue,
-			schema: schema,
+			schema: _schema,
 			key: "Dummy",
 			dateProvider: dateProvider,
-			migrator: migrator
+			migrator: _migrator
 		) else {
 			fatalError("Could not create content diary store.")
 		}
@@ -1036,6 +1086,31 @@ class ContactDiaryStoreTests: XCTestCase {
 
 struct DateProviderStub: DateProviding {
 	var today: Date
+
+}
+
+private class FakeMigration: Migration {
+	var version = 4
+	func execute() throws { }
+}
+
+private class MigratorSpy: SerialDatabaseQueueMigrator {
+	var migrateWasCalled = false
+
+	override func migrate() throws {
+		try super.migrate()
+		migrateWasCalled = true
+	}
+}
+
+private class ContactDiarySchemaSpy: ContactDiaryStoreSchemaV3 {
+	var createWasCalled = false
+
+	override func create() -> Result<Void, SQLiteErrorCode> {
+		super.create()
+		createWasCalled = true
+		return .success(())
+	}
 
 	// swiftlint:disable:next file_length
 }
