@@ -14,23 +14,31 @@ class ENAUITestsDataDonation: XCTestCase {
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-resetFinishedDeltaOnboardings", "YES"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
+		app.launchArguments.append(contentsOf: ["-isDatadonationConsentGiven", "NO"])
 	}
 
-	// Tests if the data donation screen is shown during the delta onboarding.
-	func test_NavigationThroughDeltaOnboardingShowsDataDonation() throws {
-		// check if delta onboarding can be modified to check if screen is shown there
+	func test_navigationToDatadonation() {
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+
+		app.launch()
+		app.swipeUp(velocity: .fast)
+
+		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.settingsCardTitle"].tap()
+
+		XCTAssert(app.cells["AppStrings.Settings.Datadonation.description"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Settings.Datadonation.description"].tap()
+
+		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: .medium))
+		app.swipeUp(velocity: .slow)
+
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
+		app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].tap()
+
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].waitForExistence(timeout: .medium))
+		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
 	}
-
-	// Tests if the data donation screen is shown at the settings and if the screen has the different behavior as the one in the onboarding.
-	func test_NavigationToSettingsDataDonation() throws {
-		// check if settings can be modified to check if screen is shown there
-	}
-
-	// Tests if the data in the onboarding data donation screen is set is shown correctly in the settings data donation.
-	func test_LogicOfDataDonationViewControllersWorks() throws {
-		// test here if key value screens-logic works
-
-	}
-
 
 }

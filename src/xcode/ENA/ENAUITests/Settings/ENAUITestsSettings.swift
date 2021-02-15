@@ -31,23 +31,6 @@ class ENAUITests_03_Settings: XCTestCase {
 		XCTAssert(app.cells["AppStrings.Settings.Datadonation.description"].waitForExistence(timeout: 5.0))
 	}
 
-	func test_navigationToDatadonation() {
-		app.launch()
-		app.swipeUp(velocity: .fast)
-
-		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Home.settingsCardTitle"].tap()
-
-		XCTAssert(app.cells["AppStrings.Settings.Datadonation.description"].waitForExistence(timeout: 5.0))
-		app.cells["AppStrings.Settings.Datadonation.description"].tap()
-
-		XCTAssertTrue(app.tables.images["AccessibilityIdentifiers.DataDonation.accImageDescription"].waitForExistence(timeout: .medium))
-		app.swipeUp(velocity: .slow)
-		XCTAssertTrue(app.cells["AppStrings.DataDonation.Info.noSelectionState"].waitForExistence(timeout: .medium))
-
-		app.cells["AppStrings.DataDonation.Info.noSelectionState"].tap()
-	}
-
 	func test_0031_SettingsFlow_BackgroundAppRefresh() throws {
 		app.launch()
 		
