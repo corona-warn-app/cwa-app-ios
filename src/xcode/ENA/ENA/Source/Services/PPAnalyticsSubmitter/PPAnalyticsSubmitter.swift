@@ -178,15 +178,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		/*
 		let newExposureWindows = gatherNewExposureWindows()
 		let testResultMetadata = gatherTestResultMetadata()
-<<<<<<< HEAD
-		let clientMetadata = gatherClientMetadata()
-=======
-		let keySubmissionMetadata = gatherKeySubmissionMetadata()
->>>>>>> feature/4790-data_collection_extended
 		*/
-		
-		let clientMetadata = gatherClientMetadata()
+
 		let userMetadata = gatherUserMetadata()
+		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
@@ -195,17 +190,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			/*
 			$0.newExposureWindows = newExposureWindows
 			$0.testResultMetadataSet = testResultMetadata
-<<<<<<< HEAD
-			$0.clientMetadata = clientMetadata
-			*/
-			$0.userMetadata = userMetadata
-			$0.keySubmissionMetadataSet = keySubmissionMetadata
-=======
-			$0.keySubmissionMetadataSet = keySubmissionMetadata
 			*/
 			$0.userMetadata = userMetadata
 			$0.clientMetadata = clientMetadata
->>>>>>> feature/4790-data_collection_extended
+			$0.keySubmissionMetadataSet = keySubmissionMetadata
 		}
 
 		return payload
