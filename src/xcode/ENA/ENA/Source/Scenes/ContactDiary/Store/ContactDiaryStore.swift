@@ -919,7 +919,12 @@ extension ContactDiaryStore {
 
 		// The database could not be created – To the rescue!
 		// Remove the database file and try to init the store a second time.
-		try? FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
+		do {
+			try FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
+		} catch {
+			Log.error("Could not remove item at \(ContactDiaryStore.storeDirectoryURL)", log: .localData, error: error)
+			assertionFailure()
+		}
 
 		if let secondTryStore = ContactDiaryStore() {
 			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
@@ -946,7 +951,12 @@ extension ContactDiaryStore {
 		}
 
 		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
-			try? fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+			do {
+				try fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+			} catch {
+				Log.error("Could not create directory at \(storeDirectoryURL)", log: .localData, error: error)
+				assertionFailure()
+			}
 		}
 		return storeDirectoryURL
 	}

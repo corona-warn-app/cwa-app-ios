@@ -48,7 +48,7 @@ class ENAUITests: XCTestCase {
 		if snapshotsActive { snapshot("AppStore_0001") }
 
 		// ScreenShot_0002: Homescreen (low risk)
-		try? navigateThroughOnboarding()
+		try navigateThroughOnboarding()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0002") }
 
@@ -126,7 +126,7 @@ class ENAUITests: XCTestCase {
 		app.launch()
 
 		// ScreenShot_0006: Negative result
-		try? navigateThroughOnboarding()
+		try navigateThroughOnboarding()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: 5.0))
 		app.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
