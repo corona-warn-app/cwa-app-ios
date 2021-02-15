@@ -27,12 +27,14 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_DataDonation"),
-						accessibilityLabel: "AppStrings.DataDonation.Info.accImageDescription",
-						accessibilityIdentifier: "AccessibilityIdentifiers.DataDonation.accImageDescription",
+						accessibilityLabel: AppStrings.DataDonation.Info.accImageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.accImageDescription,
 						height: 250
 					),
 					cells: [
-						.title1(text: AppStrings.DataDonation.Info.title, accessibilityIdentifier: "AppStrings.DataDonation.Info.title"),
+						.title1(
+							text: AppStrings.DataDonation.Info.title,
+							accessibilityIdentifier: AppStrings.DataDonation.Info.title),
 						.headline(text: AppStrings.DataDonation.Info.description)
 					]
 				)
@@ -55,10 +57,11 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 						return
 					}
 					let toggleSwitch = UISwitch()
-					cell.accessoryView = toggleSwitch
+					toggleSwitch.accessibilityIdentifier = AccessibilityIdentifiers.DataDonation.consentSwitch
 					toggleSwitch.isOn = self.dataDonationModel.isConsentGiven
 					toggleSwitch.onTintColor = .enaColor(for: .tint)
 					toggleSwitch.addTarget(self, action: #selector(self.didToggleDatadonationSwitch), for: .valueChanged)
+					cell.accessoryView = toggleSwitch
 				}),
 
 			dataDonationModel.isConsentGiven == true ?
@@ -130,7 +133,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 				]
 			)
 		)
-					
+
 		dynamicTableViewModel.add(
 			.section(separators: .all, cells: [
 				.body(
@@ -139,8 +142,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .pushDataDonationDetails(model: DataDonationDetailsViewModel().dynamicTableViewModel,
-								  withTitle: AppStrings.DataDonation.DetailedInfo.title,
-								  completion: nil
+													 withTitle: AppStrings.DataDonation.DetailedInfo.title,
+													 completion: nil
 					),
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
@@ -215,7 +218,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			}
 			self?.dataDonationModel.age = age
 			self?.dataDonationModel.save()
-//			self?.reloadTableView.toggle()
+			//			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)

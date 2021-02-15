@@ -18,12 +18,15 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_DataDonation"),
-						accessibilityLabel: "AppStrings.DataDonation.Info.accImageDescription",
-						accessibilityIdentifier: "AccessibilityIdentifiers.DataDonation.accImageDescription",
+						accessibilityLabel: AppStrings.DataDonation.Info.accImageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.accImageDescription,
 						height: 250
 					),
 					cells: [
-						.title1(text: AppStrings.DataDonation.Info.title, accessibilityIdentifier: "AppStrings.DataDonation.Info.title"),
+						.title1(
+							text: AppStrings.DataDonation.Info.title,
+							accessibilityIdentifier: AppStrings.DataDonation.Info.title
+						),
 						.headline(text: AppStrings.DataDonation.Info.description)
 					]
 				)

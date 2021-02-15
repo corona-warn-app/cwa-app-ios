@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	) -> Bool {
 		#if DEBUG
 		setupOnboardingForTesting()
+		setupDatadonationForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -525,6 +526,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.onboardingVersion = Bundle.main.appVersion
 		}
 	}
+
+	private func setupDatadonationForTesting() {
+		if let isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.string(forKey: "isDatadonationConsentGiven") {
+			store.isPrivacyPreservingAnalyticsConsentGiven = isPrivacyPreservingAnalyticsConsentGiven != "NO"
+		}
+	}
+
 	#endif
 
 	@objc
