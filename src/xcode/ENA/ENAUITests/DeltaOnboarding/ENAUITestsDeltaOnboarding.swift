@@ -90,8 +90,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
 
 		// - On Home Screen?
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 	}
 
 }
