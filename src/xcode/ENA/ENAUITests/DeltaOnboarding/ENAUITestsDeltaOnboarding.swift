@@ -20,6 +20,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-resetFinishedDeltaOnboardings", "YES"])
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
+		app.launchArguments.append(contentsOf: ["-isDatadonationConsentGiven", "NO"])
 	}
 
     func testDeltaOnboardingV15NewFeaturesAndDataDonation() throws {
