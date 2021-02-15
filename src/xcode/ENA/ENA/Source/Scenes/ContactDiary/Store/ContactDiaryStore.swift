@@ -524,7 +524,17 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			"""
 
 			do {
-				try database.executeUpdate(sql, values: [date, duration, maskSituation, setting, circumstances, id])
+				try database.executeUpdate(
+					sql,
+					values: [
+						date,
+						duration.rawValue,
+						maskSituation.rawValue,
+						setting.rawValue,
+						circumstances,
+						id
+					]
+				)
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -567,7 +577,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			"""
 
 			do {
-				try database.executeUpdate(sql, values: [date, durationInMinutes, circumstances, id])
+				try database.executeUpdate(
+					sql,
+					values: [
+						date,
+						durationInMinutes,
+						circumstances,
+						id
+					]
+				)
 			} catch {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -892,8 +910,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
-				let encounter = ContactPersonEncounter(
-					id: Int(queryResult.int(forColumn: "contactPersonEncounterId")),
+				let encounterId = Int(queryResult.int(forColumn: "encounterId"))
+				let encounter: ContactPersonEncounter? = encounterId == 0 ? nil : ContactPersonEncounter(
+					id: encounterId,
 					date: queryResult.string(forColumn: "encounterDate") ?? "",
 					contactPersonId: Int(queryResult.int(forColumn: "contactPersonId")),
 					duration: ContactPersonEncounter.Duration(
@@ -951,8 +970,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
-				let locationVisit = LocationVisit(
-					id: Int(queryResult.int(forColumn: "locationVisitId")),
+				let locationVisitId = Int(queryResult.int(forColumn: "locationVisitId"))
+				let locationVisit: LocationVisit? = locationVisitId == 0 ? nil : LocationVisit(
+					id: locationVisitId,
 					date: queryResult.string(forColumn: "locationVisitDate") ?? "",
 					locationId: Int(queryResult.int(forColumn: "locationId")),
 					durationInMinutes: Int(queryResult.int(forColumn: "locationVisitDuration")),
@@ -1119,7 +1139,7 @@ extension ContactDiaryStore {
 		}
 	}
 
-	private static var storeURL: URL {
+	static var storeURL: URL {
 		storeDirectoryURL
 			.appendingPathComponent("ContactDiary")
 			.appendingPathExtension("sqlite")

@@ -483,6 +483,10 @@
 		AB6887EB25D6757700907465 /* ContactDiaryStoreSchemaV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */; };
 		AB6887FE25D6AAEF00907465 /* ContactDiaryStoreSchemaV3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887F625D6AA3700907465 /* ContactDiaryStoreSchemaV3Tests.swift */; };
 		AB68880625D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68880525D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift */; };
+		AB68881025DA6C0200907465 /* ContactDiaryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */; };
+		AB68881625DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68881525DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift */; };
+		AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68881D25DA734100907465 /* ContactDiaryAccess.swift */; };
+		AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68882925DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift */; };
 		AB7420AC251B67A8006666AC /* DeltaOnboardingV15.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */; };
 		AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */; };
 		AB7420C2251B7D59006666AC /* DeltaOnboardingProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */; };
@@ -1255,6 +1259,9 @@
 		AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3.swift; sourceTree = "<group>"; };
 		AB6887F625D6AA3700907465 /* ContactDiaryStoreSchemaV3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3Tests.swift; sourceTree = "<group>"; };
 		AB68880525D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration2To3Tests.swift; sourceTree = "<group>"; };
+		AB68881525DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2Tests.swift; sourceTree = "<group>"; };
+		AB68881D25DA734100907465 /* ContactDiaryAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryAccess.swift; sourceTree = "<group>"; };
+		AB68882925DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2Tests.swift; sourceTree = "<group>"; };
 		AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15.swift; sourceTree = "<group>"; };
 		AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinator.swift; sourceTree = "<group>"; };
 		AB7420C1251B7D59006666AC /* DeltaOnboardingProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingProtocols.swift; sourceTree = "<group>"; };
@@ -3070,6 +3077,23 @@
 			path = StoreV3;
 			sourceTree = "<group>";
 		};
+		AB68881425DA6EFE00907465 /* StoreV2 */ = {
+			isa = PBXGroup;
+			children = (
+				AB68882925DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift */,
+				AB68881525DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift */,
+			);
+			path = StoreV2;
+			sourceTree = "<group>";
+		};
+		AB68882825DA767F00907465 /* StoreV1 */ = {
+			isa = PBXGroup;
+			children = (
+				ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */,
+			);
+			path = StoreV1;
+			sourceTree = "<group>";
+		};
 		AB7420AA251B678E006666AC /* DeltaOnboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -3126,11 +3150,13 @@
 		ABAE0A35257FA85B0030ED47 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				AB68882825DA767F00907465 /* StoreV1 */,
+				AB68881425DA6EFE00907465 /* StoreV2 */,
 				AB6887F525D6AA2200907465 /* StoreV3 */,
-				ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */,
 				ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */,
 				019C9F0725894BE900B26392 /* MockDiaryStore.swift */,
 				BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */,
+				AB68881D25DA734100907465 /* ContactDiaryAccess.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4798,6 +4824,7 @@
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
+				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
@@ -4884,6 +4911,7 @@
 				01D16C6024ED6D9A007DB387 /* MockBackgroundRefreshStatusProvider.swift in Sources */,
 				0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */,
 				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
+				AB68881625DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift in Sources */,
 				356FBF49255EC27A00959346 /* CacheAppConfigMockTests.swift in Sources */,
 				A372DA4124BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift in Sources */,
 				01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */,
@@ -4892,6 +4920,7 @@
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,
+				AB68882A25DA786500907465 /* ContactDiaryStoreSchemaV2Tests.swift in Sources */,
 				A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */,
 				B1CD333E24865E0000B06E9B /* TracingStatusHistoryTests.swift in Sources */,
 				01EA17472590D3DA00E98E02 /* MockTestStore.swift in Sources */,
@@ -4949,6 +4978,7 @@
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */,
+				AB68881025DA6C0200907465 /* ContactDiaryStoreTests.swift in Sources */,
 				2FC0356F24B342FA00E234AC /* UIViewcontroller+AlertTest.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				AB5F84BD24F92E92000400D4 /* SerialMigratorFake.swift in Sources */,
