@@ -178,8 +178,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		/*
 		let newExposureWindows = gatherNewExposureWindows()
 		let testResultMetadata = gatherTestResultMetadata()
+<<<<<<< HEAD
 		let clientMetadata = gatherClientMetadata()
+=======
+		let keySubmissionMetadata = gatherKeySubmissionMetadata()
+>>>>>>> feature/4790-data_collection_extended
 		*/
+		
+		let clientMetadata = gatherClientMetadata()
 		let userMetadata = gatherUserMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
 
@@ -189,10 +195,17 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			/*
 			$0.newExposureWindows = newExposureWindows
 			$0.testResultMetadataSet = testResultMetadata
+<<<<<<< HEAD
 			$0.clientMetadata = clientMetadata
 			*/
 			$0.userMetadata = userMetadata
 			$0.keySubmissionMetadataSet = keySubmissionMetadata
+=======
+			$0.keySubmissionMetadataSet = keySubmissionMetadata
+			*/
+			$0.userMetadata = userMetadata
+			$0.clientMetadata = clientMetadata
+>>>>>>> feature/4790-data_collection_extended
 		}
 
 		return payload
@@ -248,10 +261,41 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
 	}
-
-	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
-	}
 	*/
+
+	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
+		guard let storedUserData = store.userMetadata else {
+			return SAP_Internal_Ppdd_PPAUserMetadata.with { _ in }
+		}
+
+		return SAP_Internal_Ppdd_PPAUserMetadata.with {
+			if let federalState = storedUserData.federalState {
+				$0.federalState = federalState.protobuf
+			}
+			if let administrativeUnit = storedUserData.administrativeUnit {
+				$0.administrativeUnit = Int32(administrativeUnit)
+			}
+			if let ageGroup = storedUserData.ageGroup {
+				$0.ageGroup = ageGroup.protobuf
+			}
+		}
+	}
+	
+	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
+		guard let clientData = store.clientMetadata else {
+			return SAP_Internal_Ppdd_PPAClientMetadataIOS.with { _ in }
+		}
+		
+		return SAP_Internal_Ppdd_PPAClientMetadataIOS.with {
+			if let cwaVersion = clientData.cwaVersion {
+				$0.cwaVersion = cwaVersion.protobuf
+			}
+			if let eTag = clientData.eTag {
+				$0.appConfigEtag = eTag
+			}
+			$0.iosVersion = clientData.iosVersion.protobuf
+		}
+	}
 
 	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
 		guard let storedUsageData = store.keySubmissionMetadata else {
@@ -270,24 +314,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			$0.hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration
 			$0.submittedWithTeleTan = storedUsageData.submittedWithTeleTAN
 		}]
-	}
-
-	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
-		guard let storedUserData = store.userMetadata else {
-			return SAP_Internal_Ppdd_PPAUserMetadata.with { _ in }
-		}
-
-		return SAP_Internal_Ppdd_PPAUserMetadata.with {
-			if let federalState = storedUserData.federalState {
-				$0.federalState = federalState.protobuf
-			}
-			if let administrativeUnit = storedUserData.administrativeUnit {
-				$0.administrativeUnit = Int32(administrativeUnit)
-			}
-			if let ageGroup = storedUserData.ageGroup {
-				$0.ageGroup = ageGroup.protobuf
-			}
-		}
 	}
 
 	private func formatToUnixTimestamp(for date: Date?) -> Int64 {

@@ -365,6 +365,7 @@ extension SecureStore: PrivacyPreservingProviding {
 			lastSubmittedPPAData = nil
 			lastAppReset = nil
 			lastSubmissionAnalytics = nil
+			clientMetadata = nil
 		}
 	}
 
@@ -421,9 +422,9 @@ extension SecureStore: PrivacyPreservingProviding {
 	
 	var clientMetadata: ClientMetadata? {
 		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
-        set {
-            kvStore["clientMetadata"] = newValue
-		    analyticsSubmitter?.triggerSubmitData()
+		set {
+			kvStore["clientMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
 		}
 	}
 	

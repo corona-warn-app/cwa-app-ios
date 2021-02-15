@@ -1577,9 +1577,6 @@
 		EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewController.swift; sourceTree = "<group>"; };
 		EBA3BE3B25C2FAA800F1C2AC /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		EBA403CF2589260D00D1F039 /* ColorCompatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
-		EBAD25E325CD91BD008701F0 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
-		EBAD25E425CD91BD008701F0 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
-		EBAD25EA25CD941A008701F0 /* ppdd_ppa_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppa_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppa_parameters.pb.swift; sourceTree = "<group>"; };
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
@@ -1766,7 +1763,6 @@
 		01734B51255D6BEE00E60A8B /* v2 */ = {
 			isa = PBXGroup;
 			children = (
-				EBAD25EA25CD941A008701F0 /* ppdd_ppa_parameters.pb.swift */,
 				3544182825AF7B5200B11056 /* app_features.pb.swift */,
 				01734B59255D6C4500E60A8B /* app_config_ios.pb.swift */,
 				01734B5A255D6C4500E60A8B /* exposure_detection_parameters.pb.swift */,
@@ -2452,8 +2448,6 @@
 		505F506825C833A9004920EB /* ppdd */ = {
 			isa = PBXGroup;
 			children = (
-				EBAD25E325CD91BD008701F0 /* ppa_data_request_ios.pb.swift */,
-				EBAD25E425CD91BD008701F0 /* ppa_data.pb.swift */,
 				505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */,
 				505F506A25C833A9004920EB /* edus_otp.pb.swift */,
 				505F506D25C833A9004920EB /* ppac_ios.pb.swift */,

@@ -51,7 +51,7 @@ final class CachedAppConfiguration {
 	private let client: AppConfigurationFetching
 
 	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching
+	private let store: AppConfigCaching & PrivacyPreservingProviding
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	private var subscriptions = [AnyCancellable]()
@@ -139,9 +139,6 @@ final class CachedAppConfiguration {
 	}
 	
 	private func storeETagInClientMetadata(eTag: String?) {
-		guard let store = self.store as? Store else {
-			return
-		}
 		store.clientMetadata = ClientMetadata(etag: eTag)
 	}
 
