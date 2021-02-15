@@ -36,6 +36,11 @@ Build project (Community)
 fastlane ios test
 ```
 Run tests
+### ios test_community
+```
+fastlane ios test_community
+```
+Run smoke tests (Community)
 ### ios betaRelease
 ```
 fastlane ios betaRelease
