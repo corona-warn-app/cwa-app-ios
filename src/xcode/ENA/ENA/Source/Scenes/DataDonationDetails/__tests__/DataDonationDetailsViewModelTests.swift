@@ -7,6 +7,10 @@ import XCTest
 
 class DataDonationDetailsViewModelTests: XCTestCase {
 
+	let totalNumberOfCells = 35
+	let indexOfBulletPointCells = [7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 31, 32, 33]
+	let indexOfSpaceCells = [1, 3, 5]
+	let indexOfLabelCells = [0, 4, 6, 11, 16, 22, 30, 34]
 	let model = DataDonationDetailsViewModel()
 	
 	func testForOneSection() throws {
@@ -24,7 +28,7 @@ class DataDonationDetailsViewModelTests: XCTestCase {
 		// WHEN
 		let numberOfCells = tableViewModel.section(0).cells.count
 		// THEN
-		XCTAssertEqual(numberOfCells, 36)
+		XCTAssertEqual(numberOfCells, totalNumberOfCells)
 	}
 
 	func testReuseIdentifierRoundedCell() throws {
@@ -36,26 +40,22 @@ class DataDonationDetailsViewModelTests: XCTestCase {
 		XCTAssertEqual(cell2.cellReuseIdentifier.rawValue, "roundedCell")
 	}
 
-	// cells 8-11, 13-16, 18-22, 24-30, 32-34
 	func testReuseIdentifierBulletPointCell() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel
-		let indexSet = [8, 9, 10, 11, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 32, 33, 34]
 		// WHEN
-		for i in indexSet {
+		for i in indexOfBulletPointCells {
 			let cell = tableViewModel.section(0).cells[i]
 			// THEN
 			XCTAssertEqual(cell.cellReuseIdentifier.rawValue, "bulletPointCell")
 		}
 	}
 
-	// cells 0, 4, 6, 12, 17, 23, 31, 35
 	func testReuseIdentifierLabelCell() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel
-		let indexSet = [0, 4, 6, 12, 17, 23, 31, 35]
 		// WHEN
-		for i in indexSet {
+		for i in indexOfLabelCells {
 			let cell = tableViewModel.section(0).cells[i]
 			// THEN
 			XCTAssertEqual(cell.cellReuseIdentifier.rawValue, "labelCell")
@@ -65,9 +65,8 @@ class DataDonationDetailsViewModelTests: XCTestCase {
 	func testReuseIdentifierSpaceCell() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel
-		let indexSet = [1, 3, 5, 7]
 		// WHEN
-		for i in indexSet {
+		for i in indexOfSpaceCells {
 			let cell = tableViewModel.section(0).cells[i]
 			// THEN
 			XCTAssertEqual(cell.cellReuseIdentifier.rawValue, "spaceCell")

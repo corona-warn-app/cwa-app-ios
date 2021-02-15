@@ -118,7 +118,6 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 			// if a new fedaral state got selected reset region as well
 			self?.dataDonationModel.federalStateName = federalState
 			self?.dataDonationModel.region = nil
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 		presentSelectValueList(selectValueViewModel)
 	}
@@ -139,7 +138,6 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 				return
 			}
 			self?.dataDonationModel.region = region
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
@@ -156,7 +154,6 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 				return
 			}
 			self?.dataDonationModel.age = age
-			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
