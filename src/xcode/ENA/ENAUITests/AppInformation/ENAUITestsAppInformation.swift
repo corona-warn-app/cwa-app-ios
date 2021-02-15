@@ -70,8 +70,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssert(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.AppInformation.faqNavigation"].tap()
 
-		// the following test will fail if device language is not English
-		XCTAssert(app.staticTexts["Done"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.webViews.firstMatch.waitForExistence(timeout: 5.0))
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {
