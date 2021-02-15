@@ -48,13 +48,13 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		super.viewDidAppear(animated)
 
 		DispatchQueue.main.async { [weak self] in
-			self?.entryTextField.becomeFirstResponder()
+			self?.nameTextField.becomeFirstResponder()
 		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		entryTextField.resignFirstResponder()
+		nameTextField.resignFirstResponder()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -73,9 +73,9 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		entryTextField.resignFirstResponder()
+		nameTextField.resignFirstResponder()
 		viewModel.save()
-		entryTextField.resignFirstResponder()
+		nameTextField.resignFirstResponder()
 		dismiss()
 		return false
 	}
@@ -84,14 +84,14 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		viewModel.save()
-		entryTextField.resignFirstResponder()
+		nameTextField.resignFirstResponder()
 		dismiss()
 	}
 
 	// MARK: - DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		entryTextField.resignFirstResponder()
+		nameTextField.resignFirstResponder()
 		dismiss()
 	}
 
@@ -100,7 +100,10 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	private let viewModel: DiaryAddAndEditEntryViewModel
 	private let dismiss: () -> Void
 
-	private var entryTextField: DiaryEntryTextField!
+	private var nameTextField: DiaryEntryTextField!
+	private var phoneNumberTextField: DiaryEntryTextField!
+	private var emailTextField: DiaryEntryTextField!
+
 	private var bindings: [AnyCancellable] = []
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -119,6 +122,18 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		)
 		return item
 	}()
+
+	private func resignFirstResponderTextFieldds() {
+
+//		[nameTextField, phoneNumberTextField, emailTextField].forEach { textField in
+//
+//			guard ((textField?.isFirstResponder) != nil) else {
+//				continue
+//			}
+//			textField?.resignFirstResponder()
+//			break
+//		}
+	}
 
 	private func setupBindings() {
 		viewModel.$textInput.sink { [navigationFooterItem] updatedText in
@@ -153,29 +168,66 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 
-		entryTextField = DiaryEntryTextField(frame: .zero)
-		entryTextField.clearButtonMode = .whileEditing
-		entryTextField.placeholder = viewModel.placeholderText
-		entryTextField.textColor = .enaColor(for: .textPrimary1)
-		entryTextField.autocorrectionType = .no
-		entryTextField.autocapitalizationType = .sentences
-		entryTextField.spellCheckingType = .no
-		entryTextField.smartQuotesType = .no
-		entryTextField.keyboardAppearance = .default
-		entryTextField.returnKeyType = .done
-		entryTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
-		entryTextField.delegate = self
-		entryTextField.text = viewModel.textInput
+		nameTextField = DiaryEntryTextField(frame: .zero)
+		nameTextField.clearButtonMode = .whileEditing
+		nameTextField.placeholder = viewModel.placeholderText
+		nameTextField.textColor = .enaColor(for: .textPrimary1)
+		nameTextField.autocorrectionType = .no
+		nameTextField.autocapitalizationType = .sentences
+		nameTextField.spellCheckingType = .no
+		nameTextField.smartQuotesType = .no
+		nameTextField.keyboardAppearance = .default
+		nameTextField.returnKeyType = .continue
+		nameTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		nameTextField.delegate = self
+		nameTextField.text = viewModel.textInput
 
-		entryTextField.translatesAutoresizingMaskIntoConstraints = false
-		entryTextField.isUserInteractionEnabled = true
-		contentView.addSubview(entryTextField)
+		phoneNumberTextField = DiaryEntryTextField(frame: .zero)
+		phoneNumberTextField.clearButtonMode = .whileEditing
+		phoneNumberTextField.placeholder = "NYD" //viewModel.placeholderText
+		phoneNumberTextField.textColor = .enaColor(for: .textPrimary1)
+		phoneNumberTextField.autocorrectionType = .no
+		phoneNumberTextField.autocapitalizationType = .sentences
+		phoneNumberTextField.spellCheckingType = .no
+		phoneNumberTextField.smartQuotesType = .no
+		phoneNumberTextField.keyboardAppearance = .default
+		phoneNumberTextField.returnKeyType = .continue
+//		phoneNumberTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		phoneNumberTextField.delegate = self
+//		phoneNumberTextField.text = viewModel.textInput
+
+		emailTextField = DiaryEntryTextField(frame: .zero)
+		emailTextField.clearButtonMode = .whileEditing
+		emailTextField.placeholder = "NYD" //viewModel.placeholderText
+		emailTextField.textColor = .enaColor(for: .textPrimary1)
+		emailTextField.autocorrectionType = .no
+		emailTextField.autocapitalizationType = .sentences
+		emailTextField.spellCheckingType = .no
+		emailTextField.smartQuotesType = .no
+		emailTextField.keyboardAppearance = .default
+		emailTextField.returnKeyType = .done
+//		emailTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		emailTextField.delegate = self
+//		emailTextField.text = viewModel.textInput
+
+		nameTextField.translatesAutoresizingMaskIntoConstraints = false
+		nameTextField.isUserInteractionEnabled = true
+//		contentView.addSubview(nameTextField)
+
+		let stackView = UIStackView(arrangedSubviews: [nameTextField, phoneNumberTextField , emailTextField])
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.alignment = .fill
+		stackView.axis = .vertical
+		stackView.spacing = 8.0
+		contentView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			entryTextField.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-			entryTextField.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-			entryTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39.0),
-			entryTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
+			stackView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
+			stackView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
+			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39.0),
+			nameTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0),
+			phoneNumberTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0),
+			emailTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
 		])
 
 		footerView?.isHidden = false
