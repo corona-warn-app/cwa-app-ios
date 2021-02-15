@@ -213,7 +213,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			}
 			self?.dataDonationModel.age = age
 			self?.dataDonationModel.save()
-//			self?.reloadTableView.toggle()
 		}.store(in: &subscriptions)
 
 		presentSelectValueList(selectValueViewModel)
