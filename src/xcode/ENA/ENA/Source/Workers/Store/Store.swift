@@ -159,6 +159,8 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var userMetadata: UserMetadata? { get set }
     /// Analytics data.
 	var clientMetadata: ClientMetadata? { get set }
+	/// Analytics data
+	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
 }
 
 /// Wrapper protocol

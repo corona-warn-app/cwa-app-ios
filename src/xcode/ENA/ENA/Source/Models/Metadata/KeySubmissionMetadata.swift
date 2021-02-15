@@ -11,10 +11,10 @@ struct KeySubmissionMetadata: Codable {
 	var submittedAfterSymptomFlow: Bool
 	var lastSubmissionFlowScreen: LastSubmissionFlowScreen
 	var advancedConsentGiven: Bool
-	var hoursSinceTestResult: Int
-	var hoursSinceTestRegistration: Int
-	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int
-	var hoursSinceHighRiskWarningAtTestRegistration: Int
+	var hoursSinceTestResult: Int32
+	var hoursSinceTestRegistration: Int32
+	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32
+	var hoursSinceHighRiskWarningAtTestRegistration: Int32
 	var submittedWithTeleTAN: Bool
 
 	enum CodingKeys: String, CodingKey {
@@ -38,10 +38,10 @@ struct KeySubmissionMetadata: Codable {
 		submittedAfterSymptomFlow: Bool,
 		lastSubmissionFlowScreen: LastSubmissionFlowScreen,
 		advancedConsentGiven: Bool,
-		hoursSinceTestResult: Int,
-		hoursSinceTestRegistration: Int,
-		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int,
-		hoursSinceHighRiskWarningAtTestRegistration: Int,
+		hoursSinceTestResult: Int32,
+		hoursSinceTestRegistration: Int32,
+		daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32,
+		hoursSinceHighRiskWarningAtTestRegistration: Int32,
 		submittedWithTeleTAN: Bool
 	) {
 		self.submitted = submitted
@@ -66,10 +66,10 @@ struct KeySubmissionMetadata: Codable {
 		submittedAfterSymptomFlow = try container.decode(Bool.self, forKey: .submittedAfterSymptomFlow)
 		lastSubmissionFlowScreen = try container.decode(LastSubmissionFlowScreen.self, forKey: .lastSubmissionFlowScreen)
 		advancedConsentGiven = try container.decode(Bool.self, forKey: .advancedConsentGiven)
-		hoursSinceTestResult = try container.decode(Int.self, forKey: .hoursSinceTestResult)
-		hoursSinceTestRegistration = try container.decode(Int.self, forKey: .hoursSinceTestRegistration)
-		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decode(Int.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
-		hoursSinceHighRiskWarningAtTestRegistration = try container.decode(Int.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
+		hoursSinceTestResult = try container.decode(Int32.self, forKey: .hoursSinceTestResult)
+		hoursSinceTestRegistration = try container.decode(Int32.self, forKey: .hoursSinceTestRegistration)
+		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decode(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
+		hoursSinceHighRiskWarningAtTestRegistration = try container.decode(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
 		submittedWithTeleTAN = try container.decode(Bool.self, forKey: .submittedWithTeleTAN)
 	}
 }

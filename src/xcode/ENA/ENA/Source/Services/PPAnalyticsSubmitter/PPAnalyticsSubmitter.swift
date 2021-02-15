@@ -178,10 +178,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		/*
 		let newExposureWindows = gatherNewExposureWindows()
 		let testResultMetadata = gatherTestResultMetadata()
-		let keySubmissionMetadata = gatherKeySubmissionMetadata()
 		let clientMetadata = gatherClientMetadata()
 		*/
 		let userMetadata = gatherUserMetadata()
+		let keySubmissionMetadata = gatherKeySubmissionMetadata()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
@@ -189,10 +189,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			/*
 			$0.newExposureWindows = newExposureWindows
 			$0.testResultMetadataSet = testResultMetadata
-			$0.keySubmissionMetadataSet = keySubmissionMetadata
 			$0.clientMetadata = clientMetadata
 			*/
 			$0.userMetadata = userMetadata
+			$0.keySubmissionMetadataSet = keySubmissionMetadata
 		}
 
 		return payload
@@ -249,12 +249,28 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
 	}
 
-	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
-	}
-
 	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
 	}
 	*/
+
+	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
+		guard let storedUsageData = store.keySubmissionMetadata else {
+			return []
+		}
+		return [SAP_Internal_Ppdd_PPAKeySubmissionMetadata.with {
+			$0.submitted = storedUsageData.submitted
+			$0.submittedInBackground = storedUsageData.submittedInBackground
+			$0.submittedAfterCancel = storedUsageData.submittedAfterCancel
+			$0.submittedAfterSymptomFlow = storedUsageData.submittedAfterSymptomFlow
+			$0.advancedConsentGiven = storedUsageData.advancedConsentGiven
+			$0.lastSubmissionFlowScreen = storedUsageData.lastSubmissionFlowScreen.protobuf
+			$0.hoursSinceTestResult = storedUsageData.hoursSinceTestResult
+			$0.hoursSinceTestRegistration = storedUsageData.hoursSinceTestRegistration
+			$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+			$0.hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration
+			$0.submittedWithTeleTan = storedUsageData.submittedWithTeleTAN
+		}]
+	}
 
 	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
 		guard let storedUserData = store.userMetadata else {

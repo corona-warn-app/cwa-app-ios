@@ -97,4 +97,5 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
+	var keySubmissionMetadata: KeySubmissionMetadata?
 }

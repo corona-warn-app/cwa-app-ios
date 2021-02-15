@@ -361,6 +361,7 @@ extension SecureStore: PrivacyPreservingProviding {
 			currentRiskExposureMetadata = nil
 			previousRiskExposureMetadata = nil
 			userMetadata = nil
+			keySubmissionMetadata = nil
 			lastSubmittedPPAData = nil
 			lastAppReset = nil
 			lastSubmissionAnalytics = nil
@@ -423,6 +424,14 @@ extension SecureStore: PrivacyPreservingProviding {
         set {
             kvStore["clientMetadata"] = newValue
 		    analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+	
+	var keySubmissionMetadata: KeySubmissionMetadata? {
+		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
+		set {
+			kvStore["keySubmissionMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
 		}
 	}
 }
