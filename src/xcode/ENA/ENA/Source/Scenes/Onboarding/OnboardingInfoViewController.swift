@@ -27,7 +27,6 @@ final class OnboardingInfoViewController: UIViewController {
 		self.store = store
 		self.client = client
 		self.supportedCountries = supportedCountries
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -134,7 +133,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func gotoNextScreen() {
 		guard let nextPageType = pageType.next() else {
-			finishOnBoarding()
+			gotoDataDonationScreen()
 			return
 		}
 		let next = OnboardingInfoViewController(
@@ -145,6 +144,38 @@ final class OnboardingInfoViewController: UIViewController {
 			supportedCountries: supportedCountries
 		)
 		navigationController?.pushViewController(next, animated: true)
+	}
+	
+	private func gotoDataDonationScreen() {
+
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
+		let viewModel = DefaultDataDonationViewModel(
+			store: store,
+			presentSelectValueList: { [weak self] selectValueViewModel in
+				let selectValueViewController = SelectValueTableViewController(
+					selectValueViewModel,
+					dissmiss: { [weak self] in
+						self?.navigationController?.dismiss(animated: true)
+					})
+				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
+				self?.navigationController?.present(selectValueNavigationController, animated: true)
+			},
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: jsonFileURL
+			)
+		)
+
+		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
+
+		dataDonationViewController.finished = { [weak self] in
+			self?.finishOnBoarding()
+		}
+				
+		navigationController?.pushViewController(dataDonationViewController, animated: true)
 	}
 
 	private func loadCountryList() {
