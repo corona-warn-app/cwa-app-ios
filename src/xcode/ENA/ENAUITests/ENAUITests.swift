@@ -32,6 +32,8 @@ class ENAUITests: XCTestCase {
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		XCTAssertTrue(app.buttons["General.primaryFooterButton"].waitForExistence(timeout: 5.0))
+		app.buttons["General.primaryFooterButton"].tap()
 	}
 
 	func test_0000_Generate_Screenshots_For_AppStore() throws {
@@ -104,7 +106,7 @@ class ENAUITests: XCTestCase {
 	func test_0003_Generate_Screenshot_For_AppStore_Statistics() throws {
 
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
-		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "YES"]) // prevent failing tests for 1.11; use "NO" for 1.12
 		app.launch()
