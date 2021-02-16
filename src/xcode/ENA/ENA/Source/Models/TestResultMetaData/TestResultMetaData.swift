@@ -7,7 +7,7 @@ import Foundation
 struct TestResultMetaData: Codable {
 	
 	//pending, positive or negative only
-	var testRsult: TestResult?
+	var testRsult: TestResult? 
 
 	// positive or negative “First time received” = time of test result - time of test registration
 	// Pending: "everytime" current timestamp - time of test registration
@@ -27,6 +27,8 @@ struct TestResultMetaData: Codable {
 	
 	// MARK: - Private
 
+	init() {}
+	
 	enum CodingKeys: String, CodingKey {
 		case testRsult
 		case hoursSinceTestRegistration
@@ -90,7 +92,7 @@ class TestResultMetadataService {
 
 	func updateResult(testResult: TestResult) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard let _ = secureStore.testResultMetadata?.testRegisterationDate else {
+		guard secureStore.testResultMetadata?.testRegisterationDate != nil else {
 			return
 		}
 		
@@ -103,7 +105,6 @@ class TestResultMetadataService {
 			switch testResult {
 			case .positive, .negative, .pending:
 				secureStore.testResultMetadata?.testRsult = testResult
-				testResultDate = secureStore.testResultReceivedTimeStamp
 				saveHoursSinceTestRegistration()
 				
 			case .expired, .invalid:

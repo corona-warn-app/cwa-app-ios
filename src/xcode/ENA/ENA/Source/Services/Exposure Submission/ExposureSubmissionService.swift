@@ -206,16 +206,25 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		if useStoredRegistration {
 			getTestResult(completion)
 		} else {
+			
 			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 			_getRegistrationToken(key, type) { result in
 				switch result {
 				case .failure(let error):
+					self.deleteTestMetaData()
 					completion(.failure(error))
 
 					// Fake requests.
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
+					self.createTestMetaData()
 					self._getTestResult(token) { testResult in
+						switch testResult {
+						case .success(let testResult):
+							self.updateTestResultMetadata(with: testResult)
+						case.failure:
+							break
+						}
 						completion(testResult)
 					}
 
@@ -224,6 +233,23 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 			}
 		}
+	}
+
+	
+	func createTestMetaData() {
+		// TODO: check for consent of PPA first else  no data collected
+		let testMetadataService = TestResultMetadataService(store: store)
+		testMetadataService.registerNewTestMetadata(date: Date())
+	}
+
+	func deleteTestMetaData() {
+		store.testResultMetadata = nil
+	}
+	
+	private func updateTestResultMetadata(with testResult: TestResult) {
+		let testService = TestResultMetadataService(store: store)
+		testService.updateResult(testResult: testResult)
+
 	}
 
 	func deleteTest() {
@@ -312,7 +338,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.failure(.other("Failed to parse TestResult")))
 					return
 				}
-				self.updateTestResultMetadata(with: testResult)
 				switch testResult {
 				case .negative, .positive, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
@@ -501,11 +526,5 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completionHandler?(.fakeResponse)
 			}
 		}
-	}
-	
-	private func updateTestResultMetadata(with testResult: TestResult) {
-		let testService = TestResultMetadataService(store: store)
-		testService.updateResult(testResult: testResult)
-
 	}
 }
