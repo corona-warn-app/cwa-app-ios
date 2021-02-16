@@ -70,7 +70,7 @@
 
 "DataDonation_Acknowledgement_BulletPoint_1" = "Ihr Einverständnis ist freiwillig. Sie können die App auch nutzen, wenn Sie Ihr Einverständnis nicht erteilen.";
 
-"DataDonation_Acknowledgement_BulletPoint_2" = "Wenn Sie Daten über Ihre App-Nutzung spenden, bleibt Ihre Identität weiterhin geschützt. Das RKI erfährt also nicht, wer Sie sind oder wen Sie getroffen haben. Es werden auch keine Profile gebildet.";
+"DataDonation_Acknowledgement_BulletPoint_2" = "Wenn Sie Daten über Ihre App-Nutzung spenden, bleibt Ihre Identität gegenüber dem RKI weiterhin geschützt. Das RKI erfährt also nicht, wer Sie sind oder wen Sie getroffen haben. Es werden auch keine Profile gebildet.";
 
 "DataDonation_Acknowledgement_BulletPoint_3" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
