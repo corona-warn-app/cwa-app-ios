@@ -19,7 +19,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let text = viewModel.textInput
+		let text = viewModel.entryModel.name
 		
 		// THEN
 		XCTAssertEqual(text, "Kai Teuber")
@@ -35,11 +35,11 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		let text = viewModel.title
-		let placeholder = viewModel.placeholderText
+		let placeholder = viewModel.namePlaceholer
 		
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.person.title)
-		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.person.placeholder)
+		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.name)
 	}
 	
 	func testGIVEN_ContactPerson_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
@@ -51,11 +51,11 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let originalText = viewModel.textInput
-		viewModel.update("Kai-Marcel Teuber")
-		let updatedText = viewModel.textInput
-		viewModel.update(nil)
-		let updatedNilText = viewModel.textInput
+		let originalText = viewModel.entryModel.name
+		viewModel.update("Kai-Marcel Teuber", keyPath: \DiaryAddAndEditEntryModel.name)
+		let updatedText = viewModel.entryModel.name
+		viewModel.update(nil, keyPath: \DiaryAddAndEditEntryModel.name)
+		let updatedNilText = viewModel.entryModel.name
 		
 		// THEN
 		XCTAssertEqual(originalText, "Kai Teuber")
@@ -72,7 +72,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let text = viewModel.textInput
+		let text = viewModel.entryModel.name
 		
 		// THEN
 		XCTAssertTrue(text.isEmpty, "Add model should be empty")
@@ -87,10 +87,9 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let originalText = viewModel.textInput
-		viewModel.reset()
-		let updatedText = viewModel.textInput
-		
+		let originalText = viewModel.entryModel.name
+		viewModel.reset(keyPath: \DiaryAddAndEditEntryModel.name)
+		let updatedText = viewModel.entryModel.name
 		
 		// THEN
 		XCTAssertEqual(originalText, "Kai Teuber")
@@ -111,7 +110,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		viewModel.update("Kai Teuber")
+		viewModel.update("Kai Teuber", keyPath: \DiaryAddAndEditEntryModel.name)
 		viewModel.save()
 		
 		// THEN
@@ -142,7 +141,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		viewModel.update("Kai-Marcel Teuber")
+		viewModel.update("Kai-Marcel Teuber", keyPath: \DiaryAddAndEditEntryModel.name)
 		viewModel.save()
 		
 		// THEN
@@ -166,7 +165,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let text = viewModel.textInput
+		let text = viewModel.entryModel.name
 		
 		// THEN
 		XCTAssertEqual(text, "Office")
@@ -181,11 +180,11 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		let text = viewModel.title
-		let placeholder = viewModel.placeholderText
+		let placeholder = viewModel.namePlaceholer
 		
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.location.title)
-		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.location.placeholder)
+		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.name)
 	}
 	
 	func testGIVEN_Location_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
@@ -197,9 +196,9 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let originalText = viewModel.textInput
-		viewModel.update("Homeoffice")
-		let updatedText = viewModel.textInput
+		let originalText = viewModel.entryModel.name
+		viewModel.update("Homeoffice", keyPath: \DiaryAddAndEditEntryModel.name)
+		let updatedText = viewModel.entryModel.name
 		
 		// THEN
 		XCTAssertEqual(originalText, "Office")
@@ -220,7 +219,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		viewModel.update("Office")
+		viewModel.update("Office", keyPath: \DiaryAddAndEditEntryModel.name)
 		viewModel.save()
 		
 		let locationStored = store.diaryDaysPublisher.value.first?.entries.first
@@ -250,7 +249,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		viewModel.update("Homeoffice")
+		viewModel.update("Homeoffice", keyPath: \DiaryAddAndEditEntryModel.name)
 		viewModel.save()
 		
 		// THEN
