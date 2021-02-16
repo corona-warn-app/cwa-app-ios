@@ -1350,45 +1350,23 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Einstellungen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 1.13 */
+/* Version 1.14 */
 
-"NewVersionFeature_113_rki_survey_title" = "Link auf RKI-Befragung";
+"NewVersionFeature_114_additional_diary_functions_title" = "Zusatzfunktionen im Kontakt-Tagebuch";
 
-"NewVersionFeature_113_rki_survey_description" = "Wenn Sie ein erhöhtes Risiko haben, können Sie aus der App heraus eine Befragung des Robert-Koch-Instituts aufrufen und daran teilnehmen.";
+"NewVersionFeature_114_additional_diary_functions_description" = "Sie können zu jedem Eintrag angeben, unter welchen Umständen die Begegnung stattfand. Sie können aus vorgegebenen Optionen auswählen (z.B. Dauer der Begegnung, mit oder ohne Maske) sowie zusätzlich in einer kurzen Notiz weitere Umstände erfassen, die zu einem erhöhten Risiko führen könnten. Sollten Sie sich tatsächlich anstecken, können diese Angaben dem Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten helfen.";
 
-"NewVersionFeature_113_data_donation_title" = "Einwilligung zur Datenspende (optional)";
+"NewVersionFeature_114_direct_access_diary_title" = "Direkter Zugriff auf Kontakt-Tagebuch";
 
-"NewVersionFeature_113_data_donation_description" = "Sie haben nun die Möglichkeit, Ihre Nutzungsdaten zur Verfügung zu stellen und uns somit bei der Verbesserung der App zu unterstützen.";
+"NewVersionFeature_114_direct_access_diary_description" = "Sie können nun direkt einen Eintrag im Kontakt-Tagebuch hinzufügen, ohne erst die App öffnen zu müssen. Tippen Sie dazu etwa 2 Sekunden lang auf das Icon der Corona-Warn-App bis ein Menü erscheint und tippen Sie dann auf „Tagebuch-Eintrag für heute hinzufügen“.";
 
-"NewVersionFeature_113_risk_cards_title" = "Anpassungen der Risiko-Karten";
+"NewVersionFeature_114_more_details_risk_status_title" = "Mehr Details zum Risikostatus ";
 
-"NewVersionFeature_113_risk_cards_description" = "Die Texte auf den Risiko-Karten wurden leicht angepasst.";
+"NewVersionFeature_114_more_details_risk_status_description" = "Wenn Ihnen in der App ein erhöhtes Risiko angezeigt wird, können Sie nun sehen, ob der Risikostatus aufgrund einer bzw. mehrerer Begegnungen mit erhöhtem Risiko angezeigt wird, oder aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
 
-"NewVersionFeature_113_risk_determination_random_id_title" = "Fortführung der Risiko-Ermittlung nach Teilung der Zufalls-IDs";
+"NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App auf www.corona-warn-app.de";
 
-"NewVersionFeature_113_risk_determination_random_id_description" = "Nachdem Sie Ihre verschlüsselten Zufalls-IDs geteilt haben, können Sie entscheiden, ob und wann Sie die Risiko-Ermittlung wieder einschalten.";
-
-"NewVersionFeature_113_new_tabbar_title" = "Einführung von Registerkarten";
-
-"NewVersionFeature_113_new_tabbar_description" = "Es gibt nun eine eigene Registerkarte für das Kontakt-Tagebuch. Somit können Sie schneller auf Ihr Tagebuch zugreifen und vom Kontakt-Tagebuch wieder zurück auf die Startseite der App wechseln.";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Mehr Informationen zum Testablauf";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "Die App enthält nun detaillierte Informationen zum Testablauf.";
-
-/* Version 1.12 */
-
-"NewVersionFeature_112_statistics_title" = "Statistiken";
-
-"NewVersionFeature_112_statistics_description" = "Sie bekommen einen Überblick mit aktuellen Kennzahlen zum Infektionsgeschehen in Deutschland.";
-
-"NewVersionFeature_112_exposure_history_title" = "Begegnungshistorie";
-
-"NewVersionFeature_112_exposure_history_description" = "Sie können in Ihrem Kontakt-Tagebuch sehen, an welchen Tagen Sie ein niedriges oder erhöhtes Risiko aufgrund der von der App ausgewerteten Begegnungen hatten. Sie können damit Personen warnen, die Sie an diesen Tagen begleitet haben, wenn diese die Corona-Warn-App nicht nutzen. Diese Personen waren möglicherweise einem vergleichbaren Risiko ausgesetzt. Die Personen und Orte in Ihrem Kontakt-Tagebuch müssen nicht in Zusammenhang mit den angezeigten Risiko-Begegnungen stehen.";
-
-"NewVersionFeature_112_ios125_support_title" = "App nun ab iOS 12.5 verfügbar";
-
-"NewVersionFeature_112_ios125_support_description" = "Sie können die Corona-Warn-App nun ab iOS-Version 12.5 nutzen.";
+"NewVersionFeature_114_screenshots_description" = "Auf www.corona-warn-app.de stehen nun alle Screenshots der App zu Verfügung. So können sich nun auch über geplante Funktionen der App informieren.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
