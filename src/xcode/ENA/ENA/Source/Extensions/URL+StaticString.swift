@@ -6,7 +6,10 @@ import Foundation
 
 extension URL {
 	init(staticString: StaticString) {
-		// swiftlint:disable:next force_unwrapping
-		self.init(string: "\(staticString)")!
+		guard let url = URL(string: "\(staticString)") else {
+			preconditionFailure("Invalid static URL string: \(staticString)")
+		}
+
+		self = url
 	}
 }

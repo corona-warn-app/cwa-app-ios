@@ -5,11 +5,12 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching {
-	
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
+	var analyticsSubmitter: PPAnalyticsSubmitter?
+
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
-	
+
 	var positiveTestResultWasShown: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
@@ -56,9 +57,6 @@ final class MockTestStore: Store, AppConfigCaching {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var ppacApiToken: TimestampedToken?
-	var otpToken: OTPToken?
-	var otpAuthorizationDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -70,10 +68,33 @@ final class MockTestStore: Store, AppConfigCaching {
 	#endif
 
 	// MARK: - AppConfigCaching
-	
+
 	var appConfigMetadata: AppConfigMetadata?
 
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
+
+
+	// MARK: - PrivacyPreservingProviding
+
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false {
+		didSet {
+			currentRiskExposureMetadata = nil
+			previousRiskExposureMetadata = nil
+			userMetadata = nil
+			lastSubmittedPPAData = nil
+			lastAppReset = nil
+			lastSubmissionAnalytics = nil
+		}
+	}
+	var otpToken: OTPToken?
+	var otpAuthorizationDate: Date?
+	var ppacApiToken: TimestampedToken?
+	var lastSubmissionAnalytics: Date?
+	var lastAppReset: Date?
+	var lastSubmittedPPAData: String?
+	var currentRiskExposureMetadata: RiskExposureMetadata?
+	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var userMetadata: UserMetadata?
 }

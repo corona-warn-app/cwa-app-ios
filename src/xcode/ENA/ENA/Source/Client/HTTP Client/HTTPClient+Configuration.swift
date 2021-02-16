@@ -179,6 +179,17 @@ extension HTTPClient {
 					"otp"
 			)
 		}
+
+		var ppaSubmitURL: URL {
+			endpoints
+				.dataDonation
+				.appending(
+					"version",
+					apiVersion,
+					"ios",
+					"dat"
+			)
+		}
 	}
 }
 

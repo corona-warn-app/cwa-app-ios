@@ -23,4 +23,12 @@ enum RiskLevel: Int, Codable {
 		}
 	}
 
+	var protobuf: SAP_Internal_Ppdd_PPARiskLevel {
+		switch self {
+		case .low:
+			return .riskLevelLow
+		case .high:
+			return .riskLevelHigh
+		}
+	}
 }
