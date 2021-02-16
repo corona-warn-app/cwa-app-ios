@@ -9,14 +9,11 @@ struct DiaryDayEntryCellModel {
 	// MARK: - Init
 
 	init(entry: DiaryEntry) {
-		switch entry {
-		case .contactPerson(let contactPerson):
-			image = contactPerson.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
-			text = contactPerson.name
-		case .location(let location):
-			image = location.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
-			text = location.name
-		}
+		image = entry.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
+		text = entry.name
+
+		entryType = entry.type
+		parametersHidden = !entry.isSelected
 
 		if entry.isSelected {
 			accessibilityTraits = [.button, .selected]
@@ -29,6 +26,10 @@ struct DiaryDayEntryCellModel {
 
 	let image: UIImage?
 	let text: String
+
+	let entryType: DiaryEntryType
+	let parametersHidden: Bool
+
 	let accessibilityTraits: UIAccessibilityTraits
     
 }
