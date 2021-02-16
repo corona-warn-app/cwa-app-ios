@@ -133,7 +133,6 @@ final class DataDonationDetailsViewModel {
 		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
 		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
 		bulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
-		bulletPointCellWithBoldHeadline.append(.bulletPoint(attributedText: bulletPoint))
 		return bulletPoint
 	}
 	
