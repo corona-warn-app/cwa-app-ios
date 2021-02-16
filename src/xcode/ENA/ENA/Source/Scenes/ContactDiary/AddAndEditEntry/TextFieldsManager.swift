@@ -16,6 +16,13 @@ final class TextFieldsManager {
 
 	// MARK: - Internal
 
+	// helper to get all textfiled without attached KeyPath
+	var textFiledsOnly: [UITextField] {
+		textFieldsWithKeyPaths.map { textFiled, _ -> UITextField in
+			return textFiled
+		}
+	}
+
 	// get the associated WritableKeyPath for a textfield - if known
 	func keyPath(for searchTextField: UITextField) -> WritableKeyPath<DiaryAddAndEditEntryModel, String>? {
 		textFieldsWithKeyPaths.first { textField, _ -> Bool in
@@ -31,7 +38,7 @@ final class TextFieldsManager {
 	// as new first responder
 	// if no current first resonders is found, the first TextFiled available
 	// will become the new first responder
-	func nextFirtResponder() {
+	func nextFirstResponder() {
 		guard let currentFirstResponder = firstResponder,
 			  let index = textFiledsOnly.firstIndex(of: currentFirstResponder) else {
 			textFiledsOnly.first?.becomeFirstResponder()
@@ -57,13 +64,6 @@ final class TextFieldsManager {
 	// MARK: - Private
 
 	private var textFieldsWithKeyPaths: [(UITextField, WritableKeyPath<DiaryAddAndEditEntryModel, String>)]
-
-	// helper to get all textfiled without attached KeyPath
-	private var textFiledsOnly: [UITextField] {
-		textFieldsWithKeyPaths.map { textFiled, _ -> UITextField in
-			return textFiled
-		}
-	}
 
 	/// look for the current first responder and return if available
 	private var firstResponder: UITextField? {
