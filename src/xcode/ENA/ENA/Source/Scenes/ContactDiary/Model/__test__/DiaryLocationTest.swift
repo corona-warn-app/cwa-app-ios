@@ -8,7 +8,7 @@ import XCTest
 
 class DiaryLocationTest: XCTestCase {
 
-	func testUnselectedContactPerson() throws {
+	func testUnselectedLocation() throws {
 		let location = DiaryLocation(
 			id: 0,
 			name: "Mars",
@@ -24,7 +24,7 @@ class DiaryLocationTest: XCTestCase {
 		XCTAssertFalse(location.isSelected)
 	}
 
-	func testSelectedContactPerson() throws {
+	func testSelectedLocation() throws {
 		let location = DiaryLocation(
 			id: 0,
 			name: "Earth",
