@@ -35,7 +35,7 @@ class ExposureSubmissionStepCell: UITableViewCell {
 		case .topAttached:
 			let path = UIBezierPath()
 			path.move(to: CGPoint(x: iconView.frame.midX, y: 0))
-			path.addLine(to: CGPoint(x: iconView.frame.midX, y: iconView.frame.minY))
+			path.addLine(to: CGPoint(x: iconView.frame.midX, y: contentView.bounds.height))
 			line.path = path.cgPath
 			line.opacity = 1
 		case .iconAttached:
