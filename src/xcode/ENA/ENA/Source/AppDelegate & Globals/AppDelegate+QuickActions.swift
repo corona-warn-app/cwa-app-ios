@@ -20,7 +20,7 @@ extension AppDelegate {
 		if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
 			Log.debug("\(#function)", log: .default)
 			handleShortcutItem(shortcutItem)
-			return false // TODO: review
+			return false
 		}
 		return true
 	}
