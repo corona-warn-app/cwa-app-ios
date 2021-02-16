@@ -900,45 +900,6 @@ enum AppStrings {
 		static let feature114ScreenshotsTitle = NSLocalizedString("NewVersionFeature_114_screenshots_title", comment: "")
 		
 		static let feature114ScreenshotsDescription = NSLocalizedString("NewVersionFeature_114_screenshots_description", comment: "")
-		
-		/* Version 1.13 */
-		
-		static let feature113RkiSurveyTitle = NSLocalizedString("NewVersionFeature_113_rki_survey_title", comment: "")
-		
-		static let feature113RkiSurveyDescription = NSLocalizedString("NewVersionFeature_113_rki_survey_description", comment: "")
-		
-		static let feature113DataDonationTitle = NSLocalizedString("NewVersionFeature_113_data_donation_title", comment: "")
-		
-		static let feature113DataDonationDescription = NSLocalizedString("NewVersionFeature_113_data_donation_description", comment: "")
-		
-		static let feature113RiskCardTitle = NSLocalizedString("NewVersionFeature_113_risk_cards_title", comment: "")
-		
-		static let feature113RiskCardDescription = NSLocalizedString("NewVersionFeature_113_risk_cards_description", comment: "")
-		
-		static let feature113RiskDeterminationRandomIdTitle = NSLocalizedString("NewVersionFeature_113_risk_determination_random_id_title", comment: "")
-		
-		static let feature113RiskDeterminationRandomIdDescription = NSLocalizedString("NewVersionFeature_113_risk_determination_random_id_description", comment: "")
-		
-		static let feature113NewTabBarTitle = NSLocalizedString("NewVersionFeature_113_new_tabbar_title", comment: "")
-		
-		static let feature113NewTabBarDescription = NSLocalizedString("NewVersionFeature_113_new_tabbar_description", comment: "")
-		
-		static let feature113AddInfoAboutTestProcedureTitle = NSLocalizedString("NewVersionFeature_113_additonal_info_about_test_procedure_title", comment: "")
-		
-		static let feature113AddInfoAboutTestProcedureDescription = NSLocalizedString("NewVersionFeature_113_additonal_info_about_test_procedure_description", comment: "")
-		
-		/* Version 1.12 */
-		static let feature112StatisticsTitle = NSLocalizedString("NewVersionFeature_112_statistics_title", comment: "")
-		
-		static let feature112StatisticsDescription = NSLocalizedString("NewVersionFeature_112_statistics_description", comment: "")
-		
-		static let feature112ExposureHistoryTitle = NSLocalizedString("NewVersionFeature_112_exposure_history_title", comment: "")
-		
-		static let feature112ExposureHistoryDescription = NSLocalizedString("NewVersionFeature_112_exposure_history_description", comment: "")
-		
-		static let feature112iOS125SupportTitle = NSLocalizedString("NewVersionFeature_112_ios125_support_title", comment: "")
-		
-		static let feature112iOS125SupportDescription = NSLocalizedString("NewVersionFeature_112_ios125_support_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {
