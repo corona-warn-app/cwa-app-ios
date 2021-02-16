@@ -9,16 +9,14 @@ final class TextFieldsManager {
 
 	// MARK: - Init
 
-	/** Manager to handle multiple TextFiled
-		each TextFiled will get a KeyPath attached
-	*/
+	/** Manager to handle multiple TextFiled, each gets an associated WritableKeyPath */
 	init() {
 		self.textFieldsWithKeyPaths = []
 	}
 
 	// MARK: - Internal
 
-	// get the associated keyPath for a textfield - if known
+	// get the associated WritableKeyPath for a textfield - if known
 	func keyPath(for searchTextField: UITextField) -> WritableKeyPath<DiaryAddAndEditEntryModel, String>? {
 		textFieldsWithKeyPaths.first { textField, _ -> Bool in
 			searchTextField == textField

@@ -18,8 +18,8 @@ class DiaryAddAndEditEntryViewModel {
 		self.store = store
 
 		switch mode {
-		case .add:
-			self.entryModel = DiaryAddAndEditEntryModel()
+		case .add(_, let entryType):
+			self.entryModel = DiaryAddAndEditEntryModel(entryType)
 
 		case .edit(let entry):
 			switch entry {
@@ -45,10 +45,8 @@ class DiaryAddAndEditEntryViewModel {
 		entryModel[keyPath: keyPath] = text ?? ""
 	}
 
-	func reset() {
-		entryModel.name = ""
-		entryModel.phoneNumber = ""
-		entryModel.emailAddress = ""
+	func reset(keyPath: WritableKeyPath<DiaryAddAndEditEntryModel, String>) {
+		entryModel[keyPath: keyPath] = ""
 	}
 
 	func save() {
@@ -88,13 +86,16 @@ class DiaryAddAndEditEntryViewModel {
 		}
 	}
 
-	var placeholderText: String {
-		switch mode {
-		case .add(_, let entryType):
-			return placeholderText(from: entryType)
-		case .edit(let entry):
-			return placeholderText(from: entry.type)
-		}
+	var namePlaceholer: String {
+		return entryModel.namePlaceholder
+	}
+
+	var phonenumberPlaceholder: String {
+		return entryModel.phonenumberPlaceholder
+	}
+
+	var emailAddressPlacehodler: String {
+		return entryModel.emailAddressPlaceholder
 	}
 
 	// MARK: - Private
@@ -110,17 +111,6 @@ class DiaryAddAndEditEntryViewModel {
 			return AppStrings.ContactDiary.AddEditEntry.location.title
 		case .contactPerson:
 			return AppStrings.ContactDiary.AddEditEntry.person.title
-		}
-	}
-
-	// Unfortunately, Swift currently does not have KeyPath support for static let,
-	// so we need to go that way
-	private func placeholderText(from type: DiaryEntryType) -> String {
-		switch type {
-		case .location:
-			return AppStrings.ContactDiary.AddEditEntry.location.placeholder
-		case .contactPerson:
-			return AppStrings.ContactDiary.AddEditEntry.person.placeholder
 		}
 	}
 

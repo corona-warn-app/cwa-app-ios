@@ -65,7 +65,11 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldShouldClear(_ textField: UITextField) -> Bool {
-		viewModel.reset()
+		guard let keyPath = inputManager.keyPath(for: textField) else {
+			Log.debug("Textfield to clear not found", log: .default)
+			return false
+		}
+		viewModel.reset(keyPath: keyPath)
 		return true
 	}
 
@@ -76,7 +80,9 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		switch textField.returnKeyType {
 		case .default, .done, .send:
-			viewModel.save()
+			if !viewModel.entryModel.isEmpty {
+				viewModel.save()
+			}
 			inputManager.resignFirstResponder()
 			dismiss()
 		case .next, .continue:
@@ -163,13 +169,14 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.translatesAutoresizingMaskIntoConstraints = false
 		nameTextField.isUserInteractionEnabled = true
 		nameTextField.clearButtonMode = .whileEditing
-		nameTextField.placeholder = viewModel.placeholderText
+		nameTextField.placeholder = viewModel.namePlaceholer
 		nameTextField.textColor = .enaColor(for: .textPrimary1)
 		nameTextField.autocorrectionType = .no
 		nameTextField.autocapitalizationType = .sentences
 		nameTextField.spellCheckingType = .no
 		nameTextField.smartQuotesType = .no
 		nameTextField.keyboardAppearance = .default
+		nameTextField.keyboardType = .namePhonePad
 		nameTextField.returnKeyType = .continue
 		nameTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		nameTextField.delegate = self
@@ -179,33 +186,35 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = false
 		phoneNumberTextField.isUserInteractionEnabled = true
 		phoneNumberTextField.clearButtonMode = .whileEditing
-		phoneNumberTextField.placeholder = "NYD" //viewModel.placeholderText
+		phoneNumberTextField.placeholder = viewModel.phonenumberPlaceholder
 		phoneNumberTextField.textColor = .enaColor(for: .textPrimary1)
 		phoneNumberTextField.autocorrectionType = .no
-		phoneNumberTextField.autocapitalizationType = .sentences
+		phoneNumberTextField.autocapitalizationType = .none
 		phoneNumberTextField.spellCheckingType = .no
 		phoneNumberTextField.smartQuotesType = .no
 		phoneNumberTextField.keyboardAppearance = .default
+		phoneNumberTextField.keyboardType = .phonePad
 		phoneNumberTextField.returnKeyType = .continue
 		phoneNumberTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		phoneNumberTextField.delegate = self
-//		phoneNumberTextField.text = viewModel.textInput
+		phoneNumberTextField.text = viewModel.entryModel.phoneNumber
 
 		let emailTextField = DiaryEntryTextField(frame: .zero)
 		emailTextField.translatesAutoresizingMaskIntoConstraints = false
 		emailTextField.isUserInteractionEnabled = true
 		emailTextField.clearButtonMode = .whileEditing
-		emailTextField.placeholder = "NYD" //viewModel.placeholderText
+		emailTextField.placeholder = viewModel.emailAddressPlacehodler
 		emailTextField.textColor = .enaColor(for: .textPrimary1)
 		emailTextField.autocorrectionType = .no
-		emailTextField.autocapitalizationType = .sentences
+		emailTextField.autocapitalizationType = .none
 		emailTextField.spellCheckingType = .no
 		emailTextField.smartQuotesType = .no
 		emailTextField.keyboardAppearance = .default
+		emailTextField.keyboardType = .emailAddress
 		emailTextField.returnKeyType = .done
 		emailTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		emailTextField.delegate = self
-//		emailTextField.text = viewModel.textInput
+		emailTextField.text = viewModel.entryModel.emailAddress
 
 		nameTextField.translatesAutoresizingMaskIntoConstraints = false
 		nameTextField.isUserInteractionEnabled = true
@@ -237,7 +246,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	@objc
 	private func textValueChanged(sender: UITextField) {
 		guard let entryModelKeyPath = inputManager.keyPath(for: sender) else {
-			Log.debug("Failed to find matching textfiled", log: .default)
+			Log.debug("Failed to find matching textfield", log: .default)
 			return
 		}
 		viewModel.update(sender.text, keyPath: entryModelKeyPath)
