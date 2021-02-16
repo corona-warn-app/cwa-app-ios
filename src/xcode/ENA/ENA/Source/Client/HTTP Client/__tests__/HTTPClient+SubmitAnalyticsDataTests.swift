@@ -161,7 +161,7 @@ final class HTTPClientSubmitAnalyticsDataTests: XCTestCase {
 	func testGIVEN_SubmitAnalyticsData_WHEN_FailureResponse400_THEN_CompletionHasFailureServerError400() throws {
 
 		// GIVEN
-		let response: [String: String] = ["errorState": "API_TOKEN_EXPIRED"]
+		let response: [String: String] = ["errorCode": "API_TOKEN_EXPIRED"]
 		let stack = MockNetworkStack(
 			httpStatus: 400,
 			responseData: try JSONEncoder().encode(response)
@@ -199,7 +199,7 @@ final class HTTPClientSubmitAnalyticsDataTests: XCTestCase {
 	func testGIVEN_SubmitAnalyticsData_WHEN_FailureResponse500_THEN_CompletionHasFailureResponseError500() throws {
 
 		// GIVEN
-		let response: [String: String] = ["errorState": "API_TOKEN_EXPIRED"]
+		let response: [String: String] = ["errorCode": "API_TOKEN_EXPIRED"]
 		let stack = MockNetworkStack(
 			httpStatus: 500,
 			responseData: try JSONEncoder().encode(response)
@@ -237,7 +237,7 @@ final class HTTPClientSubmitAnalyticsDataTests: XCTestCase {
 	func testGIVEN_SubmitAnalyticsData_WHEN_FailureResponse999_THEN_CompletionHasFailureResponseError999() throws {
 
 		// GIVEN
-		let response: [String: String] = ["errorState": "API_TOKEN_EXPIRED"]
+		let response: [String: String] = ["errorCode": "API_TOKEN_EXPIRED"]
 		let stack = MockNetworkStack(
 			httpStatus: 999,
 			responseData: try JSONEncoder().encode(response)
