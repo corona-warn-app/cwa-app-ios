@@ -104,7 +104,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
 
-		// required to make segement control look a bit like iOS 13
+		// required to make segmented control look a bit like iOS 13
 		if #available(iOS 13, *) {
 		} else {
 			Log.debug("setup segmented control for iOS 12", log: .ui)
