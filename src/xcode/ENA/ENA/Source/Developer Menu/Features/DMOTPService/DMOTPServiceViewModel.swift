@@ -66,6 +66,7 @@ final class DMOTPServiceViewModel {
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
 					self?.otpService.discardOTP()
+					self?.store.otpAuthorizationDate = nil
 					self?.refreshTableView([TableViewSections.otpToken.rawValue, TableViewSections.otpExpirationDate.rawValue, TableViewSections.otpTimestamp.rawValue])
 				}
 			)
