@@ -59,6 +59,14 @@ final class DMOTPServiceViewModel {
 				expirationDate = "The OTP was not authorized and so has no expirationDate"
 			}
 			return DMKeyValueCellViewModel(key: "otp expiration date", value: expirationDate)
+		case .otpAuthorizationDate:
+			let authorizationDate: String
+			if let timestamp = store.otpAuthorizationDate {
+				authorizationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
+			} else {
+				authorizationDate = "The OTP was not authorized and so has no authorizationDate"
+			}
+			return DMKeyValueCellViewModel(key: "otp authorization date", value: authorizationDate)
 		case .discardOtp:
 			return DMButtonCellViewModel(
 				text: "Discard OTP Token",
@@ -67,7 +75,7 @@ final class DMOTPServiceViewModel {
 				action: { [weak self] in
 					self?.otpService.discardOTP()
 					self?.store.otpAuthorizationDate = nil
-					self?.refreshTableView([TableViewSections.otpToken.rawValue, TableViewSections.otpExpirationDate.rawValue, TableViewSections.otpTimestamp.rawValue])
+					self?.refreshTableView([TableViewSections.otpToken.rawValue, TableViewSections.otpExpirationDate.rawValue, TableViewSections.otpAuthorizationDate.rawValue, TableViewSections.otpTimestamp.rawValue])
 				}
 			)
 		}
@@ -80,6 +88,7 @@ final class DMOTPServiceViewModel {
 		case otpToken
 		case otpTimestamp
 		case otpExpirationDate
+		case otpAuthorizationDate
 		case discardOtp
 	}
 
