@@ -139,7 +139,7 @@ protocol StatisticsCaching: AnyObject {
 }
 
 protocol PrivacyPreservingProviding: AnyObject {
-	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA
+	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }

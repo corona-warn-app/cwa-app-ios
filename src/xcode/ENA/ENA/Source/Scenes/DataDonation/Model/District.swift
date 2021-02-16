@@ -1,25 +1,28 @@
 //
 // 🦠 Corona-Warn-App
 //
+
 import Foundation
 
 struct DistrictElement: Codable {
 
-	let districtName, districtShortName: String
+	let districtName: String
+	let districtShortName: String
 	let districtID: Int
 	let federalStateName: FederalStateName
 	let federalStateShortName: FederalStateShortName
 	let federalStateID: Int
 
 	enum CodingKeys: String, CodingKey {
-		case districtName, districtShortName
+		case districtName
+		case districtShortName
 		case districtID = "districtId"
 		case federalStateName, federalStateShortName
 		case federalStateID = "federalStateId"
 	}
 }
 
-enum FederalStateName: String, Codable {
+enum FederalStateName: String, CaseIterable, Codable {
 	case badenWürttemberg = "Baden-Württemberg"
 	case bayern = "Bayern"
 	case berlin = "Berlin"
@@ -75,7 +78,7 @@ enum FederalStateName: String, Codable {
 	}
 }
 
-enum FederalStateShortName: String, Codable {
+enum FederalStateShortName: String, CaseIterable, Codable {
 	case bb = "BB"
 	case be = "BE"
 	case bw = "BW"

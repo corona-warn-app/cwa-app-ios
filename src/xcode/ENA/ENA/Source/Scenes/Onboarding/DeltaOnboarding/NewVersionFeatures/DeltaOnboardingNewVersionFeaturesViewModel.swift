@@ -48,8 +48,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 
 	// MARK: - Internal
 	
-	typealias DynamicNewVersionFeatureCell = DynamicLegalCell
-	
 	let featureVersion: String
 
 	var dynamicTableViewModel: DynamicTableViewModel {

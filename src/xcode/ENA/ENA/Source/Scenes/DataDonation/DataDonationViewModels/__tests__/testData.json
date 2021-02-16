@@ -1,0 +1,26 @@
+[
+  {
+    "districtName": "Dithmarschen",
+    "districtShortName": "HEI",
+    "districtId": 11001051,
+    "federalStateName": "Schleswig-Holstein",
+    "federalStateShortName": "SH",
+    "federalStateId": 13000001
+  },
+  {
+    "districtName": "Herzogtum Lauenburg",
+    "districtShortName": "RZ",
+    "districtId": 11001053,
+    "federalStateName": "Schleswig-Holstein",
+    "federalStateShortName": "SH",
+    "federalStateId": 13000001
+  },
+  {
+	"districtName": "Offenbach (Landkreis)",
+	"districtShortName": "OF",
+	"districtId": 11006438,
+	"federalStateName": "Hessen",
+	"federalStateShortName": "HE",
+	"federalStateId": 13000006
+  }
+]

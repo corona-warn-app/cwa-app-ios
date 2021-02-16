@@ -84,6 +84,41 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		subscription.cancel()
 	}
+	
+	func testClientMetadata_isUpdated_everytime_appconfiguration_isFetched() {
+		let store = MockTestStore()
+		XCTAssertNil(store.clientMetadata, "Client metadata should be initially nil")
+		let client = CachingHTTPClientMock(store: store)
+		let cache = CachedAppConfiguration(client: client, store: store)
+		let expectationClientMetadata = expectation(description: "ClientMetadata")
+		// AppVersion
+		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
+		guard appVersionParts.count == 3,
+			  let majorAppVerson = Int(appVersionParts[0]),
+			  let minorAppVerson = Int(appVersionParts[1]),
+			  let patchAppVersion = Int((appVersionParts[2])) else {
+			return
+		}
+		let expectedAppVersion = Version(major: majorAppVerson, minor: minorAppVerson, patch: patchAppVersion)
+		// iOSVersion
+		let expectediosVersion = Version(
+			major: ProcessInfo().operatingSystemVersion.majorVersion,
+			minor: ProcessInfo().operatingSystemVersion.minorVersion,
+			patch: ProcessInfo().operatingSystemVersion.patchVersion
+		)
+		// eTag
+		let expextedETag = "fake"
+		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
+			expectationClientMetadata.fulfill()
+		}
+		waitForExpectations(timeout: .medium) { _ in
+			XCTAssertNotNil(configuration, "configuration is not nil")
+			XCTAssertNotNil(store.clientMetadata, "Client metadata should be filled after fetching")
+			XCTAssertEqual(expectedAppVersion, store.clientMetadata?.cwaVersion, "AppVersion not equal clientMetaData appVerion")
+			XCTAssertEqual(expectediosVersion, store.clientMetadata?.iosVersion, "iosVersion not equal clientMetaData iosVersion")
+			XCTAssertEqual(expextedETag, store.clientMetadata?.eTag, "eTag not equal clientMetaData eTag")
+		}
+	}
 
     func testClientMetadata_isUpdated_everytime_appconfiguration_isFetched() {
 		let store = MockTestStore()
