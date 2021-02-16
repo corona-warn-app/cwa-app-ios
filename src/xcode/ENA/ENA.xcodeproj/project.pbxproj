@@ -2781,8 +2781,8 @@
 		8F27018D259B58D700E48CFE /* StoreV2 */ = {
 			isa = PBXGroup;
 			children = (
-				8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */,
 				8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */,
+				8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */,
 			);
 			path = StoreV2;
 			sourceTree = "<group>";

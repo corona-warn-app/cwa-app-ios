@@ -79,5 +79,11 @@ class ContactDiaryMigration1To2Tests: XCTestCase {
 
 		XCTAssertEqual(expectedFetchedNewName, newName)
 		XCTAssertEqual(expectedFetchedNewLocation, newLocationName)
+
+		// Check the user version.
+
+		databaseQueue.inDatabase { database in
+			XCTAssertEqual(database.userVersion, 2)
+		}
 	}
 }

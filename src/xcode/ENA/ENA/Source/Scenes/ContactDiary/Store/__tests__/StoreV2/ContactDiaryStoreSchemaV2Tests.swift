@@ -26,6 +26,8 @@ final class ContactDiaryStoreSchemaV2Tests: XCTestCase {
 			XCTAssertTrue(database.tableExists("Location"))
 			XCTAssertTrue(database.tableExists("ContactPersonEncounter"))
 			XCTAssertTrue(database.tableExists("LocationVisit"))
+
+			XCTAssertEqual(database.userVersion, 2)
 		}
 	}
 }

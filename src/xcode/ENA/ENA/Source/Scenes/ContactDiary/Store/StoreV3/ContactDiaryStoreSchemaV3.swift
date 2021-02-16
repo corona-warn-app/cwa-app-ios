@@ -62,7 +62,7 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 				return
 			}
 
-			database.userVersion = 2
+			database.userVersion = 3
 			result = .success(())
 		}
 

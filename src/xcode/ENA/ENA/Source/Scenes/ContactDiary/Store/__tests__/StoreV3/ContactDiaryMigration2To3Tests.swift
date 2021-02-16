@@ -39,6 +39,12 @@ class ContactDiaryMigration2To3Tests: XCTestCase {
 		// Check if the data is still valid after migration.
 
 		checkV3Data(from: databaseQueue)
+
+		// Check the user version.
+
+		databaseQueue.inDatabase { database in
+			XCTAssertEqual(database.userVersion, 3)
+		}
 	}
 
 	private func addV2Data(to databaseQueue: FMDatabaseQueue) {
