@@ -119,7 +119,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
-	private var diaryCoordinator: DiaryCoordinator?
+	private(set) var diaryCoordinator: DiaryCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(

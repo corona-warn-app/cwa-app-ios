@@ -48,7 +48,7 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@OpenCombine.Published private var days: [DiaryDay] = []
+	@OpenCombine.Published private(set) var days: [DiaryDay] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
