@@ -27,12 +27,14 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_DataDonation"),
-						accessibilityLabel: "AppStrings.DataDonation.Info.accImageDescription",
-						accessibilityIdentifier: "AccessibilityIdentifiers.DataDonation.accImageDescription",
+						accessibilityLabel: AppStrings.DataDonation.Info.accImageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.accImageDescription,
 						height: 250
 					),
 					cells: [
-						.title1(text: AppStrings.DataDonation.Info.title, accessibilityIdentifier: "AppStrings.DataDonation.Info.title"),
+						.title1(
+							text: AppStrings.DataDonation.Info.title,
+							accessibilityIdentifier: AppStrings.DataDonation.Info.title),
 						.headline(text: AppStrings.DataDonation.Info.description)
 					]
 				)
@@ -55,16 +57,18 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 						return
 					}
 					let toggleSwitch = UISwitch()
-					cell.accessoryView = toggleSwitch
+					toggleSwitch.accessibilityIdentifier = AccessibilityIdentifiers.DataDonation.consentSwitch
 					toggleSwitch.isOn = self.dataDonationModel.isConsentGiven
 					toggleSwitch.onTintColor = .enaColor(for: .tint)
 					toggleSwitch.addTarget(self, action: #selector(self.didToggleDatadonationSwitch), for: .valueChanged)
+					cell.accessoryView = toggleSwitch
 				}),
 
 			dataDonationModel.isConsentGiven == true ?
 				.body(
 					text: friendlyFederalStateName,
 					style: .label,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateName,
 					accessibilityTraits: .button,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didTapSelectStateButton()
@@ -77,7 +81,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			dataDonationModel.isConsentGiven == true ?
 				.body(
 					text: friendlyRegionName,
-					style: .label, accessibilityIdentifier: nil,
+					style: .label,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionName,
 					accessibilityTraits: .button,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didTapSelectRegionButton()
@@ -92,7 +97,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					text: friendlyAgeName,
 					style: .label,
 					color: nil,
-					accessibilityIdentifier: nil,
+					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroup,
 					accessibilityTraits: .button,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didTapAgeButton()
@@ -128,7 +133,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 				]
 			)
 		)
-					
+
 		dynamicTableViewModel.add(
 			.section(separators: .all, cells: [
 				.body(
@@ -137,8 +142,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .pushDataDonationDetails(model: DataDonationDetailsViewModel().dynamicTableViewModel,
-								  withTitle: AppStrings.DataDonation.DetailedInfo.title,
-								  completion: nil
+													 withTitle: AppStrings.DataDonation.DetailedInfo.title,
+													 completion: nil
 					),
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
@@ -162,7 +167,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 	func didTapSelectStateButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
-			title: AppStrings.DataDonation.ValueSelection.Title.State,
+			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
 			preselected: dataDonationModel.federalStateName
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
