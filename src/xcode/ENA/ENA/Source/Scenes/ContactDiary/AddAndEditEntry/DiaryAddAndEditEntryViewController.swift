@@ -15,6 +15,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	) {
 		self.viewModel = viewModel
 		self.dismiss = dismiss
+		self.inputManager = InputManager()
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -48,13 +49,15 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		super.viewDidAppear(animated)
 
 		DispatchQueue.main.async { [weak self] in
-			self?.nameTextField.becomeFirstResponder()
+			self?.inputManager.nextFirtResponder()
+//			self?.nameTextField.becomeFirstResponder()
 		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		nameTextField.resignFirstResponder()
+		inputManager.resignFirstResponder()
+//		nameTextField.resignFirstResponder()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -73,10 +76,16 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		nameTextField.resignFirstResponder()
-		viewModel.save()
-		nameTextField.resignFirstResponder()
-		dismiss()
+		switch textField.returnKeyType {
+		case .default, .done, .send:
+			viewModel.save()
+			inputManager.resignFirstResponder()
+			dismiss()
+		case .next, .continue:
+			inputManager.nextFirtResponder()
+		default:
+			Log.debug("unsupport return key type")
+		}
 		return false
 	}
 
@@ -84,14 +93,14 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		viewModel.save()
-		nameTextField.resignFirstResponder()
+		inputManager.resignFirstResponder()
 		dismiss()
 	}
 
 	// MARK: - DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		nameTextField.resignFirstResponder()
+		inputManager.resignFirstResponder()
 		dismiss()
 	}
 
@@ -99,10 +108,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
 	private let dismiss: () -> Void
-
-	private var nameTextField: DiaryEntryTextField!
-	private var phoneNumberTextField: DiaryEntryTextField!
-	private var emailTextField: DiaryEntryTextField!
+	private let inputManager: InputManager
 
 	private var bindings: [AnyCancellable] = []
 
@@ -122,18 +128,6 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		)
 		return item
 	}()
-
-	private func resignFirstResponderTextFieldds() {
-
-//		[nameTextField, phoneNumberTextField, emailTextField].forEach { textField in
-//
-//			guard ((textField?.isFirstResponder) != nil) else {
-//				continue
-//			}
-//			textField?.resignFirstResponder()
-//			break
-//		}
-	}
 
 	private func setupBindings() {
 		viewModel.$textInput.sink { [navigationFooterItem] updatedText in
@@ -168,7 +162,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 
-		nameTextField = DiaryEntryTextField(frame: .zero)
+		let nameTextField = DiaryEntryTextField(frame: .zero)
 		nameTextField.clearButtonMode = .whileEditing
 		nameTextField.placeholder = viewModel.placeholderText
 		nameTextField.textColor = .enaColor(for: .textPrimary1)
@@ -182,7 +176,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.delegate = self
 		nameTextField.text = viewModel.textInput
 
-		phoneNumberTextField = DiaryEntryTextField(frame: .zero)
+		let phoneNumberTextField = DiaryEntryTextField(frame: .zero)
 		phoneNumberTextField.clearButtonMode = .whileEditing
 		phoneNumberTextField.placeholder = "NYD" //viewModel.placeholderText
 		phoneNumberTextField.textColor = .enaColor(for: .textPrimary1)
@@ -196,7 +190,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		phoneNumberTextField.delegate = self
 //		phoneNumberTextField.text = viewModel.textInput
 
-		emailTextField = DiaryEntryTextField(frame: .zero)
+		let emailTextField = DiaryEntryTextField(frame: .zero)
 		emailTextField.clearButtonMode = .whileEditing
 		emailTextField.placeholder = "NYD" //viewModel.placeholderText
 		emailTextField.textColor = .enaColor(for: .textPrimary1)
@@ -214,7 +208,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.isUserInteractionEnabled = true
 //		contentView.addSubview(nameTextField)
 
-		let stackView = UIStackView(arrangedSubviews: [nameTextField, phoneNumberTextField , emailTextField])
+		let stackView = UIStackView(arrangedSubviews: [nameTextField, phoneNumberTextField, emailTextField])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.alignment = .fill
 		stackView.axis = .vertical
@@ -231,6 +225,10 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		])
 
 		footerView?.isHidden = false
+
+		inputManager.appendTextField(nameTextField)
+		inputManager.appendTextField(phoneNumberTextField)
+		inputManager.appendTextField(emailTextField)
 	}
 
 	@objc
