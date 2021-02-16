@@ -46,12 +46,6 @@ struct DiaryAddAndEditEntryModel {
 		self.emailAddress = person.emailAddress
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let namePlaceholder: String
