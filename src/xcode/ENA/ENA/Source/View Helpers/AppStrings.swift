@@ -1196,7 +1196,7 @@ enum AppStrings {
 		enum ValueSelection {
 			static let noValue = NSLocalizedString("DataDonation_ValueSelection_None", comment: "")
 			enum Title {
-				static let State = NSLocalizedString("DataDonation_ValueSelection_Title_State", comment: "")
+				static let FederalState = NSLocalizedString("DataDonation_ValueSelection_Title_State", comment: "")
 				static let Region = NSLocalizedString("DataDonation_ValueSelection_Title_Region", comment: "")
 				static let Age = NSLocalizedString("DataDonation_ValueSelection_Title_Age", comment: "")
 			}

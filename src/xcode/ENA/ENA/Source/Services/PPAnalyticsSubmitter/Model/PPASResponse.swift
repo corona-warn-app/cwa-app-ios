@@ -5,5 +5,5 @@
 import Foundation
 
 struct PPACResponse: Codable {
-	let errorState: PPAServerErrorCode?
+	let errorCode: PPAServerErrorCode?
 }
