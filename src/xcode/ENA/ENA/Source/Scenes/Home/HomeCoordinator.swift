@@ -8,7 +8,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 	private let otpService: OTPServiceProviding
 
-	let rootViewController: UINavigationController = AppNavigationController()
+	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
 	private var homeController: HomeTableViewController?
 	private var homeState: HomeState?

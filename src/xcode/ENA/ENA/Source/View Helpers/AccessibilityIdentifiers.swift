@@ -104,6 +104,7 @@ enum AccessibilityIdentifiers {
 		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
 		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
+		static let dataDonation = "AppStrings.Settings.Datadonation.description"
 	}
 
 	enum AppInformation {
@@ -362,5 +363,17 @@ enum AccessibilityIdentifiers {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
 	}
+	
+	enum DataDonation {
+		static let accImageDescription = "AppStrings.DataDonation.Info.accImageDescription"
+		static let accDataDonationTitle = "AppStrings.DataDonation.Info.title"
+		static let accDataDonationDescription = "AppStrings.DataDonation.Info.description"
+		static let accSubHeadState = "AppStrings.DataDonation.Info.subHeadState"
+		static let accSubHeadAgeGroup = "AppStrings.DataDonation.Info.subHeadAgeGroup"
+		static let consentSwitch = "DataDonation.Consent.Switch"
 
+		static let federalStateName = "AppStrings.DataDonation.Info.noSelectionState"
+		static let regionName = "AppStrings.DataDonation.Info.noSelectionRegion"
+		static let ageGroup = "AppStrings.DataDonation.Info.noSelectionAgeGroup"
+	}
 }
