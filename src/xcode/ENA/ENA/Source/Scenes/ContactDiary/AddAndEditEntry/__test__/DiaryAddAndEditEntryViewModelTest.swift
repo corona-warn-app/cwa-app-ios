@@ -12,22 +12,26 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
 	func testGIVEN_ContactPerson_WHEN_createEditModeViewModel_THEN_NameIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber"))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", phoneNumber: "+123456789", emailAddress: "test@sap.com"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
 		)
 		
 		// WHEN
-		let text = viewModel.entryModel.name
-		
+		let name = viewModel.entryModel.name
+		let phoneNumber = viewModel.entryModel.phoneNumber
+		let email = viewModel.entryModel.emailAddress
+
 		// THEN
-		XCTAssertEqual(text, "Kai Teuber")
+		XCTAssertEqual(name, "Kai Teuber")
+		XCTAssertEqual(phoneNumber, "+123456789")
+		XCTAssertEqual(email, "test@sap.com")
 	}
 	
 	func testGIVEN_ContactPerson_WHEN_getTitleAndPlacholder_THEN_TextIsCorrcet() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber"))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", phoneNumber: "+123456789", emailAddress: "test@sap.com"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
@@ -35,32 +39,57 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		let text = viewModel.title
-		let placeholder = viewModel.namePlaceholer
-		
+		let namePlaceholder = viewModel.namePlaceholer
+		let phonePlaceholder = viewModel.phonenumberPlaceholder
+		let emailPlaceholder = viewModel.emailAddressPlacehodler
+
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.person.title)
-		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.name)
+		XCTAssertEqual(namePlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.name)
+		XCTAssertEqual(phonePlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber)
+		XCTAssertEqual(emailPlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.email)
 	}
 	
 	func testGIVEN_ContactPerson_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber"))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", phoneNumber: "+123456789", emailAddress: "test@sap.com"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
 		)
 		
 		// WHEN
-		let originalText = viewModel.entryModel.name
+		let originalName = viewModel.entryModel.name
+		let originalPhone = viewModel.entryModel.phoneNumber
+		let originalEmail = viewModel.entryModel.emailAddress
+
 		viewModel.update("Kai-Marcel Teuber", keyPath: \DiaryAddAndEditEntryModel.name)
-		let updatedText = viewModel.entryModel.name
+		viewModel.update("+4915121248249", keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		viewModel.update("kai.marcel.teuber@sap.com", keyPath: \DiaryAddAndEditEntryModel.emailAddress)
+		let updatedName = viewModel.entryModel.name
+		let updatedPhone = viewModel.entryModel.phoneNumber
+		let updatedEmail = viewModel.entryModel.emailAddress
+
 		viewModel.update(nil, keyPath: \DiaryAddAndEditEntryModel.name)
-		let updatedNilText = viewModel.entryModel.name
-		
+		viewModel.update(nil, keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		viewModel.update(nil, keyPath: \DiaryAddAndEditEntryModel.emailAddress)
+
+		let updatedNilName = viewModel.entryModel.name
+		let updatedNilPhone = viewModel.entryModel.phoneNumber
+		let updatedNilEmail = viewModel.entryModel.emailAddress
+
 		// THEN
-		XCTAssertEqual(originalText, "Kai Teuber")
-		XCTAssertEqual(updatedText, "Kai-Marcel Teuber")
-		XCTAssertEqual(updatedNilText, "")
+		XCTAssertEqual(originalName, "Kai Teuber")
+		XCTAssertEqual(originalPhone, "+123456789")
+		XCTAssertEqual(originalEmail, "test@sap.com")
+
+		XCTAssertEqual(updatedName, "Kai-Marcel Teuber")
+		XCTAssertEqual(updatedPhone, "+4915121248249")
+		XCTAssertEqual(updatedEmail, "kai.marcel.teuber@sap.com")
+
+		XCTAssertTrue(updatedNilName.isEmpty, "updated with nil should result in empty name")
+		XCTAssertTrue(updatedNilPhone.isEmpty, "updated with nil should result in empty phonenumber")
+		XCTAssertTrue(updatedNilEmail.isEmpty, "updated with nil should result in empty email address")
 	}
 	
 	func testGIVEN_addContactPerson_WHEN_createViewModel_THEN_TextInputIsEmpty() {
@@ -72,15 +101,19 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		)
 		
 		// WHEN
-		let text = viewModel.entryModel.name
-		
+		let name = viewModel.entryModel.name
+		let phone = viewModel.entryModel.phoneNumber
+		let email = viewModel.entryModel.emailAddress
+
 		// THEN
-		XCTAssertTrue(text.isEmpty, "Add model should be empty")
+		XCTAssertTrue(name.isEmpty, "should init with empty name")
+		XCTAssertTrue(phone.isEmpty, "should init with empty phonenumber")
+		XCTAssertTrue(email.isEmpty, "should init with empty email addess")
 	}
 	
-	func testGIVEN_ContactPerson_WHEN_reset_THEN_TextIsEmpty() {
+	func testGIVEN_ContactPerson_WHEN_resetName_THEN_TextIsEmpty() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber"))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", phoneNumber: "+123456789", emailAddress: "test@sap.com"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
@@ -95,7 +128,43 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		XCTAssertEqual(originalText, "Kai Teuber")
 		XCTAssertEqual(updatedText, "")
 	}
-	
+
+	func testGIVEN_ContactPerson_WHEN_resetPhoneNumber_THEN_TextIsEmpty() {
+		// GIVEN
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", phoneNumber: "+123456789", emailAddress: "test@sap.com"))
+		let viewModel = DiaryAddAndEditEntryViewModel(
+			mode: .edit(entry),
+			store: MockDiaryStore()
+		)
+
+		// WHEN
+		let originalText = viewModel.entryModel.phoneNumber
+		viewModel.reset(keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		let updatedText = viewModel.entryModel.phoneNumber
+
+		// THEN
+		XCTAssertEqual(originalText, "+123456789")
+		XCTAssertEqual(updatedText, "")
+	}
+
+	func testGIVEN_ContactPerson_WHEN_resetEmail_THEN_TextIsEmpty() {
+		// GIVEN
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Kai Teuber", phoneNumber: "+123456789", emailAddress: "test@sap.com"))
+		let viewModel = DiaryAddAndEditEntryViewModel(
+			mode: .edit(entry),
+			store: MockDiaryStore()
+		)
+
+		// WHEN
+		let originalText = viewModel.entryModel.emailAddress
+		viewModel.reset(keyPath: \DiaryAddAndEditEntryModel.emailAddress)
+		let updatedText = viewModel.entryModel.emailAddress
+
+		// THEN
+		XCTAssertEqual(originalText, "test@sap.com")
+		XCTAssertEqual(updatedText, "")
+	}
+
 	func testGIVEN_addContactPerson_WHEN_UpdateTextAndSave_THEN_StoreModelIsEqual() {
 		// GIVEN
 		let emptyDiaryDay = DiaryDay(
@@ -142,6 +211,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		viewModel.update("Kai-Marcel Teuber", keyPath: \DiaryAddAndEditEntryModel.name)
+		viewModel.update("+123456789", keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		viewModel.update("test@sap.com", keyPath: \DiaryAddAndEditEntryModel.emailAddress)
 		viewModel.save()
 		
 		// THEN
@@ -149,6 +220,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		if case let .contactPerson(diaryEntry) = contactPersonStored {
 			XCTAssertEqual(diaryEntry.name, "Kai-Marcel Teuber")
+			XCTAssertEqual(diaryEntry.phoneNumber, "+123456789")
+			XCTAssertEqual(diaryEntry.emailAddress, "test@sap.com")
 		} else {
 			XCTFail("unexpected diary entry")
 		}
