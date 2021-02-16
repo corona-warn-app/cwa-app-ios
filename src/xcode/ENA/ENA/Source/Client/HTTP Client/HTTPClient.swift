@@ -305,13 +305,13 @@ final class HTTPClient: Client {
 							PPACResponse.self,
 							from: responseBody
 						)
-						guard let errorState = decodedResponse.errorState else {
+						guard let errorCode = decodedResponse.errorCode else {
 							Log.error("Error at converting decodedResponse to PPACResponse", log: .api)
 							completion(.failure(.jsonError))
 							return
 						}
 						Log.error("Server error at submitting anatlytics data", log: .api)
-						completion(.failure(.serverError(errorState)))
+						completion(.failure(.serverError(errorCode)))
 					} catch {
 						Log.error("Error at decoding server response json", log: .api, error: error)
 						completion(.failure(.jsonError))
