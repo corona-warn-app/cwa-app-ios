@@ -211,7 +211,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			_getRegistrationToken(key, type) { result in
 				switch result {
 				case .failure(let error):
-					self.deleteTestMetaData()
 					completion(.failure(error))
 
 					// Fake requests.
@@ -240,10 +239,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		// TODO: check for consent of PPA first else  no data collected
 		let testMetadataService = TestResultMetadataService(store: store)
 		testMetadataService.registerNewTestMetadata(date: Date())
-	}
-
-	func deleteTestMetaData() {
-		store.testResultMetadata = nil
 	}
 	
 	private func updateTestResultMetadata(with testResult: TestResult) {
