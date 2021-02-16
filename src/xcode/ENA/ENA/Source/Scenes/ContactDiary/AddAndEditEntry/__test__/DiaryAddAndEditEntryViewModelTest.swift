@@ -231,17 +231,21 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 	
 	func testGIVEN_Location_WHEN_createEditModeViewModel_THEN_NameIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .location(DiaryLocation(id: 0, name: "Office"))
+		let entry: DiaryEntry = .location(DiaryLocation(id: 0, name: "Office", phoneNumber: "+49123456789", emailAddress: "office@office.test"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
 		)
 		
 		// WHEN
-		let text = viewModel.entryModel.name
-		
+		let name = viewModel.entryModel.name
+		let phone = viewModel.entryModel.phoneNumber
+		let email = viewModel.entryModel.emailAddress
+
 		// THEN
-		XCTAssertEqual(text, "Office")
+		XCTAssertEqual(name, "Office")
+		XCTAssertEqual(phone, "+49123456789")
+		XCTAssertEqual(email, "office@office.test")
 	}
 	
 	func testGIVEN_Location_WHEN_getTitleAndPlaceholder_THEN_TextIsCorrect() {
@@ -253,29 +257,46 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		let text = viewModel.title
-		let placeholder = viewModel.namePlaceholer
-		
+		let namePlaceholder = viewModel.namePlaceholer
+		let phonePlaceholder = viewModel.phonenumberPlaceholder
+		let emailPlaceholder = viewModel.emailAddressPlacehodler
+
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.location.title)
-		XCTAssertEqual(placeholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.name)
+		XCTAssertEqual(namePlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.name)
+		XCTAssertEqual(phonePlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber)
+		XCTAssertEqual(emailPlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.email)
 	}
 	
 	func testGIVEN_Location_WHEN_createEditModeViewModelAndUpdateText_THEN_UpdatedTextIsTextInput() {
 		// GIVEN
-		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Office"))
+		let entry: DiaryEntry = .contactPerson(DiaryContactPerson(id: 0, name: "Office", emailAddress: "email@sap.ch"))
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
 			store: MockDiaryStore()
 		)
 		
 		// WHEN
-		let originalText = viewModel.entryModel.name
+		let originalNameText = viewModel.entryModel.name
+		let originalPhoneText = viewModel.entryModel.phoneNumber
+		let originalEmailText = viewModel.entryModel.emailAddress
+
 		viewModel.update("Homeoffice", keyPath: \DiaryAddAndEditEntryModel.name)
-		let updatedText = viewModel.entryModel.name
-		
+		viewModel.update("+414411223255", keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		viewModel.update("mail@ch.sap", keyPath: \DiaryAddAndEditEntryModel.emailAddress)
+
+		let updatedName = viewModel.entryModel.name
+		let updatedPhone = viewModel.entryModel.phoneNumber
+		let updatedEmail = viewModel.entryModel.emailAddress
+
 		// THEN
-		XCTAssertEqual(originalText, "Office")
-		XCTAssertEqual(updatedText, "Homeoffice")
+		XCTAssertEqual(originalNameText, "Office")
+		XCTAssertEqual(originalPhoneText, "")
+		XCTAssertEqual(originalEmailText, "email@sap.ch")
+
+		XCTAssertEqual(updatedName, "Homeoffice")
+		XCTAssertEqual(updatedPhone, "+414411223255")
+		XCTAssertEqual(updatedEmail, "mail@ch.sap")
 	}
 	
 	func testGIVEN_addLocation_WHEN_UpdateTextAndSave_THEN_StoreModelIsEqual() {
@@ -293,12 +314,16 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		viewModel.update("Office", keyPath: \DiaryAddAndEditEntryModel.name)
+		viewModel.update("+4444444", keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		viewModel.update("email@mail.ed", keyPath: \DiaryAddAndEditEntryModel.emailAddress)
 		viewModel.save()
 		
 		let locationStored = store.diaryDaysPublisher.value.first?.entries.first
 		
 		if case let .location(diaryEntry) = locationStored {
 			XCTAssertEqual(diaryEntry.name, "Office")
+			XCTAssertEqual(diaryEntry.phoneNumber, "+4444444")
+			XCTAssertEqual(diaryEntry.emailAddress, "email@mail.ed")
 		} else {
 			XCTFail("unexpected diary entry")
 		}
@@ -308,13 +333,15 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		// GIVEN
 		let mockStore = emptyMockStore()
 		let name = "Office"
-		let result = mockStore.addLocation(name: name)
+		let phone = "+1"
+		let email = "office@test.ui"
+		let result = mockStore.addLocation(name: name, phoneNumber: phone, emailAddress: email)
 
 		guard case let .success(id) = result else {
 			fatalError("Failure not expected")
 		}
 
-		let entry: DiaryEntry = .location(.init(id: id, name: name))
+		let entry: DiaryEntry = .location(.init(id: id, name: name, phoneNumber: phone, emailAddress: email))
 		
 		let viewModel = DiaryAddAndEditEntryViewModel(
 			mode: .edit(entry),
@@ -323,6 +350,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		viewModel.update("Homeoffice", keyPath: \DiaryAddAndEditEntryModel.name)
+		viewModel.update("+2", keyPath: \DiaryAddAndEditEntryModel.phoneNumber)
+		viewModel.update("home@test.ui", keyPath: \DiaryAddAndEditEntryModel.emailAddress)
 		viewModel.save()
 		
 		// THEN
@@ -330,6 +359,8 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		if case let .location(diaryEntry) = locationStored {
 			XCTAssertEqual(diaryEntry.name, "Homeoffice")
+			XCTAssertEqual(diaryEntry.phoneNumber, "+2")
+			XCTAssertEqual(diaryEntry.emailAddress, "home@test.ui")
 		} else {
 			XCTFail("unexpected diary entry")
 		}
@@ -344,13 +375,13 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 				.contactPerson(DiaryContactPerson(id: 7, name: "Andreas Vogel")),
 				.contactPerson(DiaryContactPerson(id: 2, name: "Artur Friesen")),
 				.contactPerson(DiaryContactPerson(id: 6, name: "Carsten Knoblich")),
-				.contactPerson(DiaryContactPerson(id: 4, name: "Kai Teuber")),
+				.contactPerson(DiaryContactPerson(id: 4, name: "Kai Teuber", phoneNumber: "+491512221457", emailAddress: "kai@test.de")),
 				.contactPerson(DiaryContactPerson(id: 5, name: "Karsten Gahn")),
 				.contactPerson(DiaryContactPerson(id: 1, name: "Marcus Scherer")),
-				.contactPerson(DiaryContactPerson(id: 0, name: "Nick Gündling")),
-				.contactPerson(DiaryContactPerson(id: 9, name: "Omar Ahmed")),
-				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause")),
-				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali"))
+				.contactPerson(DiaryContactPerson(id: 0, name: "Nick Gündling", emailAddress: "email@test.de")),
+				.contactPerson(DiaryContactPerson(id: 9, name: "Omar Ahmed", phoneNumber: "987456")),
+				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause", phoneNumber: "123456")),
+				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali", emailAddress: "unkown"))
 			]
 		)
 	}
