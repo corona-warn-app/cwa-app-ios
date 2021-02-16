@@ -34,6 +34,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
+			self.updateStoreWithUserConsentGiven()
 		}.store(in: &subscriptions)
 	}
 
@@ -215,6 +216,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// Fake requests.
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
+					self.updateStoreWithQRSubmissionSelected()
 					self._getTestResult(token) { testResult in
 						completion(testResult)
 					}
@@ -313,7 +315,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					return
 				}
 				switch testResult {
-				case .negative, .positive, .invalid:
+				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
 					completeWith(.success(testResult))
 				case .pending:
@@ -401,10 +403,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			visitedCountries: visitedCountries,
 			tan: tan
 		)
-
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
+				self.updateStoreWithKeySubmissionDone()
 				self.submitExposureCleanup()
 				Log.info("Successfully completed exposure sumbission.", log: .api)
 				completion(nil)
@@ -500,5 +502,20 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completionHandler?(.fakeResponse)
 			}
 		}
+	}
+
+	private func updateStoreWithKeySubmissionDone() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setSubmitted(withValue: true)
+	}
+
+	private func updateStoreWithQRSubmissionSelected() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setSubmittedWithTeleTAN(withValue: false)
+	}
+	
+	private func updateStoreWithUserConsentGiven() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setAdvancedConsentGiven(withValue: true)
 	}
 }

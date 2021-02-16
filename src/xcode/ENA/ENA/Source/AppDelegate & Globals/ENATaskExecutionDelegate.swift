@@ -11,8 +11,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	var riskProvider: RiskProvider
 	var pdService: PlausibleDeniability
 	var contactDiaryStore: ContactDiaryStore
+	var store: Store
 	var analyticsSubmitter: PPAnalyticsSubmitter
-
 	var dependencies: ExposureSubmissionServiceDependencies
 	private let backgroundTaskConsumer = RiskConsumer()
 
@@ -20,12 +20,14 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: ContactDiaryStore,
+		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
 		analyticsSubmitter: PPAnalyticsSubmitter
 	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
+		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 		self.analyticsSubmitter = analyticsSubmitter
 	}
@@ -122,6 +124,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			case .some(let error):
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 			case .none:
+				self.updateStoreWithBackgroundSubmission()
 				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 			}
 
@@ -243,5 +246,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			// Ignore the result of the call, so we just complete after the call is finished.
 			completion()
 		})
+	}
+	
+	private func updateStoreWithBackgroundSubmission() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setSubmittedInBackground(withValue: true)
 	}
 }

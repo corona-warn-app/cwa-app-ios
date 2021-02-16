@@ -5,17 +5,17 @@
 import Foundation
 
 struct KeySubmissionMetadata: Codable {
-	var submitted: Bool
-	var submittedInBackground: Bool
-	var submittedAfterCancel: Bool
-	var submittedAfterSymptomFlow: Bool
-	var lastSubmissionFlowScreen: LastSubmissionFlowScreen
-	var advancedConsentGiven: Bool
-	var hoursSinceTestResult: Int32
-	var hoursSinceTestRegistration: Int32
-	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32
-	var hoursSinceHighRiskWarningAtTestRegistration: Int32
-	var submittedWithTeleTAN: Bool
+	var submitted: Bool?
+	var submittedInBackground: Bool?
+	var submittedAfterCancel: Bool?
+	var submittedAfterSymptomFlow: Bool?
+	var lastSubmissionFlowScreen: LastSubmissionFlowScreen?
+	var advancedConsentGiven: Bool?
+	var hoursSinceTestResult: Int32?
+	var hoursSinceTestRegistration: Int32?
+	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
+	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
+	var submittedWithTeleTAN: Bool?
 
 	enum CodingKeys: String, CodingKey {
 		case submitted
@@ -60,16 +60,52 @@ struct KeySubmissionMetadata: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
-		submitted = try container.decode(Bool.self, forKey: .submitted)
-		submittedInBackground = try container.decode(Bool.self, forKey: .submittedInBackground)
-		submittedAfterCancel = try container.decode(Bool.self, forKey: .submittedAfterCancel)
-		submittedAfterSymptomFlow = try container.decode(Bool.self, forKey: .submittedAfterSymptomFlow)
-		lastSubmissionFlowScreen = try container.decode(LastSubmissionFlowScreen.self, forKey: .lastSubmissionFlowScreen)
-		advancedConsentGiven = try container.decode(Bool.self, forKey: .advancedConsentGiven)
-		hoursSinceTestResult = try container.decode(Int32.self, forKey: .hoursSinceTestResult)
-		hoursSinceTestRegistration = try container.decode(Int32.self, forKey: .hoursSinceTestRegistration)
-		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decode(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
-		hoursSinceHighRiskWarningAtTestRegistration = try container.decode(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
-		submittedWithTeleTAN = try container.decode(Bool.self, forKey: .submittedWithTeleTAN)
+		submitted = try container.decodeIfPresent(Bool.self, forKey: .submitted)
+		submittedInBackground = try container.decodeIfPresent(Bool.self, forKey: .submittedInBackground)
+		submittedAfterCancel = try container.decodeIfPresent(Bool.self, forKey: .submittedAfterCancel)
+		submittedAfterSymptomFlow = try container.decodeIfPresent(Bool.self, forKey: .submittedAfterSymptomFlow)
+		lastSubmissionFlowScreen = try container.decodeIfPresent(LastSubmissionFlowScreen.self, forKey: .lastSubmissionFlowScreen)
+		advancedConsentGiven = try container.decodeIfPresent(Bool.self, forKey: .advancedConsentGiven)
+		hoursSinceTestResult = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestResult)
+		hoursSinceTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceTestRegistration)
+		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
+		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
+		submittedWithTeleTAN = try container.decodeIfPresent(Bool.self, forKey: .submittedWithTeleTAN)
+	}
+}
+
+class KeySubmissionService {
+	private var secureStore: Store
+	
+	init(store: Store) {
+		self.secureStore = store
+	}
+	
+	func setSubmitted(withValue: Bool = false) {
+		secureStore.keySubmissionMetadata?.submitted = withValue
+	}
+	
+	func setSubmittedInBackground(withValue: Bool = false) {
+		secureStore.keySubmissionMetadata?.submittedInBackground = withValue
+	}
+
+	func setSubmittedAfterCancel(withValue: Bool = false) {
+		secureStore.keySubmissionMetadata?.submittedAfterCancel = withValue
+	}
+	
+	func setSubmittedAfterSymptomFlow(withValue: Bool = false) {
+		secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow = withValue
+	}
+	
+	func setLastSubmissionFlowScreen(withValue: LastSubmissionFlowScreen = .submissionFlowScreenUnknown) {
+		secureStore.keySubmissionMetadata?.lastSubmissionFlowScreen = withValue
+	}
+
+	func setAdvancedConsentGiven(withValue: Bool = false) {
+		secureStore.keySubmissionMetadata?.advancedConsentGiven = withValue
+	}
+
+	func setSubmittedWithTeleTAN(withValue: Bool = true) {
+		secureStore.keySubmissionMetadata?.submittedWithTeleTAN = withValue
 	}
 }

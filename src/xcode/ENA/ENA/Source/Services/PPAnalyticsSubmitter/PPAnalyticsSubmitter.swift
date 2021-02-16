@@ -290,17 +290,20 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return []
 		}
 		return [SAP_Internal_Ppdd_PPAKeySubmissionMetadata.with {
-			$0.submitted = storedUsageData.submitted
-			$0.submittedInBackground = storedUsageData.submittedInBackground
-			$0.submittedAfterCancel = storedUsageData.submittedAfterCancel
-			$0.submittedAfterSymptomFlow = storedUsageData.submittedAfterSymptomFlow
-			$0.advancedConsentGiven = storedUsageData.advancedConsentGiven
-			$0.lastSubmissionFlowScreen = storedUsageData.lastSubmissionFlowScreen.protobuf
-			$0.hoursSinceTestResult = storedUsageData.hoursSinceTestResult
-			$0.hoursSinceTestRegistration = storedUsageData.hoursSinceTestRegistration
-			$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-			$0.hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration
-			$0.submittedWithTeleTan = storedUsageData.submittedWithTeleTAN
+			if let submitted = storedUsageData.submitted {
+				$0.submitted = submitted
+			}
+//			$0.submitted = storedUsageData.submitted
+//			$0.submittedInBackground = storedUsageData.submittedInBackground
+//			$0.submittedAfterCancel = storedUsageData.submittedAfterCancel
+//			$0.submittedAfterSymptomFlow = storedUsageData.submittedAfterSymptomFlow
+//			$0.advancedConsentGiven = storedUsageData.advancedConsentGiven
+//			$0.lastSubmissionFlowScreen = storedUsageData.lastSubmissionFlowScreen.protobuf
+//			$0.hoursSinceTestResult = storedUsageData.hoursSinceTestResult
+//			$0.hoursSinceTestRegistration = storedUsageData.hoursSinceTestRegistration
+//			$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+//			$0.hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration
+//			$0.submittedWithTeleTan = storedUsageData.submittedWithTeleTAN
 		}]
 	}
 
