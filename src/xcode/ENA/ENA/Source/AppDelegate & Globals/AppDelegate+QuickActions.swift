@@ -8,6 +8,7 @@ import UIKit
 
 extension AppDelegate {
 
+	/// General identifier for the 'add diary entry' shortcut action
 	private static let shortcutIdDiaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
 
 	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
@@ -24,11 +25,13 @@ extension AppDelegate {
 		return true
 	}
 
-	
 	func setupQuickActions() {
-		guard store.isOnboarded else { return }
-		
 		let application = UIApplication.shared
+		guard store.isOnboarded else {
+			application.shortcutItems = nil
+			return
+		}
+
 		application.shortcutItems = [
 			UIApplicationShortcutItem(type: AppDelegate.shortcutIdDiaryNewEntry, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))
 		]
@@ -40,6 +43,9 @@ extension AppDelegate {
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
 			tabBarController.selectedIndex = 1
+
+			// let diary coordinator handle navigation
+			coordinator.diaryCoordinator?.showCurrentDayScreen()
 		}
 	}
 }
@@ -47,7 +53,7 @@ extension AppDelegate {
 extension RootCoordinator {
 
 	/// Direct access to the tabbar controller
-	var tabBarController: UITabBarController? {
+	fileprivate var tabBarController: UITabBarController? {
 		viewController.children.compactMap({ $0 as? UITabBarController }).first
 	}
 }
