@@ -12,14 +12,24 @@ extension AppDelegate {
 	private static let shortcutIdDiaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
 
 	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-		Log.debug("\(#function)", log: .default)
 		handleShortcutItem(shortcutItem)
 	}
 
+	/// Checks wether the application is launched from a shortcut or not.
+	///
+	/// - Parameter launchOptions: the launch options passed in the app launch (will/did) functions
+	/// - Returns: `false` if the application was launched(!) from a shortcut to prevent further calls to `application(_:performActionFor:completionHandler:)`
 	func handleQuickActions(with launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
-			Log.debug("\(#function)", log: .default)
-			handleShortcutItem(shortcutItem)
+
+			// We have to wait for the exposure manager to activate in `AppDelegate.showHome()`.
+			// Instead of blocking the thread we'll delay the handling for the shortcut item
+			DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+				self.handleShortcutItem(shortcutItem)
+			}
+
+			// prevents triggering `application(_:performActionFor:completionHandler:)`
+			// see: https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622935-application
 			return false
 		}
 		return true
