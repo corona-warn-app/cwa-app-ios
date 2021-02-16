@@ -84,7 +84,7 @@
 
 "SurveyConsent_LegalBody1" = "Durch Antippen von „Einverstanden“ willigen Sie ein:";
 
-"SurveyConsent_LegalBody2" = "Bevor Ihnen der Teilnahmelink angezeigt werden kann, wird die Echtheit Ihrer App hierbei einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Weitere Angaben aus der App erhält Apple  hierbei nicht. So wird sichergestellt, dass jeder Nutzer nur einmal an der Befragung teilnehmen kann und die Statistiken nicht verfälscht werden.";
+"SurveyConsent_LegalBody2" = "Bevor Ihnen der Teilnahmelink angezeigt werden kann, wird die Echtheit Ihrer App hierbei einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Weitere Angaben aus der App erhält Apple hierbei nicht. So wird sichergestellt, dass jeder Nutzer nur einmal an der Befragung teilnehmen kann und die Statistiken nicht verfälscht werden.";
 
 "SurveyConsent_Legal_Bullet1" = "Ihr Einverständnis ist freiwillig. Sie können die App vollständig nutzen, auch wenn Sie Ihr Einverständnis für die Zwecke der Befragung nicht erteilen.";
 
