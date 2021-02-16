@@ -1795,7 +1795,7 @@ sein.";
 
 "DetailedInfosDataDonation_SubHead_DataProcessing" = "Datenverarbeitung im Rahmen der Datenspende";
 
-"DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten werden zu unterschiedlichen Zwecken ausgewertet:";
+"DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten dienen der Bewertung der Wirksamkeit der App und sie werden ausgewertet, um folgende Verbesserungen zu ermöglichen:";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Verbesserung der Risiko-Ermittlung";
 
