@@ -124,8 +124,9 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			segmentedControl.layer.cornerRadius = 5.0
 			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
 		}
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 	}
 
 	private func setupTableView() {
