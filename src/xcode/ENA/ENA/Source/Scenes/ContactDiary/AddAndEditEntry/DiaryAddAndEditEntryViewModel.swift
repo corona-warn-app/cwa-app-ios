@@ -19,13 +19,15 @@ class DiaryAddAndEditEntryViewModel {
 
 		switch mode {
 		case .add:
-			self.textInput = ""
+			self.entryModel = DiaryAddAndEditEntryModel()
+
 		case .edit(let entry):
 			switch entry {
 			case .location(let location):
-				self.textInput = location.name
+				self.entryModel = DiaryAddAndEditEntryModel(location)
+
 			case .contactPerson(let person):
-				self.textInput = person.name
+				self.entryModel = DiaryAddAndEditEntryModel(person)
 			}
 		}
 	}
@@ -37,14 +39,16 @@ class DiaryAddAndEditEntryViewModel {
 		case edit(DiaryEntry)
 	}
 
-	@OpenCombine.Published private(set) var textInput: String
+	@OpenCombine.Published private(set) var entryModel: DiaryAddAndEditEntryModel
 
-	func update(_ text: String?) {
-		textInput = text ?? ""
+	func update(_ text: String?, keyPath: WritableKeyPath<DiaryAddAndEditEntryModel, String>) {
+		entryModel[keyPath: keyPath] = text ?? ""
 	}
 
 	func reset() {
-		textInput = ""
+		entryModel.name = ""
+		entryModel.phoneNumber = ""
+		entryModel.emailAddress = ""
 	}
 
 	func save() {
@@ -52,13 +56,13 @@ class DiaryAddAndEditEntryViewModel {
 		case let .add(day, type):
 			switch type {
 			case .location:
-				let result = store.addLocation(name: textInput, phoneNumber: "", emailAddress: "")
+				let result = store.addLocation(name: entryModel.name, phoneNumber: entryModel.phoneNumber, emailAddress: entryModel.emailAddress)
 
 				if case let .success(id) = result {
 					store.addLocationVisit(locationId: id, date: day.dateString)
 				}
 			case .contactPerson:
-				let result = store.addContactPerson(name: textInput, phoneNumber: "", emailAddress: "")
+				let result = store.addContactPerson(name: entryModel.name, phoneNumber: entryModel.phoneNumber, emailAddress: entryModel.emailAddress)
 
 				if case let .success(id) = result {
 					store.addContactPersonEncounter(contactPersonId: id, date: day.dateString)
@@ -68,11 +72,9 @@ class DiaryAddAndEditEntryViewModel {
 		case .edit(let entry):
 			switch entry {
 			case .location(let location):
-				let id = location.id
-				store.updateLocation(id: id, name: textInput, phoneNumber: "", emailAddress: "")
+				store.updateLocation(id: location.id, name: entryModel.name, phoneNumber: entryModel.phoneNumber, emailAddress: entryModel.emailAddress)
 			case .contactPerson(let person):
-				let id = person.id
-				store.updateContactPerson(id: id, name: textInput, phoneNumber: "", emailAddress: "")
+				store.updateContactPerson(id: person.id, name: entryModel.name, phoneNumber: entryModel.phoneNumber, emailAddress: entryModel.emailAddress)
 			}
 		}
 	}

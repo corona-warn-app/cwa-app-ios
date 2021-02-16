@@ -14,12 +14,10 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.inputManager = TextFieldsManager()
 		self.dismiss = dismiss
-		self.inputManager = InputManager()
 
 		super.init(nibName: nil, bundle: nil)
-
-		view.backgroundColor = .enaColor(for: .background)
 	}
 
 	@available(*, unavailable)
@@ -31,6 +29,8 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		view.backgroundColor = .enaColor(for: .background)
 
 		navigationItem.largeTitleDisplayMode = .always
 
@@ -50,14 +50,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		DispatchQueue.main.async { [weak self] in
 			self?.inputManager.nextFirtResponder()
-//			self?.nameTextField.becomeFirstResponder()
 		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		inputManager.resignFirstResponder()
-//		nameTextField.resignFirstResponder()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -107,9 +105,8 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
+	private let inputManager: TextFieldsManager
 	private let dismiss: () -> Void
-	private let inputManager: InputManager
-
 	private var bindings: [AnyCancellable] = []
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
@@ -130,7 +127,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	}()
 
 	private func setupBindings() {
-		viewModel.$textInput.sink { [navigationFooterItem] updatedText in
+		viewModel.$entryModel.sink { [navigationFooterItem] updatedText in
 			navigationFooterItem.isPrimaryButtonEnabled = !updatedText.isEmpty
 		}.store(in: &bindings)
 	}
@@ -163,6 +160,8 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		])
 
 		let nameTextField = DiaryEntryTextField(frame: .zero)
+		nameTextField.translatesAutoresizingMaskIntoConstraints = false
+		nameTextField.isUserInteractionEnabled = true
 		nameTextField.clearButtonMode = .whileEditing
 		nameTextField.placeholder = viewModel.placeholderText
 		nameTextField.textColor = .enaColor(for: .textPrimary1)
@@ -174,9 +173,11 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.returnKeyType = .continue
 		nameTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		nameTextField.delegate = self
-		nameTextField.text = viewModel.textInput
+		nameTextField.text = viewModel.entryModel.name
 
 		let phoneNumberTextField = DiaryEntryTextField(frame: .zero)
+		phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = false
+		phoneNumberTextField.isUserInteractionEnabled = true
 		phoneNumberTextField.clearButtonMode = .whileEditing
 		phoneNumberTextField.placeholder = "NYD" //viewModel.placeholderText
 		phoneNumberTextField.textColor = .enaColor(for: .textPrimary1)
@@ -186,11 +187,13 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		phoneNumberTextField.smartQuotesType = .no
 		phoneNumberTextField.keyboardAppearance = .default
 		phoneNumberTextField.returnKeyType = .continue
-//		phoneNumberTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		phoneNumberTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		phoneNumberTextField.delegate = self
 //		phoneNumberTextField.text = viewModel.textInput
 
 		let emailTextField = DiaryEntryTextField(frame: .zero)
+		emailTextField.translatesAutoresizingMaskIntoConstraints = false
+		emailTextField.isUserInteractionEnabled = true
 		emailTextField.clearButtonMode = .whileEditing
 		emailTextField.placeholder = "NYD" //viewModel.placeholderText
 		emailTextField.textColor = .enaColor(for: .textPrimary1)
@@ -200,13 +203,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		emailTextField.smartQuotesType = .no
 		emailTextField.keyboardAppearance = .default
 		emailTextField.returnKeyType = .done
-//		emailTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
+		emailTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		emailTextField.delegate = self
 //		emailTextField.text = viewModel.textInput
 
 		nameTextField.translatesAutoresizingMaskIntoConstraints = false
 		nameTextField.isUserInteractionEnabled = true
-//		contentView.addSubview(nameTextField)
 
 		let stackView = UIStackView(arrangedSubviews: [nameTextField, phoneNumberTextField, emailTextField])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -226,14 +228,19 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		footerView?.isHidden = false
 
-		inputManager.appendTextField(nameTextField)
-		inputManager.appendTextField(phoneNumberTextField)
-		inputManager.appendTextField(emailTextField)
+		// register textfields with the associated keypath to manage keyboard & input
+		inputManager.appendTextField(textfiledWithKayPath: (nameTextField, \DiaryAddAndEditEntryModel.name))
+		inputManager.appendTextField(textfiledWithKayPath: (phoneNumberTextField, \DiaryAddAndEditEntryModel.phoneNumber))
+		inputManager.appendTextField(textfiledWithKayPath: (emailTextField, \DiaryAddAndEditEntryModel.emailAddress))
 	}
 
 	@objc
 	private func textValueChanged(sender: UITextField) {
-		viewModel.update(sender.text)
+		guard let entryModelKeyPath = inputManager.keyPath(for: sender) else {
+			Log.debug("Failed to find matching textfiled", log: .default)
+			return
+		}
+		viewModel.update(sender.text, keyPath: entryModelKeyPath)
 	}
 
 }
