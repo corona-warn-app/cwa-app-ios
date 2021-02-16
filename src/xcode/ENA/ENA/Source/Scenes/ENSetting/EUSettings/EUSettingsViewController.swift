@@ -15,8 +15,20 @@ class EUSettingsViewController: DynamicTableViewController {
 	// MARK: - Private Attributes
 
 	private var viewModel = EUSettingsViewModel()
-	private var subscriptions = [AnyCancellable]()
+	private var applicationDidBecomeActiveObserver: NSObjectProtocol?
+	private var appConfigCancellable: AnyCancellable?
 
+	// MARK: Deinit
+	
+	deinit {
+		if let observer = applicationDidBecomeActiveObserver {
+			NotificationCenter.default.removeObserver(observer)
+		}
+		appConfigCancellable?.cancel()
+	}
+	
+	// MARK: - Init
+	
 	init(appConfigurationProvider: AppConfigurationProviding) {
 		self.appConfigurationProvider = appConfigurationProvider
 
@@ -41,9 +53,10 @@ class EUSettingsViewController: DynamicTableViewController {
 		view.backgroundColor = .enaColor(for: .background)
 		setupTableView()
 		setupBackButton()
-		setupDataSource()
+		setupObservers()
+		setupDataSource(forceFetch: false)
 	}
-
+	
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
@@ -60,18 +73,32 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	// MARK: Data Source setup methods.
 
-	private func setupDataSource() {
-		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
-			let supportedCountryIDs = configuration.supportedCountries
-			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
-			self?.viewModel = EUSettingsViewModel(countries: supportedCountries)
-			self?.reloadCountrySection()
-		}.store(in: &subscriptions)
+	private func setupObservers() {
+		applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
+			guard let self = self else { return }
+			// reload country list if empty
+			if self.viewModel.countryModels?.isEmpty == true {
+				self.appConfigCancellable?.cancel()
+				self.setupDataSource(forceFetch: true)
+			}
+		}
 	}
-
-	private func reloadCountrySection() {
-		dynamicTableViewModel = viewModel.euSettingsModel()
-		tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+	
+	private func setupDataSource(forceFetch: Bool) {
+		appConfigCancellable = appConfigurationProvider
+			.appConfiguration(forceFetch: forceFetch)
+			.map({ config -> [Country] in
+				let supportedCountries = config.supportedCountries.compactMap({ Country(countryCode: $0) })
+				return supportedCountries.sortedByLocalizedName
+			})
+			.map({ countries -> EUSettingsViewModel in
+				return EUSettingsViewModel(countries: countries)
+			})
+			.sink { [weak self] model in
+				self?.viewModel = model
+				self?.dynamicTableViewModel = model.euSettingsModel()
+				self?.tableView.reloadData()
+			}
 	}
 }
 
