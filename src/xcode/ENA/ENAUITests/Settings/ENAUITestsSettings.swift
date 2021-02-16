@@ -28,9 +28,9 @@ class ENAUITests_03_Settings: XCTestCase {
 		XCTAssert(app.cells["AppStrings.Settings.notificationLabel"].waitForExistence(timeout: 5.0))
 		XCTAssert(app.cells["AppStrings.Settings.backgroundAppRefreshLabel"].waitForExistence(timeout: 5.0))
 		XCTAssert(app.cells["AppStrings.Settings.resetLabel"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Settings.Datadonation.description"].waitForExistence(timeout: 5.0))
 	}
-	
-	
+
 	func test_0031_SettingsFlow_BackgroundAppRefresh() throws {
 		app.launch()
 		
