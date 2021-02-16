@@ -30,9 +30,9 @@ class ENAUITests: XCTestCase {
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		XCTAssertTrue(app.buttons["General.primaryFooterButton"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons["General.primaryFooterButton"].waitForExistence(timeout: .medium))
 		app.buttons["General.primaryFooterButton"].tap()
 	}
 
