@@ -97,4 +97,19 @@ internal extension DynamicCell {
 		}
 	}
 
+	static func dataProcessingDetails() -> Self {
+		.body(
+			text: AppStrings.DataDonation.Info.dataProcessingDetails,
+			style: DynamicCell.TextCellStyle.label,
+			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
+			accessibilityTraits: UIAccessibilityTraits.link,
+			action: .pushDataDonationDetails(model: DataDonationDetailsViewModel().dynamicTableViewModel,
+											 withTitle: AppStrings.DataDonation.DetailedInfo.title,
+											 completion: nil),
+			configure: { _, cell, _ in
+				cell.accessoryView = nil
+				cell.accessoryType = .disclosureIndicator
+				cell.selectionStyle = .default
+			})
+	}
 }
