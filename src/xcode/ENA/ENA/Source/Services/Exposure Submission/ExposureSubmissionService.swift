@@ -218,9 +218,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				case .success(let token):
 					self.updateStoreWithQRSubmissionSelected()
 					self.store.testRegistrationDate = Date()
-					let keySubmissionService = KeySubmissionService(store: self.store)
-					keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
-					keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
 					self._getTestResult(token) { testResult in
 						completion(testResult)
 					}
@@ -322,6 +319,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
 					self.store.testResultDate = Date()
+					self.updateStoreWithHoursSinceHighRiskWarningAtTestRegistration()
+					self.updateStoreWithDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 					completeWith(.success(testResult))
 				case .pending:
 					completeWith(.success(testResult))
@@ -411,9 +410,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
-				let keySubmissionService = KeySubmissionService(store: self.store)
-				keySubmissionService.setHoursSinceTestResult()
-				keySubmissionService.setHoursSinceTestRegistration()
 				self.updateStoreWithUserConsentGiven(value: self.store.isSubmissionConsentGiven)
 				self.updateStoreWithKeySubmissionDone()
 				self.submitExposureCleanup()
@@ -518,6 +514,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	private func updateStoreWithKeySubmissionDone() {
 		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setHoursSinceTestResult()
+		keySubmissionService.setHoursSinceTestRegistration()
 		keySubmissionService.setSubmitted(withValue: true)
 	}
 
@@ -529,5 +527,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func updateStoreWithUserConsentGiven(value: Bool) {
 		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setAdvancedConsentGiven(withValue: value)
+	}
+	
+	private func updateStoreWithHoursSinceHighRiskWarningAtTestRegistration() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
+	}
+	
+	private func updateStoreWithDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 	}
 }
