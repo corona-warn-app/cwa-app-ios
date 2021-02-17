@@ -206,6 +206,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		if useStoredRegistration {
 			getTestResult(completion)
 		} else {
+			
 			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 			_getRegistrationToken(key, type) { result in
 				switch result {
@@ -215,7 +216,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// Fake requests.
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
+					self.createTestMetaData()
 					self._getTestResult(token) { testResult in
+						switch testResult {
+						case .success(let testResult):
+							self.updateTestResultMetadata(with: testResult)
+						case.failure:
+							break
+						}
 						completion(testResult)
 					}
 
@@ -469,6 +477,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		Log.info("Exposure submission cleanup.", log: .api)
+	}
+
+	func createTestMetaData() {
+		let testMetadataService = TestResultMetadataService(store: store)
+		testMetadataService.registerNewTestMetadata(date: Date())
+	}
+	
+	private func updateTestResultMetadata(with testResult: TestResult) {
+		let testService = TestResultMetadataService(store: store)
+		testService.updateResult(testResult: testResult)
+
 	}
 
 	// MARK: Fake requests

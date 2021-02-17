@@ -280,6 +280,11 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
+	
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
 
 	#if !RELEASE
 
@@ -365,6 +370,7 @@ extension SecureStore: PrivacyPreservingProviding {
 			lastAppReset = nil
 			lastSubmissionAnalytics = nil
 			clientMetadata = nil
+			testResultMetadata = nil
 		}
 	}
 
@@ -415,6 +421,13 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
 		set {
 			kvStore["userMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+	
+	var testResultMetadata: TestResultMetaData? {
+		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
+		set { kvStore["testResultaMetadata"] = newValue
 			analyticsSubmitter?.triggerSubmitData()
 		}
 	}

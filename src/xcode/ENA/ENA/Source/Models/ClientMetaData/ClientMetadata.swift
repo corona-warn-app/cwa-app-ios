@@ -33,6 +33,7 @@ struct ClientMetadata: Codable {
 			  let patchAppVersion = Int((appVersionParts[2])) else {
 			return
 		}
+		
 		cwaVersion = Version(
 			major: majorAppVerson,
 			minor: minorAppVerson,

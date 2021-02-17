@@ -152,7 +152,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 		subscription.cancel()
 	}
 
-	// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-3781
 	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledOnce() {
 		// GIVEN
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client only once")
