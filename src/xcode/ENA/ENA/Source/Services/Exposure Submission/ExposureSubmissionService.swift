@@ -234,19 +234,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	
-	func createTestMetaData() {
-		// TODO: check for consent of PPA first else  no data collected
-		let testMetadataService = TestResultMetadataService(store: store)
-		testMetadataService.registerNewTestMetadata(date: Date())
-	}
-	
-	private func updateTestResultMetadata(with testResult: TestResult) {
-		let testService = TestResultMetadataService(store: store)
-		testService.updateResult(testResult: testResult)
-
-	}
-
 	func deleteTest() {
 		store.registrationToken = nil
 		store.testResultReceivedTimeStamp = nil
@@ -490,6 +477,18 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		Log.info("Exposure submission cleanup.", log: .api)
+	}
+
+	func createTestMetaData() {
+		// TODO: check for consent of PPA first else  no data collected
+		let testMetadataService = TestResultMetadataService(store: store)
+		testMetadataService.registerNewTestMetadata(date: Date())
+	}
+	
+	private func updateTestResultMetadata(with testResult: TestResult) {
+		let testService = TestResultMetadataService(store: store)
+		testService.updateResult(testResult: testResult)
+
 	}
 
 	// MARK: Fake requests

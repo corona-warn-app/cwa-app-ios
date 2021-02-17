@@ -65,7 +65,7 @@ class TestTestResultMetadataService: XCTestCase {
 		}
 
 		sut.updateResult(testResult: .positive)
-		XCTAssertEqual(secureStore.testResultMetadata?.testRsult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 	
@@ -73,7 +73,7 @@ class TestTestResultMetadataService: XCTestCase {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		secureStore.testResultMetadata?.testRsult = .positive
+		secureStore.testResultMetadata?.testResult = .positive
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
@@ -83,7 +83,7 @@ class TestTestResultMetadataService: XCTestCase {
 		}
 
 		sut.updateResult(testResult: .positive)
-		XCTAssertEqual(secureStore.testResultMetadata?.testRsult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
 		// The date shouldn't be updated if the test result is the same as the old one
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
@@ -93,7 +93,7 @@ class TestTestResultMetadataService: XCTestCase {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		secureStore.testResultMetadata?.testRsult = .pending
+		secureStore.testResultMetadata?.testResult = .pending
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
@@ -103,7 +103,7 @@ class TestTestResultMetadataService: XCTestCase {
 		}
 
 		sut.updateResult(testResult: .positive)
-		XCTAssertEqual(secureStore.testResultMetadata?.testRsult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
 		// The the date is updated if the risk results changes e.g from pendong to positive
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
@@ -113,7 +113,7 @@ class TestTestResultMetadataService: XCTestCase {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		secureStore.testResultMetadata?.testRsult = .pending
+		secureStore.testResultMetadata?.testResult = .pending
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
@@ -125,7 +125,7 @@ class TestTestResultMetadataService: XCTestCase {
 		sut.updateResult(testResult: .invalid)
 		
 		// The if the value is invalid  testResult shouldn't be updated
-		XCTAssertNil(secureStore.testResultMetadata?.testRsult, "incorrect testResult")
+		XCTAssertNil(secureStore.testResultMetadata?.testResult, "incorrect testResult")
 		
 		// The if the value is invalid  hoursSinceTestRegistration shouldnt be updated and should remain the default value: 0
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")

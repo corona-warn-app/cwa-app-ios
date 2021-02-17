@@ -5,18 +5,14 @@
 import Foundation
 
 class TestResultMetadataService {
-		
-	// MARK: - Private Properties.
-
-	private var secureStore: Store
-	
+			
 	// MARK: - Init.
 
 	init(store: Store) {
 		secureStore = store
 	}
 	
-	// MARK: - Public Helpers.
+	// MARK: - Internal
 
 	func registerNewTestMetadata(date: Date = Date()) {
 		guard let riskLevel = secureStore.riskCalculationResult?.riskLevel  else {
@@ -47,7 +43,7 @@ class TestResultMetadataService {
 			return
 		}
 		
-		let storedTestResult = secureStore.testResultMetadata?.testRsult
+		let storedTestResult = secureStore.testResultMetadata?.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == newTestResult ---> do nothing
@@ -55,7 +51,7 @@ class TestResultMetadataService {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				secureStore.testResultMetadata?.testRsult = testResult
+				secureStore.testResultMetadata?.testResult = testResult
 				saveHoursSinceTestRegistration()
 				
 			case .expired, .invalid:
@@ -64,14 +60,14 @@ class TestResultMetadataService {
 		}
 	}
 	
-	// MARK: - Private Helpers.
-	
+	// MARK: - Private
+
 	private func saveHoursSinceTestRegistration() {
 		guard let registrationDate = secureStore.testResultMetadata?.testRegistrationDate else {
 			return
 		}
 		
-		switch secureStore.testResultMetadata?.testRsult {
+		switch secureStore.testResultMetadata?.testResult {
 		case .positive, .negative, .pending:
 			let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 			secureStore.testResultMetadata?.hoursSinceTestRegistration = diffComponents.hour
@@ -79,4 +75,6 @@ class TestResultMetadataService {
 			secureStore.testResultMetadata?.hoursSinceTestRegistration = nil
 		}
 	}
+	
+	private var secureStore: Store
 }

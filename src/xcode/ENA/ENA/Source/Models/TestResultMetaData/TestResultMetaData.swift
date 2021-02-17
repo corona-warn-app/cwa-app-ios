@@ -6,10 +6,10 @@ import Foundation
 
 struct TestResultMetaData: Codable {
 	
-	// MARK: - Public properties
+	// MARK: - Internal
 
 	//pending, positive or negative only
-	var testRsult: TestResult?
+	var testResult: TestResult?
 
 	// positive or negative “First time received” = time of test result - time of test registration
 	// Pending: "everytime" current timestamp - time of test registration
@@ -31,12 +31,12 @@ struct TestResultMetaData: Codable {
 
 	init() {}
 		
-	// MARK: - Init from decoder
+	// MARK: - Protocol Codable
 
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		testRsult = try container.decodeIfPresent(TestResult.self, forKey: .testRsult)
+		testResult = try container.decodeIfPresent(TestResult.self, forKey: .testResult)
 		hoursSinceTestRegistration = try container.decodeIfPresent(Int.self, forKey: .hoursSinceTestRegistration)
 		riskLevelAtTestRegistration = try container.decodeIfPresent(RiskLevel.self, forKey: .riskLevelAtTestRegistration)
 		daysSinceMostRecentDateAtRiskLevelAtTestRegistration = try container.decodeIfPresent(
@@ -49,10 +49,8 @@ struct TestResultMetaData: Codable {
 		)
 	}
 	
-	// MARK: - CodingKeys
-
 	enum CodingKeys: String, CodingKey {
-		case testRsult
+		case testResult
 		case hoursSinceTestRegistration
 		case riskLevelAtTestRegistration
 		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
