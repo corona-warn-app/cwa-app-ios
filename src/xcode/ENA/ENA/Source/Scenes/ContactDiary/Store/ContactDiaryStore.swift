@@ -78,46 +78,123 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			contentHeader = String(format: contentHeader, startDateString, endDateString)
 			contentHeader.append("\n\n")
 
-			var exportString = contentHeader
+			struct ExportEntry {
+				let date: Date
+				let description: String
+			}
+			var exportEntries = [ExportEntry]()
 
 			let personEncounterSQL = """
-					SELECT 'A' AS sortGroup, ContactPerson.id AS entryId, ContactPerson.name AS entryName, ContactPersonEncounter.id AS contactPersonEncounterId, ContactPersonEncounter.date
+					SELECT ContactPerson.id AS entryId,
+						ContactPerson.name AS entryName,
+						ContactPerson.phoneNumber AS phoneNumber,
+						ContactPerson.emailAddress AS emailAddress,
+						ContactPersonEncounter.id AS contactPersonEncounterId,
+						ContactPersonEncounter.date AS date,
+						ContactPersonEncounter.duration AS duration,
+						ContactPersonEncounter.maskSituation AS maskSituation,
+						ContactPersonEncounter.setting AS setting,
+						ContactPersonEncounter.circumstances AS circumstances
 					FROM ContactPersonEncounter
 					LEFT JOIN ContactPerson
 					ON ContactPersonEncounter.contactPersonId = ContactPerson.id
 					WHERE ContactPersonEncounter.date > date('\(todayDateString)','-\(userVisiblePeriodInDays) days')
-					UNION
-					SELECT 'B' AS sortGroup, Location.id AS entryId, Location.name AS entryName, LocationVisit.id AS locationVisitId, LocationVisit.date
+					ORDER BY date DESC, entryName COLLATE NOCASE ASC, entryId ASC
+				"""
+
+			let locationVisitSQL = """
+					SELECT Location.id AS entryId,
+						Location.name AS entryName,
+						Location.phoneNumber AS phoneNumber,
+						Location.emailAddress AS emailAddress,
+						LocationVisit.id AS locationVisitId,
+						LocationVisit.date AS date,
+						LocationVisit.durationInMinutes AS durationInMinutes,
+						LocationVisit.circumstances AS circumstances
 					FROM LocationVisit
 					LEFT JOIN Location
 					ON LocationVisit.locationId = Location.id
 					WHERE LocationVisit.date > date('\(todayDateString)','-\(userVisiblePeriodInDays) days')
-					ORDER BY date DESC, sortGroup ASC, entryName COLLATE NOCASE ASC, entryId ASC
+					ORDER BY date DESC, entryName COLLATE NOCASE ASC, entryId ASC
 				"""
 
 			do {
-				let queryResult = try database.executeQuery(personEncounterSQL, values: [])
+				let personEncounterResult = try database.executeQuery(personEncounterSQL, values: [])
+				let locationVisitResult = try database.executeQuery(locationVisitSQL, values: [])
+
 				defer {
-					queryResult.close()
+					personEncounterResult.close()
+					locationVisitResult.close()
 				}
 
-				while queryResult.next() {
-					let name = queryResult.string(forColumn: "entryName") ?? ""
-					let dateString = queryResult.string(forColumn: "date") ?? ""
+				while personEncounterResult.next() {
+					let dateString = personEncounterResult.string(forColumn: "date") ?? ""
+					guard let date = dateFormatter.date(from: dateString) else {
+						fatalError("Failed to read date from string.")
+					}
+					let germanDateString = germanDateFormatter.string(from: date)
+
+					let name = personEncounterResult.string(forColumn: "entryName") ?? ""
+					let phoneNumber = personEncounterResult.string(forColumn: "phoneNumber") ?? ""
+					let emailAddress = personEncounterResult.string(forColumn: "emailAddress") ?? ""
+					let duration = ContactPersonEncounter.Duration(rawValue: Int(personEncounterResult.int(forColumn: "duration"))) ?? .none
+					let maskSituation = ContactPersonEncounter.MaskSituation(rawValue: Int(personEncounterResult.int(forColumn: "maskSituation"))) ?? .none
+					let setting = ContactPersonEncounter.Setting(rawValue: Int(personEncounterResult.int(forColumn: "setting"))) ?? .none
+					let circumstances = personEncounterResult.string(forColumn: "circumstances") ?? ""
+
+					let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
+					let emailAddressDescription = emailAddress == "" ? "" : "eMail \(emailAddress)"
+					let durationDescription = duration == .none ? "" : "Kontaktdauer \(duration.description)"
+
+					var entryComponents = [
+						"\(germanDateString) \(name)",
+						phoneNumberDescription,
+						emailAddressDescription,
+						durationDescription,
+						maskSituation.description,
+						setting.description, circumstances
+					]
+
+					entryComponents = entryComponents.filter { $0 != "" }
+
+					exportEntries.append(
+						ExportEntry(
+							date: date,
+							description: entryComponents.joined(separator: "; ")
+						)
+					)
+				}
+
+				while locationVisitResult.next() {
+					let name = locationVisitResult.string(forColumn: "entryName") ?? ""
+					let dateString = locationVisitResult.string(forColumn: "date") ?? ""
 
 					guard let date = dateFormatter.date(from: dateString) else {
 						fatalError("Failed to read date from string.")
 					}
 
 					let germanDateString = germanDateFormatter.string(from: date)
-					exportString.append("\(germanDateString) \(name)\n")
+
+					exportEntries.append(
+						ExportEntry(
+							date: date,
+							description: "\(germanDateString) \(name)"
+						)
+					)
 				}
+
 			} catch {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
 			}
 
-			result = .success(exportString)
+			let entriesString = exportEntries.sorted { lfs, rhs -> Bool in
+				lfs.date.compare(rhs.date) == .orderedDescending
+			}.map {
+				$0.description
+			}.joined(separator: "\n")
+
+			result = .success(contentHeader + entriesString)
 		}
 
 		guard let _result = result else {

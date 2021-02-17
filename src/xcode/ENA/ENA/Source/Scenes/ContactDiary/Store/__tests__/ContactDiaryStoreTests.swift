@@ -830,7 +830,6 @@ class ContactDiaryStoreTests: XCTestCase {
 			01.12.2020 Emma Hicks
 			01.12.2020 Amsterdam
 			01.12.2020 Berlin
-
 			"""
 
 		XCTAssertEqual(exportString, expectedString)
