@@ -18,6 +18,7 @@
       "selectedTests" : [
         "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
         "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",
+        "ENAUITests\/test_0003_Generate_Screenshot_For_AppStore_Statistics()",
         "ENAUITests_00_Onboarding\/test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh_activeExposureLogging()",
@@ -38,9 +39,14 @@
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitTAN()",
         "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLogging()",
         "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLoggingOff()",
+        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingNewVersionFeatures()",
+        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15NewFeaturesAndDataDonation()",
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingNewVersionFeatures()",
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15()",
         "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()",
         "ENAUITests_07_ContactJournalUITests\/testAddTwoPersonsAndOneLocationToDate()",
-        "ENAUITests_07_ContactJournalUITests\/testScreenshotTwoPersonsOneLocationAndMessages()"
+        "ENAUITests_07_ContactJournalUITests\/testScreenshotTwoPersonsOneLocationAndMessages()",
+        "ENAUITests_08_UpdateOSUITests\/test_screenshot_UpdateOS()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
