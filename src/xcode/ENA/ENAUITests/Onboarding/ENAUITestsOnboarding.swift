@@ -46,8 +46,6 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
-		// snapshot("ScreenShot_\(#function)_0005")
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: 5.0))
 		// data consent switch must only be visible on settings-data-donation.
 		app.swipeUp(velocity: .slow)
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
@@ -115,8 +113,6 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		// snapshot("ScreenShot_\(#function)_0005")
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: 5.0))
 		// data consent switch must only be visible on settings-data-donation.
 		app.swipeUp(velocity: .slow)
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
