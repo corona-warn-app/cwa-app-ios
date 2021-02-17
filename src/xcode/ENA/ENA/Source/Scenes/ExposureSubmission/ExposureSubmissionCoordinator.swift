@@ -716,12 +716,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	
 	private func updateStoreWithSubmissionAfterSymptomFlow(value: Bool) {
 		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: true)
+		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: value)
 	}
 	
 	private func updateStoreWithSubmissionAfterCancellation(value: Bool) {
 		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setSubmittedAfterCancel(withValue: true)
+		keySubmissionService.setSubmittedAfterCancel(withValue: value)
 	}
 	
 	private func updateStoreWithKeySubmissionDefaultValues() {

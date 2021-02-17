@@ -34,7 +34,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
-			self.updateStoreWithUserConsentGiven()
+			self.updateStoreWithUserConsentGiven(value: isSubmissionConsentGiven)
 		}.store(in: &subscriptions)
 	}
 
@@ -406,6 +406,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
+				self.updateStoreWithUserConsentGiven(value: self.store.isSubmissionConsentGiven)
 				self.updateStoreWithKeySubmissionDone()
 				self.submitExposureCleanup()
 				Log.info("Successfully completed exposure sumbission.", log: .api)
@@ -516,8 +517,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		keySubmissionService.setSubmittedWithTeleTAN(withValue: false)
 	}
 	
-	private func updateStoreWithUserConsentGiven() {
+	private func updateStoreWithUserConsentGiven(value: Bool) {
 		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setAdvancedConsentGiven(withValue: true)
+		keySubmissionService.setAdvancedConsentGiven(withValue: value)
 	}
 }

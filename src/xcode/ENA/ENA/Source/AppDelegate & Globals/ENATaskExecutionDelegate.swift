@@ -118,13 +118,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		service.submitExposure { error in
 			switch error {
 			case .noSubmissionConsent:
+				self.updateStoreWithKeySubmissionInBackground(value: false)
 				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
 			case .noKeysCollected:
+				self.updateStoreWithKeySubmissionInBackground(value: false)
 				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 			case .some(let error):
+				self.updateStoreWithKeySubmissionInBackground(value: false)
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 			case .none:
-				self.updateStoreWithKeySubmissionInBackground()
+				self.updateStoreWithKeySubmissionInBackground(value: true)
 				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 			}
 
@@ -248,8 +251,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		})
 	}
 	
-	private func updateStoreWithKeySubmissionInBackground() {
+	// MARK: Key Submission Service
+	private func updateStoreWithKeySubmissionInBackground(value: Bool) {
 		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setSubmittedInBackground(withValue: true)
+		keySubmissionService.setSubmittedInBackground(withValue: value)
 	}
 }
