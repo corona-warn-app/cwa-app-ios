@@ -5,9 +5,10 @@
 import Foundation
 import UIKit
 
-class DataDonationDetailsViewController: DynamicTableViewController {
-	
+class DataDonationDetailsViewController: DynamicTableViewController, DismissHandling {
+
 	// MARK: - Init
+
 	init() {
 		self.viewModel = DataDonationDetailsViewModel()
 		super.init(nibName: nil, bundle: nil)
@@ -24,7 +25,13 @@ class DataDonationDetailsViewController: DynamicTableViewController {
 		super.viewDidLoad()
 		setupTableView()
 	}
-	
+
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		Log.debug("DismissHandling: dismiss not allowed", log: .default)
+	}
+
 	// MARK: - Private
 	
 	private let viewModel: DataDonationDetailsViewModel
