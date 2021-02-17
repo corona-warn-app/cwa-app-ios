@@ -17,6 +17,11 @@ struct DateProvider: DateProviding {
 	}
 }
 
+private struct ExportEntry {
+	let date: Date
+	let description: String
+}
+
 // swiftlint:disable:next type_body_length
 class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
@@ -78,10 +83,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			contentHeader = String(format: contentHeader, startDateString, endDateString)
 			contentHeader.append("\n\n")
 
-			struct ExportEntry {
-				let date: Date
-				let description: String
-			}
 			var exportEntries = [ExportEntry]()
 
 			let personEncounterSQL = """
@@ -127,62 +128,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					locationVisitResult.close()
 				}
 
-				while personEncounterResult.next() {
-					let dateString = personEncounterResult.string(forColumn: "date") ?? ""
-					guard let date = dateFormatter.date(from: dateString) else {
-						fatalError("Failed to read date from string.")
-					}
-					let germanDateString = germanDateFormatter.string(from: date)
+				let personEncounterEntries = extractPersonEncounterEntries(from: personEncounterResult)
+				exportEntries.append(contentsOf: personEncounterEntries)
 
-					let name = personEncounterResult.string(forColumn: "entryName") ?? ""
-					let phoneNumber = personEncounterResult.string(forColumn: "phoneNumber") ?? ""
-					let emailAddress = personEncounterResult.string(forColumn: "emailAddress") ?? ""
-					let duration = ContactPersonEncounter.Duration(rawValue: Int(personEncounterResult.int(forColumn: "duration"))) ?? .none
-					let maskSituation = ContactPersonEncounter.MaskSituation(rawValue: Int(personEncounterResult.int(forColumn: "maskSituation"))) ?? .none
-					let setting = ContactPersonEncounter.Setting(rawValue: Int(personEncounterResult.int(forColumn: "setting"))) ?? .none
-					let circumstances = personEncounterResult.string(forColumn: "circumstances") ?? ""
-
-					let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
-					let emailAddressDescription = emailAddress == "" ? "" : "eMail \(emailAddress)"
-					let durationDescription = duration == .none ? "" : "Kontaktdauer \(duration.description)"
-
-					var entryComponents = [
-						"\(germanDateString) \(name)",
-						phoneNumberDescription,
-						emailAddressDescription,
-						durationDescription,
-						maskSituation.description,
-						setting.description, circumstances
-					]
-
-					entryComponents = entryComponents.filter { $0 != "" }
-
-					exportEntries.append(
-						ExportEntry(
-							date: date,
-							description: entryComponents.joined(separator: "; ")
-						)
-					)
-				}
-
-				while locationVisitResult.next() {
-					let name = locationVisitResult.string(forColumn: "entryName") ?? ""
-					let dateString = locationVisitResult.string(forColumn: "date") ?? ""
-
-					guard let date = dateFormatter.date(from: dateString) else {
-						fatalError("Failed to read date from string.")
-					}
-
-					let germanDateString = germanDateFormatter.string(from: date)
-
-					exportEntries.append(
-						ExportEntry(
-							date: date,
-							description: "\(germanDateString) \(name)"
-						)
-					)
-				}
-
+				let locationVisitEntries = extractLocationVisitEntries(from: locationVisitResult)
+				exportEntries.append(contentsOf: locationVisitEntries)
 			} catch {
 				Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
@@ -1178,6 +1128,98 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
+	private func extractPersonEncounterEntries(from personEncounterResult: FMResultSet) -> [ExportEntry] {
+		var exportEntries = [ExportEntry]()
+
+		while personEncounterResult.next() {
+			let dateString = personEncounterResult.string(forColumn: "date") ?? ""
+			guard let date = dateFormatter.date(from: dateString) else {
+				fatalError("Failed to read date from string.")
+			}
+			let germanDateString = germanDateFormatter.string(from: date)
+
+			let name = personEncounterResult.string(forColumn: "entryName") ?? ""
+			let phoneNumber = personEncounterResult.string(forColumn: "phoneNumber") ?? ""
+			let emailAddress = personEncounterResult.string(forColumn: "emailAddress") ?? ""
+			let duration = ContactPersonEncounter.Duration(rawValue: Int(personEncounterResult.int(forColumn: "duration"))) ?? .none
+			let maskSituation = ContactPersonEncounter.MaskSituation(rawValue: Int(personEncounterResult.int(forColumn: "maskSituation"))) ?? .none
+			let setting = ContactPersonEncounter.Setting(rawValue: Int(personEncounterResult.int(forColumn: "setting"))) ?? .none
+			let circumstances = personEncounterResult.string(forColumn: "circumstances") ?? ""
+
+
+			let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
+			let emailAddressDescription = emailAddress == "" ? "" : "eMail \(emailAddress)"
+			let durationDescription = duration == .none ? "" : "Kontaktdauer \(duration.description)"
+
+			var entryComponents = [
+				"\(germanDateString) \(name)",
+				phoneNumberDescription,
+				emailAddressDescription,
+				durationDescription,
+				maskSituation.description,
+				setting.description, circumstances
+			]
+
+			entryComponents = entryComponents.filter { $0 != "" }
+
+			exportEntries.append(
+				ExportEntry(
+					date: date,
+					description: entryComponents.joined(separator: "; ")
+				)
+			)
+		}
+
+		return exportEntries
+	}
+
+	private func extractLocationVisitEntries(from locationVisitResult: FMResultSet) -> [ExportEntry] {
+		var exportEntries = [ExportEntry]()
+
+		while locationVisitResult.next() {
+			let dateString = locationVisitResult.string(forColumn: "date") ?? ""
+			guard let date = dateFormatter.date(from: dateString) else {
+				fatalError("Failed to read date from string.")
+			}
+			let germanDateString = germanDateFormatter.string(from: date)
+
+			let name = locationVisitResult.string(forColumn: "entryName") ?? ""
+			let phoneNumber = locationVisitResult.string(forColumn: "phoneNumber") ?? ""
+			let emailAddress = locationVisitResult.string(forColumn: "emailAddress") ?? ""
+			let circumstances = locationVisitResult.string(forColumn: "circumstances") ?? ""
+
+			let durationInM = locationVisitResult.int(forColumn: "durationInMinutes")
+			let dateComponents = DateComponents(minute: Int(durationInM))
+			let formatter = DateComponentsFormatter()
+			formatter.unitsStyle = .positional
+			formatter.zeroFormattingBehavior = .pad
+			formatter.allowedUnits = [.hour, .minute]
+
+
+			let durationDescription = durationInM == 0 ? "" : "Dauer \(formatter.string(from: dateComponents) ?? "") h"
+			let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
+			let emailAddressDescription = emailAddress == "" ? "" : "eMail \(emailAddress)"
+
+			var entryComponents = [
+				"\(germanDateString) \(name)",
+				phoneNumberDescription,
+				emailAddressDescription,
+				durationDescription,
+				circumstances
+			]
+
+			entryComponents = entryComponents.filter { $0 != "" }
+
+			exportEntries.append(
+				ExportEntry(
+					date: date,
+					description: entryComponents.joined(separator: "; ")
+				)
+			)
+		}
+
+		return exportEntries
+	}
 
 	private func logLastErrorCode(from database: FMDatabase) {
 		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)

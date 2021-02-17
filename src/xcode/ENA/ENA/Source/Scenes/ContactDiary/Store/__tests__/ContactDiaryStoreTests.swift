@@ -791,18 +791,32 @@ class ContactDiaryStoreTests: XCTestCase {
 			fatalError("Could not create test dates.")
 		}
 
-		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
+		let adamSandaleId = addContactPerson(name: "Adam Sandale", phoneNumber: "123456", eMail: "some@mail.de", to: store)
 		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
 
-		let amsterdamLocationId = addLocation(name: "Amsterdam", to: store)
+		let amsterdamLocationId = addLocation(name: "Amsterdam", phoneNumber: "12345678", eMail: "mail@amster.dam", to: store)
 		let berlinId = addLocation(name: "Berlin", to: store)
 
 		addLocationVisit(locationId: amsterdamLocationId, date: today, store: store)
 		addLocationVisit(locationId: berlinId, date: today, store: store)
 		addPersonEncounter(personId: emmaHicksId, date: today, store: store)
-		addPersonEncounter(personId: adamSandaleId, date: today, store: store)
+		addPersonEncounter(
+			personId: adamSandaleId,
+			date: today,
+			duration: .lessThan15Minutes,
+			maskSituation: .withMask,
+			setting: .inside,
+			circumstances: "Some circumstances.",
+			store: store
+		)
 
-		addLocationVisit(locationId: amsterdamLocationId, date: tenDaysAgo, store: store)
+		addLocationVisit(
+			locationId: amsterdamLocationId,
+			date: tenDaysAgo,
+			durationInMinutes: 62,
+			circumstances: "Some circumstances",
+			store: store
+		)
 		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
 
 		addLocationVisit(locationId: amsterdamLocationId, date: daysVisibleAgo, store: store)
@@ -820,15 +834,15 @@ class ContactDiaryStoreTests: XCTestCase {
 			Kontakte der letzten \(daysVisible) Tage (01.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
-			15.12.2020 Adam Sandale
+			15.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de; Kontaktdauer < 15 Minuten; mit Maske; im Gebäude; Some circumstances.
 			15.12.2020 Emma Hicks
-			15.12.2020 Amsterdam
+			15.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			15.12.2020 Berlin
 			05.12.2020 Emma Hicks
-			05.12.2020 Amsterdam
-			01.12.2020 Adam Sandale
+			05.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam; Dauer 01:02 h; Some circumstances
+			01.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de
 			01.12.2020 Emma Hicks
-			01.12.2020 Amsterdam
+			01.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			01.12.2020 Berlin
 			"""
 
@@ -997,8 +1011,13 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addContactPerson(name: String, to store: ContactDiaryStore) -> Int {
-		let addContactPersonResult = store.addContactPerson(name: name)
+	private func addContactPerson(
+		name: String,
+		phoneNumber: String = "",
+		eMail: String = "",
+		to store: ContactDiaryStore
+	) -> Int {
+		let addContactPersonResult = store.addContactPerson(name: name, phoneNumber: phoneNumber, emailAddress: eMail)
 		guard case let .success(contactPersonId) = addContactPersonResult else {
 			fatalError("Failed to add ContactPerson")
 		}
@@ -1006,8 +1025,13 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addLocation(name: String, to store: ContactDiaryStore) -> Int {
-		let addLocationResult = store.addLocation(name: name)
+	private func addLocation(
+		name: String,
+		phoneNumber: String = "",
+		eMail: String = "",
+		to store: ContactDiaryStore
+	) -> Int {
+		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail)
 		guard case let .success(locationId) = addLocationResult else {
 			fatalError("Failed to add Location")
 		}
@@ -1015,9 +1039,20 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addLocationVisit(locationId: Int, date: Date, store: ContactDiaryStore) -> Int {
+	private func addLocationVisit(
+		locationId: Int,
+		date: Date,
+		durationInMinutes: Int = 0,
+		circumstances: String = "",
+		store: ContactDiaryStore
+	) -> Int {
 		let dateString = dateFormatter.string(from: date)
-		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: dateString)
+		let addLocationVisitResult = store.addLocationVisit(
+			locationId: locationId,
+			date: dateString,
+			durationInMinutes: durationInMinutes,
+			circumstances: circumstances
+		)
 		guard case let .success(locationVisitId) = addLocationVisitResult else {
 			fatalError("Failed to add LocationVisit")
 		}
@@ -1025,9 +1060,25 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addPersonEncounter(personId: Int, date: Date, store: ContactDiaryStore) -> Int {
+	private func addPersonEncounter(
+		personId: Int,
+		date: Date,
+		duration: ContactPersonEncounter.Duration = .none,
+		maskSituation: ContactPersonEncounter.MaskSituation = .none,
+		setting: ContactPersonEncounter.Setting = .none,
+		circumstances: String = "",
+		store: ContactDiaryStore
+	) -> Int {
+
 		let dateString = dateFormatter.string(from: date)
-		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: personId, date: dateString)
+		let addEncounterResult = store.addContactPersonEncounter(
+			contactPersonId: personId,
+			date: dateString,
+			duration: duration,
+			maskSituation: maskSituation,
+			setting: setting,
+			circumstances: circumstances
+		)
 		guard case let .success(encounterId) = addEncounterResult else {
 			fatalError("Failed to add ContactPersonEncounter")
 		}
