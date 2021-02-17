@@ -217,9 +217,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					emailAddress
 				)
 				VALUES (
-					SUBSTR(:name, 1, 250),
-					SUBSTR(:phoneNumber, 1, 250),
-					SUBSTR(:emailAddress, 1, 250)
+					SUBSTR(:name, 1, \(maxTextLength)),
+					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
+					SUBSTR(:emailAddress, 1, \(maxTextLength))
 				);
 			"""
 			let parameters: [String: Any] = [
@@ -267,9 +267,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					emailAddress
 				)
 				VALUES (
-					SUBSTR(:name, 1, 250),
-					SUBSTR(:phoneNumber, 1, 250),
-					SUBSTR(:emailAddress, 1, 250)
+					SUBSTR(:name, 1, \(maxTextLength)),
+					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
+					SUBSTR(:emailAddress, 1, \(maxTextLength))
 				);
 			"""
 
@@ -432,7 +432,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE ContactPerson
-				SET name = SUBSTR(?, 1, 250), phoneNumber = SUBSTR(?, 1, 250), emailAddress = SUBSTR(?, 1, 250)
+				SET name = SUBSTR(?, 1, \(maxTextLength)), phoneNumber = SUBSTR(?, 1, \(maxTextLength)), emailAddress = SUBSTR(?, 1, \(maxTextLength))
 				WHERE id = ?
 			"""
 
@@ -474,7 +474,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE Location
-				SET name = SUBSTR(?, 1, 250), phoneNumber = SUBSTR(?, 1, 250), emailAddress = SUBSTR(?, 1, 250)
+				SET name = SUBSTR(?, 1, \(maxTextLength)), phoneNumber = SUBSTR(?, 1, \(maxTextLength)), emailAddress = SUBSTR(?, 1, \(maxTextLength))
 				WHERE id = ?
 			"""
 
@@ -519,7 +519,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE ContactPersonEncounter
-				SET date = SUBSTR(?, 1, 250), duration = ?, maskSituation = ?, setting = ?, circumstances = SUBSTR(?, 1, 250)
+				SET date = SUBSTR(?, 1, \(maxTextLength)), duration = ?, maskSituation = ?, setting = ?, circumstances = SUBSTR(?, 1, \(maxTextLength))
 				WHERE id = ?
 			"""
 
@@ -572,7 +572,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE LocationVisit
-				SET date = SUBSTR(?, 1, 250), durationInMinutes = ?, circumstances = SUBSTR(?, 1, 250)
+				SET date = SUBSTR(?, 1, \(maxTextLength)), durationInMinutes = ?, circumstances = SUBSTR(?, 1, \(maxTextLength))
 				WHERE id = ?
 			"""
 
@@ -790,6 +790,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	// MARK: - Private
 
+	private let maxTextLength = 250
 	private let key: String
 	private let dateProvider: DateProviding
 	private let schema: ContactDiarySchemaProtocol
