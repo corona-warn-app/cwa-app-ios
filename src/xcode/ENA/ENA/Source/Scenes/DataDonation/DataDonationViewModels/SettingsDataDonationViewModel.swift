@@ -29,7 +29,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 						.title1(
 							text: AppStrings.DataDonation.Info.title,
 							accessibilityIdentifier: AppStrings.DataDonation.Info.title),
-						.headline(text: AppStrings.DataDonation.Info.description)
+						.headline(text: AppStrings.DataDonation.Info.introductionText)
 					]
 				)
 			)
@@ -113,6 +113,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		dynamicTableViewModel.add(
 			.section(
 				cells: [
+					.headline(text: AppStrings.DataDonation.Info.description),
 					.legalExtendedDataDonation(
 						title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
 						description: NSAttributedString(
