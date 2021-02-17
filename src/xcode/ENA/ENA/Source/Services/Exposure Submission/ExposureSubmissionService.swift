@@ -503,6 +503,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 		}
 	}
+    
+	// MARK: Key Submission Service
 
 	private func updateStoreWithKeySubmissionDone() {
 		let keySubmissionService = KeySubmissionService(store: self.store)

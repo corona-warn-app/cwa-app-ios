@@ -230,10 +230,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		self.store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0, hoursSinceHighRiskWarningAtTestRegistration: 0, submittedWithTeleTAN: true)
-
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenTestResult)
+		updateStoreWithKeySubmissionDefaultValues()
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenTestResult)
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
 		return ExposureSubmissionTestResultViewController(
@@ -285,8 +283,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenWarnOthers)
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenWarnOthers)
 
 		// ugly but works for the moment
 		// refactoring more of the coordinator-logic to facilitate combine would help
@@ -496,14 +493,17 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Symptoms
 
 	private func showSymptomsScreen() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenSymptoms)
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenSymptoms)
 		
 		let vc = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
 				guard let self = self else { return }
 				
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				// we don't need to set it true if yes is selected
+				if selectedSymptomsOption != .yes {
+					self.updateStoreWithSubmissionAfterSymptomFlow(value: true)
+				}
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
@@ -515,13 +515,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showSymptomsOnsetScreen() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenSymptomOnset)
-		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: true)
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenSymptomOnset)
 		
 		let vc = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				// setting it to true regardless of the options selected
+				self?.updateStoreWithSubmissionAfterSymptomFlow(value: true)
 				self?.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
@@ -568,9 +568,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showPositiveTestResultCancelAlert(isLoading: @escaping (Bool) -> Void) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setSubmittedAfterCancel(withValue: true)
-
 		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
 
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
@@ -592,6 +589,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			style: .default,
 			handler: { [weak self] _ in
 				if isSubmissionConsentGiven {
+					self?.updateStoreWithSubmissionAfterCancellation(value: true)
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				} else {
 					self?.dismiss()
@@ -626,9 +624,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func showThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setSubmittedAfterCancel(withValue: true)
-
 		let alertTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.title
 		let alertMessage = AppStrings.ExposureSubmissionSymptomsCancelAlert.message
 		let cancelAlertButtonTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton
@@ -645,6 +640,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: cancelAlertButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
+					self?.updateStoreWithSubmissionAfterCancellation(value: true)
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
@@ -661,9 +657,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showSubmissionSymptomsCancelAlert(isLoading: @escaping (Bool) -> Void) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setSubmittedAfterCancel(withValue: true)
-
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionSymptomsCancelAlert.title,
 			message: AppStrings.ExposureSubmissionSymptomsCancelAlert.message,
@@ -675,6 +668,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
 				style: .cancel,
 				handler: { [weak self] _ in
+					self?.updateStoreWithSubmissionAfterCancellation(value: true)
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
@@ -711,6 +705,27 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 
 		navigationController?.present(alert, animated: true)
+	}
+	
+	// MARK: Key Submission Service
+	
+	private func updateStoreWithLastSubmissionFlow(screen: LastSubmissionFlowScreen) {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenSymptomOnset)
+	}
+	
+	private func updateStoreWithSubmissionAfterSymptomFlow(value: Bool) {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: true)
+	}
+	
+	private func updateStoreWithSubmissionAfterCancellation(value: Bool) {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setSubmittedAfterCancel(withValue: true)
+	}
+	
+	private func updateStoreWithKeySubmissionDefaultValues() {
+		self.store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0, hoursSinceHighRiskWarningAtTestRegistration: 0, submittedWithTeleTAN: true)
 	}
 
 	// MARK: Test Result Helper
@@ -778,6 +793,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.dismiss()
 			},
 			onError: { [weak self] error in
+				// reset all the values taken during the submission flow
+				self?.updateStoreWithSubmissionAfterSymptomFlow(value: false)
+				self?.updateStoreWithSubmissionAfterCancellation(value: false)
+				self?.updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenUnknown)
 				self?.showErrorAlert(for: error) {
 					self?.dismiss()
 				}

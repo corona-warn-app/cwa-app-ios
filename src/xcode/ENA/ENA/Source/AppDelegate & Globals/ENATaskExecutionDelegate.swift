@@ -124,7 +124,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			case .some(let error):
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 			case .none:
-				self.updateStoreWithBackgroundSubmission()
+				self.updateStoreWithKeySubmissionInBackground()
 				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 			}
 
@@ -248,7 +248,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		})
 	}
 	
-	private func updateStoreWithBackgroundSubmission() {
+	private func updateStoreWithKeySubmissionInBackground() {
 		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedInBackground(withValue: true)
 	}
