@@ -56,8 +56,18 @@ class TextFieldsManagerTests: XCTestCase {
 		let textField1 = UITextField()
 		let textField2 = UITextField()
 
+		// this is required because become first responder will only work if the textfield is inside the current view hirachie
+		let dummyViewController = UIViewController()
+		let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+		window.makeKeyAndVisible()
+		window.rootViewController = dummyViewController
+		dummyViewController.view.addSubview(textField1)
+		dummyViewController.view.addSubview(textField2)
+
 		manager.appendTextField(textfiledWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
 		manager.appendTextField(textfiledWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
+
+		dummyViewController.loadViewIfNeeded()
 
 		// WHEN
 		manager.nextFirstResponder()
@@ -67,7 +77,37 @@ class TextFieldsManagerTests: XCTestCase {
 
 		// THEN
 		XCTAssertFalse(firstResponder1)
-		XCTAssertFalse(firstResponder2)
+		XCTAssertTrue(firstResponder2)
+	}
+
+	func testGIVEN_TextfieldManager_WHEN_FirstRespomderChange_THEN_isSelected() {
+		// GIVEN
+		let manager = TextFieldsManager()
+		let textField1 = UITextField()
+		let textField2 = UITextField()
+
+		// this is required because become first responder will only work if the textfield is inside the current view hirachie
+		let dummyViewController = UIViewController()
+		let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+		window.makeKeyAndVisible()
+		window.rootViewController = dummyViewController
+		dummyViewController.view.addSubview(textField1)
+		dummyViewController.view.addSubview(textField2)
+
+		manager.appendTextField(textfiledWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
+		manager.appendTextField(textfiledWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
+
+		dummyViewController.loadViewIfNeeded()
+
+		// WHEN
+		manager.nextFirstResponder()
+		manager.nextFirstResponder()
+		let firstResponder1 = textField1.isFirstResponder
+		let firstResponder2 = textField2.isFirstResponder
+
+		// THEN
+		XCTAssertFalse(firstResponder1)
+		XCTAssertTrue(firstResponder2)
 	}
 
 	func testGIVEN_TextFieldManager_WHEN_AddTwiceATextFiled_THEN_OnlyAddedOnce() {

@@ -10,11 +10,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Init
 
 	init(
+		textFiledManager: TextFieldsManager = TextFieldsManager(),
 		viewModel: DiaryAddAndEditEntryViewModel,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-		self.textfieldsManager = TextFieldsManager()
+		self.textfieldsManager = textFiledManager
 		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
