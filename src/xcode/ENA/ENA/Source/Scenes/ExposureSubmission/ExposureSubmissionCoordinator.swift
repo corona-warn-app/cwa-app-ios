@@ -231,7 +231,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		updateStoreWithKeySubmissionDefaultValues()
+		updateStoreWithKeySubmissionMetadataDefaultValues()
 		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenTestResult)
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
@@ -730,7 +730,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		keySubmissionService.setSubmittedWithTeleTAN(withValue: true)
 	}
 	
-	private func updateStoreWithKeySubmissionDefaultValues() {
+	private func updateStoreWithKeySubmissionMetadataDefaultValues() {
 		self.store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0, hoursSinceHighRiskWarningAtTestRegistration: 0, submittedWithTeleTAN: true)
 	}
 
@@ -799,7 +799,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.dismiss()
 			},
 			onError: { [weak self] error in
-				// reset all the values taken during the submission flow
+				// reset all the values taken during the submission flow because submission failed
 				self?.updateStoreWithSubmissionAfterSymptomFlow(value: false)
 				self?.updateStoreWithSubmissionAfterCancellation(value: false)
 				self?.updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenUnknown)

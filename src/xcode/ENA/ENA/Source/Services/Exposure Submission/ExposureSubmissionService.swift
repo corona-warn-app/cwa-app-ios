@@ -216,6 +216,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// Fake requests.
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
+					// because this block is only called in QR submission
 					self.updateStoreWithQRSubmissionSelected()
 					self.store.testRegistrationDate = Date()
 					self._getTestResult(token) { testResult in
