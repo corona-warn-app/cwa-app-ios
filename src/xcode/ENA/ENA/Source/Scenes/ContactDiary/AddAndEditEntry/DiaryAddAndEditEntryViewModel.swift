@@ -22,13 +22,7 @@ class DiaryAddAndEditEntryViewModel {
 			self.entryModel = DiaryAddAndEditEntryModel(entryType)
 
 		case .edit(let entry):
-			switch entry {
-			case .location(let location):
-				self.entryModel = DiaryAddAndEditEntryModel(location)
-
-			case .contactPerson(let person):
-				self.entryModel = DiaryAddAndEditEntryModel(person)
-			}
+			self.entryModel = DiaryAddAndEditEntryModel(entry.type)
 		}
 	}
 
