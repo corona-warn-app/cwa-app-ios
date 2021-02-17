@@ -480,7 +480,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	func createTestMetaData() {
-		// TODO: check for consent of PPA first else  no data collected
 		let testMetadataService = TestResultMetadataService(store: store)
 		testMetadataService.registerNewTestMetadata(date: Date())
 	}

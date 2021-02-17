@@ -38,7 +38,7 @@ struct TestResultMetaData: Codable {
 	
 	// MARK: - Internal
 	
-	//pending, positive or negative only
+	// pending, positive or negative only
 	var testResult: TestResult?
 	
 	// positive or negative “First time received” = time of test result - time of test registration
