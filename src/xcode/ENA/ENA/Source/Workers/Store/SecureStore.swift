@@ -280,6 +280,11 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
+	
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
 
 	#if !RELEASE
 
@@ -310,11 +315,6 @@ final class SecureStore: Store {
 		set { kvStore["forceAPITokenAuthorization"] = newValue }
 	}
 
-	var dateOfConversionToHighRisk: Date? {
-		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
-		set { kvStore["dateOfConversionToHighRisk"] = newValue }
-	}
-	
 	#endif
 	// MARK: - Private
 
