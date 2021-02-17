@@ -222,12 +222,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 					keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
 					self._getTestResult(token) { testResult in
-						switch testResult {
-						case .success:
-							self.store.testResultDate = Date()
-						case.failure:
-							break
-						}
 						completion(testResult)
 					}
 
@@ -327,6 +321,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				switch testResult {
 				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+					self.store.testResultDate = Date()
 					completeWith(.success(testResult))
 				case .pending:
 					completeWith(.success(testResult))
@@ -442,6 +437,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.failure(self.parseError(error)))
 			case let .success(registrationToken):
 				self.store.registrationToken = registrationToken
+				self.store.testRegistrationDate = Date()
 				self.store.testResultReceivedTimeStamp = nil
 				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
 				self.store.devicePairingConsentAccept = true
