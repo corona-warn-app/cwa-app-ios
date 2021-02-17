@@ -209,7 +209,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
 		
-		snapshot("homescreenrisk_level_\(riskLevel)_14days\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_14days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardLow_Ndays() throws {
@@ -222,7 +222,7 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
 		
-		snapshot("homescreenrisk_level_\(riskLevel)_\(activeTracingDays)days\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardInactive() throws {
