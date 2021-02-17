@@ -12,6 +12,7 @@ import OpenCombine
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
+// swiftlint:disable:next type_body_length
 class ENAExposureSubmissionService: ExposureSubmissionService {
 	
 	// MARK: - Init
@@ -207,6 +208,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		if useStoredRegistration {
 			getTestResult(completion)
 		} else {
+			
 			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 			_getRegistrationToken(key, type) { result in
 				switch result {
@@ -219,7 +221,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// because this block is only called in QR submission
 					self.updateStoreWithQRSubmissionSelected()
 					self.store.testRegistrationDate = Date()
+					self.createTestMetaData()
 					self._getTestResult(token) { testResult in
+						switch testResult {
+						case .success(let testResult):
+							self.updateTestResultMetadata(with: testResult)
+						case.failure:
+							break
+						}
 						completion(testResult)
 					}
 
@@ -478,6 +487,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		Log.info("Exposure submission cleanup.", log: .api)
+	}
+
+	func createTestMetaData() {
+		let testMetadataService = TestResultMetadataService(store: store)
+		testMetadataService.registerNewTestMetadata(date: Date())
+	}
+	
+	private func updateTestResultMetadata(with testResult: TestResult) {
+		let testService = TestResultMetadataService(store: store)
+		testService.updateResult(testResult: testResult)
+
 	}
 
 	// MARK: Fake requests

@@ -91,6 +91,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 			
 			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
+			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
 
 		}.store(in: &subscriptions)
 	}
@@ -122,7 +123,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let configurationProvider: AppConfigurationProviding
 
 	private var subscriptions = [AnyCancellable]()
-
+	private var hoursSinceTestRegistrationToSubmitTestResultMetadata: Int32 = 0
+	
 	private var userDeclinedAnalyticsCollectionConsent: Bool {
 		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
@@ -186,6 +188,35 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return isSubmitted || timeDifferenceFulfilsCriteria
 	}
 
+	private var shouldTestResultMetadataBeIncluded: Bool {
+		/* Conditions for submitting the data:
+			- testResult = positive
+			OR
+			- testResult = negative
+			OR
+			- differenceBetweenRegistrationAndCurrentDateInHours "Registration is stored In TestMetadata" >= hoursSinceTestRegistrationToSubmitTestResultMetadata "stored in appConfiguration"
+		*/
+		
+		// If for some reason there is no registrationDate we should not submit the testMetadata
+		guard let registrationDate = store.testResultMetadata?.testRegistrationDate else {
+			return false
+		}
+				
+		switch store.testResultMetadata?.testResult {
+		case .positive, .negative:
+			return true
+		default:
+			break
+		}
+		let differenceBetweenRegistrationAndCurrentDate = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
+
+		if let differenceBetweenRegistrationAndCurrentDateInHours = differenceBetweenRegistrationAndCurrentDate.hour,
+		   differenceBetweenRegistrationAndCurrentDateInHours >= hoursSinceTestRegistrationToSubmitTestResultMetadata {
+			return true
+		}
+		return false
+	}
+
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		// Obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
@@ -210,24 +241,29 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		// already created for EXPOSUREAPP-4790
 		/*
 		let newExposureWindows = gatherNewExposureWindows()
-		let testResultMetadata = gatherTestResultMetadata()
 		*/
 
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
+		let testResultMetadata = gatherTestResultMetadata()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
 			// already created for EXPOSUREAPP-4790
 			/*
 			$0.newExposureWindows = newExposureWindows
-			$0.testResultMetadataSet = testResultMetadata
 			*/
 			$0.userMetadata = userMetadata
 			$0.clientMetadata = clientMetadata
+			$0.userMetadata = userMetadata
+			$0.clientMetadata = clientMetadata
+			
 			if shouldIncludeKeySubmissionMetadata {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
+			}
+			if shouldTestResultMetadataBeIncluded {
+				$0.testResultMetadataSet = testResultMetadata
 			}
 		}
 
@@ -264,7 +300,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 		)
 	}
-
+	
 	private func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
 		guard let storedUsageData = store.currentRiskExposureMetadata else {
 			return []
@@ -280,9 +316,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	// already created for EXPOSUREAPP-4790
 	/*
 	private func gatherNewExposureWindows() -> [SAP_Internal_Ppdd_PPANewExposureWindow] {
-	}
-
-	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
 	}
 	*/
 
@@ -361,6 +394,30 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 		}
 		return [returnProtobuf]
+	}
+
+	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
+		let metadata = store.testResultMetadata
+
+		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
+			
+			if let testResult = metadata?.testResult?.protobuf {
+				$0.testResult = testResult
+			}
+			if let hoursSinceTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+				$0.hoursSinceTestRegistration = Int32(hoursSinceTestRegistration)
+			}
+			if let riskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {
+				$0.riskLevelAtTestRegistration = riskLevel
+			}
+			if let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
+			}
+			if let hoursSinceHighRiskWarningAtTestRegistration = metadata?.hoursSinceHighRiskWarningAtTestRegistration {
+				$0.hoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceHighRiskWarningAtTestRegistration)
+			}
+		}
+		return [resultProtobuf]
 	}
 
 	private func formatToUnixTimestamp(for date: Date?) -> Int64 {

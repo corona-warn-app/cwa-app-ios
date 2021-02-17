@@ -68,7 +68,7 @@ protocol StoreProtocol: AnyObject {
 	
 	/// Date when the test result came
 	var testResultDate: Date? { get set }
-	
+
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
@@ -166,10 +166,12 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
-     /// Analytics data.
+    /// Analytics data.
 	var clientMetadata: ClientMetadata? { get set }
 	/// Analytics data
 	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
+	/// Analytics data.
+	var testResultMetadata: TestResultMetaData? { get set }
 }
 
 /// Wrapper protocol
