@@ -87,7 +87,8 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
 
 		// - Data Donation Screen
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.staticTexts[app.localized(AppStrings.DataDonation.Info.title)].waitForExistence(timeout: .medium))
+		
 
 		app.swipeUp(velocity: .slow)
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
