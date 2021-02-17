@@ -27,7 +27,7 @@ final class TextFieldsManager {
 	func keyPath(for searchTextField: UITextField) -> WritableKeyPath<DiaryAddAndEditEntryModel, String>? {
 		textFieldsWithKeyPaths.first { textField, _ -> Bool in
 			searchTextField == textField
-		}?.1
+		}?.keyPath
 	}
 
 	func resignFirstResponder() {
@@ -52,9 +52,9 @@ final class TextFieldsManager {
 		textFieldsOnly[nextIndex].becomeFirstResponder()
 	}
 
-	// method to add a new textfield to the known array of TextFields with attatched KeyPath
-	func appendTextField(textfieldWithKayPath: (UITextField, WritableKeyPath<DiaryAddAndEditEntryModel, String>)) {
-		guard !textFieldsOnly.contains(textfieldWithKayPath.0) else {
+	// method to add a new textfield to the known array of TextFields with attached KeyPath
+	func appendTextField(textfieldWithKayPath: (textField: UITextField, WritableKeyPath<DiaryAddAndEditEntryModel, String>)) {
+		guard !textFieldsOnly.contains(textfieldWithKayPath.textField) else {
 			Log.debug("Text filed already known - stop here", log: .default)
 			return
 		}
@@ -63,7 +63,7 @@ final class TextFieldsManager {
 
 	// MARK: - Private
 
-	private var textFieldsWithKeyPaths: [(UITextField, WritableKeyPath<DiaryAddAndEditEntryModel, String>)]
+	private var textFieldsWithKeyPaths: [(textField: UITextField, keyPath: WritableKeyPath<DiaryAddAndEditEntryModel, String>)]
 
 	/// look for the current first responder and return if available
 	private var firstResponder: UITextField? {
