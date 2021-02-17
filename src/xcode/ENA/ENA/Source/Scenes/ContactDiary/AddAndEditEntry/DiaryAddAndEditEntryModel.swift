@@ -12,12 +12,12 @@ struct DiaryAddAndEditEntryModel {
 		switch type {
 		case .contactPerson:
 			self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.name
-			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber
+			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phoneNumber
 			self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.email
 
 		case .location:
 			self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.name
-			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber
+			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phoneNumber
 			self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.email
 		}
 

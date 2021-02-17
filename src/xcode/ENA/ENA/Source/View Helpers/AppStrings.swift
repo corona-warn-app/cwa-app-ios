@@ -1029,7 +1029,7 @@ enum AppStrings {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
 				enum placeholders {
 					static let name = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_Name", comment: "")
-					static let phonenumber = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber", comment: "")
+					static let phoneNumber = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber", comment: "")
 					static let email = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress", comment: "")
 				}
 			}
@@ -1038,7 +1038,7 @@ enum AppStrings {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
 				enum placeholders {
 					static let name = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_Name", comment: "")
-					static let phonenumber = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber", comment: "")
+					static let phoneNumber = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber", comment: "")
 					static let email = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress", comment: "")
 				}
 			}

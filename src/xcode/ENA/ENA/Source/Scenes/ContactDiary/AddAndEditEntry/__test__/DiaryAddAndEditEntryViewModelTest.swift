@@ -46,7 +46,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.person.title)
 		XCTAssertEqual(namePlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.name)
-		XCTAssertEqual(phonePlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber)
+		XCTAssertEqual(phonePlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.phoneNumber)
 		XCTAssertEqual(emailPlaceholder, AppStrings.ContactDiary.AddEditEntry.person.placeholders.email)
 	}
 	
@@ -264,7 +264,7 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.location.title)
 		XCTAssertEqual(namePlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.name)
-		XCTAssertEqual(phonePlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber)
+		XCTAssertEqual(phonePlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.phoneNumber)
 		XCTAssertEqual(emailPlaceholder, AppStrings.ContactDiary.AddEditEntry.location.placeholders.email)
 	}
 	
