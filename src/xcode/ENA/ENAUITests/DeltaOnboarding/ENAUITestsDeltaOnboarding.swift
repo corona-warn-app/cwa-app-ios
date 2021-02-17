@@ -107,7 +107,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 //		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 //
 //		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
-//		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()		
+//		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
 //		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
 //		app.cells.element(boundBy: 8).tap()
 //		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
