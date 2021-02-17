@@ -6,8 +6,8 @@ import Foundation
 
 class TestResultMetadataService {
 			
-	// MARK: - Init.
-
+	// MARK: - Init
+	
 	init(store: Store) {
 		secureStore = store
 	}
