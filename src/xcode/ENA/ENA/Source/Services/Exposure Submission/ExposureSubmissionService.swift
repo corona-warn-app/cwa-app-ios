@@ -217,7 +217,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
 					self.updateStoreWithQRSubmissionSelected()
+					self.store.testRegistrationDate = Date()
+					let keySubmissionService = KeySubmissionService(store: self.store)
+					keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
+					keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
 					self._getTestResult(token) { testResult in
+						switch testResult {
+						case .success:
+							self.store.testResultDate = Date()
+						case.failure:
+							break
+						}
 						completion(testResult)
 					}
 
@@ -406,6 +416,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
+				let keySubmissionService = KeySubmissionService(store: self.store)
+				keySubmissionService.setHoursSinceTestResult()
+				keySubmissionService.setHoursSinceTestRegistration()
 				self.updateStoreWithUserConsentGiven(value: self.store.isSubmissionConsentGiven)
 				self.updateStoreWithKeySubmissionDone()
 				self.submitExposureCleanup()
