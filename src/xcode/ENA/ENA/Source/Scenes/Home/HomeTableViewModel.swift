@@ -107,9 +107,11 @@ class HomeTableViewModel {
 	}
 
 	func reenableRiskDetection() {
+		store.positiveTestResultWasShown = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 		store.testResultReceivedTimeStamp = nil
-		
+
+		state.testResult = nil
 		state.requestRisk(userInitiated: true)
 	}
 
