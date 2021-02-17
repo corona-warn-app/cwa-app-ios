@@ -46,10 +46,8 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
-		// snapshot("ScreenShot_\(#function)_0005")
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: 5.0))
 		// data consent switch must only be visible on settings-data-donation.
-		app.swipeUp(velocity: .slow)
+		
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
 		// We should only see the two fields. The region should be visible if we tapped on federal state.
@@ -59,7 +57,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 		// Tap on federalState cell. Now we should see the key-value screen and select some.
 		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.FederalState)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.federalStateCell].waitForExistence(timeout: .short))
 
 		// Tap on some data entry. Then we should be back on the data donation screen.
 		app.cells.element(boundBy: 7).tap()
@@ -71,14 +69,14 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.Region)].waitForExistence(timeout: .short))
+		
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 8).tap()
-
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.Age)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.ageGroupCell].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 7).tap()
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
@@ -115,10 +113,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		// snapshot("ScreenShot_\(#function)_0005")
-		XCTAssertTrue(app.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: 5.0))
 		// data consent switch must only be visible on settings-data-donation.
-		app.swipeUp(velocity: .slow)
 		XCTAssertFalse(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
 		// We should only see the two fields. The region should be visible if we tapped on federal state.
@@ -128,7 +123,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 		// Tap on federalState cell. Now we should see the key-value screen and select some.
 		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.FederalState)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.federalStateCell].waitForExistence(timeout: .short))
 
 		// Tap on some data entry. Then we should be back on the data donation screen.
 		app.cells.element(boundBy: 7).tap()
@@ -140,14 +135,14 @@ class ENAUITests_00_Onboarding: XCTestCase {
 
 		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.Region)].waitForExistence(timeout: .short))
+		
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 8).tap()
-
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 
 		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.Age)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.ageGroupCell].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 7).tap()
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].waitForExistence(timeout: .short))
 

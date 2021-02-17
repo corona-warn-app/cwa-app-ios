@@ -12,10 +12,12 @@ final class SelectValueViewModel {
 	init(
 		_ allowedValues: [String],
 		title: String,
-		preselected: String? = nil
+		preselected: String? = nil,
+		accessibilityIdentifier: String
 	) {
 		self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues.sorted()
 		self.title = title
+		self.accessibilityIdentifier = accessibilityIdentifier
 		guard let preselected = preselected,
 			  let selectedIndex = self.allValues.firstIndex(of: preselected) else {
 			self.selectedTupel = (nil, 0)
@@ -29,6 +31,8 @@ final class SelectValueViewModel {
 	// MARK: - Internal
 
 	let title: String
+	
+	let accessibilityIdentifier: String
 
 	/// this tupel represents the change (oldValue, currentValue)
 	@OpenCombine.Published private (set) var selectedTupel: (Int?, Int)

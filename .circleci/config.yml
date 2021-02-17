@@ -221,7 +221,7 @@ workflows:
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
@@ -270,7 +270,7 @@ workflows:
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
