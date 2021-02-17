@@ -89,6 +89,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			} else {
 				self.generatePPACAndSubmitData(completion: completion)
 			}
+			
+			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
 
 		}.store(in: &subscriptions)
 	}
@@ -125,6 +127,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
 
+	private var hoursSinceTestResultToSubmitKeySubmissionMetadata: Int32 = 0
+
 	private var submissionWithinLast23Hours: Bool {
 		guard let lastSubmission = store.lastSubmissionAnalytics,
 			  let twentyThreeHoursAgo = Calendar.current.date(byAdding: .hour, value: -23, to: Date()) else {
@@ -151,6 +155,35 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		let lastTwentyFourHours = twentyFourHoursAgo...Date()
 		return lastTwentyFourHours.contains(lastResetDate)
+	}
+
+	private var shouldIncludeKeySubmissionMetadata: Bool {
+		/* Conditions for submitting the data:
+			submitted is true
+			OR
+			- differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata
+		*/
+		var isSubmitted = false
+		var timeDifferenceFulfilsCriteria = false
+
+		// if submitted is true
+		if store.keySubmissionMetadata?.submitted == true {
+			isSubmitted = true
+		} else {
+			isSubmitted = false
+		}
+
+		// if there is no test result date
+		guard let testResultDate = store.testResultDate else {
+			return false
+		}
+		
+		let differenceBetweenTestResultAndCurrentDate = Calendar.current.dateComponents([.hour], from: testResultDate, to: Date())
+		if let differenceBetweenTestResultAndCurrentDateInHours = differenceBetweenTestResultAndCurrentDate.hour,
+		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
+			timeDifferenceFulfilsCriteria = true
+		}
+		return isSubmitted || timeDifferenceFulfilsCriteria
 	}
 
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
@@ -193,7 +226,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			*/
 			$0.userMetadata = userMetadata
 			$0.clientMetadata = clientMetadata
-			$0.keySubmissionMetadataSet = keySubmissionMetadata
+			if shouldIncludeKeySubmissionMetadata {
+				$0.keySubmissionMetadataSet = keySubmissionMetadata
+			}
 		}
 
 		return payload
@@ -284,27 +319,48 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			$0.iosVersion = clientData.iosVersion.protobuf
 		}
 	}
-
+	
+	// swiftlint:disable:next cyclomatic_complexity
 	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
 		guard let storedUsageData = store.keySubmissionMetadata else {
 			return []
 		}
-		return [SAP_Internal_Ppdd_PPAKeySubmissionMetadata.with {
+		let returnProtobuf = SAP_Internal_Ppdd_PPAKeySubmissionMetadata.with {
 			if let submitted = storedUsageData.submitted {
 				$0.submitted = submitted
 			}
-//			$0.submitted = storedUsageData.submitted
-//			$0.submittedInBackground = storedUsageData.submittedInBackground
-//			$0.submittedAfterCancel = storedUsageData.submittedAfterCancel
-//			$0.submittedAfterSymptomFlow = storedUsageData.submittedAfterSymptomFlow
-//			$0.advancedConsentGiven = storedUsageData.advancedConsentGiven
-//			$0.lastSubmissionFlowScreen = storedUsageData.lastSubmissionFlowScreen.protobuf
-//			$0.hoursSinceTestResult = storedUsageData.hoursSinceTestResult
-//			$0.hoursSinceTestRegistration = storedUsageData.hoursSinceTestRegistration
-//			$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-//			$0.hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration
-//			$0.submittedWithTeleTan = storedUsageData.submittedWithTeleTAN
-		}]
+			if let submittedInBackground = storedUsageData.submittedInBackground {
+				$0.submittedInBackground = submittedInBackground
+			}
+			if let submittedAfterCancel = storedUsageData.submittedAfterCancel {
+				$0.submittedAfterCancel = submittedAfterCancel
+			}
+			if let submittedAfterSymptomFlow = storedUsageData.submittedAfterSymptomFlow {
+				$0.submittedAfterSymptomFlow = submittedAfterSymptomFlow
+			}
+			if let advancedConsentGiven = storedUsageData.advancedConsentGiven {
+				$0.advancedConsentGiven = advancedConsentGiven
+			}
+			if let lastSubmissionFlowScreen = storedUsageData.lastSubmissionFlowScreen?.protobuf {
+				$0.lastSubmissionFlowScreen = lastSubmissionFlowScreen
+			}
+			if let hoursSinceTestResult = storedUsageData.hoursSinceTestResult {
+				$0.hoursSinceTestResult = hoursSinceTestResult
+			}
+			if let hoursSinceTestRegistration = storedUsageData.hoursSinceTestRegistration {
+				$0.hoursSinceTestRegistration = hoursSinceTestRegistration
+			}
+			if let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = storedUsageData.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+				$0.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+			}
+			if let hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration {
+				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
+			}
+			if let submittedWithTeleTAN = storedUsageData.submittedWithTeleTAN {
+				$0.submittedWithTeleTan = submittedWithTeleTAN
+			}
+		}
+		return [returnProtobuf]
 	}
 
 	private func formatToUnixTimestamp(for date: Date?) -> Int64 {
