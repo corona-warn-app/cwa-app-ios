@@ -86,15 +86,15 @@ class DiaryAddAndEditEntryViewModel {
 		}
 	}
 
-	var namePlaceholer: String {
+	var namePlaceholder: String {
 		return entryModel.namePlaceholder
 	}
 
-	var phonenumberPlaceholder: String {
-		return entryModel.phonenumberPlaceholder
+	var phoneNumberPlaceholder: String {
+		return entryModel.phoneNumberPlaceholder
 	}
 
-	var emailAddressPlacehodler: String {
+	var emailAddressPlaceholder: String {
 		return entryModel.emailAddressPlaceholder
 	}
 

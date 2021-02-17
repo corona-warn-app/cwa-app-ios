@@ -11,7 +11,7 @@ class TextFieldsManagerTests: XCTestCase {
 		// GIVEN
 		let manager = TextFieldsManager()
 		let textField = UITextField()
-		manager.appendTextField(textfiledWithKayPath: (textField, \DiaryAddAndEditEntryModel.name))
+		manager.appendTextField(textfieldWithKayPath: (textField, \DiaryAddAndEditEntryModel.name))
 
 		// WHEN
 		let foundKeyPath = manager.keyPath(for: textField)
@@ -38,8 +38,8 @@ class TextFieldsManagerTests: XCTestCase {
 		let textField1 = UITextField()
 		let textField2 = UITextField()
 
-		manager.appendTextField(textfiledWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
-		manager.appendTextField(textfiledWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
+		manager.appendTextField(textfieldWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
+		manager.appendTextField(textfieldWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
 
 		// WHEN
 		let firstResponder1 = textField1.isFirstResponder
@@ -64,8 +64,8 @@ class TextFieldsManagerTests: XCTestCase {
 		dummyViewController.view.addSubview(textField1)
 		dummyViewController.view.addSubview(textField2)
 
-		manager.appendTextField(textfiledWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
-		manager.appendTextField(textfiledWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
+		manager.appendTextField(textfieldWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
+		manager.appendTextField(textfieldWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
 
 		dummyViewController.loadViewIfNeeded()
 
@@ -94,8 +94,8 @@ class TextFieldsManagerTests: XCTestCase {
 		dummyViewController.view.addSubview(textField1)
 		dummyViewController.view.addSubview(textField2)
 
-		manager.appendTextField(textfiledWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
-		manager.appendTextField(textfiledWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
+		manager.appendTextField(textfieldWithKayPath: (textField1, \DiaryAddAndEditEntryModel.name))
+		manager.appendTextField(textfieldWithKayPath: (textField2, \DiaryAddAndEditEntryModel.phoneNumber))
 
 		dummyViewController.loadViewIfNeeded()
 
@@ -114,11 +114,11 @@ class TextFieldsManagerTests: XCTestCase {
 		// GIVEN
 		let manager = TextFieldsManager()
 		let textField = UITextField()
-		manager.appendTextField(textfiledWithKayPath: (textField, \DiaryAddAndEditEntryModel.name))
-		manager.appendTextField(textfiledWithKayPath: (textField, \DiaryAddAndEditEntryModel.emailAddress))
+		manager.appendTextField(textfieldWithKayPath: (textField, \DiaryAddAndEditEntryModel.name))
+		manager.appendTextField(textfieldWithKayPath: (textField, \DiaryAddAndEditEntryModel.emailAddress))
 
 		// WHEN
-		let textfields = manager.textFiledsOnly
+		let textfields = manager.textFieldsOnly
 
 		// THEN
 		XCTAssertEqual(textfields.count, 1)

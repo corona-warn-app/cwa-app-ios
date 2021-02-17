@@ -12,12 +12,12 @@ struct DiaryAddAndEditEntryModel {
 		switch type {
 		case .contactPerson:
 			self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.name
-			self.phonenumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber
+			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber
 			self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.email
 
 		case .location:
 			self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.name
-			self.phonenumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber
+			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber
 			self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.email
 		}
 
@@ -28,7 +28,7 @@ struct DiaryAddAndEditEntryModel {
 
 	init(_ location: DiaryLocation) {
 		self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.name
-		self.phonenumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber
+		self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber
 		self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.email
 
 		self.name = location.name
@@ -38,7 +38,7 @@ struct DiaryAddAndEditEntryModel {
 
 	init(_ person: DiaryContactPerson) {
 		self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.name
-		self.phonenumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber
+		self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber
 		self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.email
 
 		self.name = person.name
@@ -49,7 +49,7 @@ struct DiaryAddAndEditEntryModel {
 	// MARK: - Internal
 
 	let namePlaceholder: String
-	let phonenumberPlaceholder: String
+	let phoneNumberPlaceholder: String
 	let emailAddressPlaceholder: String
 
 	var name: String

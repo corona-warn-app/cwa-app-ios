@@ -15,7 +15,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-		self.textfieldsManager = textFiledManager
+		self.textFieldsManager = textFiledManager
 		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
@@ -50,13 +50,13 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		super.viewDidAppear(animated)
 
 		DispatchQueue.main.async { [weak self] in
-			self?.textfieldsManager.nextFirstResponder()
+			self?.textFieldsManager.nextFirstResponder()
 		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		textfieldsManager.resignFirstResponder()
+		textFieldsManager.resignFirstResponder()
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -66,7 +66,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldShouldClear(_ textField: UITextField) -> Bool {
-		guard let keyPath = textfieldsManager.keyPath(for: textField) else {
+		guard let keyPath = textFieldsManager.keyPath(for: textField) else {
 			Log.debug("Textfield to clear not found", log: .default)
 			return false
 		}
@@ -84,10 +84,10 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			if !viewModel.entryModel.isEmpty {
 				viewModel.save()
 			}
-			textfieldsManager.resignFirstResponder()
+			textFieldsManager.resignFirstResponder()
 			dismiss()
 		case .next, .continue:
-			textfieldsManager.nextFirstResponder()
+			textFieldsManager.nextFirstResponder()
 		default:
 			Log.debug("unsupport return key type")
 		}
@@ -98,14 +98,14 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		viewModel.save()
-		textfieldsManager.resignFirstResponder()
+		textFieldsManager.resignFirstResponder()
 		dismiss()
 	}
 
 	// MARK: - DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		textfieldsManager.resignFirstResponder()
+		textFieldsManager.resignFirstResponder()
 		dismiss()
 	}
 
@@ -170,7 +170,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.translatesAutoresizingMaskIntoConstraints = false
 		nameTextField.isUserInteractionEnabled = true
 		nameTextField.clearButtonMode = .whileEditing
-		nameTextField.placeholder = viewModel.namePlaceholer
+		nameTextField.placeholder = viewModel.namePlaceholder
 		nameTextField.textColor = .enaColor(for: .textPrimary1)
 		nameTextField.autocorrectionType = .no
 		nameTextField.autocapitalizationType = .sentences
@@ -187,7 +187,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = false
 		phoneNumberTextField.isUserInteractionEnabled = true
 		phoneNumberTextField.clearButtonMode = .whileEditing
-		phoneNumberTextField.placeholder = viewModel.phonenumberPlaceholder
+		phoneNumberTextField.placeholder = viewModel.phoneNumberPlaceholder
 		phoneNumberTextField.textColor = .enaColor(for: .textPrimary1)
 		phoneNumberTextField.autocorrectionType = .no
 		phoneNumberTextField.autocapitalizationType = .none
@@ -204,7 +204,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		emailTextField.translatesAutoresizingMaskIntoConstraints = false
 		emailTextField.isUserInteractionEnabled = true
 		emailTextField.clearButtonMode = .whileEditing
-		emailTextField.placeholder = viewModel.emailAddressPlacehodler
+		emailTextField.placeholder = viewModel.emailAddressPlaceholder
 		emailTextField.textColor = .enaColor(for: .textPrimary1)
 		emailTextField.autocorrectionType = .no
 		emailTextField.autocapitalizationType = .none
@@ -238,15 +238,15 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		footerView?.isHidden = false
 
-		// register textfields with the associated keypath to manage keyboard & input
-		textfieldsManager.appendTextField(textfiledWithKayPath: (nameTextField, \DiaryAddAndEditEntryModel.name))
-		textfieldsManager.appendTextField(textfiledWithKayPath: (phoneNumberTextField, \DiaryAddAndEditEntryModel.phoneNumber))
-		textfieldsManager.appendTextField(textfiledWithKayPath: (emailTextField, \DiaryAddAndEditEntryModel.emailAddress))
+		// register textfields with the associated key path to manage keyboard & input
+		textFieldsManager.appendTextField(textfieldWithKayPath: (nameTextField, \DiaryAddAndEditEntryModel.name))
+		textFieldsManager.appendTextField(textfieldWithKayPath: (phoneNumberTextField, \DiaryAddAndEditEntryModel.phoneNumber))
+		textFieldsManager.appendTextField(textfieldWithKayPath: (emailTextField, \DiaryAddAndEditEntryModel.emailAddress))
 	}
 
 	@objc
 	private func textValueChanged(sender: UITextField) {
-		guard let entryModelKeyPath = textfieldsManager.keyPath(for: sender) else {
+		guard let entryModelKeyPath = textFieldsManager.keyPath(for: sender) else {
 			Log.debug("Failed to find matching textfield", log: .default)
 			return
 		}

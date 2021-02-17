@@ -16,8 +16,8 @@ final class TextFieldsManager {
 
 	// MARK: - Internal
 
-	// helper to get all textfiled without attached KeyPath
-	var textFiledsOnly: [UITextField] {
+	// helper to get all textfields without attached KeyPath
+	var textFieldsOnly: [UITextField] {
 		textFieldsWithKeyPaths.map { textFiled, _ -> UITextField in
 			return textFiled
 		}
@@ -36,29 +36,29 @@ final class TextFieldsManager {
 
 	// get the current first responder and set the next textfield in the array
 	// as new first responder
-	// if no current first resonders is found, the first TextFiled available
+	// if no current first responder is found, the first textfield available
 	// will become the new first responder
 	func nextFirstResponder() {
 		guard let currentFirstResponder = firstResponder,
-			  let index = textFiledsOnly.firstIndex(of: currentFirstResponder) else {
-			textFiledsOnly.first?.becomeFirstResponder()
+			  let index = textFieldsOnly.firstIndex(of: currentFirstResponder) else {
+			textFieldsOnly.first?.becomeFirstResponder()
 			return
 		}
 		let nextIndex = index + 1
-		guard textFiledsOnly.indices.contains(nextIndex) else {
-			Log.debug("there is no next textfiled to enable as first responder", log: .default)
+		guard textFieldsOnly.indices.contains(nextIndex) else {
+			Log.debug("there is no next textfield to enable as first responder", log: .default)
 			return
 		}
-		textFiledsOnly[nextIndex].becomeFirstResponder()
+		textFieldsOnly[nextIndex].becomeFirstResponder()
 	}
 
-	// method to add a new textfiled to the known array of TextFields with attatched KeyPath
-	func appendTextField(textfiledWithKayPath: (UITextField, WritableKeyPath<DiaryAddAndEditEntryModel, String>)) {
-		guard !textFiledsOnly.contains(textfiledWithKayPath.0) else {
-			Log.debug("Textfiled already known - stop here", log: .default)
+	// method to add a new textfield to the known array of TextFields with attatched KeyPath
+	func appendTextField(textfieldWithKayPath: (UITextField, WritableKeyPath<DiaryAddAndEditEntryModel, String>)) {
+		guard !textFieldsOnly.contains(textfieldWithKayPath.0) else {
+			Log.debug("Text filed already known - stop here", log: .default)
 			return
 		}
-		textFieldsWithKeyPaths.append(textfiledWithKayPath)
+		textFieldsWithKeyPaths.append(textfieldWithKayPath)
 	}
 
 	// MARK: - Private
@@ -67,8 +67,8 @@ final class TextFieldsManager {
 
 	/// look for the current first responder and return if available
 	private var firstResponder: UITextField? {
-		return textFiledsOnly.first { textfield -> Bool in
-			textfield.isFirstResponder
+		return textFieldsOnly.first { textField -> Bool in
+			textField.isFirstResponder
 		}
 	}
 

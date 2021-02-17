@@ -39,9 +39,9 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		let text = viewModel.title
-		let namePlaceholder = viewModel.namePlaceholer
-		let phonePlaceholder = viewModel.phonenumberPlaceholder
-		let emailPlaceholder = viewModel.emailAddressPlacehodler
+		let namePlaceholder = viewModel.namePlaceholder
+		let phonePlaceholder = viewModel.phoneNumberPlaceholder
+		let emailPlaceholder = viewModel.emailAddressPlaceholder
 
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.person.title)
@@ -257,9 +257,9 @@ class DiaryAddAndEditEntryViewModelTest: XCTestCase {
 		
 		// WHEN
 		let text = viewModel.title
-		let namePlaceholder = viewModel.namePlaceholer
-		let phonePlaceholder = viewModel.phonenumberPlaceholder
-		let emailPlaceholder = viewModel.emailAddressPlacehodler
+		let namePlaceholder = viewModel.namePlaceholder
+		let phonePlaceholder = viewModel.phoneNumberPlaceholder
+		let emailPlaceholder = viewModel.emailAddressPlaceholder
 
 		// THEN
 		XCTAssertEqual(text, AppStrings.ContactDiary.AddEditEntry.location.title)
