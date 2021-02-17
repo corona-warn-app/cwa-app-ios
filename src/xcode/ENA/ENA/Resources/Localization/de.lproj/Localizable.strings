@@ -1749,6 +1749,8 @@ sein.";
 
 /* Data Donation */
 
+"DataDonation_IntroductionText" = "Teilen Sie Daten über Ihre App-Nutzung mit uns und helfen Sie uns so, die Wirksamkeit der App zu bewerten.";
+
 "DataDonation_AccImageDescription" = "Weibliche Person mit Mobiltelefon, welche ihre Daten teilt";
 
 "DataDonation_Headline" = "Datenspende";

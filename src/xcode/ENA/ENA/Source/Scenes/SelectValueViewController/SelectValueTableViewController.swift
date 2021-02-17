@@ -69,7 +69,7 @@ final class SelectValueTableViewController: UITableViewController {
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.separatorInset = .init(top: 0, left: 17, bottom: 0, right: 17)
 		tableView.backgroundColor = .enaColor(for: .background)
-		tableView.accessibilityIdentifier = viewModel.title
+		tableView.accessibilityIdentifier = viewModel.accessibilityIdentifier
 
 		/// get rid of table view grouped header inset
 		var frame = CGRect.zero

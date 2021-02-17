@@ -23,9 +23,9 @@ class DefaultDataDonationViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 4)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 2)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 5)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 2)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 3), 2)
 	}
 
