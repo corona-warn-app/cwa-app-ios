@@ -22,7 +22,12 @@ final class PPACDeviceCheck: DeviceCheckable {
 		DCDevice.current.generateToken { tokenData, error in
 			guard error == nil,
 				  let deviceToken = tokenData?.base64EncodedString() else {
-				Log.error("Failed to creatd DeviceCheck token", log: .ppac)
+				switch error {
+				case .none:
+					Log.error("DeviceCheck token base64 encoding failed", log: .ppa)
+				case .some(let error):
+					Log.error("Failed to creatd DeviceCheck token, error: \(error.localizedDescription)", log: .ppac)
+				}
 				completion(.failure(.generationFailed))
 				return
 			}

@@ -89,19 +89,7 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 
 		dynamicTableViewModel.add(
 			.section(separators: .all, cells: [
-				.body(
-					text: AppStrings.DataDonation.Info.dataProcessingDetails,
-					style: DynamicCell.TextCellStyle.label,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
-					accessibilityTraits: UIAccessibilityTraits.link,
-					action: .pushDataDonationDetails(model: DataDonationDetailsViewModel().dynamicTableViewModel,
-													 withTitle: AppStrings.DataDonation.DetailedInfo.title,
-													 completion: nil
-					),
-					configure: { _, cell, _ in
-						cell.accessoryType = .disclosureIndicator
-						cell.selectionStyle = .default
-					}),
+				.dataProcessingDetails(),
 				.space(height: 12)
 			])
 		)
