@@ -13,7 +13,7 @@ enum PPACError: Error {
 	var description: String {
 		switch self {
 		case .generationFailed:
-			return "generationFailed"
+			return "deviceCheck Token generation failed"
 		case .deviceNotSupported:
 			return "deviceNotSupported"
 		case .timeIncorrect:

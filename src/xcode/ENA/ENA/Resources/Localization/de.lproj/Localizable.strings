@@ -197,7 +197,7 @@
 
 "SurveyConsent_Details_Headline" = "Zur Befragung durch das RKI";
 
-"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z.B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
+"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z. B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
 
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
@@ -1745,7 +1745,7 @@ sein.";
 
 "DataDonation_AgeGroup_NoSelection_Text" = "Angabe zu Ihrem Alter";
 
-"DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA";
+"DataDonation_DetailedInformation_DataProcessing" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
 
 "DataDonation_Button_OK" = "Einverstanden";
 
@@ -1773,7 +1773,7 @@ sein.";
 
 "DetailedInfosDataDonation_SubHead_DataProcessing" = "Datenverarbeitung im Rahmen der Datenspende";
 
-"DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten werden zu unterschiedlichen Zwecken ausgewertet:";
+"DetailedInfosDataDonation_DataProcessing_Description" = "Im Rahmen der Datenspende übermittelt die App verschiedene Daten täglich an das RKI. Die übermittelten Daten dienen der Bewertung der Wirksamkeit der App und sie werden ausgewertet, um folgende Verbesserungen zu ermöglichen:";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Verbesserung der Risiko-Ermittlung";
 
@@ -1785,7 +1785,7 @@ sein.";
 
 "DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z.B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z. B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
 
 "DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Verbesserung der Statistiken über den Pandemieverlauf";
 
