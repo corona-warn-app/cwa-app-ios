@@ -36,8 +36,31 @@ extension AppDelegate {
 	}
 
 	func setupQuickActions() {
+		// register for special events in the app flow
+		_ = NotificationCenter.default.addObserver(forName: .didStartExposureSubmissionFlow, object: nil, queue: nil) { [weak self] notification in
+			// don't allow shortcut during the more important submission flow
+			// but only if there is a positive test result
+			if let resultValue = notification.userInfo?["result"] as? Int, let result = TestResult(rawValue: resultValue) {
+				self?.updateQuickActions(removeAll: result == .positive)
+			} else {
+				self?.updateQuickActions()
+			}
+		}
+		_ = NotificationCenter.default.addObserver(forName: .didDismissExposureSubmissionFlow, object: nil, queue: nil) { [weak self] _ in
+			self?.updateQuickActions()
+		}
+
+		// define initial set of actions
+		updateQuickActions()
+	}
+
+	/// Adds or removes quick actions accoring to the current application state
+	func updateQuickActions(removeAll: Bool = false) {
+		Log.info("\(#function) removeAll: \(removeAll)", log: .ui)
+
 		let application = UIApplication.shared
-		guard store.isOnboarded else {
+		// No shortcuts if not onboarded
+		guard store.isOnboarded, !removeAll else {
 			application.shortcutItems = nil
 			return
 		}
