@@ -89,6 +89,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			} else {
 				self.generatePPACAndSubmitData(completion: completion)
 			}
+			
+			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
 
 		}.store(in: &subscriptions)
 	}
@@ -120,7 +122,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let configurationProvider: AppConfigurationProviding
 
 	private var subscriptions = [AnyCancellable]()
-
+	private var hoursSinceTestRegistrationToSubmitTestResultMetadata: Int32 = 0
+	
 	private var userDeclinedAnalyticsCollectionConsent: Bool {
 		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
@@ -177,23 +180,26 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		// already created for EXPOSUREAPP-4790
 		/*
 		let newExposureWindows = gatherNewExposureWindows()
-		let testResultMetadata = gatherTestResultMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
 		*/
 		
 		let clientMetadata = gatherClientMetadata()
 		let userMetadata = gatherUserMetadata()
+		let testResultMetadata = gatherTestResultMetadata()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
 			// already created for EXPOSUREAPP-4790
 			/*
 			$0.newExposureWindows = newExposureWindows
-			$0.testResultMetadataSet = testResultMetadata
 			$0.keySubmissionMetadataSet = keySubmissionMetadata
 			*/
 			$0.userMetadata = userMetadata
 			$0.clientMetadata = clientMetadata
+			
+			if checkIfTestResultMetadataShouldBeIncluded() {
+				$0.testResultMetadataSet = testResultMetadata
+			}
 		}
 
 		return payload
@@ -229,7 +235,36 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			}
 		)
 	}
+	
+	private func checkIfTestResultMetadataShouldBeIncluded() -> Bool {
+		/* Conditions for submitting the data:
+			- testResult = positive
+			OR
+			- testResult = negative
+			OR
+			- differenceBetweenRegistrationAndCurrentDateInHours "Registration is stored In TestMetadata" >= hoursSinceTestRegistrationToSubmitTestResultMetadata "stored in appConfiguration"
+		*/
+		
+		// If for some reason there is no registrationDate we should not submit the testMetadata
+		guard let registrationDate = store.testResultMetadata?.testRegistrationDate else {
+			return false
+		}
+				
+		switch store.testResultMetadata?.testResult {
+		case .positive, .negative:
+			return true
+		default:
+			break
+		}
+		let differenceBetweenRegistrationAndCurrentDate = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 
+		if let differenceBetweenRegistrationAndCurrentDateInHours = differenceBetweenRegistrationAndCurrentDate.hour,
+		   differenceBetweenRegistrationAndCurrentDateInHours >= hoursSinceTestRegistrationToSubmitTestResultMetadata {
+			return true
+		}
+		return false
+	}
+	
 	private func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
 		guard let storedUsageData = store.currentRiskExposureMetadata else {
 			return []
@@ -245,9 +280,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	// already created for EXPOSUREAPP-4790
 	/*
 	private func gatherNewExposureWindows() -> [SAP_Internal_Ppdd_PPANewExposureWindow] {
-	}
-
-	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
 	}
 
 	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
@@ -288,6 +320,28 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 
+	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
+		let metadata = store.testResultMetadata
+		var protoBuf = SAP_Internal_Ppdd_PPATestResultMetadata()
+		
+		if let testResult = metadata?.testResult?.protobuf {
+			protoBuf.testResult = testResult
+		}
+		if let hoursSinceTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+			protoBuf.hoursSinceTestRegistration = Int32(hoursSinceTestRegistration)
+		}
+		if let riskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {
+			protoBuf.riskLevelAtTestRegistration = riskLevel
+		}
+		if let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+			protoBuf.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
+		}
+		if let hoursSinceHighRiskWarningAtTestRegistration = metadata?.hoursSinceHighRiskWarningAtTestRegistration {
+			protoBuf.hoursSinceHighRiskWarningAtTestRegistration = Int32(hoursSinceHighRiskWarningAtTestRegistration)
+		}
+
+		return [protoBuf]
+	}
 
 	private func formatToUnixTimestamp(for date: Date?) -> Int64 {
 		guard let date = date else {
