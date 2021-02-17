@@ -365,6 +365,7 @@ extension SecureStore: PrivacyPreservingProviding {
 			lastAppReset = nil
 			lastSubmissionAnalytics = nil
 			clientMetadata = nil
+			testResultMetadata = nil
 		}
 	}
 
@@ -421,7 +422,9 @@ extension SecureStore: PrivacyPreservingProviding {
 	
 	var testResultMetadata: TestResultMetaData? {
 		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
-		set { kvStore["testResultaMetadata"] = newValue }
+		set { kvStore["testResultaMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
 	}
 	
 	var dateOfConversionToHighRisk: Date? {
