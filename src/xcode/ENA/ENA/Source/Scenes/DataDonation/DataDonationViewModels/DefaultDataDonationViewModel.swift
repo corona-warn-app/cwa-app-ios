@@ -16,18 +16,8 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
 				.section(
-					header: .image(
-						UIImage(named: "Illu_DataDonation"),
-						accessibilityLabel: AppStrings.DataDonation.Info.accImageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.accImageDescription,
-						height: 250
-					),
 					cells: [
-						.title1(
-							text: AppStrings.DataDonation.Info.title,
-							accessibilityIdentifier: AppStrings.DataDonation.Info.title
-						),
-						.headline(text: AppStrings.DataDonation.Info.description)
+						.headline(text: AppStrings.DataDonation.Info.introductionText)
 					]
 				)
 			)
@@ -81,6 +71,7 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		dynamicTableViewModel.add(
 			.section(
 				cells: [
+					.headline(text: AppStrings.DataDonation.Info.description),
 					.legalExtendedDataDonation(
 						title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
 						description: NSAttributedString(
@@ -112,7 +103,8 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
-			preselected: dataDonationModel.federalStateName
+			preselected: dataDonationModel.federalStateName,
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
 			guard self?.dataDonationModel.federalStateName != federalState else {
@@ -134,7 +126,8 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		let selectValueViewModel = SelectValueViewModel(
 			dataDonationModel.allRegions(by: federalStateName),
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
-			preselected: dataDonationModel.region
+			preselected: dataDonationModel.region,
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] region in
 			guard self?.dataDonationModel.region != region else {
@@ -150,7 +143,8 @@ final class DefaultDataDonationViewModel: BaseDataDonationViewModel {
 		let selectValueViewModel = SelectValueViewModel(
 			AgeGroup.allCases.map({ $0.text }),
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
-			preselected: dataDonationModel.age
+			preselected: dataDonationModel.age,
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] age in
 			guard self?.dataDonationModel.age != age else {

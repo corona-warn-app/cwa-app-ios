@@ -371,9 +371,11 @@ enum AccessibilityIdentifiers {
 		static let accSubHeadState = "AppStrings.DataDonation.Info.subHeadState"
 		static let accSubHeadAgeGroup = "AppStrings.DataDonation.Info.subHeadAgeGroup"
 		static let consentSwitch = "DataDonation.Consent.Switch"
-
 		static let federalStateName = "AppStrings.DataDonation.Info.noSelectionState"
 		static let regionName = "AppStrings.DataDonation.Info.noSelectionRegion"
 		static let ageGroup = "AppStrings.DataDonation.Info.noSelectionAgeGroup"
+		static let federalStateCell = "DataDonation.FederalState.Identifier"
+		static let regionCell = "DataDonation.Region.Identifier"
+		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
 	}
 }
