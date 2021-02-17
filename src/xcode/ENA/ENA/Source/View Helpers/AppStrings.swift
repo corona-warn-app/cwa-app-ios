@@ -1208,6 +1208,7 @@ enum AppStrings {
 		}
 
 		enum Info {
+			static let introductionText = NSLocalizedString("DataDonation_IntroductionText", comment: "")
 			static let settingsSubHeadline = NSLocalizedString("DataDonation_SubHead_Settings", comment: "")
 			static let accImageDescription = NSLocalizedString("DataDonation_AccImageDescription", comment: "")
 			static let title = NSLocalizedString("DataDonation_Headline", comment: "")
