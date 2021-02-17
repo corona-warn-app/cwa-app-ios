@@ -310,6 +310,11 @@ final class SecureStore: Store {
 		set { kvStore["forceAPITokenAuthorization"] = newValue }
 	}
 
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
+	
 	#endif
 	// MARK: - Private
 
@@ -425,11 +430,6 @@ extension SecureStore: PrivacyPreservingProviding {
 		set { kvStore["testResultaMetadata"] = newValue
 			analyticsSubmitter?.triggerSubmitData()
 		}
-	}
-	
-	var dateOfConversionToHighRisk: Date? {
-		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
-		set { kvStore["dateOfConversionToHighRisk"] = newValue }
 	}
 	
 	var clientMetadata: ClientMetadata? {
