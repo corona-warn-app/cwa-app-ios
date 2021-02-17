@@ -32,10 +32,6 @@ class ENAUITestsDataDonation: XCTestCase {
 		XCTAssert(app.cells[AccessibilityIdentifiers.Settings.dataDonation].waitForExistence(timeout: 5.0))
 		app.cells[AccessibilityIdentifiers.Settings.dataDonation].tap()
 
-		// Check if we are right here
-		XCTAssertTrue(app.tables.images[AccessibilityIdentifiers.DataDonation.accImageDescription].waitForExistence(timeout: .medium))
-		app.swipeUp(velocity: .slow)
-
 		// Check that the switch visible
 		XCTAssertTrue(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
@@ -52,7 +48,7 @@ class ENAUITestsDataDonation: XCTestCase {
 
 		// Tap on federalState cell. Now we should see the key-value screen and select some.
 		app.cells[AccessibilityIdentifiers.DataDonation.federalStateName].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.FederalState)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.federalStateCell].waitForExistence(timeout: .short))
 
 		// Tap on some data entry. Then we should be back on the data donation screen.
 		app.cells.element(boundBy: 7).tap()
@@ -60,13 +56,13 @@ class ENAUITestsDataDonation: XCTestCase {
 
 		// Now we want to select a district. So tap onto the district cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.regionName].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.Region)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.regionCell].waitForExistence(timeout: .short))
 		app.cells.element(boundBy: 2).tap()
 		XCTAssertTrue(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
 		// Now we want to select a ageGroup. So tap onto the ageGroup cell, choose one and return to dataDonation.
 		app.cells[AccessibilityIdentifiers.DataDonation.ageGroup].tap()
-		XCTAssertTrue(app.navigationBars[app.localized(AppStrings.DataDonation.ValueSelection.Title.Age)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.tables[AccessibilityIdentifiers.DataDonation.ageGroupCell].waitForExistence(timeout: .short))
 		app.cells.firstMatch.tap()
 		XCTAssertTrue(app.switches[AccessibilityIdentifiers.DataDonation.consentSwitch].waitForExistence(timeout: .short))
 
