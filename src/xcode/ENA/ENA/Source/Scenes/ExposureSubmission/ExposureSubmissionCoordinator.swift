@@ -98,6 +98,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
 			tanSuccessfullyTransferred: { [weak self] in
+				self?.updateStoreWithTANSubmissionSelected()
 				// A TAN always indicates a positive test result.
 				self?.showTestResultScreen(with: .positive)
 			}
@@ -722,6 +723,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	private func updateStoreWithSubmissionAfterCancellation(value: Bool) {
 		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedAfterCancel(withValue: value)
+	}
+
+	private func updateStoreWithTANSubmissionSelected() {
+		let keySubmissionService = KeySubmissionService(store: self.store)
+		keySubmissionService.setSubmittedWithTeleTAN(withValue: true)
 	}
 	
 	private func updateStoreWithKeySubmissionDefaultValues() {
