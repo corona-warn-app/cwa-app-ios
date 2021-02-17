@@ -71,13 +71,11 @@ class TextFieldsManagerTests: XCTestCase {
 
 		// WHEN
 		manager.nextFirstResponder()
-		let firstResponder1 = textField1.isFirstResponder
-		let firstResponder2 = textField2.isFirstResponder
 		manager.resignFirstResponder()
 
 		// THEN
-		XCTAssertFalse(firstResponder1)
-		XCTAssertTrue(firstResponder2)
+		XCTAssertFalse(textField1.isFirstResponder)
+		XCTAssertFalse(textField2.isFirstResponder)
 	}
 
 	func testGIVEN_TextfieldManager_WHEN_FirstRespomderChange_THEN_isSelected() {
@@ -102,12 +100,10 @@ class TextFieldsManagerTests: XCTestCase {
 		// WHEN
 		manager.nextFirstResponder()
 		manager.nextFirstResponder()
-		let firstResponder1 = textField1.isFirstResponder
-		let firstResponder2 = textField2.isFirstResponder
 
 		// THEN
-		XCTAssertFalse(firstResponder1)
-		XCTAssertTrue(firstResponder2)
+		XCTAssertFalse(textField1.isFirstResponder)
+		XCTAssertTrue(textField2.isFirstResponder)
 	}
 
 	func testGIVEN_TextFieldManager_WHEN_AddTwiceATextFiled_THEN_OnlyAddedOnce() {

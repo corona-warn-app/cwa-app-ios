@@ -8,7 +8,11 @@ struct DiaryAddAndEditEntryModel {
 
 	// MARK: - Init
 
-	init(_ type: DiaryEntryType) {
+	init(
+		location: DiaryLocation? = nil,
+		person: DiaryContactPerson? = nil,
+		type: DiaryEntryType
+	) {
 		switch type {
 		case .contactPerson:
 			self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.name
@@ -20,30 +24,21 @@ struct DiaryAddAndEditEntryModel {
 			self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phoneNumber
 			self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.email
 		}
+		self.name = location?.name ?? person?.name ?? ""
+		self.phoneNumber = location?.phoneNumber ?? person?.phoneNumber ?? ""
+		self.emailAddress = location?.emailAddress ?? person?.emailAddress ?? ""
+	}
 
-		self.name = ""
-		self.phoneNumber = ""
-		self.emailAddress = ""
+	init(_ type: DiaryEntryType) {
+		self.init(type: type)
 	}
 
 	init(_ location: DiaryLocation) {
-		self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.name
-		self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.phonenumber
-		self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.location.placeholders.email
-
-		self.name = location.name
-		self.phoneNumber = location.phoneNumber
-		self.emailAddress = location.emailAddress
+		self.init(location: location, type: .location)
 	}
 
 	init(_ person: DiaryContactPerson) {
-		self.namePlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.name
-		self.phoneNumberPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.phonenumber
-		self.emailAddressPlaceholder = AppStrings.ContactDiary.AddEditEntry.person.placeholders.email
-
-		self.name = person.name
-		self.phoneNumber = person.phoneNumber
-		self.emailAddress = person.emailAddress
+		self.init(person: person, type: .contactPerson)
 	}
 
 	// MARK: - Internal
