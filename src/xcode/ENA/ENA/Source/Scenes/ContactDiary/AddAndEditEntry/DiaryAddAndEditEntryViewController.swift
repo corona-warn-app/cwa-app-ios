@@ -112,7 +112,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Private
 
 	private let viewModel: DiaryAddAndEditEntryViewModel
-	private let textfieldsManager: TextFieldsManager
+	private let textFieldsManager: TextFieldsManager
 	private let dismiss: () -> Void
 	private var bindings: [AnyCancellable] = []
 
