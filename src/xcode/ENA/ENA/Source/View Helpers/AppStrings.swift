@@ -1027,12 +1027,20 @@ enum AppStrings {
 
 			enum location {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
-				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder", comment: "")
+				enum placeholders {
+					static let name = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_Name", comment: "")
+					static let phoneNumber = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber", comment: "")
+					static let email = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress", comment: "")
+				}
 			}
 
 			enum person {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
-				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
+				enum placeholders {
+					static let name = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_Name", comment: "")
+					static let phoneNumber = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber", comment: "")
+					static let email = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress", comment: "")
+				}
 			}
 		}
 	}
