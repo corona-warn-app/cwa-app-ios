@@ -42,6 +42,10 @@ extension AppDelegate {
 			// but only if there is a positive test result
 			if let resultValue = notification.userInfo?["result"] as? Int, let result = TestResult(rawValue: resultValue) {
 				self?.updateQuickActions(removeAll: result == .positive)
+			} else if notification.userInfo?["result"] as? Int == -1 {
+				// not sure if this is happening only when using launch arguments, but because we end up in the 'positive' flow,
+				// we'll better disable the shortcuts
+				self?.updateQuickActions(removeAll: true)
 			} else {
 				self?.updateQuickActions()
 			}

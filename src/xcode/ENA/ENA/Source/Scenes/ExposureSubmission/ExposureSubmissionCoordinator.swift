@@ -81,6 +81,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
 		navigationController = exposureSubmissionNavigationController
 
+		// Provide `-1` for all `undefined` results. 
 		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": result?.rawValue ?? -1]))
 	}
 
