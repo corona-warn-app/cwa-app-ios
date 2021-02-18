@@ -1707,6 +1707,8 @@
 "Tabbar_Diary_Title" = "Dziennik";
 
 /* Data Donation */
+"DataDonation_IntroductionText" = "Podziel się z nami informacjami na temat korzystania z aplikacji i pomóż nam ocenić jej skuteczność.";
+
 "DataDonation_AccImageDescription" = "Kobieta trzyma smartfon, który udostępnia jej dane";
 
 "DataDonation_Headline" = "Udostępnij dane";
@@ -1725,7 +1727,7 @@
 
 "DataDonation_AgeGroup_NoSelection_Text" = "Twój wiek";
 
-"DataDonation_DetailedInformation_DataProcessing" = "Szczegółowe informacje o ryzyku związanym z przetwarzaniem i ochroną danych w USA";
+"DataDonation_DetailedInformation_DataProcessing" = "Szczegółowe informacje o ryzyku związanym z przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
 
 "DataDonation_Button_OK" = "Akceptuj";
 
@@ -1751,7 +1753,7 @@
 
 "DetailedInfosDataDonation_SubHead_DataProcessing" = "Przetwarzanie danych w procesie udostępniania danych";
 
-"DetailedInfosDataDonation_DataProcessing_Description" = "Jeśli wyrazisz zgodę na udostępnienie swoich danych, aplikacja będzie codziennie wysyłać różne dane do RKI. Przekazane dane będą analizowane w różnych celach:";
+"DetailedInfosDataDonation_DataProcessing_Description" = "Jeśli wyrazisz zgodę na udostępnienie swoich danych, aplikacja będzie codziennie wysyłać różne dane do RKI. Przesłane dane pomogą nam ocenić skuteczność aplikacji i będą analizowane w celu wprowadzenia następujących ulepszeń:";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Ulepszone rejestrowanie narażenia";
 
