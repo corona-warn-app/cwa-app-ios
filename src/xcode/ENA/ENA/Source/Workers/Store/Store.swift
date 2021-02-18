@@ -7,8 +7,6 @@ import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
 
-	var analyticsSubmitter: PPAnalyticsSubmitter? { get set }
-
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
 	var finishedDeltaOnboardings: [String: [String]] { get set }

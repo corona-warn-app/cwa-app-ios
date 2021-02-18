@@ -23,8 +23,6 @@ final class SecureStore: Store {
 
 	// MARK: - Protocol Store
 
-	var analyticsSubmitter: PPAnalyticsSubmitter?
-
 	/// Removes most key/value pairs.
 	///
 	/// Keys whose values are not removed:
