@@ -357,7 +357,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		guard let storedUsageData = store.keySubmissionMetadata else {
 			return []
 		}
-		let returnProtobuf = SAP_Internal_Ppdd_PPAKeySubmissionMetadata.with {
+		return [SAP_Internal_Ppdd_PPAKeySubmissionMetadata.with {
 			if let submitted = storedUsageData.submitted {
 				$0.submitted = submitted
 			}
@@ -391,8 +391,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let submittedWithTeleTAN = storedUsageData.submittedWithTeleTAN {
 				$0.submittedWithTeleTan = submittedWithTeleTAN
 			}
-		}
-		return [returnProtobuf]
+		}]
 	}
 
 	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
