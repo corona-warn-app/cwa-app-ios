@@ -1538,6 +1538,23 @@ sein.";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-Mail";
 
+/* - PersonEncounter */
+
+"ContactDiary_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
+
+"ContactDiary_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
+
+"ContactDiary_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
+
+"ContactDiary_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
+
+"ContactDiary_PersonEncounter_Setting_Outside" = "draußen";
+
+"ContactDiary_PersonEncounter_Setting_Inside" = "drinnen";
+
+/* - LocationVisit */
+
+"ContactDiary_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* Statistics */
 

@@ -1045,14 +1045,18 @@ enum AppStrings {
 		}
 
 		enum PersonEncounter {
-			static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_lessThan15Minutes", comment: "")
-			static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_moreThan15Minutes", comment: "")
+			static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_LessThan15Minutes", comment: "")
+			static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_MoreThan15Minutes", comment: "")
 
-			static let maskSituationWithMask = NSLocalizedString("ContactDiary_PersonEncounter_Duration_maskSituationWithMask", comment: "")
-			static let maskSituationWithoutMask = NSLocalizedString("ContactDiary_PersonEncounter_Duration_maskSituationWithoutMask", comment: "")
+			static let maskSituationWithMask = NSLocalizedString("ContactDiary_PersonEncounter_MaskSituation_WithMask", comment: "")
+			static let maskSituationWithoutMask = NSLocalizedString("ContactDiary_PersonEncounter_MaskSituation_WithoutMask", comment: "")
 
-			static let settingOutside = NSLocalizedString("ContactDiary_PersonEncounter_Duration_settingOutside", comment: "")
-			static let settingInside = NSLocalizedString("ContactDiary_PersonEncounter_Duration_settingInside", comment: "")
+			static let settingOutside = NSLocalizedString("ContactDiary_PersonEncounter_Setting_Outside", comment: "")
+			static let settingInside = NSLocalizedString("ContactDiary_PersonEncounter_Setting_Inside", comment: "")
+		}
+
+		enum LocationVisit {
+			static let abbreviationHours = NSLocalizedString("ContactDiary_LocationVisit_Abbreviation_Hours", comment: "")
 		}
 	}
 

@@ -56,18 +56,36 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 				imageView.image = UIImage(named: "Icons_Diary_ContactPerson")
 				entryLabel.text = contactPerson.name
 
+				if let personEncounter = contactPerson.encounter {
+					let detailLabelText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
+					if detailLabelText != "" {
+						entryDetailLabel.text = detailLabelText
+						entryLabelStackView.addArrangedSubview(entryDetailLabel)
+					}
 
-				let detailLabelText = cellViewModel.ent
-				entryDetailLabel.text = "some person detail text, some person detail text, some person detail text"
-				entryLabelStackView.addArrangedSubview(entryDetailLabel)
+					if personEncounter.circumstances != "" {
+						entryCircumstancesLabel.text = personEncounter.circumstances
+						entryLabelStackView.addArrangedSubview(entryCircumstancesLabel)
+					}
+				}
 
-				entryCircumstancesLabel.text = "some circumstances lalala"
-				entryLabelStackView.addArrangedSubview(entryCircumstancesLabel)
 			case .location(let location):
 				imageView.image = UIImage(named: "Icons_Diary_Location")
 				entryLabel.text = location.name
-				entryDetailLabel.text = "some location detail text"
-				entryCircumstancesLabel.text = "some circumstances lalala"
+
+				if let locationVisit = location.visit {
+					let detailLabelText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)
+
+					if detailLabelText != "" {
+						entryDetailLabel.text = detailLabelText
+						entryLabelStackView.addArrangedSubview(entryDetailLabel)
+					}
+
+					if locationVisit.circumstances != "" {
+						entryCircumstancesLabel.text = locationVisit.circumstances
+						entryLabelStackView.addArrangedSubview(entryCircumstancesLabel)
+					}
+				}
 			}
 
 			let entryStackView = UIStackView()
