@@ -23,16 +23,16 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 			let sql = """
 				CREATE TABLE IF NOT EXISTS ContactPerson (
 					id INTEGER PRIMARY KEY,
-					name TEXT NOT NULL CHECK (LENGTH(name) <= 250),
-					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= 250),
-					emailAddress TEXT CHECK (LENGTH(emailAddress) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
+					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= \(maxTextLength)),
+					emailAddress TEXT CHECK (LENGTH(emailAddress) <= \(maxTextLength))
 				);
 
 				CREATE TABLE IF NOT EXISTS Location (
 					id INTEGER PRIMARY KEY,
-					name TEXT NOT NULL CHECK (LENGTH(name) <= 250),
-					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= 250),
-					emailAddress TEXT CHECK (LENGTH(emailAddress) <= 250)
+					name TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
+					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= \(maxTextLength)),
+					emailAddress TEXT CHECK (LENGTH(emailAddress) <= \(maxTextLength))
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
@@ -41,7 +41,7 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 					duration INTEGER,
 					maskSituation INTEGER,
 					setting INTEGER,
-					circumstances TEXT CHECK (LENGTH(circumstances) <= 250),
+					circumstances TEXT CHECK (LENGTH(circumstances) <= \(maxTextLength)),
 					contactPersonId INTEGER NOT NULL,
 					FOREIGN KEY(contactPersonId) REFERENCES ContactPerson(id) ON DELETE CASCADE
 				);
@@ -50,7 +50,7 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 					id INTEGER PRIMARY KEY,
 					date TEXT NOT NULL,
 					durationInMinutes INTEGER,
-					circumstances TEXT CHECK (LENGTH(circumstances) <= 250),
+					circumstances TEXT CHECK (LENGTH(circumstances) <= \(maxTextLength)),
 					locationId INTEGER NOT NULL,
 					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);
@@ -72,5 +72,6 @@ class ContactDiaryStoreSchemaV3: ContactDiarySchemaProtocol {
 	// MARK: - Private
 
 	private let databaseQueue: FMDatabaseQueue
+	private let maxTextLength = 250
 
 }

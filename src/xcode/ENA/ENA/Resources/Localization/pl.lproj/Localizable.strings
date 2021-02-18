@@ -1466,12 +1466,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Miejsce";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Miejsce";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Miejsce";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Osoba";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Osoba";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Osoba";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Rosnący";
