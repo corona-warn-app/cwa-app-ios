@@ -31,7 +31,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupView()
 	}
-	
+
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}

@@ -371,7 +371,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.showQRScreen(isLoading: isLoading)
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
