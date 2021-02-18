@@ -58,6 +58,12 @@ final class SecureStore: Store {
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
 	}
 
+	// this test registration date is for both TAN and QR submission
+	var testRegistrationDate: Date? {
+		get { kvStore["testRegistrationDate"] as Date? ?? nil }
+		set { kvStore["testRegistrationDate"] = newValue }
+	}
+	
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
 		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
 		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
@@ -193,11 +199,6 @@ final class SecureStore: Store {
 	var dateOfConversionToHighRisk: Date? {
 		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
 		set { kvStore["dateOfConversionToHighRisk"] = newValue }
-	}
-
-	var testRegistrationDate: Date? {
-		get { kvStore["testRegistrationDate"] as Date? ?? nil }
-		set { kvStore["testRegistrationDate"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {

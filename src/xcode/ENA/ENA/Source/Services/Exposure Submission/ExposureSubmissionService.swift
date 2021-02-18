@@ -33,6 +33,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		
+		self.keySubmissionService = KeySubmissionService(store: store)
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
 			self.updateStoreWithUserConsentGiven(value: isSubmissionConsentGiven)
@@ -292,7 +293,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
 	private let deadmanNotificationManager: DeadmanNotificationManageable
-
+	private let keySubmissionService: KeySubmissionService
+	
 	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 
 	private var devicePairingConsentAccept: Bool {
@@ -533,29 +535,24 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	// MARK: Key Submission Service
 
 	private func updateStoreWithKeySubmissionDone() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setHoursSinceTestResult()
 		keySubmissionService.setHoursSinceTestRegistration()
 		keySubmissionService.setSubmitted(withValue: true)
 	}
 
 	private func updateStoreWithQRSubmissionSelected() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedWithTeleTAN(withValue: false)
 	}
 	
 	private func updateStoreWithUserConsentGiven(value: Bool) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setAdvancedConsentGiven(withValue: value)
 	}
 	
 	private func updateStoreWithHoursSinceHighRiskWarningAtTestRegistration() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
 	}
 	
 	private func updateStoreWithDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 	}
 }

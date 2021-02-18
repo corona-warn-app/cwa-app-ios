@@ -46,14 +46,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		warnOthersReminder: WarnOthersRemindable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
+		store: Store,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
 		self.warnOthersReminder = warnOthersReminder
-		
-		super.init()
+		self.keySubmissionService = KeySubmissionService(store: store)
 
+		super.init()
 		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService)
 	}
 
@@ -173,7 +174,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	private var model: ExposureSubmissionCoordinatorModel!
 	private let warnOthersReminder: WarnOthersRemindable
-	
+	private var keySubmissionService: KeySubmissionService
+
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
@@ -711,22 +713,18 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Key Submission Service
 	
 	private func updateStoreWithLastSubmissionFlow(screen: LastSubmissionFlowScreen) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
-		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenSymptomOnset)
+		keySubmissionService.setLastSubmissionFlowScreen(withValue: screen)
 	}
 	
 	private func updateStoreWithSubmissionAfterSymptomFlow(value: Bool) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: value)
 	}
 	
 	private func updateStoreWithSubmissionAfterCancellation(value: Bool) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedAfterCancel(withValue: value)
 	}
 
 	private func updateStoreWithTANSubmissionSelected() {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedWithTeleTAN(withValue: true)
 	}
 	
