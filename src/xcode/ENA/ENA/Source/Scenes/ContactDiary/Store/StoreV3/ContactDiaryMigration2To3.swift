@@ -8,7 +8,8 @@ final class ContactDiaryMigration2To3: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
 	private var error: Error?
-	
+	private let maxTextLength = 250
+
 	init(databaseQueue: FMDatabaseQueue) {
 		self.databaseQueue = databaseQueue
 	}
@@ -26,15 +27,15 @@ final class ContactDiaryMigration2To3: Migration {
 
 				-- Add phoneNumber, emailAddress columns to ContactPerson
 				ALTER TABLE ContactPerson
-					ADD phoneNumber TEXT NULL;
+					ADD phoneNumber TEXT NULL CHECK (LENGTH(phoneNumber) <= \(maxTextLength));
 				ALTER TABLE ContactPerson
-					ADD emailAddress TEXT NULL;
+					ADD emailAddress TEXT NULL CHECK (LENGTH(emailAddress) <= \(maxTextLength));
 
 				-- add phoneNumber, emailAddress columns to Location
 				ALTER TABLE Location
-					ADD phoneNumber TEXT NULL;
+					ADD phoneNumber TEXT NULL CHECK (LENGTH(phoneNumber) <= \(maxTextLength));
 				ALTER TABLE Location
-					ADD emailAddress TEXT NULL;
+					ADD emailAddress TEXT NULL CHECK (LENGTH(emailAddress) <= \(maxTextLength));
 
 				-- add duration, maskSituation, setting, circumstances columns to ContactPersonEncounter
 				ALTER TABLE ContactPersonEncounter
@@ -44,13 +45,13 @@ final class ContactDiaryMigration2To3: Migration {
 				ALTER TABLE ContactPersonEncounter
 					ADD setting INTEGER NULL;
 				ALTER TABLE ContactPersonEncounter
-					ADD circumstances TEXT NULL;
+					ADD circumstances TEXT NULL CHECK (LENGTH(circumstances) <= \(maxTextLength));
 
 				-- add durationInMinutes, circumstances columns to LocationVisit
 				ALTER TABLE LocationVisit
 					ADD durationInMinutes NULL;
 				ALTER TABLE LocationVisit
-					ADD circumstances TEXT NULL;
+					ADD circumstances TEXT NULL CHECK (LENGTH(circumstances) <= \(maxTextLength));
 
 				COMMIT;
 			"""
