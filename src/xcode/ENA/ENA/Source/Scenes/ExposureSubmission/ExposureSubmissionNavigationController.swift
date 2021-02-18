@@ -12,11 +12,13 @@ protocol DismissHandling {
 	/// otherwise no reaction is possible and the dismiss logic depends on the navigation controller
 	func wasAttemptedToBeDismissed()
 
-	var closeBarButton: UIBarButtonItem { get }
+	/// default close button to respect the dismissHandling protocol
+	var dismissHandlingCloseBarButton: UIBarButtonItem { get }
 }
 
 extension DismissHandling {
-	var closeBarButton: UIBarButtonItem {
+	/// default implementation of dismissHandlingCloseButton
+	var dismissHandlingCloseBarButton: UIBarButtonItem {
 		CloseBarButtonItem(
 			onTap: {
 				self.wasAttemptedToBeDismissed()

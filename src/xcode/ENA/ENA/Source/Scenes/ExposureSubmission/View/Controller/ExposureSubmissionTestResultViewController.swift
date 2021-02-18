@@ -19,6 +19,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		self.onDismiss = onDismiss
 
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
