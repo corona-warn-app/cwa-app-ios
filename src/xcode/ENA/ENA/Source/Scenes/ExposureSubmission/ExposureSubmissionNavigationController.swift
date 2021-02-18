@@ -17,6 +17,10 @@ protocol DismissHandling {
 }
 
 extension DismissHandling {
+
+	/// default implementation to avoid dismiss by pulling down
+	func wasAttemptedToBeDismissed() {}
+
 	/// default implementation of dismissHandlingCloseButton
 	var dismissHandlingCloseBarButton: UIBarButtonItem {
 		CloseBarButtonItem(

@@ -45,12 +45,6 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 		finished?()
 	}
 
-	// MARK: - Protocol DismissHandling
-	
-	func wasAttemptedToBeDismissed() {
-		Log.debug("attemptedToBeDismissed")
-	}
-
 	// MARK: - Internal
 
 	/// Is called when when the one of the ENANavigationControllerWithFooter buttons is tapped.
