@@ -894,9 +894,8 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() throws {
-		try deleteDatabse()
-
-		let store = ContactDiaryStore.make()
+		let tempDatabaseURL = try makeTempDatabaseURL()
+		let store = ContactDiaryStore.make(url: tempDatabaseURL)
 		_ = store.addContactPerson(name: "Some Name")
 		let daysVisible = store.userVisiblePeriodInDays
 
@@ -904,23 +903,14 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(numberOfEntries, daysVisible)
 		store.close()
 
-		let fileManager = FileManager.default
-		guard let storeURL = try? fileManager
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("ContactDiary")
-				.appendingPathComponent("ContactDiary")
-				.appendingPathExtension("sqlite") else {
-			fatalError("Could not create folder.")
-		}
-
 		do {
 			let corruptingString = "I will corrupt the database"
-			try corruptingString.write(to: storeURL, atomically: true, encoding: String.Encoding.utf8)
+			try corruptingString.write(to: tempDatabaseURL, atomically: true, encoding: String.Encoding.utf8)
 		} catch {
 			XCTFail("Error is not expected: \(error)")
 		}
 
-		let storeAfterRescue = ContactDiaryStore.make()
+		let storeAfterRescue = ContactDiaryStore.make(url: tempDatabaseURL)
 		_ = storeAfterRescue.addContactPerson(name: "Some Name")
 		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
 		XCTAssertEqual(numberOfEntriesAfterRescue, daysVisible)
@@ -959,10 +949,6 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertTrue(migratorSpy.migrateWasCalled)
 	}
 
-	private func deleteDatabse() throws {
-		try FileManager.default.removeItem(at: ContactDiaryStore.storeURL)
-	}
-	
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")
@@ -1124,6 +1110,23 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		return store
+	}
+
+	private func makeTempDatabaseURL() throws -> URL {
+		let databaseBaseURL = FileManager.default.temporaryDirectory
+			.appendingPathComponent("ContactDiaryStoreTests")
+
+		try FileManager.default.createDirectory(
+			at: databaseBaseURL,
+			withIntermediateDirectories: true,
+			attributes: nil
+		)
+
+		let databaseURL = databaseBaseURL
+			.appendingPathComponent(UUID().uuidString)
+			.appendingPathExtension("sqlite")
+
+		return databaseURL
 	}
 
 	private var dateFormatter: ISO8601DateFormatter = {

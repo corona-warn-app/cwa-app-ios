@@ -1235,10 +1235,18 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 extension ContactDiaryStore {
 
-	static func make() -> ContactDiaryStore {
+	static func make(url: URL? = nil) -> ContactDiaryStore {
+		let storeURL: URL
+
+		if let url = url {
+			storeURL = url
+		} else {
+			storeURL = ContactDiaryStore.storeURL
+		}
+
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
-		if let store = ContactDiaryStore() {
+		if let store = ContactDiaryStore(url: storeURL) {
 			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
 			return store
 		}
@@ -1247,9 +1255,9 @@ extension ContactDiaryStore {
 
 		// The database could not be created – To the rescue!
 		// Remove the database file and try to init the store a second time.
-		try? FileManager.default.removeItem(at: ContactDiaryStore.storeDirectoryURL)
+		try? FileManager.default.removeItem(at: storeURL)
 
-		if let secondTryStore = ContactDiaryStore() {
+		if let secondTryStore = ContactDiaryStore(url: storeURL) {
 			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
 			return secondTryStore
 		} else {
@@ -1258,7 +1266,7 @@ extension ContactDiaryStore {
 		}
 	}
 
-	static var storeURL: URL {
+	private static var storeURL: URL {
 		storeDirectoryURL
 			.appendingPathComponent("ContactDiary")
 			.appendingPathExtension("sqlite")
@@ -1300,8 +1308,9 @@ extension ContactDiaryStore {
 }
 
 extension ContactDiaryStore {
-	convenience init?() {
-		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
+	convenience init?(url: URL) {
+
+		guard let databaseQueue = FMDatabaseQueue(path: url.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
 		}
