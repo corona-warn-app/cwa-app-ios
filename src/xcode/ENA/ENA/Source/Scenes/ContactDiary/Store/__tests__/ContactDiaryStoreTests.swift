@@ -274,8 +274,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			circumstances: "Some circumstances."
 		)
 
-		guard case let .success(locationVisitId) = result
-		else {
+		guard case let .success(locationVisitId) = result else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
