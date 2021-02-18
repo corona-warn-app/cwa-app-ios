@@ -56,6 +56,12 @@ final class SecureStore: Store {
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
 	}
 
+	// this test registration date is for both TAN and QR submission
+	var testRegistrationDate: Date? {
+		get { kvStore["testRegistrationDate"] as Date? ?? nil }
+		set { kvStore["testRegistrationDate"] = newValue }
+	}
+
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
 		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
 		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
@@ -120,7 +126,7 @@ final class SecureStore: Store {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
 	}
-	
+
 	var finishedDeltaOnboardings: [String: [String]] {
 		get { kvStore["finishedDeltaOnboardings"] as [String: [String]]? ?? [String: [String]]() }
 		set { kvStore["finishedDeltaOnboardings"] = newValue }
@@ -130,7 +136,7 @@ final class SecureStore: Store {
 		get { kvStore["onboardingVersion"] as String? ?? "1.4" }
 		set { kvStore["onboardingVersion"] = newValue }
 	}
-	
+
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
 		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue }
@@ -186,6 +192,11 @@ final class SecureStore: Store {
 	var riskCalculationResult: RiskCalculationResult? {
 		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
+	}
+
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {
@@ -247,7 +258,7 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
-	
+
 	var isSubmissionConsentGiven: Bool {
 		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
@@ -278,11 +289,6 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
-	
-	var dateOfConversionToHighRisk: Date? {
-		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
-		set { kvStore["dateOfConversionToHighRisk"] = newValue }
-	}
 
 	#if !RELEASE
 
@@ -292,7 +298,7 @@ final class SecureStore: Store {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
-	
+
 	var dmKillDeviceTimeCheck: Bool {
 		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
@@ -328,12 +334,12 @@ extension SecureStore {
 		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
 		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
 	}
-	
+
 	var warnOthersNotificationTwoTimer: TimeInterval {
 		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
-	
+
 	var positiveTestResultWasShown: Bool {
 		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
 		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
@@ -406,15 +412,20 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
 		set { kvStore["userMetadata"] = newValue }
 	}
-	
+
 	var testResultMetadata: TestResultMetaData? {
 		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}
-	
+
 	var clientMetadata: ClientMetadata? {
 		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
 		set { kvStore["clientMetadata"] = newValue }
+	}
+
+	var keySubmissionMetadata: KeySubmissionMetadata? {
+		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
+		set { kvStore["keySubmissionMetadata"] = newValue }
 	}
 }
 

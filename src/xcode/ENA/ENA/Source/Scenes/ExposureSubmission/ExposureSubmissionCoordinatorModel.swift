@@ -45,6 +45,7 @@ class ExposureSubmissionCoordinatorModel {
 	func symptomsOnsetOptionSelected(
 		_ selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption
 	) {
+		
 		switch selectedSymptomsOnsetOption {
 		case .exactDate(let date):
 			guard let daysSinceOnset = Calendar.gregorian().dateComponents([.day], from: date, to: Date()).day else { fatalError("Getting days since onset from date failed") }
