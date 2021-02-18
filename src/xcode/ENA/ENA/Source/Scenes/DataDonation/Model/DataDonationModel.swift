@@ -76,7 +76,7 @@ struct DataDonationModel {
 			administrativeUnit: district?.districtID,
 			ageGroup: ageGroup)
 
-		store.userMetadata = userMetaData
+		Analytics.log(.userData(userMetaData))
 	}
 
 	// MARK: - Private

@@ -398,10 +398,7 @@ extension SecureStore: PrivacyPreservingProviding {
 
 	var currentRiskExposureMetadata: RiskExposureMetadata? {
 		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set {
-			kvStore["currentRiskExposureMetadata"] = newValue
-			analyticsSubmitter?.triggerSubmitData()
-		}
+		set { kvStore["currentRiskExposureMetadata"] = newValue }
 	}
 
 	var previousRiskExposureMetadata: RiskExposureMetadata? {
@@ -411,18 +408,12 @@ extension SecureStore: PrivacyPreservingProviding {
 
 	var userMetadata: UserMetadata? {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
-		set {
-			kvStore["userMetadata"] = newValue
-			analyticsSubmitter?.triggerSubmitData()
-		}
+		set { kvStore["userMetadata"] = newValue }
 	}
 	
 	var clientMetadata: ClientMetadata? {
 		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
-		set {
-			kvStore["clientMetadata"] = newValue
-			analyticsSubmitter?.triggerSubmitData()
-		}
+		set { kvStore["clientMetadata"] = newValue }
 	}
 }
 
