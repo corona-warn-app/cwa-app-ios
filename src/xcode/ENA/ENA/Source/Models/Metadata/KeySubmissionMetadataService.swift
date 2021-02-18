@@ -40,10 +40,12 @@ class KeySubmissionService {
 	}
 
 	func setHoursSinceTestResult() {
-		guard let resultDate = secureStore.testResultDate else {
+		guard let resultDateTimeStamp = secureStore.testResultReceivedTimeStamp else {
 			return
 		}
 		
+		let timeInterval = TimeInterval(resultDateTimeStamp)
+		let resultDate = Date(timeIntervalSince1970: timeInterval)
 		let diffComponents = Calendar.current.dateComponents([.hour], from: resultDate, to: Date())
 		secureStore.keySubmissionMetadata?.hoursSinceTestResult = Int32(diffComponents.hour ?? 0)
 	}

@@ -176,10 +176,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 
 		// if there is no test result date
-		guard let testResultDate = store.testResultDate else {
+		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
 			return false
 		}
 		
+		let timeInterval = TimeInterval(resultDateTimeStamp)
+		let testResultDate = Date(timeIntervalSince1970: timeInterval)
 		let differenceBetweenTestResultAndCurrentDate = Calendar.current.dateComponents([.hour], from: testResultDate, to: Date())
 		if let differenceBetweenTestResultAndCurrentDateInHours = differenceBetweenTestResultAndCurrentDate.hour,
 		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {

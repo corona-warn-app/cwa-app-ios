@@ -199,11 +199,6 @@ final class SecureStore: Store {
 		get { kvStore["testRegistrationDate"] as Date? ?? nil }
 		set { kvStore["testRegistrationDate"] = newValue }
 	}
-	
-	var testResultDate: Date? {
-		get { kvStore["testResultDate"] as Date? ?? nil }
-		set { kvStore["testResultDate"] = newValue }
-	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {
 		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }

@@ -328,7 +328,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				switch testResult {
 				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
-					self.store.testResultDate = Date()
 					self.updateStoreWithHoursSinceHighRiskWarningAtTestRegistration()
 					self.updateStoreWithDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 					completeWith(.success(testResult))

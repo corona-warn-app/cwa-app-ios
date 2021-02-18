@@ -59,7 +59,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
-	var testResultDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
