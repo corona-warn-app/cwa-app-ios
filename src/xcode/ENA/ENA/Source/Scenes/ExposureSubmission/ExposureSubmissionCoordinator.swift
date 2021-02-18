@@ -230,7 +230,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
+		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
@@ -422,8 +422,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
-		// we should show the alert in the completion only if the testResult is positveAndAvailable
-		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailabile ? nil : { [weak self] in
+		// we should show the alert in the completion only if the testResult is positiveAndAvailable
+		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailable ? nil : { [weak self] in
 			self?.showTestResultAvailableCloseAlert()
 		}
 		let vc = ExposureSubmissionTestResultConsentViewController(
