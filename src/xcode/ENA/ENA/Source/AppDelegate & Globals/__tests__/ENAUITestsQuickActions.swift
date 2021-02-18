@@ -72,6 +72,8 @@ class ENAUITestsQuickActions: XCTestCase {
 
 		let actionButton = springboard.buttons[newDiaryEntryLabel]
 		XCTAssertTrue(actionButton.waitForExistence(timeout: .short))
+		actionButton.tap()
+		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
 	}
 
 	func testShortcutAvailabilityDuringSubmissionFlow() throws {
