@@ -1707,6 +1707,8 @@
 "Tabbar_Diary_Title" = "Jurnal";
 
 /* Data Donation */
+"DataDonation_IntroductionText" = "Spuneți-ne cum utilizați aplicația și ajutați-ne să evaluăm eficacitatea acesteia.";
+
 "DataDonation_AccImageDescription" = "O femeie ține în mână un smartphone care îi partajează datele";
 
 "DataDonation_Headline" = "Partajare date";
@@ -1725,7 +1727,7 @@
 
 "DataDonation_AgeGroup_NoSelection_Text" = "Vârsta dvs.";
 
-"DataDonation_DetailedInformation_DataProcessing" = "Informații detaliate despre prelucrarea acestor date și riscurile privind prelucrarea datelor în SUA";
+"DataDonation_DetailedInformation_DataProcessing" = "Informații detaliate despre prelucrarea acestor date și riscurile privind prelucrarea datelor din SUA și din alte țări terțe";
 
 "DataDonation_Button_OK" = "Accept";
 
@@ -1751,7 +1753,7 @@
 
 "DetailedInfosDataDonation_SubHead_DataProcessing" = "Prelucrarea datelor în procesul de partajare a datelor";
 
-"DetailedInfosDataDonation_DataProcessing_Description" = "Dacă sunteți de acord să partajați datele dvs., aplicația trimite diverse date către RKI în fiecare zi. Datele transmise vor fi analizate în scopuri variate:";
+"DetailedInfosDataDonation_DataProcessing_Description" = "Dacă sunteți de acord să partajați datele dvs., aplicația trimite diverse date către RKI în fiecare zi. Datele transmise ne vor ajuta să evaluăm eficacitatea aplicației și vor fi analizate pentru a permite următoarele îmbunătățiri:";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Îmbunătățirea înregistrării în jurnal a expunerilor";
 
@@ -1763,7 +1765,7 @@
 
 "DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Facilitarea informării și ghidării în aplicație";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Dorim să putem afla dacă apar probleme la utilizarea aplicației în legătură cu anumite facilități și laboratoare de testare sau în anumite regiuni. Putem identifica acest lucru dacă, de exemplu, datele partajate indică întârzieri de furnizare a rezultatelor testărilor din anumite regiuni. De asemenea, autoritățile relevante de sănătate publică pot fi notificate punctual de posibila existență a unor probleme tehnice.";
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Dorim să putem afla dacă apar probleme la utilizarea aplicației în legătură cu anumite facilități și laboratoare de testare sau în anumite regiuni. Putem identifica acest lucru dacă, de exemplu, datele partajate indică întârzieri de furnizare a rezultatelor testărilor în anumite regiuni. De asemenea, autoritățile relevante de sănătate publică pot fi notificate punctual de posibila existență a unor probleme tehnice.";
 
 "DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Îmbunătățirea statisticii despre cursul pandemiei";
 

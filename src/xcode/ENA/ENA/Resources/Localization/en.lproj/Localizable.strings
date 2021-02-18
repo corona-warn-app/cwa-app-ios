@@ -1707,6 +1707,8 @@
 "Tabbar_Diary_Title" = "Journal";
 
 /* Data Donation */
+"DataDonation_IntroductionText" = "Let us know how you use the app and help us to assess its effectiveness.";
+
 "DataDonation_AccImageDescription" = "A woman holds a smartphone that is sharing her data";
 
 "DataDonation_Headline" = "Share Data";
@@ -1725,7 +1727,7 @@
 
 "DataDonation_AgeGroup_NoSelection_Text" = "Your age";
 
-"DataDonation_DetailedInformation_DataProcessing" = "Detailed Information about This Data Processing and Data Protection Risks in the U.S.";
+"DataDonation_DetailedInformation_DataProcessing" = "Detailed Information about This Data Processing and Data Protection Risks in the U.S. and Other Third Countries";
 
 "DataDonation_Button_OK" = "Accept";
 
@@ -1751,7 +1753,7 @@
 
 "DetailedInfosDataDonation_SubHead_DataProcessing" = "Data Processing in the Data Sharing Process";
 
-"DetailedInfosDataDonation_DataProcessing_Description" = "If you consent to share your data, the app sends various data to the RKI each day. The transmitted data will be analyzed for a variety of purposes:";
+"DetailedInfosDataDonation_DataProcessing_Description" = "If you consent to share your data, the app sends various data to the RKI each day. The transmitted data will help us assess the effectiveness of the app and will be analyzed to support the following improvements:";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Improved exposure logging";
 
@@ -1763,7 +1765,7 @@
 
 "DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Enable information and guidance in the app";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport" = "We want to be able to tell if problems occur when using the app in connection with certain testing facilities and laboratories or in certain regions. We can identify this, for example, if the shared data indicates that testing results are provided delayed in certain regions. The relevant public health authorities can also be notified specifically of potential technical problems.";
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "We want to be able to tell if problems occur when using the app in connection with certain testing facilities and laboratories or in certain regions. We can identify this, for example, if the shared data indicates that testing results are provided with delays in certain regions. The relevant public health authorities can also be notified specifically of potential technical problems.";
 
 "DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Improve statistics about the course of the pandemic ";
 
