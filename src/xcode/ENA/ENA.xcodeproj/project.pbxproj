@@ -417,7 +417,7 @@
 		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
 		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
 		8F11511E25DC27AA007BDBC6 /* TestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */; };
-		8F11512425DC27E9007BDBC6 /* TestTestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestTestResultMetadataService.swift */; };
+		8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
 		8F1856A325D69F7A0087DD07 /* ClientMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1856A225D69F7A0087DD07 /* ClientMetadata.swift */; };
 		8F27018F259B593700E48CFE /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
@@ -1252,7 +1252,7 @@
 		8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppac_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
 		8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_edus_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
 		8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataService.swift; sourceTree = "<group>"; };
-		8F11512325DC27E9007BDBC6 /* TestTestResultMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTestResultMetadataService.swift; sourceTree = "<group>"; };
+		8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataServiceTests.swift; sourceTree = "<group>"; };
 		8F1856A225D69F7A0087DD07 /* ClientMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMetadata.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
@@ -3027,7 +3027,7 @@
 		8F11512225DC27C3007BDBC6 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				8F11512325DC27E9007BDBC6 /* TestTestResultMetadataService.swift */,
+				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5353,7 +5353,7 @@
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01EA172D2590C2EC00E98E02 /* MockDiaryStore.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
-				8F11512425DC27E9007BDBC6 /* TestTestResultMetadataService.swift in Sources */,
+				8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */,
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,

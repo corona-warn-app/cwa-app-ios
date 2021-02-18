@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class TestTestResultMetadataService: XCTestCase {
+class TestResultMetadataServiceTests: XCTestCase {
 	
 	func testRegisteringNewTestMetadata_HighRisk() {
 		let secureStore = MockTestStore()

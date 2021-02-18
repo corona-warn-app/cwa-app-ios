@@ -9,41 +9,42 @@ class TestResultMetadataService {
 	// MARK: - Init
 	
 	init(store: Store) {
-		secureStore = store
+		self.store = store
 	}
 	
 	// MARK: - Internal
 
 	func registerNewTestMetadata(date: Date = Date()) {
-		guard let riskLevel = secureStore.riskCalculationResult?.riskLevel  else {
+		guard let riskCalculationResult = store.riskCalculationResult else {
 			return
 		}
-		secureStore.testResultMetadata = TestResultMetaData()
-		secureStore.testResultMetadata?.testRegistrationDate = date
-		secureStore.testResultMetadata?.riskLevelAtTestRegistration = riskLevel
-		secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = secureStore.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel
+		var testResultMetadata = TestResultMetaData()
+		testResultMetadata.testRegistrationDate = date
+		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
+		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
 		
-		switch riskLevel {
+		switch riskCalculationResult.riskLevel {
 		case .high:
-			guard let timeOfRiskChangeToHigh = secureStore.dateOfConversionToHighRisk,
-				  let registrationTime = secureStore.testResultMetadata?.testRegistrationDate else {
+			guard let timeOfRiskChangeToHigh = store.dateOfConversionToHighRisk else {
 				Log.debug("Time Risk Change was not stored Correctly.")
 				return
 			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
-			secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
 		case .low:
-			secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
+
+		Analytics.log(.testResultMetadata(testResultMetadata))
 	}
 
 	func updateResult(testResult: TestResult) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard secureStore.testResultMetadata?.testRegistrationDate != nil else {
+		guard Analytics.testRegistrationDate != nil else {
 			return
 		}
 		
-		let storedTestResult = secureStore.testResultMetadata?.testResult
+		let storedTestResult = Analytics.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == newTestResult ---> do nothing
@@ -51,7 +52,8 @@ class TestResultMetadataService {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				secureStore.testResultMetadata?.testResult = testResult
+
+				Analytics.logPartial(.testResult(testResult))
 				saveHoursSinceTestRegistration()
 				
 			case .expired, .invalid:
@@ -62,19 +64,20 @@ class TestResultMetadataService {
 	
 	// MARK: - Private
 
+	private let store: Store
+
 	private func saveHoursSinceTestRegistration() {
-		guard let registrationDate = secureStore.testResultMetadata?.testRegistrationDate else {
+		guard let registrationDate = Analytics.testRegistrationDate else {
 			return
 		}
 		
-		switch secureStore.testResultMetadata?.testResult {
+		switch Analytics.testResult {
 		case .positive, .negative, .pending:
 			let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-			secureStore.testResultMetadata?.hoursSinceTestRegistration = diffComponents.hour
+			Analytics.logPartial(.hoursSinceTestRegistration(diffComponents.hour))
 		default:
-			secureStore.testResultMetadata?.hoursSinceTestRegistration = nil
+			Analytics.logPartial(.hoursSinceTestRegistration(nil))
 		}
 	}
-	
-	private var secureStore: Store
+
 }
