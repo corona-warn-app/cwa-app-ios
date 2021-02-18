@@ -124,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let wifiClient: WifiOnlyHTTPClient
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-	let contactDiaryStore: DiaryStoringProviding = MockDiaryStore() // CJE: ContactDiaryStore.make()
+	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
