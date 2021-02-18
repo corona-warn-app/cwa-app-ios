@@ -20,7 +20,7 @@ struct DateProvider: DateProviding {
 // swiftlint:disable:next type_body_length
 class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
-	static let encryptionKey = "ContactDiaryStoreEncryptionKey"
+	static let encryptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
 	// MARK: - Init
 
@@ -217,9 +217,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					emailAddress
 				)
 				VALUES (
-					SUBSTR(:name, 1, 250),
-					SUBSTR(:phoneNumber, 1, 250),
-					SUBSTR(:emailAddress, 1, 250)
+					SUBSTR(:name, 1, \(maxTextLength)),
+					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
+					SUBSTR(:emailAddress, 1, \(maxTextLength))
 				);
 			"""
 			let parameters: [String: Any] = [
@@ -267,9 +267,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					emailAddress
 				)
 				VALUES (
-					SUBSTR(:name, 1, 250),
-					SUBSTR(:phoneNumber, 1, 250),
-					SUBSTR(:emailAddress, 1, 250)
+					SUBSTR(:name, 1, \(maxTextLength)),
+					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
+					SUBSTR(:emailAddress, 1, \(maxTextLength))
 				);
 			"""
 
@@ -304,9 +304,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addContactPersonEncounter(
 		contactPersonId: Int,
 		date: String,
-		duration: ContactPersonEncounter.Duration?,
-		maskSituation: ContactPersonEncounter.MaskSituation?,
-		setting: ContactPersonEncounter.Setting?,
+		duration: ContactPersonEncounter.Duration,
+		maskSituation: ContactPersonEncounter.MaskSituation,
+		setting: ContactPersonEncounter.Setting,
 		circumstances: String
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
@@ -336,10 +336,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let parameters: [String: Any] = [
 				"dateString": date,
 				"contactPersonId": contactPersonId,
-				// CJE: Handle Optionals
-//				"duration": duration?.rawValue,
-//				"maskSituation": maskSituation?.rawValue,
-//				"setting": setting?.rawValue,
+				"duration": duration.rawValue,
+				"maskSituation": maskSituation.rawValue,
+				"setting": setting.rawValue,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -368,7 +367,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addLocationVisit(
 		locationId: Int,
 		date: String,
-		duration: Int,
+		durationInMinutes: Int,
 		circumstances: String
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
@@ -394,7 +393,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let parameters: [String: Any] = [
 				"dateString": date,
 				"locationId": locationId,
-				"durationInMinutes": duration,
+				"durationInMinutes": durationInMinutes,
 				"circumstances": circumstances
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -433,7 +432,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE ContactPerson
-				SET name = SUBSTR(?, 1, 250), phoneNumber = SUBSTR(?, 1, 250), emailAddress = SUBSTR(?, 1, 250)
+				SET name = SUBSTR(?, 1, \(maxTextLength)), phoneNumber = SUBSTR(?, 1, \(maxTextLength)), emailAddress = SUBSTR(?, 1, \(maxTextLength))
 				WHERE id = ?
 			"""
 
@@ -475,7 +474,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let sql = """
 				UPDATE Location
-				SET name = SUBSTR(?, 1, 250), phoneNumber = SUBSTR(?, 1, 250), emailAddress = SUBSTR(?, 1, 250)
+				SET name = SUBSTR(?, 1, \(maxTextLength)), phoneNumber = SUBSTR(?, 1, \(maxTextLength)), emailAddress = SUBSTR(?, 1, \(maxTextLength))
 				WHERE id = ?
 			"""
 
@@ -505,15 +504,109 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration?, maskSituation: ContactPersonEncounter.MaskSituation?, setting: ContactPersonEncounter.Setting?, circumstances: String) -> DiaryStoringVoidResult {
-		// CJE: Implement
-		return .success(())
+	func updateContactPersonEncounter(
+		id: Int,
+		date: String,
+		duration: ContactPersonEncounter.Duration,
+		maskSituation: ContactPersonEncounter.MaskSituation,
+		setting: ContactPersonEncounter.Setting,
+		circumstances: String
+	) -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Update ContactPersonEncounter with id: \(id).", log: .localData)
+
+			let sql = """
+				UPDATE ContactPersonEncounter
+				SET date = SUBSTR(?, 1, \(maxTextLength)), duration = ?, maskSituation = ?, setting = ?, circumstances = SUBSTR(?, 1, \(maxTextLength))
+				WHERE id = ?
+			"""
+
+			do {
+				try database.executeUpdate(
+					sql,
+					values: [
+						date,
+						duration.rawValue,
+						maskSituation.rawValue,
+						setting.rawValue,
+						circumstances,
+						id
+					]
+				)
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	@discardableResult
-	func updateLocationVisit(id: Int, locationId: Int, date: String, duration: Int, circumstances: String) -> DiaryStoringVoidResult {
-		// CJE: Implement
-		return .success(())
+	func updateLocationVisit(
+		id: Int,
+		date: String,
+		durationInMinutes: Int,
+		circumstances: String
+	) -> DiaryStoringVoidResult {
+		var result: DiaryStoringVoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[ContactDiaryStore] Update LocationVisit with id: \(id).", log: .localData)
+
+			let sql = """
+				UPDATE LocationVisit
+				SET date = SUBSTR(?, 1, \(maxTextLength)), durationInMinutes = ?, circumstances = SUBSTR(?, 1, \(maxTextLength))
+				WHERE id = ?
+			"""
+
+			do {
+				try database.executeUpdate(
+					sql,
+					values: [
+						date,
+						durationInMinutes,
+						circumstances,
+						id
+					]
+				)
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateDiaryDaysResult = updateDiaryDays(with: database)
+			guard case .success = updateDiaryDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func removeContactPerson(id: Int) -> DiaryStoringVoidResult {
@@ -697,6 +790,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	// MARK: - Private
 
+	private let maxTextLength = 250
 	private let key: String
 	private let dateProvider: DateProviding
 	private let schema: ContactDiarySchemaProtocol
@@ -723,11 +817,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	private func openAndSetup() -> DiaryStoringVoidResult {
 		var errorResult: DiaryStoringVoidResult?
-		var userVerson: UInt32?
+		var userVersion: UInt32 = 0
 		
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-			userVerson = database.userVersion
+			userVersion = database.userVersion
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
@@ -759,8 +853,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		}
 		
 		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
-		// then we create the latest scheme
-		if let version = userVerson, version == 0 {
+		// then we create the latest schema
+		if userVersion == 0 {
 			let schemaCreateResult = schema.create()
 			if case let .failure(error) = schemaCreateResult {
 				return .failure(.database(error))
@@ -793,7 +887,16 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		var contactPersons = [DiaryContactPerson]()
 
 		let sql = """
-				SELECT ContactPerson.id AS contactPersonId, ContactPerson.name, ContactPerson.phoneNumber, ContactPerson.emailAddress, ContactPersonEncounter.id AS contactPersonEncounterId
+				SELECT ContactPerson.id AS contactPersonId,
+						ContactPerson.name,
+						ContactPerson.phoneNumber,
+						ContactPerson.emailAddress,
+						ContactPersonEncounter.id AS encounterId,
+						ContactPersonEncounter.date AS encounterDate,
+						ContactPersonEncounter.duration AS encounterDuration,
+						ContactPersonEncounter.maskSituation AS encounterMaskSituation,
+						ContactPersonEncounter.setting AS encounterSetting,
+						ContactPersonEncounter.circumstances AS encounterCircumstances
 				FROM ContactPerson
 				LEFT JOIN ContactPersonEncounter
 				ON ContactPersonEncounter.contactPersonId = ContactPerson.id
@@ -808,13 +911,29 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
+				let encounterId = Int(queryResult.int(forColumn: "encounterId"))
+				let encounter: ContactPersonEncounter? = encounterId == 0 ? nil : ContactPersonEncounter(
+					id: encounterId,
+					date: queryResult.string(forColumn: "encounterDate") ?? "",
+					contactPersonId: Int(queryResult.int(forColumn: "contactPersonId")),
+					duration: ContactPersonEncounter.Duration(
+						rawValue: Int(queryResult.int(forColumn: "encounterDuration"))
+					) ?? .none,
+					maskSituation: ContactPersonEncounter.MaskSituation(
+						rawValue: Int(queryResult.int(forColumn: "encounterMaskSituation"))
+					) ?? .none,
+					setting: ContactPersonEncounter.Setting(
+						rawValue: Int(queryResult.int(forColumn: "encounterSetting"))
+					) ?? .none,
+					circumstances: queryResult.string(forColumn: "encounterCircumstances") ?? ""
+				)
+
 				let contactPerson = DiaryContactPerson(
 					id: Int(queryResult.int(forColumn: "contactPersonId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					// CJE: Return encounter
-					encounter: nil
+					encounter: encounter
 				)
 				contactPersons.append(contactPerson)
 			}
@@ -830,7 +949,14 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		var locations = [DiaryLocation]()
 
 		let sql = """
-				SELECT Location.id AS locationId, Location.name, Location.phoneNumber, Location.emailAddress, LocationVisit.id AS locationVisitId
+				SELECT Location.id AS locationId,
+						Location.name,
+						Location.phoneNumber,
+						Location.emailAddress,
+						LocationVisit.id AS locationVisitId,
+						LocationVisit.date as locationVisitDate,
+						LocationVisit.durationInMinutes as locationVisitDuration,
+						LocationVisit.circumstances as locationVisitCircumstances
 				FROM Location
 				LEFT JOIN LocationVisit
 				ON Location.id = LocationVisit.locationId
@@ -845,13 +971,20 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			}
 
 			while queryResult.next() {
+				let locationVisitId = Int(queryResult.int(forColumn: "locationVisitId"))
+				let locationVisit: LocationVisit? = locationVisitId == 0 ? nil : LocationVisit(
+					id: locationVisitId,
+					date: queryResult.string(forColumn: "locationVisitDate") ?? "",
+					locationId: Int(queryResult.int(forColumn: "locationId")),
+					durationInMinutes: Int(queryResult.int(forColumn: "locationVisitDuration")),
+					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? ""
+				)
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					// CJE: Return visit
-					visit: nil
+					visit: locationVisit
 				)
 				locations.append(location)
 			}
@@ -1007,7 +1140,7 @@ extension ContactDiaryStore {
 		}
 	}
 
-	private static var storeURL: URL {
+	static var storeURL: URL {
 		storeDirectoryURL
 			.appendingPathComponent("ContactDiary")
 			.appendingPathExtension("sqlite")
@@ -1034,7 +1167,7 @@ extension ContactDiaryStore {
 		}
 
 		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKey) {
+		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKeyKey) {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			do {
@@ -1050,18 +1183,25 @@ extension ContactDiaryStore {
 
 extension ContactDiaryStore {
 	convenience init?() {
-		let latestDBVersion = 2
 		guard let databaseQueue = FMDatabaseQueue(path: ContactDiaryStore.storeURL.path) else {
 			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
 			return nil
 		}
-		
-		let schema = ContactDiaryStoreSchemaV2(
+
+		let latestDBVersion = 3
+		let schema = ContactDiaryStoreSchemaV3(
 			databaseQueue: databaseQueue
 		)
 		
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
-		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: latestDBVersion, migrations: migrations)
+		let migrations: [Migration] = [
+			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
+			ContactDiaryMigration2To3(databaseQueue: databaseQueue)
+		]
+		let migrator = SerialDatabaseQueueMigrator(
+			queue: databaseQueue,
+			latestVersion: latestDBVersion,
+			migrations: migrations
+		)
 
 		self.init(
 			databaseQueue: databaseQueue,

@@ -1466,12 +1466,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Yer";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Yer";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Yer";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Kişi";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Kişi";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";

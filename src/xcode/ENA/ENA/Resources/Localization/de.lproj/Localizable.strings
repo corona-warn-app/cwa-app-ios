@@ -1522,12 +1522,22 @@ sein.";
 /*  - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Ort";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Beschreibung";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-Mail";
+
 
 /*  - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Name";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-Mail";
+
 
 /* Statistics */
 
