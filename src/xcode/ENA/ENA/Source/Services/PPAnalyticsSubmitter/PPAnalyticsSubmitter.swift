@@ -39,63 +39,61 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacToken: PPACToken? = nil,
 		completion: ((Result<Void, PPASError>) -> Void)? = nil
 	) {
-
+		
 		// Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
 			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
 			completion?(.failure(.userConsentError))
 			return
 		}
-
+		
 		configurationProvider.appConfiguration().sink { [weak self] configuration in
-
+			
 			guard let self = self else {
 				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
 				completion?(.failure(.generalError))
 				return
 			}
-
+			
 			// Check configuration parameter
 			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
 				Log.warning("Analytics submission abord due to randomness", log: .ppa)
 				completion?(.failure(.probibilityError))
 				return
 			}
-
+			
 			// Last submission check
 			if self.submissionWithinLast23Hours {
 				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
 				completion?(.failure(.submission23hoursError))
 				return
 			}
-
+			
 			// Onboarding check
 			if self.onboardingCompletedWithinLast24Hours {
 				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
 				completion?(.failure(.onboardingError))
 				return
 			}
-
+			
 			// App Reset check
 			if self.appResetWithinLast24Hours {
 				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
 				completion?(.failure(.appResetError))
 				return
 			}
-
+			
+			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
+			self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
+			
 			if let token = ppacToken {
 				// Submit analytics data with injected ppac token
 				self.submitData(with: token, completion: completion)
 			} else {
 				self.generatePPACAndSubmitData(completion: completion)
 			}
-			
-			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
-			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
-
-		}.store(in: &subscriptions)
+		}
 	}
-
 	#if !RELEASE
 
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
@@ -124,7 +122,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private var subscriptions = [AnyCancellable]()
 	private var hoursSinceTestRegistrationToSubmitTestResultMetadata: Int32 = 0
-	
+	private var probabilityToSubmitExposureWindows: Double = 0
+
 	private var userDeclinedAnalyticsCollectionConsent: Bool {
 		return !store.isPrivacyPreservingAnalyticsConsentGiven
 	}
@@ -240,22 +239,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private func obtainUsageData() -> SAP_Internal_Ppdd_PPADataIOS {
 
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
-		// already created for EXPOSUREAPP-4790
-		/*
-		let newExposureWindows = gatherNewExposureWindows()
-		*/
-
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
 		let testResultMetadata = gatherTestResultMetadata()
+		let newExposureWindows = gatherNewExposureWindows()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
 			$0.exposureRiskMetadataSet = exposureRiskMetadata
-			// already created for EXPOSUREAPP-4790
-			/*
-			$0.newExposureWindows = newExposureWindows
-			*/
 			$0.userMetadata = userMetadata
 			$0.clientMetadata = clientMetadata
 			$0.userMetadata = userMetadata
@@ -263,9 +254,22 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeKeySubmissionMetadata {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
+			$0.userMetadata = userMetadata
+			$0.clientMetadata = clientMetadata
 			if shouldTestResultMetadataBeIncluded {
 				$0.testResultMetadataSet = testResultMetadata
 			}
+			/*
+			Exposure Windows are included in the next submission if:
+				- a generated random number between 0 and 1 is lower than or equal the value of Configuration Parameter .probabilityToSubmitExposureWindows.
+				- This shall be logged as warning.
+			*/
+			let randomProbability = Double.random(in: 0...1)
+			if randomProbability <= probabilityToSubmitExposureWindows {
+				$0.newExposureWindows = newExposureWindows
+			}
+			Log.warning("generated probability to submit New Exposure Windows: \(randomProbability)", log: .ppa)
+			Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows)", log: .ppa)
 		}
 
 		return payload
@@ -293,6 +297,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
 					self?.store.lastSubmittedPPAData = payload.textFormatString()
+					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted", log: .ppa, error: error)
@@ -314,11 +319,37 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}]
 	}
 
-	// already created for EXPOSUREAPP-4790
-	/*
 	private func gatherNewExposureWindows() -> [SAP_Internal_Ppdd_PPANewExposureWindow] {
+		guard let exposureWindowsMetadata = store.exposureWindowsMetadata else {
+			return []
+		}
+		let exposureWindowsMetadataProto: [SAP_Internal_Ppdd_PPANewExposureWindow] = exposureWindowsMetadata.newExposureWindowsQueue.map { windowMetadata in
+			SAP_Internal_Ppdd_PPANewExposureWindow.with {
+				
+				$0.normalizedTime = windowMetadata.normalizedTime
+				$0.transmissionRiskLevel = Int32(windowMetadata.transmissionRiskLevel)
+				$0.exposureWindow = SAP_Internal_Ppdd_PPAExposureWindow.with({ protobufWindow in
+					if let infectiousness = windowMetadata.exposureWindow.infectiousness.protobuf {
+						protobufWindow.infectiousness = infectiousness
+					}
+					if let reportType = windowMetadata.exposureWindow.reportType.protobuf {
+						protobufWindow.reportType = reportType
+					}
+					protobufWindow.calibrationConfidence = Int32(windowMetadata.exposureWindow.calibrationConfidence.rawValue)
+					protobufWindow.date = Int64(windowMetadata.date.timeIntervalSince1970)
+					
+					protobufWindow.scanInstances = windowMetadata.exposureWindow.scanInstances.map({ scanInstance in
+						SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { (protobufScanInstance) in
+							protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
+							protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
+							protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
+						}
+					})
+				})
+			}
+		}
+		return exposureWindowsMetadataProto
 	}
-	*/
 
 	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
 		guard let storedUserData = store.userMetadata else {
@@ -428,3 +459,4 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return Int64(date.timeIntervalSince1970)
 	}
 }
+
