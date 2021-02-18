@@ -1149,15 +1149,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
 			let emailAddressDescription = emailAddress == "" ? "" : "eMail \(emailAddress)"
-			let durationDescription = duration == .none ? "" : "Kontaktdauer \(duration.description)"
+			let durationDescription = duration == .none ? "" : "Kontaktdauer \(duration.germanDescription)"
 
 			var entryComponents = [
 				"\(germanDateString) \(name)",
 				phoneNumberDescription,
 				emailAddressDescription,
 				durationDescription,
-				maskSituation.description,
-				setting.description, circumstances
+				maskSituation.germanDescription,
+				setting.germanDescription, circumstances
 			]
 
 			entryComponents = entryComponents.filter { $0 != "" }

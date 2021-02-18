@@ -13,7 +13,7 @@ struct ContactPersonEncounter: Equatable {
 		case lessThan15Minutes
 		case moreThan15Minutes
 
-		var description: String {
+		var germanDescription: String {
 			switch self {
 			case .none:
 				return ""
@@ -30,7 +30,7 @@ struct ContactPersonEncounter: Equatable {
 		case withMask
 		case withoutMask
 
-		var description: String {
+		var germanDescription: String {
 			switch self {
 			case .none:
 				return ""
@@ -47,7 +47,7 @@ struct ContactPersonEncounter: Equatable {
 		case outside
 		case inside
 
-		var description: String {
+		var germanDescription: String {
 			switch self {
 			case .none:
 				return ""
