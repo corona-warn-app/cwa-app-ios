@@ -21,7 +21,6 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		homeState.$riskState
 			.sink { [weak self] in
 				self?.scheduleCountdownTimer()
-
 				switch $0 {
 				case .risk(let risk):
 					switch risk.level {

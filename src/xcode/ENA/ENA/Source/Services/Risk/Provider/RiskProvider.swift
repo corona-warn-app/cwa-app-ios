@@ -351,6 +351,7 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
+				store.dateOfConversionToHighRisk = Date()
 			}
 		}
 	}

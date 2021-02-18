@@ -56,7 +56,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-
+	var dateOfConversionToHighRisk: Date?
+	
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
@@ -87,4 +88,5 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
+	var testResultMetadata: TestResultMetaData?
 }

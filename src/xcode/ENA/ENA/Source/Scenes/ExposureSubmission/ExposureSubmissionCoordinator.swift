@@ -760,7 +760,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 		)
 	}
-
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {
