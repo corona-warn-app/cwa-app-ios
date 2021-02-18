@@ -1,8 +1,10 @@
 /* ExposureSubmissionWarnOthers */
 
-"ExposureSubmissionWarnOthers_consentTitle" = "Onay Beyanı";
+"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama, karşılaştığınız resmi Korona uygulamaları kullanıcıları uyarmak üzere onlara test sonucunuzu paylaşır. Uyarı, yukarıda sözü geçen ülkelerde çalışır. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
-"ExposureSubmissionWarnOthers_consentDescription" = "“Kabul Et”e tıkladığınızda, son 14 gün içinde oluşan rastgele kimlik no’larınız ve olası semptomların başlangıcı ile ilgili tüm verilerin uygulamanın sunucu sistemine iletilmesine izin vermiş olursunuz. Bu veriler, temas halinde olduğunuz uygulama kullanıcıları için enfeksiyon riskini değerlendirmek ve olası bir enfeksiyon riski durumunda onları uyarmak için kullanılır. Diğer katılımcı ülkelerdeki resmi Korona uygulamalarının kullanıcılarının da uyarılması adına, bu veriler aynı zamanda uygulamanın sunucu sistemi tarafından katılımcı ülkelerin ortaklaşa işletilen veri değişim sunucusuna da gönderilmektedir.\n\nNe diğer kullanıcılar, ne de RKI (Robert Koch Enstitüsü) veya katılımcı ülkelerin sağlık kurumu yetkilileri, aktarılan bu veriler üzerinden sizin kimliğinizi, adınızı veya diğer kişisel bilgilerinizi öğrenebilir.\n\nSınır ötesi uyarılar için rastgele kimlik no’larının ve olası semptomların başlangıcı ile ilgili verilerin aktarılması isteğe bağlı gerçekleşir. Bu verileri aktarmak istemezseniz, bu durum sizin için herhangi bir sakınca doğurmaz. Bu uygulamayı kullanıp kullanmadığınız ve nasıl kullandığınız, takip ve kontrol edilemediğinden, rastgele kimlik no’larınızı kullanıma açıp açmadığınızı sizden başka hiç kimse bilemez.\n\nVermiş olduğunuz onayı, istediğiniz an bu uygulamayı silmek suretiyle iptal edebilirsiniz. Verilmiş olan onayın iptali, iptal işlemi geçerli oluncaya kadar bu onay temelinde yürütülmüş olan işlemlerin yasalara uygunluğunu etkilemez.\n\nKatılımcı ülkeler ve veri korumasından sorumlu sağlık kurumu hakkında daha fazla bilgiyi “Uygulama bilgileri” > “Veri gizliliği” menü öğeleri altında bulabilirsiniz.";
+"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
+
+"ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
 
 
 /* DeltaOnboarding */
@@ -62,14 +64,6 @@
 
 "ContactDiary_Information_Legal_Text_4" = "Özel kişiler veya şirketler, topladığınız verileri başkalarına aktarmanızı talep edemez. Birisi temas güncesine kaydedilmek istemiyorsa, lütfen onun bu isteğine saygı gösterin.";
 
-
-/* ExposureSubmissionWarnOthers */
-
-"ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama, karşılaştığınız resmi Korona uygulamaları kullanıcıları uyarmak üzere onlara test sonucunuzu paylaşır. Uyarı, yukarıda sözü geçen ülkelerde çalışır. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
-
-"ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
-
-"ExposureSubmissionWarnOthers_acknowledgement_footer" = "Uyarı gerçekleştikten sonra, Uygulamayı silerek verdiğiniz rıza beyanını da geri alabilirsiniz.";
 
 /* Data Donation */
 
