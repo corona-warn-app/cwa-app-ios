@@ -48,7 +48,11 @@ class ExposureWindowsMetadataService {
 
 	private func clearReportedExposureWindowsQueueIfNeeded(store: Store) {
 		if let NonExpiredWindows = store.exposureWindowsMetadata?.reportedExposureWindowsQueue.filter({
-			(Calendar.current.dateComponents([.day], from: $0.date, to: Date()).day) ?? 15 < 15
+			guard let day = Calendar.current.dateComponents([.day], from: $0.date, to: Date()).day else {
+				Log.debug("Exposure Window is removed from reportedExposureWindowsQueue as the date componant is nil", log: .ppa)
+				return false
+			}
+			return day < 15
 		}) {
 			store.exposureWindowsMetadata?.reportedExposureWindowsQueue = NonExpiredWindows
 		}
