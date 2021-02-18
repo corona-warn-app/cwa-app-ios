@@ -1035,6 +1035,17 @@ enum AppStrings {
 				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
 			}
 		}
+
+		enum PersonEncounter {
+			static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_lessThan15Minutes", comment: "")
+			static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_moreThan15Minutes", comment: "")
+
+			static let maskSituationWithMask = NSLocalizedString("ContactDiary_PersonEncounter_Duration_maskSituationWithMask", comment: "")
+			static let maskSituationWithoutMask = NSLocalizedString("ContactDiary_PersonEncounter_Duration_maskSituationWithoutMask", comment: "")
+
+			static let settingOutside = NSLocalizedString("ContactDiary_PersonEncounter_Duration_settingOutside", comment: "")
+			static let settingInside = NSLocalizedString("ContactDiary_PersonEncounter_Duration_settingInside", comment: "")
+		}
 	}
 
 	enum Statistics {

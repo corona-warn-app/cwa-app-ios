@@ -12,18 +12,51 @@ struct ContactPersonEncounter: Equatable {
 		case none
 		case lessThan15Minutes
 		case moreThan15Minutes
+
+		var description: String {
+			switch self {
+			case .none:
+				return ""
+			case .lessThan15Minutes:
+				return AppStrings.ContactDiary.PersonEncounter.durationLessThan15Minutes
+			case .moreThan15Minutes:
+				return AppStrings.ContactDiary.PersonEncounter.durationMoreThan15Minutes
+			}
+		}
 	}
 
 	enum MaskSituation: Int {
 		case none
 		case withMask
 		case withoutMask
+
+		var description: String {
+			switch self {
+			case .none:
+				return ""
+			case .withMask:
+				return AppStrings.ContactDiary.PersonEncounter.maskSituationWithMask
+			case .withoutMask:
+				return AppStrings.ContactDiary.PersonEncounter.maskSituationWithoutMask
+			}
+		}
 	}
 
 	enum Setting: Int {
 		case none
 		case outside
 		case inside
+
+		var description: String {
+			switch self {
+			case .none:
+				return ""
+			case .outside:
+				return AppStrings.ContactDiary.PersonEncounter.settingOutside
+			case .inside:
+				return AppStrings.ContactDiary.PersonEncounter.settingInside
+			}
+		}
 	}
 
 	init(
@@ -56,5 +89,4 @@ struct ContactPersonEncounter: Equatable {
 	let setting: Setting
 
 	let circumstances: String
-	
 }

@@ -99,4 +99,32 @@ final class DiaryOverviewDayCellModel {
 
 	private let diaryDay: DiaryDay
 
+	private func entryDetailTextFor(personEncounter: ContactPersonEncounter) -> String {
+		var detailComponents = [String]()
+		detailComponents.append(personEncounter.duration.description)
+		detailComponents.append(personEncounter.maskSituation.description)
+		detailComponents.append(personEncounter.setting.description)
+
+		// Filter empty strings.
+		detailComponents = detailComponents.filter { $0 != "" }
+
+		return detailComponents.joined(separator: ", ")
+	}
+
+	private func entryDetailTextFor(locationVisit: LocationVisit) -> String {
+		guard locationVisit.durationInMinutes > 0 else {
+			return ""
+		}
+
+		let dateComponents = DateComponents(minute: locationVisit.durationInMinutes)
+		return dateComponentsFormatter.string(from: dateComponents) ?? ""
+	}
+
+	private var dateComponentsFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .positional
+		formatter.zeroFormattingBehavior = .pad
+		formatter.allowedUnits = [.hour, .minute]
+		return formatter
+	}()
 }
