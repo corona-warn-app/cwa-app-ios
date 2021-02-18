@@ -452,6 +452,7 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
 		set {
 			kvStore["keySubmissionMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
 		}
 	}
 	
