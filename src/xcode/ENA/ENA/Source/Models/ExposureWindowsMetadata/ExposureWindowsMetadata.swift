@@ -9,9 +9,9 @@ struct ExposureWindowsMetadata: Codable {
 	// MARK: - Init
 	
 	init(
-		newExposureWindowsQueue: [SubmittionExposureWindow],
-		reportedExposureWindowsQueue: [SubmittionExposureWindow]) {
-		
+		newExposureWindowsQueue: [SubmissionExposureWindow],
+		reportedExposureWindowsQueue: [SubmissionExposureWindow]
+	) {
 		self.newExposureWindowsQueue = newExposureWindowsQueue
 		self.reportedExposureWindowsQueue = reportedExposureWindowsQueue
 	}
@@ -21,8 +21,8 @@ struct ExposureWindowsMetadata: Codable {
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		
-		newExposureWindowsQueue = try container.decode([SubmittionExposureWindow].self, forKey: .newExposureWindowsQueue)
-		reportedExposureWindowsQueue = try container.decode([SubmittionExposureWindow].self, forKey: .reportedExposureWindowsQueue)
+		newExposureWindowsQueue = try container.decode([SubmissionExposureWindow].self, forKey: .newExposureWindowsQueue)
+		reportedExposureWindowsQueue = try container.decode([SubmissionExposureWindow].self, forKey: .reportedExposureWindowsQueue)
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -32,22 +32,19 @@ struct ExposureWindowsMetadata: Codable {
 	
 	// MARK: - Internal
 	
-	// Exposure Windows to be added to the next submittion
-	var newExposureWindowsQueue: [SubmittionExposureWindow]
+	// Exposure Windows to be added to the next Submission
+	var newExposureWindowsQueue: [SubmissionExposureWindow]
 	
-	// Exposure Windows that was sent in pervious submittions
-	var reportedExposureWindowsQueue: [SubmittionExposureWindow]
+	// Exposure Windows that was sent in pervious Submissions
+	var reportedExposureWindowsQueue: [SubmissionExposureWindow]
 	
 	// Date used to delete Records in reportedExposureWindowsQueue which are older than 15 days
 }
 
-struct SubmittionExposureWindow: Codable {
-	var exposureWindow: ExposureWindow
-	var transmissionRiskLevel: Int
-	var normalizedTime: Double
-	var hash: String?
-	var date: Date
-	
+struct SubmissionExposureWindow: Codable {
+
+	// MARK: - Init
+
 	init(exposureWindow: ExposureWindow, transmissionRiskLevel: Int, normalizedTime: Double, hash: String?, date: Date) {
 		self.exposureWindow = exposureWindow
 		self.transmissionRiskLevel = transmissionRiskLevel
@@ -55,4 +52,12 @@ struct SubmittionExposureWindow: Codable {
 		self.hash = hash
 		self.date = date
 	}
+	
+	// MARK: - Internal
+
+	var exposureWindow: ExposureWindow
+	var transmissionRiskLevel: Int
+	var normalizedTime: Double
+	var hash: String?
+	var date: Date
 }

@@ -83,6 +83,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				return
 			}
 			
+			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
 			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
 			self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
 			

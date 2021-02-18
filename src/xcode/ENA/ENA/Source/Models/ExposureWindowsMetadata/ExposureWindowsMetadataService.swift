@@ -15,12 +15,12 @@ class ExposureWindowsMetadataService {
 		}
 		self.clearReportedExposureWindowsQueueIfNeeded(store: store)
 		
-		let mappedSubmittionExposureWindows: [SubmittionExposureWindow] = calculation.mappedExposureWindows.map {
-			SubmittionExposureWindow(
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = calculation.mappedExposureWindows.map {
+			SubmissionExposureWindow(
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,
 				normalizedTime: $0.normalizedTime,
-				hash: self.convertToData($0.exposureWindow)?.sha256String(),
+				hash: generateSha256($0.exposureWindow),
 				date: $0.date
 			)
 		}
@@ -28,7 +28,7 @@ class ExposureWindowsMetadataService {
 		if let metadata = store.exposureWindowsMetadata {
 			// if store is initialized:
 			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
-			for exposureWindow in mappedSubmittionExposureWindows {
+			for exposureWindow in mappedSubmissionExposureWindows {
 				if metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
 					store.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
 					store.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
@@ -38,8 +38,8 @@ class ExposureWindowsMetadataService {
 			// if store is not initialized:
 			// - Initialize and add all of the exposure windows to both "newExposureWindowsQueue" and "reportedExposureWindowsQueue" arrays
 			store.exposureWindowsMetadata = ExposureWindowsMetadata(
-				newExposureWindowsQueue: mappedSubmittionExposureWindows,
-				reportedExposureWindowsQueue: mappedSubmittionExposureWindows
+				newExposureWindowsQueue: mappedSubmissionExposureWindows,
+				reportedExposureWindowsQueue: mappedSubmissionExposureWindows
 			)
 		}
 	}
@@ -49,7 +49,7 @@ class ExposureWindowsMetadataService {
 	private func clearReportedExposureWindowsQueueIfNeeded(store: Store) {
 		if let nonExpiredWindows = store.exposureWindowsMetadata?.reportedExposureWindowsQueue.filter({
 			guard let day = Calendar.current.dateComponents([.day], from: $0.date, to: Date()).day else {
-				Log.debug("Exposure Window is removed from reportedExposureWindowsQueue as the date componant is nil", log: .ppa)
+				Log.debug("Exposure Window is removed from reportedExposureWindowsQueue as the date component is nil", log: .ppa)
 				return false
 			}
 			return day < 15
@@ -58,7 +58,7 @@ class ExposureWindowsMetadataService {
 		}
 	}
 	
-	private func convertToData(_ window: ExposureWindow) -> Data? {
+	private func generateSha256(_ window: ExposureWindow) -> String? {
 		var windowData: Data?
 		
 		do {
@@ -68,6 +68,6 @@ class ExposureWindowsMetadataService {
 		} catch {
 			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
 		}
-		return windowData
+		return windowData?.sha256String()
 	}
 }
