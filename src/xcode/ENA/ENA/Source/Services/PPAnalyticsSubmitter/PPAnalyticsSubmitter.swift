@@ -339,7 +339,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					protobufWindow.date = Int64(windowMetadata.date.timeIntervalSince1970)
 					
 					protobufWindow.scanInstances = windowMetadata.exposureWindow.scanInstances.map({ scanInstance in
-						SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { (protobufScanInstance) in
+						SAP_Internal_Ppdd_PPAExposureWindowScanInstance.with { protobufScanInstance in
 							protobufScanInstance.secondsSinceLastScan = Int32(scanInstance.secondsSinceLastScan)
 							protobufScanInstance.typicalAttenuation = Int32(scanInstance.typicalAttenuation)
 							protobufScanInstance.minAttenuation = Int32(scanInstance.minAttenuation)
@@ -459,4 +459,3 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return Int64(date.timeIntervalSince1970)
 	}
 }
-

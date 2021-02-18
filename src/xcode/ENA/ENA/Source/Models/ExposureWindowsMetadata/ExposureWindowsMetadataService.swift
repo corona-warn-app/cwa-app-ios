@@ -25,11 +25,11 @@ class ExposureWindowsMetadataService {
 			)
 		}
 		
-		if store.exposureWindowsMetadata != nil {
+		if let metadata = store.exposureWindowsMetadata {
 			// if store is initialized:
 			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
 			for exposureWindow in mappedSubmittionExposureWindows {
-				if store.exposureWindowsMetadata?.reportedExposureWindowsQueue.first(where: { $0.hash == exposureWindow.hash }) == nil {
+				if metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
 					store.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
 					store.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
 				}
@@ -47,14 +47,14 @@ class ExposureWindowsMetadataService {
 	// MARK: - Private
 
 	private func clearReportedExposureWindowsQueueIfNeeded(store: Store) {
-		if let NonExpiredWindows = store.exposureWindowsMetadata?.reportedExposureWindowsQueue.filter({
+		if let nonExpiredWindows = store.exposureWindowsMetadata?.reportedExposureWindowsQueue.filter({
 			guard let day = Calendar.current.dateComponents([.day], from: $0.date, to: Date()).day else {
 				Log.debug("Exposure Window is removed from reportedExposureWindowsQueue as the date componant is nil", log: .ppa)
 				return false
 			}
 			return day < 15
 		}) {
-			store.exposureWindowsMetadata?.reportedExposureWindowsQueue = NonExpiredWindows
+			store.exposureWindowsMetadata?.reportedExposureWindowsQueue = nonExpiredWindows
 		}
 	}
 	
