@@ -15,6 +15,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	var analyticsSubmitter: PPAnalyticsSubmitter
 	var dependencies: ExposureSubmissionServiceDependencies
 	private let backgroundTaskConsumer = RiskConsumer()
+	private let keySubmissionService: KeySubmissionService
 
 	init(
 		riskProvider: RiskProvider,
@@ -30,6 +31,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 		self.analyticsSubmitter = analyticsSubmitter
+		self.keySubmissionService = KeySubmissionService(store: store)
 	}
 
 
@@ -253,7 +255,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	
 	// MARK: Key Submission Service
 	private func updateStoreWithKeySubmissionInBackground(value: Bool) {
-		let keySubmissionService = KeySubmissionService(store: self.store)
 		keySubmissionService.setSubmittedInBackground(withValue: value)
 	}
 }
