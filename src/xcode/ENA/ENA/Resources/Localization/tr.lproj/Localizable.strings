@@ -1707,6 +1707,8 @@
 "Tabbar_Diary_Title" = "Günce";
 
 /* Data Donation */
+"DataDonation_IntroductionText" = "Uygulamayı nasıl kullandığınızı belirtin ve uygulamanın etkinliğini değerlendirmemize yardımcı olun.";
+
 "DataDonation_AccImageDescription" = "Bir kadın verilerinin paylaşıldığı bir akıllı telefon tutuyor";
 
 "DataDonation_Headline" = "Verileri Paylaş";
@@ -1725,7 +1727,7 @@
 
 "DataDonation_AgeGroup_NoSelection_Text" = "Yaşınız";
 
-"DataDonation_DetailedInformation_DataProcessing" = "ABD’de Veri İşleme ve Veri Koruma Riskleri Hakkında Ayrıntılı Bilgiler";
+"DataDonation_DetailedInformation_DataProcessing" = "ABD’de ve Diğer Üçüncü Ülkelerde Veri İşleme ve Veri Koruma Riskleri Hakkında Ayrıntılı Bilgiler";
 
 "DataDonation_Button_OK" = "Kabul Et";
 
@@ -1751,7 +1753,7 @@
 
 "DetailedInfosDataDonation_SubHead_DataProcessing" = "Veri Paylaşma Sürecinde Veri İşleme";
 
-"DetailedInfosDataDonation_DataProcessing_Description" = "Verilerinizi paylaşma izni vermeniz halinde uygulama RKI’ye her gün çeşitli veriler gönderir. Aktarılan veriler çeşitli amaçlarla analiz edilir:";
+"DetailedInfosDataDonation_DataProcessing_Description" = "Verilerinizi paylaşma izni vermeniz halinde uygulama RKI’ye her gün çeşitli veriler gönderir. Aktarılan veriler, uygulamanın etkinliğini değerlendirmemize yardımcı olacaktır ve çeşitli amaçlarla analiz edilecektir:";
 
 "DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "İyileştirilmiş maruz kalma günlüğü";
 
