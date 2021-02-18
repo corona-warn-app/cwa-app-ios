@@ -320,7 +320,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let vc = ExposureSubmissionHotlineViewController(
 			onSecondaryButtonTap: { [weak self] in
 				self?.showTanScreen()
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
