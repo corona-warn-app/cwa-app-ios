@@ -104,7 +104,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 
 		let vc = TanInputViewController(
-			viewModel: tanInputViewModel
+			viewModel: tanInputViewModel,
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 		push(vc)
 	}

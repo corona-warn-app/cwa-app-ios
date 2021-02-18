@@ -10,10 +10,12 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	// MARK: - Init
 
 	init(
-		viewModel: TanInputViewModel
+		viewModel: TanInputViewModel,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
