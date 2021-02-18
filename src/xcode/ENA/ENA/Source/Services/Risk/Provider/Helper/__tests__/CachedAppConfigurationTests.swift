@@ -87,7 +87,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 	
 	func testClientMetadata_isUpdated_everytime_appconfiguration_isFetched() {
 		let mockStore = MockTestStore()
-		Analytics.setupMock(store: mockStore)
 		XCTAssertNil(mockStore.clientMetadata, "Client metadata should be initially nil")
 		let client = CachingHTTPClientMock(store: mockStore)
 		let cache = CachedAppConfiguration(client: client, store: mockStore)

@@ -102,7 +102,6 @@ class DataDonationModelTests: XCTestCase {
 	func testGIVEN_Model_WHEN_Save_THEN_StoreValuesMatch() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		Analytics.setupMock(store: mockStore)
 		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
