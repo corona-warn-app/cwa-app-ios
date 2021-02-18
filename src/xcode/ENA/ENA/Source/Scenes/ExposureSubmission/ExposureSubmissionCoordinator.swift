@@ -308,7 +308,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						self?.showErrorAlert(for: error)
 					}
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 		return vc
 	}
@@ -472,7 +473,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						self?.showErrorAlert(for: error)
 					}
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
