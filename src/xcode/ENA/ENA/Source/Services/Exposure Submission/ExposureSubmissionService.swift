@@ -12,6 +12,7 @@ import OpenCombine
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
+// swiftlint:disable:next type_body_length
 class ENAExposureSubmissionService: ExposureSubmissionService {
 	
 	// MARK: - Init
@@ -32,8 +33,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		
+		self.keySubmissionService = KeySubmissionService(store: store)
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
+			self.updateStoreWithUserConsentGiven(value: isSubmissionConsentGiven)
 		}.store(in: &subscriptions)
 	}
 
@@ -216,6 +219,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// Fake requests.
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
+					// because this block is only called in QR submission
+					self.updateStoreWithQRSubmissionSelected()
+					self.store.testRegistrationDate = Date()
 					self.createTestMetaData()
 					self._getTestResult(token) { testResult in
 						switch testResult {
@@ -287,7 +293,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
 	private let deadmanNotificationManager: DeadmanNotificationManageable
-
+	private let keySubmissionService: KeySubmissionService
+	
 	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 
 	private var devicePairingConsentAccept: Bool {
@@ -321,8 +328,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					return
 				}
 				switch testResult {
-				case .negative, .positive, .invalid:
+				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+					self.updateStoreWithHoursSinceHighRiskWarningAtTestRegistration()
+					self.updateStoreWithDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 					completeWith(.success(testResult))
 				case .pending:
 					completeWith(.success(testResult))
@@ -409,10 +418,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			visitedCountries: visitedCountries,
 			tan: tan
 		)
-
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
+				self.updateStoreWithUserConsentGiven(value: self.store.isSubmissionConsentGiven)
+				self.updateStoreWithKeySubmissionDone()
 				self.submitExposureCleanup()
 				Log.info("Successfully completed exposure sumbission.", log: .api)
 				completion(nil)
@@ -434,6 +444,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.failure(self.parseError(error)))
 			case let .success(registrationToken):
 				self.store.registrationToken = registrationToken
+				self.store.testRegistrationDate = Date()
 				self.store.testResultReceivedTimeStamp = nil
 				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
 				self.store.devicePairingConsentAccept = true
@@ -519,5 +530,29 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completionHandler?(.fakeResponse)
 			}
 		}
+	}
+    
+	// MARK: Key Submission Service
+
+	private func updateStoreWithKeySubmissionDone() {
+		keySubmissionService.setHoursSinceTestResult()
+		keySubmissionService.setHoursSinceTestRegistration()
+		keySubmissionService.setSubmitted(withValue: true)
+	}
+
+	private func updateStoreWithQRSubmissionSelected() {
+		keySubmissionService.setSubmittedWithTeleTAN(withValue: false)
+	}
+	
+	private func updateStoreWithUserConsentGiven(value: Bool) {
+		keySubmissionService.setAdvancedConsentGiven(withValue: value)
+	}
+	
+	private func updateStoreWithHoursSinceHighRiskWarningAtTestRegistration() {
+		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
+	}
+	
+	private func updateStoreWithDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
+		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
 	}
 }

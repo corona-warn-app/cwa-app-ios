@@ -15,7 +15,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	) {
 		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
