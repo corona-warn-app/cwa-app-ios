@@ -354,16 +354,7 @@ extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
 		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
-		set {
-			kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
-			currentRiskExposureMetadata = nil
-			previousRiskExposureMetadata = nil
-			userMetadata = nil
-			lastSubmittedPPAData = nil
-			lastAppReset = nil
-			lastSubmissionAnalytics = nil
-			clientMetadata = nil
-		}
+		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
 	}
 
 	var otpToken: OTPToken? {

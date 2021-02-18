@@ -51,9 +51,13 @@ struct DataDonationModel {
 	}
 
 	// store alle data if the user consent is given
-	// otherwise set all values to nil and store that consent isn't give only
+	// otherwise store that consent isn't give only
 	mutating func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
+
+		// If user has not given or remoked his consent, delete all analyics data. If he gives not the consent, delete all analytics data to have a clean state.
+		Analytics.deleteAnalyticsData()
+
 		guard isConsentGiven else {
 			region = nil
 			federalStateName = nil
