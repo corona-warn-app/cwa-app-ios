@@ -1147,7 +1147,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			let setting = ContactPersonEncounter.Setting(rawValue: Int(personEncounterResult.int(forColumn: "setting"))) ?? .none
 			let circumstances = personEncounterResult.string(forColumn: "circumstances") ?? ""
 
-
 			let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
 			let emailAddressDescription = emailAddress == "" ? "" : "eMail \(emailAddress)"
 			let durationDescription = duration == .none ? "" : "Kontaktdauer \(duration.germanDescription)"
@@ -1195,7 +1194,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			formatter.unitsStyle = .positional
 			formatter.zeroFormattingBehavior = .pad
 			formatter.allowedUnits = [.hour, .minute]
-
 
 			let durationDescription = durationInM == 0 ? "" : "Dauer \(formatter.string(from: dateComponents) ?? "") h"
 			let phoneNumberDescription = phoneNumber == "" ? "" : "Tel. \(phoneNumber)"
