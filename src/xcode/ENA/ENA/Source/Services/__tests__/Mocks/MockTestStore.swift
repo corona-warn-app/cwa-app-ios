@@ -6,7 +6,6 @@ import Foundation
 @testable import ENA
 
 final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
-	var analyticsSubmitter: PPAnalyticsSubmitter?
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
