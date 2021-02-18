@@ -74,7 +74,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
 			coordinator: self,
 			dismissClosure: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.dismiss()
 			},
 			rootViewController: initialVC
 		)
@@ -157,7 +157,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
-		return ExposureSubmissionIntroViewController(viewModel)
+		return ExposureSubmissionIntroViewController(
+			viewModel: viewModel,
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}
+		)
 	}
 
 	// MARK: - Internal

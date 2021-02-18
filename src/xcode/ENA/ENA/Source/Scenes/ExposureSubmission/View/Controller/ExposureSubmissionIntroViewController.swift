@@ -9,9 +9,13 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	
 	// MARK: - Init
 
-	init(_ viewModel: ExposureSubmissionIntroViewModel) {
+	init(
+		viewModel: ExposureSubmissionIntroViewModel,
+		dismiss: @escaping () -> Void
+	) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
