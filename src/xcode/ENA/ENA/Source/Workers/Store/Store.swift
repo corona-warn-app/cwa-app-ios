@@ -169,6 +169,8 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
 	var testResultMetadata: TestResultMetaData? { get set }
+	/// Analytics data.
+	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }
 
 /// Wrapper protocol

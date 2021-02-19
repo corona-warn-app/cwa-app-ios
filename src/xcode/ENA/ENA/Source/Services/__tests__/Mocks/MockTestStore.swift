@@ -101,4 +101,5 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var clientMetadata: ClientMetadata?
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetaData?
+	var exposureWindowsMetadata: ExposureWindowsMetadata?
 }
