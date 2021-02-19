@@ -53,7 +53,7 @@ final class DMPPAnalyticsViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
-					self?.submitter.forcedSubmitData(completion: { [weak self] result in
+					Analytics.forcedAnalyticsSubmission(completion: { [weak self] result in
 						switch result {
 						case .success:
 							let alert = UIAlertController(title: "Data submission success", message: nil, preferredStyle: .alert)
@@ -75,8 +75,17 @@ final class DMPPAnalyticsViewModel {
 				text: "Generate Fake Data",
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
-				action: { [weak self] in
-					self?.store.userMetadata = UserMetadata(federalState: .hessen, administrativeUnit: 0, ageGroup: .ageBelow29)
+				action: {
+					Analytics.log(.userData(.complete(UserMetadata(federalState: .hessen, administrativeUnit: 0, ageGroup: .ageBelow29))))
+				}
+			)
+		case .removeAllAnalyticsData:
+			return DMButtonCellViewModel(
+				text: "Remove all analytics data",
+				textColor: .white,
+				backgroundColor: .enaColor(for: .buttonPrimary),
+				action: {
+					Analytics.deleteAnalyticsData()
 				}
 			)
 		}
@@ -88,6 +97,7 @@ final class DMPPAnalyticsViewModel {
 	private enum TableViewSections: Int, CaseIterable {
 		case forceSubmission
 		case generateFakedTestData
+		case removeAllAnalyticsData
 	}
 
 	private let store: Store

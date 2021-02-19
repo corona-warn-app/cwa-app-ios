@@ -15,15 +15,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: ContactDiaryStore,
 		store: Store,
-		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
-		analyticsSubmitter: PPAnalyticsSubmitter
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
-		self.analyticsSubmitter = analyticsSubmitter
 	}
 
 
@@ -106,7 +104,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	var riskProvider: RiskProvider
 	var store: Store
-	var analyticsSubmitter: PPAnalyticsSubmitter
 
 	// MARK: - Private
 
@@ -255,7 +252,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		self.analyticsSubmitter.triggerSubmitData(completion: { _ in
+		Analytics.triggerAnalyticsSubmission(completion: { _ in
 			// Ignore the result of the call, so we just complete after the call is finished.
 			completion()
 		})

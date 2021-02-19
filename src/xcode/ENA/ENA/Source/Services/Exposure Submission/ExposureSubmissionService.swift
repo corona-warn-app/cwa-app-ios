@@ -12,6 +12,7 @@ import OpenCombine
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
+// swiftlint:disable:next type_body_length
 class ENAExposureSubmissionService: ExposureSubmissionService {
 	
 	// MARK: - Init

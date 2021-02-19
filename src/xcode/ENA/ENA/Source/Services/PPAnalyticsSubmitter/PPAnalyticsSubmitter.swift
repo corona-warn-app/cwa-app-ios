@@ -7,15 +7,17 @@ import OpenCombine
 
 protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
+	/// This method should only be called by the PPAnalyticsCollector
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 
 	#if !RELEASE
 	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	/// This method should only be called by the PPAnalyticsCollector
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
 	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
+	/// This method should only be called by the PPAnalyticsCollector
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS
-	/// ONLY FOR TESTING. Returns the last submitted data.
-	func mostRecentAnalyticsData() -> String?
+
 	#endif
 }
 
@@ -104,10 +106,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
 		return obtainUsageData()
-	}
-
-	func mostRecentAnalyticsData() -> String? {
-		return store.lastSubmittedPPAData
 	}
 
 	#endif

@@ -6,7 +6,7 @@ import Foundation
 
 typealias Analytics = PPAnalyticsCollector
 
-/// Singleton to collect the analytics dataand to save it in the database, to load it from the database, to remove every analytics data from the store. This also triggers a submission.
+/// Singleton to collect the analytics data and to save it in the database, to load it from the database, to remove every analytics data from the store. This also triggers a submission.
 enum PPAnalyticsCollector {
 
 	// MARK: - Internal
@@ -59,13 +59,42 @@ enum PPAnalyticsCollector {
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
-	static func triggerAnalyticsSubmission() {
+	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get success or failures.
+	static func triggerAnalyticsSubmission(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		guard let submitter = submitter else {
 			Log.warning("I cannot submit analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
 			return
 		}
-		submitter.triggerSubmitData()
+		submitter.triggerSubmitData(completion: completion)
 	}
+
+
+	#if !RELEASE
+
+	/// ONLY FOR TESTING. Returns the last submitted data.
+	static func mostRecentAnalyticsData() -> String? {
+		return store?.lastSubmittedPPAData
+	}
+
+	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
+	static func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS? {
+		guard let submitter = submitter else {
+			Log.warning("I cannot get actual analytics data. Perhaps i am a mock or setup was not called correctly?")
+			return nil
+		}
+		return submitter.getPPADataMessage()
+	}
+
+	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	static func forcedAnalyticsSubmission(completion: @escaping (Result<Void, PPASError>) -> Void) {
+		guard let submitter = submitter else {
+			Log.warning("I cannot trigger a forced submission. Perhaps i am a mock or setup was not called correctly?")
+			return completion(.failure(.generalError))
+		}
+		return submitter.forcedSubmitData(completion: completion)
+	}
+
+	#endif
 
 	// MARK: - Private
 
@@ -75,7 +104,7 @@ enum PPAnalyticsCollector {
 	private static var store: Store? {
 		get {
 			if _store == nil {
-				Log.warning("I cannot log analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
+				Log.warning("I cannot log or read analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
 			}
 			return _store
 		}

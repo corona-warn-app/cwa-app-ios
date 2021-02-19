@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider.requestRisk(userInitiated: false)
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
-		analyticsSubmitter.triggerSubmitData()
+		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
@@ -240,9 +240,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
 			store: self.store,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
-			analyticsSubmitter: self.analyticsSubmitter
-			)
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+		)
 	}()
 
 	var notificationManager: NotificationManager! = NotificationManager()
