@@ -13,42 +13,31 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.13"
+		self.featureVersion = "1.14"
 		
-		// RKI Survey
+		// Additional Diary functions
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113RkiSurveyTitle, description: AppStrings.NewVersionFeatures.feature113RkiSurveyDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsTitle, description: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsDescription)
 		)
 		
-		// Data Donation
+		// Direct diary access
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113DataDonationTitle, description: AppStrings.NewVersionFeatures.feature113DataDonationDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryTitle, description: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryDescription)
 		)
 		
-		// Enhanced Risk Cards
+		// More Detais Risk Status
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113RiskCardTitle, description: AppStrings.NewVersionFeatures.feature113RiskCardDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusTitle, description: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusDescription)
 		)
 		
-		// Risk Determination Random ID
+		// Screenshots
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113RiskDeterminationRandomIdTitle, description: AppStrings.NewVersionFeatures.feature113RiskDeterminationRandomIdDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114ScreenshotsTitle, description: AppStrings.NewVersionFeatures.feature114ScreenshotsDescription)
 		)
 		
-		// Introduction of the tab bar
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113NewTabBarTitle, description: AppStrings.NewVersionFeatures.feature113NewTabBarDescription)
-		)
-		
-		// Additional Information about test procedure
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature113AddInfoAboutTestProcedureTitle, description: AppStrings.NewVersionFeatures.feature113AddInfoAboutTestProcedureDescription)
-		)
 	}
 
 	// MARK: - Internal
-	
-	typealias DynamicNewVersionFeatureCell = DynamicLegalCell
 	
 	let featureVersion: String
 

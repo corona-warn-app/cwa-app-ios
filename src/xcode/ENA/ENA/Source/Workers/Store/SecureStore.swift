@@ -9,10 +9,8 @@ import ExposureNotification
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
 
-	private let directoryURL: URL
-	private let kvStore: SQLiteKeyValueStore
-	private var serverEnvironment: ServerEnvironment
-	
+	// MARK: - Init
+
 	init(
 		at directoryURL: URL,
 		key: String,
@@ -23,6 +21,10 @@ final class SecureStore: Store {
 		self.serverEnvironment = serverEnvironment
 	}
 
+	// MARK: - Protocol Store
+
+	var analyticsSubmitter: PPAnalyticsSubmitter?
+
 	/// Removes most key/value pairs.
 	///
 	/// Keys whose values are not removed:
@@ -32,7 +34,11 @@ final class SecureStore: Store {
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
 	func flush() {
-		try? kvStore.flush()
+		do {
+			try kvStore.flush()
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
 	}
 
 	/// Database reset & re-initialization with a given key
@@ -40,9 +46,13 @@ final class SecureStore: Store {
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
 	func clearAll(key: String?) {
-		try? kvStore.clearAll(key: key)
+		do {
+			try kvStore.clearAll(key: key)
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
 	}
-	
+
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
@@ -271,16 +281,6 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
-	var otpToken: OTPToken? {
-		get { kvStore["otpToken"] as OTPToken? }
-		set { kvStore["otpToken"] = newValue }
-	}
-
-	var ppacApiToken: TimestampedToken? {
-		get { kvStore["ppacApiToken"] as TimestampedToken? }
-		set { kvStore["ppacApiToken"] = newValue }
-	}
-
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -311,6 +311,12 @@ final class SecureStore: Store {
 	}
 
 	#endif
+	// MARK: - Private
+
+	private let directoryURL: URL
+	private let kvStore: SQLiteKeyValueStore
+	private var serverEnvironment: ServerEnvironment
+
 }
 
 extension SecureStore {
@@ -343,6 +349,73 @@ extension SecureStore: StatisticsCaching {
 	var statistics: StatisticsMetadata? {
 		get { kvStore["statistics"] as StatisticsMetadata? ?? nil }
 		set { kvStore["statistics"] = newValue }
+	}
+}
+
+extension SecureStore: PrivacyPreservingProviding {
+
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
+		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
+		set {
+			kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
+			currentRiskExposureMetadata = nil
+			previousRiskExposureMetadata = nil
+			userMetadata = nil
+			lastSubmittedPPAData = nil
+			lastAppReset = nil
+			lastSubmissionAnalytics = nil
+		}
+	}
+
+	var otpToken: OTPToken? {
+		get { kvStore["otpToken"] as OTPToken? }
+		set { kvStore["otpToken"] = newValue }
+	}
+
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
+	}
+
+	var ppacApiToken: TimestampedToken? {
+		get { kvStore["ppacApiToken"] as TimestampedToken? }
+		set { kvStore["ppacApiToken"] = newValue }
+	}
+
+	var lastSubmissionAnalytics: Date? {
+		get { kvStore["lastSubmissionAnalytics"] as Date? }
+		set { kvStore["lastSubmissionAnalytics"] = newValue }
+	}
+
+	var lastAppReset: Date? {
+		get { kvStore["lastAppReset"] as Date? }
+		set { kvStore["lastAppReset"] = newValue }
+	}
+
+	var lastSubmittedPPAData: String? {
+		get { kvStore["lastSubmittedPPAData"] as String? }
+		set { kvStore["lastSubmittedPPAData"] = newValue }
+	}
+
+	var currentRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set {
+			kvStore["currentRiskExposureMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+
+	var previousRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousRiskExposureMetadata"] = newValue }
+	}
+
+	var userMetadata: UserMetadata? {
+		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
+		set {
+			kvStore["userMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
 	}
 }
 

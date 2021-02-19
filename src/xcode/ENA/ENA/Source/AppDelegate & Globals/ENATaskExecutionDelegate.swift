@@ -11,6 +11,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	var riskProvider: RiskProvider
 	var pdService: PlausibleDeniability
 	var contactDiaryStore: DiaryStoring
+	var analyticsSubmitter: PPAnalyticsSubmitter
 
 	var dependencies: ExposureSubmissionServiceDependencies
 	private let backgroundTaskConsumer = RiskConsumer()
@@ -19,11 +20,14 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
-		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies) {
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
+		analyticsSubmitter: PPAnalyticsSubmitter
+	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.dependencies = exposureSubmissionDependencies
+		self.analyticsSubmitter = analyticsSubmitter
 	}
 
 
@@ -80,6 +84,15 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			Log.info("Cleanup contact diary store.", log: .background)
 			self.contactDiaryStore.cleanup(timeout: 10.0)
 			group.leave()
+		}
+
+		group.enter()
+		DispatchQueue.global().async {
+			Log.info("Trigger analytics submission.", log: .background)
+			self.executeAnalyticsSubmission {
+				group.leave()
+				Log.info("Done triggering analytics submission…", log: .background)
+			}
 		}
 
 		group.notify(queue: .main) {
@@ -223,5 +236,12 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		}
 
 		riskProvider.requestRisk(userInitiated: false)
+	}
+
+	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
+		self.analyticsSubmitter.triggerSubmitData(completion: { _ in
+			// Ignore the result of the call, so we just complete after the call is finished.
+			completion()
+		})
 	}
 }

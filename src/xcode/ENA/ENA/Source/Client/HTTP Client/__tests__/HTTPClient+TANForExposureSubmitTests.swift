@@ -13,7 +13,7 @@ final class HTTPClientTANForExposureSubmitTests: XCTestCase {
 		let tan = "0987654321"
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetTANResponse(tan: tan))
+			responseData: try JSONEncoder().encode(GetTANResponse(tan: tan))
 		)
 
 		let successExpectation = expectation(
@@ -162,7 +162,7 @@ final class HTTPClientTANForExposureSubmitTests: XCTestCase {
 		}
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
 			requestObserver: verifyPostBodyContent
 		)
 

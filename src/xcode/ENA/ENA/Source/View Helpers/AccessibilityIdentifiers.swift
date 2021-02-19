@@ -108,6 +108,7 @@ enum AccessibilityIdentifiers {
 		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
 		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
+		static let dataDonation = "AppStrings.Settings.Datadonation.description"
 	}
 
 	enum AppInformation {
@@ -160,7 +161,19 @@ enum AccessibilityIdentifiers {
 		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
 		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
+
 		static let guideFAQ = "AppStrings.ExposureDetection.guideFAQ"
+
+		static let surveyCardCell = "AppStrings.ExposureDetection.surveyCardCell"
+		static let surveyCardButton = "AppStrings.ExposureDetection.surveyCardButton"
+		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
+	}
+
+	enum SurveyConsent {
+		static let acceptButton = "AppStrings.SurveyConsent.acceptButton"
+		static let titleImage = "AppStrings.SurveyConsent.titleImage"
+		static let title = "AppStrings.SurveyConsent.title"
+		static let legalDetailsButton = "AppStrings.SurveyConsent.legalDetailsButton"
 	}
 
 	enum ExposureSubmissionQRScanner {
@@ -354,5 +367,19 @@ enum AccessibilityIdentifiers {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
 	}
-
+	
+	enum DataDonation {
+		static let accImageDescription = "AppStrings.DataDonation.Info.accImageDescription"
+		static let accDataDonationTitle = "AppStrings.DataDonation.Info.title"
+		static let accDataDonationDescription = "AppStrings.DataDonation.Info.description"
+		static let accSubHeadState = "AppStrings.DataDonation.Info.subHeadState"
+		static let accSubHeadAgeGroup = "AppStrings.DataDonation.Info.subHeadAgeGroup"
+		static let consentSwitch = "DataDonation.Consent.Switch"
+		static let federalStateName = "AppStrings.DataDonation.Info.noSelectionState"
+		static let regionName = "AppStrings.DataDonation.Info.noSelectionRegion"
+		static let ageGroup = "AppStrings.DataDonation.Info.noSelectionAgeGroup"
+		static let federalStateCell = "DataDonation.FederalState.Identifier"
+		static let regionCell = "DataDonation.Region.Identifier"
+		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
+	}
 }

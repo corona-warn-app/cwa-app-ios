@@ -6,6 +6,7 @@
 
 "ExposureSubmissionWarnOthers_acknowledgement_footer" = "Sie können Ihr Einverständnis nach bereits erfolgter Warnung zurücknehmen, indem Sie die App löschen.";
 
+
 /* DeltaOnboarding */
 
 "DeltaOnboarding_DataProcessing_Info_title" = "Hinweise zur Datenverarbeitung";
@@ -46,6 +47,7 @@
 
 "AutomaticSharingConsent_DescriptionPart5" = "Ihr Testergebnis wird Ihnen anschließend angezeigt.";
 
+
 /* Contact diary information */
 
 "ContactDiary_Information_Legal_Headline_1" = "Hinweise zur Datenverarbeitung";
@@ -61,3 +63,46 @@
 "ContactDiary_Information_Legal_Text_3" = "Bitte prüfen Sie genau, mit wem und auf welche Weise Sie die in Ihrem Kontakt-Tagebuch erfassten Informationen teilen. Die Informationen sollen Ihnen als Gedächtnisstütze dienen – sie sind nicht für Dritte bestimmt. Wenn das Gesundheitsamt Sie im Rahmen der Kontaktnachverfolgung um Ihre Mithilfe bittet, ist die Weitergabe von Einträgen sachgerecht.";
 
 "ContactDiary_Information_Legal_Text_4" = "Private Personen oder Unternehmen dürfen von Ihnen nicht die Weitergabe der von Ihnen erfassten Informationen verlangen. Bitte respektieren Sie, wenn jemand nicht im Kontakt-Tagebuch erfasst werden möchte.";
+
+
+/* Data Donation */
+
+"DataDonation_Acknowledgement_Title" = "Ihr Einverständnis";
+
+"DataDonation_Acknowledgement_Content" = "Durch Antippen von „Einverstanden“ willigen Sie ein:\n\nDie App übermittelt täglich von ihr erfasste Angaben an das RKI. Die Daten betreffen angezeigte Risiko-Begegnungen und Warnungen, durch Sie abgerufene Testergebnisse, ob Sie andere Nutzer gewarnt haben sowie Angaben über das Betriebssystem Ihres Smartphones. Wenn Sie oben weitere Angaben gemacht haben (Region, Altersgruppe), werden auch diese an das RKI übermittelt.\n\nDas RKI wird diese Daten zu Statistiken zusammenfassen und auswerten, um die Wirksamkeit und Funktionsweise der App zu bewerten und Rückschlüsse auf das Pandemiegeschehen zu ziehen. Die dabei gefundenen Erkenntnisse helfen bei der Verbesserung der Funktionen und Nutzerfreundlichkeit der App sowie bei der Steuerung anderer Maßnahmen der Pandemiebekämpfung.\n\nBevor Ihre Daten ausgewertet werden, muss sichergestellt sein, dass jede an der Datenspende teilnehmende App nur einmal gezählt wird und die Statistiken nicht verfälscht werden. Hierfür muss die Echtheit Ihrer App geprüft werden. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.\n\nSie können Ihr Einverständnis jederzeit zurücknehmen, indem Sie „Daten spenden“ in den Einstellungen der App deaktivieren.";
+
+"DataDonation_Acknowledgement_BulletPoint_1" = "Ihr Einverständnis ist freiwillig. Sie können die App auch nutzen, wenn Sie Ihr Einverständnis nicht erteilen.";
+
+"DataDonation_Acknowledgement_BulletPoint_2" = "Wenn Sie Daten über Ihre App-Nutzung spenden, bleibt Ihre Identität gegenüber dem RKI weiterhin geschützt. Das RKI erfährt also nicht, wer Sie sind oder wen Sie getroffen haben. Es werden auch keine Profile gebildet.";
+
+"DataDonation_Acknowledgement_BulletPoint_3" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+
+"DataDonation_DetailedInformation_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"DataDonation_DetailedInformation_Text" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um zu verhindern, dass Daten mehrfach oder missbräuchlich an das RKI übermittelt werden und so die Ergebnisse der Analyse verfälschen. Die Kennung wird an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die weiteren Angaben über Ihre Nutzung der Corona-Warn-App erhält Apple nicht. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat.\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, die Datenspende ist dann jedoch nicht möglich.";
+
+/* Survey Consent Screen */
+
+"SurveyConsent_LegalTitle_BoldText" = "Ihr Einverständnis";
+
+"SurveyConsent_LegalBody1" = "Durch Antippen von „Einverstanden“ willigen Sie ein:";
+
+"SurveyConsent_LegalBody2" = "Bevor Ihnen der Teilnahmelink angezeigt werden kann, wird die Echtheit Ihrer App hierbei einmalig geprüft. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht. So wird sichergestellt, dass jeder Nutzer nur einmal an der Befragung teilnehmen kann und die Statistiken nicht verfälscht werden.";
+
+"SurveyConsent_Legal_Bullet1" = "Ihr Einverständnis ist freiwillig. Sie können die App vollständig nutzen, auch wenn Sie Ihr Einverständnis für die Zwecke der Befragung nicht erteilen.";
+
+"SurveyConsent_Legal_Bullet2" = "Auch nachdem Sie Ihr Einverständnis erklärt haben, müssen Sie nicht an der Befragung teilzunehmen. Sie können die Befragung jederzeit abbrechen.";
+
+"SurveyConsent_Legal_Bullet3" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+
+"SurveyConsent_Legal_Details_Button_Title" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
+
+"SurveyConsent_Legal_Details_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"SurveyConsent_Details_Legal_Body1" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um zu verhindern, dass Nutzer mehrfach der Befragung teilnehmen und so die Ergebnisse der Befragung verfälschen. Die Kennung wird hier einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die weiteren Angaben über Ihre Teilnahme an der Befragung erhält Apple nicht. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat.";
+
+"SurveyConsent_Details_Legal_Body2" = "Wenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden“ an. Sie können die App weiterhin nutzen, eine Teilnahme an dieser Befragung ist dann jedoch nicht möglich.";
+
+/* Data Donation App Settings*/
+
+"ppa_settings_privacy_information_body" = "Indem Sie oben „Datenspende“ aktivieren, willigen Sie ein:\n\nDie App übermittelt täglich von ihr erfasste Angaben an das RKI. Die Daten betreffen angezeigte Risiko-Begegnungen und Warnungen, durch Sie abgerufene Testergebnisse, ob Sie andere Nutzer gewarnt haben sowie Angaben über das Betriebssystem Ihres Smartphones. Wenn Sie oben weitere Angaben gemacht haben (Region, Altersgruppe), werden auch diese an das RKI übermittelt.\n\nDas RKI wird diese Daten zu Statistiken zusammenfassen und auswerten, um die Wirksamkeit und Funktionsweise der App zu bewerten und Rückschlüsse auf das Pandemiegeschehen zu ziehen. Die dabei gefundenen Erkenntnisse helfen bei der Verbesserung der Funktionen und Nutzerfreundlichkeit der App sowie bei der Steuerung anderer Maßnahmen der Pandemiebekämpfung.\n\nBevor Ihre Daten ausgewertet werden, muss sichergestellt sein, dass jede an der Datenspende teilnehmende App nur einmal gezählt wird und die Statistiken nicht verfälscht werden. Hierfür muss die Echtheit Ihrer App geprüft werden. Dazu wird durch Ihr Smartphone eine eindeutige Kennung erzeugt und an Apple in die USA oder andere Drittländer übermittelt, damit Apple die Echtheit Ihrer App gegenüber dem RKI bestätigen kann. Die Kennung enthält Informationen über die Version Ihres Smartphones und der App. Apple kann damit möglicherweise auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat. Weitere Angaben aus der App erhält Apple hierbei nicht.\n\nSie können Ihr Einverständnis jederzeit zurücknehmen, indem Sie oben „Datenspende“ deaktivieren.";

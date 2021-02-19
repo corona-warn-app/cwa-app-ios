@@ -25,6 +25,10 @@ extension OSLog {
 	static let ppac = OSLog(subsystem: subsystem, category: "ppac")
 	/// OTP
 	static let otp = OSLog(subsystem: subsystem, category: "otp")
+	/// Survey
+	static let survey = OSLog(subsystem: subsystem, category: "survey")
+	/// PP Analytics
+	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
 }
 
 /// Logging
@@ -41,7 +45,7 @@ enum Log {
 	#if !RELEASE
 
 	private static let fileLogger = FileLogger()
-	
+
 	#endif
 
     static func debug(_ message: String, log: OSLog = .default) {
@@ -181,18 +185,19 @@ struct FileLogger {
 	}
 
 	private func makeWriteFileHandle(with url: URL) -> FileHandle? {
-		let fileManager = FileManager.default
+		do {
+			let fileManager = FileManager.default
+			if !fileManager.fileExists(atPath: url.path) {
+				try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+				fileManager.createFile(atPath: url.path, contents: nil)
+			}
 
-		if !fileManager.fileExists(atPath: url.path) {
-			try? fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
-			fileManager.createFile(atPath: url.path, contents: nil)
-		}
-
-		guard let fileHandle = try? FileHandle(forWritingTo: url) else {
+			let fileHandle = try? FileHandle(forWritingTo: url)
+			return fileHandle
+		} catch {
+			Log.error("File handle error", log: .localData, error: error)
 			return nil
 		}
-
-		return fileHandle
 	}
 
 	private func makeReadFileHandle(with logType: OSLogType) -> FileHandle? {
@@ -201,7 +206,12 @@ struct FileLogger {
 	}
 
 	private func makeReadFileHandle(with url: URL) -> FileHandle? {
-		return try? FileHandle(forReadingFrom: url)
+		do {
+			return try FileHandle(forReadingFrom: url)
+		} catch {
+			Log.error("File handle error", log: .localData, error: error)
+			return nil
+		}
 	}
 }
 

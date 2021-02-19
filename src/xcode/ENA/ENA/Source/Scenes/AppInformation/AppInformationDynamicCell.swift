@@ -53,15 +53,17 @@ extension DynamicCell {
 	}
 	
 	/// Creates a cell that renders a view of a .html file with interactive texts, such as mail links, phone numbers, and web addresses.
-	static func html(url: URL?) -> Self {
+	static func html(url: URL) -> Self {
 		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
 			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
 			cell.textView.delegate = viewController as? UITextViewDelegate
 			cell.textView.isUserInteractionEnabled = true
 			cell.textView.dataDetectorTypes = [.link, .phoneNumber]
-			
-			if let url = url {
-				cell.textView.load(from: url)
+
+			do {
+				try cell.textView.load(from: url)
+			} catch {
+				Log.error("Could not load url \(url)", log: .ui, error: error)
 			}
 		}
 	}

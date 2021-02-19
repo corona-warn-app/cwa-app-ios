@@ -49,7 +49,6 @@ class DiaryContactPersonTest: XCTestCase {
 		XCTAssertEqual(contactPerson.name, "Maximilian Lenkeit")
 		XCTAssertEqual(contactPerson.phoneNumber, "98765")
 		XCTAssertEqual(contactPerson.emailAddress, "")
-
 		XCTAssertEqual(encounter.id, 17)
 		XCTAssertEqual(encounter.date, "2021-02-11")
 		XCTAssertEqual(encounter.contactPersonId, 0)
@@ -57,7 +56,6 @@ class DiaryContactPersonTest: XCTestCase {
 		XCTAssertEqual(encounter.maskSituation, .none)
 		XCTAssertEqual(encounter.setting, .outside)
 		XCTAssertEqual(encounter.circumstances, "")
-
 		XCTAssertTrue(contactPerson.isSelected)
 	}
 	
