@@ -9,11 +9,13 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	// MARK: - Init
 
 	init(
-		onSecondaryButtonTap: @escaping () -> Void
+		onSecondaryButtonTap: @escaping () -> Void,
+		dismiss: @escaping () -> Void
 	) {
 		self.onSecondaryButtonTap = onSecondaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -34,6 +36,11 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		
 		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
 		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		footerView?.isHidden = false
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -61,7 +68,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		item.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
 		item.isSecondaryButtonEnabled = true
 		item.isSecondaryButtonHidden = false
-		footerView?.isHidden = false
 		item.title = AppStrings.ExposureSubmissionHotline.title
 		return item
 	}()

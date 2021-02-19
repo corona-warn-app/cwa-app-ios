@@ -2871,21 +2871,22 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				50D50A5E25D6CC760092BC2A /* DataDonation */,
-				AB7DE70025C4543700C52B3F /* ExposureDetection */,
 				13E5046A248E3CE60086641C /* AppInformation */,
+				50D50A5E25D6CC760092BC2A /* DataDonation */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
-				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
-				941B68AD253F005600DC1962 /* Helper */,
-				134F0DB8247578FF00D88934 /* Home */,
-				130CB19A246D92F800ADE602 /* Onboarding */,
-				EB11B02824EE7C7D00143A95 /* Settings */,
-				EB1C221625B718FA00A5CA6E /* UpdateOS */,
-				85D7596524570491008175F0 /* Info.plist */,
 				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
+				AB7DE70025C4543700C52B3F /* ExposureDetection */,
+				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
+				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
+				941B68AD253F005600DC1962 /* Helper */,
+				134F0DB8247578FF00D88934 /* Home */,
+				85D7596524570491008175F0 /* Info.plist */,
+				130CB19A246D92F800ADE602 /* Onboarding */,
+				EB11B02824EE7C7D00143A95 /* Settings */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
+				EB1C221625B718FA00A5CA6E /* UpdateOS */,
 			);
 			path = ENAUITests;
 			sourceTree = "<group>";
@@ -3083,7 +3084,6 @@
 				015178C12507D2A90074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift */,
 				EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */,
 				A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */,
-				A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */,
 				A372DA3E24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift */,
 				01A1B460252E17F900841B63 /* ExposureSubmissionCoordinatorModelTests.swift */,
 				01A23684251A22E90043D9F8 /* ExposureSubmissionQRInfoModelTests.swift */,
@@ -3884,6 +3884,14 @@
 				BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */,
 			);
 			path = __test__;
+			sourceTree = "<group>";
+		};
+		BA2E569725DEC1E600331C10 /* ExposureSubmission */ = {
+			isa = PBXGroup;
+			children = (
+				A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */,
+			);
+			path = ExposureSubmission;
 			sourceTree = "<group>";
 		};
 		BA4693AF25C82ED3004B2DBB /* DMPPACService */ = {

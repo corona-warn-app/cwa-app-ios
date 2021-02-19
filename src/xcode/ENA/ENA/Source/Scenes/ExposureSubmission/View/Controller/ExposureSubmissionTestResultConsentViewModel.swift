@@ -133,5 +133,5 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 enum TestResultAvailability {
 	case availableAndPositive
-	case notAvailabile
+	case notAvailable
 }
