@@ -26,10 +26,12 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	init(
 		_ delegate: CoordinatorDelegate,
-		contactDiaryStore: DiaryStoringProviding
+		contactDiaryStore: DiaryStoringProviding,
+		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
 		self.contactDiaryStore = contactDiaryStore
+		self.otpService = otpService
 	}
 
 	deinit {
@@ -47,7 +49,7 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
-		let homeCoordinator = HomeCoordinator(delegate)
+		let homeCoordinator = HomeCoordinator(delegate, otpService: otpService)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		
@@ -70,15 +72,15 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
-		
+
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
-		
+
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
-	
+
 	func showTestResultFromNotification(with result: TestResult) {
 		homeCoordinator?.showTestResultFromNotification(with: result)
 	}
@@ -92,7 +94,7 @@ class RootCoordinator: RequiresAppDependencies {
 			client: self.client
 		)
 		
-		let navigationVC = AppNavigationController()
+		let navigationVC = AppOnboardingNavigationController(rootViewController: onboardingVC)
 		
 		navigationVC.setViewControllers([onboardingVC], animated: false)
 		
@@ -112,6 +114,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let contactDiaryStore: DiaryStoringProviding
+	private let otpService: OTPServiceProviding
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
@@ -143,6 +146,7 @@ extension RootCoordinator: ExposureStateUpdating {
 extension RootCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeState?.updateEnState(state)
+		homeCoordinator?.updateEnState(state)
 		updateAllState(state)
 	}
 

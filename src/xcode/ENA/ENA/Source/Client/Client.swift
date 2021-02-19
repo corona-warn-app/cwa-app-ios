@@ -20,6 +20,7 @@ protocol Client {
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
+	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -88,13 +89,31 @@ protocol Client {
 	///   - otp: the otp to authorize
 	///   - ppacToken: the ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
+	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
 	func authorize(
 		otp: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
-		ppacHeader: Bool,
+		forceApiTokenHeader: Bool,
 		completion: @escaping OTPAuthorizationCompletionHandler
+	)
+
+	// MARK: PPA Submit
+
+	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// - Parameters:
+	///   - payload: SAP_Internal_Ppdd_PPADataRequestIOS, which contains several metrics data
+	///   - ppacToken: the ppac token which is generated previously by the PPACService
+	///   - isFake: Flag to indicate a fake request
+	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
+	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
+	func submit(
+		payload: SAP_Internal_Ppdd_PPADataIOS,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool,
+		completion: @escaping PPAnalyticsSubmitionCompletionHandler
 	)
 }
 
@@ -105,6 +124,23 @@ enum SubmissionError: Error {
 	case serverError(Int)
 	case requestCouldNotBeBuilt
 	case simpleError(String)
+}
+
+// Do not edit this cases as they are decoded as they are from the server.
+enum PPAServerErrorCode: String, Codable {
+	case API_TOKEN_ALREADY_ISSUED
+	case API_TOKEN_EXPIRED
+	case API_TOKEN_QUOTA_EXCEEDED
+	case DEVICE_BLOCKED
+	case DEVICE_TOKEN_INVALID
+	case DEVICE_TOKEN_REDEEMED
+	case DEVICE_TOKEN_SYNTAX_ERROR
+	case APK_CERTIFICATE_MISMATCH
+	case APK_PACKAGE_NAME_MISMATCH
+	case ATTESTATION_EXPIRED
+	case JWS_SIGNATURE_VERIFICATION_FAILED
+	case NONCE_MISMATCH
+	case SALT_REDEEMED
 }
 
 extension SubmissionError: LocalizedError {

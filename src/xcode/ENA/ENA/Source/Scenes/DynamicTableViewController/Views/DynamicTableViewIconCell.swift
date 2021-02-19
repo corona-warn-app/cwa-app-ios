@@ -73,14 +73,8 @@ class DynamicTableViewIconCell: UITableViewCell {
 	) {
 		stackView.alignment = alignment
 
-		if let customTintColor = customTintColor {
-			iconImageView.tintColor = customTintColor
-			iconImageView.image = image?.withRenderingMode(.alwaysTemplate)
-		} else {
-			iconImageView.tintColor = tintColor
-			iconImageView.image = image?.withRenderingMode(.alwaysOriginal)
-		}
-
+		iconImageView.tintColor = customTintColor ?? tintColor
+		iconImageView.image = image
 		iconImageView.isHidden = image == nil
 
 		imageViewWidthConstraint?.constant = iconWidth

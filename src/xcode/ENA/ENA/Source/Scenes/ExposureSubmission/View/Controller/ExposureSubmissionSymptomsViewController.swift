@@ -16,6 +16,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -30,7 +31,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupView()
 	}
-	
+
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}

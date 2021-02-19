@@ -214,6 +214,8 @@ struct PublicKey: PublicKeyProtocol {
 			guard
 				let key = try? P256.Signing.PublicKey(rawRepresentation: rawRepresentation),
 				let sig = try? P256.Signing.ECDSASignature(derRepresentation: signature.derRepresentation) else {
+				// can't throw because of PublicKey protocol
+				Log.error("Could not initialize public key or signature from data representations", log: .crypto, error: nil)
 				return false
 			}
 			return key.isValidSignature(sig, for: data)

@@ -74,7 +74,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
 			coordinator: self,
 			dismissClosure: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.dismiss()
 			},
 			rootViewController: initialVC
 		)
@@ -104,7 +104,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 
 		let vc = TanInputViewController(
-			viewModel: tanInputViewModel
+			viewModel: tanInputViewModel,
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 		push(vc)
 	}
@@ -156,7 +157,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
-		return ExposureSubmissionIntroViewController(viewModel)
+		return ExposureSubmissionIntroViewController(
+			viewModel: viewModel,
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}
+		)
 	}
 
 	// MARK: - Internal
@@ -230,7 +236,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
+		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
@@ -302,7 +308,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						self?.showErrorAlert(for: error)
 					}
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 		return vc
 	}
@@ -313,7 +320,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let vc = ExposureSubmissionHotlineViewController(
 			onSecondaryButtonTap: { [weak self] in
 				self?.showTanScreen()
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
@@ -363,7 +371,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.showQRScreen(isLoading: isLoading)
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
@@ -422,8 +431,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
-		// we should show the alert in the completion only if the testResult is positveAndAvailable
-		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailabile ? nil : { [weak self] in
+		// we should show the alert in the completion only if the testResult is positiveAndAvailable
+		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailable ? nil : { [weak self] in
 			self?.showTestResultAvailableCloseAlert()
 		}
 		let vc = ExposureSubmissionTestResultConsentViewController(
@@ -466,7 +475,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						self?.showErrorAlert(for: error)
 					}
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)

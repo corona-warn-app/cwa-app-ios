@@ -7,7 +7,7 @@ import XCTest
 
 class RiskCalculationResultTests: XCTestCase {
 
-	/*** init a new model all values get stored as expected*/
+	/// Init a new model all values get stored as expected
 	func testGIVEN_InitRiskCalculationResult_THEN_AllValuesGetStored() {
 	// GIVEN
 		let today = Date()
@@ -36,7 +36,7 @@ class RiskCalculationResultTests: XCTestCase {
 	}
 
 
-	/*** new json format with empty 'riskLevelPerDate' should init without problems */
+	/// New json format with empty 'riskLevelPerDate' should init without problems
 	func testGIVEN_NewFormatRiskCalculationResultWithoutRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() throws {
 		// GIVEN
 		let newFormattedData = """
@@ -59,7 +59,7 @@ class RiskCalculationResultTests: XCTestCase {
 		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 0)
 	}
 
-	/*** new json format with given 'riskLevelPerDate' should init without problems */
+	/// New json format with given 'riskLevelPerDate' should init without problems
 	func testGIVEN_NewFormatRiskCalculationResultWithThreeRiskLevelPerDay_WHEN_ParseJson_THEN_RiskCalculationResultGetsCreated() throws {
 		// GIVEN
 		let newFormattedData = """
@@ -92,7 +92,7 @@ class RiskCalculationResultTests: XCTestCase {
 		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithHighRisk, 0)
 	}
 
-	/*** 'old' json format without 'riskLevelPerDate' should init without problems */
+	/// 'Old' json format without 'riskLevelPerDate' should init without problems
 	func testGIVEN_OldFormattedData_WHEN_ParseJson_THEN_RiskCalculationResultModelGetsCreated() throws {
 		// GIVEN
 		let oldFormattedData = """
