@@ -1006,7 +1006,8 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 			riskLevelPerDate: [:]
 		)
 	}
-
+	
+	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 }
 
 final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {

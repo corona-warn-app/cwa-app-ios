@@ -430,6 +430,11 @@ extension SecureStore: PPAnalyticsData {
 		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
 		set { kvStore["keySubmissionMetadata"] = newValue }
 	}
+
+	var exposureWindowsMetadata: ExposureWindowsMetadata? {
+		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
+		set { kvStore["exposureWindowsMetadata"] = newValue }
+	}
 }
 
 extension SecureStore {

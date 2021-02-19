@@ -56,6 +56,7 @@ enum PPAnalyticsCollector {
 		store?.clientMetadata = nil
 		store?.testResultMetadata = nil
 		store?.keySubmissionMetadata = nil
+		store?.exposureWindowsMetadata = nil
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
