@@ -58,7 +58,7 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 	// MARK: - Private
 
-	/// better use a self create label instead if textLabel from the default UITableViewCell -> that leads to some strange layout issues
+	/// better use a self create label instead of textLabel from the default UITableViewCell -> that leads to some strange layout issues
 	private var contentTextLabel = UILabel()
 
 	private func setup() {
