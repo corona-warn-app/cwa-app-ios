@@ -995,6 +995,21 @@ enum AppStrings {
 			static let locationsEmptyTitle = NSLocalizedString("ContactDiary_Day_LocationsEmptyTitle", comment: "")
 			static let locationsEmptyDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyDescription", comment: "")
 			static let locationsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyImageDescription", comment: "")
+
+			enum Encounter {
+				static let lessThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_LessThan15Minutes", comment: "")
+				static let moreThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_MoreThan15Minutes", comment: "")
+				static let withMask = NSLocalizedString("ContactDiary_Day_Encounter_WithMask", comment: "")
+				static let withoutMask = NSLocalizedString("ContactDiary_Day_Encounter_WithoutMask", comment: "")
+				static let outside = NSLocalizedString("ContactDiary_Day_Encounter_Outside", comment: "")
+				static let inside = NSLocalizedString("ContactDiary_Day_Encounter_Inside", comment: "")
+				static let notesPlaceholder = NSLocalizedString("ContactDiary_Day_Encounter_Notes_Placeholder", comment: "")
+			}
+
+			enum Visit {
+				static let duration = NSLocalizedString("ContactDiary_Day_Visit_Duration", comment: "")
+				static let notesPlaceholder = NSLocalizedString("ContactDiary_Day_Visit_Notes_Placeholder", comment: "")
+			}
 		}
 
 		enum EditEntries {
