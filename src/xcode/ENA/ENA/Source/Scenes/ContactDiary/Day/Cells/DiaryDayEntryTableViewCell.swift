@@ -12,6 +12,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 
+		addParameterViews(for: cellModel.entryType)
+
 		parametersContainerStackView.isHidden = cellModel.parametersHidden
 
 		accessibilityTraits = cellModel.accessibilityTraits
@@ -36,6 +38,21 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	@objc
 	private func headerTapped() {
 		cellModel.toggleSelection()
+	}
+
+	private func addParameterViews(for entryType: DiaryEntryType) {
+		parametersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+		switch entryType {
+		case .contactPerson:
+			let segmentedControl = DiarySegmentedControl()
+			segmentedControl.insertSegment(withTitle: "Test", at: 0, animated: false)
+			segmentedControl.insertSegment(withTitle: "2345", at: 1, animated: false)
+
+			parametersStackView.addArrangedSubview(segmentedControl)
+		case .location:
+			break
+		}
 	}
 
 }
