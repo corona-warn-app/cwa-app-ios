@@ -40,6 +40,13 @@ class DiarySegmentedControl: UISegmentedControl {
 		}
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		/// Update background color for switches between dark and light mode
+		setUnselectedBackgroundColor()
+	}
+
 	// MARK: - Private
 
 	private func setUp() {
@@ -58,11 +65,7 @@ class DiarySegmentedControl: UISegmentedControl {
 			for: .selected,
 			barMetrics: .default
 		)
-		setBackgroundImage(
-			.with(color: .enaColor(for: .background)),
-			for: .normal,
-			barMetrics: .default
-		)
+		setUnselectedBackgroundColor()
 
 		setDividerImage(
 			leftSelectedDividerImage,
@@ -107,6 +110,14 @@ class DiarySegmentedControl: UISegmentedControl {
 		)
 
 		heightAnchor.constraint(equalToConstant: 39).isActive = true
+	}
+
+	private func setUnselectedBackgroundColor() {
+		setBackgroundImage(
+			.with(color: .enaColor(for: .darkBackground)),
+			for: .normal,
+			barMetrics: .default
+		)
 	}
 
 }
