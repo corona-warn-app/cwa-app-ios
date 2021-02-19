@@ -143,6 +143,8 @@ protocol StatisticsCaching: AnyObject {
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
+	// Do not mix up this property with the real UserMetadata in the PPAnalyticsData protocol
+	var userdata: UserMetadata? { get set }
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }
 	/// Date of last otp authorization
@@ -151,28 +153,5 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
-protocol PPAnalyticsData: AnyObject {
-	/// Last succesfull submission of analytics data. Needed for analytics submission.
-	var lastSubmissionAnalytics: Date? { get set }
-	/// Date of last app reset. Needed for analytics submission.
-	var lastAppReset: Date? { get set }
-	/// Content of last submitted data. Needed for analytics submission dev menu.
-	var lastSubmittedPPAData: String? { get set }
-	/// Analytics data.
-	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var userMetadata: UserMetadata? { get set }
-	/// Analytics data.
-	var clientMetadata: ClientMetadata? { get set }
-	/// Analytics data
-	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
-	/// Analytics data.
-	var testResultMetadata: TestResultMetaData? { get set }
-	/// Analytics data.
-	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
-}
-
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, PPAnalyticsData {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}

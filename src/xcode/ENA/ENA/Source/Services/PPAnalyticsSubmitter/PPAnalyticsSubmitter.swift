@@ -30,6 +30,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		client: Client,
 		appConfig: AppConfigurationProviding
 	) {
+		guard let store = store as? (Store & PPAnalyticsData) else {
+			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
+		}
 		self.store = store
 		self.client = client
 		self.configurationProvider = appConfig
@@ -88,7 +91,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
 			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
 			self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
-			
+
 			if let token = ppacToken {
 				// Submit analytics data with injected ppac token
 				self.submitData(with: token, completion: completion)
@@ -115,7 +118,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	// MARK: - Private
 
-	private let store: Store
+	private let store: (Store & PPAnalyticsData)
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
 
@@ -218,6 +221,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+		// Must be set here for both submit calls.
+		Analytics.log(.clientMetadata(.setClientMetaData))
+		
 		// Obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
 		let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)

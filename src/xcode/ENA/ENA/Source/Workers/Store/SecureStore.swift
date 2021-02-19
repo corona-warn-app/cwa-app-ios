@@ -320,10 +320,12 @@ final class SecureStore: Store {
 	}
 
 	#endif
+
+	let kvStore: SQLiteKeyValueStore
+
 	// MARK: - Private
 
 	private let directoryURL: URL
-	private let kvStore: SQLiteKeyValueStore
 	private var serverEnvironment: ServerEnvironment
 
 }
@@ -365,7 +367,16 @@ extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
 		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
-		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue }
+		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
+			userdata = nil
+		}
+	}
+
+	var userdata: UserMetadata? {
+		get { kvStore["userdata"] as UserMetadata? ?? nil }
+		set { kvStore["userdata"] = newValue
+			Analytics.log(.userData(.complete(newValue)))
+		}
 	}
 
 	var otpToken: OTPToken? {
@@ -381,59 +392,6 @@ extension SecureStore: PrivacyPreservingProviding {
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
-	}
-}
-
-extension SecureStore: PPAnalyticsData {
-
-	var lastSubmissionAnalytics: Date? {
-		get { kvStore["lastSubmissionAnalytics"] as Date? }
-		set { kvStore["lastSubmissionAnalytics"] = newValue }
-	}
-
-	var lastAppReset: Date? {
-		get { kvStore["lastAppReset"] as Date? }
-		set { kvStore["lastAppReset"] = newValue }
-	}
-
-	var lastSubmittedPPAData: String? {
-		get { kvStore["lastSubmittedPPAData"] as String? }
-		set { kvStore["lastSubmittedPPAData"] = newValue }
-	}
-
-	var currentRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["currentRiskExposureMetadata"] = newValue }
-	}
-
-	var previousRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["previousRiskExposureMetadata"] = newValue }
-	}
-
-	var userMetadata: UserMetadata? {
-		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
-		set { kvStore["userMetadata"] = newValue }
-	}
-
-	var testResultMetadata: TestResultMetaData? {
-		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
-		set { kvStore["testResultaMetadata"] = newValue }
-	}
-
-	var clientMetadata: ClientMetadata? {
-		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
-		set { kvStore["clientMetadata"] = newValue }
-	}
-
-	var keySubmissionMetadata: KeySubmissionMetadata? {
-		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
-		set { kvStore["keySubmissionMetadata"] = newValue }
-	}
-
-	var exposureWindowsMetadata: ExposureWindowsMetadata? {
-		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
-		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 }
 

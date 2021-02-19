@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
+
+		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
 	}
 
 	deinit {
@@ -55,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
+
 		#if DEBUG
 		setupOnboardingForTesting()
 		#endif
@@ -83,11 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
-		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
-
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-
 		return true
 	}
 
@@ -274,22 +275,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		exposureSubmissionService.reset()
 
 		// Reset key value store. Preserve environment settings.
-		let environment = store.selectedServerEnvironment
+
 		do {
 			/// ppac API Token is excluded from the reset
 			/// read value from the current store
 			let ppacAPIToken = store.ppacApiToken
+			let environment = store.selectedServerEnvironment
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
 			/// write excluded value back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
-			store.lastAppReset = Date()
+			store.selectedServerEnvironment = environment
+            Analytics.log(.submissionMetadata(.lastAppReset(Date())))
+
 		} catch {
 			fatalError("Creating new database key failed")
 		}
-		store.selectedServerEnvironment = environment
 
 		// Reset packages store
 		downloadedPackagesStore.reset()

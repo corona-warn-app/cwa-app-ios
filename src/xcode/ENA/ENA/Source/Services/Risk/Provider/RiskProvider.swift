@@ -320,7 +320,7 @@ final class RiskProvider: RiskProviding {
 
 			store.riskCalculationResult = riskCalculationResult
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-			updateRiskExpouseMetadata(riskCalculationResult)
+			Analytics.log(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
 			completion(.success(risk))
 
@@ -430,60 +430,6 @@ final class RiskProvider: RiskProviding {
 				break
 			}
 		}
-	}
-	
-	private func updateRiskExpouseMetadata(_ riskCalculationResult: RiskCalculationResult) {
-		let riskLevel = riskCalculationResult.riskLevel
-		let riskLevelChangedComparedToPreviousSubmission: Bool
-		let dateChangedComparedToPreviousSubmission: Bool
-		
-		// if there is a risk level value stored for previous submission
-		if store.previousRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store.previousRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-		
-		// if there is most recent date store for previous submission
-		if store.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
-
-		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
-			// most recent date is not available because of no exposure
-			let newRiskExposureMetadata = RiskExposureMetadata(
-				riskLevel: riskLevel,
-				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
-				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
-			)
-			Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
-			return
-		}
-		let newRiskExposureMetadata = RiskExposureMetadata(
-			riskLevel: riskLevel,
-			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
-			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
-			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
-		)
-		Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
 	}
 }
 

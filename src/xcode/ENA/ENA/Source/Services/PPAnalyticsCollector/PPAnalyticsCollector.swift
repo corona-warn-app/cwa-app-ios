@@ -16,13 +16,13 @@ enum PPAnalyticsCollector {
 		store: Store,
 		submitter: PPAnalyticsSubmitter
 	) {
-		PPAnalyticsCollector.store = store
+		PPAnalyticsCollector.store = store as? (Store & PPAnalyticsData)
 		PPAnalyticsCollector.submitter = submitter
 	}
 
 	/// Setup Analytics for testing.
 	static func setupMock(
-		store: Store? = nil,
+		store: (Store & PPAnalyticsData)? = nil,
 		submitter: PPAnalyticsSubmitter? = nil
 	) {
 		PPAnalyticsCollector.store = store
@@ -30,6 +30,14 @@ enum PPAnalyticsCollector {
 	}
 
 	static func log(_ dataType: PPADataType) {
+
+		guard let consent = store?.isPrivacyPreservingAnalyticsConsentGiven,
+			  consent == true else {
+			Log.info("Forbidden to log any analytics data due to missing user consent", log: .ppa)
+			return
+		}
+
+		Log.debug("Logging analytics data: \(dataType)", log: .ppa)
 		switch dataType {
 		case let .userData(userMetadata):
 			Analytics.logUserMetadata(userMetadata)
@@ -43,6 +51,8 @@ enum PPAnalyticsCollector {
 			Analytics.logKeySubmissionMetadata(keySubmissionMetadata)
 		case let .exposureWindowsMetadata(exposureWindowsMetadata):
 			Analytics.logExposureWindowsMetadata(exposureWindowsMetadata)
+		case let .submissionMetadata(submissionMetadata):
+			Analytics.logSubmissionMetadata(submissionMetadata)
 		}
 
 		Analytics.triggerAnalyticsSubmission()
@@ -101,10 +111,10 @@ enum PPAnalyticsCollector {
 
 	// MARK: - Private
 
-	private static var _store: Store?
+	private static var _store: (Store & PPAnalyticsData)?
 
 	// wrapper property to add a log when the value is nil
-	private static var store: Store? {
+	private static var store: (Store & PPAnalyticsData)? {
 		get {
 			if _store == nil {
 				Log.warning("I cannot log or read analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
@@ -133,8 +143,65 @@ enum PPAnalyticsCollector {
 		switch riskExposureMetadata {
 		case let .complete(metaData):
 			store?.currentRiskExposureMetadata = metaData
+		case let .updateRiskExposureMetadata(riskCalculationResult):
+			Analytics.updateRiskExposureMetadata(riskCalculationResult)
 		}
 	}
+
+	private static func updateRiskExposureMetadata(_ riskCalculationResult: RiskCalculationResult) {
+		let riskLevel = riskCalculationResult.riskLevel
+		let riskLevelChangedComparedToPreviousSubmission: Bool
+		let dateChangedComparedToPreviousSubmission: Bool
+
+		// if there is a risk level value stored for previous submission
+		if store?.previousRiskExposureMetadata?.riskLevel != nil {
+			if riskLevel !=
+				store?.previousRiskExposureMetadata?.riskLevel {
+				// if there is a change in risk level
+				riskLevelChangedComparedToPreviousSubmission = true
+			} else {
+				// if there is no change in risk level
+				riskLevelChangedComparedToPreviousSubmission = false
+			}
+		} else {
+			// for the first time, the field is set to false
+			riskLevelChangedComparedToPreviousSubmission = false
+		}
+
+		// if there is most recent date store for previous submission
+		if store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
+			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
+				store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				// if there is a change in date
+				dateChangedComparedToPreviousSubmission = true
+			} else {
+				// if there is no change in date
+				dateChangedComparedToPreviousSubmission = false
+			}
+		} else {
+			// for the first time, the field is set to false
+			dateChangedComparedToPreviousSubmission = false
+		}
+
+		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+			// most recent date is not available because of no exposure
+			let newRiskExposureMetadata = RiskExposureMetadata(
+				riskLevel: riskLevel,
+				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+			)
+			Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
+			return
+		}
+		let newRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: riskLevel,
+			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
+			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+		)
+		Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
+	}
+
 
 	// MARK: - ClientMetadata
 
@@ -142,7 +209,14 @@ enum PPAnalyticsCollector {
 		switch clientMetadata {
 		case let .complete(metaData):
 			store?.clientMetadata = metaData
+		case .setClientMetaData:
+			Analytics.setClientMetaData()
 		}
+	}
+
+	private static func setClientMetaData() {
+		let eTag = store?.appConfigMetadata?.lastAppConfigETag
+		Analytics.log(.clientMetadata(.complete(ClientMetadata(etag: eTag))))
 	}
 
 	// MARK: - TestResultMetadata
@@ -337,7 +411,7 @@ enum PPAnalyticsCollector {
 			// if store is initialized:
 			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
 			for exposureWindow in mappedSubmissionExposureWindows {
-				if metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
+				if !metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
 					store?.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
 					store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
 				}
@@ -373,5 +447,90 @@ enum PPAnalyticsCollector {
 			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
 		}
 		return nil
+	}
+
+	// MARK: - SubmissionMetadata
+
+	private static func logSubmissionMetadata(_ submissionMetadata: PPASubmissionMetadata) {
+		switch submissionMetadata {
+		case let .lastAppReset(date):
+			store?.lastAppReset = date
+		}
+	}
+}
+
+protocol PPAnalyticsData: AnyObject {
+	/// Last succesfull submission of analytics data. Needed for analytics submission.
+	var lastSubmissionAnalytics: Date? { get set }
+	/// Date of last app reset. Needed for analytics submission.
+	var lastAppReset: Date? { get set }
+	/// Content of last submitted data. Needed for analytics submission dev menu.
+	var lastSubmittedPPAData: String? { get set }
+	/// Analytics data.
+	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data.
+	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
+	/// Analytics data.
+	var userMetadata: UserMetadata? { get set }
+	/// Analytics data.
+	var clientMetadata: ClientMetadata? { get set }
+	/// Analytics data
+	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
+	/// Analytics data.
+	var testResultMetadata: TestResultMetaData? { get set }
+	/// Analytics data.
+	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
+}
+
+extension SecureStore: PPAnalyticsData {
+
+	var lastSubmissionAnalytics: Date? {
+		get { kvStore["lastSubmissionAnalytics"] as Date? }
+		set { kvStore["lastSubmissionAnalytics"] = newValue }
+	}
+
+	var lastAppReset: Date? {
+		get { kvStore["lastAppReset"] as Date? }
+		set { kvStore["lastAppReset"] = newValue }
+	}
+
+	var lastSubmittedPPAData: String? {
+		get { kvStore["lastSubmittedPPAData"] as String? }
+		set { kvStore["lastSubmittedPPAData"] = newValue }
+	}
+
+	var currentRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["currentRiskExposureMetadata"] = newValue }
+	}
+
+	var previousRiskExposureMetadata: RiskExposureMetadata? {
+		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
+		set { kvStore["previousRiskExposureMetadata"] = newValue }
+	}
+
+	var userMetadata: UserMetadata? {
+		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
+		set { kvStore["userMetadata"] = newValue }
+	}
+
+	var testResultMetadata: TestResultMetaData? {
+		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
+		set { kvStore["testResultaMetadata"] = newValue }
+	}
+
+	var clientMetadata: ClientMetadata? {
+		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
+		set { kvStore["clientMetadata"] = newValue }
+	}
+
+	var keySubmissionMetadata: KeySubmissionMetadata? {
+		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
+		set { kvStore["keySubmissionMetadata"] = newValue }
+	}
+
+	var exposureWindowsMetadata: ExposureWindowsMetadata? {
+		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
+		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 }
