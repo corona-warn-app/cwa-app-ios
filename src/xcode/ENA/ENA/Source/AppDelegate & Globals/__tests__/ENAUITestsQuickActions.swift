@@ -7,7 +7,6 @@ import ExposureNotification
 
 class ENAUITestsQuickActions: XCTestCase {
 
-
 	private let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
 	private var cwaBundleDisplayName = "Corona-Warn" // dynamic app name!
 	/// The translated label string as we can't (?) use any identifiers there
