@@ -219,9 +219,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
 					// because this block is only called in QR submission
+					Analytics.log(.testResultMetadata(.registerNewTestMetadata(Date())))
 					Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
 					self.store.testRegistrationDate = Date()
-					Analytics.log(.testResultMetadata(.registerNewTestMetadata(Date())))
 					self._getTestResult(token) { testResult in
 						switch testResult {
 						case .success(let testResult):
