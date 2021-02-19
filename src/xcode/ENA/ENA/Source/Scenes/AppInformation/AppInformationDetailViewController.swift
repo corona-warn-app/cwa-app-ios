@@ -39,7 +39,7 @@ class AppInformationDetailViewController: DynamicTableViewController, DismissHan
 		return cell
 	}
 	
-	// the completion is currently only passed in the submittion flow with +ve test result case to display warning popup, for other flows or other test results we should dismiss normally
+	// the completion is currently only passed in the Submission flow with +ve test result case to display warning popup, for other flows or other test results we should dismiss normally
 	func wasAttemptedToBeDismissed() {
 		guard let completion = dismissHandeling else {
 			dismiss(animated: true, completion: nil)

@@ -426,9 +426,14 @@
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
 		8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */; };
 		8F43A3D425D55B11008FD630 /* ppdd_ppa_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3D325D55B11008FD630 /* ppdd_ppa_parameters.pb.swift */; };
-		8F9DEAF025D5F17100CDDF1B /* TestResultMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9DEAEF25D5F17100CDDF1B /* TestResultMetaData.swift */; };
 		8FB5A60B25DD647200679990 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		8FB5A61625DD65D500679990 /* ExposureSubmission+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */; };
+		8FB5A62525DE798700679990 /* ExposureWindowsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A62425DE798700679990 /* ExposureWindowsMetadata.swift */; };
+		8FB5A62D25DEAFA400679990 /* ExposureNotifications+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */; };
+		8FB5A63525DEC2CE00679990 /* ExposureWindowsMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */; };
+		8FB5A64825DEC58F00679990 /* TestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */; };
+		8FB5A64925DEC58F00679990 /* TestResultMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64725DEC58F00679990 /* TestResultMetaData.swift */; };
+		8FB5A65825DEC61A00679990 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
 		8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
@@ -1262,7 +1267,11 @@
 		8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data.pb.swift; sourceTree = "<group>"; };
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
 		8F43A3D325D55B11008FD630 /* ppdd_ppa_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppa_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppa_parameters.pb.swift; sourceTree = "<group>"; };
-		8F9DEAEF25D5F17100CDDF1B /* TestResultMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetaData.swift; sourceTree = "<group>"; };
+		8FB5A62425DE798700679990 /* ExposureWindowsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadata.swift; sourceTree = "<group>"; };
+		8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureNotifications+Extension.swift"; sourceTree = "<group>"; };
+		8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataService.swift; sourceTree = "<group>"; };
+		8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetadataService.swift; path = ENA/Source/Models/Metadata/TestResultMetadataService.swift; sourceTree = SOURCE_ROOT; };
+		8FB5A64725DEC58F00679990 /* TestResultMetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetaData.swift; path = ENA/Source/Models/Metadata/TestResultMetaData.swift; sourceTree = SOURCE_ROOT; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
@@ -2335,15 +2344,15 @@
 			isa = PBXGroup;
 			children = (
 				3466A41125D1A0C9002CC49D /* __tests__ */,
+				8FB5A62325DE796400679990 /* ExposureWindowsMetadata */,
+				8FB5A64525DEC57F00679990 /* TestResultMetaData */,
 				3466A3FB25CD5B90002CC49D /* AgeGroup.swift */,
 				34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */,
 				3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */,
 				3466A3F625CD53EB002CC49D /* UserMetadata.swift */,
-				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
 				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
+				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
 				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
-				8F9DEAEF25D5F17100CDDF1B /* TestResultMetaData.swift */,
-				8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -3027,6 +3036,34 @@
 			isa = PBXGroup;
 			children = (
 				8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		8FB5A62325DE796400679990 /* ExposureWindowsMetadata */ = {
+			isa = PBXGroup;
+			children = (
+				8FB5A62425DE798700679990 /* ExposureWindowsMetadata.swift */,
+				8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */,
+				8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */,
+			);
+			path = ExposureWindowsMetadata;
+			sourceTree = "<group>";
+		};
+		8FB5A64525DEC57F00679990 /* TestResultMetaData */ = {
+			isa = PBXGroup;
+			children = (
+				8FB5A65425DEC5A600679990 /* __tests__ */,
+				8FB5A64725DEC58F00679990 /* TestResultMetaData.swift */,
+				8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */,
+			);
+			path = TestResultMetaData;
+			sourceTree = "<group>";
+		};
+		8FB5A65425DEC5A600679990 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4730,6 +4767,7 @@
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
+				8FB5A62D25DEAFA400679990 /* ExposureNotifications+Extension.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
@@ -4977,6 +5015,7 @@
 				4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */,
 				8F43A3CC25D55A3E008FD630 /* ppa_data_request_ios.pb.swift in Sources */,
 				ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */,
+				8FB5A64825DEC58F00679990 /* TestResultMetadataService.swift in Sources */,
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */,
@@ -4992,7 +5031,6 @@
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
 				019C9F3B258951BE00B26392 /* DiaryEntry.swift in Sources */,
 				BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */,
-				8F9DEAF025D5F17100CDDF1B /* TestResultMetaData.swift in Sources */,
 				01A4DC6C25922EB4007D5794 /* HomeRiskTableViewCell.swift in Sources */,
 				BA6C8AF4254D65E1008344F5 /* ScanInstance.swift in Sources */,
 				BA6D1634255AD2AA00ED3492 /* DMWifiClientViewModel.swift in Sources */,
@@ -5081,10 +5119,12 @@
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
 				017AD18C25A5C70900FA2B3F /* ActiveTracing+ExposureDetection.swift in Sources */,
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
+				8FB5A62525DE798700679990 /* ExposureWindowsMetadata.swift in Sources */,
 				017AD122259DDED100FA2B3F /* ISO8601DateFormatter+ContactDiary.swift in Sources */,
 				504C9CC925C44C180005875B /* OTPService.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
+				8FB5A63525DEC2CE00679990 /* ExposureWindowsMetadataService.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
@@ -5110,6 +5150,7 @@
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */,
+				8FB5A64925DEC58F00679990 /* TestResultMetaData.swift in Sources */,
 				351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */,
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
@@ -5187,7 +5228,6 @@
 				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
-				8F11511E25DC27AA007BDBC6 /* TestResultMetadataService.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
@@ -5383,6 +5423,7 @@
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
+				8FB5A65825DEC61A00679990 /* TestResultMetadataServiceTests.swift in Sources */,
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
 				EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */,
