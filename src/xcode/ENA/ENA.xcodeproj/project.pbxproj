@@ -267,6 +267,7 @@
 		34B1FE9125E0115700D196C7 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3FB25CD5B90002CC49D /* AgeGroup.swift */; };
 		34B1FEA325E0130C00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */; };
 		34B1FEA725E013B600D196C7 /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */; };
+		34B1FEC825E0202800D196C7 /* ExposureWindowsMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FEC325E0202000D196C7 /* ExposureWindowsMetadataServiceTests.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -1084,6 +1085,7 @@
 		34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataService.swift; sourceTree = "<group>"; };
 		34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataServiceTests.swift; sourceTree = "<group>"; };
 		34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskExposureMetadataTests.swift; sourceTree = "<group>"; };
+		34B1FEC325E0202000D196C7 /* ExposureWindowsMetadataServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExposureWindowsMetadataServiceTests.swift; path = ../../../../../../../../../../../../../Desktop/ExposureWindowsMetadataServiceTests.swift; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
@@ -2353,6 +2355,7 @@
 		34B1FE5A25E00FC900D196C7 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				34B1FEC325E0202000D196C7 /* ExposureWindowsMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3119,14 +3122,6 @@
 			isa = PBXGroup;
 			children = (
 				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		8FC4F4E425DFCDD200C55ADC /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4141,6 +4136,7 @@
 			isa = PBXGroup;
 			children = (
 				AB2F092225CD4C9C00C16309 /* default_app_config_113 */,
+				8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -5488,6 +5484,7 @@
 				50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPTests.swift in Sources */,
 				524C4292256587B900EBC3B0 /* ExposureSubmissionTestResultConsentViewModelTests.swift in Sources */,
 				8FB5A65825DEC61A00679990 /* TestResultMetadataServiceTests.swift in Sources */,
+				34B1FEC825E0202800D196C7 /* ExposureWindowsMetadataServiceTests.swift in Sources */,
 				BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */,
 				50BD2E7724FE26F400932566 /* AppInformationImprintTest.swift in Sources */,
 				EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */,
