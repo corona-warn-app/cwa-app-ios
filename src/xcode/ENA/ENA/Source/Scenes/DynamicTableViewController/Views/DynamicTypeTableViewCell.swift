@@ -56,10 +56,12 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 		accessibilityTraits = traits
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
 	/// better use a self create label instead of textLabel from the default UITableViewCell -> that leads to some strange layout issues
-	private var contentTextLabel = UILabel()
+	var contentTextLabel = UILabel()
+
+	// MARK: - Private
 
 	private func setup() {
 		selectionStyle = .none
