@@ -108,7 +108,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}.store(in: &subscriptions)
 	}
 
-	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {		Log.info("Getting temporary exposure keys...", log: .api)
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
+		Log.info("Getting temporary exposure keys...", log: .api)
 
 		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
 			if let error = error {
