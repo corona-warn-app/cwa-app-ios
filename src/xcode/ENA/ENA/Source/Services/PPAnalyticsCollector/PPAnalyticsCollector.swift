@@ -161,7 +161,7 @@ enum PPAnalyticsCollector {
 
 	private static func updateTestResult(_ testResult: TestResult) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard store?.testResultMetadata?.testRegistrationDate != nil else {
+		guard let registrationDate = store?.testResultMetadata?.testRegistrationDate else {
 			Log.warning("Could not update test meta data result due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
@@ -176,11 +176,7 @@ enum PPAnalyticsCollector {
 			case .positive, .negative, .pending:
 				Analytics.log(.testResultMetadata(.testResult(testResult)))
 
-				guard let registrationDate = store?.testResultMetadata?.testRegistrationDate else {
-					return
-				}
-
-				switch store?.testResultMetadata?.testResult {
+				switch storedTestResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
@@ -213,9 +209,9 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
 		case .low:
-			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 
 
