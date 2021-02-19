@@ -8,7 +8,9 @@ struct TestResultMetaData: Codable {
 	
 	// MARK: - Init
 	
-	init() {}
+	init(registrationToken: String) {
+		self.testRegistrationToken = registrationToken
+	}
 	
 	// MARK: - Protocol Codable
 	
@@ -26,6 +28,8 @@ struct TestResultMetaData: Codable {
 			Int.self,
 			forKey: .hoursSinceHighRiskWarningAtTestRegistration
 		)
+		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
+		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationDate)
 	}
 	
 	enum CodingKeys: String, CodingKey {
@@ -34,6 +38,9 @@ struct TestResultMetaData: Codable {
 		case riskLevelAtTestRegistration
 		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 		case hoursSinceHighRiskWarningAtTestRegistration
+		case testRegistrationDate
+		case testRegistrationToken
+
 	}
 	
 	// MARK: - Internal
@@ -56,4 +63,7 @@ struct TestResultMetaData: Codable {
 	var hoursSinceHighRiskWarningAtTestRegistration: Int?
 	
 	var testRegistrationDate: Date?
+	
+	// We need a copy of the token to compare it everytime we fetch a testResult to make sure it is a result for the QRCode test and not a TAN test submission
+	let testRegistrationToken: String
 }
