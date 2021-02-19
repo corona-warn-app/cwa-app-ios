@@ -168,7 +168,7 @@ protocol PrivacyPreservingProviding: AnyObject {
 	/// Analytics data
 	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
-	var testResultMetadata: TestResultMetaData? { get set }
+	var testResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }

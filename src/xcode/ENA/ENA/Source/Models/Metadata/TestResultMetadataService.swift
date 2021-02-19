@@ -18,7 +18,7 @@ class TestResultMetadataService {
 		guard let riskLevel = secureStore.riskCalculationResult?.riskLevel  else {
 			return
 		}
-		secureStore.testResultMetadata = TestResultMetaData()
+		secureStore.testResultMetadata = TestResultMetadata()
 		secureStore.testResultMetadata?.testRegistrationDate = date
 		secureStore.testResultMetadata?.riskLevelAtTestRegistration = riskLevel
 		secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = secureStore.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel

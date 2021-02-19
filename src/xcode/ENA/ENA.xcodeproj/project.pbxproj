@@ -259,14 +259,14 @@
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
 		3466A3F125CC3DCB002CC49D /* RiskExposureMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */; };
 		3466A3F725CD53EB002CC49D /* UserMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3F625CD53EB002CC49D /* UserMetadata.swift */; };
-		3466A40A25D19813002CC49D /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */; };
 		3466A41E25D1A20C002CC49D /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */; };
-		34B1FDCA25D6A05100D196C7 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3FB25CD5B90002CC49D /* AgeGroup.swift */; };
 		34B1FDD225D6A09700D196C7 /* KeySubmissionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */; };
 		34B1FDDD25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */; };
 		34B1FE3025DDAD4A00D196C7 /* ClientMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */; };
 		34B1FE3B25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */; };
-		34B1FE4D25DEA52600D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */; };
+		34B1FE5F25E0101B00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */; };
+		34B1FE6D25E010CF00D196C7 /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */; };
+		34B1FE9125E0115700D196C7 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3FB25CD5B90002CC49D /* AgeGroup.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -418,7 +418,6 @@
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
 		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
-		8F11511E25DC27AA007BDBC6 /* TestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */; };
 		8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
 		8F27018F259B593700E48CFE /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
@@ -432,7 +431,7 @@
 		8FB5A62D25DEAFA400679990 /* ExposureNotifications+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */; };
 		8FB5A63525DEC2CE00679990 /* ExposureWindowsMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */; };
 		8FB5A64825DEC58F00679990 /* TestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */; };
-		8FB5A64925DEC58F00679990 /* TestResultMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64725DEC58F00679990 /* TestResultMetaData.swift */; };
+		8FB5A64925DEC58F00679990 /* TestResultMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64725DEC58F00679990 /* TestResultMetadata.swift */; };
 		8FB5A65825DEC61A00679990 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
 		8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
@@ -1077,7 +1076,7 @@
 		3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskExposureMetadata.swift; sourceTree = "<group>"; };
 		3466A3F625CD53EB002CC49D /* UserMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadata.swift; sourceTree = "<group>"; };
 		3466A3FB25CD5B90002CC49D /* AgeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
-		3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RiskExposureMetadataTests.swift; path = ENA/Source/Models/Metadata/__tests__/RiskExposureMetadataTests.swift; sourceTree = SOURCE_ROOT; };
+		3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RiskExposureMetadataTests.swift; path = ENA/Source/Models/Metadata/RiskExposureMetadata/__tests__/RiskExposureMetadataTests.swift; sourceTree = SOURCE_ROOT; };
 		3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
 		34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadata.swift; sourceTree = "<group>"; };
 		34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSubmissionFlowScreen.swift; sourceTree = "<group>"; };
@@ -1259,7 +1258,6 @@
 		8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+TestResult+Extenstion.swift"; sourceTree = "<group>"; };
 		8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppac_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
 		8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_edus_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
-		8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataService.swift; sourceTree = "<group>"; };
 		8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataServiceTests.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
@@ -1271,7 +1269,7 @@
 		8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureNotifications+Extension.swift"; sourceTree = "<group>"; };
 		8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataService.swift; sourceTree = "<group>"; };
 		8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetadataService.swift; path = ENA/Source/Models/Metadata/TestResultMetadataService.swift; sourceTree = SOURCE_ROOT; };
-		8FB5A64725DEC58F00679990 /* TestResultMetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetaData.swift; path = ENA/Source/Models/Metadata/TestResultMetaData.swift; sourceTree = SOURCE_ROOT; };
+		8FB5A64725DEC58F00679990 /* TestResultMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetadata.swift; path = ENA/Source/Models/Metadata/TestResultMetadata.swift; sourceTree = SOURCE_ROOT; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
@@ -2333,9 +2331,6 @@
 			isa = PBXGroup;
 			children = (
 				3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */,
-				3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */,
-				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
-				34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2343,18 +2338,75 @@
 		34B1FDBC25D69F1E00D196C7 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				3466A41125D1A0C9002CC49D /* __tests__ */,
-				8FB5A62325DE796400679990 /* ExposureWindowsMetadata */,
-				8FB5A64525DEC57F00679990 /* TestResultMetaData */,
-				3466A3FB25CD5B90002CC49D /* AgeGroup.swift */,
-				34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */,
-				3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */,
-				3466A3F625CD53EB002CC49D /* UserMetadata.swift */,
-				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
-				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
-				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
+				34B1FE8325E0113B00D196C7 /* User Metadata */,
+				34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */,
+				34B1FE6825E0108300D196C7 /* Client Metadata */,
+				8FB5A62325DE796400679990 /* Exposure Windows Metadata */,
+				8FB5A64525DEC57F00679990 /* Test Result Metadata */,
+				34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */,
 			);
 			path = Metadata;
+			sourceTree = "<group>";
+		};
+		34B1FE5A25E00FC900D196C7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE6625E0102200D196C7 /* __tests__ */,
+				34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */,
+				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
+				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
+			);
+			path = "Key Submission Metadata";
+			sourceTree = "<group>";
+		};
+		34B1FE6625E0102200D196C7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE6925E010C200D196C7 /* __tests__ */,
+				3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */,
+			);
+			path = "Risk Exposure Metadata";
+			sourceTree = "<group>";
+		};
+		34B1FE6825E0108300D196C7 /* Client Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
+			);
+			path = "Client Metadata";
+			sourceTree = "<group>";
+		};
+		34B1FE6925E010C200D196C7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34B1FE8325E0113B00D196C7 /* User Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				3466A41125D1A0C9002CC49D /* __tests__ */,
+				3466A3FB25CD5B90002CC49D /* AgeGroup.swift */,
+				3466A3F625CD53EB002CC49D /* UserMetadata.swift */,
+			);
+			path = "User Metadata";
 			sourceTree = "<group>";
 		};
 		35075C002526367700DE92F7 /* TestPlans */ = {
@@ -3040,24 +3092,25 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		8FB5A62325DE796400679990 /* ExposureWindowsMetadata */ = {
+		8FB5A62325DE796400679990 /* Exposure Windows Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				34B1FE5A25E00FC900D196C7 /* __tests__ */,
 				8FB5A62425DE798700679990 /* ExposureWindowsMetadata.swift */,
 				8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */,
 				8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */,
 			);
-			path = ExposureWindowsMetadata;
+			path = "Exposure Windows Metadata";
 			sourceTree = "<group>";
 		};
-		8FB5A64525DEC57F00679990 /* TestResultMetaData */ = {
+		8FB5A64525DEC57F00679990 /* Test Result Metadata */ = {
 			isa = PBXGroup;
 			children = (
 				8FB5A65425DEC5A600679990 /* __tests__ */,
-				8FB5A64725DEC58F00679990 /* TestResultMetaData.swift */,
+				8FB5A64725DEC58F00679990 /* TestResultMetadata.swift */,
 				8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */,
 			);
-			path = TestResultMetaData;
+			path = "Test Result Metadata";
 			sourceTree = "<group>";
 		};
 		8FB5A65425DEC5A600679990 /* __tests__ */ = {
@@ -4836,7 +4889,6 @@
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
-				34B1FDCA25D6A05100D196C7 /* AgeGroup.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */,
@@ -4940,6 +4992,7 @@
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
+				34B1FE5F25E0101B00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
@@ -5121,6 +5174,7 @@
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
 				8FB5A62525DE798700679990 /* ExposureWindowsMetadata.swift in Sources */,
 				017AD122259DDED100FA2B3F /* ISO8601DateFormatter+ContactDiary.swift in Sources */,
+				34B1FE6D25E010CF00D196C7 /* RiskExposureMetadataTests.swift in Sources */,
 				504C9CC925C44C180005875B /* OTPService.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
@@ -5150,7 +5204,7 @@
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */,
-				8FB5A64925DEC58F00679990 /* TestResultMetaData.swift in Sources */,
+				8FB5A64925DEC58F00679990 /* TestResultMetadata.swift in Sources */,
 				351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */,
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
@@ -5225,6 +5279,7 @@
 				EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStoreV1.swift in Sources */,
 				BADBC81B25D6A7FF00488DB7 /* BaseDataDonationViewModel.swift in Sources */,
+				34B1FE9125E0115700D196C7 /* AgeGroup.swift in Sources */,
 				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
@@ -5298,7 +5353,6 @@
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
 				50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */,
-				34B1FE4D25DEA52600D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */,
 				508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */,
 				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
@@ -5366,7 +5420,6 @@
 				01A1B452252DFDC400841B63 /* FakeMetadataMachineReadableObject.swift in Sources */,
 				3598D99A24FE280700483F1F /* CountryTests.swift in Sources */,
 				B163D1102499068D001A322C /* SettingsViewModelTests.swift in Sources */,
-				3466A40A25D19813002CC49D /* RiskExposureMetadataTests.swift in Sources */,
 				AB2F094F25D169DC00C16309 /* SurveyURLServiceTests.swift in Sources */,
 				0185DDDE25B77786001FBEA7 /* HomeStatisticsCellModelTests.swift in Sources */,
 				A1654F0224B43E8500C0E115 /* DynamicTableViewTextViewCellTests.swift in Sources */,
