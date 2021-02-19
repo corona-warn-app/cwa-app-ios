@@ -14,11 +14,11 @@ class TestResultMetadataService {
 	
 	// MARK: - Internal
 
-	func registerNewTestMetadata(date: Date = Date()) {
+	func registerNewTestMetadata(date: Date = Date(), token: String) {
 		guard let riskLevel = secureStore.riskCalculationResult?.riskLevel  else {
 			return
 		}
-		secureStore.testResultMetadata = TestResultMetaData()
+		secureStore.testResultMetadata = TestResultMetaData(registrationToken: token)
 		secureStore.testResultMetadata?.testRegistrationDate = date
 		secureStore.testResultMetadata?.riskLevelAtTestRegistration = riskLevel
 		secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = secureStore.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel
@@ -37,9 +37,10 @@ class TestResultMetadataService {
 		}
 	}
 
-	func updateResult(testResult: TestResult) {
+	func updateResult(testResult: TestResult, token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard secureStore.testResultMetadata?.testRegistrationDate != nil else {
+		guard secureStore.testResultMetadata?.testRegistrationToken == token,
+			secureStore.testResultMetadata?.testRegistrationDate != nil else {
 			return
 		}
 		
