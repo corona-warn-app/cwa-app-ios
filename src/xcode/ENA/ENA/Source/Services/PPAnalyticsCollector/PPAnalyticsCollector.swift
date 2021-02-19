@@ -156,6 +156,8 @@ enum PPAnalyticsCollector {
 			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
 		case let .updateTestResult(testResult):
 			Analytics.updateTestResult(testResult)
+		case let .registerNewTestMetadata(date):
+			Analytics.registerNewTestMetadata(date)
 		}
 	}
 
@@ -191,6 +193,30 @@ enum PPAnalyticsCollector {
 				break
 			}
 		}
+	}
+
+	private static func registerNewTestMetadata(_ date: Date = Date()) {
+		guard let riskCalculationResult = store?.riskCalculationResult else {
+			return
+		}
+		var testResultMetadata = TestResultMetaData()
+		testResultMetadata.testRegistrationDate = date
+		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
+		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
+
+		switch riskCalculationResult.riskLevel {
+		case .high:
+			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
+				Log.debug("Time Risk Change was not stored Correctly.")
+				return
+			}
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+		case .low:
+			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
+		}
+
+		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
 	}
 
 	// MARK: - KeySubmissionMetadata

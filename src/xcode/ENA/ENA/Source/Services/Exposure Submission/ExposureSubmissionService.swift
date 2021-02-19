@@ -12,7 +12,7 @@ import OpenCombine
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
-// swiftlint:disable:next type_body_length
+
 class ENAExposureSubmissionService: ExposureSubmissionService {
 	
 	// MARK: - Init
@@ -221,7 +221,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// because this block is only called in QR submission
 					Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
 					self.store.testRegistrationDate = Date()
-					self.registerNewTestMetadata(date: Date())
+					Analytics.log(.testResultMetadata(.registerNewTestMetadata(Date())))
 					self._getTestResult(token) { testResult in
 						switch testResult {
 						case .success(let testResult):
@@ -488,30 +488,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 		Log.info("Exposure submission cleanup.", log: .api)
-	}
-
-	private func registerNewTestMetadata(date: Date = Date()) {
-		guard let riskCalculationResult = store.riskCalculationResult else {
-			return
-		}
-		var testResultMetadata = TestResultMetaData()
-		testResultMetadata.testRegistrationDate = date
-		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
-		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
-
-		switch riskCalculationResult.riskLevel {
-		case .high:
-			guard let timeOfRiskChangeToHigh = store.dateOfConversionToHighRisk else {
-				Log.debug("Time Risk Change was not stored Correctly.")
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
-		case .low:
-			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
-		}
-
-		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
 	}
 
 	// MARK: Fake requests
