@@ -14,11 +14,11 @@ class TestResultMetadataService {
 	
 	// MARK: - Internal
 
-	func registerNewTestMetadata(date: Date = Date(), token: String) {
+	func registerNewTestMetadata(date: Date = Date()) {
 		guard let riskLevel = secureStore.riskCalculationResult?.riskLevel  else {
 			return
 		}
-		secureStore.testResultMetadata = TestResultMetaData(registrationToken: token)
+		secureStore.testResultMetadata = TestResultMetaData()
 		secureStore.testResultMetadata?.testRegistrationDate = date
 		secureStore.testResultMetadata?.riskLevelAtTestRegistration = riskLevel
 		secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = secureStore.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel

@@ -15,7 +15,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		secureStore.riskCalculationResult = riskCalculationResult
 		
 		let sut = TestResultMetadataService(store: secureStore)
-		sut.registerNewTestMetadata(date: date, token: "Token")
+		sut.registerNewTestMetadata(date: date)
 		
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
@@ -37,7 +37,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		secureStore.riskCalculationResult = riskCalculationResult
 		
 		let sut = TestResultMetadataService(store: secureStore)
-		sut.registerNewTestMetadata(date: date, token: "Token")
+		sut.registerNewTestMetadata(date: date)
 		
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
@@ -59,7 +59,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			sut.registerNewTestMetadata(date: registrationDate, token: "Token")
+			sut.registerNewTestMetadata(date: registrationDate)
 		} else {
 			XCTFail("registration date is nil")
 		}
@@ -77,7 +77,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			sut.registerNewTestMetadata(date: registrationDate, token: "Token")
+			sut.registerNewTestMetadata(date: registrationDate)
 		} else {
 			XCTFail("registration date is nil")
 		}
@@ -97,7 +97,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			sut.registerNewTestMetadata(date: registrationDate, token: "Token")
+			sut.registerNewTestMetadata(date: registrationDate)
 		} else {
 			XCTFail("registration date is nil")
 		}
@@ -117,7 +117,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		let sut = TestResultMetadataService(store: secureStore)
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			sut.registerNewTestMetadata(date: registrationDate, token: "Token")
+			sut.registerNewTestMetadata(date: registrationDate)
 		} else {
 			XCTFail("registration date is nil")
 		}

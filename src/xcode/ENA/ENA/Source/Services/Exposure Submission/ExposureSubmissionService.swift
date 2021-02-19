@@ -222,8 +222,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					// because this block is only called in QR submission
 					self.updateStoreWithQRSubmissionSelected()
 					self.store.testRegistrationDate = Date()
-					self.createTestMetaData(token: token)
-					
+					self.createTestMetaData()
 					self._getTestResult(token) { testResult in
 						switch testResult {
 						case .success(let testResult):
@@ -491,9 +490,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		Log.info("Exposure submission cleanup.", log: .api)
 	}
 
-	func createTestMetaData(token: String) {
+	func createTestMetaData() {
 		let testMetadataService = TestResultMetadataService(store: store)
-		testMetadataService.registerNewTestMetadata(date: Date(), token: token)
+		testMetadataService.registerNewTestMetadata(date: Date())
 	}
 	
 	private func updateTestResultMetadata(with testResult: TestResult) {
