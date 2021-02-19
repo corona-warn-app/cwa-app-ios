@@ -65,6 +65,8 @@
 
 "ExposureDetection_LastExposure" = "Ostatnio dnia %@";
 
+"ExposureDetection_LastExposure_One_Risk_Day" = "Dnia %@";
+
 "ExposureDetection_Refreshed" = "Zaktualizowano: %@";
 
 "ExposureDetection_Refreshed_Never" = "Nieznane";
@@ -104,6 +106,12 @@
 "ExposureDetection_Guide_Hotline3" = "Pogotowie ratunkowe pod numerem telefonu 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Organ ds. zdrowia publicznego";
+
+/* Placeholder points to `ExposureDetection_LinkText` */
+"ExposureDetection_Guide_FAQ" = "Jeśli poddasz się testowi, dodatkowe informacje na temat procedury testowania znajdziesz w %@.";
+
+/* The 'tapable' text containing the link to the faq */
+"ExposureDetection_Guide_FAQ_LinkText" = "Często zadawane pytania na temat procedury testowania";
 
 "ExposureDetection_Explanation_Title" = "Ryzyko zakażenia";
 
@@ -150,6 +158,43 @@
 "ExposureDetection_Risk_Failed_Body" = "Synchronizacja losowych identyfikatorów z serwerem nie powiodła się. Możesz ponownie uruchomić synchronizację ręcznie.";
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Uruchom ponownie";
+
+"ExposureDetection_Survey_Card_Title" = "Ankieta dotycząca aplikacji Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Pomóż nam ulepszyć aplikację, odpowiadając na kilka prostych pytań.";
+
+"ExposureDetection_Survey_Card_Button" = "Przejdź do ankiety";
+
+/* Survey Errors */
+"SurveyConsent_Error_Title" = "Błąd";
+
+"SurveyConsent_Error_TryAgainLater" = "W tej chwili nie można pobrać ankiety. Spróbuj ponownie później (kod błędu %@).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "Nie można pobrać ankiety (kod błędu %@).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "Czas na Twoim smartfonie nie zgadza się z aktualnym czasem. Popraw czas w ustawieniach swojego smartfona (kod błędu %@).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "Ankiety nie można pobrać ze względów bezpieczeństwa. Możesz ponownie wypełnić ankietę w następnym miesiącu kalendarzowym (kod błędu %@).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "Wypełniłeś(-aś) już ankietę. Ankietę można wypełnić tylko raz w miesiącu (kod błędu %@).";
+
+/* Survey Consent Screen */
+"SurveyConsent_Title" = "Ankieta oceniająca i ulepszająca aplikację Corona-Warn-App.";
+
+"SurveyConsent_Body1" = "Pomóż nam ulepszyć aplikację Corona-Warn-App, wypełniając ankietę na temat swoich doświadczeń z aplikacją. Pomoże to instytutowi RKI ocenić skuteczność aplikacji, ulepszyć aplikację i ustalić wpływ ostrzeżeń wysyłanych przez aplikację na zachowanie osób o podwyższonym ryzyku.";
+
+"SurveyConsent_Body2" = "Ankieta jest przeznaczona wyłącznie dla osób, których aplikacja wskazała na narażenie o podwyższonym ryzyku. Ankieta jest przeprowadzana na stronie internetowej RKI. W następnym kroku zostanie wyświetlony link do ankiety, który przekieruje Cię na tę stronę internetową. Przed jej wyświetleniem musisz potwierdzić autentyczność aplikacji. Będzie to wymagać Twojej zgody.";
+
+"SurveyConsent_Body3" = "Po naciśnięciu linku do ankiety otrzymasz dodatkowe informacje o ankiecie. Zostaniesz również poproszony(-a) o ponowne wyrażenie zgody przed rozpoczęciem ankiety.";
+
+"SurveyConsent_Accept_Button_Title" = "Akceptuj";
+
+/* Survey Consent Legal Details Screen */
+"SurveyConsent_Legal_Details_Title" = "Szczegółowe informacje na temat przetwarzania danych związanego z ankietą";
+
+"SurveyConsent_Details_Headline" = "Informacje o ankiecie RKI";
+
+"SurveyConsent_Details_Body" = "Po zweryfikowaniu autentyczności Twojej aplikacji przekieruje Cię ona do witryny internetowej RKI, korzystając z niestandardowego linku do wygenerowanej dla Ciebie ankiety. Ten link do ankiety zawiera jednorazowe hasło, które jest generowane przez aplikację Corona-Warn-App. Po naciśnięciu linku do ankiety i wywołaniu witryny internetowej z ankietą jednorazowe hasło zostanie tymczasowo zachowane w przeglądarce. Ten ekran zawiera dodatkowe informacje o ankiecie i sposobie jej wypełnienia, na przykład o tym, jak rozpocząć ankietę. Na początku ankiety jednorazowe hasło jest przesyłane do serwerów Corona-Warn-App, gdzie jest oznaczane jako użyte. Następnie serwer sprawdza, czy możesz wypełnić ankietę. Zapewnia się w ten sposób jednorazowe wypełnienie ankiety przez każdego użytkownika.";
 
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Sprawdzanie narażeń jest niemożliwe";
@@ -215,6 +260,14 @@
 "Settings_Reset_Description" = "Usuń wszystkie swoje dane z aplikacji.";
 
 "Settings_NavTitle" = "Ustawienia";
+
+"Settings_DataDonation_Label" = "Udostępnij dane";
+
+"Settings_DataDonation_Description" = "Zezwalaj na przekazywanie informacji o korzystaniu.";
+
+"Settings_DataDonation_StatusActive" = "Wł.";
+
+"Settings_DataDonation_StatusInactive" = "Wył.";
 
 /* Noticiation Settings */
 "NotificationSettings_On_Title" = "Czy chcesz aktywować powiadomienia o statusie ryzyka COVID-19?";
@@ -311,9 +364,9 @@
 
 "Onboarding_DoNotActivate_actionText" = "Nie aktywuj";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Jeśli nie aktywujesz rejestrowania narażenia, aplikacja nie będzie mogła wysyłać ani odbierać powiadomień o Twoim statusie ryzyka.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Jeśli nie aktywujesz funkcji rejestrowania narażenia, aplikacja nie będzie mogła ustalić Twojego statusu ryzyka. Oznacza to, że nie będziesz otrzymywać w aplikacji informacji o Twoim statusie ryzyka.";
 
-"Onboarding_DeactivateExposureConfirmation_message" = "Możesz dezaktywować tę funkcję w dowolnym momencie.";
+"Onboarding_DeactivateExposureConfirmation_message" = "Możesz ponownie aktywować tę funkcję rejestrowania narażenia w dowolnym momencie.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Grupa osób korzysta ze swoich urządzeń na mieście.";
 
@@ -893,6 +946,8 @@
 
 "Home_Risk_Last_Contact_Item_Title" = "Ostatnio dnia %@";
 
+"Home_Risk_Last_Contact_Item_Title_One_Risk_Day" = "Dnia %@";
+
 "Home_Risk_Last_Activate_Item_Title" = "Ostatnie sprawdzenie narażenia: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Nieznane ryzyko";
@@ -959,6 +1014,27 @@
 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać.";
 
+/* Home Reenable card */
+"Home_Reenable_Card_Title" = "Zakończono sprawdzanie narażeń";
+
+"Home_Reenable_Card_Body" = "Automatyczne sprawdzanie narażeń zakończyło się, ponieważ zdiagnozowano u Ciebie koronawirusa i przebywasz obecnie na izolacji. W każdej chwili możesz ponownie aktywować test narażenia. Jeśli to zrobisz, zarejestrowany test zostanie automatycznie usunięty.";
+
+"Home_Reenable_Card_Button_Title" = "Włącz sprawdzanie narażeń";
+
+"Home_Reenable_Card_TestResult_Title" = "Zakażenie SARS-CoV-2";
+
+"Home_Reenable_Card_TestResult_Subtitle" = "Zdiagnozowano u Ciebie wirusa SARS-CoV-2.";
+
+"Home_Reenable_Card_TestResult_Registration" = "Test zarejestrowany dnia %@";
+
+"Home_Reenable_Alert_Title" = "Aktywuj sprawdzanie narażeń";
+
+"Home_Reenable_Alert_Message" = "Twój bieżący test zostanie usunięty z aplikacji, więc w razie potrzeby możesz zarejestrować nowy test.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Aktywuj";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "Anuluj";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Diagnoza zakażenia";
 
@@ -982,13 +1058,6 @@
 "Home_SubmitCard_Body" = "Pomóż chronić siebie i innych.";
 
 "Home_SubmitCard_Button" = "Następne kroki";
-
-/* Home Diary card */
-"Home_DiaryCard_Title" = "Dziennik kontaktów";
-
-"Home_DiaryCard_Body" = "Rejestruj odwiedzane miejsca i spotykane osoby. Nawet jeśli nie wprowadzisz żadnych kontaktów, nadal będziesz mieć możliwość sprawdzenia czasu wystąpienia narażenia.";
-
-"Home_DiaryCard_Button" = "Otwórz dziennik";
 
 "Home_InfoCard_ShareTitle" = "Udostępnij Corona-Warn-App";
 
@@ -1254,6 +1323,34 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
 
 /* New Version Features */
+"NewVersionFeatures_Info_about_abb_information" = "Zmiany w tej wersji można znaleźć w ustawieniach aplikacji w sekcji „Nowe funkcje”.";
+
+/* Version 1.13 */
+"NewVersionFeature_113_rki_survey_title" = "Link do ankiety RKI";
+
+"NewVersionFeature_113_rki_survey_description" = "Jeśli masz podwyższone ryzyko, możesz rozpocząć i wypełnić ankietę przeprowadzaną przez Instytut Roberta Kocha z poziomu aplikacji.";
+
+"NewVersionFeature_113_data_donation_title" = "Zgoda na udostępnianie danych (opcjonalnie)";
+
+"NewVersionFeature_113_data_donation_description" = "Masz teraz możliwość udostępnienia swoich danych na temat użytkowania, co pomoże nam ulepszyć aplikację.";
+
+"NewVersionFeature_113_risk_cards_title" = "Zmiany w kafelkach ryzyka";
+
+"NewVersionFeature_113_risk_cards_description" = "Niewielkie zmiany w tekstach na kafelkach ryzyka.";
+
+"NewVersionFeature_113_risk_determination_random_id_title" = "Kontynuacja rejestrowania narażenia po udostępnieniu losowych identyfikatorów";
+
+"NewVersionFeature_113_risk_determination_random_id_description" = "Po udostępnieniu zaszyfrowanych losowych identyfikatorów możesz zdecydować, czy i kiedy chcesz ponownie włączyć rejestrowanie narażenia.";
+
+"NewVersionFeature_113_new_tabbar_title" = "Implementacja kart";
+
+"NewVersionFeature_113_new_tabbar_description" = "Dostępna jest teraz oddzielna karta dla Twojego dziennika kontaktów. Dzięki niej uzyskasz dostęp do swojego dziennika i szybciej przełączysz się z dziennika kontaktów z powrotem na ekran główny aplikacji.";
+
+"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Więcej informacji o procedurze testowania";
+
+"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "Aplikacja zawiera teraz bardziej szczegółowe informacje na temat procedury testowania.";
+
+/* Version 1.12 */
 "NewVersionFeature_112_statistics_title" = "Statystyka";
 
 "NewVersionFeature_112_statistics_description" = "Zobacz przegląd najnowszych kluczowych danych na temat liczby zakażeń w Niemczech.";
@@ -1458,7 +1555,7 @@
 
 "ContactDiary_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
 
-"ContactDiary_Information_PrimaryButton_Title" = "Zarządzaj dziennikiem";
+"ContactDiary_Information_PrimaryButton_Title" = "Otwórz dziennik";
 
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Zapisz";
@@ -1526,7 +1623,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Suma";
 
-"Statistics_Card_KeySubmissions_Footnote" = "Informacje o aplikacji Corona-Warn-App";
+"Statistics_Card_KeySubmissions_Footnote" = "za pośrednictwem Corona-Warn-App";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7-dniowa wartość R";
@@ -1603,4 +1700,122 @@
 "UpdateOS_title" = "Zaktualizuj swój iOS.";
 
 "UpdateOS_text" = "Instalacja Corona-Warn-App wymaga posiadania aktualnej wersji iOS.\nJeśli jej nie masz, otwórz ustawienia w swoim iPhonie i wybierz opcje: Ogólne -> Aktualizacja oprogramowania.";
+
+/* Tabbar */
+"Tabbar_Home_Title" = "Ekran początkowy";
+
+"Tabbar_Diary_Title" = "Dziennik";
+
+/* Data Donation */
+"DataDonation_IntroductionText" = "Podziel się z nami informacjami na temat korzystania z aplikacji i pomóż nam ocenić jej skuteczność.";
+
+"DataDonation_AccImageDescription" = "Kobieta trzyma smartfon, który udostępnia jej dane";
+
+"DataDonation_Headline" = "Udostępnij dane";
+
+"DataDonation_Description" = "Możesz pomóc nam ulepszyć aplikację Corona-Warn-App. Udostępnij dane o korzystaniu z aplikacji instytutowi RKI, który będzie mógł wówczas ocenić jej skuteczność. Twoje dane pomogą również ulepszyć funkcje i użyteczność tej aplikacji.";
+
+"DataDonation_SubHead_Settings" = "USTAWIENIA";
+
+"DataDonation_SubHead_YourState" = "Twój kraj związkowy (opcjonalnie)";
+
+"DataDonation_SubHead_AgeGroup" = "Twoja grupa wiekowa (opcjonalnie)";
+
+"DataDonation_State_NoSelection_Text" = "Kraj związkowy";
+
+"DataDonation_Region_NoSelection_Text" = "Okręg (powiat) (opcjonalnie)";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Twój wiek";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Szczegółowe informacje o ryzyku związanym z przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
+
+"DataDonation_Button_OK" = "Akceptuj";
+
+"DataDonation_Button_NotOK" = "Odrzuć";
+
+/* Value selection */
+"DataDonation_ValueSelection_None" = "Brak odpowiedzi";
+
+"DataDonation_ValueSelection_Title_State" = "Twój kraj związkowy";
+
+"DataDonation_ValueSelection_Title_Region" = "Twój okręg (powiat)";
+
+"DataDonation_ValueSelection_Title_Age" = "Twoja grupa wiekowa";
+
+"DataDonation_ValueSelection_Age_Below29" = "0-29 lat";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 lat";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "Powyżej 60 lat";
+
+/* Detailed Infos Data Donation */
+"DetailedInfosDataDonation_Headline" = "Szczegółowe informacje na temat udostępniania danych";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Przetwarzanie danych w procesie udostępniania danych";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "Jeśli wyrazisz zgodę na udostępnienie swoich danych, aplikacja będzie codziennie wysyłać różne dane do RKI. Przesłane dane pomogą nam ocenić skuteczność aplikacji i będą analizowane w celu wprowadzenia następujących ulepszeń:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Ulepszone rejestrowanie narażenia";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Chcemy poprawić dokładność i wiarygodność technicznych obliczeń ryzyka zakażenia. Aby to osiągnąć, będziemy analizować otrzymywane przez Ciebie informacje o narażeniu na ryzyko i ostrzeżenia. Pozwoli to nam udoskonalić metodę obliczeń.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Ulepszone wskazówki dla użytkownika w aplikacji";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Chcemy ułatwić korzystanie z aplikacji. W tym celu będziemy analizować informacje o poszczególnych krokach wykonywanych przez użytkowników w aplikacji. Pozwoli to nam na zwiększenie przejrzystości etykiet i tekstów informacyjnych oraz usprawnienie sposobu wyszukiwania elementów sterujących. Będziemy też mogli dostosować układy do różnych modeli smartfonów.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Zapewnienie informacji i pomocy w aplikacji";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Chcemy być w stanie stwierdzić, czy podczas korzystania z aplikacji w niektórych ośrodkach testowych i laboratoriach lub w niektórych regionach mogą wystąpić problemy. Będziemy mogli to ustalić, jeśli na przykład udostępnione dane wskażą, że wyniki testów są dostarczane z opóźnieniem w niektórych regionach. Odpowiednie organy ds. zdrowia publicznego mogą być również powiadamiane o potencjalnych problemach technicznych.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Ulepszenie statystyk dotyczących przebiegu pandemii ";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Twoje dane pomogą nam w zebraniu informacji na temat rozprzestrzeniania się pandemii w czasie i przestrzeni oraz umożliwią szybsze reagowanie na pewne trendy.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "W tym celu RKI gromadzi następujące dane:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "Data przekazania danych.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Zmiany w historii ostrzeżeń w porównaniu z poprzednim dniem.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Informacje o tym, jakie ryzyko wyświetliło Ci się w momencie przekazania danych.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Informacje na temat podstawy obliczania statusu ryzyka w związku z narażeniem.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Jeśli pobrałeś(-aś) wynik testu za pośrednictwem aplikacji:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Informacje o tym, czy za pośrednictwem aplikacji otrzymałeś(-aś) pozytywny czy negatywny wynik testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Informacje o ryzyku wyliczonym w momencie rejestracji testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Informacja o czasie, który upłynął między Twoim ostatnim narażeniem o podwyższonym ryzyku a rejestracją testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Informacja o czasie, który upłynął między ostatnim powiadomieniem o podwyższonym ryzyku a rejestracją testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Informacja o udostępnieniu wyniku testu i ostrzeżeniu innych osób.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "Jeśli ostrzegłeś(-aś) innych o potencjalnym narażeniu:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Informacja o tym, czy anulowałeś(-aś) działania mające na celu ostrzeżenie innych.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Informacja o tym, czy podałeś(-aś) szczegółowe dane na temat wystąpienia objawów.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Informacja o czasie wyrażenia zgody na ostrzeżenie innych.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Informacja o otrzymanym powiadomieniu w związku ostrzeżeniem innych osób.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Informacja o liczbie godzin, w ciągu której otrzymałeś(-aś) wyniku testu.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Informacja o liczbie dni, które minęły od ostatniego powiadomienia o podwyższonym ryzyku.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Informacja o liczbie godzin, które minęły od czasu rejestracji testu.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Inne informacje:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Informacja o podanej przez Ciebie grupie wiekowej.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Informacja o podanym przez Ciebie regionie.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Informacje o modelu i wersji smartfona, wersji aplikacji oraz wersji systemu operacyjnego.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "Tych informacji nie można powiązać z Twoją osobą. Twoja tożsamość zostanie zachowana w poufności.\nInformacje zostaną przeanalizowane w celach statystycznych. Nie zostaną zapisane w profilu.";
 

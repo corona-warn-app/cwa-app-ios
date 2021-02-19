@@ -106,6 +106,15 @@ struct SAP_Internal_V2_ApplicationConfigurationAndroid {
   /// Clears the value of `eventDrivenUserSurveyParameters`. Subsequent reads from it will return its default value.
   mutating func clearEventDrivenUserSurveyParameters() {_uniqueStorage()._eventDrivenUserSurveyParameters = nil}
 
+  var privacyPreservingAnalyticsParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersAndroid {
+    get {return _storage._privacyPreservingAnalyticsParameters ?? SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersAndroid()}
+    set {_uniqueStorage()._privacyPreservingAnalyticsParameters = newValue}
+  }
+  /// Returns true if `privacyPreservingAnalyticsParameters` has been explicitly set.
+  var hasPrivacyPreservingAnalyticsParameters: Bool {return _storage._privacyPreservingAnalyticsParameters != nil}
+  /// Clears the value of `privacyPreservingAnalyticsParameters`. Subsequent reads from it will return its default value.
+  mutating func clearPrivacyPreservingAnalyticsParameters() {_uniqueStorage()._privacyPreservingAnalyticsParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -168,6 +177,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
     8: .same(proto: "diagnosisKeysDataMapping"),
     9: .same(proto: "dailySummariesConfig"),
     10: .same(proto: "eventDrivenUserSurveyParameters"),
+    11: .same(proto: "privacyPreservingAnalyticsParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -181,6 +191,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
     var _diagnosisKeysDataMapping: SAP_Internal_V2_DiagnosisKeysDataMapping? = nil
     var _dailySummariesConfig: SAP_Internal_V2_DailySummariesConfig? = nil
     var _eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersAndroid? = nil
+    var _privacyPreservingAnalyticsParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersAndroid? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -197,6 +208,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
       _diagnosisKeysDataMapping = source._diagnosisKeysDataMapping
       _dailySummariesConfig = source._dailySummariesConfig
       _eventDrivenUserSurveyParameters = source._eventDrivenUserSurveyParameters
+      _privacyPreservingAnalyticsParameters = source._privacyPreservingAnalyticsParameters
     }
   }
 
@@ -225,6 +237,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._diagnosisKeysDataMapping) }()
         case 9: try { try decoder.decodeSingularMessageField(value: &_storage._dailySummariesConfig) }()
         case 10: try { try decoder.decodeSingularMessageField(value: &_storage._eventDrivenUserSurveyParameters) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._privacyPreservingAnalyticsParameters) }()
         default: break
         }
       }
@@ -263,6 +276,9 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
       if let v = _storage._eventDrivenUserSurveyParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
       }
+      if let v = _storage._privacyPreservingAnalyticsParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -282,6 +298,7 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
         if _storage._diagnosisKeysDataMapping != rhs_storage._diagnosisKeysDataMapping {return false}
         if _storage._dailySummariesConfig != rhs_storage._dailySummariesConfig {return false}
         if _storage._eventDrivenUserSurveyParameters != rhs_storage._eventDrivenUserSurveyParameters {return false}
+        if _storage._privacyPreservingAnalyticsParameters != rhs_storage._privacyPreservingAnalyticsParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}

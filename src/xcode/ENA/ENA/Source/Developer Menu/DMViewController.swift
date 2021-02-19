@@ -13,11 +13,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	init(
 		client: Client,
 		wifiClient: WifiOnlyHTTPClient,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		otpService: OTPServiceProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
+		self.otpService = otpService
+
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
 	}
@@ -31,12 +34,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let client: Client
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
+	private let otpService: OTPServiceProviding
+
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
 			keys = self.keys.sorted()
 		}
 	}
-	
+
 	// internal because of protocol RequiresAppDependencies
 	let wifiClient: WifiOnlyHTTPClient
 
@@ -148,9 +153,15 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .ppacService:
 			vc = DMPPACViewController(store)
 		case .otpService:
-			vc = DMOTPServiceViewController(store: store, client: client)
+			vc = DMOTPServiceViewController(store: store, otpService: otpService)
+		case .ppaMostRecent:
+			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider)
+		case .ppaActual:
+			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
+		case .ppaSubmission:
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		}
-		
+
 		if let vc = vc {
 			navigationController?.pushViewController(
 				vc,

@@ -11,12 +11,14 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, ENANav
 	
 	init(
 		supportedCountries: [Country],
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = ExposureSubmissionQRInfoViewModel(supportedCountries: supportedCountries)
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)

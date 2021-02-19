@@ -28,6 +28,9 @@ enum DMMenuItem: Int, CaseIterable {
 	case deviceTimeCheck
 	case ppacService
 	case otpService
+	case ppaMostRecent
+	case ppaActual
+	case ppaSubmission
 }
 
 extension DMMenuItem {
@@ -65,6 +68,9 @@ extension DMMenuItem {
 		case .deviceTimeCheck: return "Device Time Check"
 		case .ppacService: return "PPAC Service / API Token"
 		case .otpService: return "OTP Token"
+		case .ppaMostRecent: return "PPA Most Recent Data"
+		case .ppaActual: return "PPA Actual Data"
+		case .ppaSubmission: return "PPA Submission"
 		}
 	}
 	var subtitle: String {
@@ -90,6 +96,10 @@ extension DMMenuItem {
 		case .deviceTimeCheck: return "Enable or Disable Device Time Check"
 		case .ppacService: return "Inspect and force updates to the PPAC Token"
 		case .otpService: return "Inspect the OTP Token"
+		case .ppaMostRecent: return "See the most recent analytics data"
+		case .ppaActual: return "See the current analytics data"
+		case .ppaSubmission: return "Force a submission of analytics data"
+
 		}
 	}
 }
