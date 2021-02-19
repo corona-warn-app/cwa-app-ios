@@ -9,18 +9,14 @@ class ExposureWindowsMetadataService {
 	// MARK: - Internal
 
 	func collectExposureWindows(from riskCalculation: RiskCalculationProtocol, store: Store) {
-		guard let calculation = riskCalculation as? RiskCalculation else {
-			Log.debug("Instance of riskCalculation couldn't be casted into RiskCalculation type", log: .ppa)
-			return
-		}
 		self.clearReportedExposureWindowsQueueIfNeeded(store: store)
 		
-		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = calculation.mappedExposureWindows.map {
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculation.mappedExposureWindows.map {
 			SubmissionExposureWindow(
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,
 				normalizedTime: $0.normalizedTime,
-				hash: generateSha256($0.exposureWindow),
+				hash: generateSHA256($0.exposureWindow),
 				date: $0.date
 			)
 		}
@@ -57,17 +53,14 @@ class ExposureWindowsMetadataService {
 			store.exposureWindowsMetadata?.reportedExposureWindowsQueue = nonExpiredWindows
 		}
 	}
-	
-	private func generateSha256(_ window: ExposureWindow) -> String? {
-		var windowData: Data?
-		
+	private func generateSHA256(_ window: ExposureWindow) -> String? {
+		let encoder = JSONEncoder()
 		do {
-			let encoder = JSONEncoder()
-			windowData = try encoder.encode(window)
-
+			let windowData = try encoder.encode(window)
+			return windowData.sha256String()
 		} catch {
 			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
 		}
-		return windowData?.sha256String()
+		return nil
 	}
 }
