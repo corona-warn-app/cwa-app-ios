@@ -48,11 +48,12 @@ class ENAUITestsQuickActions: XCTestCase {
 		XCTAssertFalse(actionButton.exists, "Shortcuts should not be available on 'fresh' installations which aren't onboarded")
     }
 
-	func testLaunchAfterOnboarding() throws {
+	func testLaunchAfterOnboarding_diaryInfoRequred() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"]) // first launch of the contact diary
 		app.launch()
 
 		// On home screen?
@@ -72,6 +73,38 @@ class ENAUITestsQuickActions: XCTestCase {
 		let actionButton = springboard.buttons[newDiaryEntryLabel]
 		XCTAssertTrue(actionButton.waitForExistence(timeout: .short))
 		actionButton.tap()
+
+		// we expect the info screen
+		XCTAssertFalse(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts["AppStrings.ContactDiaryInformation.descriptionTitle"].exists)
+	}
+
+	func testLaunchAfterOnboarding_diaryInfoPassed() throws {
+		let app = XCUIApplication()
+		app.setDefaults()
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"]) // contact diary info stuff shown and accepted
+		app.launch()
+
+		// On home screen?
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
+		// back out
+		XCUIDevice.shared.press(.home)
+
+		// check app menu
+		let appIcon = try XCTUnwrap(springboard.icons[cwaBundleDisplayName])
+		XCTAssertTrue(appIcon.waitForExistence(timeout: .short))
+		if !appIcon.isHittable {
+			springboard.swipeLeft()
+		}
+		XCTAssertTrue(appIcon.isHittable)
+		appIcon.press(forDuration: 1.5)
+
+		let actionButton = springboard.buttons[newDiaryEntryLabel]
+		XCTAssertTrue(actionButton.waitForExistence(timeout: .short))
+		actionButton.tap()
+
 		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiary.segmentedControl].waitForExistence(timeout: .short))
 	}
 
@@ -139,7 +172,8 @@ class ENAUITestsQuickActions: XCTestCase {
 	/// Because the app still starts shortly, our AppDelegate code runs. Keep this in mind if you encounter some edge cases!
 	private func installCWApp() throws -> XCUIApplication {
 		let app = XCUIApplication()
-		app.activate()
+		app.launch()
+		XCTAssertEqual(app.state, XCUIApplication.State.runningForeground)
 		XCUIDevice.shared.press(.home)
 		return app
 	}
