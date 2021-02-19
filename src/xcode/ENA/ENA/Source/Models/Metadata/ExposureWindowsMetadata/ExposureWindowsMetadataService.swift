@@ -25,7 +25,7 @@ class ExposureWindowsMetadataService {
 			// if store is initialized:
 			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
 			for exposureWindow in mappedSubmissionExposureWindows {
-				if metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
+				if !metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
 					store.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
 					store.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
 				}
