@@ -6,7 +6,7 @@ import Foundation
 
 struct ContactPersonEncounter: Equatable {
 
-	// MARK: - Init
+	// MARK: - Types
 
 	enum Duration: Int {
 		case none
@@ -92,6 +92,8 @@ struct ContactPersonEncounter: Equatable {
 		}
 	}
 
+	// MARK: - Init
+
 	init(
 		id: Int,
 		date: String,
@@ -109,7 +111,6 @@ struct ContactPersonEncounter: Equatable {
 		self.setting = setting
 		self.circumstances = circumstances
 	}
-
 
 	// MARK: - Internal
 
