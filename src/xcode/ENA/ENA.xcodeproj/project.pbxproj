@@ -433,6 +433,7 @@
 		8FB5A64825DEC58F00679990 /* TestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */; };
 		8FB5A64925DEC58F00679990 /* TestResultMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A64725DEC58F00679990 /* TestResultMetadata.swift */; };
 		8FB5A65825DEC61A00679990 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
+		8FC4F4E025DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
 		8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
@@ -1270,6 +1271,7 @@
 		8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataService.swift; sourceTree = "<group>"; };
 		8FB5A64625DEC58F00679990 /* TestResultMetadataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetadataService.swift; path = ENA/Source/Models/Metadata/TestResultMetadataService.swift; sourceTree = SOURCE_ROOT; };
 		8FB5A64725DEC58F00679990 /* TestResultMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestResultMetadata.swift; path = ENA/Source/Models/Metadata/TestResultMetadata.swift; sourceTree = SOURCE_ROOT; };
+		8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataServiceTests.swift; sourceTree = "<group>"; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
@@ -3117,6 +3119,14 @@
 			isa = PBXGroup;
 			children = (
 				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		8FC4F4E425DFCDD200C55ADC /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5384,6 +5394,7 @@
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
 				BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
+				8FC4F4E025DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift in Sources */,
 				01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,
 				01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */,
