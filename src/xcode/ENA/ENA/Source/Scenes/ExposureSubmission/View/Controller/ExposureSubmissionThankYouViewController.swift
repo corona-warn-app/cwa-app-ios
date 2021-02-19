@@ -18,6 +18,7 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 		self.onDismiss = onDismiss
 		
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 	
 	@available(*, unavailable)
@@ -52,7 +53,6 @@ class ExposureSubmissionThankYouViewController: DynamicTableViewController, ENAN
 	func wasAttemptedToBeDismissed() {
 		onDismiss { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
 				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
 				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
 				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
