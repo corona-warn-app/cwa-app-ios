@@ -1497,6 +1497,24 @@ sein.";
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Eine Standortmarkierung markiert ein Gebäude.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 min":
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 min":
+
+"ContactDiary_Day_Encounter_WithMask" = "mit Maske":
+
+"ContactDiary_Day_Encounter_WithoutMask" = "ohne Maske":
+
+"ContactDiary_Day_Encounter_Outside" = "im Freien":
+
+"ContactDiary_Day_Encounter_Inside" = "drinnen":
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z.B. geringer Abstand)":
+
+"ContactDiary_Day_Visit_Duration" = "Dauer":
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z.B. sehr voll, schlecht gelüftet)":
+
 /* Edit Entries */
 
 "ContactDiary_EditEntries_ContactPersons_Title" = "Personen";
