@@ -86,6 +86,9 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var otpToken: OTPToken?
 	var otpAuthorizationDate: Date?
 	var ppacApiToken: TimestampedToken?
+
+	// MARK: - PPAnalyticsData
+
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?

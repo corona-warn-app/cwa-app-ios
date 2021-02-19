@@ -149,6 +149,9 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var otpAuthorizationDate: Date? { get set }
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }
+}
+
+protocol PPAnalyticsData: AnyObject {
 	/// Last succesfull submission of analytics data. Needed for analytics submission.
 	var lastSubmissionAnalytics: Date? { get set }
 	/// Date of last app reset. Needed for analytics submission.
@@ -161,7 +164,7 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
-    /// Analytics data.
+	/// Analytics data.
 	var clientMetadata: ClientMetadata? { get set }
 	/// Analytics data
 	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
@@ -170,4 +173,4 @@ protocol PrivacyPreservingProviding: AnyObject {
 }
 
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, PPAnalyticsData {}

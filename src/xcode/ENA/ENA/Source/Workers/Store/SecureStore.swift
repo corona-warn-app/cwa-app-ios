@@ -382,6 +382,9 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
 	}
+}
+
+extension SecureStore: PPAnalyticsData {
 
 	var lastSubmissionAnalytics: Date? {
 		get { kvStore["lastSubmissionAnalytics"] as Date? }
