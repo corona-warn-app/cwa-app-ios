@@ -265,7 +265,6 @@
 		34B1FDD225D6A09700D196C7 /* KeySubmissionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */; };
 		34B1FDDD25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */; };
 		34B1FE3025DDAD4A00D196C7 /* ClientMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */; };
-		34B1FE3B25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -421,8 +420,6 @@
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
 		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
-		8F11511E25DC27AA007BDBC6 /* TestResultMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */; };
-		8F1856A325D69F7A0087DD07 /* ClientMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1856A225D69F7A0087DD07 /* ClientMetadata.swift */; };
 		8F27018F259B593700E48CFE /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
@@ -1080,7 +1077,6 @@
 		34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadata.swift; sourceTree = "<group>"; };
 		34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSubmissionFlowScreen.swift; sourceTree = "<group>"; };
 		34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMetadata.swift; sourceTree = "<group>"; };
-		34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataService.swift; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
@@ -1259,9 +1255,7 @@
 		8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+TestResult+Extenstion.swift"; sourceTree = "<group>"; };
 		8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppac_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
 		8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_edus_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
-		8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataService.swift; sourceTree = "<group>"; };
 		8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataServiceTests.swift; sourceTree = "<group>"; };
-		8F1856A225D69F7A0087DD07 /* ClientMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMetadata.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
@@ -2331,7 +2325,7 @@
 			children = (
 				3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */,
 				3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */,
-				8F11512325DC27E9007BDBC6 /* TestTestResultMetadataService.swift */,
+				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2346,9 +2340,7 @@
 				3466A3F625CD53EB002CC49D /* UserMetadata.swift */,
 				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
 				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
-				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
 				8F9DEAEF25D5F17100CDDF1B /* TestResultMetaData.swift */,
-				8F11511D25DC27AA007BDBC6 /* TestResultMetadataService.swift */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -3036,14 +3028,6 @@
 				B1175211248A837300C3325C /* Risk */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		8F11512225DC27C3007BDBC6 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */,
-			);
-			path = __tests__;
 			sourceTree = "<group>";
 		};
 		8F27018D259B58D700E48CFE /* StoreV2 */ = {
@@ -4946,7 +4930,6 @@
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
-				34B1FE3B25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift in Sources */,
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
 				A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */,
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
@@ -5230,7 +5213,6 @@
 				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
-				8F11511E25DC27AA007BDBC6 /* TestResultMetadataService.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,

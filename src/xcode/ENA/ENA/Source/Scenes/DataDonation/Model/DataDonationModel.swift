@@ -80,7 +80,7 @@ struct DataDonationModel {
 			administrativeUnit: district?.districtID,
 			ageGroup: ageGroup)
 
-		Analytics.log(.userData(userMetaData))
+		Analytics.log(.userData(.complete(userMetaData)))
 	}
 
 	// MARK: - Private

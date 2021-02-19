@@ -469,13 +469,21 @@ final class RiskProvider: RiskProviding {
 
 		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
-			let newRiskExposureMetadata = RiskExposureMetadata(riskLevel: riskLevel, riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission, dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission)
-			Analytics.log(.riskExposureMetadata(newRiskExposureMetadata))
+			let newRiskExposureMetadata = RiskExposureMetadata(
+				riskLevel: riskLevel,
+				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+			)
+			Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
 			return
 		}
-		let newRiskExposureMetadata = RiskExposureMetadata(riskLevel: riskLevel, riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission, mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel, dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission)
-
-		Analytics.log(.riskExposureMetadata(newRiskExposureMetadata))
+		let newRiskExposureMetadata = RiskExposureMetadata(
+			riskLevel: riskLevel,
+			riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
+			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
+			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
+		)
+		Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
 	}
 }
 
