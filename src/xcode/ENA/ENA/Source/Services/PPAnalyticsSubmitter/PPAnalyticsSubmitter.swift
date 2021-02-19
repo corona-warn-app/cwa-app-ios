@@ -93,7 +93,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			} else {
 				self.generatePPACAndSubmitData(completion: completion)
 			}
-		}
+		}.store(in: &subscriptions)
 	}
 	#if !RELEASE
 
