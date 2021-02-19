@@ -39,7 +39,7 @@ extension DynamicAction {
 				detailViewController = DataPrivacyViewControllerDisablingSwipeToDismiss()
 			}
 
-			detailViewController.dismissHandeling = completion
+			detailViewController.dismissHandling = completion
 			detailViewController.title = title
 			detailViewController.dynamicTableViewModel = model
 			detailViewController.separatorStyle = separators ? .singleLine : .none

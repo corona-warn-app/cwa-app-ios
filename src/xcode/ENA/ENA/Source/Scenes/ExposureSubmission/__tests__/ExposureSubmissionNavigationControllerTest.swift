@@ -9,7 +9,7 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionNavigationController {
 		// rootVC needs to be a ENANavigationControllerWithFooterChild to support buttons.
-		let rootVC = ExposureSubmissionHotlineViewController(onSecondaryButtonTap: {})
+		let rootVC = ExposureSubmissionHotlineViewController(onSecondaryButtonTap: {}, dismiss: {})
 
 		return ExposureSubmissionNavigationController(
 			dismissClosure: {},

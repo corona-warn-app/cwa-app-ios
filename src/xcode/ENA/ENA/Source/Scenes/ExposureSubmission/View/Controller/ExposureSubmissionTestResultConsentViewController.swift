@@ -12,7 +12,6 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 	init(
 		viewModel: ExposureSubmissionTestResultConsentViewModel
 	) {
-				
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -29,16 +28,6 @@ class ExposureSubmissionTestResultConsentViewController: DynamicTableViewControl
 		self.title = AppStrings.AutomaticSharingConsent.consentTitle
 		setupView()
 	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		self.navigationItem.rightBarButtonItem = nil
-	}
-	
-	// MARK: - Protocol DismissHandling
-
-	// We implement the protocol function without any code here to prevent dismissing the screen by draging down
-	func wasAttemptedToBeDismissed() {}
 
 	// MARK: - Internal
 
