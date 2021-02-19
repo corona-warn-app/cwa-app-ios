@@ -434,7 +434,6 @@
 		8FB5A62D25DEAFA400679990 /* ExposureNotifications+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */; };
 		8FB5A63525DEC2CE00679990 /* ExposureWindowsMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */; };
 		8FB5A65825DEC61A00679990 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
-		8FC4F4E025DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
 		8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
@@ -5391,7 +5390,6 @@
 				0123D5992501385200A91838 /* ExposureSubmissionErrorTests.swift in Sources */,
 				BA7D178E25D55EB1006B9EBF /* DefaultDataDonationViewModelTests.swift in Sources */,
 				50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */,
-				8FC4F4E025DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift in Sources */,
 				01A23685251A23740043D9F8 /* ExposureSubmissionQRInfoModelTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,
 				01A97DD12506768F00C07C37 /* DatePickerOptionViewModelTests.swift in Sources */,
