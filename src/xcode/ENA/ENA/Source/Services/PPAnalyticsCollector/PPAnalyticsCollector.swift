@@ -162,6 +162,7 @@ enum PPAnalyticsCollector {
 	private static func updateTestResult(_ testResult: TestResult) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
 		guard store?.testResultMetadata?.testRegistrationDate != nil else {
+			Log.warning("Could not update test meta data result due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
 
@@ -195,6 +196,7 @@ enum PPAnalyticsCollector {
 
 	private static func registerNewTestMetadata(_ date: Date = Date()) {
 		guard let riskCalculationResult = store?.riskCalculationResult else {
+			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
 			return
 		}
 		var testResultMetadata = TestResultMetaData()
@@ -207,7 +209,7 @@ enum PPAnalyticsCollector {
 		switch riskCalculationResult.riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
-				Log.debug("Time Risk Change was not stored Correctly.")
+				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
@@ -261,6 +263,7 @@ enum PPAnalyticsCollector {
 
 	private static func setHoursSinceTestResult() {
 		guard let resultDateTimeStamp = store?.testResultReceivedTimeStamp else {
+			Log.warning("Could not log hoursSinceTestResult due to testResultReceivedTimeStamp is nil", log: .ppa)
 			return
 		}
 
@@ -272,6 +275,7 @@ enum PPAnalyticsCollector {
 
 	private static func setHoursSinceTestRegistration() {
 		guard let registrationDate = store?.testRegistrationDate else {
+			Log.warning("Could not log hoursSinceTestRegistration due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
 
@@ -281,6 +285,7 @@ enum PPAnalyticsCollector {
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
 		guard let numberOfDaysWithCurrentRiskLevel = store?.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
+			Log.warning("Could not log daysSinceMostRecentDateAtRiskLevelAtTestRegistration due to numberOfDaysWithCurrentRiskLevel is nil", log: .ppa)
 			return
 		}
 		store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Int32(numberOfDaysWithCurrentRiskLevel)
@@ -288,13 +293,14 @@ enum PPAnalyticsCollector {
 
 	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
 		guard let riskLevel = store?.riskCalculationResult?.riskLevel  else {
+			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
 		}
 		switch riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk,
 				  let registrationTime = store?.testRegistrationDate else {
-				Log.debug("Time of risk status change was not stored correctly.")
+				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: registrationTime)
