@@ -56,7 +56,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="lg7-fs-CaZ"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="VlO-tn-8Ya">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VlO-tn-8Ya">
                                                 <rect key="frame" x="0.0" y="5" width="288" height="27"/>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="16" bottom="4" trailing="16"/>
                                             </stackView>
