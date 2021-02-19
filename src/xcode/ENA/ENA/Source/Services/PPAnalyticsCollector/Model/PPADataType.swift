@@ -22,7 +22,6 @@ enum PPARiskExposureMetadata {
 
 enum PPAClientMetadata {
 	case complete(ClientMetadata)
-	case eTag(String?)
 }
 
 enum PPATestResultMetadata {

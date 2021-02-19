@@ -139,8 +139,6 @@ enum PPAnalyticsCollector {
 		switch clientMetadata {
 		case let .complete(metaData):
 			store?.clientMetadata = metaData
-		case let .eTag(etag):
-			store?.clientMetadata?.eTag = etag
 		}
 	}
 
@@ -220,7 +218,6 @@ enum PPAnalyticsCollector {
 	}
 
 	// MARK: - KeySubmissionMetadata
-
 
 	// swiftlint:disable:next cyclomatic_complexity
 	private static func logKeySubmissionMetadata(_ keySubmissionMetadata: PPAKeySubmissionMetadata) {

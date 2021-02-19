@@ -139,7 +139,7 @@ final class CachedAppConfiguration {
 	}
 	
 	private func storeETagInClientMetadata(eTag: String?) {
-		Analytics.log(.clientMetadata(.eTag(eTag)))
+		Analytics.log(.clientMetadata(.complete(ClientMetadata(etag: eTag))))
 	}
 
 	private func defaultFailureHandler() {
