@@ -23,6 +23,17 @@ struct ContactPersonEncounter: Equatable {
 				return AppStrings.ContactDiary.PersonEncounter.durationMoreThan15Minutes
 			}
 		}
+
+		var germanDescription: String {
+			switch self {
+			case .none:
+				return ""
+			case .lessThan15Minutes:
+				return "< 15 Minuten"
+			case .moreThan15Minutes:
+				return "> 15 Minuten"
+			}
+		}
 	}
 
 	enum MaskSituation: Int {
@@ -40,6 +51,17 @@ struct ContactPersonEncounter: Equatable {
 				return AppStrings.ContactDiary.PersonEncounter.maskSituationWithoutMask
 			}
 		}
+
+		var germanDescription: String {
+			switch self {
+			case .none:
+				return ""
+			case .withMask:
+				return "mit Maske"
+			case .withoutMask:
+				return "ohne Maske"
+			}
+		}
 	}
 
 	enum Setting: Int {
@@ -55,6 +77,17 @@ struct ContactPersonEncounter: Equatable {
 				return AppStrings.ContactDiary.PersonEncounter.settingOutside
 			case .inside:
 				return AppStrings.ContactDiary.PersonEncounter.settingInside
+			}
+		}
+
+		var germanDescription: String {
+			switch self {
+			case .none:
+				return ""
+			case .outside:
+				return "im Freien"
+			case .inside:
+				return "im Gebäude"
 			}
 		}
 	}
