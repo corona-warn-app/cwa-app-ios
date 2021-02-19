@@ -264,9 +264,9 @@
 		34B1FDDD25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */; };
 		34B1FE3025DDAD4A00D196C7 /* ClientMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */; };
 		34B1FE3B25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */; };
-		34B1FE5F25E0101B00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */; };
-		34B1FE6D25E010CF00D196C7 /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */; };
 		34B1FE9125E0115700D196C7 /* AgeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3466A3FB25CD5B90002CC49D /* AgeGroup.swift */; };
+		34B1FEA325E0130C00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */; };
+		34B1FEA725E013B600D196C7 /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */; };
 		3518DD6525BA2D060090A26B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3518DD6425BA2D060090A26B /* NotificationManager.swift */; };
 		351E6306256BEC8D00D89B29 /* LabeledCountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E6305256BEC8D00D89B29 /* LabeledCountriesView.swift */; };
 		351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E630A256C5B9C00D89B29 /* LabeledCountriesCell.swift */; };
@@ -1076,13 +1076,13 @@
 		3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskExposureMetadata.swift; sourceTree = "<group>"; };
 		3466A3F625CD53EB002CC49D /* UserMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadata.swift; sourceTree = "<group>"; };
 		3466A3FB25CD5B90002CC49D /* AgeGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
-		3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RiskExposureMetadataTests.swift; path = ENA/Source/Models/Metadata/RiskExposureMetadata/__tests__/RiskExposureMetadataTests.swift; sourceTree = SOURCE_ROOT; };
 		3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
 		34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadata.swift; sourceTree = "<group>"; };
 		34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSubmissionFlowScreen.swift; sourceTree = "<group>"; };
 		34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMetadata.swift; sourceTree = "<group>"; };
 		34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataService.swift; sourceTree = "<group>"; };
 		34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataServiceTests.swift; sourceTree = "<group>"; };
+		34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskExposureMetadataTests.swift; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
 		35075C0E252637C300DE92F7 /* SmokeTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SmokeTests.xctestplan; path = TestPlans/SmokeTests.xctestplan; sourceTree = "<group>"; };
 		35163D23251CFCCB00D220CA /* CachingHTTPClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClientMock.swift; sourceTree = "<group>"; };
@@ -2394,7 +2394,7 @@
 		34B1FE6925E010C200D196C7 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				3466A40925D19813002CC49D /* RiskExposureMetadataTests.swift */,
+				34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4992,7 +4992,6 @@
 				BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */,
 				941ADDB02518C2B200E421D9 /* EuTracingTableViewCell.swift in Sources */,
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
-				34B1FE5F25E0101B00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */,
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
@@ -5174,7 +5173,6 @@
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
 				8FB5A62525DE798700679990 /* ExposureWindowsMetadata.swift in Sources */,
 				017AD122259DDED100FA2B3F /* ISO8601DateFormatter+ContactDiary.swift in Sources */,
-				34B1FE6D25E010CF00D196C7 /* RiskExposureMetadataTests.swift in Sources */,
 				504C9CC925C44C180005875B /* OTPService.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
@@ -5317,6 +5315,7 @@
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
+				34B1FEA725E013B600D196C7 /* RiskExposureMetadataTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
 				01A1B467252E19D000841B63 /* ExposureSubmissionCoordinatorModelTests.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
@@ -5353,6 +5352,7 @@
 				BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */,
 				01B605CE258A38330093DB8E /* DiaryEntryTest.swift in Sources */,
 				50352C8B25C94961007193D2 /* OTPServiceTests.swift in Sources */,
+				34B1FEA325E0130C00D196C7 /* KeySubmissionMetadataServiceTests.swift in Sources */,
 				508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */,
 				BAB6C81225C4652D00E042FB /* PPACTokenTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
