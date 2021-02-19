@@ -11,7 +11,7 @@ extension UIFont {
 		return UIFont.TextStyle(rawValue: string)
 	}
 
-	func scaledFont(size: CGFloat? = nil, weight: Weight? = .regular) -> UIFont {
+	func scaledFont(size: CGFloat? = nil, weight: Weight? = .regular, italic: Bool = false) -> UIFont {
 		guard let textStyle = self.textStyle else { return self }
 
 		let metrics = UIFontMetrics(forTextStyle: textStyle)
@@ -19,7 +19,12 @@ extension UIFont {
 		let systemFont = UIFont.systemFont(ofSize: size ?? description.pointSize, weight: weight ?? .regular)
 		let font = metrics.scaledFont(for: systemFont)
 
-		return font
+		if italic,
+		   let italicFontDescriptor = font.fontDescriptor.withSymbolicTraits(.traitItalic) {
+			return UIFont(descriptor: italicFontDescriptor, size: 0)
+		} else {
+			return font
+		}
 	}
 }
 
