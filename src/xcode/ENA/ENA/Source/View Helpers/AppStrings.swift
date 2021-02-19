@@ -1043,6 +1043,11 @@ enum AppStrings {
 				}
 			}
 		}
+		
+		enum NotesInformation {
+			static let title = NSLocalizedString("ContactJournalNotesDescriptionTitle", comment: "")
+			static let description = NSLocalizedString("ContactJournalNotesDescription", comment: "")
+		}
 	}
 
 	enum Statistics {

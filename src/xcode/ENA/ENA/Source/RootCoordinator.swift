@@ -71,10 +71,15 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 		
+		let infoVC = DiaryDayNotesInfoViewController()
+		infoVC.tabBarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
+		let navC = UINavigationController(rootViewController: infoVC)
+		
+		// [KGA] Remove
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, navC], animated: false)
 		
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
