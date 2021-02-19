@@ -21,13 +21,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
-		warnOthersReminder: WarnOthersRemindable
+		warnOthersReminder: WarnOthersRemindable,
+		deadmanNotificationManager: DeadmanNotificationManageable? = nil
 	) {
 		self.diagnosisKeysRetrieval = diagnosisKeysRetrieval
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
 		self.warnOthersReminder = warnOthersReminder
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
 		
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
@@ -41,7 +43,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
-			warnOthersReminder: dependencies.warnOthersReminder)
+			warnOthersReminder: dependencies.warnOthersReminder
+		)
 	}
 
 	// MARK: - Protocol ExposureSubmissionService
@@ -275,6 +278,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let client: Client
 	private let store: Store
 	private let warnOthersReminder: WarnOthersRemindable
+	private let deadmanNotificationManager: DeadmanNotificationManageable
 
 	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 
@@ -447,10 +451,16 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow.
+	/// This method removes all left over persisted objects part of the `submitExposure` flow.
 	private func submitExposureCleanup() {
-		warnOthersReminder.cancelNotifications()
+		/// Cancel warn others notifications and set positiveTestResultWasShown = false
+		warnOthersReminder.reset()
+
+		// This timestamp must be set before resetting the deadman notification
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		
+		/// Deactivate deadman notification for end-of-life-state
+		deadmanNotificationManager.resetDeadmanNotification()
 
 		store.registrationToken = nil
 		store.tan = nil
@@ -460,7 +470,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		supportedCountries = []
 		symptomsOnset = .noInformation
 
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		
 		Log.info("Exposure submission cleanup.", log: .api)
 	}
 

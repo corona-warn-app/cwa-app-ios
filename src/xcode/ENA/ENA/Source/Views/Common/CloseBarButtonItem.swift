@@ -30,7 +30,7 @@ class CloseBarButtonItem: UIBarButtonItem {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Private
+	// MARK: - Internal
 
 	@objc
 	func didTap() {

@@ -13,7 +13,7 @@ final class HTTPClientRegistrationTokenTests: XCTestCase {
 		let expectedToken = "SomeToken"
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
 		)
 
 		let successExpectation = expectation(
@@ -36,7 +36,7 @@ final class HTTPClientRegistrationTokenTests: XCTestCase {
 		let expectedToken = "SomeToken"
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
 		)
 
 		let successExpectation = expectation(
@@ -193,7 +193,7 @@ final class HTTPClientRegistrationTokenTests: XCTestCase {
 		}
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
 			requestObserver: verifyPostBodyContent
 		)
 

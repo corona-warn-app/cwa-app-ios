@@ -247,9 +247,10 @@ final class SQLiteKeyValueStore {
 				if let value = array.first {
 					return value
 				}
-
+			} catch let DecodingError.typeMismatch(expectedType, context) {
+				Log.warning("Type mismatch in K/V decoding: \(expectedType) not found in \(context). Trying fallback implementation.", log: .localData)
 			} catch {
-				Log.error("Error when decoding value from K/V SQLite store: \(error.localizedDescription)", log: .localData)
+				Log.error("Error when decoding value from K/V SQLite store: \(error.localizedDescription)", log: .localData, error: error)
 			}
 			return try? JSONDecoder().decode(Model.self, from: data) // Fallback for old installations
 		}

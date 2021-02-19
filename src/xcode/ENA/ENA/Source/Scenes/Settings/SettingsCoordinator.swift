@@ -67,7 +67,11 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 			},
 			onResetCellTap: { [weak self] in
 				self?.showResetScreen()
+			},
+			onDataDonationCellTap: { [weak self] in
+				self?.showDataDonationScreen()
 			}
+
 		)
 	}()
 
@@ -111,5 +115,35 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 
 		parentNavigationController?.pushViewController(viewController, animated: true)
 	}
-	
+
+	private func showDataDonationScreen() {
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
+		let viewModel = SettingsDataDonationViewModel(
+			store: store,
+			presentSelectValueList: { [weak self] selectValueViewModel in
+				self?.presentSelectValueList(selectValueViewModel: selectValueViewModel)
+			},
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: jsonFileURL
+			)
+		)
+
+		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
+		parentNavigationController?.pushViewController(dataDonationViewController, animated: true)
+	}
+
+	private func presentSelectValueList(selectValueViewModel: SelectValueViewModel) {
+		let selectValueViewController = SelectValueTableViewController(
+			selectValueViewModel,
+			dissmiss: { [weak self] in
+				self?.parentNavigationController?.dismiss(animated: true)
+			})
+		let navigationController = UINavigationController(rootViewController: selectValueViewController)
+		parentNavigationController?.present(navigationController, animated: true)
+	}
+
 }

@@ -40,14 +40,14 @@ struct RiskCalculationResult: Codable {
 		minimumDistinctEncountersWithLowRisk = try container.decode(Int.self, forKey: .minimumDistinctEncountersWithLowRisk)
 		minimumDistinctEncountersWithHighRisk = try container.decode(Int.self, forKey: .minimumDistinctEncountersWithHighRisk)
 
-		mostRecentDateWithLowRisk = try? container.decode(Date?.self, forKey: .mostRecentDateWithLowRisk)
-		mostRecentDateWithHighRisk = try? container.decode(Date?.self, forKey: .mostRecentDateWithHighRisk)
+		mostRecentDateWithLowRisk = try container.decodeIfPresent(Date.self, forKey: .mostRecentDateWithLowRisk)
+		mostRecentDateWithHighRisk = try container.decodeIfPresent(Date.self, forKey: .mostRecentDateWithHighRisk)
 
 		numberOfDaysWithLowRisk = try container.decode(Int.self, forKey: .numberOfDaysWithLowRisk)
 		numberOfDaysWithHighRisk = try container.decode(Int.self, forKey: .numberOfDaysWithHighRisk)
 
 		calculationDate = try container.decode(Date.self, forKey: .calculationDate)
-		riskLevelPerDate = (try? container.decode([Date: RiskLevel].self, forKey: .riskLevelPerDate)) ?? [:]
+		riskLevelPerDate = try container.decodeIfPresent([Date: RiskLevel].self, forKey: .riskLevelPerDate) ?? [:]
 	}
 
 	// MARK: - Internal

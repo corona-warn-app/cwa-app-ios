@@ -77,13 +77,21 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+
+			// Keep downloading key packages for plausible deniability
+			downloadKeyPackages()
+
 			return
 		}
 
-		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+
+			// Keep downloading key packages for plausible deniability
+			downloadKeyPackages()
+
 			return
 		}
 
@@ -174,13 +182,13 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func downloadKeyPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {
+	private func downloadKeyPackages(completion: ((Result<Void, RiskProviderError>) -> Void)? = nil) {
 		// The result of a hour package download is not handled, because for the risk detection it is irrelevant if it fails or not.
 		self.downloadHourPackages { [weak self] in
 			guard let self = self else { return }
 
 			self.downloadDayPackages(completion: { result in
-				completion(result)
+				completion?(result)
 			})
 		}
 	}
@@ -285,9 +293,6 @@ final class RiskProvider: RiskProviding {
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
 
 				let exposureWindows = detectedExposureWindows.map { ExposureWindow(from: $0) }
-
-				/// We were able to calculate a risk so we have to reset the deadman notification
-				UNUserNotificationCenter.current().resetDeadmanNotification()
 				completion(.success(exposureWindows))
 			case .failure(let error):
 				Log.error("RiskProvider: Detect exposure failed", log: .riskDetection, error: error)
@@ -315,11 +320,12 @@ final class RiskProvider: RiskProviding {
 
 			store.riskCalculationResult = riskCalculationResult
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+			updateRiskExpouseMetadata(riskCalculationResult)
 
 			completion(.success(risk))
 
 			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			UNUserNotificationCenter.current().resetDeadmanNotification()
+			DeadmanNotificationManager(store: store).resetDeadmanNotification()
 		} catch {
 			completion(.failure(.failedRiskCalculation))
 		}
@@ -423,6 +429,50 @@ final class RiskProvider: RiskProviding {
 				break
 			}
 		}
+	}
+	
+	private func updateRiskExpouseMetadata(_ riskCalculationResult: RiskCalculationResult) {
+		let riskLevel = riskCalculationResult.riskLevel
+		let riskLevelChangedComparedToPreviousSubmission: Bool
+		let dateChangedComparedToPreviousSubmission: Bool
+		
+		// if there is a risk level value stored for previous submission
+		if store.previousRiskExposureMetadata?.riskLevel != nil {
+			if riskLevel !=
+				store.previousRiskExposureMetadata?.riskLevel {
+				// if there is a change in risk level
+				riskLevelChangedComparedToPreviousSubmission = true
+			} else {
+				// if there is no change in risk level
+				riskLevelChangedComparedToPreviousSubmission = false
+			}
+		} else {
+			// for the first time, the field is set to false
+			riskLevelChangedComparedToPreviousSubmission = false
+		}
+		
+		// if there is most recent date store for previous submission
+		if store.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
+			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
+				store.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
+				// if there is a change in date
+				dateChangedComparedToPreviousSubmission = true
+			} else {
+				// if there is no change in date
+				dateChangedComparedToPreviousSubmission = false
+			}
+		} else {
+			// for the first time, the field is set to false
+			dateChangedComparedToPreviousSubmission = false
+		}
+
+		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+			// most recent date is not available because of no exposure
+			store.currentRiskExposureMetadata = RiskExposureMetadata(riskLevel: riskLevel, riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission, dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission)
+			return
+		}
+		// most recent date is available because of exposure
+		store.currentRiskExposureMetadata = RiskExposureMetadata(riskLevel: riskLevel, riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission, mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel, dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission)
 	}
 }
 

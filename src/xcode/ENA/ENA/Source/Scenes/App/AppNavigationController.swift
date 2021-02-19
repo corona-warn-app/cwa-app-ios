@@ -170,5 +170,5 @@ extension NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat { 1.0 }
 	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { nil }
 	var preferredLargeTitleBackgroundColor: UIColor? { nil }
-	fileprivate var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
+	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }

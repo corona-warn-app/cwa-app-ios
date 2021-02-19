@@ -329,11 +329,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	func testOverviewWithRiskLevelHighOnToday() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
 		navigateToJournalOverview()
 
-		// check count for overview: day cell 15 days plus 1 description cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 15 + 1)
+        // check if overview is visible
+        XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 
 		let highRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
 		XCTAssertNotNil( highRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh])

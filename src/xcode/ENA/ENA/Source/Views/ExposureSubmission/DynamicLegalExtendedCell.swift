@@ -45,6 +45,22 @@ class DynamicLegalExtendedCell: UITableViewCell {
 		configure(title: title, description1: subheadline1, description2: subheadline2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
 	}
 	
+	/// Configure a legal extended cell:
+	/// - Parameters:
+	/// - title, (bold)
+	/// - description (bold)
+	/// - bulletPoints
+	func configure(title: NSAttributedString, description: NSAttributedString?, bulletPoints: [NSAttributedString]?, accessibilityIdentifier: String? = nil) {
+		
+		let label = ENALabel() // get the default font – create fake label
+		
+		let textBlocks1 = bulletPoints?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
+		let textBlocks2 = [NSAttributedString]()
+		
+		let description2 = NSAttributedString(string: "")
+		configure(title: title, description1: description, description2: description2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
+	}
+	
 	func configure(title: NSAttributedString, description1: NSAttributedString?, description2: NSAttributedString?, textBlocks1: [NSAttributedString], textBlocks2: [NSAttributedString], accessibilityIdentifier: String? = nil) {
 		
 		titleLabel.attributedText = title

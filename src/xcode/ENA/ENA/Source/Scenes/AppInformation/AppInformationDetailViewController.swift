@@ -8,7 +8,7 @@ import UIKit
 class AppInformationDetailViewController: DynamicTableViewController, DismissHandling {
 	
 	var separatorStyle: UITableViewCell.SeparatorStyle = .none { didSet { tableView?.separatorStyle = separatorStyle } }
-	var dismissHandeling: (() -> Void)?
+	var dismissHandling: (() -> Void)?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -20,6 +20,10 @@ class AppInformationDetailViewController: DynamicTableViewController, DismissHan
 
 		tableView.register(AppInformationLegalCell.self, forCellReuseIdentifier: CellReuseIdentifier.legal.rawValue)
 		tableView.register(DynamicTableViewHtmlCell.self, forCellReuseIdentifier: CellReuseIdentifier.html.rawValue)
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: CellReuseIdentifier.legalDetails.rawValue
+		)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -37,7 +41,7 @@ class AppInformationDetailViewController: DynamicTableViewController, DismissHan
 	
 	// the completion is currently only passed in the submittion flow with +ve test result case to display warning popup, for other flows or other test results we should dismiss normally
 	func wasAttemptedToBeDismissed() {
-		guard let completion = dismissHandeling else {
+		guard let completion = dismissHandling else {
 			dismiss(animated: true, completion: nil)
 			return
 		}
@@ -50,6 +54,7 @@ extension AppInformationDetailViewController {
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
 		case legal = "legalCell"
 		case html = "htmlCell"
+		case legalDetails = "DynamicLegalCell"
 	}
 }
 
