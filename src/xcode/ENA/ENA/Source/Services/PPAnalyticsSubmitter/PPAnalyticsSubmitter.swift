@@ -255,8 +255,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeKeySubmissionMetadata {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
-			$0.userMetadata = userMetadata
-			$0.clientMetadata = clientMetadata
 			if shouldTestResultMetadataBeIncluded {
 				$0.testResultMetadataSet = testResultMetadata
 			}
