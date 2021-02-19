@@ -26,12 +26,6 @@ class DataDonationDetailsViewController: DynamicTableViewController, DismissHand
 		setupTableView()
 	}
 
-	// MARK: - Protocol DismissHandling
-
-	func wasAttemptedToBeDismissed() {
-		Log.debug("DismissHandling: dismiss not allowed", log: .default)
-	}
-
 	// MARK: - Private
 	
 	private let viewModel: DataDonationDetailsViewModel

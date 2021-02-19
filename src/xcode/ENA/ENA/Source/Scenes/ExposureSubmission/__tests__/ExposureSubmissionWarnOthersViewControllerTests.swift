@@ -19,7 +19,8 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 			viewModel: ExposureSubmissionWarnOthersViewModel(
 				supportedCountries: ["DE", "IT", "ES", "NL", "CZ", "AT", "DK", "IE", "LV", "EE"].compactMap { Country(countryCode: $0) },
 				completion: nil),
-			onPrimaryButtonTap: { _ in }
+			onPrimaryButtonTap: { _ in },
+			dismiss: {}
 		)
 	}
 
