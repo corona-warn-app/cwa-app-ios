@@ -202,6 +202,8 @@ enum PPAnalyticsCollector {
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
 		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
 
+		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
+
 		switch riskCalculationResult.riskLevel {
 		case .high:
 			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
@@ -214,7 +216,7 @@ enum PPAnalyticsCollector {
 			testResultMetadata.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 
-		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
+
 	}
 
 	// MARK: - KeySubmissionMetadata
