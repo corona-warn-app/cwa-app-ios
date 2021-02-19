@@ -37,8 +37,6 @@ struct ExposureWindowsMetadata: Codable {
 	
 	// Exposure Windows that was sent in pervious Submissions
 	var reportedExposureWindowsQueue: [SubmissionExposureWindow]
-	
-	// Date used to delete Records in reportedExposureWindowsQueue which are older than 15 days
 }
 
 struct SubmissionExposureWindow: Codable {
