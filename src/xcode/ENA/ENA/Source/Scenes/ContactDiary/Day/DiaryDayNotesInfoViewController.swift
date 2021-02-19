@@ -44,9 +44,6 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		// [KGA] remove
-		// item.title = AppStrings.NewVersionFeatures.title
-
 		return item
 	}()
 	
