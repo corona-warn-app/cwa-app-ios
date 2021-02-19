@@ -45,19 +45,66 @@ class DiarySegmentedControl: UISegmentedControl {
 	private func setUp() {
 		backgroundColor = .enaColor(for: .darkBackground)
 
-		let image = UIImage(named: "SelectedSegmentBackground")
+		let selectedSegmentBackgroundImage = UIImage(named: "SelectedSegmentBackground")?
+			.resizableImage(withCapInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
 
-		setBackgroundImage(image?.resizableImage(withCapInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)), for: .selected, barMetrics: .default)
-		setBackgroundImage(UIImage.with(color: .enaColor(for: .background)), for: .normal, barMetrics: .default)
+		let dividerInsets = UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)
+		let leftSelectedDividerImage = UIImage(named: "DividerLeft")?.resizableImage(withCapInsets: dividerInsets)
+		let rightSelectedDividerImage = UIImage(named: "DividerRight")?.resizableImage(withCapInsets: dividerInsets)
+		let unselectedDividerImage = UIImage(named: "Divider")?.resizableImage(withCapInsets: dividerInsets)
 
-		setDividerImage(UIImage(named: "DividerLeft")?.resizableImage(withCapInsets: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)), forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
-		setDividerImage(UIImage(named: "DividerLeft")?.resizableImage(withCapInsets: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)), forLeftSegmentState: .selected, rightSegmentState: .highlighted, barMetrics: .default)
-		setDividerImage(UIImage(named: "DividerRight")?.resizableImage(withCapInsets: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)), forLeftSegmentState: .normal, rightSegmentState: .selected, barMetrics: .default)
-		setDividerImage(UIImage(named: "DividerRight")?.resizableImage(withCapInsets: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)), forLeftSegmentState: .highlighted, rightSegmentState: .selected, barMetrics: .default)
-		setDividerImage(UIImage(named: "Divider")?.resizableImage(withCapInsets: UIEdgeInsets(top: 9, left: 0, bottom: 9, right: 0)), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+		setBackgroundImage(
+			selectedSegmentBackgroundImage,
+			for: .selected,
+			barMetrics: .default
+		)
+		setBackgroundImage(
+			.with(color: .enaColor(for: .background)),
+			for: .normal,
+			barMetrics: .default
+		)
 
-		setContentPositionAdjustment(UIOffset(horizontal: 4.5, vertical: 0), forSegmentType: .left, barMetrics: .default)
-		setContentPositionAdjustment(UIOffset(horizontal: -4.5, vertical: 0), forSegmentType: .right, barMetrics: .default)
+		setDividerImage(
+			leftSelectedDividerImage,
+			forLeftSegmentState: .selected,
+			rightSegmentState: .normal,
+			barMetrics: .default
+		)
+		setDividerImage(
+			leftSelectedDividerImage,
+			forLeftSegmentState: .selected,
+			rightSegmentState: .highlighted,
+			barMetrics: .default
+		)
+		setDividerImage(
+			rightSelectedDividerImage,
+			forLeftSegmentState: .normal,
+			rightSegmentState: .selected,
+			barMetrics: .default
+		)
+		setDividerImage(
+			rightSelectedDividerImage,
+			forLeftSegmentState: .highlighted,
+			rightSegmentState: .selected,
+			barMetrics: .default
+		)
+		setDividerImage(
+			unselectedDividerImage,
+			forLeftSegmentState: .normal,
+			rightSegmentState: .normal,
+			barMetrics: .default
+		)
+
+		setContentPositionAdjustment(
+			UIOffset(horizontal: 4.5, vertical: 0),
+			forSegmentType: .left,
+			barMetrics: .default
+		)
+		setContentPositionAdjustment(
+			UIOffset(horizontal: -4.5, vertical: 0),
+			forSegmentType: .right,
+			barMetrics: .default
+		)
 
 		heightAnchor.constraint(equalToConstant: 39).isActive = true
 	}
