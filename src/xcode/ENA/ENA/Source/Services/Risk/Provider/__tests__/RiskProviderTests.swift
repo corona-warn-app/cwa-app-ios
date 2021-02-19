@@ -298,8 +298,8 @@ final class RiskProviderTests: XCTestCase {
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		didFailCalculateRiskExpectation.isInverted = true
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState not to be called")
-		didChangeActivityStateExpectation.isInverted = true
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
@@ -349,8 +349,8 @@ final class RiskProviderTests: XCTestCase {
 		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
 		didFailCalculateRiskExpectation.isInverted = true
 
-		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState not to be called")
-		didChangeActivityStateExpectation.isInverted = true
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
 
 		consumer.didCalculateRisk = { _ in
 			didCalculateRiskExpectation.fulfill()
