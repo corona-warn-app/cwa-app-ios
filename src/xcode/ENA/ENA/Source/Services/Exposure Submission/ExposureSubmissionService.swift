@@ -108,8 +108,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}.store(in: &subscriptions)
 	}
 
-	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
-		Log.info("Getting temporary exposure keys...", log: .api)
+	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {		Log.info("Getting temporary exposure keys...", log: .api)
 
 		diagnosisKeysRetrieval.accessDiagnosisKeys { [weak self] keys, error in
 			if let error = error {
@@ -248,6 +247,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.devicePairingConsentAcceptTimestamp = nil
 
 		isSubmissionConsentGiven = false
+	}
+
+	func updateStoreWithKeySubmissionMetadataDefaultValues() {
+		store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
 	}
 
 	var exposureManagerState: ExposureManagerState {
