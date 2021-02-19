@@ -10,6 +10,7 @@ enum PPADataType {
 	case clientMetadata(PPAClientMetadata)
 	case testResultMetadata(PPATestResultMetadata)
 	case keySubmissionMetadata(PPAKeySubmissionMetadata)
+	case exposureWindowsMetadata(PPAExposureWindowsMetadata)
 }
 
 enum PPAUserMetadata {
@@ -49,4 +50,9 @@ enum PPAKeySubmissionMetadata {
 	case setHoursSinceTestRegistration
 	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration
 	case setHoursSinceHighRiskWarningAtTestRegistration
+}
+
+enum PPAExposureWindowsMetadata {
+	case complete(ExposureWindowsMetadata)
+	case collectExposureWindows(RiskCalculationProtocol)
 }

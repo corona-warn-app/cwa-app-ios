@@ -41,6 +41,8 @@ enum PPAnalyticsCollector {
 			Analytics.logTestResultMetadata(testResultMetaData)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
 			Analytics.logKeySubmissionMetadata(keySubmissionMetadata)
+		case let .exposureWindowsMetadata(exposureWindowsMetadata):
+			Analytics.logExposureWindowsMetadata(exposureWindowsMetadata)
 		}
 
 		Analytics.triggerAnalyticsSubmission()
@@ -177,7 +179,7 @@ enum PPAnalyticsCollector {
 			case .positive, .negative, .pending:
 				Analytics.log(.testResultMetadata(.testResult(testResult)))
 
-				switch storedTestResult {
+				switch store?.testResultMetadata?.testResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
@@ -305,5 +307,71 @@ enum PPAnalyticsCollector {
 		case .low:
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
+	}
+
+	// MARK: - ExposureWindowsMetadata
+
+	private static func logExposureWindowsMetadata(_ exposureWindowsMetadata: PPAExposureWindowsMetadata) {
+		switch exposureWindowsMetadata {
+		case let .complete(metadata):
+			store?.exposureWindowsMetadata = metadata
+		case let .collectExposureWindows(riskCalculationProtocol):
+			Analytics.collectExposureWindows(riskCalculationProtocol)
+		}
+	}
+
+	private static func collectExposureWindows(_ riskCalculation: RiskCalculationProtocol) {
+		self.clearReportedExposureWindowsQueueIfNeeded()
+
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculation.mappedExposureWindows.map {
+			SubmissionExposureWindow(
+				exposureWindow: $0.exposureWindow,
+				transmissionRiskLevel: $0.transmissionRiskLevel,
+				normalizedTime: $0.normalizedTime,
+				hash: generateSHA256($0.exposureWindow),
+				date: $0.date
+			)
+		}
+
+		if let metadata = store?.exposureWindowsMetadata {
+			// if store is initialized:
+			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
+			for exposureWindow in mappedSubmissionExposureWindows {
+				if metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
+					store?.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
+					store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
+				}
+			}
+		} else {
+			// if store is not initialized:
+			// - Initialize and add all of the exposure windows to both "newExposureWindowsQueue" and "reportedExposureWindowsQueue" arrays
+			store?.exposureWindowsMetadata = ExposureWindowsMetadata(
+				newExposureWindowsQueue: mappedSubmissionExposureWindows,
+				reportedExposureWindowsQueue: mappedSubmissionExposureWindows
+			)
+		}
+	}
+
+	private static func clearReportedExposureWindowsQueueIfNeeded() {
+		if let nonExpiredWindows = store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.filter({
+			guard let day = Calendar.current.dateComponents([.day], from: $0.date, to: Date()).day else {
+				Log.debug("Exposure Window is removed from reportedExposureWindowsQueue as the date component is nil", log: .ppa)
+				return false
+			}
+			return day < 15
+		}) {
+			store?.exposureWindowsMetadata?.reportedExposureWindowsQueue = nonExpiredWindows
+		}
+	}
+
+	private static func generateSHA256(_ window: ExposureWindow) -> String? {
+		let encoder = JSONEncoder()
+		do {
+			let windowData = try encoder.encode(window)
+			return windowData.sha256String()
+		} catch {
+			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
+		}
+		return nil
 	}
 }

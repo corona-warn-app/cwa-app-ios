@@ -6,11 +6,7 @@
 import XCTest
 
 class TestResultMetadataServiceTests: XCTestCase {
-<<<<<<< HEAD:src/xcode/ENA/ENA/Source/Models/Metadata/__tests__/TestResultMetadataServiceTests.swift
 
-=======
-	
->>>>>>> feature/4790-data_collection_extended:src/xcode/ENA/ENA/Source/Models/Metadata/TestResultMetaData/__tests__/TestResultMetadataServiceTests.swift
 	func testRegisteringNewTestMetadata_HighRisk() {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult()
