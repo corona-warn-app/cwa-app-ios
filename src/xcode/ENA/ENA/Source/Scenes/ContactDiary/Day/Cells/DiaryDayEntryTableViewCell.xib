@@ -94,6 +94,7 @@
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
                 <outlet property="checkboxImageView" destination="NpL-Ae-T7j" id="Grn-Pz-aIR"/>
+                <outlet property="headerStackView" destination="jhO-eT-JCP" id="LmE-Zz-heZ"/>
                 <outlet property="label" destination="Ngm-Ku-E5a" id="dvz-tk-1nS"/>
                 <outlet property="parametersContainerStackView" destination="xn4-4L-HLK" id="9m5-rY-2ZF"/>
                 <outlet property="parametersStackView" destination="VlO-tn-8Ya" id="jxk-Vq-3qa"/>

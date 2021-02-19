@@ -84,7 +84,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		case .add:
 			viewModel.didTapAddEntryCell()
 		case .entries:
-			viewModel.toggleSelection(at: indexPath)
+			break
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -164,7 +164,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
 		}
 
-		let cellModel = DiaryDayEntryCellModel(entry: viewModel.entriesOfSelectedType[indexPath.row])
+		let cellModel = viewModel.entryCellModel(at: indexPath)
 		cell.configure(cellModel: cellModel)
 
 		return cell
