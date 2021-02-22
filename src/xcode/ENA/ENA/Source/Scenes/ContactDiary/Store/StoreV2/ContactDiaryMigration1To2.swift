@@ -53,7 +53,11 @@ final class ContactDiaryMigration1To2: Migration {
 				}
 				
 				queryResult.close()
-				guard let sql = finalSQL, database.executeStatements(sql) else {
+
+				guard let sql = finalSQL else {
+					return
+				}
+				guard database.executeStatements(sql) else {
 					error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
 					return
 				}
