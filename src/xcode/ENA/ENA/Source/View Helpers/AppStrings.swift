@@ -974,6 +974,7 @@ enum AppStrings {
 			static let lowRiskTitle = NSLocalizedString("ContactDiary_Overview_Low_Risk_Title", comment: "")
 			static let riskText1 = NSLocalizedString("ContactDiary_Overview_Risk_Text_1", comment: "")
 			static let riskText2 = NSLocalizedString("ContactDiary_Overview_Risk_Text_2", comment: "")
+			static let riskText3 = NSLocalizedString("ContactDiary_Overview_Risk_Text_3", comment: "")
 
 			enum ActionSheet {
 				static let infoActionTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_InfoActionTitle", comment: "")

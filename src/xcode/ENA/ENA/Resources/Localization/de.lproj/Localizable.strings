@@ -1465,6 +1465,8 @@ sein.";
 
 "ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
 
+"ContactDiary_Overview_Risk_Text_3" = "aufgrund von mehreren Begegnungen mit niedrigem Risiko";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
 
