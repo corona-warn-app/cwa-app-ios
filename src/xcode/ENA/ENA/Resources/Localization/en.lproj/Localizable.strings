@@ -206,7 +206,7 @@
 "ExposureDetection_WrongTime_Notification_Popover_Body" = "The time set on your device does not match the current time. As a result, your risk cannot be checked right now. Please set the correct time in your device settings.";
 
 /* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
+"ExposureDetection_ActiveTracingSection_Title" = "Period Logged";
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
