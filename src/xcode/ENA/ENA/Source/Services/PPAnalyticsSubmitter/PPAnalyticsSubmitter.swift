@@ -31,6 +31,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		appConfig: AppConfigurationProviding
 	) {
 		guard let store = store as? (Store & PPAnalyticsData) else {
+			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
 		}
 		self.store = store

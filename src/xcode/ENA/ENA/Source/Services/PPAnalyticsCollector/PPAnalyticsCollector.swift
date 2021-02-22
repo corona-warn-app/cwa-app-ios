@@ -16,7 +16,11 @@ enum PPAnalyticsCollector {
 		store: Store,
 		submitter: PPAnalyticsSubmitter
 	) {
-		PPAnalyticsCollector.store = store as? (Store & PPAnalyticsData)
+		guard let store = store as? (Store & PPAnalyticsData) else {
+			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
+			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
+		}
+		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
 	}
 
@@ -117,7 +121,7 @@ enum PPAnalyticsCollector {
 	private static var store: (Store & PPAnalyticsData)? {
 		get {
 			if _store == nil {
-				Log.warning("I cannot log or read analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
+				Log.error("I cannot log or read analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
 			}
 			return _store
 		}
