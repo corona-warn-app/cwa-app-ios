@@ -186,5 +186,4 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 			self?.tanInputView.becomeFirstResponder()
 		}
 	}
-
 }
