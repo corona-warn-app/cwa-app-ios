@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir. \nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz. \nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli maruz kalmalar";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Enfeksiyon riskiniz neden düşük?";
@@ -1455,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Düşük Risk";
 
-"ContactDiary_Overview_Risk_Text_1" = "uygulama tarafından değerlendirilen karşılaşmalar temel alınır.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "uygulama tarafından değerlendirilen karşılaşmalar temel alınır.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Bilgi";
@@ -1563,12 +1561,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Yer";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Yer";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Yer";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Kişi";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Kişi";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";

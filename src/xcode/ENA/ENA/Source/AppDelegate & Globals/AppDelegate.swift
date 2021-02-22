@@ -244,6 +244,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
+			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
 			analyticsSubmitter: self.analyticsSubmitter
 			)

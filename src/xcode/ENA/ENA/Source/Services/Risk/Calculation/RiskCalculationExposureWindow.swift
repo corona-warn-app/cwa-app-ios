@@ -66,6 +66,8 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 	}
 
 	// MARK: - Internal
+	
+	private(set) var exposureWindow: ExposureWindow
 
 	var calibrationConfidence: ENCalibrationConfidence {
 		exposureWindow.calibrationConfidence
@@ -155,7 +157,6 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	// MARK: - Private
 
-	private let exposureWindow: ExposureWindow
 	private let configuration: RiskCalculationConfiguration
 
 	/// 4. Determine `Transmission Risk Value`
