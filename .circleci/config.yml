@@ -113,6 +113,18 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
+  test-community:
+    macos:
+      xcode: *xcode_version
+    resource_class: *resource_class
+    steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
+      - run:
+          name: Run Fastlane smoke tests
+          command: cd src/xcode && bundle exec fastlane test_community
+          no_output_timeout: 10m
   snapshot:
     macos:
       xcode: *xcode_version
@@ -201,6 +213,9 @@ workflows:
             requires:
               - dependencies
         - test:
+            requires:
+              - dependencies
+        - test-community:
             requires:
               - dependencies
         - snapshot:

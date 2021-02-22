@@ -72,7 +72,7 @@ platform :ios do
       reporter: "sonarqube"
     )
 
-    begin 
+    begin
 
       # Combined Unit & UI Tests
       run_tests(
@@ -81,12 +81,12 @@ platform :ios do
         testplan: "AllTests",
         only_test_configurations: ["DE"],
         devices: ["iPhone 11"],
-        prelaunch_simulator: true, 
+        prelaunch_simulator: true,
         result_bundle: true,
         code_coverage: true
       )
 
-    rescue 
+    rescue
 
       zip(
         path: "fastlane/test_output/ENA.xcresult",
@@ -94,8 +94,8 @@ platform :ios do
         verbose: false
       )
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
-      
-    end 
+
+    end
       # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
       zip(
         path: "fastlane/test_output/ENA.xcresult",
@@ -103,6 +103,17 @@ platform :ios do
         verbose: false
       )
 
+  end
+
+  desc "Run smoke tests (Community)"
+  lane :test_community do
+    run_tests(
+      scheme: "ENACommunity",
+      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
+      testplan: "SmokeTests",
+      result_bundle: false,
+      code_coverage: false
+    )
   end
 
   desc "Build and upload for testing"
