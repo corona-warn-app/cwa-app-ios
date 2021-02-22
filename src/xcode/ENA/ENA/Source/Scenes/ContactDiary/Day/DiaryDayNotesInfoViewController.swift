@@ -6,10 +6,6 @@ import UIKit
 
 class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandling {
 
-	// MARK: - Attributes
-
-	var finished: (() -> Void)?
-
 	// MARK: - Initializers
 	
 	init() {
@@ -50,13 +46,13 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		finished?()
+		
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		finished?()
+		wasAttemptedToBeDismissed()
 	}
 
 	// MARK: - Private API
@@ -66,7 +62,7 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 	private func setupRightBarButtonItem() {
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
-				self?.finished?()
+				self?.wasAttemptedToBeDismissed()
 			}
 		)
 	}
