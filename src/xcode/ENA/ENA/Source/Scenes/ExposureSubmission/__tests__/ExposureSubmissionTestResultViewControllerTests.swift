@@ -42,7 +42,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 
 		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
 		XCTAssertNotNil(cell)
-		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
+		XCTAssertEqual(cell?.contentTextLabel.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
 	}
 
 }

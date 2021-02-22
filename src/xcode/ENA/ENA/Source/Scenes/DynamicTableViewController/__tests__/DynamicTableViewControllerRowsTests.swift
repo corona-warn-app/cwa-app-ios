@@ -59,9 +59,9 @@ extension DynamicTableViewControllerRowsTests {
 		sut.tableView.reloadData() // Force a reload that new ViewModel gets used
 
 		let indexPath = IndexPath(row: 0, section: 0)
-		let cell = sut.tableView.cellForRow(at: indexPath)
+		let cell = sut.tableView.cellForRow(at: indexPath) as? DynamicTypeTableViewCell
 		
-		XCTAssertEqual(cell?.textLabel?.text, expectedText)
+		XCTAssertEqual(cell?.contentTextLabel.text, expectedText)
 	}
 	
 	func testCellForRowAt_whenSectionIsHidden_returnsIsPlainUITableViewCell() {

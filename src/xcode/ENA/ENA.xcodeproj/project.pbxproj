@@ -2040,12 +2040,12 @@
 		01C6AC2D252B23FC0052814D /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
+				01C6AC25252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift */,
 				71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */,
 				01C6AC20252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib */,
 				01C6AC0D252B1E980052814D /* ExposureSubmissionQRScannerViewModel.swift */,
-				01C6AC25252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift */,
-				01C6AC31252B29C00052814D /* QRScannerError.swift */,
 				01A1B449252DFD7700841B63 /* MetadataObject.swift */,
+				01C6AC31252B29C00052814D /* QRScannerError.swift */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
