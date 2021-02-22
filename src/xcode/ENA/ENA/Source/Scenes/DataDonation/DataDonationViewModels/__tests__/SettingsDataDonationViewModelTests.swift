@@ -54,7 +54,6 @@ class SettingsDataDonationViewModelTests: XCTestCase {
 	func testGIVEN_DataDonationModel_WHEN_TapSelectState_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
@@ -74,8 +73,7 @@ class SettingsDataDonationViewModelTests: XCTestCase {
 	func testGIVEN_DataDonationModel_WHEN_TapSelectRegion_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
+		mockStore.userdata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
@@ -94,7 +92,6 @@ class SettingsDataDonationViewModelTests: XCTestCase {
 	func testGIVEN_DataDonationModel_WHEN_TapSelectAge_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))

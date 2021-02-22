@@ -25,7 +25,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
@@ -62,6 +61,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let expectation = self.expectation(description: "completion handler is called with an error")
 
 		// WHEN
+		store.isPrivacyPreservingAnalyticsConsentGiven = false
+		
 		var ppasError: PPASError?
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
@@ -91,7 +92,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		// WHEN
 		var ppasError: PPASError?
@@ -125,7 +125,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 
 		// WHEN
 		var ppasError: PPASError?
@@ -158,7 +157,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
 		// WHEN
@@ -192,7 +190,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
 
@@ -227,7 +224,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .hour, value: -2, to: Date())
@@ -263,7 +259,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		)
 
 		let expectation = self.expectation(description: "completion handler is called with an error")
-		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.lastSubmissionAnalytics = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())

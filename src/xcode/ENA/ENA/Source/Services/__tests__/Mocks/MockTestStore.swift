@@ -5,7 +5,8 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+
 
 	init() {
 		Analytics.setupMock(store: self)
@@ -63,6 +64,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
 
+
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
@@ -82,10 +84,11 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 
 	// MARK: - PrivacyPreservingProviding
 
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = true
 	var otpToken: OTPToken?
 	var otpAuthorizationDate: Date?
 	var ppacApiToken: TimestampedToken?
+	var userdata: UserMetadata?
 
 	// MARK: - PPAnalyticsData
 

@@ -221,7 +221,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
-		// Must be set here for both submit calls.
+		// Must be set here for both submit calls. This call should be done at the moment right before the submission, because the submission can only work if we have a valid app config. And to log the client meta data, we need a valid app config.
 		Analytics.log(.clientMetadata(.setClientMetaData))
 		
 		// Obtain authentication data
