@@ -165,7 +165,12 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		}
 
 		let cellModel = viewModel.entryCellModel(at: indexPath)
-		cell.configure(cellModel: cellModel)
+		cell.configure(
+			cellModel: cellModel,
+			onInfoButtonTap: {
+
+			}
+		)
 
 		return cell
 	}

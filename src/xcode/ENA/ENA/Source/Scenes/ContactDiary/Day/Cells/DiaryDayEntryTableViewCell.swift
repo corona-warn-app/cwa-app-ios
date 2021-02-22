@@ -8,7 +8,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(cellModel: DiaryDayEntryCellModel) {
+	func configure(
+		cellModel: DiaryDayEntryCellModel,
+		onInfoButtonTap: @escaping () -> Void
+	) {
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 
@@ -19,6 +22,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		accessibilityTraits = cellModel.accessibilityTraits
 
 		self.cellModel = cellModel
+		self.onInfoButtonTap = onInfoButtonTap
 
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
@@ -28,6 +32,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	private var cellModel: DiaryDayEntryCellModel!
+	private var onInfoButtonTap: (() -> Void)!
 
 	@IBOutlet private weak var label: ENALabel!
 	@IBOutlet private weak var checkboxImageView: UIImageView!
@@ -74,6 +79,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	lazy var notesInfoButton: UIButton = {
 		let button = UIButton(type: .infoLight)
 		button.tintColor = .enaColor(for: .tint)
+		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 
 		return button
 	}()
@@ -115,6 +121,11 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	@objc
 	private func headerTapped() {
 		cellModel.toggleSelection()
+	}
+
+	@objc
+	private func infoButtonTapped() {
+		onInfoButtonTap()
 	}
 
 	private func addParameterViews(for entryType: DiaryEntryType) {
