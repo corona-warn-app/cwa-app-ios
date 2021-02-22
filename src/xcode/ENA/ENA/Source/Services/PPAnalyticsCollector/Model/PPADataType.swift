@@ -8,7 +8,7 @@ enum PPADataType {
 	case userData(PPAUserMetadata)
 	case riskExposureMetadata(PPARiskExposureMetadata)
 	case clientMetadata(PPAClientMetadata)
-	case TestResultMetadata(PPATestResultMetadata)
+	case testResultMetadata(PPATestResultMetadata)
 	case keySubmissionMetadata(PPAKeySubmissionMetadata)
 	case exposureWindowsMetadata(PPAExposureWindowsMetadata)
 	case submissionMetadata(PPASubmissionMetadata)

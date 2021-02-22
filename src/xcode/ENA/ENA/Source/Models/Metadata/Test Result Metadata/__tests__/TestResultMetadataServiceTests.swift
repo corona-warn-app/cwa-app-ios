@@ -14,7 +14,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: date)
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		Analytics.log(.testResultMetadata(.registerNewTestMetadata(date)))
+		Analytics.log(.testResultMetadata(.registerNewTestMetadata(date, "")))
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
 		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
@@ -61,7 +61,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.log(.testResultMetadata(.updateTestResult(.positive)))
+		Analytics.log(.testResultMetadata(.updateTestResult(.positive, "")))
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
@@ -97,7 +97,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.log(.testResultMetadata(.updateTestResult(.positive)))
+		Analytics.log(.testResultMetadata(.updateTestResult(.positive, "")))
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 
 		// The the date is updated if the risk results changes e.g from pendong to positive
@@ -132,7 +132,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
 			Analytics.log(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
-			Analytics.log(.testResultMetadata(.updateTestResult(.pending, "Token")))
+			Analytics.log(.testResultMetadata(.updateTestResult(.pending, "")))
 		} else {
 			XCTFail("registration date is nil")
 		}

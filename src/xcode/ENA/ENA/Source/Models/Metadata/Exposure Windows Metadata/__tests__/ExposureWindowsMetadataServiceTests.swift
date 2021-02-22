@@ -77,7 +77,7 @@ class ExposureWindowsMetadataServiceTests: XCTestCase {
 			return
 		}
 		// add new windows
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
 
 		guard let newMetadata = store.exposureWindowsMetadata else {
 			XCTFail("newMetadata should be initialized")

@@ -529,8 +529,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
 			case .success:
-				XCTAssertNotNil(store.TestResultMetadata?.testResult)
-				XCTAssertNotNil(store.TestResultMetadata?.testRegistrationDate)
+				XCTAssertNotNil(store.testResultMetadata?.testResult)
+				XCTAssertNotNil(store.testResultMetadata?.testRegistrationDate)
 			}
 		}
 
@@ -559,8 +559,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure:
-				XCTAssertNil(store.TestResultMetadata?.testResult)
-				XCTAssertNotNil(store.TestResultMetadata?.testRegistrationDate)
+				XCTAssertNil(store.testResultMetadata?.testResult)
+				XCTAssertNotNil(store.testResultMetadata?.testRegistrationDate)
 			case .success:
 				XCTFail("Test is expected to fail because of no network")
 			}
@@ -591,7 +591,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			expectation.fulfill()
 			switch result {
 			case .failure:
-				XCTAssertNil(store.TestResultMetadata)
+				XCTAssertNil(store.testResultMetadata)
 			case .success:
 				XCTFail("Test is expected to fail because of qrAlreadyUsed")
 			}

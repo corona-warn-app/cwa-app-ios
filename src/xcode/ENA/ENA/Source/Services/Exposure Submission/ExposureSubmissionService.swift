@@ -13,6 +13,7 @@ import OpenCombine
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
 
+// swiftlint:disable:next type_body_length
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -136,7 +137,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		guard isSubmissionConsentGiven else {
 			Log.info("Cancelled submission: Submission consent not given.", log: .api)
 			completion(.noSubmissionConsent)
-
 			return
 		}
 
@@ -217,13 +217,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
 					// because this block is only called in QR submission
-					Analytics.log(.TestResultMetadata(.registerNewTestMetadata(Date(), token)))
+					Analytics.log(.testResultMetadata(.registerNewTestMetadata(Date(), token)))
 					Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
 					self.store.testRegistrationDate = Date()
 					self._getTestResult(token) { testResult in
 						switch testResult {
 						case .success(let testResult):
-							Analytics.log(.TestResultMetadata(.updateTestResult(testResult, token)))
+							Analytics.log(.testResultMetadata(.updateTestResult(testResult, token)))
 						case.failure:
 							break
 						}
@@ -243,7 +243,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.devicePairingConsentAccept = false
 		store.devicePairingSuccessfulTimestamp = nil
 		store.devicePairingConsentAcceptTimestamp = nil
-
 		isSubmissionConsentGiven = false
 	}
 
@@ -278,11 +277,28 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 
+	func updateStoreWithKeySubmissionMetadataDefaultValues() {
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: self.store.isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: true)
+		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+	}
+
+
 	// MARK: - Private
 
-	private var subscriptions: Set<AnyCancellable> = []
-
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
+
+	private var subscriptions: Set<AnyCancellable> = []
 
 	private let diagnosisKeysRetrieval: DiagnosisKeysRetrieval
 	private let appConfigurationProvider: AppConfigurationProviding

@@ -49,7 +49,7 @@ enum PPAnalyticsCollector {
 			Analytics.logRiskExposureMetadata(riskExposureMetadata)
 		case let .clientMetadata(clientMetadata):
 			Analytics.logClientMetadata(clientMetadata)
-		case let .TestResultMetadata(TestResultMetadata):
+		case let .testResultMetadata(TestResultMetadata):
 			Analytics.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
 			Analytics.logKeySubmissionMetadata(keySubmissionMetadata)
@@ -256,14 +256,14 @@ enum PPAnalyticsCollector {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				Analytics.log(.TestResultMetadata(.testResult(testResult)))
+				Analytics.log(.testResultMetadata(.testResult(testResult)))
 
 				switch store?.testResultMetadata?.testResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-					Analytics.log(.TestResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
+					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
 				default:
-					Analytics.log(.TestResultMetadata(.testResultHoursSinceTestRegistration(nil)))
+					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
 				}
 
 			case .expired, .invalid:
@@ -282,7 +282,7 @@ enum PPAnalyticsCollector {
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
 		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
 
-		Analytics.log(.TestResultMetadata(.complete(testResultMetadata)))
+		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
 
 		switch riskCalculationResult.riskLevel {
 		case .high:
