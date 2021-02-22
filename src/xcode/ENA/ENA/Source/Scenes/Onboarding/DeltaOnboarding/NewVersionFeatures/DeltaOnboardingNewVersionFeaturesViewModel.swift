@@ -93,6 +93,9 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
 			cells.append(.bulletPoint(attributedText: featureBulletPoint))
 		}
+		cells.append(
+			.link(placeholder: "\t\(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURLDisplayText)", link: AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL, font: .subheadline, style: .subheadline, accessibilityIdentifier: "")
+		)
 		return cells
 	}
 }

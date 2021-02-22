@@ -908,9 +908,9 @@ enum AppStrings {
 		
 		static let feature114ScreenshotsDescription = NSLocalizedString("NewVersionFeature_114_screenshots_description", comment: "")
 		
-		static let feature114ScreenShotWebSiteURL = NSLocalizedString("NewVersion_Feature_114_Screenshot_URL", tableName: "Localizable.links", comment: "URL")
+		static let feature114ScreenshotWebSiteURL = NSLocalizedString("NewVersion_Feature_114_Screenshot_URL", tableName: "Localizable.links", comment: "URL")
 		
-		static let feature114ScreenShotWebSiteURLDisplayText = "https://www.coronawarn.app/en/screenshots"
+		static let feature114ScreenshotWebSiteURLDisplayText = "https://www.coronawarn.app"
 	}
 	
 	enum DeltaOnboarding {
