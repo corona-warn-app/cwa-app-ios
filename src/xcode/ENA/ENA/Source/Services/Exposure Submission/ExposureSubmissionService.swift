@@ -250,6 +250,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		isSubmissionConsentGiven = false
 	}
 
+	func updateStoreWithKeySubmissionMetadataDefaultValues() {
+		store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
+	}
+
 	var exposureManagerState: ExposureManagerState {
 		diagnosisKeysRetrieval.exposureManagerState
 	}

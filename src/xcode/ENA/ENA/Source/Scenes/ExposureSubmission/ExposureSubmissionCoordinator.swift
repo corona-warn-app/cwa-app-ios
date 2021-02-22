@@ -233,7 +233,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		updateStoreWithKeySubmissionMetadataDefaultValues()
+		// store is only initialized when a positive test result is received
+		if testResult == .positive {
+			updateStoreWithKeySubmissionMetadataDefaultValues()
+		}
 		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenTestResult)
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
@@ -729,7 +732,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func updateStoreWithKeySubmissionMetadataDefaultValues() {
-		self.store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0, hoursSinceHighRiskWarningAtTestRegistration: 0, submittedWithTeleTAN: true)
+		self.store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
+		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
+		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
 	}
 
 	// MARK: Test Result Helper

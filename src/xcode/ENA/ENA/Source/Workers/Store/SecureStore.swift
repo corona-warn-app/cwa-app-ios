@@ -433,8 +433,8 @@ extension SecureStore: PrivacyPreservingProviding {
 		}
 	}
 	
-	var testResultMetadata: TestResultMetaData? {
-		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
+	var testResultMetadata: TestResultMetadata? {
+		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue
 			analyticsSubmitter?.triggerSubmitData()
 		}

@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct TestResultMetaData: Codable {
+struct TestResultMetadata: Codable {
 	
 	// MARK: - Init
 	
