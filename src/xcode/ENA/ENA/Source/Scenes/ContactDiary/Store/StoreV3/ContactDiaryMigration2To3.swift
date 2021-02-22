@@ -23,7 +23,7 @@ final class ContactDiaryMigration2To3: Migration {
 
 		// There was a bug during migration 1 to 2. Due to this bug, the migration was not triggered, but the userVersion was set to 2. Therfore we need to do this migration again, to fix the datatypes.
 
-		let migration1to2 = ContactDiaryMigration1To2 (databaseQueue: databaseQueue)
+		let migration1to2 = ContactDiaryMigration1To2(databaseQueue: databaseQueue)
 		try migration1to2.execute()
 
 		// This is the real 2 to 3 migration. Its adding new columns for the new contact diary features.
