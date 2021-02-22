@@ -416,6 +416,7 @@
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
 		8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
+		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
 		9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */; };
 		9417BA95252B6B5100AD4053 /* DMSQLiteErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9417BA94252B6B5100AD4053 /* DMSQLiteErrorViewController.swift */; };
@@ -424,8 +425,10 @@
 		941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941B689E253EFF2300DC1962 /* Int+Increment.swift */; };
 		941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */; };
 		94427A5025502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */; };
-		945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */; };
-		9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
+		945CD04D25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CD04C25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift */; };
+		945CD05225DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CD05125DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift */; };
+        945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */; };
+        9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */; };
 		948AFE5F2552F6F60019579A /* WarnOthersReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */; };
 		948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE662553DC5B0019579A /* WarnOthersRemindable.swift */; };
 		948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AFE792554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift */; };
@@ -1252,6 +1255,7 @@
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
+		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
 		94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWarnOthersNotificationViewController.swift; sourceTree = "<group>"; };
 		9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingViewControllerTests.swift; sourceTree = "<group>"; };
 		9417BA94252B6B5100AD4053 /* DMSQLiteErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSQLiteErrorViewController.swift; sourceTree = "<group>"; };
@@ -1260,6 +1264,8 @@
 		941B689E253EFF2300DC1962 /* Int+Increment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Increment.swift"; sourceTree = "<group>"; };
 		941F5ECB2518E82100785F06 /* ENSettingEuTracingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSettingEuTracingViewModelTests.swift; sourceTree = "<group>"; };
 		94427A4F25502B8900C36BE6 /* WarnOthersNotificationsTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersNotificationsTimeInterval.swift; sourceTree = "<group>"; };
+        945CD04C25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewController.swift; sourceTree = "<group>"; };
+		945CD05125DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModel.swift; sourceTree = "<group>"; };
 		945CCFE525D68C2E007ADB4F /* AppOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		9488C3002521EE8E00504648 /* DeltaOnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingNavigationController.swift; sourceTree = "<group>"; };
 		948AFE5E2552F6F60019579A /* WarnOthersReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarnOthersReminderTests.swift; sourceTree = "<group>"; };
@@ -1845,6 +1851,8 @@
 				01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */,
 				01F2A5B62581177100DA96A6 /* Cells */,
 				01B72B6325821C9B00A3E3BC /* Views */,
+				945CD04C25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift */,
+				945CD05125DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift */,
 			);
 			path = Day;
 			sourceTree = "<group>";
@@ -2006,6 +2014,7 @@
 				0120ECF22587607600F78944 /* DiaryDayEntryCellModelTest.swift */,
 				0120ECFD2587631100F78944 /* DiaryDayAddCellModelTest.swift */,
 				01B72BA5258360CD00A3E3BC /* DiaryDayEmptyViewModelTest.swift */,
+				940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -4951,6 +4960,7 @@
 				01D6948F2502729000B45BEA /* DatePickerDay.swift in Sources */,
 				01EA17902590F03600E98E02 /* HomeInfoTableViewCell.swift in Sources */,
 				019C9F40258951C000B26392 /* DiaryLocation.swift in Sources */,
+				945CD04D25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift in Sources */,
 				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
 				A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */,
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
@@ -5247,6 +5257,7 @@
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
 				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewModel.swift in Sources */,
 				5021532925C988D80006842D /* OTPResponse.swift in Sources */,
+				945CD05225DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift in Sources */,
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				BA38183425CB104900C1DB6C /* DMConfigureableCell.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
@@ -5261,6 +5272,7 @@
 			files = (
 				BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */,
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
+				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,

@@ -1080,7 +1080,12 @@ enum AppStrings {
 				}
 			}
 		}
-
+		
+		enum NotesInformation {
+			static let title = NSLocalizedString("Contact_Journal_Notes_Description_Title", comment: "")
+			static let description = NSLocalizedString("Contact_Journal_Notes_Description", comment: "")
+		}
+		
 		enum PersonEncounter {
 			static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_LessThan15Minutes", comment: "")
 			static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_PersonEncounter_Duration_MoreThan15Minutes", comment: "")
