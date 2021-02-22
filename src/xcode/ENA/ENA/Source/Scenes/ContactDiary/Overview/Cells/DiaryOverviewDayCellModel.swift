@@ -79,8 +79,8 @@ final class DiaryOverviewDayCellModel {
 		switch historyExposure {
 		case .encounter:
 			return selectedEntries.isEmpty ?
-				AppStrings.ContactDiary.Overview.riskText1 :
-				[AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n")
+				AppStrings.ContactDiary.Overview.riskTextStandardCause :
+				[AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
 
 		case .none:
 			return nil
