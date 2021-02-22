@@ -23,7 +23,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low]
+			riskLevelPerDate: [Date(): .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		store.riskCalculationResult = riskCalculationResult
@@ -143,7 +144,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high]
+			riskLevelPerDate: [Date(): .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		store.riskCalculationResult = riskCalculationResult
@@ -484,7 +486,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low]
+			riskLevelPerDate: [Date(): .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let homeState = HomeState(
@@ -543,7 +546,8 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high]
+			riskLevelPerDate: [Date(): .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(

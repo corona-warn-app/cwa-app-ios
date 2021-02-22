@@ -13,7 +13,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .none)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .none, minimumDistinctEncountersWithHighRisk: 0)
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -34,7 +34,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low), minimumDistinctEncountersWithHighRisk: 0)
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -53,7 +53,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high))
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 1)
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -72,7 +72,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: []
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low), minimumDistinctEncountersWithHighRisk: 0)
 
 		// WHEN
 		let showExposureHistory = cellViewModel.hideExposureHistory
@@ -92,7 +92,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 				.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
 			]
 		)
-		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.low))
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 0)
 
 		// WHEN
 		let detail = cellViewModel.exposureHistoryDetail

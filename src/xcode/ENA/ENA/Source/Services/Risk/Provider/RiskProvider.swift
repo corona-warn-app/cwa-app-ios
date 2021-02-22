@@ -521,6 +521,10 @@ extension RiskProvider {
 				riskLevelPerDate: [
 					today: .high,
 					someDaysAgo: .low
+				],
+				minimumDistinctEncountersWithHighRiskPerDate: [
+					today: 0,
+					someDaysAgo: 0
 				]
 			)
 		default:
@@ -536,6 +540,10 @@ extension RiskProvider {
 				riskLevelPerDate: [
 					today: .low,
 					someDaysAgo: .low
+				],
+				minimumDistinctEncountersWithHighRiskPerDate: [
+					today: 0,
+					someDaysAgo: 0
 				]
 			)
 		}

@@ -11,10 +11,12 @@ final class DiaryOverviewDayCellModel {
 
 	init(
 		_ diaryDay: DiaryDay,
-		historyExposure: HistoryExposure
+		historyExposure: HistoryExposure,
+		minimumDistinctEncountersWithHighRisk: Int
 	) {
 		self.diaryDay = diaryDay
 		self.historyExposure = historyExposure
+		self.minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRisk
 	}
 
 	// MARK: - Public
@@ -77,10 +79,13 @@ final class DiaryOverviewDayCellModel {
 
 	var exposureHistoryDetail: String? {
 		switch historyExposure {
-		case .encounter:
-			return selectedEntries.isEmpty ?
-				AppStrings.ContactDiary.Overview.riskTextStandardCause :
-				[AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			case .high:
+				return computeExposureHistoryDetail()
+			}
 
 		case .none:
 			return nil
@@ -94,9 +99,17 @@ final class DiaryOverviewDayCellModel {
 	var formattedDate: String {
 		diaryDay.formattedDate
 	}
+	
+	func computeExposureHistoryDetail() -> String {
+		if minimumDistinctEncountersWithHighRisk > 0 {
+			return diaryDay.selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause : [AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+		} else {
+			return diaryDay.selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+		}
+	}
 
 	// MARK: - Private
 
 	private let diaryDay: DiaryDay
-
+	private let minimumDistinctEncountersWithHighRisk: Int
 }
