@@ -1461,9 +1461,11 @@ sein.";
 
 "ContactDiary_Overview_Low_Risk_Title" = "Niedriges Risiko";
 
-"ContactDiary_Overview_Risk_Text_1" = "aufgrund der von der App ausgewerteten Begegnungen.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "aufgrund der von der App ausgewerteten Begegnungen.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
+
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
 
 "ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
 
