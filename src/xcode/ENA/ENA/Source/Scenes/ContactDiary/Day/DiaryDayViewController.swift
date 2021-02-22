@@ -10,9 +10,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Init
 
 	init(
-		viewModel: DiaryDayViewModel
+		viewModel: DiaryDayViewModel,
+		onInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.onInfoButtonTap = onInfoButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -93,6 +95,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Private
 
 	private let viewModel: DiaryDayViewModel
+	private let onInfoButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
@@ -167,8 +170,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		let cellModel = viewModel.entryCellModel(at: indexPath)
 		cell.configure(
 			cellModel: cellModel,
-			onInfoButtonTap: {
-
+			onInfoButtonTap: { [weak self] in
+				self?.onInfoButtonTap()
 			}
 		)
 
