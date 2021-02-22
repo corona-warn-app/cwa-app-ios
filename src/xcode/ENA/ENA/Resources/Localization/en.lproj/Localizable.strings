@@ -1453,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Low Risk";
 
-"ContactDiary_Overview_Risk_Text_1" = "based on the encounters evaluated by the app.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "based on the encounters evaluated by the app.";
 
-"ContactDiary_Overview_Risk_Text_2" = "They are not necessarily related to the people and places you have recorded.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "They are not necessarily related to the people and places you have recorded.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";

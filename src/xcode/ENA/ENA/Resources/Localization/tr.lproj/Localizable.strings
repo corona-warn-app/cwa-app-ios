@@ -1453,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Düşük Risk";
 
-"ContactDiary_Overview_Risk_Text_1" = "uygulama tarafından değerlendirilen karşılaşmalar temel alınır.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "uygulama tarafından değerlendirilen karşılaşmalar temel alınır.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Bilgi";

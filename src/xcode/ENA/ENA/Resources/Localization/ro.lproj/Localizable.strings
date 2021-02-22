@@ -1453,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Risc redus";
 
-"ContactDiary_Overview_Risk_Text_1" = "pe baza întâlnirilor evaluate de aplicație.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "pe baza întâlnirilor evaluate de aplicație.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Acestea nu sunt legate neapărat de persoanele și locurile pe care le-ați înregistrat.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Acestea nu sunt legate neapărat de persoanele și locurile pe care le-ați înregistrat.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informații";

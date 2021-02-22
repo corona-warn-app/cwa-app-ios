@@ -1453,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Нисък риск";
 
-"ContactDiary_Overview_Risk_Text_1" = "въз основа на оценените от приложението контакти.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "въз основа на оценените от приложението контакти.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Не е задължително те да са свързани с отбелязаните от Вас хора и места.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Не е задължително те да са свързани с отбелязаните от Вас хора и места.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Информация";
