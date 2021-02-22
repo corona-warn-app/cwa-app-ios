@@ -221,6 +221,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
+			store: self.store,
 			delegate: self
 		)
 
