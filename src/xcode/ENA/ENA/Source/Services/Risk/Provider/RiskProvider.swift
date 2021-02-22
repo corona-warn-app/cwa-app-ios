@@ -425,6 +425,9 @@ final class RiskProvider: RiskProviding {
 			switch downloadStatus {
 			case .downloading:
 				self.updateActivityState(.downloading)
+			/// In end-of-life state we only download the keys, therefore the activity state needs to be reset to idle when the download is finished
+			case .idle where self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown:
+				self.updateActivityState(.idle)
 			default:
 				break
 			}
