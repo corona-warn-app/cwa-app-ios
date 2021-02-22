@@ -2,4 +2,10 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
+import XCTest
+@testable import ENA
+
+class PPAnalyticsCollectorTests: XCTestCase {
+
+	
+}
