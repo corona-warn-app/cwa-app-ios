@@ -74,7 +74,7 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 
 // MARK: - Cell reuse identifiers.
 
-extension DiaryDayNotesInfoViewController {
+private extension DiaryDayNotesInfoViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case roundedCell
 	}
