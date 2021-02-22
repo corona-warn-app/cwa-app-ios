@@ -11,6 +11,7 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 	init() {
 		self.viewModel = DiaryDayNotesInfoViewModel()
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -24,7 +25,6 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 		super.viewDidLoad()
 
 		setupTableView()
-		setupRightBarButtonItem()
 	}
 
 	// MARK: - Overrides
@@ -58,14 +58,6 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 	// MARK: - Private API
 
 	private let viewModel: DiaryDayNotesInfoViewModel
-
-	private func setupRightBarButtonItem() {
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.wasAttemptedToBeDismissed()
-			}
-		)
-	}
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)
