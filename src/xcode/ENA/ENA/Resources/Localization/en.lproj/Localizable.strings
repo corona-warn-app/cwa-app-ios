@@ -1561,12 +1561,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Place";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Place";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Place";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Person";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";

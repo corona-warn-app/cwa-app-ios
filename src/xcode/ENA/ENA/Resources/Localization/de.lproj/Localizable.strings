@@ -1463,6 +1463,20 @@ sein.";
 
 "ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
 
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "draußen";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "drinnen";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
 
@@ -1494,6 +1508,24 @@ sein.";
 "ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu.";
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Eine Standortmarkierung markiert ein Gebäude.";
+
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 min";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 min";
+
+"ContactDiary_Day_Encounter_WithMask" = "mit Maske";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "ohne Maske";
+
+"ContactDiary_Day_Encounter_Outside" = "im Freien";
+
+"ContactDiary_Day_Encounter_Inside" = "drinnen";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z.B. geringer Abstand)";
+
+"ContactDiary_Day_Visit_Duration" = "Dauer";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z.B. sehr voll, schlecht gelüftet)";
 
 /* Edit Entries */
 
@@ -1568,12 +1600,20 @@ sein.";
 /*  - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Ort";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Beschreibung";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-Mail";
 
 /*  - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Name";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-Mail";
 
 /* Statistics */
 
@@ -1840,6 +1880,6 @@ sein.";
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
 Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";
 
-"ContactJournalNotesDescriptionTitle" = "Notiz";
+"Contact_Journal_Notes_Description_Title" = "Notiz";
 
-"ContactJournalNotesDescription" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
+"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
