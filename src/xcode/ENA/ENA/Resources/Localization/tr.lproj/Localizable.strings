@@ -206,7 +206,7 @@
 "ExposureDetection_WrongTime_Notification_Popover_Body" = "Cihazınızın saati geçerli saat ile eşleşmiyor. Dolayısıyla risk durumunuz şu anda kontrol edilemiyor. Lütfen cihazınızın ayarlarında doğru saati ayarlayın.";
 
 /* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
+"ExposureDetection_ActiveTracingSection_Title" = "Dönem Günlüğe Kaydedildi";
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
 
