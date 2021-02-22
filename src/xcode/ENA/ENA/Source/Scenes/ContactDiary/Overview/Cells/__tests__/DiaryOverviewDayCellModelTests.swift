@@ -120,4 +120,30 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n"))
 	}
+
+	func testGIVEN_PersonEncounter_THEN_CorrectEntryDetailTextIsReturned() {
+		// GIVEN
+		let personEncounter = ContactPersonEncounter(
+			id: 0,
+			date: "2021-01-14",
+			contactPersonId: 0,
+			duration: .moreThan15Minutes,
+			maskSituation: .withMask,
+			setting: .inside,
+			circumstances: ""
+		)
+		let cellViewModel = DiaryOverviewDayCellModel(DiaryDay(dateString: "", entries: []), historyExposure: .encounter(.low))
+		let detailText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
+
+		XCTAssertEqual(detailText, "\(AppStrings.ContactDiary.PersonEncounter.durationMoreThan15Minutes), \(AppStrings.ContactDiary.PersonEncounter.maskSituationWithMask), \(AppStrings.ContactDiary.PersonEncounter.settingInside)")
+	}
+
+	func testGIVEN_LocationVisit_THEN_CorrectEntryDetailTextIsReturned() {
+		// GIVEN
+		let locationVisit = LocationVisit(id: 0, date: "2021-01-14", locationId: 0, durationInMinutes: 3 * 60 + 42, circumstances: "")
+		let cellViewModel = DiaryOverviewDayCellModel(DiaryDay(dateString: "", entries: []), historyExposure: .encounter(.low))
+		let detailText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)
+
+		XCTAssertEqual(detailText, "03:42 \(AppStrings.ContactDiary.LocationVisit.abbreviationHours)")
+	}
 }

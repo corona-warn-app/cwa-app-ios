@@ -1604,6 +1604,23 @@ sein.";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-Mail";
 
+/* - PersonEncounter */
+
+"ContactDiary_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
+
+"ContactDiary_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
+
+"ContactDiary_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
+
+"ContactDiary_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
+
+"ContactDiary_PersonEncounter_Setting_Outside" = "draußen";
+
+"ContactDiary_PersonEncounter_Setting_Inside" = "drinnen";
+
+/* - LocationVisit */
+
+"ContactDiary_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* Statistics */
 
@@ -1870,6 +1887,6 @@ sein.";
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
 Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";
 
-"ContactJournalNotesDescriptionTitle" = "Notiz";
+"Contact_Journal_Notes_Description_Title" = "Notiz";
 
-"ContactJournalNotesDescription" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
+"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z.B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammenwaren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";

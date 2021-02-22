@@ -848,7 +848,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-			userVersion = database.userVersion
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
 				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
@@ -861,7 +860,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				errorResult = .failure(dbError(from: database))
 				return
 			}
-			
+
+			userVersion = database.userVersion
+
 			let sql = """
 				PRAGMA locking_mode=EXCLUSIVE;
 				PRAGMA auto_vacuum=2;
