@@ -5,31 +5,8 @@
 import Foundation
 
 struct KeySubmissionMetadata: Codable {
-	var submitted: Bool?
-	var submittedInBackground: Bool?
-	var submittedAfterCancel: Bool?
-	var submittedAfterSymptomFlow: Bool?
-	var lastSubmissionFlowScreen: LastSubmissionFlowScreen?
-	var advancedConsentGiven: Bool?
-	var hoursSinceTestResult: Int32?
-	var hoursSinceTestRegistration: Int32?
-	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
-	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
-	var submittedWithTeleTAN: Bool?
 
-	enum CodingKeys: String, CodingKey {
-		case submitted
-		case submittedInBackground
-		case submittedAfterCancel
-		case submittedAfterSymptomFlow
-		case lastSubmissionFlowScreen
-		case advancedConsentGiven
-		case hoursSinceTestResult
-		case hoursSinceTestRegistration
-		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
-		case hoursSinceHighRiskWarningAtTestRegistration
-		case submittedWithTeleTAN
-	}
+	// MARK: - Init
 
 	init(
 		submitted: Bool,
@@ -57,6 +34,8 @@ struct KeySubmissionMetadata: Codable {
 		self.submittedWithTeleTAN = submittedWithTeleTAN
 	}
 
+	// MARK: - Protocol Codable
+
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -72,4 +51,32 @@ struct KeySubmissionMetadata: Codable {
 		hoursSinceHighRiskWarningAtTestRegistration = try container.decodeIfPresent(Int32.self, forKey: .hoursSinceHighRiskWarningAtTestRegistration)
 		submittedWithTeleTAN = try container.decodeIfPresent(Bool.self, forKey: .submittedWithTeleTAN)
 	}
+	
+	enum CodingKeys: String, CodingKey {
+		case submitted
+		case submittedInBackground
+		case submittedAfterCancel
+		case submittedAfterSymptomFlow
+		case lastSubmissionFlowScreen
+		case advancedConsentGiven
+		case hoursSinceTestResult
+		case hoursSinceTestRegistration
+		case daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+		case hoursSinceHighRiskWarningAtTestRegistration
+		case submittedWithTeleTAN
+	}
+	
+	// MARK: - Internal
+	
+	var submitted: Bool?
+	var submittedInBackground: Bool?
+	var submittedAfterCancel: Bool?
+	var submittedAfterSymptomFlow: Bool?
+	var lastSubmissionFlowScreen: LastSubmissionFlowScreen?
+	var advancedConsentGiven: Bool?
+	var hoursSinceTestResult: Int32?
+	var hoursSinceTestRegistration: Int32?
+	var daysSinceMostRecentDateAtRiskLevelAtTestRegistration: Int32?
+	var hoursSinceHighRiskWarningAtTestRegistration: Int32?
+	var submittedWithTeleTAN: Bool?
 }
