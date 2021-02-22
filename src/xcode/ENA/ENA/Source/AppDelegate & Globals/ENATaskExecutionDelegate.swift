@@ -11,23 +11,27 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	var riskProvider: RiskProvider
 	var pdService: PlausibleDeniability
 	var contactDiaryStore: ContactDiaryStore
+	var store: Store
 	var analyticsSubmitter: PPAnalyticsSubmitter
-
 	var dependencies: ExposureSubmissionServiceDependencies
 	private let backgroundTaskConsumer = RiskConsumer()
+	private let keySubmissionService: KeySubmissionService
 
 	init(
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: ContactDiaryStore,
+		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
 		analyticsSubmitter: PPAnalyticsSubmitter
 	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
+		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 		self.analyticsSubmitter = analyticsSubmitter
+		self.keySubmissionService = KeySubmissionService(store: store)
 	}
 
 
@@ -116,12 +120,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		service.submitExposure { error in
 			switch error {
 			case .noSubmissionConsent:
+				self.updateStoreWithKeySubmissionInBackground(value: false)
 				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
 			case .noKeysCollected:
+				self.updateStoreWithKeySubmissionInBackground(value: false)
 				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 			case .some(let error):
+				self.updateStoreWithKeySubmissionInBackground(value: false)
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 			case .none:
+				self.updateStoreWithKeySubmissionInBackground(value: true)
 				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 			}
 
@@ -243,5 +251,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			// Ignore the result of the call, so we just complete after the call is finished.
 			completion()
 		})
+	}
+	
+	// MARK: Key Submission Service
+	private func updateStoreWithKeySubmissionInBackground(value: Bool) {
+		keySubmissionService.setSubmittedInBackground(withValue: value)
 	}
 }

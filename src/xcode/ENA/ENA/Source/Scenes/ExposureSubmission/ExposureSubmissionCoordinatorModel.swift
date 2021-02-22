@@ -45,6 +45,7 @@ class ExposureSubmissionCoordinatorModel {
 	func symptomsOnsetOptionSelected(
 		_ selectedSymptomsOnsetOption: ExposureSubmissionSymptomsOnsetViewController.SymptomsOnsetOption
 	) {
+		
 		switch selectedSymptomsOnsetOption {
 		case .exactDate(let date):
 			guard let daysSinceOnset = Calendar.gregorian().dateComponents([.day], from: date, to: Date()).day else { fatalError("Getting days since onset from date failed") }
@@ -98,7 +99,7 @@ class ExposureSubmissionCoordinatorModel {
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
 		isLoading(true)
-
+		// QR code test fetch
 		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
 			isLoading(false)
 
@@ -110,5 +111,4 @@ class ExposureSubmissionCoordinatorModel {
 			}
 		})
 	}
-
 }
