@@ -74,7 +74,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let exposureSubmissionNavigationController = ExposureSubmissionNavigationController(
 			coordinator: self,
 			dismissClosure: { [weak self] in
-				self?.navigationController?.dismiss(animated: true)
+				self?.dismiss()
 			},
 			rootViewController: initialVC
 		)
@@ -105,7 +105,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 
 		let vc = TanInputViewController(
-			viewModel: tanInputViewModel
+			viewModel: tanInputViewModel,
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 		push(vc)
 	}
@@ -157,7 +158,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			onTANButtonTap: { [weak self] in self?.showTanScreen() },
 			onHotlineButtonTap: { [weak self] in self?.showHotlineScreen() }
 		)
-		return ExposureSubmissionIntroViewController(viewModel)
+		return ExposureSubmissionIntroViewController(
+			viewModel: viewModel,
+			dismiss: { [weak self] in
+				self?.dismiss()
+			}
+		)
 	}
 
 	// MARK: - Internal
@@ -207,12 +213,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				isLoading(true)
 				self.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-					
+
 					guard let error = error else {
 						self.showTestResultScreen(with: testResult)
 						return
 					}
-					
+
 					// User selected "Don't Share" / "Nicht teilen"
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
@@ -229,12 +235,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		return TestResultAvailableViewController(viewModel)
 	}
-	
+
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		updateStoreWithKeySubmissionMetadataDefaultValues()
+		// store is only initialized when a positive test result is received
+		if testResult == .positive {
+			updateStoreWithKeySubmissionMetadataDefaultValues()
+		}
 		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
-		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailabile
+		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
@@ -278,7 +287,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.dismiss()
 				}
-				
+
 			}
 		)
 	}
@@ -308,7 +317,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						self?.showErrorAlert(for: error)
 					}
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 		return vc
 	}
@@ -319,7 +329,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let vc = ExposureSubmissionHotlineViewController(
 			onSecondaryButtonTap: { [weak self] in
 				self?.showTanScreen()
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
@@ -369,7 +380,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.showQRScreen(isLoading: isLoading)
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
@@ -428,8 +440,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
-		// we should show the alert in the completion only if the testResult is positveAndAvailable
-		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailabile ? nil : { [weak self] in
+		// we should show the alert in the completion only if the testResult is positiveAndAvailable
+		let dismissCompletion: (() -> Void)? = testResultAvailability == .notAvailable ? nil : { [weak self] in
 			self?.showTestResultAvailableCloseAlert()
 		}
 		let vc = ExposureSubmissionTestResultConsentViewController(
@@ -456,14 +468,14 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
-					
+
 					guard let error = error else {
 						self?.showThankYouScreen()
 						return
 					}
-					
+
 					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
-					
+
 					// User selected "Don't Share" / "Nicht teilen"
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
@@ -472,7 +484,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						self?.showErrorAlert(for: error)
 					}
 				}
-			}
+			},
+			dismiss: { [weak self] in self?.dismiss() }
 		)
 
 		push(vc)
@@ -499,7 +512,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let vc = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
 				guard let self = self else { return }
-				
+
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
 				// we don't need to set it true if yes is selected
 				if selectedSymptomsOption != .yes {
@@ -623,19 +636,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			#endif
 		})
 	}
-	
+
 	private func showThankYouCancelAlert(isLoading: @escaping (Bool) -> Void) {
 		let alertTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.title
 		let alertMessage = AppStrings.ExposureSubmissionSymptomsCancelAlert.message
 		let cancelAlertButtonTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton
 		let continueAlertButtonTitle = AppStrings.ExposureSubmissionSymptomsCancelAlert.continueButton
-		
+
 		let alert = UIAlertController(
 			title: alertTitle,
 			message: alertMessage,
 			preferredStyle: .alert
 		)
-		
+
 		alert.addAction(
 			UIAlertAction(
 				title: cancelAlertButtonTitle,
@@ -646,7 +659,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				}
 			)
 		)
-		
+
 		alert.addAction(
 			UIAlertAction(
 				title: continueAlertButtonTitle,
@@ -684,7 +697,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		navigationController?.present(alert, animated: true, completion: nil)
 	}
-	
+
 	private func showErrorAlert(for error: ExposureSubmissionError, onCompletion: (() -> Void)? = nil) {
 		Log.error("error: \(error.localizedDescription)", log: .ui)
 
@@ -707,8 +720,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		navigationController?.present(alert, animated: true)
 	}
-	
-	// MARK: Key Submission Service
 
 	private func updateStoreWithKeySubmissionMetadataDefaultValues() {
 		let keySubmissionMetadata = KeySubmissionMetadata(
@@ -720,11 +731,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			advancedConsentGiven: self.store.isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
-			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0,
-			hoursSinceHighRiskWarningAtTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
 		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
-
+		Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+		Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 	}
 
 	// MARK: Test Result Helper

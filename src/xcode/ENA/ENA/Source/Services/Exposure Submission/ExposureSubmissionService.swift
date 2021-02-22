@@ -14,7 +14,7 @@ import OpenCombine
 /// it to stay in sync.
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
-	
+
 	// MARK: - Init
 
 	init(
@@ -32,7 +32,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.warnOthersReminder = warnOthersReminder
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
-		
+
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
 			Analytics.log(.keySubmissionMetadata(.advancedConsentGiven(isSubmissionConsentGiven)))
@@ -72,9 +72,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 		return true
 	}
-	
+
 	var isSubmissionConsentGivenPublisher: OpenCombine.Published<Bool>.Publisher { $_isSubmissionConsentGiven }
-	
+
 	var isSubmissionConsentGiven: Bool {
 		get {
 			return _isSubmissionConsentGiven
@@ -123,7 +123,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			completion(nil)
 		}
 	}
-	
+
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
@@ -143,7 +143,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		guard let keys = temporaryExposureKeys else {
 			Log.info("Cancelled submission: No temporary exposure keys to submit.", log: .api)
 			completion(.keysNotShared)
-
 			return
 		}
 
@@ -155,7 +154,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			// timestamps, despite not having communicated with the backend,
 			// in order to show the correct screens.
 			submitExposureCleanup()
-
 			return
 		}
 		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
@@ -208,7 +206,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		if useStoredRegistration {
 			getTestResult(completion)
 		} else {
-			
+
 			let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 			_getRegistrationToken(key, type) { result in
 				switch result {
@@ -219,13 +217,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
 					// because this block is only called in QR submission
-					Analytics.log(.testResultMetadata(.registerNewTestMetadata(Date())))
+					Analytics.log(.TestResultMetadata(.registerNewTestMetadata(Date(), token)))
 					Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
 					self.store.testRegistrationDate = Date()
 					self._getTestResult(token) { testResult in
 						switch testResult {
 						case .success(let testResult):
-							Analytics.log(.testResultMetadata(.updateTestResult(testResult)))
+							Analytics.log(.TestResultMetadata(.updateTestResult(testResult, token)))
 						case.failure:
 							break
 						}
@@ -270,7 +268,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			})
 		}
 	}
-	
+
 	func reset() {
 		Log.info("ExposureSubmissionServce: isConsentGiven value resetted to 'false'")
 		isSubmissionConsentGiven = false
@@ -281,7 +279,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 
 	// MARK: - Private
-	
+
 	private var subscriptions: Set<AnyCancellable> = []
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
@@ -475,6 +473,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		/// Cancel warn others notifications and set positiveTestResultWasShown = false
 		warnOthersReminder.reset()
 
+		// This timestamp must be set before resetting the deadman notification
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+
 		/// Deactivate deadman notification for end-of-life-state
 		deadmanNotificationManager.resetDeadmanNotification()
 
@@ -486,7 +487,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		supportedCountries = []
 		symptomsOnset = .noInformation
 
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+
 		Log.info("Exposure submission cleanup.", log: .api)
 	}
 

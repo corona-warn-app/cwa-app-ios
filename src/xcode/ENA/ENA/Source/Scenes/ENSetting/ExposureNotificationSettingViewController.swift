@@ -42,6 +42,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 		tableView.sectionFooterHeight = 0.0
 		tableView.separatorStyle = .none
+		tableView.estimatedRowHeight = 1000 // this is need to prevent jumping of scroll position when tableview datasource is reloaded
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -54,27 +55,27 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	// MARK: - Protocol UITableViewDataSource
 
 	override func numberOfSections(in _: UITableView) -> Int {
-		model.content.count
+		sections.count
 	}
-
-	override func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-		0
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNormalMagnitude
 	}
-
+	
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		switch model.content[section] {
+		switch sections[section] {
 		case .actionCell:
 			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
 				return UITableView.automaticDimension
 			}
 			return 40
 		default:
-			return 0
+			return CGFloat.leastNormalMagnitude
 		}
 	}
 
 	override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch model.content[section] {
+		switch sections[section] {
 		case .actionCell:
 			return AppStrings.ExposureNotificationSetting.actionCellHeader
 		default:
@@ -83,31 +84,19 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		1
+		return 1
 	}
 
 	override func tableView(
 		_ tableView: UITableView,
 		cellForRowAt indexPath: IndexPath
 	) -> UITableViewCell {
-		let section = indexPath.section
-		let content = model.content[section]
-
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell else {
-			return UITableViewCell()
-		}
-
-		switch content {
+		let section = sections[indexPath.section]
+		switch section {
 		case .banner:
-			cell.configure(for: enState)
+			return bannerCell(for: indexPath, in: tableView)
 		case .actionCell:
-			if let lastActionCell = lastActionCell {
-				return lastActionCell
-			}
-			if let cell = cell as? ActionCell {
-				cell.configure(for: enState, delegate: self)
-				lastActionCell = cell
-			}
+			return actionCell(for: indexPath, in: tableView)
 		case .euTracingCell:
 			return euTracingCell(for: indexPath, in: tableView)
 		case .tracingCell, .actionDetailCell:
@@ -115,22 +104,19 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			case .enabled, .disabled:
 				return tracingCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
-				(cell as? ActionCell)?.configure(for: enState, delegate: self)
+				return actionDetailCell(for: indexPath, in: tableView)
 			}
 		case .descriptionCell:
-			cell.configure(for: enState)
+			return descriptionCell(for: indexPath, in: tableView)
 		}
-
-		return cell
 	}
 
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = indexPath.section
-		let content = model.content[section]
+		let section = sections[indexPath.section]
 
-		guard content.cellType == .euTracingCell else { return }
+		guard section == .euTracingCell else { return }
 		
 		if #available(iOS 13, *) {
 			navigationItem.largeTitleDisplayMode = .always
@@ -160,12 +146,12 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		Log.info("Get the new state: \(enState)", log: .api)
 		self.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
-		self.tableView.reloadData()
+		tableView.reloadData()
 	}
 
 	// MARK: - Internal
 
-	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
+	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .tracingCell, .descriptionCell]
 	let store: Store
 	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
@@ -186,38 +172,38 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		case descriptionCell
 	}
 
-	private var lastActionCell: ActionCell?
+	private var lastActionCell: ActionTableViewCell?
 
 	private let setExposureManagerEnabled: (Bool, @escaping (ExposureNotificationError?) -> Void) -> Void
 
 	private func registerCells() {
 		tableView.register(
-			UINib(nibName: String(describing: TracingHistoryTableViewCell.self), bundle: nil),
+			TracingHistoryTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: ImageTableViewCell.self), bundle: nil),
+			ImageTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.banner.rawValue
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: ActionDetailTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
-		)
-
-		tableView.register(
-			UINib(nibName: String(describing: DescriptionTableViewCell.self), bundle: nil),
+			DescriptionTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.descriptionCell.rawValue
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: ActionTableViewCell.self), bundle: nil),
+			ActionTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.actionCell.rawValue
+		)
+		
+		tableView.register(
+			ActionDetailTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: EuTracingTableViewCell.self), bundle: nil),
+			EuTracingTableViewCell.self,
 			forCellReuseIdentifier: ReusableCellIdentifier.euTracingCell.rawValue
 		)
 	}
@@ -292,21 +278,46 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
 		self.present(alert, animated: true, completion: nil)
 	}
+	
+	private func bannerCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.banner.rawValue, for: indexPath) as? ImageTableViewCell else {
+			fatalError("Cell is not registered")
+		}
+		cell.configure(for: enState)
+		return cell
+	}
+	
+	private func actionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		if let lastActionCell = lastActionCell {
+			return lastActionCell
+		}
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionCell.rawValue, for: indexPath) as? ActionTableViewCell else {
+			fatalError("Cell is not registered")
+		}
+		cell.configure(for: enState, delegate: self)
+		lastActionCell = cell
+		return cell
+	}
+	
+	private func actionDetailCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue, for: indexPath) as? ActionDetailTableViewCell else {
+			fatalError("Cell is not registered")
+		}
+		cell.configure(for: enState, delegate: self)
+		return cell
+	}
 
 	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
-		guard let euTracingCell = dequeuedEUTracingCell as? EuTracingTableViewCell else {
-			return UITableViewCell()
+		guard let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.euTracingCell.rawValue, for: indexPath) as? EuTracingTableViewCell else {
+			fatalError("Cell is not registered")
 		}
-
 		euTracingCell.configure()
 		return euTracingCell
 	}
 
 	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		let dequeuedTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
-		guard let tracingCell = dequeuedTracingCell as? TracingHistoryTableViewCell else {
-			return UITableViewCell()
+		guard let tracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.tracingCell.rawValue, for: indexPath) as? TracingHistoryTableViewCell else {
+			fatalError("Cell is not registered")
 		}
 
 		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
@@ -333,25 +344,11 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		return tracingCell
 	}
 
-}
-
-private extension ENSettingModel.Content {
-
-	var cellType: ExposureNotificationSettingViewController.ReusableCellIdentifier {
-		switch self {
-		case .banner:
-			return .banner
-		case .actionCell:
-			return .actionCell
-		case .euTracingCell:
-			return .euTracingCell
-		case .tracingCell:
-			return .tracingCell
-		case .actionDetailCell:
-			return .actionDetailCell
-		case .descriptionCell:
-			return .descriptionCell
+	private func descriptionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.descriptionCell.rawValue, for: indexPath) as? DescriptionTableViewCell else {
+			fatalError("Cell is not registered")
 		}
+		cell.configure(for: enState)
+		return cell
 	}
-
 }

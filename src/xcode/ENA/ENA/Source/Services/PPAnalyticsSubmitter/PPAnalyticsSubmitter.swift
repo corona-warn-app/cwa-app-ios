@@ -177,7 +177,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			isSubmitted = false
 		}
 
-		// if there is no test result date
+		// if there is no test result time stamp
 		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
 			return false
 		}
@@ -192,7 +192,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return isSubmitted || timeDifferenceFulfilsCriteria
 	}
 
-	private var shouldTestResultMetadataBeIncluded: Bool {
+	private var shouldIncludeTestResultMetadata: Bool {
 		/* Conditions for submitting the data:
 			- testResult = positive
 			OR
@@ -202,11 +202,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		*/
 		
 		// If for some reason there is no registrationDate we should not submit the testMetadata
-		guard let registrationDate = store.testResultMetadata?.testRegistrationDate else {
+		guard let registrationDate = store.TestResultMetadata?.testRegistrationDate else {
 			return false
 		}
 				
-		switch store.testResultMetadata?.testResult {
+		switch store.TestResultMetadata?.testResult {
 		case .positive, .negative:
 			return true
 		default:
@@ -248,7 +248,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
-		let testResultMetadata = gatherTestResultMetadata()
+		let TestResultMetadata = gatherTestResultMetadata()
 		let newExposureWindows = gatherNewExposureWindows()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
@@ -260,8 +260,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeKeySubmissionMetadata {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
-			if shouldTestResultMetadataBeIncluded {
-				$0.testResultMetadataSet = testResultMetadata
+			if shouldIncludeTestResultMetadata {
+				$0.testResultMetadataSet = TestResultMetadata
 			}
 			/*
 			Exposure Windows are included in the next submission if:
@@ -288,6 +288,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		forceApiTokenHeader = store.forceAPITokenAuthorization
 		#endif
 
+		#if DEBUG
+		if isUITesting {
+			Log.info("While UI Testing, we do not submit analytics data", log: .ppa)
+			completion?(.failure(.generalError))
+			return
+		}
+		#endif
+
 		client.submit(
 			payload: payload,
 			ppacToken: ppacToken,
@@ -300,6 +308,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
+					self?.store.TestResultMetadata = nil
+					self?.store.keySubmissionMetadata = nil
 					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					completion?(result)
@@ -432,7 +442,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
-		let metadata = store.testResultMetadata
+		let metadata = store.TestResultMetadata
 
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
 			

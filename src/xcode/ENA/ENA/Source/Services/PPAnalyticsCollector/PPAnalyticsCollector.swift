@@ -49,8 +49,8 @@ enum PPAnalyticsCollector {
 			Analytics.logRiskExposureMetadata(riskExposureMetadata)
 		case let .clientMetadata(clientMetadata):
 			Analytics.logClientMetadata(clientMetadata)
-		case let .testResultMetadata(testResultMetaData):
-			Analytics.logTestResultMetadata(testResultMetaData)
+		case let .TestResultMetadata(TestResultMetadata):
+			Analytics.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
 			Analytics.logKeySubmissionMetadata(keySubmissionMetadata)
 		case let .exposureWindowsMetadata(exposureWindowsMetadata):
@@ -70,7 +70,7 @@ enum PPAnalyticsCollector {
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
-		store?.testResultMetadata = nil
+		store?.TestResultMetadata = nil
 		store?.keySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
 		Log.info("Deleted all analytics data in the store", log: .ppa)
@@ -225,29 +225,30 @@ enum PPAnalyticsCollector {
 
 	// MARK: - TestResultMetadata
 
-	private static func logTestResultMetadata(_ testResultMetadata: PPATestResultMetadata) {
-		switch testResultMetadata {
+	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
+		switch TestResultMetadata {
 		case let .complete(metaData):
-			store?.testResultMetadata = metaData
+			store?.TestResultMetadata = metaData
 		case let .testResult(testResult):
-			store?.testResultMetadata?.testResult = testResult
+			store?.TestResultMetadata?.testResult = testResult
 		case let .testResultHoursSinceTestRegistration(hoursSinceTestRegistration):
-			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
-		case let .updateTestResult(testResult):
-			Analytics.updateTestResult(testResult)
-		case let .registerNewTestMetadata(date):
-			Analytics.registerNewTestMetadata(date)
+			store?.TestResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
+		case let .updateTestResult(testResult, token):
+			Analytics.updateTestResult(testResult, token)
+		case let .registerNewTestMetadata(date, token):
+			Analytics.registerNewTestMetadata(date, token)
 		}
 	}
 
-	private static func updateTestResult(_ testResult: TestResult) {
+	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard let registrationDate = store?.testResultMetadata?.testRegistrationDate else {
+		guard store?.TestResultMetadata?.testRegistrationToken == token,
+			  let registrationDate = store?.TestResultMetadata?.testRegistrationDate else {
 			Log.warning("Could not update test meta data result due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
 
-		let storedTestResult = store?.testResultMetadata?.testResult
+		let storedTestResult = store?.TestResultMetadata?.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == newTestResult ---> do nothing
@@ -255,14 +256,14 @@ enum PPAnalyticsCollector {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				Analytics.log(.testResultMetadata(.testResult(testResult)))
+				Analytics.log(.TestResultMetadata(.testResult(testResult)))
 
-				switch store?.testResultMetadata?.testResult {
+				switch store?.TestResultMetadata?.testResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
+					Analytics.log(.TestResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
 				default:
-					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
+					Analytics.log(.TestResultMetadata(.testResultHoursSinceTestRegistration(nil)))
 				}
 
 			case .expired, .invalid:
@@ -271,17 +272,17 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func registerNewTestMetadata(_ date: Date = Date()) {
+	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
 		guard let riskCalculationResult = store?.riskCalculationResult else {
 			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
 			return
 		}
-		var testResultMetadata = TestResultMetaData()
+		var testResultMetadata = TestResultMetadata(registrationToken: token)
 		testResultMetadata.testRegistrationDate = date
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
 		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
 
-		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
+		Analytics.log(.TestResultMetadata(.complete(testResultMetadata)))
 
 		switch riskCalculationResult.riskLevel {
 		case .high:
@@ -290,9 +291,9 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+			store?.TestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
 		case .low:
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+			store?.TestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 
 
@@ -481,7 +482,7 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data
 	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
-	var testResultMetadata: TestResultMetaData? { get set }
+	var TestResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }
@@ -518,8 +519,8 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["userMetadata"] = newValue }
 	}
 
-	var testResultMetadata: TestResultMetaData? {
-		get { kvStore["testResultaMetadata"] as TestResultMetaData? ?? nil }
+	var TestResultMetadata: TestResultMetadata? {
+		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}
 

@@ -5,9 +5,10 @@
 import Foundation
 import UIKit
 
-class DataDonationDetailsViewController: DynamicTableViewController {
-	
+class DataDonationDetailsViewController: DynamicTableViewController, DismissHandling {
+
 	// MARK: - Init
+
 	init() {
 		self.viewModel = DataDonationDetailsViewModel()
 		super.init(nibName: nil, bundle: nil)
@@ -24,7 +25,7 @@ class DataDonationDetailsViewController: DynamicTableViewController {
 		super.viewDidLoad()
 		setupTableView()
 	}
-	
+
 	// MARK: - Private
 	
 	private let viewModel: DataDonationDetailsViewModel

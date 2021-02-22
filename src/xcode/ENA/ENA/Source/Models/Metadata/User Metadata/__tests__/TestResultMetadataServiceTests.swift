@@ -14,19 +14,19 @@ class TestResultMetadataServiceTests: XCTestCase {
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: date)
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		Analytics.log(.testResultMetadata(.registerNewTestMetadata(date)))
+		Analytics.log(.TestResultMetadata(.registerNewTestMetadata(date)))
 
-		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
-		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertNotNil(secureStore.TestResultMetadata, "The TestResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.TestResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
+		XCTAssertEqual(secureStore.TestResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
-			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			secureStore.TestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
 			riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
 			"incorrect days since recent riskLEvel"
 		)
 
 		// the difference from dateOfConversionToHighRisk should be one day so 24 hours
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
+		XCTAssertEqual(secureStore.TestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, 24, "incorrect hours")
 	}
 
 	func testRegisteringNewTestMetadata_LowRisk() {
@@ -35,19 +35,19 @@ class TestResultMetadataServiceTests: XCTestCase {
 		let date = Date()
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		Analytics.log(.testResultMetadata(.registerNewTestMetadata(date)))
+		Analytics.log(.TestResultMetadata(.registerNewTestMetadata(date)))
 
-		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
-		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertNotNil(secureStore.TestResultMetadata, "The TestResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.TestResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
+		XCTAssertEqual(secureStore.TestResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
-			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			secureStore.TestResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
 			riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
 			"incorrect days since recent riskLEvel"
 		)
 
 		// the for low risk the value should always be -1
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "incorrect hours")
+		XCTAssertEqual(secureStore.TestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "incorrect hours")
 	}
 
 	func testUpdatingTestResult_ValidResult_NotPreviousTestResultStored() {
@@ -56,73 +56,73 @@ class TestResultMetadataServiceTests: XCTestCase {
 		secureStore.riskCalculationResult = riskCalculationResult
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.log(.testResultMetadata(.registerNewTestMetadata(registrationDate)))
+			Analytics.log(.TestResultMetadata(.registerNewTestMetadata(registrationDate)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.log(.testResultMetadata(.updateTestResult(.positive)))
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		Analytics.log(.TestResultMetadata(.updateTestResult(.positive)))
+		XCTAssertEqual(secureStore.TestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		XCTAssertEqual(secureStore.TestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithSameValue() {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		Analytics.log(.testResultMetadata(.updateTestResult(.positive)))
+		Analytics.log(.TestResultMetadata(.updateTestResult(.positive)))
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.log(.testResultMetadata(.registerNewTestMetadata(registrationDate)))
+			Analytics.log(.TestResultMetadata(.registerNewTestMetadata(registrationDate)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.log(.testResultMetadata(.updateTestResult(.positive)))
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		Analytics.log(.TestResultMetadata(.updateTestResult(.positive)))
+		XCTAssertEqual(secureStore.TestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 
 		// The date shouldn't be updated if the test result is the same as the old one
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.TestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithDifferentValue() {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		Analytics.log(.testResultMetadata(.updateTestResult(.pending)))
+		Analytics.log(.TestResultMetadata(.updateTestResult(.pending)))
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.log(.testResultMetadata(.registerNewTestMetadata(registrationDate)))
+			Analytics.log(.TestResultMetadata(.registerNewTestMetadata(registrationDate)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.log(.testResultMetadata(.updateTestResult(.positive)))
-		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		Analytics.log(.TestResultMetadata(.updateTestResult(.positive)))
+		XCTAssertEqual(secureStore.TestResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 
 		// The the date is updated if the risk results changes e.g from pendong to positive
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.TestResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_Invalid() {
 		let secureStore = MockTestStore()
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		Analytics.log(.testResultMetadata(.updateTestResult(.pending)))
+		Analytics.log(.TestResultMetadata(.updateTestResult(.pending)))
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.log(.testResultMetadata(.registerNewTestMetadata(registrationDate)))
+			Analytics.log(.TestResultMetadata(.registerNewTestMetadata(registrationDate)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.log(.testResultMetadata(.updateTestResult(.invalid)))
+		Analytics.log(.TestResultMetadata(.updateTestResult(.invalid)))
 
 		// The if the value is invalid  testResult shouldn't be updated
-		XCTAssertNil(secureStore.testResultMetadata?.testResult, "incorrect testResult")
+		XCTAssertNil(secureStore.TestResultMetadata?.testResult, "incorrect testResult")
 
 		// The if the value is invalid  hoursSinceTestRegistration shouldnt be updated and should remain the default value: 0
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.TestResultMetadata?.hoursSinceTestRegistration, 0, "incorrect hoursSinceTestRegistration")
 
 	}
 

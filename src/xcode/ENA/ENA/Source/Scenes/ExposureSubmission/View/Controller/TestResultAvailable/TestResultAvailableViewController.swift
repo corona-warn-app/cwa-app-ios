@@ -14,6 +14,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)

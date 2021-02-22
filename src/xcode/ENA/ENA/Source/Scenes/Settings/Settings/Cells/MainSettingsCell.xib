@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wfs-tI-sVW">
-                                <rect key="frame" x="16" y="8" width="28" height="28"/>
+                                <rect key="frame" x="16" y="8.5" width="28" height="28"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_Settings_Risikoermittlung" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yrO-Vz-M9q" userLabel="Icon Image View">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
@@ -44,7 +44,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Kontaktprotokoll" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7M-Wa-qKJ" userLabel="Description Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="54" y="6" width="281.5" height="0.0"/>
+                                <rect key="frame" x="54" y="6.5" width="281.5" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                 <nil key="highlightedColor"/>
@@ -78,7 +78,7 @@
                             <constraint firstItem="wfs-tI-sVW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HLd-kA-7XV" secondAttribute="top" constant="8" id="7yC-iN-RAw"/>
                             <constraint firstAttribute="bottom" secondItem="41o-a9-1Ys" secondAttribute="bottom" id="Jh8-Wv-VGM"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wfs-tI-sVW" secondAttribute="bottom" constant="8" id="KBk-yL-DOX"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="v7M-Wa-qKJ" secondAttribute="bottom" constant="8" id="P3x-dd-lwG"/>
+                            <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="v7M-Wa-qKJ" secondAttribute="bottom" constant="8" id="P3x-dd-lwG"/>
                             <constraint firstItem="v7M-Wa-qKJ" firstAttribute="leading" secondItem="wfs-tI-sVW" secondAttribute="trailing" constant="10" id="QYb-0p-ChF"/>
                             <constraint firstItem="PdF-9Y-RPf" firstAttribute="leading" secondItem="41o-a9-1Ys" secondAttribute="trailing" constant="10" id="RV5-mY-SQQ"/>
                             <constraint firstItem="41o-a9-1Ys" firstAttribute="leading" secondItem="v7M-Wa-qKJ" secondAttribute="trailing" constant="10" id="TxR-ih-YmK"/>

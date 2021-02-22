@@ -9,7 +9,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 	func testGIVEN_emptyValues_WHEN_getCount_THEN_IsOne() {
 		// GIVEN
-		let viewModel = SelectValueViewModel([], title: "")
+		let viewModel = SelectValueViewModel([], title: "", accessibilityIdentifier: "")
 
 		// WHEN
 		let count = viewModel.numberOfSelectableValues
@@ -17,10 +17,21 @@ class SelectValueViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(1, count)
 	}
+	
+	func testGIVEN_accessibilityIdentifier_WHEN_getIdentifier_THEN_isCorrect() {
+		// GIVEN
+		let viewModel = SelectValueViewModel([], title: "", accessibilityIdentifier: "fakeIdentifier")
+
+		// WHEN
+		let accessibilityIdentifier = viewModel.accessibilityIdentifier
+
+		// THEN
+		XCTAssertEqual(accessibilityIdentifier, "fakeIdentifier")
+	}
 
 	func testGIVEN_viewModel_WHEN_getTitle_THEN_IsUnchanged() {
 		// GIVEN
-		let viewModel = SelectValueViewModel([], title: "⚙️")
+		let viewModel = SelectValueViewModel([], title: "⚙️", accessibilityIdentifier: "")
 
 		// WHEN
 		let title = viewModel.title
@@ -31,7 +42,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 	func testGIVEN_viewModel_WHEN_getSelectedIndex_THEN_IsSetupCorrect() {
 		// GIVEN
-		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3", accessibilityIdentifier: "")
 
 		// WHEN
 		let selected = viewModel.selectedTupel
@@ -43,7 +54,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 	func testGIVEN_viewModel_WHEN_getTwoCellViewModel_THEN_selectionIsTrue() {
 		// GIVEN
-		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3", accessibilityIdentifier: "")
 
 		// WHEN
 		let selectedCellViewModel = viewModel.cellViewModel(for: IndexPath(row: 3, section: 0))
@@ -60,7 +71,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 	func testGIVEN_viewModel_WHEN_changeSelectedValue_THEN_selectionIsCorrect() {
 		// GIVEN
-		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3", accessibilityIdentifier: "")
 
 		// WHEN
 		viewModel.selectValue(at: IndexPath(row: 0, section: 0))
@@ -77,7 +88,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModel_WHEN_SelectNoValue_THEN_SelectedValueIsNil() {
 		// GIVEN
-		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3", accessibilityIdentifier: "")
 
 		// WHEN
 		viewModel.selectValue(at: IndexPath(row: 0, section: 0))
@@ -88,7 +99,7 @@ class SelectValueViewModelTests: XCTestCase {
 
 	func testGIVEN_ViewModel_WHEN_SelectOutOfBoundsValue_THEN_SelectedValueIsUnchanged() {
 		// GIVEN
-		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3")
+		let viewModel = SelectValueViewModel(["1", "3", "2"], title: "⚙️", preselected: "3", accessibilityIdentifier: "")
 
 		// WHEN
 		viewModel.selectValue(at: IndexPath(row: 1, section: 0))

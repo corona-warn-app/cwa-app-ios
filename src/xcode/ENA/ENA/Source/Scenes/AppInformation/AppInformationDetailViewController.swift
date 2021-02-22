@@ -8,7 +8,7 @@ import UIKit
 class AppInformationDetailViewController: DynamicTableViewController, DismissHandling {
 	
 	var separatorStyle: UITableViewCell.SeparatorStyle = .none { didSet { tableView?.separatorStyle = separatorStyle } }
-	var dismissHandeling: (() -> Void)?
+	var dismissHandling: (() -> Void)?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -41,7 +41,7 @@ class AppInformationDetailViewController: DynamicTableViewController, DismissHan
 	
 	// the completion is currently only passed in the Submission flow with +ve test result case to display warning popup, for other flows or other test results we should dismiss normally
 	func wasAttemptedToBeDismissed() {
-		guard let completion = dismissHandeling else {
+		guard let completion = dismissHandling else {
 			dismiss(animated: true, completion: nil)
 			return
 		}

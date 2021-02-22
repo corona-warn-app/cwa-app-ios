@@ -82,7 +82,7 @@ protocol StoreProtocol: AnyObject {
 
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationOneTimer: TimeInterval { get set }
-	
+
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationTwoTimer: TimeInterval { get set }
 
@@ -99,7 +99,7 @@ protocol StoreProtocol: AnyObject {
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var positiveTestResultWasShown: Bool { get set }
-	
+
 	var isSubmissionConsentGiven: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
