@@ -5,8 +5,7 @@
 import Foundation
 
 class KeySubmissionService {
-	private var secureStore: Store
-	
+
 	// MARK: - Init
 
 	init(store: Store) {
@@ -87,4 +86,8 @@ class KeySubmissionService {
 	func setSubmittedWithTeleTAN(withValue: Bool = true) {
 		secureStore.keySubmissionMetadata?.submittedWithTeleTAN = withValue
 	}
+	
+	// MARK: - Private
+	
+	private var secureStore: Store
 }
