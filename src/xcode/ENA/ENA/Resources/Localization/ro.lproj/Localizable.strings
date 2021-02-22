@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut. \nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane. \nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Expuneri cu risc redus";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "De ce riscul dvs. de infectare este redus";

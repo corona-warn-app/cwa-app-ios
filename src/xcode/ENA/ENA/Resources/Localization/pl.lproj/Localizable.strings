@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone. \nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie na smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane. \nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Narażenia z niskim ryzykiem";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Dlaczego Twoje ryzyko zakażenia jest niskie";
