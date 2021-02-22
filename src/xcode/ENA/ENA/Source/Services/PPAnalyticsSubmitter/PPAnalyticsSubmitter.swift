@@ -283,6 +283,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		forceApiTokenHeader = store.forceAPITokenAuthorization
 		#endif
 
+		#if DEBUG
+		if isUITesting {
+			Log.info("While UI Testing, we do not submit analytics data", log: .ppa)
+			completion?(.failure(.generalError))
+			return
+		}
+		#endif
+
 		client.submit(
 			payload: payload,
 			ppacToken: ppacToken,

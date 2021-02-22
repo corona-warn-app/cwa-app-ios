@@ -403,7 +403,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func runIgnoreActionForPageType(completion: @escaping () -> Void) {
-		guard pageType == .enableLoggingOfContactsPage, exposureManager.exposureManagerState.authorized else {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.exposureManagerState.authorized else {
 			completion()
 			return
 		}

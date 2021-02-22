@@ -2,16 +2,85 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
 
 class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var label1: UILabel!
-	@IBOutlet var label2: UILabel!
-	@IBOutlet var label3: UILabel!
-	@IBOutlet var label4: UILabel!
-
+	
+	private var titleLabel: ENALabel!
+	private var label1: ENALabel!
+	private var label2: ENALabel!
+	private var label3: ENALabel!
+	private var label4: ENALabel!
+	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		// self
+		selectionStyle = .none
+		contentView.backgroundColor = .enaColor(for: .background)
+		// titleLabel
+		titleLabel = ENALabel()
+		titleLabel.style = .title2
+		titleLabel.numberOfLines = 0
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(titleLabel)
+		// label1
+		label1 = ENALabel()
+		label1.style = .headline
+		label1.numberOfLines = 0
+		label1.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(label1)
+		// label2
+		label2 = ENALabel()
+		label2.style = .subheadline
+		label2.numberOfLines = 0
+		label2.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(label2)
+		// label3
+		label3 = ENALabel()
+		label3.style = .subheadline
+		label3.numberOfLines = 0
+		label3.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(label3)
+		// label4
+		label4 = ENALabel()
+		label4.style = .subheadline
+		label4.numberOfLines = 0
+		label4.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(label4)
+		// activate constrinats
+		NSLayoutConstraint.activate([
+			// titleLabel
+			titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+			titleLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
+			// label1
+			label1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label1.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			label1.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+			label1.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
+			// label2
+			label2.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label2.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 20),
+			label2.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
+			// label3
+			label3.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label3.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			label3.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 20),
+			label3.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
+			// label4
+			label4.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+			label4.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+			label4.topAnchor.constraint(equalTo: label3.bottomAnchor, constant: 20),
+			label4.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+		])
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
 	func configure(for riskDetectionState: ENStateHandler.State) {
 		if riskDetectionState == .disabled {
 			titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitleInactive

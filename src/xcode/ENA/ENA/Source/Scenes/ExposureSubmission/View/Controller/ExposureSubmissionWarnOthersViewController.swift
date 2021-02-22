@@ -11,11 +11,13 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	init(
 		viewModel: ExposureSubmissionWarnOthersViewModel,
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)

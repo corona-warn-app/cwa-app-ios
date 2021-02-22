@@ -10,10 +10,12 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 	// MARK: - Init
 
 	init(
-		viewModel: TanInputViewModel
+		viewModel: TanInputViewModel,
+		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -84,8 +86,8 @@ class TanInputViewController: UIViewController, ENANavigationControllerWithFoote
 		view.addSubview(scrollView)
 
 		// Scrollview content size will change if we set the errorLabel to a text.
-		// We need to scroll the content area to show the error, if the footerview intersects with the error label.
-		// Ff the errorlabel resets to empty we will scroll back to a negatic top value to make sure scrollview
+		// We need to scroll the content area to show the error, if the footer view intersects with the error label.
+		// Ff the error label resets to empty we will scroll back to a negative top value to make sure scrollview
 		// is in top position (-103 is basically the default value).
 		observer = scrollView.observe(\UIScrollView.contentSize, options: .new, changeHandler: { [weak self] scrollView, _ in
 			if self?.errorLabel.text != nil {

@@ -25,6 +25,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	func requestUpdatedExposureState()
 }
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
@@ -57,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	) -> Bool {
 		#if DEBUG
 		setupOnboardingForTesting()
+		setupDatadonationForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -518,10 +520,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.onboardingVersion = onboardingVersion
 		}
 
+		if let resetFinishedDeltaOnboardings = UserDefaults.standard.string(forKey: "resetFinishedDeltaOnboardings"), resetFinishedDeltaOnboardings == "YES" {
+			store.finishedDeltaOnboardings = [:]
+		}
+
 		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
 			store.onboardingVersion = Bundle.main.appVersion
 		}
 	}
+
+	private func setupDatadonationForTesting() {
+		if let isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.string(forKey: "isDatadonationConsentGiven") {
+			store.isPrivacyPreservingAnalyticsConsentGiven = isPrivacyPreservingAnalyticsConsentGiven != "NO"
+		}
+	}
+
 	#endif
 
 	@objc

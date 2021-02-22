@@ -479,6 +479,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		/// Cancel warn others notifications and set positiveTestResultWasShown = false
 		warnOthersReminder.reset()
 
+		// This timestamp must be set before resetting the deadman notification
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		
 		/// Deactivate deadman notification for end-of-life-state
 		deadmanNotificationManager.resetDeadmanNotification()
 
@@ -490,7 +493,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		supportedCountries = []
 		symptomsOnset = .noInformation
 
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		
 		Log.info("Exposure submission cleanup.", log: .api)
 	}
 

@@ -39,8 +39,13 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 	
 	// MARK: - Internal
-	let viewController = UIViewController()
-	
+
+	let viewController: UIViewController = {
+		let viewController = UIViewController()
+		viewController.view.backgroundColor = .enaColor(for: .background)
+		return viewController
+	}()
+
 	func showHome(enStateHandler: ENStateHandler) {
 		viewController.clearChildViewController()
 		
@@ -146,6 +151,7 @@ extension RootCoordinator: ExposureStateUpdating {
 extension RootCoordinator: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeState?.updateEnState(state)
+		homeCoordinator?.updateEnState(state)
 		updateAllState(state)
 	}
 
