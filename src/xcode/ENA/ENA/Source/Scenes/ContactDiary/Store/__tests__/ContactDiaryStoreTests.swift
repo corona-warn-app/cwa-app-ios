@@ -926,11 +926,17 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertFalse(migratorSpy.migrateWasCalled)
 	}
 
-	func test_when_DatabaseUserVersionIsNot0_then_MigrationIsCalled_and_SchemaCreateIsNOTCalled() {
-		let databaseQueue = makeDatabaseQueue()
-		let schemaV3 = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
+	func test_when_DatabaseUserVersionIsNot0_then_MigrationIsCalled_and_SchemaCreateIsNOTCalled() throws {
+
+		let tempDatabaseURL = try makeTempDatabaseURL()
+
+		guard let databaseQueue = FMDatabaseQueue(path: tempDatabaseURL.path) else {
+			XCTFail("Could not create FMDatabaseQueue.")
+			return
+		}
 
 		// Create database with schemaV3. This will set userVersion to 3.
+		let schemaV3 = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
 		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaV3)
 
 		let schemaSpy = ContactDiarySchemaSpy(databaseQueue: databaseQueue)
@@ -940,8 +946,11 @@ class ContactDiaryStoreTests: XCTestCase {
 			migrations: [FakeMigration()]
 		)
 
-		// Create database again.
+		// Close and create database again.
 		// This time, migrator should be called, because a schema was allready created before and userVersion is >0.
+
+		databaseQueue.close()
+
 		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaSpy, migrator: migratorSpy)
 
 		XCTAssertFalse(schemaSpy.createWasCalled)
