@@ -709,7 +709,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		let daysVisible = store.userVisiblePeriodInDays
 
 		let numberOfEntries = store.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
-		XCTAssertEqual(numberOfEntries, 30)
+		XCTAssertEqual(numberOfEntries, daysVisible)
 		store.close()
 
 		let fileManager = FileManager.default
