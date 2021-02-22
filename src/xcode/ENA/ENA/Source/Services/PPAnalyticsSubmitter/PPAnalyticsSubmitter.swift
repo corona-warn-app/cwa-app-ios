@@ -175,7 +175,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			isSubmitted = false
 		}
 
-		// if there is no test result date
+		// if there is no test result time stamp
 		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
 			return false
 		}
@@ -190,7 +190,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return isSubmitted || timeDifferenceFulfilsCriteria
 	}
 
-	private var shouldTestResultMetadataBeIncluded: Bool {
+	private var shouldIncludeTestResultMetadata: Bool {
 		/* Conditions for submitting the data:
 			- testResult = positive
 			OR
@@ -255,7 +255,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if shouldIncludeKeySubmissionMetadata {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
-			if shouldTestResultMetadataBeIncluded {
+			if shouldIncludeTestResultMetadata {
 				$0.testResultMetadataSet = testResultMetadata
 			}
 			/*
