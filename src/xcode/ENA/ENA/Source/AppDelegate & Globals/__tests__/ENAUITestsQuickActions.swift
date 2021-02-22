@@ -8,7 +8,7 @@ import ExposureNotification
 class ENAUITestsQuickActions: XCTestCase {
 
 	private let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
-	private var cwaBundleDisplayName = "Corona-Warn" // dynamic app name!
+	private lazy var cwaBundleDisplayName = { XCUIApplication().label }() // "Corona-Warn"
 	/// The translated label string as we can't (?) use any identifiers there
 	private lazy var newDiaryEntryLabel = XCUIApplication().localized(AppStrings.QuickActions.contactDiaryNewEntry)
 
@@ -143,8 +143,6 @@ class ENAUITestsQuickActions: XCTestCase {
 	// MARK: - Install/Uninstall our app
 
 	/// Uninstalling the app manually, if present.
-	///
-	/// No hacks and `.resolve()` involved!
 	private func uninstallCWAppIfPresent() throws {
 		let appIcon = springboard.icons[cwaBundleDisplayName]
 		guard appIcon.waitForExistence(timeout: .medium) else { return }
