@@ -98,6 +98,6 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let detail = cellViewModel.exposureHistoryDetail
 
 		// THEN
-		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n"))
+		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n"))
 	}
 }
