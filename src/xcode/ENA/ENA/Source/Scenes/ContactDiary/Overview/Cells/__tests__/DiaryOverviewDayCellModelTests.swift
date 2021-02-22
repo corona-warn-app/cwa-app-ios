@@ -80,7 +80,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertFalse(showExposureHistory)
-		XCTAssertEqual(detail, AppStrings.ContactDiary.Overview.riskText1)
+		XCTAssertEqual(detail, AppStrings.ContactDiary.Overview.riskTextStandardCause)
 	}
 
 	func testGIVEN_LowEncounterDayWithEntries_WHEN_getDetail_THEN_isLongerDetailText() {
@@ -98,6 +98,6 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let detail = cellViewModel.exposureHistoryDetail
 
 		// THEN
-		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n"))
+		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n"))
 	}
 }
