@@ -373,12 +373,12 @@ extension SecureStore: PrivacyPreservingProviding {
 			previousRiskExposureMetadata = nil
 			userMetadata = nil
 			keySubmissionMetadata = nil
-			lastSubmittedPPAData = nil
-			lastAppReset = nil
-			lastSubmissionAnalytics = nil
 			clientMetadata = nil
 			testResultMetadata = nil
 			exposureWindowsMetadata = nil
+			lastSubmittedPPAData = nil
+			lastAppReset = nil
+			lastSubmissionAnalytics = nil
 		}
 	}
 
