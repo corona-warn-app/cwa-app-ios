@@ -42,7 +42,7 @@ final class DiaryOverviewDayCellModel {
 
 		let dateComponents = DateComponents(minute: locationVisit.durationInMinutes)
 		let timeString = dateComponentsFormatter.string(from: dateComponents) ?? ""
-		return timeString + " \(AppStrings.ContactDiary.LocationVisit.abbreviationHours)"
+		return timeString + " \(AppStrings.ContactDiary.Overview.LocationVisit.abbreviationHours)"
 	}
 
 	var hideExposureHistory: Bool {
@@ -128,4 +128,43 @@ final class DiaryOverviewDayCellModel {
 		formatter.allowedUnits = [.hour, .minute]
 		return formatter
 	}()
+}
+
+private extension ContactPersonEncounter.Duration {
+	var description: String {
+		switch self {
+		case .none:
+			return ""
+		case .lessThan15Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationLessThan15Minutes
+		case .moreThan15Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan15Minutes
+		}
+	}
+}
+
+private extension ContactPersonEncounter.MaskSituation {
+	var description: String {
+		switch self {
+		case .none:
+			return ""
+		case .withMask:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithMask
+		case .withoutMask:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithoutMask
+		}
+	}
+}
+
+private extension ContactPersonEncounter.Setting {
+	var description: String {
+		   switch self {
+		   case .none:
+			   return ""
+		   case .outside:
+			   return AppStrings.ContactDiary.Overview.PersonEncounter.settingOutside
+		   case .inside:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.settingInside
+		   }
+	   }
 }

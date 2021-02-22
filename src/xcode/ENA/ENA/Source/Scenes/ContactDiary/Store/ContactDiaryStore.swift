@@ -1347,5 +1347,47 @@ extension ContactDiaryStore {
 			migrator: migrator
 		)
 	}
+}
+
+private extension ContactPersonEncounter.Duration {
+
+	var germanDescription: String {
+		   switch self {
+		   case .none:
+			   return ""
+		   case .lessThan15Minutes:
+			   return "< 15 Minuten"
+		   case .moreThan15Minutes:
+			   return "> 15 Minuten"
+		   }
+	   }
+}
+
+private extension ContactPersonEncounter.MaskSituation {
+
+	var germanDescription: String {
+		   switch self {
+		   case .none:
+			   return ""
+		   case .withMask:
+			   return "mit Maske"
+		   case .withoutMask:
+			   return "ohne Maske"
+		   }
+	   }
+}
+
+private extension ContactPersonEncounter.Setting {
+
+	var germanDescription: String {
+		   switch self {
+		   case .none:
+			   return ""
+		   case .outside:
+			   return "im Freien"
+		   case .inside:
+			   return "im Gebäude"
+		   }
+	   }
 	// swiftlint:disable:next file_length
 }

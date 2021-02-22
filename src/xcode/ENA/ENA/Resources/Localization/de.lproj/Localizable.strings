@@ -1465,6 +1465,20 @@ sein.";
 
 "ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
 
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "draußen";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "drinnen";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
 
@@ -1603,24 +1617,6 @@ sein.";
 "ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-Mail";
-
-/* - PersonEncounter */
-
-"ContactDiary_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
-
-"ContactDiary_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
-
-"ContactDiary_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
-
-"ContactDiary_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
-
-"ContactDiary_PersonEncounter_Setting_Outside" = "draußen";
-
-"ContactDiary_PersonEncounter_Setting_Inside" = "drinnen";
-
-/* - LocationVisit */
-
-"ContactDiary_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* Statistics */
 
