@@ -48,6 +48,42 @@ struct DiaryDayEntryCellModel {
 		entry.isSelected ? deselect() : select()
 	}
 
+	func updateContactPersonEncounter(
+		duration: ContactPersonEncounter.Duration? = nil,
+		maskSituation: ContactPersonEncounter.MaskSituation? = nil,
+		setting: ContactPersonEncounter.Setting? = nil,
+		circumstances: String? = nil
+	) {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			fatalError("Cannot update non-existent encounter.")
+		}
+
+		store.updateContactPersonEncounter(
+			id: encounter.id,
+			date: encounter.date,
+			duration: duration ?? encounter.duration,
+			maskSituation: maskSituation ?? encounter.maskSituation,
+			setting: setting ?? encounter.setting,
+			circumstances: circumstances ?? encounter.circumstances
+		)
+	}
+
+	func updateLocationVisit(
+		durationInMinutes: Int? = nil,
+		circumstances: String? = nil
+	) {
+		guard case .location(let location) = entry, let visit = location.visit else {
+			fatalError("Cannot update non-existent visit.")
+		}
+
+		store.updateLocationVisit(
+			id: visit.id,
+			date: visit.date,
+			durationInMinutes: durationInMinutes ?? visit.durationInMinutes,
+			circumstances: circumstances ?? visit.circumstances
+		)
+	}
+
 	// MARK: - Private
 
 	private func select() {
