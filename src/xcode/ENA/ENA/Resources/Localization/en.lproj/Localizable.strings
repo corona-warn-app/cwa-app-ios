@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "For further information, please see our FAQ page.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
