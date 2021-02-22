@@ -5,17 +5,8 @@
 import Foundation
 
 struct RiskExposureMetadata: Codable {
-	var riskLevel: RiskLevel
-	var riskLevelChangedComparedToPreviousSubmission: Bool
-	var mostRecentDateAtRiskLevel: Date?
-	var dateChangedComparedToPreviousSubmission: Bool
 
-	enum CodingKeys: String, CodingKey {
-		case riskLevel
-		case riskLevelChangedComparedToPreviousSubmission
-		case mostRecentDateAtRiskLevel
-		case dateChangedComparedToPreviousSubmission
-	}
+	// MARK: - Init
 
 	init(
 		riskLevel: RiskLevel,
@@ -48,4 +39,19 @@ struct RiskExposureMetadata: Codable {
 		dateChangedComparedToPreviousSubmission = try container.decode(Bool.self, forKey: .dateChangedComparedToPreviousSubmission)
 	}
 
+	// MARK: - Protocol Codable
+	
+	enum CodingKeys: String, CodingKey {
+		case riskLevel
+		case riskLevelChangedComparedToPreviousSubmission
+		case mostRecentDateAtRiskLevel
+		case dateChangedComparedToPreviousSubmission
+	}
+	
+	// MARK: - Internal
+
+	var riskLevel: RiskLevel
+	var riskLevelChangedComparedToPreviousSubmission: Bool
+	var mostRecentDateAtRiskLevel: Date?
+	var dateChangedComparedToPreviousSubmission: Bool
 }

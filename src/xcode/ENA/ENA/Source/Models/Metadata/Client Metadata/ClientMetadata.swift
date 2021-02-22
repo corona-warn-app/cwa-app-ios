@@ -58,8 +58,12 @@ struct ClientMetadata: Codable {
 }
 
 struct Version: Codable, Equatable {
-	
-	// MARK: - Init
+
+	// MARK: - Internal
+
+	let major: Int
+	let minor: Int
+	let patch: Int
 	
 	var protobuf: SAP_Internal_Ppdd_PPASemanticVersion {
 			var protobufVersion = SAP_Internal_Ppdd_PPASemanticVersion()
@@ -68,10 +72,4 @@ struct Version: Codable, Equatable {
 			protobufVersion.patch = UInt32(self.patch)
 			return protobufVersion
 	}
-
-	// MARK: - Internal
-
-	let major: Int
-	let minor: Int
-	let patch: Int
 }
