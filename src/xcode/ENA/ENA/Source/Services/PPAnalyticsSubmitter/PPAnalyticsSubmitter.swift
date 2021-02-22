@@ -202,11 +202,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		*/
 		
 		// If for some reason there is no registrationDate we should not submit the testMetadata
-		guard let registrationDate = store.TestResultMetadata?.testRegistrationDate else {
+		guard let registrationDate = store.testResultMetadata?.testRegistrationDate else {
 			return false
 		}
 				
-		switch store.TestResultMetadata?.testResult {
+		switch store.testResultMetadata?.testResult {
 		case .positive, .negative:
 			return true
 		default:
@@ -308,7 +308,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
-					self?.store.TestResultMetadata = nil
+					self?.store.testResultMetadata = nil
 					self?.store.keySubmissionMetadata = nil
 					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
@@ -442,7 +442,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
-		let metadata = store.TestResultMetadata
+		let metadata = store.testResultMetadata
 
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
 			

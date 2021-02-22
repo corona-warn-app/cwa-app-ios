@@ -15,10 +15,21 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 		secureStore.riskCalculationResult = riskCalculationResult
 		secureStore.testRegistrationDate = Date()
 
-		let keySubmissionService = KeySubmissionService(store: secureStore)
-		secureStore.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
-		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
-		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: true)
+		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+		Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+		Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, Int32(riskCalculationResult.numberOfDaysWithCurrentRiskLevel), "number of days should be same")
@@ -35,10 +46,21 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 		secureStore.testRegistrationDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.testResultReceivedTimeStamp = Int64(dateSixHourAgo?.timeIntervalSince1970 ?? Date().timeIntervalSince1970)
 
-		let keySubmissionService = KeySubmissionService(store: secureStore)
-		secureStore.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
-		keySubmissionService.setHoursSinceTestRegistration()
-		keySubmissionService.setHoursSinceTestResult()
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: true)
+		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+		Analytics.log(.keySubmissionMetadata(.setHoursSinceTestRegistration))
+		Analytics.log(.keySubmissionMetadata(.setHoursSinceTestResult))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceTestResult, 6, "number of hours should be 6")
@@ -52,12 +74,21 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		let keySubmissionService = KeySubmissionService(store: secureStore)
-		secureStore.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
-		
-		keySubmissionService.setSubmitted(withValue: true)
-		keySubmissionService.setSubmittedInBackground(withValue: true)
-
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: true)
+		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+		Analytics.log(.keySubmissionMetadata(.submitted(true)))
+		Analytics.log(.keySubmissionMetadata(.submittedInBackground(true)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
@@ -71,15 +102,26 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		let keySubmissionService = KeySubmissionService(store: secureStore)
-		secureStore.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: true)
+		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
 		
-		keySubmissionService.setSubmitted(withValue: true)
-		keySubmissionService.setSubmittedInBackground(withValue: false)
-		keySubmissionService.setSubmittedAfterCancel(withValue: true)
-		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: true)
-		keySubmissionService.setLastSubmissionFlowScreen(withValue: .submissionFlowScreenSymptoms)
-		keySubmissionService.setSubmittedWithTeleTAN(withValue: true)
+		Analytics.log(.keySubmissionMetadata(.submitted(true)))
+		Analytics.log(.keySubmissionMetadata(.submittedInBackground(false)))
+		Analytics.log(.keySubmissionMetadata(.submittedAfterCancel(true)))
+		Analytics.log(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
+		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms)))
+		Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
@@ -98,10 +140,21 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 		secureStore.riskCalculationResult = riskCalculationResult
 		secureStore.testRegistrationDate = Date()
 
-		let keySubmissionService = KeySubmissionService(store: secureStore)
-		secureStore.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
-		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
-		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
+		let keySubmissionMetadata = KeySubmissionMetadata(
+			submitted: false,
+			submittedInBackground: false,
+			submittedAfterCancel: false,
+			submittedAfterSymptomFlow: false,
+			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
+			advancedConsentGiven: isSubmissionConsentGiven,
+			hoursSinceTestResult: 0,
+			hoursSinceTestRegistration: 0,
+			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
+			hoursSinceHighRiskWarningAtTestRegistration: -1,
+			submittedWithTeleTAN: true)
+		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+		Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+		Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, Int32(riskCalculationResult.numberOfDaysWithCurrentRiskLevel), "number of days should be same")

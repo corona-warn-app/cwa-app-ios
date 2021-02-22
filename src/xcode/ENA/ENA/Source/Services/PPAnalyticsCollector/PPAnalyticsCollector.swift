@@ -70,7 +70,7 @@ enum PPAnalyticsCollector {
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
-		store?.TestResultMetadata = nil
+		store?.testResultMetadata = nil
 		store?.keySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
 		Log.info("Deleted all analytics data in the store", log: .ppa)
@@ -228,11 +228,11 @@ enum PPAnalyticsCollector {
 	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
 		switch TestResultMetadata {
 		case let .complete(metaData):
-			store?.TestResultMetadata = metaData
+			store?.testResultMetadata = metaData
 		case let .testResult(testResult):
-			store?.TestResultMetadata?.testResult = testResult
+			store?.testResultMetadata?.testResult = testResult
 		case let .testResultHoursSinceTestRegistration(hoursSinceTestRegistration):
-			store?.TestResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
+			store?.testResultMetadata?.hoursSinceTestRegistration = hoursSinceTestRegistration
 		case let .updateTestResult(testResult, token):
 			Analytics.updateTestResult(testResult, token)
 		case let .registerNewTestMetadata(date, token):
@@ -242,13 +242,13 @@ enum PPAnalyticsCollector {
 
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
-		guard store?.TestResultMetadata?.testRegistrationToken == token,
-			  let registrationDate = store?.TestResultMetadata?.testRegistrationDate else {
+		guard store?.testResultMetadata?.testRegistrationToken == token,
+			  let registrationDate = store?.testResultMetadata?.testRegistrationDate else {
 			Log.warning("Could not update test meta data result due to testRegistrationDate is nil", log: .ppa)
 			return
 		}
 
-		let storedTestResult = store?.TestResultMetadata?.testResult
+		let storedTestResult = store?.testResultMetadata?.testResult
 		// if storedTestResult != newTestResult ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == nil ---> update persisted testResult and the hoursSinceTestRegistration
 		// if storedTestResult == newTestResult ---> do nothing
@@ -258,7 +258,7 @@ enum PPAnalyticsCollector {
 			case .positive, .negative, .pending:
 				Analytics.log(.TestResultMetadata(.testResult(testResult)))
 
-				switch store?.TestResultMetadata?.testResult {
+				switch store?.testResultMetadata?.testResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 					Analytics.log(.TestResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
@@ -291,9 +291,9 @@ enum PPAnalyticsCollector {
 				return
 			}
 			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			store?.TestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
 		case .low:
-			store?.TestResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 
 
@@ -482,7 +482,7 @@ protocol PPAnalyticsData: AnyObject {
 	/// Analytics data
 	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
 	/// Analytics data.
-	var TestResultMetadata: TestResultMetadata? { get set }
+	var testResultMetadata: TestResultMetadata? { get set }
 	/// Analytics data.
 	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }
@@ -519,7 +519,7 @@ extension SecureStore: PPAnalyticsData {
 		set { kvStore["userMetadata"] = newValue }
 	}
 
-	var TestResultMetadata: TestResultMetadata? {
+	var testResultMetadata: TestResultMetadata? {
 		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
 		set { kvStore["testResultaMetadata"] = newValue }
 	}

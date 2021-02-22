@@ -336,7 +336,6 @@
 		50C0299125E4067400460FA4 /* LastSubmissionFlowScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297C25E4067400460FA4 /* LastSubmissionFlowScreen.swift */; };
 		50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0298025E4067400460FA4 /* RiskExposureMetadata.swift */; };
 		50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0298225E4067400460FA4 /* TestResultMetadata.swift */; };
-		50C0299925E4067B00460FA4 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0296B25E4067400460FA4 /* TestResultMetadataServiceTests.swift */; };
 		50C0299A25E4067B00460FA4 /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0296C25E4067400460FA4 /* UserMetadataTests.swift */; };
 		50C029A425E4068700460FA4 /* ExposureWindowsMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297425E4067400460FA4 /* ExposureWindowsMetadataServiceTests.swift */; };
 		50C029AB25E4068D00460FA4 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297625E4067400460FA4 /* TestResultMetadataServiceTests.swift */; };
@@ -1148,7 +1147,6 @@
 		50BD2E6324FE232E00932566 /* AppInformationImprintViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationImprintViewModel.swift; sourceTree = "<group>"; };
 		50BD2E6F24FE26F300932566 /* AppInformationImprintTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationImprintTest.swift; sourceTree = "<group>"; };
 		50C0296925E4067400460FA4 /* UserMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMetadata.swift; sourceTree = "<group>"; };
-		50C0296B25E4067400460FA4 /* TestResultMetadataServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultMetadataServiceTests.swift; sourceTree = "<group>"; };
 		50C0296C25E4067400460FA4 /* UserMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
 		50C0296D25E4067400460FA4 /* AgeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
 		50C0296F25E4067400460FA4 /* ClientMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMetadata.swift; sourceTree = "<group>"; };
@@ -2534,8 +2532,8 @@
 		50C0296825E4067400460FA4 /* User Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				50C0296925E4067400460FA4 /* UserMetadata.swift */,
 				50C0296A25E4067400460FA4 /* __tests__ */,
+				50C0296925E4067400460FA4 /* UserMetadata.swift */,
 				50C0296D25E4067400460FA4 /* AgeGroup.swift */,
 			);
 			path = "User Metadata";
@@ -2544,7 +2542,6 @@
 		50C0296A25E4067400460FA4 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50C0296B25E4067400460FA4 /* TestResultMetadataServiceTests.swift */,
 				50C0296C25E4067400460FA4 /* UserMetadataTests.swift */,
 			);
 			path = __tests__;
@@ -5485,7 +5482,6 @@
 				B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */,
 				941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */,
 				BAFBF35725ADD734003F5DC2 /* HomeThankYouCellModelTests.swift in Sources */,
-				50C0299925E4067B00460FA4 /* TestResultMetadataServiceTests.swift in Sources */,
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
 				0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */,
