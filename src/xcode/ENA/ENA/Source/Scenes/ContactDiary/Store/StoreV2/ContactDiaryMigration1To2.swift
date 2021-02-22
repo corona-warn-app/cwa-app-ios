@@ -34,6 +34,8 @@ final class ContactDiaryMigration1To2: Migration {
 					// do migration for contact diary tables if the type of the Column "name" is "STRING"
 					if name == "name" && type == "STRING" {
 						finalSQL = """
+						PRAGMA foreign_keys=OFF;
+
 						CREATE TABLE tmp (
 						id INTEGER PRIMARY KEY,
 						name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
@@ -42,7 +44,9 @@ final class ContactDiaryMigration1To2: Migration {
 						SELECT id, name
 						FROM \(tableName);
 						DROP TABLE \(tableName);
-						ALTER TABLE tmp RENAME TO \(tableName) ;
+						ALTER TABLE tmp RENAME TO \(tableName);
+
+						PRAGMA foreign_keys=ON;
 						"""
 						
 						break
