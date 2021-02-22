@@ -94,7 +94,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
 				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
 				cells.append(.bulletPoint(attributedText: featureBulletPoint))
-				cells.append(.link(placeholder: "\t\(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURLDisplayText)", link: AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL, font: .body, style: .body, accessibilityIdentifier: ""))
+				cells.append(.link(placeholder: "     \(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURLDisplayText)", link: AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL, font: .body, style: .body, accessibilityIdentifier: ""))
 			} else {
 				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
 				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
