@@ -7,7 +7,6 @@ import FMDB
 final class ContactDiaryMigration1To2: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
-	private var database: FMDatabase?
 	private var error: Error?
 	
 	init(databaseQueue: FMDatabaseQueue) {
@@ -23,7 +22,7 @@ final class ContactDiaryMigration1To2: Migration {
 		var finalSQL: String?
 		databaseQueue.inDatabase { database in
 			let tableNames = ["ContactPerson", "Location"]
-			self.database = database
+
 			for tableName in tableNames {
 				let queryResult = database.prepare("PRAGMA table_info(" + tableName + ")" )
 				

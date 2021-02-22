@@ -22,6 +22,50 @@ final class ContactDiaryMigration2To3: Migration {
 		var error: Error?
 
 		databaseQueue.inDatabase { database in
+
+			// There was a bug during migration 1 to 2. Due to this bug, the migration was not triggered, but the userVersion was set to 2. Therfore we need to do this migration again, to fix the datatypes.
+
+			var finalSQL: String?
+			let tableNames = ["ContactPerson", "Location"]
+
+			for tableName in tableNames {
+				let queryResult = database.prepare("PRAGMA table_info(" + tableName + ")" )
+
+				while queryResult.next() {
+					let name = queryResult.string(forColumn: "name")
+					let type = queryResult.string(forColumn: "type")
+
+					// do migration for contact diary tables if the type of the Column "name" is "STRING"
+					if name == "name" && type == "STRING" {
+						finalSQL = """
+						PRAGMA foreign_keys=OFF;
+
+						CREATE TABLE tmp (
+						id INTEGER PRIMARY KEY,
+						name TEXT NOT NULL CHECK (LENGTH(name) <= 250)
+						);
+						INSERT INTO tmp (id, name)
+						SELECT id, name
+						FROM \(tableName);
+						DROP TABLE \(tableName);
+						ALTER TABLE tmp RENAME TO \(tableName);
+
+						PRAGMA foreign_keys=ON;
+						"""
+
+						break
+					}
+				}
+
+				queryResult.close()
+				guard let sql = finalSQL, database.executeStatements(sql) else {
+					error = MigrationError.general(description: "(\(database.lastErrorCode())) \(database.lastErrorMessage())")
+					return
+				}
+			}
+
+			// This is the real 2 to 3 migration. Its adding new columns for the new contact diary features.
+
 			let sql = """
 				BEGIN TRANSACTION;
 
