@@ -1563,12 +1563,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Loc";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Loc";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Loc";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Persoană";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Persoană";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Persoană";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
