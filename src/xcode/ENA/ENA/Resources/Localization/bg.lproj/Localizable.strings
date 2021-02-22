@@ -1563,12 +1563,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Място";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Място";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Място";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Лице";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Лице";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Лице";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Тенденция: Нагоре";
