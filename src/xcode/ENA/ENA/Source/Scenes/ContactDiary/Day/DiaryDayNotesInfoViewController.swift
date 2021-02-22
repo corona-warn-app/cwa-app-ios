@@ -43,12 +43,6 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 		return item
 	}()
 	
-	// MARK: - Protocol DismissHandling
-	
-	func wasAttemptedToBeDismissed() {
-		
-	}
-	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
