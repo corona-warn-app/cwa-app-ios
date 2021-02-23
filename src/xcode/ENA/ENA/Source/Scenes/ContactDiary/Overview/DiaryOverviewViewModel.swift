@@ -74,13 +74,7 @@ class DiaryOverviewViewModel {
 	func cellModel(for indexPath: IndexPath) -> DiaryOverviewDayCellModel {
 		let diaryDay = days[indexPath.row]
 		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
-		
-		var minimumDistinctEncountersWithHighRisk = 0
-		let dateFormatter = DateFormatter()
-		dateFormatter.setLocalizedDateFormatFromTemplate("EEEEddMMyy")
-		if let date = dateFormatter.date(from: diaryDay.dateString) {
-			minimumDistinctEncountersWithHighRisk = secureStore.riskCalculationResult?.minimumDistinctEncountersWithHighRiskPerDate[date] ?? 0
-		}
+		let minimumDistinctEncountersWithHighRisk = getMinimumDistinctEncountersWithHighRisk(by: diaryDay.utcMidnightDate)
 
 		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure, minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk)
 	}
@@ -99,4 +93,10 @@ class DiaryOverviewViewModel {
 		return .encounter(riskLevelPerDate)
 	}
 
+	private func getMinimumDistinctEncountersWithHighRisk(by date: Date) -> Int {
+		guard let minimumDistinctEncountersWithHighRisk = secureStore.riskCalculationResult?.minimumDistinctEncountersWithHighRiskPerDate[date] else {
+			return -1
+		}
+		return minimumDistinctEncountersWithHighRisk
+	}
 }
