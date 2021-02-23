@@ -83,8 +83,11 @@ final class DiaryOverviewDayCellModel {
 			switch risk {
 			case .low:
 				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			case .high where minimumDistinctEncountersWithHighRisk > 0:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			// for other possible values of minimumDistinctEncountersWithHighRisk such as 0 and -1
 			case .high:
-				return computeExposureHistoryDetail()
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause : [AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
 			}
 		case .none:
 			return nil
@@ -97,14 +100,6 @@ final class DiaryOverviewDayCellModel {
 
 	var formattedDate: String {
 		diaryDay.formattedDate
-	}
-	
-	func computeExposureHistoryDetail() -> String {
-		if minimumDistinctEncountersWithHighRisk > 0 {
-			return diaryDay.selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
-		} else {
-			return diaryDay.selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause : [AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
-		}
 	}
 
 	// MARK: - Private
