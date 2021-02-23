@@ -68,7 +68,7 @@
                         </subviews>
                         <color key="backgroundColor" name="ENA Cell Background Color"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Hye-vn-7dV" secondAttribute="bottom" constant="8" id="OVR-1v-x9h"/>
+                            <constraint firstAttribute="bottom" secondItem="Hye-vn-7dV" secondAttribute="bottom" priority="999" constant="8" id="OVR-1v-x9h"/>
                             <constraint firstAttribute="trailing" secondItem="Hye-vn-7dV" secondAttribute="trailing" id="Wit-Qr-f26"/>
                             <constraint firstItem="Hye-vn-7dV" firstAttribute="leading" secondItem="gLq-Pk-WqT" secondAttribute="leading" id="bCJ-ap-pJo"/>
                             <constraint firstItem="Hye-vn-7dV" firstAttribute="top" secondItem="gLq-Pk-WqT" secondAttribute="top" constant="8" id="cQv-nC-gkR"/>
