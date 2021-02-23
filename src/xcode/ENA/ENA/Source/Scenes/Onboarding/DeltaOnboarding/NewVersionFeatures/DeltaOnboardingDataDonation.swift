@@ -25,7 +25,7 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 			presentSelectValueList: { selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
 					selectValueViewModel,
-					dissmiss: {
+					dismiss: {
 						navigationController?.dismiss(animated: true)
 					})
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)

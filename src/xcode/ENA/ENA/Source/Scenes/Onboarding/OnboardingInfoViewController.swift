@@ -157,7 +157,7 @@ final class OnboardingInfoViewController: UIViewController {
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
 					selectValueViewModel,
-					dissmiss: { [weak self] in
+					dismiss: { [weak self] in
 						self?.navigationController?.dismiss(animated: true)
 					})
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
