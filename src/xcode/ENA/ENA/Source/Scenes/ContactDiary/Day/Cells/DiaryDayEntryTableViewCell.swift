@@ -4,7 +4,17 @@
 
 import UIKit
 
-class DiaryDayEntryTableViewCell: UITableViewCell {
+class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
+
+	// MARK: - Protocol UITextFieldDelegate
+
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		cellModel.updateCircumstances(textField.text ?? "")
+	}
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		endEditing(true)
+	}
 
 	// MARK: - Internal
 
@@ -26,6 +36,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
 		maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
 		settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
+		notesTextField.text = cellModel.circumstances
 
 		accessibilityTraits = cellModel.accessibilityTraits
 
@@ -44,7 +55,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	@IBOutlet private weak var headerStackView: UIStackView!
 	@IBOutlet private weak var parametersContainerStackView: UIStackView!
 	@IBOutlet private weak var parametersStackView: UIStackView!
-
 
 	lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
@@ -73,6 +83,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.returnKeyType = .done
+		textField.delegate = self
 
 		textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0).isActive = true
 

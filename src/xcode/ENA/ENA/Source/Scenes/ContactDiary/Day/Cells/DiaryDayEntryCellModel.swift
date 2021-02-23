@@ -90,8 +90,26 @@ struct DiaryDayEntryCellModel {
 		return settingValues.firstIndex { $0.value == encounter.setting } ?? -1
 	}
 
+	var circumstances: String {
+		switch entry {
+		case .contactPerson(let contactPerson):
+			return contactPerson.encounter?.circumstances ?? ""
+		case .location(let location):
+			return location.visit?.circumstances ?? ""
+		}
+	}
+
 	func toggleSelection() {
 		entry.isSelected ? deselect() : select()
+	}
+
+	func updateCircumstances(_ circumstances: String) {
+		switch entryType {
+		case .contactPerson:
+			updateContactPersonEncounter(circumstances: circumstances)
+		case .location:
+			updateLocationVisit(circumstances: circumstances)
+		}
 	}
 
 	func updateContactPersonEncounter(
