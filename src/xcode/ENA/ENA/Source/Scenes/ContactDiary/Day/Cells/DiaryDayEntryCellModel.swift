@@ -32,6 +32,11 @@ struct DiaryDayEntryCellModel {
 
 	// MARK: - Internal
 
+	struct SegmentedControlValue<T> {
+		let title: String
+		let value: T
+	}
+
 	let entry: DiaryEntry
 	let store: DiaryStoringProviding
 	let dateString: String
@@ -43,6 +48,45 @@ struct DiaryDayEntryCellModel {
 	let parametersHidden: Bool
 
 	let accessibilityTraits: UIAccessibilityTraits
+
+	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, value: .lessThan15Minutes),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes, value: .moreThan15Minutes)
+	]
+
+	var selectedDurationSegmentIndex: Int {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			fatalError("Duration segment values can only be set for contact person encounters.")
+		}
+
+		return durationValues.firstIndex { $0.value == encounter.duration } ?? -1
+	}
+
+	let maskSituationValues: [SegmentedControlValue<ContactPersonEncounter.MaskSituation>] = [
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.withMask, value: .withMask),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.withoutMask, value: .withoutMask)
+	]
+
+	var selectedMaskSituationSegmentIndex: Int {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			fatalError("Mask situation segment values can only be set for contact person encounters.")
+		}
+
+		return maskSituationValues.firstIndex { $0.value == encounter.maskSituation } ?? -1
+	}
+
+	let settingValues: [SegmentedControlValue<ContactPersonEncounter.Setting>] = [
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.outside, value: .outside),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.inside, value: .inside)
+	]
+
+	var selectedSettingSegmentIndex: Int {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			fatalError("Setting segment values can only be set for contact person encounters.")
+		}
+
+		return settingValues.firstIndex { $0.value == encounter.setting } ?? -1
+	}
 
 	func toggleSelection() {
 		entry.isSelected ? deselect() : select()

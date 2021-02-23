@@ -14,6 +14,12 @@ class DiarySegmentedControl: UISegmentedControl {
 		setUp()
 	}
 
+	override init(items: [Any]?) {
+		super.init(items: items)
+
+		setUp()
+	}
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 

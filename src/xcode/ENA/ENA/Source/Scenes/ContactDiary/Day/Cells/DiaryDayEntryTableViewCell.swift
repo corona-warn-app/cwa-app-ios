@@ -12,17 +12,17 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		cellModel: DiaryDayEntryCellModel,
 		onInfoButtonTap: @escaping () -> Void
 	) {
+		self.cellModel = cellModel
+		self.onInfoButtonTap = onInfoButtonTap
+
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 
-		addParameterViews(for: cellModel.entryType)
+		addParameterViews()
 
 		parametersContainerStackView.isHidden = cellModel.parametersHidden
 
 		accessibilityTraits = cellModel.accessibilityTraits
-
-		self.cellModel = cellModel
-		self.onInfoButtonTap = onInfoButtonTap
 
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
@@ -40,26 +40,27 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	@IBOutlet private weak var parametersContainerStackView: UIStackView!
 	@IBOutlet private weak var parametersStackView: UIStackView!
 
+
 	lazy var durationSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl()
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, at: 0, animated: false)
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, at: 1, animated: false)
+		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
+		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
+		segmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
 
 		return segmentedControl
 	}()
 
 	lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl()
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.withMask, at: 0, animated: false)
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.withoutMask, at: 1, animated: false)
+		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
+		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
+		segmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
 
 		return segmentedControl
 	}()
 
 	lazy var settingSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl()
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.outside, at: 0, animated: false)
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.inside, at: 1, animated: false)
+		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
+		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
+		segmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
 
 		return segmentedControl
 	}()
@@ -124,14 +125,53 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	}
 
 	@objc
+	private func durationValueChanged(sender: UISegmentedControl) {
+		let duration: ContactPersonEncounter.Duration
+
+		if sender.selectedSegmentIndex == -1 {
+			duration = .none
+		} else {
+			duration = cellModel.durationValues[sender.selectedSegmentIndex].value
+		}
+
+		cellModel.updateContactPersonEncounter(duration: duration)
+	}
+
+	@objc
+	private func maskSituationValueChanged(sender: UISegmentedControl) {
+		let maskSituation: ContactPersonEncounter.MaskSituation
+
+		if sender.selectedSegmentIndex == -1 {
+			maskSituation = .none
+		} else {
+			maskSituation = cellModel.maskSituationValues[sender.selectedSegmentIndex].value
+		}
+
+		cellModel.updateContactPersonEncounter(maskSituation: maskSituation)
+	}
+
+	@objc
+	private func settingValueChanged(sender: UISegmentedControl) {
+		let setting: ContactPersonEncounter.Setting
+
+		if sender.selectedSegmentIndex == -1 {
+			setting = .none
+		} else {
+			setting = cellModel.settingValues[sender.selectedSegmentIndex].value
+		}
+
+		cellModel.updateContactPersonEncounter(setting: setting)
+	}
+
+	@objc
 	private func infoButtonTapped() {
 		onInfoButtonTap()
 	}
 
-	private func addParameterViews(for entryType: DiaryEntryType) {
+	private func addParameterViews() {
 		parametersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		switch entryType {
+		switch cellModel.entryType {
 		case .contactPerson:
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
