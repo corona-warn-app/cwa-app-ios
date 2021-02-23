@@ -58,6 +58,12 @@ final class SecureStore: Store {
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
 	}
 
+	// this test registration date is for both TAN and QR submission
+	var testRegistrationDate: Date? {
+		get { kvStore["testRegistrationDate"] as Date? ?? nil }
+		set { kvStore["testRegistrationDate"] = newValue }
+	}
+	
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
 		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
 		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
@@ -188,6 +194,11 @@ final class SecureStore: Store {
 	var riskCalculationResult: RiskCalculationResult? {
 		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
+	}
+	
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
 	}
 
 	var shouldShowRiskStatusLoweredAlert: Bool {
@@ -361,6 +372,10 @@ extension SecureStore: PrivacyPreservingProviding {
 			currentRiskExposureMetadata = nil
 			previousRiskExposureMetadata = nil
 			userMetadata = nil
+			keySubmissionMetadata = nil
+			clientMetadata = nil
+			testResultMetadata = nil
+			exposureWindowsMetadata = nil
 			lastSubmittedPPAData = nil
 			lastAppReset = nil
 			lastSubmissionAnalytics = nil
@@ -414,6 +429,37 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
 		set {
 			kvStore["userMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+	
+	var testResultMetadata: TestResultMetadata? {
+		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
+		set { kvStore["testResultaMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+	
+	var clientMetadata: ClientMetadata? {
+		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
+		set {
+			kvStore["clientMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+	
+	var keySubmissionMetadata: KeySubmissionMetadata? {
+		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
+		set {
+			kvStore["keySubmissionMetadata"] = newValue
+			analyticsSubmitter?.triggerSubmitData()
+		}
+	}
+	
+	var exposureWindowsMetadata: ExposureWindowsMetadata? {
+		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
+		set {
+			kvStore["exposureWindowsMetadata"] = newValue
 			analyticsSubmitter?.triggerSubmitData()
 		}
 	}

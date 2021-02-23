@@ -57,6 +57,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
+	var dateOfConversionToHighRisk: Date?
+	var testRegistrationDate: Date?
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -74,7 +76,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
-
 
 	// MARK: - PrivacyPreservingProviding
 
@@ -97,4 +98,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
+	var clientMetadata: ClientMetadata?
+	var keySubmissionMetadata: KeySubmissionMetadata?
+	var testResultMetadata: TestResultMetadata?
+	var exposureWindowsMetadata: ExposureWindowsMetadata?
 }

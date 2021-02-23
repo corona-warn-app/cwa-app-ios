@@ -125,13 +125,11 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt am %@ mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
 "ExposureDetection_Explanation_Text_High" = "Ihr Infektionsrisiko wird daher als erhöht eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
-
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen finden Sie in den FAQ.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
 
@@ -1461,9 +1459,25 @@ sein.";
 
 "ContactDiary_Overview_Low_Risk_Title" = "Niedriges Risiko";
 
-"ContactDiary_Overview_Risk_Text_1" = "aufgrund der von der App ausgewerteten Begegnungen.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "aufgrund der von der App ausgewerteten Begegnungen.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Diese müssen nicht in Zusammenhang mit den von Ihnen erfassten Personen und Orten stehen.";
+
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "draußen";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "drinnen";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
@@ -1496,6 +1510,24 @@ sein.";
 "ContactDiary_Day_LocationsEmptyDescription" = "Legen Sie einen Ort an und fügen Sie ihn in Ihrem Kontakt-Tagebuch hinzu.";
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Eine Standortmarkierung markiert ein Gebäude.";
+
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 min";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 min";
+
+"ContactDiary_Day_Encounter_WithMask" = "mit Maske";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "ohne Maske";
+
+"ContactDiary_Day_Encounter_Outside" = "im Freien";
+
+"ContactDiary_Day_Encounter_Inside" = "drinnen";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z.B. geringer Abstand)";
+
+"ContactDiary_Day_Visit_Duration" = "Dauer";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z.B. sehr voll, schlecht gelüftet)";
 
 /* Edit Entries */
 
@@ -1570,12 +1602,20 @@ sein.";
 /*  - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Ort";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Beschreibung";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-Mail";
 
 /*  - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Name";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-Mail";
 
 /* Statistics */
 
@@ -1842,6 +1882,6 @@ sein.";
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Die Angaben können nicht mit Ihrer Person verknüpft werden. Ihre Identität bleibt weiterhin geheim.
 Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil gespeichert.";
 
-"ContactJournalNotesDescriptionTitle" = "Notiz";
+"Contact_Journal_Notes_Description_Title" = "Notiz";
 
-"ContactJournalNotesDescription" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
+"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
