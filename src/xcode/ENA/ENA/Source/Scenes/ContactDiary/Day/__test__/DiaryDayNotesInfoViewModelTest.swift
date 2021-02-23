@@ -9,7 +9,7 @@ import XCTest
 class DiaryDayNotesInfoViewModelTest: XCTestCase {
 	
 	private func createVC() -> DiaryDayNotesInfoViewController {
-		DiaryDayNotesInfoViewController()
+		DiaryDayNotesInfoViewController(onDismiss: {})
 	}
 	
 	func testCellsInSection0() {
