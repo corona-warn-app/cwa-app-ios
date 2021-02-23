@@ -6,6 +6,7 @@
 
 import UIKit
 import os.log
+import ZIPFoundation
 
 enum LogSegment: Int, CaseIterable {
 	case all
@@ -138,7 +139,17 @@ final class DMLogsViewController: UIViewController {
 	private func exportErrorLog() {
 		let fileLogger = FileLogger()
 		let logString = fileLogger.readAllLogs()
-		let activityViewController = UIActivityViewController(activityItems: [logString], applicationActivities: nil)
+
+		guard
+			let item = LogDataItem(logString: logString)
+		else {
+			Log.warning("No log data to export.", log: .localData)
+			return
+		}
+
+		// Log.debug("Preparing log export. Log length, raw: \(rawData.count), compressed: \(archive.data?.count ?? 0)", log: .localData)
+		// using archive data with the plain log string as fallback
+		let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)
 	}
