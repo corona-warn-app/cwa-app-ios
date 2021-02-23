@@ -56,7 +56,7 @@ struct DiaryDayEntryCellModel {
 
 	var selectedDurationSegmentIndex: Int {
 		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
-			fatalError("Duration segment values can only be set for contact person encounters.")
+			return -1
 		}
 
 		return durationValues.firstIndex { $0.value == encounter.duration } ?? -1
@@ -69,7 +69,7 @@ struct DiaryDayEntryCellModel {
 
 	var selectedMaskSituationSegmentIndex: Int {
 		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
-			fatalError("Mask situation segment values can only be set for contact person encounters.")
+			return -1
 		}
 
 		return maskSituationValues.firstIndex { $0.value == encounter.maskSituation } ?? -1
@@ -82,7 +82,7 @@ struct DiaryDayEntryCellModel {
 
 	var selectedSettingSegmentIndex: Int {
 		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
-			fatalError("Setting segment values can only be set for contact person encounters.")
+			return -1
 		}
 
 		return settingValues.firstIndex { $0.value == encounter.setting } ?? -1

@@ -22,6 +22,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 
 		parametersContainerStackView.isHidden = cellModel.parametersHidden
 
+		durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
+		maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
+		settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
+
 		accessibilityTraits = cellModel.accessibilityTraits
 
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
@@ -44,7 +48,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
-		segmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
 
 		return segmentedControl
 	}()
@@ -52,7 +55,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
-		segmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
 
 		return segmentedControl
 	}()
@@ -60,7 +62,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	lazy var settingSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
-		segmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
 
 		return segmentedControl
 	}()
