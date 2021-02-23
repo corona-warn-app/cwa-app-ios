@@ -24,6 +24,10 @@ class ENAUITestsQuickActions: XCTestCase {
 		XCUIDevice.shared.press(.home)
 	}
 
+	/// Test shortcut state after a fresh installtation
+	///
+	/// This test is INTENTIONALLY disabled in the normal test plan as it might affect the execution of other tests
+	/// (in the current test/fastlane configuration)
     func testLaunchViaShortcutFromFreshInstall() throws {
 		try uninstallCWAppIfPresent()
 
