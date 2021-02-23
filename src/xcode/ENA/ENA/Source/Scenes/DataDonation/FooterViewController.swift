@@ -8,9 +8,11 @@ class FooterViewController: UIViewController {
 
 	// MARK: - Init
 	init(
+		_ viewModel: FooterViewModel,
 		didTapPrimaryButton: @escaping () -> Void,
 		didTapSecondaryButton: @escaping () -> Void
 	) {
+		self.viewModel = viewModel
 		self.didTapPrimaryButton = didTapPrimaryButton
 		self.didTapSecondaryButton = didTapSecondaryButton
 		super.init(nibName: nil, bundle: nil)
@@ -36,15 +38,16 @@ class FooterViewController: UIViewController {
 		view.addSubview(secondaryButton)
 
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
-		primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-		primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor).isActive = true
-		primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor).isActive = true
-
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
-		secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: spacing).isActive = true
-		secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor).isActive = true
-		secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor).isActive = true
 
+		NSLayoutConstraint.activate([
+			primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+			primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
+			primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
+			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: spacing),
+			secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor),
+			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor)
+		])
 	}
 
 	// MARK: - Protocol <#Name#>
@@ -55,21 +58,23 @@ class FooterViewController: UIViewController {
 
 	// MARK: - Private
 
+	private let viewModel: FooterViewModel
 	private let didTapPrimaryButton: () -> Void
 	private let didTapSecondaryButton: () -> Void
 	private let spacing: CGFloat = 8
-	
+
 	private let primaryButton: ENAButton = ENAButton(type: .custom)
 	private let secondaryButton: ENAButton = ENAButton(type: .custom)
 
 	private func setupPrimaryButton() {
-		primaryButton.setTitle("Primary Button", for: .normal)
+		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
+		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.primaryFooterButton
 	}
 
 	private func setupSecondaryButton() {
-		secondaryButton.setTitle("Secondary Button", for: .normal)
+		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.secondaryFooterButton

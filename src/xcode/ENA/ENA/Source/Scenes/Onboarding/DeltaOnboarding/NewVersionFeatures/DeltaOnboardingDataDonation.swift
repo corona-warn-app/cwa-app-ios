@@ -41,10 +41,11 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: dataDonationViewController)
 		deltaOnboardingNavigationController.navigationBar.prefersLargeTitles = true
 
+		/*
 		dataDonationViewController.finished = {
 			deltaOnboardingNavigationController.finished?()
 		}
-
+*/
 		navigationController = deltaOnboardingNavigationController
 		return deltaOnboardingNavigationController
 	}

@@ -132,6 +132,8 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func gotoNextScreen() {
+		gotoDataDonationScreen()
+		/*
 		guard let nextPageType = pageType.next() else {
 			gotoDataDonationScreen()
 			return
@@ -144,6 +146,7 @@ final class OnboardingInfoViewController: UIViewController {
 			supportedCountries: supportedCountries
 		)
 		navigationController?.pushViewController(next, animated: true)
+*/
 	}
 	
 	private func gotoDataDonationScreen() {
@@ -152,7 +155,7 @@ final class OnboardingInfoViewController: UIViewController {
 			preconditionFailure("missing json file")
 		}
 
-		let viewModel = DefaultDataDonationViewModel(
+		let dataDonationViewModel = DefaultDataDonationViewModel(
 			store: store,
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
@@ -169,13 +172,35 @@ final class OnboardingInfoViewController: UIViewController {
 			)
 		)
 
-		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
+		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
 
-		dataDonationViewController.finished = { [weak self] in
-			self?.finishOnBoarding()
-		}
-				
-		navigationController?.pushViewController(dataDonationViewController, animated: true)
+//		dataDonationViewController.finished = { [weak self] in
+//			self?.finishOnBoarding()
+//		}
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
+			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isPrimaryButtonHidden: false,
+			isSecondaryButtonHidden: false
+		)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: dataDonationViewController,
+			bottomController: FooterViewController(
+				footerViewModel,
+				didTapPrimaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: true)
+					self?.finishOnBoarding()
+				},
+				didTapSecondaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: true)
+					self?.finishOnBoarding()
+				}),
+			bottomHeight: 150.0)
+		navigationController?.pushViewController(containerViewController, animated: true)
 	}
 
 	private func loadCountryList() {

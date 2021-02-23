@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, ENANavigationControllerWithFooterChild, DismissHandling {
+class DataDonationViewController: DynamicTableViewController, DismissHandling {
 	
 	// MARK: - Init
 	init(
@@ -25,51 +25,28 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		if let footerNavigationController = navigationController as? ENANavigationControllerWithFooter {
+			footerNavigationController.setFooterViewHidden(false, animated: false)
+		}
+		title = AppStrings.DataDonation.Info.title
+		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if let footerNavigationController = navigationController as? ENANavigationControllerWithFooter {
+			footerNavigationController.setFooterViewHidden(false, animated: false)
+		}
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.save(consentGiven: true)
-		finished?()
-	}
-	
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		viewModel.save(consentGiven: false)
-		finished?()
 	}
 
 	// MARK: - Internal
-
-	/// Is called when when the one of the ENANavigationControllerWithFooter buttons is tapped.
-	var finished: (() -> Void)?
 
 	// MARK: - Private
 
 	private let viewModel: DataDonationViewModelProtocol
 	private var subscriptions: [AnyCancellable] = []
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.DataDonation.Info.buttonOK
-		item.isPrimaryButtonEnabled = true
-
-		item.secondaryButtonTitle = AppStrings.DataDonation.Info.buttonNOK
-		item.secondaryButtonHasBackground = true
-		item.isSecondaryButtonHidden = false
-		item.isSecondaryButtonEnabled = true
-		
-		item.title = AppStrings.DataDonation.Info.title
-
-		return item
-	}()
 
 	private func setupTableView() {
 		view.backgroundColor = .enaColor(for: .background)

@@ -26,9 +26,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.title1(
-							text: AppStrings.DataDonation.Info.title,
-							accessibilityIdentifier: AppStrings.DataDonation.Info.title),
 						.headline(text: AppStrings.DataDonation.Info.introductionText)
 					]
 				)
