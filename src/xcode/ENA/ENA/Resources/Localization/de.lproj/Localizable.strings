@@ -417,7 +417,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie Corona-positiv getestet werden";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Falls  Sie ein positives Testergebnis erhalten, teilen Sie es bitte über die App mit. Freiwillig und sicher. Für die Gesundheit aller.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Falls Sie ein positives Testergebnis erhalten, teilen Sie es bitte über die App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufalls-IDs Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
