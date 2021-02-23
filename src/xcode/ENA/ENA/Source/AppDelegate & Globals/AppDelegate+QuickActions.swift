@@ -23,9 +23,14 @@ extension AppDelegate {
 		if let shortcutItem = launchOptions?[UIApplication.LaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
 
 			// We have to wait for the exposure manager to activate in `AppDelegate.showHome()`.
-			// Instead of blocking the thread we'll delay the handling for the shortcut item
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-				self.handleShortcutItem(shortcutItem)
+			// Instead of blocking the thread (or refactoring the whole app-bootstrapping) we'll delay the handling for the shortcut item.
+			DispatchQueue.global().async {
+				while self.coordinator.tabBarController == nil {
+					usleep(100_000) // 0.1s
+				}
+				DispatchQueue.main.sync {
+					self.handleShortcutItem(shortcutItem)
+				}
 			}
 
 			// prevents triggering `application(_:performActionFor:completionHandler:)`
