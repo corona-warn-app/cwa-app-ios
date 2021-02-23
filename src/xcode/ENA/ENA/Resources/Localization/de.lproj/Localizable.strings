@@ -644,7 +644,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Weiter";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
