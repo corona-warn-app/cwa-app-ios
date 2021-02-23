@@ -19,6 +19,7 @@ struct DiaryDayEntryCellModel {
 
 		image = entry.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
 		text = entry.name
+		font = entry.isSelected ? .enaFont(for: .headline) : .enaFont(for: .body)
 
 		entryType = entry.type
 		parametersHidden = !entry.isSelected
@@ -43,6 +44,7 @@ struct DiaryDayEntryCellModel {
 
 	let image: UIImage?
 	let text: String
+	let font: UIFont
 
 	let entryType: DiaryEntryType
 	let parametersHidden: Bool

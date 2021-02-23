@@ -17,6 +17,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
+		label.font = cellModel.font
 
 		addParameterViews()
 
