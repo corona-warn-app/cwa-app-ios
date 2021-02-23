@@ -101,7 +101,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n"))
 	}
 	
-	func testGIVEN_HighEncounterDayWithEntries_WHEN_zero_minimumDistinctEncountersWithHighRisk_entries_multiple() {
+	func testGIVEN_HighEncounterDayWithEntries_WHEN_zero_minimumDistinctEncountersWithHighRisk_THEN_TextLowRiskEncounters() {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
@@ -119,7 +119,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n"))
 	}
 	
-	func testGIVEN_HighEncounterDayWithEntries_WHEN_zero_minimumDistinctEncountersWithHighRisk_entries_none() {
+	func testGIVEN_HighEncounterDayWithoutEntries_WHEN_zero_minimumDistinctEncountersWithHighRisk_THEN_TextLowRiskEncounters() {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
@@ -132,5 +132,38 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(detail, AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause)
+	}
+	
+	func testGIVEN_HighEncounterDayWithEntries_WHEN_one_minimumDistinctEncountersWithHighRisk_THEN_TextStandard() {
+		// GIVEN
+		let diaryDay = DiaryDay(
+			dateString: "2021-01-14",
+			entries: [
+				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
+				.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
+			]
+		)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 1)
+
+		// WHEN
+		let detail = cellViewModel.exposureHistoryDetail
+
+		// THEN
+		XCTAssertEqual(detail, [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n"))
+	}
+	
+	func testGIVEN_HighEncounterDayWithoutEntries_WHEN_multiple_minimumDistinctEncountersWithHighRisk_THEN_TextStandard() {
+		// GIVEN
+		let diaryDay = DiaryDay(
+			dateString: "2021-01-14",
+			entries: []
+		)
+		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 2)
+
+		// WHEN
+		let detail = cellViewModel.exposureHistoryDetail
+
+		// THEN
+		XCTAssertEqual(detail, AppStrings.ContactDiary.Overview.riskTextStandardCause)
 	}
 }
