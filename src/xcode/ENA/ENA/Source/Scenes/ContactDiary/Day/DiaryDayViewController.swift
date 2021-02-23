@@ -34,6 +34,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
+		tableView.keyboardDismissMode = .interactive
+
 		setupSegmentedControl()
 		setupTableView()
 
