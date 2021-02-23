@@ -89,7 +89,6 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		for feature in newVersionFeatures {
 			
-			
 			if feature.internalId != nil && feature.internalId == "114-screenshots" {
 				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
 				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))

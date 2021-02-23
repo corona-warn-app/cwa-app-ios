@@ -5,7 +5,7 @@
 import Foundation
 
 /// The `NewVersionFeature` struct keeps information about the new feature (`title`) and a detailed `description`.
-/// In addition, there might be the need to identify a new feature for puprose. Therefor you can use the `internalId` a desired identifierer.
+/// In addition, there might be the need to identify a new feature for puprose. Therefor you can use the `internalId` as an identifier.
 struct NewVersionFeature {
 	
 	// MARK: - Init
