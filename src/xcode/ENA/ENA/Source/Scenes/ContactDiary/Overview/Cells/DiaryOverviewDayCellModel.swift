@@ -86,7 +86,6 @@ final class DiaryOverviewDayCellModel {
 			case .high:
 				return computeExposureHistoryDetail()
 			}
-
 		case .none:
 			return nil
 		}

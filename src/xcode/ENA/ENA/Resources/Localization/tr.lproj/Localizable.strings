@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir. \nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz. \nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli maruz kalmalar";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Enfeksiyon riskiniz neden düşük?";

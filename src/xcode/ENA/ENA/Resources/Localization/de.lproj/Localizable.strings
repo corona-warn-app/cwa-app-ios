@@ -125,13 +125,11 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt am %@ mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
 "ExposureDetection_Explanation_Text_High" = "Ihr Infektionsrisiko wird daher als erhöht eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
-
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Weitere Informationen finden Sie in den FAQ.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Begegnung mit niedrigem Risiko";
 
@@ -399,9 +397,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -427,9 +425,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Onboarding EU Keys */
 
@@ -1364,9 +1362,9 @@ sein.";
 
 "NewVersionFeature_114_more_details_risk_status_description" = "Wenn Ihnen in der App ein erhöhtes Risiko angezeigt wird, können Sie nun sehen, ob der Risikostatus aufgrund einer bzw. mehrerer Begegnungen mit erhöhtem Risiko angezeigt wird, oder aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
 
-"NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App auf www.corona-warn-app.de";
+"NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App";
 
-"NewVersionFeature_114_screenshots_description" = "Auf www.corona-warn-app.de stehen nun alle Screenshots der App zu Verfügung. So können sich nun auch über geplante Funktionen der App informieren.";
+"NewVersionFeature_114_screenshots_description" = "Auf https://www.coronawarn.app stehen nun alle Screenshots der App zu Verfügung. So können sich nun auch über geplante Funktionen der App informieren.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

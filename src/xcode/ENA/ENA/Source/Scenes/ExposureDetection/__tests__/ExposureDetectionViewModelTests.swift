@@ -904,20 +904,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Explanation section
 		section = dynamicTableViewModel.section(5)
-		XCTAssertEqual(section.cells.count, hasAtLeastOneDayWithLowRiskLevel ? 3 : 2)
+		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 
-		if hasAtLeastOneDayWithLowRiskLevel {
-			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "linkCell")
-
-			switch section.cells[2].action {
-			case .open(url: let url):
-				XCTAssertEqual(AppStrings.ExposureDetection.explanationFAQLink, url?.absoluteString)
-			default:
-				XCTFail("FAQ Link cell not found")
-			}
-		}
 	}
 
 	private func checkHighRiskConfiguration(
