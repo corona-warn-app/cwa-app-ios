@@ -32,12 +32,7 @@ extension DynamicAction {
 
 	static func push(model: DynamicTableViewModel, separators: Bool = false, withTitle title: String, completion: (() -> Void)? = nil) -> Self {
 		.execute { viewController, _ in
-			let detailViewController: AppInformationDetailViewController
-			if title != AppStrings.AppInformation.privacyTitle {
-				detailViewController = AppInformationDetailViewController()
-			} else {
-				detailViewController = DataPrivacyViewControllerDisablingSwipeToDismiss()
-			}
+			let detailViewController = AppInformationDetailViewController()
 
 			detailViewController.dismissHandling = completion
 			detailViewController.title = title
@@ -53,6 +48,21 @@ extension DynamicAction {
 		}
 	}
 
+	static func push(htmlModel: HtmlInfoModel, withTitle title: String, completion: (() -> Void)? = nil) -> Self {
+		.execute { viewController, _ in
+			let htmlViewController: HTMLViewController
+
+			if title != AppStrings.AppInformation.privacyTitle {
+				htmlViewController = HTMLViewController(model: htmlModel)
+			} else {
+				htmlViewController = DataPrivacyViewControllerDisablingSwipeToDismiss(model: htmlModel)
+			}
+			htmlViewController.dismissHandeling = completion
+			htmlViewController.title = title
+			
+			viewController.navigationController?.pushViewController(htmlViewController, animated: true)
+		}
+	}
 	static func push(viewController toViewController: UIViewController) -> Self {
 		.execute { viewController, _ in
 			viewController.navigationController?.pushViewController(toViewController, animated: true)
