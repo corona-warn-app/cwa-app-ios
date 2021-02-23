@@ -82,6 +82,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		let button = UIButton(type: .infoLight)
 		button.tintColor = .enaColor(for: .tint)
 		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+		button.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return button
 	}()
