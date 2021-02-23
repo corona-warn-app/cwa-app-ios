@@ -578,17 +578,17 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertButtonClose,
-				style: .cancel,
-				handler: { [weak self] _ in
-					self?.dismiss()
-				}
+				style: .cancel
 			)
 		)
 
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertButtonContinue,
-				style: .default
+				style: .default,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
 			)
 		)
 
