@@ -35,6 +35,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
 		tableView.keyboardDismissMode = .interactive
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+		view.addGestureRecognizer(tapGestureRecognizer)
 
 		setupSegmentedControl()
 		setupTableView()
@@ -193,6 +195,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		default:
 			viewModel.selectedEntryType = .location
 		}
+	}
+
+	@objc
+	private func viewTapped() {
+		view.endEditing(true)
 	}
 
 }
