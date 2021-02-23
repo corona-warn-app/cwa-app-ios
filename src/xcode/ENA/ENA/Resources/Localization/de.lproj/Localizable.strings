@@ -634,7 +634,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\n Sie sind dabei den Vorgang abzubrechen. Sie haben Ihre Mitmenschen noch nicht gewarnt. Bitte schützen Sie Ihre Mitmenschen und schließen Sie den Vorgang ab.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\nIhr Testergebnis liegt vor. Sie sind dabei abzubrechen. Bitte informieren Sie sich über das Ergebis und warnen Sie ggf. Ihre Mitmenschen.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
 
