@@ -3,6 +3,16 @@
     {
       "filename" : "DividerLeft.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DividerLeft Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

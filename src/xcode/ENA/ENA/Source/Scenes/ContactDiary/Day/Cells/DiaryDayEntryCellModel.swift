@@ -19,6 +19,7 @@ struct DiaryDayEntryCellModel {
 
 		image = entry.isSelected ? UIImage(named: "Diary_Checkmark_Selected") : UIImage(named: "Diary_Checkmark_Unselected")
 		text = entry.name
+		font = entry.isSelected ? .enaFont(for: .headline) : .enaFont(for: .body)
 
 		entryType = entry.type
 		parametersHidden = !entry.isSelected
@@ -32,27 +33,90 @@ struct DiaryDayEntryCellModel {
 
 	// MARK: - Internal
 
+	struct SegmentedControlValue<T> {
+		let title: String
+		let value: T
+	}
+
 	let entry: DiaryEntry
 	let store: DiaryStoringProviding
 	let dateString: String
 
 	let image: UIImage?
 	let text: String
+	let font: UIFont
 
 	let entryType: DiaryEntryType
 	let parametersHidden: Bool
 
 	let accessibilityTraits: UIAccessibilityTraits
 
-	lazy var locationVisitDuration: Int = {
+	var locationVisitDuration: Int {
 		guard case .location(let location) = entry, let visit = location.visit else {
 			return 0
 		}
 		return visit.durationInMinutes
-	}()
+	}
+
+	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, value: .lessThan15Minutes),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes, value: .moreThan15Minutes)
+	]
+
+	var selectedDurationSegmentIndex: Int {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			return -1
+		}
+
+		return durationValues.firstIndex { $0.value == encounter.duration } ?? -1
+	}
+
+	let maskSituationValues: [SegmentedControlValue<ContactPersonEncounter.MaskSituation>] = [
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.withMask, value: .withMask),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.withoutMask, value: .withoutMask)
+	]
+
+	var selectedMaskSituationSegmentIndex: Int {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			return -1
+		}
+
+		return maskSituationValues.firstIndex { $0.value == encounter.maskSituation } ?? -1
+	}
+
+	let settingValues: [SegmentedControlValue<ContactPersonEncounter.Setting>] = [
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.outside, value: .outside),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.inside, value: .inside)
+	]
+
+	var selectedSettingSegmentIndex: Int {
+		guard case .contactPerson(let contactPerson) = entry, let encounter = contactPerson.encounter else {
+			return -1
+		}
+
+		return settingValues.firstIndex { $0.value == encounter.setting } ?? -1
+	}
+
+	var circumstances: String {
+		switch entry {
+		case .contactPerson(let contactPerson):
+			return contactPerson.encounter?.circumstances ?? ""
+		case .location(let location):
+			return location.visit?.circumstances ?? ""
+		}
+	}
 
 	func toggleSelection() {
 		entry.isSelected ? deselect() : select()
+	}
+
+	func updateCircumstances(_ circumstances: String) {
+		switch entryType {
+		case .contactPerson:
+			updateContactPersonEncounter(circumstances: circumstances)
+		case .location:
+			updateLocationVisit(circumstances: circumstances)
+		}
 	}
 
 	func updateContactPersonEncounter(

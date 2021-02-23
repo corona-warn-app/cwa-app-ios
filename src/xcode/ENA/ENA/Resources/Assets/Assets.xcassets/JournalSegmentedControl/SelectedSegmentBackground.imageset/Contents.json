@@ -3,6 +3,16 @@
     {
       "filename" : "SelectedSegmentBackground.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "SelectedSegmentBackground Dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

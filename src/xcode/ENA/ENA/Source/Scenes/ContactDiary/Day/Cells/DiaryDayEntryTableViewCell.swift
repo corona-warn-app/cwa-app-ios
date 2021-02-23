@@ -4,7 +4,17 @@
 
 import UIKit
 
-class DiaryDayEntryTableViewCell: UITableViewCell {
+class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
+
+	// MARK: - Protocol UITextFieldDelegate
+
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		cellModel.updateCircumstances(textField.text ?? "")
+	}
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		endEditing(true)
+	}
 
 	// MARK: - Internal
 
@@ -17,10 +27,16 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
+		label.font = cellModel.font
 
-		addParameterViews(for: cellModel.entryType)
+		addParameterViews()
 
 		parametersContainerStackView.isHidden = cellModel.parametersHidden
+
+		durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
+		maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
+		settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
+		notesTextField.text = cellModel.circumstances
 
 		accessibilityTraits = cellModel.accessibilityTraits
 
@@ -41,25 +57,22 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	@IBOutlet private weak var parametersStackView: UIStackView!
 
 	lazy var durationSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl()
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, at: 0, animated: false)
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, at: 1, animated: false)
+		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
+		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
 
 		return segmentedControl
 	}()
 
 	lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl()
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.withMask, at: 0, animated: false)
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.withoutMask, at: 1, animated: false)
+		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
+		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
 
 		return segmentedControl
 	}()
 
 	lazy var settingSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl()
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.outside, at: 0, animated: false)
-		segmentedControl.insertSegment(withTitle: AppStrings.ContactDiary.Day.Encounter.inside, at: 1, animated: false)
+		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
+		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
 
 		return segmentedControl
 	}()
@@ -70,6 +83,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.returnKeyType = .done
+		textField.delegate = self
 
 		textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0).isActive = true
 
@@ -80,6 +94,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		let button = UIButton(type: .infoLight)
 		button.tintColor = .enaColor(for: .tint)
 		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+		button.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		return button
 	}()
@@ -134,14 +149,53 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 	}
 
 	@objc
+	private func durationValueChanged(sender: UISegmentedControl) {
+		let duration: ContactPersonEncounter.Duration
+
+		if sender.selectedSegmentIndex == -1 {
+			duration = .none
+		} else {
+			duration = cellModel.durationValues[sender.selectedSegmentIndex].value
+		}
+
+		cellModel.updateContactPersonEncounter(duration: duration)
+	}
+
+	@objc
+	private func maskSituationValueChanged(sender: UISegmentedControl) {
+		let maskSituation: ContactPersonEncounter.MaskSituation
+
+		if sender.selectedSegmentIndex == -1 {
+			maskSituation = .none
+		} else {
+			maskSituation = cellModel.maskSituationValues[sender.selectedSegmentIndex].value
+		}
+
+		cellModel.updateContactPersonEncounter(maskSituation: maskSituation)
+	}
+
+	@objc
+	private func settingValueChanged(sender: UISegmentedControl) {
+		let setting: ContactPersonEncounter.Setting
+
+		if sender.selectedSegmentIndex == -1 {
+			setting = .none
+		} else {
+			setting = cellModel.settingValues[sender.selectedSegmentIndex].value
+		}
+
+		cellModel.updateContactPersonEncounter(setting: setting)
+	}
+
+	@objc
 	private func infoButtonTapped() {
 		onInfoButtonTap()
 	}
 
-	private func addParameterViews(for entryType: DiaryEntryType) {
+	private func addParameterViews() {
 		parametersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-		switch entryType {
+		switch cellModel.entryType {
 		case .contactPerson:
 			parametersStackView.addArrangedSubview(durationSegmentedControl)
 			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)

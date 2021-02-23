@@ -135,7 +135,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let cellViewModel = DiaryOverviewDayCellModel(DiaryDay(dateString: "", entries: []), historyExposure: .encounter(.low))
 		let detailText = cellViewModel.entryDetailTextFor(personEncounter: personEncounter)
 
-		XCTAssertEqual(detailText, "\(AppStrings.ContactDiary.PersonEncounter.durationMoreThan15Minutes), \(AppStrings.ContactDiary.PersonEncounter.maskSituationWithMask), \(AppStrings.ContactDiary.PersonEncounter.settingInside)")
+		XCTAssertEqual(detailText, "\(AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan15Minutes), \(AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithMask), \(AppStrings.ContactDiary.Overview.PersonEncounter.settingInside)")
 	}
 
 	func testGIVEN_LocationVisit_THEN_CorrectEntryDetailTextIsReturned() {
@@ -144,6 +144,6 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		let cellViewModel = DiaryOverviewDayCellModel(DiaryDay(dateString: "", entries: []), historyExposure: .encounter(.low))
 		let detailText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)
 
-		XCTAssertEqual(detailText, "03:42 \(AppStrings.ContactDiary.LocationVisit.abbreviationHours)")
+		XCTAssertEqual(detailText, "03:42 \(AppStrings.ContactDiary.Overview.LocationVisit.abbreviationHours)")
 	}
 }
