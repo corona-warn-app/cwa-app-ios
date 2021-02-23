@@ -48,37 +48,30 @@ enum Log {
 
 	#endif
 
-    static func debug(_ message: String, log: OSLog = .default) {
-        Self.log(message: message, type: .debug, log: log, error: nil)
+	static func debug(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
+        Self.log(message: message, type: .debug, log: log, error: nil, file: file, line: line, function: function)
     }
 
-    static func info(_ message: String, log: OSLog = .default) {
-        Self.log(message: message, type: .info, log: log, error: nil)
+    static func info(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
+        Self.log(message: message, type: .info, log: log, error: nil, file: file, line: line, function: function)
     }
 
-    static func warning(_ message: String, log: OSLog = .default) {
-        Self.log(message: message, type: .default, log: log, error: nil)
+    static func warning(_ message: String, log: OSLog = .default, file: String = #fileID, line: Int = #line, function: String = #function) {
+        Self.log(message: message, type: .default, log: log, error: nil, file: file, line: line, function: function)
     }
 
-    static func error(_ message: String, log: OSLog = .default, error: Error? = nil) {
-        Self.log(message: message, type: .error, log: log, error: error)
+    static func error(_ message: String, log: OSLog = .default, error: Error? = nil, file: String = #fileID, line: Int = #line, function: String = #function) {
+        Self.log(message: message, type: .error, log: log, error: error, file: file, line: line, function: function)
     }
 
-	private static func log(message: String, type: OSLogType, log: OSLog, error: Error?) {
+	private static func log(message: String, type: OSLogType, log: OSLog, error: Error?, file: String, line: Int, function: String) {
 		#if !RELEASE
-
-		os_log("%{private}@", log: log, type: type, message)
+		// Console logging
+		let meta: String = "[\(file):\(line)] [\(function)]"
+		os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
 
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
-
-		fileLogger.log(message, logType: type)
-
-		// Crashlytics
-		// ...
-
-		// Sentry
-		// ...
-
+		fileLogger.log(message, logType: type, file: file, line: line, function: function)
 		#endif
 	}
 }
@@ -122,23 +115,29 @@ struct FileLogger {
 
 	// MARK: - Internal
 
-	func log(_ logMessage: String, logType: OSLogType) {
-		let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(logMessage)\n\n"
+	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
+		var meta: String = ""
+		if let file = file, let line = line, let function = function {
+			meta = "[\(file):\(line)] [\(function)]\n"
+		}
+		let prefixedLogMessage = "\(logType.icon) \(logDateFormatter.string(from: Date()))\n\(meta)\(logMessage)\n\n"
 
 		guard let fileHandle = makeWriteFileHandle(with: logType),
 			  let logMessageData = prefixedLogMessage.data(using: encoding) else {
 			return
 		}
+		defer {
+			fileHandle.closeFile()
+		}
+
 		fileHandle.seekToEndOfFile()
 		fileHandle.write(logMessageData)
-		fileHandle.closeFile()
 
 		guard let allLogsFileHandle = makeWriteFileHandle(with: allLogsFileURL) else {
 			return
 		}
 		allLogsFileHandle.seekToEndOfFile()
 		allLogsFileHandle.write(logMessageData)
-		allLogsFileHandle.closeFile()
 	}
 
 	func read(logType: OSLogType) -> String {
