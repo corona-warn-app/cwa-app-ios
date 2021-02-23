@@ -523,8 +523,8 @@ extension RiskProvider {
 					someDaysAgo: .low
 				],
 				minimumDistinctEncountersWithHighRiskPerDate: [
-					today: 0,
-					someDaysAgo: 0
+					today: 1,
+					someDaysAgo: 1
 				]
 			)
 		default:
@@ -542,8 +542,8 @@ extension RiskProvider {
 					someDaysAgo: .low
 				],
 				minimumDistinctEncountersWithHighRiskPerDate: [
-					today: 0,
-					someDaysAgo: 0
+					today: 1,
+					someDaysAgo: 1
 				]
 			)
 		}
