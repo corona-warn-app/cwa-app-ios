@@ -12,6 +12,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		cellModel: DiaryDayEntryCellModel,
 		onInfoButtonTap: @escaping () -> Void
 	) {
+		self.cellModel = cellModel
+		self.onInfoButtonTap = onInfoButtonTap
+
 		checkboxImageView.image = cellModel.image
 		label.text = cellModel.text
 
@@ -20,9 +23,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		parametersContainerStackView.isHidden = cellModel.parametersHidden
 
 		accessibilityTraits = cellModel.accessibilityTraits
-
-		self.cellModel = cellModel
-		self.onInfoButtonTap = onInfoButtonTap
 
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerStackView.addGestureRecognizer(tapGestureRecognizer)
@@ -101,22 +101,32 @@ class DiaryDayEntryTableViewCell: UITableViewCell {
 		stackView.spacing = 8
 
 		let label = ENALabel()
+		label.style = .body
 		label.text = AppStrings.ContactDiary.Day.Visit.duration
 
 		let durationPicker = UIDatePicker()
+		durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		// German locale ensures 24h format.
+		durationPicker.locale = Locale(identifier: "de_DE")
 		durationPicker.datePickerMode = .time
 		durationPicker.minuteInterval = 15
+		durationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
 		if #available(iOS 14.0, *) {
 			durationPicker.preferredDatePickerStyle = .inline
-		} else {
-			// Fallback on earlier versions
 		}
+
+		durationPicker.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
 
 		stackView.addArrangedSubview(label)
 		stackView.addArrangedSubview(durationPicker)
 
 		return stackView
 	}()
+
+	@objc
+	private func didSelectDuration(datePicker: UIDatePicker) {
+		cellModel.updateLocationVisit(durationInMinutes: datePicker.date.todaysMinutes)
+	}
 
 	@objc
 	private func headerTapped() {

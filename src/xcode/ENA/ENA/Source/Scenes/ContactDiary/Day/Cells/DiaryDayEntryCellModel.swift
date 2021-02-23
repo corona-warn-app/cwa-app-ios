@@ -44,6 +44,13 @@ struct DiaryDayEntryCellModel {
 
 	let accessibilityTraits: UIAccessibilityTraits
 
+	lazy var locationVisitDuration: Int = {
+		guard case .location(let location) = entry, let visit = location.visit else {
+			return 0
+		}
+		return visit.durationInMinutes
+	}()
+
 	func toggleSelection() {
 		entry.isSelected ? deselect() : select()
 	}
