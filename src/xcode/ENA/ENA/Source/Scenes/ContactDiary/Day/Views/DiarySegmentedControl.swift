@@ -58,6 +58,12 @@ class DiarySegmentedControl: UISegmentedControl {
 	private func setUp() {
 		backgroundColor = .enaColor(for: .darkBackground)
 
+		layer.cornerRadius = 8
+		layer.masksToBounds = true
+
+		setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline, weight: .semibold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+
 		let selectedSegmentBackgroundImage = UIImage(named: "SelectedSegmentBackground")?
 			.resizableImage(withCapInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
 
