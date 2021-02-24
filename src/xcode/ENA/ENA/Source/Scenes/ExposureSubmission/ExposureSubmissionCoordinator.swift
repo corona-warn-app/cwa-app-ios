@@ -248,6 +248,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// store is only initialized when a positive test result is received
 		if testResult == .positive {
 			updateStoreWithKeySubmissionMetadataDefaultValues()
+			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult]))
 		}
 		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenTestResult)
 
