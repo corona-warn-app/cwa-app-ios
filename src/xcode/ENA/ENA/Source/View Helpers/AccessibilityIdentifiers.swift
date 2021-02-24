@@ -42,6 +42,10 @@ enum AccessibilityIdentifiers {
 		}
 	}
 
+	enum ContactDiary {
+		static let segmentedControl = "AppStrings.ContactDiary.Day"
+	}
+
 	enum ContactDiaryInformation {
 		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
 		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
