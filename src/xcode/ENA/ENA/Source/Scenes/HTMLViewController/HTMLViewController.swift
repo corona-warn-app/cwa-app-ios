@@ -4,7 +4,7 @@
 
 import UIKit
 
-class HTMLViewController: UIViewController {
+class HTMLViewController: UIViewController, DismissHandling {
 	
 	// MARK: - Init
 
@@ -30,22 +30,22 @@ class HTMLViewController: UIViewController {
 	// MARK: - Protocol DismissHandling
 	
 	func wasAttemptedToBeDismissed() {
-		guard let completion = dismissHandeling else {
-			dismiss(animated: true, completion: nil)
-			return
+		if isDismissable {
+			guard let completion = dismissHandeling else {
+				dismiss(animated: true, completion: nil)
+				return
+			}
+			completion()
 		}
-		completion()
 	}
 	
 	// MARK: - Internal
 
 	var dismissHandeling: (() -> Void)?
-
+	var isDismissable = true
 	// MARK: - Private
 
 	private func setup() {
-		navigationItem.title = AppStrings.AppInformation.privacyNavigation
-
 		imageView.image = infoModel.image
 		imageView.accessibilityLabel = infoModel.imageAccessabliltyLabel
 		imageView.accessibilityIdentifier = infoModel.imageAccessabliltyIdentfier

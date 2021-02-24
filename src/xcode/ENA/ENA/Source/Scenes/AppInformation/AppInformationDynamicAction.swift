@@ -50,16 +50,13 @@ extension DynamicAction {
 
 	static func push(htmlModel: HtmlInfoModel, withTitle title: String, completion: (() -> Void)? = nil) -> Self {
 		.execute { viewController, _ in
-			let htmlViewController: HTMLViewController
-
-			if title != AppStrings.AppInformation.privacyTitle {
-				htmlViewController = HTMLViewController(model: htmlModel)
-			} else {
-				htmlViewController = DataPrivacyViewControllerDisablingSwipeToDismiss(model: htmlModel)
-			}
+			let htmlViewController = HTMLViewController(model: htmlModel)
 			htmlViewController.dismissHandeling = completion
 			htmlViewController.title = title
 			
+			if title == AppStrings.AppInformation.privacyTitle {
+				htmlViewController.isDismissable = false
+			}
 			viewController.navigationController?.pushViewController(htmlViewController, animated: true)
 		}
 	}
