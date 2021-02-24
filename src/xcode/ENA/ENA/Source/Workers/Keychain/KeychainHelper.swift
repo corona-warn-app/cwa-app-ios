@@ -105,7 +105,7 @@ struct KeychainHelper {
 		}
 
 		let key = "x'\(Data(bytes).hexEncodedString())'"
-		try saveToKeychain(key: ContactDiaryStore.encriptionKeyKey, data: Data(key.utf8))
+		try saveToKeychain(key: ContactDiaryStore.encryptionKeyKey, data: Data(key.utf8))
 		return key
 	}
 }
