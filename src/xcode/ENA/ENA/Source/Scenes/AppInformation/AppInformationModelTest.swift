@@ -27,25 +27,4 @@ class AppInformationModelTest: XCTestCase {
 		
 		XCTAssertEqual(numberOfCells, 6)
 	}
-
-	func testPrivacyModel() {
-		let dynamicTable = AppInformationModel.privacyModel
-		XCTAssertEqual(dynamicTable.numberOfSection, 1)
-		
-		let section = AppInformationModel.privacyModel.section(0)
-		let numberOfCells = section.cells.count
-		
-		XCTAssertEqual(numberOfCells, 2)
-	}
-
-	func testTermsModel() {
-		let dynamicTable = AppInformationModel.termsModel
-		XCTAssertEqual(dynamicTable.numberOfSection, 1)
-		
-		let section = AppInformationModel.termsModel.section(0)
-		let numberOfCells = section.cells.count
-		
-		XCTAssertEqual(numberOfCells, 2)
-	}
-	
 }
