@@ -96,9 +96,9 @@ extension DMMenuItem {
 		case .deviceTimeCheck: return "Enable or Disable Device Time Check"
 		case .ppacService: return "Inspect and force updates to the PPAC Token"
 		case .otpService: return "Inspect the OTP Token"
-		case .ppaMostRecent: return "See the most recent analytics data"
-		case .ppaActual: return "See the current analytics data"
-		case .ppaSubmission: return "Force a submission of analytics data"
+		case .ppaMostRecent: return "See the last successful submitted ppa data"
+		case .ppaActual: return "See the current analytics data as they are if we submit now"
+		case .ppaSubmission: return "Analytics data submission settings"
 
 		}
 	}

@@ -108,6 +108,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
+		// Need to add this call here to make sure the dev menu can see the client metadata, too.
+		Analytics.log(.clientMetadata(.setClientMetaData))
 		return obtainUsageData()
 	}
 
