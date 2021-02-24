@@ -10,7 +10,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 	var riskProvider: RiskProvider
 	var pdService: PlausibleDeniability
-	var contactDiaryStore: ContactDiaryStore
+	var contactDiaryStore: DiaryStoring
 	var store: Store
 	var analyticsSubmitter: PPAnalyticsSubmitter
 	var dependencies: ExposureSubmissionServiceDependencies
@@ -20,7 +20,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	init(
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
-		contactDiaryStore: ContactDiaryStore,
+		contactDiaryStore: DiaryStoring,
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
 		analyticsSubmitter: PPAnalyticsSubmitter
