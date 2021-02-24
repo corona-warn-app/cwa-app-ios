@@ -60,7 +60,7 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 					dataDonationViewModel.save(consentGiven: false)
 					dataDonationViewController.finished?()
 				}),
-			bottomHeight: 150.0)
+			bottomHeight: 140.0)
 
 		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: containerViewController)
 		deltaOnboardingNavigationController.navigationBar.prefersLargeTitles = true
