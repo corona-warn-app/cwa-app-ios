@@ -208,7 +208,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 
 		// deselect Manu Mustermann - 1 because new persons get entered on top
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).tap()
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
