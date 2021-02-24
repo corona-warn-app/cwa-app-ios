@@ -10,9 +10,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Init
 
 	init(
-		viewModel: DiaryDayViewModel
+		viewModel: DiaryDayViewModel,
+		onInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.onInfoButtonTap = onInfoButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -31,6 +33,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		navigationItem.title = viewModel.day.formattedDate
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
+
+		tableView.keyboardDismissMode = .interactive
 
 		setupSegmentedControl()
 		setupTableView()
@@ -84,7 +88,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		case .add:
 			viewModel.didTapAddEntryCell()
 		case .entries:
-			viewModel.toggleSelection(at: indexPath)
+			break
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -93,6 +97,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Private
 
 	private let viewModel: DiaryDayViewModel
+	private let onInfoButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
@@ -104,7 +109,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
 
-		// required to make segement control look a bit like iOS 13
+		// required to make segmented control look a bit like iOS 13
 		if #available(iOS 13, *) {
 		} else {
 			Log.debug("setup segmented control for iOS 12", log: .ui)
@@ -124,8 +129,9 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			segmentedControl.layer.cornerRadius = 5.0
 			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
 		}
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
+
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 	}
 
 	private func setupTableView() {
@@ -163,8 +169,13 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
 		}
 
-		let cellModel = DiaryDayEntryCellModel(entry: viewModel.entriesOfSelectedType[indexPath.row])
-		cell.configure(cellModel: cellModel)
+		let cellModel = viewModel.entryCellModel(at: indexPath)
+		cell.configure(
+			cellModel: cellModel,
+			onInfoButtonTap: { [weak self] in
+				self?.onInfoButtonTap()
+			}
+		)
 
 		return cell
 	}

@@ -4,14 +4,22 @@
 
 import UIKit
 
-class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandling {
+class DiaryDayNotesInfoViewController: DynamicTableViewController {
 
 	// MARK: - Initializers
 	
-	init() {
+	init(
+		onDismiss: @escaping () -> Void
+	) {
 		self.viewModel = DiaryDayNotesInfoViewModel()
+
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem {
+			onDismiss()
+		}
+
+		navigationItem.title = AppStrings.ContactDiary.NotesInformation.title
 	}
 
 	@available(*, unavailable)
@@ -25,28 +33,6 @@ class DiaryDayNotesInfoViewController: DynamicTableViewController, DismissHandli
 		super.viewDidLoad()
 
 		setupTableView()
-	}
-
-	// MARK: - Overrides
-
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.NewVersionFeatures.buttonContinue
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-
-		return item
-	}()
-	
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		wasAttemptedToBeDismissed()
 	}
 
 	// MARK: - Private API

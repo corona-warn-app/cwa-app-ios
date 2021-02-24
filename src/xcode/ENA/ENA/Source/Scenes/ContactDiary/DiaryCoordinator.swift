@@ -145,7 +145,10 @@ class DiaryCoordinator {
 				onAddEntryCellTap: { [weak self] day, entryType in
 					self?.showAddAndEditEntryScreen(mode: .add(day, entryType))
 				}
-			)
+			),
+			onInfoButtonTap: { [weak self] in
+				self?.showDiaryDayNotesInfoScreen()
+			}
 		)
 
 		self.viewController.pushViewController(viewController, animated: true)
@@ -168,6 +171,21 @@ class DiaryCoordinator {
 		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
 		presentingViewController.present(navigationController, animated: true)
+	}
+
+	private func showDiaryDayNotesInfoScreen() {
+		var navigationController: UINavigationController!
+
+		let viewController = DiaryDayNotesInfoViewController(
+			onDismiss: {
+				navigationController.dismiss(animated: true)
+			}
+		)
+
+		navigationController = UINavigationController(rootViewController: viewController)
+		navigationController.navigationBar.prefersLargeTitles = true
+
+		self.viewController.present(navigationController, animated: true)
 	}
 
 	private func showEditEntriesScreen(entryType: DiaryEntryType) {
