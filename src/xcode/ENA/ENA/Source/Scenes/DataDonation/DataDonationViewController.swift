@@ -33,13 +33,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
 
-	func wasAttemptedToBeDismissed() {
-		Log.debug("called here")
-	}
-
 	var finished: (() -> Void)?
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
