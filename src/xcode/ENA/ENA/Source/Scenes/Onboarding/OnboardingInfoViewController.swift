@@ -174,10 +174,6 @@ final class OnboardingInfoViewController: UIViewController {
 
 		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
 
-//		dataDonationViewController.finished = { [weak self] in
-//			self?.finishOnBoarding()
-//		}
-
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
 			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK,

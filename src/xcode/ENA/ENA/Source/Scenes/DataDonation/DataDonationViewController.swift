@@ -5,9 +5,10 @@
 import UIKit
 import OpenCombine
 
-class DataDonationViewController: DynamicTableViewController, DismissHandling {
-	
+class DataDonationViewController: DynamicTableViewController, DeltaOnboardingViewControllerProtocol, DismissHandling {
+
 	// MARK: - Init
+
 	init(
 		viewModel: DataDonationViewModelProtocol
 	) {
@@ -25,21 +26,18 @@ class DataDonationViewController: DynamicTableViewController, DismissHandling {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		if let footerNavigationController = navigationController as? ENANavigationControllerWithFooter {
-			footerNavigationController.setFooterViewHidden(false, animated: false)
-		}
 		title = AppStrings.DataDonation.Info.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		if let footerNavigationController = navigationController as? ENANavigationControllerWithFooter {
-			footerNavigationController.setFooterViewHidden(false, animated: false)
-		}
+	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
 
+	func wasAttemptedToBeDismissed() {
+		Log.debug("called here")
 	}
+
+	var finished: (() -> Void)?
 
 	// MARK: - Internal
 

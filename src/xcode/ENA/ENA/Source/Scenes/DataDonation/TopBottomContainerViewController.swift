@@ -6,7 +6,7 @@ import UIKit
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling {
 
 	// MARK: - Init
 
@@ -67,6 +67,15 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		title = topViewController.title
+	}
+
+	// MARK: - Protocol DismissHandling
+
+	func wasAttemptedToBeDismissed() {
+		guard let dismissHandler = topViewController as? DismissHandling else {
+			return
+		}
+		dismissHandler.wasAttemptedToBeDismissed()
 	}
 
 	// MARK: - Public
