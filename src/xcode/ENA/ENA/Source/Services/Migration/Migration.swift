@@ -9,6 +9,10 @@ enum MigrationError: Error {
 	case general(description: String?)
 }
 
+protocol SerialMigratorProtocol {
+	func migrate() throws
+}
+
 protocol Migration {
 	var version: Int { get }
 	func execute() throws

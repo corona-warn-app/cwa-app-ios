@@ -2,6 +2,8 @@
 // 🦠 Corona-Warn-App
 //
 
+// CJE: Include in ENATests target
+
 import XCTest
 import FMDB
 import OpenCombine
@@ -16,7 +18,11 @@ class ContactDiaryStoreTests: XCTestCase {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		let result = store.addContactPerson(name: "Helge Schneider")
+		let result = store.addContactPerson(
+			name: "Helge Schneider",
+			phoneNumber: "123456",
+			emailAddress: "some@mail.de"
+		)
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -24,19 +30,27 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		guard case let .success(id) = result,
 			  let contactPersonResult = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
-			  let name = contactPersonResult.string(forColumn: "name") else {
+			  let name = contactPersonResult.string(forColumn: "name"),
+			  let phoneNumber = contactPersonResult.string(forColumn: "phoneNumber"),
+			  let emailAddress = contactPersonResult.string(forColumn: "emailAddress") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
 
 		XCTAssertEqual(name, "Helge Schneider")
+		XCTAssertEqual(phoneNumber, "123456")
+		XCTAssertEqual(emailAddress, "some@mail.de")
 	}
 
 	func test_When_addLocation_Then_LocationIsPersisted() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		let result = store.addLocation(name: "Hinterm Mond")
+		let result = store.addLocation(
+			name: "Hinterm Mond",
+			phoneNumber: "123456",
+			emailAddress: "some@mail.de"
+		)
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -44,12 +58,16 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		guard case let .success(id) = result,
 			  let location = fetchEntries(for: "Location", with: id, from: databaseQueue),
-			  let name = location.string(forColumn: "name") else {
+			  let name = location.string(forColumn: "name"),
+			  let phoneNumber = location.string(forColumn: "phoneNumber"),
+			  let emailAddress = location.string(forColumn: "emailAddress") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
 
 		XCTAssertEqual(name, "Hinterm Mond")
+		XCTAssertEqual(phoneNumber, "123456")
+		XCTAssertEqual(emailAddress, "some@mail.de")
 	}
 	
 	func test_When_addZeroPrefixedLocation_Then_LocationIsPersistedCorrectly() {
@@ -105,7 +123,14 @@ class ContactDiaryStoreTests: XCTestCase {
 			return
 		}
 
-		let result = store.addContactPersonEncounter(contactPersonId: contactPersonId, date: "2020-12-10")
+		let result = store.addContactPersonEncounter(
+			contactPersonId: contactPersonId,
+			date: "2020-12-10",
+			duration: .lessThan15Minutes,
+			maskSituation: .withMask,
+			setting: .outside,
+			circumstances: "Some circumstances."
+		)
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -113,15 +138,81 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		guard case let .success(id) = result,
 			  let contactPersonEncounter = fetchEntries(for: "ContactPersonEncounter", with: id, from: databaseQueue),
-			  let date = contactPersonEncounter.string(forColumn: "date") else {
+			  let date = contactPersonEncounter.string(forColumn: "date"),
+			  let circumstances = contactPersonEncounter.string(forColumn: "circumstances")
+			  else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
+
+		let duration = Int(contactPersonEncounter.int(forColumn: "duration"))
+		let maskSituation = Int(contactPersonEncounter.int(forColumn: "maskSituation"))
+		let setting = Int(contactPersonEncounter.int(forColumn: "setting"))
 
 		let fetchedContactPersonId = Int(contactPersonEncounter.int(forColumn: "contactPersonId"))
 
 		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedContactPersonId, contactPersonId)
+		XCTAssertEqual(circumstances, "Some circumstances.")
+		XCTAssertEqual(duration, ContactPersonEncounter.Duration.lessThan15Minutes.rawValue)
+		XCTAssertEqual(maskSituation, ContactPersonEncounter.MaskSituation.withMask.rawValue)
+		XCTAssertEqual(setting, ContactPersonEncounter.Setting.outside.rawValue)
+	}
+
+	func test_When_updateContactPersonEncounter_Then_ContactPersonEncounterIsUpdated() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let addPersonResult = store.addContactPerson(name: "Helge Schneider")
+
+		guard case let .success(contactPersonId) = addPersonResult else {
+			XCTFail("Failed to add ContactPerson")
+			return
+		}
+
+		let result = store.addContactPersonEncounter(
+			contactPersonId: contactPersonId,
+			date: "2020-12-10",
+			duration: .lessThan15Minutes,
+			maskSituation: .withMask,
+			setting: .outside,
+			circumstances: "Some circumstances."
+		)
+
+		guard case let .success(personEncounterId) = result else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		store.updateContactPersonEncounter(
+			id: personEncounterId,
+			date: "2020-12-11",
+			duration: .moreThan15Minutes,
+			maskSituation: .withoutMask,
+			setting: .inside,
+			circumstances: "Some other circumstances."
+		)
+
+		guard let contactPersonEncounter = fetchEntries(for: "ContactPersonEncounter", with: personEncounterId, from: databaseQueue),
+			  let date = contactPersonEncounter.string(forColumn: "date"),
+			  let circumstances = contactPersonEncounter.string(forColumn: "circumstances")
+			  else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		let duration = Int(contactPersonEncounter.int(forColumn: "duration"))
+		let maskSituation = Int(contactPersonEncounter.int(forColumn: "maskSituation"))
+		let setting = Int(contactPersonEncounter.int(forColumn: "setting"))
+
+		let fetchedContactPersonId = Int(contactPersonEncounter.int(forColumn: "contactPersonId"))
+
+		XCTAssertEqual(date, "2020-12-11")
+		XCTAssertEqual(fetchedContactPersonId, contactPersonId)
+		XCTAssertEqual(circumstances, "Some other circumstances.")
+		XCTAssertEqual(duration, ContactPersonEncounter.Duration.moreThan15Minutes.rawValue)
+		XCTAssertEqual(maskSituation, ContactPersonEncounter.MaskSituation.withoutMask.rawValue)
+		XCTAssertEqual(setting, ContactPersonEncounter.Setting.inside.rawValue)
 	}
 
 	func test_When_addLocationVisit_Then_LocationVisitIsPersisted() {
@@ -135,7 +226,12 @@ class ContactDiaryStoreTests: XCTestCase {
 			return
 		}
 
-		let result = store.addLocationVisit(locationId: locationId, date: "2020-12-10")
+		let result = store.addLocationVisit(
+			locationId: locationId,
+			date: "2020-12-10",
+			durationInMinutes: 42,
+			circumstances: "Some circumstances."
+		)
 
 		if case let .failure(error) = result {
 			XCTFail("Error not expected: \(error)")
@@ -143,29 +239,92 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		guard case let .success(id) = result,
 			  let locationVisit = fetchEntries(for: "LocationVisit", with: id, from: databaseQueue),
-			  let date = locationVisit.string(forColumn: "date") else {
+			  let date = locationVisit.string(forColumn: "date"),
+			  let circumstances = locationVisit.string(forColumn: "circumstances")
+		else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
+
+		let durationInMinutes = Int(locationVisit.int(forColumn: "durationInMinutes"))
 
 		let fetchedLocationId = Int(locationVisit.int(forColumn: "locationId"))
 
 		XCTAssertEqual(date, "2020-12-10")
 		XCTAssertEqual(fetchedLocationId, locationId)
+		XCTAssertEqual(circumstances, "Some circumstances.")
+		XCTAssertEqual(durationInMinutes, 42)
+	}
+
+	func test_When_updateLocationVisit_Then_LocationVisitIsUpdated() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeContactDiaryStore(with: databaseQueue)
+
+		let addLocationResult = store.addLocation(name: "Nirgendwo")
+
+		guard case let .success(locationId) = addLocationResult else {
+			XCTFail("Failed to add Location")
+			return
+		}
+
+		let result = store.addLocationVisit(
+			locationId: locationId,
+			date: "2020-12-10",
+			durationInMinutes: 42,
+			circumstances: "Some circumstances."
+		)
+
+		guard case let .success(locationVisitId) = result else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		store.updateLocationVisit(
+			id: locationVisitId,
+			date: "2020-12-11",
+			durationInMinutes: 24,
+			circumstances: "Some other circumstances."
+		)
+
+		guard let locationVisit = fetchEntries(for: "LocationVisit", with: locationVisitId, from: databaseQueue),
+			  let date = locationVisit.string(forColumn: "date"),
+			  let circumstances = locationVisit.string(forColumn: "circumstances")
+		else {
+			XCTFail("Failed to fetch ContactPerson")
+			return
+		}
+
+		let durationInMinutes = Int(locationVisit.int(forColumn: "durationInMinutes"))
+
+		let fetchedLocationId = Int(locationVisit.int(forColumn: "locationId"))
+
+		XCTAssertEqual(date, "2020-12-11")
+		XCTAssertEqual(fetchedLocationId, locationId)
+		XCTAssertEqual(circumstances, "Some other circumstances.")
+		XCTAssertEqual(durationInMinutes, 24)
 	}
 
 	func test_When_updateContactPerson_Then_ContactPersonIsUpdated() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		let result = store.addContactPerson(name: "Helge Schneider")
+		let result = store.addContactPerson(
+			name: "Helge Schneider",
+			phoneNumber: "123456",
+			emailAddress: "some@mail.de"
+		)
 
 		guard case let .success(id) = result else {
 			XCTFail("Failed to add ContactPerson")
 			return
 		}
 
-		let updateResult = store.updateContactPerson(id: id, name: "Updated Name")
+		let updateResult = store.updateContactPerson(
+			id: id,
+			name: "Updated Name",
+			phoneNumber: "45678",
+			emailAddress: "other@mail.de"
+		)
 
 		guard case .success = updateResult else {
 			XCTFail("Failed to update ContactPerson")
@@ -173,26 +332,39 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		guard let contactPerson = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
-			  let name = contactPerson.string(forColumn: "name") else {
+			  let name = contactPerson.string(forColumn: "name"),
+			  let phoneNumber = contactPerson.string(forColumn: "phoneNumber"),
+			  let emailAddress = contactPerson.string(forColumn: "emailAddress") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
 
 		XCTAssertEqual(name, "Updated Name")
+		XCTAssertEqual(phoneNumber, "45678")
+		XCTAssertEqual(emailAddress, "other@mail.de")
 	}
 
 	func test_When_updateLocation_Then_LocationIsUpdated() {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
-		let result = store.addLocation(name: "Woanders")
+		let result = store.addLocation(
+			name: "Woanders",
+			phoneNumber: "123456",
+			emailAddress: "some@mail.de"
+		)
 
 		guard case let .success(id) = result else {
 			XCTFail("Failed to add Location")
 			return
 		}
 
-		let updateResult = store.updateLocation(id: id, name: "Updated Name")
+		let updateResult = store.updateLocation(
+			id: id,
+			name: "Updated Name",
+			phoneNumber: "45678",
+			emailAddress: "other@mail.de"
+		)
 
 		guard case .success = updateResult else {
 			XCTFail("Failed to update Location")
@@ -200,12 +372,16 @@ class ContactDiaryStoreTests: XCTestCase {
 		}
 
 		guard let location = fetchEntries(for: "Location", with: id, from: databaseQueue),
-			  let name = location.string(forColumn: "name") else {
+			  let name = location.string(forColumn: "name"),
+			  let phoneNumber = location.string(forColumn: "phoneNumber"),
+			  let emailAddress = location.string(forColumn: "emailAddress") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
 
 		XCTAssertEqual(name, "Updated Name")
+		XCTAssertEqual(phoneNumber, "45678")
+		XCTAssertEqual(emailAddress, "other@mail.de")
 	}
 
 	func test_When_removeContactPerson_Then_ContactPersonAndEncountersAreDeleted() {
@@ -557,7 +733,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		XCTAssertEqual(name, expectedName)
 
-		let updateResult = store.updateContactPerson(id: personId, name: stringWith251Chars)
+		let updateResult = store.updateContactPerson(id: personId, name: stringWith251Chars, phoneNumber: "", emailAddress: "")
 
 		guard case .success = updateResult,
 			  let contactPersonUpdated = fetchEntries(for: "ContactPerson", with: personId, from: databaseQueue),
@@ -585,7 +761,7 @@ class ContactDiaryStoreTests: XCTestCase {
 
 		XCTAssertEqual(name, expectedName)
 
-		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars)
+		let updateResult = store.updateLocation(id: locationId, name: stringWith251Chars, phoneNumber: "", emailAddress: "")
 
 		guard case .success = updateResult,
 			  let locationUpdated = fetchEntries(for: "Location", with: locationId, from: databaseQueue),
@@ -614,18 +790,32 @@ class ContactDiaryStoreTests: XCTestCase {
 			fatalError("Could not create test dates.")
 		}
 
-		let adamSandaleId = addContactPerson(name: "Adam Sandale", to: store)
+		let adamSandaleId = addContactPerson(name: "Adam Sandale", phoneNumber: "123456", eMail: "some@mail.de", to: store)
 		let emmaHicksId = addContactPerson(name: "Emma Hicks", to: store)
 
-		let amsterdamLocationId = addLocation(name: "Amsterdam", to: store)
+		let amsterdamLocationId = addLocation(name: "Amsterdam", phoneNumber: "12345678", eMail: "mail@amster.dam", to: store)
 		let berlinId = addLocation(name: "Berlin", to: store)
 
 		addLocationVisit(locationId: amsterdamLocationId, date: today, store: store)
 		addLocationVisit(locationId: berlinId, date: today, store: store)
 		addPersonEncounter(personId: emmaHicksId, date: today, store: store)
-		addPersonEncounter(personId: adamSandaleId, date: today, store: store)
+		addPersonEncounter(
+			personId: adamSandaleId,
+			date: today,
+			duration: .lessThan15Minutes,
+			maskSituation: .withMask,
+			setting: .inside,
+			circumstances: "Some circumstances.",
+			store: store
+		)
 
-		addLocationVisit(locationId: amsterdamLocationId, date: tenDaysAgo, store: store)
+		addLocationVisit(
+			locationId: amsterdamLocationId,
+			date: tenDaysAgo,
+			durationInMinutes: 62,
+			circumstances: "Some circumstances",
+			store: store
+		)
 		addPersonEncounter(personId: emmaHicksId, date: tenDaysAgo, store: store)
 
 		addLocationVisit(locationId: amsterdamLocationId, date: daysVisibleAgo, store: store)
@@ -643,17 +833,16 @@ class ContactDiaryStoreTests: XCTestCase {
 			Kontakte der letzten \(daysVisible) Tage (01.12.2020 - 15.12.2020)
 			Die nachfolgende Liste dient dem zuständigen Gesundheitsamt zur Kontaktnachverfolgung gem. § 25 IfSG.
 
-			15.12.2020 Adam Sandale
+			15.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de; Kontaktdauer < 15 Minuten; mit Maske; im Gebäude; Some circumstances.
 			15.12.2020 Emma Hicks
-			15.12.2020 Amsterdam
+			15.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			15.12.2020 Berlin
 			05.12.2020 Emma Hicks
-			05.12.2020 Amsterdam
-			01.12.2020 Adam Sandale
+			05.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam; Dauer 01:02 h; Some circumstances
+			01.12.2020 Adam Sandale; Tel. 123456; eMail some@mail.de
 			01.12.2020 Emma Hicks
-			01.12.2020 Amsterdam
+			01.12.2020 Amsterdam; Tel. 12345678; eMail mail@amster.dam
 			01.12.2020 Berlin
-
 			"""
 
 		XCTAssertEqual(exportString, expectedString)
@@ -703,8 +892,9 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertNotNil(fetchEntries(for: "ContactPersonEncounter", with: locationId, from: databaseQueue))
 	}
 
-	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() {
-		let store = ContactDiaryStore.make()
+	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() throws {
+		let tempDatabaseURL = try makeTempDatabaseURL()
+		let store = ContactDiaryStore.make(url: tempDatabaseURL)
 		_ = store.addContactPerson(name: "Some Name")
 		let daysVisible = store.userVisiblePeriodInDays
 
@@ -712,92 +902,61 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(numberOfEntries, daysVisible)
 		store.close()
 
-		let fileManager = FileManager.default
-		guard let storeURL = try? fileManager
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("ContactDiary")
-				.appendingPathComponent("ContactDiary")
-				.appendingPathExtension("sqlite") else {
-			fatalError("Could not create folder.")
-		}
-
 		do {
 			let corruptingString = "I will corrupt the database"
-			try corruptingString.write(to: storeURL, atomically: true, encoding: String.Encoding.utf8)
+			try corruptingString.write(to: tempDatabaseURL, atomically: true, encoding: String.Encoding.utf8)
 		} catch {
 			XCTFail("Error is not expected: \(error)")
 		}
 
-		let storeAfterRescue = ContactDiaryStore.make()
+		let storeAfterRescue = ContactDiaryStore.make(url: tempDatabaseURL)
 		_ = storeAfterRescue.addContactPerson(name: "Some Name")
 		let numberOfEntriesAfterRescue = storeAfterRescue.diaryDaysPublisher.value.reduce(0) { $0 + $1.entries.count }
 		XCTAssertEqual(numberOfEntriesAfterRescue, daysVisible)
 	}
 
-	func test_when_newDatabaseVersionExist_then_migrationIsExcuted() {
+	func test_when_DatabaseUserVersionIs0_then_SchemaCreateIsCalled_and_MigrateIsNOTCalled() {
 		let databaseQueue = makeDatabaseQueue()
-		let store = makeContactDiaryV1Store(with: databaseQueue)
-		
-		let oldName = "007"
-		let oldLocation = "00005"
-		let expectedFetchedOldName = "7"
-		let expectedFetchedOldLocation = "5"
+		let schemaSpy = ContactDiarySchemaSpy(databaseQueue: databaseQueue)
+		let migratorSpy = MigratorSpy(queue: databaseQueue, latestVersion: 0, migrations: [])
 
-		let nameResult = store.addContactPerson(name: oldName)
-		let locationResult = store.addLocation(name: oldLocation)
-		
-		if case let .failure(error) = nameResult {
-			XCTFail("Error not expected: \(error)")
-		}
-		
-		// initializing newest version store will trigger the migration then we check the database if the name is migrated
-		 let newStore = makeContactDiaryStore(with: databaseQueue)
+		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaSpy, migrator: migratorSpy)
 
-		guard case let .success(id) = nameResult,
-			  let contactPersonResult = fetchEntries(for: "ContactPerson", with: id, from: databaseQueue),
-			  let name = contactPersonResult.string(forColumn: "name") else {
-			XCTFail("Failed to fetch ContactPerson")
-			return
-		}
-		guard case let .success(locationID) = locationResult,
-			  let location = fetchEntries(for: "Location", with: locationID, from: databaseQueue),
-			  let locationName = location.string(forColumn: "name") else {
-			XCTFail("Failed to fetch ContactPerson")
-			return
-		}
-		
-		// result saved in V1 without prefix zeros
-		XCTAssertEqual(name, expectedFetchedOldName)
-		XCTAssertEqual(locationName, expectedFetchedOldLocation)
-
-		
-		// now that the new store has the old data, lets test if prefix zeros are saved correctly
-
-		let expectedFetchedNewName = "00008"
-		let expectedFetchedNewLocation = "00000"
-		
-		let newNameResult = newStore.addContactPerson(name: expectedFetchedNewName)
-		let newLocationResult = newStore.addLocation(name: expectedFetchedNewLocation)
-		
-		guard case let .success(newNameId) = newNameResult,
-			  let newContactPersonResult = fetchEntries(for: "ContactPerson", with: newNameId, from: databaseQueue),
-			  let newName = newContactPersonResult.string(forColumn: "name") else {
-			XCTFail("Failed to fetch ContactPerson")
-			return
-		}
-		guard case let .success(newLocationID) = newLocationResult,
-			  let newLocation = fetchEntries(for: "Location", with: newLocationID, from: databaseQueue),
-			  let newLocationName = newLocation.string(forColumn: "name") else {
-			XCTFail("Failed to fetch ContactPerson")
-			return
-		}
-
-		// result saved in V2 with prefix zeros
-		XCTAssertEqual(expectedFetchedNewName, newName)
-		XCTAssertEqual(expectedFetchedNewLocation, newLocationName)
-
+		XCTAssertTrue(schemaSpy.createWasCalled)
+		XCTAssertFalse(migratorSpy.migrateWasCalled)
 	}
-	
+
+	func test_when_DatabaseUserVersionIsNot0_then_MigrationIsCalled_and_SchemaCreateIsNOTCalled() throws {
+
+		let tempDatabaseURL = try makeTempDatabaseURL()
+
+		guard let databaseQueue = FMDatabaseQueue(path: tempDatabaseURL.path) else {
+			XCTFail("Could not create FMDatabaseQueue.")
+			return
+		}
+
+		// Create database with schemaV3. This will set userVersion to 3.
+		let schemaV3 = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
+		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaV3)
+
+		let schemaSpy = ContactDiarySchemaSpy(databaseQueue: databaseQueue)
+		let migratorSpy = MigratorSpy(
+			queue: databaseQueue,
+			latestVersion: 4,
+			migrations: [FakeMigration()]
+		)
+
+		// Close and create database again.
+		// This time, migrator should be called, because a schema was allready created before and userVersion is >0.
+
+		databaseQueue.close()
+
+		_ = makeContactDiaryStore(with: databaseQueue, schema: schemaSpy, migrator: migratorSpy)
+
+		XCTAssertFalse(schemaSpy.createWasCalled)
+		XCTAssertTrue(migratorSpy.migrateWasCalled)
+	}
+
 	private func checkLocationEntry(entry: DiaryEntry, name: String, id: Int, isSelected: Bool) {
 		guard case .location(let location) = entry else {
 			fatalError("Not expected")
@@ -846,8 +1005,13 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addContactPerson(name: String, to store: ContactDiaryStore) -> Int {
-		let addContactPersonResult = store.addContactPerson(name: name)
+	private func addContactPerson(
+		name: String,
+		phoneNumber: String = "",
+		eMail: String = "",
+		to store: ContactDiaryStore
+	) -> Int {
+		let addContactPersonResult = store.addContactPerson(name: name, phoneNumber: phoneNumber, emailAddress: eMail)
 		guard case let .success(contactPersonId) = addContactPersonResult else {
 			fatalError("Failed to add ContactPerson")
 		}
@@ -855,8 +1019,13 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addLocation(name: String, to store: ContactDiaryStore) -> Int {
-		let addLocationResult = store.addLocation(name: name)
+	private func addLocation(
+		name: String,
+		phoneNumber: String = "",
+		eMail: String = "",
+		to store: ContactDiaryStore
+	) -> Int {
+		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail)
 		guard case let .success(locationId) = addLocationResult else {
 			fatalError("Failed to add Location")
 		}
@@ -864,9 +1033,20 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addLocationVisit(locationId: Int, date: Date, store: ContactDiaryStore) -> Int {
+	private func addLocationVisit(
+		locationId: Int,
+		date: Date,
+		durationInMinutes: Int = 0,
+		circumstances: String = "",
+		store: ContactDiaryStore
+	) -> Int {
 		let dateString = dateFormatter.string(from: date)
-		let addLocationVisitResult = store.addLocationVisit(locationId: locationId, date: dateString)
+		let addLocationVisitResult = store.addLocationVisit(
+			locationId: locationId,
+			date: dateString,
+			durationInMinutes: durationInMinutes,
+			circumstances: circumstances
+		)
 		guard case let .success(locationVisitId) = addLocationVisitResult else {
 			fatalError("Failed to add LocationVisit")
 		}
@@ -874,9 +1054,25 @@ class ContactDiaryStoreTests: XCTestCase {
 	}
 
 	@discardableResult
-	private func addPersonEncounter(personId: Int, date: Date, store: ContactDiaryStore) -> Int {
+	private func addPersonEncounter(
+		personId: Int,
+		date: Date,
+		duration: ContactPersonEncounter.Duration = .none,
+		maskSituation: ContactPersonEncounter.MaskSituation = .none,
+		setting: ContactPersonEncounter.Setting = .none,
+		circumstances: String = "",
+		store: ContactDiaryStore
+	) -> Int {
+
 		let dateString = dateFormatter.string(from: date)
-		let addEncounterResult = store.addContactPersonEncounter(contactPersonId: personId, date: dateString)
+		let addEncounterResult = store.addContactPersonEncounter(
+			contactPersonId: personId,
+			date: dateString,
+			duration: duration,
+			maskSituation: maskSituation,
+			setting: setting,
+			circumstances: circumstances
+		)
 		guard case let .success(encounterId) = addEncounterResult else {
 			fatalError("Failed to add ContactPersonEncounter")
 		}
@@ -890,41 +1086,57 @@ class ContactDiaryStoreTests: XCTestCase {
 		return databaseQueue
 	}
 
-	private func makeContactDiaryStore(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
-		let schema = ContactDiaryStoreSchemaV2(databaseQueue: databaseQueue)
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
-		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 2, migrations: migrations)
+	private func makeContactDiaryStore(
+		with databaseQueue: FMDatabaseQueue,
+		dateProvider: DateProviding = DateProvider(),
+		schema: ContactDiarySchemaProtocol? = nil,
+		migrator: SerialMigratorProtocol? = nil
+	) -> ContactDiaryStore {
+
+		let _schema: ContactDiarySchemaProtocol
+		if let schema = schema {
+			_schema = schema
+		} else {
+			_schema = ContactDiaryStoreSchemaV3(databaseQueue: databaseQueue)
+		}
+
+		let _migrator: SerialMigratorProtocol
+		if let migrator = migrator {
+			_migrator = migrator
+		} else {
+			_migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 3, migrations: [])
+		}
 
 		guard let store = ContactDiaryStore(
 			databaseQueue: databaseQueue,
-			schema: schema,
+			schema: _schema,
 			key: "Dummy",
 			dateProvider: dateProvider,
-			migrator: migrator
+			migrator: _migrator
 		) else {
 			fatalError("Could not create content diary store.")
 		}
 
 		return store
 	}
-	
-	private func makeContactDiaryV1Store(with databaseQueue: FMDatabaseQueue, dateProvider: DateProviding = DateProvider()) -> ContactDiaryStore {
-		let schema = ContactDiaryStoreSchemaV1(databaseQueue: databaseQueue)
-		let migrations: [Migration] = [ContactDiaryMigration1To2(databaseQueue: databaseQueue)]
-		let migrator = SerialDatabaseQueueMigrator(queue: databaseQueue, latestVersion: 1, migrations: migrations)
 
-		guard let store = ContactDiaryStore(
-			databaseQueue: databaseQueue,
-			schema: schema,
-			key: "Dummy",
-			dateProvider: dateProvider,
-			migrator: migrator
-		) else {
-			fatalError("Could not create content diary store.")
-		}
+	private func makeTempDatabaseURL() throws -> URL {
+		let databaseBaseURL = FileManager.default.temporaryDirectory
+			.appendingPathComponent("ContactDiaryStoreTests")
 
-		return store
+		try FileManager.default.createDirectory(
+			at: databaseBaseURL,
+			withIntermediateDirectories: true,
+			attributes: nil
+		)
+
+		let databaseURL = databaseBaseURL
+			.appendingPathComponent(UUID().uuidString)
+			.appendingPathExtension("sqlite")
+
+		return databaseURL
 	}
+
 	private var dateFormatter: ISO8601DateFormatter = {
 		let dateFormatter = ISO8601DateFormatter()
 		dateFormatter.formatOptions = [.withFullDate]
@@ -935,6 +1147,31 @@ class ContactDiaryStoreTests: XCTestCase {
 
 struct DateProviderStub: DateProviding {
 	var today: Date
+
+}
+
+private class FakeMigration: Migration {
+	var version = 4
+	func execute() throws { }
+}
+
+private class MigratorSpy: SerialDatabaseQueueMigrator {
+	var migrateWasCalled = false
+
+	override func migrate() throws {
+		try super.migrate()
+		migrateWasCalled = true
+	}
+}
+
+private class ContactDiarySchemaSpy: ContactDiaryStoreSchemaV3 {
+	var createWasCalled = false
+
+	override func create() -> Result<Void, SQLiteErrorCode> {
+		super.create()
+		createWasCalled = true
+		return .success(())
+	}
 
 	// swiftlint:disable:next file_length
 }
