@@ -18,7 +18,7 @@ class DiaryDayNotesInfoViewModelTest: XCTestCase {
 
 		let section = vc.dynamicTableViewModel.section(0)
 		let cells = section.cells
-		XCTAssertEqual(cells.count, 2)
+		XCTAssertEqual(cells.count, 1)
 		
 		let firstItem = cells[0]
 		let id = firstItem.cellReuseIdentifier
