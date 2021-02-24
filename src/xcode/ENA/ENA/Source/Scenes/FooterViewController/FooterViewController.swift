@@ -50,12 +50,6 @@ class FooterViewController: UIViewController {
 		])
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: FooterViewModel
