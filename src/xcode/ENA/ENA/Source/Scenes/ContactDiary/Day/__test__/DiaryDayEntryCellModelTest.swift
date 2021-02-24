@@ -19,6 +19,11 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
 		XCTAssertEqual(viewModel.text, "Nick Guendling")
+		XCTAssertEqual(viewModel.font, .enaFont(for: .body))
+
+		XCTAssertEqual(viewModel.entryType, .contactPerson)
+		XCTAssertTrue(viewModel.parametersHidden)
+
 		XCTAssertEqual(viewModel.accessibilityTraits, .button)
 	}
 
@@ -38,6 +43,11 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Selected"))
 		XCTAssertEqual(viewModel.text, "Marcus Scherer")
+		XCTAssertEqual(viewModel.font, .enaFont(for: .headline))
+
+		XCTAssertEqual(viewModel.entryType, .contactPerson)
+		XCTAssertFalse(viewModel.parametersHidden)
+
 		XCTAssertEqual(viewModel.accessibilityTraits, [.button, .selected])
 	}
 
@@ -52,6 +62,11 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
 		XCTAssertEqual(viewModel.text, "Bakery")
+		XCTAssertEqual(viewModel.font, .enaFont(for: .body))
+
+		XCTAssertEqual(viewModel.entryType, .location)
+		XCTAssertTrue(viewModel.parametersHidden)
+
 		XCTAssertEqual(viewModel.accessibilityTraits, .button)
 	}
 
@@ -71,6 +86,11 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Selected"))
 		XCTAssertEqual(viewModel.text, "Supermarket")
+		XCTAssertEqual(viewModel.font, .enaFont(for: .headline))
+
+		XCTAssertEqual(viewModel.entryType, .location)
+		XCTAssertFalse(viewModel.parametersHidden)
+
 		XCTAssertEqual(viewModel.accessibilityTraits, [.button, .selected])
 	}
 	
