@@ -6,6 +6,16 @@ import UIKit
 
 class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
+	// MARK: - Overrides
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
+		headerStackView.addGestureRecognizer(tapGestureRecognizer)
+		headerStackView.isUserInteractionEnabled = true
+	}
+
 	// MARK: - Protocol UITextFieldDelegate
 
 	func textFieldDidEndEditing(_ textField: UITextField) {
@@ -40,10 +50,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		notesTextField.text = cellModel.circumstances
 
 		accessibilityTraits = cellModel.accessibilityTraits
-
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
-		headerStackView.addGestureRecognizer(tapGestureRecognizer)
-		headerStackView.isUserInteractionEnabled = true
 	}
 
 	// MARK: - Private
