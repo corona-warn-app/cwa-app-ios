@@ -90,7 +90,7 @@ struct DeltaOnboardingV15ViewModel {
 						.headline(
 							text: AppStrings.DeltaOnboarding.termsButtonTitle,
 							style: .label,
-							action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
+							action: .push(htmlModel: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation),
 							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default

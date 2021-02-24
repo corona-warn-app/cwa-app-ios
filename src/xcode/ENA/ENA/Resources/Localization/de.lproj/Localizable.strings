@@ -1885,3 +1885,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Contact_Journal_Notes_Description_Title" = "Notiz";
 
 "Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Tagebuch Eintrag für heute hinzufügen";

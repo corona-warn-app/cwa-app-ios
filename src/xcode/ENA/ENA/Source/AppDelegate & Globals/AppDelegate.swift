@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	}
 
 	deinit {
+		// We are (intentionally) keeping strong references for delegates. Let's clean them ups.
 		self.taskExecutionDelegate = nil
 	}
 
@@ -56,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func application(
 		_: UIApplication,
-		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
+		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
 
 
@@ -72,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		setupUI()
+		setupQuickActions()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
@@ -91,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-		return true
+		return handleQuickActions(with: launchOptions)
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
@@ -542,6 +544,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
+		updateQuickActions()
 	}
 
 	@objc
@@ -574,6 +577,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
+
+	/// Is the app able to function with the current iOS version?
+	///
+	/// Due to the backport of the Exposure Notification Framework to iOS 12.5 the app has a certain range of iOS versions that aren't supported.
+	///
+	/// - Returns: Returns `true` if the app is in the *disabled* state and requires the user to upgrade the os.
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
 		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
