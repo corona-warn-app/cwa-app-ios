@@ -63,28 +63,28 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	@IBOutlet private weak var parametersContainerStackView: UIStackView!
 	@IBOutlet private weak var parametersStackView: UIStackView!
 
-	lazy var durationSegmentedControl: DiarySegmentedControl = {
+	private lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
 
 		return segmentedControl
 	}()
 
-	lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
+	private lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
 
 		return segmentedControl
 	}()
 
-	lazy var settingSegmentedControl: DiarySegmentedControl = {
+	private lazy var settingSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
 
 		return segmentedControl
 	}()
 
-	lazy var notesTextField: DiaryEntryTextField = {
+	private lazy var notesTextField: DiaryEntryTextField = {
 		let textField = DiaryEntryTextField(frame: .zero)
 		textField.backgroundColor = .enaColor(for: .darkBackground)
 		textField.clearButtonMode = .whileEditing
@@ -98,7 +98,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return textField
 	}()
 
-	lazy var notesInfoButton: UIButton = {
+	private lazy var notesInfoButton: UIButton = {
 		let button = UIButton(type: .infoLight)
 		button.tintColor = .enaColor(for: .tint)
 		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
@@ -107,7 +107,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return button
 	}()
 
-	lazy var notesStackView: UIStackView = {
+	private lazy var notesStackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .horizontal
 		stackView.spacing = 8
@@ -118,7 +118,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return stackView
 	}()
 
-	lazy var visitDurationPicker: UIDatePicker = {
+	private lazy var visitDurationPicker: UIDatePicker = {
 		let durationPicker = UIDatePicker()
 		durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
 		// German locale ensures 24h format.
@@ -136,7 +136,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return durationPicker
 	}()
 
-	lazy var visitDurationStackView: UIStackView = {
+	private lazy var visitDurationStackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .horizontal
 		stackView.spacing = 8
