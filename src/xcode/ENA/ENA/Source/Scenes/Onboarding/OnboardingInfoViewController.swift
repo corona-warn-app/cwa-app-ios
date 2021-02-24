@@ -7,7 +7,7 @@ import OpenCombine
 import UserNotifications
 import ExposureNotification
 
-
+// swiftlint:disable:next type_body_length
 final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -62,7 +62,6 @@ final class OnboardingInfoViewController: UIViewController {
 		scrollView.contentInset.bottom = footerView.frame.height - scrollView.safeAreaInsets.bottom
 		scrollView.verticalScrollIndicatorInsets.bottom = scrollView.contentInset.bottom
 	}
-	
 
 	// MARK: - Private
 	
@@ -90,7 +89,6 @@ final class OnboardingInfoViewController: UIViewController {
 	private var pageSetupDone = false
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
-
 	private var subscriptions = [AnyCancellable]()
 
 	@IBAction private func didTapNextButton(_: Any) {
@@ -124,7 +122,6 @@ final class OnboardingInfoViewController: UIViewController {
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
 
-
 	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
 		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
@@ -133,7 +130,6 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func gotoNextScreen() {
 		gotoDataDonationScreen()
-		/*
 		guard let nextPageType = pageType.next() else {
 			gotoDataDonationScreen()
 			return
@@ -146,11 +142,9 @@ final class OnboardingInfoViewController: UIViewController {
 			supportedCountries: supportedCountries
 		)
 		navigationController?.pushViewController(next, animated: true)
-*/
 	}
 	
 	private func gotoDataDonationScreen() {
-
 		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
 			preconditionFailure("missing json file")
 		}
@@ -173,14 +167,9 @@ final class OnboardingInfoViewController: UIViewController {
 		)
 
 		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
-
 		let footerViewModel = FooterViewModel(
 			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
-			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK,
-			isPrimaryButtonEnabled: true,
-			isSecondaryButtonEnabled: true,
-			isPrimaryButtonHidden: false,
-			isSecondaryButtonHidden: false
+			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
 		)
 
 		let containerViewController = TopBottomContainerViewController(
@@ -192,7 +181,7 @@ final class OnboardingInfoViewController: UIViewController {
 					self?.finishOnBoarding()
 				},
 				didTapSecondaryButton: { [weak self] in
-					dataDonationViewModel.save(consentGiven: true)
+					dataDonationViewModel.save(consentGiven: false)
 					self?.finishOnBoarding()
 				}),
 			bottomHeight: 150.0)

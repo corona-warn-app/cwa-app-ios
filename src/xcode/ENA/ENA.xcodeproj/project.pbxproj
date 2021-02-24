@@ -3012,6 +3012,8 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				BA63815925E69D1E00A642BB /* FooterViewController */,
+				BA63815825E69D1000A642BB /* Containers */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
@@ -4000,9 +4002,6 @@
 		BA0073BB25D189E50036DFDD /* DataDonation */ = {
 			isa = PBXGroup;
 			children = (
-				BA941DCD25E5450D003F9653 /* TopBottomContainerViewController.swift */,
-				BAEB173F25E561120012FEF9 /* FooterViewController.swift */,
-				BAEB174425E567830012FEF9 /* FooterViewModel.swift */,
 				BA7D17CC25D59465006B9EBF /* Model */,
 				BA0073BD25D18A5B0036DFDD /* DataDonationViewController.swift */,
 				BA7D17CB25D59440006B9EBF /* DataDonationViewModels */,
@@ -4061,6 +4060,23 @@
 				BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */,
 			);
 			path = DMPPACService;
+			sourceTree = "<group>";
+		};
+		BA63815825E69D1000A642BB /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				BA941DCD25E5450D003F9653 /* TopBottomContainerViewController.swift */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
+		BA63815925E69D1E00A642BB /* FooterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BAEB173F25E561120012FEF9 /* FooterViewController.swift */,
+				BAEB174425E567830012FEF9 /* FooterViewModel.swift */,
+			);
+			path = FooterViewController;
 			sourceTree = "<group>";
 		};
 		BA69A7D625CD782900023265 /* SelectValueViewController */ = {

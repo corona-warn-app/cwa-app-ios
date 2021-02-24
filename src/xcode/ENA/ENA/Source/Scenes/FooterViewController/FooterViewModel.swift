@@ -10,10 +10,10 @@ final class FooterViewModel {
 	init(
 		primaryButtonName: String,
 		secondaryButtonName: String,
-		isPrimaryButtonEnabled: Bool,
-		isSecondaryButtonEnabled: Bool,
-		isPrimaryButtonHidden: Bool,
-		isSecondaryButtonHidden: Bool
+		isPrimaryButtonEnabled: Bool = true,
+		isSecondaryButtonEnabled: Bool = true,
+		isPrimaryButtonHidden: Bool = false,
+		isSecondaryButtonHidden: Bool = false
 	) {
 		self.primaryButtonName = primaryButtonName
 		self.secondaryButtonName = secondaryButtonName
@@ -22,12 +22,6 @@ final class FooterViewModel {
 		self.isPrimaryButtonHidden = isPrimaryButtonHidden
 		self.isSecondaryButtonHidden = isSecondaryButtonHidden
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
