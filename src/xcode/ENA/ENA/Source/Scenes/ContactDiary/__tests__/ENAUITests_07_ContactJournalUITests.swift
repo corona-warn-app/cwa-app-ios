@@ -424,8 +424,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	private func search(_ identifier: String, element: XCUIElement) -> XCUIElement? {
 		var allElementsFound = false
 		var lastLoopSeenElements: [String] = []
+		var retryCount = 0
 
-		while !allElementsFound {
+		while !allElementsFound, retryCount < 10 /* max retries is arbitrary but required to prevent infinite loops */ {
 			/** search for a possible button */
 			guard !element.buttons[identifier].exists else {
 				return element.buttons[identifier]
@@ -441,6 +442,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 			lastLoopSeenElements = allElements
 
 			app.swipeUp()
+			retryCount += 1
 		}
 		return nil
 	}
