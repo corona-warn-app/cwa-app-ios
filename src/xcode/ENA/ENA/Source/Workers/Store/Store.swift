@@ -38,6 +38,9 @@ protocol StoreProtocol: AnyObject {
 	/// the user has received a test reult.
 	var testResultReceivedTimeStamp: Int64? { get set }
 
+	/// Date when the test was registered for both TAN and QR
+	var testRegistrationDate: Date? { get set }
+
 	/// Timestamp representing the last successful diagnosis keys submission.
 	/// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
@@ -59,6 +62,9 @@ protocol StoreProtocol: AnyObject {
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
 	var riskCalculationResult: RiskCalculationResult? { get set }
+
+	/// Date when the risk was changed to high
+	var dateOfConversionToHighRisk: Date? { get set }
 
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
@@ -157,6 +163,14 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
 	/// Analytics data.
 	var userMetadata: UserMetadata? { get set }
+    /// Analytics data.
+	var clientMetadata: ClientMetadata? { get set }
+	/// Analytics data
+	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
+	/// Analytics data.
+	var testResultMetadata: TestResultMetadata? { get set }
+	/// Analytics data.
+	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }
 
 /// Wrapper protocol

@@ -54,7 +54,6 @@ final class HomeShownPositiveTestResultTableViewCell: UITableViewCell {
 
 		UIView.performWithoutAnimation {
 			nextButton.setTitle(cellModel.buttonTitle, for: .normal)
-			nextButton.layoutIfNeeded()
 		}
 
 		// Configure risk stack view

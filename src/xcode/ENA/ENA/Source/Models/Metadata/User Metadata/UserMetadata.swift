@@ -5,17 +5,9 @@
 import Foundation
 
 struct UserMetadata: Codable {
-	var federalState: FederalStateName?
-	// reference districtID
-	var administrativeUnit: Int?
-	var ageGroup: AgeGroup?
 
-	enum CodingKeys: String, CodingKey {
-		case federalState
-		case administrativeUnit
-		case ageGroup
-	}
-
+	// MARK: - Init
+	
 	init(
 		federalState: FederalStateName?,
 		administrativeUnit: Int?,
@@ -33,4 +25,19 @@ struct UserMetadata: Codable {
 		administrativeUnit = try container.decodeIfPresent(Int.self, forKey: .administrativeUnit)
 		ageGroup = try container.decodeIfPresent(AgeGroup.self, forKey: .ageGroup)
 	}
+	
+	// MARK: - Protocol Codable
+	
+	enum CodingKeys: String, CodingKey {
+		case federalState
+		case administrativeUnit
+		case ageGroup
+	}
+	
+	// MARK: - Internal
+	
+	var federalState: FederalStateName?
+	// reference districtID
+	var administrativeUnit: Int?
+	var ageGroup: AgeGroup?
 }

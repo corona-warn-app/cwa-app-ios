@@ -10,14 +10,15 @@ protocol RiskCalculationProtocol {
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) throws -> RiskCalculationResult
-
+	
+	var mappedExposureWindows: [RiskCalculationExposureWindow] { get set }
 }
 
 final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 	// MARK: - Internal
 
-	private(set) var mappedExposureWindows: [RiskCalculationExposureWindow] = []
+	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var filteredExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var exposureWindowsPerDate: [Date: [RiskCalculationExposureWindow]] = [:]
 	private(set) var normalizedTimePerDate: [Date: Double] = [:]
@@ -125,7 +126,8 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 			numberOfDaysWithLowRisk: numberOfDaysWithLowRisk,
 			numberOfDaysWithHighRisk: numberOfDaysWithHighRisk,
 			calculationDate: calculationDate,
-			riskLevelPerDate: riskLevelPerDate
+			riskLevelPerDate: riskLevelPerDate,
+			minimumDistinctEncountersWithHighRiskPerDate: minimumDistinctEncountersWithHighRiskPerDate
 		)
 	}
 

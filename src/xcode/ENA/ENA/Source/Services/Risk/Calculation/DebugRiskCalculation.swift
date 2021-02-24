@@ -33,6 +33,10 @@ final class DebugRiskCalculation: RiskCalculationProtocol {
 		return riskCalculationResult
 	}
 
+	// MARK: - Internal
+
+	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
+	
 	// MARK: - Private
 
 	private let riskCalculation: RiskCalculation

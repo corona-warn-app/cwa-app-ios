@@ -92,7 +92,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithLowRisk: .low]
+			riskLevelPerDate: [mostRecentDateWithLowRisk: .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let homeState = HomeState(
@@ -217,7 +218,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 		
 		let homeState = HomeState(
@@ -275,7 +277,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(
@@ -374,7 +377,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(
@@ -640,7 +644,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low]
+			riskLevelPerDate: [Date(): .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let homeState = HomeState(
@@ -699,7 +704,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high]
+			riskLevelPerDate: [Date(): .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(
@@ -898,20 +904,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Explanation section
 		section = dynamicTableViewModel.section(5)
-		XCTAssertEqual(section.cells.count, hasAtLeastOneDayWithLowRiskLevel ? 3 : 2)
+		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 
-		if hasAtLeastOneDayWithLowRiskLevel {
-			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "linkCell")
-
-			switch section.cells[2].action {
-			case .open(url: let url):
-				XCTAssertEqual(AppStrings.ExposureDetection.explanationFAQLink, url?.absoluteString)
-			default:
-				XCTFail("FAQ Link cell not found")
-			}
-		}
 	}
 
 	private func checkHighRiskConfiguration(

@@ -311,7 +311,7 @@ final class RiskProvider: RiskProviding {
 
 		do {
 			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-
+			ExposureWindowsMetadataService().collectExposureWindows(from: riskCalculation, store: store)
 			let risk = Risk(
 				activeTracing: store.tracingStatusHistory.activeTracing(),
 				riskCalculationResult: riskCalculationResult,
@@ -351,6 +351,7 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
+				store.dateOfConversionToHighRisk = Date()
 			}
 		}
 	}
@@ -520,6 +521,10 @@ extension RiskProvider {
 				riskLevelPerDate: [
 					today: .high,
 					someDaysAgo: .low
+				],
+				minimumDistinctEncountersWithHighRiskPerDate: [
+					today: 1,
+					someDaysAgo: 1
 				]
 			)
 		default:
@@ -535,6 +540,10 @@ extension RiskProvider {
 				riskLevelPerDate: [
 					today: .low,
 					someDaysAgo: .low
+				],
+				minimumDistinctEncountersWithHighRiskPerDate: [
+					today: 1,
+					someDaysAgo: 1
 				]
 			)
 		}

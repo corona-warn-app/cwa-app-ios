@@ -11,10 +11,12 @@ final class DiaryOverviewDayCellModel {
 
 	init(
 		_ diaryDay: DiaryDay,
-		historyExposure: HistoryExposure
+		historyExposure: HistoryExposure,
+		minimumDistinctEncountersWithHighRisk: Int
 	) {
 		self.diaryDay = diaryDay
 		self.historyExposure = historyExposure
+		self.minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRisk
 	}
 
 	// MARK: - Public
@@ -99,11 +101,16 @@ final class DiaryOverviewDayCellModel {
 
 	var exposureHistoryDetail: String? {
 		switch historyExposure {
-		case .encounter:
-			return selectedEntries.isEmpty ?
-				AppStrings.ContactDiary.Overview.riskText1 :
-				[AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n")
-
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			case .high where minimumDistinctEncountersWithHighRisk > 0:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			// for other possible values of minimumDistinctEncountersWithHighRisk such as 0 and -1
+			case .high:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause : [AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			}
 		case .none:
 			return nil
 		}
@@ -120,6 +127,7 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Private
 
 	private let diaryDay: DiaryDay
+	private let minimumDistinctEncountersWithHighRisk: Int
 
 	private var dateComponentsFormatter: DateComponentsFormatter = {
 		let formatter = DateComponentsFormatter()
@@ -128,4 +136,5 @@ final class DiaryOverviewDayCellModel {
 		formatter.allowedUnits = [.hour, .minute]
 		return formatter
 	}()
+
 }

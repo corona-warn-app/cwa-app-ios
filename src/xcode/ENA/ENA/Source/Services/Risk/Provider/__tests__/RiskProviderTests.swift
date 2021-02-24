@@ -121,7 +121,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -635,7 +636,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -691,7 +693,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -769,7 +772,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -846,7 +850,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -924,7 +929,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -980,10 +986,33 @@ final class RiskProviderTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_WhenExposureWindowsRetievalIsSuccessful_TheyShouldBeAddedToTheMetadata() throws {
+		let store = MockTestStore()
+		XCTAssertNil(store.exposureWindowsMetadata, "The exposureWindowsMetadata should be initially nil")
+		
+		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .high, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { _ in
+			guard let newWindowsMetadata = store.exposureWindowsMetadata else {
+				XCTFail("Windows metadata should be initialized")
+				return
+			}
+			XCTAssertFalse(newWindowsMetadata.newExposureWindowsQueue.isEmpty, "newExposureWindowsQueue should be populated")
+			XCTAssertFalse(newWindowsMetadata.reportedExposureWindowsQueue.isEmpty, "reportedExposureWindowsQueue should be populated")
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+	}
 }
 
-private struct RiskCalculationFake: RiskCalculationProtocol {
-
+private class RiskCalculationFake: RiskCalculationProtocol {
+	
 	init(riskLevel: RiskLevel = .low) {
 		self.riskLevel = riskLevel
 	}
@@ -994,7 +1023,10 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) throws -> RiskCalculationResult {
-		RiskCalculationResult(
+		
+		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
+
+		return RiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -1003,10 +1035,12 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
-
+	
+	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 }
 
 final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
