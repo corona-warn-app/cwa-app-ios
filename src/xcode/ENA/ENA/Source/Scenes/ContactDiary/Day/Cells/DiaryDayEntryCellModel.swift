@@ -47,14 +47,6 @@ struct DiaryDayEntryCellModel {
 
 	let accessibilityTraits: UIAccessibilityTraits
 
-	var locationVisitDuration: Int {
-		guard case .location(let location) = entry, let visit = location.visit else {
-			return 0
-		}
-
-		return visit.durationInMinutes
-	}
-
 	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
 		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, value: .lessThan15Minutes),
 		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes, value: .moreThan15Minutes)
@@ -92,6 +84,14 @@ struct DiaryDayEntryCellModel {
 		}
 
 		return settingValues.firstIndex { $0.value == encounter.setting } ?? -1
+	}
+
+	var locationVisitDuration: Int {
+		guard case .location(let location) = entry, let visit = location.visit else {
+			return 0
+		}
+
+		return visit.durationInMinutes
 	}
 
 	var circumstances: String {
