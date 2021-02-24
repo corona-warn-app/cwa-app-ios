@@ -3,6 +3,8 @@ syntax = "proto3";
 package SAP.internal.ppdd;
 
 
+option java_outer_classname = "PPACIOSProto";
+
 message PPACIOS {
 
   string deviceToken = 1;

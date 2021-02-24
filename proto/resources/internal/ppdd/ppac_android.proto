@@ -3,6 +3,8 @@ syntax = "proto3";
 package SAP.internal.ppdd;
 
 
+option java_outer_classname = "PPACAndroidProto";
+
 message PPACAndroid {
   
   string safetyNetJws = 1;
