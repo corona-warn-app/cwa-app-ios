@@ -38,10 +38,6 @@ struct DiaryDayEntryCellModel {
 		let value: T
 	}
 
-	let entry: DiaryEntry
-	let store: DiaryStoringProviding
-	let dateString: String
-
 	let image: UIImage?
 	let text: String
 	let font: UIFont
@@ -193,6 +189,10 @@ struct DiaryDayEntryCellModel {
 	}
 
 	// MARK: - Private
+
+	private let entry: DiaryEntry
+	private let store: DiaryStoringProviding
+	private let dateString: String
 
 	private func select() {
 		switch entry {
