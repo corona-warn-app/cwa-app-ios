@@ -988,6 +988,21 @@ enum AppStrings {
 				static let editPersonTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditPersonTitle", comment: "")
 				static let editLocationTitle = NSLocalizedString("ContactDiary_Overview_ActionSheet_EditLocationTitle", comment: "")
 			}
+
+			enum PersonEncounter {
+				static let durationLessThan15Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes", comment: "")
+				static let durationMoreThan15Minutes = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes", comment: "")
+
+				static let maskSituationWithMask = NSLocalizedString("ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask", comment: "")
+				static let maskSituationWithoutMask = NSLocalizedString("ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask", comment: "")
+
+				static let settingOutside = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Setting_Outside", comment: "")
+				static let settingInside = NSLocalizedString("ContactDiary_Overview_PersonEncounter_Setting_Inside", comment: "")
+			}
+
+			enum LocationVisit {
+				static let abbreviationHours = NSLocalizedString("ContactDiary_Overview_LocationVisit_Abbreviation_Hours", comment: "")
+			}
 		}
 
 		enum Day {
@@ -1001,6 +1016,21 @@ enum AppStrings {
 			static let locationsEmptyTitle = NSLocalizedString("ContactDiary_Day_LocationsEmptyTitle", comment: "")
 			static let locationsEmptyDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyDescription", comment: "")
 			static let locationsEmptyImageDescription = NSLocalizedString("ContactDiary_Day_LocationsEmptyImageDescription", comment: "")
+
+			enum Encounter {
+				static let lessThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_LessThan15Minutes", comment: "")
+				static let moreThan15Minutes = NSLocalizedString("ContactDiary_Day_Encounter_MoreThan15Minutes", comment: "")
+				static let withMask = NSLocalizedString("ContactDiary_Day_Encounter_WithMask", comment: "")
+				static let withoutMask = NSLocalizedString("ContactDiary_Day_Encounter_WithoutMask", comment: "")
+				static let outside = NSLocalizedString("ContactDiary_Day_Encounter_Outside", comment: "")
+				static let inside = NSLocalizedString("ContactDiary_Day_Encounter_Inside", comment: "")
+				static let notesPlaceholder = NSLocalizedString("ContactDiary_Day_Encounter_Notes_Placeholder", comment: "")
+			}
+
+			enum Visit {
+				static let duration = NSLocalizedString("ContactDiary_Day_Visit_Duration", comment: "")
+				static let notesPlaceholder = NSLocalizedString("ContactDiary_Day_Visit_Notes_Placeholder", comment: "")
+			}
 		}
 
 		enum EditEntries {
@@ -1070,13 +1100,26 @@ enum AppStrings {
 
 			enum location {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_LocationTitle", comment: "")
-				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder", comment: "")
+				enum placeholders {
+					static let name = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_Name", comment: "")
+					static let phoneNumber = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber", comment: "")
+					static let email = NSLocalizedString("ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress", comment: "")
+				}
 			}
 
 			enum person {
 				static let title = NSLocalizedString("ContactDiary_AddEditEntry_PersonTitle", comment: "")
-				static let placeholder = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder", comment: "")
+				enum placeholders {
+					static let name = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_Name", comment: "")
+					static let phoneNumber = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber", comment: "")
+					static let email = NSLocalizedString("ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress", comment: "")
+				}
 			}
+		}
+		
+		enum NotesInformation {
+			static let title = NSLocalizedString("Contact_Journal_Notes_Description_Title", comment: "")
+			static let description = NSLocalizedString("Contact_Journal_Notes_Description", comment: "")
 		}
 	}
 

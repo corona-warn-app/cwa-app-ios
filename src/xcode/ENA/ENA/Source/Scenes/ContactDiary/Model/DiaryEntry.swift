@@ -29,6 +29,24 @@ enum DiaryEntry: Equatable {
 		}
 	}
 
+	var phoneNumber: String {
+		switch self {
+		case .location(let location):
+			return location.phoneNumber
+		case .contactPerson(let contactPerson):
+			return contactPerson.phoneNumber
+		}
+	}
+
+	var emailAddress: String {
+		switch self {
+		case .location(let location):
+			return location.emailAddress
+		case .contactPerson(let contactPerson):
+			return contactPerson.emailAddress
+		}
+	}
+
 	var isSelected: Bool {
 		switch self {
 		case .location(let location):

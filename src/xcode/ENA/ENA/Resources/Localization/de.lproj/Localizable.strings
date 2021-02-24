@@ -1473,7 +1473,7 @@ sein.";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "ohne Maske";
 
-"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "draußen";
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "im Freien";
 
 "ContactDiary_Overview_PersonEncounter_Setting_Inside" = "drinnen";
 
@@ -1599,7 +1599,7 @@ sein.";
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Speichern";
 
-/*  - Location */
+/* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Ort";
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Beschreibung";
@@ -1608,7 +1608,7 @@ sein.";
 
 "ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-Mail";
 
-/*  - Person */
+/* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
 "ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Name";
