@@ -11,25 +11,37 @@ struct DiaryContactPerson: Equatable {
 		// MARK: - Internal
 
 		let name: String
+		let phoneNumber: String
+		let emailAddress: String
 
 	}
 
 	// MARK: - Init
 
-	init(id: Int, name: String, encounterId: Int? = nil) {
+	init(
+		id: Int,
+		name: String,
+		phoneNumber: String = "",
+		emailAddress: String = "",
+		encounter: ContactPersonEncounter? = nil
+	) {
 		self.id = id
 		self.name = name
-		self.encounterId = encounterId
+		self.phoneNumber = phoneNumber
+		self.emailAddress = emailAddress
+		self.encounter = encounter
 	}
 
 	// MARK: - Internal
 
 	let id: Int
 	let name: String
-	let encounterId: Int?
+	let phoneNumber: String
+	let emailAddress: String
+	let encounter: ContactPersonEncounter?
 
 	var isSelected: Bool {
-		encounterId != nil
+		encounter != nil
 	}
 
 }
