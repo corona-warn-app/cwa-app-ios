@@ -5,16 +5,8 @@
 import UIKit
 
 struct ClientMetadata: Codable {
-	var cwaVersion: Version?
-	var iosVersion: Version
-	// eTag from the last fetched appConfiguration
-	var eTag: String?
 
-	enum CodingKeys: String, CodingKey {
-		case cwaVersion
-		case iosVersion
-		case eTag
-	}
+	// MARK: - Init
 
 	init(etag: String?) {
 		self.eTag = etag
@@ -48,13 +40,31 @@ struct ClientMetadata: Codable {
 		iosVersion = try container.decode(Version.self, forKey: .iosVersion)
 		eTag = try container.decodeIfPresent(String.self, forKey: .eTag)
 	}
+	
+	// MARK: - Protocol Codable
+	
+	enum CodingKeys: String, CodingKey {
+		case cwaVersion
+		case iosVersion
+		case eTag
+	}
+	
+	// MARK: - Internal
+	
+	var cwaVersion: Version?
+	var iosVersion: Version
+	// eTag from the last fetched appConfiguration
+	var eTag: String?
 }
 
 struct Version: Codable, Equatable {
+
+	// MARK: - Internal
+
 	let major: Int
 	let minor: Int
 	let patch: Int
-
+	
 	var protobuf: SAP_Internal_Ppdd_PPASemanticVersion {
 			var protobufVersion = SAP_Internal_Ppdd_PPASemanticVersion()
 			protobufVersion.major = UInt32(self.major)

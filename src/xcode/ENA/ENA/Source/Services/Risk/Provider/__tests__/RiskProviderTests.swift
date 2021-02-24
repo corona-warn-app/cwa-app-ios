@@ -121,7 +121,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -635,7 +636,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -691,7 +693,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -769,7 +772,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -846,7 +850,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -924,7 +929,8 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -1029,7 +1035,8 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
 	

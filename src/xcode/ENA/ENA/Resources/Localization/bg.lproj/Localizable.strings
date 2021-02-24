@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Това е причината да определим Вашия риск от заразяване като повишен. \nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани на вашето локално устройство. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск. \nКогато се приберете у дома, избягвайте близките контакти с членовете на домакинството си.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "За повече информация вижте страницата „ЧЗВ“.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Излагания на нисък риск";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Защо рискът Ви от заразяване е нисък";
@@ -1455,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Нисък риск";
 
-"ContactDiary_Overview_Risk_Text_1" = "въз основа на оценените от приложението контакти.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "въз основа на оценените от приложението контакти.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Не е задължително те да са свързани с отбелязаните от Вас хора и места.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Не е задължително те да са свързани с отбелязаните от Вас хора и места.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Информация";
@@ -1563,12 +1561,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Място";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Място";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Място";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Лице";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Лице";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Лице";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Тенденция: Нагоре";

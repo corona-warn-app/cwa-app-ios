@@ -32,7 +32,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// Screenshots
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114ScreenshotsTitle, description: AppStrings.NewVersionFeatures.feature114ScreenshotsDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114ScreenshotsTitle, description: AppStrings.NewVersionFeatures.feature114ScreenshotsDescription, internalId: "114-screenshots")
 		)
 		
 	}
@@ -88,10 +88,18 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		]
 		
 		for feature in newVersionFeatures {
-			let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
-			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
-			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
-			cells.append(.bulletPoint(attributedText: featureBulletPoint))
+			
+			if feature.internalId != nil && feature.internalId == "114-screenshots" {
+				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+				cells.append(.bulletPoint(attributedText: featureBulletPoint))
+				cells.append(.link(placeholder: "\t\(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURLDisplayText)", link: AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL, font: .body, style: .body, accessibilityIdentifier: ""))
+			} else {
+				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+				featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+				cells.append(.bulletPoint(attributedText: featureBulletPoint))
+			}
 		}
 		return cells
 	}

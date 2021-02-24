@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut. \nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane. \nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Pentru mai multe informații, consultați pagina noastră de întrebări frecvente.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Expuneri cu risc redus";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "De ce riscul dvs. de infectare este redus";
@@ -1455,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Risc redus";
 
-"ContactDiary_Overview_Risk_Text_1" = "pe baza întâlnirilor evaluate de aplicație.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "pe baza întâlnirilor evaluate de aplicație.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Acestea nu sunt legate neapărat de persoanele și locurile pe care le-ați înregistrat.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Acestea nu sunt legate neapărat de persoanele și locurile pe care le-ați înregistrat.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informații";
@@ -1563,12 +1561,12 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Loc";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Loc";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Loc";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Persoană";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Persoană";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Persoană";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
