@@ -55,6 +55,7 @@ struct DiaryDayEntryCellModel {
 		guard case .location(let location) = entry, let visit = location.visit else {
 			return 0
 		}
+
 		return visit.durationInMinutes
 	}
 
@@ -108,6 +109,42 @@ struct DiaryDayEntryCellModel {
 
 	func toggleSelection() {
 		entry.isSelected ? deselect() : select()
+	}
+
+	func selectDuration(at index: Int) {
+		let duration: ContactPersonEncounter.Duration
+
+		if index == -1 {
+			duration = .none
+		} else {
+			duration = durationValues[index].value
+		}
+
+		updateContactPersonEncounter(duration: duration)
+	}
+
+	func selectMaskSituation(at index: Int) {
+		let maskSituation: ContactPersonEncounter.MaskSituation
+
+		if index == -1 {
+			maskSituation = .none
+		} else {
+			maskSituation = maskSituationValues[index].value
+		}
+
+		updateContactPersonEncounter(maskSituation: maskSituation)
+	}
+
+	func selectSetting(at index: Int) {
+		let setting: ContactPersonEncounter.Setting
+
+		if index == -1 {
+			setting = .none
+		} else {
+			setting = settingValues[index].value
+		}
+
+		updateContactPersonEncounter(setting: setting)
 	}
 
 	func updateCircumstances(_ circumstances: String) {

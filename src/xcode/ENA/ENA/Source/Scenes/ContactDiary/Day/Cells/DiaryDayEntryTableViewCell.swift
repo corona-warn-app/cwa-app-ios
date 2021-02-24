@@ -36,6 +36,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
 		maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
 		settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
+		visitDurationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
 		notesTextField.text = cellModel.circumstances
 
 		accessibilityTraits = cellModel.accessibilityTraits
@@ -110,6 +111,23 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return stackView
 	}()
 
+	lazy var visitDurationPicker: UIDatePicker = {
+		let durationPicker = UIDatePicker()
+		durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		// German locale ensures 24h format.
+		durationPicker.locale = Locale(identifier: "de_DE")
+		durationPicker.datePickerMode = .time
+		durationPicker.minuteInterval = 15
+
+		if #available(iOS 14.0, *) {
+			durationPicker.preferredDatePickerStyle = .inline
+		}
+
+		durationPicker.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
+
+		return durationPicker
+	}()
+
 	lazy var visitDurationStackView: UIStackView = {
 		let stackView = UIStackView()
 		stackView.axis = .horizontal
@@ -119,78 +137,11 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		label.style = .body
 		label.text = AppStrings.ContactDiary.Day.Visit.duration
 
-		let durationPicker = UIDatePicker()
-		durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
-		// German locale ensures 24h format.
-		durationPicker.locale = Locale(identifier: "de_DE")
-		durationPicker.datePickerMode = .time
-		durationPicker.minuteInterval = 15
-		durationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
-		if #available(iOS 14.0, *) {
-			durationPicker.preferredDatePickerStyle = .inline
-		}
-
-		durationPicker.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
-
 		stackView.addArrangedSubview(label)
-		stackView.addArrangedSubview(durationPicker)
+		stackView.addArrangedSubview(visitDurationPicker)
 
 		return stackView
 	}()
-
-	@objc
-	private func didSelectDuration(datePicker: UIDatePicker) {
-		cellModel.updateLocationVisit(durationInMinutes: datePicker.date.todaysMinutes)
-	}
-
-	@objc
-	private func headerTapped() {
-		cellModel.toggleSelection()
-	}
-
-	@objc
-	private func durationValueChanged(sender: UISegmentedControl) {
-		let duration: ContactPersonEncounter.Duration
-
-		if sender.selectedSegmentIndex == -1 {
-			duration = .none
-		} else {
-			duration = cellModel.durationValues[sender.selectedSegmentIndex].value
-		}
-
-		cellModel.updateContactPersonEncounter(duration: duration)
-	}
-
-	@objc
-	private func maskSituationValueChanged(sender: UISegmentedControl) {
-		let maskSituation: ContactPersonEncounter.MaskSituation
-
-		if sender.selectedSegmentIndex == -1 {
-			maskSituation = .none
-		} else {
-			maskSituation = cellModel.maskSituationValues[sender.selectedSegmentIndex].value
-		}
-
-		cellModel.updateContactPersonEncounter(maskSituation: maskSituation)
-	}
-
-	@objc
-	private func settingValueChanged(sender: UISegmentedControl) {
-		let setting: ContactPersonEncounter.Setting
-
-		if sender.selectedSegmentIndex == -1 {
-			setting = .none
-		} else {
-			setting = cellModel.settingValues[sender.selectedSegmentIndex].value
-		}
-
-		cellModel.updateContactPersonEncounter(setting: setting)
-	}
-
-	@objc
-	private func infoButtonTapped() {
-		onInfoButtonTap()
-	}
 
 	private func addParameterViews() {
 		parametersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -211,6 +162,36 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		}
 
 		parametersStackView.addArrangedSubview(notesStackView)
+	}
+
+	@objc
+	private func didSelectDuration(datePicker: UIDatePicker) {
+		cellModel.updateLocationVisit(durationInMinutes: datePicker.date.todaysMinutes)
+	}
+
+	@objc
+	private func headerTapped() {
+		cellModel.toggleSelection()
+	}
+
+	@objc
+	private func durationValueChanged(sender: UISegmentedControl) {
+		cellModel.selectDuration(at: sender.selectedSegmentIndex)
+	}
+
+	@objc
+	private func maskSituationValueChanged(sender: UISegmentedControl) {
+		cellModel.selectMaskSituation(at: sender.selectedSegmentIndex)
+	}
+
+	@objc
+	private func settingValueChanged(sender: UISegmentedControl) {
+		cellModel.selectSetting(at: sender.selectedSegmentIndex)
+	}
+
+	@objc
+	private func infoButtonTapped() {
+		onInfoButtonTap()
 	}
 
 }
