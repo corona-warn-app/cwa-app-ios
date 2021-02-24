@@ -20,13 +20,15 @@ protocol DeltaOnboarding {
 
 extension DeltaOnboarding {
 	var isFinished: Bool {
-		Log.debug("Check, if \(id) is already finished...")
+		Log.debug("Check, if \(id) is already finished or not needed (current onboarding version = \(store.onboardingVersion)...")
 		let presented = store.finishedDeltaOnboardings[version] != nil && (store.finishedDeltaOnboardings[version]?.contains(id)) == true
 		
 		Log.debug("DeltaOnboarding \(id) already presented? \(presented).")
-		if !store.onboardingVersion.numericGreater(then: version) && !presented {
+		if !store.onboardingVersion.numericGreaterOrEqual(then: version) && !presented {
+			Log.debug("Will return isFinished() = false")
 			return false
 		}
+		Log.debug("Will return isFinished() = true")
 		return true
 	}
 	
