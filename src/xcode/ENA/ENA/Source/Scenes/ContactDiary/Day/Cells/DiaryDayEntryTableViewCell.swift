@@ -85,6 +85,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		textField.textColor = .enaColor(for: .textPrimary1)
 		textField.returnKeyType = .done
 		textField.delegate = self
+		textField.layer.borderWidth = 0
 
 		textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0).isActive = true
 
