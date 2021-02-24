@@ -330,8 +330,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		})
 
 		XCTAssertEqual(viewModel.titleText, AppStrings.ExposureDetection.high)
-		XCTAssertEqual(viewModel.riskBackgroundColor, .enaColor(for: .riskHigh))
-		XCTAssertEqual(viewModel.titleTextColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.riskBackgroundColor.cgColor, UIColor.enaColor(for: .riskHigh).cgColor)
+		XCTAssertEqual(viewModel.titleTextColor.cgColor, UIColor.enaColor(for: .textContrast).cgColor)
 		XCTAssertEqual(viewModel.closeButtonStyle, .contrast)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
