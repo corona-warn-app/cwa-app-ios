@@ -118,8 +118,9 @@ extension DynamicCell {
 			  iconWidth: 32,
 			  action: .none,
 			  configure: { _, cell, _ in
-			cell.contentView.layoutMargins.left = 32
-			cell.contentView.layoutMargins.right = 32
+				cell.imageView?.contentMode = .scaleAspectFit
+				cell.contentView.layoutMargins.left = 32
+				cell.contentView.layoutMargins.right = 32
 		})
 	}
 
