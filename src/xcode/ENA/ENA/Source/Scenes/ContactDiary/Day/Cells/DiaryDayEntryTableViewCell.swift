@@ -39,7 +39,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		label.text = cellModel.text
 		label.font = cellModel.font
 
-		addParameterViews()
+		setUpParameterViews()
 
 		parametersContainerStackView.isHidden = cellModel.parametersHidden
 
@@ -151,7 +151,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return stackView
 	}()
 
-	private func addParameterViews() {
+	private func setUpParameterViews() {
 		parametersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		switch cellModel.entryType {
