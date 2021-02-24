@@ -4,6 +4,8 @@
 
 import Foundation
 
+// This enums give the access to all analytics data to log. So if you want to log new data or just particial data of an existing one, add the case here and implement the case in the Analytics.
+
 enum PPADataType {
 	case userData(PPAUserMetadata)
 	case riskExposureMetadata(PPARiskExposureMetadata)

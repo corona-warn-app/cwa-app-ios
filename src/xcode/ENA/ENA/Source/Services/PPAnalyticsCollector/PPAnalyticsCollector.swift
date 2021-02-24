@@ -6,16 +6,17 @@ import Foundation
 
 typealias Analytics = PPAnalyticsCollector
 
-/// Singleton to collect the analytics data and to save it in the database, to load it from the database, to remove every analytics data from the store. This also triggers a submission.
+/// To avoid that someone instantiate this, we made a enum. This collects the analytics data, makes in some cases some calculations and to save it to the database, to load it from the database, to remove every analytics data from the store. This enum also triggers a submission and grants that nothing can be logged if the user did not give his consent.
 enum PPAnalyticsCollector {
 
 	// MARK: - Internal
 
-	/// Setup Analytics for regular use
+	/// Setup Analytics for regular use. We expect here a secure store.
 	static func setup(
 		store: Store,
 		submitter: PPAnalyticsSubmitter
 	) {
+		// Make sure the secure store now also implements the PPAnalyticsData protocol with the properties defined there (the analytics data proporties).
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
 			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
@@ -24,7 +25,7 @@ enum PPAnalyticsCollector {
 		PPAnalyticsCollector.submitter = submitter
 	}
 
-	/// Setup Analytics for testing.
+	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
 	static func setupMock(
 		store: (Store & PPAnalyticsData)? = nil,
 		submitter: PPAnalyticsSubmitter? = nil
@@ -33,8 +34,10 @@ enum PPAnalyticsCollector {
 		PPAnalyticsCollector.submitter = submitter
 	}
 
+	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
 	static func log(_ dataType: PPADataType) {
 
+		// Make sure the user consent is given. If not, we must not log something.
 		guard let consent = store?.isPrivacyPreservingAnalyticsConsentGiven,
 			  consent == true else {
 			Log.info("Forbidden to log any analytics data due to missing user consent", log: .ppa)
@@ -59,9 +62,11 @@ enum PPAnalyticsCollector {
 			Analytics.logSubmissionMetadata(submissionMetadata)
 		}
 
+		// At the end, try to submit the data. In the submitter are all the checks that we do not submit the data to often.
 		Analytics.triggerAnalyticsSubmission()
 	}
 
+	/// This removes all stored analytics data that we collected.
 	static func deleteAnalyticsData() {
 		store?.currentRiskExposureMetadata = nil
 		store?.previousRiskExposureMetadata = nil
@@ -76,7 +81,7 @@ enum PPAnalyticsCollector {
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
-	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get success or failures.
+	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get the success or failure handlers.
 	static func triggerAnalyticsSubmission(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		guard let submitter = submitter else {
 			Log.warning("I cannot submit analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
@@ -88,12 +93,12 @@ enum PPAnalyticsCollector {
 
 	#if !RELEASE
 
-	/// ONLY FOR TESTING. Returns the last submitted data.
+	/// ONLY FOR TESTING. Returns the last successful submitted data.
 	static func mostRecentAnalyticsData() -> String? {
 		return store?.lastSubmittedPPAData
 	}
 
-	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
+	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we have collected so far.
 	static func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS? {
 		guard let submitter = submitter else {
 			Log.warning("I cannot get actual analytics data. Perhaps i am a mock or setup was not called correctly?")
@@ -115,9 +120,7 @@ enum PPAnalyticsCollector {
 
 	// MARK: - Private
 
-	private static var _store: (Store & PPAnalyticsData)?
-
-	// wrapper property to add a log when the value is nil
+	// Wrapper property to add a log when the store is nil and we want to access it.
 	private static var store: (Store & PPAnalyticsData)? {
 		get {
 			if _store == nil {
@@ -130,10 +133,13 @@ enum PPAnalyticsCollector {
 		}
 	}
 
+	// The real store property.
+	private static var _store: (Store & PPAnalyticsData)?
+
 	private static var submitter: PPAnalyticsSubmitter?
 
 	// MARK: - UserMetada
-
+	
 	private static func logUserMetadata(_ userMetadata: PPAUserMetadata) {
 		switch userMetadata {
 		case let .complete(metaData):
@@ -461,81 +467,5 @@ enum PPAnalyticsCollector {
 		case let .lastAppReset(date):
 			store?.lastAppReset = date
 		}
-	}
-}
-
-protocol PPAnalyticsData: AnyObject {
-	/// Last succesfull submission of analytics data. Needed for analytics submission.
-	var lastSubmissionAnalytics: Date? { get set }
-	/// Date of last app reset. Needed for analytics submission.
-	var lastAppReset: Date? { get set }
-	/// Content of last submitted data. Needed for analytics submission dev menu.
-	var lastSubmittedPPAData: String? { get set }
-	/// Analytics data.
-	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var userMetadata: UserMetadata? { get set }
-	/// Analytics data.
-	var clientMetadata: ClientMetadata? { get set }
-	/// Analytics data
-	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
-	/// Analytics data.
-	var testResultMetadata: TestResultMetadata? { get set }
-	/// Analytics data.
-	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
-}
-
-extension SecureStore: PPAnalyticsData {
-
-	var lastSubmissionAnalytics: Date? {
-		get { kvStore["lastSubmissionAnalytics"] as Date? }
-		set { kvStore["lastSubmissionAnalytics"] = newValue }
-	}
-
-	var lastAppReset: Date? {
-		get { kvStore["lastAppReset"] as Date? }
-		set { kvStore["lastAppReset"] = newValue }
-	}
-
-	var lastSubmittedPPAData: String? {
-		get { kvStore["lastSubmittedPPAData"] as String? }
-		set { kvStore["lastSubmittedPPAData"] = newValue }
-	}
-
-	var currentRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["currentRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["currentRiskExposureMetadata"] = newValue }
-	}
-
-	var previousRiskExposureMetadata: RiskExposureMetadata? {
-		get { kvStore["previousRiskExposureMetadata"] as RiskExposureMetadata? ?? nil }
-		set { kvStore["previousRiskExposureMetadata"] = newValue }
-	}
-
-	var userMetadata: UserMetadata? {
-		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
-		set { kvStore["userMetadata"] = newValue }
-	}
-
-	var testResultMetadata: TestResultMetadata? {
-		get { kvStore["testResultaMetadata"] as TestResultMetadata? ?? nil }
-		set { kvStore["testResultaMetadata"] = newValue }
-	}
-
-	var clientMetadata: ClientMetadata? {
-		get { kvStore["clientMetadata"] as ClientMetadata? ?? nil }
-		set { kvStore["clientMetadata"] = newValue }
-	}
-
-	var keySubmissionMetadata: KeySubmissionMetadata? {
-		get { kvStore["keySubmissionMetadata"] as KeySubmissionMetadata? ?? nil }
-		set { kvStore["keySubmissionMetadata"] = newValue }
-	}
-
-	var exposureWindowsMetadata: ExposureWindowsMetadata? {
-		get { kvStore["exposureWindowsMetadata"] as ExposureWindowsMetadata? ?? nil }
-		set { kvStore["exposureWindowsMetadata"] = newValue }
 	}
 }

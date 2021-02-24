@@ -7,7 +7,7 @@ import OpenCombine
 
 protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
-	/// This method should only be called by the PPAnalyticsCollector
+	/// ⚠️ This method should ONLY be called by the PPAnalyticsCollector ⚠️
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 
 	#if !RELEASE

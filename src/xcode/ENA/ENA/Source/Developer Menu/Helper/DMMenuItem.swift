@@ -97,7 +97,7 @@ extension DMMenuItem {
 		case .ppacService: return "Inspect and force updates to the PPAC Token"
 		case .otpService: return "Inspect the OTP Token"
 		case .ppaMostRecent: return "See the last successful submitted ppa data"
-		case .ppaActual: return "See the current analytics data as they are if we submit now"
+		case .ppaActual: return "See current analytics data as they were submitted now"
 		case .ppaSubmission: return "Analytics data submission settings"
 
 		}
