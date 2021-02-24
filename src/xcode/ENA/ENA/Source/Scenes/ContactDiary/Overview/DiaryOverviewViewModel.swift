@@ -48,7 +48,7 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@OpenCombine.Published private var days: [DiaryDay] = []
+	@OpenCombine.Published private(set) var days: [DiaryDay] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -74,7 +74,9 @@ class DiaryOverviewViewModel {
 	func cellModel(for indexPath: IndexPath) -> DiaryOverviewDayCellModel {
 		let diaryDay = days[indexPath.row]
 		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
-		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure)
+		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskValue(by: diaryDay.utcMidnightDate)
+
+		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure, minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk)
 	}
 
 	// MARK: - Private
@@ -91,4 +93,10 @@ class DiaryOverviewViewModel {
 		return .encounter(riskLevelPerDate)
 	}
 
+	private func minimumDistinctEncountersWithHighRiskValue(by date: Date) -> Int {
+		guard let minimumDistinctEncountersWithHighRisk = secureStore.riskCalculationResult?.minimumDistinctEncountersWithHighRiskPerDate[date] else {
+			return -1
+		}
+		return minimumDistinctEncountersWithHighRisk
+	}
 }

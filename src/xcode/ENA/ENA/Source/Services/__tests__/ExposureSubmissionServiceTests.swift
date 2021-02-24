@@ -610,7 +610,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 2,
 			calculationDate: Date(),
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
 	

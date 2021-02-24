@@ -118,7 +118,8 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 2,
 			calculationDate: Date(),
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
 	private func mockLowRiskCalculationResult(risk: RiskLevel = .low) -> RiskCalculationResult {
@@ -131,7 +132,8 @@ class KeySubmissionMetadataServiceTests: XCTestCase {
 			numberOfDaysWithLowRisk: 3,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [:]
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
 }

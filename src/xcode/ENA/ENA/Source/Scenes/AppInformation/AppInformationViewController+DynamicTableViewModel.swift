@@ -23,12 +23,12 @@ extension AppInformationViewController {
 		.terms: AppInformationCellModel(
 			text: AppStrings.AppInformation.termsTitle,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsNavigation,
-			action: .push(model: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation)
+			action: .push(htmlModel: AppInformationModel.termsModel, withTitle: AppStrings.AppInformation.termsNavigation)
 		),
 		.privacy: AppInformationCellModel(
 			text: AppStrings.AppInformation.privacyNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyNavigation,
-			action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyNavigation)
+			action: .push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyNavigation)
 		),
 		.legal: AppInformationCellModel(
 			text: AppStrings.AppInformation.legalNavigation,
