@@ -294,7 +294,7 @@ final class HTTPClient: Client {
 				switch response.statusCode {
 				case 204:
 					completion(.success(()))
-				case 400, 401, 403:
+				case 400, 401, 403, 429:
 					guard let responseBody = response.body else {
 						Log.error("Error in response body: \(response.statusCode)", log: .api)
 						completion(.failure(.responseError(response.statusCode)))

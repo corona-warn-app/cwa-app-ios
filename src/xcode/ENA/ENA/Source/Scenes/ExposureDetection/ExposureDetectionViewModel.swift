@@ -607,18 +607,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					title: AppStrings.ExposureDetection.explanationTitle,
 					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
-				.body(text: text, accessibilityIdentifier: accessibilityIdentifier),
-				infectionRiskExplanationFAQLink(numberOfExposures)
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
 			].compactMap { $0 }
-		)
-	}
-
-	/// - NOTE: This cell should only be displayed when more than 0 exposures occured.
-	private func infectionRiskExplanationFAQLink(_ numberOfExposures: Int) -> DynamicCell? {
-		guard numberOfExposures > 0 else { return nil }
-		return .link(
-			text: AppStrings.ExposureDetection.explanationFAQLinkText,
-			url: URL(string: AppStrings.ExposureDetection.explanationFAQLink)
 		)
 	}
 

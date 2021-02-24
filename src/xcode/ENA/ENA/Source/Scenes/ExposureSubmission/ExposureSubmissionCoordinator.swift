@@ -46,14 +46,15 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		warnOthersReminder: WarnOthersRemindable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
+		store: Store,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
 		self.parentNavigationController = parentNavigationController
 		self.delegate = delegate
 		self.warnOthersReminder = warnOthersReminder
-		
-		super.init()
+		self.keySubmissionService = KeySubmissionService(store: store)
 
+		super.init()
 		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService)
 	}
 
@@ -98,6 +99,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
 			tanSuccessfullyTransferred: { [weak self] in
+				self?.updateStoreWithTANSubmissionSelected()
 				// A TAN always indicates a positive test result.
 				self?.showTestResultScreen(with: .positive)
 			}
@@ -178,7 +180,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	private var model: ExposureSubmissionCoordinatorModel!
 	private let warnOthersReminder: WarnOthersRemindable
-	
+	private var keySubmissionService: KeySubmissionService
+
 	private func push(_ vc: UIViewController) {
 		self.navigationController?.pushViewController(vc, animated: true)
 	}
@@ -236,6 +239,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 	
 	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+		// store is only initialized when a positive test result is received
+		if testResult == .positive {
+			updateStoreWithKeySubmissionMetadataDefaultValues()
+		}
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenTestResult)
+
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
 		return ExposureSubmissionTestResultViewController(
 			viewModel: .init(
@@ -286,6 +295,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenWarnOthers)
+
 		// ugly but works for the moment
 		// refactoring more of the coordinator-logic to facilitate combine would help
 		let vc = ExposureSubmissionWarnOthersViewController(
@@ -498,11 +509,17 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Symptoms
 
 	private func showSymptomsScreen() {
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenSymptoms)
+		
 		let vc = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
 				guard let self = self else { return }
 				
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
+				// we don't need to set it true if yes is selected
+				if selectedSymptomsOption != .yes {
+					self.updateStoreWithSubmissionAfterSymptomFlow(value: true)
+				}
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
@@ -514,9 +531,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showSymptomsOnsetScreen() {
+		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenSymptomOnset)
+		
 		let vc = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
+				// setting it to true regardless of the options selected
+				self?.updateStoreWithSubmissionAfterSymptomFlow(value: true)
 				self?.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
@@ -584,6 +605,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			style: .default,
 			handler: { [weak self] _ in
 				if isSubmissionConsentGiven {
+					self?.updateStoreWithSubmissionAfterCancellation(value: true)
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				} else {
 					self?.dismiss()
@@ -634,6 +656,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: cancelAlertButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
+					self?.updateStoreWithSubmissionAfterCancellation(value: true)
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
@@ -661,6 +684,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
 				style: .cancel,
 				handler: { [weak self] _ in
+					self?.updateStoreWithSubmissionAfterCancellation(value: true)
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
@@ -697,6 +721,30 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 
 		navigationController?.present(alert, animated: true)
+	}
+	
+	// MARK: Key Submission Service
+	
+	private func updateStoreWithLastSubmissionFlow(screen: LastSubmissionFlowScreen) {
+		keySubmissionService.setLastSubmissionFlowScreen(withValue: screen)
+	}
+	
+	private func updateStoreWithSubmissionAfterSymptomFlow(value: Bool) {
+		keySubmissionService.setSubmittedAfterSymptomFlow(withValue: value)
+	}
+	
+	private func updateStoreWithSubmissionAfterCancellation(value: Bool) {
+		keySubmissionService.setSubmittedAfterCancel(withValue: value)
+	}
+
+	private func updateStoreWithTANSubmissionSelected() {
+		keySubmissionService.setSubmittedWithTeleTAN(withValue: true)
+	}
+	
+	private func updateStoreWithKeySubmissionMetadataDefaultValues() {
+		self.store.keySubmissionMetadata = KeySubmissionMetadata(submitted: false, submittedInBackground: false, submittedAfterCancel: false, submittedAfterSymptomFlow: false, lastSubmissionFlowScreen: .submissionFlowScreenUnknown, advancedConsentGiven: self.store.isSubmissionConsentGiven, hoursSinceTestResult: 0, hoursSinceTestRegistration: 0, daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1, hoursSinceHighRiskWarningAtTestRegistration: -1, submittedWithTeleTAN: true)
+		keySubmissionService.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration()
+		keySubmissionService.setHoursSinceHighRiskWarningAtTestRegistration()
 	}
 
 	// MARK: Test Result Helper
@@ -764,13 +812,16 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.dismiss()
 			},
 			onError: { [weak self] error in
+				// reset all the values taken during the submission flow because submission failed
+				self?.updateStoreWithSubmissionAfterSymptomFlow(value: false)
+				self?.updateStoreWithSubmissionAfterCancellation(value: false)
+				self?.updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenUnknown)
 				self?.showErrorAlert(for: error) {
 					self?.dismiss()
 				}
 			}
 		)
 	}
-
 }
 
 extension ExposureSubmissionCoordinator: UIAdaptivePresentationControllerDelegate {

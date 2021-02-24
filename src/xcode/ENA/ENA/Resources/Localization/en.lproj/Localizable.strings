@@ -131,8 +131,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
 
-"ExposureDetection_Explanation_FAQ_Link_Text" = "For further information, please see our FAQ page.";
-
 "ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
@@ -206,7 +204,7 @@
 "ExposureDetection_WrongTime_Notification_Popover_Body" = "The time set on your device does not match the current time. As a result, your risk cannot be checked right now. Please set the correct time in your device settings.";
 
 /* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
+"ExposureDetection_ActiveTracingSection_Title" = "Period Logged";
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
@@ -1455,9 +1453,9 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Low Risk";
 
-"ContactDiary_Overview_Risk_Text_1" = "based on the encounters evaluated by the app.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "based on the encounters evaluated by the app.";
 
-"ContactDiary_Overview_Risk_Text_2" = "They are not necessarily related to the people and places you have recorded.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "They are not necessarily related to the people and places you have recorded.";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";

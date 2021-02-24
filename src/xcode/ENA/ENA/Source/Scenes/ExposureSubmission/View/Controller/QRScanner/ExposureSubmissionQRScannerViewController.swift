@@ -32,7 +32,6 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		setupView()
 		viewModel.startCaptureSession()
 		setupNavigationBar()

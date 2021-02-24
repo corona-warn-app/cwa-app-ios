@@ -527,8 +527,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
 					DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store),
-					DeltaOnboardingDataDonation(store: self.viewModel.store)
+					DeltaOnboardingDataDonation(store: self.viewModel.store),
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
 				]
 				Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
@@ -607,10 +607,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			message: AppStrings.Common.backgroundFetch_AlertMessage,
 			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
 			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
-			completion: { [weak self] in
-				self?.viewModel.store.hasSeenBackgroundFetchAlert = true
-				completion()
-			},
 			secondaryActionCompletion: {
 				if let url = URL(string: UIApplication.openSettingsURLString) {
 					UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -621,7 +617,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.present(
 			alert,
 			animated: true,
-			completion: nil
+			completion: { [weak self] in
+				self?.viewModel.store.hasSeenBackgroundFetchAlert = true
+				completion()
+			}
 		)
 	}
 
