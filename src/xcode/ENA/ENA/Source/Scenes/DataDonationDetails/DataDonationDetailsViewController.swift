@@ -31,6 +31,7 @@ class DataDonationDetailsViewController: DynamicTableViewController, DismissHand
 	private let viewModel: DataDonationDetailsViewModel
 	
 	private func setupTableView() {
+		navigationItem.largeTitleDisplayMode = .never
 		view.backgroundColor = .enaColor(for: .background)
 		tableView.separatorStyle = .none
 		

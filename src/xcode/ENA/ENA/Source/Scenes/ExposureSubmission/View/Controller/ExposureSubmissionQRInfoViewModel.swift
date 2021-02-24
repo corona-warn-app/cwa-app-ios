@@ -87,7 +87,7 @@ struct ExposureSubmissionQRInfoViewModel {
 					style: DynamicCell.TextCellStyle.label,
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
-					action: .push(model: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
+					action: .push(htmlModel: AppInformationModel.privacyModel, withTitle: AppStrings.AppInformation.privacyTitle),
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 						cell.selectionStyle = .default

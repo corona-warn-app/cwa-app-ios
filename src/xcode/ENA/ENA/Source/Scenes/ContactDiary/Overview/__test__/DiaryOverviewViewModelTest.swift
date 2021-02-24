@@ -120,7 +120,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: today,
-			riskLevelPerDate: [todayMinus5Days: .low]
+			riskLevelPerDate: [todayMinus5Days: .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
@@ -153,7 +154,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: today,
-			riskLevelPerDate: [todayMinus7Days: .high]
+			riskLevelPerDate: [todayMinus7Days: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
