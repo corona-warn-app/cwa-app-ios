@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class ExposureWindowsMetadataServiceTests: XCTestCase {
+class ExposureWindowsMetadataTests: XCTestCase {
 
 	// MARK: - Internal
 

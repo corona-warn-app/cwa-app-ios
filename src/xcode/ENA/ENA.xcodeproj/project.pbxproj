@@ -337,9 +337,9 @@
 		50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0298025E4067400460FA4 /* RiskExposureMetadata.swift */; };
 		50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0298225E4067400460FA4 /* TestResultMetadata.swift */; };
 		50C0299A25E4067B00460FA4 /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0296C25E4067400460FA4 /* UserMetadataTests.swift */; };
-		50C029A425E4068700460FA4 /* ExposureWindowsMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297425E4067400460FA4 /* ExposureWindowsMetadataServiceTests.swift */; };
-		50C029AB25E4068D00460FA4 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297625E4067400460FA4 /* TestResultMetadataServiceTests.swift */; };
-		50C029B225E4069400460FA4 /* KeySubmissionMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297A25E4067400460FA4 /* KeySubmissionMetadataServiceTests.swift */; };
+		50C029A425E4068700460FA4 /* ExposureWindowsMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297425E4067400460FA4 /* ExposureWindowsMetadataTests.swift */; };
+		50C029AB25E4068D00460FA4 /* TestResultMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297625E4067400460FA4 /* TestResultMetadataTests.swift */; };
+		50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297A25E4067400460FA4 /* KeySubmissionMetadataTests.swift */; };
 		50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C0297F25E4067400460FA4 /* RiskExposureMetadataTests.swift */; };
 		50C02FAC25D162F500469BF4 /* PPAnalyticsSubmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C02FAB25D162F500469BF4 /* PPAnalyticsSubmitter.swift */; };
 		50C51CB625CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C51CB525CDEA4300D4C33A /* HTTPClient+SubmitAnalyticsDataTests.swift */; };
@@ -1151,9 +1151,9 @@
 		50C0296D25E4067400460FA4 /* AgeGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeGroup.swift; sourceTree = "<group>"; };
 		50C0296F25E4067400460FA4 /* ClientMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMetadata.swift; sourceTree = "<group>"; };
 		50C0297225E4067400460FA4 /* ExposureWindowsMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadata.swift; sourceTree = "<group>"; };
-		50C0297425E4067400460FA4 /* ExposureWindowsMetadataServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataServiceTests.swift; sourceTree = "<group>"; };
-		50C0297625E4067400460FA4 /* TestResultMetadataServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultMetadataServiceTests.swift; sourceTree = "<group>"; };
-		50C0297A25E4067400460FA4 /* KeySubmissionMetadataServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataServiceTests.swift; sourceTree = "<group>"; };
+		50C0297425E4067400460FA4 /* ExposureWindowsMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataTests.swift; sourceTree = "<group>"; };
+		50C0297625E4067400460FA4 /* TestResultMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResultMetadataTests.swift; sourceTree = "<group>"; };
+		50C0297A25E4067400460FA4 /* KeySubmissionMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadataTests.swift; sourceTree = "<group>"; };
 		50C0297B25E4067400460FA4 /* KeySubmissionMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySubmissionMetadata.swift; sourceTree = "<group>"; };
 		50C0297C25E4067400460FA4 /* LastSubmissionFlowScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastSubmissionFlowScreen.swift; sourceTree = "<group>"; };
 		50C0297F25E4067400460FA4 /* RiskExposureMetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskExposureMetadataTests.swift; sourceTree = "<group>"; };
@@ -2567,7 +2567,7 @@
 		50C0297325E4067400460FA4 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50C0297425E4067400460FA4 /* ExposureWindowsMetadataServiceTests.swift */,
+				50C0297425E4067400460FA4 /* ExposureWindowsMetadataTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2585,7 +2585,7 @@
 		50C0297925E4067400460FA4 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50C0297A25E4067400460FA4 /* KeySubmissionMetadataServiceTests.swift */,
+				50C0297A25E4067400460FA4 /* KeySubmissionMetadataTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2619,7 +2619,7 @@
 		50C0298325E4067400460FA4 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				50C0297625E4067400460FA4 /* TestResultMetadataServiceTests.swift */,
+				50C0297625E4067400460FA4 /* TestResultMetadataTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -5344,7 +5344,7 @@
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
-				50C029AB25E4068D00460FA4 /* TestResultMetadataServiceTests.swift in Sources */,
+				50C029AB25E4068D00460FA4 /* TestResultMetadataTests.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
 				016961B32549649900FF92E3 /* ExposureSubmissionTestResultViewModelTests.swift in Sources */,
 				015692E424B48C3F0033F35E /* TimeInterval+Convenience.swift in Sources */,
@@ -5472,7 +5472,7 @@
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
-				50C029B225E4069400460FA4 /* KeySubmissionMetadataServiceTests.swift in Sources */,
+				50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */,
 				A1E419522495A6F20016E52A /* HTTPClient+TANForExposureSubmitTests.swift in Sources */,
 				015178C22507D2E50074F095 /* ExposureSubmissionSymptomsOnsetViewControllerTests.swift in Sources */,
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
@@ -5517,7 +5517,7 @@
 				AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */,
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
-				50C029A425E4068700460FA4 /* ExposureWindowsMetadataServiceTests.swift in Sources */,
+				50C029A425E4068700460FA4 /* ExposureWindowsMetadataTests.swift in Sources */,
 				BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */,
 				2FC0356F24B342FA00E234AC /* UIViewcontroller+AlertTest.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
