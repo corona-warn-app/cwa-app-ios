@@ -86,6 +86,8 @@ jobs:
           shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+      - store_test_results:
+          path: src/xcode/fastlane/test_output/
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
       - store_artifacts:
