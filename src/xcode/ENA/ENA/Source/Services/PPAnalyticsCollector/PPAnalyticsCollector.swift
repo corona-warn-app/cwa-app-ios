@@ -331,7 +331,7 @@ enum PPAnalyticsCollector {
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:
-			Analytics.setHoursSinceTestResult()
+			Analytics.setHoursSinceTestRegistration()
 		case .setHoursSinceHighRiskWarningAtTestRegistration:
 			Analytics.setHoursSinceHighRiskWarningAtTestRegistration()
 		case .setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration:

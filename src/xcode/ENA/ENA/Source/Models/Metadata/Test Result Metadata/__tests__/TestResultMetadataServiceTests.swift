@@ -132,7 +132,7 @@ class TestResultMetadataServiceTests: XCTestCase {
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
 			Analytics.log(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
-			Analytics.log(.testResultMetadata(.updateTestResult(.pending, "")))
+			Analytics.log(.testResultMetadata(.updateTestResult(.pending, "Token")))
 		} else {
 			XCTFail("registration date is nil")
 		}
