@@ -191,6 +191,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 	func didTapAgeButton() {
 		let selectValueViewModel = SelectValueViewModel(
 			AgeGroup.allCases.map({ $0.text }),
+			presorted: true,
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
 			preselected: dataDonationModel.age,
 			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell
