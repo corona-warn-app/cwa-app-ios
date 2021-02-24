@@ -3014,21 +3014,21 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BA63815925E69D1E00A642BB /* FooterViewController */,
-				BA63815825E69D1000A642BB /* Containers */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
+				BA63815825E69D1000A642BB /* Containers */,
 				BA0073BB25D189E50036DFDD /* DataDonation */,
 				BA7D17D025D5947B006B9EBF /* DataDonationDetails */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
 				514E81312461946E00636861 /* ExposureDetection */,
 				CD99A398245B229F00BF12AF /* ExposureSubmission */,
+				BA63815925E69D1E00A642BB /* FooterViewController */,
 				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
 				01EA17602590E9B900E98E02 /* Home */,
-				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				8F873FC025E3EE8000E070CE /* HTMLViewController */,
+				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				01B7232524F8128B0064C0EB /* OptionGroup */,
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
@@ -3044,7 +3044,7 @@
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */,
+				BA02642025E6AA750019CD55 /* District */,
 				AB628A1D251CDAA700CF61D2 /* ServerEnvironment */,
 				014891B224F90D0B002A6F77 /* ENA.plist */,
 				011E4B002483A35A002E6412 /* ENACommunity.entitlements */,
@@ -4017,6 +4017,14 @@
 				BA02641225E6A0800019CD55 /* FooterViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BA02642025E6AA750019CD55 /* District */ = {
+			isa = PBXGroup;
+			children = (
+				BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */,
+			);
+			path = District;
 			sourceTree = "<group>";
 		};
 		BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */ = {
