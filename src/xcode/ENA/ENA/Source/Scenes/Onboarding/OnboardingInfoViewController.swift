@@ -129,7 +129,6 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func gotoNextScreen() {
-		gotoDataDonationScreen()
 		guard let nextPageType = pageType.next() else {
 			gotoDataDonationScreen()
 			return
