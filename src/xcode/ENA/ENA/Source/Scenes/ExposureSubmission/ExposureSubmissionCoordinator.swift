@@ -81,10 +81,16 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
 		navigationController = exposureSubmissionNavigationController
+
+		// Provide `-1` for all `undefined` results.
+		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": result?.rawValue ?? -1]))
 	}
 
 	func dismiss() {
-		navigationController?.dismiss(animated: true)
+		navigationController?.dismiss(animated: true, completion: {
+			// used for updating (hiding) app shortcuts
+			NotificationCenter.default.post(Notification(name: .didDismissExposureSubmissionFlow))
+		})
 	}
 
 	func showTestResultScreen(with testResult: TestResult) {
@@ -242,6 +248,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		// store is only initialized when a positive test result is received
 		if testResult == .positive {
 			updateStoreWithKeySubmissionMetadataDefaultValues()
+			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult]))
 		}
 		updateStoreWithLastSubmissionFlow(screen: .submissionFlowScreenTestResult)
 
@@ -439,6 +446,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	private func showTestResultAvailableScreen(with testResult: TestResult) {
 		let vc = createTestResultAvailableViewController(testResult: testResult)
 		push(vc)
+
+		// used for updating (hiding) app shortcuts
+		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow))
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
@@ -777,7 +787,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						okTitle: AppStrings.Common.alertActionCancel,
 						secondaryActionTitle: AppStrings.Common.alertActionRetry,
 						completion: { [weak self] in
-							self?.navigationController?.dismiss(animated: true)
+							self?.dismiss()
 						},
 						secondaryActionCompletion: { [weak self] in
 							self?.showQRScreen(isLoading: isLoading)

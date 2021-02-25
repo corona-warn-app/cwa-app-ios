@@ -42,6 +42,10 @@ enum AccessibilityIdentifiers {
 		}
 	}
 
+	enum ContactDiary {
+		static let segmentedControl = "AppStrings.ContactDiary.Day"
+	}
+
 	enum ContactDiaryInformation {
 		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
 		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
@@ -282,6 +286,7 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
 		static let newVersionFeaturesAccImageDescription = "AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"
 		static let newVersionFeaturesGeneralDescription = "AppStrings.DeltaOnboarding.NewVersionFeatures.GeneralDescription"
+		static let newVersionFeaturesGeneralAboutAppInformation = "AppStrings.DeltaOnboarding.NewVersionFeatures.AboutAppInformation"
 		static let newVersionFeaturesVersionInfo = "AppStrings.DeltaOnboarding.NewVersionFeatures.VersionInfo"
 		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
 		static let description = "AppStrings.DeltaOnboarding.description"

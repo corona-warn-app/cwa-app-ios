@@ -108,6 +108,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	private func setupSegmentedControl() {
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiary.segmentedControl
 
 		// required to make segmented control look a bit like iOS 13
 		if #available(iOS 13, *) {

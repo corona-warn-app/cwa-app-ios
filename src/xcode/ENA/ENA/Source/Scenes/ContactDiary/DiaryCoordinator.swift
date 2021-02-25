@@ -56,6 +56,27 @@ class DiaryCoordinator {
 			return ENANavigationControllerWithFooter(rootViewController: overviewScreen)
 		}
 	}()
+
+
+	/// Directly open the current day view. Used for deep links & shortcuts
+	func showCurrentDayScreen() {
+		// Info view MUST be shown
+		guard infoScreenShown else {
+			Log.debug("Diary info screen not shown. Skipping further navigation", log: .ui)
+			return
+		}
+
+		// prevent navigation issues by falling back to overview screen
+		self.viewController.popToRootViewController(animated: true)
+
+		let model = DiaryOverviewViewModel(
+			diaryStore: diaryStore,
+			store: store,
+			homeState: homeState
+		)
+		guard let today = model.days.first else { return }
+		self.showDayScreen(day: today)
+	}
 	
 	// MARK: - Private
 
@@ -130,7 +151,7 @@ class DiaryCoordinator {
 			}
 
 		)
-							
+
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
 		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)

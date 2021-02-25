@@ -38,10 +38,6 @@ struct DiaryDayEntryCellModel {
 		let value: T
 	}
 
-	let entry: DiaryEntry
-	let store: DiaryStoringProviding
-	let dateString: String
-
 	let image: UIImage?
 	let text: String
 	let font: UIFont
@@ -50,14 +46,6 @@ struct DiaryDayEntryCellModel {
 	let parametersHidden: Bool
 
 	let accessibilityTraits: UIAccessibilityTraits
-
-	var locationVisitDuration: Int {
-		guard case .location(let location) = entry, let visit = location.visit else {
-			return 0
-		}
-
-		return visit.durationInMinutes
-	}
 
 	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
 		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, value: .lessThan15Minutes),
@@ -96,6 +84,14 @@ struct DiaryDayEntryCellModel {
 		}
 
 		return settingValues.firstIndex { $0.value == encounter.setting } ?? -1
+	}
+
+	var locationVisitDuration: Int {
+		guard case .location(let location) = entry, let visit = location.visit else {
+			return 0
+		}
+
+		return visit.durationInMinutes
 	}
 
 	var circumstances: String {
@@ -193,6 +189,10 @@ struct DiaryDayEntryCellModel {
 	}
 
 	// MARK: - Private
+
+	private let entry: DiaryEntry
+	private let store: DiaryStoringProviding
+	private let dateString: String
 
 	private func select() {
 		switch entry {

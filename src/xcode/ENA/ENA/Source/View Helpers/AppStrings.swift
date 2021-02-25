@@ -42,6 +42,10 @@ enum AppStrings {
 		static let exposureDetectionFAQ = NSLocalizedString("ExposureDetection_high_faq_URL", tableName: "Localizable.links", comment: "")
 	}
 
+	enum QuickActions {
+		static let contactDiaryNewEntry = NSLocalizedString("QuickAction_newContactDiaryEntry", comment: "")
+	}
+
 	enum AccessibilityLabel {
 		static let close = NSLocalizedString("AccessibilityLabel_Close", comment: "")
 		static let phoneNumber = NSLocalizedString("AccessibilityLabel_PhoneNumber", comment: "")
@@ -886,6 +890,8 @@ enum AppStrings {
 		static let buttonContinue = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Button_Continue", comment: "")
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
+		
+		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
 		/* Version 1.14 */
 		
