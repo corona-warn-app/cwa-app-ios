@@ -333,6 +333,33 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(firstContactPerson(in: store).encounter?.maskSituation, ContactPersonEncounter.MaskSituation.withoutMask)
 	}
 
+	func testSelectingSettingNone() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, setting: .outside)
+
+		cellModel.selectSetting(at: -1)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.setting, ContactPersonEncounter.Setting.none)
+	}
+
+	func testSelectingSettingOutside() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, setting: .none)
+
+		cellModel.selectSetting(at: 0)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.setting, ContactPersonEncounter.Setting.outside)
+	}
+
+	func testSelectingSettingInside() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, setting: .none)
+
+		cellModel.selectSetting(at: 1)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.setting, ContactPersonEncounter.Setting.inside)
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(
