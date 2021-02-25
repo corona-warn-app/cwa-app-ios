@@ -108,16 +108,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testMaskSituationValues() {
-		let cellModel = DiaryDayEntryCellModel(
-			entry: .contactPerson(
-				DiaryContactPerson(
-					id: 0,
-					name: ""
-				)
-			),
-			dateString: "2021-02-11",
-			store: MockDiaryStore()
-		)
+		let cellModel = contactPersonCellModelWithoutEncounter()
 
 		let expectedMaskSituationValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.MaskSituation>] = [
 			DiaryDayEntryCellModel.SegmentedControlValue(
@@ -134,16 +125,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testSettingValues() {
-		let cellModel = DiaryDayEntryCellModel(
-			entry: .contactPerson(
-				DiaryContactPerson(
-					id: 0,
-					name: ""
-				)
-			),
-			dateString: "2021-02-11",
-			store: MockDiaryStore()
-		)
+		let cellModel = contactPersonCellModelWithoutEncounter()
 
 		let expectedSettingValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.Setting>] = [
 			DiaryDayEntryCellModel.SegmentedControlValue(
