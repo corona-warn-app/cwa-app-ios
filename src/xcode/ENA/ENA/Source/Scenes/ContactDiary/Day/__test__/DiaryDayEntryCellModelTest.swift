@@ -15,16 +15,16 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 				name: "Nick Guendling"
 			)
 		)
-		let viewModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-01-01", store: MockDiaryStore())
+		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-01-01", store: MockDiaryStore())
 
-		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
-		XCTAssertEqual(viewModel.text, "Nick Guendling")
-		XCTAssertEqual(viewModel.font, .enaFont(for: .body))
+		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
+		XCTAssertEqual(cellModel.text, "Nick Guendling")
+		XCTAssertEqual(cellModel.font, .enaFont(for: .body))
 
-		XCTAssertEqual(viewModel.entryType, .contactPerson)
-		XCTAssertTrue(viewModel.parametersHidden)
+		XCTAssertEqual(cellModel.entryType, .contactPerson)
+		XCTAssertTrue(cellModel.parametersHidden)
 
-		XCTAssertEqual(viewModel.accessibilityTraits, .button)
+		XCTAssertEqual(cellModel.accessibilityTraits, .button)
 	}
 
 	func testContactPersonSelected() throws {
@@ -39,16 +39,16 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 				)
 			)
 		)
-		let viewModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-02-11", store: MockDiaryStore())
+		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-02-11", store: MockDiaryStore())
 
-		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Selected"))
-		XCTAssertEqual(viewModel.text, "Marcus Scherer")
-		XCTAssertEqual(viewModel.font, .enaFont(for: .headline))
+		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Selected"))
+		XCTAssertEqual(cellModel.text, "Marcus Scherer")
+		XCTAssertEqual(cellModel.font, .enaFont(for: .headline))
 
-		XCTAssertEqual(viewModel.entryType, .contactPerson)
-		XCTAssertFalse(viewModel.parametersHidden)
+		XCTAssertEqual(cellModel.entryType, .contactPerson)
+		XCTAssertFalse(cellModel.parametersHidden)
 
-		XCTAssertEqual(viewModel.accessibilityTraits, [.button, .selected])
+		XCTAssertEqual(cellModel.accessibilityTraits, [.button, .selected])
 	}
 
 	func testLocationUnselected() throws {
@@ -58,16 +58,16 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 				name: "Bakery"
 			)
 		)
-		let viewModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-01-01", store: MockDiaryStore())
+		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-01-01", store: MockDiaryStore())
 
-		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
-		XCTAssertEqual(viewModel.text, "Bakery")
-		XCTAssertEqual(viewModel.font, .enaFont(for: .body))
+		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
+		XCTAssertEqual(cellModel.text, "Bakery")
+		XCTAssertEqual(cellModel.font, .enaFont(for: .body))
 
-		XCTAssertEqual(viewModel.entryType, .location)
-		XCTAssertTrue(viewModel.parametersHidden)
+		XCTAssertEqual(cellModel.entryType, .location)
+		XCTAssertTrue(cellModel.parametersHidden)
 
-		XCTAssertEqual(viewModel.accessibilityTraits, .button)
+		XCTAssertEqual(cellModel.accessibilityTraits, .button)
 	}
 
 	func testLocationSelected() throws {
@@ -82,16 +82,16 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 				)
 			)
 		)
-		let viewModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-02-11", store: MockDiaryStore())
+		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-02-11", store: MockDiaryStore())
 
-		XCTAssertEqual(viewModel.image, UIImage(named: "Diary_Checkmark_Selected"))
-		XCTAssertEqual(viewModel.text, "Supermarket")
-		XCTAssertEqual(viewModel.font, .enaFont(for: .headline))
+		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Selected"))
+		XCTAssertEqual(cellModel.text, "Supermarket")
+		XCTAssertEqual(cellModel.font, .enaFont(for: .headline))
 
-		XCTAssertEqual(viewModel.entryType, .location)
-		XCTAssertFalse(viewModel.parametersHidden)
+		XCTAssertEqual(cellModel.entryType, .location)
+		XCTAssertFalse(cellModel.parametersHidden)
 
-		XCTAssertEqual(viewModel.accessibilityTraits, [.button, .selected])
+		XCTAssertEqual(cellModel.accessibilityTraits, [.button, .selected])
 	}
 	
 }
