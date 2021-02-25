@@ -219,6 +219,30 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(cellModel.locationVisitDuration, 0)
 	}
 
+	func testContactPersonCircumstancesWithEncounter() {
+		let cellModel = contactPersonCellModelWithEncounter(circumstances: "Circumstances")
+
+		XCTAssertEqual(cellModel.circumstances, "Circumstances")
+	}
+
+	func testContactPersonCircumstancesWithoutEncounter() {
+		let cellModel = contactPersonCellModelWithoutEncounter()
+
+		XCTAssertEqual(cellModel.circumstances, "")
+	}
+
+	func testLocationCircumstancesWithVisit() {
+		let cellModel = locationCellModelWithVisit(circumstances: "Circumstances")
+
+		XCTAssertEqual(cellModel.circumstances, "Circumstances")
+	}
+
+	func testLocationCircumstancesWithoutVisit() {
+		let cellModel = locationCellModelWithoutVisit()
+
+		XCTAssertEqual(cellModel.circumstances, "")
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(name: String = "") -> DiaryDayEntryCellModel {
