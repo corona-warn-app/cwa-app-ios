@@ -236,6 +236,24 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertFalse(dayCell.staticTexts["Manu Mustermann"].exists)
 	}
 
+	func testScreenshotContactJournalInformation() throws {
+		var screenshotCounter = 0
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+
+		navigateToJournalOverview()
+
+		snapshot("contact_journal_information1_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Check whether we have entered the info screen.
+		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
+		
+		app.swipeUp(velocity: .fast)
+		snapshot("contact_journal_information2_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		app.swipeUp(velocity: .fast)
+		snapshot("contact_journal_information3_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func testAddPersonToDate() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
