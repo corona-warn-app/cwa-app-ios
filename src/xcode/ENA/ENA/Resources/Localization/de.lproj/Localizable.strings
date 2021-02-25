@@ -1,3 +1,7 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write "z. B." always with a non-breaking space (OPTION + SPACE). */
+
 /* General */
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten.";
 
@@ -195,7 +199,7 @@
 
 "SurveyConsent_Details_Headline" = "Zur Befragung durch das RKI";
 
-"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z. B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
+"SurveyConsent_Details_Body" = "Nachdem die Echtheit Ihrer App geprüft wurde, werden Sie auf eine Internetseite des RKI mit einem für Sie generierten Teilnahmelink zur Befragung weitergeleitet. Die Internetseite wird im Browser Ihres Smartphones geöffnet. Der Teilnahmelink enthält ein vorab durch die Corona-Warn-App generiertes Einmal-Passwort. Wenn Sie den Teilnahmelink antippen und die Internetseite mit der Befragung aufrufen, wird das Einmal-Passwort in Ihrem Browser zwischengespeichert. Auf dieser Seite werden weiterführenden Informationen zur Befragung und Handlungshinweise, z. B. wie die Befragung gestartet werden kann, dargestellt. Zum Start der Befragung wird das Einmal-Passwort an Server der Corona-Warn-App übermittelt und dort als verbraucht markiert. Durch den Server wird geprüft, ob Sie an der Befragung teilnehmen können oder nicht. So wird sichergestellt, dass jede Person nur einmal an der Befragung teilnehmen kann.";
 
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Risiko-Überprüfung nicht möglich";
@@ -1346,13 +1350,13 @@ sein.";
 
 /* New Version Features */
 
-"NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Einstellungen unter dem Menüpunkt „Neue Funktionen”.";
+"NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
 /* Version 1.14 */
 
 "NewVersionFeature_114_additional_diary_functions_title" = "Zusatzfunktionen im Kontakt-Tagebuch";
 
-"NewVersionFeature_114_additional_diary_functions_description" = "Sie können zu jedem Eintrag angeben, unter welchen Umständen die Begegnung stattfand. Sie können aus vorgegebenen Optionen auswählen (z.B. Dauer der Begegnung, mit oder ohne Maske) sowie zusätzlich in einer kurzen Notiz weitere Umstände erfassen, die zu einem erhöhten Risiko führen könnten. Sollten Sie sich tatsächlich anstecken, können diese Angaben dem Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten helfen.";
+"NewVersionFeature_114_additional_diary_functions_description" = "Sie können zu jedem Eintrag angeben, unter welchen Umständen die Begegnung stattfand. Sie können aus vorgegebenen Optionen auswählen (z. B. Dauer der Begegnung, mit oder ohne Maske) sowie zusätzlich in einer kurzen Notiz weitere Umstände erfassen, die zu einem erhöhten Risiko führen könnten. Sollten Sie sich tatsächlich anstecken, können diese Angaben dem Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten helfen.";
 
 "NewVersionFeature_114_direct_access_diary_title" = "Direkter Zugriff auf Kontakt-Tagebuch";
 
@@ -1465,9 +1469,9 @@ sein.";
 
 "ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min";
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "unter 15 Min.";
 
-"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min";
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "über 15 Min.";
 
 "ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "mit Maske";
 
@@ -1511,9 +1515,9 @@ sein.";
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Eine Standortmarkierung markiert ein Gebäude.";
 
-"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 min";
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "unter 15 Min.";
 
-"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 min";
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "über 15 Min.";
 
 "ContactDiary_Day_Encounter_WithMask" = "mit Maske";
 
@@ -1523,11 +1527,11 @@ sein.";
 
 "ContactDiary_Day_Encounter_Inside" = "drinnen";
 
-"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z.B. geringer Abstand)";
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notiz (z. B. geringer Abstand)";
 
 "ContactDiary_Day_Visit_Duration" = "Dauer";
 
-"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z.B. sehr voll, schlecht gelüftet)";
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notiz (z. B. sehr voll, schlecht gelüftet)";
 
 /* Edit Entries */
 
@@ -1827,7 +1831,7 @@ sein.";
 
 "DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Informationen und Hilfestellungen zur App ermöglichen";
 
-"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z. B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Es soll möglich werden, zu erkennen, ob es z. B. bei der Nutzung der App im Zusammenhang mit bestimmten Testeinrichtungen und Laboren oder in bestimmten Regionen zu Problemen kommt. Dies kann festgestellt werden, wenn aufgrund der Datenspende auffällt, dass in bestimmten Regionen Testergebnisse verspätet zur Verfügung stehen. So können die zuständigen Gesundheitsbehörden auch gezielt auf mögliche technische Störungen hingewiesen werden.";
 
 "DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Verbesserung der Statistiken über den Pandemieverlauf";
 
@@ -1884,7 +1888,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Contact_Journal_Notes_Description_Title" = "Notiz";
 
-"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
+"Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
 
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
