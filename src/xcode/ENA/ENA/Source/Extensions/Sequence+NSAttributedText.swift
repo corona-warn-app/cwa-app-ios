@@ -4,8 +4,7 @@
 
 import Foundation
 
-/** Helper to join array of NSAttributedString with a separator */
-
+/// Helper to join array of NSAttributedString with a separator
 extension Sequence where Iterator.Element == NSAttributedString {
 
 	func joined(with separator: NSAttributedString) -> NSAttributedString {
