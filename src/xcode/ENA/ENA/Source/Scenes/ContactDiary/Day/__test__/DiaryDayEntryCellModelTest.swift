@@ -244,68 +244,126 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testContactPersonSelection() {
-		let cellModel = contactPersonCellModelWithoutEncounter()
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithoutEncounter(store: store)
 
 		cellModel.toggleSelection()
 
-		XCTAssertFalse(cellModel.parametersHidden)
+		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
+			  let firstEntry = today.entries.first,
+			  case .contactPerson(let contactPerson) = firstEntry
+		else {
+			XCTFail("Could not find entry")
+			return
+		}
+
+		XCTAssertNotNil(contactPerson.encounter)
 	}
 
 	func testContactPersonDeselection() {
-		let cellModel = contactPersonCellModelWithEncounter()
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store)
 
 		cellModel.toggleSelection()
 
-		XCTAssertTrue(cellModel.parametersHidden)
+		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
+			  let firstEntry = today.entries.first,
+			  case .contactPerson(let contactPerson) = firstEntry
+		else {
+			XCTFail("Could not find entry")
+			return
+		}
+
+		XCTAssertNil(contactPerson.encounter)
 	}
 
 	func testLocationSelection() {
-		let cellModel = locationCellModelWithoutVisit()
+		let store = MockDiaryStore()
+		let cellModel = locationCellModelWithoutVisit(store: store)
 
 		cellModel.toggleSelection()
 
-		XCTAssertFalse(cellModel.parametersHidden)
+		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
+			  let firstEntry = today.entries.first,
+			  case .location(let location) = firstEntry
+		else {
+			XCTFail("Could not find entry")
+			return
+		}
+
+		XCTAssertNotNil(location.visit)
 	}
 
 	func testLocationDeselection() {
-		let cellModel = locationCellModelWithVisit()
+		let store = MockDiaryStore()
+		let cellModel = locationCellModelWithVisit(store: store)
 
 		cellModel.toggleSelection()
 
-		XCTAssertTrue(cellModel.parametersHidden)
+		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
+			  let firstEntry = today.entries.first,
+			  case .location(let location) = firstEntry
+		else {
+			XCTFail("Could not find entry")
+			return
+		}
+
+		XCTAssertNil(location.visit)
 	}
 
 	// MARK: - Private
 
-	private func contactPersonCellModelWithoutEncounter(name: String = "") -> DiaryDayEntryCellModel {
+	private func contactPersonCellModelWithoutEncounter(
+		store: DiaryStoringProviding = MockDiaryStore(),
+		name: String = ""
+	) -> DiaryDayEntryCellModel {
+		let result = store.addContactPerson(name: name)
+
+		guard case .success(let id) = result else {
+			fatalError("Could not add person")
+		}
+
 		return DiaryDayEntryCellModel(
 			entry: .contactPerson(
 				DiaryContactPerson(
-					id: 0,
+					id: id,
 					name: name
 				)
 			),
-			dateString: "2021-01-01",
-			store: MockDiaryStore()
+			dateString: todayString,
+			store: store
 		)
 	}
 
 	private func contactPersonCellModelWithEncounter(
+		store: DiaryStoringProviding = MockDiaryStore(),
 		name: String = "",
 		duration: ContactPersonEncounter.Duration = .none,
 		maskSituation: ContactPersonEncounter.MaskSituation = .none,
 		setting: ContactPersonEncounter.Setting = .none,
 		circumstances: String = ""
 	) -> DiaryDayEntryCellModel {
+		var result = store.addContactPerson(name: name)
+
+		guard case .success(let contactPersonID) = result else {
+			fatalError("Could not add person")
+		}
+
+		result = store.addContactPersonEncounter(contactPersonId: contactPersonID, date: todayString)
+
+		guard case .success(let encounterID) = result else {
+			fatalError("Could not add encounter")
+		}
+
 		return DiaryDayEntryCellModel(
 			entry: .contactPerson(
 				DiaryContactPerson(
-					id: 0,
-					name: "Marcus Scherer",
+					id: contactPersonID,
+					name: name,
 					encounter: ContactPersonEncounter(
-						id: 0,
-						date: "2021-02-11",
-						contactPersonId: 0,
+						id: encounterID,
+						date: todayString,
+						contactPersonId: contactPersonID,
 						duration: duration,
 						maskSituation: maskSituation,
 						setting: setting,
@@ -313,46 +371,75 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 					)
 				)
 			),
-			dateString: "2021-01-01",
-			store: MockDiaryStore()
+			dateString: todayString,
+			store: store
 		)
 	}
 
-	private func locationCellModelWithoutVisit(name: String = "") -> DiaryDayEntryCellModel {
+	private func locationCellModelWithoutVisit(
+		store: DiaryStoringProviding = MockDiaryStore(),
+		name: String = ""
+	) -> DiaryDayEntryCellModel {
+		let result = store.addLocation(name: name)
+
+		guard case .success(let id) = result else {
+			fatalError("Could not add location")
+		}
+
 		return DiaryDayEntryCellModel(
 			entry: .location(
 				DiaryLocation(
-					id: 0,
-					name: "Bakery"
+					id: id,
+					name: name
 				)
 			),
-			dateString: "2021-01-01",
-			store: MockDiaryStore()
+			dateString: todayString,
+			store: store
 		)
 	}
 
 	private func locationCellModelWithVisit(
+		store: DiaryStoringProviding = MockDiaryStore(),
 		name: String = "",
 		durationInMinutes: Int = 0,
 		circumstances: String = ""
 	) -> DiaryDayEntryCellModel {
+		var result = store.addLocation(name: name)
+
+		guard case .success(let locationID) = result else {
+			fatalError("Could not add location")
+		}
+
+		result = store.addLocationVisit(locationId: locationID, date: todayString)
+
+		guard case .success(let visitID) = result else {
+			fatalError("Could not add visit")
+		}
+
 		return DiaryDayEntryCellModel(
 			entry: .location(
 				DiaryLocation(
-					id: 0,
+					id: locationID,
 					name: name,
 					visit: LocationVisit(
-						id: 0,
-						date: "2021-02-11",
-						locationId: 0,
+						id: visitID,
+						date: todayString,
+						locationId: locationID,
 						durationInMinutes: durationInMinutes,
 						circumstances: circumstances
 					)
 				)
 			),
-			dateString: "2021-01-01",
-			store: MockDiaryStore()
+			dateString: todayString,
+			store: store
 		)
 	}
+
+	private var todayString: String = {
+		let dateFormatter = ISO8601DateFormatter()
+		dateFormatter.formatOptions = [.withFullDate]
+
+		return dateFormatter.string(from: Date())
+	}()
 	
 }
