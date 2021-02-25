@@ -279,6 +279,33 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertNil(firstLocation(in: store).visit)
 	}
 
+	func testSelectingDurationNone() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .lessThan15Minutes)
+
+		cellModel.selectDuration(at: -1)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.none)
+	}
+
+	func testSelectingDurationLessThan15Minutes() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .none)
+
+		cellModel.selectDuration(at: 0)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.lessThan15Minutes)
+	}
+
+	func testSelectingDurationMoreThan15Minutes() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, duration: .none)
+
+		cellModel.selectDuration(at: 1)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.moreThan15Minutes)
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(
