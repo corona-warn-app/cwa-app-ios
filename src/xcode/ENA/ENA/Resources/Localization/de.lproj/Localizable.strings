@@ -1358,24 +1358,6 @@ sein.";
 
 "NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports ein Fehlerprotokoll erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
 
-/* Version 1.14 */
-
-"NewVersionFeature_114_additional_diary_functions_title" = "Zusatzfunktionen im Kontakt-Tagebuch";
-
-"NewVersionFeature_114_additional_diary_functions_description" = "Sie können zu jedem Eintrag angeben, unter welchen Umständen die Begegnung stattfand. Sie können aus vorgegebenen Optionen auswählen (z.B. Dauer der Begegnung, mit oder ohne Maske) sowie zusätzlich in einer kurzen Notiz weitere Umstände erfassen, die zu einem erhöhten Risiko führen könnten. Sollten Sie sich tatsächlich anstecken, können diese Angaben dem Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten helfen.";
-
-"NewVersionFeature_114_direct_access_diary_title" = "Direkter Zugriff auf Kontakt-Tagebuch";
-
-"NewVersionFeature_114_direct_access_diary_description" = "Sie können nun direkt einen Eintrag im Kontakt-Tagebuch hinzufügen, ohne erst die App öffnen zu müssen. Tippen Sie dazu etwa 2 Sekunden lang auf das Icon der Corona-Warn-App bis ein Menü erscheint und tippen Sie dann auf „Tagebuch-Eintrag für heute hinzufügen“.";
-
-"NewVersionFeature_114_more_details_risk_status_title" = "Mehr Details zum Risikostatus ";
-
-"NewVersionFeature_114_more_details_risk_status_description" = "Wenn Ihnen in der App ein erhöhtes Risiko angezeigt wird, können Sie nun sehen, ob der Risikostatus aufgrund einer bzw. mehrerer Begegnungen mit erhöhtem Risiko angezeigt wird, oder aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
-
-"NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App";
-
-"NewVersionFeature_114_screenshots_description" = "Auf https://www.coronawarn.app stehen nun alle Screenshots der App zu Verfügung. So können sich nun auch über geplante Funktionen der App informieren.";
-
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
 
