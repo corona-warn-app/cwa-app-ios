@@ -8,48 +8,25 @@ import UIKit
 
 class EUSettingsViewModel {
 
-	// MARK: - Model.
+	// MARK: - Init
 
-	class CountryModel {
-		let country: Country
-
-		init(_ country: Country) {
-			self.country = country
-		}
+/*	init() {
+		self.countries = nil
+	}
+*/
+	init(countries availableCountries: [Country] = []) {
+		self.countries = availableCountries.sortedByLocalizedName
 	}
 
-	// MARK: - Attributes.
+	// MARK: - Overrides
 
-	let countryModels: [CountryModel]?
+	// MARK: - Protocol <#Name#>
 
-	// MARK: - Initializers.
+	// MARK: - Public
 
-	init() {
-		self.countryModels = nil
-	}
+	// MARK: - Internal
 
-	init(countries availableCountries: [Country]) {
-		self.countryModels = availableCountries.sortedByLocalizedName
-			.map { CountryModel($0) }
-	}
-
-	// MARK: - DynamicTableViewModel.
-
-	func countries() -> DynamicSection {
-
-		guard let countryModels = countryModels else {
-			return DynamicSection.section(cells: [])
-		}
-
-		let cells = countryModels.isEmpty
-			? [.emptyCell()]
-			: countryModels.map { DynamicCell.euCell(cellModel: $0) }
-
-		return DynamicSection.section(
-			separators: countryModels.isEmpty ? .none : .inBetween,
-			cells: cells
-		)
-	}
+	let countries: [Country]
 
 	func euSettingsModel() -> DynamicTableViewModel {
 		DynamicTableViewModel([
@@ -90,5 +67,61 @@ class EUSettingsViewModel {
 					.space(height: 16)
 			])
 		])
+	}
+
+	// MARK: - Private
+
+	private func countriesDynamicSection() -> DynamicSection {
+		let cells = countries.isEmpty
+			? [.emptyCell()]
+			: countries.map { DynamicCell.euCell(cellModel: $0) }
+
+		return DynamicSection.section(
+			separators: countries.isEmpty ? .none : .inBetween,
+			cells: cells
+		)
+	}
+}
+
+private extension DynamicCell {
+
+	static func euCell(cellModel: Country) -> Self {
+		.icon(cellModel.flag,
+			  text: .string(cellModel.localizedName),
+			  tintColor: nil,
+			  style: .body,
+			  iconWidth: 32,
+			  action: .none,
+			  configure: { _, cell, _ in
+				cell.imageView?.contentMode = .scaleAspectFit
+				cell.contentView.layoutMargins.left = 32
+				cell.contentView.layoutMargins.right = 32
+			  }
+		)
+	}
+
+	static func emptyCell() -> Self {
+		.custom(
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
+			action: .none,
+			accessoryAction: .none) { _, cell, _ in
+				if let roundedCell = cell as? DynamicTableViewRoundedCell {
+					roundedCell.configure(
+						title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
+						titleStyle: .title2,
+						body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
+						textColor: .textPrimary1,
+						bgColor: .separator,
+						icons: [
+							UIImage(named: "Icons_MobileDaten"),
+							UIImage(named: "Icon_Wifi")]
+							.compactMap { $0 },
+						buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
+						if let url = URL(string: UIApplication.openSettingsURLString) {
+							UIApplication.shared.open(url)
+						}
+					}
+				}
+			}
 	}
 }

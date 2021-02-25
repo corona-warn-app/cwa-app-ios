@@ -12,7 +12,6 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	init(appConfigurationProvider: AppConfigurationProviding) {
 		self.appConfigurationProvider = appConfigurationProvider
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -36,10 +35,6 @@ class EUSettingsViewController: DynamicTableViewController {
 		super.viewDidLoad()
 		setupView()
 	}
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -80,12 +75,13 @@ class EUSettingsViewController: DynamicTableViewController {
 
 	private func setupObservers() {
 		applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
-			guard let self = self else { return }
-			// reload country list if empty
-			if self.viewModel.countryModels?.isEmpty == true {
-				self.appConfigCancellable?.cancel()
-				self.setupDataSource(forceFetch: true)
+			guard let self = self,
+				  self.viewModel.countries.isEmpty else {
+				Log.debug("country list is not empty we don't need to reload", log: .default)
+				return
 			}
+			self.appConfigCancellable?.cancel()
+			self.setupDataSource(forceFetch: true)
 		}
 	}
 	
@@ -103,49 +99,6 @@ class EUSettingsViewController: DynamicTableViewController {
 				self?.viewModel = model
 				self?.dynamicTableViewModel = model.euSettingsModel()
 				self?.tableView.reloadData()
-			}
-	}
-
-}
-
-private extension DynamicCell {
-
-	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
-		.icon(cellModel.country.flag,
-			  text: .string(cellModel.country.localizedName),
-			  tintColor: nil,
-			  style: .body,
-			  iconWidth: 32,
-			  action: .none,
-			  configure: { _, cell, _ in
-				cell.imageView?.contentMode = .scaleAspectFit
-				cell.contentView.layoutMargins.left = 32
-				cell.contentView.layoutMargins.right = 32
-			  })
-	}
-
-	static func emptyCell() -> Self {
-		.custom(
-			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
-			action: .none,
-			accessoryAction: .none) { _, cell, _ in
-				if let roundedCell = cell as? DynamicTableViewRoundedCell {
-					roundedCell.configure(
-						title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
-						titleStyle: .title2,
-						body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
-						textColor: .textPrimary1,
-						bgColor: .separator,
-						icons: [
-							UIImage(named: "Icons_MobileDaten"),
-							UIImage(named: "Icon_Wifi")]
-							.compactMap { $0 },
-						buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
-						if let url = URL(string: UIApplication.openSettingsURLString) {
-							UIApplication.shared.open(url)
-						}
-					}
-				}
 			}
 	}
 }
