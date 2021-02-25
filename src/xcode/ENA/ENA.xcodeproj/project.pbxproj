@@ -2445,6 +2445,7 @@
 		3554354025E788BB0016764A /* ErrorReporting */ = {
 			isa = PBXGroup;
 			children = (
+				3554354725E798B30016764A /* ErrorReportViewController.swift */,
 			);
 			path = ErrorReporting;
 			sourceTree = "<group>";
