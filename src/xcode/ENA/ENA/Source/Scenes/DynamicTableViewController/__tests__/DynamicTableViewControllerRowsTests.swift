@@ -76,7 +76,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		XCTAssert(type(of: unwrappedCell) == UITableViewCell.self, "Got \(type(of: unwrappedCell)), expected \(UITableViewCell.self)")
+		XCTAssertTrue(type(of: unwrappedCell) == UITableViewCell.self, "Got \(type(of: unwrappedCell)), expected \(UITableViewCell.self)")
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_addsTopSeparatorToFirstCell() {
