@@ -139,7 +139,7 @@ class SettingsCoordinator: ENStateHandlerUpdating {
 	private func presentSelectValueList(selectValueViewModel: SelectValueViewModel) {
 		let selectValueViewController = SelectValueTableViewController(
 			selectValueViewModel,
-			dissmiss: { [weak self] in
+			dismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
 			})
 		let navigationController = UINavigationController(rootViewController: selectValueViewController)
