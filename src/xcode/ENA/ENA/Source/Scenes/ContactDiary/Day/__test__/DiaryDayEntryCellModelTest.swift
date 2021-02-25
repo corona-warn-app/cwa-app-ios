@@ -124,6 +124,36 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(cellModel.maskSituationValues, expectedMaskSituationValues)
 	}
 
+	func testSelectedMaskSituationSegmentIndexForNone() {
+		let cellModel = contactPersonCellModelWithEncounter(maskSituation: .none)
+
+		XCTAssertEqual(cellModel.selectedMaskSituationSegmentIndex, -1)
+	}
+
+	func testSelectedMaskSituationSegmentIndexWithMask() {
+		let cellModel = contactPersonCellModelWithEncounter(maskSituation: .withMask)
+
+		XCTAssertEqual(cellModel.selectedMaskSituationSegmentIndex, 0)
+	}
+
+	func testSelectedMaskSituationSegmentIndexWithoutMask() {
+		let cellModel = contactPersonCellModelWithEncounter(maskSituation: .withoutMask)
+
+		XCTAssertEqual(cellModel.selectedMaskSituationSegmentIndex, 1)
+	}
+
+	func testSelectedMaskSituationSegmentIndexWithoutEncounter() {
+		let cellModel = contactPersonCellModelWithoutEncounter()
+
+		XCTAssertEqual(cellModel.selectedMaskSituationSegmentIndex, -1)
+	}
+
+	func testSelectedMaskSituationSegmentIndexOnLocation() {
+		let cellModel = locationCellModelWithVisit()
+
+		XCTAssertEqual(cellModel.selectedMaskSituationSegmentIndex, -1)
+	}
+
 	func testSettingValues() {
 		let cellModel = contactPersonCellModelWithoutEncounter()
 
