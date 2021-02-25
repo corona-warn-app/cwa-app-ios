@@ -423,6 +423,41 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(encounter?.circumstances, "Circumstances")
 	}
 
+	func testUpdatingLocationVisit() {
+		let store = MockDiaryStore()
+		let cellModel = locationCellModelWithVisit(
+			store: store,
+			durationInMinutes: 0,
+			circumstances: ""
+		)
+
+		cellModel.updateLocationVisit(
+			durationInMinutes: 17,
+			circumstances: "Circumstances"
+		)
+
+		let visit = firstLocation(in: store).visit
+
+		XCTAssertEqual(visit?.durationInMinutes, 17)
+		XCTAssertEqual(visit?.circumstances, "Circumstances")
+	}
+
+	func testUpdatingLocationVisitKeepsOldValues() {
+		let store = MockDiaryStore()
+		let cellModel = locationCellModelWithVisit(
+			store: store,
+			durationInMinutes: 17,
+			circumstances: "Circumstances"
+		)
+
+		cellModel.updateLocationVisit()
+
+		let visit = firstLocation(in: store).visit
+
+		XCTAssertEqual(visit?.durationInMinutes, 17)
+		XCTAssertEqual(visit?.circumstances, "Circumstances")
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(
