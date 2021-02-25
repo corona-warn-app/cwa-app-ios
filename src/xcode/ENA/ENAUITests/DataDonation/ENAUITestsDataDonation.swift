@@ -25,11 +25,11 @@ class ENAUITestsDataDonation: XCTestCase {
 		app.swipeUp(velocity: .fast)
 
 		// Navigate to settings
-		XCTAssert(app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].waitForExistence(timeout: 5.0))
 		app.cells[AccessibilityIdentifiers.Home.settingsCardTitle].tap()
 
 		// Navigate to data donation screen
-		XCTAssert(app.cells[AccessibilityIdentifiers.Settings.dataDonation].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.Settings.dataDonation].waitForExistence(timeout: 5.0))
 		app.cells[AccessibilityIdentifiers.Settings.dataDonation].tap()
 
 		// Check that the switch visible
