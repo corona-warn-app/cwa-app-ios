@@ -387,4 +387,8 @@ enum AccessibilityIdentifiers {
 		static let regionCell = "DataDonation.Region.Identifier"
 		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
 	}
+
+	enum ErrorReport {
+		static let title = "AppStrings.ErrorReport.title"
+	}
 }

@@ -65,6 +65,12 @@ enum AppInformationModel {
 		imageAccessabliltyLabel: AppStrings.AppInformation.termsImageDescription,
 		urlResourceName: "usage"
 	)
+
+	static let errorReportModel = DynamicTableViewModel([
+		.section(cells: [
+			.title2(text: AppStrings.ErrorReport.title, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.title)
+		])
+	])
 }
 
 private func isGerman() -> Bool {

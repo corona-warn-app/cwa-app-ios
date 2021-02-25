@@ -2398,6 +2398,13 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		3554354025E788BB0016764A /* ErrorReporting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ErrorReporting;
+			sourceTree = "<group>";
+		};
 		35AA4AF2259B40DF00D32306 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -3150,6 +3157,7 @@
 				51D420C224583D7B00AD70CA /* Settings */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
+				3554354025E788BB0016764A /* ErrorReporting */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
