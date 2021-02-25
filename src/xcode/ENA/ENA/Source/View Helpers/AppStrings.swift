@@ -891,6 +891,17 @@ enum AppStrings {
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
+		/* Version 1.15 */
+		
+		static let feature115SwitzerlandTitle = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_title", comment: "")
+		
+		static let feature115SwitzerlandDescription = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_description", comment: "")
+		
+		static let feature115ErrorAnalyticsLogTitle = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_title", comment: "")
+		
+		static let feature115ErrorAnalyticsLogDescription = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_description", comment: "")
+		
+		
 		/* Version 1.14 */
 		
 		static let feature114AdditionalDiaryFunctionsTitle = NSLocalizedString("NewVersionFeature_114_additional_diary_functions_title", comment: "")
