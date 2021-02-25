@@ -93,5 +93,83 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		XCTAssertEqual(cellModel.accessibilityTraits, [.button, .selected])
 	}
+
+	func testDurationValues() {
+		let cellModel = DiaryDayEntryCellModel(
+			entry: .contactPerson(
+				DiaryContactPerson(
+					id: 0,
+					name: ""
+				)
+			),
+			dateString: "2021-02-11",
+			store: MockDiaryStore()
+		)
+
+		let expectedDurationValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.Duration>] = [
+			DiaryDayEntryCellModel.SegmentedControlValue(
+				title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes,
+				value: .lessThan15Minutes
+			),
+			DiaryDayEntryCellModel.SegmentedControlValue(
+				title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes,
+				value: .moreThan15Minutes
+			)
+		]
+
+		XCTAssertEqual(cellModel.durationValues, expectedDurationValues)
+	}
+
+	func testMaskSituationValues() {
+		let cellModel = DiaryDayEntryCellModel(
+			entry: .contactPerson(
+				DiaryContactPerson(
+					id: 0,
+					name: ""
+				)
+			),
+			dateString: "2021-02-11",
+			store: MockDiaryStore()
+		)
+
+		let expectedMaskSituationValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.MaskSituation>] = [
+			DiaryDayEntryCellModel.SegmentedControlValue(
+				title: AppStrings.ContactDiary.Day.Encounter.withMask,
+				value: .withMask
+			),
+			DiaryDayEntryCellModel.SegmentedControlValue(
+				title: AppStrings.ContactDiary.Day.Encounter.withoutMask,
+				value: .withoutMask
+			)
+		]
+
+		XCTAssertEqual(cellModel.maskSituationValues, expectedMaskSituationValues)
+	}
+
+	func testSettingValues() {
+		let cellModel = DiaryDayEntryCellModel(
+			entry: .contactPerson(
+				DiaryContactPerson(
+					id: 0,
+					name: ""
+				)
+			),
+			dateString: "2021-02-11",
+			store: MockDiaryStore()
+		)
+
+		let expectedSettingValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.Setting>] = [
+			DiaryDayEntryCellModel.SegmentedControlValue(
+				title: AppStrings.ContactDiary.Day.Encounter.outside,
+				value: .outside
+			),
+			DiaryDayEntryCellModel.SegmentedControlValue(
+				title: AppStrings.ContactDiary.Day.Encounter.inside,
+				value: .inside
+			)
+		]
+
+		XCTAssertEqual(cellModel.settingValues, expectedSettingValues)
+	}
 	
 }
