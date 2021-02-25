@@ -77,6 +77,36 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(cellModel.durationValues, expectedDurationValues)
 	}
 
+	func testSelectedDurationSegmentIndexForNone() {
+		let cellModel = contactPersonCellModelWithEncounter(duration: .none)
+
+		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, -1)
+	}
+
+	func testSelectedDurationSegmentIndexForLessThan15Minutes() {
+		let cellModel = contactPersonCellModelWithEncounter(duration: .lessThan15Minutes)
+
+		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, 0)
+	}
+
+	func testSelectedDurationSegmentIndexForMoreThan15Minutes() {
+		let cellModel = contactPersonCellModelWithEncounter(duration: .moreThan15Minutes)
+
+		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, 1)
+	}
+
+	func testSelectedDurationSegmentIndexWithoutEncounter() {
+		let cellModel = contactPersonCellModelWithoutEncounter()
+
+		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, -1)
+	}
+
+	func testSelectedDurationSegmentIndexOnLocation() {
+		let cellModel = locationCellModelWithVisit()
+
+		XCTAssertEqual(cellModel.selectedDurationSegmentIndex, -1)
+	}
+
 	func testMaskSituationValues() {
 		let cellModel = DiaryDayEntryCellModel(
 			entry: .contactPerson(
