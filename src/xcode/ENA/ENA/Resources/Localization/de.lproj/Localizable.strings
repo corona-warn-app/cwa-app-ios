@@ -1484,7 +1484,7 @@ sein.";
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* ActionSheet */
-"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informationen";
 
 "ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
 
@@ -1535,7 +1535,7 @@ sein.";
 
 /* Edit Entries */
 
-"ContactDiary_EditEntries_ContactPersons_Title" = "Personen";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Personen bearbeiten";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Alle entfernen";
 
@@ -1555,7 +1555,7 @@ sein.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Nein";
 
-"ContactDiary_EditEntries_Locations_Title" = "Orte";
+"ContactDiary_EditEntries_Locations_Title" = "Orte bearbeiten";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle entfernen";
 
