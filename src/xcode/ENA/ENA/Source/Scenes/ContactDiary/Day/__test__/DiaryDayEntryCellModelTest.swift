@@ -9,13 +9,7 @@ import XCTest
 class DiaryDayEntryCellModelTest: XCTestCase {
 
 	func testContactPersonUnselected() throws {
-		let entry: DiaryEntry = .contactPerson(
-			DiaryContactPerson(
-				id: 0,
-				name: "Nick Guendling"
-			)
-		)
-		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-01-01", store: MockDiaryStore())
+		let cellModel = contactPersonCellModelWithoutEncounter(name: "Nick Guendling")
 
 		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
 		XCTAssertEqual(cellModel.text, "Nick Guendling")
@@ -28,18 +22,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testContactPersonSelected() throws {
-		let entry: DiaryEntry = .contactPerson(
-			DiaryContactPerson(
-				id: 0,
-				name: "Marcus Scherer",
-				encounter: ContactPersonEncounter(
-					id: 0,
-					date: "2021-02-11",
-					contactPersonId: 0
-				)
-			)
-		)
-		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-02-11", store: MockDiaryStore())
+		let cellModel = contactPersonCellModelWithEncounter(name: "Marcus Scherer")
 
 		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Selected"))
 		XCTAssertEqual(cellModel.text, "Marcus Scherer")
@@ -52,13 +35,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testLocationUnselected() throws {
-		let entry: DiaryEntry = .location(
-			DiaryLocation(
-				id: 0,
-				name: "Bakery"
-			)
-		)
-		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-01-01", store: MockDiaryStore())
+		let cellModel = locationCellModelWithoutVisit(name: "Bakery")
 
 		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Unselected"))
 		XCTAssertEqual(cellModel.text, "Bakery")
@@ -71,18 +48,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testLocationSelected() throws {
-		let entry: DiaryEntry = .location(
-			DiaryLocation(
-				id: 0,
-				name: "Supermarket",
-				visit: LocationVisit(
-					id: 0,
-					date: "2021-02-11",
-					locationId: 0
-				)
-			)
-		)
-		let cellModel = DiaryDayEntryCellModel(entry: entry, dateString: "2021-02-11", store: MockDiaryStore())
+		let cellModel = locationCellModelWithVisit(name: "Supermarket")
 
 		XCTAssertEqual(cellModel.image, UIImage(named: "Diary_Checkmark_Selected"))
 		XCTAssertEqual(cellModel.text, "Supermarket")
@@ -95,16 +61,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 	}
 
 	func testDurationValues() {
-		let cellModel = DiaryDayEntryCellModel(
-			entry: .contactPerson(
-				DiaryContactPerson(
-					id: 0,
-					name: ""
-				)
-			),
-			dateString: "2021-02-11",
-			store: MockDiaryStore()
-		)
+		let cellModel = contactPersonCellModelWithoutEncounter()
 
 		let expectedDurationValues: [DiaryDayEntryCellModel.SegmentedControlValue<ContactPersonEncounter.Duration>] = [
 			DiaryDayEntryCellModel.SegmentedControlValue(
@@ -170,6 +127,86 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		]
 
 		XCTAssertEqual(cellModel.settingValues, expectedSettingValues)
+	}
+
+	// MARK: - Private
+
+	private func contactPersonCellModelWithoutEncounter(name: String = "") -> DiaryDayEntryCellModel {
+		return DiaryDayEntryCellModel(
+			entry: .contactPerson(
+				DiaryContactPerson(
+					id: 0,
+					name: name
+				)
+			),
+			dateString: "2021-01-01",
+			store: MockDiaryStore()
+		)
+	}
+
+	private func contactPersonCellModelWithEncounter(
+		name: String = "",
+		duration: ContactPersonEncounter.Duration = .none,
+		maskSituation: ContactPersonEncounter.MaskSituation = .none,
+		setting: ContactPersonEncounter.Setting = .none,
+		circumstances: String = ""
+	) -> DiaryDayEntryCellModel {
+		return DiaryDayEntryCellModel(
+			entry: .contactPerson(
+				DiaryContactPerson(
+					id: 0,
+					name: "Marcus Scherer",
+					encounter: ContactPersonEncounter(
+						id: 0,
+						date: "2021-02-11",
+						contactPersonId: 0,
+						duration: duration,
+						maskSituation: maskSituation,
+						setting: setting,
+						circumstances: circumstances
+					)
+				)
+			),
+			dateString: "2021-01-01",
+			store: MockDiaryStore()
+		)
+	}
+
+	private func locationCellModelWithoutVisit(name: String = "") -> DiaryDayEntryCellModel {
+		return DiaryDayEntryCellModel(
+			entry: .location(
+				DiaryLocation(
+					id: 0,
+					name: "Bakery"
+				)
+			),
+			dateString: "2021-01-01",
+			store: MockDiaryStore()
+		)
+	}
+
+	private func locationCellModelWithVisit(
+		name: String = "",
+		durationInMinutes: Int = 0,
+		circumstances: String = ""
+	) -> DiaryDayEntryCellModel {
+		return DiaryDayEntryCellModel(
+			entry: .location(
+				DiaryLocation(
+					id: 0,
+					name: name,
+					visit: LocationVisit(
+						id: 0,
+						date: "2021-02-11",
+						locationId: 0,
+						durationInMinutes: durationInMinutes,
+						circumstances: circumstances
+					)
+				)
+			),
+			dateString: "2021-01-01",
+			store: MockDiaryStore()
+		)
 	}
 	
 }
