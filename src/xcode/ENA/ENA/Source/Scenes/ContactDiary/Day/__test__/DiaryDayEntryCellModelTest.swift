@@ -249,15 +249,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		cellModel.toggleSelection()
 
-		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
-			  let firstEntry = today.entries.first,
-			  case .contactPerson(let contactPerson) = firstEntry
-		else {
-			XCTFail("Could not find entry")
-			return
-		}
-
-		XCTAssertNotNil(contactPerson.encounter)
+		XCTAssertNotNil(firstContactPerson(in: store).encounter)
 	}
 
 	func testContactPersonDeselection() {
@@ -266,15 +258,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		cellModel.toggleSelection()
 
-		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
-			  let firstEntry = today.entries.first,
-			  case .contactPerson(let contactPerson) = firstEntry
-		else {
-			XCTFail("Could not find entry")
-			return
-		}
-
-		XCTAssertNil(contactPerson.encounter)
+		XCTAssertNil(firstContactPerson(in: store).encounter)
 	}
 
 	func testLocationSelection() {
@@ -283,15 +267,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		cellModel.toggleSelection()
 
-		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
-			  let firstEntry = today.entries.first,
-			  case .location(let location) = firstEntry
-		else {
-			XCTFail("Could not find entry")
-			return
-		}
-
-		XCTAssertNotNil(location.visit)
+		XCTAssertNotNil(firstLocation(in: store).visit)
 	}
 
 	func testLocationDeselection() {
@@ -300,15 +276,7 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 
 		cellModel.toggleSelection()
 
-		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
-			  let firstEntry = today.entries.first,
-			  case .location(let location) = firstEntry
-		else {
-			XCTFail("Could not find entry")
-			return
-		}
-
-		XCTAssertNil(location.visit)
+		XCTAssertNil(firstLocation(in: store).visit)
 	}
 
 	// MARK: - Private
@@ -433,6 +401,28 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 			dateString: todayString,
 			store: store
 		)
+	}
+
+	private func firstContactPerson(in store: DiaryStoringProviding) -> DiaryContactPerson {
+		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
+			  let firstEntry = today.entries.first(where: { $0.type == .contactPerson }),
+			  case .contactPerson(let contactPerson) = firstEntry
+		else {
+			fatalError("Could not find contactPerson")
+		}
+
+		return contactPerson
+	}
+
+	private func firstLocation(in store: DiaryStoringProviding) -> DiaryLocation {
+		guard let today = store.diaryDaysPublisher.value.first(where: { $0.dateString == todayString }),
+			  let firstEntry = today.entries.first(where: { $0.type == .location }),
+			  case .location(let location) = firstEntry
+		else {
+			fatalError("Could not find location")
+		}
+
+		return location
 	}
 
 	private var todayString: String = {
