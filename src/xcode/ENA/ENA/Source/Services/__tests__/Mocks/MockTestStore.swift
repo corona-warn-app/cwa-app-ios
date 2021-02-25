@@ -8,8 +8,10 @@ import Foundation
 final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
 
 
-	init() {
-		Analytics.setupMock(store: self)
+	init(withAnalytics: Bool = true) {
+		if withAnalytics {
+			Analytics.setupMock(store: self)
+		}
 	}
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
