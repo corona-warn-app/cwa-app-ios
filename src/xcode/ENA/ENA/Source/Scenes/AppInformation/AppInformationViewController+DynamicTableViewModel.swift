@@ -40,6 +40,11 @@ extension AppInformationViewController {
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactNavigation,
 			action: .push(model: AppInformationModel.contactModel, withTitle: AppStrings.AppInformation.contactNavigation)
 		),
+		.errorReport: AppInformationCellModel(
+			text: AppStrings.ErrorReport.title,
+			accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.title,
+			action: .push(model: AppInformationModel.errorReportModel, withTitle: AppStrings.ErrorReport.title)
+		),
 		.imprint: AppInformationCellModel(
 			text: AppStrings.AppInformation.imprintNavigation,
 			accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintNavigation,
