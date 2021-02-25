@@ -78,7 +78,7 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
-		let tabbarVC = UITabBarController()
+		let tabbarVC = AccessibleTabbarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
 		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
@@ -161,5 +161,53 @@ extension RootCoordinator: ENStateHandlerUpdating {
 				updating.updateEnState(state)
 			}
 		}
+	}
+}
+
+// MARK: - AccessibleTabbarController
+private final class AccessibleTabbarController: UITabBarController {
+
+	// MARK: - Init
+	
+	deinit {
+		if let cancellableNotificationObserver = cancellableNotificationObserver {
+			NotificationCenter.default.removeObserver(cancellableNotificationObserver)
+		}
+	}
+	
+	// MARK: - Overrides
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		cancellableNotificationObserver = NotificationCenter.default.addObserver(forName: UIContentSizeCategory.didChangeNotification, object: nil, queue: .main) { [weak self] _ in
+			self?.setAttributes()
+		}
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setAttributes()
+	}
+	
+	override func setViewControllers(_ viewControllers: [UIViewController]?, animated: Bool) {
+		super.setViewControllers(viewControllers, animated: animated)
+		setAttributes()
+	}
+	
+	// MARK: - Protocol <#Name#>
+	
+	// MARK: - Public
+	
+	// MARK: - Internal
+	
+	// MARK: - Private
+	
+	private var cancellableNotificationObserver: NSObjectProtocol?
+	
+	private func setAttributes() {
+		let font = UIFont.systemFont(ofSize: UIFontMetrics.default.scaledValue(for: 10))
+		tabBar.items?.forEach({ item in
+			item.setTitleTextAttributes([.font: font], for: .normal)
+		})
 	}
 }
