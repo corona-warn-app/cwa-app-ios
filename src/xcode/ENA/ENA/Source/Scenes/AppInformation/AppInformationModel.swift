@@ -68,7 +68,18 @@ enum AppInformationModel {
 
 	static let errorReportModel = DynamicTableViewModel([
 		.section(cells: [
+			.body(text: AppStrings.ErrorReport.description1),
+			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com")), // TODO: get correct link!
+			.body(text: AppStrings.ErrorReport.description2)
+		]),
+		.section(
+			separators: .all,
+			cells: [
+				.body(text: AppStrings.ErrorReport.privacyInformation, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.privacyInformation, accessibilityTraits: .link, action: .none /* TODO: .push model or view controller */)
+		]),
+		.section(cells: [
 			.title2(text: AppStrings.ErrorReport.title, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.title)
+			// custom foo…
 		])
 	])
 }
