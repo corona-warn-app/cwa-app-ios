@@ -163,9 +163,10 @@ extension DynamicCell {
 		}
 	}
 
-	static func link(text: String, url: URL?) -> DynamicCell {
+	static func link(text: String, url: URL?, accessibilityIdentifier: String? = nil) -> DynamicCell {
 		.custom(withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
+			cell.textLabel?.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 
