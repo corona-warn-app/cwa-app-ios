@@ -83,13 +83,34 @@ extension OnboardingInfoViewController {
 
 		let containerView = UIView()
 
-		let countryListView = UIStackView()
-		countryListView.translatesAutoresizingMaskIntoConstraints = false
-		countryListView.axis = .vertical
-		countryListView.alignment = .leading
-		countryListView.distribution = .equalSpacing
-		countryListView.spacing = 7.5
-		containerView.addSubview(countryListView)
+		let flagsLabel = UILabel()
+		flagsLabel.numberOfLines = 0
+		flagsLabel.translatesAutoresizingMaskIntoConstraints = false
+
+		let namesLabel = UILabel()
+		namesLabel.numberOfLines = 0
+		namesLabel.translatesAutoresizingMaskIntoConstraints = false
+
+		let topSeparator = UIView()
+		topSeparator.backgroundColor = .enaColor(for: .hairline)
+
+		let bottomSeparator = UIView()
+		bottomSeparator.backgroundColor = .enaColor(for: .hairline)
+
+		let containerStackView = UIStackView(
+			arrangedSubviews: [
+				topSeparator,
+				flagsLabel,
+				namesLabel,
+				bottomSeparator
+			]
+		)
+		containerStackView.translatesAutoresizingMaskIntoConstraints = false
+		containerStackView.axis = .vertical
+		containerStackView.alignment = .leading
+		containerStackView.distribution = .equalCentering
+		containerStackView.spacing = 4
+		containerView.addSubview(containerStackView)
 
 		let titleLabel = ENALabel()
 		titleLabel.style = .headline
@@ -100,47 +121,36 @@ extension OnboardingInfoViewController {
 		titleLabel.numberOfLines = 0
 		containerView.addSubview(titleLabel)
 
-		for (index, country) in countries.enumerated() {
-			let stackView = UIStackView()
-			stackView.axis = .horizontal
-			stackView.alignment = .center
-			stackView.spacing = 13
-
-			let label = ENALabel()
-			label.style = .body
-			label.text = country.localizedName
-
-			let image = UIImageView(image: country.flag)
-			image.widthAnchor.constraint(equalToConstant: 28).isActive = true
-			image.contentMode = .scaleAspectFit
-
-			stackView.addArrangedSubview(image)
-			stackView.addArrangedSubview(label)
-			countryListView.addArrangedSubview(stackView)
-
-			if index == countries.count - 1 { break }
-			let separator = UIView()
-			separator.backgroundColor = .enaColor(for: .hairline)
-			countryListView.addArrangedSubview(separator)
-
-			NSLayoutConstraint.activate([
-				separator.leadingAnchor.constraint(equalTo: countryListView.leadingAnchor),
-				separator.trailingAnchor.constraint(equalTo: countryListView.trailingAnchor),
-				separator.heightAnchor.constraint(equalToConstant: 1)
-			])
-		}
-
 		let layoutMarginsGuide = containerView.layoutMarginsGuide
-
 		NSLayoutConstraint.activate([
 			titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
 			titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
 			titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-			countryListView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
-			countryListView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-			countryListView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			countryListView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+			topSeparator.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+			topSeparator.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+			topSeparator.heightAnchor.constraint(equalToConstant: 1),
+			containerStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+			containerStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+			containerStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+			containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+			bottomSeparator.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+			bottomSeparator.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+			bottomSeparator.heightAnchor.constraint(equalToConstant: 1)
 		])
+
+		let countryNames = countries.map({ $0.localizedName })
+			.joined(separator: ", ")
+
+		let flagImages = countries.map { $0.flag }
+			.map { image -> NSAttributedString in
+				let imageAttribute = NSTextAttachment()
+				imageAttribute.image = image?.resize(with: CGSize(width: 28.0, height: 28.0))
+				return NSAttributedString(attachment: imageAttribute)
+			}
+			.joined(with: "  ")
+
+		flagsLabel.attributedText = flagImages
+		namesLabel.text = countryNames
 
 		return containerView
 	}
