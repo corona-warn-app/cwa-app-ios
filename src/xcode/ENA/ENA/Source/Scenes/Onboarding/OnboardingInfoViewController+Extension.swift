@@ -92,17 +92,19 @@ extension OnboardingInfoViewController {
 		namesLabel.translatesAutoresizingMaskIntoConstraints = false
 
 		let topSeparator = UIView()
+		topSeparator.translatesAutoresizingMaskIntoConstraints = false
 		topSeparator.backgroundColor = .enaColor(for: .hairline)
+		containerView.addSubview(topSeparator)
 
 		let bottomSeparator = UIView()
+		bottomSeparator.translatesAutoresizingMaskIntoConstraints = false
 		bottomSeparator.backgroundColor = .enaColor(for: .hairline)
+		containerView.addSubview(bottomSeparator)
 
 		let containerStackView = UIStackView(
 			arrangedSubviews: [
-				topSeparator,
 				flagsLabel,
-				namesLabel,
-				bottomSeparator
+				namesLabel
 			]
 		)
 		containerStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -126,22 +128,21 @@ extension OnboardingInfoViewController {
 			titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
 			titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
 			titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+			topSeparator.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
 			topSeparator.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
 			topSeparator.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
 			topSeparator.heightAnchor.constraint(equalToConstant: 1),
-			containerStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
-			containerStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-			containerStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+			containerStackView.topAnchor.constraint(equalTo: topSeparator.bottomAnchor, constant: 12),
+			containerStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 18),
+			containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 18),
+			bottomSeparator.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
 			bottomSeparator.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
 			bottomSeparator.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-			bottomSeparator.heightAnchor.constraint(equalToConstant: 1)
+			bottomSeparator.heightAnchor.constraint(equalToConstant: 1),
+			bottomSeparator.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
 		])
 
-		let countryNames = countries.map({ $0.localizedName })
-			.joined(separator: ", ")
-
-		let flagImages = countries.map { $0.flag }
+		flagsLabel.attributedText = countries.map { $0.flag }
 			.map { image -> NSAttributedString in
 				let imageAttribute = NSTextAttachment()
 				imageAttribute.image = image?.resize(with: CGSize(width: 28.0, height: 28.0))
@@ -149,8 +150,8 @@ extension OnboardingInfoViewController {
 			}
 			.joined(with: "  ")
 
-		flagsLabel.attributedText = flagImages
-		namesLabel.text = countryNames
+		namesLabel.text = countries.map({ $0.localizedName })
+			.joined(separator: ", ")
 
 		return containerView
 	}
