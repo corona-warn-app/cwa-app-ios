@@ -378,6 +378,51 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(firstLocation(in: store).visit?.circumstances, "New Circumstances")
 	}
 
+	func testUpdatingContactPersonEncounter() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(
+			store: store,
+			duration: .none,
+			maskSituation: .none,
+			setting: .none,
+			circumstances: ""
+		)
+
+		cellModel.updateContactPersonEncounter(
+			duration: .lessThan15Minutes,
+			maskSituation: .withMask,
+			setting: .outside,
+			circumstances: "Circumstances"
+		)
+
+		let encounter = firstContactPerson(in: store).encounter
+
+		XCTAssertEqual(encounter?.duration, .lessThan15Minutes)
+		XCTAssertEqual(encounter?.maskSituation, .withMask)
+		XCTAssertEqual(encounter?.setting, .outside)
+		XCTAssertEqual(encounter?.circumstances, "Circumstances")
+	}
+
+	func testUpdatingContactPersonEncounterKeepsOldValues() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(
+			store: store,
+			duration: .lessThan15Minutes,
+			maskSituation: .withMask,
+			setting: .outside,
+			circumstances: "Circumstances"
+		)
+
+		cellModel.updateContactPersonEncounter()
+
+		let encounter = firstContactPerson(in: store).encounter
+
+		XCTAssertEqual(encounter?.duration, .lessThan15Minutes)
+		XCTAssertEqual(encounter?.maskSituation, .withMask)
+		XCTAssertEqual(encounter?.setting, .outside)
+		XCTAssertEqual(encounter?.circumstances, "Circumstances")
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(
