@@ -1541,7 +1541,7 @@ sein.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Wollen Sie wirklich alle Personen entfernen?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie eine Person entfernen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie alle Personen entfernen, werden alle Einträge für alle Personen aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Ja";
 
@@ -1561,7 +1561,7 @@ sein.";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Wollen Sie wirklich alle Orte entfernen?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie einen Ort entfernen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie alle Orte entfernen, werden alle Einträge für alle Orte aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Ja";
 
