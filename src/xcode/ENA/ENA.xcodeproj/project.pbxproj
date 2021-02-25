@@ -2442,6 +2442,13 @@
 			path = ErrorReporting;
 			sourceTree = "<group>";
 		};
+		3554354025E788BB0016764A /* ErrorReporting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ErrorReporting;
+			sourceTree = "<group>";
+		};
 		35AA4AF2259B40DF00D32306 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
