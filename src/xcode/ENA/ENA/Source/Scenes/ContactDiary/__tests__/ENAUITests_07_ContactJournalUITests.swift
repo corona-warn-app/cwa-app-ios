@@ -156,7 +156,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		
 		// add a person
 		addPersonToDayEntry("Andrea")
-
+		
 		// switch to places
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 		
@@ -239,19 +239,73 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	func testScreenshotContactJournalInformation() throws {
 		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
-
+		
+		// navigate to desired screen
 		navigateToJournalOverview()
 
-		snapshot("contact_journal_information1_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 
 		// Check whether we have entered the info screen.
 		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
 		
 		app.swipeUp(velocity: .fast)
-		snapshot("contact_journal_information2_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
 		app.swipeUp(velocity: .fast)
-		snapshot("contact_journal_information3_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func testScreenshotAddTwoPersonsTwoLocations() throws {
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.cells.element(boundBy: 1).tap()
+		
+		// add persons
+		addPersonToDayEntry("Erika Mustermann")
+		addPersonToDayEntry("Max Mustermann")
+		// take screenshot
+		snapshot("contact_journal_listing_add_persons")
+		
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+		
+		// add locations
+		addLocationToDayEntry("Sportzentrum")
+		addLocationToDayEntry("Büro")
+		// take screenshot
+		snapshot("contact_journal_listing_add_locations")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+	}
+
+	func testScreenshotEditPersonScreen() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		// open sheet to edit persons
+		openEditPersonViaSheet()
+		
+		// take screenshot
+		snapshot("contact_journal_listing_edit_persons")
+	}
+	
+	func testScreenshotEditLocationScreen() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		// open sheet to edit locations
+		openEditLocationsViaSheet()
+		
+		// take screenshot
+		snapshot("contact_journal_listing_edit_locations")
 	}
 
 	func testAddPersonToDate() throws {
