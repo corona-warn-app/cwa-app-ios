@@ -8,27 +8,8 @@ import UIKit
 
 class EUSettingsViewController: DynamicTableViewController {
 
-	// MARK: - Public Attributes.
-
-	var appConfigurationProvider: AppConfigurationProviding
-
-	// MARK: - Private Attributes
-
-	private var viewModel = EUSettingsViewModel()
-	private var applicationDidBecomeActiveObserver: NSObjectProtocol?
-	private var appConfigCancellable: AnyCancellable?
-
-	// MARK: Deinit
-	
-	deinit {
-		if let observer = applicationDidBecomeActiveObserver {
-			NotificationCenter.default.removeObserver(observer)
-		}
-		appConfigCancellable?.cancel()
-	}
-	
 	// MARK: - Init
-	
+
 	init(appConfigurationProvider: AppConfigurationProviding) {
 		self.appConfigurationProvider = appConfigurationProvider
 
@@ -40,14 +21,40 @@ class EUSettingsViewController: DynamicTableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View life cycle methods.
+	// MARK: - Deinit
+
+	deinit {
+		if let observer = applicationDidBecomeActiveObserver {
+			NotificationCenter.default.removeObserver(observer)
+		}
+		appConfigCancellable?.cancel()
+	}
+
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
 	}
 
-	// MARK: - View setup methods.
+	// MARK: - Protocol <#Name#>
+
+	// MARK: - Public
+
+	// MARK: - Internal
+
+	var appConfigurationProvider: AppConfigurationProviding
+
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case flagCell
+		case roundedCell
+	}
+
+	// MARK: - Private
+
+	private var viewModel = EUSettingsViewModel()
+	private var applicationDidBecomeActiveObserver: NSObjectProtocol?
+	private var appConfigCancellable: AnyCancellable?
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
@@ -70,8 +77,6 @@ class EUSettingsViewController: DynamicTableViewController {
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
 		)
 	}
-
-	// MARK: Data Source setup methods.
 
 	private func setupObservers() {
 		applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
@@ -100,16 +105,11 @@ class EUSettingsViewController: DynamicTableViewController {
 				self?.tableView.reloadData()
 			}
 	}
+
 }
 
-extension EUSettingsViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case flagCell
-		case roundedCell
-	}
-}
+private extension DynamicCell {
 
-extension DynamicCell {
 	static func euCell(cellModel: EUSettingsViewModel.CountryModel) -> Self {
 		.icon(cellModel.country.flag,
 			  text: .string(cellModel.country.localizedName),
@@ -121,7 +121,7 @@ extension DynamicCell {
 				cell.imageView?.contentMode = .scaleAspectFit
 				cell.contentView.layoutMargins.left = 32
 				cell.contentView.layoutMargins.right = 32
-		})
+			  })
 	}
 
 	static func emptyCell() -> Self {
