@@ -207,15 +207,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for day entries: 1 add entry cell + 1 person added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 
-		// Select duration, mask and setting
-		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.durationSegmentedContol].firstMatch.buttons.element(boundBy: 1).tap()
-		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl].firstMatch.buttons.element(boundBy: 1).tap()
-		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl].firstMatch.buttons.element(boundBy: 1).tap()
-
-		// Enter note
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.tap()
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.typeText("Some note!")
-
 		// deselect Manu Mustermann - 1 because new persons get entered on top
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
 
@@ -229,14 +220,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		// check count for day entries: 1 add entry cell + 1 location added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
-
-		// Select duration
-		XCTAssertTrue(app.otherElements["Hours"].firstMatch.exists)
-		XCTAssertTrue(app.otherElements["Minutes"].firstMatch.exists)
-
-		// Enter note
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.tap()
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.typeText("Some note!")
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
@@ -306,6 +289,97 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		// check count for day entries: 1 add entry cell + 2 locations added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+	}
+
+	func testDetailsSelectionOfPersonEncounter() {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		navigateToJournalOverview()
+
+		// Select 3th cell.
+
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		// Add person.
+
+		addPersonToDayEntry("Marcus Mustermann")
+
+		// Select details of encounter.
+
+		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl].firstMatch.buttons.element(boundBy: 1).waitForExistence(timeout: .medium))
+		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl].firstMatch.buttons.element(boundBy: 1).tap()
+
+		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl].firstMatch.buttons.element(boundBy: 1).waitForExistence(timeout: .medium))
+		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl].firstMatch.buttons.element(boundBy: 1).tap()
+
+		// Enter note
+
+		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.tap()
+		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.typeText("Some note!")
+
+		// Navigate back.
+
+		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+
+		// Check if the label for the settings exists on the overview.
+
+		XCTAssertTrue(app.staticTexts[app.localized("ContactDiary_Day_Encounter_WithoutMask") + ", " + app.localized("ContactDiary_Day_Encounter_Inside")].exists)
+		XCTAssertTrue(app.staticTexts["Some note!"].exists)
+	}
+
+	func testDetailsSelectionOfLocationVisit() {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		navigateToJournalOverview()
+
+		// Select 3th cell.
+
+		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
+
+		// Navigate to locatin section.
+
+		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+
+		// Add location.
+
+		addLocationToDayEntry("Pizzabude")
+
+		// Select details of locaton visit.
+
+		// Select duration.
+
+		app.otherElements["Hours"].firstMatch.tap()
+		app.keys["0"].tap()
+		app.keys["4"].tap()
+		app.keys["2"].tap()
+		// Close keyboard.
+		app.tap()
+
+		// Wait for closing.
+
+		let textField = app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch
+		let exists = NSPredicate(format: "exists == 1")
+		expectation(for: exists, evaluatedWith: textField, handler: nil)
+		waitForExpectations(timeout: .medium, handler: nil)
+
+		// Enter note
+
+		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.tap()
+		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField].firstMatch.typeText("Some note!")
+
+		// Navigate back.
+
+		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+
+		// Check if the label for the settings exists on the overview.
+
+		XCTAssertTrue(app.staticTexts["00:42 " + app.localized("ContactDiary_Overview_LocationVisit_Abbreviation_Hours")].exists)
+		XCTAssertTrue(app.staticTexts["Some note!"].exists)
 	}
 
 	func testNavigateToPersonEncounterDayInfo() {
