@@ -171,6 +171,36 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(cellModel.settingValues, expectedSettingValues)
 	}
 
+	func testSelectedSettingSegmentIndexForNone() {
+		let cellModel = contactPersonCellModelWithEncounter(setting: .none)
+
+		XCTAssertEqual(cellModel.selectedSettingSegmentIndex, -1)
+	}
+
+	func testSelectedSettingSegmentIndexForOutside() {
+		let cellModel = contactPersonCellModelWithEncounter(setting: .outside)
+
+		XCTAssertEqual(cellModel.selectedSettingSegmentIndex, 0)
+	}
+
+	func testSelectedSettingSegmentIndexForInside() {
+		let cellModel = contactPersonCellModelWithEncounter(setting: .inside)
+
+		XCTAssertEqual(cellModel.selectedSettingSegmentIndex, 1)
+	}
+
+	func testSelectedSettingSegmentIndexWithoutEncounter() {
+		let cellModel = contactPersonCellModelWithoutEncounter()
+
+		XCTAssertEqual(cellModel.selectedSettingSegmentIndex, -1)
+	}
+
+	func testSelectedSettingSegmentIndexOnLocation() {
+		let cellModel = locationCellModelWithVisit()
+
+		XCTAssertEqual(cellModel.selectedSettingSegmentIndex, -1)
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(name: String = "") -> DiaryDayEntryCellModel {
