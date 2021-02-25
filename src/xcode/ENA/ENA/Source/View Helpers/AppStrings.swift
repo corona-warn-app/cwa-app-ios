@@ -1317,6 +1317,7 @@ enum AppStrings {
 		static let description1 = NSLocalizedString("ErrorReport_Description1", comment: "")
 		static let faq = NSLocalizedString("ErrorReport_FAQ", comment: "")
 		static let description2 = NSLocalizedString("ErrorReport_Description2", comment: "")
+		static let privacyInformation = NSLocalizedString("ErrorReport_PrivacyInformation", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }
