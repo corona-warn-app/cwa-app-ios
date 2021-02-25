@@ -1348,6 +1348,16 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Einstellungen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 1.15 */
+
+"NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
+
+"NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
+
+"NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehleranalyse-Protokollen";
+
+"NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports ein Fehlerprotokoll erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
+
 /* Version 1.14 */
 
 "NewVersionFeature_114_additional_diary_functions_title" = "Zusatzfunktionen im Kontakt-Tagebuch";
