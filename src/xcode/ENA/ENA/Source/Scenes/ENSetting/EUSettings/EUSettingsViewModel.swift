@@ -57,7 +57,14 @@ class EUSettingsViewModel {
 					.space(height: 16)
 
 			]),
-			countries(),
+			// country flags and names if available
+			.section(
+				separators: countries.isEmpty ? .none : .all,
+				cells:
+					countries.isEmpty
+					? [.emptyCell()]
+					: [.countries(countries: countries)]
+			),
 			.section(
 				cells: [
 					.space(height: 8),
@@ -68,37 +75,9 @@ class EUSettingsViewModel {
 			])
 		])
 	}
-
-	// MARK: - Private
-
-	private func countriesDynamicSection() -> DynamicSection {
-		let cells = countries.isEmpty
-			? [.emptyCell()]
-			: countries.map { DynamicCell.euCell(cellModel: $0) }
-
-		return DynamicSection.section(
-			separators: countries.isEmpty ? .none : .inBetween,
-			cells: cells
-		)
-	}
 }
 
 private extension DynamicCell {
-
-	static func euCell(cellModel: Country) -> Self {
-		.icon(cellModel.flag,
-			  text: .string(cellModel.localizedName),
-			  tintColor: nil,
-			  style: .body,
-			  iconWidth: 32,
-			  action: .none,
-			  configure: { _, cell, _ in
-				cell.imageView?.contentMode = .scaleAspectFit
-				cell.contentView.layoutMargins.left = 32
-				cell.contentView.layoutMargins.right = 32
-			  }
-		)
-	}
 
 	static func emptyCell() -> Self {
 		.custom(

@@ -41,7 +41,7 @@ class EUSettingsViewController: DynamicTableViewController {
 	var appConfigurationProvider: AppConfigurationProviding
 
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case flagCell
+		case countries = "LabeledCountriesCell"
 		case roundedCell
 	}
 
@@ -62,9 +62,10 @@ class EUSettingsViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		dynamicTableViewModel = viewModel.euSettingsModel()
+
 		tableView.register(
-			DynamicTableViewIconCell.self,
-			forCellReuseIdentifier: CustomCellReuseIdentifiers.flagCell.rawValue
+			UINib(nibName: String(describing: LabeledCountriesCell.self), bundle: nil),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.countries.rawValue
 		)
 
 		tableView.register(
