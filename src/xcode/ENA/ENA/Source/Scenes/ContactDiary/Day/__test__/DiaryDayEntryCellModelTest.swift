@@ -306,6 +306,33 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(firstContactPerson(in: store).encounter?.duration, ContactPersonEncounter.Duration.moreThan15Minutes)
 	}
 
+	func testSelectingMaskSituationNone() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, maskSituation: .withMask)
+
+		cellModel.selectMaskSituation(at: -1)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.maskSituation, ContactPersonEncounter.MaskSituation.none)
+	}
+
+	func testSelectingMaskSituationWithMask() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, maskSituation: .none)
+
+		cellModel.selectMaskSituation(at: 0)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.maskSituation, ContactPersonEncounter.MaskSituation.withMask)
+	}
+
+	func testSelectingMaskSituationWithoutMask() {
+		let store = MockDiaryStore()
+		let cellModel = contactPersonCellModelWithEncounter(store: store, maskSituation: .none)
+
+		cellModel.selectMaskSituation(at: 1)
+
+		XCTAssertEqual(firstContactPerson(in: store).encounter?.maskSituation, ContactPersonEncounter.MaskSituation.withoutMask)
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(
