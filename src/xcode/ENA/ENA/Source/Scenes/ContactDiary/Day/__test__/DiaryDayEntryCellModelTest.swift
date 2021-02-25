@@ -243,6 +243,38 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 		XCTAssertEqual(cellModel.circumstances, "")
 	}
 
+	func testContactPersonSelection() {
+		let cellModel = contactPersonCellModelWithoutEncounter()
+
+		cellModel.toggleSelection()
+
+		XCTAssertFalse(cellModel.parametersHidden)
+	}
+
+	func testContactPersonDeselection() {
+		let cellModel = contactPersonCellModelWithEncounter()
+
+		cellModel.toggleSelection()
+
+		XCTAssertTrue(cellModel.parametersHidden)
+	}
+
+	func testLocationSelection() {
+		let cellModel = locationCellModelWithoutVisit()
+
+		cellModel.toggleSelection()
+
+		XCTAssertFalse(cellModel.parametersHidden)
+	}
+
+	func testLocationDeselection() {
+		let cellModel = locationCellModelWithVisit()
+
+		cellModel.toggleSelection()
+
+		XCTAssertTrue(cellModel.parametersHidden)
+	}
+
 	// MARK: - Private
 
 	private func contactPersonCellModelWithoutEncounter(name: String = "") -> DiaryDayEntryCellModel {
