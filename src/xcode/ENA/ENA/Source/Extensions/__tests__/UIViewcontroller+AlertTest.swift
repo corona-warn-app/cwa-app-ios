@@ -12,18 +12,18 @@ class UIViewController_AlertTest: XCTestCase {
 		let vc = UIViewController()
 		let alert = vc.setupErrorAlert(message: "Error Message")
 
-		XCTAssert(alert.title == AppStrings.ExposureSubmission.generalErrorTitle)
-		XCTAssert(alert.message == "Error Message")
-		XCTAssert(!alert.actions.isEmpty)
+		XCTAssertEqual(alert.title, AppStrings.ExposureSubmission.generalErrorTitle)
+		XCTAssertEqual(alert.message, "Error Message")
+		XCTAssertFalse(alert.actions.isEmpty)
 	}
 
 	func testAlertSingleAction() throws {
 		let vc = UIViewController()
 		let alert = vc.setupErrorAlert(message: "Error Message")
 
-		XCTAssert(alert.title == AppStrings.ExposureSubmission.generalErrorTitle)
-		XCTAssert(alert.message == "Error Message")
-		XCTAssert(alert.actions.count == 1)
+		XCTAssertEqual(alert.title, AppStrings.ExposureSubmission.generalErrorTitle)
+		XCTAssertEqual(alert.message, "Error Message")
+		XCTAssertEqual(alert.actions.count, 1)
 	}
 
 	func testAlertDoubleAction() throws {
@@ -33,9 +33,9 @@ class UIViewController_AlertTest: XCTestCase {
 			secondaryActionTitle: "Retry Title"
 		)
 
-		XCTAssert(alert.title == AppStrings.ExposureSubmission.generalErrorTitle)
-		XCTAssert(alert.message == "Error Message")
-		XCTAssert(alert.actions.count == 2)
-		XCTAssert(alert.actions[1].title == "Retry Title")
+		XCTAssertEqual(alert.title, AppStrings.ExposureSubmission.generalErrorTitle)
+		XCTAssertEqual(alert.message, "Error Message")
+		XCTAssertEqual(alert.actions.count, 2)
+		XCTAssertEqual(alert.actions[1].title, "Retry Title")
 	}
 }

@@ -13,7 +13,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	init(
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
-		contactDiaryStore: ContactDiaryStore,
+		contactDiaryStore: DiaryStoring,
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
@@ -28,8 +28,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	// MARK: - Protocol ENATaskExecutionDelegate
 
 	var pdService: PlausibleDeniability
-	var contactDiaryStore: ContactDiaryStore
 	var dependencies: ExposureSubmissionServiceDependencies
+	var contactDiaryStore: DiaryStoring
 
 	/// This method executes the background tasks needed for fetching test results, performing exposure detection
 	/// and executing plausible deniability fake requests.
