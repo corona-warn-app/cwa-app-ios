@@ -109,11 +109,33 @@ extension OSLogType {
 			return ""
 		}
 	}
+
+	var logFilePath: String {
+		return "\(self.title).txt"
+	}
 }
 
 struct FileLogger {
 
+	enum Error: Swift.Error {
+		case streamerInitError
+	}
+
 	// MARK: - Internal
+
+
+	/// The directory where all logs are stored
+	let logFileBaseURL: URL = {
+		let fileManager = FileManager.default
+		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+	}()
+
+	/// Path to a common log file for all log types combined
+	let allLogsFileURL: URL = {
+		let fileManager = FileManager.default
+		let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+		return baseURL.appendingPathComponent("AllLogTypes.txt")
+	}()
 
 	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
 		var meta: String = ""
@@ -140,20 +162,27 @@ struct FileLogger {
 		allLogsFileHandle.write(logMessageData)
 	}
 
-	func read(logType: OSLogType) -> String {
-		guard let fileHandle = makeReadFileHandle(with: logType),
-			  let logString = String(data: fileHandle.readDataToEndOfFile(), encoding: encoding) else {
-			return ""
+
+	/// `StreamReader` for a given log type
+	/// - Parameter logType: the log type to read
+	/// - Throws: `FileLogger.Error.streamerInitError` if Reader initialization fails
+	/// - Returns: a `StreamReader`
+	func logReader(for logType: OSLogType) throws -> StreamReader {
+		let fileURL = logFileBaseURL.appendingPathComponent(logType.logFilePath)
+		guard let reader = StreamReader(at: fileURL) else {
+			throw Error.streamerInitError
 		}
-		return logString
+		return reader
 	}
 
-	func readAllLogs() -> String {
-		guard let fileHandle = makeReadFileHandle(with: allLogsFileURL),
-			  let logString = String(data: fileHandle.readDataToEndOfFile(), encoding: encoding) else {
-			return ""
+	/// `StreamReader` for all log types combined
+	/// - Throws: `FileLogger.Error.streamerInitError` if Reader initialization fails
+	/// - Returns: a `StreamReader`
+	func logReader() throws -> StreamReader {
+		guard let reader = StreamReader(at: allLogsFileURL) else {
+			throw Error.streamerInitError
 		}
-		return logString
+		return reader
 	}
 
 	func deleteLogs() {
@@ -167,15 +196,6 @@ struct FileLogger {
 	// MARK: - Private
 
 	private let encoding: String.Encoding = .utf8
-	private let logFileBaseURL: URL = {
-		let fileManager = FileManager.default
-		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
-	}()
-	private let allLogsFileURL: URL = {
-		let fileManager = FileManager.default
-		let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
-		return baseURL.appendingPathComponent("AllLogTypes.txt")
-	}()
 	private let logDateFormatter = ISO8601DateFormatter()
 
 	private func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {

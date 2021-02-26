@@ -7,9 +7,11 @@ import ZIPFoundation
 
 class LogDataItem: NSObject, UIActivityItemSource {
 
-	let rawData: NSData
 	let compressedData: NSData
 
+
+	/// New `LogDataItem` from the given String
+	/// - Parameter logString: the log String that represents this item
 	init?(logString: String) {
 		guard
 			let archive = Archive(accessMode: .create),
@@ -18,10 +20,9 @@ class LogDataItem: NSObject, UIActivityItemSource {
 			Log.warning("No log data to export.", log: .localData)
 			return nil
 		}
-		self.rawData = rawData as NSData
 
 		do {
-			try archive.addEntry(with: "cwa-log.txt", type: .file, uncompressedSize: UInt32(logString.count), compressionMethod: .deflate, bufferSize: 4, provider: { position, size -> Data in
+			try archive.addEntry(with: "cwa-all-logs.txt", type: .file, uncompressedSize: UInt32(logString.count), compressionMethod: .deflate, bufferSize: 4, provider: { position, size -> Data in
 				// This will be called until `data` is exhausted.
 				return rawData.subdata(in: position..<position + size)
 			})
@@ -32,6 +33,30 @@ class LogDataItem: NSObject, UIActivityItemSource {
 			self.compressedData = compressed as NSData
 		} catch {
 			Log.error("Log export error", log: .localData, error: error)
+			return nil
+		}
+	}
+
+	/// New `LogDataItem` from file at given URL
+	/// - Parameter url: The file url to read. The content represents this item
+	init?(at url: URL) {
+		guard
+			let archive = Archive(accessMode: .create)
+		else {
+			Log.warning("No log data to export.", log: .localData)
+			return nil
+		}
+
+		do {
+			try archive.addEntry(with: url.lastPathComponent, relativeTo: url.deletingLastPathComponent(), compressionMethod: .deflate)
+
+			guard let compressed = archive.data else {
+				Log.warning("Log compression failed for unknown reasons.", log: .localData)
+				return nil
+			}
+			self.compressedData = compressed as NSData
+		} catch {
+			Log.error("Log export error: \(error)", log: .localData, error: error)
 			return nil
 		}
 	}
