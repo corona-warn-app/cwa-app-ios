@@ -160,8 +160,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
 		case .ppaSubmission:
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
-		case .eventRegistration:
-			vc = UIViewController()
 		}
 
 		if let vc = vc {
