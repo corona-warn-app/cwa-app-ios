@@ -737,6 +737,7 @@
 		EB08F1862541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1832541CE5700D11FA9 /* temporary_exposure_key_export.pb.swift */; };
 		EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */; };
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
+		EB0F73EC25E8E780003BFAE7 /* Base32 in Frameworks */ = {isa = PBXBuildFile; productRef = EB0F73EB25E8E780003BFAE7 /* Base32 */; };
 		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
 		EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */; };
@@ -1669,6 +1670,7 @@
 				B1EDFD88248E741B00E7EAFF /* SwiftProtobuf in Frameworks */,
 				EB7AF62C2587E98C00D94CA8 /* OpenCombine in Frameworks */,
 				B1EDFD89248E741B00E7EAFF /* ZIPFoundation in Frameworks */,
+				EB0F73EC25E8E780003BFAE7 /* Base32 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4569,6 +4571,7 @@
 				EB7AF6292587E98C00D94CA8 /* OpenCombineFoundation */,
 				EB7AF62B2587E98C00D94CA8 /* OpenCombine */,
 				EB7AF62D2587E98C00D94CA8 /* OpenCombineDispatch */,
+				EB0F73EB25E8E780003BFAE7 /* Base32 */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -4675,6 +4678,7 @@
 				B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B1B5A75E24924B3D0029D5D7 /* XCRemoteSwiftPackageReference "fmdb" */,
 				EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */,
+				EB0F73EA25E8E780003BFAE7 /* XCRemoteSwiftPackageReference "Base32" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -6711,6 +6715,14 @@
 				version = 0.9.11;
 			};
 		};
+		EB0F73EA25E8E780003BFAE7 /* XCRemoteSwiftPackageReference "Base32" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/norio-nomura/Base32";
+			requirement = {
+				kind = exactVersion;
+				version = 0.9.0;
+			};
+		};
 		EB7AF6282587E98C00D94CA8 /* XCRemoteSwiftPackageReference "OpenCombine" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/OpenCombine/OpenCombine.git";
@@ -6736,6 +6748,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		EB0F73EB25E8E780003BFAE7 /* Base32 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB0F73EA25E8E780003BFAE7 /* XCRemoteSwiftPackageReference "Base32" */;
+			productName = Base32;
 		};
 		EB7AF6292587E98C00D94CA8 /* OpenCombineFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
