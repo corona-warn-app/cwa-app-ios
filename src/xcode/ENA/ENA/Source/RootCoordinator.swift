@@ -66,22 +66,30 @@ class RootCoordinator: RequiresAppDependencies {
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
-		
-		
+
+		// Events (Dummy?)
+
+		let eventsCoordinator = EventsCoordinator()
+		self.eventsCoordinator = eventsCoordinator
+
 		// Tabbar
 		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
 		startTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.home
 		homeCoordinator.rootViewController.tabBarItem = startTabbarItem
-		
-		
+
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
+		if #available(iOS 13.0, *) {
+			let eventsTabbarItem = UITabBarItem(title: "Events", image: UIImage(systemName: "person.3"), selectedImage: UIImage(systemName: "person.3.fill"))
+			eventsCoordinator.viewController.tabBarItem = eventsTabbarItem
+		}
+
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, eventsCoordinator.viewController], animated: false)
 
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
@@ -125,6 +133,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
+	private(set) var eventsCoordinator: EventsCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
