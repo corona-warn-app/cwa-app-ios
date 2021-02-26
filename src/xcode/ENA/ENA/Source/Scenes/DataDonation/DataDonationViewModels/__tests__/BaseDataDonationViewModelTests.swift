@@ -77,8 +77,7 @@ class BaseDataDonationViewModelTests: XCTestCase {
 	func testGIVEN_ViewModelWithStoredValues_WHEN_SaveWithConset_THEN_StoreIsUpdatedWithValues() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.userData = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBetween30And59)
-
+		
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		var model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
 		model.region = "Offenbach (Landkreis)" // ID = 11006438
@@ -101,8 +100,7 @@ class BaseDataDonationViewModelTests: XCTestCase {
 	func testGIVEN_ViewModelWithStoredValues_WHEN_SaveWithoutConset_THEN_StoreIsUpdatedWithValues() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBetween30And59)
-
+	
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		var model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
 		model.region = "Offenbach (Landkreis)" // ID = 11006438
