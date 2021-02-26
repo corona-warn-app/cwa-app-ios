@@ -125,16 +125,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		service.submitExposure { error in
 			switch error {
 			case .noSubmissionConsent:
-				Analytics.log(.keySubmissionMetadata(.submittedInBackground(false)))
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
 				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
 			case .noKeysCollected:
-				Analytics.log(.keySubmissionMetadata(.submittedInBackground(false)))
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
 				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 			case .some(let error):
-				Analytics.log(.keySubmissionMetadata(.submittedInBackground(false)))
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 			case .none:
-				Analytics.log(.keySubmissionMetadata(.submittedInBackground(true)))
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
 				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 			}
 

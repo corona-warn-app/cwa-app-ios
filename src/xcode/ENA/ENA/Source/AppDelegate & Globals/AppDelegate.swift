@@ -293,7 +293,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			/// write excluded value back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
 			store.selectedServerEnvironment = environment
-            Analytics.log(.submissionMetadata(.lastAppReset(Date())))
+            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 
 		} catch {
 			fatalError("Creating new database key failed")

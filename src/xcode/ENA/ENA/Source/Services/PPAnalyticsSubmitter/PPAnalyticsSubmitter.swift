@@ -109,7 +109,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
 		// Need to add this call here to make sure the dev menu can see the client metadata, too.
-		Analytics.log(.clientMetadata(.setClientMetaData))
+		Analytics.collect(.clientMetadata(.setClientMetaData))
 		return obtainUsageData()
 	}
 
@@ -225,7 +225,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		// Must be set here for both submit calls. This call should be done at the moment right before the submission, because the submission can only work if we have a valid app config. And to log the client meta data, we need a valid app config.
-		Analytics.log(.clientMetadata(.setClientMetaData))
+		Analytics.collect(.clientMetadata(.setClientMetaData))
 		
 		// Obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
@@ -292,7 +292,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		#if DEBUG
 		if isUITesting {
-			Log.info("While UI Testing, we do not submit analytics data", log: .ppa)
+			Log.info("While UI Testing, we do not submit analytics data", collect: .ppa)
 			completion?(.failure(.generalError))
 			return
 		}

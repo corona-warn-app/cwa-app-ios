@@ -36,7 +36,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
-			Analytics.log(.keySubmissionMetadata(.advancedConsentGiven(isSubmissionConsentGiven)))
+			Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(isSubmissionConsentGiven)))
 		}.store(in: &subscriptions)
 	}
 
@@ -217,13 +217,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					self._fakeVerificationAndSubmissionServerRequest()
 				case .success(let token):
 					// because this block is only called in QR submission
-					Analytics.log(.testResultMetadata(.registerNewTestMetadata(Date(), token)))
-					Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
+					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), token)))
+					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 					self.store.testRegistrationDate = Date()
 					self._getTestResult(token) { testResult in
 						switch testResult {
 						case .success(let testResult):
-							Analytics.log(.testResultMetadata(.updateTestResult(testResult, token)))
+							Analytics.collect(.testResultMetadata(.updateTestResult(testResult, token)))
 						case.failure:
 							break
 						}
@@ -290,7 +290,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 	}
 
 
@@ -342,8 +342,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				switch testResult {
 				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
-					Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
-					Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+					Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
+					Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 					completeWith(.success(testResult))
 				case .pending:
 					completeWith(.success(testResult))
@@ -433,10 +433,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		client.submit(payload: payload, isFake: false) { result in
 			switch result {
 			case .success:
-				Analytics.log(.keySubmissionMetadata(.advancedConsentGiven(self.store.isSubmissionConsentGiven)))
-				Analytics.log(.keySubmissionMetadata(.setHoursSinceTestResult))
-				Analytics.log(.keySubmissionMetadata(.setHoursSinceTestRegistration))
-				Analytics.log(.keySubmissionMetadata(.submitted(true)))
+				Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(self.store.isSubmissionConsentGiven)))
+				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
+				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
+				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
 				self.submitExposureCleanup()
 				Log.info("Successfully completed exposure sumbission.", log: .api)
 				completion(nil)

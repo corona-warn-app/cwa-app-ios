@@ -104,7 +104,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
 			tanSuccessfullyTransferred: { [weak self] in
-				Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
+				Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 				// A TAN always indicates a positive test result.
 				self?.showTestResultScreen(with: .positive)
 			}
@@ -248,7 +248,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			updateStoreWithKeySubmissionMetadataDefaultValues()
 			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult]))
 		}
-		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
 		return ExposureSubmissionTestResultViewController(
@@ -300,7 +300,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
-		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 
 		// ugly but works for the moment
 		// refactoring more of the coordinator-logic to facilitate combine would help
@@ -517,7 +517,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Symptoms
 
 	private func showSymptomsScreen() {
-		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms)))
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms)))
 
 		let vc = ExposureSubmissionSymptomsViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOption, isLoading in
@@ -526,7 +526,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self.model.symptomsOptionSelected(selectedSymptomsOption)
 				// we don't need to set it true if yes is selected
 				if selectedSymptomsOption != .yes {
-					Analytics.log(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
 				}
 				self.model.shouldShowSymptomsOnsetScreen ? self.showSymptomsOnsetScreen() : self.submitExposureAndDismiss(isLoading: isLoading)
 			},
@@ -539,13 +539,13 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showSymptomsOnsetScreen() {
-		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptomOnset)))
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptomOnset)))
 
 		let vc = ExposureSubmissionSymptomsOnsetViewController(
 			onPrimaryButtonTap: { [weak self] selectedSymptomsOnsetOption, isLoading in
 				self?.model.symptomsOnsetOptionSelected(selectedSymptomsOnsetOption)
 				// setting it to true regardless of the options selected
-				Analytics.log(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
+				Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
 				self?.submitExposureAndDismiss(isLoading: isLoading)
 			},
 			onDismiss: { [weak self] isLoading in
@@ -613,7 +613,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			style: .default,
 			handler: { [weak self] _ in
 				if isSubmissionConsentGiven {
-					Analytics.log(.keySubmissionMetadata(.submittedAfterCancel(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				} else {
 					self?.dismiss()
@@ -664,7 +664,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: cancelAlertButtonTitle,
 				style: .cancel,
 				handler: { [weak self] _ in
-					Analytics.log(.keySubmissionMetadata(.submittedAfterCancel(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
@@ -692,7 +692,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				title: AppStrings.ExposureSubmissionSymptomsCancelAlert.cancelButton,
 				style: .cancel,
 				handler: { [weak self] _ in
-					Analytics.log(.keySubmissionMetadata(.submittedAfterCancel(true)))
+					Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
 					self?.submitExposureAndDismiss(isLoading: isLoading)
 				}
 			)
@@ -744,9 +744,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
-		Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
-		Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 	}
 
 	// MARK: Test Result Helper
@@ -815,9 +815,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			onError: { [weak self] error in
 				// reset all the values taken during the submission flow because submission failed
-				Analytics.log(.keySubmissionMetadata(.submittedAfterSymptomFlow(false)))
-				Analytics.log(.keySubmissionMetadata(.submittedAfterCancel(false)))
-				Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenUnknown)))
+				Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(false)))
+				Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(false)))
+				Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenUnknown)))
 				self?.showErrorAlert(for: error) {
 					self?.dismiss()
 				}

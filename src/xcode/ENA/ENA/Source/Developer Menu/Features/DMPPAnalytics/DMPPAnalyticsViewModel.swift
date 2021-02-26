@@ -76,7 +76,7 @@ final class DMPPAnalyticsViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: {
-					Analytics.log(.userData(.complete(UserMetadata(federalState: .hessen, administrativeUnit: 0, ageGroup: .ageBelow29))))
+					Analytics.collect(.userData(.create(UserMetadata(federalState: .hessen, administrativeUnit: 0, ageGroup: .ageBelow29))))
 				}
 			)
 		case .removeAllAnalyticsData:

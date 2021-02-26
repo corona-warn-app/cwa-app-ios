@@ -17,21 +17,21 @@ enum PPADataType {
 }
 
 enum PPAUserMetadata {
-	case complete(UserMetadata?)
+	case create(UserMetadata?)
 }
 
 enum PPARiskExposureMetadata {
-	case complete(RiskExposureMetadata)
+	case create(RiskExposureMetadata)
 	case updateRiskExposureMetadata(RiskCalculationResult)
 }
 
 enum PPAClientMetadata {
-	case complete(ClientMetadata)
+	case create(ClientMetadata)
 	case setClientMetaData
 }
 
 enum PPATestResultMetadata {
-	case complete(TestResultMetadata)
+	case create(TestResultMetadata)
 	case testResult(TestResult)
 	case testResultHoursSinceTestRegistration(Int?)
 	case updateTestResult(TestResult, String)
@@ -39,7 +39,7 @@ enum PPATestResultMetadata {
 }
 
 enum PPAKeySubmissionMetadata {
-	case complete(KeySubmissionMetadata)
+	case create(KeySubmissionMetadata)
 	case submitted(Bool)
 	case submittedInBackground(Bool)
 	case submittedAfterCancel(Bool)
@@ -58,7 +58,7 @@ enum PPAKeySubmissionMetadata {
 }
 
 enum PPAExposureWindowsMetadata {
-	case complete(ExposureWindowsMetadata)
+	case create(ExposureWindowsMetadata)
 	case collectExposureWindows(RiskCalculationProtocol)
 }
 

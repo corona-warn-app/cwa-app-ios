@@ -24,6 +24,8 @@ enum PPAnalyticsCollector {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
 	}
+	
+	#if !RELEASE
 
 	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
 	static func setupMock(
@@ -33,9 +35,11 @@ enum PPAnalyticsCollector {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
 	}
+	
+	#endif
 
 	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
-	static func log(_ dataType: PPADataType) {
+	static func collect(_ dataType: PPADataType) {
 
 		// Make sure the user consent is given. If not, we must not log something.
 		guard let consent = store?.isPrivacyPreservingAnalyticsConsentGiven,
@@ -120,11 +124,11 @@ enum PPAnalyticsCollector {
 
 	// MARK: - Private
 
-	// Wrapper property to add a log when the store is nil and we want to access it.
+	// Wrapper property to add a collect when the store is nil and we want to access it.
 	private static var store: (Store & PPAnalyticsData)? {
 		get {
 			if _store == nil {
-				Log.error("I cannot log or read analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
+				Log.error("I cannot collect or read analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
 			}
 			return _store
 		}
@@ -142,7 +146,7 @@ enum PPAnalyticsCollector {
 	
 	private static func logUserMetadata(_ userMetadata: PPAUserMetadata) {
 		switch userMetadata {
-		case let .complete(metaData):
+		case let .create(metaData):
 			store?.userMetadata = metaData
 		}
 	}
@@ -151,7 +155,7 @@ enum PPAnalyticsCollector {
 
 	private static func logRiskExposureMetadata(_ riskExposureMetadata: PPARiskExposureMetadata) {
 		switch riskExposureMetadata {
-		case let .complete(metaData):
+		case let .create(metaData):
 			store?.currentRiskExposureMetadata = metaData
 		case let .updateRiskExposureMetadata(riskCalculationResult):
 			Analytics.updateRiskExposureMetadata(riskCalculationResult)
@@ -200,7 +204,7 @@ enum PPAnalyticsCollector {
 				riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission,
 				dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 			)
-			Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
+			Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
 			return
 		}
 		let newRiskExposureMetadata = RiskExposureMetadata(
@@ -209,7 +213,7 @@ enum PPAnalyticsCollector {
 			mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel,
 			dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission
 		)
-		Analytics.log(.riskExposureMetadata(.complete(newRiskExposureMetadata)))
+		Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
 	}
 
 
@@ -217,7 +221,7 @@ enum PPAnalyticsCollector {
 
 	private static func logClientMetadata(_ clientMetadata: PPAClientMetadata) {
 		switch clientMetadata {
-		case let .complete(metaData):
+		case let .create(metaData):
 			store?.clientMetadata = metaData
 		case .setClientMetaData:
 			Analytics.setClientMetaData()
@@ -226,14 +230,14 @@ enum PPAnalyticsCollector {
 
 	private static func setClientMetaData() {
 		let eTag = store?.appConfigMetadata?.lastAppConfigETag
-		Analytics.log(.clientMetadata(.complete(ClientMetadata(etag: eTag))))
+		Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: eTag))))
 	}
 
 	// MARK: - TestResultMetadata
 
 	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
 		switch TestResultMetadata {
-		case let .complete(metaData):
+		case let .create(metaData):
 			store?.testResultMetadata = metaData
 		case let .testResult(testResult):
 			store?.testResultMetadata?.testResult = testResult
@@ -262,14 +266,14 @@ enum PPAnalyticsCollector {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
-				Analytics.log(.testResultMetadata(.testResult(testResult)))
+				Analytics.collect(.testResultMetadata(.testResult(testResult)))
 
 				switch store?.testResultMetadata?.testResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
-					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
+					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
 				default:
-					Analytics.log(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
+					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
 				}
 
 			case .expired, .invalid:
@@ -288,7 +292,7 @@ enum PPAnalyticsCollector {
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
 		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
 
-		Analytics.log(.testResultMetadata(.complete(testResultMetadata)))
+		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
 
 		switch riskCalculationResult.riskLevel {
 		case .high:
@@ -310,7 +314,7 @@ enum PPAnalyticsCollector {
 	// swiftlint:disable:next cyclomatic_complexity
 	private static func logKeySubmissionMetadata(_ keySubmissionMetadata: PPAKeySubmissionMetadata) {
 		switch keySubmissionMetadata {
-		case let .complete(metadata):
+		case let .create(metadata):
 			store?.keySubmissionMetadata = metadata
 		case let .submitted(submitted):
 			store?.keySubmissionMetadata?.submitted = submitted
@@ -398,7 +402,7 @@ enum PPAnalyticsCollector {
 
 	private static func logExposureWindowsMetadata(_ exposureWindowsMetadata: PPAExposureWindowsMetadata) {
 		switch exposureWindowsMetadata {
-		case let .complete(metadata):
+		case let .create(metadata):
 			store?.exposureWindowsMetadata = metadata
 		case let .collectExposureWindows(riskCalculationProtocol):
 			Analytics.collectExposureWindows(riskCalculationProtocol)
