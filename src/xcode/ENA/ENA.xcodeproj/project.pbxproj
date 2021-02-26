@@ -714,6 +714,8 @@
 		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
+		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
+		BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */; };
 		BAFBF35725ADD734003F5DC2 /* HomeThankYouCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */; };
 		BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
@@ -1550,6 +1552,8 @@
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
+		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
+		BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		BAFBF35625ADD734003F5DC2 /* HomeThankYouCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouCellModelTests.swift; sourceTree = "<group>"; };
 		BAFBF36825ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellModelTests.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2705,12 +2709,12 @@
 			isa = PBXGroup;
 			children = (
 				71176E2C24891BCF004B0C9F /* __tests__ */,
-				514EE997246D4BEB00DE4884 /* UITableView */,
 				AB1886D0252DE51E00D39BBE /* Bundle+Identifier.swift */,
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
 				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
 				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
 				0190B224255C423600CF4244 /* Date+Age.swift */,
+				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				710021DB248E44A6001F0B63 /* ENAFont.swift */,
 				01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */,
@@ -2718,10 +2722,13 @@
 				2FC0357024B5B70700E234AC /* Error+FAQUrl.swift */,
 				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
 				EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */,
+				01D02625258A769200B6389A /* HTTPURLResponse+Header.swift */,
 				017AD121259DDE6B00FA2B3F /* ISO8601DateFormatter+ContactDiary.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
+				3523F8A72570F819004B0424 /* NSAttributedString+BulletPoint.swift */,
 				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
+				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
 				01C6ABF32527273D0052814D /* String+Insertion.swift */,
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
@@ -2729,7 +2736,9 @@
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
 				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
 				01C6AC39252B2A500052814D /* UIImage+Color.swift */,
+				BAF5371A25E7D1A300C835E2 /* UIImage+Resize.swift */,
 				35327FF5256D4CE600C36A44 /* UIStackView+prune.swift */,
+				514EE997246D4BEB00DE4884 /* UITableView */,
 				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
 				EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
@@ -2740,10 +2749,7 @@
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
-				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
-				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
-				3523F8A72570F819004B0424 /* NSAttributedString+BulletPoint.swift */,
-				01D02625258A769200B6389A /* HTTPURLResponse+Header.swift */,
+				BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5061,6 +5067,7 @@
 				BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */,
 				35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */,
 				01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */,
+				BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */,
 				BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */,
 				35EA68522555488600335F73 /* SQLiteError.swift in Sources */,
 				016E260325AF20300077C64C /* HomeStatisticsCardView.swift in Sources */,
@@ -5288,6 +5295,7 @@
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
+				BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */,
 				01A4DC6E25922EB4007D5794 /* HomeImageItemView.swift in Sources */,
 				50C02FAC25D162F500469BF4 /* PPAnalyticsSubmitter.swift in Sources */,
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,
