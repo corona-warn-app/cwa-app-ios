@@ -97,6 +97,49 @@ class ENAUITests_Statistics: XCTestCase {
 		}
 	}
 	
+	func testScreenshot_statisticsCardTitles() throws {
+		// GIVEN
+		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
+		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let title3 = AccessibilityIdentifiers.Statistics.Incidence.title
+		let title4 = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+
+		// WHEN
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		
+		// THEN
+		switch layoutDirection {
+		case .rightToLeft:
+			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			app.staticTexts[title4].swipeLeft()
+			XCTAssert(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			app.staticTexts[title3].swipeLeft()
+			XCTAssert(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			app.staticTexts[title2].swipeLeft()
+			cardKeySubmissionsInfoScreenTest(title2)
+			XCTAssert(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			cardInfectionsInfoScreenTest(title1)
+			app.staticTexts[title1].swipeRight()
+		default:
+			XCTAssert(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			app.staticTexts[title1].swipeLeft()
+			XCTAssert(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			snapshot("statistics_persons_warned")
+			app.staticTexts[title2].swipeLeft()
+			XCTAssert(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			snapshot("statistics_7Day_incidence")
+			app.staticTexts[title3].swipeLeft()
+			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			snapshot("statistics_7Day_rvalue")
+			cardReproductionNumberInfoScreenTest(title4)
+			snapshot("statistics_info_screen")
+			app.staticTexts[title4].swipeRight()
+		}
+	}
+
 	// MARK: - Private
 	
 	private func cardInfectionsInfoScreenTest(_ title1: String) {
