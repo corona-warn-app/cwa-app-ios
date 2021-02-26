@@ -184,7 +184,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func testAddTwoPersonsAndOneLocationToDate() throws {
+	func testScreenshotAddTwoPersonsAndOneLocationToDate() throws {
 		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])

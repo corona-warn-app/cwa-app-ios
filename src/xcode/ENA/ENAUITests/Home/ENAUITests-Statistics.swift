@@ -97,7 +97,7 @@ class ENAUITests_Statistics: XCTestCase {
 		}
 	}
 	
-	func testScreenshot_statisticsCardTitles() throws {
+	func test_screenshot_statisticsCardTitles() throws {
 		// GIVEN
 		let title1 = AccessibilityIdentifiers.Statistics.Infections.title
 		let title2 = AccessibilityIdentifiers.Statistics.KeySubmissions.title
@@ -134,7 +134,7 @@ class ENAUITests_Statistics: XCTestCase {
 			app.staticTexts[title3].swipeLeft()
 			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_rvalue")
-			cardReproductionNumberInfoScreenTest(title4)
+			cardReproductionNumberOpenInfoScreen(title4)
 			snapshot("statistics_info_screen")
 			app.staticTexts[title4].swipeRight()
 		}
@@ -173,5 +173,10 @@ class ENAUITests_Statistics: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
-	
+
+	private func cardReproductionNumberOpenInfoScreen(_ title4: String) {
+		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
+		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].tap()
+	}
 }
