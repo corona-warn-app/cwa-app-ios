@@ -65,6 +65,5 @@ class EUSettingsViewModelTests: XCTestCase {
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 1)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 3)
 	}
-
-
+	
 }
