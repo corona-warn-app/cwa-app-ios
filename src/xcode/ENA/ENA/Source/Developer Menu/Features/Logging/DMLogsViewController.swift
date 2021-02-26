@@ -144,7 +144,6 @@ final class DMLogsViewController: UIViewController {
 			return
 		}
 
-		// Log.debug("Preparing log export. Log length, raw: \(rawData.count), compressed: \(archive.data?.count ?? 0)", log: .localData)
 		// using archive data with the plain log string as fallback
 		let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
