@@ -2733,6 +2733,7 @@
 				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
+				BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
 				01C6ABF32527273D0052814D /* String+Insertion.swift */,
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
@@ -2753,7 +2754,6 @@
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
-				BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2822,11 +2822,11 @@
 				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
 				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift */,
-				B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */,
-				A1E4195E249824340016E52A /* String+TodayTests.swift */,
-				2FC0356E24B342FA00E234AC /* UIViewcontroller+AlertTest.swift */,
 				BAA4D71725E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift */,
+				A1E4195E249824340016E52A /* String+TodayTests.swift */,
+				B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */,
 				BAA4D71C25E94D6000821B5C /* UIImage+resizeTests.swift */,
+				2FC0356E24B342FA00E234AC /* UIViewcontroller+AlertTest.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
