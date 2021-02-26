@@ -7,8 +7,7 @@ import UIKit
 
 extension UIImage {
 
-	/*** Resize and create a new UIImage with targetSize and keep the aspect ratio of the original image*/
-
+	/// Resize and create a new UIImage with targetSize and keep the aspect ratio of the original image
 	func resize(with targetSize: CGSize) -> UIImage {
 		// store width and height ration
 		let widthRatio = targetSize.width / self.size.width

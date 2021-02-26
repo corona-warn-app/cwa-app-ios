@@ -86,10 +86,13 @@ extension OnboardingInfoViewController {
 		let flagsLabel = UILabel()
 		flagsLabel.numberOfLines = 0
 		flagsLabel.translatesAutoresizingMaskIntoConstraints = false
+		flagsLabel.lineBreakMode = .byCharWrapping
+		flagsLabel.textAlignment = .justified
 
 		let namesLabel = UILabel()
 		namesLabel.numberOfLines = 0
 		namesLabel.translatesAutoresizingMaskIntoConstraints = false
+		namesLabel.lineBreakMode = .byWordWrapping
 
 		let topSeparator = UIView()
 		topSeparator.translatesAutoresizingMaskIntoConstraints = false
