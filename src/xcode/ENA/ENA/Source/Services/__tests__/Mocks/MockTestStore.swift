@@ -7,13 +7,6 @@ import Foundation
 
 final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
 
-
-	init(withAnalytics: Bool = true) {
-		if withAnalytics {
-			Analytics.setupMock(store: self)
-		}
-	}
-
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
 
@@ -86,11 +79,11 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 
 	// MARK: - PrivacyPreservingProviding
 
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool = true
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
 	var otpToken: OTPToken?
 	var otpAuthorizationDate: Date?
 	var ppacApiToken: TimestampedToken?
-	var userdata: UserMetadata?
+	var userData: UserMetadata?
 
 	// MARK: - PPAnalyticsData
 

@@ -9,6 +9,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 	
 	func testKeySubmissionMetadataValues_HighRisk() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -38,6 +40,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testHours() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		let dateSixHourAgo = Calendar.current.date(byAdding: .hour, value: -6, to: Date())
@@ -69,6 +73,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_submittedInBackground() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -97,6 +103,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_HighRisk_testSubmitted() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockHighRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
@@ -134,6 +142,8 @@ class KeySubmissionMetadataTests: XCTestCase {
 
 	func testKeySubmissionMetadataValues_LowRisk() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockLowRiskCalculationResult()
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())

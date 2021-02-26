@@ -144,7 +144,7 @@ protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
 	// Do not mix up this property with the real UserMetadata in the PPAnalyticsData protocol
-	var userdata: UserMetadata? { get set }
+	var userData: UserMetadata? { get set }
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }
 	/// Date of last otp authorization

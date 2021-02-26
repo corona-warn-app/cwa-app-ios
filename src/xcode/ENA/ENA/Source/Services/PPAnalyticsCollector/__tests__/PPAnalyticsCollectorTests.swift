@@ -9,7 +9,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 	
 	func testGIVEN_NotSetupAnalytics_WHEN_SomethingIsLogged_THEN_NothingIsLogged() {
 		// GIVEN
-		let store = MockTestStore(withAnalytics: false)
+		let store = MockTestStore()
 		
 		// WHEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
@@ -17,15 +17,12 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		
 		// THEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
-		Analytics.setupMock(store: store)
-		Analytics.collect(.userData(.create(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
-		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBelow29)
 	}
 	
 	func testGIVEN_UserConsentNotGiven_WHEN_SomethingIsLogged_THEN_LoggingIsNotAllowed() {
 		// GIVEN
 		let store = MockTestStore()
-		store.isPrivacyPreservingAnalyticsConsentGiven = false
+		Analytics.setupMock(store: store)
 		
 		// WHEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
@@ -38,6 +35,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 	func testGIVEN_UserConsentGiven_WHEN_SomethingIsLogged_THEN_LoggingIsAllowed() {
 		// GIVEN
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		
 		// WHEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
@@ -50,6 +49,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 	func testGIVEN_SubmissionMetadata_WHEN_AppResetIsTriggered_THEN_SubmissionMetadataIsNotNil() {
 		// GIVEN
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.lastAppReset = nil
 		
 		// WHEN
@@ -63,6 +64,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 	func testGIVEN_SomeAnalyticsData_WHEN_DeleteIsCalled_THEN_AnalyticsDataAreDeleted() {
 		// GIVEN
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
 		let exposureRiskMetadata = RiskExposureMetadata(
 			riskLevel: .high,
 			riskLevelChangedComparedToPreviousSubmission: true,

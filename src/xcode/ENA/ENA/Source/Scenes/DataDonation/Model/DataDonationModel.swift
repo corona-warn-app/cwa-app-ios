@@ -15,7 +15,7 @@ struct DataDonationModel {
 		self.store = store
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 
-		let userMetadata = store.userdata
+		let userMetadata = store.userData
 		self.federalStateName = userMetadata?.federalState?.rawValue
 		self.age = userMetadata?.ageGroup?.text
 
@@ -80,7 +80,7 @@ struct DataDonationModel {
 			administrativeUnit: district?.districtID,
 			ageGroup: ageGroup)
 
-		store.userdata = userdata
+		store.userData = userdata
 	}
 
 	// MARK: - Private

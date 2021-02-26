@@ -9,6 +9,8 @@ class TestResultMetadataTests: XCTestCase {
 
 	func testRegisteringNewTestMetadata_HighRisk() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult()
 		let date = Date()
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: date)
@@ -31,6 +33,8 @@ class TestResultMetadataTests: XCTestCase {
 
 	func testRegisteringNewTestMetadata_LowRisk() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		let date = Date()
 		secureStore.riskCalculationResult = riskCalculationResult
@@ -52,6 +56,8 @@ class TestResultMetadataTests: XCTestCase {
 
 	func testUpdatingTestResult_ValidResult_NotPreviousTestResultStored() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 
@@ -68,25 +74,33 @@ class TestResultMetadataTests: XCTestCase {
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithSameValue() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
 
 		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
+			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "Token")))
+			Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
+			Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(0)))
 		} else {
 			XCTFail("registration date is nil")
 		}
 
-		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
+		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "Token")))
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 
-		// The date shouldn't be updated if the test result is the same as the old one
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		/* The date shouldn't be updated if the test result is the same as the old one
+					- hoursSinceTestRegistration if updated should be (24 * 4)
+					- we explicitly set it into 0 in line 81, so we can see the change
+				*/
+		XCTAssertNotEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithDifferentValue() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
@@ -106,6 +120,8 @@ class TestResultMetadataTests: XCTestCase {
 
 	func testUpdatingTestResult_Invalid() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
@@ -127,6 +143,8 @@ class TestResultMetadataTests: XCTestCase {
 
 	func testUpdatingTestResult_WithDifferentRegistrationToken_MetadataIsNotUpdated() {
 		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 

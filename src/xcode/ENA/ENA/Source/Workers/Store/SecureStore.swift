@@ -368,11 +368,11 @@ extension SecureStore: PrivacyPreservingProviding {
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
 		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
 		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
-			userdata = nil
+			userData = nil
 		}
 	}
 
-	var userdata: UserMetadata? {
+	var userData: UserMetadata? {
 		get { kvStore["userdata"] as UserMetadata? ?? nil }
 		set { kvStore["userdata"] = newValue
 			Analytics.collect(.userData(.create(newValue)))

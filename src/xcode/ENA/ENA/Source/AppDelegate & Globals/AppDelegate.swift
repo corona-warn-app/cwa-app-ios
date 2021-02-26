@@ -294,7 +294,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.ppacApiToken = ppacAPIToken
 			store.selectedServerEnvironment = environment
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
-
 		} catch {
 			fatalError("Creating new database key failed")
 		}

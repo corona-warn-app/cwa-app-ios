@@ -73,7 +73,7 @@ class SettingsDataDonationViewModelTests: XCTestCase {
 	func testGIVEN_DataDonationModel_WHEN_TapSelectRegion_THEN_ClosureGetsCalled() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.userdata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
+		mockStore.userData = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)

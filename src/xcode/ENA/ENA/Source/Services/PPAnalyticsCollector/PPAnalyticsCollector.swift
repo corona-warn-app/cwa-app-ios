@@ -24,19 +24,6 @@ enum PPAnalyticsCollector {
 		PPAnalyticsCollector.store = store
 		PPAnalyticsCollector.submitter = submitter
 	}
-	
-	#if !RELEASE
-
-	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
-	static func setupMock(
-		store: (Store & PPAnalyticsData)? = nil,
-		submitter: PPAnalyticsSubmitter? = nil
-	) {
-		PPAnalyticsCollector.store = store
-		PPAnalyticsCollector.submitter = submitter
-	}
-	
-	#endif
 
 	/// The main purpose for the collector. Call this method to log some analytics data and pass the corresponding enums.
 	static func collect(_ dataType: PPADataType) {
@@ -93,34 +80,6 @@ enum PPAnalyticsCollector {
 		}
 		submitter.triggerSubmitData(completion: completion)
 	}
-
-
-	#if !RELEASE
-
-	/// ONLY FOR TESTING. Returns the last successful submitted data.
-	static func mostRecentAnalyticsData() -> String? {
-		return store?.lastSubmittedPPAData
-	}
-
-	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we have collected so far.
-	static func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS? {
-		guard let submitter = submitter else {
-			Log.warning("I cannot get actual analytics data. Perhaps i am a mock or setup was not called correctly?")
-			return nil
-		}
-		return submitter.getPPADataMessage()
-	}
-
-	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
-	static func forcedAnalyticsSubmission(completion: @escaping (Result<Void, PPASError>) -> Void) {
-		guard let submitter = submitter else {
-			Log.warning("I cannot trigger a forced submission. Perhaps i am a mock or setup was not called correctly?")
-			return completion(.failure(.generalError))
-		}
-		return submitter.forcedSubmitData(completion: completion)
-	}
-
-	#endif
 
 	// MARK: - Private
 
@@ -472,4 +431,43 @@ enum PPAnalyticsCollector {
 			store?.lastAppReset = date
 		}
 	}
+}
+
+extension PPAnalyticsCollector {
+	
+	#if !RELEASE
+
+	/// Setup Analytics for testing. The store or the submitter can be nil for testing purposes.
+	static func setupMock(
+		store: (Store & PPAnalyticsData)? = nil,
+		submitter: PPAnalyticsSubmitter? = nil
+	) {
+		PPAnalyticsCollector.store = store
+		PPAnalyticsCollector.submitter = submitter
+	}
+
+	/// ONLY FOR TESTING. Returns the last successful submitted data.
+	static func mostRecentAnalyticsData() -> String? {
+		return store?.lastSubmittedPPAData
+	}
+
+	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we have collected so far.
+	static func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS? {
+		guard let submitter = submitter else {
+			Log.warning("I cannot get actual analytics data. Perhaps i am a mock or setup was not called correctly?")
+			return nil
+		}
+		return submitter.getPPADataMessage()
+	}
+
+	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	static func forcedAnalyticsSubmission(completion: @escaping (Result<Void, PPASError>) -> Void) {
+		guard let submitter = submitter else {
+			Log.warning("I cannot trigger a forced submission. Perhaps i am a mock or setup was not called correctly?")
+			return completion(.failure(.generalError))
+		}
+		return submitter.forcedSubmitData(completion: completion)
+	}
+
+	#endif
 }

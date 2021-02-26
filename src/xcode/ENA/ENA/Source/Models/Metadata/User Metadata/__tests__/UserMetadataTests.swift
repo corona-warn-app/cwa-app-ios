@@ -9,6 +9,8 @@ class UserMetadataTests: XCTestCase {
 
 	func testUserMetadata_ageBelow29() throws {
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			administrativeUnit: 11008226,
@@ -21,6 +23,8 @@ class UserMetadataTests: XCTestCase {
 	
 	func testUserMetadata_ageBetween30And59() throws {
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			// Heidelberg
@@ -34,6 +38,8 @@ class UserMetadataTests: XCTestCase {
 	
 	func testUserMetadata_age60OrAbove() throws {
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			// Mannheim

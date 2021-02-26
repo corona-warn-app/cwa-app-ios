@@ -16,6 +16,8 @@ class ExposureWindowsMetadataTests: XCTestCase {
 			return
 		}
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
@@ -37,6 +39,8 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		}
 		
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
@@ -67,6 +71,8 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		}
 		
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
@@ -97,6 +103,8 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		}
 		
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
