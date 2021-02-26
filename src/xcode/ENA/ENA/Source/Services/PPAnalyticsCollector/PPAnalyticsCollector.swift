@@ -51,19 +51,19 @@ enum PPAnalyticsCollector {
 		Log.debug("Logging analytics data: \(dataType)", log: .ppa)
 		switch dataType {
 		case let .userData(userMetadata):
-			Analytics.collectUserMetadata(userMetadata)
+			Analytics.logUserMetadata(userMetadata)
 		case let .riskExposureMetadata(riskExposureMetadata):
-			Analytics.collectRiskExposureMetadata(riskExposureMetadata)
+			Analytics.logRiskExposureMetadata(riskExposureMetadata)
 		case let .clientMetadata(clientMetadata):
-			Analytics.collectClientMetadata(clientMetadata)
+			Analytics.logClientMetadata(clientMetadata)
 		case let .testResultMetadata(TestResultMetadata):
-			Analytics.collectTestResultMetadata(TestResultMetadata)
+			Analytics.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
-			Analytics.collectKeySubmissionMetadata(keySubmissionMetadata)
+			Analytics.logKeySubmissionMetadata(keySubmissionMetadata)
 		case let .exposureWindowsMetadata(exposureWindowsMetadata):
-			Analytics.collectExposureWindowsMetadata(exposureWindowsMetadata)
+			Analytics.logExposureWindowsMetadata(exposureWindowsMetadata)
 		case let .submissionMetadata(submissionMetadata):
-			Analytics.collectSubmissionMetadata(submissionMetadata)
+			Analytics.logSubmissionMetadata(submissionMetadata)
 		}
 
 		// At the end, try to submit the data. In the submitter are all the checks that we do not submit the data to often.
