@@ -32,7 +32,7 @@ protocol PPAnalyticsData: AnyObject {
 }
 
 extension SecureStore: PPAnalyticsData {
-
+		
 	var lastSubmissionAnalytics: Date? {
 		get { kvStore["lastSubmissionAnalytics"] as Date? }
 		set { kvStore["lastSubmissionAnalytics"] = newValue }
