@@ -3777,6 +3777,7 @@
 		B16457BC24DC3E0E002879EB /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				EB0F73F025E8E7A5003BFAE7 /* EventReg */,
 				BA6D164E255ADDA300ED3492 /* ConfigureAbleCells */,
 				01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */,
 				013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */,
@@ -4382,6 +4383,13 @@
 				01D0273A258BD38500B6389A /* SettingsLabelCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		EB0F73F025E8E7A5003BFAE7 /* EventReg */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EventReg;
 			sourceTree = "<group>";
 		};
 		EB11B02824EE7C7D00143A95 /* Settings */ = {
