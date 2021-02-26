@@ -208,7 +208,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 
 		// deselect Manu Mustermann - 1 because new persons get entered on top
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).tap()
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
@@ -327,6 +327,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testOverviewWithRiskLevelHighOnToday() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 
@@ -423,8 +424,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	private func search(_ identifier: String, element: XCUIElement) -> XCUIElement? {
 		var allElementsFound = false
 		var lastLoopSeenElements: [String] = []
+		var retryCount = 0
 
-		while !allElementsFound {
+		while !allElementsFound, retryCount < 10 /* max retries is arbitrary but required to prevent infinite loops */ {
 			/** search for a possible button */
 			guard !element.buttons[identifier].exists else {
 				return element.buttons[identifier]
@@ -440,6 +442,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 			lastLoopSeenElements = allElements
 
 			app.swipeUp()
+			retryCount += 1
 		}
 		return nil
 	}

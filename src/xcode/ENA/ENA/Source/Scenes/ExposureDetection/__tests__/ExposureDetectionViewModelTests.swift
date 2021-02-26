@@ -92,7 +92,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithLowRisk: .low]
+			riskLevelPerDate: [mostRecentDateWithLowRisk: .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let homeState = HomeState(
@@ -217,7 +218,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 		
 		let homeState = HomeState(
@@ -275,7 +277,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(
@@ -327,8 +330,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		})
 
 		XCTAssertEqual(viewModel.titleText, AppStrings.ExposureDetection.high)
-		XCTAssertEqual(viewModel.riskBackgroundColor, .enaColor(for: .riskHigh))
-		XCTAssertEqual(viewModel.titleTextColor, .enaColor(for: .textContrast))
+		XCTAssertEqual(viewModel.riskBackgroundColor.cgColor, UIColor.enaColor(for: .riskHigh).cgColor)
+		XCTAssertEqual(viewModel.titleTextColor.cgColor, UIColor.enaColor(for: .textContrast).cgColor)
 		XCTAssertEqual(viewModel.closeButtonStyle, .contrast)
 
 		XCTAssertTrue(viewModel.isButtonHidden)
@@ -374,7 +377,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: calculationDate,
-			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(
@@ -640,7 +644,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low]
+			riskLevelPerDate: [Date(): .low],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let homeState = HomeState(
@@ -699,7 +704,8 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high]
+			riskLevelPerDate: [Date(): .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 
 		let homeState = HomeState(

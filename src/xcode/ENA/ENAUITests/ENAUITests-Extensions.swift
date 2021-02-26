@@ -40,6 +40,10 @@ extension XCUIElement {
 	}
 }
 
+extension XCUIElementQuery {
+	var lastMatch: XCUIElement { return element(boundBy: count - 1) }
+}
+
 extension XCUIApplication {
 	func setDefaults() {
 		// launchEnvironment["CW_MODE"] = "mock"

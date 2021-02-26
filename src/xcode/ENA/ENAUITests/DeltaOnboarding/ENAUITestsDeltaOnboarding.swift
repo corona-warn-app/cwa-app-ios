@@ -67,7 +67,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 	}
 	
 	func test_screenshotDeltaOnboardingNewVersionFeatures() throws {
-		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.12"])
+		app.launchArguments.append(contentsOf: ["-onboardingVersion", "1.13"])
 		
 		app.launch()
 		
@@ -125,7 +125,7 @@ class ENAUITests_06_DeltaOnboarding: XCTestCase {
 //		app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].tap()
 //
 //		// - On Home Screen?
-//		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+//		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 	}
 
 }

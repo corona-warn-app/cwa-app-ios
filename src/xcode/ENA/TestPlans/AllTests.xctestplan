@@ -85,6 +85,7 @@
       "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
+        "ENAUITestsQuickActions\/testLaunchViaShortcutFromFreshInstall()",
         "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()"
       ],
       "target" : {

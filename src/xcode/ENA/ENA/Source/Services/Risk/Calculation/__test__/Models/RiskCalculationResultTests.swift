@@ -20,7 +20,8 @@ class RiskCalculationResultTests: XCTestCase {
 		numberOfDaysWithLowRisk: 10,
 		numberOfDaysWithHighRisk: 3,
 		calculationDate: today,
-		riskLevelPerDate: [today: .high]
+		riskLevelPerDate: [today: .high],
+		minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 	)
 
 	// THEN
