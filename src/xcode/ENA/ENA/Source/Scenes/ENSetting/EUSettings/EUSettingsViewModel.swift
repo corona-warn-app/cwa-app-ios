@@ -10,19 +10,9 @@ class EUSettingsViewModel {
 
 	// MARK: - Init
 
-/*	init() {
-		self.countries = nil
-	}
-*/
 	init(countries availableCountries: [Country] = []) {
 		self.countries = availableCountries.sortedByLocalizedName
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
