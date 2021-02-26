@@ -292,7 +292,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		#if DEBUG
 		if isUITesting {
-			Log.info("While UI Testing, we do not submit analytics data", collect: .ppa)
+			Log.info("While UI Testing, we do not submit analytics data", log: .ppa)
 			completion?(.failure(.generalError))
 			return
 		}

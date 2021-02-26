@@ -67,7 +67,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		// debug/review: print the chain
 		for i in 0..<SecTrustGetCertificateCount(trust) {
 			if let cert = SecTrustGetCertificateAtIndex(trust, i) {
-				Log.debug("[\(challenge.protectionSpace.host)] @ \(i): \(cert)", collect: .crypto)
+				Log.debug("[\(challenge.protectionSpace.host)] @ \(i): \(cert)", log: .crypto)
 			}
 		}
 		#endif
