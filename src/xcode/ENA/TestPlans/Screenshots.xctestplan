@@ -47,12 +47,15 @@
         "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15()",
         "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()",
         "ENAUITests_07_ContactJournalUITests\/testAddTwoPersonsAndOneLocationToDate()",
+        "ENAUITests_07_ContactJournalUITests\/testScreenshotAddTwoPersonsAndOneLocationToDate()",
         "ENAUITests_07_ContactJournalUITests\/testScreenshotAddTwoPersonsTwoLocations()",
         "ENAUITests_07_ContactJournalUITests\/testScreenshotContactJournalInformation()",
         "ENAUITests_07_ContactJournalUITests\/testScreenshotEditLocationScreen()",
         "ENAUITests_07_ContactJournalUITests\/testScreenshotEditPersonScreen()",
         "ENAUITests_07_ContactJournalUITests\/testScreenshotTwoPersonsOneLocationAndMessages()",
-        "ENAUITests_08_UpdateOSUITests\/test_screenshot_UpdateOS()"
+        "ENAUITests_08_UpdateOSUITests\/test_screenshot_UpdateOS()",
+        "ENAUITests_Statistics\/testScreenshot_statisticsCardTitles()",
+        "ENAUITests_Statistics\/test_screenshot_statisticsCardTitles()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
