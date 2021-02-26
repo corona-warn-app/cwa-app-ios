@@ -8,32 +8,28 @@ import UIKit
 
 class TaskExecutionHandler: ENATaskExecutionDelegate {
 
-	var riskProvider: RiskProvider
-	var pdService: PlausibleDeniability
-	var contactDiaryStore: DiaryStoring
-	var store: Store
-	var analyticsSubmitter: PPAnalyticsSubmitter
-	var dependencies: ExposureSubmissionServiceDependencies
-	private let backgroundTaskConsumer = RiskConsumer()
-	private let keySubmissionService: KeySubmissionService
+	// MARK: - Init
 
 	init(
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
 		store: Store,
-		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies,
-		analyticsSubmitter: PPAnalyticsSubmitter
+		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
-		self.analyticsSubmitter = analyticsSubmitter
-		self.keySubmissionService = KeySubmissionService(store: store)
 	}
 
+
+	// MARK: - Protocol ENATaskExecutionDelegate
+
+	var pdService: PlausibleDeniability
+	var dependencies: ExposureSubmissionServiceDependencies
+	var contactDiaryStore: DiaryStoring
 
 	/// This method executes the background tasks needed for fetching test results, performing exposure detection
 	/// and executing plausible deniability fake requests.
@@ -104,6 +100,15 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		}
 	}
 
+	// MARK: - Internal
+
+	var riskProvider: RiskProvider
+	var store: Store
+
+	// MARK: - Private
+
+	private let backgroundTaskConsumer = RiskConsumer()
+
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
 	private func executeSubmitTemporaryExposureKeys(completion: @escaping ((Bool) -> Void)) {
@@ -120,16 +125,16 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		service.submitExposure { error in
 			switch error {
 			case .noSubmissionConsent:
-				self.updateStoreWithKeySubmissionInBackground(value: false)
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
 				Log.info("[ENATaskExecutionDelegate] Submission: no consent given", log: .api)
 			case .noKeysCollected:
-				self.updateStoreWithKeySubmissionInBackground(value: false)
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
 				Log.info("[ENATaskExecutionDelegate] Submission: no keys to submit", log: .api)
 			case .some(let error):
-				self.updateStoreWithKeySubmissionInBackground(value: false)
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
 				Log.error("[ENATaskExecutionDelegate] Submission error: \(error.localizedDescription)", log: .api)
 			case .none:
-				self.updateStoreWithKeySubmissionInBackground(value: true)
+				Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
 				Log.info("[ENATaskExecutionDelegate] Submission successful", log: .api)
 			}
 
@@ -247,14 +252,9 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		self.analyticsSubmitter.triggerSubmitData(completion: { _ in
+		Analytics.triggerAnalyticsSubmission(completion: { _ in
 			// Ignore the result of the call, so we just complete after the call is finished.
 			completion()
 		})
-	}
-	
-	// MARK: Key Submission Service
-	private func updateStoreWithKeySubmissionInBackground(value: Bool) {
-		keySubmissionService.setSubmittedInBackground(withValue: value)
 	}
 }
