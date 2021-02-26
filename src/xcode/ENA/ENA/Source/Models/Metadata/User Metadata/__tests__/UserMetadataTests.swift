@@ -9,7 +9,7 @@ class UserMetadataTests: XCTestCase {
 
 	func testUserMetadata_ageBelow29() throws {
 		let store = MockTestStore()
-		Analytics.log(.userData(.complete(UserMetadata(
+		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			administrativeUnit: 11008226,
 			ageGroup: .ageBelow29
@@ -21,7 +21,7 @@ class UserMetadataTests: XCTestCase {
 	
 	func testUserMetadata_ageBetween30And59() throws {
 		let store = MockTestStore()
-		Analytics.log(.userData(.complete(UserMetadata(
+		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			// Heidelberg
 			administrativeUnit: 11008221,
@@ -34,7 +34,7 @@ class UserMetadataTests: XCTestCase {
 	
 	func testUserMetadata_age60OrAbove() throws {
 		let store = MockTestStore()
-		Analytics.log(.userData(.complete(UserMetadata(
+		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			// Mannheim
 			administrativeUnit: 11008222,

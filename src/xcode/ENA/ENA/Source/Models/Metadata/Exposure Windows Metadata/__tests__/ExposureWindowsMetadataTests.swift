@@ -18,7 +18,7 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
 		guard let metadata = store.exposureWindowsMetadata else {
 			XCTFail("Windows metadata should be initialized")
 			return
@@ -40,14 +40,14 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
 
 		guard let oldMetadata = store.exposureWindowsMetadata else {
 			XCTFail("oldMetadata should be initialized")
 			return
 		}
 		// try to add the same windows again
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
 
 		guard let newMetadata = store.exposureWindowsMetadata else {
 			XCTFail("newMetadata should be initialized")
@@ -70,14 +70,14 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
 
 		guard let oldMetadata = store.exposureWindowsMetadata else {
 			XCTFail("oldMetadata should be initialized")
 			return
 		}
 		// add new windows
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
 
 		guard let newMetadata = store.exposureWindowsMetadata else {
 			XCTFail("newMetadata should be initialized")
@@ -100,7 +100,7 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
 
 		guard let dateLastMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date()) else {
 			XCTFail("date from last month is nil")
@@ -111,7 +111,7 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		store.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(submissionExposureWindow)
 
 		XCTAssertEqual(store.exposureWindowsMetadata?.reportedExposureWindowsQueue.count, 2, "The expected coundshould be 2")
-		Analytics.log(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
 		XCTAssertEqual(store.exposureWindowsMetadata?.reportedExposureWindowsQueue.count, 2, "The expected coundshould still be 2 as  the entry older than 15 days is removed")
 	}
 	

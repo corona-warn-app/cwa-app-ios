@@ -13,12 +13,12 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		
 		// WHEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
-		Analytics.log(.userData(.complete(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
+		Analytics.collect(.userData(.create(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
 		
 		// THEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
 		Analytics.setupMock(store: store)
-		Analytics.log(.userData(.complete(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
+		Analytics.collect(.userData(.create(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
 		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBelow29)
 	}
 	
@@ -29,7 +29,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		
 		// WHEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
-		Analytics.log(.userData(.complete(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
+		Analytics.collect(.userData(.create(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
 		
 		// THEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
@@ -41,7 +41,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		
 		// WHEN
 		XCTAssertNil(store.userMetadata?.ageGroup)
-		Analytics.log(.userData(.complete(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
+		Analytics.collect(.userData(.create(UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29))))
 		
 		// THEN
 		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBelow29)
@@ -53,7 +53,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		store.lastAppReset = nil
 		
 		// WHEN
-		Analytics.log(.submissionMetadata(.lastAppReset(Date())))
+		Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		
 		// THEN
 		XCTAssertNotNil(store.lastAppReset)

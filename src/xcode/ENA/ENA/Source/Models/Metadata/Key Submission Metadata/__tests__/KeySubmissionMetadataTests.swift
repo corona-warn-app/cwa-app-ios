@@ -27,9 +27,9 @@ class KeySubmissionMetadataTests: XCTestCase {
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
-		Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
-		Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, Int32(riskCalculationResult.numberOfDaysWithCurrentRiskLevel), "number of days should be same")
@@ -58,9 +58,9 @@ class KeySubmissionMetadataTests: XCTestCase {
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
-		Analytics.log(.keySubmissionMetadata(.setHoursSinceTestRegistration))
-		Analytics.log(.keySubmissionMetadata(.setHoursSinceTestResult))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.hoursSinceTestResult, 6, "number of hours should be 6")
@@ -86,9 +86,9 @@ class KeySubmissionMetadataTests: XCTestCase {
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
-		Analytics.log(.keySubmissionMetadata(.submitted(true)))
-		Analytics.log(.keySubmissionMetadata(.submittedInBackground(true)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.submitted(true)))
+		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(true)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
@@ -114,14 +114,14 @@ class KeySubmissionMetadataTests: XCTestCase {
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		
-		Analytics.log(.keySubmissionMetadata(.submitted(true)))
-		Analytics.log(.keySubmissionMetadata(.submittedInBackground(false)))
-		Analytics.log(.keySubmissionMetadata(.submittedAfterCancel(true)))
-		Analytics.log(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
-		Analytics.log(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms)))
-		Analytics.log(.keySubmissionMetadata(.submittedWithTeletan(true)))
+		Analytics.collect(.keySubmissionMetadata(.submitted(true)))
+		Analytics.collect(.keySubmissionMetadata(.submittedInBackground(false)))
+		Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
+		Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms)))
+		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
@@ -152,9 +152,9 @@ class KeySubmissionMetadataTests: XCTestCase {
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
 			submittedWithTeleTAN: true)
-		Analytics.log(.keySubmissionMetadata(.complete(keySubmissionMetadata)))
-		Analytics.log(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
-		Analytics.log(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
+		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
+		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, Int32(riskCalculationResult.numberOfDaysWithCurrentRiskLevel), "number of days should be same")
