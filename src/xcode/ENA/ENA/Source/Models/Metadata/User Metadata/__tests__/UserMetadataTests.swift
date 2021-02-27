@@ -9,12 +9,13 @@ class UserMetadataTests: XCTestCase {
 
 	func testUserMetadata_ageBelow29() throws {
 		let store = MockTestStore()
-		store.userMetadata = UserMetadata(
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
-			// Rhein-Neckar-Kreis
 			administrativeUnit: 11008226,
 			ageGroup: .ageBelow29
-		)
+		))))
 		XCTAssertEqual(store.userMetadata?.federalState, .badenWürttemberg)
 		XCTAssertEqual(store.userMetadata?.administrativeUnit, 11008226)
 		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBelow29)
@@ -22,12 +23,14 @@ class UserMetadataTests: XCTestCase {
 	
 	func testUserMetadata_ageBetween30And59() throws {
 		let store = MockTestStore()
-		store.userMetadata = UserMetadata(
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			// Heidelberg
 			administrativeUnit: 11008221,
 			ageGroup: .ageBetween30And59
-		)
+		))))
 		XCTAssertEqual(store.userMetadata?.federalState, .badenWürttemberg)
 		XCTAssertEqual(store.userMetadata?.administrativeUnit, 11008221)
 		XCTAssertEqual(store.userMetadata?.ageGroup, .ageBetween30And59)
@@ -35,12 +38,14 @@ class UserMetadataTests: XCTestCase {
 	
 	func testUserMetadata_age60OrAbove() throws {
 		let store = MockTestStore()
-		store.userMetadata = UserMetadata(
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		Analytics.collect(.userData(.create(UserMetadata(
 			federalState: .badenWürttemberg,
 			// Mannheim
 			administrativeUnit: 11008222,
 			ageGroup: .age60OrAbove
-		)
+		))))
 		XCTAssertEqual(store.userMetadata?.federalState, .badenWürttemberg)
 		XCTAssertEqual(store.userMetadata?.administrativeUnit, 11008222)
 		XCTAssertEqual(store.userMetadata?.ageGroup, .age60OrAbove)
