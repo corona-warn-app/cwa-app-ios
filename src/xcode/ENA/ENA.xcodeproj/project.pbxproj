@@ -741,6 +741,11 @@
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
 		EB0F73EC25E8E780003BFAE7 /* Base32 in Frameworks */ = {isa = PBXBuildFile; productRef = EB0F73EB25E8E780003BFAE7 /* Base32 */; };
 		EB0F740D25E93CA2003BFAE7 /* Base32DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */; };
+		EB0F742D25E943FE003BFAE7 /* check_in_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F742925E943FE003BFAE7 /* check_in_export.pb.swift */; };
+		EB0F742E25E943FE003BFAE7 /* signed_event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F742A25E943FE003BFAE7 /* signed_event.pb.swift */; };
+		EB0F742F25E943FE003BFAE7 /* check_in.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F742B25E943FE003BFAE7 /* check_in.pb.swift */; };
+		EB0F743025E943FE003BFAE7 /* event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F742C25E943FE003BFAE7 /* event.pb.swift */; };
+		EB0F743525E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F743425E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift */; };
 		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
 		EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */; };
@@ -1584,6 +1589,11 @@
 		EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/external/exposurenotification/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/external/exposurenotification/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
 		EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32DecodingTests.swift; sourceTree = "<group>"; };
+		EB0F742925E943FE003BFAE7 /* check_in_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in_export.pb.swift; sourceTree = "<group>"; };
+		EB0F742A25E943FE003BFAE7 /* signed_event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signed_event.pb.swift; sourceTree = "<group>"; };
+		EB0F742B25E943FE003BFAE7 /* check_in.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in.pb.swift; sourceTree = "<group>"; };
+		EB0F742C25E943FE003BFAE7 /* event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event.pb.swift; sourceTree = "<group>"; };
+		EB0F743425E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAP_Internal_Evreg_Event_Tests.swift; sourceTree = "<group>"; };
 		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
 		EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+KeyPackageStorage.swift"; sourceTree = "<group>"; };
 		EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -3547,6 +3557,7 @@
 				EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */,
 				EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */,
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
+				EB0F742825E943FE003BFAE7 /* evreg */,
 				505F506825C833A9004920EB /* ppdd */,
 				B102BDC22460410600CD55A2 /* README.md */,
 				EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */,
@@ -3680,6 +3691,7 @@
 				B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */,
 				01571B79255E9A6F00E4E891 /* config-wru-2020-11-13 */,
 				B17A44A12464906A00CB195E /* KeyTests.swift */,
+				EB0F743425E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4409,6 +4421,18 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		EB0F742825E943FE003BFAE7 /* evreg */ = {
+			isa = PBXGroup;
+			children = (
+				EB0F742925E943FE003BFAE7 /* check_in_export.pb.swift */,
+				EB0F742A25E943FE003BFAE7 /* signed_event.pb.swift */,
+				EB0F742B25E943FE003BFAE7 /* check_in.pb.swift */,
+				EB0F742C25E943FE003BFAE7 /* event.pb.swift */,
+			);
+			name = evreg;
+			path = ../../../gen/output/internal/evreg;
+			sourceTree = "<group>";
+		};
 		EB11B02824EE7C7D00143A95 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -4958,6 +4982,7 @@
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
+				EB0F743025E943FE003BFAE7 /* event.pb.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
@@ -4999,6 +5024,7 @@
 				948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
+				EB0F742E25E943FE003BFAE7 /* signed_event.pb.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
@@ -5012,6 +5038,7 @@
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */,
+				EB0F742D25E943FE003BFAE7 /* check_in_export.pb.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
 				013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
@@ -5260,6 +5287,7 @@
 				35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */,
 				94B255A62551B7C800649B4C /* WarnOthersReminder.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
+				EB0F742F25E943FE003BFAE7 /* check_in.pb.swift in Sources */,
 				B18755D124DC45CA00A9202E /* DMStoreViewController.swift in Sources */,
 				353412CC2525EE4A0086D15C /* Globals.swift in Sources */,
 				EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
@@ -5396,6 +5424,7 @@
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,
+				EB0F743525E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift in Sources */,
 				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
 				014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
