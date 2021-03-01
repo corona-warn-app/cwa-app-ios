@@ -42,7 +42,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="678.66666666666663"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="u0Z-dj-KUh">
-                                    <rect key="frame" x="16" y="16" width="382" height="667.66666666666663"/>
+                                    <rect key="frame" x="16" y="16" width="382" height="668"/>
                                     <subviews>
                                         <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKw-RG-YP1">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
@@ -57,10 +57,10 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vYq-gW-JYm" userLabel="State View">
-                                            <rect key="frame" x="0.0" y="261" width="382" height="183.66666666666663"/>
+                                            <rect key="frame" x="0.0" y="261" width="382" height="183.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vh2-Dv-3W6" userLabel="Header Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="131.66666666666666"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="131.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -69,23 +69,23 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dxB-rg-2eD" userLabel="Top Separator View">
-                                                    <rect key="frame" x="-16" y="137.66666666666669" width="414" height="1"/>
+                                                    <rect key="frame" x="-16" y="137.5" width="414" height="1"/>
                                                     <color key="backgroundColor" name="ENA Hairline Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="1QZ-Oz-iv5"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="Q7c-FR-LZM">
-                                                    <rect key="frame" x="0.0" y="138.66666666666669" width="382" height="44"/>
+                                                    <rect key="frame" x="0.0" y="138.5" width="382" height="44"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lge-Dm-wcC" userLabel="Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="307.66666666666669" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="307.5" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7CF-il-Sk2" userLabel="State Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="340.66666666666669" y="0.0" width="41.333333333333314" height="44"/>
+                                                            <rect key="frame" x="340.5" y="0.0" width="41.5" height="44"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yey-yw-hT8" userLabel="Bottom Separator View">
-                                                    <rect key="frame" x="-16" y="182.66666666666669" width="414" height="1"/>
+                                                    <rect key="frame" x="-16" y="182.5" width="414" height="1"/>
                                                     <color key="backgroundColor" name="ENA Hairline Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="Pt4-BL-MZB"/>
@@ -120,7 +120,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuR-3M-Pvl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="476.66666666666669" width="382" height="20.333333333333314"/>
+                                            <rect key="frame" x="0.0" y="476.5" width="382" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" name="ENA Text Primary 1 Color"/>
                                             <nil key="highlightedColor"/>
@@ -129,10 +129,10 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Lgs-ln-Zc7">
-                                            <rect key="frame" x="0.0" y="529" width="382" height="138.66666666666663"/>
+                                            <rect key="frame" x="0.0" y="529" width="382" height="139"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nk7-Zk-JE2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="20.333333333333332"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -141,7 +141,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znr-XX-rfp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="44.333333333333371" width="382" height="20.333333333333329"/>
+                                                    <rect key="frame" x="0.0" y="44.5" width="382" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -150,7 +150,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" editable="NO" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vwe-7A-NHS">
-                                                    <rect key="frame" x="0.0" y="88.666666666666629" width="382" height="50"/>
+                                                    <rect key="frame" x="0.0" y="89" width="382" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" link="YES"/>
