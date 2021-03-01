@@ -68,9 +68,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		let fakeRoute = Route(url: URL(staticString: "HTTPS://app-developer.club/e1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ"))
-
-		setupUI(fakeRoute)
+		var route: Route? = nil
+		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
+			for key in activityDictionary.keys {
+				if let userActivity = activityDictionary[key] as? NSUserActivity {
+					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
+						route = Route(url: url)
+						break
+					}
+				}
+			}
+		}
+		setupUI(route)
 		setupQuickActions()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -94,21 +103,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
-
-		/** HTTPS://app-developer.club/e1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ
-		*/
-
-		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
-			for key in activityDictionary.keys {
-				if let userActivity = activityDictionary[key] as? NSUserActivity {
-					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-						Log.debug("Found an associated domain url: \(url.absoluteString)")
-						return true
-//						break
-					}
-				}
-			}
-		}
 		// App launched via shortcut?
 		return handleQuickActions(with: launchOptions)
 	}
