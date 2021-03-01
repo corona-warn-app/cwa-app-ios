@@ -19,7 +19,6 @@ enum DMMenuItem: Int, CaseIterable {
 	case purgeRegistrationToken
 	case sendFakeRequest
 	case store
-	case tracingHistory
 	case onboardingVersion
 	case serverEnvironment
 	case simulateNoDiskSpace
@@ -59,7 +58,6 @@ extension DMMenuItem {
 		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Send fake Request"
 		case .store: return "Store Contents"
-		case .tracingHistory: return "Tracing History"
 		case .onboardingVersion: return "Onboarding Version"
 		case .serverEnvironment: return "Server Environment"
 		case .simulateNoDiskSpace: return "Simulate SQLite Error"
@@ -87,7 +85,6 @@ extension DMMenuItem {
 		case .purgeRegistrationToken: return "Purge Registration Token"
 		case .sendFakeRequest: return "Sends a fake request for testing plausible deniability"
 		case .store: return "See the contents of the encrypted store used by the app"
-		case .tracingHistory: return "See when tracing was active"
 		case .onboardingVersion: return "Set the onboarding version"
 		case .serverEnvironment: return "Select server environment"
 		case .simulateNoDiskSpace: return "Simulates SQLite returns defined error"

@@ -323,13 +323,14 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 			(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
 			(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
-		let activeTracing = store.tracingStatusHistory.activeTracing()
-		let text = [
-			activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
-			activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
-			.joined(separator: "\n\n")
+		// TODO: RDA
+//		let activeTracing = store.tracingStatusHistory.activeTracing()
+		let text = "Some Text" // [
+//			activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
+//			activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
+//			.joined(separator: "\n\n")
 
-		let numberOfDaysWithActiveTracing = activeTracing.inDays
+		let numberOfDaysWithActiveTracing = 14 // activeTracing.inDays
 		let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
 		let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
 

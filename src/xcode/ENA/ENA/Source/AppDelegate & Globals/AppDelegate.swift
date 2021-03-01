@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
 
+		if store.appFirstStartDate == nil {
+			store.appFirstStartDate = Date()
+		}
+
 		self.client = HTTPClient(serverEnvironmentProvider: store)
 		self.wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: store)
 
@@ -258,9 +262,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
-		// Add the new state to the history
-		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
-
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)

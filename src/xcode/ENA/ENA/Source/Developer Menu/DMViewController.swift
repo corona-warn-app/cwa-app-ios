@@ -119,8 +119,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
 			vc = makeBackendConfigurationViewController()
-		case .tracingHistory:
-			vc = DMTracingHistoryViewController(tracingHistory: store.tracingStatusHistory)
 		case .store:
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:

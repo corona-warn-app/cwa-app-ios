@@ -20,7 +20,6 @@ class HomeState: ENStateHandlerUpdating {
 		if let riskCalculationResult = store.riskCalculationResult {
 			self.riskState = .risk(
 				Risk(
-					activeTracing: store.tracingStatusHistory.activeTracing(),
 					riskCalculationResult: riskCalculationResult
 				)
 			)
@@ -31,7 +30,6 @@ class HomeState: ENStateHandlerUpdating {
 					details: .init(
 						mostRecentDateWithRiskLevel: nil,
 						numberOfDaysWithRiskLevel: 0,
-						activeTracing: store.tracingStatusHistory.activeTracing(),
 						exposureDetectionDate: nil
 					),
 					riskLevelHasChanged: false

@@ -365,8 +365,9 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
+	// TODO: RDA
 	private func lowRiskModel(risk: Risk) -> DynamicTableViewModel {
-		let activeTracing = risk.details.activeTracing
+//		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
 		let riskDataSectionWithExposure = riskDataSection(
 		   footer: .riskTint(height: 16),
@@ -376,7 +377,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 								   AppStrings.ExposureDetection.lastExposureOneRiskDay :
 								   AppStrings.ExposureDetection.lastExposure,
 								 image: UIImage(named: "Icons_Calendar")),
-			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskStored(),
 			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 		   ]
 		)
@@ -384,7 +385,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		   footer: .riskTint(height: 16),
 		   cells: [
 			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskStored(),
 			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 		   ]
 		)
@@ -408,21 +409,29 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
+	// TODO: RDA
 	private func highRiskModel(risk: Risk, isSurveyEnabled: Bool) -> DynamicTableViewModel {
-		let activeTracing = risk.details.activeTracing
+		//let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
+
+		// TODO: riskStored should only be added, if <14 days since install
+
+		let ristDataSectionCells: [DynamicCell] = [
+			.riskContacts(
+				text: AppStrings.Home.riskCardHighNumberContactsItemTitle,
+				image: UIImage(named: "Icons_RisikoBegegnung")
+			),
+			.riskLastExposure(
+				text: numberOfExposures == 1 ? AppStrings.ExposureDetection.lastExposureOneRiskDay : AppStrings.ExposureDetection.lastExposure,
+				image: UIImage(named: "Icons_Calendar")),
+			.riskStored(),
+			.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		]
+
 		var sections: [DynamicSection] = [
 			riskDataSection(
 				footer: .riskTint(height: 16),
-				cells: [
-					.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
-					.riskLastExposure(text: numberOfExposures == 1 ?
-										AppStrings.ExposureDetection.lastExposureOneRiskDay :
-										AppStrings.ExposureDetection.lastExposure,
-									  image: UIImage(named: "Icons_Calendar")),
-					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-				]
+				cells: ristDataSectionCells
 			),
 			riskLoadingSection,
 			.section(
@@ -572,7 +581,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			comment: ""
 		)
 
-		let p1 = risk.details.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1
+		// TODO: RDA
+		let p1 = "Some Text" //risk.details.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1
 
 		let body = [p0, p1].joined(separator: "\n\n")
 

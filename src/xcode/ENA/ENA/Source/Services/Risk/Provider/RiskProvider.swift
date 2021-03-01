@@ -71,42 +71,44 @@ final class RiskProvider: RiskProviding {
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
-		guard activityState == .idle else {
-			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)
-			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
-			return
-		}
+		successOnTargetQueue(risk: Risk.mocked(level: .low))
 
-		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
-
-			// Keep downloading key packages for plausible deniability
-			downloadKeyPackages()
-
-			return
-		}
-
-		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
-
-			// Keep downloading key packages for plausible deniability
-			downloadKeyPackages()
-
-			return
-		}
-
-		queue.async {
-			self.updateActivityState(.riskRequested)
-
-			#if DEBUG
-			if isUITesting {
-				self._requestRiskLevel_Mock(userInitiated: userInitiated)
-				return
-			}
-			#endif
-
-			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
-		}
+//		guard activityState == .idle else {
+//			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)
+//			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
+//			return
+//		}
+//
+//		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+//			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+//
+//			// Keep downloading key packages for plausible deniability
+//			downloadKeyPackages()
+//
+//			return
+//		}
+//
+//		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+//			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+//
+//			// Keep downloading key packages for plausible deniability
+//			downloadKeyPackages()
+//
+//			return
+//		}
+//
+//		queue.async {
+//			self.updateActivityState(.riskRequested)
+//
+//			#if DEBUG
+//			if isUITesting {
+//				self._requestRiskLevel_Mock(userInitiated: userInitiated)
+//				return
+//			}
+//			#endif
+//
+//			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
+//		}
 	}
 
 	// MARK: - Private
@@ -269,7 +271,7 @@ final class RiskProvider: RiskProviding {
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
 		   let riskCalculationResult = store.riskCalculationResult {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-			return Risk(activeTracing: store.tracingStatusHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
+			return Risk(riskCalculationResult: riskCalculationResult)
 		}
 
 		return nil
@@ -313,7 +315,6 @@ final class RiskProvider: RiskProviding {
 			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 			ExposureWindowsMetadataService().collectExposureWindows(from: riskCalculation, store: store)
 			let risk = Risk(
-				activeTracing: store.tracingStatusHistory.activeTracing(),
 				riskCalculationResult: riskCalculationResult,
 				previousRiskCalculationResult: store.riskCalculationResult
 			)

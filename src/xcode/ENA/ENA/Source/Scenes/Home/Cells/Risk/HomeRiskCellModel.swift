@@ -264,8 +264,6 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		isButtonHidden = homeState.detectionMode == .automatic
 		isButtonEnabled = homeState.manualExposureDetectionState == .possible
 
-		let activeTracing = risk.details.activeTracing
-
 		var formattedMostRecentDateWithLowRisk = ""
 		if let mostRecentDateWithLowRisk = risk.details.mostRecentDateWithRiskLevel {
 			let dateFormatter = DateFormatter()
@@ -273,12 +271,13 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			formattedMostRecentDateWithLowRisk = dateFormatter.string(from: mostRecentDateWithLowRisk)
 		}
 
+		// TODO: RDA
 		let activeTracingDaysModel = HomeImageItemViewModel(
-			title: activeTracing.localizedDuration,
+			title: "To be done", //activeTracing.localizedDuration,
 			titleColor: titleColor,
-			iconImageName: activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
-			    "Icons_TracingCircleFull - Dark" :
-			    "Icons_TracingCircle-Dark_Step \(activeTracing.inDays)",
+			iconImageName: "Icons_TracingCircleFull - Dark", //activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
+			    //"Icons_TracingCircleFull - Dark" :
+			    //"Icons_TracingCircle-Dark_Step \(activeTracing.inDays)",
 		    iconTintColor: titleColor,
 		    color: backgroundColor,
 		    separatorColor: separatorColor,

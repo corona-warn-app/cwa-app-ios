@@ -179,16 +179,21 @@ final class SecureStore: Store {
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
 
-	var tracingStatusHistory: TracingStatusHistory {
-		get {
-			guard let historyData = kvStore["tracingStatusHistory"] else {
-				return []
-			}
-			return (try? TracingStatusHistory.from(data: historyData)) ?? []
-		}
-		set {
-			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
-		}
+//	var tracingStatusHistory: TracingStatusHistory {
+//		get {
+//			guard let historyData = kvStore["tracingStatusHistory"] else {
+//				return []
+//			}
+//			return (try? TracingStatusHistory.from(data: historyData)) ?? []
+//		}
+//		set {
+//			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
+//		}
+//	}
+
+	var appFirstStartDate: Date? {
+		get { kvStore["appFirstStartDate"] as Date? }
+		set { kvStore["appFirstStartDate"] = newValue }
 	}
 
 	var riskCalculationResult: RiskCalculationResult? {
