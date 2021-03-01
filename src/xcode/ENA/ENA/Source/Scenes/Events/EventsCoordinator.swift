@@ -39,7 +39,15 @@ final class EventsCoordinator {
 
 	@objc
 	private func showQrCodeScanner() {
-		Log.debug("Show QR Code scanner")
+		let qrCodeScannerViewController = QRCodeScannerViewController(
+			dismiss: { [weak self] in self?.dismissQRCodeScanner()
+			}
+		)
+		viewController.present(qrCodeScannerViewController, animated: true)
+	}
+
+	private func dismissQRCodeScanner() {
+		viewController.dismiss(animated: true)
 	}
 
 }
