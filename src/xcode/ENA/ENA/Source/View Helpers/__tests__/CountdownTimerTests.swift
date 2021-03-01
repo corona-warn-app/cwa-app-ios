@@ -22,7 +22,7 @@ class CountdownTimerTests: XCTestCase {
 
 		let expectation = self.expectation(description: "Calls done.")
 		countdownTimerTarget.doneCallback = { _, _ in
-			XCTAssert(Date() > end)
+			XCTAssertGreaterThan(Date(), end)
 			expectation.fulfill()
 		}
 

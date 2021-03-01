@@ -123,9 +123,9 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to anyone else.";
 
-"ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with COVID-19 was logged, or because your encounters were only for a short time and at a greater distance.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with coronavirus was logged, or because your exposures were only for a short time and at a greater distance.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "The risk of infection is calculated locally on your smartphone, using exposure logging data. The calculation also takes into account distance and duration of any exposure to persons diagnosed with COVID-19, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with coronavirus was logged, or because your exposures were only for a short time and at a greater distance.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were last exposed on %@ over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.";
 
@@ -1321,45 +1321,24 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Along with bug fixes, this update also includes new and enhanced features.";
 
 /* New Version Features */
-"NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app settings, under “New Features”.";
+"NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-/* Version 1.13 */
-"NewVersionFeature_113_rki_survey_title" = "Link to RKI Survey";
+/* Version 1.14 */
+"NewVersionFeature_114_additional_diary_functions_title" = "Additional Features in the Contact Journal";
 
-"NewVersionFeature_113_rki_survey_description" = "If you have an increased risk, you can start and take a survey conducted by the Robert Koch Institute from within the app.";
+"NewVersionFeature_114_additional_diary_functions_description" = "You can now enter the specific circumstances of each encounter. You can select from the predefined options (such as duration of the encounter, with or without mask) and also enter a brief note to record other circumstances that might result in an increased risk. If you become infected, this information can help the public health authority trace potential chains of infection.";
 
-"NewVersionFeature_113_data_donation_title" = "Consent to Share Data (optional)";
+"NewVersionFeature_114_direct_access_diary_title" = "Direct Access to Contact Journal";
 
-"NewVersionFeature_113_data_donation_description" = "You now have the option of sharing your usage data, which will help us to improve the app.";
+"NewVersionFeature_114_direct_access_diary_description" = "You can now add an entry to your contact journal directly, without having to open the app first. To do so, tap and hold the icon for the Corona-Warn-App for approximately 2 seconds, until a menu appears, and then tap “Add Journal Entry for Today”.";
 
-"NewVersionFeature_113_risk_cards_title" = "Changes to the Risk Tiles";
+"NewVersionFeature_114_more_details_risk_status_title" = "More Details about Your Risk Status ";
 
-"NewVersionFeature_113_risk_cards_description" = "Minor changes to the texts on the risk tiles.";
+"NewVersionFeature_114_more_details_risk_status_description" = "If the app indicates that you have an increased risk, you can now see whether the risk status is displayed based on one or more exposures with an increased risk or one or more exposures with a low risk.";
 
-"NewVersionFeature_113_risk_determination_random_id_title" = "Continuation of Exposure Logging after Sharing Your Random IDs";
+"NewVersionFeature_114_screenshots_title" = "Screenshots for the Corona-Warn-App";
 
-"NewVersionFeature_113_risk_determination_random_id_description" = "After you have shared your encrypted random IDs, you can decide whether and when you want to switch exposure logging back on.";
-
-"NewVersionFeature_113_new_tabbar_title" = "Implementation of Tabs";
-
-"NewVersionFeature_113_new_tabbar_description" = "There is now a separate tab for your contact journal. This lets you access your journal and switch from the contact journal back to the home screen of the app more quickly.";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "More Information about the Testing Procedure";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "The app now contains more detailed information about the testing procedure.";
-
-/* Version 1.12 */
-"NewVersionFeature_112_statistics_title" = "Statistics";
-
-"NewVersionFeature_112_statistics_description" = "See an overview of the latest key figures for the infection numbers in Germany.";
-
-"NewVersionFeature_112_exposure_history_title" = "Exposure History";
-
-"NewVersionFeature_112_exposure_history_description" = "Your contact journal shows you the days on which you have a low or increased risk based on the encounters evaluated by the app. This means you can warn people you have been with on these days if they do not use the Corona-Warn-App themselves. These people may have been exposed to a comparable risk. The people and places in your contact journal are not necessarily related to the indicated exposures, however.";
-
-"NewVersionFeature_112_ios125_support_title" = "App now available for iOS 12.5 and later";
-
-"NewVersionFeature_112_ios125_support_description" = "You can now use the Corona-Warn-App in iOS version 12.5 and later.";
+"NewVersionFeature_114_screenshots_description" = "The website https://www.coronawarn.app now contains all the screenshots for the app, so you can find out about planned features, for example.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1457,6 +1436,22 @@
 
 "ContactDiary_Overview_Risk_Text_Disclaimer" = "They are not necessarily related to the people and places you have recorded.";
 
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "based on multiple exposures with low risk.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Less than 15 min";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "More than 15 min";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "With mask";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Without mask";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "Outdoors";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "Indoors";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "hrs";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
 
@@ -1489,14 +1484,32 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "A building is marked with a location flag.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "Less than 15 min";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "More than 15 min";
+
+"ContactDiary_Day_Encounter_WithMask" = "With mask";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Without mask";
+
+"ContactDiary_Day_Encounter_Outside" = "Outdoors";
+
+"ContactDiary_Day_Encounter_Inside" = "Indoors";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Note (e.g. close distance)";
+
+"ContactDiary_Day_Visit_Duration" = "Duration";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Note (e.g. very full, poorly ventilated)";
+
 /* Edit Entries */
-"ContactDiary_EditEntries_ContactPersons_Title" = "People";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Edit People";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Remove All";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Do you really want to remove all people?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove all people, all the entries for all people will be removed from your journal.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Yes";
 
@@ -1510,13 +1523,13 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "No";
 
-"ContactDiary_EditEntries_Locations_Title" = "Places";
+"ContactDiary_EditEntries_Locations_Title" = "Edit Places";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Remove All";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Do you really want to remove all places?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove all places, all the entries for all places will be removed from your journal.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Yes";
 
@@ -1561,12 +1574,20 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Place";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Place";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Description";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Phone";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-mail";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Person";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Name";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Phone";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-mail";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";
@@ -1740,7 +1761,7 @@
 
 "DataDonation_ValueSelection_Title_Age" = "Your Age Group";
 
-"DataDonation_ValueSelection_Age_Below29" = "0-29 years old";
+"DataDonation_ValueSelection_Age_Below29" = "Up to 29 years old";
 
 "DataDonation_ValueSelection_Age_Between30And59" = "30-59 years old";
 
@@ -1816,4 +1837,11 @@
 "DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Information about the model and version of your smartphone, the version of your app, and the version of your operating system.";
 
 "DetailedInfosDataDonation_General_Privacy_Infos" = "This information cannot be linked with you personally. Your identity will remain confidential.\nThe information will be analyzed for statistical purposes. It will not be saved for a profile.";
+
+"Contact_Journal_Notes_Description_Title" = "Note";
+
+"Contact_Journal_Notes_Description" = "You can enter notes here that will help you to better estimate your risk of infection.\n\nWrite down additional circumstances of your encounter or stay here that could have an effect on your risk of infection, for example, how close you were to other people and what you did (examples: “sat close together”, “played sports”, “little space”, “we sang”).\n\nThese notes can help you refresh your memory later. If necessary, they will also let you warn the people you have been with at an early stage, as well as help the public health authorities trace potential chains of infection.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
 

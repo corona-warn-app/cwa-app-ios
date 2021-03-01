@@ -16,7 +16,7 @@
 			<string>Nicio expunere</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Expuneri cu risc redus într-o zi</string>
+			<string>Expuneri cu risc redus în 1 zi</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Expuneri cu risc redus în %u zile</string>
@@ -46,7 +46,7 @@
 			<string>Expuneri cu risc crescut în %u de zile</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Expuneri cu risc crescut într-o zi</string>
+			<string>Expuneri cu risc crescut în 1 zi</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Expuneri cu risc crescut în %u zile</string>

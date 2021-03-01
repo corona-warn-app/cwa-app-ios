@@ -287,6 +287,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = ClientMock()
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		store.registrationToken = "dummyRegistrationToken"
 		store.positiveTestResultWasShown = true
 		store.testResultReceivedTimeStamp = 12345678
@@ -514,6 +516,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Initialize.
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(),
@@ -541,6 +545,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Initialize.
 		let expectation = self.expectation(description: "Expect to receive a result.")
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		client.onGetTestResult = { _, _, completion in
 			completion(.failure(.noNetworkConnection))
@@ -646,6 +652,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Initialize.
 		let expectation = self.expectation(description: "Expect to have daysSinceMostRecentDateAtRiskLevelAtTestRegistration and hoursSinceHighRiskWarningAtTestRegistration in the store.")
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let service = ENAExposureSubmissionService(
 			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
 			appConfigurationProvider: CachedAppConfigurationMock(),

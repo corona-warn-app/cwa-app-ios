@@ -62,6 +62,10 @@ enum AccessibilityIdentifiers {
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
 			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
 		}
+		
+		enum NotesInformation {
+			static let titel = "AppStrings.ContactDiary.NotesInformation.title"
+		}
 	}
 
 	enum Onboarding {
@@ -271,6 +275,7 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
 		static let newVersionFeaturesAccImageDescription = "AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"
 		static let newVersionFeaturesGeneralDescription = "AppStrings.DeltaOnboarding.NewVersionFeatures.GeneralDescription"
+		static let newVersionFeaturesGeneralAboutAppInformation = "AppStrings.DeltaOnboarding.NewVersionFeatures.AboutAppInformation"
 		static let newVersionFeaturesVersionInfo = "AppStrings.DeltaOnboarding.NewVersionFeatures.VersionInfo"
 		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
 		static let description = "AppStrings.DeltaOnboarding.description"
