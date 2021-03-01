@@ -115,7 +115,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 
 	func testStore_EmptyData() {
 		kvStore["a"] = Data()
-		XCTAssert(kvStore["a"]?.isEmpty == true)
+		XCTAssertTrue(try XCTUnwrap(kvStore["a"]).isEmpty)
 	}
 
 	// MARK: - Negative Tests
@@ -147,7 +147,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		}
 
 		let result = group.wait(timeout: .now() + .extraLong)
-		XCTAssert(result == .success)
+		XCTAssertEqual(result, .success)
 		for j in 0...1000 {
 			if j.isMultiple(of: 2) {
 				XCTAssertNil(self.kvStore["key\(j)"])
@@ -167,7 +167,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 			return
 		}
 
-		XCTAssert(
+		XCTAssertTrue(
 			Calendar.current.isDate(birthday, equalTo: out, toGranularity: .minute)
 		)
 	}

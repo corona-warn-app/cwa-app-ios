@@ -16,7 +16,7 @@
 			<string>No exposures</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Exposures with low risk on one day</string>
+			<string>Exposures with low risk on 1 day</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Exposures with low risk on %u days</string>
@@ -46,7 +46,7 @@
 			<string>Exposures on %u days with increased risk</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Exposures on one day with increased risk</string>
+			<string>Exposures on 1 day with increased risk</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Exposures on %u days with increased risk</string>
