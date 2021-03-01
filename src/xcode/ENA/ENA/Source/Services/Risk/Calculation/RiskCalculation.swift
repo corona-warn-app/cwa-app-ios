@@ -45,9 +45,9 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 		mappedExposureWindows = exposureWindows
 			.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 
-		/// 0. Filter by `Minutes at Attenuation` and `Transmission Risk Level`
+		/// 0. Filter by `Risk Level`, `Minutes at Attenuation`, and `Transmission Risk Level`
 		filteredExposureWindows = mappedExposureWindows
-			.filter { !$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel }
+			.filter { $0.riskLevel != nil && !$0.isDroppedByMinutesAtAttenuation && !$0.isDroppedByTransmissionRiskLevel }
 
 		/// 1. Group `Exposure Windows by Date`
 		exposureWindowsPerDate = Dictionary(grouping: filteredExposureWindows, by: { $0.date })
