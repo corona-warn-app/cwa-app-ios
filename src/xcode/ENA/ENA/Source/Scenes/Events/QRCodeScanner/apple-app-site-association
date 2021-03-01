@@ -3,21 +3,13 @@
     "apps": [],
     "details": [
       {
-        "appID": "523TP53AQF.de.rki.corona-warn-app",
+        "appIDs": [
+          "523TP53AQF.de.rki.corona-warn-app",
+          "523TP53AQF.de.rki.coronawarnapp",
+          "523TP53AQF.de.rki.coronawarnapp-dev"
+        ],
         "paths": [
-          "/e1/"
-        ]
-      },
-      {
-        "appID": "523TP53AQF.de.rki.coronawarnapp",
-        "paths": [
-          "/e1/"
-        ]
-      },
-      {
-        "appID": "523TP53AQF.de.rki.coronawarnapp-dev",
-        "paths": [
-          "/e1/"
+          "/e1/*"
         ]
       }
     ]

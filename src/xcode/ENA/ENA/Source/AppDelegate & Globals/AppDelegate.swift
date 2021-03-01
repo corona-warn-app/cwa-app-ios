@@ -92,6 +92,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 
+		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
+			for key in activityDictionary.keys {
+				if let userActivity = activityDictionary[key] as? NSUserActivity {
+					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
+						Log.debug("Found an associated domain url: \(url.absoluteString)")
+						return true
+//						break
+					}
+				}
+			}
+		}
 		// App launched via shortcut?
 		return handleQuickActions(with: launchOptions)
 	}
