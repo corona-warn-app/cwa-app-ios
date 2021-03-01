@@ -10,12 +10,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Init
 
 	init(
-		textFiledManager: TextFieldsManager = TextFieldsManager(),
+		textFieldsManager: TextFieldsManager = TextFieldsManager(),
 		viewModel: DiaryAddAndEditEntryViewModel,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-		self.textFieldsManager = textFiledManager
+		self.textFieldsManager = textFieldsManager
 		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
@@ -177,7 +177,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.spellCheckingType = .no
 		nameTextField.smartQuotesType = .no
 		nameTextField.keyboardAppearance = .default
-		nameTextField.keyboardType = .namePhonePad
+		nameTextField.keyboardType = .default
 		nameTextField.returnKeyType = .continue
 		nameTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		nameTextField.delegate = self
