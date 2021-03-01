@@ -319,7 +319,7 @@ final class RiskProvider: RiskProviding {
 
 		store.riskCalculationResult = riskCalculationResult
 		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-		updateRiskExpouseMetadata(riskCalculationResult)
+		updateRiskExposureMetadata(riskCalculationResult)
 
 		completion(.success(risk))
 
@@ -431,7 +431,7 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 	
-	private func updateRiskExpouseMetadata(_ riskCalculationResult: RiskCalculationResult) {
+	private func updateRiskExposureMetadata(_ riskCalculationResult: RiskCalculationResult) {
 		let riskLevel = riskCalculationResult.riskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
