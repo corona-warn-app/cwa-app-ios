@@ -104,6 +104,7 @@ class ENAUITests_Statistics: XCTestCase {
 		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
 		let reproductionNumberTitle = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+		var screenshotCounter = 0
 
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
@@ -135,7 +136,9 @@ class ENAUITests_Statistics: XCTestCase {
 			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_rvalue")
 			cardReproductionNumberOpenInfoScreen(reproductionNumberTitle)
-			snapshot("statistics_info_screen")
+			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+			app.swipeUp(velocity: .slow)
+			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 			app.staticTexts[reproductionNumberTitle].swipeRight()
 		}
 	}
