@@ -91,20 +91,21 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	/// 1. Filter by `Minutes at Attenuation`
 	lazy var isDroppedByMinutesAtAttenuation: Bool = {
-		return configuration.minutesAtAttenuationFilters.map { filter in
-			let secondsAtAttenuation = exposureWindow.scanInstances
-				.filter { $0.secondsSinceLastScan >= 0 }
-				.filter { scanInstance in
-					filter.attenuationRange.contains(scanInstance.minAttenuation)
-				}
-				.map { $0.secondsSinceLastScan }
-				.reduce(0, +)
+		configuration.minutesAtAttenuationFilters
+			.map { filter in
+				let secondsAtAttenuation = exposureWindow.scanInstances
+					.filter { $0.secondsSinceLastScan >= 0 }
+					.filter { scanInstance in
+						filter.attenuationRange.contains(scanInstance.minAttenuation)
+					}
+					.map { $0.secondsSinceLastScan }
+					.reduce(0, +)
 
-			let minutesAtAttenuation = secondsAtAttenuation / 60
+				let minutesAtAttenuation = secondsAtAttenuation / 60
 
-			return filter.dropIfMinutesInRange.contains(minutesAtAttenuation)
-		}
-		.contains(true)
+				return filter.dropIfMinutesInRange.contains(minutesAtAttenuation)
+			}
+			.contains(true)
 	}()
 
 	/// 2. Determine `Transmission Risk Level`
@@ -132,20 +133,19 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	/// 3. Filter by `Transmission Risk Level`
 	lazy var isDroppedByTransmissionRiskLevel: Bool = {
-		return configuration.trlFilters.map {
-			$0.dropIfTrlInRange.contains(transmissionRiskLevel)
-		}
-		.contains(true)
+		configuration.trlFilters
+			.map { $0.dropIfTrlInRange.contains(transmissionRiskLevel) }
+			.contains(true)
 	}()
 
 	/// 6. Determine `Normalized Time`
 	lazy var normalizedTime: Double = {
-		return transmissionRiskValue * weightedMinutes
+		transmissionRiskValue * weightedMinutes
 	}()
 
 	/// 7. Determine `Risk Level`
 	lazy var riskLevel: RiskLevel? = {
-		return configuration.normalizedTimePerEWToRiskLevelMapping
+		configuration.normalizedTimePerEWToRiskLevelMapping
 			.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
 			.map({ $0.riskLevel })
 	}()
