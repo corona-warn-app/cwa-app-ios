@@ -706,7 +706,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
 		
-		snapshot("submissionflow_test_result_positive_constent_given")
+		snapshot("submissionflow_screenshot_test_result_positive_constent_given")
 	}
 
 	func test_screenshot_symptoms_onset_date_option() {
@@ -723,7 +723,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
 		optionExactDate.tap()
 		
-		snapshot("submissionflow_symptoms_onset_date_option")
+		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
 	
 	func test_screenshot_thankyou_screen() {
@@ -751,7 +751,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open Thank You screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
 		
-		snapshot("submissionflow_thank_you_screen")
+		snapshot("submissionflow_screenshot_thank_you_screen")
 
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		app.alerts.firstMatch.buttons.element(boundBy: 0).tap()
