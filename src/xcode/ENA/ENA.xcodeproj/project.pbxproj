@@ -36,6 +36,7 @@
 		0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */; };
 		0138F55225ECD44300A9B075 /* app_config_android.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54625ECD44300A9B075 /* app_config_android.pb.swift */; };
 		0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */; };
+		0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -865,6 +866,7 @@
 		0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F54625ECD44300A9B075 /* app_config_android.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_config_android.pb.swift; sourceTree = "<group>"; };
 		0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event_registration_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionRiskValueMapping.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -4147,6 +4149,7 @@
 				BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */,
 				BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */,
 				BA6C8AC3254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift */,
+				0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */,
 				BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */,
 				BA6C8AF3254D65E1008344F5 /* ScanInstance.swift */,
 				BA6C8ACB254D6537008344F5 /* TrlEncoding.swift */,
@@ -5216,6 +5219,7 @@
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,
 				0138F54D25ECD44300A9B075 /* app_config_ios.pb.swift in Sources */,
+				0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */,
 				94EAF87125B6CA9D00BE1F40 /* DeltaOnboardingNewVersionFeatures.swift in Sources */,
 				2FA9E39324D2F2920030561C /* ExposureSubmission+TestResult.swift in Sources */,
 				BA056F1B259B89B50022B0A4 /* RiskLegendDotBodyCell.swift in Sources */,

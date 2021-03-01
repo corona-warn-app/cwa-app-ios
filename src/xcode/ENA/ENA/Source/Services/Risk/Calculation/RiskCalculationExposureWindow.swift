@@ -156,7 +156,9 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 
 	/// 4. Determine `Transmission Risk Value`
 	private lazy var transmissionRiskValue: Double = {
-		Double(transmissionRiskLevel) * configuration.transmissionRiskLevelMultiplier
+		configuration.transmissionRiskValueMapping
+			.first { $0.transmissionRiskLevel == transmissionRiskLevel }
+			.map { $0.transmissionRiskValue } ?? 0
 	}()
 
 	/// 5. Determine `Weighted Minutes`
