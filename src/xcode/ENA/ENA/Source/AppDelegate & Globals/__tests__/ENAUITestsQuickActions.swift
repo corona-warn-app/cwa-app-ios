@@ -115,20 +115,59 @@ class ENAUITestsQuickActions: XCTestCase {
 	func testShortcutAvailabilityDuringSubmissionFlow() throws {
 		let app = XCUIApplication()
 		app.setDefaults()
+		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.useMock.rawValue])
+		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue])
+		app.launchArguments.append(contentsOf: [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue])
+
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-setCurrentOnboardingVersion", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
-		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
-		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		app.launch()
 
-		// Open Intro screen.
+		// Open Intro screen ("Testergebnis abrufen")
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
-		// in submission flow, that's ok
-		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .short))
-		// back out
+		// TAN
+		let tanButton = app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
+		XCTAssertTrue(tanButton.waitForExistence(timeout: .medium))
+		tanButton.tap()
+
+		// Fill in dummy TAN.
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		"qwdzxcsrhe".forEach {
+			app.keyboards.keys[String($0)].tap()
+		}
+		try checkAppMenu(expectNewDiaryItem: true)
+		// Submit TAN
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+		// remember: TAN tests are ALWAYS positive!
+
+		// Result Screen
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
+		try checkAppMenu(expectNewDiaryItem: false) // !!! Quick action should be disabled until we leave the submission flow
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
+
+		// Warn others screen
+		// We currently back out of the submission flow. This might be extended in future, feel free to add tests for the following views :)
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.secondaryButton"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
+
+		// don't warn
+		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.defaultButton].tap()
+
+		// Back on home screen?
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
+		try checkAppMenu(expectNewDiaryItem: true) // available again?
+	}
+
+
+	/// Checks the state of the quick action menu according to given parameter.
+	/// - Parameter expectNewDiaryItem: The desired state wether the menu item is existing or not.
+	/// - Throws: All the funny test errors you might encounter when assertions are not met
+	private func checkAppMenu(expectNewDiaryItem: Bool) throws {
+		// to dashboard
 		XCUIDevice.shared.press(.home)
 
 		// check app menu
@@ -141,7 +180,16 @@ class ENAUITestsQuickActions: XCTestCase {
 		appIcon.press(forDuration: 1.5)
 
 		let actionButton = springboard.buttons[newDiaryEntryLabel]
-		XCTAssertFalse(actionButton.exists, "Shortcuts should not be available once the user is in submission flow")
+		if expectNewDiaryItem {
+			XCTAssertTrue(actionButton.exists, "Shortcuts should be available in this state of the submission flow")
+		} else {
+			XCTAssertFalse(actionButton.exists, "Shortcuts should not be available once the user is in submission flow")
+		}
+
+		// discard menu and return to app w/o quick action
+		XCUIDevice.shared.press(.home)
+		// reference to `appIcon` fails for unknown reasons
+		springboard.icons[cwaBundleDisplayName].tap()
 	}
 
 	// MARK: - Install/Uninstall our app
