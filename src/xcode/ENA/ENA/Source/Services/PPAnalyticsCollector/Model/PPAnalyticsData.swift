@@ -59,8 +59,8 @@ extension SecureStore: PPAnalyticsData {
 	}
 
 	var userMetadata: UserMetadata? {
-		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
-		set { kvStore["userMetadata"] = newValue }
+		get { kvStore["userMetadataAnalytics"] as UserMetadata? ?? nil }
+		set { kvStore["userMetadataAnalytics"] = newValue }
 	}
 
 	var testResultMetadata: TestResultMetadata? {
