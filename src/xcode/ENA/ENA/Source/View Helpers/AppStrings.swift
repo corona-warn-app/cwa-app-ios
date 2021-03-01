@@ -1292,12 +1292,6 @@ enum AppStrings {
 			static let detailedInof_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
 			static let detailedInof_Content = NSLocalizedString("errorReport_Legal_DetailedInformation_Content", tableName: "Localizable.legal", comment: "")
 		}
-//
-
-//		static let  = NSLocalizedString("", comment: "")
-//		static let  = NSLocalizedString("", comment: "")
-//		static let  = NSLocalizedString("", comment: "")
-//		static let  = NSLocalizedString("", comment: "")
 		
 	}
 	// swiftlint:disable:next file_length

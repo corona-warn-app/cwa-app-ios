@@ -109,19 +109,30 @@
 
 /* Error Reports */
 
-"ErrorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
-"ErrorReport_Legal_DataPrivacy_Bullet1" = "";
-"ErrorReport_Legal_DataPrivacy_Bullet2" = "";
-"ErrorReport_Legal_DataPrivacy_Bullet3" = "";
-"ErrorReport_Legal_DataPrivacy_Bullet4" = "";
-"ErrorReport_Legal_DataPrivacy_Bullet5" = "";
+"errorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
 
-"ErrorReport_Legal_Consent_Headline" = "Ihr Einverständnis";
-"ErrorReport_Legal_Consent_Intro" = "";
-"ErrorReport_Legal_Consent_Bullet1_Header" = "";
-"ErrorReport_Legal_Consent_Bullet1_Paragraph" = "";
-"ErrorReport_Legal_Consent_Bullet2" = "";
-"ErrorReport_Legal_Consent_LastParagraph" = "";
+"errorReport_Legal_DataPrivacy_Bullet1" = "";
 
-"ErrorReport_Legal_DetailedInformation_Headline" = "";
-"ErrorReport_Legal_DetailedInformation_Content" = "";
+"errorReport_Legal_DataPrivacy_Bullet2" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "";
+
+"errorReport_Legal_Consent_Headline" = "Ihr Einverständnis";
+
+"errorReport_Legal_Consent_Intro" = "";
+
+"errorReport_Legal_Consent_Bullet1_Header" = "";
+
+"errorReport_Legal_Consent_Bullet1_Paragraph" = "";
+
+"errorReport_Legal_Consent_Bullet2" = "";
+
+"errorReport_Legal_Consent_LastParagraph" = "";
+
+"errorReport_Legal_DetailedInformation_Headline" = "";
+
+"errorReport_Legal_DetailedInformation_Content" = "";
