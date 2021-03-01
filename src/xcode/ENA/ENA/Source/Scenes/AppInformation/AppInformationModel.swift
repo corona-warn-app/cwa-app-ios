@@ -70,7 +70,7 @@ enum AppInformationModel {
 		.section(cells: [
 			.body(text: AppStrings.ErrorReport.description1),
 			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq), // TODO: get correct link! https://www.figma.com/file/jYFqboxVmVDOM8S7sFggw2?node-id=4752:25485#64933782
-			.body(text: AppStrings.ErrorReport.description2)
+			.headline(text: AppStrings.ErrorReport.description2)
 		]),
 		.section(
 			separators: .all,

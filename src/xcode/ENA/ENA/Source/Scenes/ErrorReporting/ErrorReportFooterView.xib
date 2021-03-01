@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ErrorReportFooterView" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="666"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKh-7L-1by" userLabel="GrayView">
+                    <rect key="frame" x="16" y="60" width="382" height="82"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYJ-ci-xO4" userLabel="OuterCircle">
+                            <rect key="frame" x="15" y="26" width="30" height="30"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z5r-HS-RN7" userLabel="InnerCircle">
+                                    <rect key="frame" x="9" y="9" width="12" height="12"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="6MC-hc-I3y"/>
+                                        <constraint firstAttribute="width" constant="12" id="DKT-cf-I13"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="6"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemPinkColor"/>
+                            <constraints>
+                                <constraint firstItem="z5r-HS-RN7" firstAttribute="centerY" secondItem="dYJ-ci-xO4" secondAttribute="centerY" id="eNE-pd-Wmn"/>
+                                <constraint firstAttribute="height" constant="30" id="gvY-O7-xKt"/>
+                                <constraint firstItem="z5r-HS-RN7" firstAttribute="centerX" secondItem="dYJ-ci-xO4" secondAttribute="centerX" id="nt3-tA-hkf"/>
+                                <constraint firstAttribute="width" constant="30" id="xAZ-67-6tW"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iqz-4L-5QH">
+                            <rect key="frame" x="57" y="20.5" width="310" height="41"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inaktiv" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LN0-36-gxX" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="310" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Derzeitige Größe 0 B (unkomprimiert) " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9E-za-NhX" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="20.5" width="310" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="iqz-4L-5QH" secondAttribute="trailing" constant="15" id="3lh-NZ-4G8"/>
+                        <constraint firstAttribute="height" constant="82" id="KJh-Rh-gTI"/>
+                        <constraint firstItem="iqz-4L-5QH" firstAttribute="leading" secondItem="dYJ-ci-xO4" secondAttribute="trailing" constant="12" id="fu5-Wl-lBA"/>
+                        <constraint firstItem="dYJ-ci-xO4" firstAttribute="centerY" secondItem="fKh-7L-1by" secondAttribute="centerY" id="rlO-rc-0aD"/>
+                        <constraint firstItem="dYJ-ci-xO4" firstAttribute="leading" secondItem="fKh-7L-1by" secondAttribute="leading" constant="15" id="sLu-oO-1D8"/>
+                        <constraint firstItem="iqz-4L-5QH" firstAttribute="centerY" secondItem="dYJ-ci-xO4" secondAttribute="centerY" id="wAe-df-vew"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oyA-AG-8Hb" userLabel="ButtonsStackView">
+                    <rect key="frame" x="16" y="164" width="382" height="166"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7HA-KG-8Df" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyz-1J-VTH" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="58" width="382" height="50"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ja8-1g-C5q" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="116" width="382" height="50"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="oyA-AG-8Hb" firstAttribute="leading" secondItem="fKh-7L-1by" secondAttribute="leading" id="9bw-CN-WFS"/>
+                <constraint firstAttribute="trailing" secondItem="fKh-7L-1by" secondAttribute="trailing" constant="16" id="YAU-Ge-qkF"/>
+                <constraint firstItem="fKh-7L-1by" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="bav-o2-RNM"/>
+                <constraint firstItem="fKh-7L-1by" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="nBD-HB-cMA"/>
+                <constraint firstItem="oyA-AG-8Hb" firstAttribute="trailing" secondItem="fKh-7L-1by" secondAttribute="trailing" id="uE4-Eb-TIo"/>
+                <constraint firstItem="oyA-AG-8Hb" firstAttribute="top" secondItem="fKh-7L-1by" secondAttribute="bottom" constant="22" id="zRT-DM-mND"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="buttonsStackView" destination="oyA-AG-8Hb" id="LVo-Xa-uHv"/>
+                <outlet property="coloredCircle" destination="dYJ-ci-xO4" id="izA-Nf-FK6"/>
+                <outlet property="statusDescription" destination="O9E-za-NhX" id="2QG-pK-N2n"/>
+                <outlet property="statusTitle" destination="LN0-36-gxX" id="AyH-D4-GQY"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="37.5"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="7HA-KG-8Df">
+            <size key="intrinsicContentSize" width="70" height="50"/>
+        </designable>
+        <designable name="LN0-36-gxX">
+            <size key="intrinsicContentSize" width="53.5" height="20.5"/>
+        </designable>
+        <designable name="O9E-za-NhX">
+            <size key="intrinsicContentSize" width="290.5" height="20.5"/>
+        </designable>
+        <designable name="ja8-1g-C5q">
+            <size key="intrinsicContentSize" width="70" height="50"/>
+        </designable>
+        <designable name="vyz-1J-VTH">
+            <size key="intrinsicContentSize" width="70" height="50"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
