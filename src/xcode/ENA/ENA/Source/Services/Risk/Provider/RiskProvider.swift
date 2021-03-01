@@ -309,17 +309,17 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-        let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-        Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
-        let risk = Risk(
-            activeTracing: store.tracingStatusHistory.activeTracing(),
-            riskCalculationResult: riskCalculationResult,
-            previousRiskCalculationResult: store.riskCalculationResult
-        )
+		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+		let risk = Risk(
+			activeTracing: store.tracingStatusHistory.activeTracing(),
+			riskCalculationResult: riskCalculationResult,
+			previousRiskCalculationResult: store.riskCalculationResult
+		)
 
-        store.riskCalculationResult = riskCalculationResult
-        checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-        Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		store.riskCalculationResult = riskCalculationResult
+		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
 		completion(.success(risk))
 
