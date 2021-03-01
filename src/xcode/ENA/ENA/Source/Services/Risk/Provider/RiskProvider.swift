@@ -309,26 +309,22 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-		do {
-			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			ExposureWindowsMetadataService().collectExposureWindows(from: riskCalculation, store: store)
-			let risk = Risk(
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				riskCalculationResult: riskCalculationResult,
-				previousRiskCalculationResult: store.riskCalculationResult
-			)
+		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		ExposureWindowsMetadataService().collectExposureWindows(from: riskCalculation, store: store)
+		let risk = Risk(
+			activeTracing: store.tracingStatusHistory.activeTracing(),
+			riskCalculationResult: riskCalculationResult,
+			previousRiskCalculationResult: store.riskCalculationResult
+		)
 
-			store.riskCalculationResult = riskCalculationResult
-			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-			updateRiskExpouseMetadata(riskCalculationResult)
+		store.riskCalculationResult = riskCalculationResult
+		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+		updateRiskExpouseMetadata(riskCalculationResult)
 
-			completion(.success(risk))
+		completion(.success(risk))
 
-			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			DeadmanNotificationManager(store: store).resetDeadmanNotification()
-		} catch {
-			completion(.failure(.failedRiskCalculation))
-		}
+		/// We were able to calculate a risk so we have to reset the deadman notification
+		DeadmanNotificationManager(store: store).resetDeadmanNotification()
 	}
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {

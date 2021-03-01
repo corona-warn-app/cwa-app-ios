@@ -15,13 +15,13 @@ class RiskCalculationTest: XCTestCase {
 		XCTAssertEqual(testCases.count, 25)
 	}
 
-	func testGIVEN_TestCases_WHEN_CalculatingRiskForEachTestCase_THEN_ResultIsCorrect() throws {
+	func testGIVEN_TestCases_WHEN_CalculatingRiskForEachTestCase_THEN_ResultIsCorrect() {
 		// GIVEN
 		let testCases = testCasesWithConfiguration.testCases
 
 		for testCase in testCases {
 			// WHEN
-			let result = try RiskCalculation().calculateRisk(
+			let result = RiskCalculation().calculateRisk(
 				exposureWindows: testCase.exposureWindows,
 				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 			)

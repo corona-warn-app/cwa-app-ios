@@ -62,7 +62,7 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 		try container.encode(transmissionRiskValue, forKey: .transmissionRiskValue)
 		try container.encode(weightedMinutes, forKey: .weightedMinutes)
 		try container.encode(normalizedTime, forKey: .normalizedTime)
-		try container.encode(riskLevel(), forKey: .riskLevel)
+		try container.encode(riskLevel, forKey: .riskLevel)
 	}
 
 	// MARK: - Internal
@@ -144,16 +144,11 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 	}()
 
 	/// 7. Determine `Risk Level`
-	func riskLevel() throws -> RiskLevel {
-		guard let riskLevel = configuration.normalizedTimePerEWToRiskLevelMapping
-				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
-				.map({ $0.riskLevel })
-		else {
-			throw RiskCalculationError.invalidConfiguration
-		}
-
-		return riskLevel
-	}
+	lazy var riskLevel: RiskLevel? = {
+		return configuration.normalizedTimePerEWToRiskLevelMapping
+			.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
+			.map({ $0.riskLevel })
+	}()
 
 	// MARK: - Private
 

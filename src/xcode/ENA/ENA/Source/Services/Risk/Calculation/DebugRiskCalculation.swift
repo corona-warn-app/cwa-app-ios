@@ -24,8 +24,8 @@ final class DebugRiskCalculation: RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult {
-		let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+	) -> RiskCalculationResult {
+		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 
 		store.mostRecentRiskCalculation = riskCalculation
 		store.mostRecentRiskCalculationConfiguration = configuration

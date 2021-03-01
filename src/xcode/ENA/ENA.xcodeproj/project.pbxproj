@@ -216,7 +216,6 @@
 		01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */; };
 		01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */; };
 		01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */; };
-		01F52F92255067A000997A26 /* RiskCalculationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F91255067A000997A26 /* RiskCalculationError.swift */; };
 		01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */; };
 		01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FFB2552E6F600997A26 /* ENARangeTest.swift */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
@@ -1041,7 +1040,6 @@
 		01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayViewController.xib; sourceTree = "<group>"; };
 		01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModel.swift; sourceTree = "<group>"; };
 		01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationExposureWindow.swift; sourceTree = "<group>"; };
-		01F52F91255067A000997A26 /* RiskCalculationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationError.swift; sourceTree = "<group>"; };
 		01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppConfigurationViewController.swift; sourceTree = "<group>"; };
 		01F52FFB2552E6F600997A26 /* ENARangeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENARangeTest.swift; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
@@ -4135,7 +4133,6 @@
 				BA6C8B04254D6B1F008344F5 /* RiskCalculation.swift */,
 				013C412725545C2D00826C9F /* DebugRiskCalculation.swift */,
 				01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */,
-				01F52F91255067A000997A26 /* RiskCalculationError.swift */,
 				BA6C8A94254D626C008344F5 /* Models */,
 			);
 			path = Calculation;
@@ -5193,7 +5190,6 @@
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,
 				941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */,
-				01F52F92255067A000997A26 /* RiskCalculationError.swift in Sources */,
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,

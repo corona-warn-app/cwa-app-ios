@@ -9,7 +9,7 @@ protocol RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult
+	) -> RiskCalculationResult
 	
 	var mappedExposureWindows: [RiskCalculationExposureWindow] { get set }
 }
@@ -39,7 +39,7 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult {
+	) -> RiskCalculationResult {
 		Log.info("[RiskCalculation] Started risk calculation", log: .riskDetection)
 
 		mappedExposureWindows = exposureWindows
@@ -67,18 +67,18 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 		}
 
 		/// 4. Determine `Minimum Distinct Encounters With Low Risk per Date`
-		minimumDistinctEncountersWithLowRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
-			let trlAndConfidenceCombinations = try windows
-				.filter { try $0.riskLevel() == .low }
+		minimumDistinctEncountersWithLowRiskPerDate = exposureWindowsPerDate.mapValues { windows -> Int in
+			let trlAndConfidenceCombinations = windows
+				.filter { $0.riskLevel == .low }
 				.map { "\($0.transmissionRiskLevel)_\($0.calibrationConfidence.rawValue)" }
 
 			return Set(trlAndConfidenceCombinations).count
 		}
 
 		/// 5. Determine `Minimum Distinct Encounters With High Risk per Date`
-		minimumDistinctEncountersWithHighRiskPerDate = try exposureWindowsPerDate.mapValues { windows -> Int in
-			let trlAndConfidenceCombinations = try windows
-				.filter { try $0.riskLevel() == .high }
+		minimumDistinctEncountersWithHighRiskPerDate = exposureWindowsPerDate.mapValues { windows -> Int in
+			let trlAndConfidenceCombinations = windows
+				.filter { $0.riskLevel == .high }
 				.map { "\($0.transmissionRiskLevel)_\($0.calibrationConfidence.rawValue)" }
 
 			return Set(trlAndConfidenceCombinations).count
