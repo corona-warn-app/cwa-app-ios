@@ -17,7 +17,8 @@ class EuTracingTableViewCell: UITableViewCell {
 		backgroundColor = .enaColor(for: .background)
 		accessoryType = .disclosureIndicator
 		// iconView
-		iconView = UIImageView(image: UIImage(named: "flag.eu"))
+		// [KGA] remove
+		iconView = UIImageView(image: UIImage(named: "flags.eu.ch"))
 		iconView.contentMode = .scaleAspectFit
 		iconView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(iconView)
