@@ -106,3 +106,33 @@
 /* Data Donation App Settings*/
 
 "ppa_settings_privacy_information_body" = "Yukarıdaki “Veri bağışı” seçeneğini etkinleştirerek, şunlara onay vermiş olursunuz:\n\nUygulama, topladığı bilgileri her gün RKI’ye aktarır. Bunlar, görüntülenen riskli karşılaşmalar ve uyarılar, size gönderilen test sonuçları, diğer kullanıcıları uyarıp uyarmadığınız ve akıllı telefonunuzun işletim sistemine ilişkin verilerdir. Ayrıca başka bilgiler de verdiyseniz (bölge, yaş grubu gibi), bunlar da RKI’ye aktarılır.\n\nRKI, Uygulamanın etki gücünü ve işlevselliğini değerlendirmek ve pandemi hakkında yeni çıkarımlar elde etmek için, bu verileri birleştirecek ve istatistikler olarak değerlendirecektir. Bu süreçte edinilen bulgular, Uygulamanın işlevlerini ve kullanım kolaylığını iyileştirmenin yanı sıra pandemiye karşı mücadele için diğer önlemlerin yönlendirilmesine yardımcı olmaktadır.\n\nVerilerinizin değerlendirilmesinden önce, veri bağışına katılan her Uygulamanın yalnızca bir kez sayıma alındığı ve istatistiklerin tahrif edilmediği kontrol edilir. Bu bağlamda Uygulamanızın orijinal olduğunun incelenmesi gerekmektedir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD’deki veya diğer bir üçüncü ülkeye Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.\n\nYukarıdaki “Veri bağışı” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
+
+/* Error Reports */
+
+"errorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
+
+"errorReport_Legal_DataPrivacy_Bullet1" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet2" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "";
+
+"errorReport_Legal_Consent_Headline" = "Ihr Einverständnis";
+
+"errorReport_Legal_Consent_Intro" = "";
+
+"errorReport_Legal_Consent_Bullet1_Header" = "";
+
+"errorReport_Legal_Consent_Bullet1_Paragraph" = "";
+
+"errorReport_Legal_Consent_Bullet2" = "";
+
+"errorReport_Legal_Consent_LastParagraph" = "";
+
+"errorReport_Legal_DetailedInformation_Headline" = "";
+
+"errorReport_Legal_DetailedInformation_Content" = "";
