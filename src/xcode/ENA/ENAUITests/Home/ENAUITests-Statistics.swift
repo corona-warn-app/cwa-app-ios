@@ -97,6 +97,49 @@ class ENAUITests_Statistics: XCTestCase {
 		}
 	}
 	
+	func test_screenshot_statisticsCardTitles() throws {
+		// GIVEN
+		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
+		let keySubmissionsTitle = AccessibilityIdentifiers.Statistics.KeySubmissions.title
+		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
+		let reproductionNumberTitle = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
+		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+
+		// WHEN
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
+		app.swipeUp(velocity: .slow)
+		
+		// THEN
+		switch layoutDirection {
+		case .rightToLeft:
+			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[reproductionNumberTitle].swipeLeft()
+			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[incidenceTitle].swipeLeft()
+			XCTAssert(self.app.staticTexts[keySubmissionsTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[keySubmissionsTitle].swipeLeft()
+			cardKeySubmissionsInfoScreenTest(keySubmissionsTitle)
+			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
+			cardInfectionsInfoScreenTest(infectionsTitle)
+			app.staticTexts[infectionsTitle].swipeRight()
+		default:
+			XCTAssert(self.app.staticTexts[infectionsTitle].waitForExistence(timeout: .medium))
+			app.staticTexts[infectionsTitle].swipeLeft()
+			XCTAssert(self.app.staticTexts[keySubmissionsTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_persons_warned")
+			app.staticTexts[keySubmissionsTitle].swipeLeft()
+			XCTAssert(self.app.staticTexts[incidenceTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_7Day_incidence")
+			app.staticTexts[incidenceTitle].swipeLeft()
+			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
+			snapshot("statistics_7Day_rvalue")
+			cardReproductionNumberOpenInfoScreen(reproductionNumberTitle)
+			snapshot("statistics_info_screen")
+			app.staticTexts[reproductionNumberTitle].swipeRight()
+		}
+	}
+
 	// MARK: - Private
 	
 	private func cardInfectionsInfoScreenTest(_ title1: String) {
@@ -130,5 +173,10 @@ class ENAUITests_Statistics: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
-	
+
+	private func cardReproductionNumberOpenInfoScreen(_ title4: String) {
+		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
+		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
+		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].tap()
+	}
 }
