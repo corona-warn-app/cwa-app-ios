@@ -1556,6 +1556,7 @@
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
 		BAEE121B25ECF7AB009A0284 /* QRCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewModel.swift; sourceTree = "<group>"; };
+		BAEE122325ED027F009A0284 /* apple-app-site-association */ = {isa = PBXFileReference; lastKnownFileType = text; path = "apple-app-site-association"; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -4255,6 +4256,7 @@
 		BAA4D73425E960FC00821B5C /* QRCodeScanner */ = {
 			isa = PBXGroup;
 			children = (
+				BAEE122325ED027F009A0284 /* apple-app-site-association */,
 				BAA4D73525E9613200821B5C /* QRCodeScannerViewController.swift */,
 				BAEE121B25ECF7AB009A0284 /* QRCodeScannerViewModel.swift */,
 			);

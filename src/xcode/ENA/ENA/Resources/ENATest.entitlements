@@ -2,13 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>com.apple.developer.exposure-notification-test</key>
-	<true/>
-	<key>com.apple.developer.exposure-notification-test-skip-file-verification</key>
-	<true/>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:coronawarn.app</string>
+	</array>
 	<key>com.apple.developer.exposure-notification</key>
 	<true/>
 	<key>com.apple.developer.exposure-notification-logging</key>
+	<true/>
+	<key>com.apple.developer.exposure-notification-test</key>
+	<true/>
+	<key>com.apple.developer.exposure-notification-test-skip-file-verification</key>
 	<true/>
 </dict>
 </plist>
