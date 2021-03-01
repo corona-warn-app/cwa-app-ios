@@ -60,18 +60,10 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 		}
 
 		/// 3. Determine `Risk Level per Date`
-		riskLevelPerDate = try normalizedTimePerDate.mapValues { normalizedTime -> RiskLevel in
-			guard let riskLevel = configuration.normalizedTimePerDayToRiskLevelMapping
-					.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
-					.map({ $0.riskLevel })
-			else {
-				Log.error("[RiskCalculation] Risk calculation failed: normalized time \(normalizedTime) is not contained in \(configuration.normalizedTimePerDayToRiskLevelMapping)\n\nRiskCalculationConfiguration: \(configuration)\n\nmappedExposureWindows: \(mappedExposureWindows)\n\nnormalizedTimePerDate \(normalizedTimePerDate)", log: .riskDetection)
-
-
-				throw RiskCalculationError.invalidConfiguration
-			}
-
-			return riskLevel
+		riskLevelPerDate = normalizedTimePerDate.compactMapValues { normalizedTime -> RiskLevel? in
+			configuration.normalizedTimePerDayToRiskLevelMapping
+				.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })?
+				.riskLevel
 		}
 
 		/// 4. Determine `Minimum Distinct Encounters With Low Risk per Date`
