@@ -67,7 +67,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			setupUpdateOSUI()
 			return true
 		}
-
+		print("starting QRCOde: %@", Date().timeIntervalSince1970)
+		guard let qrCodeImage = QRCodePlayground.generateQRCode(with: "HTTPS://CORONAWARN.APP/E1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA====.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ") else {
+			return false
+		}
+		
+		print("done QRCODe %@", Date().timeIntervalSince1970)
+		
+		print("Generate PDF %@", Date().timeIntervalSince1970)
+		PDFPlayground.generatePDF(with: qrCodeImage, on: CGRect(x: 100, y: 100, width: qrCodeImage.size.width, height: qrCodeImage.size.height))
+		print("Done Generate PDF %@", Date().timeIntervalSince1970)
 		setupUI()
 		setupQuickActions()
 

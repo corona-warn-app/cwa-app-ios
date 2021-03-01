@@ -774,6 +774,8 @@
 		EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */; };
 		EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* UpdateOSView.swift */; };
 		EBCB270F25EBE1A500B96123 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EBCB270E25EBE1A500B96123 /* qr-code-print-template.pdf */; };
+		EBCB271B25EBE2D500B96123 /* QRCodePlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */; };
+		EBCB272025EBE3FC00B96123 /* PDFPlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271F25EBE3FC00B96123 /* PDFPlayground.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */; };
 		EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskProviding.swift */; };
@@ -1622,6 +1624,8 @@
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
 		EBCB270E25EBE1A500B96123 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
+		EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePlayground.swift; sourceTree = "<group>"; };
+		EBCB271F25EBE3FC00B96123 /* PDFPlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPlayground.swift; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModelTests.swift; sourceTree = "<group>"; };
 		EBD2D09F25A86C2A006E4220 /* MockRiskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRiskProvider.swift; sourceTree = "<group>"; };
@@ -4412,6 +4416,8 @@
 			children = (
 				EB0F740B25E93C81003BFAE7 /* __tests__ */,
 				EBCB270825EBE16500B96123 /* resources */,
+				EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */,
+				EBCB271F25EBE3FC00B96123 /* PDFPlayground.swift */,
 			);
 			path = "Event Registration";
 			sourceTree = "<group>";
@@ -5004,6 +5010,7 @@
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
+				EBCB271B25EBE2D500B96123 /* QRCodePlayground.swift in Sources */,
 				01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */,
 				01B72BF22583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift in Sources */,
 				01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */,
@@ -5329,6 +5336,7 @@
 				B1E8C99D2479D4E7006DC678 /* DMSubmissionStateViewController.swift in Sources */,
 				2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */,
 				016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */,
+				EBCB272025EBE3FC00B96123 /* PDFPlayground.swift in Sources */,
 				71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */,
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
 				5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */,
