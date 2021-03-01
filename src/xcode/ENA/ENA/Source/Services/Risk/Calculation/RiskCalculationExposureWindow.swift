@@ -146,8 +146,8 @@ final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible
 	/// 7. Determine `Risk Level`
 	lazy var riskLevel: RiskLevel? = {
 		configuration.normalizedTimePerEWToRiskLevelMapping
-			.first(where: { $0.normalizedTimeRange.contains(normalizedTime) })
-			.map({ $0.riskLevel })
+			.first { $0.normalizedTimeRange.contains(normalizedTime) }
+			.map { $0.riskLevel }
 	}()
 
 	// MARK: - Private
