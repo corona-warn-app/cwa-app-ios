@@ -123,9 +123,9 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Deoarece nu ați activat un timp suficient de lung înregistrarea în jurnal a expunerilor, nu putem calcula riscul dvs. de infectare.\n\nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane.";
 
-"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu COVID-19 sau întâlnirile dvs. au fost limitate la o perioadă scurtă și la o distanță mai mare.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu coronavirus sau expunerile dvs. au fost limitate la o perioadă scurtă și la o distanță mai mare.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Riscul de infectare este calculat local pe smartphone-ul dvs., utilizând datele de înregistrare în jurnal a expunerilor. Calculul poate ține cont și de distanța și durata expunerii la persoane diagnosticate cu COVID-19, precum și de potențiala contagiozitate a acestora. Riscul dvs. de infectare nu poate fi observat sau transmis mai departe niciunei alte persoane.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu coronavirus sau expunerile dvs. au fost limitate la o perioadă scurtă și la o distanță mai mare.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe %@ pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.";
 
@@ -1321,45 +1321,24 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Pe lângă remedierile de erori, această actualizare include și caracteristici noi și îmbunătățiri.";
 
 /* New Version Features */
-"NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în setările aplicației, la „Caracteristici noi”.";
+"NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 1.13 */
-"NewVersionFeature_113_rki_survey_title" = "Legătură la sondajul RKI";
+/* Version 1.14 */
+"NewVersionFeature_114_additional_diary_functions_title" = "Caracteristici suplimentare în jurnalul de contacte";
 
-"NewVersionFeature_113_rki_survey_description" = "Dacă aveți risc crescut, puteți începe cu participarea la un sondaj desfășurat de Institutul Robert Koch în aplicație.";
+"NewVersionFeature_114_additional_diary_functions_description" = "Acum puteți introduce circumstanțele specifice ale fiecărei întâlniri. Puteți selecta din opțiunile predefinite (precum durata întâlnirii, cu mască sau fără mască) și puteți, de asemenea, introduce o notă scurtă pentru a înregistra alte circumstanțe care pot duce la un risc crescut. Dacă vă infectați, aceste informații pot ajuta autoritatea de sănătate publică să urmărească posibilele lanțuri de infectare.";
 
-"NewVersionFeature_113_data_donation_title" = "Consimțământ pentru partajarea datelor (opțional)";
+"NewVersionFeature_114_direct_access_diary_title" = "Acces direct la jurnalul de contacte";
 
-"NewVersionFeature_113_data_donation_description" = "Acum aveți opțiunea de partajare a datelor de utilizare, ceea ce ne va ajuta să îmbunătățim aplicația.";
+"NewVersionFeature_114_direct_access_diary_description" = "Acum puteți adăuga o intrare direct la jurnalul dvs. de contacte, fără a mai fi nevoie să deschideți mai întâi aplicația. Pentru aceasta, atingeți și mențineți apăsată pictograma pentru aplicația Corona-Warn timp de aproximativ 2 secunde, până apare un meniu, apoi apăsați pe „Adăugare intrare în jurnal pentru astăzi”.";
 
-"NewVersionFeature_113_risk_cards_title" = "Modificări la mozaicurile riscului";
+"NewVersionFeature_114_more_details_risk_status_title" = "Mai multe detalii despre starea riscului dvs. ";
 
-"NewVersionFeature_113_risk_cards_description" = "Modificări minore ale textelor de pe mozaicurile riscului.";
+"NewVersionFeature_114_more_details_risk_status_description" = "Dacă aplicația indică un risc crescut pentru dvs., acum puteți vedea dacă starea riscului este afișată pe baza uneia sau mai multor expuneri cu un risc crescut sau pe baza mai multor expuneri cu risc redus.";
 
-"NewVersionFeature_113_risk_determination_random_id_title" = "Continuarea înregistrării în jurnal a expunerilor după partajarea ID-urilor dvs. aleatorii";
+"NewVersionFeature_114_screenshots_title" = "Capturi de ecran ale aplicației Corona-Warn";
 
-"NewVersionFeature_113_risk_determination_random_id_description" = "După ce ați partajat ID-urile dvs. aleatorii criptate, puteți decide dacă și când doriți să activați din nou înregistrarea în jurnal a expunerilor.";
-
-"NewVersionFeature_113_new_tabbar_title" = "Implementarea taburilor";
-
-"NewVersionFeature_113_new_tabbar_description" = "Acum există un tab separat pentru jurnalul dvs. de contacte. Acesta vă permite să accesați jurnalul dvs. și să comutați de la jurnalul de contacte înapoi la ecranul inițial al aplicației mai rapid.";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Mai multe informații despre procedura de testare";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "Aplicația conține acum informații mai detaliate despre procedura de testare.";
-
-/* Version 1.12 */
-"NewVersionFeature_112_statistics_title" = "Statistică";
-
-"NewVersionFeature_112_statistics_description" = "Consultați sumarul ultimilor indicatori ai cifrelor de infectare din Germania.";
-
-"NewVersionFeature_112_exposure_history_title" = "Istoricul expunerilor";
-
-"NewVersionFeature_112_exposure_history_description" = "Jurnalul de contacte vă arată zilele în care aveți un risc redus sau crescut, pe baza întâlnirilor evaluate de aplicație. Aceasta înseamnă că puteți avertiza persoanele cu care ați intrat în contact în acele zile dacă acestea nu utilizează încă aplicația Corona-Warn. Este posibil ca aceste persoane să fi fost expuse unui risc comparabil. Totuși, persoanele și locurile din jurnalul dvs. de contacte nu sunt legate neapărat de expunerile indicate.";
-
-"NewVersionFeature_112_ios125_support_title" = "Aplicația este disponibilă acum pentru iOS 12.5 și versiunile ulterioare";
-
-"NewVersionFeature_112_ios125_support_description" = "Acum puteți utiliza Corona-Warn-App în versiunea iOS 12.5 și în versiunile ulterioare.";
+"NewVersionFeature_114_screenshots_description" = "Site-ul web https://www.coronawarn.app conține acum toate capturile de ecran ale aplicației, pentru a găsi, de exemplu, caracteristicile planificate.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1457,6 +1436,22 @@
 
 "ContactDiary_Overview_Risk_Text_Disclaimer" = "Acestea nu sunt legate neapărat de persoanele și locurile pe care le-ați înregistrat.";
 
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "pe baza mai multor expuneri cu risc redus.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Mai puțin de 15 min.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Mai mult de 15 min.";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Cu mască";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Fără mască";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "În exterior";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "În interior";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "ore";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informații";
 
@@ -1489,14 +1484,32 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "O clădire este marcată cu o piuneză.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "Mai puțin de 15 min.";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Mai mult de 15 min.";
+
+"ContactDiary_Day_Encounter_WithMask" = "Cu mască";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Fără mască";
+
+"ContactDiary_Day_Encounter_Outside" = "În exterior";
+
+"ContactDiary_Day_Encounter_Inside" = "În interior";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Notă (de ex., distanță mică)";
+
+"ContactDiary_Day_Visit_Duration" = "Durată";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Notă (de ex., foarte plin, aerisire slabă)";
+
 /* Edit Entries */
-"ContactDiary_EditEntries_ContactPersons_Title" = "Persoane";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Editare persoane";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Eliminare toate";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Sigur doriți să eliminați toate persoanele?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Dacă eliminați o persoană, toate intrările pentru respectiva persoană vor fi eliminate din jurnalul dvs.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Dacă eliminați toate persoanele, toate intrările pentru toate persoanele vor fi eliminate din jurnalul dvs.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Da";
 
@@ -1510,13 +1523,13 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Nu";
 
-"ContactDiary_EditEntries_Locations_Title" = "Locuri";
+"ContactDiary_EditEntries_Locations_Title" = "Editare locuri";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Eliminare toate";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Sigur doriți să eliminați toate locurile?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Dacă eliminați un loc, toate intrările pentru respectivul loc vor fi eliminate din jurnalul dvs.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Dacă eliminați toate locurile, toate intrările pentru toate locurile vor fi eliminate din jurnalul dvs.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Da";
 
@@ -1561,12 +1574,20 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Loc";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Loc";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Descriere";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-mail";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Persoană";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Persoană";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Nume";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-mail";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Tendință: ascendentă";
@@ -1740,7 +1761,7 @@
 
 "DataDonation_ValueSelection_Title_Age" = "Grupul dvs. de vârstă";
 
-"DataDonation_ValueSelection_Age_Below29" = "0-29 de ani";
+"DataDonation_ValueSelection_Age_Below29" = "Până la 29 de ani";
 
 "DataDonation_ValueSelection_Age_Between30And59" = "30-59 de ani";
 
@@ -1816,4 +1837,11 @@
 "DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Informații despre modelul și versiunea smartphone-ului dvs., versiunea aplicației și versiunea sistemului de operare.";
 
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Aceste informații nu pot fi legate de dvs. în mod personal. Identitatea dvs. va rămâne confidențială.\nInformațiile vor fi analizate în scop statistic. Ele nu vor fi salvate pentru un profil.";
+
+"Contact_Journal_Notes_Description_Title" = "Notă";
+
+"Contact_Journal_Notes_Description" = "Acum puteți introduce aici note care vă vor ajuta să estimați mai bine riscul dvs. de infectare.\n\nNotați aici circumstanțele suplimentare ale întâlnirii sau șederii dvs. care ar putea avea efect asupra riscului dvs. de infectare, de exemplu, cât de aproape vă aflați față de alte persoane și ce făceați (exemple: „am stat aproape unul de altul”, „am făcut sport”, „spațiu puțin”, „am cântat”).\n\nAceste note vă pot ajuta să vă împrospătați memoria mai târziu. Dacă este necesar, acestea vor conduce la avertizarea timpurie a celorlalte persoane cu care v-ați întâlnit și, de asemenea, pot ajuta autoritățile de sănătate publică să urmărească posibilele lanțuri de infectare.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Adăugare intrare în jurnal pentru astăzi";
 
