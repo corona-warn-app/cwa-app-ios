@@ -97,7 +97,7 @@ class ENAUITests_Statistics: XCTestCase {
 		}
 	}
 	
-	func test_screenshot_statisticsCardTitles() throws {
+	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
 		let keySubmissionsTitle = AccessibilityIdentifiers.Statistics.KeySubmissions.title
