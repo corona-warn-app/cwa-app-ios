@@ -6,6 +6,7 @@
 
 import UIKit
 import os.log
+import ZIPFoundation
 
 enum LogSegment: Int, CaseIterable {
 	case all
@@ -137,8 +138,14 @@ final class DMLogsViewController: UIViewController {
 	@objc
 	private func exportErrorLog() {
 		let fileLogger = FileLogger()
-		let logString = fileLogger.readAllLogs()
-		let activityViewController = UIActivityViewController(activityItems: [logString], applicationActivities: nil)
+
+		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
+			Log.warning("No log data to export.", log: .localData)
+			return
+		}
+
+		// using archive data with the plain log string as fallback
+		let activityViewController = UIActivityViewController(activityItems: [item], applicationActivities: nil)
 		activityViewController.modalTransitionStyle = .coverVertical
 		present(activityViewController, animated: true, completion: nil)
 	}
@@ -166,20 +173,35 @@ final class DMLogsViewController: UIViewController {
 	}
 
 	private func updateTextView() {
-		let fileLogger = FileLogger()
-		let logString: String
-
 		guard let selectedSegment = LogSegment(rawValue: segmentedControl.selectedSegmentIndex) else {
 			return
 		}
 
-		if let osLogType = selectedSegment.osLogType {
-			logString = fileLogger.read(logType: osLogType)
-		} else {
-			logString = fileLogger.readAllLogs()
-		}
+		let fileLogger = FileLogger()
+		let reader: StreamReader
 
-		textView.text = logString
+		do {
+			if let osLogType = selectedSegment.osLogType {
+				reader = try fileLogger.logReader(for: osLogType)
+			} else {
+				reader = try fileLogger.logReader()
+			}
+			var text = ""
+			while let line = reader.nextLine() {
+				// why not `append`? https://twitter.com/nicklockwood/status/972215130825154561
+				text += line
+				text += "\n"
+			}
+			textView.text = text
+
+			// Does NOT fully scroll to bottom. I assume it's because of the custom font size and the way UIKit calculates the contentOffset.
+			// However I leave it in for two reasons:
+			// 1. this view might get a refactoring later™ (https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-5426)
+			// 2. this is better than the current start at the top of a potentially very long log
+			textView.scrollRangeToVisible(NSRange(location: textView.text.count - 1, length: 1))
+		} catch {
+			Log.error("Error while displaying logs: \(error)", log: .default, error: error)
+		}
 	}
 }
 

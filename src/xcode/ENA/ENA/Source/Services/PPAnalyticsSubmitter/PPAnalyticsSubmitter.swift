@@ -7,15 +7,17 @@ import OpenCombine
 
 protocol PPAnalyticsSubmitting {
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. The completion calls are passed through to test the component.
+	/// ⚠️ This method should ONLY be called by the PPAnalyticsCollector ⚠️
 	func triggerSubmitData(ppacToken: PPACToken?, completion: ((Result<Void, PPASError>) -> Void)?)
 
 	#if !RELEASE
 	/// ONLY FOR TESTING. Triggers for the dev menu a forced submission of the data, whithout any checks.
+	/// This method should only be called by the PPAnalyticsCollector
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void)
 	/// ONLY FOR TESTING. Return the constructed proto-file message to look into the data we would submit.
+	/// This method should only be called by the PPAnalyticsCollector
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS
-	/// ONLY FOR TESTING. Returns the last submitted data.
-	func mostRecentAnalyticsData() -> String?
+
 	#endif
 }
 
@@ -28,6 +30,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		client: Client,
 		appConfig: AppConfigurationProviding
 	) {
+		guard let store = store as? (Store & PPAnalyticsData) else {
+			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
+			fatalError("I will never submit any analytics data. Could not cast to correct store protocol")
+		}
 		self.store = store
 		self.client = client
 		self.configurationProvider = appConfig
@@ -47,53 +53,56 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 		
-		configurationProvider.appConfiguration().sink { [weak self] configuration in
-			
-			guard let self = self else {
-				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
-				completion?(.failure(.generalError))
-				return
+		if cancellable == nil {
+			cancellable = configurationProvider.appConfiguration().sink { [weak self] configuration in
+				
+				guard let self = self else {
+					Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
+					completion?(.failure(.generalError))
+					return
+				}
+				
+				// Check configuration parameter
+				if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
+					Log.warning("Analytics submission abord due to randomness", log: .ppa)
+					completion?(.failure(.probibilityError))
+					return
+				}
+				
+				// Last submission check
+				if self.submissionWithinLast23Hours {
+					Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+					completion?(.failure(.submission23hoursError))
+					return
+				}
+				
+				// Onboarding check
+				if self.onboardingCompletedWithinLast24Hours {
+					Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+					completion?(.failure(.onboardingError))
+					return
+				}
+				
+				// App Reset check
+				if self.appResetWithinLast24Hours {
+					Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+					completion?(.failure(.appResetError))
+					return
+				}
+				
+				self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
+				self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
+				self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
+
+				if let token = ppacToken {
+					// Submit analytics data with injected ppac token
+					self.submitData(with: token, completion: completion)
+				} else {
+					self.generatePPACAndSubmitData(completion: completion)
+				}
 			}
-			
-			// Check configuration parameter
-			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
-				Log.warning("Analytics submission abord due to randomness", log: .ppa)
-				completion?(.failure(.probibilityError))
-				return
-			}
-			
-			// Last submission check
-			if self.submissionWithinLast23Hours {
-				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
-				completion?(.failure(.submission23hoursError))
-				return
-			}
-			
-			// Onboarding check
-			if self.onboardingCompletedWithinLast24Hours {
-				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
-				completion?(.failure(.onboardingError))
-				return
-			}
-			
-			// App Reset check
-			if self.appResetWithinLast24Hours {
-				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
-				completion?(.failure(.appResetError))
-				return
-			}
-			
-			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
-			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
-			self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
-			
-			if let token = ppacToken {
-				// Submit analytics data with injected ppac token
-				self.submitData(with: token, completion: completion)
-			} else {
-				self.generatePPACAndSubmitData(completion: completion)
-			}
-		}.store(in: &subscriptions)
+		}
+		
 	}
 	#if !RELEASE
 
@@ -102,11 +111,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
+		// Need to add this call here to make sure the dev menu can see the client metadata, too.
+		Analytics.collect(.clientMetadata(.setClientMetaData))
 		return obtainUsageData()
-	}
-
-	func mostRecentAnalyticsData() -> String? {
-		return store.lastSubmittedPPAData
 	}
 
 	#endif
@@ -117,11 +124,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	// MARK: - Private
 
-	private let store: Store
+	private let store: (Store & PPAnalyticsData)
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
 
-	private var subscriptions = [AnyCancellable]()
+	private var cancellable: AnyCancellable?
 	private var hoursSinceTestRegistrationToSubmitTestResultMetadata: Int32 = 0
 	private var probabilityToSubmitExposureWindows: Double = 0
 
@@ -220,6 +227,11 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+		// Must be set here for both submit calls. This call should be done at the moment right before the submission, because the submission can only work if we have a valid app config. And to log the client meta data, we need a valid app config.
+		// Must not use the Analytics.collect call because this would produce an extra submission call while we are on a submission.
+		let eTag = store.appConfigMetadata?.lastAppConfigETag
+		store.clientMetadata = ClientMetadata(etag: eTag)
+		
 		// Obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
 		let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
@@ -243,7 +255,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
-		let testResultMetadata = gatherTestResultMetadata()
+		let TestResultMetadata = gatherTestResultMetadata()
 		let newExposureWindows = gatherNewExposureWindows()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
@@ -256,7 +268,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
 			if shouldIncludeTestResultMetadata {
-				$0.testResultMetadataSet = testResultMetadata
+				$0.testResultMetadataSet = TestResultMetadata
 			}
 			/*
 			Exposure Windows are included in the next submission if:

@@ -42,7 +42,7 @@ class ExposureWindowTest: XCTestCase {
 			return
 		}
 
-		XCTAssert(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
+		XCTAssertTrue(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
 		XCTAssertEqual(exposureWindow.reportType, .confirmedClinicalDiagnosis)
 		XCTAssertEqual(exposureWindow.infectiousness, .high)
 		XCTAssertEqual(exposureWindow.calibrationConfidence, .lowest)
@@ -78,7 +78,7 @@ class ExposureWindowTest: XCTestCase {
 			return
 		}
 
-		XCTAssert(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
+		XCTAssertTrue(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
 		XCTAssertEqual(exposureWindow.reportType, .confirmedTest)
 		XCTAssertEqual(exposureWindow.infectiousness, .standard)
 		XCTAssertEqual(exposureWindow.calibrationConfidence, .low)
