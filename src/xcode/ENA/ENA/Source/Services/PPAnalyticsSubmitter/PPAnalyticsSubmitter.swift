@@ -53,53 +53,56 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 		
-		configurationProvider.appConfiguration().sink { [weak self] configuration in
-			
-			guard let self = self else {
-				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
-				completion?(.failure(.generalError))
-				return
-			}
-			
-			// Check configuration parameter
-			if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
-				Log.warning("Analytics submission abord due to randomness", log: .ppa)
-				completion?(.failure(.probibilityError))
-				return
-			}
-			
-			// Last submission check
-			if self.submissionWithinLast23Hours {
-				Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
-				completion?(.failure(.submission23hoursError))
-				return
-			}
-			
-			// Onboarding check
-			if self.onboardingCompletedWithinLast24Hours {
-				Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
-				completion?(.failure(.onboardingError))
-				return
-			}
-			
-			// App Reset check
-			if self.appResetWithinLast24Hours {
-				Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
-				completion?(.failure(.appResetError))
-				return
-			}
-			
-			self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
-			self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
-			self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
+		if cancellable == nil {
+			cancellable = configurationProvider.appConfiguration().sink { [weak self] configuration in
+				
+				guard let self = self else {
+					Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
+					completion?(.failure(.generalError))
+					return
+				}
+				
+				// Check configuration parameter
+				if Double.random(in: 0...1) > configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmit {
+					Log.warning("Analytics submission abord due to randomness", log: .ppa)
+					completion?(.failure(.probibilityError))
+					return
+				}
+				
+				// Last submission check
+				if self.submissionWithinLast23Hours {
+					Log.warning("Analytics submission abord due to submission last 23 hours", log: .ppa)
+					completion?(.failure(.submission23hoursError))
+					return
+				}
+				
+				// Onboarding check
+				if self.onboardingCompletedWithinLast24Hours {
+					Log.warning("Analytics submission abord due to onboarding completed last 24 hours", log: .ppa)
+					completion?(.failure(.onboardingError))
+					return
+				}
+				
+				// App Reset check
+				if self.appResetWithinLast24Hours {
+					Log.warning("Analytics submission abord due to app resetted last 24 hours", log: .ppa)
+					completion?(.failure(.appResetError))
+					return
+				}
+				
+				self.hoursSinceTestResultToSubmitKeySubmissionMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestResultToSubmitKeySubmissionMetadata
+				self.hoursSinceTestRegistrationToSubmitTestResultMetadata = configuration.privacyPreservingAnalyticsParameters.common.hoursSinceTestRegistrationToSubmitTestResultMetadata
+				self.probabilityToSubmitExposureWindows = configuration.privacyPreservingAnalyticsParameters.common.probabilityToSubmitExposureWindows
 
-			if let token = ppacToken {
-				// Submit analytics data with injected ppac token
-				self.submitData(with: token, completion: completion)
-			} else {
-				self.generatePPACAndSubmitData(completion: completion)
+				if let token = ppacToken {
+					// Submit analytics data with injected ppac token
+					self.submitData(with: token, completion: completion)
+				} else {
+					self.generatePPACAndSubmitData(completion: completion)
+				}
 			}
-		}.store(in: &subscriptions)
+		}
+		
 	}
 	#if !RELEASE
 
@@ -125,7 +128,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
 
-	private var subscriptions = [AnyCancellable]()
+	private var cancellable: AnyCancellable?
 	private var hoursSinceTestRegistrationToSubmitTestResultMetadata: Int32 = 0
 	private var probabilityToSubmitExposureWindows: Double = 0
 
@@ -225,7 +228,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		// Must be set here for both submit calls. This call should be done at the moment right before the submission, because the submission can only work if we have a valid app config. And to log the client meta data, we need a valid app config.
-		Analytics.collect(.clientMetadata(.setClientMetaData))
+		// Must not use the Analytics.collect call because this would produce an extra submission call while we are on a submission.
+		let eTag = store.appConfigMetadata?.lastAppConfigETag
+		store.clientMetadata = ClientMetadata(etag: eTag)
 		
 		// Obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
