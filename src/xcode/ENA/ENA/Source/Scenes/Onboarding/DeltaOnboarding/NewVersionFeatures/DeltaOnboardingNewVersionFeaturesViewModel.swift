@@ -59,7 +59,15 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 					cells: buildNewFeaturesCells()
 				)
 			)
-			
+			$0.add(
+				.section(
+					cells: [
+						.body(text: AppStrings.NewVersionFeatures.aboutAppInformation,
+							  color: .enaColor(for: .textPrimary1),
+							  accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation)
+					]
+				)
+			)
 		}
 	}
 

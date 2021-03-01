@@ -50,9 +50,9 @@ extension ENAFont {
 }
 
 extension UIFont {
-	static func enaFont(for style: ENAFont, textStyle: UIFont.TextStyle? = nil, weight: UIFont.Weight? = nil) -> UIFont {
+	static func enaFont(for style: ENAFont, weight: UIFont.Weight? = nil, italic: Bool = false) -> UIFont {
 		return UIFont
 			.preferredFont(forTextStyle: style.textStyle)
-			.scaledFont(size: style.fontSize, weight: weight ?? style.fontWeight)
+			.scaledFont(size: style.fontSize, weight: weight ?? style.fontWeight, italic: italic)
 	}
 }
