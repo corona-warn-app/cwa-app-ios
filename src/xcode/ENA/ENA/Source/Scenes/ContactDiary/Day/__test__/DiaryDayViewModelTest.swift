@@ -133,6 +133,40 @@ class DiaryDayViewModelTest: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testContactPersonEntryCellModel() {
+		let day = makeDay()
+		let store = makeMockStore()
+		let viewModel = DiaryDayViewModel(
+			day: day,
+			store: store,
+			onAddEntryCellTap: { _, _ in }
+		)
+
+		viewModel.selectedEntryType = .contactPerson
+
+		let entryCellModel = viewModel.entryCellModel(at: IndexPath(row: 6, section: DiaryDayViewModel.Section.entries.rawValue))
+
+		XCTAssertEqual(entryCellModel.text, "Nick Gündling")
+		XCTAssertEqual(entryCellModel.entryType, .contactPerson)
+	}
+
+	func testLocationEntryCellModel() {
+		let day = makeDay()
+		let store = makeMockStore()
+		let viewModel = DiaryDayViewModel(
+			day: day,
+			store: store,
+			onAddEntryCellTap: { _, _ in }
+		)
+
+		viewModel.selectedEntryType = .location
+
+		let entryCellModel = viewModel.entryCellModel(at: IndexPath(row: 1, section: DiaryDayViewModel.Section.entries.rawValue))
+
+		XCTAssertEqual(entryCellModel.text, "Supermarket")
+		XCTAssertEqual(entryCellModel.entryType, .location)
+	}
+
 	// MARK: - Private Helpers
 
 	func makeMockStore() -> MockDiaryStore {
