@@ -1289,8 +1289,8 @@ enum AppStrings {
 			static let consent_Bullet2 = NSLocalizedString("errorReport_Legal_Consent_Bullet2", tableName: "Localizable.legal", comment: "")
 			static let consent_Last_Paragraph = NSLocalizedString("errorReport_Legal_Consent_LastParagraph", tableName: "Localizable.legal", comment: "")
 			
-			static let detailedInof_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
-			static let detailedInof_Content = NSLocalizedString("errorReport_Legal_DetailedInformation_Content", tableName: "Localizable.legal", comment: "")
+			static let detailedInfo_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
+			static let detailedInfo_Content = NSLocalizedString("errorReport_Legal_DetailedInformation_Content", tableName: "Localizable.legal", comment: "")
 		}
 		
 	}
