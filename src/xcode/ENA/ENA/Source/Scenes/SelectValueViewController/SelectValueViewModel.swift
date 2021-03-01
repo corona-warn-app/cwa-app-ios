@@ -11,11 +11,17 @@ final class SelectValueViewModel {
 
 	init(
 		_ allowedValues: [String],
+		presorted: Bool = false,
 		title: String,
 		preselected: String? = nil,
 		accessibilityIdentifier: String
 	) {
-		self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues.sorted()
+		switch presorted {
+		case false:
+			self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues.sorted()
+		default:
+			self.allValues = [AppStrings.DataDonation.ValueSelection.noValue] + allowedValues
+		}
 		self.title = title
 		self.accessibilityIdentifier = accessibilityIdentifier
 		guard let preselected = preselected,

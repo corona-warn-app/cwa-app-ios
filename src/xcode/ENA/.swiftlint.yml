@@ -230,21 +230,30 @@ trailing_whitespace:
 
 vertical_whitespace:
   max_empty_lines: 2
-  
+
 file_length:
   warning: 600
   error: 700
-  
+
 function_body_length:
   warning: 100
   error: 150
-  
+
 type_body_length:
   warning: 300
   error: 400
-  
+
 function_parameter_count:
   warning: 7
   error: 10
 
-
+custom_rules:
+  no_plain_xctassert:
+    included: ".*Test[s]?\\.swift" # Test modules are named "Test" AND "Tests"
+    name: "No plain XCTAssert"
+    regex: "(XCTAssert)\\("
+    capture_group: 0
+    match_kinds:
+      - identifier
+    message: "Please specify your assertion: XCTAssertTrue, XCTAssertEqual, ..."
+    severity: error

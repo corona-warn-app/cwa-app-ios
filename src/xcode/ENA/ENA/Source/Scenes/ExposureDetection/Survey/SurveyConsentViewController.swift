@@ -47,6 +47,8 @@ final class SurveyConsentViewController: DynamicTableViewController, ENANavigati
 			switch result {
 			case .success(let url):
 				self?.completion(url)
+				self?.dismiss(animated: false, completion: nil)
+				
 			case .failure(let error):
 				self?.showErrorAlert(with: error)
 			}

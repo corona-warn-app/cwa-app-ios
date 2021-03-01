@@ -7,8 +7,6 @@ import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
 
-	var analyticsSubmitter: PPAnalyticsSubmitter? { get set }
-
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
 	var finishedDeltaOnboardings: [String: [String]] { get set }
@@ -84,7 +82,7 @@ protocol StoreProtocol: AnyObject {
 
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationOneTimer: TimeInterval { get set }
-	
+
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationTwoTimer: TimeInterval { get set }
 
@@ -101,7 +99,7 @@ protocol StoreProtocol: AnyObject {
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var positiveTestResultWasShown: Bool { get set }
-	
+
 	var isSubmissionConsentGiven: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
@@ -145,32 +143,14 @@ protocol StatisticsCaching: AnyObject {
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
+	// Do not mix up this property with the real UserMetadata in the PPAnalyticsData protocol
+	var userData: UserMetadata? { get set }
 	/// OTP for user survey link generation
 	var otpToken: OTPToken? { get set }
 	/// Date of last otp authorization
 	var otpAuthorizationDate: Date? { get set }
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }
-	/// Last succesfull submission of analytics data. Needed for analytics submission.
-	var lastSubmissionAnalytics: Date? { get set }
-	/// Date of last app reset. Needed for analytics submission.
-	var lastAppReset: Date? { get set }
-	/// Content of last submitted data. Needed for analytics submission dev menu.
-	var lastSubmittedPPAData: String? { get set }
-	/// Analytics data.
-	var currentRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var previousRiskExposureMetadata: RiskExposureMetadata? { get set }
-	/// Analytics data.
-	var userMetadata: UserMetadata? { get set }
-    /// Analytics data.
-	var clientMetadata: ClientMetadata? { get set }
-	/// Analytics data
-	var keySubmissionMetadata: KeySubmissionMetadata? { get set }
-	/// Analytics data.
-	var testResultMetadata: TestResultMetadata? { get set }
-	/// Analytics data.
-	var exposureWindowsMetadata: ExposureWindowsMetadata? { get set }
 }
 
 /// Wrapper protocol

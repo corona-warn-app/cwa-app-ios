@@ -309,17 +309,17 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-		ExposureWindowsMetadataService().collectExposureWindows(from: riskCalculation, store: store)
-		let risk = Risk(
-			activeTracing: store.tracingStatusHistory.activeTracing(),
-			riskCalculationResult: riskCalculationResult,
-			previousRiskCalculationResult: store.riskCalculationResult
-		)
+        let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+        Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+        let risk = Risk(
+            activeTracing: store.tracingStatusHistory.activeTracing(),
+            riskCalculationResult: riskCalculationResult,
+            previousRiskCalculationResult: store.riskCalculationResult
+        )
 
-		store.riskCalculationResult = riskCalculationResult
-		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-		updateRiskExposureMetadata(riskCalculationResult)
+        store.riskCalculationResult = riskCalculationResult
+        checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+        Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
 		completion(.success(risk))
 
@@ -429,50 +429,6 @@ final class RiskProvider: RiskProviding {
 				break
 			}
 		}
-	}
-	
-	private func updateRiskExposureMetadata(_ riskCalculationResult: RiskCalculationResult) {
-		let riskLevel = riskCalculationResult.riskLevel
-		let riskLevelChangedComparedToPreviousSubmission: Bool
-		let dateChangedComparedToPreviousSubmission: Bool
-		
-		// if there is a risk level value stored for previous submission
-		if store.previousRiskExposureMetadata?.riskLevel != nil {
-			if riskLevel !=
-				store.previousRiskExposureMetadata?.riskLevel {
-				// if there is a change in risk level
-				riskLevelChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in risk level
-				riskLevelChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			riskLevelChangedComparedToPreviousSubmission = false
-		}
-		
-		// if there is most recent date store for previous submission
-		if store.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
-				store.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
-				// if there is a change in date
-				dateChangedComparedToPreviousSubmission = true
-			} else {
-				// if there is no change in date
-				dateChangedComparedToPreviousSubmission = false
-			}
-		} else {
-			// for the first time, the field is set to false
-			dateChangedComparedToPreviousSubmission = false
-		}
-
-		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
-			// most recent date is not available because of no exposure
-			store.currentRiskExposureMetadata = RiskExposureMetadata(riskLevel: riskLevel, riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission, dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission)
-			return
-		}
-		// most recent date is available because of exposure
-		store.currentRiskExposureMetadata = RiskExposureMetadata(riskLevel: riskLevel, riskLevelChangedComparedToPreviousSubmission: riskLevelChangedComparedToPreviousSubmission, mostRecentDateAtRiskLevel: mostRecentDateWithCurrentRiskLevel, dateChangedComparedToPreviousSubmission: dateChangedComparedToPreviousSubmission)
 	}
 }
 

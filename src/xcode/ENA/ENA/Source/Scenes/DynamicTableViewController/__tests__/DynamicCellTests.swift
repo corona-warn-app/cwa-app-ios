@@ -41,7 +41,7 @@ extension DynamicCellTests {
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
 		
-		XCTAssert(cell is DynamicTableViewTextCell)
+		XCTAssertTrue(cell is DynamicTableViewTextCell)
 	}
 
 	func testMakeDynamicCell_UseTextViewCellStyle() {
@@ -53,7 +53,7 @@ extension DynamicCellTests {
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
 
-		XCTAssert(cell is DynamicTableViewTextViewCell)
+		XCTAssertTrue(cell is DynamicTableViewTextViewCell)
 	}
 
 	func testMakeDynamicCell_UseTextViewCellStyle_WithDataDetectors() throws {
@@ -82,7 +82,7 @@ extension DynamicCellTests {
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = dynamicVC.tableView.cellForRow(at: indexPath)
 
-		XCTAssert(cell is DynamicTableViewTextCell)
+		XCTAssertTrue(cell is DynamicTableViewTextCell)
 	}
 }
 
