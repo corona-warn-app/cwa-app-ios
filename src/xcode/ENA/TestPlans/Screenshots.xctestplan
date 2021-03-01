@@ -33,6 +33,7 @@
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_riskMultipleDays()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_riskNoDays()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_riskOneDay()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_thankyou_screen()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_SubmitTAN_Screenshot_SymptomsOptionYes()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmissionNotPossible()",
         "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitQR()",

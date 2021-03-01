@@ -280,4 +280,15 @@ class ENAUITests_01_Home: XCTestCase {
 
 		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
 	}
+	
+	func test_screenshot_homescreen_thankyou_screen() throws {
+		var screenshotCounter = 0
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-showThankYouScreen", "YES"])
+		app.launch()
+		
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
 }

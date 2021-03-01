@@ -42,6 +42,13 @@ class HomeTableViewModel {
 	}
 
 	var riskAndTestRows: [RiskAndTestRow] {
+		#if DEBUG
+		if isUITesting {
+			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
+				return [.thankYou]
+			}
+		}
+		#endif
 		if state.keysWereSubmitted {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
