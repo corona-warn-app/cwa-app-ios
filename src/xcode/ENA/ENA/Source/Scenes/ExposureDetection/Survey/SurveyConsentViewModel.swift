@@ -36,7 +36,7 @@ final class SurveyConsentViewModel {
 						imageLiteralResourceName: "Illu_Survey_Consent"),
 					accessibilityLabel: AppStrings.SurveyConsent.imageDescription,
 					accessibilityIdentifier: AccessibilityIdentifiers.SurveyConsent.titleImage,
-					height: 185
+					height: 230
 				),
 				cells: [
 					.title1(

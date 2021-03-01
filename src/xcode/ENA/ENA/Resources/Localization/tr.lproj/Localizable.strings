@@ -123,9 +123,9 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Daha sonra COVID-19 tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilerle yalnızca kısa süreyle ve uzak mesafeden karşılaştığınız için enfeksiyon riskiniz düşüktür.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Daha sonra koronavirüs tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilere yalnızca kısa süreyle ve uzak mesafeden maruuz kaldığınız için enfeksiyon riskiniz düşüktür.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Daha sonra koronavirüs tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilere yalnızca kısa süreyle ve uzak mesafeden maruuz kaldığınız için enfeksiyon riskiniz düşüktür.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "En son %@ tarihinde, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.";
 
@@ -1321,45 +1321,24 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Hata düzeltmelerinin yanında bu güncelleme ile birlikte yeni ve gelişmiş özellikler sunulmaktadır.";
 
 /* New Version Features */
-"NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama ayarlarında “Yeni Özellikler” bölümünde bulabilirsiniz.";
+"NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-/* Version 1.13 */
-"NewVersionFeature_113_rki_survey_title" = "RKI Anketi Bağlantısı";
+/* Version 1.14 */
+"NewVersionFeature_114_additional_diary_functions_title" = "Temas Güncesindeki Ek Özellikler";
 
-"NewVersionFeature_113_rki_survey_description" = "Yüksek risk altındaysanız Robert Koch Institute tarafından sunulan bir anketi uygulamadan yanıtlayabilirsiniz.";
+"NewVersionFeature_114_additional_diary_functions_description" = "Artık her bir karşılaşma için belirli koşullar girebilirsiniz. Önceden tanımlanmış seçenekler (örneğin karşılaşmanın süresi, maske takılı olup olmadığı) arasından seçim yapabilir ve yüksek riske neden olabilecek diğer koşulları kaydetmek için kısa bir not da ekleyebilirsiniz. Enfekte olmanız halinde bu bilgiler kamu sağlığı yetkilisinin potansiyel enfeksiyon zincirlerini takip etmesine yardımcı olabilir.";
 
-"NewVersionFeature_113_data_donation_title" = "Veri Paylaşma İzni (isteğe bağlı)";
+"NewVersionFeature_114_direct_access_diary_title" = "Temas Güncesine Doğrudan Erişim";
 
-"NewVersionFeature_113_data_donation_description" = "Kullanım verilerinizi paylaşarak uygulamayı iyileştirmemize yardımcı olma seçeneğine sahipsiniz.";
+"NewVersionFeature_114_direct_access_diary_description" = "Artık önce uygulamayı açmanız gerekmeden doğrudan temas güncenize giriş ekleyebilirsiniz. Bunun için, bir menü görüntülenene dek yaklaşık 2 saniye süreyle Corona-Warn-App simgesine basılı tutun ve ardından “Bugün için Günce Girişi Ekle” seçeneğine dokunun.";
 
-"NewVersionFeature_113_risk_cards_title" = "Risk Kutucuklarındaki Değişiklikler";
+"NewVersionFeature_114_more_details_risk_status_title" = "Risk Durumunuz Hakkında Daha Ayrıntılı Bilgi ";
 
-"NewVersionFeature_113_risk_cards_description" = "Risk kutucuklarındaki metinler üzerinde ufak değişiklikler.";
+"NewVersionFeature_114_more_details_risk_status_description" = "Uygulama, yüksek risk altında olduğunuzu belirtiyorsa artık risk durumunun, yüksek riskli bir veya daha fazla maruz kalmaya göre mi yoksa düşük riskli bir veya daha fazla maruz kalmaya göre mi görüntülendiğini görebilirsiniz.";
 
-"NewVersionFeature_113_risk_determination_random_id_title" = "Rastgele Kimliklerinizi Paylaştıktan Sonra Maruz Kalma Günlüğüne Devam Etme";
+"NewVersionFeature_114_screenshots_title" = "Corona-Warn-App Ekran Görüntüleri";
 
-"NewVersionFeature_113_risk_determination_random_id_description" = "Şifrelenmiş rastgele kimliklerinizi paylaştıktan sonra maruz kalma günlüğünü yeniden açmak isteyip istemediğinize ve ne zaman yeniden açacağınıza karar verebilirsiniz.";
-
-"NewVersionFeature_113_new_tabbar_title" = "Sekmelerin Uygulanması";
-
-"NewVersionFeature_113_new_tabbar_description" = "Temas günceniz için ayrı bir sekme eklenmiştir. Bu sayede, daha hızlı bir şekilde güncenize erişebilir ve temas güncenizden uygulamanızın ana ekranına geri dönebilirsiniz.";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Test Prosedürü Hakkında Daha Fazla Bilgi";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "Uygulama artık test prosedürü hakkında daha ayrıntılı bilgiler içermektedir.";
-
-/* Version 1.12 */
-"NewVersionFeature_112_statistics_title" = "İstatistik";
-
-"NewVersionFeature_112_statistics_description" = "Almanya’daki enfeksiyon sayılarına ilişkin son temel değerlere genel bakışı görüntüleyin.";
-
-"NewVersionFeature_112_exposure_history_title" = "Maruz Kalma Geçmişi";
-
-"NewVersionFeature_112_exposure_history_description" = "Temas günceniz, uygulama tarafından değerlendirilen karşılaşmalara göre riskinizin düşük veya yüksek olduğu günleri gösterir. Buna göre, Corona-Warn-App’i kullanmasalar bile bu günlerde karşılaştığınız diğer kullanıcıları uyarabilirsiniz. Bu kişiler nispeten bir riskle karşı karşıya olabilir. Ancak temas güncenizdeki kişilerin ve yerlerin belirtilen maruz kalmalarla ilgili olması şart değildir.";
-
-"NewVersionFeature_112_ios125_support_title" = "Uygulama iOS 12.5 ve üzeri sürümler için kullanılabilir";
-
-"NewVersionFeature_112_ios125_support_description" = "Corona-Warn-App’i iOS 12.5 ve üzeri sürümlerde kullanabilirsiniz.";
+"NewVersionFeature_114_screenshots_description" = "https://www.coronawarn.app adresindeki web sitesinde uygulamanın tüm ekran görüntüleri sunulmaktadır. Bu sayede, planlanan özellikler gibi çeşitli bilgileri edinebilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1457,6 +1436,22 @@
 
 "ContactDiary_Overview_Risk_Text_Disclaimer" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
 
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "(düşük riskli birden fazla maruz kalmaya göre).";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "15 dakikadan az";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "15 dakikadan fazla";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Maskeli";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Maskesiz";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "Açık hava";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "Kapalı ortam";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "sa";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Bilgi";
 
@@ -1489,14 +1484,32 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Konum işareti taşıyan bir bina.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "15 dakikadan az";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "15 dakikadan fazla";
+
+"ContactDiary_Day_Encounter_WithMask" = "Maskeli";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Maskesiz";
+
+"ContactDiary_Day_Encounter_Outside" = "Açık hava";
+
+"ContactDiary_Day_Encounter_Inside" = "Kapalı ortam";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Not (ör. yakın mesafe)";
+
+"ContactDiary_Day_Visit_Duration" = "Süre";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Not (ör. çok dolu, yetersiz havalandırma)";
+
 /* Edit Entries */
-"ContactDiary_EditEntries_ContactPersons_Title" = "Kişiler";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Kişileri Düzenle";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Tümünü Kaldır";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Tüm kişileri gerçekten kaldırmak istiyor musunuz?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Bir kişiyi kaldırdığınızda o kişiye ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Tüm kişileri kaldırdığınızda tüm kişilere ilişkin tüm girişler güncenizden kaldırılacaktır.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Evet";
 
@@ -1510,13 +1523,13 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Hayır";
 
-"ContactDiary_EditEntries_Locations_Title" = "Yerler";
+"ContactDiary_EditEntries_Locations_Title" = "Yerleri Düzenle";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Tümünü Kaldır";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Tüm yerleri gerçekten kaldırmak istiyor musunuz?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Bir yeri kaldırdığınızda o yere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Tüm yerleri kaldırdığınızda tüm yerlere ilişkin tüm girişler güncenizden kaldırılacaktır.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Evet";
 
@@ -1561,12 +1574,20 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Yer";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Yer";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Tanım";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-posta";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Kişi";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Ad";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-posta";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
@@ -1740,7 +1761,7 @@
 
 "DataDonation_ValueSelection_Title_Age" = "Yaş Grubunuz";
 
-"DataDonation_ValueSelection_Age_Below29" = "0-29 yaş";
+"DataDonation_ValueSelection_Age_Below29" = "29 yaşa kadar";
 
 "DataDonation_ValueSelection_Age_Between30And59" = "30-59 yaş";
 
@@ -1816,4 +1837,11 @@
 "DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Akıllı telefonunuzun modeli ve versiyonu, uygulamanızın versiyon ve işletim sisteminizin sürümü hakkında bilgi.";
 
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Bu bilgilerin kişisel olarak sizinle bağlantısı kurulamaz. Kimliğiniz gizli tutulacaktır.\nBilgiler istatistiksel amaçlar doğrultusunda analiz edilecektir. Profil oluşturmak için kaydedilmeyecektir.";
+
+"Contact_Journal_Notes_Description_Title" = "Not";
+
+"Contact_Journal_Notes_Description" = "Enfeksiyon riskinizin daha iyi tahmin edilmesine yardımcı olacak notları buraya girebilirsiniz.\n\nBaşka insanlarla ne kadar yakın olduğunuz ve ne yaptığınız (örnekler: “yakın bir şekilde birlikte oturduk”, “spor yaptık”, “az mesafe vardı”, “şarkı söyledik”) gibi, karşılaşmanıza veya konaklamanıza dair enfeksiyon riskiniz üzerinde bir etkisi olabilecek ek koşulları buraya yazabilirsiniz.\n\nBu notlar daha sonra hafızanızı tazelemenize yardımcı olabilir. Gerekirse erken aşamada bir arada olduğunuz kişileri uyarmanızı sağlayacak ve kamu sağlığı yetkililerinin potansiyel enfeksiyon zincirlerini takip edebilmesine yardımcı olacaktır.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
 

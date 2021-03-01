@@ -1368,7 +1368,7 @@ sein.";
 
 "NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App";
 
-"NewVersionFeature_114_screenshots_description" = "Auf https://www.coronawarn.app stehen nun alle Screenshots der App zu Verfügung. So können sich nun auch über geplante Funktionen der App informieren.";
+"NewVersionFeature_114_screenshots_description" = "Auf https://www.coronawarn.app stehen nun alle Screenshots der App zu Verfügung. So können Sie sich nun auch über geplante Funktionen der App informieren.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";
@@ -1484,7 +1484,7 @@ sein.";
 "ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "Std.";
 
 /* ActionSheet */
-"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Info";
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informationen";
 
 "ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Einträge exportieren";
 
@@ -1535,13 +1535,13 @@ sein.";
 
 /* Edit Entries */
 
-"ContactDiary_EditEntries_ContactPersons_Title" = "Personen";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Personen bearbeiten";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Alle entfernen";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Wollen Sie wirklich alle Personen entfernen?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie eine Person entfernen, werden alle Einträge für diese Person aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Wenn Sie alle Personen entfernen, werden alle Einträge für alle Personen aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Ja";
 
@@ -1555,13 +1555,13 @@ sein.";
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Nein";
 
-"ContactDiary_EditEntries_Locations_Title" = "Orte";
+"ContactDiary_EditEntries_Locations_Title" = "Orte bearbeiten";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Alle entfernen";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Wollen Sie wirklich alle Orte entfernen?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie einen Ort entfernen, werden alle Einträge für diesen Ort aus dem Tagebuch gelöscht.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Wenn Sie alle Orte entfernen, werden alle Einträge für alle Orte aus dem Tagebuch gelöscht.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Ja";
 
