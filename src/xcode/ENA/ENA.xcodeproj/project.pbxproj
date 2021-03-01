@@ -439,10 +439,6 @@
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
-		8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
-		8F27018F259B593700E48CFE /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
-		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
-		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
 		8F11512425DC27E9007BDBC6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
@@ -1320,9 +1316,6 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmission+TestResult+Extenstion.swift"; sourceTree = "<group>"; };
 		8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlInfoModel.swift; sourceTree = "<group>"; };
-		8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultMetadataServiceTests.swift; sourceTree = "<group>"; };
-		8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppac_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
-		8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_edus_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
 		8F27018E259B593700E48CFE /* ContactDiaryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStore.swift; sourceTree = "<group>"; };
 		8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration1To2.swift; sourceTree = "<group>"; };
 		8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureLoggingCellModelTests.swift; sourceTree = "<group>"; };
@@ -1330,7 +1323,6 @@
 		8F43A3CA25D55A3E008FD630 /* ppa_data_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppa_data_request_ios.pb.swift; sourceTree = "<group>"; };
 		8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewController.swift; sourceTree = "<group>"; };
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
-		8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataServiceTests.swift; sourceTree = "<group>"; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -2424,79 +2416,6 @@
 			children = (
 				2FD473BE251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift */,
 				BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		3466A41125D1A0C9002CC49D /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		34B1FDBC25D69F1E00D196C7 /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE8325E0113B00D196C7 /* User Metadata */,
-				34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */,
-				34B1FE6825E0108300D196C7 /* Client Metadata */,
-				8FB5A62325DE796400679990 /* Exposure Windows Metadata */,
-				8FB5A64525DEC57F00679990 /* Test Result Metadata */,
-				34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */,
-			);
-			path = Metadata;
-			sourceTree = "<group>";
-		};
-		34B1FE5A25E00FC900D196C7 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FEC325E0202000D196C7 /* ExposureWindowsMetadataServiceTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE6625E0102200D196C7 /* __tests__ */,
-				34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */,
-				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
-				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
-			);
-			path = "Key Submission Metadata";
-			sourceTree = "<group>";
-		};
-		34B1FE6625E0102200D196C7 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE6925E010C200D196C7 /* __tests__ */,
-				3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */,
-			);
-			path = "Risk Exposure Metadata";
-			sourceTree = "<group>";
-		};
-		34B1FE6825E0108300D196C7 /* Client Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
-			);
-			path = "Client Metadata";
-			sourceTree = "<group>";
-		};
-		34B1FE6925E010C200D196C7 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4464,7 +4383,6 @@
 			isa = PBXGroup;
 			children = (
 				AB2F092225CD4C9C00C16309 /* default_app_config_113 */,
-				8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -5153,7 +5071,6 @@
 				0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
 				0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */,
-				8FB5A62D25DEAFA400679990 /* ExposureNotifications+Extension.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
@@ -5427,7 +5344,6 @@
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
 				945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift in Sources */,
-				34B1FE3025DDAD4A00D196C7 /* ClientMetadata.swift in Sources */,
 				0138F54E25ECD44300A9B075 /* key_download_parameters.pb.swift in Sources */,
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
