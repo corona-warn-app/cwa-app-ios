@@ -86,12 +86,11 @@ class RootCoordinator: RequiresAppDependencies {
 			eventsCoordinator.viewController.tabBarItem = eventsTabbarItem
 		}
 
-		let tabbarVC = UITabBarController()
-		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
-		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, eventsCoordinator.viewController], animated: false)
+		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
+		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, eventsCoordinator.viewController], animated: false)
 
-		viewController.embedViewController(childViewController: tabbarVC)
+		viewController.embedViewController(childViewController: tabBarController)
 	}
 
 	func showTestResultFromNotification(with result: TestResult) {
@@ -115,6 +114,23 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
+	func showEvent(_ guid: String) {
+		guard let eventsNavigationController = eventsCoordinator?.viewController,
+			  let eventsViewController = eventsNavigationController.topViewController as? UITableViewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: eventsNavigationController) else {
+			return
+		}
+		tabBarController.selectedIndex = index
+
+		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
+			let alert = UIAlertController(title: "Event found", message: "Event on launch arguments found", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+				Log.debug("Did tap even ok")
+			}))
+			eventsNavigationController.present(alert, animated: true)
+		}
+	}
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
@@ -123,11 +139,12 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 	
 	// MARK: - Private
-	
+
 	private weak var delegate: CoordinatorDelegate?
 
 	private let contactDiaryStore: DiaryStoringProviding
 	private let otpService: OTPServiceProviding
+	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?

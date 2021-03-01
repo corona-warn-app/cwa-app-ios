@@ -68,7 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		setupUI()
+		let fakeRoute = Route(url: URL(staticString: "HTTPS://app-developer.club/e1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ"))
+
+		setupUI(fakeRoute)
 		setupQuickActions()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -91,6 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+
+
+		/** HTTPS://app-developer.club/e1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ
+		*/
 
 		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
 			for key in activityDictionary.keys {
@@ -451,12 +457,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private let riskConsumer = RiskConsumer()
 
-	private func setupUI() {
+	private func setupUI(_ route: Route?) {
 		setupNavigationBarAppearance()
 		setupAlertViewAppearance()
 
 		if store.isOnboarded {
-			showHome()
+			showHome(route)
 		} else {
 			showOnboarding()
 		}
@@ -493,21 +499,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
 	}
 
-	func showHome() {
+	func showHome(_ route: Route? = nil) {
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
 					return
 				}
-				self?.presentHomeVC()
+				self?.presentHomeVC(route)
 			}
 		} else {
-			presentHomeVC()
+			presentHomeVC(route)
 		}
 	}
 
-	private func presentHomeVC() {
+	private func presentHomeVC(_ route: Route?) {
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.exposureManagerState,
 			delegate: self
@@ -518,6 +524,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		coordinator.showHome(enStateHandler: enStateHandler)
+
+		if let eventRoute = route {
+			switch eventRoute {
+			case .event(let guid):
+				coordinator.showEvent(guid)
+			}
+		}
+
 	}
 
 	private func showOnboarding() {
