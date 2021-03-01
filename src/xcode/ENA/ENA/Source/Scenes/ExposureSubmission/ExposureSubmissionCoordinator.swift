@@ -131,7 +131,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 
 			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult"),
-			   let testResult = TestResult(stringValue: testResultStringValue) {
+				let testResult = TestResult(stringValue: testResultStringValue) {
+				if UserDefaults.standard.string(forKey: "showTestResultAvailableViewController") == "YES" {
+					return createTestResultAvailableViewController(testResult: testResult)
+				}
 				return createTestResultViewController(with: testResult)
 			}
 		}
