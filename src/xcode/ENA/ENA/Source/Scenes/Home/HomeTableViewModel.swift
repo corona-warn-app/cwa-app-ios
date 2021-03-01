@@ -44,6 +44,7 @@ class HomeTableViewModel {
 	var riskAndTestRows: [RiskAndTestRow] {
 		#if DEBUG
 		if isUITesting {
+			// adding this for launch argument to fake thank you card on home screen
 			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
 				return [.thankYou]
 			}
