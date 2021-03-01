@@ -348,8 +348,6 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		addLocationToDayEntry("Pizzabude")
 
-		// Select details of locaton visit.
-
 		// Select duration.
 
 		app.otherElements["Hours"].firstMatch.tap()
