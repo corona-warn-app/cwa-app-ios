@@ -296,7 +296,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		navigateToJournalOverview()
 
-		// Select 3th cell.
+		// Select 3rd cell.
 
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
@@ -307,11 +307,13 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		// Select details of encounter.
 
-		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl].firstMatch.buttons.element(boundBy: 1).waitForExistence(timeout: .medium))
-		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl].firstMatch.buttons.element(boundBy: 1).tap()
+		let maskSituationButton = app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl].firstMatch.buttons.element(boundBy: 1)
+		XCTAssertTrue(maskSituationButton.waitForExistence(timeout: .medium))
+		maskSituationButton.tap()
 
-		XCTAssertTrue(app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl].firstMatch.buttons.element(boundBy: 1).waitForExistence(timeout: .medium))
-		app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl].firstMatch.buttons.element(boundBy: 1).tap()
+		let settingButton = app.segmentedControls[AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl].firstMatch.buttons.element(boundBy: 1)
+ 		XCTAssertTrue(settingButton.waitForExistence(timeout: .medium))
+		settingButton.tap()
 
 		// Enter note
 
@@ -334,7 +336,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		navigateToJournalOverview()
 
-		// Select 3th cell.
+		// Select 3rd cell.
 
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
@@ -385,7 +387,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		navigateToJournalOverview()
 
-		// Select 3th cell.
+		// Select 3rd cell.
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
@@ -403,7 +405,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		navigateToJournalOverview()
 
-		// Select 3th cell.
+		// Select 3rd cell.
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
