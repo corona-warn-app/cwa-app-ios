@@ -115,6 +115,24 @@ struct SAP_Internal_V2_ApplicationConfigurationAndroid {
   /// Clears the value of `privacyPreservingAnalyticsParameters`. Subsequent reads from it will return its default value.
   mutating func clearPrivacyPreservingAnalyticsParameters() {_uniqueStorage()._privacyPreservingAnalyticsParameters = nil}
 
+  var errorLogSharingParameters: SAP_Internal_V2_PPDDErrorLogSharingParametersAndroid {
+    get {return _storage._errorLogSharingParameters ?? SAP_Internal_V2_PPDDErrorLogSharingParametersAndroid()}
+    set {_uniqueStorage()._errorLogSharingParameters = newValue}
+  }
+  /// Returns true if `errorLogSharingParameters` has been explicitly set.
+  var hasErrorLogSharingParameters: Bool {return _storage._errorLogSharingParameters != nil}
+  /// Clears the value of `errorLogSharingParameters`. Subsequent reads from it will return its default value.
+  mutating func clearErrorLogSharingParameters() {_uniqueStorage()._errorLogSharingParameters = nil}
+
+  var eventRegistrationParameters: SAP_Internal_V2_EventRegistrationParameters {
+    get {return _storage._eventRegistrationParameters ?? SAP_Internal_V2_EventRegistrationParameters()}
+    set {_uniqueStorage()._eventRegistrationParameters = newValue}
+  }
+  /// Returns true if `eventRegistrationParameters` has been explicitly set.
+  var hasEventRegistrationParameters: Bool {return _storage._eventRegistrationParameters != nil}
+  /// Clears the value of `eventRegistrationParameters`. Subsequent reads from it will return its default value.
+  mutating func clearEventRegistrationParameters() {_uniqueStorage()._eventRegistrationParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -178,6 +196,8 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
     9: .same(proto: "dailySummariesConfig"),
     10: .same(proto: "eventDrivenUserSurveyParameters"),
     11: .same(proto: "privacyPreservingAnalyticsParameters"),
+    12: .same(proto: "errorLogSharingParameters"),
+    13: .same(proto: "eventRegistrationParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -192,6 +212,8 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
     var _dailySummariesConfig: SAP_Internal_V2_DailySummariesConfig? = nil
     var _eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersAndroid? = nil
     var _privacyPreservingAnalyticsParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersAndroid? = nil
+    var _errorLogSharingParameters: SAP_Internal_V2_PPDDErrorLogSharingParametersAndroid? = nil
+    var _eventRegistrationParameters: SAP_Internal_V2_EventRegistrationParameters? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -209,6 +231,8 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
       _dailySummariesConfig = source._dailySummariesConfig
       _eventDrivenUserSurveyParameters = source._eventDrivenUserSurveyParameters
       _privacyPreservingAnalyticsParameters = source._privacyPreservingAnalyticsParameters
+      _errorLogSharingParameters = source._errorLogSharingParameters
+      _eventRegistrationParameters = source._eventRegistrationParameters
     }
   }
 
@@ -238,6 +262,8 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
         case 9: try { try decoder.decodeSingularMessageField(value: &_storage._dailySummariesConfig) }()
         case 10: try { try decoder.decodeSingularMessageField(value: &_storage._eventDrivenUserSurveyParameters) }()
         case 11: try { try decoder.decodeSingularMessageField(value: &_storage._privacyPreservingAnalyticsParameters) }()
+        case 12: try { try decoder.decodeSingularMessageField(value: &_storage._errorLogSharingParameters) }()
+        case 13: try { try decoder.decodeSingularMessageField(value: &_storage._eventRegistrationParameters) }()
         default: break
         }
       }
@@ -279,6 +305,12 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
       if let v = _storage._privacyPreservingAnalyticsParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
       }
+      if let v = _storage._errorLogSharingParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+      }
+      if let v = _storage._eventRegistrationParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -299,6 +331,8 @@ extension SAP_Internal_V2_ApplicationConfigurationAndroid: SwiftProtobuf.Message
         if _storage._dailySummariesConfig != rhs_storage._dailySummariesConfig {return false}
         if _storage._eventDrivenUserSurveyParameters != rhs_storage._eventDrivenUserSurveyParameters {return false}
         if _storage._privacyPreservingAnalyticsParameters != rhs_storage._privacyPreservingAnalyticsParameters {return false}
+        if _storage._errorLogSharingParameters != rhs_storage._errorLogSharingParameters {return false}
+        if _storage._eventRegistrationParameters != rhs_storage._eventRegistrationParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}
