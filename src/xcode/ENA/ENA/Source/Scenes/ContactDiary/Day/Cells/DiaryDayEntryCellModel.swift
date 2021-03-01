@@ -33,7 +33,7 @@ struct DiaryDayEntryCellModel {
 
 	// MARK: - Internal
 
-	struct SegmentedControlValue<T> {
+	struct SegmentedControlValue<T: Equatable>: Equatable {
 		let title: String
 		let value: T
 	}
