@@ -662,7 +662,7 @@
 		BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */; };
 		BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AAD254D6476008344F5 /* ENARange.swift */; };
 		BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */; };
-		BA6C8AC4254D650C008344F5 /* NormalizedTimePerEWToRiskLevelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AC3254D650C008344F5 /* NormalizedTimePerEWToRiskLevelMapping.swift */; };
+		BA6C8AC4254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AC3254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift */; };
 		BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8ACB254D6537008344F5 /* TrlEncoding.swift */; };
 		BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AD3254D6552008344F5 /* TrlFilter.swift */; };
 		BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */; };
@@ -1509,7 +1509,7 @@
 		BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAtAttenuationFilter.swift; sourceTree = "<group>"; };
 		BA6C8AAD254D6476008344F5 /* ENARange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENARange.swift; sourceTree = "<group>"; };
 		BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinutesAtAttenuationWeight.swift; sourceTree = "<group>"; };
-		BA6C8AC3254D650C008344F5 /* NormalizedTimePerEWToRiskLevelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedTimePerEWToRiskLevelMapping.swift; sourceTree = "<group>"; };
+		BA6C8AC3254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedTimeToRiskLevelMapping.swift; sourceTree = "<group>"; };
 		BA6C8ACB254D6537008344F5 /* TrlEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrlEncoding.swift; sourceTree = "<group>"; };
 		BA6C8AD3254D6552008344F5 /* TrlFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrlFilter.swift; sourceTree = "<group>"; };
 		BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowTestCase.swift; sourceTree = "<group>"; };
@@ -4146,7 +4146,7 @@
 				BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */,
 				BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */,
 				BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */,
-				BA6C8AC3254D650C008344F5 /* NormalizedTimePerEWToRiskLevelMapping.swift */,
+				BA6C8AC3254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift */,
 				BA6C8A9D254D634E008344F5 /* RiskCalculationConfiguration.swift */,
 				BA6C8AF3254D65E1008344F5 /* ScanInstance.swift */,
 				BA6C8ACB254D6537008344F5 /* TrlEncoding.swift */,
@@ -5344,7 +5344,7 @@
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
-				BA6C8AC4254D650C008344F5 /* NormalizedTimePerEWToRiskLevelMapping.swift in Sources */,
+				BA6C8AC4254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift in Sources */,
 				BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */,
 				3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
