@@ -20,12 +20,12 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 
 		weak var navigationController: DeltaOnboardingNavigationController?
 
-		let viewModel = DefaultDataDonationViewModel(
+		let dataDonationViewModel = DefaultDataDonationViewModel(
 			store: store,
 			presentSelectValueList: { selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
 					selectValueViewModel,
-					dissmiss: {
+					dismiss: {
 						navigationController?.dismiss(animated: true)
 					})
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
@@ -37,8 +37,32 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 			)
 		)
 
-		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
-		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: dataDonationViewController)
+		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
+			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK,
+			isPrimaryButtonEnabled: true,
+			isSecondaryButtonEnabled: true,
+			isPrimaryButtonHidden: false,
+			isSecondaryButtonHidden: false
+		)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: dataDonationViewController,
+			bottomController: FooterViewController(
+				footerViewModel,
+				didTapPrimaryButton: {
+					dataDonationViewModel.save(consentGiven: true)
+					dataDonationViewController.finished?()
+				},
+				didTapSecondaryButton: {
+					dataDonationViewModel.save(consentGiven: false)
+					dataDonationViewController.finished?()
+				}),
+			bottomHeight: 140.0)
+
+		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: containerViewController)
 		deltaOnboardingNavigationController.navigationBar.prefersLargeTitles = true
 
 		dataDonationViewController.finished = {
