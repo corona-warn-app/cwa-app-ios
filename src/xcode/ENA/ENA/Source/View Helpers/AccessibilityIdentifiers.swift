@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+// swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 
 	enum ExposureNotificationSetting {
