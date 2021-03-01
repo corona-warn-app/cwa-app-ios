@@ -120,7 +120,14 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 	private lazy var visitDurationPicker: UIDatePicker = {
 		let durationPicker = UIDatePicker()
-		durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		if #available(iOS 14.0, *) {
+			// UIDatePickers behave differently on iOS 14+. The .valueChanged event would be called too early and reload the cell before the animation is finished.
+			// The .editingDidEnd event is triggered after the animation is finished.
+			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		} else {
+			// Before iOS 14 .editingDidEnd was not called at all, therefore we use .valueChanged, which was called after the animation is finished.
+			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+		}
 		// German locale ensures 24h format.
 		durationPicker.locale = Locale(identifier: "de_DE")
 		durationPicker.datePickerMode = .time
