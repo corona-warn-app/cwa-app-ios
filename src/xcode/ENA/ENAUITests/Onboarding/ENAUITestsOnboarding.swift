@@ -28,7 +28,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
 		// snapshot("ScreenShot_\(#function)_0000")
@@ -87,7 +87,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0001_OnboardingFlow_EnablePermissions_normal_XS() throws {
@@ -95,7 +95,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
 		// snapshot("ScreenShot_\(#function)_0000")
@@ -153,7 +153,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.buttons[AccessibilityIdentifiers.General.secondaryFooterButton].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 	}
 
 	

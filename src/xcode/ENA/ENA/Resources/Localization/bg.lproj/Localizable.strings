@@ -123,9 +123,9 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Тъй като регистрирането на излагания не е било активно достатъчно дълго, не можем да изчислим Вашия риск от заразяване.\n\nРискът от заразяване се изчислява въз основа на данните за излагане (продължителност и близост на контакта), регистрирани локално на вашия смартфон. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
 
-"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Вашето ниво на риск от заразяване е ниско, защото нямате регистрирани контакти с лица, които впоследствие са били диагностицирани с COVID-19, или ако сте имали такива, те са били краткотрайни и от по-голямо разстояние.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Вашето ниво на риск от заразяване е ниско, защото нямате регистрирани контакти с лица, които впоследствие са били диагностицирани с коронавирус, или ако сте имали такива, те са били краткотрайни и от по-голямо разстояние.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Рискът от заразяване се изчислява локално на смартфона Ви въз основа на регистрираните данни за излагане. Изчислението включва също така разстоянието от и продължителността на всички контакти с лица, диагностицирани с COVID-19., както и възможността им да заразят околните. Никой освен Вас не може да види или да получи данни за Вашето ниво на риск.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Вашето ниво на риск от заразяване е ниско, защото нямате регистрирани контакти с лица, които впоследствие са били диагностицирани с коронавирус, или ако сте имали такива, те са били краткотрайни и от по-голямо разстояние.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Нивото на риска Ви от заразяване е повишено, защото на %@ сте имали продължителен и близък контакт с поне едно лице, диагностицирано с COVID-19.";
 
@@ -1321,45 +1321,24 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Наред с корекциите на грешки настоящата актуализация съдържа също и нови и разширени функции.";
 
 /* New Version Features */
-"NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия, като отворите настройките на приложението и изберете “Нови функции”.";
+"NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздел “Нови функции” на информацията за приложението.";
 
-/* Version 1.13 */
-"NewVersionFeature_113_rki_survey_title" = "Връзка към анкетата на института “Роберт Кох”";
+/* Version 1.14 */
+"NewVersionFeature_114_additional_diary_functions_title" = "Допълнителни функции в дневника на контактите";
 
-"NewVersionFeature_113_rki_survey_description" = "Ако Вашето ниво на риск от заразяване е повишено, можете да отворите и попълните анкетата на института “Роберт Кох” от самото приложение.";
+"NewVersionFeature_114_additional_diary_functions_description" = "Вече можете да въвеждате специфични обстоятелства за всеки контакт. Можете да избирате от предварително зададени опции (напр. продължителност на контакта, използвана ли е маска, или не), както и да въвеждате кратка бележка, в която да отбележите други обстоятелства, които биха могли да доведат да повишен риск. Ако се заразите, тази информация може да помогне на службата за обществено здравеопазване да проследи потенциалните вериги на заразяване.";
 
-"NewVersionFeature_113_data_donation_title" = "Съгласие за споделяне на данни (незадължително)";
+"NewVersionFeature_114_direct_access_diary_title" = "Директен достъп до дневника на контактите";
 
-"NewVersionFeature_113_data_donation_description" = "Вече имате възможност да споделяте своите данни за използването на приложението. Това ще ни помогне да го подобрим.";
+"NewVersionFeature_114_direct_access_diary_description" = "Вече можете да добавите запис в дневника на контактите си, без да е необходимо първо да отваряте приложението. За да направите това, докоснете и задръжте иконата на приложението Corona-Warn-App в продължение на 2 секунди, докато се появи меню, и след това изберете „Добавяне на запис с днешна дата в дневника“.";
 
-"NewVersionFeature_113_risk_cards_title" = "Промени в плочките за риск";
+"NewVersionFeature_114_more_details_risk_status_title" = "Повече подробности относно вашето ниво на риск ";
 
-"NewVersionFeature_113_risk_cards_description" = "Малки промени в текстовете на плочките за риск.";
+"NewVersionFeature_114_more_details_risk_status_description" = "Ако приложението указва, че вашият риск от заразяване е повишен, вече можете да видите дали това се дължи на едно или повече излагания с повишен риск, или на такива с нисък риск.";
 
-"NewVersionFeature_113_risk_determination_random_id_title" = "Продължаване на регистрирането на излагания на риск след споделянето на Вашите случайно генерирани ИД кодове";
+"NewVersionFeature_114_screenshots_title" = "Екранни снимки на приложението Corona-Warn-App";
 
-"NewVersionFeature_113_risk_determination_random_id_description" = "След като споделите Вашите случайно генерирани ИД кодове, можете да решите дали и кога бихте желали да включите пак регистрирането на излаганията на риск.";
-
-"NewVersionFeature_113_new_tabbar_title" = "Внедряване на табове";
-
-"NewVersionFeature_113_new_tabbar_description" = "Вече има отделен таб за Вашия дневник на контактите. Така имате бърз достъп до дневника и можете лесно да преминавате от него към началния екран на приложението.";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_title" = "Допълнителна информация относно процедурата за тестване";
-
-"NewVersionFeature_113_additonal_info_about_test_procedure_description" = "В приложението вече има по-подробна информация относно процедурата за тестване.";
-
-/* Version 1.12 */
-"NewVersionFeature_112_statistics_title" = "Статистика";
-
-"NewVersionFeature_112_statistics_description" = "Вижте обобщените актуални данни относно броя на заразените в Германия.";
-
-"NewVersionFeature_112_exposure_history_title" = "Хронология на излаганията";
-
-"NewVersionFeature_112_exposure_history_description" = "Дневникът на Вашите контакти показва дните, в които сте имали нисък или повишен риск въз основа на оценените от приложението срещи. Това означава, че може да предупредите хората, с които сте контактували в съответните дни, ако те самите не използват приложението Corona-Warn-App. Възможно е те да са били изложени на подобен риск, но не е задължително хората и местата във Вашия дневник да са свързани с посочените излагания.";
-
-"NewVersionFeature_112_ios125_support_title" = "Приложението вече е достъпно за iOS версия 12.5 и по-късните от нея";
-
-"NewVersionFeature_112_ios125_support_description" = "Вече може да използвате приложението Corona-Warn-App на устройства с iOS версия 12.5 и по-късните от нея.";
+"NewVersionFeature_114_screenshots_description" = "Всички екранни снимки на приложението вече са достъпни в уебсайта https://www.coronawarn.app. Така ще можете да научавате например какви нови функции се планират.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Международно регистриране на излаганията";
@@ -1457,6 +1436,22 @@
 
 "ContactDiary_Overview_Risk_Text_Disclaimer" = "Не е задължително те да са свързани с отбелязаните от Вас хора и места.";
 
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "въз основа на повече от едно излагане на нисък риск.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "По-малко от 15 мин";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "Повече от 15 мин";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "С маска";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Без маска";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "На открито";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "На закрито";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "ч";
+
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Информация";
 
@@ -1489,14 +1484,32 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Сграда с маркер за местоположение.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "По-малко от 15 мин";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "Повече от 15 мин";
+
+"ContactDiary_Day_Encounter_WithMask" = "С маска";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Без маска";
+
+"ContactDiary_Day_Encounter_Outside" = "На открито";
+
+"ContactDiary_Day_Encounter_Inside" = "На закрито";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Забележка (напр. близко разстояние)";
+
+"ContactDiary_Day_Visit_Duration" = "Продължителност";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Бележка (напр. присъствие на много хора, лоша вентилация)";
+
 /* Edit Entries */
-"ContactDiary_EditEntries_ContactPersons_Title" = "Лица";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Редактиране на лица";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Изтриване на всички";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Наистина ли искате да изтриете всички лица?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Ако изтриете дадено лице, всички записи за него ще бъдат премахнати от Вашия дневник.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Ако премахнете всички лица, всички записи за тях ще бъдат премахнати от дневника Ви.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Да";
 
@@ -1510,13 +1523,13 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Не";
 
-"ContactDiary_EditEntries_Locations_Title" = "Места";
+"ContactDiary_EditEntries_Locations_Title" = "Редактиране на места";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Изтриване на всички";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Наистина ли искате да изтриете всички места?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Ако изтриете дадено място, всички записи за него ще бъдат премахнати от Вашия дневник.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Ако премахнете всички места, всички записи за тях ще бъдат премахнати от Вашия дневник.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Да";
 
@@ -1561,12 +1574,20 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Място";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Място";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Описание";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Телефон";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "Имейл";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Лице";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Лице";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Име";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Телефон";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "Имейл";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Тенденция: Нагоре";
@@ -1740,7 +1761,7 @@
 
 "DataDonation_ValueSelection_Title_Age" = "Вашата възрастова група";
 
-"DataDonation_ValueSelection_Age_Below29" = "0-29 години";
+"DataDonation_ValueSelection_Age_Below29" = "До 29 години";
 
 "DataDonation_ValueSelection_Age_Between30And59" = "30-59 години";
 
@@ -1816,4 +1837,11 @@
 "DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Информация относно модела и версията на Вашия смартфон, както и версията на приложението и операционната система";
 
 "DetailedInfosDataDonation_General_Privacy_Infos" = "Тази информация не може да се използва за установяване на самоличността Ви – Вашата анонимност ще бъде запазена.\nДанните ще бъдат анализирани за статистически цели и няма да се използват за създаване на профил.";
+
+"Contact_Journal_Notes_Description_Title" = "Бележка";
+
+"Contact_Journal_Notes_Description" = "Можете за въвеждате бележки, които ще ми помогнат да прецените по-добре своя риск от заразяване.\n\nОпишете допълнителните обстоятелства във връзка с вашия контакт или престой, които биха могли да окажат влияние върху вашето ниво на риск от заразяване, например в каква близост сте били до други хора и какво сте правили (напр. „седяхме близо един до друг“, „спортувахме“, „пространството беше малко“ или „пяхме“).\n\nТези бележки ще ви помогнат да опресните паметта си по-късно и да предупредите хората, с които сте били в контакт, ако се наложи. Също така ще дадат възможност на службите за обществено осигуряване за проследят потенциалните вериги на заразяване.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Добавяне на запис с днешна дата в дневника";
 

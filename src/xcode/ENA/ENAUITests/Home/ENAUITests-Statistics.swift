@@ -34,22 +34,22 @@ class ENAUITests_Statistics: XCTestCase {
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
-			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
 			app.staticTexts[title4].swipeLeft()
-			XCTAssert(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
 			app.staticTexts[title3].swipeLeft()
-			XCTAssert(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
 			app.staticTexts[title2].swipeLeft()
-			XCTAssert(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
 			app.staticTexts[title1].swipeRight()
 		default:
-			XCTAssert(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title1].waitForExistence(timeout: .medium))
 			app.staticTexts[title1].swipeLeft()
-			XCTAssert(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title2].waitForExistence(timeout: .medium))
 			app.staticTexts[title2].swipeLeft()
-			XCTAssert(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title3].waitForExistence(timeout: .medium))
 			app.staticTexts[title3].swipeLeft()
-			XCTAssert(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
+			XCTAssertTrue(self.app.staticTexts[title4].waitForExistence(timeout: .medium))
 			app.staticTexts[title4].swipeRight()
 		}
 	}
@@ -143,34 +143,34 @@ class ENAUITests_Statistics: XCTestCase {
 	// MARK: - Private
 	
 	private func cardInfectionsInfoScreenTest(_ title1: String) {
-		XCTAssert(app.staticTexts[title1].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].exists)
+		XCTAssertTrue(app.staticTexts[title1].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].exists)
 		app.buttons[AccessibilityIdentifiers.Statistics.Infections.infoButton].tap()
-		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
 	
 	private func cardKeySubmissionsInfoScreenTest(_ title2: String) {
-		XCTAssert(app.staticTexts[title2].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].exists)
+		XCTAssertTrue(app.staticTexts[title2].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].exists)
 		app.buttons[AccessibilityIdentifiers.Statistics.KeySubmissions.infoButton].tap()
-		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
 	
 	private func cardIncidenceInfoScreenTest(_ title3: String) {
-		XCTAssert(app.staticTexts[title3].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].exists)
+		XCTAssertTrue(app.staticTexts[title3].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].exists)
 		app.buttons[AccessibilityIdentifiers.Statistics.Incidence.infoButton].tap()
-		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
 	
 	private func cardReproductionNumberInfoScreenTest(_ title4: String) {
-		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
+		XCTAssertTrue(app.staticTexts[title4].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
 		app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].tap()
-		XCTAssert(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
 

@@ -16,7 +16,7 @@
 			<string>Hiçbir maruz kalma yok</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Bir gün için düşük riskli maruz kalmalar</string>
+			<string>1 gün için düşük riskli maruz kalmalar</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u gün için düşük riskli maruz kalmalar</string>
@@ -46,7 +46,7 @@
 			<string>%u gün için artmış riskli maruz kalmalar</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Bir gün için artmış riskli maruz kalmalar</string>
+			<string>1 gün için artmış riskli maruz kalmalar</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>%u gün için artmış riskli maruz kalmalar</string>
