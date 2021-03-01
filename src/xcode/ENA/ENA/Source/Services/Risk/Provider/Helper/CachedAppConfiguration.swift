@@ -58,7 +58,7 @@ final class CachedAppConfiguration {
 
 	/// The location of the default app configuration.
 	private var defaultAppConfigPath: URL {
-		guard let url = Bundle.main.url(forResource: "default_app_config_113", withExtension: "") else {
+		guard let url = Bundle.main.url(forResource: "default_app_config_115", withExtension: "") else {
 			fatalError("Could not locate default app config")
 		}
 		return url
