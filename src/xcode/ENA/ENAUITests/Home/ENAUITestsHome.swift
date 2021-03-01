@@ -281,6 +281,41 @@ class ENAUITests_01_Home: XCTestCase {
 		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
 	}
 	
+	func test_screenshot_details_riskCardHigh_riskOneDay_tracingNdays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "high"
+		// change the value based on N
+		let activeTracingDays = "5"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		// change the value based on N
+		let activeTracingDays = "5"
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", "1"])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func test_screenshot_homescreen_thankyou_screen() throws {
 		var screenshotCounter = 0
 		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
