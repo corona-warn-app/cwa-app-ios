@@ -12,7 +12,7 @@ class RiskCalculationTest: XCTestCase {
 		let testCases = testCasesWithConfiguration.testCases
 
 		// THEN
-		XCTAssertEqual(testCases.count, 25)
+		XCTAssertEqual(testCases.count, 28)
 	}
 
 	func testGIVEN_TestCases_WHEN_CalculatingRiskForEachTestCase_THEN_ResultIsCorrect() {
