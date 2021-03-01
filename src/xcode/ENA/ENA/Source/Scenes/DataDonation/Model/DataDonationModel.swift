@@ -15,7 +15,7 @@ struct DataDonationModel {
 		self.store = store
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 
-		let userMetadata = store.userMetadata
+		let userMetadata = store.userData
 		self.federalStateName = userMetadata?.federalState?.rawValue
 		self.age = userMetadata?.ageGroup?.text
 
@@ -51,9 +51,13 @@ struct DataDonationModel {
 	}
 
 	// store alle data if the user consent is given
-	// otherwise set all values to nil and store that consent isn't give only
+	// otherwise store that consent isn't give only
 	mutating func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
+
+		// If user has not given or revoked his consent, delete all analytics data. If he gives not the consent, delete all analytics data to have a clean state.
+		Analytics.deleteAnalyticsData()
+
 		guard isConsentGiven else {
 			region = nil
 			federalStateName = nil
@@ -67,16 +71,16 @@ struct DataDonationModel {
 		)
 
 		var federalStateNameEnum: FederalStateName?
-		if let federaStateName = federalStateName {
-			federalStateNameEnum = FederalStateName(rawValue: federaStateName)
+		if let federalStateName = federalStateName {
+			federalStateNameEnum = FederalStateName(rawValue: federalStateName)
 		}
 
-		let userMetaData = UserMetadata(
+		let userdata = UserMetadata(
 			federalState: federalStateNameEnum,
 			administrativeUnit: district?.districtID,
 			ageGroup: ageGroup)
 
-		store.userMetadata = userMetaData
+		store.userData = userdata
 	}
 
 	// MARK: - Private

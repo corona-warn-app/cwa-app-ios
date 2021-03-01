@@ -93,7 +93,7 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
-						self.storeETagInClientMetadata(eTag: response.eTag)
+						Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: response.eTag))))
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations
@@ -136,10 +136,6 @@ final class CachedAppConfiguration {
 				} // eo fetch
 			} // eo async
 		}
-	}
-	
-	private func storeETagInClientMetadata(eTag: String?) {
-		store.clientMetadata = ClientMetadata(etag: eTag)
 	}
 
 	private func defaultFailureHandler() {
