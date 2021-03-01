@@ -6,6 +6,7 @@
 	<array>
 		<string>applinks:coronawarn.app</string>
 		<string>applinks:skunkbrothers.de?mode=developer</string>
+		<string>applinks:app-developer.club?mode=developer</string>
 	</array>
 	<key>com.apple.developer.exposure-notification</key>
 	<true/>
