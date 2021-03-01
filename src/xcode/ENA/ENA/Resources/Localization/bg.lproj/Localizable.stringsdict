@@ -16,7 +16,7 @@
 			<string>Няма излагане на риск</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Брой дни с излагания на нисък риск: 1</string>
+			<string>Брой дни с излагания на нисък риск - 1</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Брой дни с излагания на нисък риск: %u</string>
@@ -46,7 +46,7 @@
 			<string>Брой дни с излагания на повишен риск: %u</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Брой дни с излагания на повишен риск: 1</string>
+			<string>Брой дни с излагания на повишен риск - 1</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Брой дни с излагания на повишен риск: %u</string>
