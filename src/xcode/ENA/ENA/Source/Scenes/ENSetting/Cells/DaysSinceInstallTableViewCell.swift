@@ -36,7 +36,7 @@ class DaysSinceInstallTableViewCell: UITableViewCell {
 		if daysSinceInstall < 14 {
 			p2Label.text = String(format: AppStrings.Settings.daysSinceInstallP2a, daysSinceInstall)
 		} else {
-			p2Label.text = AppStrings.Settings.daysSinceInstallP1
+			p2Label.text = AppStrings.Settings.daysSinceInstallP2b
 		}
 	}
 
