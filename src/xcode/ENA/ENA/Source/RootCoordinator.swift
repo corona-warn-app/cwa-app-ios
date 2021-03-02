@@ -81,14 +81,12 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
-		if #available(iOS 13.0, *) {
-			let eventsTabbarItem = UITabBarItem(title: "Events", image: UIImage(systemName: "person.3"), selectedImage: UIImage(systemName: "person.3.fill"))
-			eventsCoordinator.viewController.tabBarItem = eventsTabbarItem
-		}
+		let eventsTabbarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		eventsCoordinator.viewController.tabBarItem = eventsTabbarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, eventsCoordinator.viewController], animated: false)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, eventsCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 
 		viewController.embedViewController(childViewController: tabBarController)
 	}

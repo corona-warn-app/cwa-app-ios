@@ -1761,6 +1761,8 @@ sein.";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
+"Tabbar_CheckIn_Title" = "Check In";
+
 /* Data Donation */
 
 "DataDonation_IntroductionText" = "Teilen Sie Daten über Ihre App-Nutzung mit uns und helfen Sie uns so, die Wirksamkeit der App zu bewerten.";
