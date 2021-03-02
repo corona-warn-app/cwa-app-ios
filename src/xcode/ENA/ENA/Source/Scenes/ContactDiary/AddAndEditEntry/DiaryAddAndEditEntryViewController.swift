@@ -10,12 +10,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	// MARK: - Init
 
 	init(
-		textFiledManager: TextFieldsManager = TextFieldsManager(),
+		textFieldsManager: TextFieldsManager = TextFieldsManager(),
 		viewModel: DiaryAddAndEditEntryViewModel,
 		dismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-		self.textFieldsManager = textFiledManager
+		self.textFieldsManager = textFieldsManager
 		self.dismiss = dismiss
 
 		super.init(nibName: nil, bundle: nil)
@@ -168,6 +168,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		let nameTextField = DiaryEntryTextField(frame: .zero)
 		nameTextField.translatesAutoresizingMaskIntoConstraints = false
+		nameTextField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField
 		nameTextField.isUserInteractionEnabled = true
 		nameTextField.clearButtonMode = .whileEditing
 		nameTextField.placeholder = viewModel.namePlaceholder
@@ -177,7 +178,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		nameTextField.spellCheckingType = .no
 		nameTextField.smartQuotesType = .no
 		nameTextField.keyboardAppearance = .default
-		nameTextField.keyboardType = .namePhonePad
+		nameTextField.keyboardType = .default
 		nameTextField.returnKeyType = .continue
 		nameTextField.addTarget(self, action: #selector(textValueChanged(sender:)), for: .editingChanged)
 		nameTextField.delegate = self
@@ -185,6 +186,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		let phoneNumberTextField = DiaryEntryTextField(frame: .zero)
 		phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = false
+		phoneNumberTextField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField
 		phoneNumberTextField.isUserInteractionEnabled = true
 		phoneNumberTextField.clearButtonMode = .whileEditing
 		phoneNumberTextField.placeholder = viewModel.phoneNumberPlaceholder
@@ -202,6 +204,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		let emailTextField = DiaryEntryTextField(frame: .zero)
 		emailTextField.translatesAutoresizingMaskIntoConstraints = false
+		emailTextField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField
 		emailTextField.isUserInteractionEnabled = true
 		emailTextField.clearButtonMode = .whileEditing
 		emailTextField.placeholder = viewModel.emailAddressPlaceholder
