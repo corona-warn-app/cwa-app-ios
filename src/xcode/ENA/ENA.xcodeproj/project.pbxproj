@@ -796,7 +796,7 @@
 		EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205324E6A3320089264C /* InfoBoxView.swift */; };
 		EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7D205524E6A5930089264C /* InfoBoxViewModel.swift */; };
 		EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7F8E9424E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift */; };
-		EB855EED25EECD9F00FEE17C /* PDFDocument+EmbedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */; };
+		EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */; };
 		EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB858D1F24E700D10048A0AA /* UIView+Screenshot.swift */; };
 		EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912888257FBD1E00241D3E /* DiaryInfoViewModel.swift */; };
 		EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB912889257FBD1E00241D3E /* DiaryInfoViewController.swift */; };
@@ -2899,6 +2899,7 @@
 				2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				5270E9B7256D20A900B08606 /* NSTextAttachment+ImageHeight.swift */,
+				EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */,
 				BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */,
 				AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */,
 				01C6ABF32527273D0052814D /* String+Insertion.swift */,
@@ -2985,7 +2986,6 @@
 		71176E2C24891BCF004B0C9F /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */,
 				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
 				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift */,
@@ -5118,6 +5118,7 @@
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				B120C7CA24AFF12D00F68FF1 /* ActiveTracing.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
+				EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
 				01909877257E64BD0065D050 /* DiaryEditEntriesViewController.swift in Sources */,
@@ -5678,7 +5679,6 @@
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
-				EB855EED25EECD9F00FEE17C /* PDFDocument+EmbedImage.swift in Sources */,
 				EBD2D0A725A86C68006E4220 /* MockRiskProvider.swift in Sources */,
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				BA9E4B0125B5DFCB00F284EF /* RiskLevelPerDay.swift in Sources */,
