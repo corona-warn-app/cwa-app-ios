@@ -83,10 +83,6 @@ enum AppInformationModel {
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 					})
-		]),
-		.section(cells: [
-			.title2(text: AppStrings.ErrorReport.title, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.title)
-			// custom foo…
 		])
 	])
 }

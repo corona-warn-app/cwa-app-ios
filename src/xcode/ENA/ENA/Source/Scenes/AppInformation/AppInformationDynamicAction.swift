@@ -65,4 +65,11 @@ extension DynamicAction {
 			viewController.navigationController?.pushViewController(toViewController, animated: true)
 		}
 	}
+	
+	static func pushErrorLogsCoordinator() -> Self {
+		.execute { viewController, _ in
+			let coordinator = ErrorReportsCoordinator(rootViewController: viewController)
+			coordinator.start()
+		}
+	}
 }
