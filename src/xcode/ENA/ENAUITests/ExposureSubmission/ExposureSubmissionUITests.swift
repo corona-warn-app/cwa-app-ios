@@ -660,7 +660,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		app.launchArguments.append(contentsOf: ["-showTestResultAvailableViewController", "YES"])
 		launch()
-		
+
 		// Open test result available screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
@@ -673,39 +673,39 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.pending.stringValue])
 		launch()
-		
+
 		// Open test result screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
-		
+
 		snapshot("submissionflow_screenshot_test_result_pending")
 	}
-	
+
 	func test_screenshot_test_result_negative() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.negative.stringValue])
 		launch()
-		
+
 		// Open test result screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		XCTAssertTrue(app.staticTexts["AppStrings.ExposureSubmissionResult.procedure"].waitForExistence(timeout: .medium))
-		
+
 		snapshot("submissionflow_screenshot_test_result_negative")
 	}
-	
+
 	func test_screenshot_test_result_positive() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-isSubmissionConsentGiven", "YES"])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		launch()
-		
+
 		// Open test result screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
-		
+
 		snapshot("submissionflow_screenshot_test_result_positive_constent_given")
 	}
 
@@ -718,14 +718,14 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 		navigateToSymptomsOnsetScreen()
-		
+
 		// select date
 		let optionExactDate = app.buttons["AppStrings.DatePickerOption.day"].firstMatch
 		optionExactDate.tap()
-		
+
 		snapshot("submissionflow_screenshot_symptoms_onset_date_option")
 	}
-	
+
 	func test_screenshot_thankyou_screen() {
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
@@ -735,27 +735,27 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.positive.stringValue])
 		launch()
-		
+
 		// Open Intro screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		
+
 		// Open Test Result screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
-		
+
 		// Open Warn Others screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// Open Thank You screen.
 		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
-		
+
 		snapshot("submissionflow_screenshot_thank_you_screen")
 
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		app.alerts.firstMatch.buttons.element(boundBy: 0).tap()
-		
+
 		// Back to homescreen
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
