@@ -40,7 +40,6 @@ extension XCUIElementQuery {
 
 extension XCUIApplication {
 	func setDefaults() {
-		// launchEnvironment["CW_MODE"] = "mock"
 		launchEnvironment["XCUI"] = "YES"
 	}
 
@@ -74,13 +73,5 @@ extension XCUIApplication {
 			localeCode = "\(langCode)-\(regionCode)"
 		}
 		return (langCode, localeCode)
-	}
-}
-
-extension XCTestCase {
-	func wait(for seconds: TimeInterval = 0.2) {
-		let expectation = XCTestExpectation(description: "Pause test")
-		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill() }
-		wait(for: [expectation], timeout: seconds + 1)
 	}
 }
