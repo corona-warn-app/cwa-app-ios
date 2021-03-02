@@ -434,7 +434,7 @@
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
 		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
 		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
-		8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
+		8F11512425DC27E9007BDBC6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
@@ -2415,79 +2415,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		3466A41125D1A0C9002CC49D /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		34B1FDBC25D69F1E00D196C7 /* Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE8325E0113B00D196C7 /* User Metadata */,
-				34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */,
-				34B1FE6825E0108300D196C7 /* Client Metadata */,
-				8FB5A62325DE796400679990 /* Exposure Windows Metadata */,
-				8FB5A64525DEC57F00679990 /* Test Result Metadata */,
-				34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */,
-			);
-			path = Metadata;
-			sourceTree = "<group>";
-		};
-		34B1FE5A25E00FC900D196C7 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FEC325E0202000D196C7 /* ExposureWindowsMetadataServiceTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE6625E0102200D196C7 /* __tests__ */,
-				34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */,
-				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
-				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
-			);
-			path = "Key Submission Metadata";
-			sourceTree = "<group>";
-		};
-		34B1FE6625E0102200D196C7 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
-		34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE6925E010C200D196C7 /* __tests__ */,
-				3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */,
-			);
-			path = "Risk Exposure Metadata";
-			sourceTree = "<group>";
-		};
-		34B1FE6825E0108300D196C7 /* Client Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
-			);
-			path = "Client Metadata";
-			sourceTree = "<group>";
-		};
-		34B1FE6925E010C200D196C7 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		35075C002526367700DE92F7 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
@@ -3324,12 +3251,12 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				EB0F740A25E93C65003BFAE7 /* Event Registration */,
 				B15382DC248270220010F007 /* __tests__ */,
+				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
+				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
+				EB0F740A25E93C65003BFAE7 /* Event Registration */,
 				2FA9E39124D2F2620030561C /* Exposure Submission */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
-				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
-				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				AB5F84AB24F8F6EB000400D4 /* Migration */,
 				504C9CC725C44BE60005875B /* OTP */,
 				BA07735A25C2FC5E00EAF6B8 /* PPAccessControl */,
@@ -5336,7 +5263,6 @@
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
-				B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */,
 				EB0F742D25E943FE003BFAE7 /* check_in_export.pb.swift in Sources */,
 				0144DDB625D5596800CFB1D1 /* MockDiaryStore.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
