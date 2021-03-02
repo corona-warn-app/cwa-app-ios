@@ -10,10 +10,8 @@ final class QRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDele
 	// MARK: - Init
 
 	override init() {
-		self.captureSession = AVCaptureSession()
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		super.init()
-		setupCaptureSession()
 	}
 
 	// MARK: - Overrides
@@ -32,17 +30,33 @@ final class QRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDele
 
 	// MARK: - Internal
 
-	let captureSession: AVCaptureSession
+	lazy var captureSession: AVCaptureSession? = {
+		guard let currentCaptureDevice = captureDevice,
+			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
+			onError?(.cameraPermissionDenied)
+			return nil
+		}
+
+		let metadataOutput = AVCaptureMetadataOutput()
+		let captureSession = AVCaptureSession()
+		captureSession.addInput(captureDeviceInput)
+		captureSession.addOutput(metadataOutput)
+		metadataOutput.metadataObjectTypes = [.qr]
+		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+		return captureSession
+	}()
+
+//	let captureSession: AVCaptureSession
 
 	var onSuccess: ((String) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
 
 	func activateScanning() {
-		captureSession.startRunning()
+		captureSession?.startRunning()
 	}
 
 	func deactivateScanning() {
-		captureSession.stopRunning()
+		captureSession?.stopRunning()
 	}
 
 	// MARK: - Private
@@ -50,7 +64,7 @@ final class QRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDele
 	private let captureDevice: AVCaptureDevice?
 
 	private var isScanningActivated: Bool {
-		captureSession.isRunning
+		captureSession?.isRunning ?? false
 	}
 
 	func setupCaptureSession() {
@@ -61,8 +75,8 @@ final class QRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDele
 		}
 
 		let metadataOutput = AVCaptureMetadataOutput()
-		captureSession.addInput(captureDeviceInput)
-		captureSession.addOutput(metadataOutput)
+		captureSession?.addInput(captureDeviceInput)
+		captureSession?.addOutput(metadataOutput)
 		metadataOutput.metadataObjectTypes = [.qr]
 		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 	}

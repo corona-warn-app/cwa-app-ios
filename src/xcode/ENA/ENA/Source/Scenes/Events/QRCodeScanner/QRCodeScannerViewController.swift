@@ -9,10 +9,7 @@ class QRCodeScannerViewController: UIViewController {
 
 	// MARK: - Init
 
-	init(
-		dismiss: @escaping () -> Void
-	) {
-		self.dismiss = dismiss
+	init() {
 		self.viewModel = QRCodeScannerViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -30,6 +27,12 @@ class QRCodeScannerViewController: UIViewController {
 		setupViewModel()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		viewModel.activateScanning()
+	}
+
 	// MARK: - Protocol <#Name#>
 
 	// MARK: - Public
@@ -40,23 +43,24 @@ class QRCodeScannerViewController: UIViewController {
 
 	private let viewModel: QRCodeScannerViewModel
 	private var previewLayer: AVCaptureVideoPreviewLayer!
-	private let dismiss: () -> Void
 
 	private func setupViewModel() {
+		guard let captureSession = viewModel.captureSession else {
+			Log.debug("Failed to setup captureSession")
+			return
+		}
+
 		viewModel.onSuccess = { [weak self] stringValue in
 			Log.debug("QRCode found: \(stringValue)")
-			self?.dismiss()
 		}
 
 		viewModel.onError = { _ in
 			Log.debug("Error handling not done right now")
 		}
 
-		previewLayer = AVCaptureVideoPreviewLayer(session: viewModel.captureSession)
+		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		previewLayer.frame = view.layer.bounds
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.addSublayer(previewLayer)
-
-		viewModel.activateScanning()
 	}
 }
