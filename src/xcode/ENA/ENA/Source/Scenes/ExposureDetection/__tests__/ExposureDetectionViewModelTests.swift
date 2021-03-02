@@ -892,7 +892,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -933,7 +933,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -977,7 +977,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 1)
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
