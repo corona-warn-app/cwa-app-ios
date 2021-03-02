@@ -97,19 +97,20 @@ class ENAUITests_Statistics: XCTestCase {
 		}
 	}
 	
-	func test_screenshot_statisticsCardTitles() throws {
+	func test_screenshot_statistics_card_titles() throws {
 		// GIVEN
 		let infectionsTitle = AccessibilityIdentifiers.Statistics.Infections.title
 		let keySubmissionsTitle = AccessibilityIdentifiers.Statistics.KeySubmissions.title
 		let incidenceTitle = AccessibilityIdentifiers.Statistics.Incidence.title
 		let reproductionNumberTitle = AccessibilityIdentifiers.Statistics.ReproductionNumber.title
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
+		var screenshotCounter = 0
 
 		// WHEN
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
-		
+
 		// THEN
 		switch layoutDirection {
 		case .rightToLeft:
@@ -135,7 +136,9 @@ class ENAUITests_Statistics: XCTestCase {
 			XCTAssert(self.app.staticTexts[reproductionNumberTitle].waitForExistence(timeout: .medium))
 			snapshot("statistics_7Day_rvalue")
 			cardReproductionNumberOpenInfoScreen(reproductionNumberTitle)
-			snapshot("statistics_info_screen")
+			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+			app.swipeUp(velocity: .slow)
+			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 			app.staticTexts[reproductionNumberTitle].swipeRight()
 		}
 	}
@@ -173,7 +176,7 @@ class ENAUITests_Statistics: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: .short))
 		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
 	}
-
+	
 	private func cardReproductionNumberOpenInfoScreen(_ title4: String) {
 		XCTAssert(app.staticTexts[title4].waitForExistence(timeout: .medium))
 		XCTAssert(app.buttons[AccessibilityIdentifiers.Statistics.ReproductionNumber.infoButton].exists)
