@@ -1917,3 +1917,5 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
 
 "ErrorReport_PrivacyInformation" = "";
+
+"ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";

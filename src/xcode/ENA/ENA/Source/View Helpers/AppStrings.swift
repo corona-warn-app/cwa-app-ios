@@ -1318,6 +1318,7 @@ enum AppStrings {
 		static let faq = NSLocalizedString("ErrorReport_FAQ", comment: "")
 		static let description2 = NSLocalizedString("ErrorReport_Description2", comment: "")
 		static let privacyInformation = NSLocalizedString("ErrorReport_PrivacyInformation", comment: "")
+		static let detailedInformationTitle = NSLocalizedString("errorReport_DetailedInformation_Title", comment: "")
 		
 		enum Legal {
 			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
