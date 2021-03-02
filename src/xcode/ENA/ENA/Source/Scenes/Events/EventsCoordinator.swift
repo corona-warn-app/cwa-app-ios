@@ -22,10 +22,18 @@ final class EventsCoordinator {
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {
-		let qrCodeScanner = QRCodeScannerViewController()
+		let qrCodeScanner = QRCodeScannerViewController(
+			presentCheckIns: { [weak self] in
+				self?.showCheckIns()
+			})
 		return UINavigationController(rootViewController: qrCodeScanner)
 	}()
 
 	// MARK: - Private
+
+	private func showCheckIns() {
+		let checkInsViewController = CheckInsTableViewController()
+		viewController.pushViewController(checkInsViewController, animated: true)
+	}
 
 }
