@@ -139,7 +139,6 @@ class ENAUITests_Statistics: XCTestCase {
 			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 			app.swipeUp(velocity: .slow)
 			snapshot("statistics_info_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-			app.staticTexts[reproductionNumberTitle].swipeRight()
 		}
 	}
 

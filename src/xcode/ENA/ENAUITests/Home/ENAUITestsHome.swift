@@ -286,7 +286,7 @@ class ENAUITests_01_Home: XCTestCase {
 		let riskLevel = "high"
 		// change the value based on N
 		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
@@ -296,14 +296,14 @@ class ENAUITests_01_Home: XCTestCase {
 		riskCell.tap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
+   }
 
-	func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
+   func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		// change the value based on N
 		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", "1"])
@@ -314,16 +314,18 @@ class ENAUITests_01_Home: XCTestCase {
 		riskCell.tap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
+   }
 
-	func test_screenshot_homescreen_thankyou_screen() throws {
+   func test_screenshot_homescreen_thankyou_screen() throws {
 		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-showThankYouScreen", "YES"])
 		app.launch()
-		
+
 		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-		app.swipeUp()
+		app.swipeUp(velocity: .slow)
 		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+   }
 }
