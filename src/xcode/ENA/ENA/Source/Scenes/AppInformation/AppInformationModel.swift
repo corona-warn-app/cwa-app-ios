@@ -86,14 +86,14 @@ enum AppInformationModel {
 			]),
 		.section(cells: [
 			.acknowledgement(
-				title: NSAttributedString(string: "TODO LEGAL TITLE"),
+				title: NSAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Headline),
 				description: nil,
 				bulletPoints: [
-					NSMutableAttributedString(string: "TODO LEGAL BULLET 1"),
-					NSMutableAttributedString(string: "TODO LEGAL BULLET 2"),
-					NSMutableAttributedString(string: "TODO LEGAL BULLET 3"),
-					NSMutableAttributedString(string: "TODO LEGAL BULLET 4"),
-					NSMutableAttributedString(string: "TODO LEGAL BULLET 5")
+					NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet1),
+					NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet2),
+					NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet3),
+					NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet4),
+					NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet5)
 				],
 				accessibilityIdentifier: "TODO ACCESSABILITY IDENTIFIER")
 		])
