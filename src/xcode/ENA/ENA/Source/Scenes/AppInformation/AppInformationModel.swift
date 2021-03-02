@@ -69,7 +69,7 @@ enum AppInformationModel {
 	static let errorReportModel = DynamicTableViewModel([
 		.section(cells: [
 			.body(text: AppStrings.ErrorReport.description1),
-			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq), // TODO: get correct link! https://www.figma.com/file/jYFqboxVmVDOM8S7sFggw2?node-id=4752:25485#64933782
+			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq), // TO DO: get correct link! https://www.figma.com/file/jYFqboxVmVDOM8S7sFggw2?node-id=4752:25485#64933782
 			.headline(text: AppStrings.ErrorReport.description2)
 		]),
 		.section(
@@ -79,7 +79,7 @@ enum AppInformationModel {
 					text: AppStrings.ErrorReport.privacyInformation,
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.privacyInformation,
 					accessibilityTraits: .link,
-					action: .none /* TODO: .push model or view controller */,
+					action: .none /* TO DO: .push model or view controller */,
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 					})
