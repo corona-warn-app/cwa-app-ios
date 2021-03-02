@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		var route: Route? = nil
+		var route: Route?
 		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
 			for key in activityDictionary.keys {
 				if let userActivity = activityDictionary[key] as? NSUserActivity {
