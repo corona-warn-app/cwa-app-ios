@@ -101,6 +101,14 @@ class HomeState: ENStateHandlerUpdating {
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
 	}
 
+	var shouldShowDaysSinceInstallation: Bool {
+		daysSinceInstallation < 14
+	}
+
+	var daysSinceInstallation: Int {
+		store.appFirstStartDate?.ageInDays ?? 0
+	}
+
 	func updateDetectionMode(_ detectionMode: DetectionMode) {
 		self.detectionMode = detectionMode
 	}

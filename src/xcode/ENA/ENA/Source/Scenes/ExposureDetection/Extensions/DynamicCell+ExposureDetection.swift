@@ -71,10 +71,9 @@ extension DynamicCell {
 		}
 	}
 
-	static func riskStored() -> DynamicCell {
-		.risk { viewController, cell, _ in
-			// TODO: RDA
-			cell.textLabel?.text = "Some text" //activeTracing.localizedDuration
+	static func riskStored(daysSinceInstallation: Int) -> DynamicCell {
+		.risk { _, cell, _ in
+			cell.textLabel?.text = String(format: AppStrings.ExposureDetection.daysSinceInstallation, daysSinceInstallation)
 			cell.imageView?.image = UIImage(named: "Icons-DaysSinceInstall")
 		}
 	}

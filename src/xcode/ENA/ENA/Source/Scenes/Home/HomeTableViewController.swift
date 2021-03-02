@@ -555,15 +555,23 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
-		// TODO: RDA
-		let title = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
-		let message = String(
-			format: NSLocalizedString(
-				"How_Risk_Detection_Works_Alert_Message",
-				comment: ""
-			),
-			13 //TracingStatusHistory.maxStoredDays
-		)
+		let title = AppStrings.Home.riskDetectionHowToAlertTitle
+		var message = AppStrings.Home.riskDetectionHowToAlertP1
+		message.append("\n\n")
+
+		if viewModel.state.shouldShowDaysSinceInstallation {
+			message.append(
+				String(
+					format: AppStrings.Home.riskDetectionHowToAlertP2a,
+					viewModel.state.daysSinceInstallation
+				)
+			)
+		} else {
+			message.append(AppStrings.Home.riskDetectionHowToAlertP2b)
+		}
+
+		message.append("\n\n")
+		message.append(AppStrings.Home.riskDetectionHowToAlertP3)
 
 		let alert = UIAlertController(
 			title: title,

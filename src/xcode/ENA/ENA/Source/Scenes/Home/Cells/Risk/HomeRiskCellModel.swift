@@ -271,32 +271,9 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			formattedMostRecentDateWithLowRisk = dateFormatter.string(from: mostRecentDateWithLowRisk)
 		}
 
-		// TODO: RDA
-		let activeTracingDaysModel = HomeImageItemViewModel(
-			title: "To be done", //activeTracing.localizedDuration,
-			titleColor: titleColor,
-			iconImageName: "Icons_TracingCircleFull - Dark", //activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
-			    //"Icons_TracingCircleFull - Dark" :
-			    //"Icons_TracingCircle-Dark_Step \(activeTracing.inDays)",
-		    iconTintColor: titleColor,
-		    color: backgroundColor,
-		    separatorColor: separatorColor,
-		    containerInsets: nil
-	    )
-		let recentRiskDaysModel = HomeImageItemViewModel(
-			title: String(
-				format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
-				formattedMostRecentDateWithLowRisk
-		    ),
-		    titleColor: titleColor,
-		    iconImageName: "Icons_Calendar",
-		    iconTintColor: titleColor,
-		    color: backgroundColor,
-		    separatorColor: separatorColor,
-		    containerInsets: nil
-	    )
+		itemViewModels = []
 
-		itemViewModels = [
+		itemViewModels.append(
 			HomeImageItemViewModel(
 				title: String(
 					format: AppStrings.Home.riskCardLowNumberContactsItemTitle,
@@ -308,8 +285,38 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				color: backgroundColor,
 				separatorColor: separatorColor,
 				containerInsets: nil
-			),
-			risk.details.numberOfDaysWithRiskLevel > 0 ? recentRiskDaysModel : activeTracingDaysModel,
+			)
+		)
+
+		if risk.details.numberOfDaysWithRiskLevel > 0 {
+			let recentRiskDaysModel = HomeImageItemViewModel(
+				title: String(
+					format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
+					formattedMostRecentDateWithLowRisk
+				),
+				titleColor: titleColor,
+				iconImageName: "Icons_Calendar",
+				iconTintColor: titleColor,
+				color: backgroundColor,
+				separatorColor: separatorColor,
+				containerInsets: nil
+			)
+			itemViewModels.append(recentRiskDaysModel)
+
+		} else if homeState.shouldShowDaysSinceInstallation {
+			let daysSinceInstallationModel = HomeImageItemViewModel(
+				title: String(format: AppStrings.Home.daysSinceInstallation, homeState.daysSinceInstallation),
+				titleColor: titleColor,
+				iconImageName: "Icons-DaysSinceInstall",
+				iconTintColor: titleColor,
+				color: backgroundColor,
+				separatorColor: separatorColor,
+				containerInsets: nil
+			)
+			itemViewModels.append(daysSinceInstallationModel)
+		}
+
+		itemViewModels.append(
 			HomeImageItemViewModel(
 				title: String(
 					format: AppStrings.Home.riskCardDateItemTitle,
@@ -322,7 +329,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				separatorColor: separatorColor,
 				containerInsets: nil
 			)
-		]
+		)
 	}
 
 	private func setupForHighRiskState(risk: Risk) {

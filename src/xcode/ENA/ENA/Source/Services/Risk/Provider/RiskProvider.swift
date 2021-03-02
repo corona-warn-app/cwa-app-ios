@@ -71,7 +71,7 @@ final class RiskProvider: RiskProviding {
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
-		successOnTargetQueue(risk: Risk.mocked(level: .low))
+		successOnTargetQueue(risk: Risk.mocked(level: .high))
 
 //		guard activityState == .idle else {
 //			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)

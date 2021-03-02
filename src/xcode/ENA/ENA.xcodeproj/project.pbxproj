@@ -537,6 +537,7 @@
 		AB7DE73A25C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB7DE73525C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib */; };
 		AB7DE74F25C861A900C52B3F /* ExposureDetectionSurveyCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE73325C8528600C52B3F /* ExposureDetectionSurveyCellModelTests.swift */; };
 		AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */; };
+		AB83F0D425ED476F00374BAD /* DaysSinceInstallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB84247FB43A001B0A71 /* DaysSinceInstallTableViewCell.swift */; };
 		AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B0D3425305384009C067B /* Localizable.links.strings */; };
 		AB8B0D4525306089009C067B /* Localizable.links.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B0D3425305384009C067B /* Localizable.links.strings */; };
 		AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BC3462551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift */; };
@@ -767,7 +768,6 @@
 		EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */; };
 		EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */; };
 		EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */; };
-		EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB84247FB43A001B0A71 /* TracingHistoryTableViewCell.swift */; };
 		EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */; };
 		EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */; };
 		EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */; };
@@ -1605,7 +1605,7 @@
 		EBDE11B1255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewController.swift; sourceTree = "<group>"; };
 		EBDE11BA255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeviceTimeCheckViewModel.swift; sourceTree = "<group>"; };
 		EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateHandler.swift; sourceTree = "<group>"; };
-		EE22DB84247FB43A001B0A71 /* TracingHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracingHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		EE22DB84247FB43A001B0A71 /* DaysSinceInstallTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaysSinceInstallTableViewCell.swift; sourceTree = "<group>"; };
 		EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
@@ -2068,7 +2068,7 @@
 		01D026CF258BB65B00B6389A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				EE22DB84247FB43A001B0A71 /* TracingHistoryTableViewCell.swift */,
+				EE22DB84247FB43A001B0A71 /* DaysSinceInstallTableViewCell.swift */,
 				EE22DB85247FB43A001B0A71 /* ImageTableViewCell.swift */,
 				EE22DB87247FB43A001B0A71 /* DescriptionTableViewCell.swift */,
 				EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */,
@@ -5105,6 +5105,7 @@
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
 				945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift in Sources */,
+				AB83F0D425ED476F00374BAD /* DaysSinceInstallTableViewCell.swift in Sources */,
 				34B1FE3025DDAD4A00D196C7 /* ClientMetadata.swift in Sources */,
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
@@ -5178,7 +5179,6 @@
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
 				BAC42DC42583AF9D001A94C0 /* DiaryEntryTextField.swift in Sources */,
 				017AD0C1259BBD1700FA2B3F /* HomeTestResultTableViewCell.swift in Sources */,
-				EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */,
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
 				BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */,
 				01EA176A2590EF4F00E98E02 /* HomeTableViewModel.swift in Sources */,
