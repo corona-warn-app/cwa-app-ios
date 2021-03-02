@@ -79,6 +79,13 @@ extension AppDelegate {
 		]
 	}
 
+
+	/// General handler for all shortcut items.
+	///
+	///  Currently implemented:
+	///   - New Dictionary Entry
+	///
+	/// - Parameter shortcutItem: the item to launch
 	func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
 		Log.debug("Did open app via shortcut \(shortcutItem.type)", log: .ui)
 		if shortcutItem.type == AppDelegate.shortcutIdDiaryNewEntry {
@@ -89,7 +96,7 @@ extension AppDelegate {
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 
-			// let diary coordinator handle navigation
+			// let diary coordinator handle pre-checks & navigation
 			coordinator.diaryCoordinator?.showCurrentDayScreen()
 		}
 	}
