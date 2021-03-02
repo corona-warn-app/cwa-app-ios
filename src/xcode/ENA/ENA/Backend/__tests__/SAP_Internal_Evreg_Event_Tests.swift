@@ -14,8 +14,12 @@ class SAP_Internal_Evreg_Event_Tests: XCTestCase {
 			XCTFail("Failed to decode Data")
 			return
 		}
-		let proto = try SAP_Internal_Evreg_Event(serializedData: data)
-		print(proto)
+		let event = try SAP_Internal_Evreg_Event(serializedData: data)
+		XCTAssertEqual(event.description_p, "CWA Launch Party")
+		XCTAssertEqual(event.start, 2687955)
+		XCTAssertEqual(event.end, 2687991)
+		XCTAssertEqual(event.defaultCheckInLengthInMinutes, 30)
+		
     }
 
 }
