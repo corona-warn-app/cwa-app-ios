@@ -27,7 +27,7 @@ class ENAUITests_Statistics: XCTestCase {
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 
 		// WHEN
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
 		
@@ -63,7 +63,7 @@ class ENAUITests_Statistics: XCTestCase {
 		let layoutDirection = UIView.userInterfaceLayoutDirection(for: UIView().semanticContentAttribute)
 		
 		// WHEN
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
 		
@@ -107,7 +107,7 @@ class ENAUITests_Statistics: XCTestCase {
 		var screenshotCounter = 0
 
 		// WHEN
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		app.swipeUp(velocity: .slow)
 

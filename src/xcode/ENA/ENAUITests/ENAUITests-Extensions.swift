@@ -50,9 +50,9 @@ extension XCUIApplication {
 		launchEnvironment["XCUI"] = "YES"
 	}
 
-	func setPreferredContentSizeCategory(accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
+	func setPreferredContentSizeCategory(accessibility: SizeCategoryAccessibility, size: SizeCategory) {
 		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
-		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)"]
+		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibility.description())\(size)"]
 	}
 
 	func localized(_ key: String) -> String {
