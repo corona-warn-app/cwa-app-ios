@@ -67,7 +67,10 @@ class BackgroundAppRefreshViewController: UIViewController {
 	@IBOutlet private weak var contentScrollView: UIScrollView!
 	
 	private func setupView() {
-		title = viewModel.title
+		navigationItem.title = viewModel.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
+		
 		subTitleLabel.text = viewModel.subTitle
 		descriptionLabel.text = viewModel.description
 		settingsHeaderLabel.text = viewModel.settingsHeaderTitle
