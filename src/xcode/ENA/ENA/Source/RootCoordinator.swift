@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import PDFKit
 
 /**
 	A delegate protocol for reseting the state of the app, when Reset functionality is used.
@@ -77,11 +78,32 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
+		
+		let pdfVC = UIViewController()
+		
+		
+		guard let qrCodeImage = QRCodePlayground.generateQRCode(with: "HTTPS://CORONAWARN.APP/E1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA====.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ") else {
+			return
+		}
+		let pdfView = PDFView()
+	
+
+		pdfVC.view = pdfView
+		
+		let documentURL = Bundle.main.url(forResource: "qr-code-print-template", withExtension: "pdf")!
+		
+		// Create a `PDFDocument` object using the URL.
+		let pdfDocument = PDFDocument(url: documentURL)!
+		
+		pdfDocument.embed(image: qrCodeImage, at: CGPoint(x: 100, y: 100))
+		
+		pdfView.document = pdfDocument
+		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
 
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
 		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
+		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController, pdfVC], animated: false)
 
 		viewController.embedViewController(childViewController: tabbarVC)
 	}
