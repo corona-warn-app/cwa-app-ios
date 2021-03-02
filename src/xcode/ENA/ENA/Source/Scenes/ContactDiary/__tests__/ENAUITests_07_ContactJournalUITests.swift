@@ -156,7 +156,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		
 		// add a person
 		addPersonToDayEntry("Andrea")
-
+		
 		// switch to places
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 		
@@ -184,7 +184,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		snapshot("contact_journal_listing1_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
-	func testAddTwoPersonsAndOneLocationToDate() throws {
+	func testScreenshotAddTwoPersonsAndOneLocationToDate() throws {
 		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
@@ -208,7 +208,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 
 		// deselect Manu Mustermann - 1 because new persons get entered on top
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).tap()
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
@@ -234,6 +234,78 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(dayCell.staticTexts["Marcus Mustermann"].exists)
 		XCTAssertTrue(dayCell.staticTexts["Pommesbude"].exists)
 		XCTAssertFalse(dayCell.staticTexts["Manu Mustermann"].exists)
+	}
+
+	func testScreenshotContactJournalInformation() throws {
+		var screenshotCounter = 0
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "NO"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+
+		// Check whether we have entered the info screen.
+		XCTAssertTrue(app.images["AppStrings.ContactDiaryInformation.imageDescription"].waitForExistence(timeout: .medium))
+		
+		app.swipeUp(velocity: .fast)
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		
+		app.swipeUp(velocity: .fast)
+		// take screenshot
+		snapshot("contact_journal_information_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func testScreenshotAddTwoPersonsTwoLocations() throws {
+		// setting up launch arguments
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		
+		// navigate to desired screen
+		navigateToJournalOverview()
+		
+		// select first cell
+		app.cells.element(boundBy: 1).tap()
+		
+		// add persons
+		addPersonToDayEntry("Erika Mustermann")
+		addPersonToDayEntry("Max Mustermann")
+		// take screenshot
+		snapshot("contact_journal_listing_add_persons")
+		
+		// switch to places
+		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
+		
+		// add locations
+		addLocationToDayEntry("Sportzentrum")
+		addLocationToDayEntry("Büro")
+		// take screenshot
+		snapshot("contact_journal_listing_add_locations")
+		
+		// go back
+		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
+	}
+
+	func testScreenshotEditPersonScreen() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		// open sheet to edit persons
+		openEditPersonViaSheet()
+		
+		// take screenshot
+		snapshot("contact_journal_listing_edit_persons")
+	}
+	
+	func testScreenshotEditLocationScreen() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+
+		// open sheet to edit locations
+		openEditLocationsViaSheet()
+		
+		// take screenshot
+		snapshot("contact_journal_listing_edit_locations")
 	}
 
 	func testAddPersonToDate() throws {
@@ -327,6 +399,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 	}
 
 	func testOverviewWithRiskLevelHighOnToday() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
 

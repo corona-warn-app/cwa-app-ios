@@ -28,11 +28,46 @@ class DiaryDayTest: XCTestCase {
 
 	func testSelectedEntries() throws {
 		let dateString = "2020-12-16"
+
+		let selectedContactPerson = DiaryContactPerson(
+			id: 0,
+			name: "Thomas Mesow",
+			encounter: ContactPersonEncounter(
+				id: 0,
+				date: dateString,
+				contactPersonId: 0
+			)
+		)
+
+		let selectedLocation = DiaryLocation(
+			id: 1,
+			name: "Supermarkt",
+			visit: LocationVisit(
+				id: 0,
+				date: dateString,
+				locationId: 1
+			)
+		)
+
 		let entries: [DiaryEntry] = [
-			.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
-			.contactPerson(DiaryContactPerson(id: 1, name: "Thomas Augsten")),
-			.location(DiaryLocation(id: 0, name: "Bäckerei")),
-			.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
+			.contactPerson(
+				selectedContactPerson
+			),
+			.contactPerson(
+				DiaryContactPerson(
+					id: 1,
+					name: "Thomas Augsten"
+				)
+			),
+			.location(
+				DiaryLocation(
+					id: 0,
+					name: "Bäckerei"
+				)
+			),
+			.location(
+				selectedLocation
+			)
 		]
 
 		let diaryDay = DiaryDay(
@@ -41,8 +76,8 @@ class DiaryDayTest: XCTestCase {
 		)
 
 		XCTAssertEqual(diaryDay.selectedEntries, [
-			.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounterId: 0)),
-			.location(DiaryLocation(id: 1, name: "Supermarkt", visitId: 0))
+			.contactPerson(selectedContactPerson),
+			.location(selectedLocation)
 		])
 	}
 

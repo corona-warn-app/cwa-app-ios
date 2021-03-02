@@ -10,9 +10,10 @@ class DataDonationModelTests: XCTestCase {
 	func testGIVEN_ModelWithJson_WHEN_GetValues_THEN_ValuesAreEqualToDefault() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-
+		mockStore.isPrivacyPreservingAnalyticsConsentGiven = false
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
+
 
 		// WHEN
 		let consentGiven = model.isConsentGiven
@@ -33,7 +34,7 @@ class DataDonationModelTests: XCTestCase {
 	func testGIVEN_ModelWithInvalidJson_WHEN_GetValues_THEN_ValuesAreEqualToDefault() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-
+		mockStore.isPrivacyPreservingAnalyticsConsentGiven = false
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testDataInvalid", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
 
@@ -57,7 +58,7 @@ class DataDonationModelTests: XCTestCase {
 		// GIVEN
 		let mockStore = MockTestStore()
 		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
+		mockStore.userData = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		let model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
@@ -78,7 +79,6 @@ class DataDonationModelTests: XCTestCase {
 	func testGIVEN_Model_WHEN_InvalidateConsentAndSave_THEN_ValuesAreNil() throws {
 		// GIVEN
 		let mockStore = MockTestStore()
-		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
 		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
@@ -103,7 +103,7 @@ class DataDonationModelTests: XCTestCase {
 		// GIVEN
 		let mockStore = MockTestStore()
 		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		mockStore.userMetadata = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
+		mockStore.userData = UserMetadata(federalState: FederalStateName.schleswigHolstein, administrativeUnit: 11001053, ageGroup: .ageBelow29)
 
 		let fileURL = try XCTUnwrap(Bundle(for: type(of: self)).url(forResource: "testData", withExtension: "json"))
 		var model = DataDonationModel(store: mockStore, jsonFileURL: fileURL)
@@ -112,7 +112,7 @@ class DataDonationModelTests: XCTestCase {
 		model.save()
 
 		// THEN
-		let userMetaData = try XCTUnwrap(mockStore.userMetadata)
+		let userMetaData = try XCTUnwrap(mockStore.userData)
 		XCTAssertEqual(userMetaData.ageGroup?.text, model.age)
 		XCTAssertEqual(userMetaData.federalState?.rawValue, model.federalStateName)
 		XCTAssertEqual(userMetaData.administrativeUnit, 11001053)
