@@ -42,7 +42,7 @@ extension Risk {
 			level: level,
 			details: Risk.Details(
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -2 * 3600),
-				numberOfDaysWithRiskLevel: 1, //numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
+				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
 				exposureDetectionDate: Date()),
 			riskLevelHasChanged: true
 		)
