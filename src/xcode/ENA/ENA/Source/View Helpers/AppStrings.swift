@@ -1313,5 +1313,14 @@ enum AppStrings {
 		}
 	}
 
+	enum Events {
+
+		enum QRScanner {
+			static let title = NSLocalizedString("Events_QR_Scanner_Title", comment: "")
+			static let checkinsButton = NSLocalizedString("Events_Qr_Scanner_Button_CheckIns", comment: "")
+		}
+
+	}
+
 	// swiftlint:disable:next file_length
 }
