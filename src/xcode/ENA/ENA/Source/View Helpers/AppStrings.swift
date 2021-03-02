@@ -1318,6 +1318,27 @@ enum AppStrings {
 		static let faq = NSLocalizedString("ErrorReport_FAQ", comment: "")
 		static let description2 = NSLocalizedString("ErrorReport_Description2", comment: "")
 		static let privacyInformation = NSLocalizedString("ErrorReport_PrivacyInformation", comment: "")
+		
+		enum Legal {
+			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacy_Bullet1 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet1", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacy_Bullet2 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet2", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacy_Bullet3 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet3", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacy_Bullet4 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet4", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacy_Bullet5 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet5", tableName: "Localizable.legal", comment: "")
+			
+			static let consent_Headline = NSLocalizedString("errorReport_Legal_Consent_Headline", tableName: "Localizable.legal", comment: "")
+			static let consent_Intro = NSLocalizedString("errorReport_Legal_Consent_Intro", tableName: "Localizable.legal", comment: "")
+			static let consent_Bullet1_Header = NSLocalizedString("errorReport_Legal_Consent_Bullet1_Header", tableName: "Localizable.legal", comment: "")
+			static let consent_Bullet1_Paragraph = NSLocalizedString("errorReport_Legal_Consent_Bullet1_Paragraph", tableName: "Localizable.legal", comment: "")
+			static let consent_Bullet2 = NSLocalizedString("errorReport_Legal_Consent_Bullet2", tableName: "Localizable.legal", comment: "")
+			static let consent_Last_Paragraph = NSLocalizedString("errorReport_Legal_Consent_LastParagraph", tableName: "Localizable.legal", comment: "")
+			
+			static let detailedInfo_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
+			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
+			static let detailedInfo_Subheadline = NSLocalizedString("errorReport_Legal_DetailedInformation_Subheadline", tableName: "Localizable.legal", comment: "")
+			static let detailedInfo_Content2 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content2", tableName: "Localizable.legal", comment: "")
+		}
 	}
 	// swiftlint:disable:next file_length
 }
