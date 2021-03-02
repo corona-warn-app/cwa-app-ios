@@ -23,6 +23,9 @@ final class EventsCoordinator {
 
 	lazy var viewController: UINavigationController = {
 		let qrCodeScanner = QRCodeScannerViewController(
+			presentEventForCheckIn: { [weak self] event in
+				self?.showEventForCheckIn(event)
+			},
 			presentCheckIns: { [weak self] in
 				self?.showCheckIns()
 			})
@@ -33,14 +36,23 @@ final class EventsCoordinator {
 	// MARK: - Private
 
 	private func showCheckIns() {
-		let eventDetailViewController = EventDetailViewController("Ich bin ein TestEvent")
+		let checkInsViewController = CheckInsTableViewController()
+		viewController.pushViewController(checkInsViewController, animated: true)
+	}
+
+	private func showEventForCheckIn(_ event: String) {
+		let eventDetailViewController = EventDetailViewController(
+			"Ich bin ein TestEvent",
+			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
+			presentCheckIns: { [weak self] in
+				self?.viewController.dismiss(animated: true, completion: {
+					self?.showCheckIns()
+				})
+			}
+		)
 		eventDetailViewController.modalPresentationStyle = .overCurrentContext
-//		eventDetailViewController.isModalInPresentation = false
 		eventDetailViewController.modalTransitionStyle = .flipHorizontal
 		viewController.present(eventDetailViewController, animated: true)
-
-//		let checkInsViewController = CheckInsTableViewController()
-//		viewController.pushViewController(checkInsViewController, animated: true)
 	}
 
 }

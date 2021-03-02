@@ -10,8 +10,10 @@ class QRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
+		presentEventForCheckIn: @escaping (String) -> Void,
 		presentCheckIns: @escaping () -> Void
 	) {
+		self.presentEventForCheckIn = presentEventForCheckIn
 		self.presentCheckIns = presentCheckIns
 		self.viewModel = QRCodeScannerViewModel()
 		super.init(nibName: nil, bundle: nil)
@@ -49,8 +51,10 @@ class QRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
+	private let presentEventForCheckIn: (String) -> Void
 	private let presentCheckIns: () -> Void
 	private let viewModel: QRCodeScannerViewModel
+
 	private var previewLayer: AVCaptureVideoPreviewLayer!
 
 	private func setupView() {
@@ -87,7 +91,7 @@ class QRCodeScannerViewController: UIViewController {
 		}
 
 		viewModel.onSuccess = { [weak self] stringValue in
-			Log.debug("QRCode found: \(stringValue)")
+			self?.presentEventForCheckIn(stringValue)
 		}
 
 		viewModel.onError = { _ in
