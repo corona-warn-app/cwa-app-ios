@@ -28,14 +28,24 @@ class ErrorReportViewController: DynamicTableViewController {
 		return cell
 	}
 	
+	// MARK: - Internal
+
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
+		case link = "linkCell"
+	}
+
 	// MARK: - Private
 	
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		
 		tableView.register(
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
-			forCellReuseIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link.rawValue
+			forCellReuseIdentifier: ReuseIdentifiers.link.rawValue
+		)
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 	}
 }

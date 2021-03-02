@@ -83,7 +83,20 @@ enum AppInformationModel {
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 					})
-			])
+			]),
+		.section(cells: [
+			.acknowledgement(
+				title: NSAttributedString(string: "TODO LEGAL TITLE"),
+				description: nil,
+				bulletPoints: [
+					NSMutableAttributedString(string: "TODO LEGAL BULLET 1"),
+					NSMutableAttributedString(string: "TODO LEGAL BULLET 2"),
+					NSMutableAttributedString(string: "TODO LEGAL BULLET 3"),
+					NSMutableAttributedString(string: "TODO LEGAL BULLET 4"),
+					NSMutableAttributedString(string: "TODO LEGAL BULLET 5")
+				],
+				accessibilityIdentifier: "TODO ACCESSABILITY IDENTIFIER")
+		])
 	])
 }
 
