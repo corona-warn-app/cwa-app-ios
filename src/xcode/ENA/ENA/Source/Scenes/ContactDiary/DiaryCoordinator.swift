@@ -73,16 +73,28 @@ class DiaryCoordinator {
 			return
 		}
 
-		// prevent navigation issues by falling back to overview screen
-		self.viewController.popToRootViewController(animated: true)
-
+		// check if the data model is correct
 		let model = DiaryOverviewViewModel(
 			diaryStore: diaryStore,
 			store: store,
 			homeState: homeState
 		)
-		guard let today = model.days.first else { return }
-		self.showDayScreen(day: today)
+		guard let today = model.days.first else {
+			Log.warning("Can't get 'today' from `DiaryOverviewViewModel`. Discarding further quick action handling.", log: .ui)
+			return
+		}
+
+		// If any modal view is active, we'll dismiss it.
+		viewController.presentedViewController?.dismiss(animated: false)
+		// Because `handleShortcutItem` runs asynchronously on app launch, we don't have to wait for the dismiss to
+		// complete before calling `showCurrentDayScreen`. Unfortunately this results in a quick ui 'jump', i.e. dismiss animations can be seen,
+		// IF there was a modal screen open like the QR scan.
+
+		// prevent navigation issues by falling back to overview screen
+		viewController.popToRootViewController(animated: false)
+
+		// now show the screen
+		showDayScreen(day: today)
 	}
 	
 	// MARK: - Private
