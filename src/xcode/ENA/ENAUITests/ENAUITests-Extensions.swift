@@ -18,7 +18,7 @@ enum SizeCategoryAccessibility: String {
 	case accessibility = "Accessibility"
 	case normal = ""
 	func description() -> String {
-		self == .normal ? "" : "Accessibility"
+		return self.rawValue
 	}
 }
 
