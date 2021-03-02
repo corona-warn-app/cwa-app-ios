@@ -768,13 +768,7 @@ enum AppStrings {
 
 		static let riskDetectionHowToAlertTitle = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
 
-		static let riskDetectionHowToAlertP1 = NSLocalizedString("How_Risk_Detection_Works_Alert_Message_p1", comment: "")
-
-		static let riskDetectionHowToAlertP2a = NSLocalizedString("How_Risk_Detection_Works_Alert_Message_p2a", comment: "")
-
-		static let riskDetectionHowToAlertP2b = NSLocalizedString("How_Risk_Detection_Works_Alert_Message_p2b", comment: "")
-
-		static let riskDetectionHowToAlertP3 = NSLocalizedString("How_Risk_Detection_Works_Alert_Message_p3", comment: "")
+		static let riskDetectionHowToAlertMessage = NSLocalizedString("How_Risk_Detection_Works_Alert_Message", comment: "")
 	}
 
 	enum InviteFriends {
