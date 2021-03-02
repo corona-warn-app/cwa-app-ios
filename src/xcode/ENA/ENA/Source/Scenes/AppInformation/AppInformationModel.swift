@@ -69,7 +69,7 @@ enum AppInformationModel {
 	static let errorReportModel = DynamicTableViewModel([
 		.section(cells: [
 			.body(text: AppStrings.ErrorReport.description1),
-			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq), // TO DO: get correct link!
+			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq) // TO DO: get correct link!
 		]),
 		.section(cells: [
 			.acknowledgement(
