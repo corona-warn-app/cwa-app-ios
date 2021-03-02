@@ -53,26 +53,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.registrationToken, token)
 	}
 
-	func testTracingStatusHistory_Success() {
-		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
-		let date1 = Date(timeIntervalSinceNow: -86400)
-		let date2 = Date()
-		let entry1 = TracingStatusEntry(on: true, date: date1)
-		let entry2 = TracingStatusEntry(on: false, date: date2)
-
-		store.tracingStatusHistory.append(entry1)
-		store.tracingStatusHistory.append(entry2)
-
-		XCTAssertEqual(store.tracingStatusHistory.count, 2)
-		XCTAssertTrue(store.tracingStatusHistory[0].on)
-		XCTAssertEqual(store.tracingStatusHistory[0].date.description, date1.description)
-		XCTAssertFalse(store.tracingStatusHistory[1].on)
-		XCTAssertEqual(store.tracingStatusHistory[1].date.description, date2.description)
-
-		store.flush()
-		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
-	}
-
 	/// Reads a statically created db from version 1.0.0 into the app container and checks, whether all values from that version are still readable
 	func testBackwardsCompatibility() throws {
 		// swiftlint:disable:next force_unwrapping
@@ -114,12 +94,6 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.initialSubmitCompleted)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
-
-		XCTAssertEqual(tmpStore.tracingStatusHistory.count, 2)
-		XCTAssertTrue(tmpStore.tracingStatusHistory[0].on)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
-		XCTAssertFalse(tmpStore.tracingStatusHistory[1].on)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
 	}
 	
 	func testDeviceTimeSettings_initalAfterInitialization() {
