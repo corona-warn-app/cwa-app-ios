@@ -48,6 +48,11 @@ class DiaryCoordinator {
 				self.viewController.pushViewController(self.overviewScreen, animated: true)	// Push Overview
 				self.viewController.setViewControllers([self.overviewScreen], animated: false) // Set Overview as the only Controller on the navigation stack to avoid back gesture etc.
 				self.infoScreenShown = true
+				// open current day screen if necessary
+				if self.showCurrentDayScreenAfterInfoScreen {
+					self.showCurrentDayScreenAfterInfoScreen = false
+					self.showCurrentDayScreen()
+				}
 			},
 			showDetail: { detailViewController in
 				self.viewController.pushViewController(detailViewController, animated: true)
@@ -63,6 +68,8 @@ class DiaryCoordinator {
 		// Info view MUST be shown
 		guard infoScreenShown else {
 			Log.debug("Diary info screen not shown. Skipping further navigation", log: .ui)
+			// set this to true to open current day screen after info screen has been dismissed
+			showCurrentDayScreenAfterInfoScreen = true
 			return
 		}
 
@@ -100,6 +107,7 @@ class DiaryCoordinator {
 		get { store.journalWithExposureHistoryInfoScreenShown }
 		set { store.journalWithExposureHistoryInfoScreenShown = newValue }
 	}
+	private var showCurrentDayScreenAfterInfoScreen: Bool = false
 
 	// MARK: Show Screens
 
