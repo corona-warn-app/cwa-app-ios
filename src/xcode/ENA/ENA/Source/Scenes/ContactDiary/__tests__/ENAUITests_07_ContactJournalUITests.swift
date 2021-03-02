@@ -5,6 +5,7 @@
 import XCTest
 import ExposureNotification
 
+// swiftlint:disable:next type_body_length
 class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 	// MARK: - Overrides
@@ -659,4 +660,5 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		}
 		return nil
 	}
+	// swiftlint:disable:next file_length
 }
