@@ -373,8 +373,8 @@ extension SecureStore: PrivacyPreservingProviding {
 	}
 
 	var userData: UserMetadata? {
-		get { kvStore["userdata"] as UserMetadata? ?? nil }
-		set { kvStore["userdata"] = newValue
+		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
+		set { kvStore["userMetadata"] = newValue
 			Analytics.collect(.userData(.create(newValue)))
 		}
 	}
