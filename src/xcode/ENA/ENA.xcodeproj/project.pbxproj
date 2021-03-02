@@ -323,6 +323,7 @@
 		505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506A25C833A9004920EB /* edus_otp.pb.swift */; };
 		505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506D25C833A9004920EB /* ppac_ios.pb.swift */; };
 		505F508325C897B3004920EB /* OTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F508225C897B3004920EB /* OTPError.swift */; };
+		5065950C25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */; };
 		506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */; };
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
 		507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */; };
@@ -437,7 +438,7 @@
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
 		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
 		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
-		8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
+		8F11512425DC27E9007BDBC6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
@@ -1176,6 +1177,7 @@
 		505F506A25C833A9004920EB /* edus_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = edus_otp.pb.swift; sourceTree = "<group>"; };
 		505F506D25C833A9004920EB /* ppac_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppac_ios.pb.swift; sourceTree = "<group>"; };
 		505F508225C897B3004920EB /* OTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPError.swift; sourceTree = "<group>"; };
+		5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewModelTest.swift; sourceTree = "<group>"; };
 		506A2F1A25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModel.swift; sourceTree = "<group>"; };
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
 		507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDummyPPAnalyticsDataImplementation.swift; sourceTree = "<group>"; };
@@ -2423,15 +2425,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		358249E925E910AF00BFF303 /* DMLogging */ = {
-			isa = PBXGroup;
-			children = (
-				358249EA25E910AF00BFF303 /* LogDataItem.swift */,
-				358249EB25E910AF00BFF303 /* DMLogsViewController.swift */,
-			);
-			path = DMLogging;
-			sourceTree = "<group>";
-		};
 		3554354025E788BB0016764A /* ErrorReporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -2442,6 +2435,15 @@
 				8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */,
 			);
 			path = ErrorReporting;
+			sourceTree = "<group>";
+		};
+		358249E925E910AF00BFF303 /* DMLogging */ = {
+			isa = PBXGroup;
+			children = (
+				358249EA25E910AF00BFF303 /* LogDataItem.swift */,
+				358249EB25E910AF00BFF303 /* DMLogsViewController.swift */,
+			);
+			path = DMLogging;
 			sourceTree = "<group>";
 		};
 		35AA4AF2259B40DF00D32306 /* __tests__ */ = {
@@ -2539,6 +2541,7 @@
 			children = (
 				504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */,
 				504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */,
+				5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */,
 			);
 			path = ErrorReportDetailedInformation;
 			sourceTree = "<group>";
@@ -5597,6 +5600,7 @@
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
+				5065950C25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift in Sources */,
 				50C029AB25E4068D00460FA4 /* TestResultMetadataTests.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,
