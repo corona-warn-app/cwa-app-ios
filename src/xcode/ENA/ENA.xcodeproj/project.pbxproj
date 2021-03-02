@@ -307,6 +307,8 @@
 		50352C9F25C96687007193D2 /* HTTPClient+AuthorizationOTPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPTests.swift */; };
 		503DB1A7255D822E00576E57 /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */; };
 		503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */; };
+		504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */; };
+		504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */; };
 		504C9CC925C44C180005875B /* OTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504C9CC825C44C180005875B /* OTPService.swift */; };
 		504E8AD125D2CE0600CAFBDF /* PPAnalyticsSubmitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8AC925D2CDFA00CAFBDF /* PPAnalyticsSubmitterTests.swift */; };
 		504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B0B25D400D000CAFBDF /* DMPPAnalyticsViewController.swift */; };
@@ -1156,6 +1158,8 @@
 		50352C9725C9665A007193D2 /* HTTPClient+AuthorizationOTPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+AuthorizationOTPTests.swift"; sourceTree = "<group>"; };
 		503DB1A6255D822E00576E57 /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		503DB1AB255D826900576E57 /* ExposureSubmissionIntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewModel.swift; sourceTree = "<group>"; };
+		504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewController.swift; sourceTree = "<group>"; };
+		504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportDetailInformationViewModel.swift; sourceTree = "<group>"; };
 		504C9CC825C44C180005875B /* OTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPService.swift; sourceTree = "<group>"; };
 		504E8AC925D2CDFA00CAFBDF /* PPAnalyticsSubmitterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsSubmitterTests.swift; sourceTree = "<group>"; };
 		504E8B0B25D400D000CAFBDF /* DMPPAnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewController.swift; sourceTree = "<group>"; };
@@ -1312,9 +1316,6 @@
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
 		8F96BC0725EC54D000E8B8A4 /* ErrorReportFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorReportFooterView.xib; sourceTree = "<group>"; };
 		8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportFooterView.swift; sourceTree = "<group>"; };
-		8FB5A62425DE798700679990 /* ExposureWindowsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadata.swift; sourceTree = "<group>"; };
-		8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureNotifications+Extension.swift"; sourceTree = "<group>"; };
-		8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataService.swift; sourceTree = "<group>"; };
 		8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataServiceTests.swift; sourceTree = "<group>"; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
@@ -2413,6 +2414,7 @@
 			isa = PBXGroup;
 			children = (
 				3554354725E798B30016764A /* ErrorReportViewController.swift */,
+				504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */,
 				8F49CF7F25ECEAAE00A461C0 /* ErrorReportViewController.xib */,
 				8F96BC0725EC54D000E8B8A4 /* ErrorReportFooterView.xib */,
 				8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */,
@@ -2508,6 +2510,15 @@
 				500DB4D325CDE5C20038DFED /* PPASError.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */ = {
+			isa = PBXGroup;
+			children = (
+				504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */,
+				504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */,
+			);
+			path = ErrorReportDetailedInformation;
 			sourceTree = "<group>";
 		};
 		504C9CC725C44BE60005875B /* OTP */ = {
@@ -5038,6 +5049,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504BB0AC25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift in Sources */,
 				50BD2E6224FE1E8700932566 /* AppInformationModel.swift in Sources */,
 				B120C7CA24AFF12D00F68FF1 /* ActiveTracing.swift in Sources */,
 				B1A89F3B24819CE800DA1CEC /* SettingsLabelCell.swift in Sources */,
@@ -5150,6 +5162,7 @@
 				35EA615A258BC8E30062B50A /* CryptoKitFallbacks.swift in Sources */,
 				01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */,
 				2F3D953C2518BCE9002B2C81 /* EUSettingsViewModel.swift in Sources */,
+				504BB0B525EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift in Sources */,
 				01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */,
 				01B7232924F812DF0064C0EB /* OptionView.swift in Sources */,
 				01909874257E64BD0065D050 /* DiaryDayViewController.swift in Sources */,
