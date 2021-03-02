@@ -5,6 +5,7 @@
 import UIKit
 import Base32
 
+// Since this is a POC this enum exists. Content should be moved into model/service that will later be used.
 enum QRCodePlayground {
 	
 	static func generateQRCode(with string: String, size: CGSize = CGSize(width: 400, height: 400)) -> UIImage? {
@@ -26,7 +27,6 @@ enum QRCodePlayground {
 		}
 		
 		/// Depending on the length of the string the QRCode may vary in size. But we want an Image with a fixed size. This requires us to scale the QRCode to our desired image size.
-		
 		/// Calculate scaling factors
 		let scaleX = size.width / image.extent.size.width
 		let scaleY = size.height / image.extent.size.height
@@ -36,6 +36,5 @@ enum QRCodePlayground {
 		
 		/// Return scaled image
 		return UIImage(ciImage: transformedImage)
-	
 	}
 }
