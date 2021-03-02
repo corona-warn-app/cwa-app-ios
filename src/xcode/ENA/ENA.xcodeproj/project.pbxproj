@@ -444,8 +444,10 @@
 		8F49CF8025ECEAAE00A461C0 /* ErrorReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F49CF7F25ECEAAE00A461C0 /* ErrorReportViewController.xib */; };
 		8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */; };
 		8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */; };
-		8F96BC0825EC54D000E8B8A4 /* ErrorReportFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F96BC0725EC54D000E8B8A4 /* ErrorReportFooterView.xib */; };
-		8F96BC0D25EC55C100E8B8A4 /* ErrorReportFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */; };
+		8FA5ACE125ED0CBC004D0C2B /* ErrorReportLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5ACDF25ED0CBC004D0C2B /* ErrorReportLoggingViewController.swift */; };
+		8FA5ACE225ED0CBC004D0C2B /* ErrorReportLoggingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FA5ACE025ED0CBC004D0C2B /* ErrorReportLoggingViewController.xib */; };
+		8FA5ACED25ED306C004D0C2B /* ErrorReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5ACEC25ED306C004D0C2B /* ErrorReportCoordinator.swift */; };
+		8FA5ACFE25EE333A004D0C2B /* ErrorLoggingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5ACFD25EE333A004D0C2B /* ErrorLoggingStatus.swift */; };
 		8FB5A60B25DD647200679990 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		8FB5A61625DD65D500679990 /* ExposureSubmission+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
@@ -1315,11 +1317,10 @@
 		8F49CF7F25ECEAAE00A461C0 /* ErrorReportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorReportViewController.xib; sourceTree = "<group>"; };
 		8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewController.swift; sourceTree = "<group>"; };
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
-		8F96BC0725EC54D000E8B8A4 /* ErrorReportFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorReportFooterView.xib; sourceTree = "<group>"; };
-		8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportFooterView.swift; sourceTree = "<group>"; };
-		8FB5A62425DE798700679990 /* ExposureWindowsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadata.swift; sourceTree = "<group>"; };
-		8FB5A62C25DEAFA400679990 /* ExposureNotifications+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureNotifications+Extension.swift"; sourceTree = "<group>"; };
-		8FB5A63425DEC2CE00679990 /* ExposureWindowsMetadataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataService.swift; sourceTree = "<group>"; };
+		8FA5ACDF25ED0CBC004D0C2B /* ErrorReportLoggingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportLoggingViewController.swift; sourceTree = "<group>"; };
+		8FA5ACE025ED0CBC004D0C2B /* ErrorReportLoggingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorReportLoggingViewController.xib; sourceTree = "<group>"; };
+		8FA5ACEC25ED306C004D0C2B /* ErrorReportCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReportCoordinator.swift; sourceTree = "<group>"; };
+		8FA5ACFD25EE333A004D0C2B /* ErrorLoggingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLoggingStatus.swift; sourceTree = "<group>"; };
 		8FC4F4DF25DFCDC900C55ADC /* ExposureWindowsMetadataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowsMetadataServiceTests.swift; sourceTree = "<group>"; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
@@ -2434,10 +2435,10 @@
 		3554354025E788BB0016764A /* ErrorReporting */ = {
 			isa = PBXGroup;
 			children = (
-				3554354725E798B30016764A /* ErrorReportViewController.swift */,
-				8F49CF7F25ECEAAE00A461C0 /* ErrorReportViewController.xib */,
-				8F96BC0725EC54D000E8B8A4 /* ErrorReportFooterView.xib */,
-				8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */,
+				8FA5AD0C25EE33DB004D0C2B /* ErrorReportViewController */,
+				8FA5AD0525EE33C8004D0C2B /* ErrorReportLoggingViewController */,
+				8FA5ACEC25ED306C004D0C2B /* ErrorReportCoordinator.swift */,
+				8FA5ACFD25EE333A004D0C2B /* ErrorLoggingStatus.swift */,
 			);
 			path = ErrorReporting;
 			sourceTree = "<group>";
@@ -3295,6 +3296,24 @@
 				8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */,
 			);
 			path = HTMLViewController;
+			sourceTree = "<group>";
+		};
+		8FA5AD0525EE33C8004D0C2B /* ErrorReportLoggingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8FA5ACDF25ED0CBC004D0C2B /* ErrorReportLoggingViewController.swift */,
+				8FA5ACE025ED0CBC004D0C2B /* ErrorReportLoggingViewController.xib */,
+			);
+			path = ErrorReportLoggingViewController;
+			sourceTree = "<group>";
+		};
+		8FA5AD0C25EE33DB004D0C2B /* ErrorReportViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3554354725E798B30016764A /* ErrorReportViewController.swift */,
+				8F49CF7F25ECEAAE00A461C0 /* ErrorReportViewController.xib */,
+			);
+			path = ErrorReportViewController;
 			sourceTree = "<group>";
 		};
 		8FF3525C25ADACEC008A07BD /* __tests__ */ = {
@@ -4929,7 +4948,6 @@
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				AB2F092325CD4C9C00C16309 /* default_app_config_113 in Resources */,
 				01D02759258BD55A00B6389A /* NotificationSettingsViewController.xib in Resources */,
-				8F96BC0825EC54D000E8B8A4 /* ErrorReportFooterView.xib in Resources */,
 				01D026C1258BACCE00B6389A /* ExposureDetectionRiskRefreshCell.xib in Resources */,
 				50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */,
 				017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */,
@@ -4940,6 +4958,7 @@
 				3529BC2725D6BA930097E492 /* sample_stats.bin in Resources */,
 				01EA17BB2591344F00E98E02 /* HomeExposureLoggingTableViewCell.xib in Resources */,
 				01B72C032583B71100A3E3BC /* DiaryEditEntriesViewController.xib in Resources */,
+				8FA5ACE225ED0CBC004D0C2B /* ErrorReportLoggingViewController.xib in Resources */,
 				01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */,
 				01D02692258BA0AD00B6389A /* ExposureDetectionLongGuideCell.xib in Resources */,
 				01D026BF258BACCE00B6389A /* ExposureDetectionGuideCell.xib in Resources */,
@@ -5147,6 +5166,7 @@
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
+				8FA5ACE125ED0CBC004D0C2B /* ErrorReportLoggingViewController.swift in Sources */,
 				01C6AC26252B23D70052814D /* ExposureSubmissionQRScannerFocusView.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
@@ -5172,6 +5192,7 @@
 				01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
 				500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */,
+				8FA5ACFE25EE333A004D0C2B /* ErrorLoggingStatus.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
 				2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */,
 				BAEB174025E561120012FEF9 /* FooterViewController.swift in Sources */,
@@ -5245,7 +5266,6 @@
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				01734B5F255D6C4500E60A8B /* app_config_ios.pb.swift in Sources */,
-				8F96BC0D25EC55C100E8B8A4 /* ErrorReportFooterView.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */,
 				EB91288A257FBD1E00241D3E /* DiaryInfoViewModel.swift in Sources */,
@@ -5453,6 +5473,7 @@
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
+				8FA5ACED25ED306C004D0C2B /* ErrorReportCoordinator.swift in Sources */,
 				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
