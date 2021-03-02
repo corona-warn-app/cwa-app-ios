@@ -80,9 +80,6 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		parentNavigationController.present(exposureSubmissionNavigationController, animated: true)
 		navigationController = exposureSubmissionNavigationController
-
-		// Provide `-1` for all `undefined` results.
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": result?.rawValue ?? -1]))
 	}
 
 	func dismiss() {
@@ -95,6 +92,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	func showTestResultScreen(with testResult: TestResult) {
 		let vc = createTestResultViewController(with: testResult)
 		push(vc)
+
+		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
+		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": testResult.rawValue]))
 	}
 
 	func showTanScreen() {
@@ -131,7 +131,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			}
 
 			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult"),
-			   let testResult = TestResult(stringValue: testResultStringValue) {
+				let testResult = TestResult(stringValue: testResultStringValue) {
+				// adding this for launch arguments because this controller is never called during UI Testing
+				if UserDefaults.standard.string(forKey: "showTestResultAvailableViewController") == "YES" {
+					return createTestResultAvailableViewController(testResult: testResult)
+				}
 				return createTestResultViewController(with: testResult)
 			}
 		}
