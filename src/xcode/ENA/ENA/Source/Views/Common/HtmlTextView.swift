@@ -76,7 +76,7 @@ extension HtmlTextView {
 	}
 
 	private func parseHtml(_ html: String) throws -> NSAttributedString? {
-		let mutableAttributedText = try NSMutableAttributedString(
+		return try NSAttributedString(
 			data: Data(html.utf8),
 			options: [
 				.documentType: NSAttributedString.DocumentType.html,
@@ -84,10 +84,6 @@ extension HtmlTextView {
 			],
 			documentAttributes: nil
 		)
-		let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.alignment = NSTextAlignment.natural
-		mutableAttributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: mutableAttributedText.length))
-		return mutableAttributedText
 	}
 }
 

@@ -4,8 +4,11 @@
       "id" : "A11977F5-134B-4CB5-B798-B2F3F30138CD",
       "name" : "DE",
       "options" : {
+        "defaultTestExecutionTimeAllowance" : 300,
         "language" : "de",
-        "region" : "DE"
+        "maximumTestExecutionTimeAllowance" : 600,
+        "region" : "DE",
+        "testTimeoutsEnabled" : true
       }
     },
     {

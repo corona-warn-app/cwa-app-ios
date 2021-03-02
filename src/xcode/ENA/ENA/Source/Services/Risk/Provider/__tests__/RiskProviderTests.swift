@@ -984,6 +984,8 @@ final class RiskProviderTests: XCTestCase {
 
 	func test_WhenExposureWindowsRetievalIsSuccessful_TheyShouldBeAddedToTheMetadata() throws {
 		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "The exposureWindowsMetadata should be initially nil")
 		
 		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .high, store: store)

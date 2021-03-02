@@ -5,8 +5,7 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
-	var analyticsSubmitter: PPAnalyticsSubmitter?
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -60,6 +59,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
 
+
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
@@ -79,19 +79,14 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding {
 
 	// MARK: - PrivacyPreservingProviding
 
-	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false {
-		didSet {
-			currentRiskExposureMetadata = nil
-			previousRiskExposureMetadata = nil
-			userMetadata = nil
-			lastSubmittedPPAData = nil
-			lastAppReset = nil
-			lastSubmissionAnalytics = nil
-		}
-	}
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
 	var otpToken: OTPToken?
 	var otpAuthorizationDate: Date?
 	var ppacApiToken: TimestampedToken?
+	var userData: UserMetadata?
+
+	// MARK: - PPAnalyticsData
+
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?

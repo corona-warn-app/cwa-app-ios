@@ -25,6 +25,28 @@ final class DiaryOverviewDayCellModel {
 
 	let historyExposure: HistoryExposure
 
+	func entryDetailTextFor(personEncounter: ContactPersonEncounter) -> String {
+		var detailComponents = [String]()
+		detailComponents.append(personEncounter.duration.description)
+		detailComponents.append(personEncounter.maskSituation.description)
+		detailComponents.append(personEncounter.setting.description)
+
+		// Filter empty strings.
+		detailComponents = detailComponents.filter { $0 != "" }
+
+		return detailComponents.joined(separator: ", ")
+	}
+
+	func entryDetailTextFor(locationVisit: LocationVisit) -> String {
+		guard locationVisit.durationInMinutes > 0 else {
+			return ""
+		}
+
+		let dateComponents = DateComponents(minute: locationVisit.durationInMinutes)
+		let timeString = dateComponentsFormatter.string(from: dateComponents) ?? ""
+		return timeString + " \(AppStrings.ContactDiary.Overview.LocationVisit.abbreviationHours)"
+	}
+
 	var hideExposureHistory: Bool {
 		switch historyExposure {
 		case .none:
@@ -106,4 +128,52 @@ final class DiaryOverviewDayCellModel {
 
 	private let diaryDay: DiaryDay
 	private let minimumDistinctEncountersWithHighRisk: Int
+
+	private var dateComponentsFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .positional
+		formatter.zeroFormattingBehavior = .pad
+		formatter.allowedUnits = [.hour, .minute]
+		return formatter
+	}()
+
+}
+
+private extension ContactPersonEncounter.Duration {
+	var description: String {
+		switch self {
+		case .none:
+			return ""
+		case .lessThan15Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationLessThan15Minutes
+		case .moreThan15Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan15Minutes
+		}
+	}
+}
+
+private extension ContactPersonEncounter.MaskSituation {
+	var description: String {
+		switch self {
+		case .none:
+			return ""
+		case .withMask:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithMask
+		case .withoutMask:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithoutMask
+		}
+	}
+}
+
+private extension ContactPersonEncounter.Setting {
+	var description: String {
+		   switch self {
+		   case .none:
+			   return ""
+		   case .outside:
+			   return AppStrings.ContactDiary.Overview.PersonEncounter.settingOutside
+		   case .inside:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.settingInside
+		   }
+	   }
 }

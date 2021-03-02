@@ -20,7 +20,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var contactDiaryStore: ContactDiaryStore { get }
+	var contactDiaryStore: DiaryStoringProviding { get }
 
 	func requestUpdatedExposureState()
 }
@@ -46,6 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
+
+		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
 	}
 
 	deinit {
@@ -61,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
+
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
@@ -91,12 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		exposureManager.observeExposureNotificationStatus(observer: self)
 
-		store.analyticsSubmitter = self.analyticsSubmitter
-
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-
-		// App launched via shortcut?
 		return handleQuickActions(with: launchOptions)
 	}
 
@@ -106,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider.requestRisk(userInitiated: false)
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
-		analyticsSubmitter.triggerSubmitData()
+		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
@@ -135,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let wifiClient: WifiOnlyHTTPClient
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-    let contactDiaryStore = ContactDiaryStore.make()
+	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
@@ -249,9 +250,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
 			store: self.store,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies,
-			analyticsSubmitter: self.analyticsSubmitter
-			)
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+		)
 	}()
 
 	var notificationManager: NotificationManager! = NotificationManager()
@@ -281,22 +281,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		exposureSubmissionService.reset()
 
 		// Reset key value store. Preserve environment settings.
-		let environment = store.selectedServerEnvironment
+
 		do {
 			/// ppac API Token is excluded from the reset
 			/// read value from the current store
 			let ppacAPIToken = store.ppacApiToken
+			let environment = store.selectedServerEnvironment
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
 			/// write excluded value back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
-			store.lastAppReset = Date()
+			store.selectedServerEnvironment = environment
+            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
 		}
-		store.selectedServerEnvironment = environment
 
 		// Reset packages store
 		downloadedPackagesStore.reset()

@@ -30,20 +30,20 @@ final class SAP_Internal_SemanticVersionTests: XCTestCase {
 	}
 	
     func testVersions() {
-		XCTAssert(Version(1, 0, 0) < Version(2, 0, 0))
+		XCTAssertLessThan(Version(1, 0, 0), Version(2, 0, 0))
 
 		// Equal versions are never smaller
-		XCTAssertFalse(Version(0, 0, 0) < Version(0, 0, 0))
-		XCTAssertFalse(Version(1, 0, 0) < Version(1, 0, 0))
-		XCTAssertFalse(Version(0, 1, 0) < Version(0, 1, 0))
-		XCTAssertFalse(Version(0, 0, 1) < Version(0, 0, 1))
+		XCTAssertEqual(Version(0, 0, 0), Version(0, 0, 0))
+		XCTAssertEqual(Version(1, 0, 0), Version(1, 0, 0))
+		XCTAssertEqual(Version(0, 1, 0), Version(0, 1, 0))
+		XCTAssertEqual(Version(0, 0, 1), Version(0, 0, 1))
 
 		// Smallest possible version is still bigger than 0
-		XCTAssert(Version(0, 0, 0) < Version(0, 0, 1))
+		XCTAssertLessThan(Version(0, 0, 0), Version(0, 0, 1))
 
-		XCTAssert(Version(1, 0, 0) < Version(2, 0, 0))
-		XCTAssert(Version(0, 1, 0) < Version(0, 2, 0))
-		XCTAssert(Version(0, 0, 1) < Version(0, 0, 2))
+		XCTAssertLessThan(Version(1, 0, 0), Version(2, 0, 0))
+		XCTAssertLessThan(Version(0, 1, 0), Version(0, 2, 0))
+		XCTAssertLessThan(Version(0, 0, 1), Version(0, 0, 2))
     }
 }
 

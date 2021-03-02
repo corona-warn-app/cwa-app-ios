@@ -8,48 +8,15 @@ import UIKit
 
 class EUSettingsViewModel {
 
-	// MARK: - Model.
+	// MARK: - Init
 
-	class CountryModel {
-		let country: Country
-
-		init(_ country: Country) {
-			self.country = country
-		}
+	init(countries availableCountries: [Country] = []) {
+		self.countries = availableCountries.sortedByLocalizedName
 	}
 
-	// MARK: - Attributes.
+	// MARK: - Internal
 
-	let countryModels: [CountryModel]?
-
-	// MARK: - Initializers.
-
-	init() {
-		self.countryModels = nil
-	}
-
-	init(countries availableCountries: [Country]) {
-		self.countryModels = availableCountries.sortedByLocalizedName
-			.map { CountryModel($0) }
-	}
-
-	// MARK: - DynamicTableViewModel.
-
-	func countries() -> DynamicSection {
-
-		guard let countryModels = countryModels else {
-			return DynamicSection.section(cells: [])
-		}
-
-		let cells = countryModels.isEmpty
-			? [.emptyCell()]
-			: countryModels.map { DynamicCell.euCell(cellModel: $0) }
-
-		return DynamicSection.section(
-			separators: countryModels.isEmpty ? .none : .inBetween,
-			cells: cells
-		)
-	}
+	let countries: [Country]
 
 	func euSettingsModel() -> DynamicTableViewModel {
 		DynamicTableViewModel([
@@ -80,7 +47,14 @@ class EUSettingsViewModel {
 					.space(height: 16)
 
 			]),
-			countries(),
+			// country flags and names if available
+			.section(
+				separators: countries.isEmpty ? .none : .all,
+				cells:
+					countries.isEmpty
+					? [.emptyCell()]
+					: [.countries(countries: countries)]
+			),
 			.section(
 				cells: [
 					.space(height: 8),
@@ -90,5 +64,33 @@ class EUSettingsViewModel {
 					.space(height: 16)
 			])
 		])
+	}
+}
+
+private extension DynamicCell {
+
+	static func emptyCell() -> Self {
+		.custom(
+			withIdentifier: EUSettingsViewController.CustomCellReuseIdentifiers.roundedCell,
+			action: .none,
+			accessoryAction: .none) { _, cell, _ in
+				if let roundedCell = cell as? DynamicTableViewRoundedCell {
+					roundedCell.configure(
+						title: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorTitle),
+						titleStyle: .title2,
+						body: NSMutableAttributedString(string: AppStrings.ExposureNotificationSetting.euEmptyErrorDescription),
+						textColor: .textPrimary1,
+						bgColor: .separator,
+						icons: [
+							UIImage(named: "Icons_MobileDaten"),
+							UIImage(named: "Icon_Wifi")]
+							.compactMap { $0 },
+						buttonTitle: AppStrings.ExposureNotificationSetting.euEmptyErrorButtonTitle) {
+						if let url = URL(string: UIApplication.openSettingsURLString) {
+							UIApplication.shared.open(url)
+						}
+					}
+				}
+			}
 	}
 }

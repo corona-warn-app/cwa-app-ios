@@ -35,9 +35,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		title = AppStrings.ExposureNotificationSetting.title
+		navigationItem.title = AppStrings.ExposureNotificationSetting.title
+		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
-
+		
 		registerCells()
 
 		tableView.sectionFooterHeight = 0.0

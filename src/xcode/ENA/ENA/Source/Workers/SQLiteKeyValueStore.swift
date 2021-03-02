@@ -248,9 +248,9 @@ final class SQLiteKeyValueStore {
 					return value
 				}
 			} catch let DecodingError.typeMismatch(expectedType, context) {
-				Log.warning("Type mismatch in K/V decoding: \(expectedType) not found in \(context). Trying fallback implementation.", log: .localData)
+				Log.warning("Type mismatch for key \(key) in K/V decoding: \(expectedType) not found in \(context). Trying fallback implementation.", log: .localData)
 			} catch {
-				Log.error("Error when decoding value from K/V SQLite store: \(error.localizedDescription)", log: .localData, error: error)
+				Log.error("Error when decoding value for key \(key) from K/V SQLite store: \(error.localizedDescription)", log: .localData, error: error)
 			}
 			return try? JSONDecoder().decode(Model.self, from: data) // Fallback for old installations
 		}
@@ -259,7 +259,7 @@ final class SQLiteKeyValueStore {
 				let encoded = try JSONEncoder().encode([newValue])
 				try setData(encoded, for: key)
 			} catch {
-				Log.error("Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)", log: .localData)
+				Log.error("Error when encoding value for key \(key) inserting into K/V SQLite store: \(error.localizedDescription)", log: .localData)
 			}
 		}
 	}

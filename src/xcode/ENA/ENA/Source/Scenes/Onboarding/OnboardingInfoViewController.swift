@@ -7,7 +7,7 @@ import OpenCombine
 import UserNotifications
 import ExposureNotification
 
-
+// swiftlint:disable:next type_body_length
 final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -62,7 +62,6 @@ final class OnboardingInfoViewController: UIViewController {
 		scrollView.contentInset.bottom = footerView.frame.height - scrollView.safeAreaInsets.bottom
 		scrollView.verticalScrollIndicatorInsets.bottom = scrollView.contentInset.bottom
 	}
-	
 
 	// MARK: - Private
 	
@@ -90,7 +89,6 @@ final class OnboardingInfoViewController: UIViewController {
 	private var pageSetupDone = false
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
-
 	private var subscriptions = [AnyCancellable]()
 
 	@IBAction private func didTapNextButton(_: Any) {
@@ -124,7 +122,6 @@ final class OnboardingInfoViewController: UIViewController {
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
 
-
 	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
 		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
@@ -147,17 +144,16 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func gotoDataDonationScreen() {
-
 		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
 			preconditionFailure("missing json file")
 		}
 
-		let viewModel = DefaultDataDonationViewModel(
+		let dataDonationViewModel = DefaultDataDonationViewModel(
 			store: store,
 			presentSelectValueList: { [weak self] selectValueViewModel in
 				let selectValueViewController = SelectValueTableViewController(
 					selectValueViewModel,
-					dissmiss: { [weak self] in
+					dismiss: { [weak self] in
 						self?.navigationController?.dismiss(animated: true)
 					})
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
@@ -169,13 +165,26 @@ final class OnboardingInfoViewController: UIViewController {
 			)
 		)
 
-		let dataDonationViewController = DataDonationViewController(viewModel: viewModel)
+		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
+			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
+		)
 
-		dataDonationViewController.finished = { [weak self] in
-			self?.finishOnBoarding()
-		}
-				
-		navigationController?.pushViewController(dataDonationViewController, animated: true)
+		let containerViewController = TopBottomContainerViewController(
+			topController: dataDonationViewController,
+			bottomController: FooterViewController(
+				footerViewModel,
+				didTapPrimaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: true)
+					self?.finishOnBoarding()
+				},
+				didTapSecondaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: false)
+					self?.finishOnBoarding()
+				}),
+			bottomHeight: 140.0)
+		navigationController?.pushViewController(containerViewController, animated: true)
 	}
 
 	private func loadCountryList() {

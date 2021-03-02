@@ -133,7 +133,7 @@ class DiaryDayViewModelTest: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
-	func testSelectContactPerson() throws {
+	func testContactPersonEntryCellModel() {
 		let day = makeDay()
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
@@ -142,24 +142,15 @@ class DiaryDayViewModelTest: XCTestCase {
 			onAddEntryCellTap: { _, _ in }
 		)
 
-		let dayPublisherExpectation = expectation(description: "Day publisher called")
-		dayPublisherExpectation.expectedFulfillmentCount = 2
+		viewModel.selectedEntryType = .contactPerson
 
-		var subscriptions = [AnyCancellable]()
-		viewModel.$day.sink { _ in
-			dayPublisherExpectation.fulfill()
-		}.store(in: &subscriptions)
+		let entryCellModel = viewModel.entryCellModel(at: IndexPath(row: 6, section: DiaryDayViewModel.Section.entries.rawValue))
 
-		viewModel.toggleSelection(at: IndexPath(row: 5, section: DiaryDayViewModel.Section.entries.rawValue))
-
-		waitForExpectations(timeout: .medium)
-
-		let entry = viewModel.entriesOfSelectedType[5]
-
-		XCTAssertTrue(entry.isSelected)
+		XCTAssertEqual(entryCellModel.text, "Nick Gündling")
+		XCTAssertEqual(entryCellModel.entryType, .contactPerson)
 	}
 
-	func testDeselectContactPerson() throws {
+	func testLocationEntryCellModel() {
 		let day = makeDay()
 		let store = makeMockStore()
 		let viewModel = DiaryDayViewModel(
@@ -168,79 +159,12 @@ class DiaryDayViewModelTest: XCTestCase {
 			onAddEntryCellTap: { _, _ in }
 		)
 
-		store.addContactPersonEncounter(contactPersonId: 1, date: day.dateString)
-
-		let dayPublisherExpectation = expectation(description: "Day publisher called")
-		dayPublisherExpectation.expectedFulfillmentCount = 2
-
-		var subscriptions = [AnyCancellable]()
-		viewModel.$day.sink { _ in
-			dayPublisherExpectation.fulfill()
-		}.store(in: &subscriptions)
-
-		viewModel.toggleSelection(at: IndexPath(row: 5, section: DiaryDayViewModel.Section.entries.rawValue))
-
-		waitForExpectations(timeout: .medium)
-
-		let entry = viewModel.entriesOfSelectedType[5]
-
-		XCTAssertFalse(entry.isSelected)
-	}
-
-	func testSelectLocation() throws {
-		let day = makeDay()
-		let store = makeMockStore()
-		let viewModel = DiaryDayViewModel(
-			day: day,
-			store: store,
-			onAddEntryCellTap: { _, _ in }
-		)
 		viewModel.selectedEntryType = .location
 
-		let dayPublisherExpectation = expectation(description: "Day publisher called")
-		dayPublisherExpectation.expectedFulfillmentCount = 2
+		let entryCellModel = viewModel.entryCellModel(at: IndexPath(row: 1, section: DiaryDayViewModel.Section.entries.rawValue))
 
-		var subscriptions = [AnyCancellable]()
-		viewModel.$day.sink { _ in
-			dayPublisherExpectation.fulfill()
-		}.store(in: &subscriptions)
-
-		viewModel.toggleSelection(at: IndexPath(row: 1, section: DiaryDayViewModel.Section.entries.rawValue))
-
-		waitForExpectations(timeout: .medium)
-
-		let entry = viewModel.entriesOfSelectedType[1]
-
-		XCTAssertTrue(entry.isSelected)
-	}
-
-	func testDeselectLocation() throws {
-		let day = makeDay()
-		let store = makeMockStore()
-		let viewModel = DiaryDayViewModel(
-			day: day,
-			store: store,
-			onAddEntryCellTap: { _, _ in }
-		)
-		viewModel.selectedEntryType = .location
-
-		store.addLocationVisit(locationId: 0, date: day.dateString)
-
-		let dayPublisherExpectation = expectation(description: "Day publisher called")
-		dayPublisherExpectation.expectedFulfillmentCount = 2
-
-		var subscriptions = [AnyCancellable]()
-		viewModel.$day.sink { _ in
-			dayPublisherExpectation.fulfill()
-		}.store(in: &subscriptions)
-
-		viewModel.toggleSelection(at: IndexPath(row: 1, section: DiaryDayViewModel.Section.entries.rawValue))
-
-		waitForExpectations(timeout: .medium)
-
-		let entry = viewModel.entriesOfSelectedType[1]
-
-		XCTAssertFalse(entry.isSelected)
+		XCTAssertEqual(entryCellModel.text, "Supermarket")
+		XCTAssertEqual(entryCellModel.entryType, .location)
 	}
 
 	// MARK: - Private Helpers

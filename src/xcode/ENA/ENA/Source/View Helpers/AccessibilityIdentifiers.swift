@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+// swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 
 	enum ExposureNotificationSetting {
@@ -52,15 +53,30 @@ enum AccessibilityIdentifiers {
 		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
-		
+
+		enum Day {
+			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
+			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
+			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
+			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
+		}
+
 		enum EditEntries {
 			static let tableView = "AppStrings.ContactDiary.EditEntries.tableView"
+			static let nameTextField = "AppStrings.ContactDiary.EditEntries.nameTextField"
+			static let phoneNumberTextField = "AppStrings.ContactDiary.EditEntries.phoneNumberTextField"
+			static let eMailTextField = "AppStrings.ContactDiary.EditEntries.eMailTextField"
 		}
 
 		enum Overview {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
 			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
+		}
+		
+		enum NotesInformation {
+			static let titel = "AppStrings.ContactDiary.NotesInformation.title"
 		}
 	}
 
@@ -271,6 +287,7 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
 		static let newVersionFeaturesAccImageDescription = "AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"
 		static let newVersionFeaturesGeneralDescription = "AppStrings.DeltaOnboarding.NewVersionFeatures.GeneralDescription"
+		static let newVersionFeaturesGeneralAboutAppInformation = "AppStrings.DeltaOnboarding.NewVersionFeatures.AboutAppInformation"
 		static let newVersionFeaturesVersionInfo = "AppStrings.DeltaOnboarding.NewVersionFeatures.VersionInfo"
 		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
 		static let description = "AppStrings.DeltaOnboarding.description"

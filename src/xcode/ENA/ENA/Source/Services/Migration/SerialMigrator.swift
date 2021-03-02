@@ -4,36 +4,7 @@
 
 import FMDB
 
-protocol SerialMigratorProtocol {
-	func migrate() throws
-}
-
-final class SerialDatabaseQueueMigrator: SerialMigratorProtocol {
-	private let queue: FMDatabaseQueue
-	private let latestVersion: Int
-	private let migrations: [Migration]
-
-	init(
-		queue: FMDatabaseQueue,
-		latestVersion: Int,
-		migrations: [Migration]
-	) {
-		self.queue = queue
-		self.latestVersion = latestVersion
-		self.migrations = migrations
-	}
-	
-	func migrate() throws {
-		var serialMigrator: SerialMigrator?
-		
-		queue.inDatabase { database in
-			serialMigrator = SerialMigrator(latestVersion: latestVersion, database: database, migrations: migrations)
-		}
-		try serialMigrator?.migrate()
-	}
-}
-
-final class SerialMigrator: SerialMigratorProtocol {
+class SerialMigrator: SerialMigratorProtocol {
 
 	private let latestVersion: Int
 	private let database: FMDatabase
