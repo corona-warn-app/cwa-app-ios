@@ -29,10 +29,10 @@ final class ErrorReportDetailInformationViewModel {
 								// grey box with legal text:
 								cell.configure(
 									title: NSMutableAttributedString(
-										string: "AppStrings.ErrorReport.Legal Headline"
+										string: "AppStrings.ErrorReport.detailedInfo_Headline"
 									),
 									body: NSMutableAttributedString(
-										string: "AppStrings ErrorReort Legal legalParagraph"
+										string: "AppStrings.ErrorReport.detailedInfo_Content"
 									),
 									textColor: .textPrimary1,
 									bgColor: .separator
