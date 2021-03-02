@@ -47,6 +47,10 @@ class HomeTableViewModel {
 			// adding this for launch argument to fake thank you card on home screen
 			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
 				return [.thankYou]
+			} else if state.positiveTestResultWasShown {
+				return [.shownPositiveTestResult]
+			} else {
+				return [.risk, .testResult]
 			}
 		}
 		#endif
