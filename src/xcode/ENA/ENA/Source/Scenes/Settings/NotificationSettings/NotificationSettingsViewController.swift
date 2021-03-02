@@ -29,8 +29,9 @@ class NotificationSettingsViewController: UIViewController, UITableViewDataSourc
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.NotificationSettings.navigationBarTitle
+		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
-
+		
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(willEnterForeground),
