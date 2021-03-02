@@ -4,9 +4,10 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
+		<string>applinks:www.coronawarn.app</string>
+		<string>applinks:www.coronawarn.app?mode=developer</string>
 		<string>applinks:coronawarn.app</string>
-		<string>applinks:skunkbrothers.de?mode=developer</string>
-		<string>applinks:app-developer.club?mode=developer</string>
+		<string>applinks:coronawarn.app?mode=developer</string>
 	</array>
 	<key>com.apple.developer.exposure-notification</key>
 	<true/>
