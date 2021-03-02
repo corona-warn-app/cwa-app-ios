@@ -18,7 +18,7 @@ enum SizeCategoryAccessibility: String {
 	case accessibility = "Accessibility"
 	case normal = ""
 	func description() -> String {
-		self == .normal ? "" : "Accessibility"
+		return self.rawValue
 	}
 }
 
@@ -26,12 +26,6 @@ extension XCUIElement {
 	func labelContains(text: String) -> Bool {
 		let predicate = NSPredicate(format: "label CONTAINS %@", text)
 		return staticTexts.matching(predicate).firstMatch.exists
-	}
-
-	func scrollToElement(element: XCUIElement) {
-		while !element.visible() {
-			swipeUp()
-		}
 	}
 
 	func visible() -> Bool {
@@ -46,13 +40,12 @@ extension XCUIElementQuery {
 
 extension XCUIApplication {
 	func setDefaults() {
-		// launchEnvironment["CW_MODE"] = "mock"
 		launchEnvironment["XCUI"] = "YES"
 	}
 
-	func setPreferredContentSizeCategory(accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
+	func setPreferredContentSizeCategory(accessibility: SizeCategoryAccessibility, size: SizeCategory) {
 		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
-		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)"]
+		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibility.description())\(size)"]
 	}
 
 	func localized(_ key: String) -> String {
@@ -80,13 +73,5 @@ extension XCUIApplication {
 			localeCode = "\(langCode)-\(regionCode)"
 		}
 		return (langCode, localeCode)
-	}
-}
-
-extension XCTestCase {
-	func wait(for seconds: TimeInterval = 0.2) {
-		let expectation = XCTestExpectation(description: "Pause test")
-		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill() }
-		wait(for: [expectation], timeout: seconds + 1)
 	}
 }

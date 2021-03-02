@@ -40,7 +40,7 @@ class ENAUITests: XCTestCase {
 
 		let snapshotsActive = true
 
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
@@ -105,7 +105,7 @@ class ENAUITests: XCTestCase {
 	
 	func test_0003_Generate_Screenshot_For_AppStore_Statistics() throws {
 
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-useMockDataForStatistics", "YES"]) // prevent failing tests for 1.11; use "NO" for 1.12
@@ -121,7 +121,7 @@ class ENAUITests: XCTestCase {
 
 		let snapshotsActive = true
 
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launchArguments.append(contentsOf: ["-testResult", TestResult.negative.stringValue])
