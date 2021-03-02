@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+// swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 
 	enum ExposureNotificationSetting {
@@ -52,9 +53,20 @@ enum AccessibilityIdentifiers {
 		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
-		
+
+		enum Day {
+			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
+			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
+			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
+			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
+		}
+
 		enum EditEntries {
 			static let tableView = "AppStrings.ContactDiary.EditEntries.tableView"
+			static let nameTextField = "AppStrings.ContactDiary.EditEntries.nameTextField"
+			static let phoneNumberTextField = "AppStrings.ContactDiary.EditEntries.phoneNumberTextField"
+			static let eMailTextField = "AppStrings.ContactDiary.EditEntries.eMailTextField"
 		}
 
 		enum Overview {

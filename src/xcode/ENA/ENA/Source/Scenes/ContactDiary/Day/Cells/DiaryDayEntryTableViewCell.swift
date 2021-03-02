@@ -66,26 +66,27 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	private lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
-
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.durationSegmentedContol
 		return segmentedControl
 	}()
 
 	private lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
-
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl
 		return segmentedControl
 	}()
 
 	private lazy var settingSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
-
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl
 		return segmentedControl
 	}()
 
 	private lazy var notesTextField: DiaryEntryTextField = {
 		let textField = DiaryEntryTextField(frame: .zero)
+		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
 		textField.backgroundColor = .enaColor(for: .darkBackground)
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
@@ -100,6 +101,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 	private lazy var notesInfoButton: UIButton = {
 		let button = UIButton(type: .infoLight)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesInfoButton
 		button.tintColor = .enaColor(for: .tint)
 		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 		button.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -120,7 +122,14 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 	private lazy var visitDurationPicker: UIDatePicker = {
 		let durationPicker = UIDatePicker()
-		durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		if #available(iOS 14.0, *) {
+			// UIDatePickers behave differently on iOS 14+. The .valueChanged event would be called too early and reload the cell before the animation is finished.
+			// The .editingDidEnd event is triggered after the animation is finished.
+			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		} else {
+			// Before iOS 14 .editingDidEnd was not called at all, therefore we use .valueChanged, which was called after the animation is finished.
+			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+		}
 		// German locale ensures 24h format.
 		durationPicker.locale = Locale(identifier: "de_DE")
 		durationPicker.datePickerMode = .time
