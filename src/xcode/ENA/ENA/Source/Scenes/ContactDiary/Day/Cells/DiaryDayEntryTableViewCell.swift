@@ -66,26 +66,27 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	private lazy var durationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
-
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.durationSegmentedContol
 		return segmentedControl
 	}()
 
 	private lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
-
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl
 		return segmentedControl
 	}()
 
 	private lazy var settingSegmentedControl: DiarySegmentedControl = {
 		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
 		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
-
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl
 		return segmentedControl
 	}()
 
 	private lazy var notesTextField: DiaryEntryTextField = {
 		let textField = DiaryEntryTextField(frame: .zero)
+		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
 		textField.backgroundColor = .enaColor(for: .darkBackground)
 		textField.clearButtonMode = .whileEditing
 		textField.textColor = .enaColor(for: .textPrimary1)
@@ -100,6 +101,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 	private lazy var notesInfoButton: UIButton = {
 		let button = UIButton(type: .infoLight)
+		button.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesInfoButton
 		button.tintColor = .enaColor(for: .tint)
 		button.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
 		button.setContentCompressionResistancePriority(.required, for: .horizontal)
