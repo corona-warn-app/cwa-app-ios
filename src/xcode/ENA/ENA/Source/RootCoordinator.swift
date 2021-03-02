@@ -99,6 +99,7 @@ class RootCoordinator: RequiresAppDependencies {
 		
 		pdfView.document = pdfDocument
 		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
+		pdfView.autoScales = true
 
 		let tabbarVC = UITabBarController()
 		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
