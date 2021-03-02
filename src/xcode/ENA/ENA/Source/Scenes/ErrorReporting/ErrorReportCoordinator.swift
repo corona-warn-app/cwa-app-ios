@@ -24,8 +24,8 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 
 	func start() {
 		// temporary solution: the coordinator gets deallocated after the start method so when we tap a button the weak self is nil
-		// the current solution to keep the instence allive is to inject a strong reference to it inside the ErrorReportLoggingViewController
-		// when the user goes back to the AppinformationViewController, the ErrorReportLoggingViewController will be deallocated and the coordinator with it
+		// the current solution to keep the instance alive is to inject a strong reference to it inside the ErrorReportLoggingViewController
+		// when the user goes back to the AppInformationViewController, the ErrorReportLoggingViewController will be deallocated and the coordinator with it
 		let errorReportsLoggingViewController = ErrorReportLoggingViewController(
 			coordinator: self,
 			didTapStartButton: { [weak self] in
@@ -52,12 +52,12 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	// MARK: - Protocol ErrorReportsCoordinating
 
 	func startErrorLogging() {
-		errorReportsContainerViewController?.updateBottomHight(to: ErrorLoggingStatus.active.bottomViewHeight)
+		errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.active.bottomViewHeight)
 		// Add here Collection of Logs
 	}
 	
 	func stopErrorLogging() {
-		errorReportsContainerViewController?.updateBottomHight(to: ErrorLoggingStatus.inactive.bottomViewHeight)
+		errorReportsContainerViewController?.updateBottomHeight(to: ErrorLoggingStatus.inactive.bottomViewHeight)
 		// Add here deletion of the collected logs
 	}
 	
@@ -66,20 +66,20 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	}
 	
 	func saveErrorLogging() {
-		// Add here saving the logs to the filemanager
+		// Add here saving the logs to the file manager
 	}
 	
 	// MARK: - Private
 	
 	private let rootViewController: UIViewController
-	private var errorLoggingStatus: ErrorLoggingStatus// MARK: - Init
+	private var errorLoggingStatus: ErrorLoggingStatus
 
 	// We need a reference to update the error logs size as we are on the screen by calling
 	private var errorReportsLoggingViewController: ErrorReportLoggingViewController?
 	
 	/*
 	We need a reference to the TopBottomContainerViewController so we can adjust the
-	height of the bottom view depending on the Logging status: acitve or inActive
+	height of the bottom view depending on the Logging status: active or inactive
 	because the active status has 2 extra buttons so the height is variable
 	*/
 	private var errorReportsContainerViewController: TopBottomContainerViewController <ErrorReportViewController, ErrorReportLoggingViewController>?

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -18,7 +16,7 @@
                 <outlet property="statusDescription" destination="r4G-LI-jww" id="TdE-U7-44O"/>
                 <outlet property="statusTitle" destination="qFU-yF-xhT" id="Drj-lx-qH6"/>
                 <outlet property="stopAndDeleteButton" destination="hr5-Wn-LfN" id="OOF-YK-A24"/>
-                <outlet property="titleLable" destination="zMZ-di-uo6" id="QmZ-G1-Yo2"/>
+                <outlet property="titleLabel" destination="zMZ-di-uo6" id="QmZ-G1-Yo2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJl-QC-bln" userLabel="GrayView">
-                    <rect key="frame" x="16" y="118.5" width="382" height="82"/>
+                    <rect key="frame" x="16" y="68.5" width="382" height="82"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hom-yY-rFX">
                             <rect key="frame" x="48" y="20.5" width="319" height="41"/>
@@ -75,10 +73,10 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
-                    <rect key="frame" x="16" y="222.5" width="382" height="210.5"/>
+                    <rect key="frame" x="16" y="172.5" width="382" height="210.5"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="mpT-qK-jdH" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="36.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="96.5"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -86,21 +84,21 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-6e-Eky" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="44.5" width="382" height="50"/>
+                            <rect key="frame" x="0.0" y="104.5" width="382" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="sendLoggingReport:" destination="-1" eventType="touchUpInside" id="sDa-iI-QBO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIH-X6-akg" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="102.5" width="382" height="50"/>
+                            <rect key="frame" x="0.0" y="142.5" width="382" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="saveLoggingReport:" destination="-1" eventType="touchUpInside" id="nFh-YW-0YB"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hr5-Wn-LfN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="160.5" width="382" height="50"/>
+                            <rect key="frame" x="0.0" y="180.5" width="382" height="30"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="stopAndDeleteLoggingReport:" destination="-1" eventType="touchUpInside" id="IJP-k3-6XG"/>
@@ -109,7 +107,7 @@
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMZ-di-uo6" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="76" width="382" height="26.5"/>
+                    <rect key="frame" x="16" y="32" width="382" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -133,29 +131,6 @@
             <point key="canvasLocation" x="24.637681159420293" y="114.50892857142857"/>
         </view>
     </objects>
-    <designables>
-        <designable name="BIH-X6-akg">
-            <size key="intrinsicContentSize" width="70" height="50"/>
-        </designable>
-        <designable name="C1D-6e-Eky">
-            <size key="intrinsicContentSize" width="70" height="50"/>
-        </designable>
-        <designable name="hr5-Wn-LfN">
-            <size key="intrinsicContentSize" width="70" height="50"/>
-        </designable>
-        <designable name="mpT-qK-jdH">
-            <size key="intrinsicContentSize" width="70" height="50"/>
-        </designable>
-        <designable name="qFU-yF-xhT">
-            <size key="intrinsicContentSize" width="53.5" height="20.5"/>
-        </designable>
-        <designable name="r4G-LI-jww">
-            <size key="intrinsicContentSize" width="290.5" height="20.5"/>
-        </designable>
-        <designable name="zMZ-di-uo6">
-            <size key="intrinsicContentSize" width="56" height="26.5"/>
-        </designable>
-    </designables>
     <resources>
         <image name="icon_fehleranalyse" width="31" height="31"/>
         <namedColor name="ENA Brand Red Color">

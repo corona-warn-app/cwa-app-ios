@@ -82,7 +82,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	// MARK: - Internal
 
-	func updateBottomHight(to height: CGFloat) {
+	func updateBottomHeight(to height: CGFloat) {
 		UIView.animate(withDuration: 0.2, animations: { () -> Void in
 			self.bottomViewHeightAnchorConstraint.constant = height
 			self.view.layoutIfNeeded()

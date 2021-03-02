@@ -34,7 +34,7 @@ class ErrorReportLoggingViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		titleLable.text = AppStrings.ErrorReport.title
+		titleLabel.text = AppStrings.ErrorReport.title
 		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
 		sendReportButton.setTitle(AppStrings.ErrorReport.sendButtontitle, for: .normal)
 		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
@@ -49,12 +49,12 @@ class ErrorReportLoggingViewController: UIViewController {
 		switch status {
 		case .active:
 			coloredCircle.tintColor = .enaColor(for: .brandRed)
-			statusTitle.text = AppStrings.ErrorReport.activeStatustitle
+			statusTitle.text = AppStrings.ErrorReport.activeStatusTitle
 			showButtonsForStatus(isActive: true)
 
 		case .inactive:
 			coloredCircle.tintColor = .enaColor(for: .hairline)
-			statusTitle.text = AppStrings.ErrorReport.inActiveStatustitle
+			statusTitle.text = AppStrings.ErrorReport.inactiveStatusTitle
 			showButtonsForStatus(isActive: false)
 		}
 	}
@@ -94,7 +94,7 @@ class ErrorReportLoggingViewController: UIViewController {
 	@IBOutlet private weak var sendReportButton: ENAButton!
 	@IBOutlet private weak var saveLocallyButton: ENAButton!
 	@IBOutlet private weak var stopAndDeleteButton: ENAButton!
-	@IBOutlet private weak var titleLable: ENALabel!
+	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var statusTitle: ENALabel!
 	@IBOutlet private weak var statusDescription: ENALabel!
 	@IBOutlet private weak var coloredCircle: UIImageView!
