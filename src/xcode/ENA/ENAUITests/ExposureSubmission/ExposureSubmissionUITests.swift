@@ -758,7 +758,6 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Back to homescreen
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
-		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].isHittable)
 	}
 }
 

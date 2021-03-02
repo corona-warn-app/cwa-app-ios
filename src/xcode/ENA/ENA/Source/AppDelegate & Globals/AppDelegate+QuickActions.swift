@@ -92,6 +92,9 @@ extension AppDelegate {
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
 			tabBarController.selectedIndex = 1
+			
+			// dismiss an overlaying, modally presented view controller
+			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 
 			// let diary coordinator handle pre-checks & navigation
 			coordinator.diaryCoordinator?.showCurrentDayScreen()
