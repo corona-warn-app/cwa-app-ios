@@ -143,21 +143,16 @@ class ExposureWindowsMetadataTests: XCTestCase {
 	}
 	
 	private func riskCalculationMock() -> [RiskCalculation] {
-		
 		let testCases = testCasesWithConfiguration.testCases
 		var riskCalculations = [RiskCalculation]()
 		
 		for testCase in testCases {
-			do {
-				let riskCalculation = RiskCalculation()
-				_ = try riskCalculation.calculateRisk(
-					exposureWindows: testCase.exposureWindows,
-					configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
-				)
-				riskCalculations.append(riskCalculation)
-			} catch {
-				XCTFail("Caught error decoding the riskCalculations, Error: \(error.localizedDescription)")
-			}
+			let riskCalculation = RiskCalculation()
+			_ = riskCalculation.calculateRisk(
+				exposureWindows: testCase.exposureWindows,
+				configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
+			)
+			riskCalculations.append(riskCalculation)
 		}
 		return riskCalculations
 	}
