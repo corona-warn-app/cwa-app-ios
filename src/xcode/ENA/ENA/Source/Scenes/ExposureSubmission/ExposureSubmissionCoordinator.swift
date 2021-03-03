@@ -567,7 +567,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertTitle
 
-		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertMessage : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertMessage
+		let alertMessage = isSubmissionConsentGiven ? nil : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertMessage
 
 		let alert = UIAlertController(
 			title: alertTitle,
@@ -578,17 +578,17 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertButtonClose,
-				style: .cancel
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
+				}
 			)
 		)
 
 		alert.addAction(
 			UIAlertAction(
 				title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertButtonContinue,
-				style: .default,
-				handler: { [weak self] _ in
-					self?.dismiss()
-				}
+				style: .default
 			)
 		)
 
