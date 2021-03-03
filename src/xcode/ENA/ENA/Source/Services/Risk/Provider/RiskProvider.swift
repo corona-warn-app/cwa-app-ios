@@ -69,6 +69,13 @@ final class RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
+		#if DEBUG
+		if isUITesting {
+			self._requestRiskLevel_Mock(userInitiated: userInitiated)
+			return
+		}
+		#endif
+
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
@@ -97,14 +104,6 @@ final class RiskProvider: RiskProviding {
 
 		queue.async {
 			self.updateActivityState(.riskRequested)
-
-			#if DEBUG
-			if isUITesting {
-				self._requestRiskLevel_Mock(userInitiated: userInitiated)
-				return
-			}
-			#endif
-
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 		}
 	}
