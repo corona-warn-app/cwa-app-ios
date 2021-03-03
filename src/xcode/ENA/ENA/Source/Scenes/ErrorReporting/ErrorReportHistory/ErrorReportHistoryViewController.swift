@@ -33,10 +33,10 @@ class ErrorReportHistoryViewController: DynamicTableViewController, DismissHandl
 	private func setupTableView() {
 		navigationItem.largeTitleDisplayMode = .never
 		view.backgroundColor = .enaColor(for: .background)
-		tableView.separatorStyle = .singleLine
-
+		tableView.separatorStyle = .none
+		
 		tableView.register(
-			DynamicTableViewRoundedCell.self,
+			UINib(nibName: "ErrorReportHistoryCell", bundle: nil),
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.historyCell.rawValue
 		)
 
