@@ -94,6 +94,7 @@ class HomeCoordinator: RequiresAppDependencies {
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
 				},
+				onEventCellTap: { },
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
 				},

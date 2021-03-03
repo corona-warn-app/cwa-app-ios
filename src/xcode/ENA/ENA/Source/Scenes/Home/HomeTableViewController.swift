@@ -19,6 +19,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
+		onEventCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
@@ -33,6 +34,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
+		self.onEventCellTap = onEventCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
@@ -157,6 +159,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
+		case .event:
+			return eventCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -204,6 +208,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
+		case .event:
+			onEventCellTap()
 		case .infos:
 			if indexPath.row == 0 {
 				onInviteFriendsCellTap()
@@ -249,6 +255,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
+	private let onEventCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
@@ -302,6 +309,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeStatisticsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeEventTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeEventTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
@@ -463,6 +474,21 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 
 		statisticsCell = cell
+
+		return cell
+	}
+
+	private func eventCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeEventTableViewCell.self), for: indexPath) as? HomeEventTableViewCell else {
+			fatalError("Could not dequeue HomeEventTableViewCell")
+		}
+
+		cell.configure(
+			with: HomeEventCellModel(),
+			onPrimaryAction: { [weak self] in
+				self?.onEventCellTap()
+			}
+		)
 
 		return cell
 	}
