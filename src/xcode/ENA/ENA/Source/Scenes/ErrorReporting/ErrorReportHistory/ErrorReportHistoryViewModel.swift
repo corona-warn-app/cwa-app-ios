@@ -31,7 +31,7 @@ final class ErrorReportHistoryViewModel {
 			$0.add(
 				.section(
 					separators: .inBetween,
-					cells: buildIDsCells()
+					cells: buildHistoryCells()
 				)
 			)
 		}
@@ -41,7 +41,7 @@ final class ErrorReportHistoryViewModel {
 
 	private let ids: [Int]
 
-	private func buildIDsCells() -> [DynamicCell] {
+	private func buildHistoryCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
 		for id in ids {
 			cells.append(.custom(
