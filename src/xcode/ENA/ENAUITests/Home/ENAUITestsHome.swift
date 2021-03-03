@@ -23,7 +23,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0010_HomeFlow_medium() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launch()
 
 		// only run if home screen is present
@@ -39,7 +39,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .XS)
 		app.launch()
 
 		// only run if home screen is present
@@ -55,7 +55,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XL)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XL)
 		app.launch()
 
 		// only run if home screen is present
@@ -76,7 +76,7 @@ class ENAUITests_01_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "high"
 		let numberOfDaysWithHighRisk = 1
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
@@ -101,7 +101,7 @@ class ENAUITests_01_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "high"
 		let numberOfDaysWithHighRisk = "4"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithHighRisk])
 		app.launch()
@@ -127,7 +127,7 @@ class ENAUITests_01_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
@@ -152,7 +152,7 @@ class ENAUITests_01_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "1"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
 		app.launch()
@@ -178,7 +178,7 @@ class ENAUITests_01_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = "4"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
 		app.launch()
@@ -204,7 +204,7 @@ class ENAUITests_01_Home: XCTestCase {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let activeTracingDays = "14"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
@@ -217,7 +217,7 @@ class ENAUITests_01_Home: XCTestCase {
 		let riskLevel = "low"
 		// change the value based on N
 		let activeTracingDays = "12"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
@@ -229,7 +229,7 @@ class ENAUITests_01_Home: XCTestCase {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 		var screenshotCounter = 0
 		let riskLevel = "inactive"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
@@ -250,7 +250,7 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardHigh_activeExposureLogging() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
@@ -286,33 +286,46 @@ class ENAUITests_01_Home: XCTestCase {
 		let riskLevel = "high"
 		// change the value based on N
 		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
-		
+
 		let riskCell = app.cells.element(boundBy: 1)
 		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
 		riskCell.tap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
-	
-	func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
+   }
+
+   func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		// change the value based on N
 		let activeTracingDays = "5"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", "1"])
 		app.launch()
-		
+
 		let riskCell = app.cells.element(boundBy: 1)
 		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
 		riskCell.tap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-	}
+   }
+
+	func test_screenshot_homescreen_thankyou_screen() throws {
+		var screenshotCounter = 0
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-showThankYouScreen", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+   }
 }

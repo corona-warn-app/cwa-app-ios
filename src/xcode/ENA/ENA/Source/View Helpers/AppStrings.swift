@@ -891,29 +891,17 @@ enum AppStrings {
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
+		/* Version 1.15 */
+		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
 		
-		/* Version 1.14 */
+		static let feature115SwitzerlandTitle = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_title", comment: "")
 		
-		static let feature114AdditionalDiaryFunctionsTitle = NSLocalizedString("NewVersionFeature_114_additional_diary_functions_title", comment: "")
+		static let feature115SwitzerlandDescription = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_description", comment: "")
 		
-		static let feature114AdditionalDiaryFunctionsDescription = NSLocalizedString("NewVersionFeature_114_additional_diary_functions_description", comment: "")
+		static let feature115ErrorAnalyticsLogTitle = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_title", comment: "")
 		
-		static let feature114DirectAccessDiaryTitle = NSLocalizedString("NewVersionFeature_114_direct_access_diary_title", comment: "")
-		
-		static let feature114DirectAccessDiaryDescription = NSLocalizedString("NewVersionFeature_114_direct_access_diary_description", comment: "")
-		
-		static let feature114MoreDetailsRiskStatusTitle = NSLocalizedString("NewVersionFeature_114_more_details_risk_status_title", comment: "")
-		
-		static let feature114MoreDetailsRiskStatusDescription = NSLocalizedString("NewVersionFeature_114_more_details_risk_status_description", comment: "")
-		
-		static let feature114ScreenshotsTitle = NSLocalizedString("NewVersionFeature_114_screenshots_title", comment: "")
-		
-		static let feature114ScreenshotsDescription = NSLocalizedString("NewVersionFeature_114_screenshots_description", comment: "")
-		
-		static let feature114ScreenshotWebSiteURL = NSLocalizedString("NewVersion_Feature_114_Screenshot_URL", tableName: "Localizable.links", comment: "URL")
-		
-		static let feature114ScreenshotWebSiteURLDisplayText = "https://www.coronawarn.app"
+		static let feature115ErrorAnalyticsLogDescription = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_description", comment: "")
 	}
 	
 	enum DeltaOnboarding {

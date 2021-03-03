@@ -24,7 +24,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	}
 
 	func test_0000_OnboardingFlow_DisablePermissions_normal_XXXL() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XXXL)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .XXXL)
 		app.launch()
 
 		// only run if onboarding screen is present
@@ -91,7 +91,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	}
 
 	func test_0001_OnboardingFlow_EnablePermissions_normal_XS() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .XS)
 		app.launch()
 
 		// only run if onboarding screen is present
@@ -162,7 +162,7 @@ class ENAUITests_00_Onboarding: XCTestCase {
 	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
 		var screenshotCounter = 0
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .S)
 		app.launch()
 		
 		let prefix = "OnboardingFlow_EnablePermission_"
