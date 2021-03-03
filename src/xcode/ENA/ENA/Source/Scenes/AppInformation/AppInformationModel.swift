@@ -91,7 +91,7 @@ enum AppInformationModel {
 					text: AppStrings.ErrorReport.privacyInformation,
 					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.privacyInformation,
 					accessibilityTraits: .link,
-					action: .execute(block: <#T##(UIViewController, UITableViewCell?) -> Void#>) /* TO DO: .push model or view controller */,
+					action: .none /* TO DO: .push model or view controller */,
 					configure: { _, cell, _ in
 						cell.accessoryType = .disclosureIndicator
 					})
