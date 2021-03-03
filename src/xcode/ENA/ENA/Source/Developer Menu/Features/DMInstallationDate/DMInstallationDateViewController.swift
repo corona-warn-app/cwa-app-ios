@@ -42,9 +42,9 @@ class DMInstallationDateViewController: UITableViewController {
 		if cellViewModel is DMDatePickerCellViewModel {
 			let cell = tableView.dequeueReusableCell(cellType: DMDatePickerTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
-			
+
 			cell.didSelectDate = { [weak self] date in
-				self?.store.appFirstStartDate = date
+				self?.store.appInstallationDate = date
 			}
 			return cell
 		} else {

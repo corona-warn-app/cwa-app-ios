@@ -40,7 +40,7 @@ final class DMInstallationDateViewModel {
 			return DMDatePickerCellViewModel(
 				title: "Installation Date",
 				datePickerMode: .date,
-				date: store.appFirstStartDate ?? Date()
+				date: store.appInstallationDate ?? Date()
 			)
 		}
 	}

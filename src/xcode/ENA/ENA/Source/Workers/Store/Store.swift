@@ -26,7 +26,7 @@ protocol StoreProtocol: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var appFirstStartDate: Date? { get set }
+	var appInstallationDate: Date? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }

@@ -36,8 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
 
-		if store.appFirstStartDate == nil {
-			store.appFirstStartDate = Date()
+		if store.appInstallationDate == nil {
+			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
 		}
 
 		self.client = HTTPClient(serverEnvironmentProvider: store)

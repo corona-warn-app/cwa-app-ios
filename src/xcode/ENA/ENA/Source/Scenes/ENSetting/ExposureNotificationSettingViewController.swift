@@ -321,7 +321,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			fatalError("Cell is not registered")
 		}
 
-		tracingCell.configure(daysSinceInstall: store.appFirstStartDate?.ageInDays ?? 0)
+		tracingCell.configure(daysSinceInstall: store.appInstallationDate?.ageInDays ?? 0)
 
 		return tracingCell
 	}

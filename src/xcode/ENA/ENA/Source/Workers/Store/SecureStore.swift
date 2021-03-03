@@ -177,7 +177,7 @@ final class SecureStore: Store {
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
 
-	var appFirstStartDate: Date? {
+	var appInstallationDate: Date? {
 		get { kvStore["appFirstStartDate"] as Date? }
 		set { kvStore["appFirstStartDate"] = newValue }
 	}

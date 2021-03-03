@@ -106,7 +106,7 @@ class HomeState: ENStateHandlerUpdating {
 	}
 
 	var daysSinceInstallation: Int {
-		store.appFirstStartDate?.ageInDays ?? 0
+		store.appInstallationDate?.ageInDays ?? 0
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {
