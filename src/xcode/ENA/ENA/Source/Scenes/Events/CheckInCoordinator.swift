@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-final class EventsCoordinator {
+final class CheckInCoordinator {
 
 	// MARK: - Init
 
@@ -22,7 +22,7 @@ final class EventsCoordinator {
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {
-		let qrCodeScanner = QRCodeScannerViewController(
+		let qrCodeScanner = CheckInQRCodeScannerViewController(
 			presentEventForCheckIn: { [weak self] event in
 				self?.showEventForCheckIn(event)
 			},
@@ -41,7 +41,7 @@ final class EventsCoordinator {
 	}
 
 	private func showEventForCheckIn(_ event: String) {
-		let eventDetailViewController = EventDetailViewController(
+		let eventDetailViewController = CheckInDetailViewController(
 			"Ich bin ein TestEvent",
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
 			presentCheckIns: { [weak self] in

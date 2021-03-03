@@ -5,7 +5,7 @@
 import UIKit
 import AVFoundation
 
-class QRCodeScannerViewController: UIViewController {
+class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Init
 
@@ -15,7 +15,7 @@ class QRCodeScannerViewController: UIViewController {
 	) {
 		self.presentEventForCheckIn = presentEventForCheckIn
 		self.presentCheckIns = presentCheckIns
-		self.viewModel = QRCodeScannerViewModel()
+		self.viewModel = CheckInQRCodeScannerViewModel()
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -53,7 +53,7 @@ class QRCodeScannerViewController: UIViewController {
 
 	private let presentEventForCheckIn: (String) -> Void
 	private let presentCheckIns: () -> Void
-	private let viewModel: QRCodeScannerViewModel
+	private let viewModel: CheckInQRCodeScannerViewModel
 
 	private var previewLayer: AVCaptureVideoPreviewLayer!
 

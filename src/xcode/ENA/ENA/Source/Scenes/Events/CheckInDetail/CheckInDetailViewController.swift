@@ -4,7 +4,7 @@
 
 import UIKit
 
-class EventDetailViewController: UIViewController {
+class CheckInDetailViewController: UIViewController {
 
 	// MARK: - Init
 
@@ -13,7 +13,7 @@ class EventDetailViewController: UIViewController {
 		dismiss: @escaping () -> Void,
 		presentCheckIns: @escaping () -> Void
 	) {
-		self.viewModel = EventDetailViewModel(event)
+		self.viewModel = CheckInDetailViewModel(event)
 		self.dismiss = dismiss
 		self.presentCheckIns = presentCheckIns
 		super.init(nibName: nil, bundle: nil)
@@ -40,7 +40,7 @@ class EventDetailViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let viewModel: EventDetailViewModel
+	private let viewModel: CheckInDetailViewModel
 	private let dismiss: () -> Void
 	private let presentCheckIns: () -> Void
 

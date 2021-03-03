@@ -5,7 +5,7 @@
 import Foundation
 import AVFoundation
 
-final class QRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 

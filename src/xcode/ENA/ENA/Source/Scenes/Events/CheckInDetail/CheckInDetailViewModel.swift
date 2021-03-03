@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class EventDetailViewModel {
+final class CheckInDetailViewModel {
 
 	// MARK: - Init
 	init(

@@ -69,7 +69,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 		// Events (Dummy?)
 
-		let eventsCoordinator = EventsCoordinator()
+		let eventsCoordinator = CheckInCoordinator()
 		self.eventsCoordinator = eventsCoordinator
 
 		// Tabbar
@@ -148,7 +148,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) var eventsCoordinator: EventsCoordinator?
+	private(set) var eventsCoordinator: CheckInCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
