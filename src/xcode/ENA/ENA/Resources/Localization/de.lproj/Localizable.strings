@@ -1934,4 +1934,4 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "ErrorReport_History_Cell_Date_Time" = "%@ um %@";
 
-"ErrorReport_History_Cell_ID" = "ID %@"
+"ErrorReport_History_Cell_ID" = "ID %@";
