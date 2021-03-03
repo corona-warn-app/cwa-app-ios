@@ -1316,6 +1316,7 @@ enum AppStrings {
 		static let title = NSLocalizedString("ErrorReport_Title", comment: "")
 		static let description1 = NSLocalizedString("ErrorReport_Description1", comment: "")
 		static let faq = NSLocalizedString("ErrorReport_FAQ", comment: "")
+		static let faqURL = NSLocalizedString("errorReport_FAQ_URL", tableName: "Localizable.links", comment: "")
 		static let description2 = NSLocalizedString("ErrorReport_Description2", comment: "")
 		static let privacyInformation = NSLocalizedString("ErrorReport_PrivacyInformation", comment: "")
 		static let detailedInformationTitle = NSLocalizedString("errorReport_DetailedInformation_Title", comment: "")

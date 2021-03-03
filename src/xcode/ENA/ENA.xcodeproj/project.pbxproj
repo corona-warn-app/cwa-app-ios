@@ -2429,10 +2429,10 @@
 			isa = PBXGroup;
 			children = (
 				3554354725E798B30016764A /* ErrorReportViewController.swift */,
-				504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */,
 				8F49CF7F25ECEAAE00A461C0 /* ErrorReportViewController.xib */,
 				8F96BC0725EC54D000E8B8A4 /* ErrorReportFooterView.xib */,
 				8F96BC0C25EC55C100E8B8A4 /* ErrorReportFooterView.swift */,
+				504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */,
 			);
 			path = ErrorReporting;
 			sourceTree = "<group>";
@@ -2536,12 +2536,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5036715325EEC9D500BC9C95 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */ = {
 			isa = PBXGroup;
 			children = (
+				5036715325EEC9D500BC9C95 /* __tests__ */,
 				504BB0AB25EE204A006B0E54 /* ErrorReportDetailInformationViewController.swift */,
 				504BB0B425EE2392006B0E54 /* ErrorReportDetailInformationViewModel.swift */,
-				5065950B25EEB624002ACA17 /* ErrorReportDetailInformationViewModelTest.swift */,
 			);
 			path = ErrorReportDetailedInformation;
 			sourceTree = "<group>";
