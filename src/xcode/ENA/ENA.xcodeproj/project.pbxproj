@@ -3196,7 +3196,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BAA4D72E25E95B1D00821B5C /* Events */,
+				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
@@ -4493,7 +4493,7 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BAA4D72E25E95B1D00821B5C /* Events */ = {
+		BAA4D72E25E95B1D00821B5C /* CheckIn */ = {
 			isa = PBXGroup;
 			children = (
 				BAA4D72F25E95B3A00821B5C /* CheckInCoordinator.swift */,
@@ -4501,7 +4501,7 @@
 				BA4C269D25EE9DA600E0505F /* CheckInDetail */,
 				BAA4D73425E960FC00821B5C /* QRCodeScanner */,
 			);
-			path = Events;
+			path = CheckIn;
 			sourceTree = "<group>";
 		};
 		BAA4D73425E960FC00821B5C /* QRCodeScanner */ = {
