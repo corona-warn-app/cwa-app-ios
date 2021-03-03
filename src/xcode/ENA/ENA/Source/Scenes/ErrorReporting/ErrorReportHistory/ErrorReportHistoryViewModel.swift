@@ -10,10 +10,8 @@ final class ErrorReportHistoryViewModel {
 
 	init() {
 			
-		// should be replaced by Ids
+		// TODO: should be replaced by Ids
 		self.ids = [001, 002, 003, 004, 005]
-		
-		// should be replace by Dates
 	}
 
 	// MARK: - Internal
@@ -51,6 +49,7 @@ final class ErrorReportHistoryViewModel {
 					withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
 							 configure: { _, cell, _ in
 								 guard let cell = cell as? ErrorReportHistoryCell else { return }
+								 // TODO: Adding date and time in dateTimeLabel
 								 cell.dateTimeLabel?.text = String(format: AppStrings.ErrorReport.historyCellDateTime)
 								 cell.idLabel?.text = String(format: AppStrings.ErrorReport.historyCellID, id)
 							 }
