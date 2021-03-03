@@ -5,7 +5,7 @@
 import ExposureNotification
 import Foundation
 
-/// Describes how to interfact with the backend.
+/// Describes how to interact with the backend.
 protocol Client {
 	// MARK: Types
 
@@ -20,7 +20,8 @@ protocol Client {
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
-	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
+	typealias PPAnalyticsSubmissionCompletionHandler = (Result<Void, PPASError>) -> Void
+	typealias ELSSubmissionCompletionHandler = (Result<Void, PPASError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -113,7 +114,21 @@ protocol Client {
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
-		completion: @escaping PPAnalyticsSubmitionCompletionHandler
+		completion: @escaping PPAnalyticsSubmissionCompletionHandler
+	)
+
+	// MARK: ELS (Error Log Sharing)
+
+
+	/// <#Description#>
+	/// - Parameters:
+	///   - logFile: <#logFile description#>
+	///   - isFake: <#isFake description#>
+	///   - completion: <#completion description#>
+	func submit(
+		logFile: Data,
+		isFake: Bool,
+		completion: @escaping ELSSubmissionCompletionHandler
 	)
 }
 
@@ -141,6 +156,14 @@ enum PPAServerErrorCode: String, Codable {
 	case JWS_SIGNATURE_VERIFICATION_FAILED
 	case NONCE_MISMATCH
 	case SALT_REDEEMED
+}
+
+enum ELSErrorCode: String, Codable {
+	case DEVICE_TOKEN_GENERATION_FAILED
+	case DEVICE_TOKEN_NOT_SUPPORTED
+	case DEVICE_TOKEN_INVALID
+	case DEVICE_TOKEN_REDEEMED
+	case DEVICE_TOKEN_SYNTAX_ERROR
 }
 
 extension SubmissionError: LocalizedError {

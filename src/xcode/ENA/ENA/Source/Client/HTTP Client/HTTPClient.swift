@@ -276,7 +276,7 @@ final class HTTPClient: Client {
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool = false,
-		completion: @escaping PPAnalyticsSubmitionCompletionHandler
+		completion: @escaping PPAnalyticsSubmissionCompletionHandler
 	) {
 		guard let request = try? URLRequest.ppaSubmit(
 				configuration: configuration,
