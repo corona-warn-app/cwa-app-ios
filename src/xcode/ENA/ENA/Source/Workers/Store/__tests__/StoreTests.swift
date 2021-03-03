@@ -74,7 +74,6 @@ final class StoreTests: XCTestCase {
 		// Prepare data
 		let testTimeStamp: Int64 = 1466467200  // 21.06.2016
 		let testDate1 = Date(timeIntervalSince1970: Double(testTimeStamp))
-		let testDate2 = Date(timeIntervalSince1970: Double(testTimeStamp) - 86400)
 
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
