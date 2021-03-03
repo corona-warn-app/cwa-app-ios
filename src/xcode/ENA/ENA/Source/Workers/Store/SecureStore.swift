@@ -344,8 +344,8 @@ extension SecureStore {
 
 extension SecureStore: AppConfigCaching {
 	var appConfigMetadata: AppConfigMetadata? {
-		get { kvStore["appConfigMetadata"] as AppConfigMetadata? ?? nil }
-		set { kvStore["appConfigMetadata"] = newValue }
+		get { kvStore["appConfigMetadataV2"] as AppConfigMetadata? ?? nil }
+		set { kvStore["appConfigMetadataV2"] = newValue }
 	}
 }
 

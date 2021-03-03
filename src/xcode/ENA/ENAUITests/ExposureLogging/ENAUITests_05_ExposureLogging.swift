@@ -24,7 +24,7 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
@@ -41,7 +41,7 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 
 	func test_screenshot_exposureLoggingOff() throws {
 		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
 		app.launch()

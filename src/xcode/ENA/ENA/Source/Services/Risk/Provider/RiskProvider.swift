@@ -69,6 +69,13 @@ final class RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
+		#if DEBUG
+		if isUITesting {
+			self._requestRiskLevel_Mock(userInitiated: userInitiated)
+			return
+		}
+		#endif
+
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
@@ -97,14 +104,6 @@ final class RiskProvider: RiskProviding {
 
 		queue.async {
 			self.updateActivityState(.riskRequested)
-
-			#if DEBUG
-			if isUITesting {
-				self._requestRiskLevel_Mock(userInitiated: userInitiated)
-				return
-			}
-			#endif
-
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 		}
 	}
@@ -309,25 +308,21 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-		do {
-			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
-			let risk = Risk(
-				riskCalculationResult: riskCalculationResult,
-				previousRiskCalculationResult: store.riskCalculationResult
-			)
+		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+		let risk = Risk(
+			riskCalculationResult: riskCalculationResult,
+			previousRiskCalculationResult: store.riskCalculationResult
+		)
 
-			store.riskCalculationResult = riskCalculationResult
-			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		store.riskCalculationResult = riskCalculationResult
+		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
-			completion(.success(risk))
+		completion(.success(risk))
 
-			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			DeadmanNotificationManager(store: store).resetDeadmanNotification()
-		} catch {
-			completion(.failure(.failedRiskCalculation))
-		}
+		/// We were able to calculate a risk so we have to reset the deadman notification
+		DeadmanNotificationManager(store: store).resetDeadmanNotification()
 	}
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
