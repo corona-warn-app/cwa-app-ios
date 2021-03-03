@@ -36,7 +36,7 @@ class ErrorReportHistoryViewController: DynamicTableViewController, DismissHandl
 		tableView.separatorStyle = .none
 		
 		tableView.register(
-			UINib(nibName: "ErrorReportHistoryCell", bundle: nil),
+			UINib(nibName: String(describing: ErrorReportHistoryCell.self), bundle: nil),
 			forCellReuseIdentifier: CustomCellReuseIdentifiers.historyCell.rawValue
 		)
 
