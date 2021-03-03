@@ -4,6 +4,7 @@
 
 import Foundation
 import AVFoundation
+import OpenCombine
 
 final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
@@ -11,6 +12,7 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	override init() {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
+		self.qrCodes = []
 		super.init()
 	}
 
@@ -51,12 +53,15 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	var onSuccess: ((String) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
 
+	@OpenCombine.Published private (set) var qrCodes: [AVMetadataObject]
+
 	func activateScanning() {
 		captureSession?.startRunning()
 	}
 
 	func deactivateScanning() {
 		captureSession?.stopRunning()
+		qrCodes = []
 	}
 
 	// MARK: - Private
@@ -99,15 +104,35 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		}
 	}
 
-	private func didScan(metadataObjects: [MetadataObject]) {
+	private func didScan(metadataObjects: [AVMetadataObject]) {
+
+		qrCodes = metadataObjects.filter({ metaDataObject -> Bool in
+			metaDataObject.type == AVMetadataObject.ObjectType.qr
+		})
+
+/*
+		if metadataObj.type == AVMetadataObject.ObjectType.qr {
+				// If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+				let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
+				qrCodeFrameView?.frame = barCodeObject!.bounds
+
+				if metadataObj.stringValue != nil {
+					messageLabel.text = metadataObj.stringValue
+				}
+			}
+*/
+
 		guard isScanningActivated,
 			  let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let stringValue = code.stringValue else {
-			onError?(QRScannerError.codeNotFound)
+			  let route = Route(code.stringValue) else {
+			Log.debug("wrong QR Code type", log: .event)
 			return
 		}
-		deactivateScanning()
-		onSuccess?(stringValue)
+
+		if case let Route.event(event) = route {
+			deactivateScanning()
+			onSuccess?(event)
+		}
 	}
 
 }

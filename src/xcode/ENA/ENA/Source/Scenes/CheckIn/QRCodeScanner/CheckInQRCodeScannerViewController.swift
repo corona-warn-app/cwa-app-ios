@@ -4,6 +4,7 @@
 
 import UIKit
 import AVFoundation
+import OpenCombine
 
 class CheckInQRCodeScannerViewController: UIViewController {
 
@@ -56,9 +57,10 @@ class CheckInQRCodeScannerViewController: UIViewController {
 	private let viewModel: CheckInQRCodeScannerViewModel
 
 	private var previewLayer: AVCaptureVideoPreviewLayer!
+	private var subscriptions: [AnyCancellable] = []
 
 	private func setupView() {
-		title = AppStrings.Events.QRScanner.title
+		navigationItem.title = AppStrings.Events.QRScanner.title
 
 		view.backgroundColor = .enaColor(for: .background)
 
@@ -90,6 +92,11 @@ class CheckInQRCodeScannerViewController: UIViewController {
 			return
 		}
 
+		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+		previewLayer.frame = view.layer.bounds
+		previewLayer.videoGravity = .resizeAspectFill
+		view.layer.addSublayer(previewLayer)
+
 		viewModel.onSuccess = { [weak self] stringValue in
 			self?.presentEventForCheckIn(stringValue)
 		}
@@ -98,15 +105,30 @@ class CheckInQRCodeScannerViewController: UIViewController {
 			Log.debug("Error handling not done right now")
 		}
 
-		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		previewLayer.frame = view.layer.bounds
-		previewLayer.videoGravity = .resizeAspectFill
-		view.layer.addSublayer(previewLayer)
+		viewModel.$qrCodes.sink { [weak self] metadataObjects in
+			self?.qrRectViews.forEach { view in
+				view.removeFromSuperview()
+			}
+
+			metadataObjects.forEach { metadataObject in
+				if let barCodeObject = self?.previewLayer.transformedMetadataObject(for: metadataObject) {
+					let qrRectView = UIView(frame: barCodeObject.bounds.insetBy(dx: -6.0, dy: -6.0))
+					qrRectView.layer.borderWidth = 4.0
+					qrRectView.layer.borderColor = UIColor.enaColor(for: .buttonPrimary).cgColor
+					qrRectView.layer.cornerRadius = 8.0
+					self?.view.addSubview(qrRectView)
+					self?.qrRectViews.append(qrRectView)
+				}
+			}
+		}
+		.store(in: &subscriptions)
 	}
 
 	@objc
 	private func didHitCheckInsButton() {
 		presentCheckIns()
 	}
+
+	private var qrRectViews: [UIView] = []
 
 }
