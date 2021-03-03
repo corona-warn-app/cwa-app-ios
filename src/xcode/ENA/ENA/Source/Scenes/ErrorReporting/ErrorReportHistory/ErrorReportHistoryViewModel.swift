@@ -43,18 +43,16 @@ final class ErrorReportHistoryViewModel {
 
 	private func buildIDsCells() -> [DynamicCell] {
 		var cells: [DynamicCell] = []
-		if !ids.isEmpty {
-			for id in ids {
-				cells.append(.custom(
-					withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
-							 configure: { _, cell, _ in
-								 guard let cell = cell as? ErrorReportHistoryCell else { return }
-								 // TODO: Adding date and time in dateTimeLabel
-								 cell.dateTimeLabel?.text = String(format: AppStrings.ErrorReport.historyCellDateTime)
-								 cell.idLabel?.text = String(format: AppStrings.ErrorReport.historyCellID, id)
-							 }
-						 ))
-			}
+		for id in ids {
+			cells.append(.custom(
+				withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
+						 configure: { _, cell, _ in
+							 guard let cell = cell as? ErrorReportHistoryCell else { return }
+							 // TODO: Adding date and time in dateTimeLabel
+							 cell.dateTimeLabel?.text = String(format: AppStrings.ErrorReport.historyCellDateTime)
+							 cell.idLabel?.text = String(format: AppStrings.ErrorReport.historyCellID, id)
+						 }
+					 ))
 		}
 		return cells
 	}
