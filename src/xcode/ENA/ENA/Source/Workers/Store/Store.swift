@@ -59,8 +59,6 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
-//	var tracingStatusHistory: TracingStatusHistory { get set }
-
 	var riskCalculationResult: RiskCalculationResult? { get set }
 
 	/// Date when the risk was changed to high
