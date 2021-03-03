@@ -26,10 +26,10 @@
                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title3"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="ID 002" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Y0-ii-NxF" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="ID 002" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Y0-ii-NxF" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="21.5" width="374" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" name="ENA Text Primary 2 Color"/>
@@ -50,11 +50,10 @@
                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="dateTimeLabel" destination="Xe2-4k-aae" id="Caa-0z-1LW"/>
-                <outlet property="idLabel" destination="3Y0-ii-NxF" id="kaM-F9-jMf"/>
-                <outlet property="subtitleLabel" destination="3Y0-ii-NxF" id="08V-kf-FsY"/>
-                <outlet property="titleLabel" destination="Xe2-4k-aae" id="TIZ-6R-H8e"/>
+                <outlet property="dateTimeLabel" destination="Xe2-4k-aae" id="gi2-gv-INs"/>
+                <outlet property="idLabel" destination="3Y0-ii-NxF" id="sf5-Nk-Jdz"/>
             </connections>
             <point key="canvasLocation" x="-680" y="117"/>
         </tableViewCell>
