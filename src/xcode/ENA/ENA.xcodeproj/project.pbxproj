@@ -570,6 +570,8 @@
 		ABAE0A37257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */; };
 		ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
+		ABE9610C25EF7B5B00D0F699 /* DMDatePickerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9610B25EF7B5B00D0F699 /* DMDatePickerCellViewModel.swift */; };
+		ABE9611125EF7FD200D0F699 /* DMInstallationDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9611025EF7FD200D0F699 /* DMInstallationDateViewModel.swift */; };
 		ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */; };
 		ABF574E425C405710098E315 /* ExposureDetectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */; };
 		ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */; };
@@ -1438,6 +1440,8 @@
 		ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreTests.swift; sourceTree = "<group>"; };
 		ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackageDownload.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
+		ABE9610B25EF7B5B00D0F699 /* DMDatePickerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDatePickerCellViewModel.swift; sourceTree = "<group>"; };
+		ABE9611025EF7FD200D0F699 /* DMInstallationDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMInstallationDateViewModel.swift; sourceTree = "<group>"; };
 		ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModel.swift; sourceTree = "<group>"; };
 		ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionCoordinator.swift; sourceTree = "<group>"; };
 		ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigMetadata.swift; sourceTree = "<group>"; };
@@ -3646,6 +3650,7 @@
 			isa = PBXGroup;
 			children = (
 				AB83F10025EEA20000374BAD /* DMInstallationDateViewController.swift */,
+				ABE9611025EF7FD200D0F699 /* DMInstallationDateViewModel.swift */,
 			);
 			path = DMInstallationDate;
 			sourceTree = "<group>";
@@ -3654,6 +3659,7 @@
 			isa = PBXGroup;
 			children = (
 				AB83F10D25EEA3DB00374BAD /* DMDatePickerTableViewCell.swift */,
+				ABE9610B25EF7B5B00D0F699 /* DMDatePickerCellViewModel.swift */,
 			);
 			path = DatePicker;
 			sourceTree = "<group>";
@@ -5078,6 +5084,7 @@
 				B16457B524DC11EF002879EB /* DMLastSubmissionRequetViewController.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
 				01D6948D2502717F00B45BEA /* DatePickerDayView.swift in Sources */,
+				ABE9611125EF7FD200D0F699 /* DMInstallationDateViewModel.swift in Sources */,
 				017AD0C9259BBD2E00FA2B3F /* HomeTestResultCellModel.swift in Sources */,
 				BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */,
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
@@ -5518,6 +5525,7 @@
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
+				ABE9610C25EF7B5B00D0F699 /* DMDatePickerCellViewModel.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
