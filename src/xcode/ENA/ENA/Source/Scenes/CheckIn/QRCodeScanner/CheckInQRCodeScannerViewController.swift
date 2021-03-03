@@ -11,7 +11,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		presentEventForCheckIn: @escaping (String) -> Void,
+		presentEventForCheckIn: @escaping (CGRect, String) -> Void,
 		presentCheckIns: @escaping () -> Void
 	) {
 		self.presentEventForCheckIn = presentEventForCheckIn
@@ -52,7 +52,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let presentEventForCheckIn: (String) -> Void
+	private let presentEventForCheckIn: (CGRect, String) -> Void
 	private let presentCheckIns: () -> Void
 	private let viewModel: CheckInQRCodeScannerViewModel
 
@@ -88,7 +88,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	private func setupViewModel() {
 		guard let captureSession = viewModel.captureSession else {
-			Log.debug("Failed to setup captureSession")
+			Log.debug("Failed to setup captureSession", log: .checkin)
 			return
 		}
 
@@ -97,12 +97,22 @@ class CheckInQRCodeScannerViewController: UIViewController {
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.addSublayer(previewLayer)
 
-		viewModel.onSuccess = { [weak self] stringValue in
-			self?.presentEventForCheckIn(stringValue)
+		viewModel.onSuccess = { [weak self] metadataObject in
+			guard let self = self,
+				  let route = Route(metadataObject.stringValue),
+				  let avMetaDataObject = metadataObject as? AVMetadataObject,
+				  let newRect = self.previewLayer.transformedMetadataObject(for: avMetaDataObject)?.bounds,
+				  case let Route.event(event) = route else {
+				// we found something but will continue to scan
+				return
+			}
+			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+			self.viewModel.deactivateScanning()
+			self.presentEventForCheckIn(newRect, event)
 		}
 
 		viewModel.onError = { _ in
-			Log.debug("Error handling not done right now")
+			Log.debug("Error handling not done right now", log: .checkin)
 		}
 
 		viewModel.$qrCodes.sink { [weak self] metadataObjects in
@@ -122,6 +132,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 			}
 		}
 		.store(in: &subscriptions)
+		
 	}
 
 	@objc

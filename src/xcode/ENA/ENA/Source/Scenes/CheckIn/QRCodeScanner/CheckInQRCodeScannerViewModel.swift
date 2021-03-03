@@ -25,7 +25,11 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		didOutput metadataObjects: [AVMetadataObject],
 		from _: AVCaptureConnection
 	) {
-		didScan(metadataObjects: metadataObjects)
+		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject else {
+			Log.debug("wrong QR Code type", log: .checkin)
+			return
+		}
+		onSuccess?(code)
 	}
 
 	// MARK: - Public
@@ -48,9 +52,7 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-//	let captureSession: AVCaptureSession
-
-	var onSuccess: ((String) -> Void)?
+	var onSuccess: ((MetadataMachineReadableCodeObject) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
 
 	@OpenCombine.Published private (set) var qrCodes: [AVMetadataObject]
@@ -61,7 +63,6 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	func deactivateScanning() {
 		captureSession?.stopRunning()
-		qrCodes = []
 	}
 
 	// MARK: - Private
@@ -89,7 +90,7 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	private func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
-			Log.info("AVCaptureDevice.authorized - enable qr code scanner")
+			Log.info("AVCaptureDevice.authorized - enable qr code scanner", log: .checkin)
 			activateScanning()
 		case .notDetermined:
 			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
@@ -101,37 +102,6 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 			}
 		default:
 			onError?(.cameraPermissionDenied)
-		}
-	}
-
-	private func didScan(metadataObjects: [AVMetadataObject]) {
-
-		qrCodes = metadataObjects.filter({ metaDataObject -> Bool in
-			metaDataObject.type == AVMetadataObject.ObjectType.qr
-		})
-
-/*
-		if metadataObj.type == AVMetadataObject.ObjectType.qr {
-				// If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
-				let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
-				qrCodeFrameView?.frame = barCodeObject!.bounds
-
-				if metadataObj.stringValue != nil {
-					messageLabel.text = metadataObj.stringValue
-				}
-			}
-*/
-
-		guard isScanningActivated,
-			  let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let route = Route(code.stringValue) else {
-			Log.debug("wrong QR Code type", log: .event)
-			return
-		}
-
-		if case let Route.event(event) = route {
-			deactivateScanning()
-			onSuccess?(event)
 		}
 	}
 
