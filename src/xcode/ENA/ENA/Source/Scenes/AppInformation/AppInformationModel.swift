@@ -71,6 +71,18 @@ enum AppInformationModel {
 			.body(text: AppStrings.ErrorReport.description1),
 			.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq) // TO DO: get correct link!
 		]),
+		.section(
+			separators: .all,
+			cells: [
+				.body(
+					text: AppStrings.ErrorReport.privacyInformation,
+					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.privacyInformation,
+					accessibilityTraits: .link,
+					action: .none /* TO DO: .push model or view controller */,
+					configure: { _, cell, _ in
+						cell.accessoryType = .disclosureIndicator
+					})
+			]),
 		.section(cells: [
 			.acknowledgement(
 				title: NSAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Headline),

@@ -1222,9 +1222,7 @@ sein.";
 
 "ErrorReport_Description2" = "Das Fehleranalyse-Protokoll kann Gesundheitsdaten (z.B. Testergebnis oder Risikostatus) enthalten. Bitte versenden Sie das Protokoll daher ausschließlich über die App und nicht per E-Mail.";
 
-"ErrorReport_PrivacyInformation" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
-
-"ErrorReport_PrivacyInformation" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
+"ErrorReport_PrivacyInformation" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
 
 "ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
 
@@ -1929,5 +1927,3 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
 
 "ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
-
-"ErrorReport_PrivacyInformation" = "";
