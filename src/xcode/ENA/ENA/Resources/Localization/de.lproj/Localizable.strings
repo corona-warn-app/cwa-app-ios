@@ -1927,3 +1927,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
 
 "ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_History_Title" = "ID Historie";
+
+"ErrorReport_History_Description" = "Hier sehen Sie die IDs Ihrer Fehleranalyse-Protokolle";
+
+"ErrorReport_History_Cell_Date_Time" = "%@ um %@";
+
+"ErrorReport_History_Cell_ID" = "ID %@"

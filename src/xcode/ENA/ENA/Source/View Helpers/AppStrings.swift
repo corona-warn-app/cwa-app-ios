@@ -1330,6 +1330,12 @@ enum AppStrings {
 		static let saveButtonTitle = NSLocalizedString("ErrorReport_SaveButtonTitle", comment: "")
 		static let sendButtontitle = NSLocalizedString("ErrorReport_SendButtonTitle", comment: "")
 
+		// History ViewController UI
+		static let historyTitle = NSLocalizedString("ErrorReport_History_Title", comment: "")
+		static let historyDescription = NSLocalizedString("ErrorReport_History_Description", comment: "")
+		static let historyCellDateTime = NSLocalizedString("ErrorReport_History_Cell_Date_Time", comment: "")
+		static let historyCellID = NSLocalizedString("ErrorReport_History_Cell_ID", comment: "")
+		
 		enum Legal {
 			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
 			static let dataPrivacy_Bullet1 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet1", tableName: "Localizable.legal", comment: "")
