@@ -34,7 +34,6 @@
 		0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */; };
 		0138F55025ECD44300A9B075 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */; };
 		0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */; };
-		0138F55225ECD44300A9B075 /* app_config_android.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54625ECD44300A9B075 /* app_config_android.pb.swift */; };
 		0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */; };
 		0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */; };
 		0138F5B425ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
@@ -444,9 +443,7 @@
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		8F015FF325DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F015FF225DD62BA004FEF04 /* ExposureSubmission+TestResult+Extenstion.swift */; };
 		8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F070CE825E58B9400D29344 /* HtmlInfoModel.swift */; };
-		8F0A4BAD25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAB25C2F6F70085DF13 /* ppdd_ppac_parameters.pb.swift */; };
-		8F0A4BAE25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0A4BAC25C2F6F70085DF13 /* ppdd_edus_parameters.pb.swift */; };
-		8F11512425DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F11512325DC27E9007BDBC6 /* TestResultMetadataServiceTests.swift */; };
+		8F11512425DC27E9007BDBC6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F270193259B5BA700E48CFE /* ContactDiaryMigration1To2.swift */; };
 		8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */; };
 		8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3C925D55A3D008FD630 /* ppa_data.pb.swift */; };
@@ -897,7 +894,6 @@
 		0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_els_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F54625ECD44300A9B075 /* app_config_android.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_config_android.pb.swift; sourceTree = "<group>"; };
 		0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event_registration_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionRiskValueMapping.swift; sourceTree = "<group>"; };
 		0138F5B325ED3B8800A9B075 /* default_app_config_115 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_115; sourceTree = "<group>"; };
@@ -1837,7 +1833,6 @@
 				0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */,
 				0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */,
 				0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */,
-				0138F54625ECD44300A9B075 /* app_config_android.pb.swift */,
 				0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */,
 			);
 			name = v2;
@@ -5224,7 +5219,6 @@
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				0144DDB625D5596800CFB1D1 /* MockDiaryStore.swift in Sources */,
-				B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */,
 				0138F53425ECD2D700A9B075 /* check_in_export.pb.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
 				013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */,
@@ -5539,7 +5533,6 @@
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
-				0138F55225ECD44300A9B075 /* app_config_android.pb.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */,
 				01A4DC6E25922EB4007D5794 /* HomeImageItemView.swift in Sources */,
