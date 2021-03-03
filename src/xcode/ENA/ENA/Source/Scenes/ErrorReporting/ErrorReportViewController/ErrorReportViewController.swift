@@ -13,25 +13,13 @@ class ErrorReportViewController: DynamicTableViewController {
 		
 		setupTableView()
 		
+		title = AppStrings.ErrorReport.title
+		
 		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationItem.title = AppStrings.ErrorReport.title
 		
 		view.backgroundColor = .enaColor(for: .background)
 		
 		dynamicTableViewModel = AppInformationModel.errorReportModel
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		let nibName = String(describing: ErrorReportFooterView.self)
-		let nib = UINib(nibName: nibName, bundle: .main)
-		if let logStatusView = nib.instantiate(withOwner: self, options: nil).first as? ErrorReportFooterView {
-			logStatusView.configure(status: .active)
-			logStatusView.bounds = CGRect(origin: .zero, size: CGSize(width: logStatusView.bounds.width, height: 318))
-			self.logStatusView = logStatusView
-			tableView.tableFooterView = logStatusView
-		}
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,16 +28,24 @@ class ErrorReportViewController: DynamicTableViewController {
 		return cell
 	}
 	
+	// MARK: - Internal
+
+	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
+		case link = "linkCell"
+	}
+
 	// MARK: - Private
 	
 	private func setupTableView() {
 		tableView.separatorStyle = .none
-		
 		tableView.register(
 			UINib(nibName: "ExposureDetectionLinkCell", bundle: nil),
-			forCellReuseIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link.rawValue
+			forCellReuseIdentifier: ReuseIdentifiers.link.rawValue
+		)
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 	}
-
-	private var logStatusView: ErrorReportFooterView?
 }

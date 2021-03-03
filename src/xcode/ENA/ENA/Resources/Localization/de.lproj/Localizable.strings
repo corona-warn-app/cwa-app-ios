@@ -1226,6 +1226,20 @@ sein.";
 
 "ErrorReport_PrivacyInformation" = "Ausführliche Informationen zur Datenverarbeitung und Ihrem Einverständnis";
 
+"ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
+
+"ErrorReport_InactiveStatus_Title" = "Inaktiv";
+
+"ErrorReport_Progress_Description" = "Derzeitige Größe %@ B (unkomprimiert)";
+
+"ErrorReport_StartButtonTitle" = "Starten";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und Löschen";
+
+"ErrorReport_SaveButtonTitle" = "Lokal speichern und fortsetzen";
+
+"ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
+
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Empfehlen";
 

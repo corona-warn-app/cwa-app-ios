@@ -1313,12 +1313,23 @@ enum AppStrings {
 	}
 
 	enum ErrorReport {
+		
+		// Top ViewController UI
 		static let title = NSLocalizedString("ErrorReport_Title", comment: "")
 		static let description1 = NSLocalizedString("ErrorReport_Description1", comment: "")
 		static let faq = NSLocalizedString("ErrorReport_FAQ", comment: "")
 		static let description2 = NSLocalizedString("ErrorReport_Description2", comment: "")
 		static let privacyInformation = NSLocalizedString("ErrorReport_PrivacyInformation", comment: "")
 		
+		// Bottom ViewController UI
+		static let activeStatusTitle = NSLocalizedString("ErrorReport_ActiveStatus_Title", comment: "")
+		static let inactiveStatusTitle = NSLocalizedString("ErrorReport_InactiveStatus_Title", comment: "")
+		static let statusProgress = NSLocalizedString("ErrorReport_Progress_Description", comment: "")
+		static let startButtonTitle = NSLocalizedString("ErrorReport_StartButtonTitle", comment: "")
+		static let stopAndDeleteButtonTitle = NSLocalizedString("ErrorReport_StopAndDeleteButtonTitle", comment: "")
+		static let saveButtonTitle = NSLocalizedString("ErrorReport_SaveButtonTitle", comment: "")
+		static let sendButtontitle = NSLocalizedString("ErrorReport_SendButtonTitle", comment: "")
+
 		enum Legal {
 			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
 			static let dataPrivacy_Bullet1 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet1", tableName: "Localizable.legal", comment: "")
