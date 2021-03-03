@@ -42,7 +42,6 @@ class DMDatePickerTableViewCell: UITableViewCell, DMConfigureableCell {
 		let stackView = UIStackView(frame: .zero)
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.axis = .horizontal
-		stackView.distribution = .fillProportionally
 		return stackView
 	}()
 
@@ -50,6 +49,7 @@ class DMDatePickerTableViewCell: UITableViewCell, DMConfigureableCell {
 		let label = ENALabel(frame: .zero)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.style = .body
+		label.numberOfLines = 0
 		return label
 	}()
 
@@ -57,6 +57,7 @@ class DMDatePickerTableViewCell: UITableViewCell, DMConfigureableCell {
 		let datePicker = UIDatePicker(frame: .zero)
 		datePicker.translatesAutoresizingMaskIntoConstraints = false
 		datePicker.setContentHuggingPriority(.required, for: .horizontal)
+		datePicker.setContentCompressionResistancePriority(.required, for: .horizontal)
 		return datePicker
 	}()
 
