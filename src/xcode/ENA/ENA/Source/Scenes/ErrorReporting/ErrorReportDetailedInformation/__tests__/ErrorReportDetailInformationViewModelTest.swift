@@ -8,7 +8,7 @@ import XCTest
 class ErrorReportDetailInformationViewModelTest: XCTestCase {
 
 	let model = ErrorReportDetailInformationViewModel()
-	let totalNumberOfCells = 7
+	let totalNumberOfCells = 6
 	
     override func setUpWithError() throws {
         
@@ -51,11 +51,11 @@ class ErrorReportDetailInformationViewModelTest: XCTestCase {
 		// WHEN
 		let cell0 = tableViewModel.section(0).cells[0]
 		let cell4 = tableViewModel.section(0).cells[4]
-		let cell6 = tableViewModel.section(0).cells[6]
+		let cell5 = tableViewModel.section(0).cells[5]
 		// THEN
 		XCTAssertEqual(cell0.cellReuseIdentifier.rawValue, "labelCell")
 		XCTAssertEqual(cell4.cellReuseIdentifier.rawValue, "labelCell")
-		XCTAssertEqual(cell6.cellReuseIdentifier.rawValue, "labelCell")
+		XCTAssertEqual(cell5.cellReuseIdentifier.rawValue, "labelCell")
 	}
 	
 	func testReuseIdentifierSpaceCell() throws {
@@ -64,11 +64,9 @@ class ErrorReportDetailInformationViewModelTest: XCTestCase {
 		// WHEN
 		let cell1 = tableViewModel.section(0).cells[1]
 		let cell3 = tableViewModel.section(0).cells[3]
-		let cell5 = tableViewModel.section(0).cells[5]
 		// THEN
 		XCTAssertEqual(cell1.cellReuseIdentifier.rawValue, "spaceCell")
 		XCTAssertEqual(cell3.cellReuseIdentifier.rawValue, "spaceCell")
-		XCTAssertEqual(cell5.cellReuseIdentifier.rawValue, "spaceCell")
 	}
 
 }
