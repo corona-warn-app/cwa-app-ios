@@ -35,6 +35,7 @@ enum AccessibilityIdentifiers {
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 		static let thankYouCard = "AppStrings.Home.thankYouCard"
+		static let eventCardButton = "AppStrings.Home.eventCardButton"
 
 		enum RiskTableViewCell {
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
