@@ -10,7 +10,7 @@ final class ErrorReportHistoryViewModel {
 
 	init() {
 			
-		// TODO: should be replaced by Ids
+		// TO DO: should be replaced by Ids
 		self.ids = [001, 002, 003, 004, 005]
 	}
 
@@ -21,9 +21,9 @@ final class ErrorReportHistoryViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.title1(text: AppStrings.ErrorReport.historyTitle, accessibilityIdentifier: "AppStrings.ErrorReport.historyTitle"),
+						.title1(text: AppStrings.ErrorReport.historyTitle, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.historyTitle),
 						.space(height: 20),
-						.headline(text: AppStrings.ErrorReport.historyDescription, accessibilityIdentifier: "AppStrings.ErrorReport.historyDescription"),
+						.headline(text: AppStrings.ErrorReport.historyDescription, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.historyDescription),
 						.space(height: 20)
 					]
 				)
@@ -48,7 +48,7 @@ final class ErrorReportHistoryViewModel {
 				withIdentifier: ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell,
 						 configure: { _, cell, _ in
 							 guard let cell = cell as? ErrorReportHistoryCell else { return }
-							 // TODO: Adding date and time in dateTimeLabel
+							 // TO DO: Adding date and time in dateTimeLabel
 							 cell.dateTimeLabel?.text = String(format: AppStrings.ErrorReport.historyCellDateTime)
 							 cell.idLabel?.text = String(format: AppStrings.ErrorReport.historyCellID, id)
 						 }
