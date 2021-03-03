@@ -178,8 +178,8 @@ final class SecureStore: Store {
 	}
 
 	var appInstallationDate: Date? {
-		get { kvStore["appFirstStartDate"] as Date? }
-		set { kvStore["appFirstStartDate"] = newValue }
+		get { kvStore["appInstallationDate"] as Date? }
+		set { kvStore["appInstallationDate"] = newValue }
 	}
 
 	var riskCalculationResult: RiskCalculationResult? {
