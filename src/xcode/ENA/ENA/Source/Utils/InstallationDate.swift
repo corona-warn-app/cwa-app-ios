@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct InstallationDate {
+enum InstallationDate {
 
 	static func inferredFromDocumentDirectoryCreationDate() -> Date {
 		guard
