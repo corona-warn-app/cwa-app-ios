@@ -67,7 +67,7 @@
 
 "ExposureDetection_High_Red_Color" = "Rot";
 
-"ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert.";
+"ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
@@ -1008,7 +1008,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
-"Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert.";
+"Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
