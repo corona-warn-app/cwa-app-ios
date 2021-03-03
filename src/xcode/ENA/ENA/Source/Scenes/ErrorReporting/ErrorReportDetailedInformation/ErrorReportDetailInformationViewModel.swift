@@ -31,9 +31,9 @@ final class ErrorReportDetailInformationViewModel {
 							}
 						),
 						.space(height: 20),
-						.headline(text: AppStrings.ErrorReport.Legal.detailedInfo_Subheadline, accessibilityIdentifier: "AppStrings.ErrorReport.Legal.detailedInfo_Subheadline"),
+						.headline(text: AppStrings.ErrorReport.detailedInfo_Subheadline, accessibilityIdentifier: "AppStrings.ErrorReport.detailedInfo_Subheadline"),
 						.space(height: 20),
-						.body(text: AppStrings.ErrorReport.Legal.detailedInfo_Content2, accessibilityIdentifier: "AppStrings.ErrorReport.Legal.detailedInfo_Content2")
+						.body(text: AppStrings.ErrorReport.detailedInfo_Content2, accessibilityIdentifier: "AppStrings.ErrorReport.detailedInfo_Content2")
 					]
 				)
 			)
