@@ -9,7 +9,6 @@ final class ErrorReportHistoryViewModel {
 	// MARK: - Init
 
 	init() {
-			
 		// TO DO: should be replaced by Ids
 		self.ids = ["001", "002", "003", "004", "005"]
 	}
