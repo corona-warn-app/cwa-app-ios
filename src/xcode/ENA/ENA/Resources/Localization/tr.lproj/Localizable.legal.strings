@@ -109,17 +109,17 @@
 
 /* Error Reports */
 
-"errorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
+"errorReport_Legal_DataPrivacy_Headline" = "Veri gizliliği ve veri güvenliği";
 
-"errorReport_Legal_DataPrivacy_Bullet1" = "";
+"errorReport_Legal_DataPrivacy_Bullet1" = "Hata raporunun kaydedilmesi isteğe bağlı gerçekleşmektedir.";
 
-"errorReport_Legal_DataPrivacy_Bullet2" = "";
+"errorReport_Legal_DataPrivacy_Bullet2" = "Hata raporuna öncelikle yalnızca siz erişebilirsiniz. Ancak daha sonra, hata raporunu teknik desteğe gönderme, hata raporunu ilk önce akıllı telefonunuza kaydetme veya kaydı durdurup silme kararını vermek size kalmıştır. Hata raporunu ilk önce yerel olarak cihazınıza kaydederseniz, teknik desteğe göndermeden önce hata raporunu kendiniz görüntüleme olanağınız da bulunmaktadır.";
 
-"errorReport_Legal_DataPrivacy_Bullet3" = "";
+"errorReport_Legal_DataPrivacy_Bullet3" = "Hata raporu, örneğin test sonucunuz veya sizin için belirlenen enfeksiyon riskine ilişkin veriler gibi hassas bilgiler içerir. Ancak bu rapor, test kaydı sırasında kullandığınız kare kodları, temas günlüğüne girdiğiniz veriler veya kimliğiniz hakkında herhangi bir bilgi içermez.";
 
-"errorReport_Legal_DataPrivacy_Bullet4" = "";
+"errorReport_Legal_DataPrivacy_Bullet4" = "Hata raporlarını yayınlamanızı ve e-posta ile göndermenizi tavsiye etmiyoruz.";
 
-"errorReport_Legal_DataPrivacy_Bullet5" = "";
+"errorReport_Legal_DataPrivacy_Bullet5" = "Özel kişiler veya şirketler, sizden topladığınız verileri başkalarına aktarmanızı talep etme hakkına sahip değillerdir.";
 
 "errorReport_Legal_Consent_Headline" = "Ihr Einverständnis";
 
