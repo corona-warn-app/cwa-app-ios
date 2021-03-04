@@ -4,13 +4,5 @@
 
 import Foundation
 
-enum ELSError: Error {
-	case generalError
-	// TODO: more!
-}
-
-extension ELSError: Equatable {
-	static func == (lhs: ELSError, rhs: ELSError) -> Bool {
-		lhs.localizedDescription == rhs.localizedDescription
-	}
-}
+// ELS errors are a subset of PPAC errors. Let's keep this simple for now
+typealias ELSError = PPACError

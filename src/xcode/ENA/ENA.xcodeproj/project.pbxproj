@@ -296,6 +296,7 @@
 		35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */; };
 		35BDAAF025F001F5004DFE32 /* ELSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDAAEF25F001F5004DFE32 /* ELSError.swift */; };
 		35BDAB2225F10094004DFE32 /* Data+Appending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDAB2125F10094004DFE32 /* Data+Appending.swift */; };
+		35BDAB2E25F1148E004DFE32 /* ELSSubmissionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDAB2D25F1148D004DFE32 /* ELSSubmissionTests.swift */; };
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
 		35BF067525DB1BA900D3868B /* AppDelegate+QuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */; };
 		35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701EB2556BCB9008AEA91 /* Migration1To2.swift */; };
@@ -1155,6 +1156,7 @@
 		35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskExecutionDelegate.swift; sourceTree = "<group>"; };
 		35BDAAEF25F001F5004DFE32 /* ELSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSError.swift; sourceTree = "<group>"; };
 		35BDAB2125F10094004DFE32 /* Data+Appending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Appending.swift"; sourceTree = "<group>"; };
+		35BDAB2D25F1148D004DFE32 /* ELSSubmissionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSSubmissionTests.swift; sourceTree = "<group>"; };
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
 		35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+QuickActions.swift"; sourceTree = "<group>"; };
 		35C701EB2556BCB9008AEA91 /* Migration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2.swift; sourceTree = "<group>"; };
@@ -2487,6 +2489,7 @@
 		35BDAAED25F001BF004DFE32 /* ELS LoggingService */ = {
 			isa = PBXGroup;
 			children = (
+				35BDAB2C25F11470004DFE32 /* __tests__ */,
 				35BDAAEE25F001E1004DFE32 /* Model */,
 			);
 			path = "ELS LoggingService";
@@ -2498,6 +2501,14 @@
 				35BDAAEF25F001F5004DFE32 /* ELSError.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		35BDAB2C25F11470004DFE32 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				35BDAB2D25F1148D004DFE32 /* ELSSubmissionTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		35E1219D25B19D8C0098D754 /* sample_stats */ = {
@@ -5686,6 +5697,7 @@
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				948AFE5F2552F6F60019579A /* WarnOthersReminderTests.swift in Sources */,
 				AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */,
+				35BDAB2E25F1148E004DFE32 /* ELSSubmissionTests.swift in Sources */,
 				B1E23B8624FE4DD3006BCDA6 /* PublicKeyProviderTests.swift in Sources */,
 				01B605D9258A49E70093DB8E /* DiaryLocationTest.swift in Sources */,
 				500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */,

@@ -788,7 +788,6 @@ private extension URLRequest {
 	static func errorLogSubmit(
 		configuration: HTTPClient.Configuration,
 		payload: Data,
-		ppacToken: PPACToken, // TODO: review this!
 		isFake: Bool
 	) throws -> URLRequest {
 		let boundary = UUID().uuidString
