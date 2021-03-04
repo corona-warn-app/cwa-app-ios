@@ -35,7 +35,7 @@ final class ErrorReportHistoryViewModel {
 		}
 	}
 	
-	var getNumberOfCells: Int {
+	var numberOfHistoryCells: Int {
 		return ids.count
 	}
 

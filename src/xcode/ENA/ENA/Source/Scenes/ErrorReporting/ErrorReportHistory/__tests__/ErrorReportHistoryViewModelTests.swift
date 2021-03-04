@@ -40,7 +40,7 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 		let numberOfCells = tableViewModel.numberOfRows(inSection: 1, for: DynamicTableViewController())
 
 		// THEN
-		XCTAssertEqual(numberOfCells, historyViewModel.getNumberOfCells)
+		XCTAssertEqual(numberOfCells, historyViewModel.numberOfHistoryCells)
 	}
 
 	func testReuseIdentifierHistoryCell() throws {
