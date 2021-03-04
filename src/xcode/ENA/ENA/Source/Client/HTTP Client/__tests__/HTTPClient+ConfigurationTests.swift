@@ -45,7 +45,7 @@ final class BackendConfigurationTests: XCTestCase {
 		// Check Configuration URL
 		XCTAssertEqual(
 			config.configurationURL.absoluteString,
-			"http://localhost/dist/version/v1/app_config_ios/"
+			"http://localhost/dist/version/v2/app_config_ios/"
 		)
 
 		// Submission URL
