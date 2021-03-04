@@ -24,6 +24,7 @@
 		0138F5F325EFDBC300A9B075 /* HomeEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5EE25EFDBC300A9B075 /* HomeEventTableViewCell.xib */; };
 		0138F5F425EFDBC300A9B075 /* HomeEventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5EF25EFDBC300A9B075 /* HomeEventCellModel.swift */; };
 		0138F5FC25EFDBCD00A9B075 /* HomeEventCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5F125EFDBC300A9B075 /* HomeEventCellModelTests.swift */; };
+		0138F61D25EFE71B00A9B075 /* EventPlanningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -897,6 +898,7 @@
 		0138F5EE25EFDBC300A9B075 /* HomeEventTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeEventTableViewCell.xib; sourceTree = "<group>"; };
 		0138F5EF25EFDBC300A9B075 /* HomeEventCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEventCellModel.swift; sourceTree = "<group>"; };
 		0138F5F125EFDBC300A9B075 /* HomeEventCellModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEventCellModelTests.swift; sourceTree = "<group>"; };
+		0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlanningCoordinator.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1853,6 +1855,14 @@
 				0138F5F125EFDBC300A9B075 /* HomeEventCellModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		0138F61825EFE61400A9B075 /* EventPlanning */ = {
+			isa = PBXGroup;
+			children = (
+				0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */,
+			);
+			path = EventPlanning;
 			sourceTree = "<group>";
 		};
 		014086B52588F8EB00E9E5B2 /* __test__ */ = {
@@ -3224,6 +3234,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				0138F61825EFE61400A9B075 /* EventPlanning */,
 				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
@@ -5688,6 +5699,7 @@
 				358249EE25E910AF00BFF303 /* LogDataItem.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
+				0138F61D25EFE71B00A9B075 /* EventPlanningCoordinator.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,

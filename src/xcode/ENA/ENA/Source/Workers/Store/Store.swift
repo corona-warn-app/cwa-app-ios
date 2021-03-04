@@ -110,6 +110,8 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 
+	var eventPlanningInfoScreenShown: Bool { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE

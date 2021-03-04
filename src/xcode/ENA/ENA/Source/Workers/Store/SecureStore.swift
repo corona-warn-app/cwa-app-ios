@@ -290,6 +290,11 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
+	var eventPlanningInfoScreenShown: Bool {
+		get { kvStore["eventPlanningInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["eventPlanningInfoScreenShown"] = newValue }
+	}
+
 	#if !RELEASE
 
 	// Settings from the debug menu.

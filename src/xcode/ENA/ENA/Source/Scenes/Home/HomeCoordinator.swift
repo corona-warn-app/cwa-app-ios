@@ -15,6 +15,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private var settingsController: SettingsViewController?
 
+	private var eventPlanningCoordinator: EventPlanningCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
@@ -94,7 +95,9 @@ class HomeCoordinator: RequiresAppDependencies {
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
 				},
-				onEventCellTap: { },
+				onEventCellTap: { [weak self] in
+					self?.showEventPlanner()
+				},
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
 				},
@@ -240,6 +243,15 @@ class HomeCoordinator: RequiresAppDependencies {
 			UINavigationController(rootViewController: statisticsInfoController),
 			animated: true
 		)
+	}
+
+	private func showEventPlanner() {
+		eventPlanningCoordinator = EventPlanningCoordinator(
+			store: store,
+			parentNavigationController: rootViewController
+		)
+
+		eventPlanningCoordinator?.start()
 	}
 
 	private func showInviteFriends() {
