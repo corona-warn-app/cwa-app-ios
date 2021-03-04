@@ -26,7 +26,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 		// assert cells
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
@@ -45,7 +45,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 		// assert cells
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
@@ -62,15 +62,15 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 		// assert cells
-		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: .medium))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: .medium))
 		app.cells["AppStrings.AppInformation.faqNavigation"].tap()
 
-		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .medium))
 	}
 
 	func test_0023_AppInformationFlow_contact() throws {
@@ -79,7 +79,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 		// assert cells
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
@@ -96,7 +96,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 		// assert cells
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
@@ -113,7 +113,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
-		app.swipeUp()
+		app.swipeUp(velocity: .fast)
 		// assert cells
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()

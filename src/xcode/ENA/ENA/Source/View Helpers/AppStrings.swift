@@ -1346,13 +1346,12 @@ enum AppStrings {
 			static let consent_Bullet1_Paragraph = NSLocalizedString("errorReport_Legal_Consent_Bullet1_Paragraph", tableName: "Localizable.legal", comment: "")
 			static let consent_Bullet2 = NSLocalizedString("errorReport_Legal_Consent_Bullet2", tableName: "Localizable.legal", comment: "")
 			static let consent_Last_Paragraph = NSLocalizedString("errorReport_Legal_Consent_LastParagraph", tableName: "Localizable.legal", comment: "")
-			
-			static let detailedInfo_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
-			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
 		}
 		
-		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Subheadline", comment: "")
-		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Content2", comment: "")
+		static let detailedInfo_Headline = NSLocalizedString("errorReport_DetailedInformation_Headline", comment: "")
+		static let detailedInfo_Content1 = NSLocalizedString("errorReport_DetailedInformation_Content1", comment: "")
+		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_DetailedInformation_Subheadline", comment: "")
+		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_DetailedInformation_Content2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }
