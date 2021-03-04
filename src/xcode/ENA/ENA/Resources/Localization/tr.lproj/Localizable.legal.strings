@@ -132,7 +132,3 @@
 "errorReport_Legal_Consent_Bullet2" = "Rapor RKI’ye gönderilmeden önce, Uygulamanızın orijinal olduğu bir kez kontrol edilir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD veya diğer bir üçüncü ülkedeki Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.";
 
 "errorReport_Legal_Consent_LastParagraph" = "Gönderimden sonra hata raporu kimlik numarasını teknik desteğe bildirirseniz, sağlanan diğer bilgilerin, hata raporu kimliğinin ve hata raporunun silinmesini istediğiniz zaman talep edebilirsiniz. Aksi halde bu hata raporu 14 gün sonra otomatik olarak silinecektir.";
-
-"errorReport_Legal_DetailedInformation_Headline" = "";
-
-"errorReport_Legal_DetailedInformation_Content" = "";
