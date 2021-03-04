@@ -691,8 +691,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	@objc
 	private func refreshUI() {
-		viewModel.state.updateTestResult()
-		viewModel.state.updateStatistics()
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateTestResult()
+			self?.viewModel.state.updateStatistics()
+		}
 	}
 
 	// swiftlint:disable:next file_length
