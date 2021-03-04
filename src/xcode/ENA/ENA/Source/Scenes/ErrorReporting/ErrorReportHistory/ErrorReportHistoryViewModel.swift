@@ -52,8 +52,8 @@ final class ErrorReportHistoryViewModel {
 							 guard let cell = cell as? ErrorReportHistoryCell else { return }
 							 cell.configure(
 								dateTimeLabel: NSMutableAttributedString(
-									// TO DO: placeholder text should be replaced
-								    string: String(format: AppStrings.ErrorReport.historyCellDateTime, "22.02.22", "09:32")
+									// TO DO: placeholder date should be replaced
+									string: ENAFormatter.getDateTimeString(date: Date())
 								),
 								idLabel: NSMutableAttributedString(
 									string: String(format: AppStrings.ErrorReport.historyCellID, id)

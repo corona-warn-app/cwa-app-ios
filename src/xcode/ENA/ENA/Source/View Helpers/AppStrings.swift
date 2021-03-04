@@ -1335,7 +1335,6 @@ enum AppStrings {
 		// History ViewController UI
 		static let historyTitle = NSLocalizedString("ErrorReport_History_Title", comment: "")
 		static let historyDescription = NSLocalizedString("ErrorReport_History_Description", comment: "")
-		static let historyCellDateTime = NSLocalizedString("ErrorReport_History_Cell_Date_Time", comment: "")
 		static let historyCellID = NSLocalizedString("ErrorReport_History_Cell_ID", comment: "")
 		
 		enum Legal {
