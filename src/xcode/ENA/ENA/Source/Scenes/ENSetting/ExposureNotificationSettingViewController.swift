@@ -103,7 +103,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		case .daysSinceInstallationCell, .actionDetailCell:
 			switch enState {
 			case .enabled, .disabled:
-				return tracingCell(for: indexPath, in: tableView)
+				return daysSinceInstallationCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
 				return actionDetailCell(for: indexPath, in: tableView)
 			}
@@ -316,14 +316,14 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		return euTracingCell
 	}
 
-	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		guard let tracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell else {
+	private func daysSinceInstallationCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let daysSinceInstallationCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell else {
 			fatalError("Cell is not registered")
 		}
 
-		tracingCell.configure(daysSinceInstall: store.appInstallationDate?.ageInDays ?? 0)
+		daysSinceInstallationCell.configure(daysSinceInstall: store.appInstallationDate?.ageInDays ?? 0)
 
-		return tracingCell
+		return daysSinceInstallationCell
 	}
 
 	private func descriptionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
