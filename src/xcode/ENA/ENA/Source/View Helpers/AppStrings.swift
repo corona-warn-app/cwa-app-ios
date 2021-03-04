@@ -1329,6 +1329,12 @@ enum AppStrings {
 		static let stopAndDeleteButtonTitle = NSLocalizedString("ErrorReport_StopAndDeleteButtonTitle", comment: "")
 		static let saveButtonTitle = NSLocalizedString("ErrorReport_SaveButtonTitle", comment: "")
 		static let sendButtontitle = NSLocalizedString("ErrorReport_SendButtonTitle", comment: "")
+		
+		// Confirm and Send Reports screen
+		static let sendReportsTitle = NSLocalizedString("ErrorReport_SendReports_Title", comment: "")
+		static let sendReportsParagraph = NSLocalizedString("ErrorReport_SendReports_Paragraph", comment: "")
+		static let sendReportsDetails = NSLocalizedString("ErrorReport_SendReports_Details", comment: "")
+		static let sendReportsButtonTitle = NSLocalizedString("ErrorReport_SendReports_Button_Title", comment: "")
 
 		enum Legal {
 			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
@@ -1349,6 +1355,14 @@ enum AppStrings {
 			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
 			static let detailedInfo_Subheadline = NSLocalizedString("errorReport_Legal_DetailedInformation_Subheadline", tableName: "Localizable.legal", comment: "")
 			static let detailedInfo_Content2 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content2", tableName: "Localizable.legal", comment: "")
+			
+			static let sendReports_Headline = NSLocalizedString("errorReport_Legal_SendReports_Headline", tableName: "Localizable.legal", comment: "")
+			static let sendReports_Subline = NSLocalizedString("errorReport_Legal_SendReports_Subline", tableName: "Localizable.legal", comment: "")
+
+			static let sendReports_Bullet1_Part1 = NSLocalizedString("errorReport_Legal_SendReports_Bullet1_Part1", tableName: "Localizable.legal", comment: "")
+			static let sendReports_Bullet1_Part2 = NSLocalizedString("errorReport_Legal_SendReports_Bullet1_Part2", tableName: "Localizable.legal", comment: "")
+			static let sendReports_Bullet2 = NSLocalizedString("errorReport_Legal_SendReports_Bullet2", tableName: "Localizable.legal", comment: "")
+			static let sendReports_Paragraph = NSLocalizedString("errorReport_Legal_SendReports_Paragraph", tableName: "Localizable.legal", comment: "")
 		}
 	}
 	// swiftlint:disable:next file_length

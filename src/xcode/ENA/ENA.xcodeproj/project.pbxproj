@@ -445,6 +445,7 @@
 		8F4E623A25EE878E00FF4F0A /* ErrorReportLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* ErrorReportLoggingViewController.swift */; };
 		8F4E623B25EE878E00FF4F0A /* ErrorReportLoggingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4E623925EE878E00FF4F0A /* ErrorReportLoggingViewController.xib */; };
 		8F4E624225EE879B00FF4F0A /* ErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E624025EE879B00FF4F0A /* ErrorReportViewController.swift */; };
+		8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */; };
 		8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */; };
 		8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */; };
 		8F95A19225EEE2E500506CF2 /* default_app_config_113 in Resources */ = {isa = PBXBuildFile; fileRef = 8F95A19125EEE2E500506CF2 /* default_app_config_113 */; };
@@ -1318,6 +1319,7 @@
 		8F4E623925EE878E00FF4F0A /* ErrorReportLoggingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ErrorReportLoggingViewController.xib; path = ErrorReportLoggingViewController/ErrorReportLoggingViewController.xib; sourceTree = "<group>"; };
 		8F4E624025EE879B00FF4F0A /* ErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorReportViewController.swift; path = ErrorReportViewController/ErrorReportViewController.swift; sourceTree = "<group>"; };
 		8F4E625225EE89E800FF4F0A /* default_app_config_113 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_113; sourceTree = "<group>"; };
+		8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewModel.swift; sourceTree = "<group>"; };
 		8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewController.swift; sourceTree = "<group>"; };
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
 		8F95A19125EEE2E500506CF2 /* default_app_config_113 */ = {isa = PBXFileReference; lastKnownFileType = file; name = default_app_config_113; path = ENA/Resources/default_app_config_113; sourceTree = "<group>"; };
@@ -2431,6 +2433,7 @@
 				8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */,
 				8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */,
 				8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */,
+				8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */,
 			);
 			path = ErrorReporting;
 			sourceTree = "<group>";
@@ -5556,6 +5559,7 @@
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
+				8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */,
 				BA6C8AD4254D6552008344F5 /* TrlFilter.swift in Sources */,
 				35327FF6256D4CE600C36A44 /* UIStackView+prune.swift in Sources */,
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,

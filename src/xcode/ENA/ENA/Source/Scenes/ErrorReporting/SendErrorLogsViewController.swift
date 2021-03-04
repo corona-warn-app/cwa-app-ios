@@ -4,7 +4,19 @@
 
 import UIKit
 
-class SendErrorLogsViewController: DynamicTableViewController {
+class SendErrorLogsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+	
+	// MARK: - Init
+
+	init(model: SendErrorLogsViewModel) {
+		viewModel = model
+
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 	
 	// MARK: - Overrides
 
@@ -12,12 +24,18 @@ class SendErrorLogsViewController: DynamicTableViewController {
 		super.viewDidLoad()
 		
 		setupTableView()
-				
+
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
+		title = AppStrings.ErrorReport.sendReportsTitle
+
 		view.backgroundColor = .enaColor(for: .background)
+
+		dynamicTableViewModel = viewModel.sendErrorLogsDynamicViewModel
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		
-		dynamicTableViewModel = AppInformationModel.errorReportModel
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -25,12 +43,13 @@ class SendErrorLogsViewController: DynamicTableViewController {
 		cell.backgroundColor = .clear
 		return cell
 	}
-	
+
 	// MARK: - Internal
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case legal = "DynamicLegalCell"
 		case link = "linkCell"
+		case legalExtended = "DynamicLegalExtendedCell"
 	}
 
 	// MARK: - Private
@@ -45,5 +64,11 @@ class SendErrorLogsViewController: DynamicTableViewController {
 			UINib(nibName: String(describing: DynamicLegalCell.self), bundle: nil),
 			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
+		tableView.register(
+			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+		)
 	}
+	
+	private let viewModel: SendErrorLogsViewModel
 }
