@@ -17,17 +17,21 @@ class HomeTestResultCellModel {
 		self.homeState = homeState
 
 		homeState.$testResult
-			.sink { [weak self] testResult in
-				self?.configure(for: testResult)
-				onUpdate()
+			.sink { testResult in
+				DispatchQueue.main.async { [weak self] in
+					self?.configure(for: testResult)
+					onUpdate()
+				}
 			}
 			.store(in: &subscriptions)
 
 		homeState.$testResultIsLoading
-			.sink { [weak self] testResultIsLoading in
-				if testResultIsLoading {
-					self?.configureLoading()
-					onUpdate()
+			.sink { testResultIsLoading in
+				DispatchQueue.main.async { [weak self] in
+					if testResultIsLoading {
+						self?.configureLoading()
+						onUpdate()
+					}
 				}
 			}
 			.store(in: &subscriptions)
