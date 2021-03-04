@@ -25,6 +25,7 @@
 		0138F5F425EFDBC300A9B075 /* HomeEventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5EF25EFDBC300A9B075 /* HomeEventCellModel.swift */; };
 		0138F5FC25EFDBCD00A9B075 /* HomeEventCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5F125EFDBC300A9B075 /* HomeEventCellModelTests.swift */; };
 		0138F61D25EFE71B00A9B075 /* EventPlanningCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */; };
+		0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -139,8 +140,8 @@
 		01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */; };
 		01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */; };
 		01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232E24FE4F080064C0EB /* OptionGroupViewModel.swift */; };
-		01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6425821CD200A3E3BC /* DiaryDayEmptyView.swift */; };
-		01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6C25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift */; };
+		01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6425821CD200A3E3BC /* EmptyStateView.swift */; };
+		01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6C25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift */; };
 		01B72BA6258360FF00A3E3BC /* DiaryDayEmptyViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72BA5258360CD00A3E3BC /* DiaryDayEmptyViewModelTest.swift */; };
 		01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72BBF2583875600A3E3BC /* DiaryDayViewModelTest.swift */; };
 		01B72BF22583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72BEE2583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift */; };
@@ -899,6 +900,7 @@
 		0138F5EF25EFDBC300A9B075 /* HomeEventCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEventCellModel.swift; sourceTree = "<group>"; };
 		0138F5F125EFDBC300A9B075 /* HomeEventCellModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEventCellModelTests.swift; sourceTree = "<group>"; };
 		0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlanningCoordinator.swift; sourceTree = "<group>"; };
+		0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewModel.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1005,8 +1007,8 @@
 		01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceOptionView.swift; sourceTree = "<group>"; };
 		01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceChoiceView.swift; sourceTree = "<group>"; };
 		01B7232E24FE4F080064C0EB /* OptionGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModel.swift; sourceTree = "<group>"; };
-		01B72B6425821CD200A3E3BC /* DiaryDayEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyView.swift; sourceTree = "<group>"; };
-		01B72B6C25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyViewModel.swift; sourceTree = "<group>"; };
+		01B72B6425821CD200A3E3BC /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		01B72B6C25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		01B72BA5258360CD00A3E3BC /* DiaryDayEmptyViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyViewModelTest.swift; sourceTree = "<group>"; };
 		01B72BBF2583875600A3E3BC /* DiaryDayViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModelTest.swift; sourceTree = "<group>"; };
 		01B72BDC2583AB1400A3E3BC /* DiaryEditEntriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryEditEntriesViewController.xib; sourceTree = "<group>"; };
@@ -1865,6 +1867,15 @@
 			path = EventPlanning;
 			sourceTree = "<group>";
 		};
+		0138F63025F114E700A9B075 /* EmptyStateView */ = {
+			isa = PBXGroup;
+			children = (
+				01B72B6425821CD200A3E3BC /* EmptyStateView.swift */,
+				0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */,
+			);
+			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
 		014086B52588F8EB00E9E5B2 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1984,6 +1995,7 @@
 				01909862257E63810065D050 /* DiaryDayViewController.swift */,
 				01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */,
 				01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */,
+				01B72B6C25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift */,
 				01F2A5B62581177100DA96A6 /* Cells */,
 				01B72B6325821C9B00A3E3BC /* Views */,
 				945CD04C25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift */,
@@ -2136,8 +2148,6 @@
 		01B72B6325821C9B00A3E3BC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				01B72B6425821CD200A3E3BC /* DiaryDayEmptyView.swift */,
-				01B72B6C25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift */,
 				01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */,
 			);
 			path = Views;
@@ -3150,6 +3160,7 @@
 				B10F9B88249961B500C418F4 /* __tests__ */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
+				0138F63025F114E700A9B075 /* EmptyStateView */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
@@ -5205,7 +5216,7 @@
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
-				01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */,
+				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
 				0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */,
@@ -5590,7 +5601,7 @@
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
-				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */,
+				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
@@ -5606,6 +5617,7 @@
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				B1D8CB2724DD44C6008C6010 /* DMTracingHistoryViewController.swift in Sources */,
+				0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */,
 				BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */,
 				35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */,
 				94B255A62551B7C800649B4C /* WarnOthersReminder.swift in Sources */,
