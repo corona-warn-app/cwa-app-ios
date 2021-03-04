@@ -22,7 +22,7 @@ final class ErrorReportHistoryViewModel {
 					separators: .none,
 					cells: [
 						.title1(text: AppStrings.ErrorReport.historyTitle, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.historyTitle),
-						.subheadline(text: AppStrings.ErrorReport.historyDescription, accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.historyDescription)
+						.bodyWithoutTopInset(text: AppStrings.ErrorReport.historyDescription, style: .textView([]), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.historyDescription)
 					]
 				)
 			)
