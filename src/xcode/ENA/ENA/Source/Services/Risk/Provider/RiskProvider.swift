@@ -268,7 +268,7 @@ final class RiskProvider: RiskProviding {
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
 		   let riskCalculationResult = store.riskCalculationResult {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-			return Risk(activeTracing: store.tracingStatusHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
+			return Risk(riskCalculationResult: riskCalculationResult)
 		}
 
 		return nil
@@ -311,7 +311,6 @@ final class RiskProvider: RiskProviding {
 		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
 		let risk = Risk(
-			activeTracing: store.tracingStatusHistory.activeTracing(),
 			riskCalculationResult: riskCalculationResult,
 			previousRiskCalculationResult: store.riskCalculationResult
 		)
