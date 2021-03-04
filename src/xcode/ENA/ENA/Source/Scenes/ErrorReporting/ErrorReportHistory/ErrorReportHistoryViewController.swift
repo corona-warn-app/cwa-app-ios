@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class ErrorReportHistoryViewController: DynamicTableViewController, DismissHandling {
+class ErrorReportHistoryViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 
@@ -47,7 +47,7 @@ class ErrorReportHistoryViewController: DynamicTableViewController, DismissHandl
 
 // MARK: - Cell reuse identifiers.
 
- extension ErrorReportHistoryViewController {
+extension ErrorReportHistoryViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case historyCell = "historyCell"
 	}

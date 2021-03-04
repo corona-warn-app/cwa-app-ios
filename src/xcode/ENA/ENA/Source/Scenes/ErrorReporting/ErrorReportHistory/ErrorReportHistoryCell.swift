@@ -7,8 +7,8 @@ import UIKit
 
 class ErrorReportHistoryCell: UITableViewCell {
 		
-	@IBOutlet weak var dateTimeLabel: ENALabel!
-	@IBOutlet weak var idLabel: ENALabel!
+	@IBOutlet private var dateTimeLabel: ENALabel!
+	@IBOutlet private var idLabel: ENALabel!
 	
 	// MARK: - Internal
 

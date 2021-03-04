@@ -6,12 +6,11 @@ import XCTest
 @testable import ENA
 
 class ErrorReportHistoryViewModelTests: XCTestCase {
-
-	let model = ErrorReportHistoryViewModel()
 	
 	func testSectionsOfViewModel() throws {
 		// GIVEN
-		let tableViewModel = model.dynamicTableViewModel
+		let historyViewModel = ErrorReportHistoryViewModel()
+		let tableViewModel = historyViewModel.dynamicTableViewModel
 		
 		// WHEN
 		let numberOfSections = tableViewModel.content.count
@@ -22,10 +21,11 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 	
 	func testForNumberOfStaticCells() throws {
 		// GIVEN
-		let tableViewModel = model.dynamicTableViewModel
+		let historyViewModel = ErrorReportHistoryViewModel()
+		let tableViewModel = historyViewModel.dynamicTableViewModel
 
 		// WHEN
-		let numberOfCells = tableViewModel.section(0).cells.count
+		let numberOfCells = tableViewModel.numberOfRows(inSection: 0, for: DynamicTableViewController())
 
 		// THEN
 		XCTAssertEqual(numberOfCells, 2)
@@ -33,7 +33,8 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 	
 	func testReuseIdentifierHistoryCell() throws {
 		// GIVEN
-		let tableViewModel = model.dynamicTableViewModel
+		let historyViewModel = ErrorReportHistoryViewModel()
+		let tableViewModel = historyViewModel.dynamicTableViewModel
 
 		// WHEN
 		let cell2 = tableViewModel.section(1).cells[0]
