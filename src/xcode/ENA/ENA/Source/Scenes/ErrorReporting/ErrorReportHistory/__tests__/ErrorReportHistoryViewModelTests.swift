@@ -31,6 +31,18 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 		XCTAssertEqual(numberOfCells, 2)
 	}
 	
+	func testForNumberofDynamicCells() throws {
+		// GIVEN
+		let historyViewModel = ErrorReportHistoryViewModel()
+		let tableViewModel = historyViewModel.dynamicTableViewModel
+
+		// WHEN
+		let numberOfCells = tableViewModel.numberOfRows(inSection: 1, for: DynamicTableViewController())
+
+		// THEN
+		XCTAssertEqual(numberOfCells, historyViewModel.getNumberOfCells)
+	}
+
 	func testReuseIdentifierHistoryCell() throws {
 		// GIVEN
 		let historyViewModel = ErrorReportHistoryViewModel()
@@ -42,4 +54,5 @@ class ErrorReportHistoryViewModelTests: XCTestCase {
 		// THEN
 		XCTAssertEqual(cell2.cellReuseIdentifier.rawValue, ErrorReportHistoryViewController.CustomCellReuseIdentifiers.historyCell.rawValue)
 	}
+
 }

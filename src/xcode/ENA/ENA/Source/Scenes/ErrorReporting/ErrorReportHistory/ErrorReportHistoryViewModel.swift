@@ -34,6 +34,10 @@ final class ErrorReportHistoryViewModel {
 			)
 		}
 	}
+	
+	var getNumberOfCells: Int {
+		return ids.count
+	}
 
 	// MARK: - Private
 
