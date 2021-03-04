@@ -809,7 +809,6 @@ private extension URLRequest {
 		return request
 	}
 
-	
 	// MARK: - Helper methods for adding padding to the requests.
 	
 	/// This method recreates the request body with a padding that consists of a random string.
@@ -843,7 +842,6 @@ private extension URLRequest {
 	}
 
 	// MARK: - Multipart form-data
-
 
 	/// Constructs a `multipart/form-data` body for a given log data
 	/// - Parameters:
