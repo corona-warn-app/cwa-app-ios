@@ -86,6 +86,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AccessibilityIdentifiers.Home.submitCardButton
 	]
 
+	// swiftlint:disable:next function_body_length
 	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
 		
 		let expectationTitles = expectation(description: "expectationTitles")
