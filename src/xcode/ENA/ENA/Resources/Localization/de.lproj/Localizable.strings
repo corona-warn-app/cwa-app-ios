@@ -67,6 +67,8 @@
 
 "ExposureDetection_High_Red_Color" = "Rot";
 
+"ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert";
+
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Am %@";
@@ -216,10 +218,11 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
 
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet. In diesem Zeitraum war Ihre Risiko-Ermittlung für eine Gesamtdauer von %2$u Tagen aktiv. Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Wenn die Risiko-Ermittlung zu Zeiten in denen sie andere Personen getroffen haben aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 /* Exposure Detection Errors */
 
@@ -267,6 +270,17 @@
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
 "Settings_NavTitle" = "Einstellungen";
+
+"Settings_DaysSinceInstall_Title" = "Ermittlungszeitraum";
+
+"Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt";
+
+"Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
+Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
+
+"Settings_DaysSinceInstall_P2a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
+
+"Settings_DaysSinceInstall_P2b" = "Wenn die Risiko-Ermittlung zu Zeiten in denen sie andere Personen getroffen haben aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 "Settings_DataDonation_Label" = "Datenspende";
 
@@ -988,6 +1002,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
+"Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";

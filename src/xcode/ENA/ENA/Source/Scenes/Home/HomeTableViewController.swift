@@ -557,13 +557,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
-		let title = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+		let title = AppStrings.Home.riskDetectionHowToAlertTitle
 		let message = String(
-			format: NSLocalizedString(
-				"How_Risk_Detection_Works_Alert_Message",
-				comment: ""
-			),
-			TracingStatusHistory.maxStoredDays
+			format: AppStrings.Home.riskDetectionHowToAlertMessage,
+			14
 		)
 
 		let alert = UIAlertController(

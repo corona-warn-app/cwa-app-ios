@@ -313,6 +313,7 @@ enum AppStrings {
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
 		static let highColorName = NSLocalizedString("ExposureDetection_High_Red_Color", comment: "")
 
+		static let daysSinceInstallation = NSLocalizedString("ExposureDetection_DaysSinceInstallation", comment: "")
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let lastExposureOneRiskDay = NSLocalizedString("ExposureDetection_LastExposure_One_Risk_Day", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
@@ -341,6 +342,11 @@ enum AppStrings {
 		static let guideFAQ = NSLocalizedString("ExposureDetection_Guide_FAQ", comment: "Placeholder points to `ExposureDetection_LinkText`")
 		static let guideFAQLinkText = NSLocalizedString("ExposureDetection_Guide_FAQ_LinkText", comment: "The 'tapable' text containing the link to the faq")
 
+		static let tracingTitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
+		static let tracingSubTitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
+		static let tracingParagraph0 = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph0", comment: "")
+		static let tracingParagraph1a = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph1a", comment: "")
+		static let tracingParagraph1b = NSLocalizedString("ExposureDetection_ActiveTracingSection_Text_Paragraph1b", comment: "")
 		static let explanationTitle = NSLocalizedString("ExposureDetection_Explanation_Title", comment: "")
 		static let explanationSubtitle = NSLocalizedString("ExposureDetection_Explanation_Subtitle", comment: "")
 		static let explanationTextOff = NSLocalizedString("ExposureDetection_Explanation_Text_Off", comment: "")
@@ -437,6 +443,12 @@ enum AppStrings {
 		static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
 
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
+
+		static let daysSinceInstallTitle = NSLocalizedString("Settings_DaysSinceInstall_Title", comment: "")
+		static let daysSinceInstallSubTitle = NSLocalizedString("Settings_DaysSinceInstall_SubTitle", comment: "")
+		static let daysSinceInstallP1 = NSLocalizedString("Settings_DaysSinceInstall_P1", comment: "")
+		static let daysSinceInstallP2a = NSLocalizedString("Settings_DaysSinceInstall_P2a", comment: "")
+		static let daysSinceInstallP2b = NSLocalizedString("Settings_DaysSinceInstall_P2b", comment: "")
 
 		enum Datadonation {
 			static let label = NSLocalizedString("Settings_DataDonation_Label", comment: "")
@@ -672,7 +684,7 @@ enum AppStrings {
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
 		static let riskCardLowTitleColorName = NSLocalizedString("Home_Risk_Low_Color", comment: "")
 		static let riskCardLowNumberContactsItemTitle = NSLocalizedString("Home_Risk_Low_Number_Contacts_Item_Title", comment: "")
-		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
+		static let daysSinceInstallation = NSLocalizedString("Home_Risk_DaysSinceInstallation", comment: "")
 
 		// High Card
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
@@ -749,6 +761,12 @@ enum AppStrings {
 		static let riskStatusLoweredAlertTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_Title", comment: "")
 		static let riskStatusLoweredAlertMessage = NSLocalizedString("Home_Alert_RiskStatusLowered_Message", comment: "")
 		static let riskStatusLoweredAlertPrimaryButtonTitle = NSLocalizedString("Home_Alert_RiskStatusLowered_PrimaryButtonTitle", comment: "")
+
+		// Risk Detection HowTo Alert
+
+		static let riskDetectionHowToAlertTitle = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+
+		static let riskDetectionHowToAlertMessage = NSLocalizedString("How_Risk_Detection_Works_Alert_Message", comment: "")
 	}
 
 	enum InviteFriends {
