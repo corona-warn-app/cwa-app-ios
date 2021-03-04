@@ -1318,8 +1318,10 @@ enum AppStrings {
 		static let title = NSLocalizedString("ErrorReport_Title", comment: "")
 		static let description1 = NSLocalizedString("ErrorReport_Description1", comment: "")
 		static let faq = NSLocalizedString("ErrorReport_FAQ", comment: "")
+		static let faqURL = NSLocalizedString("errorReport_FAQ_URL", tableName: "Localizable.links", comment: "")
 		static let description2 = NSLocalizedString("ErrorReport_Description2", comment: "")
 		static let privacyInformation = NSLocalizedString("ErrorReport_PrivacyInformation", comment: "")
+		static let detailedInformationTitle = NSLocalizedString("ErrorReport_DetailedInformation_Title", comment: "")
 		
 		// Bottom ViewController UI
 		static let activeStatusTitle = NSLocalizedString("ErrorReport_ActiveStatus_Title", comment: "")
@@ -1353,9 +1355,10 @@ enum AppStrings {
 			
 			static let detailedInfo_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
 			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
-			static let detailedInfo_Subheadline = NSLocalizedString("errorReport_Legal_DetailedInformation_Subheadline", tableName: "Localizable.legal", comment: "")
-			static let detailedInfo_Content2 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content2", tableName: "Localizable.legal", comment: "")
 		}
+		
+		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Subheadline", comment: "")
+		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Content2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }

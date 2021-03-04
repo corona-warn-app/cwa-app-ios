@@ -67,6 +67,8 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	
 	func saveErrorLogging() {
 		// Add here saving the logs to the file manager
+		// TO DO navigate to the ErrorReportDetailInformationViewController from the sendingViewController after implementing it
+		rootViewController.navigationController?.pushViewController(ErrorReportDetailInformationViewController(), animated: true)
 	}
 	
 	// MARK: - Private
