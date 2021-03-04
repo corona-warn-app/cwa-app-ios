@@ -142,6 +142,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
