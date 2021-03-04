@@ -100,7 +100,7 @@
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
-
+"ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
 
 "ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Isolationsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
@@ -1346,23 +1346,15 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
-/* Version 1.14 */
+/* Version 1.15 */
 
-"NewVersionFeature_114_additional_diary_functions_title" = "Zusatzfunktionen im Kontakt-Tagebuch";
+"NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
 
-"NewVersionFeature_114_additional_diary_functions_description" = "Sie können zu jedem Eintrag angeben, unter welchen Umständen die Begegnung stattfand. Sie können aus vorgegebenen Optionen auswählen (z. B. Dauer der Begegnung, mit oder ohne Maske) sowie zusätzlich in einer kurzen Notiz weitere Umstände erfassen, die zu einem erhöhten Risiko führen könnten. Sollten Sie sich tatsächlich anstecken, können diese Angaben dem Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten helfen.";
+"NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
 
-"NewVersionFeature_114_direct_access_diary_title" = "Direkter Zugriff auf Kontakt-Tagebuch";
+"NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehlerberichten";
 
-"NewVersionFeature_114_direct_access_diary_description" = "Sie können nun direkt einen Eintrag im Kontakt-Tagebuch hinzufügen, ohne erst die App öffnen zu müssen. Tippen Sie dazu etwa 2 Sekunden lang auf das Icon der Corona-Warn-App bis ein Menü erscheint und tippen Sie dann auf „Tagebuch-Eintrag für heute hinzufügen“.";
-
-"NewVersionFeature_114_more_details_risk_status_title" = "Mehr Details zum Risikostatus ";
-
-"NewVersionFeature_114_more_details_risk_status_description" = "Wenn Ihnen in der App ein erhöhtes Risiko angezeigt wird, können Sie nun sehen, ob der Risikostatus aufgrund einer bzw. mehrerer Begegnungen mit erhöhtem Risiko angezeigt wird, oder aufgrund von mehreren Begegnungen mit niedrigem Risiko.";
-
-"NewVersionFeature_114_screenshots_title" = "Screenshots zur Corona-Warn-App";
-
-"NewVersionFeature_114_screenshots_description" = "Auf https://www.coronawarn.app stehen nun alle Screenshots der App zu Verfügung. So können Sie sich nun auch über geplante Funktionen der App informieren.";
+"NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports einen Fehlerbericht erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Länderübergreifende Risiko-Ermittlung";

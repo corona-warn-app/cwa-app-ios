@@ -13,28 +13,17 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.14"
+		self.featureVersion = "1.15"
 		
-		// Additional Diary functions
+		// Switzerland
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsTitle, description: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115SwitzerlandTitle, description: AppStrings.NewVersionFeatures.feature115SwitzerlandDescription)
 		)
 		
-		// Direct diary access
+		// Error analytics log
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryTitle, description: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115ErrorAnalyticsLogTitle, description: AppStrings.NewVersionFeatures.feature115ErrorAnalyticsLogDescription)
 		)
-		
-		// More Detais Risk Status
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusTitle, description: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusDescription)
-		)
-		
-		// Screenshots
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114ScreenshotsTitle, description: AppStrings.NewVersionFeatures.feature114ScreenshotsDescription, internalId: "114-screenshots")
-		)
-		
 	}
 
 	// MARK: - Internal

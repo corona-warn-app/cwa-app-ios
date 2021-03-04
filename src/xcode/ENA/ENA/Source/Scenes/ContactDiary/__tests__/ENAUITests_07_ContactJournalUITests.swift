@@ -157,7 +157,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		
 		// add a person
 		addPersonToDayEntry("Andrea")
-
+		
 		// switch to places
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 		
