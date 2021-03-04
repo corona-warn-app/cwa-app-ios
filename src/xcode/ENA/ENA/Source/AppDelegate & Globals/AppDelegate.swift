@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
+		setupInstallationDateForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -542,6 +543,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private func setupDatadonationForTesting() {
 		if let isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.string(forKey: "isDatadonationConsentGiven") {
 			store.isPrivacyPreservingAnalyticsConsentGiven = isPrivacyPreservingAnalyticsConsentGiven != "NO"
+		}
+	}
+
+	private func setupInstallationDateForTesting() {
+		if let installationDaysString = UserDefaults.standard.string(forKey: "appInstallationDays") {
+			let installationDays = Int(installationDaysString) ?? 0
+			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
+			store.appInstallationDate = date
 		}
 	}
 
