@@ -113,7 +113,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
 		// Need to add this call here to make sure the dev menu can see the client metadata, too.
 		Analytics.collect(.clientMetadata(.setClientMetaData))
-		return obtainUsageData()
+		return obtainUsageData(disableExposureWindowsProbability: true)
 	}
 
 	#endif
@@ -249,7 +249,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 
-	private func obtainUsageData() -> SAP_Internal_Ppdd_PPADataIOS {
+	private func obtainUsageData(disableExposureWindowsProbability: Bool = false) -> SAP_Internal_Ppdd_PPADataIOS {
 
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
 		let userMetadata = gatherUserMetadata()
@@ -275,9 +275,13 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				- a generated random number between 0 and 1 is lower than or equal the value of Configuration Parameter .probabilityToSubmitExposureWindows.
 				- This shall be logged as warning.
 			*/
-			let randomProbability = Double.random(in: 0...1)
-			if randomProbability <= probabilityToSubmitExposureWindows {
+			if disableExposureWindowsProbability {
 				$0.newExposureWindows = newExposureWindows
+			} else {
+				let randomProbability = Double.random(in: 0...1)
+				if randomProbability <= probabilityToSubmitExposureWindows {
+					$0.newExposureWindows = newExposureWindows
+				}
 			}
 			Log.warning("generated probability to submit New Exposure Windows: \(randomProbability)", log: .ppa)
 			Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows)", log: .ppa)
