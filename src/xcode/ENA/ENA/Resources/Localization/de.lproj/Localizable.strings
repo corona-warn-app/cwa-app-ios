@@ -1935,3 +1935,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
 
 "ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";
+
+"ErrorReport_Legal_DetailedInformation_Subheadline" = "Zur Auswertung der Fehlerberichte durch das RKI";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
