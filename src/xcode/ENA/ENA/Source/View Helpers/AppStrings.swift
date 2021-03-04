@@ -88,8 +88,6 @@ enum AppStrings {
 		static let closeAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertTitle", comment: "")
 		static let closeAlertButtonClose = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel", comment: "")
 		static let closeAlertButtonContinue = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue", comment: "")
-		static let noConsentCloseAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle", comment: "")
-		static let noConsentCloseAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage", comment: "")
 	}
 
 	enum ExposureSubmissionResult {
