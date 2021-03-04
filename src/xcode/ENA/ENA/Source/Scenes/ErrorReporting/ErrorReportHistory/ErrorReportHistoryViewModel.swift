@@ -28,7 +28,7 @@ final class ErrorReportHistoryViewModel {
 			)
 			$0.add(
 				.section(
-					separators: .inBetween,
+					separators: .all,
 					cells: buildHistoryCells()
 				)
 			)
@@ -48,7 +48,7 @@ final class ErrorReportHistoryViewModel {
 							 guard let cell = cell as? ErrorReportHistoryCell else { return }
 							 cell.configure(
 								dateTimeLabel: NSMutableAttributedString(
-									// TO DO: Adding date and time in dateTimeLabel
+									// TO DO: placeholder text should be replaced
 								    string: String(format: AppStrings.ErrorReport.historyCellDateTime, "22.02.22", "09:32")
 								),
 								idLabel: NSMutableAttributedString(
