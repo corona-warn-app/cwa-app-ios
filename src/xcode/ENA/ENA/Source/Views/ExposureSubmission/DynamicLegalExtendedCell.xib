@@ -92,10 +92,12 @@
             <viewLayoutGuide key="safeArea" id="oVd-SM-sXj"/>
             <connections>
                 <outlet property="cardView" destination="Vne-NW-PQu" id="bul-C0-J5u"/>
+                <outlet property="containerStackView" destination="h3i-dT-89f" id="Wh1-ZW-Z4A"/>
                 <outlet property="contentStackView1" destination="8Pe-9Z-Ydm" id="MPF-U8-ebe"/>
                 <outlet property="contentStackView2" destination="3ck-WL-Nhf" id="d0f-hL-Srn"/>
                 <outlet property="descriptionLabel1" destination="ZKO-eN-0Yw" id="0ZU-Ou-yLR"/>
                 <outlet property="descriptionLabel2" destination="79Y-9g-GkT" id="MC6-6e-laa"/>
+                <outlet property="internalStackView2" destination="3ck-WL-Nhf" id="Qpe-uC-pld"/>
                 <outlet property="titleLabel" destination="1md-SR-62Q" id="gKi-sf-MS2"/>
             </connections>
             <point key="canvasLocation" x="56.521739130434788" y="381.69642857142856"/>

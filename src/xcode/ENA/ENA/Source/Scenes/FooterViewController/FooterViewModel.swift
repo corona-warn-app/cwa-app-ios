@@ -9,7 +9,7 @@ final class FooterViewModel {
 	// MARK: - Init
 	init(
 		primaryButtonName: String,
-		secondaryButtonName: String,
+		secondaryButtonName: String? = nil,
 		isPrimaryButtonEnabled: Bool = true,
 		isSecondaryButtonEnabled: Bool = true,
 		isPrimaryButtonHidden: Bool = false,

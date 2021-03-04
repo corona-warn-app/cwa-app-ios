@@ -62,16 +62,44 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	}
 	
 	func sendErrorLogging() {
-		// Add here navigation to the consent with the legal text
+		showConfirmSendingScreen()
 	}
-	
+
 	func saveErrorLogging() {
 		// Add here saving the logs to the file manager
-		// TO DO navigate to the ErrorReportDetailInformationViewController from the sendingViewController after implementing it
-		rootViewController.navigationController?.pushViewController(ErrorReportDetailInformationViewController(), animated: true)
 	}
 	
 	// MARK: - Private
+	
+	private func showConfirmSendingScreen() {
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ErrorReport.sendReportsButtonTitle,
+			isSecondaryButtonHidden: true
+		)
+		let bottomViewController = FooterViewController(
+			footerViewModel,
+			didTapPrimaryButton: {
+				// navigate back to the main error screen + append History cell
+			},
+			didTapSecondaryButton: {
+			}
+		)
+		let topViewController = SendErrorLogsViewController(
+			model: SendErrorLogsViewModel(
+				didPressDetailsButton: {
+					self.rootViewController.navigationController?.pushViewController(ErrorReportDetailInformationViewController(), animated: true)
+				}
+			)
+		)
+		
+		let topBottomViewController = TopBottomContainerViewController(
+			topController: topViewController,
+			bottomController: bottomViewController,
+			bottomHeight: 80
+		)
+		rootViewController.navigationController?.pushViewController(topBottomViewController, animated: true)
+
+	}
 	
 	private let rootViewController: UIViewController
 	private var errorLoggingStatus: ErrorLoggingStatus
