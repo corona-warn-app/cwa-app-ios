@@ -231,7 +231,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Internal
 
 	func reload() {
-		tableView.reloadData()
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	func scrollToTop(animated: Bool) {
