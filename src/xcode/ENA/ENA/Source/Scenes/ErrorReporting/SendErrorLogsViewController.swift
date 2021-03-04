@@ -33,11 +33,6 @@ class SendErrorLogsViewController: DynamicTableViewController, ENANavigationCont
 		dynamicTableViewModel = viewModel.sendErrorLogsDynamicViewModel
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		
-	}
-	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 		cell.backgroundColor = .clear
