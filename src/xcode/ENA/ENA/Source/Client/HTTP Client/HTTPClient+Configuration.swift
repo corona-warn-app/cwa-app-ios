@@ -26,6 +26,10 @@ extension HTTPClient {
 				dataDonation: .init(
 					baseURL: serverEnvironmentProvider.selectedServerEnvironment.dataDonationURL,
 					requiresTrailingSlash: false
+				),
+				errorLogSubmission: .init(
+					baseURL: serverEnvironmentProvider.selectedServerEnvironment.errorLogSubmission,
+					requiresTrailingSlash: false
 				)
 			)
 
@@ -190,6 +194,15 @@ extension HTTPClient {
 					"dat"
 			)
 		}
+
+		var logUploadURL: URL {
+			endpoints
+				.errorLogSubmission
+				.appending(
+					"api",
+					"logs"
+			)
+		}
 	}
 }
 
@@ -233,5 +246,6 @@ extension HTTPClient.Configuration {
 		let submission: Endpoint
 		let verification: Endpoint
 		let dataDonation: Endpoint
+		let errorLogSubmission: Endpoint
 	}
 }

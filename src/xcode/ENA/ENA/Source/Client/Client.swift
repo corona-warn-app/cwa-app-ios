@@ -21,7 +21,7 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmissionCompletionHandler = (Result<Void, PPASError>) -> Void
-	typealias ELSSubmissionCompletionHandler = (Result<Void, PPASError>) -> Void
+	typealias ELSSubmissionCompletionHandler = (Result<LogUploadResponse, PPASError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -120,11 +120,11 @@ protocol Client {
 	// MARK: ELS (Error Log Sharing)
 
 
-	/// <#Description#>
+	/// Log file upload for the ELS  Service
 	/// - Parameters:
-	///   - logFile: <#logFile description#>
-	///   - isFake: <#isFake description#>
-	///   - completion: <#completion description#>
+	///   - logFile: the compressed log `Data` to upload
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: he completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
 	func submit(
 		logFile: Data,
 		isFake: Bool,
@@ -225,6 +225,11 @@ struct FetchedDaysAndHours {
 	var allKeyPackages: [PackageDownloadResponse] {
 		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
 	}
+}
+
+struct LogUploadResponse {
+	let id: String
+	let hash: String
 }
 
 extension Client {

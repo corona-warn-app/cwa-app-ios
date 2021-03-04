@@ -330,6 +330,14 @@ final class HTTPClient: Client {
 		})
 	}
 
+	func submit(
+		logFile: Data,
+		isFake: Bool,
+		completion: @escaping ELSSubmissionCompletionHandler
+	) {
+		preconditionFailure("not implemented")
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -777,6 +785,30 @@ private extension URLRequest {
 		return request
 	}
 
+	static func errorLogSubmit(
+		configuration: HTTPClient.Configuration,
+		payload: Data,
+		ppacToken: PPACToken, // TODO: review this!
+		isFake: Bool
+	) throws -> URLRequest {
+		let boundary = UUID().uuidString
+		var request = URLRequest(url: configuration.logUploadURL)
+		request.httpMethod = "POST"
+		// create multipart body
+		request.httpBody = try Self.requestBodyForLogUpload(logData: payload, boundary: boundary)
+
+		request.setValue(
+			"multipart/form-data; boundary=\(boundary)",
+			forHTTPHeaderField: "Content-Type"
+		)
+		request.setValue(
+			"\(request.httpBody?.count ?? 0)",
+			forHTTPHeaderField: "Content-Length"
+		)
+
+		return request
+	}
+
 	
 	// MARK: - Helper methods for adding padding to the requests.
 	
@@ -808,6 +840,31 @@ private extension URLRequest {
 		guard paddedKeysAmount > 0 else { return Data() }
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
+	}
+
+	// MARK: - Multipart form-data
+
+
+	/// Constructs a `multipart/form-data` body for a given log data
+	/// - Parameters:
+	///   - logData: The compressed log data to submit
+	///   - boundary: Delimiter in multipart documents; see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types#multipartform-data
+	/// - Throws: A `DataConversionError` if given strings cannot be decoded to UTF-8 data
+	/// - Returns: The prepared body data for the http request
+	private static func requestBodyForLogUpload(logData: Data, boundary: String) throws -> Data {
+		var body = Data()
+
+		// init form
+		try body.append("--\(boundary)\r\n")
+		try body.append("Content-Disposition: form-data; name=\"file\"\r\n")
+		try body.append("Content-Type: application/zip\r\n")
+		try body.append("\r\n")
+		try body.append("\(logData)\r\n")
+
+		// finalize form
+		try body.append("--\(boundary)--\r\n")
+
+		return body
 	}
 
 	// swiftlint:disable:next file_length

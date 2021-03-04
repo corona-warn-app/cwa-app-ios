@@ -295,6 +295,7 @@
 		35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2FAA925B9CE8F009ABC8E /* main.swift */; };
 		35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */; };
 		35BDAAF025F001F5004DFE32 /* ELSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDAAEF25F001F5004DFE32 /* ELSError.swift */; };
+		35BDAB2225F10094004DFE32 /* Data+Appending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BDAB2125F10094004DFE32 /* Data+Appending.swift */; };
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
 		35BF067525DB1BA900D3868B /* AppDelegate+QuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */; };
 		35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701EB2556BCB9008AEA91 /* Migration1To2.swift */; };
@@ -1153,6 +1154,7 @@
 		35B2FAA925B9CE8F009ABC8E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskExecutionDelegate.swift; sourceTree = "<group>"; };
 		35BDAAEF25F001F5004DFE32 /* ELSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ELSError.swift; sourceTree = "<group>"; };
+		35BDAB2125F10094004DFE32 /* Data+Appending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Appending.swift"; sourceTree = "<group>"; };
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
 		35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+QuickActions.swift"; sourceTree = "<group>"; };
 		35C701EB2556BCB9008AEA91 /* Migration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2.swift; sourceTree = "<group>"; };
@@ -2904,6 +2906,7 @@
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
 				AB6289CE251BA01400CF61D2 /* Bundle+Version.swift */,
 				01DB708425068167008F7244 /* Calendar+GregorianLocale.swift */,
+				35BDAB2125F10094004DFE32 /* Data+Appending.swift */,
 				0190B224255C423600CF4244 /* Date+Age.swift */,
 				AB7E2A7F255ACC06005C90F6 /* Date+Utils.swift */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
@@ -5408,6 +5411,7 @@
 				01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */,
 				506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */,
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
+				35BDAB2225F10094004DFE32 /* Data+Appending.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,
 				941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */,
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
@@ -5717,7 +5721,6 @@
 				507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */,
 				F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */,
 				01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */,
-				8F11512425DC27E9007BDBC6 /* (null) in Sources */,
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
