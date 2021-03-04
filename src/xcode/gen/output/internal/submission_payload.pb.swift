@@ -58,6 +58,8 @@ struct SAP_Internal_SubmissionPayload {
   /// Clears the value of `consentToFederation`. Subsequent reads from it will return its default value.
   mutating func clearConsentToFederation() {self._consentToFederation = nil}
 
+  var checkIns: [SAP_Internal_Evreg_CheckIn] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -79,6 +81,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     3: .same(proto: "visitedCountries"),
     4: .same(proto: "origin"),
     5: .same(proto: "consentToFederation"),
+    6: .same(proto: "checkIns"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -92,6 +95,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
       case 3: try { try decoder.decodeRepeatedStringField(value: &self.visitedCountries) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self._origin) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self._consentToFederation) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.checkIns) }()
       default: break
       }
     }
@@ -113,6 +117,9 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if let v = self._consentToFederation {
       try visitor.visitSingularBoolField(value: v, fieldNumber: 5)
     }
+    if !self.checkIns.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.checkIns, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -122,6 +129,7 @@ extension SAP_Internal_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.visitedCountries != rhs.visitedCountries {return false}
     if lhs._origin != rhs._origin {return false}
     if lhs._consentToFederation != rhs._consentToFederation {return false}
+    if lhs.checkIns != rhs.checkIns {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

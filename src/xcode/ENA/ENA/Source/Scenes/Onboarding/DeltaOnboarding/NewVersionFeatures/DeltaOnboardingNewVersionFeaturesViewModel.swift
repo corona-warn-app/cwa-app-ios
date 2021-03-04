@@ -13,28 +13,17 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.14"
+		self.featureVersion = "1.15"
 		
-		// Additional Diary functions
+		// Switzerland
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsTitle, description: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115SwitzerlandTitle, description: AppStrings.NewVersionFeatures.feature115SwitzerlandDescription)
 		)
 		
-		// Direct diary access
+		// Error analytics log
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryTitle, description: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115ErrorAnalyticsLogTitle, description: AppStrings.NewVersionFeatures.feature115ErrorAnalyticsLogDescription)
 		)
-		
-		// More Detais Risk Status
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusTitle, description: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusDescription)
-		)
-		
-		// Screenshots
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114ScreenshotsTitle, description: AppStrings.NewVersionFeatures.feature114ScreenshotsDescription, internalId: "114-screenshots")
-		)
-		
 	}
 
 	// MARK: - Internal
@@ -96,19 +85,10 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		]
 		
 		for feature in newVersionFeatures {
-			
-			if feature.internalId != nil && feature.internalId == "114-screenshots" {
-				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
-				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
-				cells.append(.bulletPoint(attributedText: featureBulletPoint))
-				cells.append(.link(placeholder: "\t\(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURLDisplayText)", link: AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL, font: .body, style: .body, accessibilityIdentifier: ""))
-				Log.debug("The screenshot URL is the following: \(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL)")
-			} else {
-				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
-				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
-				featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
-				cells.append(.bulletPoint(attributedText: featureBulletPoint))
-			}
+			let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+			cells.append(.bulletPoint(attributedText: featureBulletPoint))
 		}
 		return cells
 	}
