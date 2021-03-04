@@ -109,17 +109,17 @@
 
 /* Error Reports */
 
-"errorReport_Legal_DataPrivacy_Headline" = "Datenschutz und Datensicherheit";
+"errorReport_Legal_DataPrivacy_Headline" = "Data protection and data security";
 
-"errorReport_Legal_DataPrivacy_Bullet1" = "";
+"errorReport_Legal_DataPrivacy_Bullet1" = "Recording the error report is voluntary.";
 
-"errorReport_Legal_DataPrivacy_Bullet2" = "";
+"errorReport_Legal_DataPrivacy_Bullet2" = "Initially, only you will have access to the error report. You can then decide whether to send the error report to the technical support team, whether to save the error report on your smartphone first, or whether to stop and erase the recorded information. If you first save the error report locally, this will give you the opportunity to view the error report yourself before submitting it to support.";
 
-"errorReport_Legal_DataPrivacy_Bullet3" = "";
+"errorReport_Legal_DataPrivacy_Bullet3" = "The error report contains sensitive information, such as details of your test result or the infection risk determined for you. It does not contain any information about the QR codes you used when registering your test, any information you recorded in the contact journal, or any information about your identity.";
 
-"errorReport_Legal_DataPrivacy_Bullet4" = "";
+"errorReport_Legal_DataPrivacy_Bullet4" = "We do not recommend publishing the error reports or sending them by email.";
 
-"errorReport_Legal_DataPrivacy_Bullet5" = "";
+"errorReport_Legal_DataPrivacy_Bullet5" = "Private individuals as well as companies are not allowed to make you share a recorded error report with them.";
 
 "errorReport_Legal_Consent_Headline" = "Ihr Einverständnis";
 
