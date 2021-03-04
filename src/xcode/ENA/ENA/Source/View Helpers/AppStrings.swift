@@ -1351,8 +1351,8 @@ enum AppStrings {
 			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
 		}
 		
-		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Subheadline", comment: "")
-		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Content2", comment: "")
+		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_DetailedInformation_Subheadline", comment: "")
+		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_DetailedInformation_Content2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }
