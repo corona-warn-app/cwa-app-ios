@@ -255,7 +255,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
 		let keySubmissionMetadata = gatherKeySubmissionMetadata()
-		let TestResultMetadata = gatherTestResultMetadata()
+		let testResultMetadata = gatherTestResultMetadata()
 		let newExposureWindows = gatherNewExposureWindows()
 
 		let payload = SAP_Internal_Ppdd_PPADataIOS.with {
@@ -268,7 +268,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				$0.keySubmissionMetadataSet = keySubmissionMetadata
 			}
 			if shouldIncludeTestResultMetadata {
-				$0.testResultMetadataSet = TestResultMetadata
+				$0.testResultMetadataSet = testResultMetadata
 			}
 			/*
 			Exposure Windows are included in the next submission if:
@@ -282,9 +282,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				if randomProbability <= probabilityToSubmitExposureWindows {
 					$0.newExposureWindows = newExposureWindows
 				}
+				Log.warning("generated probability to submit New Exposure Windows: \(randomProbability)", log: .ppa)
+				Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows)", log: .ppa)
 			}
-			Log.warning("generated probability to submit New Exposure Windows: \(randomProbability)", log: .ppa)
-			Log.warning("configuration probability to submit New Exposure Windows: \(probabilityToSubmitExposureWindows)", log: .ppa)
 		}
 
 		return payload
