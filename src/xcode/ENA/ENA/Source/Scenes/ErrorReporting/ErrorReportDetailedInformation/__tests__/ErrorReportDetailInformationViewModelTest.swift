@@ -10,14 +10,6 @@ class ErrorReportDetailInformationViewModelTest: XCTestCase {
 	let model = ErrorReportDetailInformationViewModel()
 	let totalNumberOfCells = 6
 	
-    override func setUpWithError() throws {
-        
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testViewModel() throws {
 		// GIVEN
 		let tableViewModel = model.dynamicTableViewModel

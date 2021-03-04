@@ -1338,6 +1338,11 @@ enum AppStrings {
 		static let sendReportsDetails = NSLocalizedString("ErrorReport_SendReports_Details", comment: "")
 		static let sendReportsButtonTitle = NSLocalizedString("ErrorReport_SendReports_Button_Title", comment: "")
 
+		// History ViewController UI
+		static let historyTitle = NSLocalizedString("ErrorReport_History_Title", comment: "")
+		static let historyDescription = NSLocalizedString("ErrorReport_History_Description", comment: "")
+		static let historyCellID = NSLocalizedString("ErrorReport_History_Cell_ID", comment: "")
+		
 		enum Legal {
 			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
 			static let dataPrivacy_Bullet1 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet1", tableName: "Localizable.legal", comment: "")
@@ -1367,8 +1372,10 @@ enum AppStrings {
 			static let sendReports_Paragraph = NSLocalizedString("errorReport_Legal_SendReports_Paragraph", tableName: "Localizable.legal", comment: "")
 		}
 		
-		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Subheadline", comment: "")
-		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_Legal_DetailedInformation_Content2", comment: "")
+		static let detailedInfo_Headline = NSLocalizedString("errorReport_DetailedInformation_Headline", comment: "")
+		static let detailedInfo_Content1 = NSLocalizedString("errorReport_DetailedInformation_Content1", comment: "")
+		static let detailedInfo_Subheadline = NSLocalizedString("ErrorReport_DetailedInformation_Subheadline", comment: "")
+		static let detailedInfo_Content2 = NSLocalizedString("ErrorReport_DetailedInformation_Content2", comment: "")
 	}
 	// swiftlint:disable:next file_length
 }

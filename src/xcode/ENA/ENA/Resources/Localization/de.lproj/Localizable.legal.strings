@@ -115,7 +115,7 @@
 
 "errorReport_Legal_DataPrivacy_Bullet2" = "Auf den Fehlerbericht haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie den Fehlerbericht an den technischen Support senden, ob Sie den Fehlerbericht zunächst auf Ihrem Smartphone speichern oder die Aufzeichnung stoppen und löschen wollen. Wenn Sie den Fehlerbericht zunächst lokal speichern, haben Sie die Möglichkeit, sich den Fehlerbericht selbst anzuschauen, bevor Sie diesen an den Support übermitteln.";
 
-"errorReport_Legal_DataPrivacy_Bullet3" = "Auf den Fehlerbericht haben zunächst nur Sie Zugriff. Sie können im Anschluss entscheiden, ob Sie den Fehlerbericht an den technischen Support senden, ob Sie den Fehlerbericht zunächst auf Ihrem Smartphone speichern oder die Aufzeichnung stoppen und löschen wollen. Wenn Sie den Fehlerbericht zunächst lokal speichern, haben Sie die Möglichkeit, sich den Fehlerbericht selbst anzuschauen, bevor Sie diesen an den Support übermitteln.";
+"errorReport_Legal_DataPrivacy_Bullet3" = "Der Fehlerbericht enthält sensible Informationen, zum Beispiel Angaben über Ihr Testergebnis oder das für Sie ermittelte Ansteckungsrisiko. Er enthält keine Informationen über die QR-Codes, die Sie bei der Testregistrierung verwendet haben, über Angaben, die Sie im Kontakt-Tagebuch erfasste haben oder Angaben zu Ihrer Identität.";
 
 "errorReport_Legal_DataPrivacy_Bullet4" = "Wir empfehlen die Fehlerberichte nicht zu veröffentlichen und nicht per E-Mail zu versenden.";
 
