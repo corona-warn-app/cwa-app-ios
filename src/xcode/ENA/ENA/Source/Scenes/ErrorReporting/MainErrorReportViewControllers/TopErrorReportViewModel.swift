@@ -54,7 +54,7 @@ class TopErrorReportViewModel {
 								cell.selectionStyle = .default
 								cell.configure(
 									dateTimeLabel: NSMutableAttributedString(string: AppStrings.ErrorReport.historyTitle),
-									idLabel: NSMutableAttributedString(string: AppStrings.ErrorReport.historyTitle))
+									idLabel: NSMutableAttributedString(string: AppStrings.ErrorReport.historyNavigationSubline))
 							}
 						)
 					])
