@@ -221,12 +221,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 					self.store.testRegistrationDate = Date()
 					self._getTestResult(token) { testResult in
-						switch testResult {
-						case .success(let testResult):
-							Analytics.collect(.testResultMetadata(.updateTestResult(testResult, token)))
-						case.failure:
-							break
-						}
 						completion(testResult)
 					}
 
@@ -339,6 +333,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.failure(.other("Failed to parse TestResult")))
 					return
 				}
+				Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 				switch testResult {
 				case .positive, .negative, .invalid:
 					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
