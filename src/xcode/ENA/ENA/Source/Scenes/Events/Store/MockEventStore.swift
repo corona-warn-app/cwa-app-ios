@@ -36,6 +36,7 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
+	// swiftlint:disable function_parameter_count
 	func createCheckin(
 		eventId: String,
 		eventType: Int,
