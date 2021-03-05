@@ -98,7 +98,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 16
 		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 16
 		
-		if traitCollection.horizontalSizeClass == .unspecified {
+		if UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.size.width <= 320 {
 			trailingConstraint.constant = 12
 		} else {
 			trailingConstraint.constant = 65
