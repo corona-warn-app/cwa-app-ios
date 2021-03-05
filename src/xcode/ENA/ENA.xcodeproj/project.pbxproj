@@ -2419,6 +2419,79 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		3466A41125D1A0C9002CC49D /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				3466A41D25D1A20C002CC49D /* UserMetadataTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34B1FDBC25D69F1E00D196C7 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE8325E0113B00D196C7 /* User Metadata */,
+				34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */,
+				34B1FE6825E0108300D196C7 /* Client Metadata */,
+				8FB5A62325DE796400679990 /* Exposure Windows Metadata */,
+				8FB5A64525DEC57F00679990 /* Test Result Metadata */,
+				34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		34B1FE5A25E00FC900D196C7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FEC325E0202000D196C7 /* ExposureWindowsMetadataServiceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34B1FE5B25E00FEF00D196C7 /* Key Submission Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE6625E0102200D196C7 /* __tests__ */,
+				34B1FDDC25D6CA5100D196C7 /* LastSubmissionFlowScreen.swift */,
+				34B1FDD125D6A09700D196C7 /* KeySubmissionMetadata.swift */,
+				34B1FE3A25DDAE1A00D196C7 /* KeySubmissionMetadataService.swift */,
+			);
+			path = "Key Submission Metadata";
+			sourceTree = "<group>";
+		};
+		34B1FE6625E0102200D196C7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE4525DEA27500D196C7 /* KeySubmissionMetadataServiceTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		34B1FE6725E0103700D196C7 /* Risk Exposure Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE6925E010C200D196C7 /* __tests__ */,
+				3466A3F025CC3DCB002CC49D /* RiskExposureMetadata.swift */,
+			);
+			path = "Risk Exposure Metadata";
+			sourceTree = "<group>";
+		};
+		34B1FE6825E0108300D196C7 /* Client Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE2F25DDAD4A00D196C7 /* ClientMetadata.swift */,
+			);
+			path = "Client Metadata";
+			sourceTree = "<group>";
+		};
+		34B1FE6925E010C200D196C7 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				34B1FE9825E0126F00D196C7 /* RiskExposureMetadataTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		35075C002526367700DE92F7 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
