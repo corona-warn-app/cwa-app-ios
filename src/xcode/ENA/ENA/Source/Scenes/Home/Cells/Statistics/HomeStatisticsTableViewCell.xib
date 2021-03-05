@@ -62,6 +62,7 @@
                 <outlet property="scrollView" destination="Baz-s9-y9N" id="SMK-kU-UM8"/>
                 <outlet property="stackView" destination="zyc-lh-yUE" id="Uqs-gy-wdr"/>
                 <outlet property="topConstraint" destination="YWV-c4-yhK" id="QPf-f0-rS6"/>
+                <outlet property="trailingConstraint" destination="hFj-JQ-gfN" id="jcg-VR-hR4"/>
             </connections>
             <point key="canvasLocation" x="226.08695652173915" y="217.96875"/>
         </tableViewCell>

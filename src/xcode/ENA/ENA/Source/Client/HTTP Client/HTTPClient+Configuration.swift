@@ -114,7 +114,7 @@ extension HTTPClient {
 				.distribution
 				.appending(
 					"version",
-					apiVersion,
+					"v2",
 					"app_config_ios"
 			)
 		}

@@ -696,7 +696,6 @@ final class RiskProviderTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
 
 		let exposureDetectionsInterval = 6
@@ -775,7 +774,6 @@ final class RiskProviderTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let exposureDetectionsInterval = 6
 		let config = RiskProvidingConfiguration(
@@ -853,7 +851,6 @@ final class RiskProviderTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
 
 		let exposureDetectionsInterval = 6
@@ -932,7 +929,6 @@ final class RiskProviderTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
-		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
 		let exposureDetectionsInterval = 6
 		let config = RiskProvidingConfiguration(
@@ -1024,8 +1020,7 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult {
-		
+	) -> RiskCalculationResult {
 		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
 
 		return RiskCalculationResult(
