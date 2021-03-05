@@ -4,6 +4,10 @@
 
 import UIKit
 
+struct Event {
+
+}
+
 class EventPlanningCoordinator {
 
 	// MARK: - Init
@@ -52,7 +56,9 @@ class EventPlanningCoordinator {
 		return EventPlanningOverviewViewController(
 			viewModel: EventPlanningOverviewViewModel(),
 			onAddEventCellTap: {},
-			onEventCellTap: {}
+			onEventCellTap: { [weak self] event in
+				self?.showEventScreen(event: event)
+			}
 		)
 	}()
 
@@ -60,13 +66,11 @@ class EventPlanningCoordinator {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
 		var navigationController: ENANavigationControllerWithFooter!
-		let viewController = DiaryInfoViewController(
-			viewModel: DiaryInfoViewModel(
+		let viewController = EventPlanningInfoViewController(
+			viewModel: EventPlanningInfoViewModel(
 				presentDisclaimer: {
-					let detailViewController = AppInformationDetailViewController()
+					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
-//					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
-					detailViewController.separatorStyle = .none
 					// hides the footerview as well
 					detailViewController.hidesBottomBarWhenPushed = true
 					navigationController.pushViewController(detailViewController, animated: true)
@@ -84,19 +88,38 @@ class EventPlanningCoordinator {
 		}
 	}
 
-	private func showDayScreen(day: DiaryDay) {
-		let viewController = UIViewController()
+	private func showEventScreen(event: Event) {
+		var navigationController: ENANavigationControllerWithFooter!
+		let viewController = DiaryInfoViewController(
+			viewModel: DiaryInfoViewModel(
+				presentDisclaimer: {
+					let detailViewController = AppInformationDetailViewController()
+					detailViewController.title = AppStrings.AppInformation.privacyTitle
+//					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
+					detailViewController.separatorStyle = .none
+					// hides the footerview as well
+					detailViewController.hidesBottomBarWhenPushed = true
+					navigationController.pushViewController(detailViewController, animated: true)
+				}
+			),
+			onDismiss: {
+				navigationController.dismiss(animated: true)
+			}
+		)
 
-		parentNavigationController?.pushViewController(viewController, animated: true)
+		/// We need to use UINavigationController(rootViewController: UIViewController) here, otherwise the inset of the navigation title is wrong
+		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
-	private func showAddAndEditEntryScreen(mode: DiaryAddAndEditEntryViewModel.Mode, from fromViewController: UIViewController? = nil) {
-		let presentingViewController = fromViewController ?? parentNavigationController
+	private func showAddEventScreen(duplicating templateEvent: Event? = nil) {
+		var navigationController: ENANavigationControllerWithFooter!
 
 		let viewController = UIViewController()
-		let navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 
-		presentingViewController?.present(navigationController, animated: true)
+		/// We need to use UINavigationController(rootViewController: UIViewController) here, otherwise the inset of the navigation title is wrong
+		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		parentNavigationController?.present(navigationController, animated: true)
 	}
 
 }

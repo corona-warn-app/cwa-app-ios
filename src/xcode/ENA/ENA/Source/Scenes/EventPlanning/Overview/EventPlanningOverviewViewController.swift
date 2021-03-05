@@ -12,7 +12,7 @@ class EventPlanningOverviewViewController: UITableViewController {
 	init(
 		viewModel: EventPlanningOverviewViewModel,
 		onAddEventCellTap: @escaping () -> Void,
-		onEventCellTap: @escaping (/* Event */) -> Void
+		onEventCellTap: @escaping (Event) -> Void
 	) {
 		self.viewModel = viewModel
 		self.onAddEventCellTap = onAddEventCellTap
@@ -95,7 +95,7 @@ class EventPlanningOverviewViewController: UITableViewController {
 
 	private let viewModel: EventPlanningOverviewViewModel
 	private let onAddEventCellTap: () -> Void
-	private let onEventCellTap: () -> Void
+	private let onEventCellTap: (Event) -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
@@ -137,8 +137,8 @@ class EventPlanningOverviewViewController: UITableViewController {
 		let cellModel = viewModel.eventCellModel(at: indexPath)
 		cell.configure(
 			cellModel: cellModel,
-			onButtonTap: { [weak self] /* event */ in
-
+			onButtonTap: { event in
+				Log.info("Event button tapped: \(event)")
 			}
 		)
 

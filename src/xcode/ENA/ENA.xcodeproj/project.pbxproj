@@ -35,6 +35,8 @@
 		0138F69025F21C8000A9B075 /* EventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68E25F21C8000A9B075 /* EventCellModel.swift */; };
 		0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */; };
 		0138F6A425F2220300A9B075 /* AddEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */; };
+		0138F6AE25F25B1400A9B075 /* EventPlanningInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6A925F25B1400A9B075 /* EventPlanningInfoViewController.swift */; };
+		0138F6AF25F25B1400A9B075 /* EventPlanningInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6AA25F25B1400A9B075 /* EventPlanningInfoViewModel.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -919,6 +921,8 @@
 		0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
 		0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		0138F68E25F21C8000A9B075 /* EventCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellModel.swift; sourceTree = "<group>"; };
+		0138F6A925F25B1400A9B075 /* EventPlanningInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlanningInfoViewController.swift; sourceTree = "<group>"; };
+		0138F6AA25F25B1400A9B075 /* EventPlanningInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlanningInfoViewModel.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1881,6 +1885,7 @@
 			isa = PBXGroup;
 			children = (
 				0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */,
+				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
 			);
 			path = EventPlanning;
@@ -1921,6 +1926,23 @@
 			sourceTree = "<group>";
 		};
 		0138F64825F1174100A9B075 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
+		0138F6A825F25B1400A9B075 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				0138F6AB25F25B1400A9B075 /* __test__ */,
+				0138F6A925F25B1400A9B075 /* EventPlanningInfoViewController.swift */,
+				0138F6AA25F25B1400A9B075 /* EventPlanningInfoViewModel.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		0138F6AB25F25B1400A9B075 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -5339,6 +5361,7 @@
 				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				BA4C269F25EE9DC700E0505F /* CheckInDetailViewController.swift in Sources */,
+				0138F6AF25F25B1400A9B075 /* EventPlanningInfoViewModel.swift in Sources */,
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
@@ -5525,6 +5548,7 @@
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
 				01F2A563257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift in Sources */,
+				0138F6AE25F25B1400A9B075 /* EventPlanningInfoViewController.swift in Sources */,
 				01A4DC6F25922EB4007D5794 /* HomeListItemView.swift in Sources */,
 				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,

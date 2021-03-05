@@ -8,7 +8,9 @@ class EventTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(cellModel: EventCellModel, onButtonTap: @escaping (/* Event */) -> Void) {
+	func configure(cellModel: EventCellModel, onButtonTap: @escaping (Event) -> Void) {
+		event = cellModel.event
+
 		titleLabel.text = cellModel.title
 		locationLabel.text = cellModel.location
 		timeLabel.text = cellModel.time
@@ -23,16 +25,18 @@ class EventTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
+	private var event: Event!
+
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var locationLabel: ENALabel!
 	@IBOutlet private weak var timeLabel: ENALabel!
 	@IBOutlet private weak var dateLabel: ENALabel!
 	@IBOutlet private weak var button: ENAButton!
 
-	var onButtonTap: ((/* Event */) -> Void)?
+	var onButtonTap: ((Event) -> Void)?
     
 	@IBAction func didTapButton(_ sender: Any) {
-		onButtonTap?()
+		onButtonTap?(event)
 	}
 
 }

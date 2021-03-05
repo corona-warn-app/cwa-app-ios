@@ -1315,6 +1315,28 @@ enum AppStrings {
 	}
 
 	enum EventPlanning {
+		enum Information {
+			static let title = NSLocalizedString("EventPlanning_Information_Title", comment: "")
+			static let imageDescription = NSLocalizedString("EventPlanning_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("EventPlanning_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("EventPlanning_Information_DescriptionSubHeadline", comment: "")
+			static let itemPersonTitle = NSLocalizedString("EventPlanning_Information_Item_Person_Title", comment: "")
+			static let itemContactTitle = NSLocalizedString("EventPlanning_Information_Item_Location_Title", comment: "")
+			static let itemLockTitle = NSLocalizedString("EventPlanning_Information_Item_Lock_Title", comment: "")
+			static let deletedAutomatically = NSLocalizedString("EventPlanning_Information_Item_DeletedAutomatically_Title", comment: "")
+			static let exportTextformat = NSLocalizedString("EventPlanning_Information_Item_ExportTextFormat_Title", comment: "")
+			static let exposureHistory = NSLocalizedString("EventPlanning_Information_Item_ExposureHistory_Title", comment: "")
+			static let legalHeadline_1 = NSLocalizedString("EventPlanning_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_1 = NSLocalizedString("EventPlanning_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_2 = NSLocalizedString("EventPlanning_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_1 = NSLocalizedString("EventPlanning_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+			static let legalText_2 = NSLocalizedString("EventPlanning_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_3 = NSLocalizedString("EventPlanning_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+			static let legalText_4 = NSLocalizedString("EventPlanning_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("EventPlanning_Information_Dataprivacy_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("EventPlanning_Information_PrimaryButton_Title", comment: "")
+		}
+
 		enum Overview {
 			static let title = NSLocalizedString("EventPlanning_Overview_Title", comment: "")
 			static let addButtonTitle = NSLocalizedString("EventPlanning_Overview_AddButtonTitle", comment: "")

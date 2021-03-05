@@ -400,4 +400,13 @@ enum AccessibilityIdentifiers {
 		static let regionCell = "DataDonation.Region.Identifier"
 		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
 	}
+
+	enum EventPlanning {
+		static let imageDescription = "AppStrings.EventPlanning.imageDescription"
+		static let descriptionTitle = "AppStrings.EventPlanning.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.EventPlanning.descriptionSubHeadline"
+		static let dataPrivacyTitle = "AppStrings.EventPlanning.dataPrivacyTitle"
+		static let legal_1 = "AppStrings.EventPlanning.legalHeadline_1"
+	}
+
 }

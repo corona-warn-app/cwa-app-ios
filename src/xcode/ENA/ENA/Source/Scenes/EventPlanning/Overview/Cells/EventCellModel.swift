@@ -8,6 +8,8 @@ struct EventCellModel {
 
 	// MARK: - Internal
 
+	let event = Event()
+
 	let title: String = "Jahrestreffen der deutschen SAP Anwendergruppe"
 	let location: String = "Hauptstr 3, 69115 Heidelberg"
 	let time: String = "18:00 - 21:00 Uhr"
