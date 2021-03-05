@@ -36,18 +36,7 @@ class EventStore: EventStoring, EventProviding {
 
 	// MARK: - Protocol EventStoring
 
-	// swiftlint:disable function_parameter_count
-	func createEvent(
-		id: String,
-		type: Int,
-		description: String,
-		address: String,
-		start: Date,
-		end: Date,
-		defaultCheckInLengthInMinutes: Int,
-		signature: String
-	) -> EventStoring.VoidResult {
-
+	func createEvent(event: Event) -> EventStoring.VoidResult {
 		var result: EventStoring.VoidResult?
 
 		databaseQueue.inDatabase { database in
@@ -76,14 +65,14 @@ class EventStore: EventStoring, EventProviding {
 				);
 			"""
 			let parameters: [String: Any] = [
-				"id": id,
-				"type": type,
-				"description": description,
-				"address": address,
-				"start": Int(start.timeIntervalSince1970),
-				"end": Int(end.timeIntervalSince1970),
-				"defaultCheckInLengthInMinutes": defaultCheckInLengthInMinutes,
-				"signature": signature
+				"id": event.id,
+				"type": event.type,
+				"description": event.description,
+				"address": event.address,
+				"start": Int(event.start.timeIntervalSince1970),
+				"end": Int(event.end.timeIntervalSince1970),
+				"defaultCheckInLengthInMinutes": event.defaultCheckInLengthInMinutes,
+				"signature": event.signature
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -144,19 +133,8 @@ class EventStore: EventStoring, EventProviding {
 		return _result
 	}
 
-	// swiftlint:disable function_parameter_count
-	func createCheckin(
-		eventId: String,
-		eventType: Int,
-		eventDescription: String,
-		eventAddress: String,
-		eventStart: Date,
-		eventEnd: Date,
-		eventSignature: String,
-		checkinStart: Date,
-		checkinEnd: Date) -> EventStoring.IdResult {
-
-		var result: EventStoring.VoidResult?
+	func createCheckin(checkin: Checkin) -> EventStoring.IdResult {
+		var result: EventStoring.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Add Event.", log: .localData)
@@ -188,16 +166,16 @@ class EventStore: EventStoring, EventProviding {
 				);
 			"""
 			let parameters: [String: Any] = [
-				"eventId": eventId,
-				"eventType": eventType,
-				"eventDescription": eventDescription,
-				"eventAddress": eventAddress,
-				"eventStart": Int(eventStart.timeIntervalSince1970),
-				"eventEnd": Int(eventEnd.timeIntervalSince1970),
-				"eventDefaultCheckInLengthInMinutes": eventDefaultCheckInLengthInMinutes,
-				"eventSignature": eventSignature,
-				"checkinStart": Int(checkinStart.timeIntervalSince1970),
-				"checkinEnd": Int(checkinEnd.timeIntervalSince1970),
+				"eventId": checkin.eventId,
+				"eventType": checkin.eventType,
+				"eventDescription": checkin.eventDescription,
+				"eventAddress": checkin.eventAddress,
+				"eventStart": Int(checkin.eventStart.timeIntervalSince1970),
+				"eventEnd": Int(checkin.eventEnd.timeIntervalSince1970),
+				"eventDefaultCheckInLengthInMinutes": checkin.eventDefaultCheckInLengthInMinutes,
+				"eventSignature": checkin.eventSignature,
+				"checkinStart": Int(checkin.checkinStart.timeIntervalSince1970),
+				"checkinEnd": Int(checkin.checkinEnd.timeIntervalSince1970)
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -212,7 +190,7 @@ class EventStore: EventStoring, EventProviding {
 				return
 			}
 
-			result = .success(())
+			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
