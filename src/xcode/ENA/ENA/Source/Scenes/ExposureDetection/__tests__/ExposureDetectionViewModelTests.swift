@@ -73,7 +73,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: nil,
 				numberOfDaysWithRiskLevel: 0,
-				activeTracing: store.tracingStatusHistory.activeTracing(),
 				exposureDetectionDate: nil
 			)
 		)
@@ -142,7 +141,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithLowRisk,
 				numberOfDaysWithRiskLevel: 2,
-				activeTracing: store.tracingStatusHistory.activeTracing(),
 				exposureDetectionDate: calculationDate
 			)
 		)
@@ -345,7 +343,6 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithHighRisk,
 				numberOfDaysWithRiskLevel: 1,
-				activeTracing: store.tracingStatusHistory.activeTracing(),
 				exposureDetectionDate: calculationDate
 			)
 		)
@@ -858,11 +855,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
 		if hasAtLeastOneDayWithLowRiskLevel {
-			XCTAssertEqual(section.cells.count, 4)
+			XCTAssertEqual(section.cells.count, 3)
 			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 			XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-			XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
 		} else {
 			XCTAssertEqual(section.cells.count, 3)
 			XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
@@ -889,14 +885,15 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Standard guide section
 		section = dynamicTableViewModel.section(3)
-		XCTAssertEqual(section.cells.count, 5)
+		XCTAssertEqual(section.cells.count, 6)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -917,11 +914,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	) {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 3)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? true : false)
 
 		// Loading section
@@ -938,7 +934,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "longGuideCell")
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -958,11 +954,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	) {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
-		XCTAssertEqual(section.cells.count, 4)
+		XCTAssertEqual(section.cells.count, 3)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "riskCell")
-		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "riskCell")
 		XCTAssertEqual(section.isHidden(for: viewController), isLoading ? true : false)
 
 		// Loading section
@@ -983,7 +978,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		section = dynamicTableViewModel.section(3)
 		XCTAssertEqual(section.cells.count, 1)
 
-		// Active tracing section
+		// Tracing section
 		section = dynamicTableViewModel.section(4)
 		XCTAssertEqual(section.cells.count, 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
@@ -1016,12 +1011,13 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Standard guide section
 		section = dynamicTableViewModel.section(2)
-		XCTAssertEqual(section.cells.count, 5)
+		XCTAssertEqual(section.cells.count, 6)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[2].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[3].cellReuseIdentifier.rawValue, "guideCell")
 		XCTAssertEqual(section.cells[4].cellReuseIdentifier.rawValue, "guideCell")
+		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Explanation section
 		section = dynamicTableViewModel.section(3)
