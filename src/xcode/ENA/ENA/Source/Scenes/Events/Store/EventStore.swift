@@ -80,8 +80,8 @@ class EventStore: EventStoring, EventProviding {
 				return
 			}
 
-			let updateEventsDaysResult = updateEvents(with: database)
-			guard case .success = updateEventsDaysResult else {
+			let updateEventsResult = updateEvents(with: database)
+			guard case .success = updateEventsResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
 				return
@@ -116,8 +116,8 @@ class EventStore: EventStoring, EventProviding {
 				return
 			}
 
-			let updateEventsDaysResult = updateEvents(with: database)
-			guard case .success = updateEventsDaysResult else {
+			let updateEventsResult = updateEvents(with: database)
+			guard case .success = updateEventsResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
 				return
@@ -183,8 +183,8 @@ class EventStore: EventStoring, EventProviding {
 				return
 			}
 
-			let updateEventsDaysResult = updateCheckins(with: database)
-			guard case .success = updateEventsDaysResult else {
+			let updateCheckinsResult = updateCheckins(with: database)
+			guard case .success = updateCheckinsResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
 				return
@@ -219,8 +219,8 @@ class EventStore: EventStoring, EventProviding {
 				return
 			}
 
-			let updateEventsDaysResult = updateCheckins(with: database)
-			guard case .success = updateEventsDaysResult else {
+			let updateCheckinsResult = updateCheckins(with: database)
+			guard case .success = updateCheckinsResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
 				return
