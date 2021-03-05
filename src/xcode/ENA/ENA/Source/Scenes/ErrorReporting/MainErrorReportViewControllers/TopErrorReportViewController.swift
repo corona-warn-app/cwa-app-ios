@@ -3,14 +3,14 @@
 //
 
 import UIKit
+import OpenCombine
 
-class SendErrorLogsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class TopErrorReportViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 
-	init(model: SendErrorLogsViewModel) {
-		viewModel = model
-
+	init(viewModel: TopErrorReportViewModel) {
+		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -23,14 +23,14 @@ class SendErrorLogsViewController: DynamicTableViewController, ENANavigationCont
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		setupUI()
 		setupTableView()
-
-		navigationController?.navigationBar.prefersLargeTitles = true
-		title = AppStrings.ErrorReport.sendReportsTitle
-
-		view.backgroundColor = .enaColor(for: .background)
-
-		dynamicTableViewModel = viewModel.sendErrorLogsDynamicViewModel
+		viewModel.$dynamicTableViewModel
+			.sink { [weak self] dynamicTableViewModel in
+				self?.dynamicTableViewModel = dynamicTableViewModel
+				self?.tableView.reloadData()
+			}
+			.store(in: &subscriptions)
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,13 +38,13 @@ class SendErrorLogsViewController: DynamicTableViewController, ENANavigationCont
 		cell.backgroundColor = .clear
 		return cell
 	}
-
+	
 	// MARK: - Internal
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case historyCell = "historyCell"
 		case legal = "DynamicLegalCell"
 		case link = "linkCell"
-		case legalExtended = "DynamicLegalExtendedCell"
 	}
 
 	// MARK: - Private
@@ -60,10 +60,17 @@ class SendErrorLogsViewController: DynamicTableViewController, ENANavigationCont
 			forCellReuseIdentifier: ReuseIdentifiers.legal.rawValue
 		)
 		tableView.register(
-			UINib(nibName: String(describing: DynamicLegalExtendedCell.self), bundle: nil),
-			forCellReuseIdentifier: ReuseIdentifiers.legalExtended.rawValue
+			UINib(nibName: String(describing: ErrorReportHistoryCell.self), bundle: nil),
+			forCellReuseIdentifier: ReuseIdentifiers.historyCell.rawValue
 		)
 	}
 	
-	private let viewModel: SendErrorLogsViewModel
+	private func setupUI() {
+		title = AppStrings.ErrorReport.title
+		navigationController?.navigationBar.prefersLargeTitles = true
+		view.backgroundColor = .enaColor(for: .background)
+	}
+	
+	private var viewModel: TopErrorReportViewModel
+	private var subscriptions = Set<AnyCancellable>()
 }

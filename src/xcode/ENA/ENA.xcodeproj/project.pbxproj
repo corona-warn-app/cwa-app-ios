@@ -450,10 +450,11 @@
 		8F43A3D425D55B11008FD630 /* ppdd_ppa_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F43A3D325D55B11008FD630 /* ppdd_ppa_parameters.pb.swift */; };
 		8F4E623325EE878400FF4F0A /* ErrorReportCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */; };
 		8F4E623425EE878400FF4F0A /* ErrorLoggingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */; };
-		8F4E623A25EE878E00FF4F0A /* ErrorReportLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* ErrorReportLoggingViewController.swift */; };
-		8F4E623B25EE878E00FF4F0A /* ErrorReportLoggingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4E623925EE878E00FF4F0A /* ErrorReportLoggingViewController.xib */; };
-		8F4E624225EE879B00FF4F0A /* ErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E624025EE879B00FF4F0A /* ErrorReportViewController.swift */; };
+		8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */; };
+		8F4E623B25EE878E00FF4F0A /* BottomErrorReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */; };
+		8F4E624225EE879B00FF4F0A /* TopErrorReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */; };
 		8F7AB89F25F106A50043A3C8 /* SendErrorLogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */; };
+		8F7AB8CE25F257220043A3C8 /* TopErrorReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */; };
 		8F7FD70F25E3EFAC006CDE01 /* HTMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */; };
 		8F7FD71425E3F65E006CDE01 /* HTMLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */; };
 		8F95A19225EEE2E500506CF2 /* default_app_config_113 in Resources */ = {isa = PBXBuildFile; fileRef = 8F95A19125EEE2E500506CF2 /* default_app_config_113 */; };
@@ -1331,11 +1332,12 @@
 		8F43A3D325D55B11008FD630 /* ppdd_ppa_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ppdd_ppa_parameters.pb.swift; path = ../../../gen/output/internal/v2/ppdd_ppa_parameters.pb.swift; sourceTree = "<group>"; };
 		8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorReportCoordinator.swift; sourceTree = "<group>"; };
 		8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorLoggingStatus.swift; sourceTree = "<group>"; };
-		8F4E623825EE878E00FF4F0A /* ErrorReportLoggingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorReportLoggingViewController.swift; path = ErrorReportLoggingViewController/ErrorReportLoggingViewController.swift; sourceTree = "<group>"; };
-		8F4E623925EE878E00FF4F0A /* ErrorReportLoggingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ErrorReportLoggingViewController.xib; path = ErrorReportLoggingViewController/ErrorReportLoggingViewController.xib; sourceTree = "<group>"; };
-		8F4E624025EE879B00FF4F0A /* ErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorReportViewController.swift; path = ErrorReportViewController/ErrorReportViewController.swift; sourceTree = "<group>"; };
+		8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomErrorReportViewController.swift; sourceTree = "<group>"; };
+		8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BottomErrorReportViewController.xib; sourceTree = "<group>"; };
+		8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewController.swift; sourceTree = "<group>"; };
 		8F4E625225EE89E800FF4F0A /* default_app_config_113 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_113; sourceTree = "<group>"; };
 		8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendErrorLogsViewModel.swift; sourceTree = "<group>"; };
+		8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopErrorReportViewModel.swift; sourceTree = "<group>"; };
 		8F7FD70E25E3EFAC006CDE01 /* HTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLViewController.swift; sourceTree = "<group>"; };
 		8F7FD71325E3F65E006CDE01 /* HTMLViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTMLViewController.xib; sourceTree = "<group>"; };
 		8F95A19125EEE2E500506CF2 /* default_app_config_113 */ = {isa = PBXFileReference; lastKnownFileType = file; name = default_app_config_113; path = ENA/Resources/default_app_config_113; sourceTree = "<group>"; };
@@ -2463,26 +2465,14 @@
 		3554354025E788BB0016764A /* ErrorReporting */ = {
 			isa = PBXGroup;
 			children = (
+				8F7AB8E425F2616C0043A3C8 /* MainErrorReportViewControllers */,
+				8F5656D625F2635200E756E5 /* SendErrorLogsViewController */,
+				504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */,
 				3456D95025EFD2A700A62F5D /* ErrorReportHistory */,
-				8F4E623825EE878E00FF4F0A /* ErrorReportLoggingViewController.swift */,
-				8F4E623925EE878E00FF4F0A /* ErrorReportLoggingViewController.xib */,
-				8F4E624025EE879B00FF4F0A /* ErrorReportViewController.swift */,
 				8F4E623225EE878400FF4F0A /* ErrorLoggingStatus.swift */,
 				8F4E623125EE878400FF4F0A /* ErrorReportCoordinator.swift */,
-				8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */,
-				8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */,
-                504BB0B325EE2364006B0E54 /* ErrorReportDetailedInformation */,
 			);
 			path = ErrorReporting;
-			sourceTree = "<group>";
-		};
-		358249E925E910AF00BFF303 /* DMLogging */ = {
-			isa = PBXGroup;
-			children = (
-				358249EA25E910AF00BFF303 /* LogDataItem.swift */,
-				358249EB25E910AF00BFF303 /* DMLogsViewController.swift */,
-			);
-			path = DMLogging;
 			sourceTree = "<group>";
 		};
 		358249E925E910AF00BFF303 /* DMLogging */ = {
@@ -3349,6 +3339,26 @@
 				8F3D71A925A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		8F5656D625F2635200E756E5 /* SendErrorLogsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8F95A1B125EFC5BE00506CF2 /* SendErrorLogsViewController.swift */,
+				8F7AB89E25F106A50043A3C8 /* SendErrorLogsViewModel.swift */,
+			);
+			path = SendErrorLogsViewController;
+			sourceTree = "<group>";
+		};
+		8F7AB8E425F2616C0043A3C8 /* MainErrorReportViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				8F4E624025EE879B00FF4F0A /* TopErrorReportViewController.swift */,
+				8F7AB8CD25F257220043A3C8 /* TopErrorReportViewModel.swift */,
+				8F4E623825EE878E00FF4F0A /* BottomErrorReportViewController.swift */,
+				8F4E623925EE878E00FF4F0A /* BottomErrorReportViewController.xib */,
+			);
+			path = MainErrorReportViewControllers;
 			sourceTree = "<group>";
 		};
 		8F873FC025E3EE8000E070CE /* HTMLViewController */ = {
@@ -5025,7 +5035,7 @@
 				014891B324F90D0B002A6F77 /* ENA.plist in Resources */,
 				01D0272E258BD2B100B6389A /* BackgroundAppRefreshViewController.xib in Resources */,
 				01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */,
-				8F4E623B25EE878E00FF4F0A /* ErrorReportLoggingViewController.xib in Resources */,
+				8F4E623B25EE878E00FF4F0A /* BottomErrorReportViewController.xib in Resources */,
 				01C6AC21252B21DF0052814D /* ExposureSubmissionQRScannerViewController.xib in Resources */,
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
@@ -5552,7 +5562,7 @@
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
-				8F4E623A25EE878E00FF4F0A /* ErrorReportLoggingViewController.swift in Sources */,
+				8F4E623A25EE878E00FF4F0A /* BottomErrorReportViewController.swift in Sources */,
 				50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */,
 				9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */,
 				017AD18725A5C70700FA2B3F /* DynamicCell+ExposureDetection.swift in Sources */,
@@ -5560,7 +5570,7 @@
 				3456D95725EFD51900A62F5D /* ErrorReportHistoryViewModel.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
-				8F4E624225EE879B00FF4F0A /* ErrorReportViewController.swift in Sources */,
+				8F4E624225EE879B00FF4F0A /* TopErrorReportViewController.swift in Sources */,
 				EB08F17C2541CE3300D11FA9 /* submission_payload.pb.swift in Sources */,
 				BA6C8AEC254D65C4008344F5 /* ExposureWindow.swift in Sources */,
 				AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */,
@@ -5618,6 +5628,7 @@
 				BA6C8AC4254D650C008344F5 /* NormalizedTimePerEWToRiskLevelMapping.swift in Sources */,
 				BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */,
 				3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */,
+				8F7AB8CE25F257220043A3C8 /* TopErrorReportViewModel.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
 				BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */,
 				EBA403D12589260D00D1F039 /* ColorCompatibility.swift in Sources */,

@@ -26,7 +26,7 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 		// temporary solution: the coordinator gets deallocated after the start method so when we tap a button the weak self is nil
 		// the current solution to keep the instance alive is to inject a strong reference to it inside the ErrorReportLoggingViewController
 		// when the user goes back to the AppInformationViewController, the ErrorReportLoggingViewController will be deallocated and the coordinator with it
-		let errorReportsLoggingViewController = ErrorReportLoggingViewController(
+		let errorReportsLoggingViewController = BottomErrorReportViewController(
 			coordinator: self,
 			didTapStartButton: { [weak self] in
 				self?.startErrorLogging()
@@ -38,8 +38,15 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 				self?.stopErrorLogging()
 			}
 		)
+		let viewModel = TopErrorReportViewModel {
+			// Navigate to History screen, TO DO: Prepare the view model with the array of error logs to be displayed
+			self.rootViewController.navigationController?.pushViewController(ErrorReportHistoryViewController(), animated: true)
+		}
+		viewModel.updateViewModel()
+		topViewControllerViewModel = viewModel
+
 		let errorReportsContainerViewController = TopBottomContainerViewController(
-			topController: ErrorReportViewController(),
+			topController: TopErrorReportViewController(viewModel: viewModel),
 			bottomController: errorReportsLoggingViewController,
 			bottomHeight: errorLoggingStatus.bottomViewHeight
 		)
@@ -79,10 +86,10 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 		let bottomViewController = FooterViewController(
 			footerViewModel,
 			didTapPrimaryButton: {
-				// navigate back to the main error screen + append History cell
+				self.rootViewController.navigationController?.popViewController(animated: true)
+				self.topViewControllerViewModel?.updateViewModel(isHistorySectionIncluded: true)
 			},
-			didTapSecondaryButton: {
-			}
+			didTapSecondaryButton: {}
 		)
 		let topViewController = SendErrorLogsViewController(
 			model: SendErrorLogsViewModel(
@@ -91,26 +98,30 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 				}
 			)
 		)
-		
 		let topBottomViewController = TopBottomContainerViewController(
 			topController: topViewController,
 			bottomController: bottomViewController,
 			bottomHeight: 80
 		)
+		
 		rootViewController.navigationController?.pushViewController(topBottomViewController, animated: true)
-
 	}
 	
 	private let rootViewController: UIViewController
 	private var errorLoggingStatus: ErrorLoggingStatus
-
+	private var hasHistory: Bool = false
 	// We need a reference to update the error logs size as we are on the screen by calling
-	private var errorReportsLoggingViewController: ErrorReportLoggingViewController?
-	
+	private var errorReportsLoggingViewController: BottomErrorReportViewController?
 	/*
 	We need a reference to the TopBottomContainerViewController so we can adjust the
 	height of the bottom view depending on the Logging status: active or inactive
 	because the active status has 2 extra buttons so the height is variable
 	*/
-	private var errorReportsContainerViewController: TopBottomContainerViewController <ErrorReportViewController, ErrorReportLoggingViewController>?
+	private var errorReportsContainerViewController: TopBottomContainerViewController <TopErrorReportViewController, BottomErrorReportViewController>?
+	/*
+	We need to call the update() function inside this topViewControllerViewModel every time we show the main Controller
+	This insures that we show the correct number of Cells in the TopErrorReportViewController "based on wether there is already a history or not"
+	i.e If a history Cell should be added or not
+	*/
+	private var topViewControllerViewModel: TopErrorReportViewModel?
 }
