@@ -54,11 +54,14 @@ class EventPlanningCoordinator {
 
 	private lazy var overviewScreen: EventPlanningOverviewViewController = {
 		return EventPlanningOverviewViewController(
-			viewModel: EventPlanningOverviewViewModel(),
-			onAddEventCellTap: {},
-			onEventCellTap: { [weak self] event in
-				self?.showEventScreen(event: event)
-			}
+			viewModel: EventPlanningOverviewViewModel(
+				onAddEntryCellTap: { [weak self] in
+					self?.showAddEventScreen()
+				},
+				onEntryCellTap: { [weak self] event in
+					self?.showEventScreen(event: event)
+				}
+			)
 		)
 	}()
 
@@ -107,7 +110,8 @@ class EventPlanningCoordinator {
 			}
 		)
 
-		/// We need to use UINavigationController(rootViewController: UIViewController) here, otherwise the inset of the navigation title is wrong
+		// We need to use UINavigationController(rootViewController: UIViewController) here,
+		// otherwise the inset of the navigation title is wrong
 		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}
@@ -117,7 +121,8 @@ class EventPlanningCoordinator {
 
 		let viewController = UIViewController()
 
-		/// We need to use UINavigationController(rootViewController: UIViewController) here, otherwise the inset of the navigation title is wrong
+		// We need to use UINavigationController(rootViewController: UIViewController) here,
+		// otherwise the inset of the navigation title is wrong
 		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(navigationController, animated: true)
 	}

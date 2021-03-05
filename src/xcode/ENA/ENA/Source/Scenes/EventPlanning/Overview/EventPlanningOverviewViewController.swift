@@ -10,13 +10,9 @@ class EventPlanningOverviewViewController: UITableViewController {
 	// MARK: - Init
 
 	init(
-		viewModel: EventPlanningOverviewViewModel,
-		onAddEventCellTap: @escaping () -> Void,
-		onEventCellTap: @escaping (Event) -> Void
+		viewModel: EventPlanningOverviewViewModel
 	) {
 		self.viewModel = viewModel
-		self.onAddEventCellTap = onAddEventCellTap
-		self.onEventCellTap = onEventCellTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -33,6 +29,8 @@ class EventPlanningOverviewViewController: UITableViewController {
 
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.EventPlanning.Overview.title
+
+		navigationItem.rightBarButtonItem = editButtonItem
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
@@ -83,9 +81,9 @@ class EventPlanningOverviewViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
 		case .add:
-			onAddEventCellTap()
+			viewModel.didTapAddEntryCell()
 		case .entries:
-			break
+			viewModel.didTapEntryCell(at: indexPath)
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -94,8 +92,6 @@ class EventPlanningOverviewViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: EventPlanningOverviewViewModel
-	private let onAddEventCellTap: () -> Void
-	private let onEventCellTap: (Event) -> Void
 
 	private var subscriptions = [AnyCancellable]()
 

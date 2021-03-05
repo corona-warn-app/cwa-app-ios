@@ -10,10 +10,14 @@ class EventPlanningOverviewViewModel {
 	// MARK: - Init
 
 	init(
-//		store: DiaryStoringProviding
+//		store: DiaryStoringProviding,
+		onAddEntryCellTap: @escaping () -> Void,
+		onEntryCellTap: @escaping (Event) -> Void
 	) {
 //		self.store = store
-//
+		self.onAddEntryCellTap = onAddEntryCellTap
+		self.onEntryCellTap = onEntryCellTap
+
 //		store.diaryDaysPublisher
 //			.sink { [weak self] days in
 //				guard let day = days.first(where: { $0.dateString == day.dateString }) else { return }
@@ -29,7 +33,7 @@ class EventPlanningOverviewViewModel {
 		case entries
 	}
 
-//	@OpenCombine.Published private(set) var day: DiaryDay
+	@OpenCombine.Published private(set) var events: [Event] = [Event()]
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -44,7 +48,7 @@ class EventPlanningOverviewViewModel {
 		case .add:
 			return 1
 		case .entries:
-			return 1 // entriesOfSelectedType.count
+			return events.count
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -58,9 +62,23 @@ class EventPlanningOverviewViewModel {
 		return EventCellModel()
 	}
 
+	func didTapAddEntryCell() {
+		onAddEntryCellTap()
+	}
+
+	func didTapEntryCell(at indexPath: IndexPath) {
+		guard indexPath.section == Section.entries.rawValue else {
+			fatalError("didTapEntryCell can only be called from the entries section")
+		}
+
+		onEntryCellTap(events[indexPath.row])
+	}
+
 	// MARK: - Private
 
 //	private let store: DiaryStoringProviding
+	private let onAddEntryCellTap: () -> Void
+	private let onEntryCellTap: (Event) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
 
