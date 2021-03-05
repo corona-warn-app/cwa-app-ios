@@ -268,7 +268,7 @@ final class RiskProvider: RiskProviding {
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
 		   let riskCalculationResult = store.riskCalculationResult {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-			return Risk(activeTracing: store.tracingStatusHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
+			return Risk(riskCalculationResult: riskCalculationResult)
 		}
 
 		return nil
@@ -308,26 +308,21 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-		do {
-			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
-			let risk = Risk(
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				riskCalculationResult: riskCalculationResult,
-				previousRiskCalculationResult: store.riskCalculationResult
-			)
+		let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+		let risk = Risk(
+			riskCalculationResult: riskCalculationResult,
+			previousRiskCalculationResult: store.riskCalculationResult
+		)
 
-			store.riskCalculationResult = riskCalculationResult
-			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		store.riskCalculationResult = riskCalculationResult
+		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+		Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
-			completion(.success(risk))
+		completion(.success(risk))
 
-			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			DeadmanNotificationManager(store: store).resetDeadmanNotification()
-		} catch {
-			completion(.failure(.failedRiskCalculation))
-		}
+		/// We were able to calculate a risk so we have to reset the deadman notification
+		DeadmanNotificationManager(store: store).resetDeadmanNotification()
 	}
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {

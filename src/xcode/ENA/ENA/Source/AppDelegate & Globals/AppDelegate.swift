@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
 
+		if store.appInstallationDate == nil {
+			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
+		}
+
 		self.client = HTTPClient(serverEnvironmentProvider: store)
 		self.wifiClient = WifiOnlyHTTPClient(serverEnvironmentProvider: store)
 
@@ -65,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()
+		setupInstallationDateForTesting()
 		#endif
 
 		if AppDelegate.isAppDisabled() {
@@ -258,9 +263,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
-		// Add the new state to the history
-		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
-
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
@@ -282,16 +284,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		// Reset key value store. Preserve environment settings.
 
 		do {
-			/// ppac API Token is excluded from the reset
-			/// read value from the current store
+			/// Following values are excluded from reset:
+			/// - PPAC API Token
+			/// - App installation date
+			///
+			/// read values from the current store
 			let ppacAPIToken = store.ppacApiToken
+			let installationDate = store.appInstallationDate
 			let environment = store.selectedServerEnvironment
 
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
 
-			/// write excluded value back to the 'new' store
+			/// write excluded values back to the 'new' store
 			store.ppacApiToken = ppacAPIToken
+			store.appInstallationDate = installationDate
 			store.selectedServerEnvironment = environment
             Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
@@ -536,6 +543,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	private func setupDatadonationForTesting() {
 		if let isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.string(forKey: "isDatadonationConsentGiven") {
 			store.isPrivacyPreservingAnalyticsConsentGiven = isPrivacyPreservingAnalyticsConsentGiven != "NO"
+		}
+	}
+
+	private func setupInstallationDateForTesting() {
+		if let installationDaysString = UserDefaults.standard.string(forKey: "appInstallationDays") {
+			let installationDays = Int(installationDaysString) ?? 0
+			let date = Calendar.current.date(byAdding: .day, value: -installationDays, to: Date())
+			store.appInstallationDate = date
 		}
 	}
 

@@ -102,13 +102,11 @@ struct RiskCalculationResult: Codable {
 extension Risk.Details {
 
 	init(
-		activeTracing: ActiveTracing,
 		riskCalculationResult: RiskCalculationResult
 	) {
 		self.init(
 			mostRecentDateWithRiskLevel: riskCalculationResult.mostRecentDateWithCurrentRiskLevel,
 			numberOfDaysWithRiskLevel: riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
-			activeTracing: activeTracing,
 			exposureDetectionDate: riskCalculationResult.calculationDate
 		)
 	}
@@ -118,7 +116,6 @@ extension Risk.Details {
 extension Risk {
 
 	init(
-		activeTracing: ActiveTracing,
 		riskCalculationResult: RiskCalculationResult,
 		previousRiskCalculationResult: RiskCalculationResult? = nil
 	) {
@@ -126,7 +123,7 @@ extension Risk {
 
 		self.init(
 			level: riskCalculationResult.riskLevel == .high ? .high : .low,
-			details: Details(activeTracing: activeTracing, riskCalculationResult: riskCalculationResult),
+			details: Details(riskCalculationResult: riskCalculationResult),
 			riskLevelHasChanged: riskLevelHasChanged
 		)
 	}

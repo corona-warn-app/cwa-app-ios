@@ -14,19 +14,12 @@ extension Risk {
 	struct Details: Equatable {
 		var mostRecentDateWithRiskLevel: Date?
 		var numberOfDaysWithRiskLevel: Int
-		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
-		var activeTracing: ActiveTracing
-		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
 		var exposureDetectionDate: Date?
 	}
 }
 
 #if DEBUG
 extension Risk {
-	// We need to first cast it as NSString to get a doubleValue because string don't support that conversion
-	static let activeTracingDays = (UserDefaults.standard.string(forKey: "activeTracingDays") as NSString?)?.doubleValue
-	static let secondsInADay: Double = 24 * 60 * 60
-	static let defaultDays: Double = 14
 	static let numberOfDaysWithRiskLevel = (UserDefaults.standard.string(forKey: "numberOfDaysWithRiskLevel") as NSString?)?.integerValue
 	static let numberOfDaysWithRiskLevelDefaultValue: Int = UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0
 	static let mocked = Risk(
@@ -35,7 +28,6 @@ extension Risk {
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
-			activeTracing: .init(interval: (activeTracingDays ?? defaultDays) * secondsInADay),
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true
 	)
@@ -47,7 +39,6 @@ extension Risk {
 			details: Risk.Details(
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
-				activeTracing: .init(interval: (activeTracingDays ?? defaultDays) * secondsInADay),
 				exposureDetectionDate: Date()),
 			riskLevelHasChanged: true
 		)
