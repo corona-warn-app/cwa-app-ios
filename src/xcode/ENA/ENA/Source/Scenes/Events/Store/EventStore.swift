@@ -237,10 +237,46 @@ class EventStore: EventStoring, EventProviding {
 	}
 
 	func updateCheckin(id: Int, end: Date) -> EventStoring.VoidResult {
+		var result: EventStoring.VoidResult?
 
-		// TODO AFS
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Update Checkin with id: \(id).", log: .localData)
 
-		return .success(())
+			let sql = """
+				UPDATE Checkin
+				SET end = ?
+				WHERE id = ?
+			"""
+
+			do {
+				try database.executeUpdate(
+					sql,
+					values: [
+						id,
+						Int(end.timeIntervalSince1970)
+					]
+				)
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateCheckinsResult = updateCheckins(with: database)
+			guard case .success = updateCheckinsResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	// MARK: - Protocol EventProviding
