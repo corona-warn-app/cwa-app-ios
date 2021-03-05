@@ -18,11 +18,6 @@ final class CheckInsViewModel {
 		self.checkIns = checkIns
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
 
 	// MARK: - Internal
 

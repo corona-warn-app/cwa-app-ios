@@ -44,12 +44,6 @@ class CheckInQRCodeScannerViewController: UIViewController {
 		viewModel.deactivateScanning()
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let presentEventForCheckIn: (CGRect, String) -> Void

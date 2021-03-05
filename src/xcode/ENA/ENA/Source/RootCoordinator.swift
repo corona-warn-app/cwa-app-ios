@@ -69,8 +69,8 @@ class RootCoordinator: RequiresAppDependencies {
 
 		// Events (Dummy?)
 
-		let eventsCoordinator = CheckInCoordinator()
-		self.eventsCoordinator = eventsCoordinator
+		let checkInCoordinator = CheckInCoordinator()
+		self.checkInCoordinator = checkInCoordinator
 
 		// Tabbar
 		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
@@ -82,11 +82,11 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
 		let eventsTabbarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
-		eventsCoordinator.viewController.tabBarItem = eventsTabbarItem
+		checkInCoordinator.viewController.tabBarItem = eventsTabbarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
 		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
-		tabBarController.setViewControllers([homeCoordinator.rootViewController, eventsCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
 
 		viewController.embedViewController(childViewController: tabBarController)
 	}
@@ -113,9 +113,9 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 
 	func showEvent(_ guid: String) {
-		guard let eventsNavigationController = eventsCoordinator?.viewController,
-			  let eventsViewController = eventsNavigationController.topViewController as? UITableViewController,
-			  let index = tabBarController.viewControllers?.firstIndex(of: eventsNavigationController) else {
+		guard let checkInNavigationController = checkInCoordinator?.viewController,
+			  let _ = checkInNavigationController.topViewController as? UITableViewController,
+			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 		tabBarController.selectedIndex = index
@@ -125,7 +125,7 @@ class RootCoordinator: RequiresAppDependencies {
 			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
 				Log.debug("Did tap even ok")
 			}))
-			eventsNavigationController.present(alert, animated: true)
+			checkInNavigationController.present(alert, animated: true)
 		}
 	}
 
@@ -148,7 +148,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) var eventsCoordinator: CheckInCoordinator?
+	private(set) var checkInCoordinator: CheckInCoordinator?
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(

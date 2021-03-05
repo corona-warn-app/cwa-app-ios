@@ -13,12 +13,6 @@ final class CheckInCoordinator {
 
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {

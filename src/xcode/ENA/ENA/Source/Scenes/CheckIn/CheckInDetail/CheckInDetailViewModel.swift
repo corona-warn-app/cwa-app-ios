@@ -13,14 +13,6 @@ final class CheckInDetailViewModel {
 		self.event = event
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let event: String

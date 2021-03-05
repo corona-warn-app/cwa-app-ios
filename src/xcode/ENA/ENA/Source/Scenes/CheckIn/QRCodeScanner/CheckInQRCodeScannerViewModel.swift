@@ -16,8 +16,6 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		super.init()
 	}
 
-	// MARK: - Overrides
-
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
 
 	func metadataOutput(
@@ -31,8 +29,6 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		}
 		onSuccess?(code)
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
