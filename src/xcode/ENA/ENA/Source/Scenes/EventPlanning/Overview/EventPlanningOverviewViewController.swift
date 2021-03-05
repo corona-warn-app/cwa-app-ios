@@ -33,7 +33,6 @@ class EventPlanningOverviewViewController: UITableViewController {
 
 		navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.EventPlanning.Overview.title
-		
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
@@ -49,6 +48,13 @@ class EventPlanningOverviewViewController: UITableViewController {
 
 		// Can be removed once publisher is active
 		update()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.sizeToFit()
 	}
 
 	// MARK: - Protocol UITableViewDataSource

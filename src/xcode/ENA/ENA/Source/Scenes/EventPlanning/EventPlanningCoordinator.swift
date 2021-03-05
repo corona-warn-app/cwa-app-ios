@@ -19,7 +19,6 @@ class EventPlanningCoordinator {
 	// MARK: - Internal
 
 	func start() {
-		parentNavigationController?.navigationBar.prefersLargeTitles = true
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
 		#if DEBUG
