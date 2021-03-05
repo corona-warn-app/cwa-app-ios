@@ -49,6 +49,7 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 	@IBOutlet private weak var stackView: UIStackView!
 	@IBOutlet private weak var topConstraint: NSLayoutConstraint!
 	@IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
+	@IBOutlet private weak var trailingConstraint: NSLayoutConstraint!
 
 	private var cellModel: HomeStatisticsCellModel?
 	private var isConfigured: Bool = false
@@ -96,6 +97,12 @@ class HomeStatisticsTableViewCell: UITableViewCell {
 
 		topConstraint.constant = keyFigureCards.isEmpty ? 0 : 16
 		bottomConstraint.constant = keyFigureCards.isEmpty ? 0 : 16
+		
+		if traitCollection.horizontalSizeClass == .unspecified {
+			trailingConstraint.constant = 12
+		} else {
+			trailingConstraint.constant = 65
+		}
 
 		accessibilityElements = stackView.arrangedSubviews
 	}
