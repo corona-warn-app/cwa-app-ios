@@ -19,6 +19,7 @@ class EventPlanningCoordinator {
 	// MARK: - Internal
 
 	func start() {
+		parentNavigationController?.navigationBar.prefersLargeTitles = true
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
 		#if DEBUG
@@ -48,8 +49,12 @@ class EventPlanningCoordinator {
 
 	// MARK: Show Screens
 
-	private lazy var overviewScreen: UIViewController = {
-		return UIViewController()
+	private lazy var overviewScreen: EventPlanningOverviewViewController = {
+		return EventPlanningOverviewViewController(
+			viewModel: EventPlanningOverviewViewModel(),
+			onAddEventCellTap: {},
+			onEventCellTap: {}
+		)
 	}()
 
 	private func showInfoScreen() {

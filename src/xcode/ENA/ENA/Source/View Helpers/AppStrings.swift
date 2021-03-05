@@ -1314,5 +1314,15 @@ enum AppStrings {
 
 	}
 
+	enum EventPlanning {
+		enum Overview {
+			static let title = NSLocalizedString("EventPlanning_Overview_Title", comment: "")
+			static let addButtonTitle = NSLocalizedString("EventPlanning_Overview_AddButtonTitle", comment: "")
+			static let emptyTitle = NSLocalizedString("EventPlanning_Overview_EmptyTitle", comment: "")
+			static let emptyDescription = NSLocalizedString("EventPlanning_Overview_EmptyDescription", comment: "")
+			static let emptyImageDescription = NSLocalizedString("EventPlanning_Overview_EmptyImageDescription", comment: "")
+		}
+	}
+
 	// swiftlint:disable:next file_length
 }
