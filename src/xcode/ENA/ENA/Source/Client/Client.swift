@@ -21,7 +21,6 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmissionCompletionHandler = (Result<Void, PPASError>) -> Void
-	typealias ELSSubmissionCompletionHandler = (Result<LogUploadResponse, PPASError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -128,7 +127,7 @@ protocol Client {
 	func submit(
 		logFile: Data,
 		isFake: Bool,
-		completion: @escaping ELSSubmissionCompletionHandler
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler
 	)
 }
 
@@ -225,11 +224,6 @@ struct FetchedDaysAndHours {
 	var allKeyPackages: [PackageDownloadResponse] {
 		Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
 	}
-}
-
-struct LogUploadResponse {
-	let id: String
-	let hash: String
 }
 
 extension Client {

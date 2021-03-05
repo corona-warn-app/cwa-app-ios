@@ -57,7 +57,7 @@ final class ClientMock {
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmissionCompletionHandler) -> Void)?
-	var onSubmitErrorLog: ((Data, Bool, @escaping ELSSubmissionCompletionHandler) -> Void)?
+	var onSubmitErrorLog: ((Data, Bool, @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -192,7 +192,7 @@ extension ClientMock: Client {
 
 	}
 
-	func submit(logFile: Data, isFake: Bool, completion: @escaping ELSSubmissionCompletionHandler) {
+	func submit(logFile: Data, isFake: Bool = false, completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler) {
 		guard let onSubmitErrorLog = self.onSubmitErrorLog else {
 			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: logFile.sha256String())))
 			return

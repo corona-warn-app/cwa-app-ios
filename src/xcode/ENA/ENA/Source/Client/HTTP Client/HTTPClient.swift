@@ -332,10 +332,27 @@ final class HTTPClient: Client {
 
 	func submit(
 		logFile: Data,
-		isFake: Bool,
-		completion: @escaping ELSSubmissionCompletionHandler
+		isFake: Bool = false,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler
 	) {
-		preconditionFailure("not implemented")
+		guard let request = try? URLRequest.errorLogSubmit(configuration: configuration, payload: logFile, isFake: isFake) else {
+			completion(.failure(.urlCreationError))
+			return
+		}
+
+		session.response(for: request, isFake: isFake, extraHeaders: nil) { result in
+			switch result {
+			case .success(let response):
+				debugPrint(response)
+				switch response.statusCode {
+				default:
+					break
+				}
+			case .failure(let error):
+				debugPrint(error)
+				completion(.failure(.serverFailure(error)))
+			}
+		}
 	}
 
 	// MARK: - Public
