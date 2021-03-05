@@ -127,7 +127,7 @@ class EventStore: EventStoring, EventProviding {
 		}
 
 		guard let _result = result else {
-			fatalError("[ContactDiaryStore] Result should not be nil.")
+			fatalError("[EventStore] Result should not be nil.")
 		}
 
 		return _result
@@ -137,10 +137,10 @@ class EventStore: EventStoring, EventProviding {
 		var result: EventStoring.IdResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Add Event.", log: .localData)
+			Log.info("[EventStore] Add Checkin.", log: .localData)
 
 			let sql = """
-				INSERT INTO Event (
+				INSERT INTO Checkin (
 					eventId,
 					eventType,
 					eventDescription,
@@ -183,7 +183,7 @@ class EventStore: EventStoring, EventProviding {
 				return
 			}
 
-			let updateEventsDaysResult = updateEvents(with: database)
+			let updateEventsDaysResult = updateCheckins(with: database)
 			guard case .success = updateEventsDaysResult else {
 				logLastErrorCode(from: database)
 				result = .failure(dbError(from: database))
@@ -201,10 +201,39 @@ class EventStore: EventStoring, EventProviding {
 	}
 
 	func deleteCheckin(id: Int) -> EventStoring.VoidResult {
+		var result: EventStoring.VoidResult?
 
-		// TODO AFS
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Remove Checkin with id: \(id).", log: .localData)
 
-		return .success(())
+			let sql = """
+				DELETE FROM Checkin
+				WHERE id = ?;
+			"""
+
+			do {
+				try database.executeUpdate(sql, values: [id])
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			let updateEventsDaysResult = updateCheckins(with: database)
+			guard case .success = updateEventsDaysResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	func updateCheckin(id: Int, end: Date) -> EventStoring.VoidResult {
