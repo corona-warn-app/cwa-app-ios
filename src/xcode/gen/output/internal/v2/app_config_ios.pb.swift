@@ -113,6 +113,24 @@ struct SAP_Internal_V2_ApplicationConfigurationIOS {
   /// Clears the value of `privacyPreservingAnalyticsParameters`. Subsequent reads from it will return its default value.
   mutating func clearPrivacyPreservingAnalyticsParameters() {_uniqueStorage()._privacyPreservingAnalyticsParameters = nil}
 
+  var errorLogSharingParameters: SAP_Internal_V2_PPDDErrorLogSharingParametersIOS {
+    get {return _storage._errorLogSharingParameters ?? SAP_Internal_V2_PPDDErrorLogSharingParametersIOS()}
+    set {_uniqueStorage()._errorLogSharingParameters = newValue}
+  }
+  /// Returns true if `errorLogSharingParameters` has been explicitly set.
+  var hasErrorLogSharingParameters: Bool {return _storage._errorLogSharingParameters != nil}
+  /// Clears the value of `errorLogSharingParameters`. Subsequent reads from it will return its default value.
+  mutating func clearErrorLogSharingParameters() {_uniqueStorage()._errorLogSharingParameters = nil}
+
+  var eventRegistrationParameters: SAP_Internal_V2_EventRegistrationParameters {
+    get {return _storage._eventRegistrationParameters ?? SAP_Internal_V2_EventRegistrationParameters()}
+    set {_uniqueStorage()._eventRegistrationParameters = newValue}
+  }
+  /// Returns true if `eventRegistrationParameters` has been explicitly set.
+  var hasEventRegistrationParameters: Bool {return _storage._eventRegistrationParameters != nil}
+  /// Clears the value of `eventRegistrationParameters`. Subsequent reads from it will return its default value.
+  mutating func clearEventRegistrationParameters() {_uniqueStorage()._eventRegistrationParameters = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -175,6 +193,8 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     8: .same(proto: "exposureConfiguration"),
     9: .same(proto: "eventDrivenUserSurveyParameters"),
     10: .same(proto: "privacyPreservingAnalyticsParameters"),
+    11: .same(proto: "errorLogSharingParameters"),
+    12: .same(proto: "eventRegistrationParameters"),
   ]
 
   fileprivate class _StorageClass {
@@ -188,6 +208,8 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
     var _exposureConfiguration: SAP_Internal_V2_ExposureConfiguration? = nil
     var _eventDrivenUserSurveyParameters: SAP_Internal_V2_PPDDEventDrivenUserSurveyParametersIOS? = nil
     var _privacyPreservingAnalyticsParameters: SAP_Internal_V2_PPDDPrivacyPreservingAnalyticsParametersIOS? = nil
+    var _errorLogSharingParameters: SAP_Internal_V2_PPDDErrorLogSharingParametersIOS? = nil
+    var _eventRegistrationParameters: SAP_Internal_V2_EventRegistrationParameters? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -204,6 +226,8 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       _exposureConfiguration = source._exposureConfiguration
       _eventDrivenUserSurveyParameters = source._eventDrivenUserSurveyParameters
       _privacyPreservingAnalyticsParameters = source._privacyPreservingAnalyticsParameters
+      _errorLogSharingParameters = source._errorLogSharingParameters
+      _eventRegistrationParameters = source._eventRegistrationParameters
     }
   }
 
@@ -232,6 +256,8 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._exposureConfiguration) }()
         case 9: try { try decoder.decodeSingularMessageField(value: &_storage._eventDrivenUserSurveyParameters) }()
         case 10: try { try decoder.decodeSingularMessageField(value: &_storage._privacyPreservingAnalyticsParameters) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._errorLogSharingParameters) }()
+        case 12: try { try decoder.decodeSingularMessageField(value: &_storage._eventRegistrationParameters) }()
         default: break
         }
       }
@@ -270,6 +296,12 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
       if let v = _storage._privacyPreservingAnalyticsParameters {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
       }
+      if let v = _storage._errorLogSharingParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      }
+      if let v = _storage._eventRegistrationParameters {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -289,6 +321,8 @@ extension SAP_Internal_V2_ApplicationConfigurationIOS: SwiftProtobuf.Message, Sw
         if _storage._exposureConfiguration != rhs_storage._exposureConfiguration {return false}
         if _storage._eventDrivenUserSurveyParameters != rhs_storage._eventDrivenUserSurveyParameters {return false}
         if _storage._privacyPreservingAnalyticsParameters != rhs_storage._privacyPreservingAnalyticsParameters {return false}
+        if _storage._errorLogSharingParameters != rhs_storage._errorLogSharingParameters {return false}
+        if _storage._eventRegistrationParameters != rhs_storage._eventRegistrationParameters {return false}
         return true
       }
       if !storagesAreEqual {return false}

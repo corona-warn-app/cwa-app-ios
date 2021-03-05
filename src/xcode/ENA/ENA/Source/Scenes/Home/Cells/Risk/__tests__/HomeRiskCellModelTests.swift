@@ -99,10 +99,7 @@ class HomeRiskCellModelTests: XCTestCase {
 
 		homeState.riskProviderActivityState = .idle
 		homeState.riskState = .risk(
-			Risk(
-				activeTracing: .init(interval: 0),
-				riskCalculationResult: riskCalculationResult
-			)
+			Risk(riskCalculationResult: riskCalculationResult)
 		)
 
 		XCTAssertEqual(viewModel.title, AppStrings.Home.riskCardLowTitle)
@@ -222,7 +219,6 @@ class HomeRiskCellModelTests: XCTestCase {
 		homeState.riskProviderActivityState = .idle
 		homeState.riskState = .risk(
 			Risk(
-				activeTracing: .init(interval: 0),
 				riskCalculationResult: riskCalculationResult
 			)
 		)

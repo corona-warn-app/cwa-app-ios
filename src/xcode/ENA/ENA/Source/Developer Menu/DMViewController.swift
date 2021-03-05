@@ -119,8 +119,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
 			vc = makeBackendConfigurationViewController()
-		case .tracingHistory:
-			vc = DMTracingHistoryViewController(tracingHistory: store.tracingStatusHistory)
 		case .store:
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
@@ -160,6 +158,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
 		case .ppaSubmission:
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
+		case .installationDate:
+			vc = DMInstallationDateViewController(store: store)
 		}
 
 		if let vc = vc {
