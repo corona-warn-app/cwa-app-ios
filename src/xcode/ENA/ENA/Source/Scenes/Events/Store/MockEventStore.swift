@@ -8,29 +8,8 @@ class MockEventStore: EventStoring, EventProviding {
 
 	// MARK: - Protocol EventStoring
 
-	// swiftlint:disable function_parameter_count
-	func createEvent(
-		id: String,
-		type: EventType,
-		description: String,
-		address: String,
-		start: Date,
-		end: Date,
-		defaultCheckInLengthInMinutes: Int,
-		signature: String
-	) -> EventStoring.VoidResult {
-		eventsPublisher.value.append(
-			Event(
-				id: id,
-				type: type,
-				description: description,
-				address: address,
-				start: start,
-				end: end,
-				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
-				signature: signature
-			)
-		)
+	func createEvent(event: Event) -> EventStoring.VoidResult {
+		eventsPublisher.value.append(event)
 		return .success(())
 	}
 
@@ -39,31 +18,8 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
-	// swiftlint:disable function_parameter_count
-	func createCheckin(
-		eventId: String,
-		eventType: Int,
-		eventDescription: String,
-		eventAddress: String,
-		eventStart: Date,
-		eventEnd: Date,
-		eventSignature: String,
-		checkinStart: Date,
-		checkinEnd: Date) -> EventStoring.IdResult {
-		checkingPublisher.value.append(
-			Checkin(
-				id: checkingPublisher.value.count,
-				eventId: eventId,
-				eventType: eventType,
-				eventDescription: eventDescription,
-				eventAddress: eventAddress,
-				eventStart: eventStart,
-				eventEnd: eventEnd,
-				eventSignature: eventSignature,
-				checkinStart: checkinStart,
-				checkinEnd: checkinEnd
-			)
-		)
+	func createCheckin(checkin: Checkin) -> EventStoring.IdResult {
+		checkingPublisher.value.append(checkin)
 		return .success((checkingPublisher.value.count - 1))
 	}
 
