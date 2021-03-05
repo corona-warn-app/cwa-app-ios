@@ -1953,3 +1953,5 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_History_Description" = "Hier sehen Sie die IDs Ihrer Fehleranalyse-Protokolle";
 
 "ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "IDs der bisher geteilten Fehleranalysen";

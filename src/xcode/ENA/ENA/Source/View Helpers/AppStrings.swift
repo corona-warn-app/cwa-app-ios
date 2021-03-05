@@ -1342,7 +1342,8 @@ enum AppStrings {
 		static let historyTitle = NSLocalizedString("ErrorReport_History_Title", comment: "")
 		static let historyDescription = NSLocalizedString("ErrorReport_History_Description", comment: "")
 		static let historyCellID = NSLocalizedString("ErrorReport_History_Cell_ID", comment: "")
-		
+		static let historyNavigationSubline = NSLocalizedString("ErrorReport_History_Navigation_Subline", comment: "")
+
 		enum Legal {
 			static let dataPrivacy_Headline = NSLocalizedString("errorReport_Legal_DataPrivacy_Headline", tableName: "Localizable.legal", comment: "")
 			static let dataPrivacy_Bullet1 = NSLocalizedString("errorReport_Legal_DataPrivacy_Bullet1", tableName: "Localizable.legal", comment: "")
