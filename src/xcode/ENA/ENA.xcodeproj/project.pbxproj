@@ -5356,6 +5356,7 @@
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
+				B16457BB24DC3309002879EB /* DMLogsViewController.swift in Sources */,
 				EB0F742D25E943FE003BFAE7 /* check_in_export.pb.swift in Sources */,
 				0144DDB625D5596800CFB1D1 /* MockDiaryStore.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
