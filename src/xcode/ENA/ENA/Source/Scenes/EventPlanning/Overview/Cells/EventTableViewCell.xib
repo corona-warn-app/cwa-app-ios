@@ -20,13 +20,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1nm-Ky-YXw">
-                        <rect key="frame" x="16" y="19" width="288" height="247"/>
+                        <rect key="frame" x="16" y="12" width="288" height="261"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LuB-hP-sBP">
-                                <rect key="frame" x="0.0" y="8" width="288" height="231"/>
+                                <rect key="frame" x="0.0" y="8" width="288" height="245"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6Aj-m6-RRD">
-                                        <rect key="frame" x="16" y="8" width="256" height="173"/>
+                                        <rect key="frame" x="16" y="8" width="256" height="167"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHY-Q2-Adb">
                                                 <rect key="frame" x="0.0" y="0.0" width="107" height="145"/>
@@ -113,7 +113,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lw3-BW-ppn" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="193" width="256" height="30"/>
+                                        <rect key="frame" x="16" y="187" width="256" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="YES"/>
@@ -143,8 +143,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="1nm-Ky-YXw" firstAttribute="top" secondItem="cch-YX-JfG" secondAttribute="top" constant="19" id="0o6-q0-X7h"/>
-                    <constraint firstAttribute="bottom" secondItem="1nm-Ky-YXw" secondAttribute="bottom" constant="19" id="Up7-Uh-TG1"/>
+                    <constraint firstItem="1nm-Ky-YXw" firstAttribute="top" secondItem="cch-YX-JfG" secondAttribute="top" constant="12" id="0o6-q0-X7h"/>
+                    <constraint firstAttribute="bottom" secondItem="1nm-Ky-YXw" secondAttribute="bottom" constant="12" id="Up7-Uh-TG1"/>
                     <constraint firstAttribute="trailing" secondItem="1nm-Ky-YXw" secondAttribute="trailing" constant="16" id="emj-iC-8iz"/>
                     <constraint firstItem="1nm-Ky-YXw" firstAttribute="leading" secondItem="cch-YX-JfG" secondAttribute="leading" constant="16" id="esH-WA-jHN"/>
                 </constraints>
@@ -168,10 +168,10 @@
             <size key="intrinsicContentSize" width="29.5" height="20.5"/>
         </designable>
         <designable name="LlW-QB-tlo">
-            <size key="intrinsicContentSize" width="33" height="20.5"/>
+            <size key="intrinsicContentSize" width="35" height="20.5"/>
         </designable>
         <designable name="Lw3-BW-ppn">
-            <size key="intrinsicContentSize" width="46" height="30"/>
+            <size key="intrinsicContentSize" width="70" height="50"/>
         </designable>
         <designable name="Org-Yd-acz">
             <size key="intrinsicContentSize" width="65.5" height="20.5"/>
