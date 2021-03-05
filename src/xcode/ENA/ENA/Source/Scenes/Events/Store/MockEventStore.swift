@@ -8,11 +8,20 @@ class MockEventStore: EventStoring, EventProviding {
 
 	// MARK: - Protocol EventStoring
 
-	func createEvent(id: String, description: String, start: Date, end: Date, defaultCheckInLengthInMinutes: Int, signature: String) -> EventStoring.VoidResult {
+	func createEvent(
+		id: String,
+		description: String,
+		address: String,
+		start: Date,
+		end: Date,
+		defaultCheckInLengthInMinutes: Int,
+		signature: String
+	) -> EventStoring.VoidResult {
 		eventsPublisher.value.append(
 			Event(
 				id: id,
 				description: description,
+				address: address,
 				start: start,
 				end: end,
 				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
@@ -27,12 +36,28 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
-	func createCheckin(eventId: String, start: Int, end: Int) -> EventStoring.IdResult {
+	func createCheckin(
+		eventId: String,
+		eventType: Int,
+		eventDescription: String,
+		eventAddress: String,
+		eventStart: Date,
+		eventEnd: Date,
+		eventSignature: String,
+		checkinStart: Date,
+		checkinEnd: Date) -> EventStoring.IdResult {
 		checkingPublisher.value.append(
 			Checkin(
+				id: checkingPublisher.value.count,
 				eventId: eventId,
-				start: start,
-				end: end
+				eventType: eventType,
+				eventDescription: eventDescription,
+				eventAddress: eventAddress,
+				eventStart: eventStart,
+				eventEnd: eventEnd,
+				eventSignature: eventSignature,
+				checkinStart: checkinStart,
+				checkinEnd: checkinEnd
 			)
 		)
 		return .success((checkingPublisher.value.count - 1))
@@ -43,12 +68,12 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
-	func updateCheckin(id: Int, start: Int, end: Int) -> EventStoring.VoidResult {
+	func updateCheckin(id: Int, end: Date) -> EventStoring.VoidResult {
 		var checkins = checkingPublisher.value
-		let checkin = checkins[id]
-		let updatedCheckin = Checkin(eventId: checkin.eventId, start: start, end: end)
+		var checkin = checkins[id]
+		checkin.update(checkinEnd: end)
 		checkins.remove(at: id)
-		checkins.insert(updatedCheckin, at: id)
+		checkins.insert(checkin, at: id)
 		checkingPublisher.send(checkins)
 		return .success(())
 	}
