@@ -18,17 +18,13 @@ protocol EventStoring {
 	func createEvent(event: Event) -> VoidResult
 
 	@discardableResult
-	func deleteEvent(
-		id: String
-	) -> VoidResult
+	func deleteEvent(id: String) -> VoidResult
 
 	@discardableResult
 	func createCheckin(checkin: Checkin) -> IdResult
 
 	@discardableResult
-	func deleteCheckin(
-		id: Int
-	) -> VoidResult
+	func deleteCheckin(id: Int) -> VoidResult
 
 	@discardableResult
 	func updateCheckin(
