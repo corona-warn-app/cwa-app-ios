@@ -648,17 +648,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\n Sie sind dabei den Vorgang abzubrechen. Sie haben Ihre Mitmenschen noch nicht gewarnt. Bitte schützen Sie Ihre Mitmenschen und schließen Sie den Vorgang ab.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Erst wenn Sie sich über Ihr Testergebnis informiert haben, können Sie bei Bedarf Ihre Mitmenschen warnen und so helfen, Infektionsketten zu unterbrechen.";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Ergebnis nicht anzeigen";
 
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Wollen Sie wirklich abbrechen?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Ihre bisherigen Angaben werden nicht gespeichert.";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Ergebnis anzeigen";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";

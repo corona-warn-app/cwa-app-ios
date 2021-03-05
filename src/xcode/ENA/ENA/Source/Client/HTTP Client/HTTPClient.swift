@@ -254,7 +254,7 @@ final class HTTPClient: Client {
 				switch response.statusCode {
 				case 200:
 					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
-				case 400, 401, 403:
+				case 400, 401, 403, 429:
 					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
 				case 500:
 					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
