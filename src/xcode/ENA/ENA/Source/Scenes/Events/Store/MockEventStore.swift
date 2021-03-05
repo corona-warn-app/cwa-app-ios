@@ -8,8 +8,10 @@ class MockEventStore: EventStoring, EventProviding {
 
 	// MARK: - Protocol EventStoring
 
+	// swiftlint:disable function_parameter_count
 	func createEvent(
 		id: String,
+		type: EventType,
 		description: String,
 		address: String,
 		start: Date,
@@ -20,6 +22,7 @@ class MockEventStore: EventStoring, EventProviding {
 		eventsPublisher.value.append(
 			Event(
 				id: id,
+				type: type,
 				description: description,
 				address: address,
 				start: start,
