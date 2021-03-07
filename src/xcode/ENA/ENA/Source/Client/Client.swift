@@ -121,11 +121,13 @@ protocol Client {
 
 	/// Log file upload for the ELS  Service
 	/// - Parameters:
-	///   - logFile: the compressed log `Data` to upload
+	///   - logFile: The compressed log `Data` to upload
+	///   - uploadToken: The 'ota token'; used for grouping multiple uploads per installation
 	///   - isFake: Flag to indicate a fake request
-	///   - completion: he completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
+	///   - completion: He completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
 	func submit(
 		logFile: Data,
+		uploadToken: ErrorLogSubmitting.ELSToken,
 		isFake: Bool,
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler
 	)

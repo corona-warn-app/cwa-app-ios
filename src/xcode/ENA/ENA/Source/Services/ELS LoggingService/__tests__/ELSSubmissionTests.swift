@@ -14,7 +14,7 @@ class ELSSubmissionTests: XCTestCase {
 		let onUpload = expectation(description: "Data uploaded")
 
 		let logFile = try XCTUnwrap("Dummy log".data(using: .utf8))
-		client.submit(logFile: logFile, isFake: false) { result in
+		client.submit(logFile: logFile, uploadToken: UUID().uuidString, isFake: false) { result in
 			switch result {
 			case .failure(let error):
 				XCTFail(error.localizedDescription)

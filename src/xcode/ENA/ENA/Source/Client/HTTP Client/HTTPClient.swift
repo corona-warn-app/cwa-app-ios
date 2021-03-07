@@ -332,10 +332,11 @@ final class HTTPClient: Client {
 
 	func submit(
 		logFile: Data,
+		uploadToken: ErrorLogSubmitting.ELSToken,
 		isFake: Bool = false,
 		completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler
 	) {
-		guard let request = try? URLRequest.errorLogSubmit(configuration: configuration, payload: logFile, isFake: isFake) else {
+		guard let request = try? URLRequest.errorLogSubmit(configuration: configuration, payload: logFile, uploadToken: uploadToken, isFake: isFake) else {
 			completion(.failure(.urlCreationError))
 			return
 		}
@@ -805,6 +806,7 @@ private extension URLRequest {
 	static func errorLogSubmit(
 		configuration: HTTPClient.Configuration,
 		payload: Data,
+		uploadToken: String,
 		isFake: Bool
 	) throws -> URLRequest {
 		let boundary = UUID().uuidString
@@ -813,6 +815,11 @@ private extension URLRequest {
 		// create multipart body
 		request.httpBody = try Self.requestBodyForLogUpload(logData: payload, boundary: boundary)
 
+		// headers
+		request.setValue(
+			uploadToken,
+			forHTTPHeaderField: "cwa-otp"
+		)
 		request.setValue(
 			"multipart/form-data; boundary=\(boundary)",
 			forHTTPHeaderField: "Content-Type"

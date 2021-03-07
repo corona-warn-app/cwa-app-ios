@@ -192,7 +192,7 @@ extension ClientMock: Client {
 
 	}
 
-	func submit(logFile: Data, isFake: Bool = false, completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler) {
+	func submit(logFile: Data, uploadToken: ErrorLogSubmitting.ELSToken, isFake: Bool = false, completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler) {
 		guard let onSubmitErrorLog = self.onSubmitErrorLog else {
 			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: logFile.sha256String())))
 			return

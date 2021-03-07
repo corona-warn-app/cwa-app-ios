@@ -153,5 +153,10 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
+protocol ErrorLogProviding {
+	/// a.k.a. OTPToken but used multiple times
+	var elsUploadToken: ErrorLogSubmitting.ELSToken? { get set }
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, ErrorLogProviding {}
