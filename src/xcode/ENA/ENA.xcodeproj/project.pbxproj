@@ -37,6 +37,8 @@
 		0138F6A425F2220300A9B075 /* AddEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */; };
 		0138F6AE25F25B1400A9B075 /* EventPlanningInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6A925F25B1400A9B075 /* EventPlanningInfoViewController.swift */; };
 		0138F6AF25F25B1400A9B075 /* EventPlanningInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6AA25F25B1400A9B075 /* EventPlanningInfoViewModel.swift */; };
+		0138F6CA25F6133E00A9B075 /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6C525F36C5800A9B075 /* EventDetailsViewController.swift */; };
+		0138F6CE25F6134100A9B075 /* EventDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6C625F36C5900A9B075 /* EventDetailsViewModel.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -923,6 +925,8 @@
 		0138F68E25F21C8000A9B075 /* EventCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellModel.swift; sourceTree = "<group>"; };
 		0138F6A925F25B1400A9B075 /* EventPlanningInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlanningInfoViewController.swift; sourceTree = "<group>"; };
 		0138F6AA25F25B1400A9B075 /* EventPlanningInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPlanningInfoViewModel.swift; sourceTree = "<group>"; };
+		0138F6C525F36C5800A9B075 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
+		0138F6C625F36C5900A9B075 /* EventDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModel.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1887,6 +1891,7 @@
 				0138F61925EFE63400A9B075 /* EventPlanningCoordinator.swift */,
 				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
+				0138F6C425F36C3F00A9B075 /* Event */,
 			);
 			path = EventPlanning;
 			sourceTree = "<group>";
@@ -1947,6 +1952,15 @@
 			children = (
 			);
 			path = __test__;
+			sourceTree = "<group>";
+		};
+		0138F6C425F36C3F00A9B075 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				0138F6C525F36C5800A9B075 /* EventDetailsViewController.swift */,
+				0138F6C625F36C5900A9B075 /* EventDetailsViewModel.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		014086B52588F8EB00E9E5B2 /* __test__ */ = {
@@ -5569,6 +5583,7 @@
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */,
+				0138F6CA25F6133E00A9B075 /* EventDetailsViewController.swift in Sources */,
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
 				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
@@ -5642,6 +5657,7 @@
 				01F2A5B92581181A00DA96A6 /* DiaryDayAddTableViewCell.swift in Sources */,
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
 				8F43A3D425D55B11008FD630 /* ppdd_ppa_parameters.pb.swift in Sources */,
+				0138F6CE25F6134100A9B075 /* EventDetailsViewModel.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,

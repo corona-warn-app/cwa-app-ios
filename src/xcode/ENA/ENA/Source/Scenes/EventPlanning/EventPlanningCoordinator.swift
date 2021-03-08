@@ -45,6 +45,8 @@ class EventPlanningCoordinator {
 
 	private weak var parentNavigationController: UINavigationController?
 
+	private var eventDetailsNavigationController: ENANavigationControllerWithFooter!
+
 	private var infoScreenShown: Bool {
 		get { store.eventPlanningInfoScreenShown }
 		set { store.eventPlanningInfoScreenShown = newValue }
@@ -74,7 +76,7 @@ class EventPlanningCoordinator {
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
 					detailViewController.title = AppStrings.AppInformation.privacyTitle
-					// hides the footerview as well
+					// hides the footer view as well
 					detailViewController.hidesBottomBarWhenPushed = true
 					navigationController.pushViewController(detailViewController, animated: true)
 				}
@@ -92,28 +94,19 @@ class EventPlanningCoordinator {
 	}
 
 	private func showEventScreen(event: Event) {
-		var navigationController: ENANavigationControllerWithFooter!
-		let viewController = DiaryInfoViewController(
-			viewModel: DiaryInfoViewModel(
-				presentDisclaimer: {
-					let detailViewController = AppInformationDetailViewController()
-					detailViewController.title = AppStrings.AppInformation.privacyTitle
-//					detailViewController.dynamicTableViewModel = AppInformationModel.privacyModel
-					detailViewController.separatorStyle = .none
-					// hides the footerview as well
-					detailViewController.hidesBottomBarWhenPushed = true
-					navigationController.pushViewController(detailViewController, animated: true)
-				}
-			),
-			onDismiss: {
-				navigationController.dismiss(animated: true)
+		let viewController = EventDetailsViewController(
+			viewModel: EventDetailsViewModel(event: event),
+			onPrintVersionButtonTap: { _ in },
+			onDuplicateButtonTap: { _ in },
+			onDismiss: { [weak self] in
+				self?.eventDetailsNavigationController.dismiss(animated: true)
 			}
 		)
 
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
-		parentNavigationController?.present(navigationController, animated: true)
+		eventDetailsNavigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		parentNavigationController?.present(eventDetailsNavigationController, animated: true)
 	}
 
 	private func showAddEventScreen(duplicating templateEvent: Event? = nil) {
