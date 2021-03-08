@@ -15,25 +15,45 @@ protocol EventStoring {
 	typealias VoidResult = Result<Void, EventStoringError>
 
 	@discardableResult
-	func createEvent(event: Event) -> VoidResult
+	func createTraceLocation(_ traceLocation: TraceLocation) -> VoidResult
 
 	@discardableResult
-	func deleteEvent(id: String) -> VoidResult
+	func deleteTraceLocation(id: String) -> VoidResult
 
 	@discardableResult
-	func createCheckin(checkin: Checkin) -> IdResult
+	func deleteAllTraceLocations() -> VoidResult
+
+	@discardableResult
+	func createCheckin(_ checkin: Checkin) -> IdResult
+
+	@discardableResult
+	func updateCheckin(
+		id: Int,
+		endDate: Date
+	) -> VoidResult
 
 	@discardableResult
 	func deleteCheckin(id: Int) -> VoidResult
 
 	@discardableResult
-	func updateCheckin(
-		id: Int,
-		end: Date
-	) -> VoidResult
+	func deleteAllCheckins() -> VoidResult
+
+	@discardableResult
+	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> IdResult
+
+	@discardableResult
+	func deleteTraceTimeIntervalMatch(id: Int) -> VoidResult
+
+	@discardableResult
+	func createTraceWarningPackageMetadata(_ match: TraceWarningPackageMetadata) -> IdResult
+
+	@discardableResult
+	func deleteTraceWarningPackageMetadata(id: Int) -> VoidResult
 }
 
 protocol EventProviding {
-	var eventsPublisher: OpenCombine.CurrentValueSubject<[Event], Never> { get }
-	var checkingPublisher: OpenCombine.CurrentValueSubject<[Checkin], Never> { get }
+	var traceLocationsPublisher: OpenCombine.CurrentValueSubject<[TraceLocation], Never> { get }
+	var checkinsPublisher: OpenCombine.CurrentValueSubject<[Checkin], Never> { get }
+	var traceTimeIntervalMatchesPublisher: OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never> { get }
+	var traceWarningPackageMetadatasPublisher: OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never> { get }
 }
