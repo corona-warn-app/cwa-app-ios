@@ -28,16 +28,13 @@ final class CheckInCoordinator {
 
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckInQRCodeScannerViewController(
-			presentEventForCheckIn: { [weak self] rect, event in
-				self?.showEventForCheckIn(rect, event: event)
-			},
-			presentCheckIns: { [weak self] in
-				//				self?.showCheckIns()
+			didScanCheckIn: { [weak self] event in
+				self?.showEventForCheckIn(event)
 			},
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
 			}
-			)
+		)
 		qrCodeScanner.definesPresentationContext = true
 		DispatchQueue.main.async { [weak self] in
 			let navigationController = UINavigationController(rootViewController: qrCodeScanner)
@@ -46,7 +43,7 @@ final class CheckInCoordinator {
 		}
 	}
 
-	private func showEventForCheckIn(_ fromRect: CGRect, event: String) {
+	private func showEventForCheckIn(_ event: String) {
 		let eventDetailViewController = CheckInDetailViewController(
 			"Ich bin ein TestEvent",
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },

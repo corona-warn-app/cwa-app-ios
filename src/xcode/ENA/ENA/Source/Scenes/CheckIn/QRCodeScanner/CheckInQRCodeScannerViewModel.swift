@@ -12,7 +12,6 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	override init() {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
-		self.qrCodes = []
 		super.init()
 	}
 
@@ -23,11 +22,13 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		didOutput metadataObjects: [AVMetadataObject],
 		from _: AVCaptureConnection
 	) {
-		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject else {
-			Log.debug("wrong QR Code type", log: .checkin)
+		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
+			  let route = Route(code.stringValue),
+			  case let Route.event(event) = route else {
+			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		onSuccess?(code)
+		onSuccess?(event)
 	}
 
 	// MARK: - Internal
@@ -48,10 +49,8 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-	var onSuccess: ((MetadataMachineReadableCodeObject) -> Void)?
+	var onSuccess: ((String) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
-
-	@OpenCombine.Published private (set) var qrCodes: [AVMetadataObject]
 
 	func activateScanning() {
 		captureSession?.startRunning()

@@ -11,17 +11,13 @@ class CheckInQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		presentEventForCheckIn: @escaping (CGRect, String) -> Void,
-		presentCheckIns: @escaping () -> Void,
+		didScanCheckIn: @escaping (String) -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.presentEventForCheckIn = presentEventForCheckIn
-		self.presentCheckIns = presentCheckIns
-//		self.dismiss = dismiss
+		self.didScanCheckIn = didScanCheckIn
 		self.viewModel = CheckInQRCodeScannerViewModel()
+		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
-
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -33,6 +29,8 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 
 		setupViewModel()
 		setupView()
@@ -50,39 +48,15 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let presentEventForCheckIn: (CGRect, String) -> Void
-	private let presentCheckIns: () -> Void
-//	private let dismiss: () -> Void
-	private let viewModel: CheckInQRCodeScannerViewModel
+	private let didScanCheckIn: (String) -> Void
+	private let dismiss: () -> Void
 
+	private let viewModel: CheckInQRCodeScannerViewModel
 	private var previewLayer: AVCaptureVideoPreviewLayer!
-	private var subscriptions: [AnyCancellable] = []
 
 	private func setupView() {
 		navigationItem.title = AppStrings.Events.QRScanner.title
-
 		view.backgroundColor = .enaColor(for: .background)
-
-		let showEventListButton = UIButton(type: .custom)
-		showEventListButton.translatesAutoresizingMaskIntoConstraints = false
-		showEventListButton.contentHorizontalAlignment = .leading
-		showEventListButton.contentEdgeInsets = UIEdgeInsets(top: 19, left: 24, bottom: 19, right: 24)
-		showEventListButton.setTitle(AppStrings.Events.QRScanner.checkinsButton, for: .normal)
-		showEventListButton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
-		let colorImage = UIImage.with(color: .enaColor(for: .cellBackground))
-		showEventListButton.setBackgroundImage(colorImage, for: .normal)
-		showEventListButton.layer.cornerRadius = 8.0
-		showEventListButton.layer.masksToBounds = true
-		view.addSubview(showEventListButton)
-
-		NSLayoutConstraint.activate([
-			showEventListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			showEventListButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -34.0),
-			showEventListButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24.0),
-			showEventListButton.heightAnchor.constraint(equalToConstant: 51.0)
-		])
-
-		showEventListButton.addTarget(self, action: #selector(didHitCheckInsButton), for: .primaryActionTriggered)
 	}
 
 	private func setupViewModel() {
@@ -96,49 +70,49 @@ class CheckInQRCodeScannerViewController: UIViewController {
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.addSublayer(previewLayer)
 
-		viewModel.onSuccess = { [weak self] metadataObject in
-			guard let self = self,
-				  let route = Route(metadataObject.stringValue),
-				  let avMetaDataObject = metadataObject as? AVMetadataObject,
-				  let newRect = self.previewLayer.transformedMetadataObject(for: avMetaDataObject)?.bounds,
-				  case let Route.event(event) = route else {
-				// we found something but will continue to scan
+		viewModel.onSuccess = { [weak self] event in
+			guard let self = self else {
 				return
 			}
 			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			self.viewModel.deactivateScanning()
-			self.presentEventForCheckIn(newRect, event)
+			self.didScanCheckIn(event)
 		}
 
-		viewModel.onError = { _ in
-			Log.debug("Error handling not done right now", log: .checkin)
-		}
-
-		viewModel.$qrCodes.sink { [weak self] metadataObjects in
-			self?.qrRectViews.forEach { view in
-				view.removeFromSuperview()
+		viewModel.onError = { [weak self] error in
+			switch error {
+			// for the moment we always show the same alert
+			case .cameraPermissionDenied:
+				self?.showErrorAlert()
+			case .codeNotFound:
+				self?.showErrorAlert()
+			case .other:
+				self?.showErrorAlert()
 			}
+		}
+	}
 
-			metadataObjects.forEach { metadataObject in
-				if let barCodeObject = self?.previewLayer.transformedMetadataObject(for: metadataObject) {
-					let qrRectView = UIView(frame: barCodeObject.bounds.insetBy(dx: -6.0, dy: -6.0))
-					qrRectView.layer.borderWidth = 4.0
-					qrRectView.layer.borderColor = UIColor.enaColor(for: .buttonPrimary).cgColor
-					qrRectView.layer.cornerRadius = 8.0
-					self?.view.addSubview(qrRectView)
-					self?.qrRectViews.append(qrRectView)
+	private func showErrorAlert() {
+
+		viewModel.deactivateScanning()
+
+		let alert = UIAlertController(title: "QR-Code nicht gültig", message: nil, preferredStyle: .alert)
+		alert.addAction(
+			UIAlertAction(
+				title: "abbrechen",
+				style: .cancel,
+				handler: { [weak self] _ in
+					self?.dismiss()
 				}
-			}
+			)
+		)
+		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+			self?.viewModel.activateScanning()
+		}))
+
+		DispatchQueue.main.async { [weak self] in
+			self?.present(alert, animated: true)
 		}
-		.store(in: &subscriptions)
-		
 	}
-
-	@objc
-	private func didHitCheckInsButton() {
-		presentCheckIns()
-	}
-
-	private var qrRectViews: [UIView] = []
 
 }
