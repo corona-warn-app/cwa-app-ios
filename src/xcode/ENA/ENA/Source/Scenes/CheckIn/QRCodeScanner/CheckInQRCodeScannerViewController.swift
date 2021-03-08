@@ -12,12 +12,16 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	init(
 		presentEventForCheckIn: @escaping (CGRect, String) -> Void,
-		presentCheckIns: @escaping () -> Void
+		presentCheckIns: @escaping () -> Void,
+		dismiss: @escaping () -> Void
 	) {
 		self.presentEventForCheckIn = presentEventForCheckIn
 		self.presentCheckIns = presentCheckIns
+//		self.dismiss = dismiss
 		self.viewModel = CheckInQRCodeScannerViewModel()
 		super.init(nibName: nil, bundle: nil)
+
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -48,6 +52,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	private let presentEventForCheckIn: (CGRect, String) -> Void
 	private let presentCheckIns: () -> Void
+//	private let dismiss: () -> Void
 	private let viewModel: CheckInQRCodeScannerViewModel
 
 	private var previewLayer: AVCaptureVideoPreviewLayer!

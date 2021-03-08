@@ -8,8 +8,13 @@ class CheckInsTableViewController: UITableViewController {
 
 	// MARK: - Init
 
-	init() {
-		viewModel = CheckInsViewModel()
+	init(
+		showQRCodeScanner: @escaping () -> Void,
+		showSettings: @escaping () -> Void
+	) {
+		self.showQRCodeScanner = showQRCodeScanner
+		self.showSettings = showSettings
+		self.viewModel = CheckInsViewModel()
 		super.init(style: .grouped)
 	}
 
@@ -25,6 +30,8 @@ class CheckInsTableViewController: UITableViewController {
 		navigationItem.title = "Meine Check-ins"
 		setupTableView()
 	}
+
+	// MARK: - UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		viewModel.numberOfSections
@@ -48,10 +55,31 @@ class CheckInsTableViewController: UITableViewController {
 				fatalError("NYD")
 			}
 		}
-
 	}
 
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let section = CheckInsViewModel.Sections(rawValue: indexPath.section) else {
+			return
+		}
+		switch section {
+		case .state:
+			if viewModel.statusCellViewModel.authorizationStatus == .authorized {
+				showQRCodeScanner()
+			} else {
+				showSettings()
+			}
+		case .checkIns:
+			Log.debug("NYD")
+		}
+	}
+
+
 	// MARK: - Private
+
+	private let showQRCodeScanner: () -> Void
+	private let showSettings: () -> Void
 
 	private let viewModel: CheckInsViewModel
 
