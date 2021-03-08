@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-enum EventType {
+enum EventType: Int {
 	case type1
 	case type2
 	case type3

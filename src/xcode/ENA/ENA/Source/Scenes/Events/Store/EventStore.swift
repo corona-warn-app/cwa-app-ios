@@ -414,16 +414,126 @@ class EventStore: EventStoring, EventProviding {
 
 	@discardableResult
 	private func updateEvents(with database: FMDatabase) -> EventStore.VoidResult {
-		// TODO AFS
+		var result: EventStoring.VoidResult?
 
-		return .success(())
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Update events publisher.", log: .localData)
+
+			let sql = """
+				SELECT * FROM Event;
+			"""
+
+			do {
+				let queryResult = try database.executeQuery(sql, values: [])
+				var events = [Event]()
+
+				while queryResult.next() {
+					guard let id = queryResult.string(forColumn: "id"),
+						  let description = queryResult.string(forColumn: "description"),
+						  let address = queryResult.string(forColumn: "address"),
+						  let signature = queryResult.string(forColumn: "signature") else {
+						fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
+					}
+
+					let type = EventType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .type1
+					let start = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "start")))
+					let end = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "end")))
+					let defaultCheckInLengthInMinutes = Int(queryResult.int(forColumn: "defaultCheckInLengthInMinutes"))
+
+					let event = Event(
+						id: id,
+						type: type,
+						description: description,
+						address: address,
+						start: start,
+						end: end,
+						defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
+						signature: signature
+					)
+
+					events.append(event)
+				}
+
+				eventsPublisher.send(events)
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	@discardableResult
 	private func updateCheckins(with database: FMDatabase) -> EventStore.VoidResult {
-		// TODO AFS
+		var result: EventStoring.VoidResult?
 
-		return .success(())
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Update checkins publisher.", log: .localData)
+
+			let sql = """
+				SELECT * FROM Checkin;
+			"""
+
+			do {
+				let queryResult = try database.executeQuery(sql, values: [])
+				var checkins = [Checkin]()
+
+				while queryResult.next() {
+					guard let eventId = queryResult.string(forColumn: "eventId"),
+						  let eventDescription = queryResult.string(forColumn: "eventDescription"),
+						  let eventAddress = queryResult.string(forColumn: "eventAddress"),
+						  let eventSignature = queryResult.string(forColumn: "eventSignature") else {
+						fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
+					}
+
+					let id = Int(queryResult.int(forColumn: "id"))
+					let eventType = EventType(rawValue: Int(queryResult.int(forColumn: "eventType"))) ?? .type1
+					let eventStart = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "eventStart")))
+					let eventEnd = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "eventEnd")))
+					let eventDefaultCheckInLengthInMinutes = Int(queryResult.int(forColumn: "eventDefaultCheckInLengthInMinutes"))
+					let checkinStart = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinStart")))
+					let checkinEnd = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinEnd")))
+
+					let checkin = Checkin(
+						id: id,
+						eventId: eventId,
+						eventType: eventType,
+						eventDescription: eventDescription,
+						eventAddress: eventAddress,
+						eventStart: eventStart,
+						eventEnd: eventEnd,
+						eventDefaultCheckInLengthInMinutes: eventDefaultCheckInLengthInMinutes,
+						eventSignature: eventSignature,
+						checkinStart: checkinStart,
+						checkinEnd: checkinEnd
+					)
+
+					checkins.append(checkin)
+				}
+
+				checkingPublisher.send(checkins)
+			} catch {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 }
 
