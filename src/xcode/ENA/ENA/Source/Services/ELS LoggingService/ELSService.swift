@@ -12,7 +12,7 @@ protocol ErrorLogSubmitting {
 
 	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, Error> { get }
 
-	func submit(log: Data, uploadToken: ELSToken, completion: @escaping ELSSubmissionCompletionHandler)
+	func submit(log: Data, completion: @escaping ELSSubmissionCompletionHandler)
 }
 
 struct LogUploadResponse {
@@ -25,7 +25,7 @@ struct LogUploadResponse {
 final class ErrorLogSubmissionService: ErrorLogSubmitting {
 
 	private let client: Client
-	private let store: ErrorLogProviding
+	private var store: ErrorLogProviding
 	private lazy var fileLogger = FileLogger()
 	private lazy var fileManager = FileManager.default
 
@@ -41,14 +41,21 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 
 	// MARK: - ErrorLogSubmitting
 
-	func submit(log: Data, uploadToken: ErrorLogSubmitting.ELSToken, completion: @escaping (Result<LogUploadResponse, PPASError>) -> Void) {
+	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, PPASError>) -> Void) {
 		// get log data from the 'all logs' file
 		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
-			Log.warning("No log data to export.", log: .localData)
+			Log.warning("No log data to export.", log: .els)
 			return
 		}
 
-		client.submit(logFile: item.compressedData as Data, uploadToken: uploadToken, isFake: false, completion: completion)
+		// if needed, generate els token on the fly
+		let token = store.elsUploadToken ?? {
+			let token = UUID().uuidString
+			Log.info("Creating new ELS upload token", log: .els)
+			store.elsUploadToken = token
+			return token
+		}()
+		client.submit(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
 	}
 
 	private func setupFileSizePublisher() -> AnyPublisher<Int64, Error> {

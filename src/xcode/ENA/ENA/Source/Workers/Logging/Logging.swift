@@ -29,6 +29,8 @@ extension OSLog {
 	static let survey = OSLog(subsystem: subsystem, category: "survey")
 	/// PP Analytics
 	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
+	/// Error Log Submission
+	static let els = OSLog(subsystem: subsystem, category: "els")
 }
 
 /// Logging
