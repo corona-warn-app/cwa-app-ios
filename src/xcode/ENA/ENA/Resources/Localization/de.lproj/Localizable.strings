@@ -67,6 +67,8 @@
 
 "ExposureDetection_High_Red_Color" = "Rot";
 
+"ExposureDetection_DaysSinceInstallation" = "Seit %u Tagen installiert";
+
 "ExposureDetection_LastExposure" = "Zuletzt am %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Am %@";
@@ -100,7 +102,7 @@
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
-
+"ExposureDetection_Guide_Ventilation" = "Lüften Sie Innenräume mehrmals täglich. Öffnen Sie dazu die Fenster einige Minuten lang so weit wie möglich (Stoßlüftung).";
 "ExposureDetection_Guide_Home" = "Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.";
 
 "ExposureDetection_Guide_Hotline1" = "Bei Fragen zu Symptomen, Testmöglichkeiten und Isolationsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
@@ -216,10 +218,11 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
 
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Für Ihre Risiko-Ermittlung wird nur der Zeitraum der letzten %1$u Tage betrachtet. In diesem Zeitraum war Ihre Risiko-Ermittlung für eine Gesamtdauer von %2$u Tagen aktiv. Ältere Tage werden automatisch gelöscht, da sie aus Sicht des Infektionsschutzes nicht mehr relevant sind.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Wenn die Risiko-Ermittlung zu Zeiten in denen sie andere Personen getroffen haben aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 /* Exposure Detection Errors */
 
@@ -267,6 +270,17 @@
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
 "Settings_NavTitle" = "Einstellungen";
+
+"Settings_DaysSinceInstall_Title" = "Ermittlungszeitraum";
+
+"Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt";
+
+"Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
+Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";
+
+"Settings_DaysSinceInstall_P2a" = "Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.";
+
+"Settings_DaysSinceInstall_P2b" = "Wenn die Risiko-Ermittlung zu Zeiten in denen sie andere Personen getroffen haben aktiv war, kann die Berechnung des Infektionsrisikos für diesen Zeitraum erfolgen.";
 
 "Settings_DataDonation_Label" = "Datenspende";
 
@@ -634,17 +648,11 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Weiter";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Achtung:\n Sie sind dabei den Vorgang abzubrechen. Sie haben Ihre Mitmenschen noch nicht gewarnt. Bitte schützen Sie Ihre Mitmenschen und schließen Sie den Vorgang ab.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Erst wenn Sie sich über Ihr Testergebnis informiert haben, können Sie bei Bedarf Ihre Mitmenschen warnen und so helfen, Infektionsketten zu unterbrechen.";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Möchten Sie den Vorgang wirklich abbrechen?";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Ergebnis nicht anzeigen";
 
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Wollen Sie wirklich abbrechen?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Ihre bisherigen Angaben werden nicht gespeichert.";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Abbrechen";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Fortsetzen";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Ergebnis anzeigen";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Ihr Testergebnis";
@@ -994,6 +1002,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
+"Home_Risk_DaysSinceInstallation" = "Seit %u Tagen installiert";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
@@ -1212,6 +1221,39 @@ sein.";
 "App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
+
+/* App Information - Error Report */
+"ErrorReport_Title" = "Fehlerberichte";
+
+"ErrorReport_Description1" = "Wenn Sie den technischen Support kontaktieren, werden Sie unter Umständen gebeten, eine Fehleranalyse zu erstellen. Wenn Sie die Fehleranalyse starten, werden die Schritte aufgezeichnet, die Sie in der App ausführen. Weitere Informationen finden Sie in den FAQs:";
+
+"ErrorReport_FAQ" = "FAQ zur Fehleranalyse";
+
+"ErrorReport_Description2" = "Das Fehleranalyse-Protokoll kann Gesundheitsdaten (z.B. Testergebnis oder Risikostatus) enthalten. Bitte versenden Sie das Protokoll daher ausschließlich über die App und nicht per E-Mail.";
+
+"ErrorReport_PrivacyInformation" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
+
+"ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
+
+"ErrorReport_InactiveStatus_Title" = "Inaktiv";
+
+"ErrorReport_Progress_Description" = "Derzeitige Größe %@ (unkomprimiert)";
+
+"ErrorReport_StartButtonTitle" = "Starten";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und Löschen";
+
+"ErrorReport_SaveButtonTitle" = "Lokal speichern und fortsetzen";
+
+"ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
+
+"ErrorReport_SendReports_Title" = "Fehlerbericht senden";
+
+"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z.B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_SendReports_Details" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
+
+"ErrorReport_SendReports_Button_Title" = "Einverstanden und senden";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Empfehlen";
@@ -1884,3 +1926,37 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
+
+/* Error Reporting */
+
+"ErrorReport_Title" = "Fehlerberichte";
+
+"ErrorReport_Description1" = "Um den technischen Support der App bei der Fehleranalyse zu unterstützen, können Sie einen Fehlerbericht der CWA aufzeichnen. Hierbei werden die einzelnen technischen Schritte und Ereignisse beim Ablauf der App detailliert aufgezeichnet. Den Fehlerbericht können Sie dann an den technischen Support senden und so helfen, Fehler zu erkennen und zu beheben.\n\nWeitere Informationen finden Sie in den FAQ:";
+
+"ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
+
+"ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";
+
+"errorReport_DetailedInformation_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"errorReport_DetailedInformation_Content1" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um sicherzustellen, dass nur Nutzer Daten auf diesem Weg an den technischen Support übersenden, die tatsächlich die Corona-Warn-App nutzen und nicht manipulierte Fehlerberichte bereitstellen. Die Kennung wird dafür einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die Angaben aus Ihrem Fehlerbericht erhält Apple nicht. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat.\n\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden und Fehlerbericht senden“ an. Sie können die App weiterhin nutzen, eine Übersendung des Fehlerberichtes über die App ist dann jedoch nicht möglich.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Zur Auswertung der Fehlerberichte durch das RKI";
+
+"ErrorReport_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+
+"ErrorReport_History_Title" = "ID-Historie";
+
+"ErrorReport_History_Description" = "Hier sehen Sie die IDs Ihrer Fehleranalyse-Protokolle";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "IDs der bisher geteilten Fehleranalysen";
+
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Der Fehlerbericht kann nicht übertragen werden (Fehlercode %@).";
+
+"ErrorReport_TRY_AGAIN_LATER" = "Der Fehlerbericht kann aktuell nicht übertragen werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";

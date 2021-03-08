@@ -563,15 +563,10 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Cancel Alerts
 
 	private func showTestResultAvailableCloseAlert() {
-		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
-
-		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertTitle
-
-		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionTestResultAvailable.closeAlertMessage : AppStrings.ExposureSubmissionTestResultAvailable.noConsentCloseAlertMessage
 
 		let alert = UIAlertController(
-			title: alertTitle,
-			message: alertMessage,
+			title: AppStrings.ExposureSubmissionTestResultAvailable.closeAlertTitle,
+			message: nil,
 			preferredStyle: .alert
 		)
 

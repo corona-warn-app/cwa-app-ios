@@ -366,30 +366,42 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func lowRiskModel(risk: Risk) -> DynamicTableViewModel {
-		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
-		let riskDataSectionWithExposure = riskDataSection(
-		   footer: .riskTint(height: 16),
-		   cells: [
-			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-			   .riskLastExposure(text: numberOfExposures == 1 ?
-								   AppStrings.ExposureDetection.lastExposureOneRiskDay :
-								   AppStrings.ExposureDetection.lastExposure,
-								 image: UIImage(named: "Icons_Calendar")),
-			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-		   ]
+
+		var riskDataSectionCells = [DynamicCell]()
+
+		riskDataSectionCells.append(
+			.riskContacts(
+				text: AppStrings.Home.riskCardLowNumberContactsItemTitle,
+				image: UIImage(named: "Icons_KeineRisikoBegegnung")
+			)
 		)
-		let riskDataSectionWithoutExposure = riskDataSection(
-		   footer: .riskTint(height: 16),
-		   cells: [
-			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-		   ]
+
+		if numberOfExposures > 0 {
+			riskDataSectionCells.append(
+				.riskLastExposure(
+					text: numberOfExposures == 1 ? AppStrings.ExposureDetection.lastExposureOneRiskDay : AppStrings.ExposureDetection.lastExposure,
+					image: UIImage(named: "Icons_Calendar")
+				)
+			)
+		} else if homeState.shouldShowDaysSinceInstallation {
+			riskDataSectionCells.append(
+				.riskStored(daysSinceInstallation: homeState.daysSinceInstallation)
+			)
+		}
+
+		riskDataSectionCells.append(
+			.riskRefreshed(
+				text: AppStrings.ExposureDetection.refreshed,
+				image: UIImage(named: "Icons_Aktualisiert")
+			)
 		)
+
 		return DynamicTableViewModel([
-			numberOfExposures > 0 ? riskDataSectionWithExposure : riskDataSectionWithoutExposure,
+			riskDataSection(
+			   footer: .riskTint(height: 16),
+			   cells: riskDataSectionCells
+			),
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
@@ -409,19 +421,24 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func highRiskModel(risk: Risk, isSurveyEnabled: Bool) -> DynamicTableViewModel {
-		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
+
 		var sections: [DynamicSection] = [
 			riskDataSection(
 				footer: .riskTint(height: 16),
 				cells: [
-					.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
-					.riskLastExposure(text: numberOfExposures == 1 ?
-										AppStrings.ExposureDetection.lastExposureOneRiskDay :
-										AppStrings.ExposureDetection.lastExposure,
-									  image: UIImage(named: "Icons_Calendar")),
-					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+					.riskContacts(
+						text: AppStrings.Home.riskCardHighNumberContactsItemTitle,
+						image: UIImage(named: "Icons_RisikoBegegnung")
+					),
+					.riskLastExposure(
+						text: numberOfExposures == 1 ? AppStrings.ExposureDetection.lastExposureOneRiskDay : AppStrings.ExposureDetection.lastExposure,
+						image: UIImage(named: "Icons_Calendar")
+					),
+					.riskRefreshed(
+						text: AppStrings.ExposureDetection.refreshed,
+						image: UIImage(named: "Icons_Aktualisiert")
+					)
 				]
 			),
 			riskLoadingSection,
@@ -517,7 +534,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
 				.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "Icons - Mundschutz")),
 				.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
-				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "Icons - Niesen"))
+				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "Icons - Niesen")),
+				.guide(text: AppStrings.ExposureDetection.guideVentilation, image: UIImage(named: "Icons - Ventilation"))
 			]
 		)
 	}
@@ -567,12 +585,17 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 
 	private func activeTracingSection(risk: Risk, accessibilityIdentifier: String?) -> DynamicSection {
-		let p0 = NSLocalizedString(
-			"ExposureDetection_ActiveTracingSection_Text_Paragraph0",
-			comment: ""
-		)
+		let p0 = AppStrings.ExposureDetection.tracingParagraph0
 
-		let p1 = risk.details.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1
+		let p1: String
+		if homeState.shouldShowDaysSinceInstallation && risk.details.numberOfDaysWithRiskLevel == 0 {
+			p1 = String(
+				format: AppStrings.ExposureDetection.tracingParagraph1a,
+				homeState.daysSinceInstallation
+			)
+		} else {
+			p1 = AppStrings.ExposureDetection.tracingParagraph1b
+		}
 
 		let body = [p0, p1].joined(separator: "\n\n")
 
@@ -581,14 +604,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			footer: .backgroundSpace(height: 16),
 			cells: [
 				.header(
-					title: NSLocalizedString(
-						"ExposureDetection_ActiveTracingSection_Title",
-						comment: ""
-					),
-					subtitle: NSLocalizedString(
-						"ExposureDetection_ActiveTracingSection_Subtitle",
-						comment: ""
-					)
+					title: AppStrings.ExposureDetection.tracingTitle,
+					subtitle: AppStrings.ExposureDetection.tracingSubTitle
 				),
 				.body(
 					text: body,

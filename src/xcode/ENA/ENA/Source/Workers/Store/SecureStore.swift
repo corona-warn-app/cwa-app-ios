@@ -177,16 +177,9 @@ final class SecureStore: Store {
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
 
-	var tracingStatusHistory: TracingStatusHistory {
-		get {
-			guard let historyData = kvStore["tracingStatusHistory"] else {
-				return []
-			}
-			return (try? TracingStatusHistory.from(data: historyData)) ?? []
-		}
-		set {
-			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
-		}
+	var appInstallationDate: Date? {
+		get { kvStore["appInstallationDate"] as Date? }
+		set { kvStore["appInstallationDate"] = newValue }
 	}
 
 	var riskCalculationResult: RiskCalculationResult? {
@@ -351,8 +344,8 @@ extension SecureStore {
 
 extension SecureStore: AppConfigCaching {
 	var appConfigMetadata: AppConfigMetadata? {
-		get { kvStore["appConfigMetadata"] as AppConfigMetadata? ?? nil }
-		set { kvStore["appConfigMetadata"] = newValue }
+		get { kvStore["appConfigMetadataV2"] as AppConfigMetadata? ?? nil }
+		set { kvStore["appConfigMetadataV2"] = newValue }
 	}
 }
 

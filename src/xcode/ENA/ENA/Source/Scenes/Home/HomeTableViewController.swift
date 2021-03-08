@@ -231,7 +231,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Internal
 
 	func reload() {
-		tableView.reloadData()
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	func scrollToTop(animated: Bool) {
@@ -555,13 +557,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			return
 		}
 
-		let title = NSLocalizedString("How_Risk_Detection_Works_Alert_Title", comment: "")
+		let title = AppStrings.Home.riskDetectionHowToAlertTitle
 		let message = String(
-			format: NSLocalizedString(
-				"How_Risk_Detection_Works_Alert_Message",
-				comment: ""
-			),
-			TracingStatusHistory.maxStoredDays
+			format: AppStrings.Home.riskDetectionHowToAlertMessage,
+			14
 		)
 
 		let alert = UIAlertController(
@@ -691,8 +690,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	
 	@objc
 	private func refreshUI() {
-		viewModel.state.updateTestResult()
-		viewModel.state.updateStatistics()
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateTestResult()
+			self?.viewModel.state.updateStatistics()
+		}
 	}
 
 	// swiftlint:disable:next file_length
