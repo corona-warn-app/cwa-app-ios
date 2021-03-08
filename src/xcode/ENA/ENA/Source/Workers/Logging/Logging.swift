@@ -68,6 +68,9 @@ enum Log {
 		#if !RELEASE
 		// Console logging
 		let meta: String = "[\(file):\(line)] [\(function)]"
+
+		// obviously we have to disable swiftline here:
+		// swiftlint:disable:next no_direct_oslog
 		os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
 
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.
