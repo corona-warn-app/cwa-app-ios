@@ -257,3 +257,20 @@ custom_rules:
       - identifier
     message: "Please specify your assertion: XCTAssertTrue, XCTAssertEqual, ..."
     severity: error
+  no_plain_print:
+    excluded: ".*Test[s]?\\.swift" # Allowed in tests!
+    name: "No plain print statements"
+    regex: "([debug]*[pP]rint)\\("
+    capture_group: 0
+    match_kinds:
+      - identifier
+    message: "Please use `Log` for printing messages to the console"
+    severity: warning # allowed during development, in production it will fail due to the 'no warnings rule'
+  no_direct_oslog:
+    name: "No plain `os_log` statements"
+    regex: "os_log"
+    capture_group: 0
+    match_kinds:
+      - identifier
+    message: "Please use `Log` for printing messages to the console"
+    severity: error

@@ -11,6 +11,8 @@ class HomeTestResultCellModelTests: XCTestCase {
 	// expected values arrays have to test the default flow values plus explicitly test setting the testResult into [.none, .negative, .invalid, .pending, .positive, .expired]
 	// so the total test cases are [.none(default), .none(explicit), .negative, .invalid, .pending, .positive, .expired, (Loading)]
 	
+	private var subscriptions = [AnyCancellable]()
+	
 	let titlesArray = [
 		AppStrings.Home.submitCardTitle,
 		AppStrings.Home.submitCardTitle,
@@ -84,6 +86,7 @@ class HomeTestResultCellModelTests: XCTestCase {
 		AccessibilityIdentifiers.Home.submitCardButton
 	]
 
+	// swiftlint:disable:next function_body_length
 	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
 		
 		let expectationTitles = expectation(description: "expectationTitles")
@@ -124,55 +127,77 @@ class HomeTestResultCellModelTests: XCTestCase {
 			expectationOnUpdate.fulfill()
 		}
 		
-		let titlesSubscription = sut.$title
+		sut.$title
+			.dropFirst()
 			.sink { recievedValue in
 				recievedTitles.append(recievedValue)
 				expectationTitles.fulfill()
 			}
-		let subtitleSubscription = sut.$subtitle
+			.store(in: &subscriptions)
+		
+		sut.$subtitle
+			.dropFirst()
 			.sink { recievedValue in
 				recievedSubtitles.append(recievedValue)
 				expectationSubtitles.fulfill()
 			}
-		let descriptionSubscription = sut.$description
+			.store(in: &subscriptions)
+		
+		sut.$description
+			.dropFirst()
 			.sink { recievedValue in
 				recievedDescription.append(recievedValue)
 				expectationDescription.fulfill()
 			}
-		let buttonTitleSubscription = sut.$buttonTitle
+			.store(in: &subscriptions)
+		
+		sut.$buttonTitle
+			.dropFirst()
 			.sink { recievedValue in
 				recievedButtonTitle.append(recievedValue)
 				expectationButtonTitle.fulfill()
 			}
-		let imageSubscription = sut.$image
+			.store(in: &subscriptions)
+		
+		sut.$image
+			.dropFirst()
 			.sink { recievedValue in
 				recievedImages.append(recievedValue)
 				expectationButtonImage.fulfill()
 			}
-
-		let tintColorSubscription = sut.$tintColor
+			.store(in: &subscriptions)
+		
+		sut.$tintColor
+			.dropFirst()
 			.sink { recievedValue in
 				recievedtintColors.append(recievedValue)
 				expectationTintColor.fulfill()
 			}
-
-		let isActivityIndicatorHiddenSubscription = sut.$isActivityIndicatorHidden
+			.store(in: &subscriptions)
+		
+		sut.$isActivityIndicatorHidden
+			.dropFirst()
 			.sink { recievedValue in
 				recievedActivityIndicatorsVisibility.append(recievedValue)
 				expectationIndicatorVisibility.fulfill()
 			}
-
-		let isUserInteractionEnabledSubscription = sut.$isUserInteractionEnabled
+			.store(in: &subscriptions)
+		
+		sut.$isUserInteractionEnabled
+			.dropFirst()
 			.sink { recievedValue in
 				recievedUserInteractivity.append(recievedValue)
 				expectationUserInteraction.fulfill()
 			}
-
-		let accessibilityIdentifierSubscription = sut.$accessibilityIdentifier
+			.store(in: &subscriptions)
+		
+		sut.$accessibilityIdentifier
+			.dropFirst()
 			.sink { recievedValue in
 				recievedAccessibilityIdentifiers.append(recievedValue)
 				expectationAccessabilityIdentifiers.fulfill()
 			}
+			.store(in: &subscriptions)
 		
 		state.testResult = .none
 		state.testResult = .negative
@@ -181,18 +206,10 @@ class HomeTestResultCellModelTests: XCTestCase {
 		state.testResult = .positive
 		state.testResult = .expired
 		state.testResultIsLoading = true
-		
+				
 		waitForExpectations(timeout: .short, handler: nil)
 		
-		titlesSubscription.cancel()
-		subtitleSubscription.cancel()
-		descriptionSubscription.cancel()
-		buttonTitleSubscription.cancel()
-		imageSubscription.cancel()
-		tintColorSubscription.cancel()
-		isActivityIndicatorHiddenSubscription.cancel()
-		isUserInteractionEnabledSubscription.cancel()
-		accessibilityIdentifierSubscription.cancel()
+		subscriptions.forEach({ $0.cancel() })
 		
 		XCTAssertEqual(recievedTitles, titlesArray)
 		XCTAssertEqual(recievedSubtitles, subtitleArray)
