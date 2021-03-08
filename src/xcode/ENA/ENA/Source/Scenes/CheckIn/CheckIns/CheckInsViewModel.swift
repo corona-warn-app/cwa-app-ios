@@ -24,14 +24,6 @@ final class CheckInsViewModel {
 	enum Sections: Int, CaseIterable {
 		case state
 		case checkIns
-
-		var statCellViewModel: StateCellViewModel {
-			return StateCellViewModel()
-		}
-
-		func checkInCellViewModel(index: Int) -> CheckInCellViewModel {
-			CheckInCellViewModel()
-		}
 	}
 
 	var numberOfSections: Int {
@@ -51,6 +43,14 @@ final class CheckInsViewModel {
 				return checkIns.count
 			}
 		}
+	}
+
+	var statusCellViewModel: StatusCellViewModel {
+		return StatusCellViewModel()
+	}
+
+	func checkInCellViewModel(index: Int) -> CheckInCellViewModel {
+		CheckInCellViewModel()
 	}
 
 

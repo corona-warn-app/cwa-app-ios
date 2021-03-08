@@ -41,7 +41,8 @@ class CheckInsTableViewController: UITableViewController {
 		case .some(let section):
 			switch section {
 			case .state:
-				let cell = tableView.dequeueReusableCell(cellType: MissingRightsTableViewCell.self, for: indexPath)
+				let cellViewModel = viewModel.statusCellViewModel
+				let cell = tableView.dequeueReusableCell(cellType: cellViewModel.tableViewCell, for: indexPath)
 				return cell
 			case .checkIns:
 				fatalError("NYD")
