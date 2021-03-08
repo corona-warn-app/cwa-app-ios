@@ -1214,14 +1214,6 @@ sein.";
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 
 /* App Information - Error Report */
-"ErrorReport_Title" = "Fehlerberichte";
-
-"ErrorReport_Description1" = "Wenn Sie den technischen Support kontaktieren, werden Sie unter Umständen gebeten, eine Fehleranalyse zu erstellen. Wenn Sie die Fehleranalyse starten, werden die Schritte aufgezeichnet, die Sie in der App ausführen. Weitere Informationen finden Sie in den FAQs:";
-
-"ErrorReport_FAQ" = "FAQ zur Fehleranalyse";
-
-"ErrorReport_Description2" = "Das Fehleranalyse-Protokoll kann Gesundheitsdaten (z.B. Testergebnis oder Risikostatus) enthalten. Bitte versenden Sie das Protokoll daher ausschließlich über die App und nicht per E-Mail.";
-
 "ErrorReport_PrivacyInformation" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
 
 "ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
@@ -1240,7 +1232,7 @@ sein.";
 
 "ErrorReport_SendReports_Title" = "Fehlerbericht senden";
 
-"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z.B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
 
 "ErrorReport_SendReports_Details" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
 
@@ -1933,8 +1925,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_Description1" = "Um den technischen Support der App bei der Fehleranalyse zu unterstützen, können Sie einen Fehlerbericht der CWA aufzeichnen. Hierbei werden die einzelnen technischen Schritte und Ereignisse beim Ablauf der App detailliert aufgezeichnet. Den Fehlerbericht können Sie dann an den technischen Support senden und so helfen, Fehler zu erkennen und zu beheben.\n\nWeitere Informationen finden Sie in den FAQ:";
 
 "ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
-
-"ErrorReport_Description2" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
 
 "ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";
 
