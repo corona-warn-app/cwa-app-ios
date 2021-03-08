@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMButtonTableViewCell: UITableViewCell, DMConfigureableCell {
+class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Init
 

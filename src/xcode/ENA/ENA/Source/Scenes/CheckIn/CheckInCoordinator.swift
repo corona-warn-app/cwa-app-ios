@@ -16,15 +16,20 @@ final class CheckInCoordinator {
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {
-		let qrCodeScanner = CheckInQRCodeScannerViewController(
-			presentEventForCheckIn: { [weak self] rect, event in
-				self?.showEventForCheckIn(rect, event: event)
-			},
-			presentCheckIns: { [weak self] in
-				self?.showCheckIns()
-			})
-		qrCodeScanner.definesPresentationContext = true
-		return UINavigationController(rootViewController: qrCodeScanner)
+		let checkInsTableViewController = CheckInsTableViewController()
+
+
+
+//		let qrCodeScanner = CheckInQRCodeScannerViewController(
+//			presentEventForCheckIn: { [weak self] rect, event in
+//				self?.showEventForCheckIn(rect, event: event)
+//			},
+//			presentCheckIns: { [weak self] in
+//				self?.showCheckIns()
+//			})
+//		qrCodeScanner.definesPresentationContext = true
+		return UINavigationController(rootViewController: checkInsTableViewController
+		)
 	}()
 
 	// MARK: - Private
