@@ -580,13 +580,15 @@
 		ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9613925EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift */; };
 		ABE9613F25EFEC3700D0F699 /* InstallationDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9613E25EFEC3700D0F699 /* InstallationDate.swift */; };
 		ABE9615B25F11FBC00D0F699 /* EventStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9615A25F11FBC00D0F699 /* EventStoring.swift */; };
-		ABE9616725F1208300D0F699 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9616625F1208300D0F699 /* Event.swift */; };
+		ABE9616725F1208300D0F699 /* TraceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9616625F1208300D0F699 /* TraceLocation.swift */; };
 		ABE9616C25F1208B00D0F699 /* Checkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9616B25F1208B00D0F699 /* Checkin.swift */; };
 		ABE9617125F1220600D0F699 /* EventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9617025F1220600D0F699 /* EventStore.swift */; };
 		ABE9617625F1224400D0F699 /* MockEventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9617525F1224400D0F699 /* MockEventStore.swift */; };
 		ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961E125F29A5000D0F699 /* EventStoreSchemaV1.swift */; };
 		ABE961E825F29A7000D0F699 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961E725F29A6F00D0F699 /* Schema.swift */; };
 		ABE961EE25F61E0F00D0F699 /* EventStoreCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */; };
+		ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */; };
+		ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */; };
 		ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */; };
 		ABF574E425C405710098E315 /* ExposureDetectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */; };
 		ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */; };
@@ -1468,13 +1470,15 @@
 		ABE9613925EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaysSinceInstallTableViewCell.swift; sourceTree = "<group>"; };
 		ABE9613E25EFEC3700D0F699 /* InstallationDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallationDate.swift; sourceTree = "<group>"; };
 		ABE9615A25F11FBC00D0F699 /* EventStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoring.swift; sourceTree = "<group>"; };
-		ABE9616625F1208300D0F699 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		ABE9616625F1208300D0F699 /* TraceLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocation.swift; sourceTree = "<group>"; };
 		ABE9616B25F1208B00D0F699 /* Checkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkin.swift; sourceTree = "<group>"; };
 		ABE9617025F1220600D0F699 /* EventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStore.swift; sourceTree = "<group>"; };
 		ABE9617525F1224400D0F699 /* MockEventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEventStore.swift; sourceTree = "<group>"; };
 		ABE961E125F29A5000D0F699 /* EventStoreSchemaV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventStoreSchemaV1.swift; sourceTree = "<group>"; };
 		ABE961E725F29A6F00D0F699 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
 		ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreCreation.swift; sourceTree = "<group>"; };
+		ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceTimeIntervalMatch.swift; sourceTree = "<group>"; };
+		ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageMetadata.swift; sourceTree = "<group>"; };
 		ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModel.swift; sourceTree = "<group>"; };
 		ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionCoordinator.swift; sourceTree = "<group>"; };
 		ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigMetadata.swift; sourceTree = "<group>"; };
@@ -3146,7 +3150,6 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
-				ABE961D325F2992900D0F699 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -3779,8 +3782,10 @@
 		ABE9616525F1207500D0F699 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				ABE9616625F1208300D0F699 /* Event.swift */,
+				ABE9616625F1208300D0F699 /* TraceLocation.swift */,
 				ABE9616B25F1208B00D0F699 /* Checkin.swift */,
+				ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */,
+				ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5176,6 +5181,7 @@
 				01909877257E64BD0065D050 /* DiaryEditEntriesViewController.swift in Sources */,
 				8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */,
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,
+				ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */,
@@ -5635,8 +5641,8 @@
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
-				ABE9616725F1208300D0F699 /* Event.swift in Sources */,
 				ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */,
+				ABE9616725F1208300D0F699 /* TraceLocation.swift in Sources */,
 				01A4DCFE25926A66007D5794 /* HomeImageItemViewModel.swift in Sources */,
 				01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */,
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
@@ -5658,6 +5664,7 @@
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */,
+				ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
 				BA6C8AC4254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift in Sources */,
