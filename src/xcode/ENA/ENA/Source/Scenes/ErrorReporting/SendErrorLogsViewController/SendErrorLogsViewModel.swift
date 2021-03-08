@@ -92,8 +92,8 @@ extension DynamicCell {
 	/// - Parameters:
 	///   - title: The title/header for the legal foo.
 	///   - subheadline1: Optional description text.
-	///   - bulletPoints1: A list of strings to be prefixed with bullet points.
-	///   - subheadline: Optional description text.
+	///   - bulletPoints: A list of strings to be prefixed with bullet points.
+	///   - subheadline2: Optional description text.
 	///   - accessibilityIdentifier: Optional, but highly recommended, accessibility identifier.
 	///   - configure: Optional custom cell configuration
 	/// - Returns: A `DynamicCell` to display legal texts

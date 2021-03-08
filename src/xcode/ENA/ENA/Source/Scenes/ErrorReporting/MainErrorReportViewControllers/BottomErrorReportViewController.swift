@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ErrorReportLoggingViewController: UIViewController {
+class BottomErrorReportViewController: UIViewController {
 
 	// MARK: - Init
 
