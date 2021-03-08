@@ -66,7 +66,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		title = topViewController.title
+		title = topViewController.navigationItem.title
 	}
 
 	// MARK: - Protocol DismissHandling
