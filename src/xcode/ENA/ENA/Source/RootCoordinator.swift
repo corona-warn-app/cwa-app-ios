@@ -67,11 +67,6 @@ class RootCoordinator: RequiresAppDependencies {
 		)
 		self.diaryCoordinator = diaryCoordinator
 
-		// Events (Dummy?)
-
-		let checkInCoordinator = CheckInCoordinator()
-		self.checkInCoordinator = checkInCoordinator
-
 		// Tabbar
 		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
 		startTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.home
@@ -113,8 +108,8 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 
 	func showEvent(_ guid: String) {
-		guard let checkInNavigationController = checkInCoordinator?.viewController,
-			  checkInNavigationController.topViewController as? UITableViewController != nil,
+		let checkInNavigationController = checkInCoordinator.viewController
+		guard checkInNavigationController.topViewController as? UITableViewController != nil,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
@@ -148,7 +143,9 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) var checkInCoordinator: CheckInCoordinator?
+	private(set) lazy var checkInCoordinator: CheckInCoordinator = {
+		CheckInCoordinator()
+	}()
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
