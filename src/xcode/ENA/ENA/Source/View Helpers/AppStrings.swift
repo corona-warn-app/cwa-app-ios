@@ -1349,6 +1349,14 @@ enum AppStrings {
 			static let printVersionButtonTitle = NSLocalizedString("EventPlanning_Details_PrintVersionButtonTitle", comment: "")
 			static let duplicateButtonTitle = NSLocalizedString("EventPlanning_Details_DuplicateButtonTitle", comment: "")
 		}
+
+		enum TypeSelection {
+			static let title = NSLocalizedString("EventPlanning_TypeSelection_Title", comment: "")
+			static let locationSectionTitle = NSLocalizedString("EventPlanning_TypeSelection_LocationSectionTitle", comment: "")
+			static let eventSectionTitle = NSLocalizedString("EventPlanning_TypeSelection_EventSectionTitle", comment: "")
+			static let otherLocationTitle = NSLocalizedString("EventPlanning_TypeSelection_OtherLocation_Title", comment: "")
+			static let otherEventTitle = NSLocalizedString("EventPlanning_TypeSelection_OtherEvent_Title", comment: "")
+		}
 	}
 
 	// swiftlint:disable:next file_length

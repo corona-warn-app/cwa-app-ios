@@ -12,11 +12,13 @@ class EventPlanningOverviewViewModel {
 	init(
 //		store: DiaryStoringProviding,
 		onAddEntryCellTap: @escaping () -> Void,
-		onEntryCellTap: @escaping (Event) -> Void
+		onEntryCellTap: @escaping (Event) -> Void,
+		onSelfCheckInButtonTap: @escaping (Event) -> Void
 	) {
 //		self.store = store
 		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
+		self.onSelfCheckInButtonTap = onSelfCheckInButtonTap
 
 //		store.diaryDaysPublisher
 //			.sink { [weak self] days in
@@ -74,11 +76,20 @@ class EventPlanningOverviewViewModel {
 		onEntryCellTap(events[indexPath.row])
 	}
 
+	func didTapSelfCheckInButton(at indexPath: IndexPath) {
+		guard indexPath.section == Section.entries.rawValue else {
+			fatalError("didTapEntryCell can only be called from the entries section")
+		}
+
+		onSelfCheckInButtonTap(events[indexPath.row])
+	}
+
 	// MARK: - Private
 
 //	private let store: DiaryStoringProviding
 	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (Event) -> Void
+	private let onSelfCheckInButtonTap: (Event) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
 
