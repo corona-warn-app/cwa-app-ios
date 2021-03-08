@@ -114,7 +114,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 	func showEvent(_ guid: String) {
 		guard let checkInNavigationController = checkInCoordinator?.viewController,
-			  let _ = checkInNavigationController.topViewController as? UITableViewController,
+			  checkInNavigationController.topViewController as? UITableViewController != nil,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
