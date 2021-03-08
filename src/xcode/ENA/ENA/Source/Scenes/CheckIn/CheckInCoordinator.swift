@@ -43,9 +43,9 @@ final class CheckInCoordinator {
 		}
 	}
 
-	private func showEventForCheckIn(_ event: String) {
+	private func showEventForCheckIn(_ event: Event) {
 		let eventDetailViewController = CheckInDetailViewController(
-			"Ich bin ein TestEvent",
+			event,
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
 			presentCheckIns: { [weak self] in
 				self?.viewController.dismiss(animated: true, completion: {

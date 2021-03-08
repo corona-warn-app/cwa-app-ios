@@ -11,7 +11,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckIn: @escaping (String) -> Void,
+		didScanCheckIn: @escaping (Event) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCheckIn = didScanCheckIn
@@ -48,7 +48,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let didScanCheckIn: (String) -> Void
+	private let didScanCheckIn: (Event) -> Void
 	private let dismiss: () -> Void
 
 	private let viewModel: CheckInQRCodeScannerViewModel

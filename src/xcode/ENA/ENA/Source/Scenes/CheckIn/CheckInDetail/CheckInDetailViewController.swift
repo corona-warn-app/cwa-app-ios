@@ -9,7 +9,7 @@ class CheckInDetailViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		_ event: String,
+		_ event: Event,
 		dismiss: @escaping () -> Void,
 		presentCheckIns: @escaping () -> Void
 	) {
