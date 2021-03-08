@@ -96,7 +96,9 @@ class EventPlanningCoordinator {
 	private func showEventScreen(event: Event) {
 		let viewController = EventDetailsViewController(
 			viewModel: EventDetailsViewModel(event: event),
-			onPrintVersionButtonTap: { _ in },
+			onPrintVersionButtonTap: { [weak self] event in
+				self?.showPrintVersionScreen(event: event)
+			},
 			onDuplicateButtonTap: { _ in },
 			onDismiss: { [weak self] in
 				self?.eventDetailsNavigationController.dismiss(animated: true)
@@ -107,6 +109,14 @@ class EventPlanningCoordinator {
 		// otherwise the inset of the navigation title is wrong
 		eventDetailsNavigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
 		parentNavigationController?.present(eventDetailsNavigationController, animated: true)
+	}
+
+	private func showPrintVersionScreen(event: Event) {
+		let viewController = EventPrintVersionViewController(
+			viewModel: EventPrintVersionViewModel(event: event)
+		)
+
+		eventDetailsNavigationController.pushViewController(viewController, animated: true)
 	}
 
 	private func showAddEventScreen(duplicating templateEvent: Event? = nil) {
