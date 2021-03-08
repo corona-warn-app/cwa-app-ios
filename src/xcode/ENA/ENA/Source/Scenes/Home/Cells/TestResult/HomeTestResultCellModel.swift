@@ -17,6 +17,7 @@ class HomeTestResultCellModel {
 		self.homeState = homeState
 
 		homeState.$testResult
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] testResult in
 				self?.configure(for: testResult)
 				onUpdate()
@@ -24,6 +25,7 @@ class HomeTestResultCellModel {
 			.store(in: &subscriptions)
 
 		homeState.$testResultIsLoading
+			.receive(on: DispatchQueue.OCombine(.main))
 			.sink { [weak self] testResultIsLoading in
 				if testResultIsLoading {
 					self?.configureLoading()
