@@ -21,6 +21,8 @@ class CheckInsTableViewController: UITableViewController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.title = "Meine Check-ins"
 		setupTableView()
 	}
 
@@ -29,7 +31,23 @@ class CheckInsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.numerOfItem(in: section)
+		return viewModel.numberOfItem(in: section)
+	}
+
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		switch CheckInsViewModel.Sections(rawValue: indexPath.section) {
+		case .none:
+			fatalError("Unknown section to dequeue cell - stop")
+		case .some(let section):
+			switch section {
+			case .state:
+				let cell = tableView.dequeueReusableCell(cellType: ScanQRCodeTableViewCell.self, for: indexPath)
+				return cell
+			case .checkIns:
+				fatalError("NYD")
+			}
+		}
+
 	}
 
 	// MARK: - Private
@@ -37,6 +55,9 @@ class CheckInsTableViewController: UITableViewController {
 	private let viewModel: CheckInsViewModel
 
 	private func setupTableView() {
+		tableView.separatorStyle = .none
+		tableView.backgroundColor = .enaColor(for: .background)
+
 		tableView.register(CheckInTableViewCell.self, forCellReuseIdentifier: CheckInTableViewCell.reuseIdentifier)
 		tableView.register(MissingRightsTableViewCell.self, forCellReuseIdentifier: MissingRightsTableViewCell.reuseIdentifier)
 		tableView.register(ScanQRCodeTableViewCell.self, forCellReuseIdentifier: ScanQRCodeTableViewCell.reuseIdentifier)

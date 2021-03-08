@@ -38,7 +38,7 @@ final class CheckInsViewModel {
 		Sections.allCases.count
 	}
 
-	func numerOfItem(in section: Int) -> Int {
+	func numberOfItem(in section: Int) -> Int {
 		switch Sections(rawValue: section) {
 		case .none:
 			return 0

@@ -12,4 +12,6 @@ final class StateCellViewModel {
 	}
 
 	let authorizationStatus: AVAuthorizationStatus
+
+
 }
