@@ -586,6 +586,7 @@
 		ABE9617625F1224400D0F699 /* MockEventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9617525F1224400D0F699 /* MockEventStore.swift */; };
 		ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961E125F29A5000D0F699 /* EventStoreSchemaV1.swift */; };
 		ABE961E825F29A7000D0F699 /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961E725F29A6F00D0F699 /* Schema.swift */; };
+		ABE961EE25F61E0F00D0F699 /* EventStoreCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */; };
 		ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */; };
 		ABF574E425C405710098E315 /* ExposureDetectionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */; };
 		ABFCE98A255C32EF0075FF13 /* AppConfigMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */; };
@@ -1473,6 +1474,7 @@
 		ABE9617525F1224400D0F699 /* MockEventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEventStore.swift; sourceTree = "<group>"; };
 		ABE961E125F29A5000D0F699 /* EventStoreSchemaV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventStoreSchemaV1.swift; sourceTree = "<group>"; };
 		ABE961E725F29A6F00D0F699 /* Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreCreation.swift; sourceTree = "<group>"; };
 		ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModel.swift; sourceTree = "<group>"; };
 		ABF574E325C405710098E315 /* ExposureDetectionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionCoordinator.swift; sourceTree = "<group>"; };
 		ABFCE989255C32EE0075FF13 /* AppConfigMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigMetadata.swift; sourceTree = "<group>"; };
@@ -3769,6 +3771,7 @@
 				ABE9616525F1207500D0F699 /* Model */,
 				ABE9617025F1220600D0F699 /* EventStore.swift */,
 				ABE9617525F1224400D0F699 /* MockEventStore.swift */,
+				ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -5376,6 +5379,7 @@
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
+				ABE961EE25F61E0F00D0F699 /* EventStoreCreation.swift in Sources */,
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
 				EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */,
