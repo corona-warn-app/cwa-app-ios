@@ -1223,14 +1223,6 @@ sein.";
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 
 /* App Information - Error Report */
-"ErrorReport_Title" = "Fehlerberichte";
-
-"ErrorReport_Description1" = "Wenn Sie den technischen Support kontaktieren, werden Sie unter Umständen gebeten, eine Fehleranalyse zu erstellen. Wenn Sie die Fehleranalyse starten, werden die Schritte aufgezeichnet, die Sie in der App ausführen. Weitere Informationen finden Sie in den FAQs:";
-
-"ErrorReport_FAQ" = "FAQ zur Fehleranalyse";
-
-"ErrorReport_Description2" = "Das Fehleranalyse-Protokoll kann Gesundheitsdaten (z.B. Testergebnis oder Risikostatus) enthalten. Bitte versenden Sie das Protokoll daher ausschließlich über die App und nicht per E-Mail.";
-
 "ErrorReport_PrivacyInformation" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
 
 "ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
