@@ -29,7 +29,7 @@ struct TestResultMetadata: Codable {
 			forKey: .hoursSinceHighRiskWarningAtTestRegistration
 		)
 		testRegistrationDate = try container.decodeIfPresent(Date.self, forKey: .testRegistrationDate)
-		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationDate)
+		testRegistrationToken = try container.decode(String.self, forKey: .testRegistrationToken)
 	}
 	
 	enum CodingKeys: String, CodingKey {
