@@ -723,14 +723,17 @@ enum AppStrings {
 		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
 		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
 
-		static let eventCardTitle = NSLocalizedString("Home_EventCard_Title", comment: "")
-		static let eventCardBody = NSLocalizedString("Home_EventCard_Body", comment: "")
-		static let eventCardButton = NSLocalizedString("Home_EventCard_Button", comment: "")
+		// Trace Locations Card
+		static let traceLocationsCardTitle = NSLocalizedString("Home_TraceLocationsCard_Title", comment: "")
+		static let traceLocationsCardBody = NSLocalizedString("Home_TraceLocationsCard_Body", comment: "")
+		static let traceLocationsCardButton = NSLocalizedString("Home_TraceLocationsCard_Button", comment: "")
 
+		// Settings
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
 
+		// Info
 		static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
 		static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
 		static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
@@ -1314,53 +1317,53 @@ enum AppStrings {
 
 	}
 
-	enum EventPlanning {
+	enum TraceLocations {
 		enum Information {
-			static let title = NSLocalizedString("EventPlanning_Information_Title", comment: "")
-			static let imageDescription = NSLocalizedString("EventPlanning_Information_ImageDescription", comment: "")
-			static let descriptionTitle = NSLocalizedString("EventPlanning_Information_DescriptionTitle", comment: "")
-			static let descriptionSubHeadline = NSLocalizedString("EventPlanning_Information_DescriptionSubHeadline", comment: "")
-			static let itemPersonTitle = NSLocalizedString("EventPlanning_Information_Item_Person_Title", comment: "")
-			static let itemContactTitle = NSLocalizedString("EventPlanning_Information_Item_Location_Title", comment: "")
-			static let itemLockTitle = NSLocalizedString("EventPlanning_Information_Item_Lock_Title", comment: "")
-			static let deletedAutomatically = NSLocalizedString("EventPlanning_Information_Item_DeletedAutomatically_Title", comment: "")
-			static let exportTextformat = NSLocalizedString("EventPlanning_Information_Item_ExportTextFormat_Title", comment: "")
-			static let exposureHistory = NSLocalizedString("EventPlanning_Information_Item_ExposureHistory_Title", comment: "")
-			static let legalHeadline_1 = NSLocalizedString("EventPlanning_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
-			static let legalSubHeadline_1 = NSLocalizedString("EventPlanning_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
-			static let legalSubHeadline_2 = NSLocalizedString("EventPlanning_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
-			static let legalText_1 = NSLocalizedString("EventPlanning_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
-			static let legalText_2 = NSLocalizedString("EventPlanning_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
-			static let legalText_3 = NSLocalizedString("EventPlanning_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
-			static let legalText_4 = NSLocalizedString("EventPlanning_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
-			static let dataPrivacyTitle = NSLocalizedString("EventPlanning_Information_Dataprivacy_Title", comment: "")
-			static let primaryButtonTitle = NSLocalizedString("EventPlanning_Information_PrimaryButton_Title", comment: "")
+			static let title = NSLocalizedString("TraceLocation_Information_Title", comment: "")
+			static let imageDescription = NSLocalizedString("TraceLocation_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("TraceLocation_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("TraceLocation_Information_DescriptionSubHeadline", comment: "")
+			static let itemPersonTitle = NSLocalizedString("TraceLocation_Information_Item_Person_Title", comment: "")
+			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_Location_Title", comment: "")
+			static let itemLockTitle = NSLocalizedString("TraceLocation_Information_Item_Lock_Title", comment: "")
+			static let deletedAutomatically = NSLocalizedString("TraceLocation_Information_Item_DeletedAutomatically_Title", comment: "")
+			static let exportTextformat = NSLocalizedString("TraceLocation_Information_Item_ExportTextFormat_Title", comment: "")
+			static let exposureHistory = NSLocalizedString("TraceLocation_Information_Item_ExposureHistory_Title", comment: "")
+			static let legalHeadline_1 = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_1 = NSLocalizedString("TraceLocation_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_2 = NSLocalizedString("TraceLocation_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_1 = NSLocalizedString("TraceLocation_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+			static let legalText_2 = NSLocalizedString("TraceLocation_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_3 = NSLocalizedString("TraceLocation_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+			static let legalText_4 = NSLocalizedString("TraceLocation_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("TraceLocation_Information_Dataprivacy_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("TraceLocation_Information_PrimaryButton_Title", comment: "")
 		}
 
 		enum Overview {
-			static let title = NSLocalizedString("EventPlanning_Overview_Title", comment: "")
-			static let addButtonTitle = NSLocalizedString("EventPlanning_Overview_AddButtonTitle", comment: "")
-			static let emptyTitle = NSLocalizedString("EventPlanning_Overview_EmptyTitle", comment: "")
-			static let emptyDescription = NSLocalizedString("EventPlanning_Overview_EmptyDescription", comment: "")
-			static let emptyImageDescription = NSLocalizedString("EventPlanning_Overview_EmptyImageDescription", comment: "")
+			static let title = NSLocalizedString("TraceLocation_Overview_Title", comment: "")
+			static let addButtonTitle = NSLocalizedString("TraceLocation_Overview_AddButtonTitle", comment: "")
+			static let emptyTitle = NSLocalizedString("TraceLocation_Overview_EmptyTitle", comment: "")
+			static let emptyDescription = NSLocalizedString("TraceLocation_Overview_EmptyDescription", comment: "")
+			static let emptyImageDescription = NSLocalizedString("TraceLocation_Overview_EmptyImageDescription", comment: "")
 		}
 
 		enum Details {
-			static let printVersionButtonTitle = NSLocalizedString("EventPlanning_Details_PrintVersionButtonTitle", comment: "")
-			static let duplicateButtonTitle = NSLocalizedString("EventPlanning_Details_DuplicateButtonTitle", comment: "")
+			static let printVersionButtonTitle = NSLocalizedString("TraceLocation_Details_PrintVersionButtonTitle", comment: "")
+			static let duplicateButtonTitle = NSLocalizedString("TraceLocation_Details_DuplicateButtonTitle", comment: "")
 		}
 
 		enum TypeSelection {
-			static let title = NSLocalizedString("EventPlanning_TypeSelection_Title", comment: "")
-			static let locationSectionTitle = NSLocalizedString("EventPlanning_TypeSelection_LocationSectionTitle", comment: "")
-			static let eventSectionTitle = NSLocalizedString("EventPlanning_TypeSelection_EventSectionTitle", comment: "")
-			static let otherLocationTitle = NSLocalizedString("EventPlanning_TypeSelection_OtherLocation_Title", comment: "")
-			static let otherEventTitle = NSLocalizedString("EventPlanning_TypeSelection_OtherEvent_Title", comment: "")
+			static let title = NSLocalizedString("TraceLocation_TypeSelection_Title", comment: "")
+			static let locationSectionTitle = NSLocalizedString("TraceLocation_TypeSelection_LocationSectionTitle", comment: "")
+			static let eventSectionTitle = NSLocalizedString("TraceLocation_TypeSelection_EventSectionTitle", comment: "")
+			static let otherLocationTitle = NSLocalizedString("TraceLocation_TypeSelection_OtherLocation_Title", comment: "")
+			static let otherEventTitle = NSLocalizedString("TraceLocation_TypeSelection_OtherEvent_Title", comment: "")
 		}
 
 		enum Configuration {
-			static let title = NSLocalizedString("EventPlanning_Configuration_Title", comment: "")
-			static let primaryButtonTitle = NSLocalizedString("EventPlanning_Configuration_PrimaryButtonTitle", comment: "")
+			static let title = NSLocalizedString("TraceLocation_Configuration_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("TraceLocation_Configuration_PrimaryButtonTitle", comment: "")
 		}
 	}
 

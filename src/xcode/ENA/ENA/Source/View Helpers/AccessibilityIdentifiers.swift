@@ -35,7 +35,7 @@ enum AccessibilityIdentifiers {
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
 		static let thankYouCard = "AppStrings.Home.thankYouCard"
-		static let eventCardButton = "AppStrings.Home.eventCardButton"
+		static let traceLocationsCardButton = "AppStrings.Home.traceLocationsCardButton"
 
 		enum RiskTableViewCell {
 			static let topContainer = "[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer]"
@@ -401,12 +401,12 @@ enum AccessibilityIdentifiers {
 		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
 	}
 
-	enum EventPlanning {
-		static let imageDescription = "AppStrings.EventPlanning.imageDescription"
-		static let descriptionTitle = "AppStrings.EventPlanning.descriptionTitle"
-		static let descriptionSubHeadline = "AppStrings.EventPlanning.descriptionSubHeadline"
-		static let dataPrivacyTitle = "AppStrings.EventPlanning.dataPrivacyTitle"
-		static let legal_1 = "AppStrings.EventPlanning.legalHeadline_1"
+	enum TraceLocation {
+		static let imageDescription = "AppStrings.TraceLocations.imageDescription"
+		static let descriptionTitle = "AppStrings.TraceLocations.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.TraceLocations.descriptionSubHeadline"
+		static let dataPrivacyTitle = "AppStrings.TraceLocations.dataPrivacyTitle"
+		static let legal_1 = "AppStrings.TraceLocations.legalHeadline_1"
 	}
 
 }
