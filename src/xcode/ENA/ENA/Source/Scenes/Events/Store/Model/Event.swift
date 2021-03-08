@@ -18,6 +18,7 @@ struct Event {
 	let start: Date
 	let end: Date
 	let defaultCheckInLengthInMinutes: Int
-	// The signature of the event (provided by the CWA server). It is stored as a base64-encoded string of the signature attribute of Protocol Buffer message SignedEvent.
+	/// The signature of the event (provided by the CWA server). It is stored as a base64-encoded string of the signature attribute of Protocol Buffer message SignedEvent.
+
 	let signature: String
 }
