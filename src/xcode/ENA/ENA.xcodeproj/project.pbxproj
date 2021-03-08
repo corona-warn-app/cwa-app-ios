@@ -43,6 +43,8 @@
 		0138F6DC25F6183500A9B075 /* EventTypeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6D325F6179000A9B075 /* EventTypeSelectionViewController.swift */; };
 		0138F6F925F66E8D00A9B075 /* EventPrintVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6E225F661DE00A9B075 /* EventPrintVersionViewController.swift */; };
 		0138F6FA25F66E8D00A9B075 /* EventPrintVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6E125F661DE00A9B075 /* EventPrintVersionViewModel.swift */; };
+		0138F70425F679A400A9B075 /* EventConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6FF25F6784000A9B075 /* EventConfigurationViewModel.swift */; };
+		0138F70825F679AC00A9B075 /* EventConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F70025F6784000A9B075 /* EventConfigurationViewController.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -935,6 +937,8 @@
 		0138F6D425F617C700A9B075 /* EventTypeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeSelectionViewModel.swift; sourceTree = "<group>"; };
 		0138F6E125F661DE00A9B075 /* EventPrintVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPrintVersionViewModel.swift; sourceTree = "<group>"; };
 		0138F6E225F661DE00A9B075 /* EventPrintVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPrintVersionViewController.swift; sourceTree = "<group>"; };
+		0138F6FF25F6784000A9B075 /* EventConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConfigurationViewModel.swift; sourceTree = "<group>"; };
+		0138F70025F6784000A9B075 /* EventConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConfigurationViewController.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1902,6 +1906,7 @@
 				0138F6C425F36C3F00A9B075 /* Event */,
 				0138F6E025F661DE00A9B075 /* PrintVersion */,
 				0138F6D225F6177500A9B075 /* TypeSelection */,
+				0138F6FE25F6782F00A9B075 /* EventConfiguration */,
 			);
 			path = EventPlanning;
 			sourceTree = "<group>";
@@ -1989,6 +1994,15 @@
 				0138F6E125F661DE00A9B075 /* EventPrintVersionViewModel.swift */,
 			);
 			path = PrintVersion;
+			sourceTree = "<group>";
+		};
+		0138F6FE25F6782F00A9B075 /* EventConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				0138F70025F6784000A9B075 /* EventConfigurationViewController.swift */,
+				0138F6FF25F6784000A9B075 /* EventConfigurationViewModel.swift */,
+			);
+			path = EventConfiguration;
 			sourceTree = "<group>";
 		};
 		014086B52588F8EB00E9E5B2 /* __test__ */ = {
@@ -5600,6 +5614,7 @@
 				AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */,
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
+				0138F70825F679AC00A9B075 /* EventConfigurationViewController.swift in Sources */,
 				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
 				EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */,
 				354E305924EFF26E00526C9F /* Country.swift in Sources */,
@@ -5681,6 +5696,7 @@
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
 				AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */,
 				5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */,
+				0138F70425F679A400A9B075 /* EventConfigurationViewModel.swift in Sources */,
 				019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */,
 				EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */,
 				01F2A5B92581181A00DA96A6 /* DiaryDayAddTableViewCell.swift in Sources */,

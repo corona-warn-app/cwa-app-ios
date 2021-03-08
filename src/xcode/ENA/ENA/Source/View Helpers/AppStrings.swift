@@ -1357,6 +1357,11 @@ enum AppStrings {
 			static let otherLocationTitle = NSLocalizedString("EventPlanning_TypeSelection_OtherLocation_Title", comment: "")
 			static let otherEventTitle = NSLocalizedString("EventPlanning_TypeSelection_OtherEvent_Title", comment: "")
 		}
+
+		enum Configuration {
+			static let title = NSLocalizedString("EventPlanning_Configuration_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("EventPlanning_Configuration_PrimaryButtonTitle", comment: "")
+		}
 	}
 
 	// swiftlint:disable:next file_length

@@ -108,7 +108,14 @@ class EventPlanningCoordinator {
 			onPrintVersionButtonTap: { [weak self] event in
 				self?.showPrintVersionScreen(event: event)
 			},
-			onDuplicateButtonTap: { _ in },
+			onDuplicateButtonTap: { [weak self] event in
+				guard let self = self else { return }
+
+				self.showEventConfigurationScreen(
+					on: self.eventDetailsNavigationController,
+					mode: .duplicate(event)
+				)
+			},
 			onDismiss: { [weak self] in
 				self?.eventDetailsNavigationController.dismiss(animated: true)
 			}
@@ -130,7 +137,12 @@ class EventPlanningCoordinator {
 		let viewController = EventTypeSelectionViewController(
 			viewModel: EventTypeSelectionViewModel(
 				onEventTypeSelection: { [weak self] eventType in
+					guard let self = self else { return }
 
+					self.showEventConfigurationScreen(
+						on: self.eventAddingNavigationController,
+						mode: .new(eventType)
+					)
 				}
 			),
 			onDismiss: { [weak self] in
@@ -142,8 +154,15 @@ class EventPlanningCoordinator {
 		parentNavigationController?.present(eventAddingNavigationController, animated: true)
 	}
 
-	private func showEventConfigurationScreen(from navigationController: UINavigationController, duplicating templateEvent: Event? = nil) {
+	private func showEventConfigurationScreen(on navigationController: UINavigationController, mode: EventConfigurationViewModel.Mode) {
+		let viewController = EventConfigurationViewController(
+			viewModel: EventConfigurationViewModel(mode: mode),
+			onDismiss: {
+				navigationController.dismiss(animated: true)
+			}
+		)
 
+		navigationController.pushViewController(viewController, animated: true)
 	}
 
 	private func showSelfCheckInScreen(event: Event) {
