@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import PDFKit
 
 class EventTypeSelectionViewController: UITableViewController {
 

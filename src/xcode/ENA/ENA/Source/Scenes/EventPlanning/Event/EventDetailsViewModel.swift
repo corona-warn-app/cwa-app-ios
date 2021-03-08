@@ -2,8 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
-import OpenCombine
+import Foundation
 
 class EventDetailsViewModel {
 

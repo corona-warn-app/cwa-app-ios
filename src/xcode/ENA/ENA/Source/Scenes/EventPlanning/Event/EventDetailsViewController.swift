@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import OpenCombine
 
 class EventDetailsViewController: UIViewController, ENANavigationControllerWithFooterChild {
 
@@ -70,10 +69,10 @@ class EventDetailsViewController: UIViewController, ENANavigationControllerWithF
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.EventPlanning.EventDetails.printVersionButtonTitle
+		item.primaryButtonTitle = AppStrings.EventPlanning.Details.printVersionButtonTitle
 		item.isPrimaryButtonEnabled = true
 
-		item.secondaryButtonTitle = AppStrings.EventPlanning.EventDetails.duplicateButtonTitle
+		item.secondaryButtonTitle = AppStrings.EventPlanning.Details.duplicateButtonTitle
 		item.isSecondaryButtonEnabled = true
 		item.isSecondaryButtonHidden = false
 

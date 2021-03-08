@@ -2,7 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import UIKit
+import Foundation
 import PDFKit
 
 class EventPrintVersionViewModel {

@@ -4,7 +4,7 @@
 
 import UIKit
 
-struct  EventPlanningOverviewEmptyStateViewModel: EmptyStateViewModel {
+struct EventPlanningOverviewEmptyStateViewModel: EmptyStateViewModel {
 
 	// MARK: - Internal
 

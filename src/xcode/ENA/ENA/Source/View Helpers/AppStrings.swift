@@ -1345,7 +1345,7 @@ enum AppStrings {
 			static let emptyImageDescription = NSLocalizedString("EventPlanning_Overview_EmptyImageDescription", comment: "")
 		}
 
-		enum EventDetails {
+		enum Details {
 			static let printVersionButtonTitle = NSLocalizedString("EventPlanning_Details_PrintVersionButtonTitle", comment: "")
 			static let duplicateButtonTitle = NSLocalizedString("EventPlanning_Details_DuplicateButtonTitle", comment: "")
 		}
