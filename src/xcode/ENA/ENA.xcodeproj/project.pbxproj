@@ -3143,7 +3143,6 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
-				ABE961D325F2992900D0F699 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -3780,13 +3779,6 @@
 				ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		ABE961D325F2992900D0F699 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		B102BDC12460405F00CD55A2 /* Backend */ = {
