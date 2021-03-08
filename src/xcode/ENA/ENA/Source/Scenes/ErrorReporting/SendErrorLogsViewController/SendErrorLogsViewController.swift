@@ -44,7 +44,6 @@ class SendErrorLogsViewController: DynamicTableViewController, ENANavigationCont
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case link = "linkCell"
 		case legalExtended = "DynamicLegalExtendedCell"
-		
 	}
 
 	// MARK: - Private

@@ -109,7 +109,6 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 	
 	private let rootViewController: UIViewController
 	private var errorLoggingStatus: ErrorLoggingStatus
-	private var hasHistory: Bool = false
 	// We need a reference to update the error logs size as we are on the screen by calling
 	private var errorReportsLoggingViewController: BottomErrorReportViewController?
 	/*
