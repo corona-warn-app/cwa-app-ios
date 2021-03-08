@@ -1923,7 +1923,6 @@
 		0138F63A25F1173E00A9B075 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				0138F64825F1174100A9B075 /* __test__ */,
 				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
 				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
 				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
@@ -1945,28 +1944,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		0138F64825F1174100A9B075 /* __test__ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = __test__;
-			sourceTree = "<group>";
-		};
 		0138F6A825F25B1400A9B075 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				0138F6AB25F25B1400A9B075 /* __test__ */,
 				0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */,
 				0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */,
 			);
 			path = Info;
-			sourceTree = "<group>";
-		};
-		0138F6AB25F25B1400A9B075 /* __test__ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = __test__;
 			sourceTree = "<group>";
 		};
 		0138F6C425F36C3F00A9B075 /* Details */ = {
