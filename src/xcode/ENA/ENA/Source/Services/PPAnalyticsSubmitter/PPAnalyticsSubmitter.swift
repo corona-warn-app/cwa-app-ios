@@ -184,7 +184,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		// if there is no test result time stamp
 		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
-			return false
+			return isSubmitted
 		}
 		
 		let timeInterval = TimeInterval(resultDateTimeStamp)
