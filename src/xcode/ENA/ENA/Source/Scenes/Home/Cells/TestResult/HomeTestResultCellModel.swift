@@ -52,6 +52,7 @@ class HomeTestResultCellModel {
 	private let homeState: HomeState
 	private var subscriptions = Set<AnyCancellable>()
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private func configure(for testResult: TestResult?) {
 		#if DEBUG
 		if isUITesting {
@@ -59,7 +60,7 @@ class HomeTestResultCellModel {
 			if UserDefaults.standard.string(forKey: "showInvalidTest") == "YES" {
 				configureTestResultInvalid()
 			} else if UserDefaults.standard.string(forKey: "showPendingTest") == "YES" {
-				configureTestResultAvailable()
+				configureTestResultPending()
 			} else if UserDefaults.standard.string(forKey: "showNegativeTest") == "YES" {
 				configureTestResultNegative()
 			} else if UserDefaults.standard.string(forKey: "showPositiveTest") == "YES" {
