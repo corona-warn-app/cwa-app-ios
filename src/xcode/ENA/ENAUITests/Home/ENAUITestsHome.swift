@@ -296,9 +296,9 @@ class ENAUITests_01_Home: XCTestCase {
 		riskCell.tap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-   }
+    }
 
-   func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
+    func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		// change the value based on N
@@ -314,7 +314,7 @@ class ENAUITests_01_Home: XCTestCase {
 		riskCell.tap()
 
 		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
-   }
+    }
 
 	func test_screenshot_homescreen_thankyou_screen() throws {
 		var screenshotCounter = 0
@@ -327,5 +327,53 @@ class ENAUITests_01_Home: XCTestCase {
 		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp(velocity: .slow)
 		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
-   }
+    }
+	
+	func test_screenshot_homescreen_invalid_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showInvalidTest", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func test_screenshot_homescreen_pending_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showPendingTest", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_pending_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_pending_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func test_screenshot_homescreen_negative_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showNegativeTest", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_negative_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_negative_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
 }
