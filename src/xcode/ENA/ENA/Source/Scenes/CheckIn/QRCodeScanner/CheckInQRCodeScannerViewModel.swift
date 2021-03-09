@@ -4,6 +4,7 @@
 
 import Foundation
 import AVFoundation
+import OpenCombine
 
 final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
@@ -11,10 +12,9 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	override init() {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
+		self.qrCodes = []
 		super.init()
 	}
-
-	// MARK: - Overrides
 
 	// MARK: - Protocol AVCaptureMetadataOutputObjectsDelegate
 
@@ -23,10 +23,12 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		didOutput metadataObjects: [AVMetadataObject],
 		from _: AVCaptureConnection
 	) {
-		didScan(metadataObjects: metadataObjects)
+		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject else {
+			Log.debug("wrong QR Code type", log: .checkin)
+			return
+		}
+		onSuccess?(code)
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -46,10 +48,10 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-//	let captureSession: AVCaptureSession
-
-	var onSuccess: ((String) -> Void)?
+	var onSuccess: ((MetadataMachineReadableCodeObject) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
+
+	@OpenCombine.Published private (set) var qrCodes: [AVMetadataObject]
 
 	func activateScanning() {
 		captureSession?.startRunning()
@@ -84,7 +86,7 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	private func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
-			Log.info("AVCaptureDevice.authorized - enable qr code scanner")
+			Log.info("AVCaptureDevice.authorized - enable qr code scanner", log: .checkin)
 			activateScanning()
 		case .notDetermined:
 			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
@@ -97,17 +99,6 @@ final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		default:
 			onError?(.cameraPermissionDenied)
 		}
-	}
-
-	private func didScan(metadataObjects: [MetadataObject]) {
-		guard isScanningActivated,
-			  let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let stringValue = code.stringValue else {
-			onError?(QRScannerError.codeNotFound)
-			return
-		}
-		deactivateScanning()
-		onSuccess?(stringValue)
 	}
 
 }

@@ -13,7 +13,6 @@ enum RiskProviderError: Error {
 	case riskProviderIsRunning
 	case missingAppConfig
 	case failedKeyPackageDownload(KeyPackageDownloadError)
-	case failedRiskCalculation
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
 
 	var isAlreadyRunningError: Bool {

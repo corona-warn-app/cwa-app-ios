@@ -78,7 +78,7 @@ class DMPPAnalyticsActualData: UIViewController {
 			view.bottomAnchor.constraint(equalTo: textView.bottomAnchor)
 		])
 
-		textView.text = Analytics.getPPADataMessage().debugDescription
+		textView.text = Analytics.getPPADataMessage()?.textFormatString()
 	}
 
 	@objc

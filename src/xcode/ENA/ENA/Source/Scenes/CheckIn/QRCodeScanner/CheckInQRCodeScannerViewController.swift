@@ -4,13 +4,14 @@
 
 import UIKit
 import AVFoundation
+import OpenCombine
 
 class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Init
 
 	init(
-		presentEventForCheckIn: @escaping (String) -> Void,
+		presentEventForCheckIn: @escaping (CGRect, String) -> Void,
 		presentCheckIns: @escaping () -> Void
 	) {
 		self.presentEventForCheckIn = presentEventForCheckIn
@@ -43,22 +44,17 @@ class CheckInQRCodeScannerViewController: UIViewController {
 		viewModel.deactivateScanning()
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
-	private let presentEventForCheckIn: (String) -> Void
+	private let presentEventForCheckIn: (CGRect, String) -> Void
 	private let presentCheckIns: () -> Void
 	private let viewModel: CheckInQRCodeScannerViewModel
 
 	private var previewLayer: AVCaptureVideoPreviewLayer!
+	private var subscriptions: [AnyCancellable] = []
 
 	private func setupView() {
-		title = AppStrings.Events.QRScanner.title
+		navigationItem.title = AppStrings.Events.QRScanner.title
 
 		view.backgroundColor = .enaColor(for: .background)
 
@@ -86,27 +82,58 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	private func setupViewModel() {
 		guard let captureSession = viewModel.captureSession else {
-			Log.debug("Failed to setup captureSession")
+			Log.debug("Failed to setup captureSession", log: .checkin)
 			return
-		}
-
-		viewModel.onSuccess = { [weak self] stringValue in
-			self?.presentEventForCheckIn(stringValue)
-		}
-
-		viewModel.onError = { _ in
-			Log.debug("Error handling not done right now")
 		}
 
 		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		previewLayer.frame = view.layer.bounds
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.addSublayer(previewLayer)
+
+		viewModel.onSuccess = { [weak self] metadataObject in
+			guard let self = self,
+				  let route = Route(metadataObject.stringValue),
+				  let avMetaDataObject = metadataObject as? AVMetadataObject,
+				  let newRect = self.previewLayer.transformedMetadataObject(for: avMetaDataObject)?.bounds,
+				  case let Route.event(event) = route else {
+				// we found something but will continue to scan
+				return
+			}
+			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+			self.viewModel.deactivateScanning()
+			self.presentEventForCheckIn(newRect, event)
+		}
+
+		viewModel.onError = { _ in
+			Log.debug("Error handling not done right now", log: .checkin)
+		}
+
+		viewModel.$qrCodes.sink { [weak self] metadataObjects in
+			self?.qrRectViews.forEach { view in
+				view.removeFromSuperview()
+			}
+
+			metadataObjects.forEach { metadataObject in
+				if let barCodeObject = self?.previewLayer.transformedMetadataObject(for: metadataObject) {
+					let qrRectView = UIView(frame: barCodeObject.bounds.insetBy(dx: -6.0, dy: -6.0))
+					qrRectView.layer.borderWidth = 4.0
+					qrRectView.layer.borderColor = UIColor.enaColor(for: .buttonPrimary).cgColor
+					qrRectView.layer.cornerRadius = 8.0
+					self?.view.addSubview(qrRectView)
+					self?.qrRectViews.append(qrRectView)
+				}
+			}
+		}
+		.store(in: &subscriptions)
+		
 	}
 
 	@objc
 	private func didHitCheckInsButton() {
 		presentCheckIns()
 	}
+
+	private var qrRectViews: [UIView] = []
 
 }

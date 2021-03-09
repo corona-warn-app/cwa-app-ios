@@ -20,7 +20,6 @@ class HomeState: ENStateHandlerUpdating {
 		if let riskCalculationResult = store.riskCalculationResult {
 			self.riskState = .risk(
 				Risk(
-					activeTracing: store.tracingStatusHistory.activeTracing(),
 					riskCalculationResult: riskCalculationResult
 				)
 			)
@@ -31,7 +30,6 @@ class HomeState: ENStateHandlerUpdating {
 					details: .init(
 						mostRecentDateWithRiskLevel: nil,
 						numberOfDaysWithRiskLevel: 0,
-						activeTracing: store.tracingStatusHistory.activeTracing(),
 						exposureDetectionDate: nil
 					),
 					riskLevelHasChanged: false
@@ -101,6 +99,14 @@ class HomeState: ENStateHandlerUpdating {
 
 	var keysWereSubmitted: Bool {
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+	}
+
+	var shouldShowDaysSinceInstallation: Bool {
+		daysSinceInstallation < 14
+	}
+
+	var daysSinceInstallation: Int {
+		store.appInstallationDate?.ageInDays ?? 0
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {

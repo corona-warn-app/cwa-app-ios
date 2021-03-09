@@ -32,12 +32,6 @@ class CheckInDetailViewController: UIViewController {
 		setupView()
 	}
 
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
-	// MARK: - Internal
-
 	// MARK: - Private
 
 	private let viewModel: CheckInDetailViewModel

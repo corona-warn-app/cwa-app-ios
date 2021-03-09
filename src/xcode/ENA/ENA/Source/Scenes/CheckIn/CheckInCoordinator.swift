@@ -13,18 +13,12 @@ final class CheckInCoordinator {
 
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {
 		let qrCodeScanner = CheckInQRCodeScannerViewController(
-			presentEventForCheckIn: { [weak self] event in
-				self?.showEventForCheckIn(event)
+			presentEventForCheckIn: { [weak self] rect, event in
+				self?.showEventForCheckIn(rect, event: event)
 			},
 			presentCheckIns: { [weak self] in
 				self?.showCheckIns()
@@ -40,7 +34,7 @@ final class CheckInCoordinator {
 		viewController.pushViewController(checkInsViewController, animated: true)
 	}
 
-	private func showEventForCheckIn(_ event: String) {
+	private func showEventForCheckIn(_ fromRect: CGRect, event: String) {
 		let eventDetailViewController = CheckInDetailViewController(
 			"Ich bin ein TestEvent",
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },

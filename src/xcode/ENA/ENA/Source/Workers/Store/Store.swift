@@ -26,6 +26,8 @@ protocol StoreProtocol: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
+	var appInstallationDate: Date? { get set }
+
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -56,8 +58,6 @@ protocol StoreProtocol: AnyObject {
 	/// A boolean storing if the user has confirmed to submit
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
-
-	var tracingStatusHistory: TracingStatusHistory { get set }
 
 	var riskCalculationResult: RiskCalculationResult? { get set }
 

@@ -17,7 +17,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var riskCalculationResult: RiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
 	var hasSeenSubmissionExposureTutorial: Bool = false
@@ -43,6 +42,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
+	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
