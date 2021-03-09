@@ -683,6 +683,11 @@
 		BA38183425CB104900C1DB6C /* DMConfigureableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA38183325CB104900C1DB6C /* DMConfigureableCell.swift */; };
 		BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */; };
 		BA4693B125C82F0A004B2DBB /* DMPPACViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */; };
+		BA4C268425EE8C6E00E0505F /* CheckInsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C268325EE8C6E00E0505F /* CheckInsTableViewController.swift */; };
+		BA4C268C25EE8D2A00E0505F /* CheckInsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C268B25EE8D2A00E0505F /* CheckInsViewModel.swift */; };
+		BA4C269F25EE9DC700E0505F /* CheckInDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C269E25EE9DC700E0505F /* CheckInDetailViewController.swift */; };
+		BA4C26A425EE9DF600E0505F /* CheckInDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C26A325EE9DF600E0505F /* CheckInDetailViewModel.swift */; };
+		BA6898CD25ED49E00037A3EE /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6898CC25ED49E00037A3EE /* Route.swift */; };
 		BA69A7D825CD787D00023265 /* SelectValueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */; };
 		BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */; };
 		BA69A7E625CD7D1E00023265 /* SelectValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */; };
@@ -728,6 +733,8 @@
 		BAA4D71825E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D71725E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift */; };
 		BAA4D71D25E94D6000821B5C /* UIImage+resizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D71C25E94D6000821B5C /* UIImage+resizeTests.swift */; };
 		BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */; };
+		BAA4D73025E95B3A00821B5C /* CheckInCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72F25E95B3A00821B5C /* CheckInCoordinator.swift */; };
+		BAA4D73625E9613200821B5C /* CheckInQRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D73525E9613200821B5C /* CheckInQRCodeScannerViewController.swift */; };
 		BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */; };
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
@@ -755,6 +762,7 @@
 		BAEB174025E561120012FEF9 /* FooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB173F25E561120012FEF9 /* FooterViewController.swift */; };
 		BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB174425E567830012FEF9 /* FooterViewModel.swift */; };
 		BAEC99C7258B714300B98ECA /* ENAUITests_07_ContactJournalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */; };
+		BAEE121C25ECF7AB009A0284 /* CheckInQRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEE121B25ECF7AB009A0284 /* CheckInQRCodeScannerViewModel.swift */; };
 		BAF2DD5225C9BABA00D7DFB7 /* DMButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */; };
 		BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */; };
 		BAF5371625E7CC1B00C835E2 /* Sequence+NSAttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */; };
@@ -1565,6 +1573,11 @@
 		BA38183325CB104900C1DB6C /* DMConfigureableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMConfigureableCell.swift; sourceTree = "<group>"; };
 		BA4693AA25C82EC8004B2DBB /* DMPPACViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewController.swift; sourceTree = "<group>"; };
 		BA4693B025C82F0A004B2DBB /* DMPPACViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPACViewModel.swift; sourceTree = "<group>"; };
+		BA4C268325EE8C6E00E0505F /* CheckInsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInsTableViewController.swift; sourceTree = "<group>"; };
+		BA4C268B25EE8D2A00E0505F /* CheckInsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInsViewModel.swift; sourceTree = "<group>"; };
+		BA4C269E25EE9DC700E0505F /* CheckInDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInDetailViewController.swift; sourceTree = "<group>"; };
+		BA4C26A325EE9DF600E0505F /* CheckInDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInDetailViewModel.swift; sourceTree = "<group>"; };
+		BA6898CC25ED49E00037A3EE /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		BA69A7D725CD787D00023265 /* SelectValueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewController.swift; sourceTree = "<group>"; };
 		BA69A7DC25CD788F00023265 /* SelectValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueViewModel.swift; sourceTree = "<group>"; };
 		BA69A7E525CD7D1E00023265 /* SelectValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewCell.swift; sourceTree = "<group>"; };
@@ -1609,6 +1622,8 @@
 		BAA4D71725E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedTextTests.swift"; sourceTree = "<group>"; };
 		BAA4D71C25E94D6000821B5C /* UIImage+resizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resizeTests.swift"; sourceTree = "<group>"; };
 		BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModelTests.swift; sourceTree = "<group>"; };
+		BAA4D72F25E95B3A00821B5C /* CheckInCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInCoordinator.swift; sourceTree = "<group>"; };
+		BAA4D73525E9613200821B5C /* CheckInQRCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInQRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextCellViewModel.swift; sourceTree = "<group>"; };
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
@@ -1636,6 +1651,8 @@
 		BAEB173F25E561120012FEF9 /* FooterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewController.swift; sourceTree = "<group>"; };
 		BAEB174425E567830012FEF9 /* FooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterViewModel.swift; sourceTree = "<group>"; };
 		BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_07_ContactJournalUITests.swift; sourceTree = "<group>"; };
+		BAEE121B25ECF7AB009A0284 /* CheckInQRCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInQRCodeScannerViewModel.swift; sourceTree = "<group>"; };
+		BAEE122325ED027F009A0284 /* apple-app-site-association */ = {isa = PBXFileReference; lastKnownFileType = text; path = "apple-app-site-association"; sourceTree = "<group>"; };
 		BAF2DD5125C9BABA00D7DFB7 /* DMButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAF2DD5625C9BAF700D7DFB7 /* DMButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButtonCellViewModel.swift; sourceTree = "<group>"; };
 		BAF5371525E7CC1B00C835E2 /* Sequence+NSAttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedText.swift"; sourceTree = "<group>"; };
@@ -2487,6 +2504,7 @@
 				3543134E25DE990B00926575 /* __tests__ */,
 				EB1BB11125CC40030076CB67 /* PlausibleDeniabilityService.swift */,
 				EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */,
+				BA6898CC25ED49E00037A3EE /* Route.swift */,
 				35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */,
 				35B2FAA925B9CE8F009ABC8E /* main.swift */,
 				353412CB2525EE4A0086D15C /* Globals.swift */,
@@ -3204,6 +3222,7 @@
 			isa = PBXGroup;
 			children = (
 				ABE9615825F11FA000D0F699 /* Events */,
+				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
@@ -4326,6 +4345,24 @@
 			path = DMPPACService;
 			sourceTree = "<group>";
 		};
+		BA4C269025EE8DA700E0505F /* CheckIns */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C268325EE8C6E00E0505F /* CheckInsTableViewController.swift */,
+				BA4C268B25EE8D2A00E0505F /* CheckInsViewModel.swift */,
+			);
+			path = CheckIns;
+			sourceTree = "<group>";
+		};
+		BA4C269D25EE9DA600E0505F /* CheckInDetail */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C269E25EE9DC700E0505F /* CheckInDetailViewController.swift */,
+				BA4C26A325EE9DF600E0505F /* CheckInDetailViewModel.swift */,
+			);
+			path = CheckInDetail;
+			sourceTree = "<group>";
+		};
 		BA63815825E69D1000A642BB /* Containers */ = {
 			isa = PBXGroup;
 			children = (
@@ -4509,6 +4546,27 @@
 				BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAA4D72E25E95B1D00821B5C /* CheckIn */ = {
+			isa = PBXGroup;
+			children = (
+				BAA4D72F25E95B3A00821B5C /* CheckInCoordinator.swift */,
+				BA4C269025EE8DA700E0505F /* CheckIns */,
+				BA4C269D25EE9DA600E0505F /* CheckInDetail */,
+				BAA4D73425E960FC00821B5C /* QRCodeScanner */,
+			);
+			path = CheckIn;
+			sourceTree = "<group>";
+		};
+		BAA4D73425E960FC00821B5C /* QRCodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				BAEE122325ED027F009A0284 /* apple-app-site-association */,
+				BAA4D73525E9613200821B5C /* CheckInQRCodeScannerViewController.swift */,
+				BAEE121B25ECF7AB009A0284 /* CheckInQRCodeScannerViewModel.swift */,
+			);
+			path = QRCodeScanner;
 			sourceTree = "<group>";
 		};
 		BAA8BB0C25CAEF0000E29CFE /* CellsAndViewModels */ = {
@@ -5176,6 +5234,7 @@
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
 				35E121DB25B273280098D754 /* statistics.pb.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
+				BA4C268C25EE8D2A00E0505F /* CheckInsViewModel.swift in Sources */,
 				2FA9E39524D2F2B00030561C /* ExposureSubmission+DeviceRegistrationKey.swift in Sources */,
 				EB08F17E2541CE3300D11FA9 /* app_version_config.pb.swift in Sources */,
 				0138F54B25ECD44300A9B075 /* semantic_version.pb.swift in Sources */,
@@ -5183,6 +5242,7 @@
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				BA0073BE25D18A5B0036DFDD /* DataDonationViewController.swift in Sources */,
+				BA6898CD25ED49E00037A3EE /* Route.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
 				AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */,
 				01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */,
@@ -5221,6 +5281,7 @@
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
+				BA4C269F25EE9DC700E0505F /* CheckInDetailViewController.swift in Sources */,
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
@@ -5228,6 +5289,7 @@
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
+				BAA4D73025E95B3A00821B5C /* CheckInCoordinator.swift in Sources */,
 				BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */,
 				019C9F0025894BAA00B26392 /* DiaryStoringProviding.swift in Sources */,
 				2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */,
@@ -5333,6 +5395,7 @@
 				50C0298B25E4067400460FA4 /* ExposureWindowsMetadata.swift in Sources */,
 				EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */,
 				BA07735C25C2FCB800EAF6B8 /* PPACService.swift in Sources */,
+				BA4C268425EE8C6E00E0505F /* CheckInsTableViewController.swift in Sources */,
 				2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */,
 				BA69A7E625CD7D1E00023265 /* SelectValueTableViewCell.swift in Sources */,
 				A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */,
@@ -5352,6 +5415,7 @@
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
+				BAA4D73625E9613200821B5C /* CheckInQRCodeScannerViewController.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
@@ -5369,6 +5433,7 @@
 				BA6C8AB9254D64D3008344F5 /* MinutesAtAttenuationWeight.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
+				BA4C26A425EE9DF600E0505F /* CheckInDetailViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
 				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
@@ -5627,6 +5692,7 @@
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,
 				506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */,
 				01C7665E25024A09002C9A5C /* DatePickerOptionView.swift in Sources */,
+				BAEE121C25ECF7AB009A0284 /* CheckInQRCodeScannerViewModel.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */,
 				ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */,
@@ -6095,7 +6161,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -6251,7 +6317,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -6426,7 +6492,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -6663,7 +6729,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -6704,7 +6770,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -6847,7 +6913,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -6891,7 +6957,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -6934,7 +7000,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;

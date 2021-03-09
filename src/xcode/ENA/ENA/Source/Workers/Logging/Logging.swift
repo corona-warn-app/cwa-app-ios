@@ -29,6 +29,9 @@ extension OSLog {
 	static let survey = OSLog(subsystem: subsystem, category: "survey")
 	/// PP Analytics
 	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
+	/// Events
+	static let checkin = OSLog(subsystem: subsystem, category: "checkin")
+
 }
 
 /// Logging
@@ -68,6 +71,9 @@ enum Log {
 		#if !RELEASE
 		// Console logging
 		let meta: String = "[\(file):\(line)] [\(function)]"
+
+		// obviously we have to disable swiftline here:
+		// swiftlint:disable:next no_direct_oslog
 		os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
 
 		// Save logs to File. This is used for viewing and exporting logs from debug menu.

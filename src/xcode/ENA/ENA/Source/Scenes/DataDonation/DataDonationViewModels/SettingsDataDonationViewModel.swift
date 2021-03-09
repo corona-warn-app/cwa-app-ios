@@ -26,7 +26,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			$0.add(
 				.section(
 					cells: [
-						.headline(text: AppStrings.DataDonation.Info.introductionText)
+						.headline(text: AppStrings.DataDonation.Info.introductionText),
+						.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil)
 					]
 				)
 			)
@@ -35,7 +36,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		/// section to show input fields with already given data
 		/// this will change numer of cells by the already entered data
 		let sectionCells: [DynamicCell] = [
-			.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil),
 			.body(
 				text: AppStrings.Settings.Datadonation.label,
 				style: .label,
@@ -102,6 +102,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
 		dynamicTableViewModel.add(
 			.section(
+				separators: .all,
 				cells: sectionCells
 			)
 		)
