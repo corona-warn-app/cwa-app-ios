@@ -36,6 +36,7 @@ class BottomErrorReportViewController: UIViewController {
 		
 		titleLabel.text = AppStrings.ErrorReport.title
 		startButton.setTitle(AppStrings.ErrorReport.startButtonTitle, for: .normal)
+		startButton.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.startButton
 		sendReportButton.setTitle(AppStrings.ErrorReport.sendButtontitle, for: .normal)
 		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)

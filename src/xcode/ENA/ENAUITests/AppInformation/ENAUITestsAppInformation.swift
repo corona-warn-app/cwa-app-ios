@@ -133,9 +133,29 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.faq].exists)
 
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].exists)
+		
+		
+		// The accessibility identifier for the button looks weird.
+		// There is also the accessibility identifier AccessibilityIdentifiers.ErrorReport.privacyNavigation
+		//   which looks more appropriate. Please check > A. Vogel
 		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].tap()
 		
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+	}
+
+	func test_0027_AppInformationFlow_ErrorReportsStart() throws {
+		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
+		AccessibilityLabels.printAccIdentifiers(app.buttons)
+		AccessibilityLabels.printAccIdentifiers(app.cells)
+//			Acc.Id 2: AppStrings.ErrorReport.privacyNavigation
+//			Acc.Id 3: AppStrings.ErrorReport.privacyInformation
+//		AccessibilityLabels.printAccIdentifiers(app.textViews)
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
+		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
 	}
 	
 	private func navigateToErrorReporting() {
