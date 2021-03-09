@@ -49,7 +49,7 @@ class HomeTableViewModel {
 				return [.thankYou]
 			} else if UserDefaults.standard.string(forKey: "showTestResultScreen") == "YES" {
 				return [.risk, .testResult]
-			} else if UserDefaults.standard.string(forKey: "showPositiveTest") == "YES" {
+			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
 				return [.shownPositiveTestResult]
 			} else if state.positiveTestResultWasShown {
 				return [.shownPositiveTestResult]

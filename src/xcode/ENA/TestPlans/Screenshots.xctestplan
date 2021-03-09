@@ -25,6 +25,7 @@
         "ENAUITests_01_Home\/test_screenshot_homescreen_invalid_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_negative_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_pending_test_result()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_positive_test_result()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh_activeExposureLogging()",
         "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh_riskMultipleDays()",

@@ -57,16 +57,16 @@ class HomeTestResultCellModel {
 		#if DEBUG
 		if isUITesting {
 			// adding this for launch arguments to fake test results on home screen
-			if UserDefaults.standard.string(forKey: "showInvalidTest") == "YES" {
+			if UserDefaults.standard.string(forKey: "showInvalidTestResult") == "YES" {
 				configureTestResultInvalid()
 				return
-			} else if UserDefaults.standard.string(forKey: "showPendingTest") == "YES" {
+			} else if UserDefaults.standard.string(forKey: "showPendingTestResult") == "YES" {
 				configureTestResultPending()
 				return
-			} else if UserDefaults.standard.string(forKey: "showNegativeTest") == "YES" {
+			} else if UserDefaults.standard.string(forKey: "showNegativeTestResult") == "YES" {
 				configureTestResultNegative()
 				return
-			} else if UserDefaults.standard.string(forKey: "showLoadingTest") == "YES" {
+			} else if UserDefaults.standard.string(forKey: "showLoadingTestResult") == "YES" {
 				configureLoading()
 				return
 			}
