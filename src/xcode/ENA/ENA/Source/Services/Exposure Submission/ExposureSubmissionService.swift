@@ -217,7 +217,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				case .success(let token):
 					// because this block is only called in QR submission
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), token)))
-					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
+					self.store.submittedWithQR = true
 					self.store.testRegistrationDate = Date()
 					self._getTestResult(token) { testResult in
 						completion(testResult)
@@ -282,7 +282,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedWithTeleTAN: true)
+			submittedWithTeleTAN: !self.store.submittedWithQR)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 	}
 

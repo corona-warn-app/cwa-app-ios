@@ -393,6 +393,11 @@ extension SecureStore: PrivacyPreservingProviding {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
 	}
+	
+	var submittedWithQR: Bool {
+		get { kvStore["submittedWithQR"] as Bool? ?? false }
+		set { kvStore["submittedWithQR"] = newValue }
+	}
 }
 
 extension SecureStore {
