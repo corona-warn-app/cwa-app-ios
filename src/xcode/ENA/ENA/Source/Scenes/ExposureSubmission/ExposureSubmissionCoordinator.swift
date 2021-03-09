@@ -747,7 +747,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedWithTeleTAN: true)
+			submittedWithTeleTAN: !self.store.submitttedWithQR)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 		Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
