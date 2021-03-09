@@ -12,10 +12,10 @@ class HomeTraceLocationsCellModelTests: XCTestCase {
 		let cellModel = HomeTraceLocationsCellModel()
 
 		// THEN
-		XCTAssertEqual(cellModel.title, AppStrings.Home.eventCardTitle)
-		XCTAssertEqual(cellModel.description, AppStrings.Home.eventCardBody)
-		XCTAssertEqual(cellModel.buttonTitle, AppStrings.Home.eventCardButton)
-		XCTAssertEqual(cellModel.image, UIImage(named: "Illu_Event"))
-		XCTAssertEqual(cellModel.accessibilityIdentifier, AccessibilityIdentifiers.Home.eventCardButton)
+		XCTAssertEqual(cellModel.title, AppStrings.Home.traceLocationsCardTitle)
+		XCTAssertEqual(cellModel.description, AppStrings.Home.traceLocationsCardBody)
+		XCTAssertEqual(cellModel.buttonTitle, AppStrings.Home.traceLocationsCardButton)
+		XCTAssertEqual(cellModel.image, UIImage(named: "Illu_TraceLocations"))
+		XCTAssertEqual(cellModel.accessibilityIdentifier, AccessibilityIdentifiers.Home.traceLocationsCardButton)
 	}
 }
