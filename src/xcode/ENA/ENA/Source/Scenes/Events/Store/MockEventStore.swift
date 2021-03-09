@@ -25,7 +25,7 @@ class MockEventStore: EventStoring, EventProviding {
 
 	func createCheckin(_ checkin: Checkin) -> EventStoring.IdResult {
 		let id = UUID().hashValue
-		let checkinWithId = makeUpdatedCheckin(with: checkin, id: id)
+		let checkinWithId = checkin.updatedWith(id: id)
 		checkinsPublisher.value.append(checkinWithId)
 		return .success(id)
 	}
@@ -35,7 +35,7 @@ class MockEventStore: EventStoring, EventProviding {
 		guard let checkin = (checkins.first { $0.id == id }) else {
 			return .failure(.database(.unknown))
 		}
-		let updatedCheckin = makeUpdatedCheckin(with: checkin, checkinEndDate: endDate)
+		let updatedCheckin = checkin.updatedWith(checkinEndDate: endDate)
 		checkins.removeAll { $0.id == id }
 		checkins.append(updatedCheckin)
 		checkinsPublisher.send(checkins)
@@ -47,7 +47,7 @@ class MockEventStore: EventStoring, EventProviding {
 		guard let checkin = (checkins.first { $0.id == id }) else {
 			return .failure(.database(.unknown))
 		}
-		let updatedCheckin = makeUpdatedCheckin(with: checkin, targetCheckinEndDate: targetCheckinEndDate)
+		let updatedCheckin = checkin.updatedWith(targetCheckinEndDate: targetCheckinEndDate)
 		checkins.removeAll { $0.id == id }
 		checkins.append(updatedCheckin)
 		checkinsPublisher.send(checkins)
@@ -66,7 +66,7 @@ class MockEventStore: EventStoring, EventProviding {
 
 	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> EventStoring.IdResult {
 		let id = UUID().hashValue
-		let traceTimeIntervalMatch = makeUpdatedTraceTimeIntervalMatch(with: match, id: id)
+		let traceTimeIntervalMatch = match.updatedWith(id: id)
 		traceTimeIntervalMatchesPublisher.value.append(traceTimeIntervalMatch)
 		return .success(id)
 	}
@@ -78,7 +78,7 @@ class MockEventStore: EventStoring, EventProviding {
 
 	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> EventStoring.IdResult {
 		let id = UUID().hashValue
-		let traceWarningPackageMetadata = makeUpdatedTraceWarningPackageMetadata(with: metadata, id: id)
+		let traceWarningPackageMetadata = metadata.updatedWith(id: id)
 		traceWarningPackageMetadatasPublisher.value.append(traceWarningPackageMetadata)
 		return .success(id)
 	}
@@ -98,82 +98,89 @@ class MockEventStore: EventStoring, EventProviding {
 
 	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
 
-	// MARK: - Private
+}
 
-	private func makeUpdatedTraceTimeIntervalMatch(with match: TraceTimeIntervalMatch, id: Int) -> TraceTimeIntervalMatch {
+private extension TraceTimeIntervalMatch {
+
+	func updatedWith(id: Int) -> TraceTimeIntervalMatch {
 		TraceTimeIntervalMatch(
-			id: match.id,
-			checkinId: match.checkinId,
-			traceWarningPackageId: match.traceWarningPackageId,
-			traceLocationGUID: match.traceLocationGUID,
-			transmissionRiskLevel: match.transmissionRiskLevel,
-			startIntervalNumber: match.startIntervalNumber,
-			endIntervalNumber: match.endIntervalNumber
+			id: id,
+			checkinId: self.checkinId,
+			traceWarningPackageId: self.traceWarningPackageId,
+			traceLocationGUID: self.traceLocationGUID,
+			transmissionRiskLevel: self.transmissionRiskLevel,
+			startIntervalNumber: self.startIntervalNumber,
+			endIntervalNumber: self.endIntervalNumber
 		)
 	}
+}
 
-	private func makeUpdatedTraceWarningPackageMetadata(with metadata: TraceWarningPackageMetadata, id: Int) -> TraceWarningPackageMetadata {
+private extension TraceWarningPackageMetadata {
+
+	func updatedWith(id: Int) -> TraceWarningPackageMetadata {
 		TraceWarningPackageMetadata(
 			id: id,
-			region: metadata.region,
-			eTag: metadata.eTag
+			region: self.region,
+			eTag: self.eTag
 		)
 	}
+}
 
-	private func makeUpdatedCheckin(with checkin: Checkin, id: Int) -> Checkin {
+private extension Checkin {
+	func updatedWith(id: Int) -> Checkin {
 		Checkin(
 			id: id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationVersion: checkin.traceLocationVersion,
-			traceLocationType: checkin.traceLocationType,
-			traceLocationDescription: checkin.traceLocationDescription,
-			traceLocationAddress: checkin.traceLocationAddress,
-			traceLocationStart: checkin.traceLocationStart,
-			traceLocationEnd: checkin.traceLocationEnd,
-			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
-			checkinStartDate: checkin.checkinStartDate,
-			checkinEndDate: checkin.checkinEndDate,
-			targetCheckinEndDate: checkin.targetCheckinEndDate,
-			createJournalEntry: checkin.createJournalEntry
+			traceLocationGUID: self.traceLocationGUID,
+			traceLocationVersion: self.traceLocationVersion,
+			traceLocationType: self.traceLocationType,
+			traceLocationDescription: self.traceLocationDescription,
+			traceLocationAddress: self.traceLocationAddress,
+			traceLocationStart: self.traceLocationStart,
+			traceLocationEnd: self.traceLocationEnd,
+			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: self.traceLocationSignature,
+			checkinStartDate: self.checkinStartDate,
+			checkinEndDate: self.checkinEndDate,
+			targetCheckinEndDate: self.targetCheckinEndDate,
+			createJournalEntry: self.createJournalEntry
 		)
 	}
 
-	private func makeUpdatedCheckin(with checkin: Checkin, targetCheckinEndDate: Date) -> Checkin {
+	func updatedWith(targetCheckinEndDate: Date) -> Checkin {
 		Checkin(
-			id: checkin.id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationVersion: checkin.traceLocationVersion,
-			traceLocationType: checkin.traceLocationType,
-			traceLocationDescription: checkin.traceLocationDescription,
-			traceLocationAddress: checkin.traceLocationAddress,
-			traceLocationStart: checkin.traceLocationStart,
-			traceLocationEnd: checkin.traceLocationEnd,
-			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
-			checkinStartDate: checkin.checkinStartDate,
-			checkinEndDate: checkin.checkinEndDate,
+			id: self.id,
+			traceLocationGUID: self.traceLocationGUID,
+			traceLocationVersion: self.traceLocationVersion,
+			traceLocationType: self.traceLocationType,
+			traceLocationDescription: self.traceLocationDescription,
+			traceLocationAddress: self.traceLocationAddress,
+			traceLocationStart: self.traceLocationStart,
+			traceLocationEnd: self.traceLocationEnd,
+			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: self.traceLocationSignature,
+			checkinStartDate: self.checkinStartDate,
+			checkinEndDate: self.checkinEndDate,
 			targetCheckinEndDate: targetCheckinEndDate,
-			createJournalEntry: checkin.createJournalEntry
+			createJournalEntry: self.createJournalEntry
 		)
 	}
 
-	private func makeUpdatedCheckin(with checkin: Checkin, checkinEndDate: Date) -> Checkin {
+	func updatedWith(checkinEndDate: Date) -> Checkin {
 		Checkin(
-			id: checkin.id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationVersion: checkin.traceLocationVersion,
-			traceLocationType: checkin.traceLocationType,
-			traceLocationDescription: checkin.traceLocationDescription,
-			traceLocationAddress: checkin.traceLocationAddress,
-			traceLocationStart: checkin.traceLocationStart,
-			traceLocationEnd: checkin.traceLocationEnd,
-			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
-			checkinStartDate: checkin.checkinStartDate,
+			id: self.id,
+			traceLocationGUID: self.traceLocationGUID,
+			traceLocationVersion: self.traceLocationVersion,
+			traceLocationType: self.traceLocationType,
+			traceLocationDescription: self.traceLocationDescription,
+			traceLocationAddress: self.traceLocationAddress,
+			traceLocationStart: self.traceLocationStart,
+			traceLocationEnd: self.traceLocationEnd,
+			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: self.traceLocationSignature,
+			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: checkin.targetCheckinEndDate,
-			createJournalEntry: checkin.createJournalEntry
+			targetCheckinEndDate: self.targetCheckinEndDate,
+			createJournalEntry: self.createJournalEntry
 		)
 	}
 }
