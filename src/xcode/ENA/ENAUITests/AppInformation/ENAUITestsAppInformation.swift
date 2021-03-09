@@ -31,12 +31,12 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.aboutNavigation"].waitForExistence(timeout: 5.0))
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: 5.0))
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.contactNavigation"].waitForExistence(timeout: 5.0))
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.privacyNavigation"].waitForExistence(timeout: 5.0))
-		XCTAssertTrue(app.cells["AppStrings.AppInformation.termsNavigation"].waitForExistence(timeout: 5.0))
-
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.aboutNavigation].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.faqNavigation].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.contactNavigation].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.privacyNavigation].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.AppInformation.termsNavigation].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0021_AppInformationFlow_about() throws {
@@ -122,5 +122,25 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.cells["AppStrings.AppInformation.termsNavigation"].tap()
 
 		XCTAssertTrue(app.images["AppStrings.AppInformation.termsImageDescription"].waitForExistence(timeout: 5.0))
+	}
+	
+	func test_0026_AppInformationFlow_ErrorReports() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+
+		// assert cells
+		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
+
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitForExistence(timeout: 5.0))
+		app.cells[AccessibilityIdentifiers.ErrorReport.navigation].tap()
+		app.swipeUp(velocity: .fast)
+
+//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: 5.0))
+//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.faq].waitForExistence(timeout: 5.0))
+//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].waitForExistence(timeout: 5.0))
+
 	}
 }
