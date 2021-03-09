@@ -86,11 +86,8 @@ enum AppStrings {
 		static let listItem2WithoutConsent = NSLocalizedString("ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent", comment: "")
 		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_primaryButtonTitle", comment: "")
 		static let closeAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertTitle", comment: "")
-		static let closeAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertMessage", comment: "")
 		static let closeAlertButtonClose = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel", comment: "")
 		static let closeAlertButtonContinue = NSLocalizedString("ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue", comment: "")
-		static let noConsentCloseAlertTitle = NSLocalizedString("ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle", comment: "")
-		static let noConsentCloseAlertMessage = NSLocalizedString("ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage", comment: "")
 	}
 
 	enum ExposureSubmissionResult {
@@ -1227,6 +1224,7 @@ enum AppStrings {
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
 		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
 	}
 	
 	enum DataDonation {
@@ -1317,6 +1315,15 @@ enum AppStrings {
 		enum AppSettings {
 			static let ppaSettingsPrivacyInformationBody = NSLocalizedString("ppa_settings_privacy_information_body", tableName: "Localizable.legal", comment: "")
 		}
+	}
+
+	enum Events {
+
+		enum QRScanner {
+			static let title = NSLocalizedString("Events_QR_Scanner_Title", comment: "")
+			static let checkinsButton = NSLocalizedString("Events_Qr_Scanner_Button_CheckIns", comment: "")
+		}
+
 	}
 
 	// swiftlint:disable:next file_length

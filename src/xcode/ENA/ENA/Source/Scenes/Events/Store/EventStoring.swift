@@ -45,7 +45,7 @@ protocol EventStoring {
 	func deleteTraceTimeIntervalMatch(id: Int) -> VoidResult
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ match: TraceWarningPackageMetadata) -> IdResult
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> IdResult
 
 	@discardableResult
 	func deleteTraceWarningPackageMetadata(id: Int) -> VoidResult
