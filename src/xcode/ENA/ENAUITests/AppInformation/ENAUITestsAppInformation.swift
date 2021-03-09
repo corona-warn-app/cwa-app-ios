@@ -126,21 +126,27 @@ class ENAUITests_02_AppInformation: XCTestCase {
 	
 	func test_0026_AppInformationFlow_ErrorReports() throws {
 		app.launch()
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		navigateToErrorReporting()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.faq].exists)
 
-		// only run if onboarding screen is present
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
-
-		// assert cells
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].exists)
+		app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].tap()
+		
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+	}
+	
+	private func navigateToErrorReporting() {
+		app.swipeUp(velocity: .fast)
+		
+		// navigate to App Information
 		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
+		// navigate to Error Reporting
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitForExistence(timeout: 5.0))
 		app.cells[AccessibilityIdentifiers.ErrorReport.navigation].tap()
-		app.swipeUp(velocity: .fast)
-
-//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: 5.0))
-//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.faq].waitForExistence(timeout: 5.0))
-//		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.privacyInformation].waitForExistence(timeout: 5.0))
-
 	}
 }
