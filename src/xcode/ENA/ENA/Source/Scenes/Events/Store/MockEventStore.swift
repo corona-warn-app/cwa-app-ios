@@ -24,32 +24,38 @@ class MockEventStore: EventStoring, EventProviding {
 	}
 
 	func createCheckin(_ checkin: Checkin) -> EventStoring.IdResult {
-		checkinsPublisher.value.append(checkin)
-		return .success((checkinsPublisher.value.count - 1))
+		let id = UUID().hashValue
+		let checkinWithId = makeUpdatedCheckin(with: checkin, id: id)
+		checkinsPublisher.value.append(checkinWithId)
+		return .success(id)
 	}
 
 	func updateCheckin(id: Int, endDate: Date) -> EventStoring.VoidResult {
 		var checkins = checkinsPublisher.value
-		var checkin = checkins[id]
-		checkin.update(checkinEndDate: endDate)
-		checkins.remove(at: id)
-		checkins.insert(checkin, at: id)
+		guard let checkin = (checkins.first { $0.id == id }) else {
+			return .failure(.database(.unknown))
+		}
+		let updatedCheckin = makeUpdatedCheckin(with: checkin, checkinEndDate: endDate)
+		checkins.removeAll { $0.id == id }
+		checkins.append(updatedCheckin)
 		checkinsPublisher.send(checkins)
 		return .success(())
 	}
 
 	func updateCheckin(id: Int, targetCheckinEndDate: Date) -> EventStoring.VoidResult {
 		var checkins = checkinsPublisher.value
-		var checkin = checkins[id]
-		checkin.update(targetCheckinEndDate: targetCheckinEndDate)
-		checkins.remove(at: id)
-		checkins.insert(checkin, at: id)
+		guard let checkin = (checkins.first { $0.id == id }) else {
+			return .failure(.database(.unknown))
+		}
+		let updatedCheckin = makeUpdatedCheckin(with: checkin, targetCheckinEndDate: targetCheckinEndDate)
+		checkins.removeAll { $0.id == id }
+		checkins.append(updatedCheckin)
 		checkinsPublisher.send(checkins)
 		return .success(())
 	}
 
 	func deleteCheckin(id: Int) -> EventStoring.VoidResult {
-		checkinsPublisher.value.remove(at: id)
+		checkinsPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
@@ -59,22 +65,26 @@ class MockEventStore: EventStoring, EventProviding {
 	}
 
 	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> EventStoring.IdResult {
-		traceTimeIntervalMatchesPublisher.value.append(match)
-		return .success((traceTimeIntervalMatchesPublisher.value.count - 1))
+		let id = UUID().hashValue
+		let traceTimeIntervalMatch = makeUpdatedTraceTimeIntervalMatch(with: match, id: id)
+		traceTimeIntervalMatchesPublisher.value.append(traceTimeIntervalMatch)
+		return .success(id)
 	}
 
 	func deleteTraceTimeIntervalMatch(id: Int) -> EventStoring.VoidResult {
-		traceTimeIntervalMatchesPublisher.value.remove(at: id)
+		traceTimeIntervalMatchesPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
-	func createTraceWarningPackageMetadata(_ match: TraceWarningPackageMetadata) -> EventStoring.IdResult {
-		traceWarningPackageMetadatasPublisher.value.append(match)
-		return .success((traceWarningPackageMetadatasPublisher.value.count - 1))
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> EventStoring.IdResult {
+		let id = UUID().hashValue
+		let traceWarningPackageMetadata = makeUpdatedTraceWarningPackageMetadata(with: metadata, id: id)
+		traceWarningPackageMetadatasPublisher.value.append(traceWarningPackageMetadata)
+		return .success(id)
 	}
 
 	func deleteTraceWarningPackageMetadata(id: Int) -> EventStoring.VoidResult {
-		traceWarningPackageMetadatasPublisher.value.remove(at: id)
+		traceWarningPackageMetadatasPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
@@ -88,4 +98,82 @@ class MockEventStore: EventStoring, EventProviding {
 
 	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
 
+	// MARK: - Private
+
+	private func makeUpdatedTraceTimeIntervalMatch(with match: TraceTimeIntervalMatch, id: Int) -> TraceTimeIntervalMatch {
+		TraceTimeIntervalMatch(
+			id: match.id,
+			checkinId: match.checkinId,
+			traceWarningPackageId: match.traceWarningPackageId,
+			traceLocationGUID: match.traceLocationGUID,
+			transmissionRiskLevel: match.transmissionRiskLevel,
+			startIntervalNumber: match.startIntervalNumber,
+			endIntervalNumber: match.endIntervalNumber
+		)
+	}
+
+	private func makeUpdatedTraceWarningPackageMetadata(with metadata: TraceWarningPackageMetadata, id: Int) -> TraceWarningPackageMetadata {
+		TraceWarningPackageMetadata(
+			id: id,
+			region: metadata.region,
+			eTag: metadata.eTag
+		)
+	}
+
+	private func makeUpdatedCheckin(with checkin: Checkin, id: Int) -> Checkin {
+		Checkin(
+			id: id,
+			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationVersion: checkin.traceLocationVersion,
+			traceLocationType: checkin.traceLocationType,
+			traceLocationDescription: checkin.traceLocationDescription,
+			traceLocationAddress: checkin.traceLocationAddress,
+			traceLocationStart: checkin.traceLocationStart,
+			traceLocationEnd: checkin.traceLocationEnd,
+			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: checkin.traceLocationSignature,
+			checkinStartDate: checkin.checkinStartDate,
+			checkinEndDate: checkin.checkinEndDate,
+			targetCheckinEndDate: checkin.targetCheckinEndDate,
+			createJournalEntry: checkin.createJournalEntry
+		)
+	}
+
+	private func makeUpdatedCheckin(with checkin: Checkin, targetCheckinEndDate: Date) -> Checkin {
+		Checkin(
+			id: checkin.id,
+			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationVersion: checkin.traceLocationVersion,
+			traceLocationType: checkin.traceLocationType,
+			traceLocationDescription: checkin.traceLocationDescription,
+			traceLocationAddress: checkin.traceLocationAddress,
+			traceLocationStart: checkin.traceLocationStart,
+			traceLocationEnd: checkin.traceLocationEnd,
+			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: checkin.traceLocationSignature,
+			checkinStartDate: checkin.checkinStartDate,
+			checkinEndDate: checkin.checkinEndDate,
+			targetCheckinEndDate: targetCheckinEndDate,
+			createJournalEntry: checkin.createJournalEntry
+		)
+	}
+
+	private func makeUpdatedCheckin(with checkin: Checkin, checkinEndDate: Date) -> Checkin {
+		Checkin(
+			id: checkin.id,
+			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationVersion: checkin.traceLocationVersion,
+			traceLocationType: checkin.traceLocationType,
+			traceLocationDescription: checkin.traceLocationDescription,
+			traceLocationAddress: checkin.traceLocationAddress,
+			traceLocationStart: checkin.traceLocationStart,
+			traceLocationEnd: checkin.traceLocationEnd,
+			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: checkin.traceLocationSignature,
+			checkinStartDate: checkin.checkinStartDate,
+			checkinEndDate: checkinEndDate,
+			targetCheckinEndDate: checkin.targetCheckinEndDate,
+			createJournalEntry: checkin.createJournalEntry
+		)
+	}
 }
