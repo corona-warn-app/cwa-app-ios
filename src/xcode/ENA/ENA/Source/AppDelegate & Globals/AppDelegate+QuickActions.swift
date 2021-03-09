@@ -91,7 +91,7 @@ extension AppDelegate {
 		if shortcutItem.type == AppDelegate.shortcutIdDiaryNewEntry {
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
-			tabBarController.selectedIndex = 1
+			tabBarController.selectedIndex = 2
 			
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
