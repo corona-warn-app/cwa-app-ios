@@ -1224,6 +1224,7 @@ enum AppStrings {
 	enum Tabbar {
 		static let homeTitle = NSLocalizedString("Tabbar_Home_Title", comment: "")
 		static let diaryTitle = NSLocalizedString("Tabbar_Diary_Title", comment: "")
+		static let checkInTitle = NSLocalizedString("Tabbar_CheckIn_Title", comment: "")
 	}
 	
 	enum DataDonation {
@@ -1314,6 +1315,15 @@ enum AppStrings {
 		enum AppSettings {
 			static let ppaSettingsPrivacyInformationBody = NSLocalizedString("ppa_settings_privacy_information_body", tableName: "Localizable.legal", comment: "")
 		}
+	}
+
+	enum Events {
+
+		enum QRScanner {
+			static let title = NSLocalizedString("Events_QR_Scanner_Title", comment: "")
+			static let checkinsButton = NSLocalizedString("Events_Qr_Scanner_Button_CheckIns", comment: "")
+		}
+
 	}
 
 	// swiftlint:disable:next file_length

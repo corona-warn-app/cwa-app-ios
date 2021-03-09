@@ -67,24 +67,24 @@ class RootCoordinator: RequiresAppDependencies {
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
-		
-		
+
 		// Tabbar
 		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
 		startTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.home
 		homeCoordinator.rootViewController.tabBarItem = startTabbarItem
-		
-		
+
 		let diaryTabbarItem = UITabBarItem(title: AppStrings.Tabbar.diaryTitle, image: UIImage(named: "Icons_Tabbar_Diary"), selectedImage: nil)
 		diaryTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.diary
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
-		let tabbarVC = UITabBarController()
-		tabbarVC.tabBar.tintColor = .enaColor(for: .tint)
-		tabbarVC.tabBar.barTintColor = .enaColor(for: .background)
-		tabbarVC.setViewControllers([homeCoordinator.rootViewController, diaryCoordinator.viewController], animated: false)
+		let eventsTabbarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		checkInCoordinator.viewController.tabBarItem = eventsTabbarItem
 
-		viewController.embedViewController(childViewController: tabbarVC)
+		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
+		tabBarController.tabBar.barTintColor = .enaColor(for: .background)
+		tabBarController.setViewControllers([homeCoordinator.rootViewController, checkInCoordinator.viewController, diaryCoordinator.viewController], animated: false)
+
+		viewController.embedViewController(childViewController: tabBarController)
 	}
 
 	func showTestResultFromNotification(with result: TestResult) {
@@ -108,6 +108,23 @@ class RootCoordinator: RequiresAppDependencies {
 		viewController.embedViewController(childViewController: navigationVC)
 	}
 
+	func showEvent(_ guid: String) {
+		let checkInNavigationController = checkInCoordinator.viewController
+		guard checkInNavigationController.topViewController as? UITableViewController != nil,
+			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+			return
+		}
+		tabBarController.selectedIndex = index
+
+		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
+			let alert = UIAlertController(title: "Event found", message: "Event on launch arguments found", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+				Log.debug("Did tap even ok")
+			}))
+			checkInNavigationController.present(alert, animated: true)
+		}
+	}
+
 	func updateDetectionMode(
 		_ detectionMode: DetectionMode
 	) {
@@ -116,16 +133,20 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 	
 	// MARK: - Private
-	
+
 	private weak var delegate: CoordinatorDelegate?
 
 	private let contactDiaryStore: DiaryStoringProviding
 	private let otpService: OTPServiceProviding
+	private let tabBarController = UITabBarController()
 
 	private var homeCoordinator: HomeCoordinator?
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
+	private(set) lazy var checkInCoordinator: CheckInCoordinator = {
+		CheckInCoordinator()
+	}()
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
