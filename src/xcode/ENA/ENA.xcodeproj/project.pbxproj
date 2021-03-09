@@ -20,6 +20,24 @@
 		0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */; };
 		0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */; };
 		0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */; };
+		0138F53425ECD2D700A9B075 /* check_in_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */; };
+		0138F53525ECD2D700A9B075 /* signed_event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53125ECD2D700A9B075 /* signed_event.pb.swift */; };
+		0138F53625ECD2D700A9B075 /* check_in.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53225ECD2D700A9B075 /* check_in.pb.swift */; };
+		0138F53725ECD2D700A9B075 /* event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53325ECD2D700A9B075 /* event.pb.swift */; };
+		0138F54825ECD44300A9B075 /* app_features.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53C25ECD44300A9B075 /* app_features.pb.swift */; };
+		0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */; };
+		0138F54A25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */; };
+		0138F54B25ECD44300A9B075 /* semantic_version.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */; };
+		0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */; };
+		0138F54D25ECD44300A9B075 /* app_config_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */; };
+		0138F54E25ECD44300A9B075 /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */; };
+		0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */; };
+		0138F55025ECD44300A9B075 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */; };
+		0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */; };
+		0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */; };
+		0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */; };
+		0138F5B425ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
+		0138F5B525ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
 		0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */; };
 		0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */; };
 		0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */; };
@@ -45,24 +63,6 @@
 		0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6E125F661DE00A9B075 /* TraceLocationPrintVersionViewModel.swift */; };
 		0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */; };
 		0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */; };
-		0138F53425ECD2D700A9B075 /* check_in_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */; };
-		0138F53525ECD2D700A9B075 /* signed_event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53125ECD2D700A9B075 /* signed_event.pb.swift */; };
-		0138F53625ECD2D700A9B075 /* check_in.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53225ECD2D700A9B075 /* check_in.pb.swift */; };
-		0138F53725ECD2D700A9B075 /* event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53325ECD2D700A9B075 /* event.pb.swift */; };
-		0138F54825ECD44300A9B075 /* app_features.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53C25ECD44300A9B075 /* app_features.pb.swift */; };
-		0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */; };
-		0138F54A25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */; };
-		0138F54B25ECD44300A9B075 /* semantic_version.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */; };
-		0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */; };
-		0138F54D25ECD44300A9B075 /* app_config_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */; };
-		0138F54E25ECD44300A9B075 /* key_download_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */; };
-		0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */; };
-		0138F55025ECD44300A9B075 /* exposure_detection_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */; };
-		0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */; };
-		0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */; };
-		0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */; };
-		0138F5B425ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
-		0138F5B525ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -914,6 +914,23 @@
 		0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCard.swift; sourceTree = "<group>"; };
 		0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModel.swift; sourceTree = "<group>"; };
 		0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_Statistics+SupportedIDs.swift"; sourceTree = "<group>"; };
+		0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in_export.pb.swift; sourceTree = "<group>"; };
+		0138F53125ECD2D700A9B075 /* signed_event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signed_event.pb.swift; sourceTree = "<group>"; };
+		0138F53225ECD2D700A9B075 /* check_in.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in.pb.swift; sourceTree = "<group>"; };
+		0138F53325ECD2D700A9B075 /* event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event.pb.swift; sourceTree = "<group>"; };
+		0138F53C25ECD44300A9B075 /* app_features.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_features.pb.swift; sourceTree = "<group>"; };
+		0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = semantic_version.pb.swift; sourceTree = "<group>"; };
+		0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_ppa_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_config_ios.pb.swift; sourceTree = "<group>"; };
+		0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = key_download_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_els_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event_registration_parameters.pb.swift; sourceTree = "<group>"; };
+		0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionRiskValueMapping.swift; sourceTree = "<group>"; };
+		0138F5B325ED3B8800A9B075 /* default_app_config_115 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_115; sourceTree = "<group>"; };
 		0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsTableViewCell.swift; sourceTree = "<group>"; };
 		0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTraceLocationsTableViewCell.xib; sourceTree = "<group>"; };
 		0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsCellModel.swift; sourceTree = "<group>"; };
@@ -939,23 +956,6 @@
 		0138F6E225F661DE00A9B075 /* TraceLocationPrintVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationPrintVersionViewController.swift; sourceTree = "<group>"; };
 		0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewModel.swift; sourceTree = "<group>"; };
 		0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewController.swift; sourceTree = "<group>"; };
-		0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in_export.pb.swift; sourceTree = "<group>"; };
-		0138F53125ECD2D700A9B075 /* signed_event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signed_event.pb.swift; sourceTree = "<group>"; };
-		0138F53225ECD2D700A9B075 /* check_in.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in.pb.swift; sourceTree = "<group>"; };
-		0138F53325ECD2D700A9B075 /* event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event.pb.swift; sourceTree = "<group>"; };
-		0138F53C25ECD44300A9B075 /* app_features.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_features.pb.swift; sourceTree = "<group>"; };
-		0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = semantic_version.pb.swift; sourceTree = "<group>"; };
-		0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_ppa_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_config_ios.pb.swift; sourceTree = "<group>"; };
-		0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = key_download_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_els_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = exposure_detection_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = risk_calculation_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event_registration_parameters.pb.swift; sourceTree = "<group>"; };
-		0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionRiskValueMapping.swift; sourceTree = "<group>"; };
-		0138F5B325ED3B8800A9B075 /* default_app_config_115 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_115; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1877,6 +1877,37 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
+		0138F52F25ECD2D700A9B075 /* evreg */ = {
+			isa = PBXGroup;
+			children = (
+				0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */,
+				0138F53125ECD2D700A9B075 /* signed_event.pb.swift */,
+				0138F53225ECD2D700A9B075 /* check_in.pb.swift */,
+				0138F53325ECD2D700A9B075 /* event.pb.swift */,
+			);
+			name = evreg;
+			path = ../../../gen/output/internal/evreg;
+			sourceTree = "<group>";
+		};
+		0138F53B25ECD44300A9B075 /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				0138F53C25ECD44300A9B075 /* app_features.pb.swift */,
+				0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */,
+				0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */,
+				0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */,
+				0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */,
+				0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */,
+				0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */,
+				0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */,
+				0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */,
+				0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */,
+				0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */,
+			);
+			name = v2;
+			path = ../../../gen/output/internal/v2;
+			sourceTree = "<group>";
+		};
 		0138F5EC25EFDBC300A9B075 /* TraceLocations */ = {
 			isa = PBXGroup;
 			children = (
@@ -1986,37 +2017,6 @@
 				0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */,
 			);
 			path = Configuration;
-            sourceTree = "<group>";
-        };
-		0138F52F25ECD2D700A9B075 /* evreg */ = {
-			isa = PBXGroup;
-			children = (
-				0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */,
-				0138F53125ECD2D700A9B075 /* signed_event.pb.swift */,
-				0138F53225ECD2D700A9B075 /* check_in.pb.swift */,
-				0138F53325ECD2D700A9B075 /* event.pb.swift */,
-			);
-			name = evreg;
-			path = ../../../gen/output/internal/evreg;
-			sourceTree = "<group>";
-		};
-		0138F53B25ECD44300A9B075 /* v2 */ = {
-			isa = PBXGroup;
-			children = (
-				0138F53C25ECD44300A9B075 /* app_features.pb.swift */,
-				0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */,
-				0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */,
-				0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */,
-				0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */,
-				0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */,
-				0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */,
-				0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */,
-				0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */,
-				0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */,
-				0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */,
-			);
-			name = v2;
-			path = ../../../gen/output/internal/v2;
 			sourceTree = "<group>";
 		};
 		014086B52588F8EB00E9E5B2 /* __test__ */ = {
@@ -3369,10 +3369,9 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				0138F61825EFE61400A9B075 /* TraceLocations */,
-				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
+				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
 				BA63815825E69D1000A642BB /* Containers */,
 				BA0073BB25D189E50036DFDD /* DataDonation */,
@@ -3393,6 +3392,7 @@
 				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				51D420C224583D7B00AD70CA /* Settings */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
+				0138F61825EFE61400A9B075 /* TraceLocations */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
 			);
 			path = Scenes;
