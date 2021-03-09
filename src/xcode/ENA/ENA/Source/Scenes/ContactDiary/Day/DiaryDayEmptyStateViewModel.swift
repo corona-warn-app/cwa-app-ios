@@ -4,7 +4,7 @@
 
 import UIKit
 
-struct DiaryDayEmptyViewModel {
+struct DiaryDayEmptyStateViewModel: EmptyStateViewModel {
 
 	// MARK: - Init
 

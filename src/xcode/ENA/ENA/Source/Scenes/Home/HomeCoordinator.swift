@@ -15,6 +15,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private var settingsController: SettingsViewController?
 
+	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
@@ -93,6 +94,9 @@ class HomeCoordinator: RequiresAppDependencies {
 				},
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
+				},
+				onTraceLocationsCellTap: { [weak self] in
+					self?.showTraceLocations()
 				},
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
@@ -239,6 +243,15 @@ class HomeCoordinator: RequiresAppDependencies {
 			UINavigationController(rootViewController: statisticsInfoController),
 			animated: true
 		)
+	}
+
+	private func showTraceLocations() {
+		traceLocationsCoordinator = TraceLocationsCoordinator(
+			store: store,
+			parentNavigationController: rootViewController
+		)
+
+		traceLocationsCoordinator?.start()
 	}
 
 	private func showInviteFriends() {

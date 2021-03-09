@@ -38,6 +38,31 @@
 		0138F56125ECDC7700A9B075 /* TransmissionRiskValueMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */; };
 		0138F5B425ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
 		0138F5B525ED3B8800A9B075 /* default_app_config_115 in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5B325ED3B8800A9B075 /* default_app_config_115 */; };
+		0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */; };
+		0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */; };
+		0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */; };
+		0138F5FC25EFDBCD00A9B075 /* HomeTraceLocationsCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F5F125EFDBC300A9B075 /* HomeTraceLocationsCellModelTests.swift */; };
+		0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */; };
+		0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */; };
+		0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */; };
+		0138F65525F1174200A9B075 /* TraceLocationsOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */; };
+		0138F65625F1174200A9B075 /* AddTraceLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64425F1174000A9B075 /* AddTraceLocationTableViewCell.swift */; };
+		0138F65A25F1174200A9B075 /* AddTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64325F1174000A9B075 /* AddTraceLocationCellModel.swift */; };
+		0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */; };
+		0138F68F25F21C8000A9B075 /* TraceLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68D25F21C8000A9B075 /* TraceLocationTableViewCell.swift */; };
+		0138F69025F21C8000A9B075 /* TraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */; };
+		0138F6A025F21CC600A9B075 /* TraceLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F68C25F21C8000A9B075 /* TraceLocationTableViewCell.xib */; };
+		0138F6A425F2220300A9B075 /* AddTraceLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F64225F1174000A9B075 /* AddTraceLocationTableViewCell.xib */; };
+		0138F6AE25F25B1400A9B075 /* TraceLocationsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */; };
+		0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */; };
+		0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */; };
+		0138F6CE25F6134100A9B075 /* TraceLocationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6C625F36C5900A9B075 /* TraceLocationDetailsViewModel.swift */; };
+		0138F6D825F6180100A9B075 /* TraceLocationTypeSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6D425F617C700A9B075 /* TraceLocationTypeSelectionViewModel.swift */; };
+		0138F6DC25F6183500A9B075 /* TraceLocationTypeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6D325F6179000A9B075 /* TraceLocationTypeSelectionViewController.swift */; };
+		0138F6F925F66E8D00A9B075 /* TraceLocationPrintVersionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6E225F661DE00A9B075 /* TraceLocationPrintVersionViewController.swift */; };
+		0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6E125F661DE00A9B075 /* TraceLocationPrintVersionViewModel.swift */; };
+		0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */; };
+		0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -146,8 +171,8 @@
 		01B7232B24F815B00064C0EB /* MultipleChoiceOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */; };
 		01B7232D24F8E0260064C0EB /* MultipleChoiceChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */; };
 		01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B7232E24FE4F080064C0EB /* OptionGroupViewModel.swift */; };
-		01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6425821CD200A3E3BC /* DiaryDayEmptyView.swift */; };
-		01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6C25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift */; };
+		01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6425821CD200A3E3BC /* EmptyStateView.swift */; };
+		01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72B6C25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift */; };
 		01B72BA6258360FF00A3E3BC /* DiaryDayEmptyViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72BA5258360CD00A3E3BC /* DiaryDayEmptyViewModelTest.swift */; };
 		01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72BBF2583875600A3E3BC /* DiaryDayViewModelTest.swift */; };
 		01B72BF22583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B72BEE2583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift */; };
@@ -911,6 +936,31 @@
 		0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event_registration_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F56025ECDC7700A9B075 /* TransmissionRiskValueMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransmissionRiskValueMapping.swift; sourceTree = "<group>"; };
 		0138F5B325ED3B8800A9B075 /* default_app_config_115 */ = {isa = PBXFileReference; lastKnownFileType = file; path = default_app_config_115; sourceTree = "<group>"; };
+		0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsTableViewCell.swift; sourceTree = "<group>"; };
+		0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTraceLocationsTableViewCell.xib; sourceTree = "<group>"; };
+		0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsCellModel.swift; sourceTree = "<group>"; };
+		0138F5F125EFDBC300A9B075 /* HomeTraceLocationsCellModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTraceLocationsCellModelTests.swift; sourceTree = "<group>"; };
+		0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsCoordinator.swift; sourceTree = "<group>"; };
+		0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewModel.swift; sourceTree = "<group>"; };
+		0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
+		0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModel.swift; sourceTree = "<group>"; };
+		0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewController.swift; sourceTree = "<group>"; };
+		0138F64225F1174000A9B075 /* AddTraceLocationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTraceLocationTableViewCell.xib; sourceTree = "<group>"; };
+		0138F64325F1174000A9B075 /* AddTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModel.swift; sourceTree = "<group>"; };
+		0138F64425F1174000A9B075 /* AddTraceLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationTableViewCell.swift; sourceTree = "<group>"; };
+		0138F68C25F21C8000A9B075 /* TraceLocationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationTableViewCell.xib; sourceTree = "<group>"; };
+		0138F68D25F21C8000A9B075 /* TraceLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTableViewCell.swift; sourceTree = "<group>"; };
+		0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModel.swift; sourceTree = "<group>"; };
+		0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewController.swift; sourceTree = "<group>"; };
+		0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewModel.swift; sourceTree = "<group>"; };
+		0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsViewController.swift; sourceTree = "<group>"; };
+		0138F6C625F36C5900A9B075 /* TraceLocationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsViewModel.swift; sourceTree = "<group>"; };
+		0138F6D325F6179000A9B075 /* TraceLocationTypeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeSelectionViewController.swift; sourceTree = "<group>"; };
+		0138F6D425F617C700A9B075 /* TraceLocationTypeSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeSelectionViewModel.swift; sourceTree = "<group>"; };
+		0138F6E125F661DE00A9B075 /* TraceLocationPrintVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationPrintVersionViewModel.swift; sourceTree = "<group>"; };
+		0138F6E225F661DE00A9B075 /* TraceLocationPrintVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationPrintVersionViewController.swift; sourceTree = "<group>"; };
+		0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewModel.swift; sourceTree = "<group>"; };
+		0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewController.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -1011,8 +1061,8 @@
 		01B7232A24F815B00064C0EB /* MultipleChoiceOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceOptionView.swift; sourceTree = "<group>"; };
 		01B7232C24F8E0260064C0EB /* MultipleChoiceChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceChoiceView.swift; sourceTree = "<group>"; };
 		01B7232E24FE4F080064C0EB /* OptionGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionGroupViewModel.swift; sourceTree = "<group>"; };
-		01B72B6425821CD200A3E3BC /* DiaryDayEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyView.swift; sourceTree = "<group>"; };
-		01B72B6C25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyViewModel.swift; sourceTree = "<group>"; };
+		01B72B6425821CD200A3E3BC /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		01B72B6C25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		01B72BA5258360CD00A3E3BC /* DiaryDayEmptyViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEmptyViewModelTest.swift; sourceTree = "<group>"; };
 		01B72BBF2583875600A3E3BC /* DiaryDayViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModelTest.swift; sourceTree = "<group>"; };
 		01B72BDC2583AB1400A3E3BC /* DiaryEditEntriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryEditEntriesViewController.xib; sourceTree = "<group>"; };
@@ -1868,6 +1918,117 @@
 			path = ../../../gen/output/internal/v2;
 			sourceTree = "<group>";
 		};
+		0138F5EC25EFDBC300A9B075 /* TraceLocations */ = {
+			isa = PBXGroup;
+			children = (
+				0138F5F025EFDBC300A9B075 /* __tests__ */,
+				0138F5ED25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift */,
+				0138F5EE25EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib */,
+				0138F5EF25EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift */,
+			);
+			path = TraceLocations;
+			sourceTree = "<group>";
+		};
+		0138F5F025EFDBC300A9B075 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				0138F5F125EFDBC300A9B075 /* HomeTraceLocationsCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		0138F61825EFE61400A9B075 /* TraceLocations */ = {
+			isa = PBXGroup;
+			children = (
+				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
+				0138F6A825F25B1400A9B075 /* Info */,
+				0138F63A25F1173E00A9B075 /* Overview */,
+				0138F6C425F36C3F00A9B075 /* Details */,
+				0138F6E025F661DE00A9B075 /* PrintVersion */,
+				0138F6D225F6177500A9B075 /* TypeSelection */,
+				0138F6FE25F6782F00A9B075 /* Configuration */,
+			);
+			path = TraceLocations;
+			sourceTree = "<group>";
+		};
+		0138F63025F114E700A9B075 /* EmptyStateView */ = {
+			isa = PBXGroup;
+			children = (
+				01B72B6425821CD200A3E3BC /* EmptyStateView.swift */,
+				0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */,
+			);
+			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
+		0138F63A25F1173E00A9B075 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
+				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
+				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
+				0138F64125F1173F00A9B075 /* Cells */,
+			);
+			path = Overview;
+			sourceTree = "<group>";
+		};
+		0138F64125F1173F00A9B075 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0138F64425F1174000A9B075 /* AddTraceLocationTableViewCell.swift */,
+				0138F64225F1174000A9B075 /* AddTraceLocationTableViewCell.xib */,
+				0138F64325F1174000A9B075 /* AddTraceLocationCellModel.swift */,
+				0138F68D25F21C8000A9B075 /* TraceLocationTableViewCell.swift */,
+				0138F68C25F21C8000A9B075 /* TraceLocationTableViewCell.xib */,
+				0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0138F6A825F25B1400A9B075 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */,
+				0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		0138F6C425F36C3F00A9B075 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */,
+				0138F6C625F36C5900A9B075 /* TraceLocationDetailsViewModel.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		0138F6D225F6177500A9B075 /* TypeSelection */ = {
+			isa = PBXGroup;
+			children = (
+				0138F6D325F6179000A9B075 /* TraceLocationTypeSelectionViewController.swift */,
+				0138F6D425F617C700A9B075 /* TraceLocationTypeSelectionViewModel.swift */,
+			);
+			path = TypeSelection;
+			sourceTree = "<group>";
+		};
+		0138F6E025F661DE00A9B075 /* PrintVersion */ = {
+			isa = PBXGroup;
+			children = (
+				0138F6E225F661DE00A9B075 /* TraceLocationPrintVersionViewController.swift */,
+				0138F6E125F661DE00A9B075 /* TraceLocationPrintVersionViewModel.swift */,
+			);
+			path = PrintVersion;
+			sourceTree = "<group>";
+		};
+		0138F6FE25F6782F00A9B075 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */,
+				0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		014086B52588F8EB00E9E5B2 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1970,6 +2131,7 @@
 				01909862257E63810065D050 /* DiaryDayViewController.swift */,
 				01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */,
 				01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */,
+				01B72B6C25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift */,
 				01F2A5B62581177100DA96A6 /* Cells */,
 				01B72B6325821C9B00A3E3BC /* Views */,
 				945CD04C25DE592E007ADB4F /* DiaryDayNotesInfoViewController.swift */,
@@ -2122,8 +2284,6 @@
 		01B72B6325821C9B00A3E3BC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				01B72B6425821CD200A3E3BC /* DiaryDayEmptyView.swift */,
-				01B72B6C25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift */,
 				01887D3A25DAB4E300FCAFB2 /* DiarySegmentedControl.swift */,
 			);
 			path = Views;
@@ -2286,6 +2446,7 @@
 		01EA176E2590F02F00E98E02 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0138F5EC25EFDBC300A9B075 /* TraceLocations */,
 				01EA17BF2591346300E98E02 /* ExposureLogging */,
 				01A4DC5525922EB0007D5794 /* Risk */,
 				01A4DC8025922EC3007D5794 /* TestResult */,
@@ -3134,6 +3295,7 @@
 				B10F9B88249961B500C418F4 /* __tests__ */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
+				0138F63025F114E700A9B075 /* EmptyStateView */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
@@ -3217,9 +3379,9 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				71176E30248957B1004B0C9F /* App */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
+				BAA4D72E25E95B1D00821B5C /* CheckIn */,
 				0190982A257E5A9D0065D050 /* ContactDiary */,
 				BA63815825E69D1000A642BB /* Containers */,
 				BA0073BB25D189E50036DFDD /* DataDonation */,
@@ -3240,6 +3402,7 @@
 				BA69A7D625CD782900023265 /* SelectValueViewController */,
 				51D420C224583D7B00AD70CA /* Settings */,
 				016E260C25AF43440077C64C /* StatisticsInfo */,
+				0138F61825EFE61400A9B075 /* TraceLocations */,
 				EBB92C70259E10BD00013B41 /* UpdateOS */,
 			);
 			path = Scenes;
@@ -5061,6 +5224,7 @@
 				01D0268D258B9CF800B6389A /* ExposureDetectionRiskCell.xib in Resources */,
 				01A4DCEA25926938007D5794 /* HomeListItemView.xib in Resources */,
 				01A4DCDE2592692D007D5794 /* HomeImageItemView.xib in Resources */,
+				0138F6A425F2220300A9B075 /* AddTraceLocationTableViewCell.xib in Resources */,
 				01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
@@ -5077,6 +5241,7 @@
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
+				0138F6A025F21CC600A9B075 /* TraceLocationTableViewCell.xib in Resources */,
 				01D02733258BD36800B6389A /* MainSettingsCell.xib in Resources */,
 				BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
@@ -5087,6 +5252,7 @@
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
 				01D02697258BA0E000B6389A /* ExposureDetectionLoadingCell.xib in Resources */,
+				0138F5F325EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.xib in Resources */,
 				01D02688258B9CB200B6389A /* ExposureDetectionHeaderCell.xib in Resources */,
 				AB7DE73A25C8528700C52B3F /* ExposureDetectionSurveyTableViewCell.xib in Resources */,
 				01D026A5258BA20E00B6389A /* ExposureDetectionHotlineCell.xib in Resources */,
@@ -5187,7 +5353,7 @@
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
-				01B72B6525821CD200A3E3BC /* DiaryDayEmptyView.swift in Sources */,
+				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
 				0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
 				0138F54F25ECD44300A9B075 /* ppdd_els_parameters.pb.swift in Sources */,
@@ -5209,6 +5375,7 @@
 				017AD0C9259BBD2E00FA2B3F /* HomeTestResultCellModel.swift in Sources */,
 				BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */,
 				35E121DA25B273280098D754 /* card_header.pb.swift in Sources */,
+				0138F5F225EFDBC300A9B075 /* HomeTraceLocationsTableViewCell.swift in Sources */,
 				35E121DB25B273280098D754 /* statistics.pb.swift in Sources */,
 				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				BA4C268C25EE8D2A00E0505F /* CheckInsViewModel.swift in Sources */,
@@ -5261,6 +5428,7 @@
 				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				BA4C269F25EE9DC700E0505F /* CheckInDetailViewController.swift in Sources */,
+				0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */,
 				01A4DCB6259264F9007D5794 /* HomeThankYouCellModel.swift in Sources */,
 				0144BDE1250924CC00B0857C /* SymptomsOnset.swift in Sources */,
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
@@ -5343,6 +5511,7 @@
 				BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */,
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
+				0138F65A25F1174200A9B075 /* AddTraceLocationCellModel.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
@@ -5414,6 +5583,7 @@
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				BA4C26A425EE9DF600E0505F /* CheckInDetailViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
+				0138F68F25F21C8000A9B075 /* TraceLocationTableViewCell.swift in Sources */,
 				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,
@@ -5449,6 +5619,7 @@
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
 				01F2A563257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift in Sources */,
+				0138F6AE25F25B1400A9B075 /* TraceLocationsInfoViewController.swift in Sources */,
 				01A4DC6F25922EB4007D5794 /* HomeListItemView.swift in Sources */,
 				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
@@ -5458,6 +5629,7 @@
 				AB7420CB251B7D93006666AC /* DeltaOnboardingV15ViewController.swift in Sources */,
 				B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
+				0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */,
 				017AD14625A4546400FA2B3F /* UITableViewController+Enum.swift in Sources */,
 				EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */,
 				354E305924EFF26E00526C9F /* Country.swift in Sources */,
@@ -5469,11 +5641,13 @@
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */,
+				0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */,
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
 				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
 				0190986A257E64A70065D050 /* DiaryOverviewTableViewController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */,
+				0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */,
 				945CCFE625D68C2E007ADB4F /* AppOnboardingNavigationController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift in Sources */,
 				0138F54E25ECD44300A9B075 /* key_download_parameters.pb.swift in Sources */,
@@ -5515,6 +5689,7 @@
 				941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */,
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
+				0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */,
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
 				0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
@@ -5534,10 +5709,12 @@
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
 				AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */,
 				5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */,
+				0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */,
 				019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */,
 				EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */,
 				01F2A5B92581181A00DA96A6 /* DiaryDayAddTableViewCell.swift in Sources */,
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
+				0138F6CE25F6134100A9B075 /* TraceLocationDetailsViewModel.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
@@ -5566,6 +5743,7 @@
 				500DB4CC25CDDECF0038DFED /* PPASResponse.swift in Sources */,
 				505F506E25C833AA004920EB /* edus_otp_request_ios.pb.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
+				0138F6DC25F6183500A9B075 /* TraceLocationTypeSelectionViewController.swift in Sources */,
 				CDA262F824AB808800612E15 /* HomeCoordinator.swift in Sources */,
 				503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */,
 				ABE9613425EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift in Sources */,
@@ -5578,7 +5756,7 @@
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
 				01C2D43E2501225100FB23BF /* MockExposureSubmissionService.swift in Sources */,
-				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyViewModel.swift in Sources */,
+				01B72B6D25821D2800A3E3BC /* DiaryDayEmptyStateViewModel.swift in Sources */,
 				505F508325C897B3004920EB /* OTPError.swift in Sources */,
 				EBDE11BB255EC34C008C0F51 /* DMDeviceTimeCheckViewModel.swift in Sources */,
 				5222AA68255ECFE100F338C7 /* ExposureSubmissionTestResultConsentViewController.swift in Sources */,
@@ -5593,6 +5771,7 @@
 				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
+				0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */,
 				BA4693AB25C82EC8004B2DBB /* DMPPACViewController.swift in Sources */,
 				35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */,
 				94B255A62551B7C800649B4C /* WarnOthersReminder.swift in Sources */,
@@ -5609,7 +5788,9 @@
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
+				0138F65625F1174200A9B075 /* AddTraceLocationTableViewCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
+				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
 				50E3BE5A250127DF0033E2C7 /* AppInformationDynamicAction.swift in Sources */,
 				9488C3012521EE8E00504648 /* DeltaOnboardingNavigationController.swift in Sources */,
@@ -5628,6 +5809,7 @@
 				2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */,
 				016961992540574700FF92E3 /* ExposureSubmissionTestResultViewModel.swift in Sources */,
 				71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */,
+				0138F69025F21C8000A9B075 /* TraceLocationCellModel.swift in Sources */,
 				B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */,
 				5222AA70255ED8E000F338C7 /* ExposureSubmissionTestResultConsentViewModel.swift in Sources */,
 				AB7E2A80255ACC06005C90F6 /* Date+Utils.swift in Sources */,
@@ -5649,6 +5831,7 @@
 				EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */,
 				AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */,
 				01A4DCFE25926A66007D5794 /* HomeImageItemViewModel.swift in Sources */,
+				0138F65525F1174200A9B075 /* TraceLocationsOverviewViewModel.swift in Sources */,
 				01EA17932590F03600E98E02 /* HomeExposureLoggingTableViewCell.swift in Sources */,
 				BAF2DD5725C9BAF700D7DFB7 /* DMButtonCellViewModel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
@@ -5673,6 +5856,7 @@
 				50EACAA325E68672004DDADB /* PPAnalyticsData.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
+				0138F6D825F6180100A9B075 /* TraceLocationTypeSelectionViewModel.swift in Sources */,
 				BA6C8AC4254D650C008344F5 /* NormalizedTimeToRiskLevelMapping.swift in Sources */,
 				BAB6C7F925C462E600E042FB /* PPACToken.swift in Sources */,
 				3539DAD1252B353C00489B1A /* CachedAppConfigurationMock.swift in Sources */,
@@ -5685,6 +5869,8 @@
 				358249EE25E910AF00BFF303 /* LogDataItem.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
+				0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */,
+				0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 				FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */,
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
@@ -5706,6 +5892,7 @@
 				BADB7C0225F6660D001065FA /* CheckInCellViewModel.swift in Sources */,
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
 				BA38183425CB104900C1DB6C /* ConfigureAbleCell.swift in Sources */,
+				0138F6F925F66E8D00A9B075 /* TraceLocationPrintVersionViewController.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
@@ -5833,6 +6020,7 @@
 				0120ECFE2587631200F78944 /* DiaryDayAddCellModelTest.swift in Sources */,
 				2FD473BF251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift in Sources */,
 				AB68881625DA6F2200907465 /* ContactDiaryMigration1To2Tests.swift in Sources */,
+				0138F5FC25EFDBCD00A9B075 /* HomeTraceLocationsCellModelTests.swift in Sources */,
 				356FBF49255EC27A00959346 /* CacheAppConfigMockTests.swift in Sources */,
 				A372DA4124BF33F9003248BB /* MockExposureSubmissionCoordinatorDelegate.swift in Sources */,
 				01CF95DD253083B2007B72F7 /* CodableExposureDetectionSummary+Helpers.swift in Sources */,

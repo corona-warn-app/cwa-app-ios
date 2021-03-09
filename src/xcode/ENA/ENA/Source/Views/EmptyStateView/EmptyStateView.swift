@@ -4,7 +4,7 @@
 
 import UIKit
 
-class DiaryDayEmptyView: UIView {
+class EmptyStateView: UIView {
 
 	// MARK: - Init
 
@@ -18,8 +18,8 @@ class DiaryDayEmptyView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	init(entryType: DiaryEntryType) {
-		self.viewModel = DiaryDayEmptyViewModel(entryType: entryType)
+	init(viewModel: EmptyStateViewModel) {
+		self.viewModel = viewModel
 
 		super.init(frame: .zero)
 
@@ -28,7 +28,7 @@ class DiaryDayEmptyView: UIView {
 
 	// MARK: - Private
 
-	private let viewModel: DiaryDayEmptyViewModel
+	private let viewModel: EmptyStateViewModel
 
 	private func setUp() {
 		let stackView = UIStackView()
