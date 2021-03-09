@@ -66,8 +66,8 @@ class HomeTestResultCellModel {
 			} else if UserDefaults.standard.string(forKey: "showNegativeTest") == "YES" {
 				configureTestResultNegative()
 				return
-			} else if UserDefaults.standard.string(forKey: "showPositiveTest") == "YES" {
-				configureTestResultAvailable()
+			} else if UserDefaults.standard.string(forKey: "showLoadingTest") == "YES" {
+				configureLoading()
 				return
 			}
 		}
