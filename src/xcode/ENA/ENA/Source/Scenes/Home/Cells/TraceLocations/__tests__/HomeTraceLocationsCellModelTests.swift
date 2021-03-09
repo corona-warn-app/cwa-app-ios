@@ -18,4 +18,5 @@ class HomeTraceLocationsCellModelTests: XCTestCase {
 		XCTAssertEqual(cellModel.image, UIImage(named: "Illu_TraceLocations"))
 		XCTAssertEqual(cellModel.accessibilityIdentifier, AccessibilityIdentifiers.Home.traceLocationsCardButton)
 	}
+
 }
