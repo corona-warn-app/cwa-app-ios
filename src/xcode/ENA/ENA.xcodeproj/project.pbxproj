@@ -794,6 +794,9 @@
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */; };
 		EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */; };
+		EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */; };
+		EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */; };
+		EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */ = {isa = PBXBuildFile; fileRef = EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */; };
 		EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */; };
 		EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */; };
 		EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */; };
@@ -814,7 +817,6 @@
 		EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */; };
 		EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */; };
 		EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* UpdateOSView.swift */; };
-		EBCB270F25EBE1A500B96123 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EBCB270E25EBE1A500B96123 /* qr-code-print-template.pdf */; };
 		EBCB271B25EBE2D500B96123 /* QRCodePlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */; };
@@ -1684,6 +1686,9 @@
 		EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewBulletPointCell.swift; sourceTree = "<group>"; };
 		EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewController.swift; sourceTree = "<group>"; };
 		EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewControllerTests.swift; sourceTree = "<group>"; };
+		EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImageTests.swift"; sourceTree = "<group>"; };
+		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
+		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
 		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewController.swift; sourceTree = "<group>"; };
@@ -1701,7 +1706,6 @@
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
-		EBCB270E25EBE1A500B96123 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
 		EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePlayground.swift; sourceTree = "<group>"; };
 		EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImage.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
@@ -3016,6 +3020,7 @@
 		71176E2C24891BCF004B0C9F /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				EB54936F25F7CCC100A3C459 /* resources */,
 				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
 				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_FAQ_URL_Tests.swift */,
@@ -3024,6 +3029,7 @@
 				B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */,
 				BAA4D71C25E94D6000821B5C /* UIImage+resizeTests.swift */,
 				2FC0356E24B342FA00E234AC /* UIViewcontroller+AlertTest.swift */,
+				EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -4688,7 +4694,6 @@
 			isa = PBXGroup;
 			children = (
 				EB0F740B25E93C81003BFAE7 /* __tests__ */,
-				EBCB270825EBE16500B96123 /* resources */,
 				EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */,
 			);
 			path = "Event Registration";
@@ -4732,6 +4737,15 @@
 			path = BackgroundAppRefresh;
 			sourceTree = "<group>";
 		};
+		EB54936F25F7CCC100A3C459 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */,
+				EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		EBA403A82588F72A00D1F039 /* iOS12Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -4756,14 +4770,6 @@
 				EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */,
 			);
 			path = UpdateOS;
-			sourceTree = "<group>";
-		};
-		EBCB270825EBE16500B96123 /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				EBCB270E25EBE1A500B96123 /* qr-code-print-template.pdf */,
-			);
-			path = resources;
 			sourceTree = "<group>";
 		};
 		EBD2D07C25A86144006E4220 /* __tests__ */ = {
@@ -5077,7 +5083,6 @@
 				711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
 				01A6EFCB258BE9C60001D8C2 /* NotificationSettingsOffTableViewCell.xib in Resources */,
 				01D02710258BC17500B6389A /* InviteFriendsViewController.xib in Resources */,
-				EBCB270F25EBE1A500B96123 /* qr-code-print-template.pdf in Resources */,
 				35D16DDF2567FB980069AD1B /* DynamicLegalCell.xib in Resources */,
 				710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
@@ -5098,6 +5103,8 @@
 			files = (
 				BA6C8B17254D729A008344F5 /* exposure-windows-risk-calculation.json in Resources */,
 				BA7D178925D5590C006B9EBF /* testDataInvalid.json in Resources */,
+				EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */,
+				EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */,
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
 				01678E9C249A5F08003B048B /* testStore.sqlite in Resources */,
 				AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */,
@@ -5849,6 +5856,7 @@
 				BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
+				EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */,
 				8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */,
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
