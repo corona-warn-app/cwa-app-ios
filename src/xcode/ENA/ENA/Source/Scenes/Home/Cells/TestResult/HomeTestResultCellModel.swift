@@ -53,6 +53,21 @@ class HomeTestResultCellModel {
 	private var subscriptions = Set<AnyCancellable>()
 
 	private func configure(for testResult: TestResult?) {
+		#if DEBUG
+		if isUITesting {
+			// adding this for launch arguments to fake test results on home screen
+			if UserDefaults.standard.string(forKey: "showInvalidTest") == "YES" {
+				configureTestResultInvalid()
+			} else if UserDefaults.standard.string(forKey: "showPendingTest") == "YES" {
+				configureTestResultAvailable()
+			} else if UserDefaults.standard.string(forKey: "showNegativeTest") == "YES" {
+				configureTestResultNegative()
+			} else if UserDefaults.standard.string(forKey: "showPositiveTest") == "YES" {
+				configureTestResultAvailable()
+			}
+		}
+		#endif
+
 		switch testResult {
 		case .none: configureSubmit()
 		case .invalid: configureTestResultInvalid()
