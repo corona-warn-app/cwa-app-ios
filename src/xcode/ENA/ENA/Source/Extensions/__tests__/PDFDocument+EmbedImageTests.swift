@@ -20,7 +20,7 @@ class PDFDocument_EmbedImageTests: XCTestCase {
 				
 		let image = UIImage(contentsOfFile: testBundle.path(forResource: "qr-code-to-embed", ofType: "png")!)
 		
-		pdfDocument.embed(image: image!, at: CGPoint(x: 100, y: 100))
+		try pdfDocument.embed(image: image!, at: CGPoint(x: 100, y: 100))
     }
 	// swiftlint:enable force_unwrapping
 

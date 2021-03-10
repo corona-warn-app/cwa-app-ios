@@ -4,15 +4,20 @@
 
 import PDFKit
 
+enum PDFEmbeddingError: Error {
+	case noPage // PDF does not contain a Page where the Image could be embedded
+	case pageCreation // Could not create a new Page containing the image
+}
+
 extension PDFDocument {
 	
 	/// Embeds an Image on the first Page on given position
 	/// Inspired  by https://pspdfkit.com/blog/2019/insert-image-into-pdf-with-swift/
-	func embed(image: UIImage, at position: CGPoint) {
+	func embed(image: UIImage, at position: CGPoint) throws {
 		
 		// `page` is of type `PDFPage`.
 		guard let page = page(at: 0) else {
-			return	// No Pages so we cant insert anything
+			throw PDFEmbeddingError.noPage	// No Pages so we cant insert anything
 		}
 		
 		// Extract the crop box of the PDF. We need this to create an appropriate graphics context.
@@ -40,7 +45,7 @@ extension PDFDocument {
 		
 		// Create a new `PDFPage` with the image that was generated above.
 		guard let newPage = PDFPage(image: image) else {
-			return // Unable to create new PDFPage
+			throw PDFEmbeddingError.pageCreation // Unable to create new PDFPage
 		}
 		
 		// Add the existing annotations from the existing page to the new page we created.
