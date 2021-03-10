@@ -310,7 +310,8 @@ final class RiskProvider: RiskProviding {
 
 		do {
 			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
+			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 			let risk = Risk(
 				activeTracing: store.tracingStatusHistory.activeTracing(),
 				riskCalculationResult: riskCalculationResult,
