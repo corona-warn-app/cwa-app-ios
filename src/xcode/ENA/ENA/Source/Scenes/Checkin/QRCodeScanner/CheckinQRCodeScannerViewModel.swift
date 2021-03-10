@@ -6,7 +6,7 @@ import Foundation
 import AVFoundation
 import OpenCombine
 
-final class CheckInQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 

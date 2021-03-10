@@ -4,9 +4,12 @@
 
 import Foundation
 
-final class CheckInCellViewModel {
+final class CheckinCellViewModel {
 
 	// MARK: - Init
+
+	init() {
+	}
 
 	// MARK: - Overrides
 

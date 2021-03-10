@@ -5,7 +5,7 @@
 import Foundation
 import AVFoundation
 
-final class CheckInsViewModel {
+final class CheckinsViewModel {
 
 	// MARK: - Init
 
@@ -49,8 +49,8 @@ final class CheckInsViewModel {
 		return StatusCellViewModel()
 	}
 
-	func checkInCellViewModel(index: Int) -> CheckInCellViewModel {
-		CheckInCellViewModel()
+	func checkInCellViewModel(index: Int) -> CheckinCellViewModel {
+		CheckinCellViewModel()
 	}
 
 

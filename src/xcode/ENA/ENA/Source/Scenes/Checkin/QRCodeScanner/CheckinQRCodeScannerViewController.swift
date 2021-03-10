@@ -6,16 +6,16 @@ import UIKit
 import AVFoundation
 import OpenCombine
 
-class CheckInQRCodeScannerViewController: UIViewController {
+class CheckinQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Init
 
 	init(
-		didScanCheckIn: @escaping (Checkin) -> Void,
+		didScanCheckin: @escaping (Checkin) -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.didScanCheckIn = didScanCheckIn
-		self.viewModel = CheckInQRCodeScannerViewModel()
+		self.didScanCheckin = didScanCheckin
+		self.viewModel = CheckinQRCodeScannerViewModel()
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -48,10 +48,10 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let didScanCheckIn: (Checkin) -> Void
+	private let didScanCheckin: (Checkin) -> Void
 	private let dismiss: () -> Void
 
-	private let viewModel: CheckInQRCodeScannerViewModel
+	private let viewModel: CheckinQRCodeScannerViewModel
 	private var previewLayer: AVCaptureVideoPreviewLayer!
 
 	private func setupView() {
@@ -76,7 +76,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 			}
 			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			self.viewModel.deactivateScanning()
-			self.didScanCheckIn(checkin)
+			self.didScanCheckin(checkin)
 		}
 
 		viewModel.onError = { [weak self] error in

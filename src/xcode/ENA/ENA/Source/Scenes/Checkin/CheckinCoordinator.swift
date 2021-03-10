@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-final class CheckInCoordinator {
+final class CheckinCoordinator {
 
 	// MARK: - Init
 
@@ -14,7 +14,7 @@ final class CheckInCoordinator {
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {
-		let checkInsTableViewController = CheckInsTableViewController(
+		let checkInsTableViewController = CheckinsTableViewController(
 			showQRCodeScanner: showQRCodeScanner,
 			showSettings: showSettings
 		)
@@ -25,9 +25,9 @@ final class CheckInCoordinator {
 	// MARK: - Private
 
 	private func showQRCodeScanner() {
-		let qrCodeScanner = CheckInQRCodeScannerViewController(
-			didScanCheckIn: { [weak self] checkin in
-				self?.showCheckInDetails(checkin)
+		let qrCodeScanner = CheckinQRCodeScannerViewController(
+			didScanCheckin: { [weak self] checkin in
+				self?.showCheckinDetails(checkin)
 			},
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
@@ -41,13 +41,13 @@ final class CheckInCoordinator {
 		}
 	}
 
-	private func showCheckInDetails(_ checkin: Checkin) {
-		let checkinDetailViewController = CheckInDetailViewController(
+	private func showCheckinDetails(_ checkin: Checkin) {
+		let checkinDetailViewController = CheckinDetailViewController(
 			checkin,
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
-			presentCheckIns: { [weak self] in
+			presentCheckins: { [weak self] in
 				self?.viewController.dismiss(animated: true, completion: {
-//					self?.showCheckIns()
+//					self?.showCheckins()
 				})
 			}
 		)

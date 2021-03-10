@@ -4,18 +4,18 @@
 
 import UIKit
 
-class CheckInDetailViewController: UIViewController {
+class CheckinDetailViewController: UIViewController {
 
 	// MARK: - Init
 
 	init(
 		_ checkin: Checkin,
 		dismiss: @escaping () -> Void,
-		presentCheckIns: @escaping () -> Void
+		presentCheckins: @escaping () -> Void
 	) {
-		self.viewModel = CheckInDetailViewModel(checkin)
+		self.viewModel = CheckinDetailViewModel(checkin)
 		self.dismiss = dismiss
-		self.presentCheckIns = presentCheckIns
+		self.presentCheckins = presentCheckins
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -34,9 +34,9 @@ class CheckInDetailViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let viewModel: CheckInDetailViewModel
+	private let viewModel: CheckinDetailViewModel
 	private let dismiss: () -> Void
-	private let presentCheckIns: () -> Void
+	private let presentCheckins: () -> Void
 
 	private func setupView() {
 
@@ -105,7 +105,7 @@ class CheckInDetailViewController: UIViewController {
 
 	@objc
 	private func continueButtonHit() {
-		presentCheckIns()
+		presentCheckins()
 	}
 
 	@objc

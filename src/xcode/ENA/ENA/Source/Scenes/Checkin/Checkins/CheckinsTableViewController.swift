@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CheckInsTableViewController: UITableViewController {
+class CheckinsTableViewController: UITableViewController {
 
 	// MARK: - Init
 
@@ -14,7 +14,7 @@ class CheckInsTableViewController: UITableViewController {
 	) {
 		self.showQRCodeScanner = showQRCodeScanner
 		self.showSettings = showSettings
-		self.viewModel = CheckInsViewModel()
+		self.viewModel = CheckinsViewModel()
 		super.init(style: .grouped)
 	}
 
@@ -42,7 +42,7 @@ class CheckInsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch CheckInsViewModel.Sections(rawValue: indexPath.section) {
+		switch CheckinsViewModel.Sections(rawValue: indexPath.section) {
 		case .none:
 			fatalError("Unknown section to dequeue cell - stop")
 		case .some(let section):
@@ -60,7 +60,7 @@ class CheckInsTableViewController: UITableViewController {
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let section = CheckInsViewModel.Sections(rawValue: indexPath.section) else {
+		guard let section = CheckinsViewModel.Sections(rawValue: indexPath.section) else {
 			return
 		}
 		switch section {
@@ -81,13 +81,13 @@ class CheckInsTableViewController: UITableViewController {
 	private let showQRCodeScanner: () -> Void
 	private let showSettings: () -> Void
 
-	private let viewModel: CheckInsViewModel
+	private let viewModel: CheckinsViewModel
 
 	private func setupTableView() {
 		tableView.separatorStyle = .none
 		tableView.backgroundColor = .enaColor(for: .background)
 
-		tableView.register(CheckInTableViewCell.self, forCellReuseIdentifier: CheckInTableViewCell.reuseIdentifier)
+		tableView.register(CheckinTableViewCell.self, forCellReuseIdentifier: CheckinTableViewCell.reuseIdentifier)
 		tableView.register(MissingRightsTableViewCell.self, forCellReuseIdentifier: MissingRightsTableViewCell.reuseIdentifier)
 		tableView.register(ScanQRCodeTableViewCell.self, forCellReuseIdentifier: ScanQRCodeTableViewCell.reuseIdentifier)
 	}

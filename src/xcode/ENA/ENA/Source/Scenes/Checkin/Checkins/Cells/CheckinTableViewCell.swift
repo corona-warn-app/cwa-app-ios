@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CheckInTableViewCell: UITableViewCell, ConfigureAbleCell {
+class CheckinTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Init
 
