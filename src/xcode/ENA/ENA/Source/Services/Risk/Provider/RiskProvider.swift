@@ -239,7 +239,7 @@ final class RiskProvider: RiskProviding {
 				switch result {
 				case .success(let exposureWindows):
 					self.calculateRiskLevel(
-						exposureWindows: [ExposureWindow(calibrationConfidence: .low, date: Date(), reportType: .confirmedClinicalDiagnosis, infectiousness: .high, scanInstances: [])  ],
+						exposureWindows: exposureWindows,
 						appConfiguration: appConfiguration,
 						completion: completion
 					)
