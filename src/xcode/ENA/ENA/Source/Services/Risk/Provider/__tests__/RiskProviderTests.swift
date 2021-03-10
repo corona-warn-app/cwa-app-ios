@@ -1020,7 +1020,7 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult {
+	) -> RiskCalculationResult {
 		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
 
 		return RiskCalculationResult(
@@ -1036,6 +1036,8 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
+	
+	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 }
 
 final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {

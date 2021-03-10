@@ -308,12 +308,11 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-		do {
-			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+
+			let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 			let risk = Risk(
-				activeTracing: store.tracingStatusHistory.activeTracing(),
 				riskCalculationResult: riskCalculationResult,
 				previousRiskCalculationResult: store.riskCalculationResult
 			)
@@ -326,10 +325,8 @@ final class RiskProvider: RiskProviding {
 
 			/// We were able to calculate a risk so we have to reset the DeadMan Notification
 			DeadmanNotificationManager(store: store).resetDeadmanNotification()
-		} catch {
-			completion(.failure(.failedRiskCalculation))
-		}
 	}
+	
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
