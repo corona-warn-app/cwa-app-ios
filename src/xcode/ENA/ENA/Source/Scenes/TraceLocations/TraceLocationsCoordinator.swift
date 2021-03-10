@@ -69,7 +69,10 @@ class TraceLocationsCoordinator {
 				onEntryCellButtonTap: { [weak self] traceLocation in
 					self?.showCheckInScreen(traceLocation: traceLocation)
 				}
-			)
+			),
+			onInfoButtonTap: { [weak self] in
+				self?.showInfoScreen()
+			}
 		)
 	}()
 

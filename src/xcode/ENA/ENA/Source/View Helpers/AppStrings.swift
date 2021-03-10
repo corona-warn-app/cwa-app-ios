@@ -1358,10 +1358,16 @@ enum AppStrings {
 
 		enum Overview {
 			static let title = NSLocalizedString("TraceLocation_Overview_Title", comment: "")
+			static let menuButtonTitle = NSLocalizedString("TraceLocation_Overview_MenuButtonTitle", comment: "")
 			static let addButtonTitle = NSLocalizedString("TraceLocation_Overview_AddButtonTitle", comment: "")
 			static let emptyTitle = NSLocalizedString("TraceLocation_Overview_EmptyTitle", comment: "")
 			static let emptyDescription = NSLocalizedString("TraceLocation_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("TraceLocation_Overview_EmptyImageDescription", comment: "")
+
+			enum ActionSheet {
+				static let infoTitle = NSLocalizedString("TraceLocation_Overview_ActionSheet_InfoTitle", comment: "")
+				static let editTitle = NSLocalizedString("TraceLocation_Overview_ActionSheet_EditTitle", comment: "")
+			}
 		}
 
 		enum Details {

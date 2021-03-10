@@ -10,9 +10,11 @@ class TraceLocationsOverviewViewController: UITableViewController {
 	// MARK: - Init
 
 	init(
-		viewModel: TraceLocationsOverviewViewModel
+		viewModel: TraceLocationsOverviewViewModel,
+		onInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.onInfoButtonTap = onInfoButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -27,14 +29,14 @@ class TraceLocationsOverviewViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.TraceLocations.Overview.title
-
-		navigationItem.rightBarButtonItem = editButtonItem
-
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
 		setupTableView()
+
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = AppStrings.TraceLocations.Overview.title
+
+		updateRightBarButtonItem()
 
 		viewModel.$traceLocations
 			.sink { [weak self] _ in
@@ -86,9 +88,17 @@ class TraceLocationsOverviewViewController: UITableViewController {
 		}
 	}
 
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+
+		updateRightBarButtonItem()
+	}
+
 	// MARK: - Private
 
 	private let viewModel: TraceLocationsOverviewViewModel
+
+	private let onInfoButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
@@ -106,6 +116,25 @@ class TraceLocationsOverviewViewController: UITableViewController {
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
+	}
+
+	private func updateRightBarButtonItem() {
+		let barButtonItem: UIBarButtonItem
+
+		if tableView.isEditing {
+			barButtonItem = editButtonItem
+		} else {
+			barButtonItem = UIBarButtonItem(
+				image: UIImage(named: "Icons_More_Circle"),
+				style: .plain,
+				target: self,
+				action: #selector(didTapMoreButton)
+			)
+			barButtonItem.accessibilityLabel = AppStrings.TraceLocations.Overview.menuButtonTitle
+			barButtonItem.tintColor = .enaColor(for: .tint)
+		}
+
+		navigationItem.setRightBarButton(barButtonItem, animated: true)
 	}
 
 	private func traceLocationAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -139,6 +168,34 @@ class TraceLocationsOverviewViewController: UITableViewController {
 		tableView.reloadData()
 
 		tableView.backgroundView = viewModel.isEmpty ? EmptyStateView(viewModel: TraceLocationsOverviewEmptyStateViewModel()) : nil
+	}
+
+	@objc
+	private func didTapMoreButton() {
+		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+		let infoAction = UIAlertAction(
+			title: AppStrings.TraceLocations.Overview.ActionSheet.infoTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				self?.onInfoButtonTap()
+			}
+		)
+		actionSheet.addAction(infoAction)
+
+		let editPerson = UIAlertAction(
+			title: AppStrings.TraceLocations.Overview.ActionSheet.editTitle,
+			style: .default,
+			handler: { [weak self] _ in
+				self?.setEditing(true, animated: true)
+			}
+		)
+		actionSheet.addAction(editPerson)
+
+		let cancelAction = UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel)
+		actionSheet.addAction(cancelAction)
+
+		present(actionSheet, animated: true, completion: nil)
 	}
 
 }
