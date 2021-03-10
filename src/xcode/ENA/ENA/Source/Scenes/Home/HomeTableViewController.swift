@@ -160,8 +160,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
-		case .event:
-			return eventCell(forRowAt: indexPath)
+		case .traceLocations:
+			return traceLocationsCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -209,7 +209,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
-		case .event:
+		case .traceLocations:
 			onTraceLocationsCellTap()
 		case .infos:
 			if indexPath.row == 0 {
@@ -481,7 +481,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return cell
 	}
 
-	private func eventCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+	private func traceLocationsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTraceLocationsTableViewCell.self), for: indexPath) as? HomeTraceLocationsTableViewCell else {
 			fatalError("Could not dequeue HomeTraceLocationsTableViewCell")
 		}
