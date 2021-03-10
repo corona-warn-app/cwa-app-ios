@@ -368,10 +368,10 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func collectExposureWindows(_ riskCalculation: RiskCalculationProtocol) {
+	private static func collectExposureWindows(_ riskCalculation: [RiskCalculationExposureWindow]) {
 		self.clearReportedExposureWindowsQueueIfNeeded()
 
-		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculation.mappedExposureWindows.map {
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculation.map {
 			SubmissionExposureWindow(
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,

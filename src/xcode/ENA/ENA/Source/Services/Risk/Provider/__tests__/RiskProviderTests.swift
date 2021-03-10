@@ -1025,9 +1025,6 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) throws -> RiskCalculationResult {
-		
-		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
-
 		return RiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
@@ -1041,8 +1038,6 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
-	
-	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 }
 
 final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {

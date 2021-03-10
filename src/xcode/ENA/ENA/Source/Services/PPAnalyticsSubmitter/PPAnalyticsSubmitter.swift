@@ -107,7 +107,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	#if !RELEASE
 
 	func forcedSubmitData(completion: @escaping (Result<Void, PPASError>) -> Void) {
-		generatePPACAndSubmitData(completion: completion)
+		generatePPACAndSubmitData(
+			disableExposureWindowsProbability: true,
+			completion: completion
+		)
 	}
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
@@ -226,7 +229,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return false
 	}
 
-	private func generatePPACAndSubmitData(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+	private func generatePPACAndSubmitData(disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		// Must be set here for both submit calls. This call should be done at the moment right before the submission, because the submission can only work if we have a valid app config. And to log the client meta data, we need a valid app config.
 		// Must not use the Analytics.collect call because this would produce an extra submission call while we are on a submission.
 		let eTag = store.appConfigMetadata?.lastAppConfigETag
@@ -240,7 +243,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		ppacService.getPPACToken { [weak self] result in
 			switch result {
 			case let .success(token):
-				self?.submitData(with: token, completion: completion)
+				self?.submitData(with: token, disableExposureWindowsProbability: disableExposureWindowsProbability, completion: completion)
 			case let .failure(error):
 				Log.error("Could not submit analytics data due to ppac authorization error", log: .ppa, error: error)
 				completion?(.failure(.ppacError(error)))
@@ -290,9 +293,9 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return payload
 	}
 
-	private func submitData(with ppacToken: PPACToken, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+	private func submitData(with ppacToken: PPACToken, disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 
-		let payload = obtainUsageData()
+		let payload = obtainUsageData(disableExposureWindowsProbability: disableExposureWindowsProbability)
 
 		var forceApiTokenHeader = false
 		#if !RELEASE

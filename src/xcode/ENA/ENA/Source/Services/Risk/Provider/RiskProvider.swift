@@ -239,7 +239,7 @@ final class RiskProvider: RiskProviding {
 				switch result {
 				case .success(let exposureWindows):
 					self.calculateRiskLevel(
-						exposureWindows: exposureWindows,
+						exposureWindows: [ExposureWindow(calibrationConfidence: .low, date: Date(), reportType: .confirmedClinicalDiagnosis, infectiousness: .high, scanInstances: [])  ],
 						appConfiguration: appConfiguration,
 						completion: completion
 					)
@@ -310,7 +310,8 @@ final class RiskProvider: RiskProviding {
 
 		do {
 			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
+			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 			let risk = Risk(
 				activeTracing: store.tracingStatusHistory.activeTracing(),
 				riskCalculationResult: riskCalculationResult,
