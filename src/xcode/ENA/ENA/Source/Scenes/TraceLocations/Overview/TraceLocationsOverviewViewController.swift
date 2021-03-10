@@ -70,7 +70,7 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
+		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
 			return traceLocationAddCell(forRowAt: indexPath)
 		case .entries:
@@ -90,7 +90,7 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch DiaryDayViewModel.Section(rawValue: indexPath.section) {
+		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
 			viewModel.didTapAddEntryCell()
 		case .entries:
