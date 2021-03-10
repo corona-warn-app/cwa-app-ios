@@ -44,9 +44,13 @@ class HomeTableViewModel {
 	var riskAndTestRows: [RiskAndTestRow] {
 		#if DEBUG
 		if isUITesting {
-			// adding this for launch argument to fake thank you card on home screen
+			// adding this for launch argument to fake cards on home screen for testing
 			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
 				return [.thankYou]
+			} else if UserDefaults.standard.string(forKey: "showTestResultScreen") == "YES" {
+				return [.risk, .testResult]
+			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
+				return [.shownPositiveTestResult]
 			} else if state.positiveTestResultWasShown {
 				return [.shownPositiveTestResult]
 			} else {
