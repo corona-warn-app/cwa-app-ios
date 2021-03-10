@@ -624,7 +624,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					title: AppStrings.ExposureDetection.explanationTitle,
 					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
-				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier),
+				.link(
+					text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
+					url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
+				)
 			].compactMap { $0 }
 		)
 	}
