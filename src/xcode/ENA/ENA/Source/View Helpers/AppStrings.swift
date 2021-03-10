@@ -1358,10 +1358,10 @@ enum AppStrings {
 			static let consent_Bullet2 = NSLocalizedString("errorReport_Legal_Consent_Bullet2", tableName: "Localizable.legal", comment: "")
 			static let consent_Last_Paragraph = NSLocalizedString("errorReport_Legal_Consent_LastParagraph", tableName: "Localizable.legal", comment: "")
 			
-			static let detailedInfo_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
-			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
-			static let detailedInfo_Subheadline = NSLocalizedString("errorReport_Legal_DetailedInformation_Subheadline", tableName: "Localizable.legal", comment: "")
-			static let detailedInfo_Content2 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content2", tableName: "Localizable.legal", comment: "")
+//			static let detailedInfo_Headline = NSLocalizedString("errorReport_Legal_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
+//			static let detailedInfo_Content1 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content1", tableName: "Localizable.legal", comment: "")
+//			static let detailedInfo_Subheadline = NSLocalizedString("errorReport_Legal_DetailedInformation_Subheadline", tableName: "Localizable.legal", comment: "")
+//			static let detailedInfo_Content2 = NSLocalizedString("errorReport_Legal_DetailedInformation_Content2", tableName: "Localizable.legal", comment: "")
 			
 			static let sendReports_Headline = NSLocalizedString("errorReport_Legal_SendReports_Headline", tableName: "Localizable.legal", comment: "")
 			static let sendReports_Subline = NSLocalizedString("errorReport_Legal_SendReports_Subline", tableName: "Localizable.legal", comment: "")
