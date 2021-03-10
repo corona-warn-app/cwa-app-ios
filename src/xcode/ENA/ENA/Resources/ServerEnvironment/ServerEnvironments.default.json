@@ -1,11 +1,12 @@
 {
-	"ServerEnvironments":[
-		{
-			"name": "Default",
-			"distributionURL": "https://svc90.main.px.t-online.de",
-			"submissionURL": "https://submission.coronawarn.app",
-			"verificationURL": "https://verification.coronawarn.app",
-            "dataDonationURL": "https://data.coronawarn.app"
-		}
-	]
+  "ServerEnvironments":[
+    {
+      "name": "Default",
+      "distributionURL": "https://svc90.main.px.t-online.de",
+      "submissionURL": "https://submission.coronawarn.app",
+      "verificationURL": "https://verification.coronawarn.app",
+      "dataDonationURL": "https://data.coronawarn.app",
+      "errorLogSubmission": "https://logupload.coronawarn.app"
+    }
+  ]
 }
