@@ -657,7 +657,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		.body(
 			text: AppStrings.ExposureDetection.explanationTextLowNoEncounter,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter
-		),
+		)
 	].compactMap { $0 }
 
 	private func highRiskExplanationSection(risk: Risk, mostRecentDateWithRiskLevelText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
