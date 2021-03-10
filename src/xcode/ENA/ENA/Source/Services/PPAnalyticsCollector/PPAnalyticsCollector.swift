@@ -285,7 +285,6 @@ enum PPAnalyticsCollector {
 		case let .submittedAfterSymptomFlow(afterSymptomFlow):
 			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 		case let .submittedWithTeletan(withTeletan):
-			store?.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
 			store?.submittedWithQR = !withTeletan
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
@@ -304,6 +303,8 @@ enum PPAnalyticsCollector {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case .updateSubmittedWithTeletan:
+			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:

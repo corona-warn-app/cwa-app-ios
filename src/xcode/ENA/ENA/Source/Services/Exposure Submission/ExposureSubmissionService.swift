@@ -426,6 +426,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch result {
 			case .success:
 				Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(self.store.isSubmissionConsentGiven)))
+				Analytics.collect(.keySubmissionMetadata(.updateSubmittedWithTeletan))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
