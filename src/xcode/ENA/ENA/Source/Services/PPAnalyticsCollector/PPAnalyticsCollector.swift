@@ -73,7 +73,7 @@ enum PPAnalyticsCollector {
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
-	/// It return the value if the submission was triggered with TAN
+	/// It returns the value if the submission was triggered with TAN
 	static func isSubmittedWithTAN() -> Bool {
 		return !(store?.submittedWithQR ?? false)
 	}
