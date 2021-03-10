@@ -31,7 +31,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	init?(
 		databaseQueue: FMDatabaseQueue,
-		schema: SchemaProtocol,
+		schema: StoreSchemaProtocol,
 		key: String,
 		dateProvider: DateProviding = DateProvider(),
 		migrator: SerialMigratorProtocol
@@ -820,7 +820,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	private let maxTextLength = 250
 	private let key: String
 	private let dateProvider: DateProviding
-	private let schema: SchemaProtocol
+	private let schema: StoreSchemaProtocol
 	private let migrator: SerialMigratorProtocol
 	
 	private var todayDateString: String {

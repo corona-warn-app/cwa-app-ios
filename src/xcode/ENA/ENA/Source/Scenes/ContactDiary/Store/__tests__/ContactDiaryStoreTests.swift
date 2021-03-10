@@ -1089,11 +1089,11 @@ class ContactDiaryStoreTests: XCTestCase {
 	private func makeContactDiaryStore(
 		with databaseQueue: FMDatabaseQueue,
 		dateProvider: DateProviding = DateProvider(),
-		schema: ContactDiarySchemaProtocol? = nil,
+		schema: StoreSchemaProtocol? = nil,
 		migrator: SerialMigratorProtocol? = nil
 	) -> ContactDiaryStore {
 
-		let _schema: ContactDiarySchemaProtocol
+		let _schema: StoreSchemaProtocol
 		if let schema = schema {
 			_schema = schema
 		} else {

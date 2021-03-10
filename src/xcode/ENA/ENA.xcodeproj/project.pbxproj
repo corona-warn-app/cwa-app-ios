@@ -541,6 +541,7 @@
 		AB6289D4251BA4EC00CF61D2 /* String+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */; };
 		AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */; };
 		AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB628A1E251CDADE00CF61D2 /* ServerEnvironments.json */; };
+		AB68530C25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68530B25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift */; };
 		AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
 		AB6887EA25D6757700907465 /* ContactDiaryMigration2To3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E825D6757700907465 /* ContactDiaryMigration2To3.swift */; };
 		AB6887EB25D6757700907465 /* ContactDiaryStoreSchemaV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */; };
@@ -1436,6 +1437,7 @@
 		AB6289D3251BA4EC00CF61D2 /* String+Compare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Compare.swift"; sourceTree = "<group>"; };
 		AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeltaOnboardingViewController.swift; sourceTree = "<group>"; };
 		AB628A1E251CDADE00CF61D2 /* ServerEnvironments.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ServerEnvironments.json; sourceTree = "<group>"; };
+		AB68530B25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreSchemaV1Tests.swift; sourceTree = "<group>"; };
 		AB6887E825D6757700907465 /* ContactDiaryMigration2To3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration2To3.swift; sourceTree = "<group>"; };
 		AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3.swift; sourceTree = "<group>"; };
 		AB6887F625D6AA3700907465 /* ContactDiaryStoreSchemaV3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3Tests.swift; sourceTree = "<group>"; };
@@ -3612,6 +3614,22 @@
 			path = ServerEnvironment;
 			sourceTree = "<group>";
 		};
+		AB68530925F8F68A00380F5A /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				AB68530A25F8F69200380F5A /* StoreV1 */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		AB68530A25F8F69200380F5A /* StoreV1 */ = {
+			isa = PBXGroup;
+			children = (
+				AB68530B25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift */,
+			);
+			path = StoreV1;
+			sourceTree = "<group>";
+		};
 		AB6887E725D6754C00907465 /* StoreV3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3788,6 +3806,7 @@
 		ABE9615925F11FA500D0F699 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				AB68530925F8F68A00380F5A /* __tests__ */,
 				ABE961E025F29A5000D0F699 /* StoreV1 */,
 				ABE9615A25F11FBC00D0F699 /* EventStoring.swift */,
 				ABE9616525F1207500D0F699 /* Model */,
@@ -3807,13 +3826,6 @@
 				ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		ABE961D325F2992900D0F699 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		ABE961E025F29A5000D0F699 /* StoreV1 */ = {
@@ -5905,6 +5917,7 @@
 				A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */,
 				AB7DE74F25C861A900C52B3F /* ExposureDetectionSurveyCellModelTests.swift in Sources */,
 				01EA17472590D3DA00E98E02 /* MockTestStore.swift in Sources */,
+				AB68530C25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift in Sources */,
 				AB7BDF8325CC079B00E70744 /* SurveyConsentViewModelTests.swift in Sources */,
 				B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */,
 				AB7420DD251B8101006666AC /* DeltaOnboardingCoordinatorTests.swift in Sources */,

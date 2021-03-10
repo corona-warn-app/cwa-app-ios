@@ -5,7 +5,7 @@
 import Foundation
 import FMDB
 
-class EventStoreSchemaV1: SchemaProtocol {
+class EventStoreSchemaV1: StoreSchemaProtocol {
 
 	// MARK: - Init
 
@@ -27,8 +27,8 @@ class EventStoreSchemaV1: SchemaProtocol {
 					traceLocationGUID TEXT NOT NULL,
 					traceLocationVersion INTEGER NOT NULL,
 					traceLocationType INTEGER NOT NULL,
-					traceLocationDescription TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
-					traceLocationAddress TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength),
+					traceLocationDescription TEXT NOT NULL CHECK (LENGTH(traceLocationDescription) <= \(maxTextLength)),
+					traceLocationAddress TEXT NOT NULL CHECK (LENGTH(traceLocationAddress) <= \(maxTextLength)),
 					traceLocationStartDate INTEGER,
 					traceLocationEndDate INTEGER,
 					traceLocationDefaultCheckInLengthInMinutes INTEGER,
@@ -43,8 +43,8 @@ class EventStoreSchemaV1: SchemaProtocol {
 					guid TEXT PRIMARY KEY,
 					version INTEGER NOT NULL,
 					type INTEGER NOT NULL,
-					description TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
-					address TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
+					description TEXT NOT NULL CHECK (LENGTH(description) <= \(maxTextLength)),
+					address TEXT NOT NULL CHECK (LENGTH(address) <= \(maxTextLength)),
 					startDate INTEGER,
 					endDate INTEGER,
 					defaultCheckInLengthInMinutes INTEGER,

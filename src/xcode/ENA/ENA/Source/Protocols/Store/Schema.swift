@@ -2,6 +2,6 @@
 // 🦠 Corona-Warn-App
 //
 
-protocol SchemaProtocol {
+protocol StoreSchemaProtocol {
 	func create() -> Result<Void, SQLiteErrorCode>
 }

@@ -15,7 +15,7 @@ class EventStore: EventStoring, EventProviding {
 
 	init?(
 		databaseQueue: FMDatabaseQueue,
-		schema: SchemaProtocol,
+		schema: StoreSchemaProtocol,
 		key: String,
 		migrator: SerialMigratorProtocol
 		) {
@@ -549,9 +549,9 @@ class EventStore: EventStoring, EventProviding {
 
 	private let databaseQueue: FMDatabaseQueue
 	private let key: String
-	private let schema: SchemaProtocol
+	private let schema: StoreSchemaProtocol
 	private let migrator: SerialMigratorProtocol
-	private let maxTextLength = 150
+	private let maxTextLength = 100
 
 	private func openAndSetup() -> EventStoring.VoidResult {
 		var errorResult: EventStoring.VoidResult?
