@@ -4,7 +4,7 @@
 
 import UIKit
 
-class ScanQRCodeTableViewCell: UITableViewCell, ConfigureAbleCell {
+class ScanQRCodeTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
@@ -21,7 +21,7 @@ class ScanQRCodeTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol ConfigureAbleCell
+	// MARK: - Protocol ConfigureableCell
 
 	func configure<T>(cellViewModel: T) {
 

@@ -4,7 +4,7 @@
 
 import UIKit
 
-class MissingRightsTableViewCell: UITableViewCell, ConfigureAbleCell {
+class MissingRightsTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
@@ -21,7 +21,7 @@ class MissingRightsTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol ConfigureAbleCell
+	// MARK: - Protocol ConfigureableCell
 
 	func configure<T>(cellViewModel: T) {
 
