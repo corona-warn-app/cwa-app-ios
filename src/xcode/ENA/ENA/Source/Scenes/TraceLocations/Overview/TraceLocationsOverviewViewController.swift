@@ -43,7 +43,8 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 			.sink { [weak self] _ in
 				guard let self = self, self.shouldReload else { return }
 
-				self.update()
+				self.tableView.reloadData()
+				self.updateEmptyState()
 			}
 			.store(in: &subscriptions)
 	}
@@ -120,6 +121,7 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 
 					if self.viewModel.isEmpty {
 						self.setEditing(false, animated: true)
+						self.updateEmptyState()
 					}
 				})
 			}
@@ -215,9 +217,7 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		return cell
 	}
 
-	private func update() {
-		tableView.reloadData()
-
+	private func updateEmptyState() {
 		tableView.backgroundView = viewModel.isEmpty ? EmptyStateView(viewModel: TraceLocationsOverviewEmptyStateViewModel()) : nil
 	}
 
@@ -271,7 +271,9 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 					)
 				}, completion: { _ in
 					self.shouldReload = true
+
 					self.setEditing(false, animated: true)
+					self.updateEmptyState()
 				})
 			}
 		)
