@@ -51,6 +51,7 @@ enum PPAKeySubmissionMetadata {
 	case keySubmissionHoursSinceTestRegistration(Int32?)
 	case daysSinceMostRecentDateAtRiskLevelAtTestRegistration(Int32)
 	case hoursSinceHighRiskWarningAtTestRegistration(Int32)
+	case updateSubmittedWithTeletan
 	case setHoursSinceTestResult
 	case setHoursSinceTestRegistration
 	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration

@@ -184,7 +184,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 
 		// if there is no test result time stamp
 		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
-			return false
+			return isSubmitted
 		}
 		
 		let timeInterval = TimeInterval(resultDateTimeStamp)
@@ -447,9 +447,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let hoursSinceHighRiskWarningAtTestRegistration = storedUsageData.hoursSinceHighRiskWarningAtTestRegistration {
 				$0.hoursSinceHighRiskWarningAtTestRegistration = hoursSinceHighRiskWarningAtTestRegistration
 			}
-			if let submittedWithTeleTAN = storedUsageData.submittedWithTeleTAN {
-				$0.submittedWithTeleTan = submittedWithTeleTAN
-			}
+			$0.submittedWithTeleTan = !store.submittedWithQR
 		}]
 	}
 

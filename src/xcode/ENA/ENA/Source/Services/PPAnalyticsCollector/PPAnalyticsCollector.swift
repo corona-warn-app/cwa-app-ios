@@ -63,6 +63,7 @@ enum PPAnalyticsCollector {
 		store?.previousRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
+		store?.submittedWithQR = false
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
@@ -284,11 +285,16 @@ enum PPAnalyticsCollector {
 		case let .submittedAfterSymptomFlow(afterSymptomFlow):
 			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 		case let .submittedWithTeletan(withTeletan):
-			store?.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
+			store?.submittedWithQR = !withTeletan
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
-		case let .advancedConsentGiven(advanced):
-			store?.keySubmissionMetadata?.advancedConsentGiven = advanced
+		case let .advancedConsentGiven(advanceConsent):
+			// this is as per techspecs, this value is false in case TAN submission
+			if store?.submittedWithQR == true && advanceConsent == true {
+				store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
+			} else {
+				store?.keySubmissionMetadata?.advancedConsentGiven = false
+			}
 		case let .hoursSinceTestResult(hours):
 			store?.keySubmissionMetadata?.hoursSinceTestResult = hours
 		case let .keySubmissionHoursSinceTestRegistration(hours):
@@ -297,6 +303,8 @@ enum PPAnalyticsCollector {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case .updateSubmittedWithTeletan:
+			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:
