@@ -289,6 +289,7 @@ enum PPAnalyticsCollector {
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
 		case let .advancedConsentGiven(advanceConsent):
+			// this is as per techspecs, this value is false in case TAN submission
 			if store?.submittedWithQR == true && advanceConsent == true {
 				store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
 			} else {
