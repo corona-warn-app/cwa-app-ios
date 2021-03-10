@@ -542,6 +542,8 @@
 		AB6289D9251C833100CF61D2 /* DMDeltaOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */; };
 		AB628A1F251CDADE00CF61D2 /* ServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB628A1E251CDADE00CF61D2 /* ServerEnvironments.json */; };
 		AB68530C25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68530B25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift */; };
+		AB68531425F8F9D500380F5A /* EventStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68531325F8F9D500380F5A /* EventStoreTests.swift */; };
+		AB68531E25F9235200380F5A /* FMDB+Access.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68531925F9234F00380F5A /* FMDB+Access.swift */; };
 		AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
 		AB6887EA25D6757700907465 /* ContactDiaryMigration2To3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E825D6757700907465 /* ContactDiaryMigration2To3.swift */; };
 		AB6887EB25D6757700907465 /* ContactDiaryStoreSchemaV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */; };
@@ -1438,6 +1440,8 @@
 		AB6289D8251C833100CF61D2 /* DMDeltaOnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeltaOnboardingViewController.swift; sourceTree = "<group>"; };
 		AB628A1E251CDADE00CF61D2 /* ServerEnvironments.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ServerEnvironments.json; sourceTree = "<group>"; };
 		AB68530B25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreSchemaV1Tests.swift; sourceTree = "<group>"; };
+		AB68531325F8F9D500380F5A /* EventStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreTests.swift; sourceTree = "<group>"; };
+		AB68531925F9234F00380F5A /* FMDB+Access.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FMDB+Access.swift"; sourceTree = "<group>"; };
 		AB6887E825D6757700907465 /* ContactDiaryMigration2To3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration2To3.swift; sourceTree = "<group>"; };
 		AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3.swift; sourceTree = "<group>"; };
 		AB6887F625D6AA3700907465 /* ContactDiaryStoreSchemaV3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV3Tests.swift; sourceTree = "<group>"; };
@@ -3517,6 +3521,7 @@
 		AB126871254C0598006E9194 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				AB68532225F923C600380F5A /* __tests__ */,
 				EBA403A82588F72A00D1F039 /* iOS12Support */,
 				AB126872254C05A7006E9194 /* ENAFormatter.swift */,
 				ABE9613E25EFEC3700D0F699 /* InstallationDate.swift */,
@@ -3618,6 +3623,7 @@
 			isa = PBXGroup;
 			children = (
 				AB68530A25F8F69200380F5A /* StoreV1 */,
+				AB68531325F8F9D500380F5A /* EventStoreTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -3628,6 +3634,22 @@
 				AB68530B25F8F6B900380F5A /* EventStoreSchemaV1Tests.swift */,
 			);
 			path = StoreV1;
+			sourceTree = "<group>";
+		};
+		AB68531825F9233200380F5A /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				AB68531925F9234F00380F5A /* FMDB+Access.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		AB68532225F923C600380F5A /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				AB68531825F9233200380F5A /* Store */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		AB6887E725D6754C00907465 /* StoreV3 */ = {
@@ -5886,6 +5908,7 @@
 				9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */,
 				0144DD9B25D40CC900CFB1D1 /* MockUserNotificationCenter.swift in Sources */,
 				01B605C4258A30C70093DB8E /* DiaryOverviewViewModelTest.swift in Sources */,
+				AB68531425F8F9D500380F5A /* EventStoreTests.swift in Sources */,
 				B11655932491437600316087 /* RiskProvidingConfigurationTests.swift in Sources */,
 				BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */,
 				01A97DD32506769F00C07C37 /* DatePickerDayViewModelTests.swift in Sources */,
@@ -5932,6 +5955,7 @@
 				8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */,
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
+				AB68531E25F9235200380F5A /* FMDB+Access.swift in Sources */,
 				AB68880625D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
 				50C029B225E4069400460FA4 /* KeySubmissionMetadataTests.swift in Sources */,
