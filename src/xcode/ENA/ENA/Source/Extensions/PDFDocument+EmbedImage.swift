@@ -32,12 +32,10 @@ extension PDFDocument {
 			
 			context.cgContext.restoreGState()
 			
-			let myImage = image // A `UIImage` object of the image you want to draw.
-			
-			let imageRect = CGRect(x: position.x, y: position.y, width: myImage.size.width, height: myImage.size.height) // `CGRect` for the image.
+			let imageRect = CGRect(x: position.x, y: position.y, width: image.size.width, height: image.size.height) // `CGRect` for the image.
 			
 			// Draw your image onto the context.
-			myImage.draw(in: imageRect)
+			image.draw(in: imageRect)
 		}
 		
 		// Create a new `PDFPage` with the image that was generated above.
