@@ -99,7 +99,7 @@
                 <outlet property="parametersContainerStackView" destination="xn4-4L-HLK" id="9m5-rY-2ZF"/>
                 <outlet property="parametersStackView" destination="VlO-tn-8Ya" id="jxk-Vq-3qa"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="158.03571428571428"/>
+            <point key="canvasLocation" x="133" y="157"/>
         </tableViewCell>
     </objects>
     <designables>

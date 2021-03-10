@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="52"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gno-nj-MZX" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="33.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                                                 <rect key="frame" x="298" y="0.0" width="18" height="52"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="999" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="nJl-O5-rry">
-                                                        <rect key="frame" x="0.0" y="14.5" width="7" height="12"/>
+                                                        <rect key="frame" x="0.0" y="4" width="7" height="12"/>
                                                         <color key="tintColor" systemColor="systemGray2Color"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="12" id="gv6-c3-YX2"/>
@@ -129,10 +129,10 @@
             <size key="intrinsicContentSize" width="2267.5" height="20.5"/>
         </designable>
         <designable name="b20-mf-cB4">
-            <size key="intrinsicContentSize" width="70" height="50"/>
+            <size key="intrinsicContentSize" width="54" height="33"/>
         </designable>
         <designable name="gno-nj-MZX">
-            <size key="intrinsicContentSize" width="77" height="33.5"/>
+            <size key="intrinsicContentSize" width="45" height="20.5"/>
         </designable>
     </designables>
     <resources>
