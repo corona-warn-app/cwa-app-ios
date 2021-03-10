@@ -9,9 +9,8 @@ protocol RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) throws -> RiskCalculationResult
+	) -> RiskCalculationResult
 	
-	var mappedExposureWindows: [RiskCalculationExposureWindow] { get set }
 }
 
 final class RiskCalculation: RiskCalculationProtocol, Codable {
