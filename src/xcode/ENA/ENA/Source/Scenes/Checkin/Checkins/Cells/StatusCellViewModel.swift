@@ -17,13 +17,13 @@ final class StatusCellViewModel {
 	var tableViewCell: UITableViewCell.Type {
 		switch authorizationStatus {
 		case .notDetermined, .restricted, .denied:
-			return MissingRightsTableViewCell.self
+			return MissingPermissionsTableViewCell.self
 		case .authorized:
 			return ScanQRCodeTableViewCell.self
 
 		@unknown default:
 			Log.debug("Unknown new case discovered", log: .checkin)
-			return MissingRightsTableViewCell.self
+			return MissingPermissionsTableViewCell.self
 		}
 	}
 

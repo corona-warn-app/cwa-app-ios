@@ -779,7 +779,7 @@
 		BAD962FB25668F4000FAB615 /* TestResultAvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */; };
 		BAD9630025668F8E00FAB615 /* TestResultAvailableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */; };
 		BADB7BEB25F66145001065FA /* ScanQRCodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB7BEA25F66145001065FA /* ScanQRCodeTableViewCell.swift */; };
-		BADB7BF025F66178001065FA /* MissingRightsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB7BEF25F66178001065FA /* MissingRightsTableViewCell.swift */; };
+		BADB7BF025F66178001065FA /* MissingPermissionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */; };
 		BADB7BF525F66188001065FA /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB7BF425F66188001065FA /* CheckinTableViewCell.swift */; };
 		BADB7BFD25F66549001065FA /* StatusCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB7BFC25F66549001065FA /* StatusCellViewModel.swift */; };
 		BADB7C0225F6660D001065FA /* CheckinCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB7C0125F6660D001065FA /* CheckinCellViewModel.swift */; };
@@ -1705,7 +1705,7 @@
 		BAD962FA25668F4000FAB615 /* TestResultAvailableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewController.swift; sourceTree = "<group>"; };
 		BAD962FF25668F8E00FAB615 /* TestResultAvailableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModel.swift; sourceTree = "<group>"; };
 		BADB7BEA25F66145001065FA /* ScanQRCodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeTableViewCell.swift; sourceTree = "<group>"; };
-		BADB7BEF25F66178001065FA /* MissingRightsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRightsTableViewCell.swift; sourceTree = "<group>"; };
+		BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPermissionsTableViewCell.swift; sourceTree = "<group>"; };
 		BADB7BF425F66188001065FA /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
 		BADB7BFC25F66549001065FA /* StatusCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCellViewModel.swift; sourceTree = "<group>"; };
 		BADB7C0125F6660D001065FA /* CheckinCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCellViewModel.swift; sourceTree = "<group>"; };
@@ -4840,7 +4840,7 @@
 			children = (
 				BADB7BF425F66188001065FA /* CheckinTableViewCell.swift */,
 				BADB7C0125F6660D001065FA /* CheckinCellViewModel.swift */,
-				BADB7BEF25F66178001065FA /* MissingRightsTableViewCell.swift */,
+				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
 				BADB7BEA25F66145001065FA /* ScanQRCodeTableViewCell.swift */,
 				BADB7BFC25F66549001065FA /* StatusCellViewModel.swift */,
 			);
@@ -5929,7 +5929,7 @@
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
-				BADB7BF025F66178001065FA /* MissingRightsTableViewCell.swift in Sources */,
+				BADB7BF025F66178001065FA /* MissingPermissionsTableViewCell.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,

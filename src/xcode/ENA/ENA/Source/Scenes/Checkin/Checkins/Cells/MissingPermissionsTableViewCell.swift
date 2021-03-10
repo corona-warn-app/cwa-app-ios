@@ -4,7 +4,7 @@
 
 import UIKit
 
-class MissingRightsTableViewCell: UITableViewCell, ConfigureableCell {
+class MissingPermissionsTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
