@@ -58,7 +58,6 @@ enum PPAKeySubmissionMetadata {
 }
 
 enum PPAExposureWindowsMetadata {
-	case create(ExposureWindowsMetadata)
 	case collectExposureWindows([RiskCalculationExposureWindow])
 }
 
