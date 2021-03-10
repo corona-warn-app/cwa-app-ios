@@ -21,29 +21,50 @@ class EventStoreSchemaV1: SchemaProtocol {
 
 		databaseQueue.inDatabase { database in
 			let sql = """
-				CREATE TABLE IF NOT EXISTS Event (
-					id TEXT PRIMARY KEY,
+
+				CREATE TABLE IF NOT EXISTS Checkin (
+					id INTEGER PRIMARY KEY,
+					traceLocationGUID TEXT NOT NULL,
+					traceLocationVersion INTEGER NOT NULL,
+					traceLocationType INTEGER NOT NULL,
+					traceLocationDescription TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
+					traceLocationAddress TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength),
+					traceLocationStartDate INTEGER,
+					traceLocationEndDate INTEGER,
+					traceLocationDefaultCheckInLengthInMinutes INTEGER,
+					traceLocationSignature TEXT NOT NULL,
+					checkinStartDate INTEGER NOT NULL,
+					checkinEndDate INTEGER,
+					targetCheckinEndDate INTEGER,
+					createJournalEntry INTEGER NOT NULL
+				);
+
+				CREATE TABLE IF NOT EXISTS TraceLocation (
+					guid TEXT PRIMARY KEY,
+					version INTEGER NOT NULL,
 					type INTEGER NOT NULL,
-					description STRING NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
-					address STRING NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
-					start INTEGER,
-					end INTEGER,
+					description TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
+					address TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
+					startDate INTEGER,
+					endDate INTEGER,
 					defaultCheckInLengthInMinutes INTEGER,
 					signature TEXT NOT NULL
 				);
 
-				CREATE TABLE IF NOT EXISTS Checkin (
+				CREATE TABLE IF NOT EXISTS TraceTimeIntervalMatch (
 					id INTEGER PRIMARY KEY,
-					eventId TEXT NOT NULL,
-					eventType INTEGER NOT NULL,
-					eventDescription STRING NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
-					eventAddress STRING NOT NULL CHECK (LENGTH(name) <= \(maxTextLength),
-					eventStart INTEGER,
-					eventEnd INTEGER,
-					eventDefaultCheckInLengthInMinutes INTEGER,
-					eventSignature TEXT NOT NULL,
-					checkinStart INTEGER NOT NULL,
-					checkinEnd INTEGER NOT NULL
+					checkinId INTEGER NOT NULL,
+					traceWarningPackageId INTEGER NOT NULL,
+					traceLocationGUID TEXT NOT NULL,
+					transmissionRiskLevel INTEGER NOT NULL,
+					startIntervalNumber INTEGER NOT NULL,
+					endIntervalNumber INTEGER NOT NULL
+				);
+
+				CREATE TABLE IF NOT EXISTS TraceWarningPackageMetadata (
+					id INTEGER PRIMARY KEY,
+					region TEXT NOT NULL,
+					eTag TEXT NOT NULL
 				);
 			"""
 
@@ -63,5 +84,5 @@ class EventStoreSchemaV1: SchemaProtocol {
 	// MARK: - Private
 
 	private let databaseQueue: FMDatabaseQueue
-	private let maxTextLength = 150
+	private let maxTextLength = 100
 }
