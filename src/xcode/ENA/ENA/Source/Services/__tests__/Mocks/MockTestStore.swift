@@ -91,6 +91,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
+	var submittedWithQR: Bool = false
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?

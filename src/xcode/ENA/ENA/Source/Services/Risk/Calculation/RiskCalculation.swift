@@ -9,7 +9,7 @@ protocol RiskCalculationProtocol {
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
-	) -> RiskCalculationResult
+	) throws -> RiskCalculationResult
 	
 	var mappedExposureWindows: [RiskCalculationExposureWindow] { get set }
 }
@@ -18,7 +18,7 @@ final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 	// MARK: - Internal
 
-	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
+	private(set) var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var filteredExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var exposureWindowsPerDate: [Date: [RiskCalculationExposureWindow]] = [:]
 	private(set) var normalizedTimePerDate: [Date: Double] = [:]
