@@ -9,7 +9,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 	// MARK: - Success
 
-	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_Success() {
+	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
 		Analytics.setupMock(store: store)
@@ -31,6 +31,8 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		store.dateOfAcceptedPrivacyNotice = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		store.lastAppReset = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 		let ppacToken = PPACToken(apiToken: "FakeApiToken", deviceToken: "FakeDeviceToken")
+		
+		let currentRiskExposureMetadata = store.currentRiskExposureMetadata
 
 		// WHEN
 		analyticsSubmitter.triggerSubmitData(ppacToken: ppacToken, completion: { result in
@@ -44,6 +46,20 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 
 		// THEN
 		waitForExpectations(timeout: .short)
+		
+		
+		/// Check that store is setup correctly after successful submission
+		XCTAssertEqual(store.previousRiskExposureMetadata, currentRiskExposureMetadata)
+		XCTAssertNil(store.currentRiskExposureMetadata)
+		XCTAssertNil(store.testResultMetadata)
+		XCTAssertNil(store.keySubmissionMetadata)
+		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
+		
+		/// Since the Date is super precise we have to be fuzzy here, and since we know our CI lets me a lot fuzzy here.
+		let tenSecondsAgo = Calendar.current.date(byAdding: .second, value: -10, to: Date())
+		let lastTenSeconds = try XCTUnwrap(tenSecondsAgo)...Date()
+		XCTAssertTrue(lastTenSeconds.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
+		
 	}
 
 	// MARK: - Failures

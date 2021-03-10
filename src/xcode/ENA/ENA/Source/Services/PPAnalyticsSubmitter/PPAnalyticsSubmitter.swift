@@ -323,6 +323,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.keySubmissionMetadata = nil
 					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
+					self?.store.lastSubmissionAnalytics = Date()
 					completion?(result)
 				case let .failure(error):
 					Log.error("Analytics data were not submitted", log: .ppa, error: error)

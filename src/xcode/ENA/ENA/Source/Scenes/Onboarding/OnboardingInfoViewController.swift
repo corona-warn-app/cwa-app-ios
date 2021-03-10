@@ -184,6 +184,7 @@ final class OnboardingInfoViewController: UIViewController {
 					self?.finishOnBoarding()
 				}),
 			bottomHeight: 140.0)
+		
 		navigationController?.pushViewController(containerViewController, animated: true)
 	}
 
