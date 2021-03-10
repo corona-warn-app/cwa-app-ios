@@ -63,6 +63,7 @@ enum PPAnalyticsCollector {
 		store?.previousRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
+		store?.submittedWithQR = false
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
@@ -225,12 +226,14 @@ enum PPAnalyticsCollector {
 		if storedTestResult == nil || storedTestResult != testResult {
 			switch testResult {
 			case .positive, .negative, .pending:
+				Log.info("update TestResultMetadata with testResult: \(testResult.stringValue)", log: .ppa)
 				Analytics.collect(.testResultMetadata(.testResult(testResult)))
 
 				switch store?.testResultMetadata?.testResult {
 				case .positive, .negative, .pending:
 					let diffComponents = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date())
 					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(diffComponents.hour)))
+					Log.info("update TestResultMetadata with HoursSinceTestRegistration: \(String(describing: diffComponents.hour))", log: .ppa)
 				default:
 					Analytics.collect(.testResultMetadata(.testResultHoursSinceTestRegistration(nil)))
 				}
@@ -238,6 +241,8 @@ enum PPAnalyticsCollector {
 			case .expired, .invalid:
 				break
 			}
+		} else {
+			Log.warning("will not update same TestResultMetadata, oldResult: \(storedTestResult?.stringValue ?? "") newResult: \(testResult.stringValue)", log: .ppa)
 		}
 	}
 
@@ -284,11 +289,16 @@ enum PPAnalyticsCollector {
 		case let .submittedAfterSymptomFlow(afterSymptomFlow):
 			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 		case let .submittedWithTeletan(withTeletan):
-			store?.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
+			store?.submittedWithQR = !withTeletan
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
-		case let .advancedConsentGiven(advanced):
-			store?.keySubmissionMetadata?.advancedConsentGiven = advanced
+		case let .advancedConsentGiven(advanceConsent):
+			// this is as per techspecs, this value is false in case TAN submission
+			if store?.submittedWithQR == true && advanceConsent == true {
+				store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
+			} else {
+				store?.keySubmissionMetadata?.advancedConsentGiven = false
+			}
 		case let .hoursSinceTestResult(hours):
 			store?.keySubmissionMetadata?.hoursSinceTestResult = hours
 		case let .keySubmissionHoursSinceTestRegistration(hours):
@@ -297,6 +307,8 @@ enum PPAnalyticsCollector {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case .updateSubmittedWithTeletan:
+			store?.keySubmissionMetadata?.submittedWithTeleTAN = !(store?.submittedWithQR ?? false)
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:
@@ -361,17 +373,16 @@ enum PPAnalyticsCollector {
 
 	private static func logExposureWindowsMetadata(_ exposureWindowsMetadata: PPAExposureWindowsMetadata) {
 		switch exposureWindowsMetadata {
-		case let .create(metadata):
-			store?.exposureWindowsMetadata = metadata
-		case let .collectExposureWindows(riskCalculationProtocol):
-			Analytics.collectExposureWindows(riskCalculationProtocol)
+		case let .collectExposureWindows(exposureWindows):
+			Log.info("Create new ExposureWindowsMetadata from: \(String(describing: exposureWindows.count)) riskCalculation windows", log: .ppa)
+			Analytics.collectExposureWindows(exposureWindows)
 		}
 	}
 
-	private static func collectExposureWindows(_ riskCalculation: RiskCalculationProtocol) {
+	private static func collectExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
 		self.clearReportedExposureWindowsQueueIfNeeded()
 
-		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculation.mappedExposureWindows.map {
+		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
 			SubmissionExposureWindow(
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,
@@ -397,7 +408,10 @@ enum PPAnalyticsCollector {
 				newExposureWindowsQueue: mappedSubmissionExposureWindows,
 				reportedExposureWindowsQueue: mappedSubmissionExposureWindows
 			)
+			Log.info("First submission of ExposureWindowsMetadata", log: .ppa)
 		}
+		Log.info("number of new ExposureWindowsMetadata windows: \(String(describing: store?.exposureWindowsMetadata?.newExposureWindowsQueue.count)) windows", log: .ppa)
+		Log.info("number of reported ExposureWindowsMetadata windows: \(String(describing: store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.count)) windows", log: .ppa)
 	}
 
 	private static func clearReportedExposureWindowsQueueIfNeeded() {

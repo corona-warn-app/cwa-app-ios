@@ -79,6 +79,7 @@ class DMPPAnalyticsActualData: UIViewController {
 		])
 
 		textView.text = Analytics.getPPADataMessage()?.textFormatString()
+		Log.info("Analytics actual data: \(String(describing: textView.text))", log: .ppa)
 	}
 
 	@objc
