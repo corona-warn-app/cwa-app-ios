@@ -174,7 +174,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-	func showRiskLegend() {
+	private func showRiskLegend() {
 		let riskLegendViewController = RiskLegendViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
@@ -248,6 +248,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			eventStore: MockEventStore(),
 			parentNavigationController: rootViewController
 		)
 

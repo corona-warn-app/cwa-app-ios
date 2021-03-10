@@ -36,16 +36,13 @@ class TraceLocationsOverviewViewController: UITableViewController {
 
 		setupTableView()
 
-//		viewModel.$day
-//			.sink { [weak self] _ in
-//				DispatchQueue.main.async {
-//					self?.update()
-//				}
-//			}
-//			.store(in: &subscriptions)
-
-		// Can be removed once publisher is active
-		update()
+		viewModel.$traceLocations
+			.sink { [weak self] _ in
+				DispatchQueue.main.async {
+					self?.update()
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -106,9 +103,6 @@ class TraceLocationsOverviewViewController: UITableViewController {
 			forCellReuseIdentifier: String(describing: TraceLocationTableViewCell.self)
 		)
 
-		tableView.delegate = self
-		tableView.dataSource = self
-
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
@@ -133,8 +127,8 @@ class TraceLocationsOverviewViewController: UITableViewController {
 		let cellModel = viewModel.traceLocationCellModel(at: indexPath)
 		cell.configure(
 			cellModel: cellModel,
-			onButtonTap: { traceLocation in
-				Log.info("TraceLocation button tapped: \(traceLocation)")
+			onButtonTap: { [weak self] in
+				self?.viewModel.didTapEntryCellButton(at: indexPath)
 			}
 		)
 

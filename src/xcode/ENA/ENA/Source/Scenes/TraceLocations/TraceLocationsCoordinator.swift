@@ -10,9 +10,11 @@ class TraceLocationsCoordinator {
 
 	init(
 		store: Store,
+		eventStore: EventStoring & EventProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
+		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
 	}
 
@@ -20,6 +22,8 @@ class TraceLocationsCoordinator {
 
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
+
+		eventStore.createTraceLocation(TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: ""))
 
 		#if DEBUG
 		if isUITesting {
@@ -38,6 +42,7 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 
 	private let store: Store
+	private let eventStore: EventStoring & EventProviding
 
 	private weak var parentNavigationController: UINavigationController?
 
@@ -54,14 +59,15 @@ class TraceLocationsCoordinator {
 	private lazy var overviewScreen: TraceLocationsOverviewViewController = {
 		return TraceLocationsOverviewViewController(
 			viewModel: TraceLocationsOverviewViewModel(
+				store: eventStore,
 				onAddEntryCellTap: { [weak self] in
 					self?.showTraceLocationTypeSelectionScreen()
 				},
 				onEntryCellTap: { [weak self] traceLocation in
 					self?.showTraceLocationDetailsScreen(traceLocation: traceLocation)
 				},
-				onSelfCheckInButtonTap: { [weak self] traceLocation in
-					self?.showSelfCheckInScreen(traceLocation: traceLocation)
+				onEntryCellButtonTap: { [weak self] traceLocation in
+					self?.showCheckInScreen(traceLocation: traceLocation)
 				}
 			)
 		)
@@ -156,7 +162,7 @@ class TraceLocationsCoordinator {
 		navigationController.pushViewController(viewController, animated: true)
 	}
 
-	private func showSelfCheckInScreen(traceLocation: TraceLocation) {
+	private func showCheckInScreen(traceLocation: TraceLocation) {
 
 	}
 

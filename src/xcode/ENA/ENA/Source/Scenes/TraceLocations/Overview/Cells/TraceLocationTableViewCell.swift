@@ -8,9 +8,7 @@ class TraceLocationTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(cellModel: TraceLocationCellModel, onButtonTap: @escaping (TraceLocation) -> Void) {
-		traceLocation = cellModel.traceLocation
-
+	func configure(cellModel: TraceLocationCellModel, onButtonTap: @escaping () -> Void) {
 		titleLabel.text = cellModel.title
 		locationLabel.text = cellModel.location
 		timeLabel.text = cellModel.time
@@ -25,18 +23,16 @@ class TraceLocationTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
-	private var traceLocation: TraceLocation!
-
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var locationLabel: ENALabel!
 	@IBOutlet private weak var timeLabel: ENALabel!
 	@IBOutlet private weak var dateLabel: ENALabel!
 	@IBOutlet private weak var button: ENAButton!
 
-	var onButtonTap: ((TraceLocation) -> Void)?
+	var onButtonTap: (() -> Void)?
     
 	@IBAction func didTapButton(_ sender: Any) {
-		onButtonTap?(traceLocation)
+		onButtonTap?()
 	}
 
 }

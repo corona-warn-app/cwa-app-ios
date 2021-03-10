@@ -10,22 +10,20 @@ class TraceLocationsOverviewViewModel {
 	// MARK: - Init
 
 	init(
-//		store: DiaryStoringProviding,
+		store: EventStoring & EventProviding,
 		onAddEntryCellTap: @escaping () -> Void,
 		onEntryCellTap: @escaping (TraceLocation) -> Void,
-		onSelfCheckInButtonTap: @escaping (TraceLocation) -> Void
+		onEntryCellButtonTap: @escaping (TraceLocation) -> Void
 	) {
-//		self.store = store
+		self.store = store
 		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
-		self.onSelfCheckInButtonTap = onSelfCheckInButtonTap
+		self.onEntryCellButtonTap = onEntryCellButtonTap
 
-//		store.diaryDaysPublisher
-//			.sink { [weak self] days in
-//				guard let day = days.first(where: { $0.dateString == day.dateString }) else { return }
-//
-//				self?.day = day
-//			}.store(in: &subscriptions)
+		store.traceLocationsPublisher
+			.sink { [weak self] in
+				self?.traceLocations = $0
+			}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -35,9 +33,7 @@ class TraceLocationsOverviewViewModel {
 		case entries
 	}
 
-	@OpenCombine.Published private(set) var traceLocations: [TraceLocation] = [
-		TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: "")
-	]
+	@OpenCombine.Published private(set) var traceLocations: [TraceLocation] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -78,20 +74,20 @@ class TraceLocationsOverviewViewModel {
 		onEntryCellTap(traceLocations[indexPath.row])
 	}
 
-	func didTapSelfCheckInButton(at indexPath: IndexPath) {
+	func didTapEntryCellButton(at indexPath: IndexPath) {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		onSelfCheckInButtonTap(traceLocations[indexPath.row])
+		onEntryCellButtonTap(traceLocations[indexPath.row])
 	}
 
 	// MARK: - Private
 
-//	private let store: DiaryStoringProviding
+	private let store: EventStoring & EventProviding
 	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (TraceLocation) -> Void
-	private let onSelfCheckInButtonTap: (TraceLocation) -> Void
+	private let onEntryCellButtonTap: (TraceLocation) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
 
