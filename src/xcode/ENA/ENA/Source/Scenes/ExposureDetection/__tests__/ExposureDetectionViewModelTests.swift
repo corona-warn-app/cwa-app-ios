@@ -54,8 +54,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			of: viewModel.dynamicTableViewModel,
 			viewController: viewController,
 			hasAtLeastOneDayWithLowRiskLevel: false,
-			isLoading: false,
-			withoutEncounter: true
+			isLoading: false
 		)
 
 		XCTAssertEqual(viewModel.titleText, AppStrings.ExposureDetection.low)
@@ -851,8 +850,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		of dynamicTableViewModel: DynamicTableViewModel,
 		viewController: ExposureDetectionViewController,
 		hasAtLeastOneDayWithLowRiskLevel: Bool,
-		isLoading: Bool,
-		withoutEncounter: Bool = false
+		isLoading: Bool
 	) {
 		// Risk data section
 		var section = dynamicTableViewModel.section(0)
@@ -903,10 +901,10 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Explanation section
 		section = dynamicTableViewModel.section(5)
-		if withoutEncounter == true {
-			XCTAssertEqual(section.cells.count, 2)
-		} else {
+		if hasAtLeastOneDayWithLowRiskLevel == true {
 			XCTAssertEqual(section.cells.count, 3)
+		} else {
+			XCTAssertEqual(section.cells.count, 2)
 		}
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
