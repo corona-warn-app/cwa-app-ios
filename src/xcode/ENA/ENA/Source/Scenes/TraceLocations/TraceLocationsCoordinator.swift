@@ -4,15 +4,6 @@
 
 import UIKit
 
-struct TraceLocation {
-
-}
-
-enum TraceLocationType {
-	case otherLocation
-	case otherTraceLocation
-}
-
 class TraceLocationsCoordinator {
 
 	// MARK: - Init

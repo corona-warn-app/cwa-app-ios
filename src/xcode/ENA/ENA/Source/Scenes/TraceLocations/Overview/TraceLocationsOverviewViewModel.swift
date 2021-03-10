@@ -35,7 +35,9 @@ class TraceLocationsOverviewViewModel {
 		case entries
 	}
 
-	@OpenCombine.Published private(set) var traceLocations: [TraceLocation] = [TraceLocation()]
+	@OpenCombine.Published private(set) var traceLocations: [TraceLocation] = [
+		TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: "")
+	]
 
 	var numberOfSections: Int {
 		Section.allCases.count
