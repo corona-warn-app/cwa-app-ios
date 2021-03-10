@@ -401,9 +401,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -429,9 +429,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Onboarding EU Keys */
 
@@ -1213,6 +1213,31 @@ sein.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 
+/* App Information - Error Report */
+"ErrorReport_PrivacyInformation" = "Weitere Hinweise finden Sie in der Datenschutzerklärung";
+
+"ErrorReport_ActiveStatus_Title" = "Fehleranalyse läuft";
+
+"ErrorReport_InactiveStatus_Title" = "Inaktiv";
+
+"ErrorReport_Progress_Description" = "Derzeitige Größe %@ B (unkomprimiert)";
+
+"ErrorReport_StartButtonTitle" = "Starten";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Stoppen und Löschen";
+
+"ErrorReport_SaveButtonTitle" = "Lokal speichern und fortsetzen";
+
+"ErrorReport_SendButtonTitle" = "Fehlerbericht senden";
+
+"ErrorReport_SendReports_Title" = "Fehlerbericht senden";
+
+"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+
+"ErrorReport_SendReports_Details" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
+
+"ErrorReport_SendReports_Button_Title" = "Einverstanden und senden";
+
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Empfehlen";
 
@@ -1884,3 +1909,31 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
+
+/* Error Reporting */
+
+"ErrorReport_Title" = "Fehlerberichte";
+
+"ErrorReport_Description1" = "Um den technischen Support der App bei der Fehleranalyse zu unterstützen, können Sie einen Fehlerbericht der CWA aufzeichnen. Hierbei werden die einzelnen technischen Schritte und Ereignisse beim Ablauf der App detailliert aufgezeichnet. Den Fehlerbericht können Sie dann an den technischen Support senden und so helfen, Fehler zu erkennen und zu beheben.\n\nWeitere Informationen finden Sie in den FAQ:";
+
+"ErrorReport_FAQ" = "FAQ zu den Fehlerberichten";
+
+"ErrorReport_DetailedInformation_Title" = "Ausführliche Informationen zur Übersendung der Fehlerberichte";
+
+"errorReport_DetailedInformation_Headline" = "Prüfung der Echtheit und Drittlandsübermittlung";
+
+"errorReport_DetailedInformation_Content1" = "Um die Echtheit Ihrer App zu bestätigen, erzeugt Ihr Smartphone eine eindeutige Kennung, die Informationen über die Version Ihres Smartphones und der App enthält. Das ist erforderlich, um sicherzustellen, dass nur Nutzer Daten auf diesem Weg an den technischen Support übersenden, die tatsächlich die Corona-Warn-App nutzen und nicht manipulierte Fehlerberichte bereitstellen. Die Kennung wird dafür einmalig an Apple übermittelt. Dabei kann es auch zu einer Datenübermittlung in die USA oder andere Drittländer kommen. Dort besteht möglicherweise kein dem europäischen Recht entsprechendes Datenschutzniveau und Ihre europäischen Datenschutzrechte können eventuell nicht durchgesetzt werden. Insbesondere besteht die Möglichkeit, dass Sicherheitsbehörden im Drittland, auch ohne einen konkreten Verdacht, auf die übermittelten Daten bei Apple zugreifen und diese auswerten, beispielsweise indem sie Daten mit anderen Informationen verknüpfen. Dies betrifft nur die an Apple übermittelte Kennung. Die Angaben aus Ihrem Fehlerbericht erhält Apple nicht. Möglicherweise kann Apple jedoch anhand der Kennung auf Ihre Identität schließen und nachvollziehen, dass die Echtheitsprüfung Ihres Smartphones stattgefunden hat.\n\nWenn Sie mit der Drittlandsübermittlung nicht einverstanden sind, tippen Sie bitte nicht „Einverstanden und Fehlerbericht senden“ an. Sie können die App weiterhin nutzen, eine Übersendung des Fehlerberichtes über die App ist dann jedoch nicht möglich.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Zur Auswertung der Fehlerberichte durch das RKI";
+
+"ErrorReport_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "Nachdem die Echtheit Ihrer App geprüft wurde, wird der Fehlerbericht über eine gesicherte Verbindung an das RKI übermittelt. Die Fehlerberichte werden nur zur Fehleranalyse und Fehlerbehebung im Rahmen zukünftiger Updates der App genutzt. Nur Mitarbeiter des technischen Support können auf die Fehlerberichte zugreifen. Die Fehlerberichte enthalten eine Vielzahl von Statusmeldungen und Ereignissen, die in der App ausgelöst wurden, sie enthalten aber keine Hinweise anhand derer das RKI auf Ihre Identität schließen kann. Erst wenn Sie die Fehlerbericht-ID im Zusammenhang mit weiteren Mitteilungen nennen, kann ein Zusammenhang zwischen der Mitteilung (und z. B. Ihrem dort enthaltenen Namen) und den im Fehlerbericht enthaltenen Angaben (z. B. technische Meldungen zur Berechnung im Rahmen der Risiko-Ermittlung, in der App angezeigte Informationen und durchlaufene Schritte, aber ggf. auch einem abgerufenen Testergebnis und ggf. im Rahmen der Warnung geteilter Zufalls-IDs) hergestellt werden.";
+
+"ErrorReport_History_Title" = "ID Historie";
+
+"ErrorReport_History_Description" = "Hier sehen Sie die IDs Ihrer Fehleranalyse-Protokolle";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "IDs der bisher geteilten Fehleranalysen";

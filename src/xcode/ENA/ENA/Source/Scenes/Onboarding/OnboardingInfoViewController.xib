@@ -42,7 +42,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="678.66666666666663"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="u0Z-dj-KUh">
-                                    <rect key="frame" x="16" y="16" width="382" height="668"/>
+                                    <rect key="frame" x="16" y="16" width="382" height="678.5"/>
                                     <subviews>
                                         <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKw-RG-YP1">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
@@ -120,7 +120,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuR-3M-Pvl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="476.5" width="382" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="476.5" width="382" height="33.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" name="ENA Text Primary 1 Color"/>
                                             <nil key="highlightedColor"/>
@@ -129,7 +129,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Lgs-ln-Zc7">
-                                            <rect key="frame" x="0.0" y="529" width="382" height="139"/>
+                                            <rect key="frame" x="0.0" y="542" width="382" height="136.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nk7-Zk-JE2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -141,7 +141,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znr-XX-rfp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="44.5" width="382" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="44.5" width="382" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -150,7 +150,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" editable="NO" allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vwe-7A-NHS">
-                                                    <rect key="frame" x="0.0" y="89" width="382" height="50"/>
+                                                    <rect key="frame" x="0.0" y="86.5" width="382" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" link="YES"/>
@@ -249,6 +249,32 @@
             <point key="canvasLocation" x="-442" y="78"/>
         </view>
     </objects>
+    <designables>
+        <designable name="7CF-il-Sk2">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="9f7-Oe-AOV">
+            <size key="intrinsicContentSize" width="67" height="50"/>
+        </designable>
+        <designable name="Nk7-Zk-JE2">
+            <size key="intrinsicContentSize" width="70.5" height="20.5"/>
+        </designable>
+        <designable name="PuR-3M-Pvl">
+            <size key="intrinsicContentSize" width="77" height="33.5"/>
+        </designable>
+        <designable name="lge-Dm-wcC">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="vh2-Dv-3W6">
+            <size key="intrinsicContentSize" width="33" height="16"/>
+        </designable>
+        <designable name="vo8-Zn-enn">
+            <size key="intrinsicContentSize" width="54" height="50"/>
+        </designable>
+        <designable name="znr-XX-rfp">
+            <size key="intrinsicContentSize" width="85" height="18"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Illu_Onboarding_GemeinsamCoronabekaempfen" width="375" height="229"/>
         <namedColor name="ENA Background Color">

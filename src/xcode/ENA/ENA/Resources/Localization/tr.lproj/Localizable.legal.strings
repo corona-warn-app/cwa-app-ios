@@ -106,3 +106,29 @@
 /* Data Donation App Settings*/
 
 "ppa_settings_privacy_information_body" = "Yukarıdaki “Veri bağışı” seçeneğini etkinleştirerek, şunlara onay vermiş olursunuz:\n\nUygulama, topladığı bilgileri her gün RKI’ye aktarır. Bunlar, görüntülenen riskli karşılaşmalar ve uyarılar, size gönderilen test sonuçları, diğer kullanıcıları uyarıp uyarmadığınız ve akıllı telefonunuzun işletim sistemine ilişkin verilerdir. Ayrıca başka bilgiler de verdiyseniz (bölge, yaş grubu gibi), bunlar da RKI’ye aktarılır.\n\nRKI, Uygulamanın etki gücünü ve işlevselliğini değerlendirmek ve pandemi hakkında yeni çıkarımlar elde etmek için, bu verileri birleştirecek ve istatistikler olarak değerlendirecektir. Bu süreçte edinilen bulgular, Uygulamanın işlevlerini ve kullanım kolaylığını iyileştirmenin yanı sıra pandemiye karşı mücadele için diğer önlemlerin yönlendirilmesine yardımcı olmaktadır.\n\nVerilerinizin değerlendirilmesinden önce, veri bağışına katılan her Uygulamanın yalnızca bir kez sayıma alındığı ve istatistiklerin tahrif edilmediği kontrol edilir. Bu bağlamda Uygulamanızın orijinal olduğunun incelenmesi gerekmektedir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD’deki veya diğer bir üçüncü ülkeye Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.\n\nYukarıdaki “Veri bağışı” seçeneğini devre dışı bırakarak, verdiğiniz rıza beyanını geri alabilirsiniz.";
+
+/* Error Reports */
+
+"errorReport_Legal_DataPrivacy_Headline" = "Veri gizliliği ve veri güvenliği";
+
+"errorReport_Legal_DataPrivacy_Bullet1" = "Hata raporunun kaydedilmesi isteğe bağlı gerçekleşmektedir.";
+
+"errorReport_Legal_DataPrivacy_Bullet2" = "Hata raporuna öncelikle yalnızca siz erişebilirsiniz. Ancak daha sonra, hata raporunu teknik desteğe gönderme, hata raporunu ilk önce akıllı telefonunuza kaydetme veya kaydı durdurup silme kararını vermek size kalmıştır. Hata raporunu ilk önce yerel olarak cihazınıza kaydederseniz, teknik desteğe göndermeden önce hata raporunu kendiniz görüntüleme olanağınız da bulunmaktadır.";
+
+"errorReport_Legal_DataPrivacy_Bullet3" = "Hata raporu, örneğin test sonucunuz veya sizin için belirlenen enfeksiyon riskine ilişkin veriler gibi hassas bilgiler içerir. Ancak bu rapor, test kaydı sırasında kullandığınız kare kodları, temas günlüğüne girdiğiniz veriler veya kimliğiniz hakkında herhangi bir bilgi içermez.";
+
+"errorReport_Legal_DataPrivacy_Bullet4" = "Hata raporlarını yayınlamanızı ve e-posta ile göndermenizi tavsiye etmiyoruz.";
+
+"errorReport_Legal_DataPrivacy_Bullet5" = "Özel kişiler veya şirketler, sizden topladığınız verileri başkalarına aktarmanızı talep etme hakkına sahip değillerdir.";
+
+"errorReport_Legal_Consent_Headline" = "Rıza beyanınız";
+
+"errorReport_Legal_Consent_Intro" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
+"errorReport_Legal_Consent_Bullet1_Header" = "Tarafınızdan oluşturulan hata raporu, hata analizinin gerçekleştirilmesi için RKI’ye aktarılır.";
+
+"errorReport_Legal_Consent_Bullet1_Paragraph" = "RKI, Uygulamanızda ortaya çıkan hataların olası nedenlerini belirlemek ve bunları gidermek için hata raporunu inceleyecektir. Hata raporu kimlik numarasını teknik destek birimine sağladığınızda, RKI bu hata raporunu size kişisel olarak atayabilir.";
+
+"errorReport_Legal_Consent_Bullet2" = "Rapor RKI’ye gönderilmeden önce, Uygulamanızın orijinal olduğu bir kez kontrol edilir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD veya diğer bir üçüncü ülkedeki Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.";
+
+"errorReport_Legal_Consent_LastParagraph" = "Gönderimden sonra hata raporu kimlik numarasını teknik desteğe bildirirseniz, sağlanan diğer bilgilerin, hata raporu kimliğinin ve hata raporunun silinmesini istediğiniz zaman talep edebilirsiniz. Aksi halde bu hata raporu 14 gün sonra otomatik olarak silinecektir.";
