@@ -117,6 +117,10 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 					tableView.deleteRows(at: [indexPath], with: .automatic)
 				}, completion: { _ in
 					self.shouldReload = true
+
+					if self.viewModel.isEmpty {
+						self.setEditing(false, animated: true)
+					}
 				})
 			}
 		)
