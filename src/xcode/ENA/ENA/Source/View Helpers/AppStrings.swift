@@ -1363,6 +1363,21 @@ enum AppStrings {
 			static let emptyTitle = NSLocalizedString("TraceLocation_Overview_EmptyTitle", comment: "")
 			static let emptyDescription = NSLocalizedString("TraceLocation_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("TraceLocation_Overview_EmptyImageDescription", comment: "")
+			static let deleteAllButtonTitle = NSLocalizedString("TraceLocation_Overview_DeleteAllButtonTitle", comment: "")
+
+			enum DeleteOneAlert {
+				static let title = NSLocalizedString("TraceLocation_Overview_DeleteOne_AlertTitle", comment: "")
+				static let message = NSLocalizedString("TraceLocation_Overview_DeleteOne_AlertMessage", comment: "")
+				static let confirmButtonTitle = NSLocalizedString("TraceLocation_Overview_DeleteOne_AlertConfirmButtonTitle", comment: "")
+				static let cancelButtonTitle = NSLocalizedString("TraceLocation_Overview_DeleteOne_AlertCancelButtonTitle", comment: "")
+			}
+
+			enum DeleteAllAlert {
+				static let title = NSLocalizedString("TraceLocation_Overview_DeleteAll_AlertTitle", comment: "")
+				static let message = NSLocalizedString("TraceLocation_Overview_DeleteAll_AlertMessage", comment: "")
+				static let confirmButtonTitle = NSLocalizedString("TraceLocation_Overview_DeleteAll_AlertConfirmButtonTitle", comment: "")
+				static let cancelButtonTitle = NSLocalizedString("TraceLocation_Overview_DeleteAll_AlertCancelButtonTitle", comment: "")
+			}
 
 			enum ActionSheet {
 				static let infoTitle = NSLocalizedString("TraceLocation_Overview_ActionSheet_InfoTitle", comment: "")

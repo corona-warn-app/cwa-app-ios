@@ -82,6 +82,14 @@ class TraceLocationsOverviewViewModel {
 		onEntryCellButtonTap(traceLocations[indexPath.row])
 	}
 
+	func removeEntry(at indexPath: IndexPath) {
+		store.deleteTraceLocation(id: traceLocations[indexPath.row].guid)
+	}
+
+	func removeAll() {
+		store.deleteAllTraceLocations()
+	}
+
 	// MARK: - Private
 
 	private let store: EventStoring & EventProviding
