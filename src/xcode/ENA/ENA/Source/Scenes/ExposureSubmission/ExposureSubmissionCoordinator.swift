@@ -473,6 +473,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Late consent
 
 	private func showWarnOthersScreen(supportedCountries: [Country]) {
+		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 		let viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries) { [weak self] in
 			self?.showTestResultAvailableCloseAlert()
 		}
