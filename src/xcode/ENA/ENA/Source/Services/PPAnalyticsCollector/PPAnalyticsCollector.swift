@@ -288,8 +288,12 @@ enum PPAnalyticsCollector {
 			store?.submittedWithQR = !withTeletan
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
-		case let .advancedConsentGiven(advanced):
-			store?.keySubmissionMetadata?.advancedConsentGiven = advanced
+		case let .advancedConsentGiven(advanceConsent):
+			if store?.submittedWithQR == true && advanceConsent == true {
+				store?.keySubmissionMetadata?.advancedConsentGiven = advanceConsent
+			} else {
+				store?.keySubmissionMetadata?.advancedConsentGiven = false
+			}
 		case let .hoursSinceTestResult(hours):
 			store?.keySubmissionMetadata?.hoursSinceTestResult = hours
 		case let .keySubmissionHoursSinceTestRegistration(hours):
