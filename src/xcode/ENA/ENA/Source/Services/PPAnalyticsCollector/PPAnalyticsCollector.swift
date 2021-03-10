@@ -63,6 +63,7 @@ enum PPAnalyticsCollector {
 		store?.previousRiskExposureMetadata = nil
 		store?.userMetadata = nil
 		store?.lastSubmittedPPAData = nil
+		store?.submittedWithQR = false
 		store?.lastAppReset = nil
 		store?.lastSubmissionAnalytics = nil
 		store?.clientMetadata = nil
@@ -70,6 +71,11 @@ enum PPAnalyticsCollector {
 		store?.keySubmissionMetadata = nil
 		store?.exposureWindowsMetadata = nil
 		Log.info("Deleted all analytics data in the store", log: .ppa)
+	}
+
+	/// It return the value if the submission was triggered with TAN
+	static func isSubmittedWithTAN() -> Bool {
+		return !(store?.submittedWithQR ?? false)
 	}
 
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get the success or failure handlers.
@@ -297,6 +303,8 @@ enum PPAnalyticsCollector {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
+		case let .submittedWithQR(withQR):
+			store?.submittedWithQR = withQR
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:

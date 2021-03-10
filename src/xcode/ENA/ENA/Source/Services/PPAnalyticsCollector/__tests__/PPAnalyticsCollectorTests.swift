@@ -116,6 +116,8 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmittedPPAData)
 		countOfDeletedProperties += 1
+		XCTAssertFalse(store.submittedWithQR)
+		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastAppReset)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.lastSubmissionAnalytics)

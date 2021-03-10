@@ -84,13 +84,13 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var otpAuthorizationDate: Date?
 	var ppacApiToken: TimestampedToken?
 	var userData: UserMetadata?
-	var submittedWithQR: Bool = false
 
 	// MARK: - PPAnalyticsData
 
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
+	var submittedWithQR: Bool = false
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?

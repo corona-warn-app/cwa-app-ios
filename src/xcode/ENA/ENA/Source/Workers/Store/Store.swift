@@ -151,8 +151,6 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var otpAuthorizationDate: Date? { get set }
 	/// PPAC Token storage
 	var ppacApiToken: TimestampedToken? { get set }
-	/// A boolean to keep a track if the submission is done via QR
-	var submittedWithQR: Bool { get set }
 }
 
 /// Wrapper protocol

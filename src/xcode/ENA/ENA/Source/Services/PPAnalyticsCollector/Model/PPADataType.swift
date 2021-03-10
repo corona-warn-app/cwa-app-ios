@@ -55,6 +55,7 @@ enum PPAKeySubmissionMetadata {
 	case setHoursSinceTestRegistration
 	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration
 	case setHoursSinceHighRiskWarningAtTestRegistration
+	case submittedWithQR(Bool)
 }
 
 enum PPAExposureWindowsMetadata {

@@ -109,6 +109,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		let isSubmissionConsentGiven = true
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		secureStore.riskCalculationResult = riskCalculationResult
+		Analytics.collect(.keySubmissionMetadata(.submittedWithQR(true)))
 
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
@@ -121,7 +122,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
 			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedWithTeleTAN: true)
+			submittedWithTeleTAN: Analytics.isSubmittedWithTAN())
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 		
 		Analytics.collect(.keySubmissionMetadata(.submitted(true)))
@@ -129,7 +130,6 @@ class KeySubmissionMetadataTests: XCTestCase {
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterCancel(true)))
 		Analytics.collect(.keySubmissionMetadata(.submittedAfterSymptomFlow(true)))
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenSymptoms)))
-		Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
 
 		XCTAssertNotNil(secureStore.keySubmissionMetadata, "keySubmissionMetadata should be initialized with default values")
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submitted) != false))
@@ -137,7 +137,7 @@ class KeySubmissionMetadataTests: XCTestCase {
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedAfterCancel) != false))
 		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedAfterSymptomFlow) != false))
 		XCTAssertEqual(secureStore.keySubmissionMetadata?.lastSubmissionFlowScreen, .submissionFlowScreenSymptoms)
-		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedWithTeleTAN) != false))
+		XCTAssertTrue(((secureStore.keySubmissionMetadata?.submittedWithTeleTAN) == false))
 	}
 
 	func testKeySubmissionMetadataValues_LowRisk() {
