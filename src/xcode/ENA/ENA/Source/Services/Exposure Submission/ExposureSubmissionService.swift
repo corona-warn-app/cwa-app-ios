@@ -35,7 +35,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
-			Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(isSubmissionConsentGiven)))
 		}.store(in: &subscriptions)
 	}
 
