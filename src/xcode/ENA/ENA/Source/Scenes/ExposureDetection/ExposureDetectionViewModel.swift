@@ -409,14 +409,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			),
 			standardGuideSection,
 			activeTracingSection(risk: risk, accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection),
-			explanationSection(
-				text: numberOfExposures > 0 ?
-					AppStrings.ExposureDetection.explanationTextLowWithEncounter :
-					AppStrings.ExposureDetection.explanationTextLowNoEncounter,
-				numberOfExposures: numberOfExposures,
-				accessibilityIdentifier: numberOfExposures > 0 ? AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter :
-					AccessibilityIdentifiers.ExposureDetection.explanationTextLowNoEncounter
-			)
+			explanationSection(numberOfExposures: numberOfExposures)
 		])
 	}
 
@@ -632,6 +625,44 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			].compactMap { $0 }
 		)
 	}
+
+	private func explanationSection(numberOfExposures: Int = -1) -> DynamicSection {
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: numberOfExposures > 0 ? cellsWithEncounter : cellsWithNoEncounter
+		)
+	}
+    
+	private var cellsWithEncounter: [DynamicCell] = [
+		.header(
+			title: AppStrings.ExposureDetection.explanationTitle,
+			subtitle: AppStrings.ExposureDetection.explanationSubtitle
+		 ),
+		.body(
+			text: AppStrings.ExposureDetection.explanationTextLowWithEncounter,
+			accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter
+		),
+		.link(
+			text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
+			url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
+		)
+	].compactMap { $0 }
+	
+	private var cellsWithNoEncounter: [DynamicCell] = [
+		.header(
+			title: AppStrings.ExposureDetection.explanationTitle,
+			subtitle: AppStrings.ExposureDetection.explanationSubtitle
+		),
+		.body(
+			text: AppStrings.ExposureDetection.explanationTextLowNoEncounter,
+			accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter
+		),
+		.link(
+			text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
+			url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
+		)
+	].compactMap { $0 }
 
 	private func highRiskExplanationSection(risk: Risk, mostRecentDateWithRiskLevelText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
 		let dateFormatter = DateFormatter()
