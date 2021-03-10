@@ -13,22 +13,31 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.12"
+		self.featureVersion = "1.14"
 		
-		// Exposure History Feature
+		// Additional Diary functions
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature112ExposureHistoryTitle, description: AppStrings.NewVersionFeatures.feature112ExposureHistoryDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsTitle, description: AppStrings.NewVersionFeatures.feature114AdditionalDiaryFunctionsDescription)
 		)
 		
-		// iOS 12.5 Support
+		// Direct diary access
 		self.newVersionFeatures.append(
-			NewVersionFeature( title: AppStrings.NewVersionFeatures.feature112iOS125SupportTitle, description: AppStrings.NewVersionFeatures.feature112iOS125SupportDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryTitle, description: AppStrings.NewVersionFeatures.feature114DirectAccessDiaryDescription)
 		)
+		
+		// More Detais Risk Status
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusTitle, description: AppStrings.NewVersionFeatures.feature114MoreDetailsRiskStatusDescription)
+		)
+		
+		// Screenshots
+		self.newVersionFeatures.append(
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature114ScreenshotsTitle, description: AppStrings.NewVersionFeatures.feature114ScreenshotsDescription, internalId: "114-screenshots")
+		)
+		
 	}
 
 	// MARK: - Internal
-	
-	typealias DynamicNewVersionFeatureCell = DynamicLegalCell
 	
 	let featureVersion: String
 
@@ -61,7 +70,15 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 					cells: buildNewFeaturesCells()
 				)
 			)
-			
+			$0.add(
+				.section(
+					cells: [
+						.body(text: AppStrings.NewVersionFeatures.aboutAppInformation,
+							  color: .enaColor(for: .textPrimary1),
+							  accessibilityIdentifier: AccessibilityIdentifiers.DeltaOnboarding.newVersionFeaturesGeneralAboutAppInformation)
+					]
+				)
+			)
 		}
 	}
 
@@ -79,10 +96,19 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		]
 		
 		for feature in newVersionFeatures {
-			let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
-			featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
-			featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
-			cells.append(.bulletPoint(attributedText: featureBulletPoint))
+			
+			if feature.internalId != nil && feature.internalId == "114-screenshots" {
+				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+				cells.append(.bulletPoint(attributedText: featureBulletPoint))
+				cells.append(.link(placeholder: "\t\(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURLDisplayText)", link: AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL, font: .body, style: .body, accessibilityIdentifier: ""))
+				Log.debug("The screenshot URL is the following: \(AppStrings.NewVersionFeatures.feature114ScreenshotWebSiteURL)")
+			} else {
+				let featureBulletPoint = NSMutableAttributedString(string: feature.title + "\n\t", attributes: boldTextAttribute)
+				featureBulletPoint.append(NSAttributedString(string: feature.description, attributes: normalTextAttribute))
+				featureBulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+				cells.append(.bulletPoint(attributedText: featureBulletPoint))
+			}
 		}
 		return cells
 	}

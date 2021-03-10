@@ -15,10 +15,14 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 
 	init(
 		homeState: HomeState,
+		appConfigurationProvider: AppConfigurationProviding,
+		onSurveyTap: @escaping () -> Void,
 		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
 		self.homeState = homeState
+		self.appConfigurationProvider = appConfigurationProvider
 		self.onInactiveButtonTap = onInactiveButtonTap
+		self.onSurveyTap = onSurveyTap
 
 		homeState.$riskState
 			.sink { [weak self] in
@@ -79,6 +83,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	// MARK: - Internal
+
+	let appConfigurationProvider: AppConfigurationProviding
 
 	enum CloseButtonStyle {
 		case normal
@@ -158,15 +164,16 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	// MARK: - Private
-
+	
 	private let homeState: HomeState
+
 	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
+	private let onSurveyTap: () -> Void
 
 	private var countdownTimer: CountdownTimer?
 	private var timeUntilUpdate: String?
 
 	private var riskProviderActivityState: RiskProviderActivityState = .idle
-
 	private var subscriptions = Set<AnyCancellable>()
 
 	private var lastUpdateDateString: String {
@@ -262,9 +269,17 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		case .low:
 			dynamicTableViewModel = lowRiskModel(risk: risk)
 		case .high:
-			dynamicTableViewModel = highRiskModel(risk: risk)
-		}
+			appConfigurationProvider.appConfiguration()
+				.sink { [weak self] in
+					guard let self = self else {
+						Log.debug("failed to get strong self")
+						return
+					}
 
+					self.dynamicTableViewModel = self.highRiskModel(risk: risk, isSurveyEnabled: self.isSurveyEnabled($0))
+				}
+				.store(in: &subscriptions)
+		}
 		titleText = risk.level.text
 		titleTextAccessibilityColor = risk.level.accessibilityRiskColor
 
@@ -275,6 +290,11 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		buttonTitle = riskButtonTitle
 		isButtonHidden = homeState.detectionMode == .automatic
 		isButtonEnabled = homeState.manualExposureDetectionState == .possible
+	}
+
+	private func isSurveyEnabled(_ appConfig: SAP_Internal_V2_ApplicationConfigurationIOS) -> Bool {
+		let surveyParameters = appConfig.eventDrivenUserSurveyParameters.common
+		return surveyParameters.surveyOnHighRiskEnabled && !surveyParameters.surveyOnHighRiskURL.isEmpty
 	}
 
 	private func setupForInactiveState() {
@@ -348,16 +368,28 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	private func lowRiskModel(risk: Risk) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
 		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
-
+		let riskDataSectionWithExposure = riskDataSection(
+		   footer: .riskTint(height: 16),
+		   cells: [
+			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+			   .riskLastExposure(text: numberOfExposures == 1 ?
+								   AppStrings.ExposureDetection.lastExposureOneRiskDay :
+								   AppStrings.ExposureDetection.lastExposure,
+								 image: UIImage(named: "Icons_Calendar")),
+			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		   ]
+		)
+		let riskDataSectionWithoutExposure = riskDataSection(
+		   footer: .riskTint(height: 16),
+		   cells: [
+			   .riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+			   .riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
+			   .riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+		   ]
+		)
 		return DynamicTableViewModel([
-			riskDataSection(
-				footer: .riskTint(height: 16),
-				cells: [
-					.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
-					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
-				]
-			),
+			numberOfExposures > 0 ? riskDataSectionWithExposure : riskDataSectionWithoutExposure,
 			riskLoadingSection,
 			lowRiskExposureSection(
 				numberOfExposures,
@@ -376,14 +408,18 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		])
 	}
 
-	private func highRiskModel(risk: Risk) -> DynamicTableViewModel {
+	private func highRiskModel(risk: Risk, isSurveyEnabled: Bool) -> DynamicTableViewModel {
 		let activeTracing = risk.details.activeTracing
-		return DynamicTableViewModel([
+		let numberOfExposures = risk.details.numberOfDaysWithRiskLevel
+		var sections: [DynamicSection] = [
 			riskDataSection(
 				footer: .riskTint(height: 16),
 				cells: [
 					.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
-					.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
+					.riskLastExposure(text: numberOfExposures == 1 ?
+										AppStrings.ExposureDetection.lastExposureOneRiskDay :
+										AppStrings.ExposureDetection.lastExposure,
+									  image: UIImage(named: "Icons_Calendar")),
 					.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
@@ -400,7 +436,12 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 						AppStrings.ExposureDetection.guideHotline2,
 						AppStrings.ExposureDetection.guideHotline3,
 						AppStrings.ExposureDetection.guideHotline4
-					])
+					]),
+					.guide(
+						attributedString: faqLinkText(),
+						image: UIImage(named: "Icons - Test Tube"),
+						link: URL(string: AppStrings.Links.exposureDetectionFAQ),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.guideFAQ)
 				]
 			),
 			activeTracingSection(
@@ -414,7 +455,23 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
-		])
+		]
+		if isSurveyEnabled {
+			sections.insert(surveySection(), at: 3)
+		}
+		return DynamicTableViewModel(sections)
+	}
+
+	private func faqLinkText(tintColor: UIColor = .enaColor(for: .textTint)) -> NSAttributedString {
+		let rawString = String(format: AppStrings.ExposureDetection.guideFAQ, AppStrings.ExposureDetection.guideFAQLinkText)
+		let string = NSMutableAttributedString(string: rawString)
+		let range = string.mutableString.range(of: AppStrings.ExposureDetection.guideFAQLinkText)
+		if range.location != NSNotFound {
+			// Links don't work in UILabels so we fake it here. Link handling in done in view controller on cell tap.
+			string.addAttribute(.foregroundColor, value: tintColor, range: range)
+			string.addAttribute(.underlineColor, value: UIColor.clear, range: range)
+		}
+		return string
 	}
 
 	// MARK: Sections
@@ -485,6 +542,30 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		)
 	}
 
+	private func surveySection() -> DynamicSection {
+		return .section(
+			cells: [
+				.custom(
+					withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.survey,
+					action: .execute(block: { [weak self] _, _ in
+						self?.onSurveyTap()
+					}),
+					accessoryAction: .none,
+					configure: { _, cell, _ in
+						if let surveyCell = cell as? ExposureDetectionSurveyTableViewCell {
+							surveyCell.configure(
+								with: ExposureDetectionSurveyCellModel(),
+								onPrimaryAction: { [weak self] in
+									self?.onSurveyTap()
+								}
+							)
+						}
+					})
+			]
+		)
+	}
+
+
 	private func activeTracingSection(risk: Risk, accessibilityIdentifier: String?) -> DynamicSection {
 		let p0 = NSLocalizedString(
 			"ExposureDetection_ActiveTracingSection_Text_Paragraph0",
@@ -526,18 +607,8 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 					title: AppStrings.ExposureDetection.explanationTitle,
 					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
-				.body(text: text, accessibilityIdentifier: accessibilityIdentifier),
-				infectionRiskExplanationFAQLink(numberOfExposures)
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
 			].compactMap { $0 }
-		)
-	}
-
-	/// - NOTE: This cell should only be displayed when more than 0 exposures occured.
-	private func infectionRiskExplanationFAQLink(_ numberOfExposures: Int) -> DynamicCell? {
-		guard numberOfExposures > 0 else { return nil }
-		return .link(
-			text: AppStrings.ExposureDetection.explanationFAQLinkText,
-			url: URL(string: AppStrings.ExposureDetection.explanationFAQLink)
 		)
 	}
 
@@ -581,7 +652,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 			]
 		)
 	}
-
 }
 
 extension RiskLevel {

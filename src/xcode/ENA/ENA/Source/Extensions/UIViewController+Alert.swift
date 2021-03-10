@@ -43,7 +43,6 @@ extension UIAlertController {
 	///   - message: The description of the alert.
 	///   - okTitle: The text of the ok action.
 	///   - secondaryActionTitle: The text of the secondary action, if there is one.
-	///   - hasSecondaryAction: Indicates whether an alert has a secondary action or not.
 	///   - completion: The completion handler for the "ok" action.
 	///   - secondaryActionCompletion: The completion handler for the secondary action.
 	/// - Returns: An alert with either one or two actions, with the specified completion handlers
@@ -70,7 +69,7 @@ extension UIAlertController {
 		)
 
 		alert.addAction(ok)
-		if secondaryActionTitle != nil {
+		if let secondaryActionTitle = secondaryActionTitle {
 			let retryAction = UIAlertAction(
 				title: secondaryActionTitle,
 				style: .default,

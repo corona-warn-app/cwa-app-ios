@@ -11,10 +11,12 @@ final class DiaryOverviewDayCellModel {
 
 	init(
 		_ diaryDay: DiaryDay,
-		historyExposure: HistoryExposure
+		historyExposure: HistoryExposure,
+		minimumDistinctEncountersWithHighRisk: Int
 	) {
 		self.diaryDay = diaryDay
 		self.historyExposure = historyExposure
+		self.minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRisk
 	}
 
 	// MARK: - Public
@@ -22,6 +24,28 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Internal
 
 	let historyExposure: HistoryExposure
+
+	func entryDetailTextFor(personEncounter: ContactPersonEncounter) -> String {
+		var detailComponents = [String]()
+		detailComponents.append(personEncounter.duration.description)
+		detailComponents.append(personEncounter.maskSituation.description)
+		detailComponents.append(personEncounter.setting.description)
+
+		// Filter empty strings.
+		detailComponents = detailComponents.filter { $0 != "" }
+
+		return detailComponents.joined(separator: ", ")
+	}
+
+	func entryDetailTextFor(locationVisit: LocationVisit) -> String {
+		guard locationVisit.durationInMinutes > 0 else {
+			return ""
+		}
+
+		let dateComponents = DateComponents(minute: locationVisit.durationInMinutes)
+		let timeString = dateComponentsFormatter.string(from: dateComponents) ?? ""
+		return timeString + " \(AppStrings.ContactDiary.Overview.LocationVisit.abbreviationHours)"
+	}
 
 	var hideExposureHistory: Bool {
 		switch historyExposure {
@@ -77,11 +101,16 @@ final class DiaryOverviewDayCellModel {
 
 	var exposureHistoryDetail: String? {
 		switch historyExposure {
-		case .encounter:
-			return selectedEntries.isEmpty ?
-				AppStrings.ContactDiary.Overview.riskText1 :
-				[AppStrings.ContactDiary.Overview.riskText1, AppStrings.ContactDiary.Overview.riskText2].joined(separator: "\n")
-
+		case let .encounter(risk):
+			switch risk {
+			case .low:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			case .high where minimumDistinctEncountersWithHighRisk > 0:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextStandardCause : [AppStrings.ContactDiary.Overview.riskTextStandardCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			// for other possible values of minimumDistinctEncountersWithHighRisk such as 0 and -1
+			case .high:
+				return selectedEntries.isEmpty ? AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause : [AppStrings.ContactDiary.Overview.riskTextLowRiskEncountersCause, AppStrings.ContactDiary.Overview.riskTextDisclaimer].joined(separator: "\n")
+			}
 		case .none:
 			return nil
 		}
@@ -98,5 +127,53 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Private
 
 	private let diaryDay: DiaryDay
+	private let minimumDistinctEncountersWithHighRisk: Int
 
+	private var dateComponentsFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .positional
+		formatter.zeroFormattingBehavior = .pad
+		formatter.allowedUnits = [.hour, .minute]
+		return formatter
+	}()
+
+}
+
+private extension ContactPersonEncounter.Duration {
+	var description: String {
+		switch self {
+		case .none:
+			return ""
+		case .lessThan15Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationLessThan15Minutes
+		case .moreThan15Minutes:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.durationMoreThan15Minutes
+		}
+	}
+}
+
+private extension ContactPersonEncounter.MaskSituation {
+	var description: String {
+		switch self {
+		case .none:
+			return ""
+		case .withMask:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithMask
+		case .withoutMask:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.maskSituationWithoutMask
+		}
+	}
+}
+
+private extension ContactPersonEncounter.Setting {
+	var description: String {
+		   switch self {
+		   case .none:
+			   return ""
+		   case .outside:
+			   return AppStrings.ContactDiary.Overview.PersonEncounter.settingOutside
+		   case .inside:
+			return AppStrings.ContactDiary.Overview.PersonEncounter.settingInside
+		   }
+	   }
 }

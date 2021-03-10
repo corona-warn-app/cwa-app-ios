@@ -24,13 +24,13 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 
 	func test_screenshot_exposureLogging() throws {
 		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 		
 		app.cells["AppStrings.Home.activateCardOnTitle"].tap()
 		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -41,13 +41,13 @@ class ENAUITests_05_ExposureLogging: XCTestCase {
 
 	func test_screenshot_exposureLoggingOff() throws {
 		var screenshotCounter = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: 5.0))
 
 		app.cells["AppStrings.Home.activateCardOffTitle"].tap()
 		snapshot("exposureloggingscreen_\(String(format: "%04d", (screenshotCounter.inc() )))")

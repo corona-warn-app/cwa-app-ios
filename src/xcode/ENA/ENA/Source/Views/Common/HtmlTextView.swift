@@ -37,11 +37,11 @@ class HtmlTextView: UITextView {
 }
 
 extension HtmlTextView {
-	func load(from url: URL) {
-		if var html = try? loadHtml(from: url) {
+	func load(from url: URL) throws {
+		if var html = try loadHtml(from: url) {
 			self.html = html
 			html = applyColors(to: html)
-			if let attributedText = try? parseHtml(html) {
+			if let attributedText = try parseHtml(html) {
 				let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
 				mutableAttributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.enaColor(for: .textPrimary1), range: NSRange(location: 0, length: attributedText.length))
 				self.attributedText = mutableAttributedText
@@ -57,7 +57,10 @@ extension HtmlTextView {
 	}
 
 	private func applyColors(to html: String) -> String {
-		guard let regex = try? NSRegularExpression(pattern: "--ena-([0-9a-z-]+)-color:\\s*(#[0-9a-z]{3,8})\\s*;", options: [.caseInsensitive]) else { return html }
+		guard let regex = try? NSRegularExpression(pattern: "--ena-([0-9a-z-]+)-color:\\s*(#[0-9a-z]{3,8})\\s*;", options: [.caseInsensitive]) else {
+			Log.warning("Regex expression failed. Check this!", log: .ui)
+			return html
+		}
 
 		let mutableHtml = NSMutableString(string: html)
 
@@ -73,7 +76,7 @@ extension HtmlTextView {
 	}
 
 	private func parseHtml(_ html: String) throws -> NSAttributedString? {
-		let mutableAttributedText = try NSMutableAttributedString(
+		return try NSAttributedString(
 			data: Data(html.utf8),
 			options: [
 				.documentType: NSAttributedString.DocumentType.html,
@@ -81,10 +84,6 @@ extension HtmlTextView {
 			],
 			documentAttributes: nil
 		)
-		let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.alignment = NSTextAlignment.natural
-		mutableAttributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: mutableAttributedText.length))
-		return mutableAttributedText
 	}
 }
 

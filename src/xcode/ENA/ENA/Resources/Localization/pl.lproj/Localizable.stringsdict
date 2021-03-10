@@ -16,7 +16,7 @@
 			<string>Brak narażeń</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Narażenia z niskim ryzykiem w ciągu jednego dnia</string>
+			<string>Narażenia z niskim ryzykiem w ciągu 1 dnia</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Narażenia z niskim ryzykiem w ciągu %u dni</string>
@@ -46,7 +46,7 @@
 			<string>Narażenia w ciągu %u dnia z podwyższonym ryzykiem</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Narażenia w ciągu jednego dnia z podwyższonym ryzykiem</string>
+			<string>Narażenia w ciągu 1 dnia z podwyższonym ryzykiem</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
 			<string>Narażenia w ciągu %u dni z podwyższonym ryzykiem</string>

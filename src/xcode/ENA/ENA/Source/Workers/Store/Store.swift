@@ -6,8 +6,10 @@ import Foundation
 import ExposureNotification
 
 protocol StoreProtocol: AnyObject {
+
 	var isOnboarded: Bool { get set }
 	var onboardingVersion: String { get set }
+	var finishedDeltaOnboardings: [String: [String]] { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
@@ -34,6 +36,9 @@ protocol StoreProtocol: AnyObject {
 	/// the user has received a test reult.
 	var testResultReceivedTimeStamp: Int64? { get set }
 
+	/// Date when the test was registered for both TAN and QR
+	var testRegistrationDate: Date? { get set }
+
 	/// Timestamp representing the last successful diagnosis keys submission.
 	/// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
@@ -56,6 +61,9 @@ protocol StoreProtocol: AnyObject {
 
 	var riskCalculationResult: RiskCalculationResult? { get set }
 
+	/// Date when the risk was changed to high
+	var dateOfConversionToHighRisk: Date? { get set }
+
 	/// Set to true whenever a risk calculation changes the risk from .high to .low
 	var shouldShowRiskStatusLoweredAlert: Bool { get set }
 
@@ -74,7 +82,7 @@ protocol StoreProtocol: AnyObject {
 
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationOneTimer: TimeInterval { get set }
-	
+
 	/// Delay time in seconds, when the first notification to warn others will be shown,
 	var warnOthersNotificationTwoTimer: TimeInterval { get set }
 
@@ -84,12 +92,14 @@ protocol StoreProtocol: AnyObject {
 
 	var lastKeyPackageDownloadDate: Date { get set }
 
-    var isDeviceTimeCorrect: Bool { get set }
-	
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult { get set }
+
+	var deviceTimeLastStateChange: Date { get set }
+
 	var wasDeviceTimeErrorShown: Bool { get set }
 
 	var positiveTestResultWasShown: Bool { get set }
-	
+
 	var isSubmissionConsentGiven: Bool { get set }
 
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]? { get set }
@@ -111,6 +121,9 @@ protocol StoreProtocol: AnyObject {
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
 	var dmKillDeviceTimeCheck: Bool { get set }
+
+	var forceAPITokenAuthorization: Bool { get set }
+
 	#endif
 
 }
@@ -127,5 +140,18 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
+protocol PrivacyPreservingProviding: AnyObject {
+	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
+	// Do not mix up this property with the real UserMetadata in the PPAnalyticsData protocol
+	var userData: UserMetadata? { get set }
+	/// OTP for user survey link generation
+	var otpToken: OTPToken? { get set }
+	/// Date of last otp authorization
+	var otpAuthorizationDate: Date? { get set }
+	/// PPAC Token storage
+	var ppacApiToken: TimestampedToken? { get set }
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}

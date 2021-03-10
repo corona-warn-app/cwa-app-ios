@@ -19,7 +19,6 @@ final class CachedAppConfiguration {
 
 		self.client = client
 		self.store = store
-
 		self.deviceTimeCheck = deviceTimeCheck ?? DeviceTimeCheck(store: store)
 
 		guard shouldFetch() else { return }
@@ -52,14 +51,14 @@ final class CachedAppConfiguration {
 	private let client: AppConfigurationFetching
 
 	/// The place where the app config and last etag is stored
-	private let store: AppConfigCaching
+	private let store: AppConfigCaching & PrivacyPreservingProviding
 	private let deviceTimeCheck: DeviceTimeCheckProtocol
 
 	private var subscriptions = [AnyCancellable]()
 
 	/// The location of the default app configuration.
 	private var defaultAppConfigPath: URL {
-		guard let url = Bundle.main.url(forResource: "default_app_config_18", withExtension: "") else {
+		guard let url = Bundle.main.url(forResource: "default_app_config_113", withExtension: "") else {
 			fatalError("Could not locate default app config")
 		}
 		return url
@@ -85,6 +84,7 @@ final class CachedAppConfiguration {
 
 				self.client.fetchAppConfiguration(etag: etag) { [weak self] result in
 					guard let self = self else { return }
+                    var updatedSuccessful = true
 
 					switch result.0 {
 					case .success(let response):
@@ -93,7 +93,7 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
-
+						Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: response.eTag))))
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations
@@ -119,6 +119,7 @@ final class CachedAppConfiguration {
 							self.resolvePromises(with: .success(AppConfigResponse(config: meta.appConfig, etag: meta.lastAppConfigETag)))
 						default:
 							self.defaultFailureHandler()
+                            updatedSuccessful = false
 						}
 					}
 
@@ -126,10 +127,11 @@ final class CachedAppConfiguration {
 					if let serverTime = result.1 {
 						self.deviceTimeCheck.updateDeviceTimeFlags(
 							serverTime: serverTime,
-							deviceTime: Date()
+							deviceTime: Date(),
+							configUpdateSuccessful: updatedSuccessful
 						)
 					} else {
-						self.deviceTimeCheck.resetDeviceTimeFlags()
+						self.deviceTimeCheck.resetDeviceTimeFlags(configUpdateSuccessful: false)
 					}
 				} // eo fetch
 			} // eo async

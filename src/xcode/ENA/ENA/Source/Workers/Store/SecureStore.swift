@@ -9,9 +9,7 @@ import ExposureNotification
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
 
-	private let directoryURL: URL
-	private let kvStore: SQLiteKeyValueStore
-	private var serverEnvironment: ServerEnvironment
+	// MARK: - Init
 
 	init(
 		at directoryURL: URL,
@@ -23,6 +21,8 @@ final class SecureStore: Store {
 		self.serverEnvironment = serverEnvironment
 	}
 
+	// MARK: - Protocol Store
+
 	/// Removes most key/value pairs.
 	///
 	/// Keys whose values are not removed:
@@ -32,7 +32,11 @@ final class SecureStore: Store {
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:flush` call
 	func flush() {
-		try? kvStore.flush()
+		do {
+			try kvStore.flush()
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
 	}
 
 	/// Database reset & re-initialization with a given key
@@ -40,12 +44,22 @@ final class SecureStore: Store {
 	///
 	/// - Note: This is just a wrapper to the `SQLiteKeyValueStore:clearAll:` call
 	func clearAll(key: String?) {
-		try? kvStore.clearAll(key: key)
+		do {
+			try kvStore.clearAll(key: key)
+		} catch {
+			Log.error("kv store error", log: .localData, error: error)
+		}
 	}
-	
+
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
+	}
+
+	// this test registration date is for both TAN and QR submission
+	var testRegistrationDate: Date? {
+		get { kvStore["testRegistrationDate"] as Date? ?? nil }
+		set { kvStore["testRegistrationDate"] = newValue }
 	}
 
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
@@ -113,11 +127,16 @@ final class SecureStore: Store {
 		set { kvStore["isOnboarded"] = newValue }
 	}
 
+	var finishedDeltaOnboardings: [String: [String]] {
+		get { kvStore["finishedDeltaOnboardings"] as [String: [String]]? ?? [String: [String]]() }
+		set { kvStore["finishedDeltaOnboardings"] = newValue }
+	}
+
 	var onboardingVersion: String {
 		get { kvStore["onboardingVersion"] as String? ?? "1.4" }
 		set { kvStore["onboardingVersion"] = newValue }
 	}
-	
+
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
 		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue }
@@ -175,6 +194,11 @@ final class SecureStore: Store {
 		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
+	var dateOfConversionToHighRisk: Date? {
+		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
+		set { kvStore["dateOfConversionToHighRisk"] = newValue }
+	}
+
 	var shouldShowRiskStatusLoweredAlert: Bool {
 		get { kvStore["shouldShowRiskStatusLoweredAlert"] as Bool? ?? false }
 		set { kvStore["shouldShowRiskStatusLoweredAlert"] = newValue }
@@ -214,10 +238,15 @@ final class SecureStore: Store {
 		get { kvStore["wasRecentHourKeyDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentHourKeyDownloadSuccessful"] = newValue }
     }
-    
-	var isDeviceTimeCorrect: Bool {
-		get { kvStore["isDeviceTimeCorrect"] as Bool? ?? true }
-		set { kvStore["isDeviceTimeCorrect"] = newValue }
+
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult {
+		get { kvStore["deviceTimeCheckResult"] as DeviceTimeCheck.TimeCheckResult? ?? .correct }
+		set { kvStore["deviceTimeCheckResult"] = newValue }
+	}
+
+	var deviceTimeLastStateChange: Date {
+		get { kvStore["deviceTimeLastStateChange"] as Date? ?? Date() }
+		set { kvStore["deviceTimeLastStateChange"] = newValue }
 	}
 
 	var wasDeviceTimeErrorShown: Bool {
@@ -229,7 +258,7 @@ final class SecureStore: Store {
 		get { kvStore["lastKeyPackageDownloadDate"] as Date? ?? .distantPast }
 		set { kvStore["lastKeyPackageDownloadDate"] = newValue }
 	}
-	
+
 	var isSubmissionConsentGiven: Bool {
 		get { kvStore["isSubmissionConsentGiven"] as Bool? ?? false }
 		set { kvStore["isSubmissionConsentGiven"] = newValue }
@@ -269,7 +298,7 @@ final class SecureStore: Store {
 		get { kvStore["fakeSQLiteError"] as Int32? }
 		set { kvStore["fakeSQLiteError"] = newValue }
 	}
-	
+
 	var dmKillDeviceTimeCheck: Bool {
 		get { kvStore["dmKillDeviceTimeCheck"] as Bool? ?? false }
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
@@ -285,7 +314,20 @@ final class SecureStore: Store {
 		set { kvStore["mostRecentRiskCalculationConfiguration"] = newValue }
 	}
 
+	var forceAPITokenAuthorization: Bool {
+		get { kvStore["forceAPITokenAuthorization"] as Bool? ?? false }
+		set { kvStore["forceAPITokenAuthorization"] = newValue }
+	}
+
 	#endif
+
+	let kvStore: SQLiteKeyValueStore
+
+	// MARK: - Private
+
+	private let directoryURL: URL
+	private var serverEnvironment: ServerEnvironment
+
 }
 
 extension SecureStore {
@@ -294,12 +336,12 @@ extension SecureStore {
 		get { kvStore["warnOthersNotificationTimerOne"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalOne }
 		set { kvStore["warnOthersNotificationTimerOne"] = newValue }
 	}
-	
+
 	var warnOthersNotificationTwoTimer: TimeInterval {
 		get { kvStore["warnOthersNotificationTimerTwo"] as TimeInterval? ?? WarnOthersNotificationsTimeInterval.intervalTwo }
 		set { kvStore["warnOthersNotificationTimerTwo"] = newValue }
 	}
-	
+
 	var positiveTestResultWasShown: Bool {
 		get { kvStore["warnOthersHasActiveTestResult"] as Bool? ?? false }
 		set { kvStore["warnOthersHasActiveTestResult"] = newValue }
@@ -318,6 +360,38 @@ extension SecureStore: StatisticsCaching {
 	var statistics: StatisticsMetadata? {
 		get { kvStore["statistics"] as StatisticsMetadata? ?? nil }
 		set { kvStore["statistics"] = newValue }
+	}
+}
+
+extension SecureStore: PrivacyPreservingProviding {
+
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
+		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
+		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
+			userData = nil
+		}
+	}
+
+	var userData: UserMetadata? {
+		get { kvStore["userMetadata"] as UserMetadata? ?? nil }
+		set { kvStore["userMetadata"] = newValue
+			Analytics.collect(.userData(.create(newValue)))
+		}
+	}
+
+	var otpToken: OTPToken? {
+		get { kvStore["otpToken"] as OTPToken? }
+		set { kvStore["otpToken"] = newValue }
+	}
+
+	var otpAuthorizationDate: Date? {
+		get { kvStore["otpAuthorizationDate"] as Date? }
+		set { kvStore["otpAuthorizationDate"] = newValue }
+	}
+
+	var ppacApiToken: TimestampedToken? {
+		get { kvStore["ppacApiToken"] as TimestampedToken? }
+		set { kvStore["ppacApiToken"] = newValue }
 	}
 }
 

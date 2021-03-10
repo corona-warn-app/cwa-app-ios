@@ -65,6 +65,8 @@
 
 "ExposureDetection_LastExposure" = "En son %@";
 
+"ExposureDetection_LastExposure_One_Risk_Day" = "%@";
+
 "ExposureDetection_Refreshed" = "Güncelleme: %@";
 
 "ExposureDetection_Refreshed_Never" = "Bilinmiyor";
@@ -105,6 +107,12 @@
 
 "ExposureDetection_Guide_Hotline4" = "Kamu sağlığı yetkiliniz";
 
+/* Placeholder points to `ExposureDetection_LinkText` */
+"ExposureDetection_Guide_FAQ" = "Test yaptırırsanız %@ bölümünde test prosedürü hakkında ek bilgi bulabilirsiniz.";
+
+/* The 'tapable' text containing the link to the faq */
+"ExposureDetection_Guide_FAQ_LinkText" = "Test prosedürü hakkında SSS";
+
 "ExposureDetection_Explanation_Title" = "Enfeksiyon Riski";
 
 "ExposureDetection_Explanation_Subtitle" = "Riskiniz bu şekilde hesaplanır.";
@@ -115,15 +123,13 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Maruz kalma günlüğünü uzun süredir etkinleştirmediğiniz için enfeksiyon riskinizi hesaplayamıyoruz.\n\nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz.";
 
-"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Daha sonra COVID-19 tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilerle yalnızca kısa süreyle ve uzak mesafeden karşılaştığınız için enfeksiyon riskiniz düşüktür.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Daha sonra koronavirüs tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilere yalnızca kısa süreyle ve uzak mesafeden maruuz kaldığınız için enfeksiyon riskiniz düşüktür.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Enfeksiyon riskiniz, maruz kalma günlüğünün verileri kullanılarak yerel olarak akıllı telefonunuzda hesaplanır. Hesaplamada COVID-19 tanısı konan kişilere maruz kalma mesafesi ve süresinin yanında potansiyel enfeksiyon bulaştırma durumu da göz önünde bulundurulur. Enfeksiyon riskiniz bir başkası tarafından görüntülenemez ya da bir başkasına aktarılamaz.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Daha sonra koronavirüs tanısı konan kişilere maruz kaldığınıza dair bir günlük kaydı oluşturulmadığı veya bu kişilere yalnızca kısa süreyle ve uzak mesafeden maruuz kaldığınız için enfeksiyon riskiniz düşüktür.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "En son %@ tarihinde, COVID-19 tanısı konan en az bir kişiyle daha uzun süreyle ve yakın mesafeden maruz kalma yaşadığınız için enfeksiyon riskiniz daha yüksektir.";
 
 "ExposureDetection_Explanation_Text_High" = "Bu nedenle enfeksiyon riskiniz artmış olarak derecelendirilmiştir. \nEnfeksiyon riskiniz, akıllı telefonunuzda yerel olarak bulunan maruz kalma günlüğü verileri (süre ve mesafe) kullanılarak hesaplanır. Enfeksiyon riskiniz başkaları tarafından görüntülenemez veya başkalarına aktarılmaz. \nEve gittiğinizde lütfen aile fertleriniz veya ev arkadaşlarınızla yakın temastan kaçının.";
-
-"ExposureDetection_Explanation_FAQ_Link_Text" = "Daha fazla bilgi için lütfen SSS sayfamıza bakın.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Düşük riskli maruz kalmalar";
 
@@ -151,6 +157,43 @@
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Yeniden başlat";
 
+"ExposureDetection_Survey_Card_Title" = "Corona-Warn-App Anketi";
+
+"ExposureDetection_Survey_Card_Body" = "Birkaç basit soru yanıtlayarak uygulamayı iyileştirmemize yardımcı olun.";
+
+"ExposureDetection_Survey_Card_Button" = "Ankete Git";
+
+/* Survey Errors */
+"SurveyConsent_Error_Title" = "Hata";
+
+"SurveyConsent_Error_TryAgainLater" = "Anket şu anda alınamıyor. Lütfen daha sonra tekrar deneyin (hata kodu: %@).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "Anket alınamıyor (hata kodu: %@).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "Akıllı telefonunuzun saati, geçerli saat ile eşleşmiyor. Lütfen akıllı telefonunuzun saatini düzeltin (hata kodu: %@).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "Güvenlik nedenleriyle anket alınamıyor. Sonraki takvim ayında anketi yeniden yanıtlayabilirsiniz (hata kodu: %@).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "Anketi zaten yanıtladınız. Anketi yalnızca ayda bir kez yanıtlayabilirsiniz (hata kodu: %@).";
+
+/* Survey Consent Screen */
+"SurveyConsent_Title" = "Corona-Warn-App’i Değerlendirme ve İyileştirme Anketi";
+
+"SurveyConsent_Body1" = "Uygulama deneyiminize ilişkin bir anketi yanıtlayarak Corona-Warn-App’i iyileştirmemize yardımcı olun. Bu, RKI’nin uygulamanın etkinliğini değerlendirmesine, uygulamayı iyileştirmesine ve uygulama üzerinden iletilen uyarıların yüksek risk altındaki kişilerin davranışlarını nasıl etkilediğini anlamasına yardımcı olacaktır.";
+
+"SurveyConsent_Body2" = "Anket yalnızca uygulamasında yüksek maruz kalma riskine sahip olduğu belirtilen kişiler için tasarlanmıştır. Anket, RKI web sitesinde yanıtlanır. Sizi web sitesine yönlendirmek üzere sonraki adımda bir anket bağlantısı görüntülenecektir. Bu bağlantı görüntülenmeden önce uygulamanızın orijinalliği teyit edilmelidir. Bunun için izin vermeniz gereklidir.";
+
+"SurveyConsent_Body3" = "Anket bağlantısına dokunduğunuzda anket hakkında ek bilgi alacaksınız. Ayrıca anketi yanıtlamaya başlamadan önce yeniden açıkça izin vermeniz istenecektir.";
+
+"SurveyConsent_Accept_Button_Title" = "Kabul Et";
+
+/* Survey Consent Legal Details Screen */
+"SurveyConsent_Legal_Details_Title" = "Anketi Yanıtlamaya İlişkin Veri İşleme Hakkında Ayrıntılı Bilgiler";
+
+"SurveyConsent_Details_Headline" = "RKI Anketi Hakkında";
+
+"SurveyConsent_Details_Body" = "Uygulamanızın orijinalliği doğrulandıktan sonra uygulama, sizin için oluşturulan özel bir anket bağlantısı ile sizi bir RKI web sitesine yönlendirir. Bu anket bağlantısı, Corona-Warn-App’inizde oluşturulan bir tek seferlik parola içerir. Anket bağlantısına dokunup anketi içeren web sitesine bağlandığınızda tek seferlik parola geçici olarak tarayıcınızda depolanır. Bu ekranda, anketi yanıtlamaya başlama gibi anket ve notları kullanma konusunda ek bilgiler yer almaktadır. Anketi yanıtlamaya başlarken tek seferlik parola Corona-Warn-App sunucularına aktarılır ve burada kullanıldı olarak işaretlenir. Ardından sunucu anketi yanıtlamaya başlayıp başlayamayacağınızı kontrol eder. Bu sayede her bir kullanıcının anketi yalnızca bir kez yanıtlayabildiğinden emin olunur.";
+
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Maruz Kalma Denetimi Yapılamıyor";
 
@@ -161,7 +204,7 @@
 "ExposureDetection_WrongTime_Notification_Popover_Body" = "Cihazınızın saati geçerli saat ile eşleşmiyor. Dolayısıyla risk durumunuz şu anda kontrol edilemiyor. Lütfen cihazınızın ayarlarında doğru saati ayarlayın.";
 
 /* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Dönem günlüğe kaydedildi";
+"ExposureDetection_ActiveTracingSection_Title" = "Dönem Günlüğe Kaydedildi";
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Bu dönem hesaplamaya dahil edildi.";
 
@@ -215,6 +258,14 @@
 "Settings_Reset_Description" = "Uygulamadaki tüm verilerinizi silin.";
 
 "Settings_NavTitle" = "Ayarlar";
+
+"Settings_DataDonation_Label" = "Verileri Paylaş";
+
+"Settings_DataDonation_Description" = "Kullanım davranışınızın aktarılmasına izin verin.";
+
+"Settings_DataDonation_StatusActive" = "Açık";
+
+"Settings_DataDonation_StatusInactive" = "Kapalı";
 
 /* Noticiation Settings */
 "NotificationSettings_On_Title" = "COVID-19 risk durumunuz ile ilgili bildirimleri etkinleştirmek istiyor musunuz?";
@@ -311,9 +362,9 @@
 
 "Onboarding_DoNotActivate_actionText" = "Etkinleştirme";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "Maruz kalma günlüğünü etkinleştirmezseniz uygulama risk durumunuz hakkında bildirim gönderemez veya alamaz.";
+"Onboarding_DeactivateExposureConfirmation_title" = "Maruz kalma günlüğünü etkinleştirmezseniz uygulama risk durumunuzu belirleyemez. Buna göre, uygulamada riskiniz hakkında hiçbir bilgi alamazsınız.";
 
-"Onboarding_DeactivateExposureConfirmation_message" = "Bu özelliği dilediğiniz zaman devre dışı bırakabilirsiniz.";
+"Onboarding_DeactivateExposureConfirmation_message" = "Maruz kalma günlüğünü dilediğiniz zaman yeniden etkinleştirebilirsiniz.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Bölgedeki bir grup insan cihazlarını kullanıyor.";
 
@@ -893,6 +944,8 @@
 
 "Home_Risk_Last_Contact_Item_Title" = "En son %@";
 
+"Home_Risk_Last_Contact_Item_Title_One_Risk_Day" = "%@";
+
 "Home_Risk_Last_Activate_Item_Title" = "Son maruz kalma denetimi: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Bilinmeyen Risk";
@@ -959,6 +1012,27 @@
 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Hiçbir belirtiniz kalmasa ve kendinizi iyi hissetseniz dahi yine de hastalığı bulaştırabilirsiniz.";
 
+/* Home Reenable card */
+"Home_Reenable_Card_Title" = "Maruz Kalma Denetimi Sona Erdi";
+
+"Home_Reenable_Card_Body" = "Koronavirüs tanısı aldığınız ve şu anda izolasyonda olduğunuz için otomatik maruz kalma denetimi sona erdi. Maruz kalma testini dilediğiniz zaman yeniden etkinleştirebilirsiniz. Etkinleştirirseniz kayıtlı testiniz otomatik olarak silinir.";
+
+"Home_Reenable_Card_Button_Title" = "Maruz Kalma Denetimini Aç";
+
+"Home_Reenable_Card_TestResult_Title" = "SARS-CoV-2 pozitif";
+
+"Home_Reenable_Card_TestResult_Subtitle" = "SARS-CoV-2 virüsü tanısı aldınız.";
+
+"Home_Reenable_Card_TestResult_Registration" = "Test %@ tarihinde kaydedildi";
+
+"Home_Reenable_Alert_Title" = "Maruz Kalma Denetimini Etkinleştir";
+
+"Home_Reenable_Alert_Message" = "Gerekli olması halinde yeni bir test kaydedebilmeniz için mevcut testiniz uygulamadan silinecek.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Etkinleştir";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "İptal";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Pozitif Tanı";
 
@@ -982,13 +1056,6 @@
 "Home_SubmitCard_Body" = "Kendinizi ve diğer kullanıcıları korumaya yardımcı olun.";
 
 "Home_SubmitCard_Button" = "Sonraki Adımlar";
-
-/* Home Diary card */
-"Home_DiaryCard_Title" = "Temas Güncesi";
-
-"Home_DiaryCard_Body" = "Nerede bulunduğunuzun ve kimlerle karşılaştığınızın kaydını tutun. Hiçbir temas girmeseniz bile yine de ne zaman maruz kaldığınızı görebilirsiniz.";
-
-"Home_DiaryCard_Button" = "Günceyi Aç";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App'i Paylaş";
 
@@ -1254,17 +1321,24 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Hata düzeltmelerinin yanında bu güncelleme ile birlikte yeni ve gelişmiş özellikler sunulmaktadır.";
 
 /* New Version Features */
-"NewVersionFeature_112_statistics_title" = "İstatistik";
+"NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
-"NewVersionFeature_112_statistics_description" = "Almanya’daki enfeksiyon sayılarına ilişkin son temel değerlere genel bakışı görüntüleyin.";
+/* Version 1.14 */
+"NewVersionFeature_114_additional_diary_functions_title" = "Temas Güncesindeki Ek Özellikler";
 
-"NewVersionFeature_112_exposure_history_title" = "Maruz Kalma Geçmişi";
+"NewVersionFeature_114_additional_diary_functions_description" = "Artık her bir karşılaşma için belirli koşullar girebilirsiniz. Önceden tanımlanmış seçenekler (örneğin karşılaşmanın süresi, maske takılı olup olmadığı) arasından seçim yapabilir ve yüksek riske neden olabilecek diğer koşulları kaydetmek için kısa bir not da ekleyebilirsiniz. Enfekte olmanız halinde bu bilgiler kamu sağlığı yetkilisinin potansiyel enfeksiyon zincirlerini takip etmesine yardımcı olabilir.";
 
-"NewVersionFeature_112_exposure_history_description" = "Temas günceniz, uygulama tarafından değerlendirilen karşılaşmalara göre riskinizin düşük veya yüksek olduğu günleri gösterir. Buna göre, Corona-Warn-App’i kullanmasalar bile bu günlerde karşılaştığınız diğer kullanıcıları uyarabilirsiniz. Bu kişiler nispeten bir riskle karşı karşıya olabilir. Ancak temas güncenizdeki kişilerin ve yerlerin belirtilen maruz kalmalarla ilgili olması şart değildir.";
+"NewVersionFeature_114_direct_access_diary_title" = "Temas Güncesine Doğrudan Erişim";
 
-"NewVersionFeature_112_ios125_support_title" = "Uygulama iOS 12.5 ve üzeri sürümler için kullanılabilir";
+"NewVersionFeature_114_direct_access_diary_description" = "Artık önce uygulamayı açmanız gerekmeden doğrudan temas güncenize giriş ekleyebilirsiniz. Bunun için, bir menü görüntülenene dek yaklaşık 2 saniye süreyle Corona-Warn-App simgesine basılı tutun ve ardından “Bugün için Günce Girişi Ekle” seçeneğine dokunun.";
 
-"NewVersionFeature_112_ios125_support_description" = "Corona-Warn-App’i iOS 12.5 ve üzeri sürümlerde kullanabilirsiniz.";
+"NewVersionFeature_114_more_details_risk_status_title" = "Risk Durumunuz Hakkında Daha Ayrıntılı Bilgi ";
+
+"NewVersionFeature_114_more_details_risk_status_description" = "Uygulama, yüksek risk altında olduğunuzu belirtiyorsa artık risk durumunun, yüksek riskli bir veya daha fazla maruz kalmaya göre mi yoksa düşük riskli bir veya daha fazla maruz kalmaya göre mi görüntülendiğini görebilirsiniz.";
+
+"NewVersionFeature_114_screenshots_title" = "Corona-Warn-App Ekran Görüntüleri";
+
+"NewVersionFeature_114_screenshots_description" = "https://www.coronawarn.app adresindeki web sitesinde uygulamanın tüm ekran görüntüleri sunulmaktadır. Bu sayede, planlanan özellikler gibi çeşitli bilgileri edinebilirsiniz.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Uluslararası Maruz Kalma Günlüğü";
@@ -1358,9 +1432,25 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Düşük Risk";
 
-"ContactDiary_Overview_Risk_Text_1" = "uygulama tarafından değerlendirilen karşılaşmalar temel alınır.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "uygulama tarafından değerlendirilen karşılaşmalar temel alınır.";
 
-"ContactDiary_Overview_Risk_Text_2" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Kaydettiğiniz kişilerle ve yerlerle ilgili olmaları şart değildir.";
+
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "(düşük riskli birden fazla maruz kalmaya göre).";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "15 dakikadan az";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "15 dakikadan fazla";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Maskeli";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Maskesiz";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "Açık hava";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "Kapalı ortam";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "sa";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Bilgi";
@@ -1394,14 +1484,32 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "Konum işareti taşıyan bir bina.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "15 dakikadan az";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "15 dakikadan fazla";
+
+"ContactDiary_Day_Encounter_WithMask" = "Maskeli";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Maskesiz";
+
+"ContactDiary_Day_Encounter_Outside" = "Açık hava";
+
+"ContactDiary_Day_Encounter_Inside" = "Kapalı ortam";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Not (ör. yakın mesafe)";
+
+"ContactDiary_Day_Visit_Duration" = "Süre";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Not (ör. çok dolu, yetersiz havalandırma)";
+
 /* Edit Entries */
-"ContactDiary_EditEntries_ContactPersons_Title" = "Kişiler";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Kişileri Düzenle";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Tümünü Kaldır";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Tüm kişileri gerçekten kaldırmak istiyor musunuz?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Bir kişiyi kaldırdığınızda o kişiye ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Tüm kişileri kaldırdığınızda tüm kişilere ilişkin tüm girişler güncenizden kaldırılacaktır.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Evet";
 
@@ -1415,13 +1523,13 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Hayır";
 
-"ContactDiary_EditEntries_Locations_Title" = "Yerler";
+"ContactDiary_EditEntries_Locations_Title" = "Yerleri Düzenle";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Tümünü Kaldır";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Tüm yerleri gerçekten kaldırmak istiyor musunuz?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "Bir yeri kaldırdığınızda o yere ilişkin tüm girişler güncenizden kaldırılacaktır.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Tüm yerleri kaldırdığınızda tüm yerlere ilişkin tüm girişler güncenizden kaldırılacaktır.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Evet";
 
@@ -1458,7 +1566,7 @@
 
 "ContactDiary_Information_Dataprivacy_Title" = "Daha fazla bilgi için lütfen gizlilik bildirimine başvurun.";
 
-"ContactDiary_Information_PrimaryButton_Title" = "Günce Yönetimi";
+"ContactDiary_Information_PrimaryButton_Title" = "Günceyi Aç";
 
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Kaydet";
@@ -1466,12 +1574,20 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Yer";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Yer";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Tanım";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-posta";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Kişi";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Kişi";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Ad";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-posta";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Yukarı";
@@ -1526,7 +1642,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Toplam";
 
-"Statistics_Card_KeySubmissions_Footnote" = "Corona-Warn-App Hakkında";
+"Statistics_Card_KeySubmissions_Footnote" = "Corona-Warn-App üzerinden";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7 Günlük R Değeri";
@@ -1603,4 +1719,129 @@
 "UpdateOS_title" = "Lütfen iOS sürümünüzü güncelleyin.";
 
 "UpdateOS_text" = "Corona-Warn-App’i yüklemek için güncel iOS sürümüne sahip olmanız gerekir.\nBunun için, iPhone’unuzdaki ayarları açın ve Genel -> Yazılım Güncellemesi seçeneğini belirleyin.";
+
+/* Tabbar */
+"Tabbar_Home_Title" = "Başlangıç Ekranı";
+
+"Tabbar_Diary_Title" = "Günce";
+
+/* Data Donation */
+"DataDonation_IntroductionText" = "Uygulamayı nasıl kullandığınızı belirtin ve uygulamanın etkinliğini değerlendirmemize yardımcı olun.";
+
+"DataDonation_AccImageDescription" = "Bir kadın verilerinin paylaşıldığı bir akıllı telefon tutuyor";
+
+"DataDonation_Headline" = "Verileri Paylaş";
+
+"DataDonation_Description" = "Corona-Warn-App’i iyileştirmemize yardımcı olabilirsiniz. Uygulamayı kullanımınız hakkındaki verileri RKI ile paylaşın. Bu, RKI’nin uygulamanın etkinliğini değerlendirmesine yardımcı olacaktır. Verileriniz aynı zamanda uygulamanın özelliklerinin ve kullanılabilirliğinin iyileştirilmesine yardımcı olacaktır.";
+
+"DataDonation_SubHead_Settings" = "AYAR";
+
+"DataDonation_SubHead_YourState" = "Federal eyaletiniz (isteğe bağlı)";
+
+"DataDonation_SubHead_AgeGroup" = "Yaş grubunuz (isteğe bağlı)";
+
+"DataDonation_State_NoSelection_Text" = "Federal eyalet";
+
+"DataDonation_Region_NoSelection_Text" = "Bölge (ilçe) (isteğe bağlı)";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Yaşınız";
+
+"DataDonation_DetailedInformation_DataProcessing" = "ABD’de ve Diğer Üçüncü Ülkelerde Veri İşleme ve Veri Koruma Riskleri Hakkında Ayrıntılı Bilgiler";
+
+"DataDonation_Button_OK" = "Kabul Et";
+
+"DataDonation_Button_NotOK" = "Reddet";
+
+/* Value selection */
+"DataDonation_ValueSelection_None" = "Bilgi yok";
+
+"DataDonation_ValueSelection_Title_State" = "Federal Eyaletiniz";
+
+"DataDonation_ValueSelection_Title_Region" = "Bölgeniz (İlçe)";
+
+"DataDonation_ValueSelection_Title_Age" = "Yaş Grubunuz";
+
+"DataDonation_ValueSelection_Age_Below29" = "29 yaşa kadar";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 yaş";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "60+ yaş";
+
+/* Detailed Infos Data Donation */
+"DetailedInfosDataDonation_Headline" = "Veri Paylaşma Hakkında Ayrıntılı Bilgiler";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Veri Paylaşma Sürecinde Veri İşleme";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "Verilerinizi paylaşma izni vermeniz halinde uygulama RKI’ye her gün çeşitli veriler gönderir. Aktarılan veriler, uygulamanın etkinliğini değerlendirmemize yardımcı olacaktır ve çeşitli amaçlarla analiz edilecektir:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "İyileştirilmiş maruz kalma günlüğü";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Teknik olarak enfeksiyon risklerini hesaplama doğruluğunu ve güvenilirliğini iyileştirmek istiyoruz. Bunun için, maruz kalma riskleri ve size gösterilen uyarlar hakkındaki bilgileri değerlendireceğiniz. Bunun sonucunda, hesaplama yöntemini geliştirebileceğiz.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Uygulamada iyileştirilmiş kullanıcı kılavuzu";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Uygulamayı daha kolay kullanılabilir hale getirmek istiyoruz. Bunun için, kullanıcıların uygulamada gerçekleştirdiği her bir adım hakkındaki bilgileri değerlendireceğiz. Bu, etiketleri ve bilgi metinlerini daha anlaşılır hale getirmemize denetim öğelerini daha kolay bulunabilecek şekilde düzenlememize yardımcı olacaktır. Ayrıca farklı akıllı telefon modelleri için düzenleri özelleştirebileceğiz.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Uygulamadaki bilgileri ve kılavuzu etkinleştirme";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Uygulama, belirli test merkezlerinde ve laboratuvarlarda ya da belirli bölgelerde kullanıldığında sorun yaşanıp yaşanmadığını belirleyebilmek istiyoruz. Örneğin, paylaşılan veriler test sonuçlarının belirli bölgelerde gecikmeli olarak sunulduğunu gösterirse bunu belirleyebiliriz. İlgili kamu sağlığı yetkilileri de potansiyel teknik problemler hakkında bilgilendirilebilir.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Pandemi süreci hakkında istatistikleri iyileştirme ";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Verileriniz, zamana ve yere göre pandeminin nasıl yayıldığı hakkında içgörü sağlamaya ve belirli trendlere daha hızlı yanıt vermemize yardımcı olabilir.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "Bu amaç doğrultusunda RKI şu verileri toplar:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "Veri aktarımı tarihi.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Önceki güne kıyasla uyarı geçmişindeki değişiklikler.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Veri aktarımı sırasında görüntülenen risk hakkında bilgiler.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Maruz kalma bağlamında risk durumunu hesaplama temeli hakkında bilgiler.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Uygulama üzerinden test sonucu aldıysanız:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Uygulama üzerinden aldığınız test sonucunun pozitif mi yoksa negatif mi olduğu hakkında bilgi.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Test kaydedildiği sırada hesaplanan risk hakkında bilgi.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Yüksek riskli son maruz kalmanız ile test kaydınız arasındaki süre hakkında bilgi.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Son yüksek risk bildirimi ile test kaydı arasındaki süre hakkında bilgi.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Test sonucunuzu paylaşıp diğer kullanıcı uyarıp uyarmadığınız hakkında bilgi.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "Potansiyel maruz kalma hakkında diğer kullanıcıları uyardıysanız:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Diğer kullanıcıları uyarma adımlarını iptal edip etmediğiniz hakkında bilgi.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Belirtilerinizin başlangıcı hakkında bilgi verip vermediğiniz hakkında bilgi.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Diğer kullanıcıları uyarma izni verip vermediğiniz hakkında bilgi.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Diğer kullanıcı uyarma bağlamında ulaştığınız bildirim hakkında bilgi.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Test sonucunuzu kaç saatte aldığınız hakkında bilgi.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Son yüksek risk bildiriminden bu yana kaç gün geçtiği hakkında bilgi.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Test kaydından bu yana kaç saat geçtiği hakkında bilgi.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Diğer bilgiler:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Belirttiğiniz yaş grubu hakkında bilgi.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Belirttiğiniz bölge hakkında bilgi.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Akıllı telefonunuzun modeli ve versiyonu, uygulamanızın versiyon ve işletim sisteminizin sürümü hakkında bilgi.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "Bu bilgilerin kişisel olarak sizinle bağlantısı kurulamaz. Kimliğiniz gizli tutulacaktır.\nBilgiler istatistiksel amaçlar doğrultusunda analiz edilecektir. Profil oluşturmak için kaydedilmeyecektir.";
+
+"Contact_Journal_Notes_Description_Title" = "Not";
+
+"Contact_Journal_Notes_Description" = "Enfeksiyon riskinizin daha iyi tahmin edilmesine yardımcı olacak notları buraya girebilirsiniz.\n\nBaşka insanlarla ne kadar yakın olduğunuz ve ne yaptığınız (örnekler: “yakın bir şekilde birlikte oturduk”, “spor yaptık”, “az mesafe vardı”, “şarkı söyledik”) gibi, karşılaşmanıza veya konaklamanıza dair enfeksiyon riskiniz üzerinde bir etkisi olabilecek ek koşulları buraya yazabilirsiniz.\n\nBu notlar daha sonra hafızanızı tazelemenize yardımcı olabilir. Gerekirse erken aşamada bir arada olduğunuz kişileri uyarmanızı sağlayacak ve kamu sağlığı yetkililerinin potansiyel enfeksiyon zincirlerini takip edebilmesine yardımcı olacaktır.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
 

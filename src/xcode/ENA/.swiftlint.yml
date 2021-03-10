@@ -189,7 +189,7 @@ opt_in_rules:
   #  - vertical_whitespace_opening_braces             # Don't include vertical whitespace (empty line) after opening braces.
   - void_return                                       # Prefer `-> Void` over `-> ()`.
   - weak_delegate                                     # Delegates should be weak to avoid reference cycles.
-  #  - xct_specific_matcher                           # Prefer specific XCTest matchers over `XCTAssertEqual` and `XCTAssertNotEqual`
+  - xct_specific_matcher                           # Prefer specific XCTest matchers over `XCTAssertEqual` and `XCTAssertNotEqual`
   - xctfail_message                                   # An XCTFail call should include a description of the assertion.
   #  - yoda_condition                                 # The variable should be placed on the left, the constant on the right of a comparison operator.
 
@@ -230,21 +230,30 @@ trailing_whitespace:
 
 vertical_whitespace:
   max_empty_lines: 2
-  
+
 file_length:
   warning: 600
   error: 700
-  
+
 function_body_length:
   warning: 100
   error: 150
-  
+
 type_body_length:
   warning: 300
   error: 400
-  
+
 function_parameter_count:
   warning: 7
   error: 10
 
-
+custom_rules:
+  no_plain_xctassert:
+    included: ".*Test[s]?\\.swift" # Test modules are named "Test" AND "Tests"
+    name: "No plain XCTAssert"
+    regex: "(XCTAssert)\\("
+    capture_group: 0
+    match_kinds:
+      - identifier
+    message: "Please specify your assertion: XCTAssertTrue, XCTAssertEqual, ..."
+    severity: error

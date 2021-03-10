@@ -7,7 +7,7 @@ import OpenCombine
 import UserNotifications
 import ExposureNotification
 
-
+// swiftlint:disable:next type_body_length
 final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -27,7 +27,6 @@ final class OnboardingInfoViewController: UIViewController {
 		self.store = store
 		self.client = client
 		self.supportedCountries = supportedCountries
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -63,7 +62,6 @@ final class OnboardingInfoViewController: UIViewController {
 		scrollView.contentInset.bottom = footerView.frame.height - scrollView.safeAreaInsets.bottom
 		scrollView.verticalScrollIndicatorInsets.bottom = scrollView.contentInset.bottom
 	}
-	
 
 	// MARK: - Private
 	
@@ -91,7 +89,6 @@ final class OnboardingInfoViewController: UIViewController {
 	private var pageSetupDone = false
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
-
 	private var subscriptions = [AnyCancellable]()
 
 	@IBAction private func didTapNextButton(_: Any) {
@@ -125,7 +122,6 @@ final class OnboardingInfoViewController: UIViewController {
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
 
-
 	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
 		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
@@ -134,7 +130,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func gotoNextScreen() {
 		guard let nextPageType = pageType.next() else {
-			finishOnBoarding()
+			gotoDataDonationScreen()
 			return
 		}
 		let next = OnboardingInfoViewController(
@@ -145,6 +141,50 @@ final class OnboardingInfoViewController: UIViewController {
 			supportedCountries: supportedCountries
 		)
 		navigationController?.pushViewController(next, animated: true)
+	}
+	
+	private func gotoDataDonationScreen() {
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
+		let dataDonationViewModel = DefaultDataDonationViewModel(
+			store: store,
+			presentSelectValueList: { [weak self] selectValueViewModel in
+				let selectValueViewController = SelectValueTableViewController(
+					selectValueViewModel,
+					dismiss: { [weak self] in
+						self?.navigationController?.dismiss(animated: true)
+					})
+				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
+				self?.navigationController?.present(selectValueNavigationController, animated: true)
+			},
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: jsonFileURL
+			)
+		)
+
+		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
+			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
+		)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: dataDonationViewController,
+			bottomController: FooterViewController(
+				footerViewModel,
+				didTapPrimaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: true)
+					self?.finishOnBoarding()
+				},
+				didTapSecondaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: false)
+					self?.finishOnBoarding()
+				}),
+			bottomHeight: 140.0)
+		navigationController?.pushViewController(containerViewController, animated: true)
 	}
 
 	private func loadCountryList() {
@@ -245,7 +285,11 @@ final class OnboardingInfoViewController: UIViewController {
 			textView.layoutMargins = .zero
 			textView.delegate = self
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
-				textView.load(from: url)
+				do {
+					try textView.load(from: url)
+				} catch {
+					Log.error("Could not load url \(url)", log: .ui, error: error)
+				}
 			}
 			stackView.addArrangedSubview(textView)
 			htmlTextView = textView

@@ -10,9 +10,11 @@ class HomeTableViewModel {
 	// MARK: - Init
 
 	init(
-		state: HomeState
+		state: HomeState,
+		store: Store
 	) {
 		self.state = state
+		self.store = store
 	}
 
 	// MARK: - Internal
@@ -21,7 +23,6 @@ class HomeTableViewModel {
 		case exposureLogging
 		case riskAndTest
 		case statistics
-		case diary
 		case infos
 		case settings
 	}
@@ -33,13 +34,30 @@ class HomeTableViewModel {
 		case thankYou
 	}
 
-	var state: HomeState
+	let state: HomeState
+	let store: Store
 
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
 
 	var riskAndTestRows: [RiskAndTestRow] {
+		#if DEBUG
+		if isUITesting {
+			// adding this for launch argument to fake cards on home screen for testing
+			if UserDefaults.standard.string(forKey: "showThankYouScreen") == "YES" {
+				return [.thankYou]
+			} else if UserDefaults.standard.string(forKey: "showTestResultScreen") == "YES" {
+				return [.risk, .testResult]
+			} else if UserDefaults.standard.string(forKey: "showPositiveTestResult") == "YES" {
+				return [.shownPositiveTestResult]
+			} else if state.positiveTestResultWasShown {
+				return [.shownPositiveTestResult]
+			} else {
+				return [.risk, .testResult]
+			}
+		}
+		#endif
 		if state.keysWereSubmitted {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
@@ -63,8 +81,6 @@ class HomeTableViewModel {
 			return riskAndTestRows.count
 		case .statistics:
 			return 1
-		case .diary:
-			return 1
 		case .infos:
 			return 2
 		case .settings:
@@ -84,7 +100,7 @@ class HomeTableViewModel {
 
 	func heightForHeader(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .diary, .statistics:
+		case .exposureLogging, .riskAndTest, .statistics:
 			return 0
 		case .infos, .settings:
 			return 16
@@ -95,7 +111,7 @@ class HomeTableViewModel {
 
 	func heightForFooter(in section: Int) -> CGFloat {
 		switch Section(rawValue: section) {
-		case .exposureLogging, .riskAndTest, .diary, .statistics:
+		case .exposureLogging, .riskAndTest, .statistics:
 			return 0
 		case .infos:
 			return 16
@@ -104,6 +120,15 @@ class HomeTableViewModel {
 		case .none:
 			fatalError("Invalid section")
 		}
+	}
+
+	func reenableRiskDetection() {
+		store.positiveTestResultWasShown = false
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
+		store.testResultReceivedTimeStamp = nil
+
+		state.testResult = nil
+		state.requestRisk(userInitiated: true)
 	}
 
 }

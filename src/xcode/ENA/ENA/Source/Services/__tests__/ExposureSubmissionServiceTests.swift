@@ -49,13 +49,30 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		let client = ClientMock()
 		let store = MockTestStore()
 		store.registrationToken = "dummyRegistrationToken"
+		store.positiveTestResultWasShown = true
+		store.testResultReceivedTimeStamp = 12345678
+
 		let appConfigurationProvider = CachedAppConfigurationMock()
 
-		let service = ENAExposureSubmissionService(diagnosisKeysRetrieval: keyRetrieval, appConfigurationProvider: appConfigurationProvider, client: client, store: store, warnOthersReminder: WarnOthersReminder(store: store))
+		var deadmanNotificationManager = MockDeadmanNotificationManager()
+
+		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
+		deadmanNotificationManager.resetDeadmanNotificationCalled = {
+			deadmanResetExpectation.fulfill()
+		}
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store),
+			deadmanNotificationManager: deadmanNotificationManager
+		)
 		service.isSubmissionConsentGiven = true
 		service.symptomsOnset = .lastSevenDays
 
-		let expectation = self.expectation(description: "Success")
+		let successExpectation = self.expectation(description: "Success")
 
 		// Act
 		service.getTemporaryExposureKeys { error in
@@ -63,7 +80,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 			service.submitExposure { error in
 				XCTAssertNil(error)
-				expectation.fulfill()
+				successExpectation.fulfill()
 			}
 		}
 
@@ -72,10 +89,15 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		XCTAssertNil(store.registrationToken)
 		XCTAssertNil(store.tan)
 
+		/// The date of the test result is still needed because it is shown on the home screen after the submission
+		XCTAssertNotNil(store.testResultReceivedTimeStamp)
+
 		XCTAssertFalse(service.isSubmissionConsentGiven)
 		XCTAssertNil(store.submissionKeys)
 		XCTAssertTrue(store.submissionCountries.isEmpty)
 		XCTAssertEqual(store.submissionSymptomsOnset, .noInformation)
+		XCTAssertFalse(store.positiveTestResultWasShown)
+
 		XCTAssertNotNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 	}
 
@@ -260,6 +282,57 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
+	func testSubmitExposure_hoursSinceRegistration_hoursSinceResult() {
+		// Arrange
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
+		let client = ClientMock()
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		store.registrationToken = "dummyRegistrationToken"
+		store.positiveTestResultWasShown = true
+		store.testResultReceivedTimeStamp = 12345678
+
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		var deadmanNotificationManager = MockDeadmanNotificationManager()
+
+		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
+		deadmanNotificationManager.resetDeadmanNotificationCalled = {
+			deadmanResetExpectation.fulfill()
+		}
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: keyRetrieval,
+			appConfigurationProvider: appConfigurationProvider,
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store),
+			deadmanNotificationManager: deadmanNotificationManager
+		)
+		service.updateStoreWithKeySubmissionMetadataDefaultValues()
+		service.isSubmissionConsentGiven = true
+		service.symptomsOnset = .lastSevenDays
+
+		let successExpectation = self.expectation(description: "Success")
+
+		// Act
+		service.getTemporaryExposureKeys { error in
+			XCTAssertNil(error)
+
+			service.submitExposure { error in
+				XCTAssertNil(error)
+				successExpectation.fulfill()
+			}
+		}
+
+		waitForExpectations(timeout: expectationsTimeout)
+		
+		
+		XCTAssertNotNil(store.keySubmissionMetadata?.hoursSinceTestResult)
+		XCTAssertNotNil(store.keySubmissionMetadata?.hoursSinceTestRegistration)
+		XCTAssertTrue(((store.keySubmissionMetadata?.submitted) != false))
+	}
+
 	func testCorrectErrorForRequestCouldNotBeBuilt() {
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let appConfigurationProvider = CachedAppConfigurationMock()
@@ -433,6 +506,173 @@ class ExposureSubmissionServiceTests: XCTestCase {
 				XCTFail(error.localizedDescription)
 			case .success(let testResult):
 				XCTAssertEqual(testResult, .positive)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func testGetTestResult_TestRetrievalsucceed_TestMetadataCreated() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+		store.riskCalculationResult = mockRiskCalculationResult()
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success:
+				XCTAssertNotNil(store.testResultMetadata?.testResult)
+				XCTAssertNotNil(store.testResultMetadata?.testRegistrationDate)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGetTestResult_TestRetrievalFail_TestMetadataCleared() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.noNetworkConnection))
+		}
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+		store.riskCalculationResult = mockRiskCalculationResult()
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTAssertNil(store.testResultMetadata?.testResult)
+				XCTAssertNotNil(store.testResultMetadata?.testRegistrationDate)
+			case .success:
+				XCTFail("Test is expected to fail because of no network")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGetTestResult_registrationFail_TestMetadataIsNill() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive a result.")
+		let store = MockTestStore()
+		let client = ClientMock()
+		client.onGetRegistrationToken = { _, _, _, completion in
+			completion(.failure(ClientMock.Failure.qrAlreadyUsed))
+		}
+
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: client,
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+		store.riskCalculationResult = mockRiskCalculationResult()
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure:
+				XCTAssertNil(store.testResultMetadata)
+			case .success:
+				XCTFail("Test is expected to fail because of qrAlreadyUsed")
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+
+	func mockRiskCalculationResult() -> RiskCalculationResult {
+		RiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 0,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithHighRisk: Date(),
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 2,
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+	}
+	
+	func testGetTestResult_testRegistrationDate_testResultTimeStamp() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to receive the test registration date and test result time stamp.")
+		let store = MockTestStore()
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+		store.riskCalculationResult = mockRiskCalculationResult()
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success:
+				XCTAssertNotNil(store.testRegistrationDate)
+				XCTAssertNotNil(store.testResultReceivedTimeStamp)
+			}
+		}
+
+		waitForExpectations(timeout: .short)
+	}
+	
+	func testGetTestResult_checkHoursAndDays() throws {
+		// Initialize.
+		let expectation = self.expectation(description: "Expect to have daysSinceMostRecentDateAtRiskLevelAtTestRegistration and hoursSinceHighRiskWarningAtTestRegistration in the store.")
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let service = ENAExposureSubmissionService(
+			diagnosisKeysRetrieval: MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil)),
+			appConfigurationProvider: CachedAppConfigurationMock(),
+			client: ClientMock(),
+			store: store,
+			warnOthersReminder: WarnOthersReminder(store: store)
+		)
+		store.riskCalculationResult = mockRiskCalculationResult()
+		store.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+		service.updateStoreWithKeySubmissionMetadataDefaultValues()
+		// Execute test.
+		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
+			expectation.fulfill()
+			switch result {
+			case .failure(let error):
+				XCTFail(error.localizedDescription)
+			case .success:
+				XCTAssertNotNil(store.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration)
+				XCTAssertNotNil(store.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration)
 			}
 		}
 

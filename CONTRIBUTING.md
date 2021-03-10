@@ -50,7 +50,7 @@ The following rule governs documentation contributions:
 
 ## Pull Request Checklist
 
-* Branch from the development branch and, if needed, rebase to the current development branch before submitting your pull request. If it doesn't merge cleanly with development, you may be asked to rebase your changes.
+* Branch from the latest `release` branch (i.e. the default branch of the Github repository) and, if needed, rebase to the upstream branch before submitting your pull request. If your PR doesn't merge cleanly, you may be asked to rebase your changes.
 
 * Commits should be as small as possible while ensuring that each commit is correct independently (i.e., each commit should compile and pass tests).
 
@@ -63,7 +63,7 @@ The following rule governs documentation contributions:
 1.  Set title.
 Format: `{task_name} (closes #{issue_number})`. For example: `Use logger (closes #41)`.
 2. Set target branch.
-All feature branches should branch from ```development``` branch, so the target should also be ```development```.
+All feature branches should branch from the latest ```release``` branch, so the target should also be this ```release``` branch.
 3. Set label.
 Possible labels: `bug`, `chore`, `enhancement`, `feature`, `UI polish` and `UX`
 4.  Set description.

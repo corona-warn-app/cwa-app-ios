@@ -48,38 +48,23 @@ enum AppInformationModel {
 		)
 	])
 
-	static let privacyModel = DynamicTableViewModel([
-		.section(
-			header: .image(
-				UIImage(named: "Illu_Appinfo_Datenschutz"),
-				accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyImageDescription,
-				height: 230
-			),
-			cells: [
-				.title2(
-					text: AppStrings.AppInformation.privacyTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyTitle),
-				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
-			]
-		)
-	])
+	static let privacyModel = HtmlInfoModel(
+		title: AppStrings.AppInformation.privacyTitle,
+		titleAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.privacyTitle,
+		image: UIImage(named: "Illu_Appinfo_Datenschutz"),
+		imageAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.privacyImageDescription,
+		imageAccessabliltyLabel: AppStrings.AppInformation.privacyImageDescription,
+		urlResourceName: "privacy-policy"
+	)
 
-	static let termsModel = DynamicTableViewModel([
-		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
-						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
-						   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsImageDescription,
-						   height: 230),
-			cells: [
-				.title2(
-					text: AppStrings.AppInformation.termsTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsTitle),
-				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
-			]
-		)
-	])
-
+	static let termsModel = HtmlInfoModel(
+		title: AppStrings.AppInformation.termsTitle,
+		titleAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.termsTitle,
+		image: UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
+		imageAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.termsImageDescription,
+		imageAccessabliltyLabel: AppStrings.AppInformation.termsImageDescription,
+		urlResourceName: "usage"
+	)
 }
 
 private func isGerman() -> Bool {

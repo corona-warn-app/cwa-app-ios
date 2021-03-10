@@ -23,7 +23,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0010_HomeFlow_medium() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launch()
 
 		// only run if home screen is present
@@ -39,7 +39,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .normal, size: .XS)
 		app.launch()
 
 		// only run if home screen is present
@@ -55,7 +55,7 @@ class ENAUITests_01_Home: XCTestCase {
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XL)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XL)
 		app.launch()
 
 		// only run if home screen is present
@@ -72,41 +72,67 @@ class ENAUITests_01_Home: XCTestCase {
 		// snapshot("ScreenShot_\(#function)")
 	}
 	
-	func test_screenshot_homescreen_riskCardHigh() throws {
+	func test_screenshot_homescreen_riskCardHigh_riskOneDay() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
 		let numberOfDaysWithHighRisk = 1
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
-		XCTAssert(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
 		
-		// find an element with localized text "Begegnungen an einem Tag mit erhöhtem Risiko"
+		// find an element with localized text "Begegnungen an 1 Tag mit erhöhtem Risiko"
 		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), numberOfDaysWithHighRisk)
-		XCTAssert(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.otherElements[highRiskTitle].waitForExistence(timeout: .short))
 		
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
-	
-	func test_screenshot_homescreen_riskCardLow() throws {
+
+	func test_screenshot_homescreen_riskCardHigh_riskMultipleDays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "high"
+		let numberOfDaysWithHighRisk = "4"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithHighRisk])
+		app.launch()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+
+		// Red risk card title "Erhöhtes Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardHighTitle)].waitForExistence(timeout: .short))
+		
+		// find an element with localized text "Begegnungen an 4 Tag mit erhöhtem Risiko"
+		let highRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardHighNumberContactsItemTitle), 4)
+		XCTAssertTrue(app.otherElements[highRiskTitle].waitForExistence(timeout: .medium))
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_riskCardLow_riskNoDays() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let numberOfDaysWithLowRisk = 0
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 		
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 		
 		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
 		// see HomeRiskLevelCellConfigurator.setupAccessibility()
@@ -114,24 +140,76 @@ class ENAUITests_01_Home: XCTestCase {
 		
 		// find an element with localized text "Keine Risiko-Begegnungen"
 		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), numberOfDaysWithLowRisk)
-		XCTAssert(app.otherElements[lowRiskTitle].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.otherElements[lowRiskTitle].waitForExistence(timeout: .long))
 		
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_no_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
-		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_no_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
-	
+
+	func test_screenshot_homescreen_riskCardLow_riskOneDay() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launch()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		
+		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssertNotNil(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardLowTitle)].waitForExistence(timeout: .short))
+		
+		// find an element with localized text "Keine Risiko-Begegnungen"
+		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), 1)
+		XCTAssertTrue(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_one_day_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_riskCardLow_riskMultipleDays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "4"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launch()
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		
+		// Green risk card title "Niedriges Risiko" – the localized text is used as accessibility identifier
+		// see HomeRiskLevelCellConfigurator.setupAccessibility()
+		XCTAssertNotNil(app.buttons[AccessibilityLabels.localized(AppStrings.Home.riskCardLowTitle)].waitForExistence(timeout: .short))
+		
+		// find an element with localized text "Keine Risiko-Begegnungen"
+		let lowRiskTitle = String(format: AccessibilityLabels.localized(AppStrings.Home.riskCardLowNumberContactsItemTitle), 4)
+		XCTAssertTrue(app.otherElements[lowRiskTitle].waitForExistence(timeout: .short))
+		
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp()
+		snapshot("homescreenrisk_level_\(riskLevel)_risk_multiple_days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
 	func test_screenshot_homescreen_riskCardLow_14days() throws {
 		var screenshotCounter = 0
 		let riskLevel = "low"
 		let activeTracingDays = "14"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
 		
-		snapshot("homescreenrisk_level_\(riskLevel)_14days\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_14days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardLow_Ndays() throws {
@@ -139,28 +217,28 @@ class ENAUITests_01_Home: XCTestCase {
 		let riskLevel = "low"
 		// change the value based on N
 		let activeTracingDays = "12"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
 		app.launch()
 		
-		snapshot("homescreenrisk_level_\(riskLevel)_\(activeTracingDays)days\(String(format: "%04d", (screenshotCounter.inc() )))")
+		snapshot("homescreenrisk_level_\(riskLevel)_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 
 	func test_screenshot_homescreen_riskCardInactive() throws {
 		try XCTSkipIf(Locale.current.identifier == "bg_BG") // temporary hack!
 		var screenshotCounter = 0
 		let riskLevel = "inactive"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launch()
 
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		// Inactive risk card title "Risiko-Ermittlung gestoppt"
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .short))
 		
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.rightBarButtonDescription].waitForExistence(timeout: .short))
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_\(String(format: "%04d", (screenshotCounter.inc() )))")
@@ -172,17 +250,158 @@ class ENAUITests_01_Home: XCTestCase {
 	func test_screenshot_homescreen_riskCardHigh_activeExposureLogging() throws {
 		var screenshotCounter = 0
 		let riskLevel = "high"
-		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XS)
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
 		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
 		app.launch()
 
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
-		XCTAssert(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.RiskTableViewCell.topContainer].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .short))
 
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		app.swipeUp()
 		snapshot("homescreenrisk_level_\(riskLevel)_noExposureLogging_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_riskCardHigh_details_faqLink() throws {
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.active.stringValue])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		let faqCell = app.cells[AccessibilityIdentifiers.ExposureDetection.guideFAQ]
+		XCTAssertTrue(faqCell.waitForExistence(timeout: .medium))
+		faqCell.tap()
+
+		XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: .long))
+	}
+	
+	func test_screenshot_details_riskCardHigh_riskOneDay_tracingNdays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "high"
+		// change the value based on N
+		let activeTracingDays = "5"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+    }
+
+    func test_screenshot_details_riskCardLow_riskOneDay_tracingNdays() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		// change the value based on N
+		let activeTracingDays = "5"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-activeTracingDays", activeTracingDays])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", "1"])
+		app.launch()
+
+		let riskCell = app.cells.element(boundBy: 1)
+		XCTAssertTrue(riskCell.waitForExistence(timeout: .medium))
+		riskCell.tap()
+
+		snapshot("details_screen_risk_level_\(riskLevel)_risk_one_day_active_tracing_\(activeTracingDays)days_\(String(format: "%04d", (screenshotCounter.inc() )))")
+    }
+
+	func test_screenshot_homescreen_thankyou_screen() throws {
+		var screenshotCounter = 0
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-showThankYouScreen", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_thankyou_screen_\(String(format: "%04d", (screenshotCounter.inc() )))")
+    }
+	
+	func test_screenshot_homescreen_invalid_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showInvalidTestResult", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_invalid_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func test_screenshot_homescreen_loading_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showLoadingTestResult", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_loading_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_loading_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+
+	func test_screenshot_homescreen_pending_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showPendingTestResult", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_pending_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_pending_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func test_screenshot_homescreen_negative_test_result() throws {
+		var screenshotCounter = 0
+		let riskLevel = "low"
+		let numberOfDaysWithLowRisk = "1"
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		app.launchArguments.append(contentsOf: ["-riskLevel", riskLevel])
+		app.launchArguments.append(contentsOf: ["-numberOfDaysWithRiskLevel", numberOfDaysWithLowRisk])
+		app.launchArguments.append(contentsOf: ["-showTestResultScreen", "YES"])
+		app.launchArguments.append(contentsOf: ["-showNegativeTestResult", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_negative_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_negative_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+	}
+	
+	func test_screenshot_homescreen_positive_test_result() throws {
+		var screenshotCounter = 0
+		app.setPreferredContentSizeCategory(accessibility: .accessibility, size: .XS)
+		// we just need one launch argument because it is handled separately
+		app.launchArguments.append(contentsOf: ["-showPositiveTestResult", "YES"])
+		app.launch()
+
+		snapshot("homescreenrisk_show_positive_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
+		app.swipeUp(velocity: .slow)
+		snapshot("homescreenrisk_show_positive_test_result_\(String(format: "%04d", (screenshotCounter.inc() )))")
 	}
 }

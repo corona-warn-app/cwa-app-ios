@@ -19,7 +19,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
-		onDiaryCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
@@ -34,7 +33,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
-		self.onDiaryCellTap = onDiaryCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
@@ -104,9 +102,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.backgroundColor = .enaColor(for: .separator)
 
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUIAfterResumingFromBackground), name: UIApplication.willEnterForegroundNotification, object: nil)
-
-		viewModel.state.updateTestResult()
-		viewModel.state.updateStatistics()
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUI), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
+		
+		refreshUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -142,7 +140,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -160,8 +157,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
-		case .diary:
-			return diaryCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -209,8 +204,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
-		case .diary:
-			onDiaryCellTap()
 		case .infos:
 			if indexPath.row == 0 {
 				onInviteFriendsCellTap()
@@ -238,7 +231,9 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	// MARK: - Internal
 
 	func reload() {
-		tableView.reloadData()
+		DispatchQueue.main.async { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	func scrollToTop(animated: Bool) {
@@ -256,7 +251,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
-	private let onDiaryCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
@@ -312,10 +306,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
 		)
 		tableView.register(
-			UINib(nibName: String(describing: HomeDiaryTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: HomeDiaryTableViewCell.self)
-		)
-		tableView.register(
 			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeInfoTableViewCell.self)
 		)
@@ -323,7 +313,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 
-		/// Overestimate to fix auto layout warnings and fix a problem that showed the diary cell behind other cells when opening app from the background in manual mode
+		/// Overestimate to fix auto layout warnings and fix a problem that showed the test cell behind other cells when opening app from the background in manual mode
 		tableView.estimatedRowHeight = 500
 	}
 
@@ -438,8 +428,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeThankYouTableViewCell")
 		}
 
-		let cellModel = HomeThankYouCellModel()
-		cell.configure(with: cellModel)
+		let cellModel = HomeThankYouCellModel(
+			testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
+		)
+		cell.configure(
+			with: cellModel,
+			onPrimaryAction: { [weak self] in
+				self?.showReenableConfirmationAlert()
+			}
+		)
 
 		return cell
 	}
@@ -463,26 +460,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 				self?.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
 			},
 			onUpdate: { [weak self] in
-				self?.tableView.reloadSections([HomeTableViewModel.Section.statistics.rawValue], with: .none)
+				self?.reload()
 			}
 		)
 
 		statisticsCell = cell
-
-		return cell
-	}
-
-	private func diaryCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeDiaryTableViewCell.self), for: indexPath) as? HomeDiaryTableViewCell else {
-			fatalError("Could not dequeue HomeDiaryTableViewCell")
-		}
-
-		cell.configure(
-			with: HomeDiaryCellModel(),
-			onPrimaryAction: { [weak self] in
-				self?.onDiaryCellTap()
-			}
-		)
 
 		return cell
 	}
@@ -527,7 +509,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	}
 	
 	private func showDeltaOnboardingIfNeeded(completion: @escaping () -> Void = {}) {
-		
 		guard deltaOnboardingCoordinator == nil else { return }
 		
 		appConfigurationProvider.appConfiguration().sink { [weak self] configuration in
@@ -547,9 +528,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 
 			DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 				let onboardings: [DeltaOnboarding] = [
-					DeltaOnboardingV15(store: self.viewModel.state.store, supportedCountries: supportedCountries),
-					DeltaOnboardingNewVersionFeatures(store: self.viewModel.state.store)
+					DeltaOnboardingV15(store: self.viewModel.store, supportedCountries: supportedCountries),
+					DeltaOnboardingDataDonation(store: self.viewModel.store),
+					DeltaOnboardingNewVersionFeatures(store: self.viewModel.store)
 				]
+				Log.debug("Delta Onboarding list size: \(onboardings.count)")
 
 				self.deltaOnboardingCoordinator = DeltaOnboardingCoordinator(rootViewController: self, onboardings: onboardings)
 				self.deltaOnboardingCoordinator?.finished = { [weak self] in
@@ -565,11 +548,11 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func showInformationHowRiskDetectionWorksIfNeeded(completion: @escaping () -> Void = {}) {
 		#if DEBUG
 		if isUITesting, let showInfo = UserDefaults.standard.string(forKey: "userNeedsToBeInformedAboutHowRiskDetectionWorks") {
-			viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
+			viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = (showInfo == "YES")
 		}
 		#endif
 
-		guard viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
+		guard viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks else {
 			completion()
 			return
 		}
@@ -600,7 +583,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 
 		present(alert, animated: true) { [weak self] in
-			self?.viewModel.state.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
+			self?.viewModel.store.userNeedsToBeInformedAboutHowRiskDetectionWorks = false
 		}
 	}
 
@@ -609,7 +592,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private func showBackgroundFetchAlertIfNeeded(completion: @escaping () -> Void = {}) {
 		let status = UIApplication.shared.backgroundRefreshStatus
 		let inLowPowerMode = ProcessInfo.processInfo.isLowPowerModeEnabled
-		let hasSeenAlertBefore = viewModel.state.store.hasSeenBackgroundFetchAlert
+		let hasSeenAlertBefore = viewModel.store.hasSeenBackgroundFetchAlert
 
 		/// The error alert should only be shown:
 		/// - once
@@ -626,10 +609,6 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			message: AppStrings.Common.backgroundFetch_AlertMessage,
 			okTitle: AppStrings.Common.backgroundFetch_OKTitle,
 			secondaryActionTitle: AppStrings.Common.backgroundFetch_SettingsTitle,
-			completion: { [weak self] in
-				self?.viewModel.state.store.hasSeenBackgroundFetchAlert = true
-				completion()
-			},
 			secondaryActionCompletion: {
 				if let url = URL(string: UIApplication.openSettingsURLString) {
 					UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -640,12 +619,15 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.present(
 			alert,
 			animated: true,
-			completion: nil
+			completion: { [weak self] in
+				self?.viewModel.store.hasSeenBackgroundFetchAlert = true
+				completion()
+			}
 		)
 	}
 
 	private func showRiskStatusLoweredAlertIfNeeded(completion: @escaping () -> Void = {}) {
-		guard viewModel.state.store.shouldShowRiskStatusLoweredAlert else {
+		guard viewModel.store.shouldShowRiskStatusLoweredAlert else {
 			completion()
 			return
 		}
@@ -666,15 +648,55 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		alert.addAction(alertAction)
 
 		present(alert, animated: true) { [weak self] in
-			self?.viewModel.state.store.shouldShowRiskStatusLoweredAlert = false
+			self?.viewModel.store.shouldShowRiskStatusLoweredAlert = false
 		}
+	}
+
+	private func showReenableConfirmationAlert() {
+		let title = AppStrings.Home.reenableAlertTitle
+		let message = AppStrings.Home.reenableAlertMessage
+
+		let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Home.reenableAlertConfirmButtonTitle,
+				style: .default,
+				handler: { [weak self] _ in
+					self?.viewModel.reenableRiskDetection()
+					self?.scrollToTop(animated: false)
+					self?.tableView.reloadSections([HomeTableViewModel.Section.riskAndTest.rawValue], with: .automatic)
+				}
+			)
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Home.reenableAlertCancelButtonTitle,
+				style: .cancel,
+				handler: nil
+			)
+		)
+
+		present(alert, animated: true)
 	}
 
 	@objc
 	private func refreshUIAfterResumingFromBackground() {
-		viewModel.state.updateTestResult()
-		viewModel.state.updateStatistics()
+		refreshUI()
 		showDeltaOnboardingAndAlertsIfNeeded()
+	}
+	
+	@objc
+	private func refreshUI() {
+		DispatchQueue.main.async { [weak self] in
+			self?.viewModel.state.updateTestResult()
+			self?.viewModel.state.updateStatistics()
+		}
 	}
 
 	// swiftlint:disable:next file_length

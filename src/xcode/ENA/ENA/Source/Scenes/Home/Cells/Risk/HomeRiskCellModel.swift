@@ -21,7 +21,6 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 		homeState.$riskState
 			.sink { [weak self] in
 				self?.scheduleCountdownTimer()
-
 				switch $0 {
 				case .risk(let risk):
 					switch risk.level {
@@ -267,6 +266,37 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 
 		let activeTracing = risk.details.activeTracing
 
+		var formattedMostRecentDateWithLowRisk = ""
+		if let mostRecentDateWithLowRisk = risk.details.mostRecentDateWithRiskLevel {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+			formattedMostRecentDateWithLowRisk = dateFormatter.string(from: mostRecentDateWithLowRisk)
+		}
+
+		let activeTracingDaysModel = HomeImageItemViewModel(
+			title: activeTracing.localizedDuration,
+			titleColor: titleColor,
+			iconImageName: activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
+			    "Icons_TracingCircleFull - Dark" :
+			    "Icons_TracingCircle-Dark_Step \(activeTracing.inDays)",
+		    iconTintColor: titleColor,
+		    color: backgroundColor,
+		    separatorColor: separatorColor,
+		    containerInsets: nil
+	    )
+		let recentRiskDaysModel = HomeImageItemViewModel(
+			title: String(
+				format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
+				formattedMostRecentDateWithLowRisk
+		    ),
+		    titleColor: titleColor,
+		    iconImageName: "Icons_Calendar",
+		    iconTintColor: titleColor,
+		    color: backgroundColor,
+		    separatorColor: separatorColor,
+		    containerInsets: nil
+	    )
+
 		itemViewModels = [
 			HomeImageItemViewModel(
 				title: String(
@@ -280,17 +310,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 				separatorColor: separatorColor,
 				containerInsets: nil
 			),
-			HomeImageItemViewModel(
-				title: activeTracing.localizedDuration,
-				titleColor: titleColor,
-				iconImageName: activeTracing.inDays >= activeTracing.maximumNumberOfDays ?
-					"Icons_TracingCircleFull - Dark" :
-					"Icons_TracingCircle-Dark_Step \(activeTracing.inDays)",
-				iconTintColor: titleColor,
-				color: backgroundColor,
-				separatorColor: separatorColor,
-				containerInsets: nil
-			),
+			risk.details.numberOfDaysWithRiskLevel > 0 ? recentRiskDaysModel : activeTracingDaysModel,
 			HomeImageItemViewModel(
 				title: String(
 					format: AppStrings.Home.riskCardDateItemTitle,
@@ -349,7 +369,7 @@ class HomeRiskCellModel: CountdownTimerDelegate {
 			),
 			HomeImageItemViewModel(
 				title: String(
-					format: AppStrings.Home.riskCardLastContactItemTitle,
+					format: risk.details.numberOfDaysWithRiskLevel == 1 ? AppStrings.Home.riskCardLastContactItemTitleOneRiskDay : AppStrings.Home.riskCardLastContactItemTitle,
 					formattedMostRecentDateWithHighRisk
 				),
 				titleColor: titleColor,

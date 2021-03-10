@@ -20,7 +20,15 @@ class BackgroundAppRefreshViewController: UIViewController {
 				}
 			},
 			onShare: { [weak self] in
+				if #available(iOS 13.0, *) {
+					// force light mode for rendering the view to pdf
+					self?.overrideUserInterfaceStyle = .light
+				}
 				if let pdf = self?.contentView.asPDF {
+					if #available(iOS 13.0, *) {
+						// return to previous interface style
+						self?.overrideUserInterfaceStyle = .unspecified
+					}
 					let activityViewController = UIActivityViewController(activityItems: [pdf], applicationActivities: nil)
 					self?.present(activityViewController, animated: true, completion: nil)
 				}
@@ -59,7 +67,10 @@ class BackgroundAppRefreshViewController: UIViewController {
 	@IBOutlet private weak var contentScrollView: UIScrollView!
 	
 	private func setupView() {
-		title = viewModel.title
+		navigationItem.title = viewModel.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
+		
 		subTitleLabel.text = viewModel.subTitle
 		descriptionLabel.text = viewModel.description
 		settingsHeaderLabel.text = viewModel.settingsHeaderTitle

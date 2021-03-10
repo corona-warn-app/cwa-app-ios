@@ -38,11 +38,11 @@ final class StoreTests: XCTestCase {
 	}
 
 	func testInitialSubmitCompleted_Success() {
-		XCTAssertEqual(store.initialSubmitCompleted, false)
+		XCTAssertFalse(store.initialSubmitCompleted)
 		store.initialSubmitCompleted = true
-		XCTAssertEqual(store.initialSubmitCompleted, true)
+		XCTAssertTrue(store.initialSubmitCompleted)
 		store.initialSubmitCompleted = false
-		XCTAssertEqual(store.initialSubmitCompleted, false)
+		XCTAssertFalse(store.initialSubmitCompleted)
 	}
 
 	func testRegistrationToken_Success() {
@@ -64,9 +64,9 @@ final class StoreTests: XCTestCase {
 		store.tracingStatusHistory.append(entry2)
 
 		XCTAssertEqual(store.tracingStatusHistory.count, 2)
-		XCTAssertEqual(store.tracingStatusHistory[0].on, true)
+		XCTAssertTrue(store.tracingStatusHistory[0].on)
 		XCTAssertEqual(store.tracingStatusHistory[0].date.description, date1.description)
-		XCTAssertEqual(store.tracingStatusHistory[1].on, false)
+		XCTAssertFalse(store.tracingStatusHistory[1].on)
 		XCTAssertEqual(store.tracingStatusHistory[1].date.description, date2.description)
 
 		store.flush()
@@ -78,25 +78,18 @@ final class StoreTests: XCTestCase {
 		// swiftlint:disable:next force_unwrapping
 		let testStoreSourceURL = Bundle(for: StoreTests.self).url(forResource: "testStore", withExtension: "sqlite")!
 
-		let tmpStore: Store = {
-			do {
-				let fileManager = FileManager.default
+		let fileManager = FileManager.default
+		let directoryURL = fileManager
+			.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+			.appendingPathComponent("testDatabase")
+		try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
+		let testStoreTargetURL = directoryURL.appendingPathComponent("secureStore.sqlite")
 
-				let directoryURL = fileManager
-					.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-					.appendingPathComponent("testDatabase")
-				try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
-				let testStoreTargetURL = directoryURL.appendingPathComponent("secureStore.sqlite")
+		XCTAssertTrue(fileManager.fileExists(atPath: testStoreSourceURL.path))
+		XCTAssertFalse(fileManager.fileExists(atPath: testStoreTargetURL.path))
+		try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-				print("Source exists: \(fileManager.fileExists(atPath: testStoreSourceURL.path))")
-				print("Target exists: \(fileManager.fileExists(atPath: testStoreTargetURL.path))")
-				try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
-
-				return try SecureStore(at: directoryURL, key: "12345678", serverEnvironment: ServerEnvironment())
-			} catch {
-				fatalError("Creating the database failed: \(error.localizedDescription)")
-			}
-		}()
+		let tmpStore: Store = try SecureStore(at: directoryURL, key: "12345678", serverEnvironment: ServerEnvironment())
 
 		// Prepare data
 		let testTimeStamp: Int64 = 1466467200  // 21.06.2016
@@ -123,23 +116,21 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
 
 		XCTAssertEqual(tmpStore.tracingStatusHistory.count, 2)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[0].on, true)
+		XCTAssertTrue(tmpStore.tracingStatusHistory[0].on)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
-		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
+		XCTAssertFalse(tmpStore.tracingStatusHistory[1].on)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
-
-		
 	}
 	
 	func testDeviceTimeSettings_initalAfterInitialization() {
-		XCTAssertEqual(store.isDeviceTimeCorrect, true)
-		XCTAssertEqual(store.wasDeviceTimeErrorShown, false)
+		XCTAssertEqual(store.deviceTimeCheckResult, .correct)
+		XCTAssertFalse(store.wasDeviceTimeErrorShown)
 		
-		store.isDeviceTimeCorrect = false
+		store.deviceTimeCheckResult = .incorrect
 		store.wasDeviceTimeErrorShown = true
 		
-		XCTAssertEqual(store.isDeviceTimeCorrect, false)
-		XCTAssertEqual(store.wasDeviceTimeErrorShown, true)
+		XCTAssertEqual(store.deviceTimeCheckResult, .incorrect)
+		XCTAssertTrue(store.wasDeviceTimeErrorShown)
 	}
 
 	func testValueToggles() throws {

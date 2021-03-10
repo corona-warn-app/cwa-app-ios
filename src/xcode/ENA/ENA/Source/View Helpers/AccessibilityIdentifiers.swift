@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+// swiftlint:disable:next type_body_length
 enum AccessibilityIdentifiers {
 
 	enum ExposureNotificationSetting {
@@ -22,7 +23,6 @@ enum AccessibilityIdentifiers {
 
 	enum Home {
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
-		static let diaryCardButton = "AppStrings.Home.diaryCardButton"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
@@ -43,6 +43,10 @@ enum AccessibilityIdentifiers {
 		}
 	}
 
+	enum ContactDiary {
+		static let segmentedControl = "AppStrings.ContactDiary.Day"
+	}
+
 	enum ContactDiaryInformation {
 		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
 		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
@@ -50,9 +54,29 @@ enum AccessibilityIdentifiers {
 		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
 		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 
+		enum Day {
+			static let durationSegmentedContol = "AppStrings.ContactDiaryInformation.durationSegmentedContol"
+			static let maskSituationSegmentedControl = "AppStrings.ContactDiaryInformation.maskSituationSegmentedControl"
+			static let settingSegmentedControl = "AppStrings.ContactDiaryInformation.settingSegmentedControl"
+			static let notesTextField = "AppStrings.ContactDiaryInformation.notesTextField"
+			static let notesInfoButton = "AppStrings.ContactDiaryInformation.notesInfoButton"
+		}
+
+		enum EditEntries {
+			static let tableView = "AppStrings.ContactDiary.EditEntries.tableView"
+			static let nameTextField = "AppStrings.ContactDiary.EditEntries.nameTextField"
+			static let phoneNumberTextField = "AppStrings.ContactDiary.EditEntries.phoneNumberTextField"
+			static let eMailTextField = "AppStrings.ContactDiary.EditEntries.eMailTextField"
+		}
+
 		enum Overview {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
+			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
+		}
+		
+		enum NotesInformation {
+			static let titel = "AppStrings.ContactDiary.NotesInformation.title"
 		}
 	}
 
@@ -100,6 +124,7 @@ enum AccessibilityIdentifiers {
 		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
 		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
+		static let dataDonation = "AppStrings.Settings.Datadonation.description"
 	}
 
 	enum AppInformation {
@@ -152,6 +177,19 @@ enum AccessibilityIdentifiers {
 		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
 		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
 		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
+
+		static let guideFAQ = "AppStrings.ExposureDetection.guideFAQ"
+
+		static let surveyCardCell = "AppStrings.ExposureDetection.surveyCardCell"
+		static let surveyCardButton = "AppStrings.ExposureDetection.surveyCardButton"
+		static let surveyStartButton = "AppStrings.ExposureDetection.surveyStartButton"
+	}
+
+	enum SurveyConsent {
+		static let acceptButton = "AppStrings.SurveyConsent.acceptButton"
+		static let titleImage = "AppStrings.SurveyConsent.titleImage"
+		static let title = "AppStrings.SurveyConsent.title"
+		static let legalDetailsButton = "AppStrings.SurveyConsent.legalDetailsButton"
 	}
 
 	enum ExposureSubmissionQRScanner {
@@ -249,6 +287,7 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
 		static let newVersionFeaturesAccImageDescription = "AppStrings.DeltaOnboarding.newVersionFeaturesAccImageLabel"
 		static let newVersionFeaturesGeneralDescription = "AppStrings.DeltaOnboarding.NewVersionFeatures.GeneralDescription"
+		static let newVersionFeaturesGeneralAboutAppInformation = "AppStrings.DeltaOnboarding.NewVersionFeatures.AboutAppInformation"
 		static let newVersionFeaturesVersionInfo = "AppStrings.DeltaOnboarding.NewVersionFeatures.VersionInfo"
 		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
 		static let description = "AppStrings.DeltaOnboarding.description"
@@ -340,5 +379,24 @@ enum AccessibilityIdentifiers {
 		static let title = "UpdateOSScreen.title"
 		static let text = "UpdateOSScreen.text"
 	}
-
+	
+	enum Tabbar {
+		static let home = "Tabbar.home"
+		static let diary = "Tabbar.diary"
+	}
+	
+	enum DataDonation {
+		static let accImageDescription = "AppStrings.DataDonation.Info.accImageDescription"
+		static let accDataDonationTitle = "AppStrings.DataDonation.Info.title"
+		static let accDataDonationDescription = "AppStrings.DataDonation.Info.description"
+		static let accSubHeadState = "AppStrings.DataDonation.Info.subHeadState"
+		static let accSubHeadAgeGroup = "AppStrings.DataDonation.Info.subHeadAgeGroup"
+		static let consentSwitch = "DataDonation.Consent.Switch"
+		static let federalStateName = "AppStrings.DataDonation.Info.noSelectionState"
+		static let regionName = "AppStrings.DataDonation.Info.noSelectionRegion"
+		static let ageGroup = "AppStrings.DataDonation.Info.noSelectionAgeGroup"
+		static let federalStateCell = "DataDonation.FederalState.Identifier"
+		static let regionCell = "DataDonation.Region.Identifier"
+		static let ageGroupCell = "DataDonation.AgeGroup.Identifier"
+	}
 }

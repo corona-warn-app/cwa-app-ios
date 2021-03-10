@@ -88,9 +88,10 @@ class ExposureSubmissionTestResultConsentViewModel {
 						.icon(
 							nil,
 							text: .string(AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo),
-							action: .push(model: AppInformationModel.privacyModel,
-										  withTitle: AppStrings.AppInformation.privacyTitle,
-										  completion: dismissCompletion
+							action: .push(
+								htmlModel: AppInformationModel.privacyModel,
+								withTitle: AppStrings.AppInformation.privacyTitle,
+								completion: dismissCompletion
 							),
 							configure: { _, cell, _ in
 								cell.accessoryType = .disclosureIndicator
@@ -133,5 +134,5 @@ class ExposureSubmissionTestResultConsentViewModel {
 
 enum TestResultAvailability {
 	case availableAndPositive
-	case notAvailabile
+	case notAvailable
 }

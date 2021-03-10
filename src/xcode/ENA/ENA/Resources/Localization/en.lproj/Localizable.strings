@@ -65,6 +65,8 @@
 
 "ExposureDetection_LastExposure" = "Most recently on %@";
 
+"ExposureDetection_LastExposure_One_Risk_Day" = "On %@";
+
 "ExposureDetection_Refreshed" = "Updated: %@";
 
 "ExposureDetection_Refreshed_Never" = "Unknown";
@@ -105,6 +107,12 @@
 
 "ExposureDetection_Guide_Hotline4" = "Your public health authority";
 
+/* Placeholder points to `ExposureDetection_LinkText` */
+"ExposureDetection_Guide_FAQ" = "If you get tested, you will find additional information about the testing procedure in the %@.";
+
+/* The 'tapable' text containing the link to the faq */
+"ExposureDetection_Guide_FAQ_LinkText" = "FAQ on the testing procedure";
+
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
 "ExposureDetection_Explanation_Subtitle" = "This is how your risk is calculated.";
@@ -115,15 +123,13 @@
 
 "ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to anyone else.";
 
-"ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with COVID-19 was logged, or because your encounters were only for a short time and at a greater distance.";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with coronavirus was logged, or because your exposures were only for a short time and at a greater distance.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "The risk of infection is calculated locally on your smartphone, using exposure logging data. The calculation also takes into account distance and duration of any exposure to persons diagnosed with COVID-19, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with coronavirus was logged, or because your exposures were only for a short time and at a greater distance.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were last exposed on %@ over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.";
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
-
-"ExposureDetection_Explanation_FAQ_Link_Text" = "For further information, please see our FAQ page.";
 
 "ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
 
@@ -151,6 +157,43 @@
 
 "ExposureDetection_Risk_Restart_Button_Title" = "Restart";
 
+"ExposureDetection_Survey_Card_Title" = "Survey on Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Help us to improve the app by answering a few simple questions.";
+
+"ExposureDetection_Survey_Card_Button" = "Go To Survey";
+
+/* Survey Errors */
+"SurveyConsent_Error_Title" = "Error";
+
+"SurveyConsent_Error_TryAgainLater" = "The survey cannot be retrieved right now. Please try again later (error code %@).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "The survey cannot be retrieved (error code %@).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "The time on your smartphone does not match the current time. Please correct the time in your smartphone settings (error code %@).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "The survey cannot be retrieved due to security reasons. You can take the survey again in the next calendar month (error code %@).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "You have already taken the survey. You can only take the survey once per month (error code %@).";
+
+/* Survey Consent Screen */
+"SurveyConsent_Title" = "Survey to Assess and Improve the Corona-Warn-App.";
+
+"SurveyConsent_Body1" = "Help us to improve the Corona-Warn-App by taking a survey on your experience with the app. This will help the RKI to assess the effectiveness of the app, improve the app, and understand how warnings delivered through the app affect the behavior of people with an increased risk.";
+
+"SurveyConsent_Body2" = "The survey is intended only for people whose app has indicated an exposure with increased risk. The survey is taken on an RKI website. To forward you to the website, a survey link will be displayed in the next step. Before it is displayed, however, the authenticity of your app must be confirmed. This requires your consent.";
+
+"SurveyConsent_Body3" = "When you tap on the survey link, you will receive additional information about the survey. You will also be asked explicitly to grant your consent again before you start the survey.";
+
+"SurveyConsent_Accept_Button_Title" = "Accept";
+
+/* Survey Consent Legal Details Screen */
+"SurveyConsent_Legal_Details_Title" = "Detailed Information on Data Processing Involved in Taking the Survey";
+
+"SurveyConsent_Details_Headline" = "About the RKI Survey";
+
+"SurveyConsent_Details_Body" = "After the authenticity of your app has been verified, the app forwards you to an RKI website, using a custom link to the survey that has been generated for you. This survey link contains a one-time password that is generated by your Corona-Warn-App. When you tap on the survey link and call the website with the survey, the one-time password is stored temporarily in your browser. This screen contains additional information about the survey and handling notes, such as how to start the survey. At the start of the survey, the one-time password is transmitted to the Corona-Warn-App servers, where it is flagged as used. The server then checks whether or not you can take the survey. This ensures that each user can only take the survey once.";
+
 /* Exposure detection wrong device time */
 "ExposureDetection_WrongTime_Notification_Title" = "Exposure Check Not Possible";
 
@@ -161,7 +204,7 @@
 "ExposureDetection_WrongTime_Notification_Popover_Body" = "The time set on your device does not match the current time. As a result, your risk cannot be checked right now. Please set the correct time in your device settings.";
 
 /* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
+"ExposureDetection_ActiveTracingSection_Title" = "Period Logged";
 
 "ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
 
@@ -215,6 +258,14 @@
 "Settings_Reset_Description" = "Delete all your data in the app.";
 
 "Settings_NavTitle" = "Settings";
+
+"Settings_DataDonation_Label" = "Share Data";
+
+"Settings_DataDonation_Description" = "Allow the transmission of your usage behavior.";
+
+"Settings_DataDonation_StatusActive" = "On";
+
+"Settings_DataDonation_StatusInactive" = "Off";
 
 /* Noticiation Settings */
 "NotificationSettings_On_Title" = "Do you want to activate notifications of your COVID-19 risk status?";
@@ -311,9 +362,9 @@
 
 "Onboarding_DoNotActivate_actionText" = "Do Not Activate";
 
-"Onboarding_DeactivateExposureConfirmation_title" = "If you do not activate exposure logging, the app cannot send or receive notifications about your risk status.";
+"Onboarding_DeactivateExposureConfirmation_title" = "If you do not activate exposure logging, the app cannot determine your risk status. This means you will not receive any information about your risk in the app.";
 
-"Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
+"Onboarding_DeactivateExposureConfirmation_message" = "You can reactivate exposure logging at any time.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
 
@@ -893,6 +944,8 @@
 
 "Home_Risk_Last_Contact_Item_Title" = "Most recently on %@";
 
+"Home_Risk_Last_Contact_Item_Title_One_Risk_Day" = "On %@";
+
 "Home_Risk_Last_Activate_Item_Title" = "Last exposure check: %@";
 
 "Home_Risk_Last_Activate_Item_Unknown_Title" = "Unknown Risk";
@@ -959,6 +1012,27 @@
 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious.";
 
+/* Home Reenable card */
+"Home_Reenable_Card_Title" = "Exposure Check Ended";
+
+"Home_Reenable_Card_Body" = "The automatic exposure check has ended because you have been diagnosed with coronavirus and are currently in isolation. You can reactivate the exposure test at any time. If you do, your registered test will be deleted automatically.";
+
+"Home_Reenable_Card_Button_Title" = "Turn On Exposure Check";
+
+"Home_Reenable_Card_TestResult_Title" = "SARS-CoV-2 positive";
+
+"Home_Reenable_Card_TestResult_Subtitle" = "You have been diagnosed with the SARS-CoV-2 virus.";
+
+"Home_Reenable_Card_TestResult_Registration" = "Test registered on %@";
+
+"Home_Reenable_Alert_Title" = "Activate Exposure Check";
+
+"Home_Reenable_Alert_Message" = "Your current test will be deleted from the app, so you can register a new test if necessary.";
+
+"Home_Reenable_Alert_ConfirmButtonTitle" = "Activate";
+
+"Home_Reenable_Alert_CancelButtonTitle" = "Cancel";
+
 /* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Positive Diagnosis";
 
@@ -982,13 +1056,6 @@
 "Home_SubmitCard_Body" = "Help protect yourself and others.";
 
 "Home_SubmitCard_Button" = "Next Steps";
-
-/* Home Diary card */
-"Home_DiaryCard_Title" = "Contact Journal";
-
-"Home_DiaryCard_Body" = "Keep track of where you have been and whom you met. Even if you do not enter any contacts, you will still see when you had exposures.";
-
-"Home_DiaryCard_Button" = "Open Journal";
 
 "Home_InfoCard_ShareTitle" = "Share the Corona-Warn-App";
 
@@ -1254,17 +1321,24 @@
 "DeltaOnboarding_NewVersionFeatures_Description" = "Along with bug fixes, this update also includes new and enhanced features.";
 
 /* New Version Features */
-"NewVersionFeature_112_statistics_title" = "Statistics";
+"NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
-"NewVersionFeature_112_statistics_description" = "See an overview of the latest key figures for the infection numbers in Germany.";
+/* Version 1.14 */
+"NewVersionFeature_114_additional_diary_functions_title" = "Additional Features in the Contact Journal";
 
-"NewVersionFeature_112_exposure_history_title" = "Exposure History";
+"NewVersionFeature_114_additional_diary_functions_description" = "You can now enter the specific circumstances of each encounter. You can select from the predefined options (such as duration of the encounter, with or without mask) and also enter a brief note to record other circumstances that might result in an increased risk. If you become infected, this information can help the public health authority trace potential chains of infection.";
 
-"NewVersionFeature_112_exposure_history_description" = "Your contact journal shows you the days on which you have a low or increased risk based on the encounters evaluated by the app. This means you can warn people you have been with on these days if they do not use the Corona-Warn-App themselves. These people may have been exposed to a comparable risk. The people and places in your contact journal are not necessarily related to the indicated exposures, however.";
+"NewVersionFeature_114_direct_access_diary_title" = "Direct Access to Contact Journal";
 
-"NewVersionFeature_112_ios125_support_title" = "App now available for iOS 12.5 and later";
+"NewVersionFeature_114_direct_access_diary_description" = "You can now add an entry to your contact journal directly, without having to open the app first. To do so, tap and hold the icon for the Corona-Warn-App for approximately 2 seconds, until a menu appears, and then tap “Add Journal Entry for Today”.";
 
-"NewVersionFeature_112_ios125_support_description" = "You can now use the Corona-Warn-App in iOS version 12.5 and later.";
+"NewVersionFeature_114_more_details_risk_status_title" = "More Details about Your Risk Status ";
+
+"NewVersionFeature_114_more_details_risk_status_description" = "If the app indicates that you have an increased risk, you can now see whether the risk status is displayed based on one or more exposures with an increased risk or one or more exposures with a low risk.";
+
+"NewVersionFeature_114_screenshots_title" = "Screenshots for the Corona-Warn-App";
+
+"NewVersionFeature_114_screenshots_description" = "The website https://www.coronawarn.app now contains all the screenshots for the app, so you can find out about planned features, for example.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
@@ -1358,9 +1432,25 @@
 
 "ContactDiary_Overview_Low_Risk_Title" = "Low Risk";
 
-"ContactDiary_Overview_Risk_Text_1" = "based on the encounters evaluated by the app.";
+"ContactDiary_Overview_Risk_Text_StandardCause" = "based on the encounters evaluated by the app.";
 
-"ContactDiary_Overview_Risk_Text_2" = "They are not necessarily related to the people and places you have recorded.";
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "They are not necessarily related to the people and places you have recorded.";
+
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "based on multiple exposures with low risk.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan15Minutes" = "Less than 15 min";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan15Minutes" = "More than 15 min";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "With mask";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Without mask";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "Outdoors";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "Indoors";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "hrs";
 
 /* ActionSheet */
 "ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
@@ -1394,14 +1484,32 @@
 
 "ContactDiary_Day_LocationsEmptyImageDescription" = "A building is marked with a location flag.";
 
+"ContactDiary_Day_Encounter_LessThan15Minutes" = "Less than 15 min";
+
+"ContactDiary_Day_Encounter_MoreThan15Minutes" = "More than 15 min";
+
+"ContactDiary_Day_Encounter_WithMask" = "With mask";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Without mask";
+
+"ContactDiary_Day_Encounter_Outside" = "Outdoors";
+
+"ContactDiary_Day_Encounter_Inside" = "Indoors";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Note (e.g. close distance)";
+
+"ContactDiary_Day_Visit_Duration" = "Duration";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Note (e.g. very full, poorly ventilated)";
+
 /* Edit Entries */
-"ContactDiary_EditEntries_ContactPersons_Title" = "People";
+"ContactDiary_EditEntries_ContactPersons_Title" = "Edit People";
 
 "ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Remove All";
 
 "ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Do you really want to remove all people?";
 
-"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove all people, all the entries for all people will be removed from your journal.";
 
 "ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Yes";
 
@@ -1415,13 +1523,13 @@
 
 "ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "No";
 
-"ContactDiary_EditEntries_Locations_Title" = "Places";
+"ContactDiary_EditEntries_Locations_Title" = "Edit Places";
 
 "ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Remove All";
 
 "ContactDiary_EditEntries_Locations_AlertTitle" = "Do you really want to remove all places?";
 
-"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove all places, all the entries for all places will be removed from your journal.";
 
 "ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Yes";
 
@@ -1458,7 +1566,7 @@
 
 "ContactDiary_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
 
-"ContactDiary_Information_PrimaryButton_Title" = "Manage Journal";
+"ContactDiary_Information_PrimaryButton_Title" = "Open Journal";
 
 /* AddEditEntry */
 "ContactDiary_AddEditEntry_PrimaryButton_Title" = "Save";
@@ -1466,12 +1574,20 @@
 /* - Location */
 "ContactDiary_AddEditEntry_LocationTitle" = "Place";
 
-"ContactDiary_AddEditEntry_LocationPlaceholder" = "Place";
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Description";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Phone";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "e-mail";
 
 /* - Person */
 "ContactDiary_AddEditEntry_PersonTitle" = "Person";
 
-"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Name";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Phone";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "e-mail";
 
 /* - Trend on Cards */
 "Statistics_Card_Trend_Increasing" = "Trend: Upwards";
@@ -1526,7 +1642,7 @@
 
 "Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Total";
 
-"Statistics_Card_KeySubmissions_Footnote" = "About Corona-Warn-App";
+"Statistics_Card_KeySubmissions_Footnote" = "through the Corona-Warn-App";
 
 /* - Reproduction Number Card */
 "Statistics_Card_ReproductionNumber_Title" = "7-Day R Value";
@@ -1603,4 +1719,129 @@
 "UpdateOS_title" = "Please update your iOS.";
 
 "UpdateOS_text" = "You need the current iOS version to install the Corona-Warn-App.\nTo do so, open the settings in your iPhone and select General -> Software Update.";
+
+/* Tabbar */
+"Tabbar_Home_Title" = "Start Screen";
+
+"Tabbar_Diary_Title" = "Journal";
+
+/* Data Donation */
+"DataDonation_IntroductionText" = "Let us know how you use the app and help us to assess its effectiveness.";
+
+"DataDonation_AccImageDescription" = "A woman holds a smartphone that is sharing her data";
+
+"DataDonation_Headline" = "Share Data";
+
+"DataDonation_Description" = "You can help us to improve the Corona-Warn-App. Share the data about your app usage with the RKI. This will help the RKI assess the app’s effectiveness. Your data will also help to improve the features and usability of the app.";
+
+"DataDonation_SubHead_Settings" = "SETTING";
+
+"DataDonation_SubHead_YourState" = "Your federal state (optional)";
+
+"DataDonation_SubHead_AgeGroup" = "Your age group (optional)";
+
+"DataDonation_State_NoSelection_Text" = "Federal state";
+
+"DataDonation_Region_NoSelection_Text" = "District (county) (optional)";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Your age";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Detailed Information about This Data Processing and Data Protection Risks in the U.S. and Other Third Countries";
+
+"DataDonation_Button_OK" = "Accept";
+
+"DataDonation_Button_NotOK" = "Reject";
+
+/* Value selection */
+"DataDonation_ValueSelection_None" = "No answer";
+
+"DataDonation_ValueSelection_Title_State" = "Your Federal State";
+
+"DataDonation_ValueSelection_Title_Region" = "Your District (County)";
+
+"DataDonation_ValueSelection_Title_Age" = "Your Age Group";
+
+"DataDonation_ValueSelection_Age_Below29" = "Up to 29 years old";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 years old";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "60+ years old";
+
+/* Detailed Infos Data Donation */
+"DetailedInfosDataDonation_Headline" = "Detailed Information about Data Sharing";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Data Processing in the Data Sharing Process";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "If you consent to share your data, the app sends various data to the RKI each day. The transmitted data will help us assess the effectiveness of the app and will be analyzed to support the following improvements:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Improved exposure logging";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "We want to improve the accuracy and reliability of the technical calculation of infection risks. To do so, we will evaluate information about risk exposures and the warnings you see. As a result, we will be able to refine the calculation method.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Improved user guidance in the app";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "We want to make the app easier to use. To do so, we will evaluate information about the individual steps that users perform in the app. This will help us make labels and information texts clearer and arrange the control elements to make them easier to find. We will also be able to customize the layouts for different smartphone models.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Enable information and guidance in the app";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "We want to be able to tell if problems occur when using the app in connection with certain testing facilities and laboratories or in certain regions. We can identify this, for example, if the shared data indicates that testing results are provided with delays in certain regions. The relevant public health authorities can also be notified specifically of potential technical problems.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Improve statistics about the course of the pandemic ";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Your data can help provide insights into how the pandemic is spreading over time and space and help us respond to certain trends more quickly.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "To this end, the RKI collects the following data:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "The date of data transmission.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Changes in the warning history compared to the previous day.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Information about which risk was displayed to you at the time of data transmission.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Information about the basis for calculating the risk status in the context of an exposure.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "If you have retrieved a test result through the app:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Information about whether you received a positive or negative test result through the app.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Information about the calculated risk at the time the test was registered.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Information about the time between your last exposure with increased risk and the test registration.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Information about the time between the last notification of an increased risk and the test registration.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Information about whether you shared your test result and warned others.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "If you have warned others about a potential exposure:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Information about whether you canceled the steps for warning others.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Information about whether you provided details about the onset of your symptoms.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Information about when you granted your consent to warn others.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Information about the notification you reached in the context of warning others.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Information about how many hours it took for you to receive your test result.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Information about how many days have passed since the last notification of an increased risk.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Information about how many hours have passed since the test registration.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Other information:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Information about the age group you specified.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Information about the region you specified.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Information about the model and version of your smartphone, the version of your app, and the version of your operating system.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "This information cannot be linked with you personally. Your identity will remain confidential.\nThe information will be analyzed for statistical purposes. It will not be saved for a profile.";
+
+"Contact_Journal_Notes_Description_Title" = "Note";
+
+"Contact_Journal_Notes_Description" = "You can enter notes here that will help you to better estimate your risk of infection.\n\nWrite down additional circumstances of your encounter or stay here that could have an effect on your risk of infection, for example, how close you were to other people and what you did (examples: “sat close together”, “played sports”, “little space”, “we sang”).\n\nThese notes can help you refresh your memory later. If necessary, they will also let you warn the people you have been with at an early stage, as well as help the public health authorities trace potential chains of infection.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
 

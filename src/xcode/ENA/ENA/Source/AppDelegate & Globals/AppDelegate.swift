@@ -20,11 +20,12 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var serverEnvironment: ServerEnvironment { get }
-	var contactDiaryStore: ContactDiaryStore { get }
+	var contactDiaryStore: DiaryStoringProviding { get }
 
 	func requestUpdatedExposureState()
 }
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, RequiresAppDependencies, ENAExposureManagerObserver, CoordinatorDelegate, ExposureStateUpdating, ENStateHandlerUpdating {
 
@@ -41,9 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self.downloadedPackagesStore.keyValueStore = self.store
 
 		super.init()
+
+		// Make the analytics working. Should not be called later than at this moment of app initialisation.
+		Analytics.setup(store: store, submitter: self.analyticsSubmitter)
 	}
 
 	deinit {
+		// We are (intentionally) keeping strong references for delegates. Let's clean them ups.
 		self.taskExecutionDelegate = nil
 	}
 
@@ -53,19 +58,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	func application(
 		_: UIApplication,
-		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
+		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
+
 		#if DEBUG
 		setupOnboardingForTesting()
+		setupDatadonationForTesting()
 		#endif
-		
+
 		if AppDelegate.isAppDisabled() {
 			// Show Disabled UI
 			setupUpdateOSUI()
 			return true
 		}
-		
+
 		setupUI()
+		setupQuickActions()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
@@ -73,8 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		taskScheduler.delegate = taskExecutionDelegate
 		UNUserNotificationCenter.current().delegate = notificationManager
 
-		// Setup DeadmanNotification after AppLaunch
-		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
+		/// Setup DeadmanNotification after AppLaunch
+		DeadmanNotificationManager(store: store).scheduleDeadmanNotificationIfNeeded()
 
 		consumer.didFailCalculateRisk = { [weak self] error in
 			self?.showError(error)
@@ -85,8 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
-
-		return true
+		return handleQuickActions(with: launchOptions)
 	}
 
 	func applicationWillEnterForeground(_ application: UIApplication) {
@@ -95,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider.requestRisk(userInitiated: false)
 		let state = exposureManager.exposureManagerState
 		updateExposureState(state)
-		
+		Analytics.triggerAnalyticsSubmission()
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
@@ -104,8 +112,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-		// explicitely disabled as per #EXPOSUREAPP-2214
-		plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		if !AppDelegate.isAppDisabled() {
+			// explicitly disabled as per #EXPOSUREAPP-2214
+			plausibleDeniabilityService.executeFakeRequestOnAppLaunch(probability: 0.0)
+		}
 	}
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
@@ -122,9 +132,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let wifiClient: WifiOnlyHTTPClient
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
-    let store: Store
-    let contactDiaryStore = ContactDiaryStore.make()
+	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
     let serverEnvironment: ServerEnvironment
+	var store: Store
 
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
@@ -140,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#if DEBUG
 		if isUITesting {
 			// provide a static app configuration for ui tests to prevent validation errors
-			return CachedAppConfigurationMock()
+			return CachedAppConfigurationMock(isEventSurveyEnabled: true, isEventSurveyUrlAvailable: true)
 		}
 		#endif
 		// use a custom http client that uses/recognized caching mechanisms
@@ -182,6 +192,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		#endif
 	}()
 
+	private lazy var analyticsSubmitter: PPAnalyticsSubmitter = {
+		return PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider
+		)
+	}()
+
+	private lazy var otpService: OTPServiceProviding = OTPService(
+		store: store,
+		client: client,
+		riskProvider: riskProvider
+	)
+
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -221,7 +245,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
-			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies)
+			store: self.store,
+			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
+		)
 	}()
 
 	var notificationManager: NotificationManager! = NotificationManager()
@@ -253,15 +279,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
 		exposureSubmissionService.reset()
 
-		// Reset key value store.
+		// Reset key value store. Preserve environment settings.
+
 		do {
+			/// ppac API Token is excluded from the reset
+			/// read value from the current store
+			let ppacAPIToken = store.ppacApiToken
+			let environment = store.selectedServerEnvironment
+
 			let newKey = try KeychainHelper().generateDatabaseKey()
 			store.clearAll(key: newKey)
+
+			/// write excluded value back to the 'new' store
+			store.ppacApiToken = ppacAPIToken
+			store.selectedServerEnvironment = environment
+            Analytics.collect(.submissionMetadata(.lastAppReset(Date())))
 		} catch {
 			fatalError("Creating new database key failed")
 		}
+
+		// Reset packages store
 		downloadedPackagesStore.reset()
 		downloadedPackagesStore.open()
+
+		// Reset exposureManager
 		exposureManager.reset {
 			self.exposureManager.observeExposureNotificationStatus(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
@@ -269,7 +310,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Remove all pending notifications
 		UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-		
+
 		// Reset contact diary
 		contactDiaryStore.reset()
 	}
@@ -388,11 +429,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 	}
 
-	private lazy var navigationController: UINavigationController = AppNavigationController()
-	private(set) lazy var coordinator = Coordinator(
+	lazy var coordinator = RootCoordinator(
 		self,
-		navigationController,
-		contactDiaryStore: self.contactDiaryStore
+		contactDiaryStore: self.contactDiaryStore,
+		otpService: otpService
 	)
 
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(appConfigurationProvider: self.appConfigurationProvider, store: self.store)
@@ -413,9 +453,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = navigationController
+		window?.rootViewController = coordinator.viewController
 		window?.makeKeyAndVisible()
-		
+
 		#if DEBUG
 		// Speed up animations for faster UI-Tests: https://pspdfkit.com/blog/2016/running-ui-tests-with-ludicrous-speed/#update-why-not-just-disable-animations-altogether
 		if isUITesting {
@@ -469,7 +509,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		coordinator.showHome(enStateHandler: enStateHandler)
 	}
-	
+
 	private func showOnboarding() {
 		coordinator.showOnboarding()
 	}
@@ -484,15 +524,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.onboardingVersion = onboardingVersion
 		}
 
+		if let resetFinishedDeltaOnboardings = UserDefaults.standard.string(forKey: "resetFinishedDeltaOnboardings"), resetFinishedDeltaOnboardings == "YES" {
+			store.finishedDeltaOnboardings = [:]
+		}
+
 		if let setCurrentOnboardingVersion = UserDefaults.standard.string(forKey: "setCurrentOnboardingVersion"), setCurrentOnboardingVersion == "YES" {
 			store.onboardingVersion = Bundle.main.appVersion
 		}
 	}
+
+	private func setupDatadonationForTesting() {
+		if let isPrivacyPreservingAnalyticsConsentGiven = UserDefaults.standard.string(forKey: "isDatadonationConsentGiven") {
+			store.isPrivacyPreservingAnalyticsConsentGiven = isPrivacyPreservingAnalyticsConsentGiven != "NO"
+		}
+	}
+
 	#endif
 
 	@objc
 	private func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
+		updateQuickActions()
 	}
 
 	@objc
@@ -524,7 +576,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			self.privacyProtectionWindow = nil
 		}
 	}
-	
+
+
+	/// Is the app able to function with the current iOS version?
+	///
+	/// Due to the backport of the Exposure Notification Framework to iOS 12.5 the app has a certain range of iOS versions that aren't supported.
+	///
+	/// - Returns: Returns `true` if the app is in the *disabled* state and requires the user to upgrade the os.
 	private static func isAppDisabled() -> Bool {
 		#if DEBUG
 		if isUITesting && UserDefaults.standard.bool(forKey: "showUpdateOS") == true {
@@ -541,7 +599,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 	}
-	
+
 	private func setupUpdateOSUI() {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = UpdateOSViewController()

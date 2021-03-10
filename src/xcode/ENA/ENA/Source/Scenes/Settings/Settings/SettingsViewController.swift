@@ -17,7 +17,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		onTracingCellTap: @escaping () -> Void,
 		onNotificationsCellTap: @escaping () -> Void,
 		onBackgroundAppRefreshCellTap: @escaping () -> Void,
-		onResetCellTap: @escaping () -> Void
+		onResetCellTap: @escaping () -> Void,
+		onDataDonationCellTap: @escaping () -> Void
 	) {
 		self.store = store
 		self.enState = initialEnState
@@ -27,6 +28,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		self.onNotificationsCellTap = onNotificationsCellTap
 		self.onBackgroundAppRefreshCellTap = onBackgroundAppRefreshCellTap
 		self.onResetCellTap = onResetCellTap
+		self.onDataDonationCellTap = onDataDonationCellTap
 
 		super.init(style: .grouped)
 	}
@@ -44,17 +46,16 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-
+		navigationItem.largeTitleDisplayMode = .never
+		
 		registerCells()
 		setupView()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
-		checkTracingStatus()
-		checkNotificationSettings()
-		checkBackgroundAppRefresh()
+		navigationController?.navigationBar.prefersLargeTitles = false
+		updateUI()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -87,6 +88,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 			return AppStrings.Settings.resetDescription
 		case .backgroundAppRefresh:
 			return AppStrings.Settings.backgroundAppRefreshDescription
+		case .datadonation:
+			return AppStrings.Settings.Datadonation.description
 		}
 	}
 
@@ -98,7 +101,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		switch section {
 		case .reset:
 			footerView.textLabel?.textAlignment = .center
-		case .tracing, .notifications, .backgroundAppRefresh:
+		case .tracing, .notifications, .backgroundAppRefresh, .datadonation:
 			footerView.textLabel?.textAlignment = .left
 		}
 	}
@@ -115,6 +118,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
 		case .backgroundAppRefresh:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.backgroundAppRefresh)
+		case .datadonation:
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.datadonation)
 		case .reset:
 			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? SettingsLabelCell else {
 				fatalError("No cell for reuse identifier.")
@@ -142,6 +147,8 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 			onNotificationsCellTap()
 		case .reset:
 			onResetCellTap()
+		case .datadonation:
+			onDataDonationCellTap()
 		case .backgroundAppRefresh:
 			onBackgroundAppRefreshCellTap()
 		}
@@ -170,6 +177,7 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		case tracing
 		case notifications
 		case backgroundAppRefresh
+		case datadonation
 		case reset
 	}
 
@@ -190,12 +198,14 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 	private let onNotificationsCellTap: () -> Void
 	private let onBackgroundAppRefreshCellTap: () -> Void
 	private let onResetCellTap: () -> Void
+	private let onDataDonationCellTap: () -> Void
 
 	@objc
-	private func willEnterForeground() {
+	private func updateUI() {
 		checkTracingStatus()
 		checkNotificationSettings()
 		checkBackgroundAppRefresh()
+		checkDataDonationIsConsentGiven()
 	}
 
 	private func registerCells() {
@@ -211,14 +221,19 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 	}
 
 	private func setupView() {
-		checkTracingStatus()
-		checkNotificationSettings()
-		checkBackgroundAppRefresh()
-
+		updateUI()
+		
 		NotificationCenter.default.addObserver(
 			self,
-			selector: #selector(willEnterForeground),
+			selector: #selector(updateUI),
 			name: UIApplication.willEnterForegroundNotification,
+			object: UIApplication.shared
+		)
+		
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(updateUI),
+			name: UIApplication.backgroundRefreshStatusDidChangeNotification,
 			object: UIApplication.shared
 		)
 	}
@@ -258,6 +273,10 @@ final class SettingsViewController: UITableViewController, ExposureStateUpdating
 		self.settingsViewModel.backgroundAppRefresh.setState(
 			state: UIApplication.shared.backgroundRefreshStatus == .available
 		)
+	}
+
+	private func checkDataDonationIsConsentGiven() {
+		settingsViewModel.datadonation.setState(state: store.isPrivacyPreservingAnalyticsConsentGiven)
 	}
 
 	private func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.CellModel) -> MainSettingsCell {

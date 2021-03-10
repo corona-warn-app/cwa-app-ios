@@ -32,7 +32,8 @@ extension ENError {
 			return URL(string: AppStrings.Links.appFaqENError11)
 		case .rateLimited:
 			return URL(string: AppStrings.Links.appFaqENError13)
-		default: return nil
+		default:
+			return URL(string: AppStrings.Links.appFaq)
 		}
 	}
 }

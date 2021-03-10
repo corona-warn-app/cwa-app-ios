@@ -5,11 +5,11 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching {
-	
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
-	
+
 	var positiveTestResultWasShown: Bool = false
 	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
@@ -28,6 +28,7 @@ final class MockTestStore: Store, AppConfigCaching {
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
 	var onboardingVersion: String = ""
+	var finishedDeltaOnboardings: [String: [String]] = [String: [String]]()
 	var dateOfAcceptedPrivacyNotice: Date?
 	var allowsCellularUse: Bool = false
 	var developerSubmissionBaseURLOverride: String?
@@ -47,13 +48,17 @@ final class MockTestStore: Store, AppConfigCaching {
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
-	var isDeviceTimeCorrect = true
+	var deviceTimeLastStateChange: Date = Date()
+	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
 	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
+	var dateOfConversionToHighRisk: Date?
+	var testRegistrationDate: Date?
+
 
 	#if !RELEASE
 	// Settings from the debug menu.
@@ -61,13 +66,35 @@ final class MockTestStore: Store, AppConfigCaching {
 	var mostRecentRiskCalculation: RiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
+	var forceAPITokenAuthorization = false
 	#endif
 
 	// MARK: - AppConfigCaching
-	
+
 	var appConfigMetadata: AppConfigMetadata?
 
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
+
+	// MARK: - PrivacyPreservingProviding
+
+	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
+	var otpToken: OTPToken?
+	var otpAuthorizationDate: Date?
+	var ppacApiToken: TimestampedToken?
+	var userData: UserMetadata?
+
+	// MARK: - PPAnalyticsData
+
+	var lastSubmissionAnalytics: Date?
+	var lastAppReset: Date?
+	var lastSubmittedPPAData: String?
+	var currentRiskExposureMetadata: RiskExposureMetadata?
+	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var userMetadata: UserMetadata?
+	var clientMetadata: ClientMetadata?
+	var keySubmissionMetadata: KeySubmissionMetadata?
+	var testResultMetadata: TestResultMetadata?
+	var exposureWindowsMetadata: ExposureWindowsMetadata?
 }

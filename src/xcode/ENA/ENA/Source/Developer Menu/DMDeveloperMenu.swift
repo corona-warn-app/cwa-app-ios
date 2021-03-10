@@ -36,7 +36,8 @@ final class DMDeveloperMenu {
 		exposureManager: ExposureManager,
 		developerStore: DMStore,
 		exposureSubmissionService: ExposureSubmissionService,
-		serverEnvironment: ServerEnvironment
+		serverEnvironment: ServerEnvironment,
+		otpService: OTPServiceProviding
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
@@ -46,6 +47,7 @@ final class DMDeveloperMenu {
 		self.developerStore = developerStore
 		self.exposureSubmissionService = exposureSubmissionService
 		self.serverEnvironment = serverEnvironment
+		self.otpService = otpService
 	}
 
 	// MARK: Properties
@@ -57,6 +59,7 @@ final class DMDeveloperMenu {
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let developerStore: DMStore
 	private let serverEnvironment: ServerEnvironment
+	private let otpService: OTPServiceProviding
 
 	// MARK: Interacting with the developer menu
 
@@ -81,7 +84,8 @@ final class DMDeveloperMenu {
 		let vc = DMViewController(
 			client: client,
 			wifiClient: wifiClient,
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			otpService: otpService
 		)
 
 		let closeBarButtonItem = UIBarButtonItem(

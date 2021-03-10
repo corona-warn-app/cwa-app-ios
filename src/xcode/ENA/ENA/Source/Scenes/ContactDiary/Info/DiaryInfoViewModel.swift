@@ -8,12 +8,16 @@ import UIKit
 struct DiaryInfoViewModel {
 
 	init(
-		presentDisclaimer: @escaping () -> Void
+		presentDisclaimer: @escaping () -> Void,
+		hidesCloseButton: Bool = false
 	) {
 		self.presentDisclaimer = presentDisclaimer
+		self.hidesCloseButton = hidesCloseButton
 	}
 
 	// MARK: - Internal
+	
+	let hidesCloseButton: Bool
 
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
@@ -71,6 +75,15 @@ struct DiaryInfoViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
 						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically),
+						alignment: .top
+					),
+					.space(
+						height: 15.0,
+						color: .enaColor(for: .background)
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
+						text: .string(AppStrings.ContactDiary.Information.exportTextformat),
 						alignment: .top
 					),
 					.space(

@@ -17,7 +17,8 @@ struct RiskCalculationResult: Codable {
 		numberOfDaysWithLowRisk: Int,
 		numberOfDaysWithHighRisk: Int,
 		calculationDate: Date,
-		riskLevelPerDate: [Date: RiskLevel]
+		riskLevelPerDate: [Date: RiskLevel],
+		minimumDistinctEncountersWithHighRiskPerDate: [Date: Int]
 	) {
 		self.riskLevel = riskLevel
 		self.minimumDistinctEncountersWithLowRisk = minimumDistinctEncountersWithLowRisk
@@ -28,6 +29,7 @@ struct RiskCalculationResult: Codable {
 		self.numberOfDaysWithHighRisk = numberOfDaysWithHighRisk
 		self.calculationDate = calculationDate
 		self.riskLevelPerDate = riskLevelPerDate
+		self.minimumDistinctEncountersWithHighRiskPerDate = minimumDistinctEncountersWithHighRiskPerDate
 	}
 
 	// MARK: - Protocol Decodable
@@ -40,14 +42,15 @@ struct RiskCalculationResult: Codable {
 		minimumDistinctEncountersWithLowRisk = try container.decode(Int.self, forKey: .minimumDistinctEncountersWithLowRisk)
 		minimumDistinctEncountersWithHighRisk = try container.decode(Int.self, forKey: .minimumDistinctEncountersWithHighRisk)
 
-		mostRecentDateWithLowRisk = try? container.decode(Date?.self, forKey: .mostRecentDateWithLowRisk)
-		mostRecentDateWithHighRisk = try? container.decode(Date?.self, forKey: .mostRecentDateWithHighRisk)
+		mostRecentDateWithLowRisk = try container.decodeIfPresent(Date.self, forKey: .mostRecentDateWithLowRisk)
+		mostRecentDateWithHighRisk = try container.decodeIfPresent(Date.self, forKey: .mostRecentDateWithHighRisk)
 
 		numberOfDaysWithLowRisk = try container.decode(Int.self, forKey: .numberOfDaysWithLowRisk)
 		numberOfDaysWithHighRisk = try container.decode(Int.self, forKey: .numberOfDaysWithHighRisk)
 
 		calculationDate = try container.decode(Date.self, forKey: .calculationDate)
-		riskLevelPerDate = (try? container.decode([Date: RiskLevel].self, forKey: .riskLevelPerDate)) ?? [:]
+		riskLevelPerDate = try container.decodeIfPresent([Date: RiskLevel].self, forKey: .riskLevelPerDate) ?? [:]
+		minimumDistinctEncountersWithHighRiskPerDate = try container.decodeIfPresent([Date: Int].self, forKey: .minimumDistinctEncountersWithHighRiskPerDate) ?? [:]
 	}
 
 	// MARK: - Internal
@@ -65,6 +68,7 @@ struct RiskCalculationResult: Codable {
 
 	let calculationDate: Date
 	let riskLevelPerDate: [Date: RiskLevel]
+	let minimumDistinctEncountersWithHighRiskPerDate: [Date: Int]
 
 	var minimumDistinctEncountersWithCurrentRiskLevel: Int {
 		switch riskLevel {

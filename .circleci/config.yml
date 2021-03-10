@@ -2,7 +2,7 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.3.0
+  - xcode_version: &xcode_version 12.4.0
   - resource_class: &resource_class large
 
 commands:
@@ -86,6 +86,8 @@ jobs:
           shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
+      - store_test_results:
+          path: src/xcode/fastlane/test_output/
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
       - store_artifacts:
@@ -113,6 +115,18 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
+  test-community:
+    macos:
+      xcode: *xcode_version
+    resource_class: *resource_class
+    steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
+      - run:
+          name: Run Fastlane smoke tests
+          command: cd src/xcode && bundle exec fastlane test_community
+          no_output_timeout: 10m
   snapshot:
     macos:
       xcode: *xcode_version
@@ -203,10 +217,13 @@ workflows:
         - test:
             requires:
               - dependencies
+        - test-community:
+            requires:
+              - dependencies
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
@@ -255,7 +272,7 @@ workflows:
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
