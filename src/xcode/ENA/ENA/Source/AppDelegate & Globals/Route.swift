@@ -23,11 +23,11 @@ enum Route {
 			  lowercasedPath.contains("/e1") else {
 			return nil
 		}
-		self = .event(url.lastPathComponent)
+		self = .checkin(url.lastPathComponent)
 	}
 
 	// MARK: - Internal
 
-	case event(String)
+	case checkin(String)
 
 }

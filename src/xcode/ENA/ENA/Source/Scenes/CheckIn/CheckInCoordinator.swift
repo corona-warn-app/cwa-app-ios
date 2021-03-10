@@ -9,9 +9,7 @@ final class CheckInCoordinator {
 
 	// MARK: - Init
 
-	init() {
-
-	}
+	init() { }
 
 	// MARK: - Internal
 
@@ -28,8 +26,8 @@ final class CheckInCoordinator {
 
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckInQRCodeScannerViewController(
-			didScanCheckIn: { [weak self] event in
-				self?.showEventForCheckIn(event)
+			didScanCheckIn: { [weak self] checkin in
+				self?.showCheckInDetails(checkin)
 			},
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
@@ -43,19 +41,19 @@ final class CheckInCoordinator {
 		}
 	}
 
-	private func showEventForCheckIn(_ event: Event) {
-		let eventDetailViewController = CheckInDetailViewController(
-			event,
+	private func showCheckInDetails(_ checkin: Checkin) {
+		let checkinDetailViewController = CheckInDetailViewController(
+			checkin,
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
 			presentCheckIns: { [weak self] in
 				self?.viewController.dismiss(animated: true, completion: {
-					//					self?.showCheckIns()
+//					self?.showCheckIns()
 				})
 			}
 		)
-		eventDetailViewController.modalPresentationStyle = .overCurrentContext
-		eventDetailViewController.modalTransitionStyle = .flipHorizontal
-		viewController.present(eventDetailViewController, animated: true)
+		checkinDetailViewController.modalPresentationStyle = .overCurrentContext
+		checkinDetailViewController.modalTransitionStyle = .flipHorizontal
+		viewController.present(checkinDetailViewController, animated: true)
 	}
 
 	private func showSettings() {

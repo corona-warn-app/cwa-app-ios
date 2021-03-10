@@ -9,11 +9,11 @@ class CheckInDetailViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		_ event: Event,
+		_ checkin: Checkin,
 		dismiss: @escaping () -> Void,
 		presentCheckIns: @escaping () -> Void
 	) {
-		self.viewModel = CheckInDetailViewModel(event)
+		self.viewModel = CheckInDetailViewModel(checkin)
 		self.dismiss = dismiss
 		self.presentCheckIns = presentCheckIns
 		super.init(nibName: nil, bundle: nil)

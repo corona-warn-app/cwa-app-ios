@@ -11,7 +11,7 @@ class CheckInQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckIn: @escaping (Event) -> Void,
+		didScanCheckIn: @escaping (Checkin) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCheckIn = didScanCheckIn
@@ -48,14 +48,14 @@ class CheckInQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private let didScanCheckIn: (Event) -> Void
+	private let didScanCheckIn: (Checkin) -> Void
 	private let dismiss: () -> Void
 
 	private let viewModel: CheckInQRCodeScannerViewModel
 	private var previewLayer: AVCaptureVideoPreviewLayer!
 
 	private func setupView() {
-		navigationItem.title = AppStrings.Events.QRScanner.title
+		navigationItem.title = AppStrings.Checkin.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 	}
 
@@ -70,13 +70,13 @@ class CheckInQRCodeScannerViewController: UIViewController {
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.addSublayer(previewLayer)
 
-		viewModel.onSuccess = { [weak self] event in
+		viewModel.onSuccess = { [weak self] checkin in
 			guard let self = self else {
 				return
 			}
 			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			self.viewModel.deactivateScanning()
-			self.didScanCheckIn(event)
+			self.didScanCheckIn(checkin)
 		}
 
 		viewModel.onError = { [weak self] error in
