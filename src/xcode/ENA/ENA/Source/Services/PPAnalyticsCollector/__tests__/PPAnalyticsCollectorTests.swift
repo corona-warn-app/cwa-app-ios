@@ -89,8 +89,7 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			hoursSinceTestResult: 0901,
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
-			hoursSinceHighRiskWarningAtTestRegistration: 0901,
-			submittedWithTeleTAN: true
+			hoursSinceHighRiskWarningAtTestRegistration: 0901
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],

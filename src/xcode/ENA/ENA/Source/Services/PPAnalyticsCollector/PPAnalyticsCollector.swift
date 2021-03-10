@@ -73,11 +73,6 @@ enum PPAnalyticsCollector {
 		Log.info("Deleted all analytics data in the store", log: .ppa)
 	}
 
-	/// It returns the value if the submission was triggered with TAN
-	static func isSubmittedWithTAN() -> Bool {
-		return !(store?.submittedWithQR ?? false)
-	}
-
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get the success or failure handlers.
 	static func triggerAnalyticsSubmission(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
 		guard let submitter = submitter else {
@@ -290,7 +285,7 @@ enum PPAnalyticsCollector {
 		case let .submittedAfterSymptomFlow(afterSymptomFlow):
 			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 		case let .submittedWithTeletan(withTeletan):
-			store?.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
+			store?.submittedWithQR = !withTeletan
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
 		case let .advancedConsentGiven(advanced):
@@ -303,8 +298,6 @@ enum PPAnalyticsCollector {
 			store?.keySubmissionMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = date
 		case let .hoursSinceHighRiskWarningAtTestRegistration(hours):
 			store?.keySubmissionMetadata?.hoursSinceHighRiskWarningAtTestRegistration = hours
-		case let .submittedWithQR(withQR):
-			store?.submittedWithQR = withQR
 		case .setHoursSinceTestResult:
 			Analytics.setHoursSinceTestResult()
 		case .setHoursSinceTestRegistration:
