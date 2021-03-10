@@ -285,6 +285,7 @@ enum PPAnalyticsCollector {
 		case let .submittedAfterSymptomFlow(afterSymptomFlow):
 			store?.keySubmissionMetadata?.submittedAfterSymptomFlow = afterSymptomFlow
 		case let .submittedWithTeletan(withTeletan):
+			store?.keySubmissionMetadata?.submittedWithTeleTAN = withTeletan
 			store?.submittedWithQR = !withTeletan
 		case let .lastSubmissionFlowScreen(flowScreen):
 			store?.keySubmissionMetadata?.lastSubmissionFlowScreen = flowScreen
