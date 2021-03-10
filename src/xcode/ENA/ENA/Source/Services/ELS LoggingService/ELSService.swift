@@ -10,7 +10,7 @@ protocol ErrorLogSubmitting {
 	typealias ELSSubmissionCompletionHandler = (Result<LogUploadResponse, PPASError>) -> Void
 	typealias ELSToken = String
 
-	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, Error> { get }
+	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, LogError> { get }
 
 	func submit(log: Data, completion: @escaping ELSSubmissionCompletionHandler)
 }
@@ -32,7 +32,7 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 	/// Publisher to handle changes in the size of the log file
 	///
 	/// - Note: The current implementation does NOT constantly observe file size changes!
-	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, Error> = setupFileSizePublisher()
+	private(set) lazy var logFileSizePublisher: AnyPublisher<Int64, LogError> = setupFileSizePublisher()
 
 	init(client: Client, store: ErrorLogProviding) {
 		self.client = client
@@ -58,11 +58,21 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 		client.submit(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
 	}
 
-	private func setupFileSizePublisher() -> AnyPublisher<Int64, Error> {
+	// MARK: - Helpers
+
+	private func setupFileSizePublisher() -> AnyPublisher<Int64, LogError> {
 		// TO DO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
-		let fileSize = fileManager.sizeOfFile(atPath: fileLogger.allLogsFileURL.absoluteString) ?? -1
-		return Just(fileSize)
-			.setFailureType(to: Error.self)
+		return Timer.publish(every: 1.0, on: .main, in: .default)
+			.autoconnect()
+			.tryMap { _ in
+				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.allLogsFileURL.absoluteString) else {
+					throw LogError.couldNotReadLogfile()
+				}
+				return size
+			}
+			.mapError({ error -> LogError in
+				return error as? LogError ?? LogError.couldNotReadLogfile(error.localizedDescription)
+			})
 			.eraseToAnyPublisher()
 	}
 }

@@ -195,6 +195,7 @@ extension HTTPClient {
 			)
 		}
 
+		#warning("adjust to real endpoint & url")
 		var logUploadURL: URL {
 			endpoints
 				.errorLogSubmission
