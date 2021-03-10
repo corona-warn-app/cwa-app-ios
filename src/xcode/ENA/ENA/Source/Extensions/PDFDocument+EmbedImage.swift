@@ -19,7 +19,7 @@ extension PDFDocument {
 		let bounds = page.bounds(for: .cropBox)
 		
 		// Create a `UIGraphicsImageRenderer` to use for drawing an image.
-		let renderer = UIGraphicsImageRenderer(bounds: bounds, format: UIGraphicsImageRendererFormat.default())
+		let renderer = UIGraphicsImageRenderer(bounds: bounds, format: .default())
 		
 		// This method returns an image and takes a block in which you can perform any kind of drawing.
 		let image = renderer.image { context in
