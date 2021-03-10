@@ -19,7 +19,7 @@ extension PDFDocument {
 		let bounds = page.bounds(for: .cropBox)
 		
 		// Create a `UIGraphicsImageRenderer` to use for drawing an image.
-		let renderer = UIGraphicsImageRenderer(bounds: bounds, format: UIGraphicsImageRendererFormat.default())
+		let renderer = UIGraphicsImageRenderer(bounds: bounds, format: .default())
 		
 		// This method returns an image and takes a block in which you can perform any kind of drawing.
 		let image = renderer.image { context in
@@ -32,12 +32,10 @@ extension PDFDocument {
 			
 			context.cgContext.restoreGState()
 			
-			let myImage = image // A `UIImage` object of the image you want to draw.
-			
-			let imageRect = CGRect(x: position.x, y: position.y, width: myImage.size.width, height: myImage.size.height) // `CGRect` for the image.
+			let imageRect = CGRect(x: position.x, y: position.y, width: image.size.width, height: image.size.height) // `CGRect` for the image.
 			
 			// Draw your image onto the context.
-			myImage.draw(in: imageRect)
+			image.draw(in: imageRect)
 		}
 		
 		// Create a new `PDFPage` with the image that was generated above.
