@@ -3,8 +3,9 @@
 //
 
 import UIKit
+import OpenCombine
 
-class BottomErrorReportViewController: UIViewController {
+class BottomErrorReportViewController: UIViewController, RequiresAppDependencies {
 
 	// MARK: - Init
 
@@ -40,6 +41,20 @@ class BottomErrorReportViewController: UIViewController {
 		saveLocallyButton.setTitle(AppStrings.ErrorReport.saveButtonTitle, for: .normal)
 		stopAndDeleteButton.setTitle(AppStrings.ErrorReport.stopAndDeleteButtonTitle, for: .normal)
 		configure(status: .inactive)
+
+		elsService
+			.logFileSizePublisher
+			.sink { result in
+				switch result {
+				case .finished:
+					break
+				case .failure(let error):
+					Log.error("ELS error: \(error)", log: .els, error: error)
+				}
+			} receiveValue: { size in
+				self.updateProgress(progressInBytes: size)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -59,8 +74,9 @@ class BottomErrorReportViewController: UIViewController {
 		}
 	}
 	
-	func updateProgress(progressInBytes: Int) {
-		statusDescription.text = String(format: AppStrings.ErrorReport.statusProgress, String(describing: progressInBytes))
+	func updateProgress(progressInBytes size: Int64) {
+		let sizeString = fileSizeFormatter.string(fromByteCount: size)
+		statusDescription.text = String(format: AppStrings.ErrorReport.statusProgress, sizeString)
 	}
 
 	// MARK: - Private
@@ -104,4 +120,12 @@ class BottomErrorReportViewController: UIViewController {
 	private let didTapSendButton: () -> Void
 	private let didTapStopAndDeleteButton: () -> Void
 	private let coordinator: ErrorReportsCoordinating
+	private var subscriptions = [AnyCancellable]()
+
+	private lazy var elsService: ErrorLogSubmitting = ErrorLogSubmissionService(client: self.client, store: self.store)
+	private lazy var fileSizeFormatter: ByteCountFormatter = {
+		let formatter = ByteCountFormatter()
+		formatter.allowedUnits = [.useAll]
+		return formatter
+	}()
 }

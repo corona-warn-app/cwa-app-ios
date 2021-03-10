@@ -78,7 +78,6 @@ enum Log {
 	}
 }
 
-#if !RELEASE
 
 extension OSLogType {
 
@@ -235,5 +234,3 @@ struct FileLogger {
 		}
 	}
 }
-
-#endif

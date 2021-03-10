@@ -27,5 +27,4 @@ class ELSSubmissionTests: XCTestCase {
 
 		waitForExpectations(timeout: .medium)
     }
-
 }

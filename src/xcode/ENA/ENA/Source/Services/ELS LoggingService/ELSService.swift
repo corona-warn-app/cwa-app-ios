@@ -62,10 +62,11 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 
 	private func setupFileSizePublisher() -> AnyPublisher<Int64, LogError> {
 		// TO DO: evaluate switch to constant observation https://developer.apple.com/documentation/foundation/nsfilepresenter
-		return Timer.publish(every: 1.0, on: .main, in: .default)
+		return Timer
+			.publish(every: 1.0, on: .main, in: .default)
 			.autoconnect()
 			.tryMap { _ in
-				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.allLogsFileURL.absoluteString) else {
+				guard let size = self.fileManager.sizeOfFile(atPath: self.fileLogger.allLogsFileURL.path) else {
 					throw LogError.couldNotReadLogfile()
 				}
 				return size
