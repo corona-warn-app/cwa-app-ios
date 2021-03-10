@@ -35,7 +35,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		self.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
 			self.store.isSubmissionConsentGiven = isSubmissionConsentGiven
-			Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(isSubmissionConsentGiven)))
 		}.store(in: &subscriptions)
 	}
 
@@ -281,8 +280,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
-			hoursSinceHighRiskWarningAtTestRegistration: -1,
-			submittedWithTeleTAN: true)
+			hoursSinceHighRiskWarningAtTestRegistration: -1)
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 	}
 
@@ -428,6 +426,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch result {
 			case .success:
 				Analytics.collect(.keySubmissionMetadata(.advancedConsentGiven(self.store.isSubmissionConsentGiven)))
+				Analytics.collect(.keySubmissionMetadata(.updateSubmittedWithTeletan))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestResult))
 				Analytics.collect(.keySubmissionMetadata(.setHoursSinceTestRegistration))
 				Analytics.collect(.keySubmissionMetadata(.submitted(true)))
