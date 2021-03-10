@@ -46,14 +46,35 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		headerView.label.text = cellModel.text
 		headerView.label.font = cellModel.font
 
-		setUpParameterViews()
-
-		//parametersContainerStackView.isHidden = cellModel.parametersHidden
-
+		switch cellModel.entryType {
+		case .contactPerson:
+//			parametersStackView.addArrangedSubview(durationSegmentedControl)
+//			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
+//			parametersStackView.addArrangedSubview(settingSegmentedControl)
+//
+//			parametersStackView.setCustomSpacing(16, after: settingSegmentedControl)
+//
+			locationView.isHidden = true
+			contactPersonView.isHidden = false
+			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
+			NSLayoutConstraint.deactivate(locationViewConstraints)
+			if !cellModel.parametersHidden {
+				NSLayoutConstraint.activate(contactPersonViewConstraints)
+			}
+		case .location:
+			locationView.isHidden = false
+			contactPersonView.isHidden = true
+			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Visit.notesPlaceholder
+			NSLayoutConstraint.deactivate(contactPersonViewConstraints)
+			if !cellModel.parametersHidden {
+				NSLayoutConstraint.activate(locationViewConstraints)
+			}
+		}
+		
 		durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
 		maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
 		settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
-		visitDurationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
+		locationView.durationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
 		notesView.textField.text = cellModel.circumstances
 
 		accessibilityTraits = cellModel.accessibilityTraits
@@ -93,46 +114,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return segmentedControl
 	}()
 
-	private lazy var visitDurationPicker: UIDatePicker = {
-		let durationPicker = UIDatePicker()
-		if #available(iOS 14.0, *) {
-			// UIDatePickers behave differently on iOS 14+. The .valueChanged event would be called too early and reload the cell before the animation is finished.
-			// The .editingDidEnd event is triggered after the animation is finished.
-			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
-		} else {
-			// Before iOS 14 .editingDidEnd was not called at all, therefore we use .valueChanged, which was called after the animation is finished.
-			durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
-		}
-		// German locale ensures 24h format.
-		durationPicker.locale = Locale(identifier: "de_DE")
-		durationPicker.datePickerMode = .time
-		durationPicker.minuteInterval = 15
-		durationPicker.tintColor = .enaColor(for: .tint)
-
-		if #available(iOS 14.0, *) {
-			durationPicker.preferredDatePickerStyle = .inline
-		}
-
-		durationPicker.widthAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
-
-		return durationPicker
-	}()
-
-	private lazy var visitDurationStackView: UIStackView = {
-		let stackView = UIStackView()
-		stackView.axis = .horizontal
-		stackView.spacing = 8
-
-		let label = ENALabel()
-		label.style = .body
-		label.text = AppStrings.ContactDiary.Day.Visit.duration
-
-		stackView.addArrangedSubview(label)
-		stackView.addArrangedSubview(visitDurationPicker)
-
-		return stackView
-	}()
-
 	private func setupView() {
 		// wrapperView
 		let wrapperView = UIView()
@@ -157,19 +138,27 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		wrapperView.addSubview(contactPersonView)
 		// locationView
 		locationView = LocationView()
+		if #available(iOS 14.0, *) {
+			// UIDatePickers behave differently on iOS 14+. The .valueChanged event would be called too early and reload the cell before the animation is finished.
+			// The .editingDidEnd event is triggered after the animation is finished.
+			locationView.durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .editingDidEnd)
+		} else {
+			// Before iOS 14 .editingDidEnd was not called at all, therefore we use .valueChanged, which was called after the animation is finished.
+			locationView.durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
+		}
 		wrapperView.addSubview(locationView)
 		// setup constrinats
 		contactPersonViewConstraints = [
-			contactPersonView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 15),
-			contactPersonView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -15),
-			contactPersonView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 0),
-			contactPersonView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: 0)
+			contactPersonView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
+			contactPersonView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
+			contactPersonView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
+			contactPersonView.bottomAnchor.constraint(equalTo: notesView.topAnchor, constant: 0)
 		]
 		locationViewConstraints = [
-			locationView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 15),
-			locationView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor, constant: -15),
-			locationView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 0),
-			locationView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: 0)
+			locationView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
+			locationView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
+			locationView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
+			locationView.bottomAnchor.constraint(equalTo: notesView.topAnchor, constant: 0)
 		]
 		// activate constrinats
 		NSLayoutConstraint.activate([
@@ -186,34 +175,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 			// notesView
 			notesView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
 			notesView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
-			notesView.topAnchor.constraint(greaterThanOrEqualTo: headerView.bottomAnchor),
+			notesView.topAnchor.constraint(greaterThanOrEqualTo: headerView.bottomAnchor, constant: 15),
 			notesView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor)
 		])
-	}
-	
-	private func setUpParameterViews() {
-//		parametersStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-
-		switch cellModel.entryType {
-		case .contactPerson:
-//			parametersStackView.addArrangedSubview(durationSegmentedControl)
-//			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
-//			parametersStackView.addArrangedSubview(settingSegmentedControl)
-//
-//			parametersStackView.setCustomSpacing(16, after: settingSegmentedControl)
-//
-			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
-			NSLayoutConstraint.deactivate(locationViewConstraints)
-			NSLayoutConstraint.activate(contactPersonViewConstraints)
-		case .location:
-//			parametersStackView.addArrangedSubview(visitDurationStackView)
-//
-			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Visit.notesPlaceholder
-			NSLayoutConstraint.deactivate(contactPersonViewConstraints)
-			NSLayoutConstraint.activate(locationViewConstraints)
-		}
-
-//		parametersStackView.addArrangedSubview(notesStackView)
 	}
 
 	@objc
@@ -360,8 +324,43 @@ private final class LocationView: UIView {
 		super.init(frame: frame)
 		// self
 		translatesAutoresizingMaskIntoConstraints = false
-		
+		// label
+		let label = ENALabel()
+		label.style = .headline
+		label.text = AppStrings.ContactDiary.Day.Visit.duration
+		label.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(label)
+		// durationPicker
+		durationPicker = UIDatePicker()
+		durationPicker.locale = Locale(identifier: "de_DE") // German locale ensures 24h format.
+		durationPicker.datePickerMode = .time
+		durationPicker.minuteInterval = 15
+		durationPicker.tintColor = .enaColor(for: .tint)
+		durationPicker.translatesAutoresizingMaskIntoConstraints = false
+		if #available(iOS 14.0, *) {
+			durationPicker.preferredDatePickerStyle = .inline
+		}
+		addSubview(durationPicker)
+		// activate constrinats
+		NSLayoutConstraint.activate([
+			// checkboxImageView
+			durationPicker.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 15),
+			durationPicker.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+			durationPicker.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 6),
+			durationPicker.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -6),
+			durationPicker.widthAnchor.constraint(lessThanOrEqualToConstant: 100),
+			// label
+			label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+			label.trailingAnchor.constraint(lessThanOrEqualTo: durationPicker.leadingAnchor, constant: -8),
+			label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 6),
+			label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -6),
+			label.centerYAnchor.constraint(equalTo: centerYAnchor)
+		])
 	}
+	
+	// MARK: - Internal
+	
+	var durationPicker: UIDatePicker!
 }
 
 private final class NotesView: UIView {
@@ -405,11 +404,11 @@ private final class NotesView: UIView {
 			// infoButton
 			infoButton.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 15),
 			infoButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-			infoButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+			infoButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
 			// textField
 			textField.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 15),
 			textField.trailingAnchor.constraint(equalTo: infoButton.leadingAnchor, constant: -15),
-			textField.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+			textField.topAnchor.constraint(equalTo: topAnchor),
 			textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
 			textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
 		])
