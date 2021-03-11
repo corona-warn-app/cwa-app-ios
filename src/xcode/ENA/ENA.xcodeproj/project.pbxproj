@@ -20,10 +20,6 @@
 		0130F67225B1851000B6BDA3 /* HomeStatisticsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */; };
 		0130F67C25B1859700B6BDA3 /* HomeStatisticsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */; };
 		0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */; };
-		0138F53425ECD2D700A9B075 /* check_in_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */; };
-		0138F53525ECD2D700A9B075 /* signed_event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53125ECD2D700A9B075 /* signed_event.pb.swift */; };
-		0138F53625ECD2D700A9B075 /* check_in.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53225ECD2D700A9B075 /* check_in.pb.swift */; };
-		0138F53725ECD2D700A9B075 /* event.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53325ECD2D700A9B075 /* event.pb.swift */; };
 		0138F54825ECD44300A9B075 /* app_features.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53C25ECD44300A9B075 /* app_features.pb.swift */; };
 		0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */; };
 		0138F54A25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */; };
@@ -832,6 +828,11 @@
 		EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23949F24E5492900E71225 /* BackgroundAppRefreshViewModel.swift */; };
 		EB3BCA882507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */; };
 		EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */; };
+		EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513DF725FA34E60020C0B9 /* trace_location.pb.swift */; };
+		EB513DFC25FA34E60020C0B9 /* qr_code_poster_template.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513DF825FA34E60020C0B9 /* qr_code_poster_template.pb.swift */; };
+		EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513DF925FA34E60020C0B9 /* check_in.pb.swift */; };
+		EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513DFA25FA34E60020C0B9 /* trace_warning.pb.swift */; };
+		EB513E0625FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB513E0525FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift */; };
 		EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */; };
 		EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */; };
 		EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */ = {isa = PBXBuildFile; fileRef = EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */; };
@@ -933,10 +934,6 @@
 		0130F66625B1813000B6BDA3 /* HomeStatisticsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCard.swift; sourceTree = "<group>"; };
 		0130F67125B1851000B6BDA3 /* HomeStatisticsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCellModel.swift; sourceTree = "<group>"; };
 		0130F68025B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_Statistics+SupportedIDs.swift"; sourceTree = "<group>"; };
-		0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in_export.pb.swift; sourceTree = "<group>"; };
-		0138F53125ECD2D700A9B075 /* signed_event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signed_event.pb.swift; sourceTree = "<group>"; };
-		0138F53225ECD2D700A9B075 /* check_in.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in.pb.swift; sourceTree = "<group>"; };
-		0138F53325ECD2D700A9B075 /* event.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = event.pb.swift; sourceTree = "<group>"; };
 		0138F53C25ECD44300A9B075 /* app_features.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = app_features.pb.swift; sourceTree = "<group>"; };
 		0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_edus_parameters.pb.swift; sourceTree = "<group>"; };
 		0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ppdd_ppac_parameters.pb.swift; sourceTree = "<group>"; };
@@ -1763,6 +1760,11 @@
 		EB3BCA85250799E7003F27C7 /* DynamicTableViewBulletPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewBulletPointCell.swift; sourceTree = "<group>"; };
 		EB3BCA872507B6C1003F27C7 /* ExposureSubmissionSymptomsOnsetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsOnsetViewController.swift; sourceTree = "<group>"; };
 		EB3BCA8A2507B8F3003F27C7 /* ExposureSubmissionSymptomsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewControllerTests.swift; sourceTree = "<group>"; };
+		EB513DF725FA34E60020C0B9 /* trace_location.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = trace_location.pb.swift; sourceTree = "<group>"; };
+		EB513DF825FA34E60020C0B9 /* qr_code_poster_template.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = qr_code_poster_template.pb.swift; sourceTree = "<group>"; };
+		EB513DF925FA34E60020C0B9 /* check_in.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = check_in.pb.swift; sourceTree = "<group>"; };
+		EB513DFA25FA34E60020C0B9 /* trace_warning.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = trace_warning.pb.swift; sourceTree = "<group>"; };
+		EB513E0525FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = presence_tracing_parameters.pb.swift; sourceTree = "<group>"; };
 		EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImageTests.swift"; sourceTree = "<group>"; };
 		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
 		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
@@ -1915,32 +1917,21 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
-		0138F52F25ECD2D700A9B075 /* evreg */ = {
-			isa = PBXGroup;
-			children = (
-				0138F53025ECD2D700A9B075 /* check_in_export.pb.swift */,
-				0138F53125ECD2D700A9B075 /* signed_event.pb.swift */,
-				0138F53225ECD2D700A9B075 /* check_in.pb.swift */,
-				0138F53325ECD2D700A9B075 /* event.pb.swift */,
-			);
-			name = evreg;
-			path = ../../../gen/output/internal/evreg;
-			sourceTree = "<group>";
-		};
 		0138F53B25ECD44300A9B075 /* v2 */ = {
 			isa = PBXGroup;
 			children = (
-				0138F53C25ECD44300A9B075 /* app_features.pb.swift */,
-				0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */,
-				0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */,
-				0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */,
-				0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */,
 				0138F54125ECD44300A9B075 /* app_config_ios.pb.swift */,
-				0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */,
-				0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */,
-				0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */,
-				0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */,
+				0138F53C25ECD44300A9B075 /* app_features.pb.swift */,
 				0138F54725ECD44300A9B075 /* event_registration_parameters.pb.swift */,
+				0138F54425ECD44300A9B075 /* exposure_detection_parameters.pb.swift */,
+				0138F54225ECD44300A9B075 /* key_download_parameters.pb.swift */,
+				0138F53D25ECD44300A9B075 /* ppdd_edus_parameters.pb.swift */,
+				0138F54325ECD44300A9B075 /* ppdd_els_parameters.pb.swift */,
+				0138F54025ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift */,
+				0138F53E25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift */,
+				EB513E0525FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift */,
+				0138F54525ECD44300A9B075 /* risk_calculation_parameters.pb.swift */,
+				0138F53F25ECD44300A9B075 /* semantic_version.pb.swift */,
 			);
 			name = v2;
 			path = ../../../gen/output/internal/v2;
@@ -3998,8 +3989,8 @@
 				EB08F1762541CE3200D11FA9 /* app_version_config.pb.swift */,
 				EB08F1712541CE3200D11FA9 /* attenuation_duration.pb.swift */,
 				EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */,
-				0138F52F25ECD2D700A9B075 /* evreg */,
 				505F506825C833A9004920EB /* ppdd */,
+				EB513DF625FA34E60020C0B9 /* pt */,
 				B102BDC22460410600CD55A2 /* README.md */,
 				EB08F1722541CE3200D11FA9 /* risk_level.pb.swift */,
 				EB08F1702541CE3200D11FA9 /* risk_score_classification.pb.swift */,
@@ -4974,6 +4965,18 @@
 			path = BackgroundAppRefresh;
 			sourceTree = "<group>";
 		};
+		EB513DF625FA34E60020C0B9 /* pt */ = {
+			isa = PBXGroup;
+			children = (
+				EB513DF725FA34E60020C0B9 /* trace_location.pb.swift */,
+				EB513DF825FA34E60020C0B9 /* qr_code_poster_template.pb.swift */,
+				EB513DF925FA34E60020C0B9 /* check_in.pb.swift */,
+				EB513DFA25FA34E60020C0B9 /* trace_warning.pb.swift */,
+			);
+			name = pt;
+			path = ../../../gen/output/internal/pt;
+			sourceTree = "<group>";
+		};
 		EB54936F25F7CCC100A3C459 /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -5522,7 +5525,6 @@
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				AB1886D1252DE51E00D39BBE /* Bundle+Identifier.swift in Sources */,
 				BA7D17B725D59373006B9EBF /* SettingsDataDonationViewModel.swift in Sources */,
-				0138F53725ECD2D700A9B075 /* event.pb.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */,
 				BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */,
@@ -5564,23 +5566,23 @@
 				01A4DD0D25926A73007D5794 /* HomeLoadingItemViewModel.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
+				EB513DFD25FA34E60020C0B9 /* check_in.pb.swift in Sources */,
 				948AFE672553DC5B0019579A /* WarnOthersRemindable.swift in Sources */,
 				35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */,
 				01EA17E52591399200E98E02 /* HomeInfoCellModel.swift in Sources */,
-				0138F53525ECD2D700A9B075 /* signed_event.pb.swift in Sources */,
 				016E25F325AF13EA0077C64C /* HomeStatisticsTableViewCell.swift in Sources */,
 				0130F68125B186DB00B6BDA3 /* SAP_Internal_Stats_Statistics+SupportedIDs.swift in Sources */,
 				0138F55325ECD44300A9B075 /* event_registration_parameters.pb.swift in Sources */,
 				710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */,
 				B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */,
 				504E8B0C25D400D000CAFBDF /* DMPPAnalyticsViewController.swift in Sources */,
+				EB513DFB25FA34E60020C0B9 /* trace_location.pb.swift in Sources */,
 				01909875257E64BD0065D050 /* DiaryAddAndEditEntryViewController.swift in Sources */,
 				948AFE7A2554377F0019579A /* UNUserNotificationCenter+WarnOthers.swift in Sources */,
 				017AD16525A4559300FA2B3F /* UITableView+Dequeue.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				01D69491250272CE00B45BEA /* DatePickerDayViewModel.swift in Sources */,
 				0144DDB625D5596800CFB1D1 /* MockDiaryStore.swift in Sources */,
-				0138F53425ECD2D700A9B075 /* check_in_export.pb.swift in Sources */,
 				01B7232F24FE4F080064C0EB /* OptionGroupViewModel.swift in Sources */,
 				013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
@@ -5641,6 +5643,7 @@
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
+				EB513DFE25FA34E60020C0B9 /* trace_warning.pb.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				BAA4D73625E9613200821B5C /* CheckinQRCodeScannerViewController.swift in Sources */,
@@ -5721,6 +5724,7 @@
 				01C6ABF42527273E0052814D /* String+Insertion.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* InviteFriendsViewController.swift in Sources */,
 				BA69A7DD25CD788F00023265 /* SelectValueViewModel.swift in Sources */,
+				EB513E0625FA35AD0020C0B9 /* presence_tracing_parameters.pb.swift in Sources */,
 				0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */,
 				94EAF89C25B8162200BE1F40 /* NewVersionFeature.swift in Sources */,
 				EB1BB11225CC40030076CB67 /* PlausibleDeniabilityService.swift in Sources */,
@@ -5767,6 +5771,7 @@
 				01909876257E64BD0065D050 /* DiaryAddAndEditEntryViewModel.swift in Sources */,
 				506A2F1B25D2A06D00B7DDFB /* DataDonationDetailsViewModel.swift in Sources */,
 				BA6C8ACC254D6537008344F5 /* TrlEncoding.swift in Sources */,
+				EB513DFC25FA34E60020C0B9 /* qr_code_poster_template.pb.swift in Sources */,
 				2FA9E39724D2F3C70030561C /* ExposureSubmissionError.swift in Sources */,
 				941ADDB22518C3FB00E421D9 /* ENSettingEuTracingViewModel.swift in Sources */,
 				01D6948B25026EC000B45BEA /* DatePickerOptionViewModel.swift in Sources */,
@@ -5859,7 +5864,6 @@
 				35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */,
 				94B255A62551B7C800649B4C /* WarnOthersReminder.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
-				0138F53625ECD2D700A9B075 /* check_in.pb.swift in Sources */,
 				B18755D124DC45CA00A9202E /* DMStoreViewController.swift in Sources */,
 				353412CC2525EE4A0086D15C /* Globals.swift in Sources */,
 				EB08F1872541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
