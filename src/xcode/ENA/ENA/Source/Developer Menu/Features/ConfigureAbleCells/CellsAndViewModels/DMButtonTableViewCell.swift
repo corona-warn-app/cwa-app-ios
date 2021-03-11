@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
+class DMButtonTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Init
 
@@ -21,7 +21,7 @@ class DMButtonTableViewCell: UITableViewCell, ConfigureableCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Protocol ConfigureableCell
+	// MARK: - Protocol ConfigureAbleCell
 
 	func configure<T>(cellViewModel: T) {
 		guard let cellViewModel = cellViewModel as? DMButtonCellViewModel else {

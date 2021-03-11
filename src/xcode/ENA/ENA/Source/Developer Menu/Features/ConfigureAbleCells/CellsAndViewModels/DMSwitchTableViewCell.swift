@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMSwitchTableViewCell: UITableViewCell, ConfigureableCell {
+class DMSwitchTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Overrides
 

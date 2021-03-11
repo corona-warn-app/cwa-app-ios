@@ -6,14 +6,14 @@
 
 import Foundation
 
-protocol ConfigureableCell {
+protocol ConfigureAbleCell {
 
 	func configure<T>(cellViewModel: T)
 
 	static var reuseIdentifier: String { get }
 }
 
-extension ConfigureableCell {
+extension ConfigureAbleCell {
 
 	static var reuseIdentifier: String {
 		String(describing: self)
