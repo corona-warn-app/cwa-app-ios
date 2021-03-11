@@ -184,7 +184,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	private func updateForSelectedEntryType() {
 		tableView.reloadData()
 
-		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? DiaryDayEmptyView(entryType: viewModel.selectedEntryType) : nil
+		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? EmptyStateView(viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType)) : nil
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
