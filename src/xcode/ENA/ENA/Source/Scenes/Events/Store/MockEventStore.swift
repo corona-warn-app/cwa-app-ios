@@ -13,8 +13,8 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
-	func deleteTraceLocation(id: String) -> EventStoring.VoidResult {
-		traceLocationsPublisher.value.removeAll { $0.guid == id }
+	func deleteTraceLocation(guid: String) -> EventStoring.VoidResult {
+		traceLocationsPublisher.value.removeAll { $0.guid == guid }
 		return .success(())
 	}
 

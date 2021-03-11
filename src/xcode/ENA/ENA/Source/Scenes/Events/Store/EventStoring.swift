@@ -18,7 +18,7 @@ protocol EventStoring {
 	func createTraceLocation(_ traceLocation: TraceLocation) -> VoidResult
 
 	@discardableResult
-	func deleteTraceLocation(id: String) -> VoidResult
+	func deleteTraceLocation(guid: String) -> VoidResult
 
 	@discardableResult
 	func deleteAllTraceLocations() -> VoidResult

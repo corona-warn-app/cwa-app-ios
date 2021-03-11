@@ -15,7 +15,7 @@ struct Checkin {
 	let traceLocationDefaultCheckInLengthInMinutes: Int
 	let traceLocationSignature: String
 	let checkinStartDate: Date
-	let checkinEndDate: Date
-	let targetCheckinEndDate: Date
+	let checkinEndDate: Date?
+	let targetCheckinEndDate: Date?
 	let createJournalEntry: Bool
 }
