@@ -212,9 +212,7 @@
 		01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A57F25803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift */; };
 		01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A58025803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib */; };
 		01F2A5B92581181A00DA96A6 /* DiaryDayAddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5B72581181A00DA96A6 /* DiaryDayAddTableViewCell.swift */; };
-		01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5B82581181A00DA96A6 /* DiaryDayAddTableViewCell.xib */; };
 		01F2A5C32581183800DA96A6 /* DiaryDayEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5C12581183800DA96A6 /* DiaryDayEntryTableViewCell.swift */; };
-		01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5C22581183800DA96A6 /* DiaryDayEntryTableViewCell.xib */; };
 		01F2A5D5258208C500DA96A6 /* DiaryDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */; };
 		01F2A5DD25820EE700DA96A6 /* DiaryDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */; };
 		01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */; };
@@ -240,6 +238,7 @@
 		13E5046B248E3DF30086641C /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
 		13E5046C248E434B0086641C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
+		2E1B0C2725FA308300A34FF2 /* DiaryDayCellHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1B0C2625FA308300A34FF2 /* DiaryDayCellHeaderView.swift */; };
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
@@ -1064,9 +1063,7 @@
 		01F2A57F25803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		01F2A58025803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryOverviewDescriptionTableViewCell.xib; sourceTree = "<group>"; };
 		01F2A5B72581181A00DA96A6 /* DiaryDayAddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayAddTableViewCell.swift; sourceTree = "<group>"; };
-		01F2A5B82581181A00DA96A6 /* DiaryDayAddTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayAddTableViewCell.xib; sourceTree = "<group>"; };
 		01F2A5C12581183800DA96A6 /* DiaryDayEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryTableViewCell.swift; sourceTree = "<group>"; };
-		01F2A5C22581183800DA96A6 /* DiaryDayEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayEntryTableViewCell.xib; sourceTree = "<group>"; };
 		01F2A5D4258208C500DA96A6 /* DiaryDayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryDayViewController.xib; sourceTree = "<group>"; };
 		01F2A5DC25820EE700DA96A6 /* DiaryDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayViewModel.swift; sourceTree = "<group>"; };
 		01F52F892550679600997A26 /* RiskCalculationExposureWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationExposureWindow.swift; sourceTree = "<group>"; };
@@ -1094,6 +1091,7 @@
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAppInformation.swift; sourceTree = "<group>"; };
+		2E1B0C2625FA308300A34FF2 /* DiaryDayCellHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayCellHeaderView.swift; sourceTree = "<group>"; };
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
@@ -2313,10 +2311,9 @@
 			isa = PBXGroup;
 			children = (
 				01F2A5B72581181A00DA96A6 /* DiaryDayAddTableViewCell.swift */,
-				01F2A5B82581181A00DA96A6 /* DiaryDayAddTableViewCell.xib */,
 				01B72C0A25875BC300A3E3BC /* DiaryDayAddCellModel.swift */,
 				01F2A5C12581183800DA96A6 /* DiaryDayEntryTableViewCell.swift */,
-				01F2A5C22581183800DA96A6 /* DiaryDayEntryTableViewCell.xib */,
+				2E1B0C2625FA308300A34FF2 /* DiaryDayCellHeaderView.swift */,
 				0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */,
 			);
 			path = Cells;
@@ -4922,7 +4919,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01F2A5BA2581181A00DA96A6 /* DiaryDayAddTableViewCell.xib in Resources */,
 				01F2A59725803D2600DA96A6 /* DiaryOverviewDescriptionTableViewCell.xib in Resources */,
 				01D026C0258BACCE00B6389A /* ExposureDetectionRiskTextCell.xib in Resources */,
 				016E260825AF20540077C64C /* HomeStatisticsCardView.xib in Resources */,
@@ -4986,7 +4982,6 @@
 				01D02761258BD58600B6389A /* ResetViewController.xib in Resources */,
 				01A4DCE625926934007D5794 /* HomeTextItemView.xib in Resources */,
 				AB8B0D3225305384009C067B /* Localizable.links.strings in Resources */,
-				01F2A5C42581183800DA96A6 /* DiaryDayEntryTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5384,6 +5379,7 @@
 				351E630C256C5B9C00D89B29 /* LabeledCountriesCell.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
 				017AD114259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift in Sources */,
+				2E1B0C2725FA308300A34FF2 /* DiaryDayCellHeaderView.swift in Sources */,
 				0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */,
 				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
 				EBA3BE3C25C2FAA800F1C2AC /* RootCoordinator.swift in Sources */,

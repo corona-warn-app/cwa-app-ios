@@ -8,11 +8,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 	// MARK: - Init
 	
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		setupView()
-	}
-	
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -20,6 +15,10 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	
 	// MARK: - Overrides
 
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		setupView()
+	}
 
 	// MARK: - Protocol UITextFieldDelegate
 
@@ -40,9 +39,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		self.cellModel = cellModel
 		self.onInfoButtonTap = onInfoButtonTap
 
-		headerView.checkboxImageView.image = cellModel.image
-		headerView.label.text = cellModel.text
-		headerView.label.font = cellModel.font
+		headerView.iconView.image = cellModel.image
+		headerView.titleLabel.text = cellModel.text
+		headerView.titleLabel.font = cellModel.font
 
 		switch cellModel.entryType {
 		case .contactPerson:
@@ -102,7 +101,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	private var cellModel: DiaryDayEntryCellModel!
 	private var onInfoButtonTap: (() -> Void)!
 
-	private var headerView: HeaderView!
+	private var headerView: DiaryDayCellHeaderView!
 	private var contactPersonView: ContactPersonView!
 	private var locationView: LocationView!
 	private var notesView: NotesView!
@@ -122,7 +121,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		wrapperView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(wrapperView)
 		// headerView
-		headerView = HeaderView()
+		headerView = DiaryDayCellHeaderView()
 		wrapperView.addSubview(headerView)
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(headerTapped))
 		headerView.addGestureRecognizer(tapGestureRecognizer)
@@ -212,74 +211,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	private func infoButtonTapped() {
 		onInfoButtonTap()
 	}
-
-}
-
-private final class HeaderView: UIView {
-	
-	// MARK: - Init
-	
-	convenience init() {
-		self.init(frame: .zero)
-	}
-	
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
-	// MARK: - Overrides
-	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		// self
-		translatesAutoresizingMaskIntoConstraints = false
-		// checkboxImageView
-		checkboxImageView = UIImageView()
-		checkboxImageView.contentMode = .scaleAspectFit
-		checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(checkboxImageView)
-		// label
-		label = ENALabel()
-		label.style = .body
-		label.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(label)
-		// line
-		line = SeperatorLineLayer()
-		layer.insertSublayer(line, at: 0)
-		// activate constrinats
-		NSLayoutConstraint.activate([
-			// checkboxImageView
-			checkboxImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13),
-			checkboxImageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -13),
-			checkboxImageView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
-			checkboxImageView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
-			checkboxImageView.widthAnchor.constraint(equalToConstant: 32),
-			checkboxImageView.heightAnchor.constraint(equalToConstant: 32),
-			// label
-			label.leadingAnchor.constraint(equalTo: checkboxImageView.trailingAnchor, constant: 15),
-			label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -14),
-			label.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
-			label.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
-			label.centerYAnchor.constraint(equalTo: centerYAnchor)
-		])
-	}
-	
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		let path = UIBezierPath()
-		path.move(to: CGPoint(x: 0, y: bounds.height))
-		path.addLine(to: CGPoint(x: bounds.width, y: bounds.height))
-		line.path = path.cgPath
-		line.opacity = 1
-	}
-	
-	// MARK: - Internal
-	
-	var checkboxImageView: UIImageView!
-	var label: ENALabel!
-	var line: SeperatorLineLayer!
-	
 }
 
 private final class ContactPersonView: UIView {

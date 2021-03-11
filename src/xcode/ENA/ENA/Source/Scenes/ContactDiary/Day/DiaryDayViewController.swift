@@ -137,7 +137,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: DiaryDayAddTableViewCell.self), bundle: nil),
+			DiaryDayAddTableViewCell.self,
 			forCellReuseIdentifier: String(describing: DiaryDayAddTableViewCell.self)
 		)
 
