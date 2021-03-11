@@ -819,7 +819,7 @@
 		EB08F1882541CE5700D11FA9 /* diagnosis_key_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */; };
 		EB0F73EC25E8E780003BFAE7 /* Base32 in Frameworks */ = {isa = PBXBuildFile; productRef = EB0F73EB25E8E780003BFAE7 /* Base32 */; };
 		EB0F740D25E93CA2003BFAE7 /* Base32DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */; };
-		EB0F743525E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F743425E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift */; };
+		EB0F743525E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0F743425E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift */; };
 		EB11B02A24EE7CA500143A95 /* ENAUITestsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */; };
 		EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */; };
 		EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */; };
@@ -1750,7 +1750,7 @@
 		EB08F1842541CE5700D11FA9 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/external/exposurenotification/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		EB08F1852541CE5700D11FA9 /* diagnosis_key_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = diagnosis_key_batch.pb.swift; path = ../../../gen/output/external/exposurenotification/diagnosis_key_batch.pb.swift; sourceTree = "<group>"; };
 		EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32DecodingTests.swift; sourceTree = "<group>"; };
-		EB0F743425E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAP_Internal_Evreg_Event_Tests.swift; sourceTree = "<group>"; };
+		EB0F743425E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAP_Internal_Pt_TraceLocation_Tests.swift; sourceTree = "<group>"; };
 		EB11B02924EE7CA500143A95 /* ENAUITestsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsSettings.swift; sourceTree = "<group>"; };
 		EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+KeyPackageStorage.swift"; sourceTree = "<group>"; };
 		EB1BB10C25CC3FD50076CB67 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -4123,7 +4123,7 @@
 				B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */,
 				01571B79255E9A6F00E4E891 /* config-wru-2020-11-13 */,
 				B17A44A12464906A00CB195E /* KeyTests.swift */,
-				EB0F743425E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift */,
+				EB0F743425E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6016,7 +6016,7 @@
 				A1E419552495A8060016E52A /* HTTPClient+GetTestResultTests.swift in Sources */,
 				01D16C5E24ED69CA007DB387 /* BackgroundAppRefreshViewModelTests.swift in Sources */,
 				A14BDEC024A1AD660063E4EC /* MockExposureDetector.swift in Sources */,
-				EB0F743525E94452003BFAE7 /* SAP_Internal_Evreg_Event_Tests.swift in Sources */,
+				EB0F743525E94452003BFAE7 /* SAP_Internal_Pt_TraceLocation_Tests.swift in Sources */,
 				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
 				014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
