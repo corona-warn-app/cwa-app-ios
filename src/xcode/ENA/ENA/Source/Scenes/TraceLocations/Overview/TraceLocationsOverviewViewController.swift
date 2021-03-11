@@ -56,6 +56,13 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		navigationController?.navigationBar.sizeToFit()
 	}
 
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+
+		updateRightBarButtonItem()
+		(navigationItem as? ENANavigationFooterItem)?.isPrimaryButtonHidden = !editing
+	}
+
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
@@ -81,24 +88,8 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		}
 	}
 
-	// MARK: - Protocol UITableViewDelegate
-
-	override func setEditing(_ editing: Bool, animated: Bool) {
-		super.setEditing(editing, animated: animated)
-
-		updateRightBarButtonItem()
-		(navigationItem as? ENANavigationFooterItem)?.isPrimaryButtonHidden = !editing
-	}
-
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .add:
-			viewModel.didTapAddEntryCell()
-		case .entries:
-			viewModel.didTapEntryCell(at: indexPath)
-		case .none:
-			fatalError("Invalid section")
-		}
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		viewModel.canEditRow(at: indexPath)
 	}
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -126,6 +117,19 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 				})
 			}
 		)
+	}
+
+	// MARK: - Protocol UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
+		case .add:
+			viewModel.didTapAddEntryCell()
+		case .entries:
+			viewModel.didTapEntryCell(at: indexPath)
+		case .none:
+			fatalError("Invalid section")
+		}
 	}
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild

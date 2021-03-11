@@ -54,6 +54,10 @@ class TraceLocationsOverviewViewModel {
 		}
 	}
 
+	func canEditRow(at indexPath: IndexPath) -> Bool {
+		return indexPath.section == Section.entries.rawValue
+	}
+
 	func traceLocationCellModel(at indexPath: IndexPath) -> TraceLocationCellModel {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("Entry cell models have to used in the entries section")
