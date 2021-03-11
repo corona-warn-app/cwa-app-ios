@@ -19,6 +19,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		onInactiveCellButtonTap: @escaping (ENStateHandler.State) -> Void,
 		onTestResultCellTap: @escaping (TestResult?) -> Void,
 		onStatisticsInfoButtonTap: @escaping () -> Void,
+		onTraceLocationsCellTap: @escaping () -> Void,
 		onInviteFriendsCellTap: @escaping () -> Void,
 		onFAQCellTap: @escaping () -> Void,
 		onAppInformationCellTap: @escaping () -> Void,
@@ -33,6 +34,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		self.onInactiveCellButtonTap = onInactiveCellButtonTap
 		self.onTestResultCellTap = onTestResultCellTap
 		self.onStatisticsInfoButtonTap = onStatisticsInfoButtonTap
+		self.onTraceLocationsCellTap = onTraceLocationsCellTap
 		self.onInviteFriendsCellTap = onInviteFriendsCellTap
 		self.onFAQCellTap = onFAQCellTap
 		self.onAppInformationCellTap = onAppInformationCellTap
@@ -140,6 +142,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		return viewModel.numberOfRows(in: section)
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		switch HomeTableViewModel.Section(rawValue: indexPath.section) {
 		case .exposureLogging:
@@ -157,6 +160,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			return statisticsCell(forRowAt: indexPath)
+		case .traceLocations:
+			return traceLocationsCell(forRowAt: indexPath)
 		case .infos:
 			return infoCell(forRowAt: indexPath)
 		case .settings:
@@ -204,6 +209,8 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			}
 		case .statistics:
 			break
+		case .traceLocations:
+			onTraceLocationsCellTap()
 		case .infos:
 			if indexPath.row == 0 {
 				onInviteFriendsCellTap()
@@ -251,6 +258,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 	private let onInactiveCellButtonTap: (ENStateHandler.State) -> Void
 	private let onTestResultCellTap: (TestResult?) -> Void
 	private let onStatisticsInfoButtonTap: () -> Void
+	private let onTraceLocationsCellTap: () -> Void
 	private let onInviteFriendsCellTap: () -> Void
 	private let onFAQCellTap: () -> Void
 	private let onAppInformationCellTap: () -> Void
@@ -304,6 +312,10 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		tableView.register(
 			UINib(nibName: String(describing: HomeStatisticsTableViewCell.self), bundle: nil),
 			forCellReuseIdentifier: String(describing: HomeStatisticsTableViewCell.self)
+		)
+		tableView.register(
+			UINib(nibName: String(describing: HomeTraceLocationsTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: HomeTraceLocationsTableViewCell.self)
 		)
 		tableView.register(
 			UINib(nibName: String(describing: HomeInfoTableViewCell.self), bundle: nil),
@@ -465,6 +477,21 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		)
 
 		statisticsCell = cell
+
+		return cell
+	}
+
+	private func traceLocationsCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTraceLocationsTableViewCell.self), for: indexPath) as? HomeTraceLocationsTableViewCell else {
+			fatalError("Could not dequeue HomeTraceLocationsTableViewCell")
+		}
+
+		cell.configure(
+			with: HomeTraceLocationsCellModel(),
+			onPrimaryAction: { [weak self] in
+				self?.onTraceLocationsCellTap()
+			}
+		)
 
 		return cell
 	}
