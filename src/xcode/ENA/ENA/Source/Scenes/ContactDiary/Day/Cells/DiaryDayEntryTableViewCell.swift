@@ -391,7 +391,7 @@ private final class NotesView: UIView {
 			infoButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
 			infoButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
 			// textField
-			textField.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 15),
+			textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
 			textField.trailingAnchor.constraint(equalTo: infoButton.leadingAnchor, constant: -15),
 			textField.topAnchor.constraint(equalTo: topAnchor),
 			textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
