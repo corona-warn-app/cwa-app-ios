@@ -177,9 +177,9 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"otp"
-			)
+				)
 		}
-
+		
 		var ppaSubmitURL: URL {
 			endpoints
 				.dataDonation
@@ -188,7 +188,35 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"dat"
-			)
+				)
+		}
+		
+		func traceWarningPackageDiscoveryURL(country: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour"
+				)
+		}
+		
+		func traceWarningPackageDownloadURL(country: String, hourInterval: Int) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"diagnosis-keys",
+					"country",
+					country,
+					"date",
+					"hour",
+					String(hourInterval)
+				)
 		}
 	}
 }
