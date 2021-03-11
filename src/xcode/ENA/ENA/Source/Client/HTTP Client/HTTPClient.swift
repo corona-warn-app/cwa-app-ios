@@ -329,6 +329,23 @@ final class HTTPClient: Client {
 			}
 		})
 	}
+	
+	func traceWarningPackageDiscovery(
+			completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+		) {
+			// url: traceWarningPackageDiscoveryURL
+			// success: create TraceWarningDiscovery object
+			completion(.success([]))
+		}
+
+		func traceWarningPackageDownload(
+			completion: @escaping TraceWarningPackageDownloadCompletionHandler
+		) {
+			// url: traceWarningPackageDownloadURL
+			// success: create Protocol Buffer message TraceWarningPackage for export.bin and Protocol Buffer message TEKSignature for export.sig
+			completion(.success("Success"))
+		}
+
 
 	// MARK: - Public
 
