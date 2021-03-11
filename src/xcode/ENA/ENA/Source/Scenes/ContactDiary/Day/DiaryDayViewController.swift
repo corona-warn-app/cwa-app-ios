@@ -150,8 +150,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.dataSource = self
 
 		tableView.separatorStyle = .none
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+		tableView.estimatedRowHeight = 1000 // this is need to prevent jumping of scroll position when tableview datasource is reloaded
 	}
 
 	private func entryAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
