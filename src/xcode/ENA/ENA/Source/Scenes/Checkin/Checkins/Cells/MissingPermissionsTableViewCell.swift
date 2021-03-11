@@ -4,7 +4,7 @@
 
 import UIKit
 
-class MissingPermissionsTableViewCell: UITableViewCell, ConfigureAbleCell {
+class MissingPermissionsTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
@@ -21,7 +21,7 @@ class MissingPermissionsTableViewCell: UITableViewCell, ConfigureAbleCell {
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol ConfigureAbleCell
+	// MARK: - Protocol ConfigureableCell
 
 	func configure<T>(cellViewModel: T) {
 

@@ -4,13 +4,13 @@
 
 import UIKit
 
-class CheckinTableViewCell: UITableViewCell, ConfigureAbleCell {
+class CheckinTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
 	// MARK: - Overrides
 
-	// MARK: - Protocol ConfigureAbleCell
+	// MARK: - Protocol ConfigureableCell
 
 	func configure<T>(cellViewModel: T) {
 

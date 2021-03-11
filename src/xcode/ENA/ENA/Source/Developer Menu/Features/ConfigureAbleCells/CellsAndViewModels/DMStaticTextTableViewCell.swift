@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMStaticTextTableViewCell: UITableViewCell, ConfigureAbleCell {
+class DMStaticTextTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
