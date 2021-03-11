@@ -39,8 +39,6 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	) {
 		self.cellModel = cellModel
 		self.onInfoButtonTap = onInfoButtonTap
-		
-		selectionStyle = .none
 
 		headerView.checkboxImageView.image = cellModel.image
 		headerView.label.text = cellModel.text
@@ -48,35 +46,54 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
 		switch cellModel.entryType {
 		case .contactPerson:
-//			parametersStackView.addArrangedSubview(durationSegmentedControl)
-//			parametersStackView.addArrangedSubview(maskSituationSegmentedControl)
-//			parametersStackView.addArrangedSubview(settingSegmentedControl)
-//
-//			parametersStackView.setCustomSpacing(16, after: settingSegmentedControl)
-//
+			// hide location view
 			locationView.isHidden = true
-			contactPersonView.isHidden = false
-			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
 			NSLayoutConstraint.deactivate(locationViewConstraints)
-			if !cellModel.parametersHidden {
+			// update notes placeholder text
+			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Encounter.notesPlaceholder
+			// setup
+			if cellModel.parametersHidden {
+				headerView.line.isHidden = true
+				contactPersonView.isHidden = true
+				notesView.isHidden = true
+				NSLayoutConstraint.deactivate(contactPersonViewConstraints)
+				NSLayoutConstraint.deactivate(notesViewConstraints)
+			} else {
+				headerView.line.isHidden = false
+				contactPersonView.cellModel = cellModel
+				contactPersonView.durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
+				contactPersonView.maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
+				contactPersonView.settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
+				contactPersonView.isHidden = false
+				notesView.isHidden = false
 				NSLayoutConstraint.activate(contactPersonViewConstraints)
+				NSLayoutConstraint.activate(notesViewConstraints)
 			}
+
 		case .location:
-			locationView.isHidden = false
+			// hide contact person view
 			contactPersonView.isHidden = true
-			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Visit.notesPlaceholder
 			NSLayoutConstraint.deactivate(contactPersonViewConstraints)
-			if !cellModel.parametersHidden {
+			// update notes placeholder text
+			notesView.textField.placeholder = AppStrings.ContactDiary.Day.Visit.notesPlaceholder
+			// setup
+			if cellModel.parametersHidden {
+				headerView.line.isHidden = true
+				locationView.isHidden = true
+				notesView.isHidden = true
+				NSLayoutConstraint.deactivate(locationViewConstraints)
+				NSLayoutConstraint.deactivate(notesViewConstraints)
+			} else {
+				headerView.line.isHidden = false
+				locationView.durationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
+				locationView.isHidden = false
+				notesView.isHidden = false
 				NSLayoutConstraint.activate(locationViewConstraints)
+				NSLayoutConstraint.activate(notesViewConstraints)
 			}
 		}
-		
-		durationSegmentedControl.selectedSegmentIndex = cellModel.selectedDurationSegmentIndex
-		maskSituationSegmentedControl.selectedSegmentIndex = cellModel.selectedMaskSituationSegmentIndex
-		settingSegmentedControl.selectedSegmentIndex = cellModel.selectedSettingSegmentIndex
-		locationView.durationPicker.date = Date.dateWithMinutes(cellModel.locationVisitDuration) ?? Date()
-		notesView.textField.text = cellModel.circumstances
 
+		notesView.textField.text = cellModel.circumstances
 		accessibilityTraits = cellModel.accessibilityTraits
 	}
 
@@ -92,29 +109,11 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 	 
 	private var contactPersonViewConstraints: [NSLayoutConstraint]!
 	private var locationViewConstraints: [NSLayoutConstraint]!
-
-	private lazy var durationSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl(items: cellModel.durationValues.map { $0.title })
-		segmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
-		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.durationSegmentedContol
-		return segmentedControl
-	}()
-
-	private lazy var maskSituationSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl(items: cellModel.maskSituationValues.map { $0.title })
-		segmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
-		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl
-		return segmentedControl
-	}()
-
-	private lazy var settingSegmentedControl: DiarySegmentedControl = {
-		let segmentedControl = DiarySegmentedControl(items: cellModel.settingValues.map { $0.title })
-		segmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
-		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl
-		return segmentedControl
-	}()
-
+	private var notesViewConstraints: [NSLayoutConstraint]!
+	
 	private func setupView() {
+		// self
+		selectionStyle = .none
 		// wrapperView
 		let wrapperView = UIView()
 		wrapperView.backgroundColor = .enaColor(for: .cellBackground)
@@ -135,6 +134,9 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		wrapperView.addSubview(notesView)
 		// contactPersonView
 		contactPersonView = ContactPersonView()
+		contactPersonView.durationSegmentedControl.addTarget(self, action: #selector(durationValueChanged(sender:)), for: .valueChanged)
+		contactPersonView.maskSituationSegmentedControl.addTarget(self, action: #selector(maskSituationValueChanged(sender:)), for: .valueChanged)
+		contactPersonView.settingSegmentedControl.addTarget(self, action: #selector(settingValueChanged(sender:)), for: .valueChanged)
 		wrapperView.addSubview(contactPersonView)
 		// locationView
 		locationView = LocationView()
@@ -147,7 +149,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 			locationView.durationPicker.addTarget(self, action: #selector(didSelectDuration(datePicker:)), for: .valueChanged)
 		}
 		wrapperView.addSubview(locationView)
-		// setup constrinats
+		// setup constriants
 		contactPersonViewConstraints = [
 			contactPersonView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
 			contactPersonView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
@@ -160,6 +162,12 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 			locationView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
 			locationView.bottomAnchor.constraint(equalTo: notesView.topAnchor, constant: 0)
 		]
+		notesViewConstraints = [
+			notesView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
+			notesView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
+			notesView.topAnchor.constraint(greaterThanOrEqualTo: headerView.bottomAnchor, constant: 15),
+			notesView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor)
+		]
 		// activate constrinats
 		NSLayoutConstraint.activate([
 			// wrapperView
@@ -171,12 +179,7 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 			headerView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
 			headerView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
 			headerView.topAnchor.constraint(equalTo: wrapperView.topAnchor),
-			headerView.bottomAnchor.constraint(lessThanOrEqualTo: wrapperView.bottomAnchor),
-			// notesView
-			notesView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor),
-			notesView.trailingAnchor.constraint(equalTo: wrapperView.trailingAnchor),
-			notesView.topAnchor.constraint(greaterThanOrEqualTo: headerView.bottomAnchor, constant: 15),
-			notesView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor)
+			headerView.bottomAnchor.constraint(lessThanOrEqualTo: wrapperView.bottomAnchor)
 		])
 	}
 
@@ -275,10 +278,7 @@ private final class HeaderView: UIView {
 	
 	var checkboxImageView: UIImageView!
 	var label: ENALabel!
-	
-	// MARK: - Private
-	
-	private var line: SeperatorLineLayer!
+	var line: SeperatorLineLayer!
 	
 }
 
@@ -288,6 +288,39 @@ private final class ContactPersonView: UIView {
 	
 	convenience init() {
 		self.init(frame: .zero)
+		// durationSegmentedControl
+		durationSegmentedControl = DiarySegmentedControl()
+		durationSegmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.durationSegmentedContol
+		durationSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(durationSegmentedControl)
+		// maskSituationSegmentedControl
+		maskSituationSegmentedControl = DiarySegmentedControl()
+		maskSituationSegmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.maskSituationSegmentedControl
+		maskSituationSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(maskSituationSegmentedControl)
+		// settingSegmentedControl
+		settingSegmentedControl = DiarySegmentedControl()
+		settingSegmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.settingSegmentedControl
+		settingSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(settingSegmentedControl)
+		// activate constrinats
+		NSLayoutConstraint.activate([
+			// durationSegmentedControl
+			durationSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+			durationSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+			durationSegmentedControl.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+			durationSegmentedControl.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -15),
+			// maskSituationSegmentedControl
+			maskSituationSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+			maskSituationSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+			maskSituationSegmentedControl.topAnchor.constraint(equalTo: durationSegmentedControl.bottomAnchor, constant: 10),
+			maskSituationSegmentedControl.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -15),
+			// settingSegmentedControl
+			settingSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+			settingSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+			settingSegmentedControl.topAnchor.constraint(equalTo: maskSituationSegmentedControl.bottomAnchor, constant: 10),
+			settingSegmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+		])
 	}
 	
 	@available(*, unavailable)
@@ -301,7 +334,28 @@ private final class ContactPersonView: UIView {
 		super.init(frame: frame)
 		// self
 		translatesAutoresizingMaskIntoConstraints = false
-		
+	}
+	
+	// MARK: - Internal
+	
+	var durationSegmentedControl: DiarySegmentedControl!
+	var maskSituationSegmentedControl: DiarySegmentedControl!
+	var settingSegmentedControl: DiarySegmentedControl!
+	
+	var cellModel: DiaryDayEntryCellModel? {
+		didSet {
+			// clear
+			durationSegmentedControl.removeAllSegments()
+			maskSituationSegmentedControl.removeAllSegments()
+			settingSegmentedControl.removeAllSegments()
+			// setup
+			guard let cellModel = cellModel else {
+				return
+			}
+			cellModel.durationValues.enumerated().forEach { durationSegmentedControl.insertSegment(withTitle: $0.element.title, at: $0.offset, animated: false) }
+			cellModel.maskSituationValues.enumerated().forEach { maskSituationSegmentedControl.insertSegment(withTitle: $0.element.title, at: $0.offset, animated: false) }
+			cellModel.settingValues.enumerated().forEach { settingSegmentedControl.insertSegment(withTitle: $0.element.title, at: $0.offset, animated: false) }
+		}
 	}
 }
 
