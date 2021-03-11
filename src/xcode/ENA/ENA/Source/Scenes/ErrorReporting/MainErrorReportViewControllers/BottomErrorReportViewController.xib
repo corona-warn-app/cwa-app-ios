@@ -24,11 +24,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="456"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJl-QC-bln" userLabel="GrayView">
-                    <rect key="frame" x="16" y="118.5" width="382" height="82"/>
+                    <rect key="frame" x="16" y="94.5" width="382" height="82"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hom-yY-rFX">
                             <rect key="frame" x="48" y="22" width="319" height="38.5"/>
@@ -77,11 +77,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
-                    <rect key="frame" x="16" y="222.5" width="382" height="210.5"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-eH-o8L" userLabel="ButtonsStackView">
+                    <rect key="frame" x="16" y="198.5" width="382" height="210"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="mpT-qK-jdH" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="36.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="46.5"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <connections>
@@ -89,21 +89,21 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1D-6e-Eky" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="44.5" width="382" height="50"/>
+                            <rect key="frame" x="0.0" y="54.5" width="382" height="46.5"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="sendLoggingReport:" destination="-1" eventType="touchUpInside" id="sDa-iI-QBO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIH-X6-akg" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="102.5" width="382" height="50"/>
+                            <rect key="frame" x="0.0" y="109" width="382" height="46.5"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="saveLoggingReport:" destination="-1" eventType="touchUpInside" id="nFh-YW-0YB"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hr5-Wn-LfN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="160.5" width="382" height="50"/>
+                            <rect key="frame" x="0.0" y="163.5" width="382" height="46.5"/>
                             <state key="normal" title="Button"/>
                             <connections>
                                 <action selector="stopAndDeleteLoggingReport:" destination="-1" eventType="touchUpInside" id="IJP-k3-6XG"/>
@@ -112,7 +112,7 @@
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMZ-di-uo6" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="76" width="382" height="26.5"/>
+                    <rect key="frame" x="16" y="52" width="382" height="26.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -130,10 +130,12 @@
                 <constraint firstItem="TmV-eH-o8L" firstAttribute="trailing" secondItem="sJl-QC-bln" secondAttribute="trailing" id="ceg-Pe-SS9"/>
                 <constraint firstItem="TmV-eH-o8L" firstAttribute="leading" secondItem="sJl-QC-bln" secondAttribute="leading" id="e2V-f5-NLV"/>
                 <constraint firstItem="sJl-QC-bln" firstAttribute="top" secondItem="zMZ-di-uo6" secondAttribute="bottom" constant="16" id="um5-97-D0P"/>
-                <constraint firstItem="zMZ-di-uo6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="yUa-Yo-A8Q"/>
+                <constraint firstItem="zMZ-di-uo6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="yUa-Yo-A8Q"/>
                 <constraint firstItem="sJl-QC-bln" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="zP4-o0-T9l"/>
             </constraints>
-            <point key="canvasLocation" x="24.637681159420293" y="114.50892857142857"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="24.637681159420293" y="-63.616071428571423"/>
         </view>
     </objects>
     <designables>
