@@ -43,10 +43,62 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocation.type, .type2)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
-				XCTAssertEqual(Int(traceLocation.startDate.timeIntervalSince1970), Int(startDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(traceLocation.endDate.timeIntervalSince1970), Int(startDate.timeIntervalSince1970))
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(traceLocation.signature, "Some signature")
+
+				guard let startDate2 = traceLocation.startDate else {
+					XCTFail("Nil for startDate2 not expected.")
+					return
+				}
+				guard let endDate2 = traceLocation.endDate else {
+					XCTFail("Nil for endDate2 not expected.")
+					return
+				}
+				XCTAssertEqual(Int(startDate2.timeIntervalSince1970), Int(startDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(endDate2.timeIntervalSince1970), Int(endDate.timeIntervalSince1970))
+
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.createTraceLocation(traceLocation)
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func test_When_createTraceLocationWilNilDates_Then_TraceLocationWasCreated_And_PublisherWasUpdated() {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		let traceLocation = TraceLocation(
+			guid: "SomeGUID",
+			version: 1,
+			type: .type2,
+			description: "Some description",
+			address: "Some address",
+			startDate: nil,
+			endDate: nil,
+			defaultCheckInLengthInMinutes: nil,
+			signature: "Some signature"
+		)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.traceLocationsPublisher
+			.dropFirst()
+			.sink { traceLocations in
+				XCTAssertEqual(traceLocations.count, 1)
+
+				let traceLocation = traceLocations[0]
+				XCTAssertEqual(traceLocation.guid, "SomeGUID")
+				XCTAssertEqual(traceLocation.version, 1)
+				XCTAssertEqual(traceLocation.type, .type2)
+				XCTAssertEqual(traceLocation.description, "Some description")
+				XCTAssertEqual(traceLocation.address, "Some address")
+				XCTAssertEqual(traceLocation.signature, "Some signature")
+				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
+				XCTAssertNil(traceLocation.startDate)
+				XCTAssertNil(traceLocation.endDate)
 
 				sinkExpectation.fulfill()
 			}
@@ -142,13 +194,19 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationType, .type2)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
-				XCTAssertEqual(Int(checkin.traceLocationStart.timeIntervalSince1970), Int(traceLocationStartDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(checkin.traceLocationEnd.timeIntervalSince1970), Int(traceLocationEndDate.timeIntervalSince1970))
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.createJournalEntry)
 
+				guard let traceLocationStartDate2 = checkin.traceLocationStart else {
+					XCTFail("Nil for traceLocationStartDate2 not expected.")
+					return
+				}
+				guard let traceLocationEndDate2 = checkin.traceLocationEnd else {
+					XCTFail("Nil for traceLocationEndDate2 not expected.")
+					return
+				}
 				guard let checkinEndDate2 = checkin.checkinEndDate else {
 					XCTFail("Nil for checkinEndDate not expected.")
 					return
@@ -157,6 +215,9 @@ class EventStoreTests: XCTestCase {
 					XCTFail("Nil for targetCheckinEndDate not expected.")
 					return
 				}
+
+				XCTAssertEqual(Int(traceLocationStartDate2.timeIntervalSince1970), Int(traceLocationStartDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(traceLocationEndDate2.timeIntervalSince1970), Int(traceLocationEndDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkinEndDate2.timeIntervalSince1970), Int(checkinEndDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(targetCheckinEndDate2.timeIntervalSince1970), Int(targetCheckinEndDate.timeIntervalSince1970))
 
@@ -171,8 +232,6 @@ class EventStoreTests: XCTestCase {
 
 	func test_When_createCheckinWithNilDates_Then_CheckinWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
-		let traceLocationStartDate = Date()
-		let traceLocationEndDate = Date()
 		let checkinStartDate = Date()
 
 		let checkin = Checkin(
@@ -182,9 +241,9 @@ class EventStoreTests: XCTestCase {
 			traceLocationType: .type2,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
-			traceLocationStart: traceLocationStartDate,
-			traceLocationEnd: traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: 1,
+			traceLocationStart: nil,
+			traceLocationEnd: nil,
+			traceLocationDefaultCheckInLengthInMinutes: nil,
 			traceLocationSignature: "Some signature",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: nil,
@@ -207,13 +266,12 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationType, .type2)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
-				XCTAssertEqual(Int(checkin.traceLocationStart.timeIntervalSince1970), Int(traceLocationStartDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(checkin.traceLocationEnd.timeIntervalSince1970), Int(traceLocationEndDate.timeIntervalSince1970))
-				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.createJournalEntry)
-
+				XCTAssertNil(checkin.traceLocationDefaultCheckInLengthInMinutes)
+				XCTAssertNil(checkin.traceLocationStart)
+				XCTAssertNil(checkin.traceLocationEnd)
 				XCTAssertNil(checkin.checkinEndDate)
 				XCTAssertNil(checkin.targetCheckinEndDate)
 

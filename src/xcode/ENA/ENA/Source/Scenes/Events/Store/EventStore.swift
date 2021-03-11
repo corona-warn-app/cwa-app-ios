@@ -73,15 +73,26 @@ class EventStore: EventStoringProviding {
 					:signature
 				);
 			"""
+
+			var startDateInterval: Int?
+			if let startDate = traceLocation.startDate {
+				startDateInterval = Int(startDate.timeIntervalSince1970)
+			}
+
+			var endDateInterval: Int?
+			if let endDate = traceLocation.endDate {
+				endDateInterval = Int(endDate.timeIntervalSince1970)
+			}
+
 			let parameters: [String: Any] = [
 				"guid": traceLocation.guid,
 				"version": traceLocation.version,
 				"type": traceLocation.type.rawValue,
 				"description": traceLocation.description,
 				"address": traceLocation.address,
-				"startDate": Int(traceLocation.startDate.timeIntervalSince1970),
-				"endDate": Int(traceLocation.endDate.timeIntervalSince1970),
-				"defaultCheckInLengthInMinutes": traceLocation.defaultCheckInLengthInMinutes,
+				"startDate": startDateInterval as Any,
+				"endDate": endDateInterval as Any,
+				"defaultCheckInLengthInMinutes": traceLocation.defaultCheckInLengthInMinutes as Any,
 				"signature": traceLocation.signature
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
@@ -220,6 +231,16 @@ class EventStore: EventStoringProviding {
 				);
 			"""
 
+			var traceLocationStartDateInterval: Int?
+			if let traceLocationStart = checkin.traceLocationStart {
+				traceLocationStartDateInterval = Int(traceLocationStart.timeIntervalSince1970)
+			}
+
+			var traceLocationEndDateInterval: Int?
+			if let traceLocationEnd = checkin.traceLocationEnd {
+				traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
+			}
+
 			var checkinEndDateInterval: Int?
 			if let checkinEndDate = checkin.checkinEndDate {
 				checkinEndDateInterval = Int(checkinEndDate.timeIntervalSince1970)
@@ -236,9 +257,9 @@ class EventStore: EventStoringProviding {
 				"traceLocationType": checkin.traceLocationType.rawValue,
 				"traceLocationDescription": checkin.traceLocationDescription,
 				"traceLocationAddress": checkin.traceLocationAddress,
-				"traceLocationStartDate": Int(checkin.traceLocationStart.timeIntervalSince1970),
-				"traceLocationEndDate": Int(checkin.traceLocationEnd.timeIntervalSince1970),
-				"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes,
+				"traceLocationStartDate": traceLocationStartDateInterval as Any,
+				"traceLocationEndDate": traceLocationEndDateInterval as Any,
+				"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
 				"traceLocationSignature": checkin.traceLocationSignature,
 				"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
 				"targetCheckinEndDate": targetCheckinEndDateInterval as Any,
@@ -758,9 +779,21 @@ class EventStore: EventStoringProviding {
 
 				let version = Int(queryResult.int(forColumn: "version"))
 				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .type1
-				let startDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "startDate")))
-				let endDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "endDate")))
-				let defaultCheckInLengthInMinutes = Int(queryResult.int(forColumn: "defaultCheckInLengthInMinutes"))
+
+				var startDate: Date?
+				if let startDateInterval = queryResult.object(forColumn: "startDate") as? Int {
+					startDate = Date(timeIntervalSince1970: Double(startDateInterval))
+				}
+
+				var endDate: Date?
+				if let endDateInterval = queryResult.object(forColumn: "endDate") as? Int {
+					endDate = Date(timeIntervalSince1970: Double(endDateInterval))
+				}
+
+				var defaultCheckInLengthInMinutes: Int?
+				if let _defaultCheckInLengthInMinutes = queryResult.object(forColumn: "defaultCheckInLengthInMinutes") as? Int {
+					defaultCheckInLengthInMinutes = _defaultCheckInLengthInMinutes
+				}
 
 				let event = TraceLocation(
 					guid: guid,
@@ -809,11 +842,23 @@ class EventStore: EventStoringProviding {
 				let id = Int(queryResult.int(forColumn: "id"))
 				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .type1
 				let traceLocationVersion = Int(queryResult.int(forColumn: "traceLocationVersion"))
-				let traceLocationStart = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "traceLocationStartDate")))
-				let traceLocationEnd = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "traceLocationEndDate")))
-				let traceLocationDefaultCheckInLengthInMinutes = Int(queryResult.int(forColumn: "traceLocationDefaultCheckInLengthInMinutes"))
 				let checkinStartDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinStartDate")))
 				let createJournalEntry = queryResult.bool(forColumn: "createJournalEntry")
+
+				var traceLocationStart: Date?
+				if let traceLocationStartInterval = queryResult.object(forColumn: "traceLocationStartDate") as? Int {
+					traceLocationStart = Date(timeIntervalSince1970: Double(traceLocationStartInterval))
+				}
+
+				var traceLocationEnd: Date?
+				if let traceLocationEndInterval = queryResult.object(forColumn: "traceLocationEndDate") as? Int {
+					traceLocationEnd = Date(timeIntervalSince1970: Double(traceLocationEndInterval))
+				}
+
+				var traceLocationDefaultCheckInLengthInMinutes: Int?
+				if let _traceLocationDefaultCheckInLengthInMinutes = queryResult.object(forColumn: "traceLocationDefaultCheckInLengthInMinutes") as? Int {
+					traceLocationDefaultCheckInLengthInMinutes = _traceLocationDefaultCheckInLengthInMinutes
+				}
 
 				var checkinEndDate: Date?
 				if let checkinEndDateInterval = queryResult.object(forColumn: "checkinEndDate") as? Int {
