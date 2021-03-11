@@ -1220,7 +1220,7 @@ sein.";
 
 "ErrorReport_InactiveStatus_Title" = "Inaktiv";
 
-"ErrorReport_Progress_Description" = "Derzeitige Größe %@ B (unkomprimiert)";
+"ErrorReport_Progress_Description" = "Derzeitige Größe %@ (unkomprimiert)";
 
 "ErrorReport_StartButtonTitle" = "Starten";
 
