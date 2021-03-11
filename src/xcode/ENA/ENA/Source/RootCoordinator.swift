@@ -143,8 +143,8 @@ class RootCoordinator: RequiresAppDependencies {
 	private var homeState: HomeState?
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
-	private(set) lazy var checkInCoordinator: CheckInCoordinator = {
-		CheckInCoordinator()
+	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
+		CheckinCoordinator()
 	}()
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
