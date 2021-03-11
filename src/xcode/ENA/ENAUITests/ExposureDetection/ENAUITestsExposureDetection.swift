@@ -27,10 +27,13 @@ class ENAUITestsExposureDetection: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
 
 		// Scroll to and tap survey card.
-		app.swipeUp()
-		app.scrollToElement(element: app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell])
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell].waitForExistence(timeout: .long))
-		app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell].tap()
+		guard let element = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.ExposureDetection.surveyCardCell, element: app, app: app) else {
+			XCTFail("did not find element ID: AccessibilityIdentifiers.ExposureDetection.surveyCardCell")
+			return
+		}
+
+		XCTAssertTrue(element.waitForExistence(timeout: .short))
+		element.tap()
 
 		// Tap the survey start button.
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].waitForExistence(timeout: .long))
