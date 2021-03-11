@@ -44,6 +44,9 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationBar.sizeToFit()
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +60,9 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		textFieldsManager.resignFirstResponder()
+		
+		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
 	}
 
 	override var navigationItem: UINavigationItem {
@@ -111,6 +117,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 
 	// MARK: - Private
 
+	private var scrollView: UIScrollView!
 	private let viewModel: DiaryAddAndEditEntryViewModel
 	private let textFieldsManager: TextFieldsManager
 	private let dismiss: () -> Void
@@ -142,7 +149,7 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 	private func setupView() {
 		title = viewModel.title
 
-		let scrollView = UIScrollView(frame: view.frame)
+		scrollView = UIScrollView(frame: view.frame)
 		scrollView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(scrollView)
 
@@ -254,6 +261,28 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 			return
 		}
 		viewModel.update(sender.text, keyPath: entryModelKeyPath)
+	}
+	
+	@objc
+	private func adjustForKeyboard(notification: Notification) {
+		guard let keyboardFrameEndUserInfo = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+			  let keyboardAnimationDurationUserInfo = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
+			  let keyboardAnimationCurveUserInfo = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber else { return }
+
+		let keyboardScreenEndFrame = keyboardFrameEndUserInfo.cgRectValue
+		let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+		
+		let animationDuration = keyboardAnimationDurationUserInfo.doubleValue
+		let animationCurve = keyboardAnimationCurveUserInfo.uintValue
+		 
+		UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: { [weak self] in
+			guard let self = self else { return }
+			if notification.name == UIResponder.keyboardWillHideNotification {
+				self.scrollView.contentInset = .zero
+			} else {
+				self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - self.view.safeAreaInsets.bottom + (self.footerView?.bounds.height ?? 0), right: 0)
+			}
+		}, completion: nil)
 	}
 
 }
