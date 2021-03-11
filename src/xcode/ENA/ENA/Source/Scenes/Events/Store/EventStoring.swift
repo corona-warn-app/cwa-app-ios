@@ -4,6 +4,8 @@
 
 import OpenCombine
 
+typealias EventStoringProviding = EventStoring & EventProviding
+
 enum EventStoringError: Error {
 	case database(SQLiteErrorCode)
 	case timeout

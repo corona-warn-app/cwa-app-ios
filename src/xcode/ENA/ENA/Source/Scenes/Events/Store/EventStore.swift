@@ -7,7 +7,7 @@ import OpenCombine
 import FMDB
 
 // swiftlint:disable:next type_body_length
-class EventStore: EventStoring, EventProviding {
+class EventStore: EventStoringProviding {
 
 	static let dataRetentionPeriodInDays = 15
 	static let encryptionKeyKey = "EventStoreEncryptionKey"

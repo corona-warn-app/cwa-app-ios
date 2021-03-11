@@ -149,6 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
+	let eventStore: EventStoringProviding = EventStore.make()
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
