@@ -127,7 +127,7 @@
 
 "errorReport_Legal_SendReports_Bullet1_Part1" = "Tarafınızdan oluşturulan hata raporu, hata analizinin gerçekleştirilmesi için RKI’ye aktarılır.";
 
-"errorReport_Legal_SendReports_Bullet1_Part2" = " RKI, Uygulamanızda ortaya çıkan hataların olası nedenlerini belirlemek ve bunları gidermek için hata raporunu inceleyecektir. Hata raporu kimlik numarasını teknik destek birimine sağladığınızda, RKI bu hata raporunu size kişisel olarak atayabilir.";
+"errorReport_Legal_SendReports_Bullet1_Part2" = "RKI, Uygulamanızda ortaya çıkan hataların olası nedenlerini belirlemek ve bunları gidermek için hata raporunu inceleyecektir. Hata raporu kimlik numarasını teknik destek birimine sağladığınızda, RKI bu hata raporunu size kişisel olarak atayabilir.";
 
 "errorReport_Legal_SendReports_Bullet2" = "Rapor RKI’ye gönderilmeden önce, Uygulamanızın orijinal olduğu bir kez kontrol edilir. Bunun için, akıllı telefonunuz tarafından benzersiz bir kimlik kodu oluşturulur ve Apple’ın Uygulamanızın orijinal ürün olduğunu RKI’ye doğrulaması için ABD veya diğer bir üçüncü ülkedeki Apple’a aktarılır. Bu kimlik kodu, akıllı telefonunuzun sürümü ve Uygulama hakkında veriler içerir. Apple, böylece kim olduğunuzu ortaya çıkarabilir ve akıllı telefonunuzun orijinallik kontrolünün yapıldığını anlayabilir. Apple, Uygulamadan daha fazla bilgi almaz.";
 
