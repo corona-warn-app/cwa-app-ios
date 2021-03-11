@@ -79,8 +79,8 @@ class TraceLocationsCoordinator {
 	private func showInfoScreen() {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
-		let viewController = TraceLocationsInfoViewController(
+		var navigationController: UINavigationController!
+		let traceLocationsInfoViewController = TraceLocationsInfoViewController(
 			viewModel: TraceLocationsInfoViewModel(
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
@@ -94,9 +94,24 @@ class TraceLocationsCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-		// We need to use UINavigationController(rootViewController: UIViewController) here,
-		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			),
+			didTapPrimaryButton: {
+				navigationController.dismiss(animated: true)
+			}
+		)
+
+		let topBottomLayoutViewController = TopBottomContainerViewController(
+			topController: traceLocationsInfoViewController,
+			bottomController: footerViewController, bottomHeight: 96.0
+		)
+		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
+		navigationController?.navigationBar.prefersLargeTitles = true
 		parentNavigationController?.present(navigationController, animated: true) {
 			self.infoScreenShown = true
 		}

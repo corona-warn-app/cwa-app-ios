@@ -7,9 +7,10 @@ import Foundation
 final class FooterViewModel {
 
 	// MARK: - Init
+	
 	init(
-		primaryButtonName: String,
-		secondaryButtonName: String,
+		primaryButtonName: String? = nil,
+		secondaryButtonName: String? = nil,
 		isPrimaryButtonEnabled: Bool = true,
 		isSecondaryButtonEnabled: Bool = true,
 		isPrimaryButtonHidden: Bool = false,

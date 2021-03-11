@@ -9,8 +9,8 @@ class FooterViewController: UIViewController {
 	// MARK: - Init
 	init(
 		_ viewModel: FooterViewModel,
-		didTapPrimaryButton: @escaping () -> Void,
-		didTapSecondaryButton: @escaping () -> Void
+		didTapPrimaryButton: @escaping () -> Void = {} , 
+		didTapSecondaryButton: @escaping () -> Void = {}
 	) {
 		self.viewModel = viewModel
 		self.didTapPrimaryButton = didTapPrimaryButton
@@ -65,6 +65,8 @@ class FooterViewController: UIViewController {
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.primaryFooterButton
+		primaryButton.isHidden = viewModel.isPrimaryButtonHidden
+		primaryButton.isEnabled = viewModel.isPrimaryButtonEnabled
 	}
 
 	private func setupSecondaryButton() {
@@ -72,6 +74,8 @@ class FooterViewController: UIViewController {
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.secondaryFooterButton
+		secondaryButton.isHidden = viewModel.isSecondaryButtonHidden
+		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
 	}
 
 	@objc
