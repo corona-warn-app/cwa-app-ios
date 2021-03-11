@@ -154,8 +154,8 @@ protocol PrivacyPreservingProviding: AnyObject {
 }
 
 protocol ErrorLogProviding {
-	/// a.k.a. OTPToken but used multiple times
-	var elsUploadToken: ErrorLogSubmitting.ELSToken? { get set }
+	/// ELS token
+	var elsApiToken: TimestampedToken? { get set }
 }
 
 /// Wrapper protocol

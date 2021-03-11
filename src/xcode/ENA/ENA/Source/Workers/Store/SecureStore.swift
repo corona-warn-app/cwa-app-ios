@@ -396,9 +396,9 @@ extension SecureStore: PrivacyPreservingProviding {
 }
 
 extension SecureStore: ErrorLogProviding {
-	var elsUploadToken: ErrorLogSubmitting.ELSToken? {
-		get { kvStore["elsUploadToken"] as ErrorLogSubmitting.ELSToken? }
-		set { kvStore["elsUploadToken"] = newValue }
+	var elsApiToken: TimestampedToken? {
+		get { kvStore["elsApiToken"] as TimestampedToken? }
+		set { kvStore["elsApiToken"] = newValue }
 	}
 }
 

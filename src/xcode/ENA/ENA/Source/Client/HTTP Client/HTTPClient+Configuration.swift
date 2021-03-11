@@ -184,6 +184,17 @@ extension HTTPClient {
 			)
 		}
 
+		var elsAuthorizationURL: URL {
+			endpoints
+				.dataDonation
+				.appending(
+					"version",
+					apiVersion,
+					"ios",
+					"log"
+			)
+		}
+
 		var ppaSubmitURL: URL {
 			endpoints
 				.dataDonation
