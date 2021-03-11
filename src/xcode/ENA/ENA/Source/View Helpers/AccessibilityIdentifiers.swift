@@ -413,6 +413,9 @@ enum AccessibilityIdentifiers {
 		static let historyTitle = "AppStrings.ErrorReport.historyTitle"
 		static let historyDescription = "AppStrings.ErrorReport.historyDescription"
 		
-		static let startButton = "AppStrings.ErrorReport.startButtonTitle"
+		static let startButton = "AppStrings.ErrorReport.startButton"
+		static let saveLocallyButton = "AppStrings.ErrorReport.saveLocallyButton"
+		static let stopAndDeleteButton = "AppStrings.ErrorReport.stopAndDeleteButton"
+		static let sendReportButton = "AppStrings.ErrorReport.sendReportButton"
 	}
 }
