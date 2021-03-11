@@ -28,7 +28,7 @@ serverEnvironments="{
 			\"dataDonationURL\": \"${SECRET_DATAD_URL}\"
 		},
 		{
-			\"name\": \"WRU\",
+			\"name\": \"INT\",
 			\"distributionURL\": \"${INT_SECRET_DIST_URL}\",
 			\"submissionURL\": \"${INT_SECRET_SUBM_URL}\",
 			\"verificationURL\": \"${INT_SECRET_VERIF_URL}\",
