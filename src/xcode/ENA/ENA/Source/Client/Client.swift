@@ -21,7 +21,9 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
-
+	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<[Int], Client.Failure>) -> Void
+	typealias TraceWarningPackageDownloadCompletionHandler = (Result<String, Client.Failure>) -> Void
+	
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.
@@ -115,6 +117,16 @@ protocol Client {
 		forceApiTokenHeader: Bool,
 		completion: @escaping PPAnalyticsSubmitionCompletionHandler
 	)
+	
+	// MARK: Event / Check-In (aka traceWarning)
+		
+		func traceWarningPackageDiscovery(
+			completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+		)
+
+		func traceWarningPackageDownload(
+			completion: @escaping TraceWarningPackageDownloadCompletionHandler
+		)
 }
 
 enum SubmissionError: Error {
