@@ -588,7 +588,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		request.httpBody = payloadData
 		
 		return request
@@ -621,7 +621,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
@@ -658,7 +658,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
@@ -696,7 +696,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["key": key, "keyType": type]
@@ -774,7 +774,7 @@ private extension URLRequest {
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		request.setValue(
 			"application/x-protobuf",
