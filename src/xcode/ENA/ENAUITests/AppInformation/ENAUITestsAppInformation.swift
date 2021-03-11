@@ -149,31 +149,21 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		navigateToErrorReporting()
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.ErrorReport.topBody].waitForExistence(timeout: .short))
-
+		AccessibilityLabels.printAccIdentifiers(app.buttons)
+		AccessibilityLabels.printAccIdentifiers(app.cells)
+//			Acc.Id 2: AppStrings.ErrorReport.privacyNavigation
+//			Acc.Id 3: AppStrings.ErrorReport.privacyInformation
+//		AccessibilityLabels.printAccIdentifiers(app.textViews)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
-		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
-		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
-		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
-		
 		app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].tap()
-
-		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.ErrorReport.startButton].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.sendReportButton].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.saveLocallyButton].exists)
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.ErrorReport.stopAndDeleteButton].exists)
-
 	}
 	
 	private func navigateToErrorReporting() {
-		guard let element = UITestHelper.scrollTo(identifier: "AppStrings.Home.appInformationCardTitle", element: app, app: app)
-		else {
-			XCTFail("Did not found element ID: 'AppStrings.Home.appInformationCardTitle'")
-			return
-		}
+		app.swipeUp(velocity: .fast)
 		
 		// navigate to App Information
-		XCTAssertTrue(element.waitForExistence(timeout: 5.0))
-		element.tap()
+		XCTAssertTrue(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
 		// navigate to Error Reporting
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ErrorReport.navigation].waitForExistence(timeout: 5.0))
