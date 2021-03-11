@@ -8,7 +8,7 @@ enum ErrorLoggingStatus {
 	case active
 	case inactive
 	
-	var bottomViewHeight: CGFloat {
+	var bottomViewHeight: CGFloat { // TODO: Less magic, more auto layout
 		switch self {
 		case .active:
 			return 376

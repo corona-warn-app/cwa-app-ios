@@ -39,7 +39,7 @@ class SendErrorLogsViewModel {
 							.font: UIFont.preferredFont(forTextStyle: .body)
 						]
 					),
-					accessibilityIdentifier: "",
+					accessibilityIdentifier: "", // TODO: Accessibility Identifier
 					spacing: 10
 				)
 			])
@@ -50,7 +50,7 @@ class SendErrorLogsViewModel {
 				.body(
 					text: AppStrings.ErrorReport.sendReportsDetails,
 					style: DynamicCell.TextCellStyle.label,
-					accessibilityIdentifier: "TODO ACCESSABILITY IDENTIFIER",
+					accessibilityIdentifier: "TODO ACCESSABILITY IDENTIFIER", // TODO: Accessibility Identifier
 					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .execute(block: { [weak self] _, _ in
 						self?.didPressDetailsButton()
