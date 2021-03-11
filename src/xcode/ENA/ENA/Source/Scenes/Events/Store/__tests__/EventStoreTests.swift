@@ -169,8 +169,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationType: .type2,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
-			traceLocationStart: traceLocationStartDate,
-			traceLocationEnd: traceLocationEndDate,
+			traceLocationStartDate: traceLocationStartDate,
+			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: 1,
 			traceLocationSignature: "Some signature",
 			checkinStartDate: checkinStartDate,
@@ -199,11 +199,11 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.createJournalEntry)
 
-				guard let traceLocationStartDate2 = checkin.traceLocationStart else {
+				guard let traceLocationStartDate2 = checkin.traceLocationStartDate else {
 					XCTFail("Nil for traceLocationStartDate2 not expected.")
 					return
 				}
-				guard let traceLocationEndDate2 = checkin.traceLocationEnd else {
+				guard let traceLocationEndDate2 = checkin.traceLocationEndDate else {
 					XCTFail("Nil for traceLocationEndDate2 not expected.")
 					return
 				}
@@ -241,8 +241,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationType: .type2,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
-			traceLocationStart: nil,
-			traceLocationEnd: nil,
+			traceLocationStartDate: nil,
+			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
 			traceLocationSignature: "Some signature",
 			checkinStartDate: checkinStartDate,
@@ -270,8 +270,8 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.createJournalEntry)
 				XCTAssertNil(checkin.traceLocationDefaultCheckInLengthInMinutes)
-				XCTAssertNil(checkin.traceLocationStart)
-				XCTAssertNil(checkin.traceLocationEnd)
+				XCTAssertNil(checkin.traceLocationStartDate)
+				XCTAssertNil(checkin.traceLocationEndDate)
 				XCTAssertNil(checkin.checkinEndDate)
 				XCTAssertNil(checkin.targetCheckinEndDate)
 

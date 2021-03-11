@@ -10,8 +10,8 @@ struct Checkin {
 	let traceLocationType: TraceLocationType
 	let traceLocationDescription: String
 	let traceLocationAddress: String
-	let traceLocationStart: Date?
-	let traceLocationEnd: Date?
+	let traceLocationStartDate: Date?
+	let traceLocationEndDate: Date?
 	let traceLocationDefaultCheckInLengthInMinutes: Int?
 	let traceLocationSignature: String
 	let checkinStartDate: Date

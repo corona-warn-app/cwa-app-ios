@@ -232,12 +232,12 @@ class EventStore: EventStoringProviding {
 			"""
 
 			var traceLocationStartDateInterval: Int?
-			if let traceLocationStart = checkin.traceLocationStart {
+			if let traceLocationStart = checkin.traceLocationStartDate {
 				traceLocationStartDateInterval = Int(traceLocationStart.timeIntervalSince1970)
 			}
 
 			var traceLocationEndDateInterval: Int?
-			if let traceLocationEnd = checkin.traceLocationEnd {
+			if let traceLocationEnd = checkin.traceLocationEndDate {
 				traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
 			}
 
@@ -877,8 +877,8 @@ class EventStore: EventStoringProviding {
 					traceLocationType: traceLocationType,
 					traceLocationDescription: traceLocationDescription,
 					traceLocationAddress: traceLocationAddress,
-					traceLocationStart: traceLocationStart,
-					traceLocationEnd: traceLocationEnd,
+					traceLocationStartDate: traceLocationStart,
+					traceLocationEndDate: traceLocationEnd,
 					traceLocationDefaultCheckInLengthInMinutes: traceLocationDefaultCheckInLengthInMinutes,
 					traceLocationSignature: traceLocationSignature,
 					checkinStartDate: checkinStartDate,
