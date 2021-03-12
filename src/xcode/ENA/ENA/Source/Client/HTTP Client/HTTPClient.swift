@@ -330,21 +330,69 @@ final class HTTPClient: Client {
 		})
 	}
 	
+	
 	func traceWarningPackageDiscovery(
-			completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
-		) {
-			// url: traceWarningPackageDiscoveryURL
-			// success: create TraceWarningDiscovery object
-			completion(.success([]))
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	) {
+		guard let request = try? URLRequest.traceWarningPackageDiscovery(
+				configuration: configuration,
+				country: country) else {
+			completion(.failure(.requestCreationError))
+			return
 		}
+		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				
+				guard let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag") else {
+					return
+				}
+				
+				guard let body = response.body else {
+					Log.error("Failed to unpack response body of trace warning discovery with error code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.invalidResponseError(response.statusCode)))
+					return
+				}
+							
+				do {
+					let decoder = JSONDecoder()
+					let decodedResponse = try decoder.decode(
+						TraceWarningDiscoveryResponse.self,
+						from: body
+					)
+					guard let oldest = decodedResponse.oldest,
+						  let latest = decodedResponse.latest else {
+						Log.error("Failed to get oldest or latest out of decoded response", log: .api)
+						completion(.failure(.decodingJsonError(response.statusCode)))
+						return
+					}
+					
+					let availablePackagesOnCDN = Array(oldest...latest)
+					let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: availablePackagesOnCDN, eTag: eTag)
 
-		func traceWarningPackageDownload(
-			completion: @escaping TraceWarningPackageDownloadCompletionHandler
-		) {
-			// url: traceWarningPackageDownloadURL
-			// success: create Protocol Buffer message TraceWarningPackage for export.bin and Protocol Buffer message TEKSignature for export.sig
-			completion(.success("Success"))
-		}
+					completion(.success(traceWarningDiscovery))
+				} catch {
+					Log.error("Failed to decode response json", log: .api)
+					completion(.failure(.decodingJsonError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Error in response body", log: .checkin, error: error)
+				completion(.failure(.defaultServerError(error)))
+			}
+			
+		})
+	}
+
+	func traceWarningPackageDownload(
+		country: String,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		// url: traceWarningPackageDownloadURL
+		// success: create Protocol Buffer message TraceWarningPackage for export.bin and Protocol Buffer message TEKSignature for export.sig
+		completion(.success("Success"))
+	}
 
 
 	// MARK: - Public
@@ -793,7 +841,19 @@ private extension URLRequest {
 		request.httpBody = body
 		return request
 	}
+	
+	static func traceWarningPackageDiscovery(
+		configuration: HTTPClient.Configuration,
+		country: String
+	) throws -> URLRequest {
 
+		let url = configuration.traceWarningPackageDiscoveryURL(country: country)
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.get
+		
+		return request
+	}
 	
 	// MARK: - Helper methods for adding padding to the requests.
 	

@@ -5,6 +5,8 @@
 import Foundation
 
 struct TraceWarningDiscovery {
-	let first: Int
-	let last: Int
+	let oldest: Int
+	let latest: Int
+	let availablePackagesOnCDN: [Int]
+	let eTag: String
 }

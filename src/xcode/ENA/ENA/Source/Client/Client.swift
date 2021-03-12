@@ -21,8 +21,8 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
-	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<[Int], Client.Failure>) -> Void
-	typealias TraceWarningPackageDownloadCompletionHandler = (Result<String, Client.Failure>) -> Void
+	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
+	typealias TraceWarningPackageDownloadCompletionHandler = (Result<String, TraceWarningError>) -> Void
 	
 	// MARK: Interacting with a Client
 
@@ -121,10 +121,12 @@ protocol Client {
 	// MARK: Event / Check-In (aka traceWarning)
 		
 		func traceWarningPackageDiscovery(
+			country: String,
 			completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
 		)
 
 		func traceWarningPackageDownload(
+			country: String,
 			completion: @escaping TraceWarningPackageDownloadCompletionHandler
 		)
 }
