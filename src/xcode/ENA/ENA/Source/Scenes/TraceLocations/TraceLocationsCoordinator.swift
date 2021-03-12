@@ -23,7 +23,7 @@ class TraceLocationsCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
-		eventStore.createTraceLocation(TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: ""))
+		eventStore.createTraceLocation(TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1616432400), endDate: Date(timeIntervalSince1970: 1616443200), defaultCheckInLengthInMinutes: 30, signature: ""))
 
 		#if DEBUG
 		if isUITesting {
