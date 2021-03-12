@@ -1924,10 +1924,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Events */
 
-"Events_QR_Scanner_Title" = "QR-Code scannen und einchecken";
+"Events_QR_Scanner_Instruction" = "QR-Code scannen und einchecken";
 
 "Events_Qr_Scanner_Button_CheckIns" = "Meine Check Ins";
 
+"Checkin_QR_Scanner_Title" = "QR-Code Scan";
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";

@@ -46,7 +46,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	
 	// MARK: - Private
 
-	@IBOutlet private var focusView: ExposureSubmissionQRScannerFocusView!
+	@IBOutlet private var focusView: QRScannerFocusView!
 	@IBOutlet private var instructionLabel: DynamicTypeLabel!
 
 	private let viewModel: ExposureSubmissionQRScannerViewModel
@@ -133,7 +133,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	@objc
 	private func didTapCancel() {
-		viewModel.stopCapturSession()
+		viewModel.stopCaptureSession()
 		onCancelScannerView()
 	}
 
@@ -175,5 +175,4 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		previewLayer.mask?.addSublayer(throughHoleLayer)
 		previewLayer.mask?.addSublayer(backdropLayer)
 	}
-
 }

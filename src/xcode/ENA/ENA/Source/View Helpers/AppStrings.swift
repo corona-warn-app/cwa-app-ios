@@ -1329,6 +1329,12 @@ enum AppStrings {
 		enum QRScanner {
 			static let title = NSLocalizedString("Checkin_QR_Scanner_Title", comment: "")
 			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
+			static let instruction = NSLocalizedString("Events_QR_Scanner_Instruction", comment: "")
+			enum Error {
+				static let title = NSLocalizedString("Checkin_QR_Scanner_Error_Title", comment: "")
+				static let description = NSLocalizedString("Checkin_QR_Scanner_Error_Description", comment: "")
+			}
+
 		}
 
 	}

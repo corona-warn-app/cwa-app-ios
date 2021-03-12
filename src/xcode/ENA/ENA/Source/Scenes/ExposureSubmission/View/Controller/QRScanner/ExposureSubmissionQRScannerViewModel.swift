@@ -34,12 +34,6 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	// MARK: - Internal
 
-	enum TorchMode {
-		case notAvailable
-		case lightOn
-		case ligthOff
-	}
-
 	let onError: (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	let captureSession: AVCaptureSession
 
@@ -117,7 +111,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	func stopCapturSession() {
+	func stopCaptureSession() {
 		deactivateScanning()
 	}
 
@@ -165,9 +159,9 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	/// Sanitizes the input string and extracts a guid.
+	/// filters the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?
-	/// - the input must not ne longer than 150 chars and cannot be empty
+	/// - the input must not be longer than 150 chars and cannot be empty
 	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
 	/// - the guid is a well formatted string (6-8-4-4-4-12) with length 43
 	///   (6 chars encode a random number, 32 chars for the uuid, 5 chars are separators)
@@ -195,4 +189,9 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	private let onSuccess: (DeviceRegistrationKey) -> Void
 	private let captureDevice: AVCaptureDevice?
 
+}
+enum TorchMode {
+	case notAvailable
+	case lightOn
+	case ligthOff
 }

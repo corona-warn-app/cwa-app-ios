@@ -5,7 +5,7 @@
 import UIKit
 
 @IBDesignable
-final class ExposureSubmissionQRScannerFocusView: UIView {
+final class QRScannerFocusView: UIView {
 	@IBInspectable var backdropOpacity: CGFloat = 0
 	@IBInspectable var cornerRadius: CGFloat = 0
 	@IBInspectable var borderWidth: CGFloat = 1
