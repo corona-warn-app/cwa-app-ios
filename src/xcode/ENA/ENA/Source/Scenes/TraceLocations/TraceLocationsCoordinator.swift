@@ -22,9 +22,6 @@ class TraceLocationsCoordinator {
 
 	func start() {
 
-//		let testViewController = UITableViewController()
-//		testViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Test", style: .plain, target: self, action: nil)
-//		parentNavigationController?.pushViewController(testViewController, animated: true)
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
 		eventStore.createTraceLocation(tmpTraceLocation)
@@ -165,9 +162,8 @@ class TraceLocationsCoordinator {
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
 				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
-				isSecondaryButtonEnabled: true,
 				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: true
+				isSecondaryButtonHidden: false
 			)
 		)
 
@@ -175,7 +171,6 @@ class TraceLocationsCoordinator {
 			topController: traceLocationDetailsViewController,
 			bottomController: footerViewController
 		)
-
 
 		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)

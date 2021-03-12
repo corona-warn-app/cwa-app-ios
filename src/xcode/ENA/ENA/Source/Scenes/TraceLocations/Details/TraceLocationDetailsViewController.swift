@@ -36,7 +36,7 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
 			}
