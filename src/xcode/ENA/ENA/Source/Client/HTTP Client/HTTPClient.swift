@@ -374,7 +374,7 @@ final class HTTPClient: Client {
 						completion(.failure(.decodingJsonError(response.statusCode)))
 					}
 				default:
-					Log.error("Wrong response with http status code: \(String(response.statusCode))", log: .checkin)
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .checkin)
 					completion(.failure(.invalidResponseError(response.statusCode)))
 				}
 			case let .failure(error):

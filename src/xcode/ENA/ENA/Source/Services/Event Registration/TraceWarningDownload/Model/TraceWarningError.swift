@@ -10,3 +10,9 @@ enum TraceWarningError: Error {
 	case invalidResponseError(Int)
 	case decodingJsonError(Int)
 }
+
+extension TraceWarningError: Equatable {
+	static func == (lhs: TraceWarningError, rhs: TraceWarningError) -> Bool {
+		lhs.localizedDescription == rhs.localizedDescription
+	}
+}
