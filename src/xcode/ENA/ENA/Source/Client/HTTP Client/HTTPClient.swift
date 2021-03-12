@@ -732,7 +732,7 @@ private extension URLRequest {
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		request.setValue(
 			"application/x-protobuf",
