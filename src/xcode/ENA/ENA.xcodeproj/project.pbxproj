@@ -361,6 +361,8 @@
 		50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */; };
 		50AA521D25FA590D000C77BB /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA521C25FA590D000C77BB /* HTTPMethod.swift */; };
 		50AA522725FA5AAD000C77BB /* TraceWarningError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA522625FA5AAD000C77BB /* TraceWarningError.swift */; };
+		50AA523825FB6C33000C77BB /* DMTraceWarningDownloadTriggerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA523725FB6C33000C77BB /* DMTraceWarningDownloadTriggerViewController.swift */; };
+		50AA524325FB6CFC000C77BB /* DMTraceWarningDownloadTriggerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA524225FB6CFC000C77BB /* DMTraceWarningDownloadTriggerViewModel.swift */; };
 		50AA525425FB9ACA000C77BB /* TraceWarningDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */; };
 		50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
@@ -1277,6 +1279,8 @@
 		50AA51FA25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscoveryResponse.swift; sourceTree = "<group>"; };
 		50AA521C25FA590D000C77BB /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		50AA522625FA5AAD000C77BB /* TraceWarningError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningError.swift; sourceTree = "<group>"; };
+		50AA523725FB6C33000C77BB /* DMTraceWarningDownloadTriggerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTraceWarningDownloadTriggerViewController.swift; sourceTree = "<group>"; };
+		50AA524225FB6CFC000C77BB /* DMTraceWarningDownloadTriggerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMTraceWarningDownloadTriggerViewModel.swift; sourceTree = "<group>"; };
 		50AA525325FB9ACA000C77BB /* TraceWarningDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningDiscovery.swift; sourceTree = "<group>"; };
 		50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENDiagnosisReportType+Protobuf.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
@@ -2874,6 +2878,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		50AA523625FB6C16000C77BB /* DMTraceWarningDownloadTrigger */ = {
+			isa = PBXGroup;
+			children = (
+				50AA523725FB6C33000C77BB /* DMTraceWarningDownloadTriggerViewController.swift */,
+				50AA524225FB6CFC000C77BB /* DMTraceWarningDownloadTriggerViewModel.swift */,
+			);
+			path = DMTraceWarningDownloadTrigger;
+			sourceTree = "<group>";
+		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
 			isa = PBXGroup;
 			children = (
@@ -4280,6 +4293,7 @@
 				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
 				50B5058725CAF3C500EEA380 /* DMOTPService */,
 				504E8B0A25D400A400CAFBDF /* DMPPAnalytics */,
+				50AA523625FB6C16000C77BB /* DMTraceWarningDownloadTrigger */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -5627,6 +5641,7 @@
 				35EA684A25553B5C00335F73 /* DownloadedPackagesStoreV2.swift in Sources */,
 				BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
+				50AA524325FB6CFC000C77BB /* DMTraceWarningDownloadTriggerViewModel.swift in Sources */,
 				01D0271B258BC78100B6389A /* SettingsCoordinator.swift in Sources */,
 				EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */,
 				ABE9615B25F11FBC00D0F699 /* EventStoring.swift in Sources */,
@@ -5867,6 +5882,7 @@
 				503DB1AC255D826900576E57 /* ExposureSubmissionIntroViewModel.swift in Sources */,
 				ABE9613425EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift in Sources */,
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
+				50AA523825FB6C33000C77BB /* DMTraceWarningDownloadTriggerViewController.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
