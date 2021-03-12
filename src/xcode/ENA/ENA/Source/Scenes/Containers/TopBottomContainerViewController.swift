@@ -3,21 +3,27 @@
 //
 
 import UIKit
+import OpenCombine
+
+protocol FootViewProviding {
+	var footerViewModel: FooterViewModel { get }
+}
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FootViewProviding {
 
 	// MARK: - Init
 
 	init(
 		topController: TopViewController,
 		bottomController: BottomViewController,
-		bottomHeight: CGFloat
+		viewModel: FooterViewModel
 	) {
 		self.topViewController = topController
 		self.bottomViewController = bottomController
-		self.initialHeight = bottomHeight
+		self.initialHeight = viewModel.height
+		self.footerViewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -62,11 +68,11 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		)
 		topViewController.didMove(toParent: self)
 		bottomViewController.didMove(toParent: self)
-	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		title = topViewController.navigationItem.title
+		footerViewModel.$height.sink { [weak self] height in
+			self?.updateBottomHeight(height, animated: true)
+		}
+		.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -82,11 +88,28 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	// MARK: - Internal
 
+	private (set) var footerViewModel: FooterViewModel
+
 	// MARK: - Private
 
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
 	private let initialHeight: CGFloat
+
+	private var subscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
+
+	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false) {
+		guard bottomViewHeightAnchorConstraint.constant != height else {
+			Log.debug("no height change found")
+			return
+		}
+		let duration = animated ? 0.35 : 0.0
+		let animator = UIViewPropertyAnimator(duration: duration, curve: .easeInOut) { [weak self] in
+			self?.bottomViewHeightAnchorConstraint.constant = height
+			self?.view.layoutIfNeeded()
+		}
+		animator.startAnimation()
+	}
 
 }

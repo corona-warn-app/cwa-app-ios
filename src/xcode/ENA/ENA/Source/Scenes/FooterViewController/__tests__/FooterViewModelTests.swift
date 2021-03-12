@@ -21,6 +21,36 @@ class FooterViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isSecondaryButtonEnabled)
 		XCTAssertFalse(viewModel.isPrimaryButtonHidden)
 		XCTAssertFalse(viewModel.isSecondaryButtonHidden)
+		XCTAssertNil(viewModel.primaryButtonColor)
+		XCTAssertNil(viewModel.secondaryButtonColor)
+		XCTAssertEqual(viewModel.height, 0.0)
+	}
+
+	func testGIVEN_FooterViewModel_WHEN_UnhidePrimaryButton_THEN_HightChanged() {
+		// GIVEN
+		let viewModel = FooterViewModel(
+			primaryButtonName: "test",
+			secondaryButtonName: "test2",
+			isPrimaryButtonHidden: true,
+			isSecondaryButtonHidden: true
+		)
+
+		// WHEN
+		let initialHeight = viewModel.height
+
+		viewModel.update(isPrimaryButtonHidden: false)
+		let primaryOnlyVisible = viewModel.height
+
+		viewModel.update(isSecondaryButtonHidden: false)
+		let bothVisible = viewModel.height
+
+		viewModel.update(isPrimaryButtonHidden: true, isSecondaryButtonHidden: true)
+		let bothHidden = viewModel.height
+
+		// THEN
+		XCTAssertEqual(initialHeight, bothHidden)
+		XCTAssertEqual(primaryOnlyVisible, viewModel.buttonHeight + viewModel.spacer + viewModel.topBottomInset * 2)
+		XCTAssertEqual(bothVisible, viewModel.buttonHeight * 2 + viewModel.spacer + viewModel.topBottomInset * 2)
 	}
 
 }

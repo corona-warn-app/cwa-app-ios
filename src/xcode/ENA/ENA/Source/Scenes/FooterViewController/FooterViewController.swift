@@ -3,13 +3,14 @@
 //
 
 import UIKit
+import OpenCombine
 
 class FooterViewController: UIViewController {
 
 	// MARK: - Init
 	init(
 		_ viewModel: FooterViewModel,
-		didTapPrimaryButton: @escaping () -> Void = {} , 
+		didTapPrimaryButton: @escaping () -> Void = {},
 		didTapSecondaryButton: @escaping () -> Void = {}
 	) {
 		self.viewModel = viewModel
@@ -32,7 +33,12 @@ class FooterViewController: UIViewController {
 
 		view.insetsLayoutMarginsFromSafeArea = false
 		view.preservesSuperviewLayoutMargins = false
-		view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+		view.layoutMargins = UIEdgeInsets(
+			top: viewModel.topBottomInset,
+			left: viewModel.leftRightInset,
+			bottom: viewModel.topBottomInset,
+			right: viewModel.leftRightInset
+		)
 
 		view.addSubview(primaryButton)
 		view.addSubview(secondaryButton)
@@ -44,10 +50,27 @@ class FooterViewController: UIViewController {
 			primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
 			primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
 			primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
-			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: spacing),
+			primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight),
+
+			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: viewModel.spacer),
 			secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor),
-			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor)
+			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor),
+			secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
 		])
+
+		// hide and show buttons by alpha to make it animatable
+		viewModel.$height.sink { height in
+			let alpha: CGFloat = height > 0.0 ? 1.0 : 0.0
+			let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
+				guard let self = self else {
+					return
+				}
+				self.primaryButton.alpha = alpha
+				self.secondaryButton.alpha = alpha
+			}
+			animator.startAnimation()
+		}
+		.store(in: &subscription)
 	}
 
 	// MARK: - Private
@@ -55,18 +78,21 @@ class FooterViewController: UIViewController {
 	private let viewModel: FooterViewModel
 	private let didTapPrimaryButton: () -> Void
 	private let didTapSecondaryButton: () -> Void
-	private let spacing: CGFloat = 8
 
 	private let primaryButton: ENAButton = ENAButton(type: .custom)
 	private let secondaryButton: ENAButton = ENAButton(type: .custom)
+	private var subscription: [AnyCancellable] = []
 
 	private func setupPrimaryButton() {
+		if let primaryButtonColor = viewModel.primaryButtonColor {
+			primaryButton.color = primaryButtonColor
+		}
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.primaryFooterButton
-		primaryButton.isHidden = viewModel.isPrimaryButtonHidden
-		primaryButton.isEnabled = viewModel.isPrimaryButtonEnabled
+		primaryButton.alpha = viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
+		primaryButton.isHidden = !viewModel.isPrimaryButtonEnabled
 	}
 
 	private func setupSecondaryButton() {
@@ -74,8 +100,8 @@ class FooterViewController: UIViewController {
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.secondaryFooterButton
-		secondaryButton.isHidden = viewModel.isSecondaryButtonHidden
-		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
+		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
+		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
 	}
 
 	@objc
