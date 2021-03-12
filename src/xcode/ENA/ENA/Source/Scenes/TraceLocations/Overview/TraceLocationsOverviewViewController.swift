@@ -61,7 +61,11 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 		addEntryCellModel.setEnabled(!editing)
 		
 		let newState: FooterViewModel.VisibleButtons = editing ? .primary : .none
+		if newState == .none {
+			footerView?.setLoadingIndicator(show: true, button: .primary)
+		} else {
 		footerView?.update(to: newState)
+		}
 	}
 
 	// MARK: - FooterViewHandling

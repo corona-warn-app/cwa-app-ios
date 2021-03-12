@@ -52,8 +52,8 @@ class TraceLocationsCoordinator {
 
 	private weak var parentNavigationController: UINavigationController?
 
-	private var traceLocationDetailsNavigationController: ENANavigationControllerWithFooter!
-	private var traceLocationAddingNavigationController: ENANavigationControllerWithFooter!
+	private var traceLocationDetailsNavigationController: UINavigationController!
+	private var traceLocationAddingNavigationController: UINavigationController!
 
 	private var infoScreenShown: Bool {
 		get { store.traceLocationsInfoScreenShown }
@@ -89,10 +89,7 @@ class TraceLocationsCoordinator {
 				isPrimaryButtonHidden: true,
 				isSecondaryButtonHidden: true,
 				primaryButtonColor: .red
-			),
-			didTapPrimaryButton: {
-				Log.debug("NYD - tap delete all button")
-			}
+			)
 		)
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
@@ -145,7 +142,8 @@ class TraceLocationsCoordinator {
 	}
 
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
-		let viewController = TraceLocationDetailsViewController(
+
+		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
 			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation),
 			onPrintVersionButtonTap: { [weak self] traceLocation in
 				self?.showPrintVersionScreen(traceLocation: traceLocation)
@@ -163,7 +161,23 @@ class TraceLocationsCoordinator {
 			}
 		)
 
-		traceLocationDetailsNavigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
+				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
+				isSecondaryButtonEnabled: true,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: traceLocationDetailsViewController,
+			bottomController: footerViewController
+		)
+
+
+		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
 	}
 
