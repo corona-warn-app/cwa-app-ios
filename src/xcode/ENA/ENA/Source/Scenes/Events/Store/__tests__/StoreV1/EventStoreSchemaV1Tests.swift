@@ -26,6 +26,8 @@ class EventStoreSchemaV1Tests: XCTestCase {
 			XCTAssertTrue(database.tableExists("TraceLocation"))
 			XCTAssertTrue(database.tableExists("TraceTimeIntervalMatch"))
 			XCTAssertTrue(database.tableExists("TraceWarningPackageMetadata"))
+
+			XCTAssertEqual(database.userVersion, 1)
 		}
 	}
 }

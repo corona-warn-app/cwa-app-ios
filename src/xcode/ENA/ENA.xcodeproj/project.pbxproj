@@ -535,6 +535,7 @@
 		AB190EBC25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EBB25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift */; };
 		AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EC025FB761500FBFF0D /* SecureSQLStore.swift */; };
 		AB190ECF25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */; };
+		AB190ED725FBC45D00FBFF0D /* FMDB+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190ED625FBC45D00FBFF0D /* FMDB+Utils.swift */; };
 		AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */; };
 		AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */; };
 		AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */; };
@@ -1447,6 +1448,7 @@
 		AB190EBB25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB190EC025FB761500FBFF0D /* SecureSQLStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureSQLStore.swift; sourceTree = "<group>"; };
 		AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTraceLocationQuery.swift; sourceTree = "<group>"; };
+		AB190ED625FBC45D00FBFF0D /* FMDB+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FMDB+Utils.swift"; sourceTree = "<group>"; };
 		AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewController.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestServerEnvironments.json; sourceTree = "<group>"; };
@@ -3719,6 +3721,7 @@
 			isa = PBXGroup;
 			children = (
 				AB68531925F9234F00380F5A /* FMDB+Access.swift */,
+				AB190ED625FBC45D00FBFF0D /* FMDB+Utils.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -5715,6 +5718,7 @@
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
 				AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */,
+				AB190ED725FBC45D00FBFF0D /* FMDB+Utils.swift in Sources */,
 				5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */,
 				019C9F1E25894CDD00B26392 /* DiaryOverviewViewModel.swift in Sources */,
 				EB858D2024E700D10048A0AA /* UIView+Screenshot.swift in Sources */,

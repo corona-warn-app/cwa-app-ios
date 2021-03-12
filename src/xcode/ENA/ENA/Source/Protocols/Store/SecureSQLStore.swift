@@ -62,6 +62,10 @@ extension SecureSQLStore {
 		return setupSchema(with: Int(userVersion))
 	}
 
+	func close() {
+		databaseQueue.close()
+	}
+
 	func setupSchema(with userVersion: Int) -> SecureSQLStore.VoidResult {
 		// If the version is zero then this means this is a fresh database "i.e no previous app was installed".
 		// If the version is zero we create the latest schema, else we execute a migration.

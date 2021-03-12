@@ -779,6 +779,101 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_When_Reset_Then_DatabaseIsEmpty() {
+		let databaseQueue = makeDatabaseQueue()
+		let store = makeStore(with: databaseQueue)
+
+		databaseQueue.inDatabase { database in
+			XCTAssertEqual(database.numberOfTables, 4, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
+		}
+
+		// Add data.
+
+		store.createCheckin(makeCheckin(id: 1))
+		store.createTraceLocation(makeTraceLocation(guid: "1"))
+		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
+		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
+
+		// Check if data was created
+
+		XCTAssertEqual(store.checkinsPublisher.value.count, 1)
+		XCTAssertEqual(store.traceLocationsPublisher.value.count, 1)
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
+		XCTAssertEqual(store.traceWarningPackageMetadatasPublisher.value.count, 1)
+
+		// Reset store.
+
+		guard case .success = store.reset() else {
+			XCTFail("Failure not expected.")
+			return
+		}
+
+		// Check if stora data is empty.
+
+		XCTAssertEqual(store.checkinsPublisher.value.count, 0)
+		XCTAssertEqual(store.traceLocationsPublisher.value.count, 0)
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
+		XCTAssertEqual(store.traceWarningPackageMetadatasPublisher.value.count, 0)
+
+		// Add again some data an check if persistence is still working.
+
+		store.createCheckin(makeCheckin(id: 1))
+		store.createTraceLocation(makeTraceLocation(guid: "1"))
+		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
+		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
+
+		XCTAssertEqual(store.checkinsPublisher.value.count, 1)
+		XCTAssertEqual(store.traceLocationsPublisher.value.count, 1)
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 1)
+		XCTAssertEqual(store.traceWarningPackageMetadatasPublisher.value.count, 1)
+	}
+
+	func test_when_storeIsCorrupted_then_makeDeletesAndRecreatesStore() throws {
+		let tempDatabaseURL = try makeTempDatabaseURL()
+		let store = EventStore.make(url: tempDatabaseURL)
+
+		// Create some data and check if it was created.
+		store.createCheckin(makeCheckin(id: 1))
+		XCTAssertEqual(store.checkinsPublisher.value.count, 1)
+
+		// Close the store. So we can start the corruption.
+		store.close()
+
+		do {
+			let corruptingString = "I will corrupt the database"
+			try corruptingString.write(to: tempDatabaseURL, atomically: true, encoding: String.Encoding.utf8)
+		} catch {
+			XCTFail("Error is not expected: \(error)")
+		}
+
+		// In .make(...) the corrupted store will be rescued.
+		let rescuedStore = EventStore.make(url: tempDatabaseURL)
+
+		// After the rescue the store is empty, because it was recreated.
+		XCTAssertEqual(rescuedStore.checkinsPublisher.value.count, 0)
+
+		// Check if the rescued store is working.
+		rescuedStore.createCheckin(makeCheckin(id: 1))
+		XCTAssertEqual(rescuedStore.checkinsPublisher.value.count, 1)
+	}
+
+	private func makeTempDatabaseURL() throws -> URL {
+		let databaseBaseURL = FileManager.default.temporaryDirectory
+			.appendingPathComponent("EventStoreTests")
+
+		try FileManager.default.createDirectory(
+			at: databaseBaseURL,
+			withIntermediateDirectories: true,
+			attributes: nil
+		)
+
+		let databaseURL = databaseBaseURL
+			.appendingPathComponent(UUID().uuidString)
+			.appendingPathExtension("sqlite")
+
+		return databaseURL
+	}
+
 	private func makeDatabaseQueue() -> FMDatabaseQueue {
 		guard let databaseQueue = FMDatabaseQueue(path: "file::memory:") else {
 			fatalError("Could not create FMDatabaseQueue.")

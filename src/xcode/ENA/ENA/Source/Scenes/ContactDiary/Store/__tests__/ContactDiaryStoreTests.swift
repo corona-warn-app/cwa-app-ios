@@ -852,6 +852,10 @@ class ContactDiaryStoreTests: XCTestCase {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
+		databaseQueue.inDatabase { database in
+			XCTAssertEqual(database.numberOfTables, 4, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
+		}
+
 		// Add data and check if its persisted.
 
 		let personId = addContactPerson(name: "Some Person", to: store)
