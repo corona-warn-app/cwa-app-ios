@@ -67,8 +67,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	// MARK: - FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		if case let .primary = type {
-			Log.debug("did hit primary button - here")
+		if type == .primary {
+			didTapDeleteAllButton()
 		}
 	}
 
