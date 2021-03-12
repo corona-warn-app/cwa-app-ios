@@ -37,6 +37,10 @@ class TraceLocationTableViewCell: UITableViewCell {
 			.assign(to: \.isHidden, on: activeContainerView)
 			.store(in: &subscriptions)
 
+		cellModel.isButtonHiddenPublisher
+			.assign(to: \.isHidden, on: button)
+			.store(in: &subscriptions)
+
 		cellModel.durationPublisher
 			.assign(to: \.text, on: durationLabel)
 			.store(in: &subscriptions)
@@ -55,6 +59,9 @@ class TraceLocationTableViewCell: UITableViewCell {
 		button.setTitle(cellModel.buttonTitle, for: .normal)
 
 		self.onButtonTap = onButtonTap
+
+		// Retaining cell model so it gets updated
+		self.cellModel = cellModel
 	}
 
 	// MARK: - Private
@@ -81,6 +88,7 @@ class TraceLocationTableViewCell: UITableViewCell {
 	private var onButtonTap: (() -> Void)?
 
 	private var subscriptions = Set<AnyCancellable>()
+	private var cellModel: EventCellModel?
     
 	@IBAction private func didTapButton(_ sender: Any) {
 		onButtonTap?()

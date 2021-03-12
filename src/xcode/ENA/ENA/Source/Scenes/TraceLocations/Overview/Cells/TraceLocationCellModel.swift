@@ -9,6 +9,7 @@ protocol EventCellModel {
 
 	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
 	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
+	var isButtonHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
 	var durationPublisher: OpenCombine.Published<String?>.Publisher { get }
 	var timePublisher: OpenCombine.Published<String?>.Publisher { get }
 
@@ -30,10 +31,18 @@ class TraceLocationCellModel: EventCellModel {
 
 	init(
 		traceLocation: TraceLocation,
+		eventProvider: EventProviding,
 		onUpdate: @escaping () -> Void
 	) {
 		self.traceLocation = traceLocation
 		self.onUpdate = onUpdate
+
+		eventProvider.checkinsPublisher
+			.sink { [weak self] checkins in
+				self?.isButtonHidden = checkins.contains { $0.traceLocationGUID == traceLocation.guid }
+				onUpdate()
+			}
+			.store(in: &subscriptions)
 
 		updateForActiveState()
 		scheduleUpdateTimer()
@@ -43,6 +52,7 @@ class TraceLocationCellModel: EventCellModel {
 
 	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isInactiveIconHidden }
 	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isActiveContainerViewHidden }
+	var isButtonHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isButtonHidden }
 	var durationPublisher: OpenCombine.Published<String?>.Publisher { $duration }
 	var timePublisher: OpenCombine.Published<String?>.Publisher { $time }
 
@@ -72,8 +82,11 @@ class TraceLocationCellModel: EventCellModel {
 	private let traceLocation: TraceLocation
 	private let onUpdate: () -> Void
 
+	private var subscriptions = Set<AnyCancellable>()
+
 	@OpenCombine.Published private var isInactiveIconHidden: Bool = true
 	@OpenCombine.Published private var isActiveContainerViewHidden: Bool = true
+	@OpenCombine.Published private var isButtonHidden: Bool = true
 	@OpenCombine.Published private var duration: String?
 	@OpenCombine.Published private var time: String?
 

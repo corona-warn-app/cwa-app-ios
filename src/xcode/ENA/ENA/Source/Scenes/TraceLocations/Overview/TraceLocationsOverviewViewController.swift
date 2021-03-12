@@ -159,14 +159,11 @@ class TraceLocationsOverviewViewController: UITableViewController {
 	}
 
 	private func animateChanges(of cell: UITableViewCell) {
-		/// DispatchQueue prevents undefined behaviour in `visibleCells` while cells are being updated
-		/// https://developer.apple.com/forums/thread/117537
 		DispatchQueue.main.async { [self] in
 			guard tableView.visibleCells.contains(cell) else {
 				return
 			}
 
-			/// Animate the changed cell height
 			tableView.performBatchUpdates(nil, completion: nil)
 		}
 	}

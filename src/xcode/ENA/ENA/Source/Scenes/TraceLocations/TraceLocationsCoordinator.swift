@@ -27,7 +27,7 @@ class TraceLocationsCoordinator {
 //		parentNavigationController?.pushViewController(testViewController, animated: true)
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
-		eventStore.createTraceLocation(TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615559082), defaultCheckInLengthInMinutes: 30, signature: ""))
+		eventStore.createTraceLocation(tmpTraceLocation)
 
 		#if DEBUG
 		if isUITesting {
@@ -47,6 +47,8 @@ class TraceLocationsCoordinator {
 
 	private let store: Store
 	private let eventStore: EventStoring & EventProviding
+
+	private var tmpTraceLocation = TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615559082), defaultCheckInLengthInMinutes: 30, signature: "")
 
 	private weak var parentNavigationController: UINavigationController?
 
@@ -212,7 +214,8 @@ class TraceLocationsCoordinator {
 	}
 
 	private func showCheckInScreen(traceLocation: TraceLocation) {
-
+		// Show checkin screen here, for testing purposes we are temporarily directly checking in
+		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: tmpTraceLocation.guid, traceLocationVersion: tmpTraceLocation.version, traceLocationType: tmpTraceLocation.type, traceLocationDescription: tmpTraceLocation.description, traceLocationAddress: tmpTraceLocation.address, traceLocationStart: tmpTraceLocation.startDate, traceLocationEnd: tmpTraceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: tmpTraceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: tmpTraceLocation.signature, checkinStartDate: tmpTraceLocation.startDate, checkinEndDate: tmpTraceLocation.endDate, targetCheckinEndDate: tmpTraceLocation.endDate, createJournalEntry: false))
 	}
 
 }
