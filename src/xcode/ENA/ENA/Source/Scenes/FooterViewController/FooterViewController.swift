@@ -125,7 +125,7 @@ class FooterViewController: UIViewController {
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
-		primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.primaryFooterButton
+		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
 		primaryButton.alpha = viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
 		primaryButton.isHidden = !viewModel.isPrimaryButtonEnabled
 	}
@@ -134,7 +134,7 @@ class FooterViewController: UIViewController {
 		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
 		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
-		secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.secondaryFooterButton
+		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
 		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
 		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
 	}

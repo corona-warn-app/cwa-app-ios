@@ -12,6 +12,8 @@ final class FooterViewModel {
 	init(
 		primaryButtonName: String? = nil,
 		secondaryButtonName: String? = nil,
+		primaryIdentifier: String = AccessibilityIdentifiers.General.primaryFooterButton,
+		secondaryIdentifier: String = AccessibilityIdentifiers.General.secondaryFooterButton,
 		isPrimaryButtonEnabled: Bool = true,
 		isSecondaryButtonEnabled: Bool = true,
 		isPrimaryButtonHidden: Bool = false,
@@ -21,6 +23,8 @@ final class FooterViewModel {
 	) {
 		self.primaryButtonName = primaryButtonName
 		self.secondaryButtonName = secondaryButtonName
+		self.primaryIdentifier = primaryIdentifier
+		self.secondaryIdentifier = secondaryIdentifier
 		self.isPrimaryButtonEnabled = isPrimaryButtonEnabled
 		self.isSecondaryButtonEnabled = isSecondaryButtonEnabled
 		self.isPrimaryButtonHidden = isPrimaryButtonHidden
@@ -50,6 +54,8 @@ final class FooterViewModel {
 	let leftRightInset: CGFloat = 16.0
 	let primaryButtonColor: UIColor?
 	let secondaryButtonColor: UIColor?
+	let primaryIdentifier: String
+	let secondaryIdentifier: String
 
 	@OpenCombine.Published private(set) var height: CGFloat = 0.0
 	@OpenCombine.Published private(set) var isPrimaryLoading: Bool = false
