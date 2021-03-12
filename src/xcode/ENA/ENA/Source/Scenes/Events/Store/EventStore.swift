@@ -46,6 +46,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	let key: String
 	let schema: StoreSchemaProtocol
 	let migrator: SerialMigratorProtocol
+	let logIdentifier = "EventStore"
 
 	// MARK: - Protocol EventStoring
 

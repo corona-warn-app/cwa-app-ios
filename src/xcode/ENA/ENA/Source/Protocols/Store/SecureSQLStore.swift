@@ -18,6 +18,7 @@ protocol SecureSQLStore {
 	var key: String { get }
 	var schema: StoreSchemaProtocol { get }
 	var migrator: SerialMigratorProtocol { get }
+	var logIdentifier: String { get }
 }
 
 extension SecureSQLStore {
@@ -26,16 +27,16 @@ extension SecureSQLStore {
 		var userVersion: UInt32 = 0
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Open and setup database.", log: .localData)
+			Log.info("[\(logIdentifier)] Open and setup database.", log: .localData)
 			let dbHandle = OpaquePointer(database.sqliteHandle)
 			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
-				Log.error("[EventStore] Unable to set Key for encryption.", log: .localData)
+				Log.error("[\(logIdentifier)] Unable to set Key for encryption.", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
 
 			guard database.open() else {
-				Log.error("[EventStore] Database could not be opened", log: .localData)
+				Log.error("[\(logIdentifier)] Database could not be opened", log: .localData)
 				errorResult = .failure(dbError(from: database))
 				return
 			}
@@ -65,8 +66,10 @@ extension SecureSQLStore {
 		// If the version is zero then this means this is a fresh database "i.e no previous app was installed".
 		// If the version is zero we create the latest schema, else we execute a migration.
 		if userVersion == 0 {
+			Log.info("[\(logIdentifier)] Create schema.", log: .localData)
 			return schema.create()
 		} else {
+			Log.info("[\(logIdentifier)] Execute migration.", log: .localData)
 			return migrate()
 		}
 	}
@@ -87,7 +90,7 @@ extension SecureSQLStore {
 	}
 
 	func logLastErrorCode(from database: FMDatabase) {
-		Log.error("[EventStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+		Log.error("[\(logIdentifier)] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
 	}
 
 	func dbError(from database: FMDatabase) -> SecureSQLStoreError {
