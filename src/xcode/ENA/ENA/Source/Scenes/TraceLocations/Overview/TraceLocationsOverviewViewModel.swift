@@ -58,12 +58,12 @@ class TraceLocationsOverviewViewModel {
 		return indexPath.section == Section.entries.rawValue
 	}
 
-	func traceLocationCellModel(at indexPath: IndexPath) -> TraceLocationCellModel {
+	func traceLocationCellModel(at indexPath: IndexPath, onUpdate: @escaping () -> Void) -> TraceLocationCellModel {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("Entry cell models have to used in the entries section")
 		}
 
-		return TraceLocationCellModel(traceLocation: traceLocations[indexPath.row])
+		return TraceLocationCellModel(traceLocation: traceLocations[indexPath.row], onUpdate: onUpdate)
 	}
 
 	func didTapAddEntryCell() {

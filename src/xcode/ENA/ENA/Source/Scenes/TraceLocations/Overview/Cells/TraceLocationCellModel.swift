@@ -28,8 +28,12 @@ class TraceLocationCellModel: EventCellModel {
 
 	// MARK: - Init
 
-	init(traceLocation: TraceLocation) {
+	init(
+		traceLocation: TraceLocation,
+		onUpdate: @escaping () -> Void
+	) {
 		self.traceLocation = traceLocation
+		self.onUpdate = onUpdate
 
 		updateForActiveState()
 		scheduleUpdateTimer()
@@ -66,6 +70,7 @@ class TraceLocationCellModel: EventCellModel {
 	// MARK: - Private
 
 	private let traceLocation: TraceLocation
+	private let onUpdate: () -> Void
 
 	@OpenCombine.Published private var isInactiveIconHidden: Bool = true
 	@OpenCombine.Published private var isActiveContainerViewHidden: Bool = true
@@ -84,6 +89,8 @@ class TraceLocationCellModel: EventCellModel {
 		dateFormatter.timeStyle = .short
 
 		time = dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+
+		onUpdate()
 	}
 
 	private func scheduleUpdateTimer() {
