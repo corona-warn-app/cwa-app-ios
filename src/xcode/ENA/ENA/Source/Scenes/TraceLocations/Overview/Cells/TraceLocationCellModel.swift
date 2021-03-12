@@ -4,17 +4,56 @@
 
 import UIKit
 
-struct TraceLocationCellModel {
+class TraceLocationCellModel {
+
+	// MARK: - Init
+
+	init(traceLocation: TraceLocation) {
+		self.traceLocation = traceLocation
+
+		configure(for: traceLocation)
+	}
 
 	// MARK: - Internal
 
-	let traceLocation = TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: "")
+	enum GradientCardMode {
+		case duration
+		case qrIcon
+		case hidden
+	}
 
-	let title: String = "Jahrestreffen der deutschen SAP Anwendergruppe"
-	let location: String = "Hauptstr 3, 69115 Heidelberg"
-	let time: String = "18:00 - 21:00 Uhr"
-	let date: String = "21.01.2021"
-	let buttonTitle: String = "Selbst einchecken"
-	let accessibilityTraits: UIAccessibilityTraits = [.button]
+	var title: String = ""
+	var address: String = ""
+	var time: String = ""
+	var date: String = ""
+	var buttonTitle: String = ""
+
+	// MARK: - Private
+
+	private let traceLocation: TraceLocation
+
+	private func configure(for traceLocation: TraceLocation) {
+		title = traceLocation.description
+		address = traceLocation.address
+		time = time(for: traceLocation)
+		date = date(for: traceLocation)
+		buttonTitle = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
+	}
+
+	private func time(for traceLocation: TraceLocation) -> String {
+		let dateFormatter = DateIntervalFormatter()
+		dateFormatter.dateStyle = .none
+		dateFormatter.timeStyle = .short
+
+		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+	}
+
+	private func date(for traceLocation: TraceLocation) -> String {
+		let dateFormatter = DateIntervalFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .none
+
+		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+	}
     
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -145,34 +143,17 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
+                <outlet property="addressLabel" destination="Org-Yd-acz" id="sr4-Ub-ykv"/>
                 <outlet property="button" destination="Lw3-BW-ppn" id="V6d-RX-Xle"/>
                 <outlet property="containerView" destination="1nm-Ky-YXw" id="4HL-s8-vpP"/>
                 <outlet property="dateLabel" destination="21R-hB-G31" id="F3M-FD-qre"/>
                 <outlet property="gradientContainer" destination="eHY-Q2-Adb" id="L8G-io-BM9"/>
-                <outlet property="locationLabel" destination="Org-Yd-acz" id="sr4-Ub-ykv"/>
                 <outlet property="timeLabel" destination="RRB-rD-hop" id="3vh-MJ-uJj"/>
                 <outlet property="titleLabel" destination="LlW-QB-tlo" id="Vq7-Ez-BGc"/>
             </connections>
             <point key="canvasLocation" x="134.78260869565219" y="162.38839285714286"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="21R-hB-G31">
-            <size key="intrinsicContentSize" width="29.5" height="20.5"/>
-        </designable>
-        <designable name="LlW-QB-tlo">
-            <size key="intrinsicContentSize" width="33" height="20.5"/>
-        </designable>
-        <designable name="Lw3-BW-ppn">
-            <size key="intrinsicContentSize" width="46" height="30"/>
-        </designable>
-        <designable name="Org-Yd-acz">
-            <size key="intrinsicContentSize" width="65.5" height="20.5"/>
-        </designable>
-        <designable name="RRB-rD-hop">
-            <size key="intrinsicContentSize" width="38" height="20.5"/>
-        </designable>
-    </designables>
     <resources>
         <namedColor name="ENA Cell Background Color">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

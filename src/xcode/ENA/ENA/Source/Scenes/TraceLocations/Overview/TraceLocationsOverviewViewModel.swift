@@ -63,7 +63,7 @@ class TraceLocationsOverviewViewModel {
 			fatalError("Entry cell models have to used in the entries section")
 		}
 
-		return TraceLocationCellModel()
+		return TraceLocationCellModel(traceLocation: traceLocations[indexPath.row])
 	}
 
 	func didTapAddEntryCell() {

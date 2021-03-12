@@ -1365,6 +1365,8 @@ enum AppStrings {
 			static let emptyImageDescription = NSLocalizedString("TraceLocation_Overview_EmptyImageDescription", comment: "")
 			static let deleteAllButtonTitle = NSLocalizedString("TraceLocation_Overview_DeleteAllButtonTitle", comment: "")
 
+			static let selfCheckinButtonTitle = NSLocalizedString("TraceLocation_Overview_SelfCheckinButtonTitle", comment: "")
+
 			enum DeleteOneAlert {
 				static let title = NSLocalizedString("TraceLocation_Overview_DeleteOne_AlertTitle", comment: "")
 				static let message = NSLocalizedString("TraceLocation_Overview_DeleteOne_AlertMessage", comment: "")
