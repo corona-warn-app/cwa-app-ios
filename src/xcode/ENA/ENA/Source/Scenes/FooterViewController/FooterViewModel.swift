@@ -27,7 +27,7 @@ final class FooterViewModel {
 		self.isSecondaryButtonHidden = isSecondaryButtonHidden
 		self.primaryButtonColor = primaryButtonColor
 		self.secondaryButtonColor = secondaryButtonColor
-		self.height = 0.0
+		updateHeight()
 	}
 
 	// MARK: - Internal
