@@ -3,5 +3,5 @@
 //
 
 protocol StoreSchemaProtocol {
-	func create() -> Result<Void, SQLiteErrorCode>
+	func create() -> SecureSQLStore.VoidResult
 }

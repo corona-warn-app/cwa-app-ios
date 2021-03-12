@@ -639,8 +639,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationType: .type2,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
-			traceLocationStart: Date(),
-			traceLocationEnd: Date(),
+			traceLocationStartDate: Date(),
+			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 1,
 			traceLocationSignature: "Some signature",
 			checkinStartDate: Date(),
@@ -666,5 +666,5 @@ class EventStoreTests: XCTestCase {
 		TraceWarningPackageMetadata(id: id, region: "Some Region", eTag: "Some eTag")
 	}
 
-	// swiftlint:disable:next type_body_length
+	// swiftlint:disable:next file_length
 }

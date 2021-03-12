@@ -16,8 +16,8 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 	// MARK: - Protocol SchemaProtocol
 
 	@discardableResult
-	func create() -> Result<Void, SQLiteErrorCode> {
-		var result: Result<Void, SQLiteErrorCode> = .success(())
+	func create() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult = .success(())
 
 		databaseQueue.inDatabase { database in
 			let sql = """
@@ -70,7 +70,8 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 
 			guard database.executeStatements(sql) else {
 				Log.error("[SQLite] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-				result = .failure(SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown)
+				let sqliteError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
+				result = .failure(SecureSQLStoreError.database(sqliteError))
 				return
 			}
 

@@ -7,7 +7,7 @@ import OpenCombine
 import FMDB
 
 // swiftlint:disable:next type_body_length
-class EventStore: EventStoringProviding {
+class EventStore: SecureSQLStore, EventStoringProviding {
 
 	static let dataRetentionPeriodInDays = 15
 	static let encryptionKeyKey = "EventStoreEncryptionKey"
@@ -40,75 +40,27 @@ class EventStore: EventStoringProviding {
 		registerToDidBecomeActiveNotification()
 	}
 
+	// MARK: - Protocol SecureSQLStore
+
+	let databaseQueue: FMDatabaseQueue
+	let key: String
+	let schema: StoreSchemaProtocol
+	let migrator: SerialMigratorProtocol
+
 	// MARK: - Protocol EventStoring
 
 	@discardableResult
-	func createTraceLocation(_ traceLocation: TraceLocation) -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Add TraceLocation.", log: .localData)
 
-			let sql = """
-				INSERT INTO TraceLocation (
-					guid,
-					version,
-					type,
-					description,
-					address,
-					startDate,
-					endDate,
-					defaultCheckInLengthInMinutes,
-					signature
-				)
-				VALUES (
-					:guid,
-					:version,
-					:type,
-					SUBSTR(:description, 1, \(maxTextLength)),
-					SUBSTR(:address, 1, \(maxTextLength)),
-					:startDate,
-					:endDate,
-					:defaultCheckInLengthInMinutes,
-					:signature
-				);
-			"""
-
-			var startDateInterval: Int?
-			if let startDate = traceLocation.startDate {
-				startDateInterval = Int(startDate.timeIntervalSince1970)
-			}
-
-			var endDateInterval: Int?
-			if let endDate = traceLocation.endDate {
-				endDateInterval = Int(endDate.timeIntervalSince1970)
-			}
-
-			let parameters: [String: Any] = [
-				"guid": traceLocation.guid,
-				"version": traceLocation.version,
-				"type": traceLocation.type.rawValue,
-				"description": traceLocation.description,
-				"address": traceLocation.address,
-				"startDate": startDateInterval as Any,
-				"endDate": endDateInterval as Any,
-				"defaultCheckInLengthInMinutes": traceLocation.defaultCheckInLengthInMinutes as Any,
-				"signature": traceLocation.signature
-			]
-			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateTraceLocationsResult = updateTraceLocations(with: database)
-			guard case .success = updateTraceLocationsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let createTraceLocationQuery = CreateTraceLocationQuery(
+				traceLocation: traceLocation,
+				maxTextLength: maxTextLength
+			)
+			result = executeTraceLocationQuery(createTraceLocationQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -119,33 +71,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteTraceLocation(guid: String) -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Remove TraceLocation with id: \(guid).", log: .localData)
 
-			let sql = """
-				DELETE FROM TraceLocation
-				WHERE guid = ?;
-			"""
-
-			do {
-				try database.executeUpdate(sql, values: [guid])
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateTraceLocationsResult = updateTraceLocations(with: database)
-			guard case .success = updateTraceLocationsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let deleteTraceLocationQuery = DeleteTraceLocationQuery(guid: guid)
+			result = executeTraceLocationQuery(deleteTraceLocationQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -156,32 +89,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteAllTraceLocations() -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func deleteAllTraceLocations() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Remove all TraceLocations.", log: .localData)
 
-			let sql = """
-				DELETE FROM TraceLocation;
-			"""
-
-			do {
-				try database.executeUpdate(sql, values: [])
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateTraceLocationsResult = updateTraceLocations(with: database)
-			guard case .success = updateTraceLocationsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let deleteAllTraceLocationsQuery = DeleteAllTraceLocationsQuery()
+			result = executeTraceLocationQuery(deleteAllTraceLocationsQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -192,94 +107,21 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func createCheckin(_ checkin: Checkin) -> EventStoring.IdResult {
-		var result: EventStoring.IdResult?
+	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Add Checkin.", log: .localData)
+			Log.info("[EventStore] Create Checkin.", log: .localData)
 
-			let sql = """
-				INSERT INTO Checkin (
-					traceLocationGUID,
-					traceLocationVersion,
-					traceLocationType,
-					traceLocationDescription,
-					traceLocationAddress,
-					traceLocationStartDate,
-					traceLocationEndDate,
-					traceLocationDefaultCheckInLengthInMinutes,
-					traceLocationSignature,
-					checkinStartDate,
-					targetCheckinEndDate,
-					checkinEndDate,
-					createJournalEntry
-				)
-				VALUES (
-					:traceLocationGUID,
-					:traceLocationVersion,
-					:traceLocationType,
-					SUBSTR(:traceLocationDescription, 1, \(maxTextLength)),
-					SUBSTR(:traceLocationAddress, 1, \(maxTextLength)),
-					:traceLocationStartDate,
-					:traceLocationEndDate,
-					:traceLocationDefaultCheckInLengthInMinutes,
-					:traceLocationSignature,
-					:checkinStartDate,
-					:targetCheckinEndDate,
-					:checkinEndDate,
-					:createJournalEntry
-				);
-			"""
+			let createCheckinQuery = CreateCheckinQuery(checkin: checkin, maxTextLength: maxTextLength)
+			let queryResult = executeCheckinQuery(createCheckinQuery, in: database)
 
-			var traceLocationStartDateInterval: Int?
-			if let traceLocationStart = checkin.traceLocationStartDate {
-				traceLocationStartDateInterval = Int(traceLocationStart.timeIntervalSince1970)
+			switch queryResult {
+			case .success:
+				result = .success(Int(database.lastInsertRowId))
+			case .failure(let error):
+				result = .failure(error)
 			}
-
-			var traceLocationEndDateInterval: Int?
-			if let traceLocationEnd = checkin.traceLocationEndDate {
-				traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
-			}
-
-			var checkinEndDateInterval: Int?
-			if let checkinEndDate = checkin.checkinEndDate {
-				checkinEndDateInterval = Int(checkinEndDate.timeIntervalSince1970)
-			}
-
-			var targetCheckinEndDateInterval: Int?
-			if let targetCheckinEndDate = checkin.targetCheckinEndDate {
-				targetCheckinEndDateInterval = Int(targetCheckinEndDate.timeIntervalSince1970)
-			}
-
-			let parameters: [String: Any] = [
-				"traceLocationGUID": checkin.traceLocationGUID,
-				"traceLocationVersion": checkin.traceLocationVersion,
-				"traceLocationType": checkin.traceLocationType.rawValue,
-				"traceLocationDescription": checkin.traceLocationDescription,
-				"traceLocationAddress": checkin.traceLocationAddress,
-				"traceLocationStartDate": traceLocationStartDateInterval as Any,
-				"traceLocationEndDate": traceLocationEndDateInterval as Any,
-				"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
-				"traceLocationSignature": checkin.traceLocationSignature,
-				"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
-				"targetCheckinEndDate": targetCheckinEndDateInterval as Any,
-				"checkinEndDate": checkinEndDateInterval as Any,
-				"createJournalEntry": checkin.createJournalEntry
-			]
-			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateCheckinsResult = updateCheckins(with: database)
-			guard case .success = updateCheckinsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -290,33 +132,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteCheckin(id: Int) -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func deleteCheckin(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Remove Checkin with id: \(id).", log: .localData)
 
-			let sql = """
-				DELETE FROM Checkin
-				WHERE id = ?;
-			"""
-
-			do {
-				try database.executeUpdate(sql, values: [id])
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateCheckinsResult = updateCheckins(with: database)
-			guard case .success = updateCheckinsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let deleteCheckinQuery = DeleteCheckinQuery(id: id)
+			result = executeCheckinQuery(deleteCheckinQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -327,32 +150,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteAllCheckins() -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func deleteAllCheckins() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Remove all Checkins.", log: .localData)
 
-			let sql = """
-				DELETE FROM Checkin;
-			"""
-
-			do {
-				try database.executeUpdate(sql, values: [])
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateCheckinsResult = updateCheckins(with: database)
-			guard case .success = updateCheckinsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let deleteCheckinsQuery = DeleteCheckinsQuery()
+			result = executeCheckinQuery(deleteCheckinsQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -363,40 +168,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func updateCheckin(id: Int, endDate: Date) -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func updateCheckin(id: Int, endDate: Date) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Update checkinEndDate to \(endDate) for Checkin with id: \(id).", log: .localData)
 
-			let sql = """
-				UPDATE Checkin
-				SET checkinEndDate = ?
-				WHERE id = ?
-			"""
-
-			do {
-				try database.executeUpdate(
-					sql,
-					values: [
-						Int(endDate.timeIntervalSince1970),
-						id
-					]
-				)
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateCheckinsResult = updateCheckins(with: database)
-			guard case .success = updateCheckinsResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let updateCheckinQuery = UpdateCheckinQuery(id: id, endDate: endDate)
+			result = executeCheckinQuery(updateCheckinQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -407,55 +186,21 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> EventStoring.IdResult {
-		var result: EventStoring.IdResult?
+	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Add TraceTimeIntervalMatch.", log: .localData)
 
-			let sql = """
-				INSERT INTO TraceTimeIntervalMatch (
-					id,
-					checkinId,
-					traceWarningPackageId,
-					traceLocationGUID,
-					transmissionRiskLevel,
-					startIntervalNumber,
-					endIntervalNumber
-				)
-				VALUES (
-					:id,
-					:checkinId,
-					:traceWarningPackageId,
-					:traceLocationGUID,
-					:transmissionRiskLevel,
-					:startIntervalNumber,
-					:endIntervalNumber
-				);
-			"""
-			let parameters: [String: Any] = [
-				"id": match.id,
-				"checkinId": match.checkinId,
-				"traceWarningPackageId": match.traceWarningPackageId,
-				"traceLocationGUID": match.traceLocationGUID,
-				"transmissionRiskLevel": match.transmissionRiskLevel,
-				"startIntervalNumber": match.startIntervalNumber,
-				"endIntervalNumber": match.endIntervalNumber
-			]
-			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
+			let query = CreateTraceTimeIntervalMatchQuery(match: match)
+			let queryResult = executeTraceTimeIntervalMatchQuery(query, in: database)
 
-			let updateTraceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
-			guard case .success = updateTraceTimeIntervalMatchesResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
+			switch queryResult {
+			case .success:
+				result = .success(Int(database.lastInsertRowId))
+			case .failure(let error):
+				result = .failure(error)
 			}
-
-			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -466,32 +211,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteTraceTimeIntervalMatch(id: Int) -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Remove all TraceTimeIntervalMatches.", log: .localData)
 
-			let sql = """
-				DELETE FROM TraceTimeIntervalMatch;
-			"""
-
-			do {
-				try database.executeUpdate(sql, values: [])
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateTraceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
-			guard case .success = updateTraceTimeIntervalMatchesResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let query = DeleteTraceTimeIntervalMatchQuery(id: id)
+			result = executeTraceTimeIntervalMatchQuery(query, in: database)
 		}
 
 		guard let _result = result else {
@@ -502,43 +229,21 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ match: TraceWarningPackageMetadata) -> EventStoring.IdResult {
-		var result: EventStoring.IdResult?
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Add TraceWarningPackageMetadata.", log: .localData)
 
-			let sql = """
-				INSERT INTO TraceWarningPackageMetadata (
-					id,
-					region,
-					eTag
-				)
-				VALUES (
-					:id,
-					:region,
-					:eTag
-				);
-			"""
-			let parameters: [String: Any] = [
-				"id": match.id,
-				"region": match.region,
-				"eTag": match.eTag
-			]
-			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
+			let query = CreateTraceWarningPackageMetadataQuery(metadata: metadata)
+			let queryResult = executeTraceWarningPackageMetadataQuery(query, in: database)
 
-			let updateTraceWarningPackageMetadatasResult = updateTraceWarningPackageMetadata(with: database)
-			guard case .success = updateTraceWarningPackageMetadatasResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
+			switch queryResult {
+			case .success:
+				result = .success(Int(database.lastInsertRowId))
+			case .failure(let error):
+				result = .failure(error)
 			}
-
-			result = .success(Int(database.lastInsertRowId))
 		}
 
 		guard let _result = result else {
@@ -549,33 +254,14 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteTraceWarningPackageMetadata(id: Int) -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult?
+	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Remove TraceWarningPackageMetadata with id: \(id).", log: .localData)
 
-			let sql = """
-				DELETE FROM TraceWarningPackageMetadata
-				WHERE id = ?;
-			"""
-
-			do {
-				try database.executeUpdate(sql, values: [id])
-			} catch {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			let updateTraceWarningPackageMetadataResult = updateTraceWarningPackageMetadata(with: database)
-			guard case .success = updateTraceWarningPackageMetadataResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
+			let query = DeleteTraceWarningPackageMetadataQuery(id: id)
+			result = executeTraceWarningPackageMetadataQuery(query, in: database)
 		}
 
 		guard let _result = result else {
@@ -587,80 +273,14 @@ class EventStore: EventStoringProviding {
 
 	// MARK: - Protocol EventProviding
 
-	var traceLocationsPublisher = CurrentValueSubject<[TraceLocation], Never>([])
-
-	var checkinsPublisher = CurrentValueSubject<[Checkin], Never>([])
-
-	var traceTimeIntervalMatchesPublisher = OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never>([])
-
-	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
+	private(set) var traceLocationsPublisher = CurrentValueSubject<[TraceLocation], Never>([])
+	private(set) var checkinsPublisher = CurrentValueSubject<[Checkin], Never>([])
+	private(set) var traceTimeIntervalMatchesPublisher = OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never>([])
+	private(set) var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
 
 	// MARK: - Private
 
-	private let databaseQueue: FMDatabaseQueue
-	private let key: String
-	private let schema: StoreSchemaProtocol
-	private let migrator: SerialMigratorProtocol
 	private let maxTextLength = 100
-
-	private func openAndSetup() -> EventStoring.VoidResult {
-		var errorResult: EventStoring.VoidResult?
-		var userVersion: UInt32 = 0
-
-		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Open and setup database.", log: .localData)
-			let dbHandle = OpaquePointer(database.sqliteHandle)
-			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
-				Log.error("[EventStore] Unable to set Key for encryption.", log: .localData)
-				errorResult = .failure(dbError(from: database))
-				return
-			}
-
-			guard database.open() else {
-				Log.error("[EventStore] Database could not be opened", log: .localData)
-				errorResult = .failure(dbError(from: database))
-				return
-			}
-
-			userVersion = database.userVersion
-
-			let sql = """
-				PRAGMA locking_mode=EXCLUSIVE;
-				PRAGMA auto_vacuum=2;
-				PRAGMA journal_mode=WAL;
-			"""
-			guard database.executeStatements(sql) else {
-				logLastErrorCode(from: database)
-				errorResult = .failure(dbError(from: database))
-				return
-			}
-		}
-
-		if let _errorResult = errorResult {
-			return _errorResult
-		}
-
-		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
-		// then we create the latest schema
-		if userVersion == 0 {
-			let schemaCreateResult = schema.create()
-			if case let .failure(error) = schemaCreateResult {
-				return .failure(.database(error))
-			}
-		} else {
-			migrate()
-		}
-
-		return .success(())
-	}
-
-	private func migrate() {
-		do {
-			try migrator.migrate()
-		} catch {
-			_ = MigrationError.general(description: error.localizedDescription)
-		}
-	}
 
 	private func registerToDidBecomeActiveNotification() {
 		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -671,8 +291,8 @@ class EventStore: EventStoringProviding {
 		cleanup()
 	}
 
-	private func updatePublishers() -> Result<Void, EventStoringError> {
-		var result: EventStoring.VoidResult?
+	private func updatePublishers() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			let ckeckinsResult = updateCheckins(with: database)
@@ -699,8 +319,8 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	private func cleanup() -> EventStoring.VoidResult {
-		var result: EventStoring.VoidResult = .success(())
+	private func cleanup() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult = .success(())
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Cleanup old entries.", log: .localData)
@@ -758,7 +378,7 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateTraceLocations(with database: FMDatabase) -> EventStore.VoidResult {
+	private func updateTraceLocations(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update TraceLocations publisher.", log: .localData)
 
 		let sql = """
@@ -820,7 +440,7 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateCheckins(with database: FMDatabase) -> EventStore.VoidResult {
+	private func updateCheckins(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update checkins publisher.", log: .localData)
 
 		let sql = """
@@ -900,7 +520,7 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateTraceTimeIntervalMatches(with database: FMDatabase) -> EventStore.VoidResult {
+	private func updateTraceTimeIntervalMatches(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update TraceTimeIntervalMatches publisher.", log: .localData)
 
 		let sql = """
@@ -947,7 +567,7 @@ class EventStore: EventStoringProviding {
 	}
 
 	@discardableResult
-	private func updateTraceWarningPackageMetadata(with database: FMDatabase) -> EventStore.VoidResult {
+	private func updateTraceWarningPackageMetadata(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		Log.info("[EventStore] Update TraceWarningPackageMetadata publisher.", log: .localData)
 
 		let sql = """
@@ -985,13 +605,73 @@ class EventStore: EventStoringProviding {
 		return .success(())
 	}
 
-	private func logLastErrorCode(from database: FMDatabase) {
-		Log.error("[EventStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
+	private func executeTraceLocationQuery(_ query: StoreQueryProtocol, in database: FMDatabase) -> SecureSQLStore.VoidResult {
+		guard query.execute(in: database) else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		let updateTraceLocationsResult = updateTraceLocations(with: database)
+		guard case .success = updateTraceLocationsResult else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(())
 	}
 
-	private func dbError(from database: FMDatabase) -> EventStoringError {
-		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
-		return .database(dbError)
+	private func executeCheckinQuery(_ query: StoreQueryProtocol, in database: FMDatabase) -> SecureSQLStore.VoidResult {
+		guard query.execute(in: database) else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		let updateCheckinsResult = updateCheckins(with: database)
+		guard case .success = updateCheckinsResult else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(())
 	}
+
+	private func executeTraceTimeIntervalMatchQuery(
+		_ query: StoreQueryProtocol,
+		in database: FMDatabase
+	) -> SecureSQLStore.VoidResult {
+
+		guard query.execute(in: database) else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		let updateTraceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
+		guard case .success = updateTraceTimeIntervalMatchesResult else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(())
+	}
+
+	private func executeTraceWarningPackageMetadataQuery(
+		_ query: StoreQueryProtocol,
+		in database: FMDatabase
+	) -> SecureSQLStore.VoidResult {
+
+		guard query.execute(in: database) else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		let updateTraceWarningPackageMetadataResult = updateTraceWarningPackageMetadata(with: database)
+		guard case .success = updateTraceWarningPackageMetadataResult else {
+			logLastErrorCode(from: database)
+			return .failure(dbError(from: database))
+		}
+
+		return .success(())
+	}
+
 	// swiftlint:disable:next file_length
 }

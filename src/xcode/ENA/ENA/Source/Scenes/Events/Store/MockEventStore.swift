@@ -8,29 +8,29 @@ class MockEventStore: EventStoring, EventProviding {
 
 	// MARK: - Protocol EventStoring
 
-	func createTraceLocation(_ traceLocation: TraceLocation) -> VoidResult {
+	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
 		traceLocationsPublisher.value.append(traceLocation)
 		return .success(())
 	}
 
-	func deleteTraceLocation(guid: String) -> EventStoring.VoidResult {
+	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
 		traceLocationsPublisher.value.removeAll { $0.guid == guid }
 		return .success(())
 	}
 
-	func deleteAllTraceLocations() -> EventStoring.VoidResult {
+	func deleteAllTraceLocations() -> SecureSQLStore.VoidResult {
 		traceLocationsPublisher.value = ([])
 		return .success(())
 	}
 
-	func createCheckin(_ checkin: Checkin) -> EventStoring.IdResult {
+	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let checkinWithId = checkin.updatedWith(id: id)
 		checkinsPublisher.value.append(checkinWithId)
 		return .success(id)
 	}
 
-	func updateCheckin(id: Int, endDate: Date) -> EventStoring.VoidResult {
+	func updateCheckin(id: Int, endDate: Date) -> SecureSQLStore.VoidResult {
 		var checkins = checkinsPublisher.value
 		guard let checkin = (checkins.first { $0.id == id }) else {
 			return .failure(.database(.unknown))
@@ -42,7 +42,7 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
-	func updateCheckin(id: Int, targetCheckinEndDate: Date) -> EventStoring.VoidResult {
+	func updateCheckin(id: Int, targetCheckinEndDate: Date) -> SecureSQLStore.VoidResult {
 		var checkins = checkinsPublisher.value
 		guard let checkin = (checkins.first { $0.id == id }) else {
 			return .failure(.database(.unknown))
@@ -54,36 +54,36 @@ class MockEventStore: EventStoring, EventProviding {
 		return .success(())
 	}
 
-	func deleteCheckin(id: Int) -> EventStoring.VoidResult {
+	func deleteCheckin(id: Int) -> SecureSQLStore.VoidResult {
 		checkinsPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
-	func deleteAllCheckins() -> EventStoring.VoidResult {
+	func deleteAllCheckins() -> SecureSQLStore.VoidResult {
 		checkinsPublisher.value = ([])
 		return .success(())
 	}
 
-	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> EventStoring.IdResult {
+	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let traceTimeIntervalMatch = match.updatedWith(id: id)
 		traceTimeIntervalMatchesPublisher.value.append(traceTimeIntervalMatch)
 		return .success(id)
 	}
 
-	func deleteTraceTimeIntervalMatch(id: Int) -> EventStoring.VoidResult {
+	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult {
 		traceTimeIntervalMatchesPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> EventStoring.IdResult {
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let traceWarningPackageMetadata = metadata.updatedWith(id: id)
 		traceWarningPackageMetadatasPublisher.value.append(traceWarningPackageMetadata)
 		return .success(id)
 	}
 
-	func deleteTraceWarningPackageMetadata(id: Int) -> EventStoring.VoidResult {
+	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult {
 		traceWarningPackageMetadatasPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
