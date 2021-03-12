@@ -10,9 +10,15 @@ import OpenCombine
 	ViewController that implement this protocol get called if a button gets tapped in the footerViewController
 */
 protocol FooterViewHandling {
+	var footerView: FooterViewUpdating? { get }
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType)
 }
 
+extension FooterViewHandling where Self: UIViewController {
+	var footerView: FooterViewUpdating? {
+		return parent as? FooterViewUpdating
+	}
+}
 
 class FooterViewController: UIViewController {
 
