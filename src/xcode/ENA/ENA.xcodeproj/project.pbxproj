@@ -603,7 +603,7 @@
 		ABE9617625F1224400D0F699 /* MockEventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9617525F1224400D0F699 /* MockEventStore.swift */; };
 		ABE961E225F29A5000D0F699 /* EventStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961E125F29A5000D0F699 /* EventStoreSchemaV1.swift */; };
 		ABE961E825F29A7000D0F699 /* StoreSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961E725F29A6F00D0F699 /* StoreSchema.swift */; };
-		ABE961EE25F61E0F00D0F699 /* EventStoreCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */; };
+		ABE961EE25F61E0F00D0F699 /* EventStore+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE961ED25F61E0F00D0F699 /* EventStore+Creation.swift */; };
 		ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */; };
 		ABE9620925F67D2200D0F699 /* TraceWarningPackageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */; };
 		ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */; };
@@ -1518,7 +1518,7 @@
 		ABE9617525F1224400D0F699 /* MockEventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEventStore.swift; sourceTree = "<group>"; };
 		ABE961E125F29A5000D0F699 /* EventStoreSchemaV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventStoreSchemaV1.swift; sourceTree = "<group>"; };
 		ABE961E725F29A6F00D0F699 /* StoreSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreSchema.swift; sourceTree = "<group>"; };
-		ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreCreation.swift; sourceTree = "<group>"; };
+		ABE961ED25F61E0F00D0F699 /* EventStore+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventStore+Creation.swift"; sourceTree = "<group>"; };
 		ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceTimeIntervalMatch.swift; sourceTree = "<group>"; };
 		ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageMetadata.swift; sourceTree = "<group>"; };
 		ABF574DE25C308DF0098E315 /* SurveyConsentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewModel.swift; sourceTree = "<group>"; };
@@ -3914,7 +3914,7 @@
 				ABE9616525F1207500D0F699 /* Model */,
 				ABE9617025F1220600D0F699 /* EventStore.swift */,
 				ABE9617525F1224400D0F699 /* MockEventStore.swift */,
-				ABE961ED25F61E0F00D0F699 /* EventStoreCreation.swift */,
+				ABE961ED25F61E0F00D0F699 /* EventStore+Creation.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -5570,7 +5570,7 @@
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				BAA4D73625E9613200821B5C /* CheckInQRCodeScannerViewController.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
-				ABE961EE25F61E0F00D0F699 /* EventStoreCreation.swift in Sources */,
+				ABE961EE25F61E0F00D0F699 /* EventStore+Creation.swift in Sources */,
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
 				EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */,
