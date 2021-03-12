@@ -28,24 +28,25 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6Aj-m6-RRD">
                                         <rect key="frame" x="16" y="8" width="256" height="187"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHY-Q2-Adb">
-                                                <rect key="frame" x="0.0" y="0.0" width="107" height="145"/>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHY-Q2-Adb">
+                                                <rect key="frame" x="0.0" y="0.0" width="107" height="167"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9gp-vZ-OFG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="107" height="145"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="107" height="167"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TraceLocationCode" translatesAutoresizingMaskIntoConstraints="NO" id="c7c-Z6-jUB">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQo-Dg-RTl" customClass="GradientView" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="107" height="95"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="107" id="Xk4-ba-3fw"/>
-                                                                    <constraint firstAttribute="height" constant="95" id="fN9-bg-O1c"/>
+                                                                    <constraint firstAttribute="width" constant="107" id="mPy-x0-oaq"/>
+                                                                    <constraint firstAttribute="height" constant="95" id="nw7-7n-aWI"/>
                                                                 </constraints>
-                                                            </imageView>
+                                                            </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94r-g5-dGf">
-                                                                <rect key="frame" x="0.0" y="95" width="107" height="50"/>
+                                                                <rect key="frame" x="0.0" y="95" width="107" height="72"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21R-hB-G31" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                        <rect key="frame" x="8" y="8" width="91" height="34"/>
+                                                                        <rect key="frame" x="8" y="8" width="91" height="56"/>
                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -72,11 +73,6 @@
                                                     <constraint firstAttribute="trailing" secondItem="9gp-vZ-OFG" secondAttribute="trailing" id="aY3-Lb-gMp"/>
                                                     <constraint firstAttribute="bottom" secondItem="9gp-vZ-OFG" secondAttribute="bottom" id="sEs-Is-Q0E"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="14"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mJj-D6-Uzf">
                                                 <rect key="frame" x="122" y="0.0" width="134" height="69.5"/>
@@ -134,11 +130,6 @@
                             <constraint firstItem="LuB-hP-sBP" firstAttribute="leading" secondItem="1nm-Ky-YXw" secondAttribute="leading" id="h8p-Ib-apC"/>
                             <constraint firstAttribute="trailing" secondItem="LuB-hP-sBP" secondAttribute="trailing" id="wzQ-kz-JLI"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="14"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,7 +146,9 @@
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
                 <outlet property="button" destination="Lw3-BW-ppn" id="V6d-RX-Xle"/>
+                <outlet property="containerView" destination="1nm-Ky-YXw" id="4HL-s8-vpP"/>
                 <outlet property="dateLabel" destination="21R-hB-G31" id="F3M-FD-qre"/>
+                <outlet property="gradientContainer" destination="eHY-Q2-Adb" id="L8G-io-BM9"/>
                 <outlet property="locationLabel" destination="Org-Yd-acz" id="sr4-Ub-ykv"/>
                 <outlet property="timeLabel" destination="RRB-rD-hop" id="3vh-MJ-uJj"/>
                 <outlet property="titleLabel" destination="LlW-QB-tlo" id="Vq7-Ez-BGc"/>
@@ -181,7 +174,6 @@
         </designable>
     </designables>
     <resources>
-        <image name="TraceLocationCode" width="128" height="128"/>
         <namedColor name="ENA Cell Background Color">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -6,6 +6,22 @@ import UIKit
 
 class TraceLocationTableViewCell: UITableViewCell {
 
+	// MARK: - Overrides
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		containerView.layer.cornerRadius = 14
+		if #available(iOS 13.0, *) {
+			containerView.layer.cornerCurve = .continuous
+		}
+
+		gradientContainer.layer.cornerRadius = 14
+		if #available(iOS 13.0, *) {
+			gradientContainer.layer.cornerCurve = .continuous
+		}
+	}
+
 	// MARK: - Internal
 
 	func configure(cellModel: TraceLocationCellModel, onButtonTap: @escaping () -> Void) {
@@ -23,6 +39,8 @@ class TraceLocationTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
+	@IBOutlet private weak var containerView: UIView!
+	@IBOutlet private weak var gradientContainer: UIView!
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var locationLabel: ENALabel!
 	@IBOutlet private weak var timeLabel: ENALabel!
