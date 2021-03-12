@@ -154,23 +154,10 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		view.addSubview(scrollView)
 
 		NSLayoutConstraint.activate([
-			view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-			view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+			view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+			view.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
 			view.topAnchor.constraint(equalTo: scrollView.topAnchor),
 			view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-		])
-
-		let contentView = UIView(frame: .zero)
-		contentView.translatesAutoresizingMaskIntoConstraints = false
-		scrollView.addSubview(contentView)
-
-		NSLayoutConstraint.activate([
-			contentView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-			contentView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-			contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-			contentView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			contentView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-			contentView.widthAnchor.constraint(equalTo: view.widthAnchor)
 		])
 
 		let nameTextField = DiaryEntryTextField(frame: .zero)
@@ -235,12 +222,12 @@ class DiaryAddAndEditEntryViewController: UIViewController, UITextFieldDelegate,
 		stackView.alignment = .fill
 		stackView.axis = .vertical
 		stackView.spacing = 8.0
-		contentView.addSubview(stackView)
+		scrollView.addSubview(stackView)
 
 		NSLayoutConstraint.activate([
-			stackView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-			stackView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 39.0),
+			stackView.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16.0),
+			stackView.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16.0),
+			stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 39.0),
 			nameTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0),
 			phoneNumberTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0),
 			emailTextField.heightAnchor.constraint(greaterThanOrEqualToConstant: 40.0)
