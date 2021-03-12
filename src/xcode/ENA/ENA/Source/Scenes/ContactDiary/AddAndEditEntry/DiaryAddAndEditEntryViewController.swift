@@ -56,6 +56,13 @@ class DiaryAddAndEditEntryViewController: UITableViewController, UITextFieldDele
 		return Row.allCases.count
 	}
 	
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.heightAnchor.constraint(equalToConstant: 30).isActive = true
+		return view
+	}
+
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.identifier, for: indexPath) as? TextFieldCell else {
 			fatalError("No registered cell found")
