@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct TraceWarningDiscovery {
+struct TraceWarningDiscovery: Decodable {
 	let oldest: Int
 	let latest: Int
 	let availablePackagesOnCDN: [Int]

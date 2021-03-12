@@ -343,37 +343,42 @@ final class HTTPClient: Client {
 		session.response(for: request, completion: { result in
 			switch result {
 			case let .success(response):
-				
-				guard let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag") else {
-					return
-				}
-				
-				guard let body = response.body else {
-					Log.error("Failed to unpack response body of trace warning discovery with error code: \(String(response.statusCode))", log: .api)
-					completion(.failure(.invalidResponseError(response.statusCode)))
-					return
-				}
-							
-				do {
-					let decoder = JSONDecoder()
-					let decodedResponse = try decoder.decode(
-						TraceWarningDiscoveryResponse.self,
-						from: body
-					)
-					guard let oldest = decodedResponse.oldest,
-						  let latest = decodedResponse.latest else {
-						Log.error("Failed to get oldest or latest out of decoded response", log: .api)
-						completion(.failure(.decodingJsonError(response.statusCode)))
+				switch response.statusCode {
+				case 200:
+					guard let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag") else {
 						return
 					}
 					
-					let availablePackagesOnCDN = Array(oldest...latest)
-					let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: availablePackagesOnCDN, eTag: eTag)
-					Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
-					completion(.success(traceWarningDiscovery))
-				} catch {
-					Log.error("Failed to decode response json", log: .api)
-					completion(.failure(.decodingJsonError(response.statusCode)))
+					guard let body = response.body else {
+						Log.error("Failed to unpack response body of trace warning discovery with error code: \(String(response.statusCode))", log: .api)
+						completion(.failure(.invalidResponseError(response.statusCode)))
+						return
+					}
+					
+					do {
+						let decoder = JSONDecoder()
+						let decodedResponse = try decoder.decode(
+							TraceWarningDiscoveryResponse.self,
+							from: body
+						)
+						guard let oldest = decodedResponse.oldest,
+							  let latest = decodedResponse.latest else {
+							Log.error("Failed to get oldest or latest out of decoded response", log: .api)
+							completion(.failure(.decodingJsonError(response.statusCode)))
+							return
+						}
+						
+						let availablePackagesOnCDN = Array(oldest...latest)
+						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: availablePackagesOnCDN, eTag: eTag)
+						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
+						completion(.success(traceWarningDiscovery))
+					} catch {
+						Log.error("Failed to decode response json", log: .api)
+						completion(.failure(.decodingJsonError(response.statusCode)))
+					}
+				default:
+					Log.error("Wrong response status code", log: .checkin)
+					completion(.failure(.invalidResponseError(response.statusCode)))
 				}
 			case let .failure(error):
 				Log.error("Error in response body", log: .checkin, error: error)
@@ -385,6 +390,7 @@ final class HTTPClient: Client {
 
 	func traceWarningPackageDownload(
 		country: String,
+		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
 		// url: traceWarningPackageDownloadURL

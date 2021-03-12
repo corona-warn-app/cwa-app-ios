@@ -119,16 +119,17 @@ protocol Client {
 	)
 	
 	// MARK: Event / Check-In (aka traceWarning)
-		
-		func traceWarningPackageDiscovery(
-			country: String,
-			completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
-		)
-
-		func traceWarningPackageDownload(
-			country: String,
-			completion: @escaping TraceWarningPackageDownloadCompletionHandler
-		)
+	
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	)
+	
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	)
 }
 
 enum SubmissionError: Error {

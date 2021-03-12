@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct TraceWarningDiscoveryResponse: Decodable {
+struct TraceWarningDiscoveryResponse: Codable {
 	let oldest: Int?
 	let latest: Int?
 }
