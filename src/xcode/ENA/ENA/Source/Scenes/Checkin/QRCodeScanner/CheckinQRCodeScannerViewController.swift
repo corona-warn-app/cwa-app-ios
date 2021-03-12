@@ -85,7 +85,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		let flashButton = UIButton(type: .custom)
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		flashButton.setImage(UIImage(named: "flash-off"), for: .normal)
+		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
 		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
 		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
