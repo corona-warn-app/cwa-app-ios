@@ -13,7 +13,6 @@ final class HTTPClientTraceWarningPackageDiscovery: XCTestCase {
 	func testGIVEN_Country_WHEN_Success_THEN_TraceWarningDiscoveryIsReturned() throws {
 
 		// GIVEN
-		
 		let oldest = 448520
 		let latest = 448522
 		let jsonEncoder = JSONEncoder()

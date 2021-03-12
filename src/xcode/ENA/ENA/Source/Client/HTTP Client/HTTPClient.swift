@@ -345,12 +345,8 @@ final class HTTPClient: Client {
 			case let .success(response):
 				switch response.statusCode {
 				case 200:
-					guard let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag") else {
-						return
-					}
-					
 					guard let body = response.body else {
-						Log.error("Failed to unpack response body of trace warning discovery with error code: \(String(response.statusCode))", log: .api)
+						Log.error("Failed to unpack response body of trace warning discovery with http status code: \(String(response.statusCode))", log: .api)
 						completion(.failure(.invalidResponseError(response.statusCode)))
 						return
 					}
@@ -369,6 +365,7 @@ final class HTTPClient: Client {
 						}
 						
 						let availablePackagesOnCDN = Array(oldest...latest)
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: availablePackagesOnCDN, eTag: eTag)
 						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))
@@ -377,7 +374,7 @@ final class HTTPClient: Client {
 						completion(.failure(.decodingJsonError(response.statusCode)))
 					}
 				default:
-					Log.error("Wrong response status code", log: .checkin)
+					Log.error("Wrong response with http status code: \(String(response.statusCode))", log: .checkin)
 					completion(.failure(.invalidResponseError(response.statusCode)))
 				}
 			case let .failure(error):
