@@ -109,6 +109,107 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_When_updateTraceLocation_Then_TraceLocationWasUpdated_And_PublisherWasUpdated() throws {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		store.createTraceLocation(makeTraceLocation(guid: "1"))
+
+		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
+
+		let traceLocation = TraceLocation(
+			guid: "1",
+			version: 2,
+			type: .type3,
+			description: "Other description",
+			address: "Other address",
+			startDate: tomorrowDate,
+			endDate: tomorrowDate,
+			defaultCheckInLengthInMinutes: 2,
+			signature: "Other signature"
+		)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.traceLocationsPublisher
+			.dropFirst()
+			.sink { traceLocations in
+				XCTAssertEqual(traceLocations.count, 1)
+
+				let traceLocation = traceLocations[0]
+				XCTAssertEqual(traceLocation.guid, "1")
+				XCTAssertEqual(traceLocation.version, 2)
+				XCTAssertEqual(traceLocation.type, .type3)
+				XCTAssertEqual(traceLocation.description, "Other description")
+				XCTAssertEqual(traceLocation.address, "Other address")
+				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 2)
+				XCTAssertEqual(traceLocation.signature, "Other signature")
+
+				guard let startDate2 = traceLocation.startDate else {
+					XCTFail("Nil for startDate2 not expected.")
+					return
+				}
+				guard let endDate2 = traceLocation.endDate else {
+					XCTFail("Nil for endDate2 not expected.")
+					return
+				}
+				XCTAssertEqual(Int(startDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(endDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.updateTraceLocation(traceLocation)
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func test_When_updateTraceLocationWithNilValues_Then_TraceLocationWasUpdated_And_PublisherWasUpdated() throws {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		store.createTraceLocation(makeTraceLocation(guid: "1"))
+
+		let traceLocation = TraceLocation(
+			guid: "1",
+			version: 2,
+			type: .type3,
+			description: "Other description",
+			address: "Other address",
+			startDate: nil,
+			endDate: nil,
+			defaultCheckInLengthInMinutes: nil,
+			signature: "Other signature"
+		)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.traceLocationsPublisher
+			.dropFirst()
+			.sink { traceLocations in
+				XCTAssertEqual(traceLocations.count, 1)
+
+				let traceLocation = traceLocations[0]
+				XCTAssertEqual(traceLocation.guid, "1")
+				XCTAssertEqual(traceLocation.version, 2)
+				XCTAssertEqual(traceLocation.type, .type3)
+				XCTAssertEqual(traceLocation.description, "Other description")
+				XCTAssertEqual(traceLocation.address, "Other address")
+				XCTAssertEqual(traceLocation.signature, "Other signature")
+				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
+				XCTAssertNil(traceLocation.startDate)
+				XCTAssertNil(traceLocation.endDate)
+
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.updateTraceLocation(traceLocation)
+
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_deleteTraceLocation_Then_TraceLocationWasDeleted_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 
@@ -284,6 +385,139 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_When_updateCheckin_Then_CheckinWasUpdated_And_PublisherWasUpdated() throws {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		store.createCheckin(makeCheckin(id: 1))
+
+		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
+
+		let checkin = Checkin(
+			id: 1,
+			traceLocationGUID: "OtherGUID",
+			traceLocationVersion: 2,
+			traceLocationType: .type3,
+			traceLocationDescription: "Other description",
+			traceLocationAddress: "Other address",
+			traceLocationStartDate: tomorrowDate,
+			traceLocationEndDate: tomorrowDate,
+			traceLocationDefaultCheckInLengthInMinutes: 1,
+			traceLocationSignature: "Other signature",
+			checkinStartDate: tomorrowDate,
+			checkinEndDate: tomorrowDate,
+			targetCheckinEndDate: tomorrowDate,
+			createJournalEntry: false
+		)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.checkinsPublisher
+			.dropFirst()
+			.sink { checkins in
+				XCTAssertEqual(checkins.count, 1)
+
+				let checkin = checkins[0]
+				XCTAssertEqual(checkin.id, 1)
+				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
+				XCTAssertEqual(checkin.traceLocationVersion, 2)
+				XCTAssertEqual(checkin.traceLocationType, .type3)
+				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
+				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
+				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
+				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
+				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertFalse(checkin.createJournalEntry)
+
+				guard let traceLocationStartDate2 = checkin.traceLocationStartDate else {
+					XCTFail("Nil for traceLocationStartDate2 not expected.")
+					return
+				}
+				guard let traceLocationEndDate2 = checkin.traceLocationEndDate else {
+					XCTFail("Nil for traceLocationEndDate2 not expected.")
+					return
+				}
+				guard let checkinEndDate2 = checkin.checkinEndDate else {
+					XCTFail("Nil for checkinEndDate not expected.")
+					return
+				}
+				guard let targetCheckinEndDate2 = checkin.targetCheckinEndDate else {
+					XCTFail("Nil for targetCheckinEndDate not expected.")
+					return
+				}
+
+				XCTAssertEqual(Int(traceLocationStartDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(traceLocationEndDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(checkinEndDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(targetCheckinEndDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.updateCheckin(checkin)
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func test_When_updateCheckinWithNilValues_Then_CheckinWasUpdated_And_PublisherWasUpdated() throws {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		store.createCheckin(makeCheckin(id: 1))
+
+		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
+
+		let checkin = Checkin(
+			id: 1,
+			traceLocationGUID: "OtherGUID",
+			traceLocationVersion: 2,
+			traceLocationType: .type3,
+			traceLocationDescription: "Other description",
+			traceLocationAddress: "Other address",
+			traceLocationStartDate: nil,
+			traceLocationEndDate: nil,
+			traceLocationDefaultCheckInLengthInMinutes: nil,
+			traceLocationSignature: "Other signature",
+			checkinStartDate: tomorrowDate,
+			checkinEndDate: nil,
+			targetCheckinEndDate: nil,
+			createJournalEntry: false
+		)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.checkinsPublisher
+			.dropFirst()
+			.sink { checkins in
+				XCTAssertEqual(checkins.count, 1)
+
+				let checkin = checkins[0]
+				XCTAssertEqual(checkin.id, 1)
+				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
+				XCTAssertEqual(checkin.traceLocationVersion, 2)
+				XCTAssertEqual(checkin.traceLocationType, .type3)
+				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
+				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
+				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
+				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertFalse(checkin.createJournalEntry)
+
+				XCTAssertNil(checkin.traceLocationDefaultCheckInLengthInMinutes)
+				XCTAssertNil(checkin.traceLocationStartDate)
+				XCTAssertNil(checkin.traceLocationEndDate)
+				XCTAssertNil(checkin.checkinEndDate)
+				XCTAssertNil(checkin.targetCheckinEndDate)
+
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.updateCheckin(checkin)
+
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_deleteCheckin_Then_CheckinWasDeleted_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 
@@ -324,38 +558,6 @@ class EventStoreTests: XCTestCase {
 			.store(in: &subscriptions)
 
 		store.deleteAllCheckins()
-
-		waitForExpectations(timeout: .medium)
-	}
-
-	func test_When_updateCheckin_Then_CheckinWereUpdated_And_PublisherWasUpdated() throws {
-		let store = makeStore(with: makeDatabaseQueue())
-
-		store.createCheckin(makeCheckin(id: 1))
-
-		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
-
-		let sinkExpectation = expectation(description: "Sink is called once.")
-		sinkExpectation.expectedFulfillmentCount = 1
-
-		store.checkinsPublisher
-			.dropFirst()
-			.sink { checkins in
-				XCTAssertEqual(checkins.count, 1)
-
-				let checkin = checkins[0]
-				guard let checkinEndDate = checkin.checkinEndDate else {
-					XCTFail("Nil for checkinEndDate not expected.")
-					return
-				}
-				XCTAssertEqual(Int(checkinEndDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
-				XCTAssertTrue(checkin.createJournalEntry)
-
-				sinkExpectation.fulfill()
-			}
-			.store(in: &subscriptions)
-
-		store.updateCheckin(id: 1, endDate: tomorrowDate)
 
 		waitForExpectations(timeout: .medium)
 	}

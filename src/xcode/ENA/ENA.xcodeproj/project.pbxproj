@@ -534,6 +534,7 @@
 		AB190EB725FB72F600FBFF0D /* CreateTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EB625FB72F600FBFF0D /* CreateTraceWarningPackageMetadataQuery.swift */; };
 		AB190EBC25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EBB25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift */; };
 		AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EC025FB761500FBFF0D /* SecureSQLStore.swift */; };
+		AB190ECF25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */; };
 		AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */; };
 		AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */; };
 		AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */; };
@@ -1445,6 +1446,7 @@
 		AB190EB625FB72F600FBFF0D /* CreateTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB190EBB25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		AB190EC025FB761500FBFF0D /* SecureSQLStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureSQLStore.swift; sourceTree = "<group>"; };
+		AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTraceLocationQuery.swift; sourceTree = "<group>"; };
 		AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewController.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestServerEnvironments.json; sourceTree = "<group>"; };
@@ -3580,6 +3582,7 @@
 				AB190E7725FB5CE800FBFF0D /* CreateTraceLocationQuery.swift */,
 				AB190E8825FB608100FBFF0D /* DeleteTraceLocationQuery.swift */,
 				AB190E8D25FB62F200FBFF0D /* DeleteAllTraceLocationsQuery.swift */,
+				AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */,
 			);
 			path = TraceLocation;
 			sourceTree = "<group>";
@@ -5461,6 +5464,7 @@
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
 				500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
+				AB190ECF25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift in Sources */,
 				2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */,
 				BAEB174025E561120012FEF9 /* FooterViewController.swift in Sources */,
 				52CAAC012562B82E00239DCB /* DynamicTableViewConsentCell.swift in Sources */,

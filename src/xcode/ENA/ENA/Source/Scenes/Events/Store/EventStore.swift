@@ -71,6 +71,25 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
+	func updateTraceLocation(_ traceLocation: TraceLocation) -> Result<Void, SecureSQLStoreError> {
+
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Update TraceLocation with id: \(traceLocation.guid).", log: .localData)
+
+			let updateTraceLocationQuery = UpdateTraceLocationQuery(traceLocation: traceLocation, maxTextLength: maxTextLength)
+			result = executeTraceLocationQuery(updateTraceLocationQuery, in: database)
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
+	@discardableResult
 	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
 		var result: SecureSQLStore.VoidResult?
 
@@ -132,6 +151,24 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
+	func updateCheckin(_ checkin: Checkin) -> Result<Void, SecureSQLStoreError> {
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Update Checkin with id: \(checkin.id).", log: .localData)
+
+			let updateCheckinQuery = UpdateCheckinQuery(checkin: checkin, maxTextLength: maxTextLength)
+			result = executeCheckinQuery(updateCheckinQuery, in: database)
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
+	@discardableResult
 	func deleteCheckin(id: Int) -> SecureSQLStore.VoidResult {
 		var result: SecureSQLStore.VoidResult?
 
@@ -158,24 +195,6 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 			let deleteCheckinsQuery = DeleteCheckinsQuery()
 			result = executeCheckinQuery(deleteCheckinsQuery, in: database)
-		}
-
-		guard let _result = result else {
-			fatalError("[EventStore] Result should not be nil.")
-		}
-
-		return _result
-	}
-
-	@discardableResult
-	func updateCheckin(id: Int, endDate: Date) -> SecureSQLStore.VoidResult {
-		var result: SecureSQLStore.VoidResult?
-
-		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Update checkinEndDate to \(endDate) for Checkin with id: \(id).", log: .localData)
-
-			let updateCheckinQuery = UpdateCheckinQuery(id: id, endDate: endDate)
-			result = executeCheckinQuery(updateCheckinQuery, in: database)
 		}
 
 		guard let _result = result else {
@@ -271,55 +290,8 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		return _result
 	}
 
-	// MARK: - Protocol EventProviding
-
-	private(set) var traceLocationsPublisher = CurrentValueSubject<[TraceLocation], Never>([])
-	private(set) var checkinsPublisher = CurrentValueSubject<[Checkin], Never>([])
-	private(set) var traceTimeIntervalMatchesPublisher = OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never>([])
-	private(set) var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
-
-	// MARK: - Private
-
-	private let maxTextLength = 100
-
-	private func registerToDidBecomeActiveNotification() {
-		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
-	}
-
-	@objc
-	private func didBecomeActiveNotification(_ notification: Notification) {
-		cleanup()
-	}
-
-	private func updatePublishers() -> SecureSQLStore.VoidResult {
-		var result: SecureSQLStore.VoidResult?
-
-		databaseQueue.inDatabase { database in
-			let ckeckinsResult = updateCheckins(with: database)
-			let traceLocationsResult = updateTraceLocations(with: database)
-			let traceWarningPackageMetadata = updateTraceWarningPackageMetadata(with: database)
-			let traceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
-
-			guard case .success = ckeckinsResult,
-				  case .success = traceLocationsResult,
-				  case .success = traceWarningPackageMetadata,
-				  case .success = traceTimeIntervalMatchesResult else {
-				logLastErrorCode(from: database)
-				result = .failure(dbError(from: database))
-				return
-			}
-
-			result = .success(())
-		}
-
-		guard let _result = result else {
-			fatalError("[EventStore] Result should not be nil.")
-		}
-		return _result
-	}
-
 	@discardableResult
-	private func cleanup() -> SecureSQLStore.VoidResult {
+	func cleanup() -> SecureSQLStore.VoidResult {
 		var result: SecureSQLStore.VoidResult = .success(())
 
 		databaseQueue.inDatabase { database in
@@ -375,6 +347,95 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		}
 
 		return result
+	}
+
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult {
+		let group = DispatchGroup()
+		var result: SecureSQLStore.VoidResult?
+
+		group.enter()
+		DispatchQueue.global().async {
+			result = self.cleanup()
+			group.leave()
+		}
+
+		guard group.wait(timeout: DispatchTime.now() + timeout) == .success else {
+			databaseQueue.interrupt()
+			return .failure(.timeout)
+		}
+
+		guard let _result = result else {
+			fatalError("Nil result from cleanup is not expected.")
+		}
+		return _result
+	}
+
+	@discardableResult
+	func reset() -> SecureSQLStore.VoidResult {
+		let dropTablesResult = dropTables()
+		if case let .failure(error) = dropTablesResult {
+			return .failure(error)
+		}
+
+		let openAndSetupResult = openAndSetup()
+		if case .failure = openAndSetupResult {
+			return openAndSetupResult
+		}
+
+		let updatePublishersResult = updatePublishers()
+		if case .failure(let error) = updatePublishersResult {
+			return .failure(error)
+		}
+
+		return .success(())
+	}
+
+	// MARK: - Protocol EventProviding
+
+	private(set) var traceLocationsPublisher = CurrentValueSubject<[TraceLocation], Never>([])
+	private(set) var checkinsPublisher = CurrentValueSubject<[Checkin], Never>([])
+	private(set) var traceTimeIntervalMatchesPublisher = OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never>([])
+	private(set) var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
+
+	// MARK: - Private
+
+	private let maxTextLength = 100
+
+	private func registerToDidBecomeActiveNotification() {
+		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	@objc
+	private func didBecomeActiveNotification(_ notification: Notification) {
+		cleanup()
+	}
+
+	private func updatePublishers() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			let ckeckinsResult = updateCheckins(with: database)
+			let traceLocationsResult = updateTraceLocations(with: database)
+			let traceWarningPackageMetadata = updateTraceWarningPackageMetadata(with: database)
+			let traceTimeIntervalMatchesResult = updateTraceTimeIntervalMatches(with: database)
+
+			guard case .success = ckeckinsResult,
+				  case .success = traceLocationsResult,
+				  case .success = traceWarningPackageMetadata,
+				  case .success = traceTimeIntervalMatchesResult else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+		return _result
 	}
 
 	@discardableResult
@@ -671,6 +732,35 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		}
 
 		return .success(())
+	}
+
+	private func dropTables() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			let sql = """
+					PRAGMA journal_mode=OFF;
+					DROP TABLE Checkin;
+					DROP TABLE TraceLocation;
+					DROP TABLE TraceTimeIntervalMatch;
+					DROP TABLE TraceWarningPackageMetadata;
+					VACUUM;
+				"""
+
+			guard database.executeStatements(sql) else {
+				logLastErrorCode(from: database)
+				result = .failure(dbError(from: database))
+				return
+			}
+			database.userVersion = 0
+			result = .success(())
+		}
+
+		guard let _result = result else {
+			fatalError("[ContactDiaryStore] Result should not be nil.")
+		}
+
+		return _result
 	}
 
 	// swiftlint:disable:next file_length

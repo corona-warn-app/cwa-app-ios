@@ -12,6 +12,9 @@ protocol EventStoring {
 	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
 
 	@discardableResult
+	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
+
+	@discardableResult
 	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult
 
 	@discardableResult
@@ -21,10 +24,7 @@ protocol EventStoring {
 	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult
 
 	@discardableResult
-	func updateCheckin(
-		id: Int,
-		endDate: Date
-	) -> SecureSQLStore.VoidResult
+	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult
 
 	@discardableResult
 	func deleteCheckin(id: Int) -> SecureSQLStore.VoidResult
@@ -43,6 +43,15 @@ protocol EventStoring {
 
 	@discardableResult
 	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult
+
+	@discardableResult
+	func cleanup() -> SecureSQLStore.VoidResult
+
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult
+	
+	@discardableResult
+	func reset() -> SecureSQLStore.VoidResult
 }
 
 protocol EventProviding {
