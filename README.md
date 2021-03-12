@@ -22,8 +22,7 @@
 </p>
 
 The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **native iOS implementation** of the Corona-Warn-App.
-
-![Figure 1: UI Screens for Apple iOS](https://github.com/corona-warn-app/cwa-documentation/blob/master/images/ui_screens/ui_screens_ios.png "Figure 1: UI Screens for Apple iOS")
+**Visit our [FAQ page](https://www.coronawarn.app/en/faq/) for more information and common issues.**
 
 ## Development
 
