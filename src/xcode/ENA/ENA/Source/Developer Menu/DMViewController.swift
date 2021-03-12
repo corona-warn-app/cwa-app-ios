@@ -160,8 +160,6 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
-		case .traceWarningCalls:
-			vc = DMTraceWarningDownloadTriggerViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		}
 
 		if let vc = vc {
