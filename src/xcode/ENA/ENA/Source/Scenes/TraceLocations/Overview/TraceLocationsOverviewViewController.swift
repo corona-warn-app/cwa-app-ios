@@ -58,6 +58,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 		super.setEditing(editing, animated: animated)
 
 		updateRightBarButtonItem()
+		addEntryCellModel.setEnabled(!editing)
 		
 		let newState: FooterViewModel.VisibleButtons = editing ? .primary : .none
 		(parent as? FooterViewUpdating)?.update(to: newState)
@@ -150,6 +151,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	private var subscriptions = [AnyCancellable]()
 
 	private var shouldReload = true
+	private var addEntryCellModel = AddTraceLocationCellModel()
 
 	private func setupTableView() {
 		tableView.register(
@@ -201,8 +203,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 			fatalError("Could not dequeue DiaryDayAddTableViewCell")
 		}
 
-		let cellModel = AddTraceLocationCellModel()
-		cell.configure(cellModel: cellModel)
+		cell.configure(cellModel: addEntryCellModel)
 
 		return cell
 	}
