@@ -563,11 +563,14 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
 
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField].typeText(personName)
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].tap()
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].typeText(phoneNumber)
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].tap()
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].typeText(eMail)
+		let table = app.tables.firstMatch
+		
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField].tap()
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField].typeText(personName)
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].tap()
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].typeText(phoneNumber)
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].tap()
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].typeText(eMail)
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
@@ -579,11 +582,14 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 0).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
 
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField].typeText(locationName)
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].tap()
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].typeText(phoneNumber)
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].tap()
-		app.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].typeText(eMail)
+		let table = app.tables.firstMatch
+		
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField].tap()
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.nameTextField].typeText(locationName)
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].tap()
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.phoneNumberTextField].typeText(phoneNumber)
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].tap()
+		table.cells.textFields[AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.eMailTextField].typeText(eMail)
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
