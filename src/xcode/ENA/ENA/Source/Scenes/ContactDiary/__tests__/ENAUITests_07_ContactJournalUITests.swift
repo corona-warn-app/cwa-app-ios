@@ -93,7 +93,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		personsTableView.cells.firstMatch.tap()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_PersonTitle"))
-		app.textFields.firstMatch.typeText("-Müller")
+		let textField = app.tables.firstMatch.cells.textFields.firstMatch
+		textField.tap()
+		textField.typeText("-Müller")
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
