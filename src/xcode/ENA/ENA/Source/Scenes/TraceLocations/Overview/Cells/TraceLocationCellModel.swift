@@ -10,6 +10,7 @@ protocol EventCellModel {
 	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
 	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
 	var durationPublisher: OpenCombine.Published<String?>.Publisher { get }
+	var timePublisher: OpenCombine.Published<String?>.Publisher { get }
 
 	var isActiveIconHidden: Bool { get }
 	var isDurationStackViewHidden: Bool { get }
@@ -18,7 +19,6 @@ protocol EventCellModel {
 
 	var title: String { get }
 	var address: String { get }
-	var time: String { get }
 
 	var buttonTitle: String { get }
 
@@ -30,6 +30,9 @@ class TraceLocationCellModel: EventCellModel {
 
 	init(traceLocation: TraceLocation) {
 		self.traceLocation = traceLocation
+
+		updateForActiveState()
+		scheduleUpdateTimer()
 	}
 
 	// MARK: - Internal
@@ -37,6 +40,7 @@ class TraceLocationCellModel: EventCellModel {
 	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isInactiveIconHidden }
 	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isActiveContainerViewHidden }
 	var durationPublisher: OpenCombine.Published<String?>.Publisher { $duration }
+	var timePublisher: OpenCombine.Published<String?>.Publisher { $time }
 
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true
@@ -57,14 +61,6 @@ class TraceLocationCellModel: EventCellModel {
 		traceLocation.address
 	}
 
-	var time: String {
-		let dateFormatter = DateIntervalFormatter()
-		dateFormatter.dateStyle = .none
-		dateFormatter.timeStyle = .short
-
-		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
-	}
-
 	var buttonTitle: String = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
 
 	// MARK: - Private
@@ -74,6 +70,45 @@ class TraceLocationCellModel: EventCellModel {
 	@OpenCombine.Published private var isInactiveIconHidden: Bool = true
 	@OpenCombine.Published private var isActiveContainerViewHidden: Bool = true
 	@OpenCombine.Published private var duration: String?
+	@OpenCombine.Published private var time: String?
+
+	private var updateTimer: Timer?
+
+	@objc
+	private func updateForActiveState() {
+		isInactiveIconHidden = traceLocation.isActive
+		isActiveContainerViewHidden = !traceLocation.isActive
+
+		let dateFormatter = DateIntervalFormatter()
+		dateFormatter.dateStyle = traceLocation.isActive ? .none : .short
+		dateFormatter.timeStyle = .short
+
+		time = dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+	}
+
+	private func scheduleUpdateTimer() {
+		updateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		// Schedule new countdown.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		updateTimer = Timer(fireAt: traceLocation.endDate, interval: 0, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: false)
+		guard let updateTimer = updateTimer else { return }
+		RunLoop.current.add(updateTimer, forMode: .common)
+	}
+
+	@objc
+	private func invalidateUpdatedTimer() {
+		updateTimer?.invalidate()
+	}
+
+	@objc
+	private func refreshUpdateTimerAfterResumingFromBackground() {
+		scheduleUpdateTimer()
+	}
     
 }
 

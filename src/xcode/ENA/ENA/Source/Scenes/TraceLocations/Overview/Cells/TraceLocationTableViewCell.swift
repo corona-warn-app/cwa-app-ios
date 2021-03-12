@@ -41,12 +41,15 @@ class TraceLocationTableViewCell: UITableViewCell {
 			.assign(to: \.text, on: durationLabel)
 			.store(in: &subscriptions)
 
+		cellModel.timePublisher
+			.assign(to: \.text, on: timeLabel)
+			.store(in: &subscriptions)
+
 		activeIconImageView.isHidden = cellModel.isActiveIconHidden
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
 		addressLabel.text = cellModel.address
-		timeLabel.text = cellModel.time
 		dateLabel.text = cellModel.date
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
