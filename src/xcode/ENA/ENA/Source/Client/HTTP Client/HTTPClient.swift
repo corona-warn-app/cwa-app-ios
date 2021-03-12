@@ -369,7 +369,7 @@ final class HTTPClient: Client {
 					
 					let availablePackagesOnCDN = Array(oldest...latest)
 					let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: availablePackagesOnCDN, eTag: eTag)
-
+					Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
 					completion(.success(traceWarningDiscovery))
 				} catch {
 					Log.error("Failed to decode response json", log: .api)
