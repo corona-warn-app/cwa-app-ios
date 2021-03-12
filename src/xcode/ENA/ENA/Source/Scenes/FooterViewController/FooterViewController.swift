@@ -5,6 +5,15 @@
 import UIKit
 import OpenCombine
 
+/**
+	If the ViewController and the FooterViewController are composed inside a TopBottomContainer,
+	ViewController that implement this protocol get called if a button gets tapped in the footerViewController
+*/
+protocol FooterViewHandling {
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType)
+}
+
+
 class FooterViewController: UIViewController {
 
 	// MARK: - Init
@@ -109,11 +118,19 @@ class FooterViewController: UIViewController {
 
 	@objc
 	private func didHitPrimaryButton() {
-		didTapPrimaryButton()
+		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
+			didTapPrimaryButton()
+			return
+		}
+		footerViewHandler.didTapFooterViewButton(.primary)
 	}
 
 	@objc
 	private func didHitSecondaryButton() {
-		didTapSecondaryButton()
+		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
+			didTapPrimaryButton()
+			return
+		}
+		footerViewHandler.didTapFooterViewButton(.secondary)
 	}
 }

@@ -5,13 +5,14 @@
 import UIKit
 import OpenCombine
 
-protocol FooterViewModelUpdating {
-	func update(to state: FooterViewModel.ButtonsVisible)
+protocol FooterViewUpdating {
+	var footerViewHandler: FooterViewHandling? { get }
+	func update(to state: FooterViewModel.VisibleButtons)
 }
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewModelUpdating {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewUpdating {
 
 	// MARK: - Init
 
@@ -86,9 +87,13 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		dismissHandler.wasAttemptedToBeDismissed()
 	}
 
-	// MARK: Protocol FooterViewModelUpdating
+	// MARK: Protocol FooterViewUpdating
 
-	func update(to state: FooterViewModel.ButtonsVisible) {
+	var footerViewHandler: FooterViewHandling? {
+		return topViewController as? FooterViewHandling
+	}
+
+	func update(to state: FooterViewModel.VisibleButtons) {
 		footerViewModel?.update(to: state)
 	}
 	

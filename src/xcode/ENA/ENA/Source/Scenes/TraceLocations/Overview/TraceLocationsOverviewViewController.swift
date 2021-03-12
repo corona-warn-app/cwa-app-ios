@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationsOverviewViewController: UITableViewController {
+class TraceLocationsOverviewViewController: UITableViewController, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -59,8 +59,16 @@ class TraceLocationsOverviewViewController: UITableViewController {
 
 		updateRightBarButtonItem()
 		
-		let newState: FooterViewModel.ButtonsVisible = editing ? .primary : .none
-		(parent as? FooterViewModelUpdating)?.update(to: newState)
+		let newState: FooterViewModel.VisibleButtons = editing ? .primary : .none
+		(parent as? FooterViewUpdating)?.update(to: newState)
+	}
+
+	// MARK: - FooterViewHandling
+
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		if case let .primary = type {
+			Log.debug("did hit primary button - here")
+		}
 	}
 
 	// MARK: - Protocol UITableViewDataSource

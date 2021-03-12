@@ -33,10 +33,15 @@ final class FooterViewModel {
 	// MARK: - Internal
 
 	// state where primary is hidden and secondary is show not supported at the moment
-	enum ButtonsVisible {
+	enum VisibleButtons {
 		case both
 		case primary
 		case none
+	}
+
+	enum ButtonType {
+		case primary
+		case secondary
 	}
 
 	let buttonHeight: CGFloat = 50.0
@@ -57,7 +62,7 @@ final class FooterViewModel {
 	var isPrimaryButtonEnabled: Bool
 	var isSecondaryButtonEnabled: Bool
 
-	func update(to state: ButtonsVisible) {
+	func update(to state: VisibleButtons) {
 		switch state {
 		case .both:
 			self.isPrimaryButtonHidden = false
@@ -69,8 +74,6 @@ final class FooterViewModel {
 			self.isPrimaryButtonHidden = true
 			self.isSecondaryButtonHidden = true
 		}
-//		self.isPrimaryButtonHidden = isPrimaryButtonHidden ?? self.isPrimaryButtonHidden
-//		self.isSecondaryButtonHidden = isSecondaryButtonHidden ?? self.isSecondaryButtonHidden
 		updateHeight()
 	}
 
