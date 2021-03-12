@@ -5,25 +5,27 @@
 import UIKit
 import OpenCombine
 
-protocol FootViewProviding {
-	var footerViewModel: FooterViewModel { get }
+protocol FooterViewModelUpdating {
+	func update(to state: FooterViewModel.ButtonsVisible)
 }
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FootViewProviding {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewModelUpdating {
 
 	// MARK: - Init
 
 	init(
 		topController: TopViewController,
-		bottomController: BottomViewController,
-		viewModel: FooterViewModel
+		bottomController: BottomViewController
 	) {
 		self.topViewController = topController
 		self.bottomViewController = bottomController
-		self.initialHeight = viewModel.height
-		self.footerViewModel = viewModel
+
+		// the the bottom view controller is FooterViewController we use it's viewModel here as well
+		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
+		self.initialHeight = footerViewModel?.height ?? 0.0
+
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -69,7 +71,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		topViewController.didMove(toParent: self)
 		bottomViewController.didMove(toParent: self)
 
-		footerViewModel.$height.sink { [weak self] height in
+		footerViewModel?.$height.sink { [weak self] height in
 			self?.updateBottomHeight(height, animated: true)
 		}
 		.store(in: &subscriptions)
@@ -84,11 +86,17 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		dismissHandler.wasAttemptedToBeDismissed()
 	}
 
+	// MARK: Protocol FooterViewModelUpdating
+
+	func update(to state: FooterViewModel.ButtonsVisible) {
+		footerViewModel?.update(to: state)
+	}
+	
 	// MARK: - Public
 
 	// MARK: - Internal
 
-	private (set) var footerViewModel: FooterViewModel
+	private (set) var footerViewModel: FooterViewModel?
 
 	// MARK: - Private
 

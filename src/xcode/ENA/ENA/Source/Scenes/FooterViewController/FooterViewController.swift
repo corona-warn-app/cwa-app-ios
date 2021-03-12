@@ -73,9 +73,12 @@ class FooterViewController: UIViewController {
 		.store(in: &subscription)
 	}
 
+	// MARK: - Internal
+
+	let viewModel: FooterViewModel
+
 	// MARK: - Private
 
-	private let viewModel: FooterViewModel
 	private let didTapPrimaryButton: () -> Void
 	private let didTapSecondaryButton: () -> Void
 

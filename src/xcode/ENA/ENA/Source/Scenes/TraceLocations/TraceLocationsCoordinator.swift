@@ -64,14 +64,6 @@ class TraceLocationsCoordinator {
 
 	private lazy var overviewScreen: UIViewController = {
 
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
-			isSecondaryButtonEnabled: false,
-			isPrimaryButtonHidden: true,
-			isSecondaryButtonHidden: true,
-			primaryButtonColor: .red
-		)
-
 		let traceLocationsOverviewViewController = TraceLocationsOverviewViewController(
 			viewModel: TraceLocationsOverviewViewModel(
 				store: eventStore,
@@ -91,7 +83,13 @@ class TraceLocationsCoordinator {
 		)
 
 		let footerViewController = FooterViewController(
-			footerViewModel,
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: true,
+				isSecondaryButtonHidden: true,
+				primaryButtonColor: .red
+			),
 			didTapPrimaryButton: {
 				Log.debug("NYD - tap delete all button")
 			}
@@ -99,8 +97,7 @@ class TraceLocationsCoordinator {
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationsOverviewViewController,
-			bottomController: footerViewController,
-			viewModel: footerViewModel
+			bottomController: footerViewController
 		)
 
 		return topBottomContainerViewController
@@ -125,14 +122,12 @@ class TraceLocationsCoordinator {
 			}
 		)
 
-		let footerViewModel = FooterViewModel(
-			primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
-			isSecondaryButtonEnabled: false,
-			isSecondaryButtonHidden: true
-		)
-
 		let footerViewController = FooterViewController(
-			footerViewModel,
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			),
 			didTapPrimaryButton: {
 				navigationController.dismiss(animated: true)
 			}
@@ -140,8 +135,7 @@ class TraceLocationsCoordinator {
 
 		let topBottomLayoutViewController = TopBottomContainerViewController(
 			topController: traceLocationsInfoViewController,
-			bottomController: footerViewController,
-			viewModel: footerViewModel
+			bottomController: footerViewController
 		)
 		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
 		

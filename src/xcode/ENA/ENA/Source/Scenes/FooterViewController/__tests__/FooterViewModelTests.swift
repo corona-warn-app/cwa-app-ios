@@ -38,13 +38,13 @@ class FooterViewModelTests: XCTestCase {
 		// WHEN
 		let initialHeight = viewModel.height
 
-		viewModel.update(isPrimaryButtonHidden: false)
+		viewModel.update(to: .primary)
 		let primaryOnlyVisible = viewModel.height
 
-		viewModel.update(isSecondaryButtonHidden: false)
+		viewModel.update(to: .both)
 		let bothVisible = viewModel.height
 
-		viewModel.update(isPrimaryButtonHidden: true, isSecondaryButtonHidden: true)
+		viewModel.update(to: .none)
 		let bothHidden = viewModel.height
 
 		// THEN
