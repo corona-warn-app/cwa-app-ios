@@ -74,6 +74,7 @@ class FooterViewController: UIViewController {
 		])
 
 		// hide and show buttons by alpha to make it animatable
+
 		viewModel.$height
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { height in
@@ -89,7 +90,8 @@ class FooterViewController: UIViewController {
 			}
 			.store(in: &subscription)
 
-		// update loading indicators
+		// update loading indicators on model change
+
 		viewModel.$isPrimaryLoading
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] show in
@@ -103,6 +105,23 @@ class FooterViewController: UIViewController {
 				self?.secondaryButton.isLoading = show
 			}
 			.store(in: &subscription)
+
+		// update enabled state on model change
+
+		viewModel.$isPrimaryButtonEnabled
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] isEnabled in
+				self?.primaryButton.isEnabled = isEnabled
+			}
+			.store(in: &subscription)
+
+		viewModel.$isSecondaryButtonEnabled
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] isEnabled in
+				self?.secondaryButton.isEnabled = isEnabled
+			}
+			.store(in: &subscription)
+
 	}
 
 	// MARK: - Internal

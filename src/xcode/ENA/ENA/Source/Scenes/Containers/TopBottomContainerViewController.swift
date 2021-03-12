@@ -8,7 +8,7 @@ import OpenCombine
 protocol FooterViewUpdating {
 	var footerViewHandler: FooterViewHandling? { get }
 	func update(to state: FooterViewModel.VisibleButtons)
-	func setLoadingIndicator(show: Bool, button: FooterViewModel.ButtonType)
+	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
 }
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom */
@@ -98,8 +98,8 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		footerViewModel?.update(to: state)
 	}
 
-	func setLoadingIndicator(show: Bool, button: FooterViewModel.ButtonType) {
-		footerViewModel?.setLoadingIndicator(show: show, button: button)
+	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
+		footerViewModel?.setLoadingIndicator(show, disable: disable, button: button)
 	}
 
 	// MARK: - Public

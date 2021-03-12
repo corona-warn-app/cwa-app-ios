@@ -60,6 +60,8 @@ final class FooterViewModel {
 	@OpenCombine.Published private(set) var height: CGFloat = 0.0
 	@OpenCombine.Published private(set) var isPrimaryLoading: Bool = false
 	@OpenCombine.Published private(set) var isSecondaryLoading: Bool = false
+	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
+	@OpenCombine.Published private(set) var isSecondaryButtonEnabled: Bool
 
 	private(set) var isPrimaryButtonHidden: Bool
 	private(set) var isSecondaryButtonHidden: Bool
@@ -67,8 +69,6 @@ final class FooterViewModel {
 	var primaryButtonName: String?
 	var secondaryButtonName: String?
 
-	var isPrimaryButtonEnabled: Bool
-	var isSecondaryButtonEnabled: Bool
 
 	func update(to state: VisibleButtons) {
 		switch state {
@@ -85,12 +85,14 @@ final class FooterViewModel {
 		updateHeight()
 	}
 
-	func setLoadingIndicator(show: Bool, button: FooterViewModel.ButtonType) {
+	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
 		switch button {
 		case .primary:
 			isPrimaryLoading = show
+			isPrimaryButtonEnabled = !disable
 		case .secondary:
 			isSecondaryLoading = show
+			isSecondaryButtonEnabled = !disable
 		}
 	}
 
