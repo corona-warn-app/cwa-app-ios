@@ -183,7 +183,8 @@ final class OnboardingInfoViewController: UIViewController {
 					dataDonationViewModel.save(consentGiven: false)
 					self?.finishOnBoarding()
 				}),
-			bottomHeight: 140.0)
+			viewModel: footerViewModel
+		)
 		
 		navigationController?.pushViewController(containerViewController, animated: true)
 	}

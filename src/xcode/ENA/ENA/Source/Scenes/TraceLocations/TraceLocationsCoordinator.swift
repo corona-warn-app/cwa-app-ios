@@ -21,6 +21,10 @@ class TraceLocationsCoordinator {
 	// MARK: - Internal
 
 	func start() {
+
+//		let testViewController = UITableViewController()
+//		testViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Test", style: .plain, target: self, action: nil)
+//		parentNavigationController?.pushViewController(testViewController, animated: true)
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
 		eventStore.createTraceLocation(TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1616432400), endDate: Date(timeIntervalSince1970: 1616443200), defaultCheckInLengthInMinutes: 30, signature: ""))
@@ -56,8 +60,16 @@ class TraceLocationsCoordinator {
 
 	// MARK: Show Screens
 
-	private lazy var overviewScreen: TraceLocationsOverviewViewController = {
-		return TraceLocationsOverviewViewController(
+	private lazy var overviewScreen: UIViewController = {
+
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+			isSecondaryButtonEnabled: false,
+			isPrimaryButtonHidden: true,
+			isSecondaryButtonHidden: true
+		)
+
+		let traceLocationsOverviewViewController = TraceLocationsOverviewViewController(
 			viewModel: TraceLocationsOverviewViewModel(
 				store: eventStore,
 				onAddEntryCellTap: { [weak self] in
@@ -74,6 +86,21 @@ class TraceLocationsCoordinator {
 				self?.showInfoScreen()
 			}
 		)
+
+		let footerViewController = FooterViewController(
+			footerViewModel,
+			didTapPrimaryButton: {
+				Log.debug("NYD - tap delete all button")
+			}
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: traceLocationsOverviewViewController,
+			bottomController: footerViewController,
+			viewModel: footerViewModel
+		)
+
+		return topBottomContainerViewController
 	}()
 
 	private func showInfoScreen() {
@@ -95,12 +122,14 @@ class TraceLocationsCoordinator {
 			}
 		)
 
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+
 		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true
-			),
+			footerViewModel,
 			didTapPrimaryButton: {
 				navigationController.dismiss(animated: true)
 			}
@@ -108,10 +137,11 @@ class TraceLocationsCoordinator {
 
 		let topBottomLayoutViewController = TopBottomContainerViewController(
 			topController: traceLocationsInfoViewController,
-			bottomController: footerViewController, bottomHeight: 96.0
+			bottomController: footerViewController,
+			viewModel: footerViewModel
 		)
 		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
-		navigationController?.navigationBar.prefersLargeTitles = true
+		
 		parentNavigationController?.present(navigationController, animated: true) {
 			self.infoScreenShown = true
 		}

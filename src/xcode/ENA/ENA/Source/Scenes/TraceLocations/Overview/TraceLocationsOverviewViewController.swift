@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationsOverviewViewController: UITableViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationsOverviewViewController: UITableViewController {
 
 	// MARK: - Init
 
@@ -32,10 +32,8 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
 		setupTableView()
-
-		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.TraceLocations.Overview.title
-
+		parent?.navigationItem.largeTitleDisplayMode = .always
+		parent?.navigationItem.title = AppStrings.TraceLocations.Overview.title
 		updateRightBarButtonItem()
 
 		viewModel.$traceLocations
@@ -60,11 +58,8 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		super.setEditing(editing, animated: animated)
 
 		updateRightBarButtonItem()
-		(navigationItem as? ENANavigationFooterItem)?.isPrimaryButtonHidden = !editing
-	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+		(parent as? FootViewProviding)?.footerViewModel.update(isPrimaryButtonHidden: !editing)
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -147,18 +142,6 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 
 	private var shouldReload = true
 
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.TraceLocations.Overview.deleteAllButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isPrimaryButtonHidden = !isEditing
-
-		item.isSecondaryButtonHidden = true
-
-		return item
-	}()
-
 	private func setupTableView() {
 		tableView.register(
 			UINib(nibName: String(describing: AddTraceLocationTableViewCell.self), bundle: nil),
@@ -191,7 +174,7 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 			barButtonItem.tintColor = .enaColor(for: .tint)
 		}
 
-		navigationItem.setRightBarButton(barButtonItem, animated: true)
+		parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
 	}
 
 	private func traceLocationAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
