@@ -4,6 +4,7 @@
 
 import UIKit
 
+@IBDesignable
 class GradientView: UIView {
 
 	// MARK: - Init
