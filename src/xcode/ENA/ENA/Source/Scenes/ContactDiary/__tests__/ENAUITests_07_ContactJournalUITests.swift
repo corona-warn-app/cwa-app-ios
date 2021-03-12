@@ -131,12 +131,14 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		locationsTableView.cells.firstMatch.tap()
 
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
-		app.textFields.firstMatch.typeText("-RotWeiss")
+		let textField = app.tables.firstMatch.cells.textFields.firstMatch
+		textField.tap()
+		textField.typeText("-RotWeiss")
 
-		XCTAssertTrue(app.textFields.firstMatch.buttons.firstMatch.waitForExistence(timeout: .medium))
+		XCTAssertTrue(textField.buttons.firstMatch.waitForExistence(timeout: .medium))
 		// tap the clear button inside textfield to clear input
-		app.textFields.firstMatch.buttons.firstMatch.tap()
-		app.textFields.firstMatch.typeText("PommesBude-RotWeiss")
+		textField.buttons.firstMatch.tap()
+		textField.typeText("PommesBude-RotWeiss")
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
