@@ -66,7 +66,8 @@ class TraceLocationsCoordinator {
 			primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
 			isSecondaryButtonEnabled: false,
 			isPrimaryButtonHidden: true,
-			isSecondaryButtonHidden: true
+			isSecondaryButtonHidden: true,
+			primaryButtonColor: .red
 		)
 
 		let traceLocationsOverviewViewController = TraceLocationsOverviewViewController(

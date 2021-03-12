@@ -15,7 +15,9 @@ final class FooterViewModel {
 		isPrimaryButtonEnabled: Bool = true,
 		isSecondaryButtonEnabled: Bool = true,
 		isPrimaryButtonHidden: Bool = false,
-		isSecondaryButtonHidden: Bool = false
+		isSecondaryButtonHidden: Bool = false,
+		primaryButtonColor: UIColor? = nil,
+		secondaryButtonColor: UIColor? = nil
 	) {
 		self.primaryButtonName = primaryButtonName
 		self.secondaryButtonName = secondaryButtonName
@@ -23,6 +25,8 @@ final class FooterViewModel {
 		self.isSecondaryButtonEnabled = isSecondaryButtonEnabled
 		self.isPrimaryButtonHidden = isPrimaryButtonHidden
 		self.isSecondaryButtonHidden = isSecondaryButtonHidden
+		self.primaryButtonColor = primaryButtonColor
+		self.secondaryButtonColor = secondaryButtonColor
 		self.height = 0.0
 	}
 
@@ -32,6 +36,8 @@ final class FooterViewModel {
 	let spacer: CGFloat = 8.0
 	let topBottomInset: CGFloat = 16.0
 	let leftRightInset: CGFloat = 16.0
+	let primaryButtonColor: UIColor?
+	let secondaryButtonColor: UIColor?
 
 	@OpenCombine.Published private(set) var height: CGFloat = 0.0
 

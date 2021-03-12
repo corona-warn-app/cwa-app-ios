@@ -84,6 +84,9 @@ class FooterViewController: UIViewController {
 	private var subscription: [AnyCancellable] = []
 
 	private func setupPrimaryButton() {
+		if let primaryButtonColor = viewModel.primaryButtonColor {
+			primaryButton.color = primaryButtonColor
+		}
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
 		primaryButton.hasBackground = true
 		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
