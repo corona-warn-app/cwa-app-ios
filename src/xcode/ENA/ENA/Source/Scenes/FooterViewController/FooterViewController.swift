@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class FooterViewController: UIViewController, FooterViewModelProviding {
+class FooterViewController: UIViewController {
 
 	// MARK: - Init
 	init(

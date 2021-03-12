@@ -58,8 +58,9 @@ class TraceLocationsOverviewViewController: UITableViewController {
 		super.setEditing(editing, animated: animated)
 
 		updateRightBarButtonItem()
-
-		(parent as? FooterViewModelProviding)?.viewModel.update(isPrimaryButtonHidden: !editing)
+		
+		let newState: FooterViewModel.ButtonsVisible = editing ? .primary : .none
+		(parent as? FooterViewModelUpdating)?.update(to: newState)
 	}
 
 	// MARK: - Protocol UITableViewDataSource
