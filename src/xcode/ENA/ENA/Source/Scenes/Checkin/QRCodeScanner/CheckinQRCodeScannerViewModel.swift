@@ -86,17 +86,13 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		captureSession?.stopRunning()
 	}
 
-	/// toggle torchMode between on / off after finish call optional completion handler
-	func toggleFlash(completion: (() -> Void)? = nil ) {
+	func toggleFlash() {
 		guard let device = captureDevice,
 			  device.hasTorch else {
 			return
 		}
 
-		defer {
-			device.unlockForConfiguration()
-			completion?()
-		}
+		defer { device.unlockForConfiguration() }
 
 		do {
 			try device.lockForConfiguration()

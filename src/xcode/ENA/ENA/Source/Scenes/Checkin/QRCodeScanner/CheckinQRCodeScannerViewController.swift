@@ -100,11 +100,8 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	
 	@objc
 	private func didToggleFlash() {
-		viewModel.toggleFlash(completion: { [weak self] in
-			DispatchQueue.main.async {
-				self?.updateToggleFlashAccessibility()
-			}
-		})
+		viewModel.toggleFlash()
+		updateToggleFlashAccessibility()
 	}
 	
 	private func updateToggleFlashAccessibility() {
@@ -202,13 +199,6 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	}
 
 	private func updatePreviewMaskIfNeeded() {
-		guard needsPreviewMaskUpdate,
-			  let previewLayer = previewLayer,
-			  focusView.backdropOpacity > 0 else {
-			needsPreviewMaskUpdate = false
-			self.previewLayer?.mask = nil
-			return
-		}
 
 		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)

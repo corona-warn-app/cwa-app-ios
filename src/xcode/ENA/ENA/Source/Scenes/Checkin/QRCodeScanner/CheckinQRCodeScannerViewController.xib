@@ -52,14 +52,11 @@
             <constraints>
                 <constraint firstItem="zZD-DY-ucX" firstAttribute="width" secondItem="E1v-LC-YJC" secondAttribute="width" multiplier="0.75" id="1wR-6Q-J7I"/>
                 <constraint firstItem="F8e-nq-AjF" firstAttribute="height" secondItem="dpH-Gr-k2t" secondAttribute="height" multiplier="0.5" priority="999" id="Dja-y0-S6I"/>
-                <constraint firstItem="F8e-nq-AjF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dpH-Gr-k2t" secondAttribute="leadingMargin" id="FEq-Pb-als"/>
                 <constraint firstItem="F8e-nq-AjF" firstAttribute="top" secondItem="zZD-DY-ucX" secondAttribute="bottom" constant="32" id="Fuw-xG-wJt"/>
                 <constraint firstItem="F8e-nq-AjF" firstAttribute="centerX" secondItem="dpH-Gr-k2t" secondAttribute="centerX" id="HHl-S3-UE9"/>
-                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="F8e-nq-AjF" secondAttribute="bottom" id="MGc-TS-xV7"/>
                 <constraint firstItem="zZD-DY-ucX" firstAttribute="centerX" secondItem="dpH-Gr-k2t" secondAttribute="centerX" id="P9U-di-5Tq"/>
                 <constraint firstItem="F8e-nq-AjF" firstAttribute="centerY" secondItem="dpH-Gr-k2t" secondAttribute="centerY" priority="900" id="Uzo-Mg-vN2"/>
                 <constraint firstItem="zZD-DY-ucX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="E1v-LC-YJC" secondAttribute="top" constant="32" id="VSG-dX-CdX"/>
-                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="F8e-nq-AjF" secondAttribute="trailing" id="jHw-1V-SIr"/>
                 <constraint firstItem="F8e-nq-AjF" firstAttribute="width" secondItem="dpH-Gr-k2t" secondAttribute="width" multiplier="0.9" priority="999" id="v1U-WA-94k"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
