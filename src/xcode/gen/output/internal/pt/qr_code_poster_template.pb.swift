@@ -36,14 +36,14 @@ struct SAP_Internal_Pt_QRCodePosterTemplateAndroid {
 
   var qrCodeSideLength: UInt32 = 0
 
-  var description_p: SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid {
-    get {return _description_p ?? SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid()}
-    set {_description_p = newValue}
+  var descriptionTextBox: SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid {
+    get {return _descriptionTextBox ?? SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid()}
+    set {_descriptionTextBox = newValue}
   }
-  /// Returns true if `description_p` has been explicitly set.
-  var hasDescription_p: Bool {return self._description_p != nil}
-  /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-  mutating func clearDescription_p() {self._description_p = nil}
+  /// Returns true if `descriptionTextBox` has been explicitly set.
+  var hasDescriptionTextBox: Bool {return self._descriptionTextBox != nil}
+  /// Clears the value of `descriptionTextBox`. Subsequent reads from it will return its default value.
+  mutating func clearDescriptionTextBox() {self._descriptionTextBox = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -71,7 +71,7 @@ struct SAP_Internal_Pt_QRCodePosterTemplateAndroid {
 
   init() {}
 
-  fileprivate var _description_p: SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid? = nil
+  fileprivate var _descriptionTextBox: SAP_Internal_Pt_QRCodePosterTemplateAndroid.QRCodeTextBoxAndroid? = nil
 }
 
 struct SAP_Internal_Pt_QRCodePosterTemplateIOS {
@@ -88,14 +88,14 @@ struct SAP_Internal_Pt_QRCodePosterTemplateIOS {
 
   var qrCodeSideLength: UInt32 = 0
 
-  var description_p: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS {
-    get {return _description_p ?? SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS()}
-    set {_description_p = newValue}
+  var descriptionTextBox: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS {
+    get {return _descriptionTextBox ?? SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS()}
+    set {_descriptionTextBox = newValue}
   }
-  /// Returns true if `description_p` has been explicitly set.
-  var hasDescription_p: Bool {return self._description_p != nil}
-  /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-  mutating func clearDescription_p() {self._description_p = nil}
+  /// Returns true if `descriptionTextBox` has been explicitly set.
+  var hasDescriptionTextBox: Bool {return self._descriptionTextBox != nil}
+  /// Clears the value of `descriptionTextBox`. Subsequent reads from it will return its default value.
+  mutating func clearDescriptionTextBox() {self._descriptionTextBox = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -123,7 +123,7 @@ struct SAP_Internal_Pt_QRCodePosterTemplateIOS {
 
   init() {}
 
-  fileprivate var _description_p: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS? = nil
+  fileprivate var _descriptionTextBox: SAP_Internal_Pt_QRCodePosterTemplateIOS.QRCodeTextBoxIOS? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -137,7 +137,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: SwiftProtobuf.Message, Sw
     2: .same(proto: "offsetX"),
     3: .same(proto: "offsetY"),
     4: .same(proto: "qrCodeSideLength"),
-    5: .same(proto: "description"),
+    5: .same(proto: "descriptionTextBox"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -150,7 +150,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: SwiftProtobuf.Message, Sw
       case 2: try { try decoder.decodeSingularFloatField(value: &self.offsetX) }()
       case 3: try { try decoder.decodeSingularFloatField(value: &self.offsetY) }()
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.qrCodeSideLength) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._description_p) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._descriptionTextBox) }()
       default: break
       }
     }
@@ -169,7 +169,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: SwiftProtobuf.Message, Sw
     if self.qrCodeSideLength != 0 {
       try visitor.visitSingularUInt32Field(value: self.qrCodeSideLength, fieldNumber: 4)
     }
-    if let v = self._description_p {
+    if let v = self._descriptionTextBox {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -180,7 +180,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateAndroid: SwiftProtobuf.Message, Sw
     if lhs.offsetX != rhs.offsetX {return false}
     if lhs.offsetY != rhs.offsetY {return false}
     if lhs.qrCodeSideLength != rhs.qrCodeSideLength {return false}
-    if lhs._description_p != rhs._description_p {return false}
+    if lhs._descriptionTextBox != rhs._descriptionTextBox {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -255,7 +255,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     2: .same(proto: "offsetX"),
     3: .same(proto: "offsetY"),
     4: .same(proto: "qrCodeSideLength"),
-    5: .same(proto: "description"),
+    5: .same(proto: "descriptionTextBox"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -268,7 +268,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
       case 2: try { try decoder.decodeSingularUInt32Field(value: &self.offsetX) }()
       case 3: try { try decoder.decodeSingularUInt32Field(value: &self.offsetY) }()
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.qrCodeSideLength) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._description_p) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._descriptionTextBox) }()
       default: break
       }
     }
@@ -287,7 +287,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     if self.qrCodeSideLength != 0 {
       try visitor.visitSingularUInt32Field(value: self.qrCodeSideLength, fieldNumber: 4)
     }
-    if let v = self._description_p {
+    if let v = self._descriptionTextBox {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -298,7 +298,7 @@ extension SAP_Internal_Pt_QRCodePosterTemplateIOS: SwiftProtobuf.Message, SwiftP
     if lhs.offsetX != rhs.offsetX {return false}
     if lhs.offsetY != rhs.offsetY {return false}
     if lhs.qrCodeSideLength != rhs.qrCodeSideLength {return false}
-    if lhs._description_p != rhs._description_p {return false}
+    if lhs._descriptionTextBox != rhs._descriptionTextBox {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
