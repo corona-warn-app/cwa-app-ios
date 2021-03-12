@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class FooterViewController: UIViewController {
+class FooterViewController: UIViewController, FooterViewModelProviding {
 
 	// MARK: - Init
 	init(
@@ -73,9 +73,12 @@ class FooterViewController: UIViewController {
 		.store(in: &subscription)
 	}
 
+	// MARK: - Internal
+
+	let viewModel: FooterViewModel
+
 	// MARK: - Private
 
-	private let viewModel: FooterViewModel
 	private let didTapPrimaryButton: () -> Void
 	private let didTapSecondaryButton: () -> Void
 

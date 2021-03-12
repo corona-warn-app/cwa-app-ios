@@ -182,8 +182,8 @@ final class OnboardingInfoViewController: UIViewController {
 				didTapSecondaryButton: { [weak self] in
 					dataDonationViewModel.save(consentGiven: false)
 					self?.finishOnBoarding()
-				}),
-			viewModel: footerViewModel
+				}
+			)
 		)
 		
 		navigationController?.pushViewController(containerViewController, animated: true)

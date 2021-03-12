@@ -59,8 +59,8 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 				didTapSecondaryButton: {
 					dataDonationViewModel.save(consentGiven: false)
 					dataDonationViewController.finished?()
-				}),
-			viewModel: footerViewModel
+				}
+			)
 		)
 
 		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: containerViewController)

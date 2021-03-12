@@ -59,7 +59,7 @@ class TraceLocationsOverviewViewController: UITableViewController {
 
 		updateRightBarButtonItem()
 
-		(parent as? FootViewProviding)?.footerViewModel.update(isPrimaryButtonHidden: !editing)
+		(parent as? FooterViewModelProviding)?.viewModel.update(isPrimaryButtonHidden: !editing)
 	}
 
 	// MARK: - Protocol UITableViewDataSource

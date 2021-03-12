@@ -5,25 +5,26 @@
 import UIKit
 import OpenCombine
 
-protocol FootViewProviding {
-	var footerViewModel: FooterViewModel { get }
+protocol FooterViewModelProviding {
+	var viewModel: FooterViewModel { get }
 }
 
 /** a simple container view controller to combine to view controllers vertically (top / bottom */
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FootViewProviding {
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController & FooterViewModelProviding>: UIViewController, DismissHandling {
 
 	// MARK: - Init
 
 	init(
 		topController: TopViewController,
-		bottomController: BottomViewController,
-		viewModel: FooterViewModel
+		bottomController: BottomViewController
 	) {
 		self.topViewController = topController
 		self.bottomViewController = bottomController
-		self.initialHeight = viewModel.height
-		self.footerViewModel = viewModel
+
+		self.footerViewModel = bottomViewController.viewModel
+		self.initialHeight = footerViewModel.height
+
 		super.init(nibName: nil, bundle: nil)
 	}
 

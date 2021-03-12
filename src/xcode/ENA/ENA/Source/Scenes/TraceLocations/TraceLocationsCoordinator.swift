@@ -97,8 +97,7 @@ class TraceLocationsCoordinator {
 
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationsOverviewViewController,
-			bottomController: footerViewController,
-			viewModel: footerViewModel
+			bottomController: footerViewController
 		)
 
 		return topBottomContainerViewController
@@ -138,8 +137,7 @@ class TraceLocationsCoordinator {
 
 		let topBottomLayoutViewController = TopBottomContainerViewController(
 			topController: traceLocationsInfoViewController,
-			bottomController: footerViewController,
-			viewModel: footerViewModel
+			bottomController: footerViewController
 		)
 		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
 		
