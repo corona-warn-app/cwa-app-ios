@@ -74,18 +74,35 @@ class FooterViewController: UIViewController {
 		])
 
 		// hide and show buttons by alpha to make it animatable
-		viewModel.$height.sink { height in
-			let alpha: CGFloat = height > 0.0 ? 1.0 : 0.0
-			let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
-				guard let self = self else {
-					return
+		viewModel.$height
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { height in
+				let alpha: CGFloat = height > 0.0 ? 1.0 : 0.0
+				let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
+					guard let self = self else {
+						return
+					}
+					self.primaryButton.alpha = alpha
+					self.secondaryButton.alpha = alpha
 				}
-				self.primaryButton.alpha = alpha
-				self.secondaryButton.alpha = alpha
+				animator.startAnimation()
 			}
-			animator.startAnimation()
-		}
-		.store(in: &subscription)
+			.store(in: &subscription)
+
+		// update loading indicators
+		viewModel.$isPrimaryLoading
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] show in
+				self?.primaryButton.isLoading = show
+			}
+			.store(in: &subscription)
+
+		viewModel.$isSecondaryLoading
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] show in
+				self?.secondaryButton.isLoading = show
+			}
+			.store(in: &subscription)
 	}
 
 	// MARK: - Internal

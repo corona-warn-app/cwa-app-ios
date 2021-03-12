@@ -52,6 +52,8 @@ final class FooterViewModel {
 	let secondaryButtonColor: UIColor?
 
 	@OpenCombine.Published private(set) var height: CGFloat = 0.0
+	@OpenCombine.Published private(set) var isPrimaryLoading: Bool = false
+	@OpenCombine.Published private(set) var isSecondaryLoading: Bool = false
 
 	private(set) var isPrimaryButtonHidden: Bool
 	private(set) var isSecondaryButtonHidden: Bool
@@ -75,6 +77,15 @@ final class FooterViewModel {
 			self.isSecondaryButtonHidden = true
 		}
 		updateHeight()
+	}
+
+	func setLoadingIndicator(show: Bool, button: FooterViewModel.ButtonType) {
+		switch button {
+		case .primary:
+			isPrimaryLoading = show
+		case .secondary:
+			isSecondaryLoading = show
+		}
 	}
 
 	// MARK: - Private
