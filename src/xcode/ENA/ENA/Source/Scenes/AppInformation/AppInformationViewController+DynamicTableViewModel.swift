@@ -42,7 +42,7 @@ extension AppInformationViewController {
 		),
 		.errorReport: AppInformationCellModel(
 			text: AppStrings.ErrorReport.title,
-			accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.title,
+			accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.navigation,
 			action: .pushErrorLogsCoordinator()
 		),
 		.imprint: AppInformationCellModel(

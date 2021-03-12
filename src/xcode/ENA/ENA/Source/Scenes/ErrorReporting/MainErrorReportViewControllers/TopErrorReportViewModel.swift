@@ -9,8 +9,12 @@ class TopErrorReportViewModel {
 	
 	// MARK: - Init
 	
-	init(didPressHistoryCell: @escaping () -> Void) {
+	init(
+		didPressHistoryCell: @escaping () -> Void,
+		didPressPrivacyInformationCell: @escaping () -> Void
+		) {
 		self.didPressHistoryCell = didPressHistoryCell
+		self.didPressPrivacyInformationCell = didPressPrivacyInformationCell
 	}
 	
 	// MARK: - Internal
@@ -19,8 +23,15 @@ class TopErrorReportViewModel {
 		var dynamic = DynamicTableViewModel([])
 		dynamic.add(
 			.section(cells: [
-				.body(text: AppStrings.ErrorReport.description1),
-				.link(text: AppStrings.ErrorReport.faq, url: URL(string: "https://example.com"), accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq) // TO DO: get correct link!
+				.body(
+					text: AppStrings.ErrorReport.description1,
+					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.topBody
+				),
+				.link(
+					text: AppStrings.ErrorReport.faq,
+					url: URL(string: "https://example.com"), // TO DO Get correct Link
+					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.faq
+				)
 			])
 		)
 		dynamic.add(
@@ -35,7 +46,7 @@ class TopErrorReportViewModel {
 						NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet4),
 						NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.dataPrivacy_Bullet5)
 					],
-					accessibilityIdentifier: "TODO ACCESSABILITY IDENTIFIER")
+					accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.privacyNavigation)
 			])
 		)
 		if isHistorySectionIncluded {
@@ -52,6 +63,7 @@ class TopErrorReportViewModel {
 								guard let cell = cell as? ErrorReportHistoryCell else { return }
 								cell.accessoryType = .disclosureIndicator
 								cell.selectionStyle = .default
+								cell.accessibilityIdentifier = AccessibilityIdentifiers.ErrorReport.historyNavigation
 								cell.configure(
 									dateTimeLabel: NSMutableAttributedString(string: AppStrings.ErrorReport.historyTitle),
 									idLabel: NSMutableAttributedString(string: AppStrings.ErrorReport.historyNavigationSubline))
@@ -68,7 +80,9 @@ class TopErrorReportViewModel {
 						text: AppStrings.ErrorReport.privacyInformation,
 						accessibilityIdentifier: AccessibilityIdentifiers.ErrorReport.privacyInformation,
 						accessibilityTraits: .link,
-						action: .none /* TO DO: .push model or view controller */,
+						action: .execute(block: { [weak self] _, _ in
+							self?.didPressPrivacyInformationCell()
+						}),
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 						})
@@ -82,4 +96,5 @@ class TopErrorReportViewModel {
 	// MARK: - Private
 
 	private let didPressHistoryCell: () -> Void
+	private let didPressPrivacyInformationCell: () -> Void
 }

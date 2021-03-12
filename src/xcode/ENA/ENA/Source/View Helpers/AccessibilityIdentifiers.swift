@@ -401,10 +401,18 @@ enum AccessibilityIdentifiers {
 	}
 
 	enum ErrorReport {
-		static let title = "AppStrings.ErrorReport.title"
+		// Main Error Logging Screen
+		// - top ViewController
+		static let navigation = "AppStrings.ErrorReport.navigation"
+		static let topBody = "AppStrings.ErrorReport.topBody"
 		static let faq = "AppStrings.ErrorReport.faq"
 		static let privacyInformation = "AppStrings.ErrorReport.privacyInformation"
+		static let privacyNavigation = "AppStrings.ErrorReport.privacyNavigation"
+		static let historyNavigation = "AppStrings.ErrorReport.historyNavigation"
+
 		static let historyTitle = "AppStrings.ErrorReport.historyTitle"
 		static let historyDescription = "AppStrings.ErrorReport.historyDescription"
+		
+		static let startButton = "AppStrings.ErrorReport.startButtonTitle"
 	}
 }
