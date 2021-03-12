@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class TraceLocationTableViewCell: UITableViewCell {
 
@@ -16,17 +17,33 @@ class TraceLocationTableViewCell: UITableViewCell {
 			containerView.layer.cornerCurve = .continuous
 		}
 
-		gradientContainer.layer.cornerRadius = 14
+		activeContainerView.layer.cornerRadius = 14
 		if #available(iOS 13.0, *) {
-			gradientContainer.layer.cornerCurve = .continuous
+			activeContainerView.layer.cornerCurve = .continuous
 		}
 
+		durationTitleLabel.text = AppStrings.TraceLocations.Overview.durationTitle
 		accessibilityTraits = [.button]
 	}
 
 	// MARK: - Internal
 
-	func configure(cellModel: TraceLocationCellModel, onButtonTap: @escaping () -> Void) {
+	func configure(cellModel: EventCellModel, onButtonTap: @escaping () -> Void) {
+		cellModel.isInactiveIconHiddenPublisher
+			.assign(to: \.isHidden, on: inactiveIconImageView)
+			.store(in: &subscriptions)
+
+		cellModel.isActiveContainerViewHiddenPublisher
+			.assign(to: \.isHidden, on: activeContainerView)
+			.store(in: &subscriptions)
+
+		cellModel.durationPublisher
+			.assign(to: \.text, on: durationLabel)
+			.store(in: &subscriptions)
+
+		activeIconImageView.isHidden = cellModel.isActiveIconHidden
+		durationStackView.isHidden = cellModel.isDurationStackViewHidden
+
 		titleLabel.text = cellModel.title
 		addressLabel.text = cellModel.address
 		timeLabel.text = cellModel.time
@@ -40,14 +57,27 @@ class TraceLocationTableViewCell: UITableViewCell {
 	// MARK: - Private
 
 	@IBOutlet private weak var containerView: UIView!
-	@IBOutlet private weak var gradientContainer: UIView!
+
+	@IBOutlet private weak var inactiveIconImageView: UIImageView!
+
+	@IBOutlet private weak var activeContainerView: UIView!
+	@IBOutlet private weak var activeIconImageView: UIImageView!
+
+	@IBOutlet private weak var durationStackView: UIStackView!
+	@IBOutlet private weak var durationTitleLabel: ENALabel!
+	@IBOutlet private weak var durationLabel: ENALabel!
+
+	@IBOutlet private weak var dateLabel: ENALabel!
+
 	@IBOutlet private weak var titleLabel: ENALabel!
 	@IBOutlet private weak var addressLabel: ENALabel!
 	@IBOutlet private weak var timeLabel: ENALabel!
-	@IBOutlet private weak var dateLabel: ENALabel!
+
 	@IBOutlet private weak var button: ENAButton!
 
 	private var onButtonTap: (() -> Void)?
+
+	private var subscriptions = Set<AnyCancellable>()
     
 	@IBAction private func didTapButton(_ sender: Any) {
 		onButtonTap?()

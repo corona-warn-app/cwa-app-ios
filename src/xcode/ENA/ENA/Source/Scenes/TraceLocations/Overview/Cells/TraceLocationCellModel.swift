@@ -3,44 +3,61 @@
 //
 
 import UIKit
+import OpenCombine
 
-class TraceLocationCellModel {
+protocol EventCellModel {
+
+	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
+	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
+	var durationPublisher: OpenCombine.Published<String?>.Publisher { get }
+
+	var isActiveIconHidden: Bool { get }
+	var isDurationStackViewHidden: Bool { get }
+
+	var date: String { get }
+
+	var title: String { get }
+	var address: String { get }
+	var time: String { get }
+
+	var buttonTitle: String { get }
+
+}
+
+class TraceLocationCellModel: EventCellModel {
 
 	// MARK: - Init
 
 	init(traceLocation: TraceLocation) {
 		self.traceLocation = traceLocation
-
-		configure(for: traceLocation)
 	}
 
 	// MARK: - Internal
 
-	enum GradientCardMode {
-		case duration
-		case qrIcon
-		case hidden
+	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isInactiveIconHidden }
+	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isActiveContainerViewHidden }
+	var durationPublisher: OpenCombine.Published<String?>.Publisher { $duration }
+
+	var isActiveIconHidden: Bool = false
+	var isDurationStackViewHidden: Bool = true
+
+	var date: String {
+		let dateFormatter = DateIntervalFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .none
+
+		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
 	}
 
-	var title: String = ""
-	var address: String = ""
-	var time: String = ""
-	var date: String = ""
-	var buttonTitle: String = ""
-
-	// MARK: - Private
-
-	private let traceLocation: TraceLocation
-
-	private func configure(for traceLocation: TraceLocation) {
-		title = traceLocation.description
-		address = traceLocation.address
-		time = time(for: traceLocation)
-		date = date(for: traceLocation)
-		buttonTitle = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
+	var title: String {
+		traceLocation.description
 	}
 
-	private func time(for traceLocation: TraceLocation) -> String {
+	var address: String {
+		traceLocation.address
+	}
+
+	var time: String {
 		let dateFormatter = DateIntervalFormatter()
 		dateFormatter.dateStyle = .none
 		dateFormatter.timeStyle = .short
@@ -48,12 +65,22 @@ class TraceLocationCellModel {
 		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
 	}
 
-	private func date(for traceLocation: TraceLocation) -> String {
-		let dateFormatter = DateIntervalFormatter()
-		dateFormatter.dateStyle = .short
-		dateFormatter.timeStyle = .none
+	var buttonTitle: String = AppStrings.TraceLocations.Overview.selfCheckinButtonTitle
 
-		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
-	}
+	// MARK: - Private
+
+	private let traceLocation: TraceLocation
+
+	@OpenCombine.Published private var isInactiveIconHidden: Bool = true
+	@OpenCombine.Published private var isActiveContainerViewHidden: Bool = true
+	@OpenCombine.Published private var duration: String?
     
+}
+
+private extension TraceLocation {
+
+	var isActive: Bool {
+		Date() < endDate
+	}
+
 }
