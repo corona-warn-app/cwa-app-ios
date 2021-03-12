@@ -206,14 +206,28 @@ class TraceLocationsCoordinator {
 	}
 
 	private func showTraceLocationConfigurationScreen(on navigationController: UINavigationController, mode: TraceLocationConfigurationViewModel.Mode) {
-		let viewController = TraceLocationConfigurationViewController(
+		let traceLocationConfigurationViewController = TraceLocationConfigurationViewController(
 			viewModel: TraceLocationConfigurationViewModel(mode: mode),
 			onDismiss: {
 				navigationController.dismiss(animated: true)
 			}
 		)
 
-		navigationController.pushViewController(viewController, animated: true)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Configuration.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: traceLocationConfigurationViewController,
+			bottomController: footerViewController
+		)
+
+		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
 
 	private func showCheckInScreen(traceLocation: TraceLocation) {
