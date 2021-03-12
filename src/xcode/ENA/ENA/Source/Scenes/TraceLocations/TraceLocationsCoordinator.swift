@@ -139,7 +139,6 @@ class TraceLocationsCoordinator {
 	}
 
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
-
 		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
 			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation),
 			onPrintVersionButtonTap: { [weak self] traceLocation in
@@ -185,7 +184,7 @@ class TraceLocationsCoordinator {
 	}
 
 	private func showTraceLocationTypeSelectionScreen() {
-		let viewController = TraceLocationTypeSelectionViewController(
+		let traceLocationTypeSelectionViewController = TraceLocationTypeSelectionViewController(
 			viewModel: TraceLocationTypeSelectionViewModel(
 				onTraceLocationTypeSelection: { [weak self] traceLocationType in
 					guard let self = self else { return }
@@ -201,7 +200,8 @@ class TraceLocationsCoordinator {
 			}
 		)
 
-		traceLocationAddingNavigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		traceLocationAddingNavigationController = UINavigationController(rootViewController: traceLocationTypeSelectionViewController)
+		traceLocationAddingNavigationController.navigationBar.prefersLargeTitles = true
 		parentNavigationController?.present(traceLocationAddingNavigationController, animated: true)
 	}
 
