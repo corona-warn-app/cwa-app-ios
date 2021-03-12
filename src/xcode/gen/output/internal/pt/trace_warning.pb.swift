@@ -50,8 +50,8 @@ struct SAP_Internal_Pt_TraceTimeIntervalWarning {
   /// 10-minute intervals since UNIX Epoch
   var startIntervalNumber: UInt32 = 0
 
-  /// 10-minute intervals since UNIX Epoch
-  var endIntervalNumber: UInt32 = 0
+  /// Number of 10-minute intervals to which the warning applies
+  var period: UInt32 = 0
 
   var transmissionRiskLevel: UInt32 = 0
 
@@ -113,7 +113,7 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "locationGuid"),
     2: .same(proto: "startIntervalNumber"),
-    3: .same(proto: "endIntervalNumber"),
+    3: .same(proto: "period"),
     4: .same(proto: "transmissionRiskLevel"),
   ]
 
@@ -125,7 +125,7 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.locationGuid) }()
       case 2: try { try decoder.decodeSingularUInt32Field(value: &self.startIntervalNumber) }()
-      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.endIntervalNumber) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.period) }()
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.transmissionRiskLevel) }()
       default: break
       }
@@ -139,8 +139,8 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
     if self.startIntervalNumber != 0 {
       try visitor.visitSingularUInt32Field(value: self.startIntervalNumber, fieldNumber: 2)
     }
-    if self.endIntervalNumber != 0 {
-      try visitor.visitSingularUInt32Field(value: self.endIntervalNumber, fieldNumber: 3)
+    if self.period != 0 {
+      try visitor.visitSingularUInt32Field(value: self.period, fieldNumber: 3)
     }
     if self.transmissionRiskLevel != 0 {
       try visitor.visitSingularUInt32Field(value: self.transmissionRiskLevel, fieldNumber: 4)
@@ -151,7 +151,7 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
   static func ==(lhs: SAP_Internal_Pt_TraceTimeIntervalWarning, rhs: SAP_Internal_Pt_TraceTimeIntervalWarning) -> Bool {
     if lhs.locationGuid != rhs.locationGuid {return false}
     if lhs.startIntervalNumber != rhs.startIntervalNumber {return false}
-    if lhs.endIntervalNumber != rhs.endIntervalNumber {return false}
+    if lhs.period != rhs.period {return false}
     if lhs.transmissionRiskLevel != rhs.transmissionRiskLevel {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

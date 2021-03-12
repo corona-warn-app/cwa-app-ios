@@ -27,6 +27,16 @@ enum SAP_Internal_Pt_TraceLocationType: SwiftProtobuf.Enum {
   case locationTypeUnspecified // = 0
   case locationTypePermanentOther // = 1
   case locationTypeTemporaryOther // = 2
+  case locationTypePermanentRetail // = 3
+  case locationTypePermanentFoodService // = 4
+  case locationTypePermanentCraft // = 5
+  case locationTypePermanentWorkplace // = 6
+  case locationTypePermanentEducationalInstitution // = 7
+  case locationTypePermanentPublicBuilding // = 8
+  case locationTypeTemporaryCulturalEvent // = 9
+  case locationTypeTemporaryClubActivity // = 10
+  case locationTypeTemporaryPrivateEvent // = 11
+  case locationTypeTemporaryWorshipService // = 12
   case UNRECOGNIZED(Int)
 
   init() {
@@ -38,6 +48,16 @@ enum SAP_Internal_Pt_TraceLocationType: SwiftProtobuf.Enum {
     case 0: self = .locationTypeUnspecified
     case 1: self = .locationTypePermanentOther
     case 2: self = .locationTypeTemporaryOther
+    case 3: self = .locationTypePermanentRetail
+    case 4: self = .locationTypePermanentFoodService
+    case 5: self = .locationTypePermanentCraft
+    case 6: self = .locationTypePermanentWorkplace
+    case 7: self = .locationTypePermanentEducationalInstitution
+    case 8: self = .locationTypePermanentPublicBuilding
+    case 9: self = .locationTypeTemporaryCulturalEvent
+    case 10: self = .locationTypeTemporaryClubActivity
+    case 11: self = .locationTypeTemporaryPrivateEvent
+    case 12: self = .locationTypeTemporaryWorshipService
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -47,6 +67,16 @@ enum SAP_Internal_Pt_TraceLocationType: SwiftProtobuf.Enum {
     case .locationTypeUnspecified: return 0
     case .locationTypePermanentOther: return 1
     case .locationTypeTemporaryOther: return 2
+    case .locationTypePermanentRetail: return 3
+    case .locationTypePermanentFoodService: return 4
+    case .locationTypePermanentCraft: return 5
+    case .locationTypePermanentWorkplace: return 6
+    case .locationTypePermanentEducationalInstitution: return 7
+    case .locationTypePermanentPublicBuilding: return 8
+    case .locationTypeTemporaryCulturalEvent: return 9
+    case .locationTypeTemporaryClubActivity: return 10
+    case .locationTypeTemporaryPrivateEvent: return 11
+    case .locationTypeTemporaryWorshipService: return 12
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -61,6 +91,16 @@ extension SAP_Internal_Pt_TraceLocationType: CaseIterable {
     .locationTypeUnspecified,
     .locationTypePermanentOther,
     .locationTypeTemporaryOther,
+    .locationTypePermanentRetail,
+    .locationTypePermanentFoodService,
+    .locationTypePermanentCraft,
+    .locationTypePermanentWorkplace,
+    .locationTypePermanentEducationalInstitution,
+    .locationTypePermanentPublicBuilding,
+    .locationTypeTemporaryCulturalEvent,
+    .locationTypeTemporaryClubActivity,
+    .locationTypeTemporaryPrivateEvent,
+    .locationTypeTemporaryWorshipService,
   ]
 }
 
@@ -129,6 +169,16 @@ extension SAP_Internal_Pt_TraceLocationType: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "LOCATION_TYPE_UNSPECIFIED"),
     1: .same(proto: "LOCATION_TYPE_PERMANENT_OTHER"),
     2: .same(proto: "LOCATION_TYPE_TEMPORARY_OTHER"),
+    3: .same(proto: "LOCATION_TYPE_PERMANENT_RETAIL"),
+    4: .same(proto: "LOCATION_TYPE_PERMANENT_FOOD_SERVICE"),
+    5: .same(proto: "LOCATION_TYPE_PERMANENT_CRAFT"),
+    6: .same(proto: "LOCATION_TYPE_PERMANENT_WORKPLACE"),
+    7: .same(proto: "LOCATION_TYPE_PERMANENT_EDUCATIONAL_INSTITUTION"),
+    8: .same(proto: "LOCATION_TYPE_PERMANENT_PUBLIC_BUILDING"),
+    9: .same(proto: "LOCATION_TYPE_TEMPORARY_CULTURAL_EVENT"),
+    10: .same(proto: "LOCATION_TYPE_TEMPORARY_CLUB_ACTIVITY"),
+    11: .same(proto: "LOCATION_TYPE_TEMPORARY_PRIVATE_EVENT"),
+    12: .same(proto: "LOCATION_TYPE_TEMPORARY_WORSHIP_SERVICE"),
   ]
 }
 
