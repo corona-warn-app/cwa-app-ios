@@ -242,7 +242,6 @@ final class HTTPClient: Client {
 				configuration: configuration,
 				otp: otp,
 				ppacToken: ppacToken,
-				isFake: isFake,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.invalidResponseError))
 			return
@@ -282,7 +281,6 @@ final class HTTPClient: Client {
 				configuration: configuration,
 				payload: payload,
 				ppacToken: ppacToken,
-				isFake: isFake,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.urlCreationError))
 			return
@@ -758,7 +756,6 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		otp: String,
 		ppacToken: PPACToken,
-		isFake: Bool,
 		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
@@ -804,7 +801,6 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		ppacToken: PPACToken,
-		isFake: Bool,
 		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
