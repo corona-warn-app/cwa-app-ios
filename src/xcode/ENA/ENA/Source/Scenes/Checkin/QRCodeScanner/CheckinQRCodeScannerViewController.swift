@@ -47,8 +47,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	@IBOutlet private weak var instructionLabel: ENALabel!
-	@IBOutlet private weak var focusView: QRScannerFocusView!
+	private var focusView: QRScannerFocusView!
 
 	private let didScanCheckin: (Checkin) -> Void
 	private let dismiss: () -> Void
@@ -58,16 +57,46 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	private var needsPreviewMaskUpdate: Bool = true
 
 	private func setupView() {
+		
 		navigationItem.title = AppStrings.Checkin.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
-		instructionLabel.text = AppStrings.Checkin.QRScanner.instruction
 
+		focusView = QRScannerFocusView()
+		focusView.backdropOpacity = 0.2
+		focusView.tintColor = .enaColor(for: .textContrast)
+		focusView.translatesAutoresizingMaskIntoConstraints = false
+		focusView.configure(cornerRadius: 8, borderWidth: 1)
+
+		let instructionLabel = ENALabel()
+		instructionLabel.style = .headline
+		instructionLabel.textAlignment = .center
+		instructionLabel.textColor = .enaColor(for: .textContrast)
+		instructionLabel.font = .enaFont(for: .body)
+		instructionLabel.text = AppStrings.Checkin.QRScanner.instruction
 		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3
 		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
+		instructionLabel.translatesAutoresizingMaskIntoConstraints = false
+		
+		view.addSubview(instructionLabel)
+		view.addSubview(focusView)
+
+		NSLayoutConstraint.activate(
+			[
+				instructionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+				instructionLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75, constant: 0),
+				instructionLabel.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: 32),
+
+				focusView.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: 32),
+				focusView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+				focusView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9, constant: 0),
+				focusView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
+				focusView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5, constant: 0)
+			]
+		)
 	}
-	
+
 	private func setupNavigationBar() {
 		if #available(iOS 13.0, *) {
 			navigationController?.overrideUserInterfaceStyle = .dark

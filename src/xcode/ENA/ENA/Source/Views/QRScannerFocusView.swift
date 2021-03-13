@@ -20,7 +20,10 @@ final class QRScannerFocusView: UIView {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
+		configure(cornerRadius: cornerRadius, borderWidth: borderWidth)
+	}
+	
+	func configure(cornerRadius: CGFloat, borderWidth: CGFloat) {
 		layer.cornerRadius = cornerRadius
 		layer.borderWidth = borderWidth
 		layer.borderColor = tintColor.cgColor
