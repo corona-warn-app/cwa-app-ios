@@ -63,6 +63,8 @@
 
 "ExposureDetection_High_Red_Color" = "Czerwony";
 
+"ExposureDetection_DaysSinceInstallation" = "Zainstalowano %u dni temu";
+
 "ExposureDetection_LastExposure" = "Ostatnio dnia %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Dnia %@";
@@ -97,9 +99,11 @@
 
 "ExposureDetection_Guide_Sneeze" = "Kichaj i kaszl w łokieć lub chusteczkę.";
 
+"ExposureDetection_Guide_Ventilation" = "Wietrz pomieszczenia kilka razy dziennie. W tym celu maksymalnie otwórz okna na kilka minut („wentylacja szokowa”).";
+
 "ExposureDetection_Guide_Home" = "Jeśli to możliwe, idź do domu i w nim pozostań.";
 
-"ExposureDetection_Guide_Hotline1" = "W przypadku pytań dotyczących objawów, możliwości wykonania testu lub samoizolacji skontaktuj się z jednym z poniższych miejsc:";
+"ExposureDetection_Guide_Hotline1" = "W przypadku pytań dotyczących objawów, możliwości wykonania testu lub kwarantanny skontaktuj się z jednym z poniższych miejsc:";
 
 "ExposureDetection_Guide_Hotline2" = "Twój lekarz rodzinny";
 
@@ -125,9 +129,11 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Masz niskie ryzyko zakażenia, ponieważ nie zarejestrowano narażenia na kontakt z osobami, u których później zdiagnozowano koronawirusa, lub ponieważ Twoje kontakty trwały krótko przy zachowaniu odpowiednio dużej odległości.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Masz niskie ryzyko zakażenia, ponieważ nie zarejestrowano narażenia na kontakt z osobami, u których później zdiagnozowano koronawirusa, lub ponieważ Twoje kontakty trwały krótko przy zachowaniu odpowiednio dużej odległości.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Ryzyko zakażenia jest obliczane lokalnie na Twoim smartfonie na podstawie danych rejestrowania narażenia. Ta kalkulacja uwzględnia również dystans i czas trwania narażenia na kontakt z osobami, u których zdiagnozowano koronawirusa, a także ich potencjalną zakaźność. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
 
-"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ w dniu %@ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano COVID-19.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter_FAQ" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano koronawirusa.";
 
 "ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone. \nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie na smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane. \nPo powrocie do domu unikaj również bliskiego kontaktu z członkami rodziny lub gospodarstwa domowego.";
 
@@ -135,7 +141,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Dlaczego Twoje ryzyko zakażenia jest niskie";
 
-"ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na kontakt z osobą, u której zdiagnozowano COVID-19. Jednak na podstawie Twoich danych rejestrowania narażenia Twoje ryzyko zakażenia jest niskie. Ryzyko jest niskie, jeśli Twój kontakt trwał krótko lub zachowany został dystans. Nie musisz się martwić i podejmować żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących dystansu i higieny.";
+"ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na kontakt z osobą, u której zdiagnozowano koronawirusa. Jednak Twoje ryzyko zakażenia obliczone na podstawie Twoich danych rejestrowania narażenia jest niskie. Ryzyko jest niskie, jeśli Twój kontakt trwał krótko lub zachowany został dystans. Nie musisz się martwić i podejmować żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących zachowania dystansu i higieny.";
 
 "ExposureDetection_Button_Enable" = "Aktywuj rejestrowanie narażenia";
 
@@ -209,10 +215,11 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Ten okres jest uwzględniony w obliczeniu.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
 
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Rejestrowanie narażenia obejmuje ostatnie %1$u dni. W tym czasie funkcja rejestrowania w Twoim urządzeniu była aktywna przez %2$u dni. Aplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplikacja Corona-Warn-App została zainstalowana %u temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Message" = "Podczas rejestrowania narażenia wystąpił błąd.";
@@ -258,6 +265,16 @@
 "Settings_Reset_Description" = "Usuń wszystkie swoje dane z aplikacji.";
 
 "Settings_NavTitle" = "Ustawienia";
+
+"Settings_DaysSinceInstall_Title" = "Okres zarejestrowany";
+
+"Settings_DaysSinceInstall_SubTitle" = "Ten okres jest uwzględniony w obliczeniu.";
+
+"Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
+
+"Settings_DaysSinceInstall_P2a" = "Aplikacja Corona-Warn-App została zainstalowana %u temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
+
+"Settings_DaysSinceInstall_P2b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
 "Settings_DataDonation_Label" = "Udostępnij dane";
 
@@ -372,7 +389,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano COVID-19. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -617,17 +634,11 @@
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Dalej";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Ważne:\nTen proces zostanie anulowany. Nie ostrzegłeś(-aś) jeszcze innych osób. Ukończ proces i pomóż chronić innych.";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Czy na pewno chcesz anulować ten proces?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Czy chcesz anulować?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Twoje wpisy nie zostaną zapisane.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Po zapoznaniu się z wynikiem testu możesz w razie potrzeby powiadomić innych i przerwać łańcuch zakażeń.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anuluj";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Kontynuuj";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Wyświetl wynik";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Twój wynik testu";
@@ -771,7 +782,7 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test może być zeskanowany tylko raz.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "Jeśli usuniesz test, nie będziesz mieć możliwości pobrania wyniku swojego testu. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie COVID-19 organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Jeśli usuniesz test, nie będziesz mieć możliwości pobrania wyniku swojego testu. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Data rejestracji nieznana";
 
@@ -792,7 +803,7 @@
 
 "ExposureSubmissionError_NoResponse" = "Odpowiedź nie zawiera żadnej treści.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest niepoprawny lub został już zarejestrowany na innym smartfonie. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie COVID-19 organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest niepoprawny lub został już zarejestrowany na innym smartfonie. Otrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "Niepoprawny kod QR";
 
@@ -972,6 +983,8 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niskie ryzyko";
 
+"Home_Risk_DaysSinceInstallation" = "Zainstalowano %u dni temu";
+
 /* Home High card */
 "Home_Risk_High_Title" = "Podwyższone ryzyko";
 
@@ -1116,7 +1129,7 @@
 
 "App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja ta służy jako cyfrowe uzupełnienie już wprowadzonych środków ochrony zdrowia publicznego, takich jak zachowanie dystansu społecznego, dbanie o higienę oraz noszenie maseczek.";
 
-"App_Information_About_Text" = "Osoby korzystające z aplikacji pomagają w śledzeniu i przerwaniu łańcuchów zakażeń. Aplikacja zapisuje kontakty z innymi osobami lokalnie na Twoim urządzeniu. Otrzymasz powiadomienie, jeśli okaże się, że u osób, z którymi miałeś(-aś) kontakt, zdiagnozowano później COVID-19. Twoja tożsamość i prywatność są zawsze chronione.";
+"App_Information_About_Text" = "Osoby korzystające z aplikacji pomagają w śledzeniu i przerwaniu łańcuchów zakażeń. Aplikacja zapisuje kontakty z innymi osobami lokalnie na Twoim urządzeniu. Otrzymasz powiadomienie, jeśli okaże się, że u osób, z którymi miałeś(-aś) kontakt, zdiagnozowano później koronawirusa. Twoja tożsamość i prywatność są zawsze chronione.";
 
 "App_Information_About_LinkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
 
@@ -1185,6 +1198,31 @@
 "App_Information_Terms_ImageDescription" = "W ręce trzymany jest smartfon z dużą ilością tekstu na ekranie. Obok tekstu znajduje się znacznik wyboru symbolizujący zaakceptowanie warunków korzystania.";
 
 "App_Information_Terms_Title" = "Warunki korzystania";
+
+/* App Information - Error Report */
+"ErrorReport_PrivacyInformation" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności";
+
+"ErrorReport_ActiveStatus_Title" = "Analiza błędu w toku";
+
+"ErrorReport_InactiveStatus_Title" = "Nieaktywne";
+
+"ErrorReport_Progress_Description" = "Bieżący rozmiar: %@ (nieskompresowane)";
+
+"ErrorReport_StartButtonTitle" = "Uruchom";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Zatrzymaj i usuń";
+
+"ErrorReport_SaveButtonTitle" = "Zapisz lokalnie i kontynuuj";
+
+"ErrorReport_SendButtonTitle" = "Wyślij raport o błędzie";
+
+"ErrorReport_SendReports_Title" = "Wyślij raport o błędzie";
+
+"ErrorReport_SendReports_Paragraph" = "Wysłanie zarejestrowanego raportu o błędzie do pomocy technicznej RKI wymaga Twojej zgody.\n\nPo wysłaniu raportu otrzymasz identyfikator raportu o błędzie. Możesz podać ten identyfikator, aby na przykład zapewnić personelowi pomocy technicznej więcej informacji i umożliwić przypisanie go do raportu o błędzie. Jeśli nie podasz identyfikatora raportu o błędzie, RKI nie będzie mieć możliwości przypisania raportu do Ciebie.";
+
+"ErrorReport_SendReports_Details" = "Szczegółowe informacje o ryzyku związanym z przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
+
+"ErrorReport_SendReports_Button_Title" = "Akceptuj i wyślij";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Poleć nas";
@@ -1282,7 +1320,7 @@
 
 "RiskLegend_Random_Title" = "Identyfikator losowy";
 
-"RiskLegend_Random_Text" = "Identyfikatory losowe są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy urządzeniami znajdującymi się w bliskiej odległości od siebie. Identyfikatorów losowych nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano COVID-19, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
+"RiskLegend_Random_Text" = "Losowe identyfikatory są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy urządzeniami znajdującymi się w bliskiej odległości od siebie. Losowych identyfikatorów nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano koronawirusa, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
 
 "RiskLegend_Image1_AccLabel" = "Urządzenie pokazuje różne ponumerowane treści.";
 
@@ -1305,7 +1343,7 @@
 "ENATanInput_CharacterIndex" = "Znak %1$u z %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich 14 dni.";
+"Active_Tracing_Interval_Partially_Active" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich 14 dni";
 
 "Active_Tracing_Interval_Permanently_Active" = "Rejestrowanie narażenia stale aktywne";
 
@@ -1323,22 +1361,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
 
-/* Version 1.14 */
-"NewVersionFeature_114_additional_diary_functions_title" = "Dodatkowe funkcje w dzienniku kontaktów";
+/* Version 1.15 */
+"NewVersionFeature_115_cross_border_switzerland_title" = "Do międzynarodowego rejestrowania narażenia dodano Szwajcarię. ";
 
-"NewVersionFeature_114_additional_diary_functions_description" = "Teraz możesz wprowadzić szczegółowe okoliczności każdego kontaktu. Możesz dokonać wyboru spośród predefiniowanych opcji (takich jak czas trwania kontaktu, z maseczką lub bez), a także wprowadzić krótką notatkę w celu zapisania innych okoliczności, które mogą zwiększać ryzyko. W przypadku Twojego zakażenia informacje te będą mogły zostać wykorzystane przez organy ds. zdrowia publicznego do prześledzenia potencjalnych łańcuchów zakażenia.";
+"NewVersionFeature_115_cross_border_switzerland_description" = "Użytkownicy aplikacji Corona-Warn-App mogą teraz wymieniać się zaszyfrowanymi losowymi identyfikatorami z użytkownikami oficjalnej aplikacji ostrzegawczej w Szwajcarii. Oznacza to, że ostrzeżenia mogą być teraz wysyłane do użytkowników aplikacji w Szwajcarii i od nich odbierane.";
 
-"NewVersionFeature_114_direct_access_diary_title" = "Bezpośredni dostęp do dziennika kontaktów";
+"NewVersionFeature_115_error_analytic_logs_title" = "Generowanie raportów o błędach";
 
-"NewVersionFeature_114_direct_access_diary_description" = "Możesz teraz bezpośrednio dodać wpis do dziennika kontaktów bez konieczności otwierania aplikacji. Aby to zrobić, dotknij i przytrzymaj ikonę aplikacji Corona-Warn-App przez około 2 sekundy, aż pojawi się menu, a następnie dotknij opcji „Dodaj wpis do dziennika na dziś\".";
-
-"NewVersionFeature_114_more_details_risk_status_title" = "Więcej szczegółów na temat Twojego statusu ryzyka ";
-
-"NewVersionFeature_114_more_details_risk_status_description" = "Jeśli aplikacja wskaże podwyższone ryzyko, możesz sprawdzić, czy status ryzyka jest wyświetlany na podstawie jednego lub większej liczby narażeń o podwyższonym ryzyku czy jednego lub większej liczby o niskim ryzyku.";
-
-"NewVersionFeature_114_screenshots_title" = "Zrzuty ekranu dla Corona-Warn-App";
-
-"NewVersionFeature_114_screenshots_description" = "Witryna https://www.coronawarn.app zawiera teraz wszystkie zrzuty ekranu aplikacji, dzięki czemu możesz uzyskać informacji na przykład o planowanych funkcjach.";
+"NewVersionFeature_115_error_analytic_logs_description" = "Na prośbę działu wsparcia technicznego możesz teraz wygenerować raport o błędach i zapisać czynności wykonane w aplikacji. Ułatwi to analizę błędów technicznych i przyśpieszy ich usuwanie.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
@@ -1734,7 +1764,7 @@
 
 "DataDonation_Description" = "Możesz pomóc nam ulepszyć aplikację Corona-Warn-App. Udostępnij dane o korzystaniu z aplikacji instytutowi RKI, który będzie mógł wówczas ocenić jej skuteczność. Twoje dane pomogą również ulepszyć funkcje i użyteczność tej aplikacji.";
 
-"DataDonation_SubHead_Settings" = "USTAWIENIA";
+"DataDonation_SubHead_Settings" = "USTAWIENIE";
 
 "DataDonation_SubHead_YourState" = "Twój kraj związkowy (opcjonalnie)";
 
@@ -1844,4 +1874,37 @@
 
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Dodaj wpis do dziennika na dziś";
+
+/* Error Reporting */
+"ErrorReport_Title" = "Raporty o błędach";
+
+"ErrorReport_Description1" = "Aby pomóc zespołowi pomocy technicznej aplikacji w analizie błędów, możesz zarejestrować raport o błędzie z CWA. Gdy to zrobisz, poszczególne kroki techniczne i wyniki procesów aplikacji zostaną zarejestrowane. Następnie możesz wysłać raport o błędzie do pomocy technicznej i pomóc w zidentyfikowaniu i usunięciu błędu.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”:";
+
+"ErrorReport_FAQ" = "Często zadawane pytania dotyczące raportów o błędach";
+
+"ErrorReport_Description2" = "Wysłanie zarejestrowanego raportu o błędzie do pomocy technicznej RKI wymaga Twojej zgody.\n\nPo wysłaniu raportu otrzymasz identyfikator raportu o błędzie. Możesz podać ten identyfikator, aby na przykład zapewnić personelowi pomocy technicznej więcej informacji i umożliwić przypisanie go do raportu o błędzie. Jeśli nie podasz identyfikatora raportu o błędzie, RKI nie będzie mieć możliwości przypisania raportu do Ciebie.";
+
+"ErrorReport_DetailedInformation_Title" = "Szczegółowe informacje na temat wysyłania raportów o błędach";
+
+"errorReport_DetailedInformation_Headline" = "Weryfikacja autentyczności i przekazywanie danych do krajów trzecich";
+
+"errorReport_DetailedInformation_Content1" = "Aby potwierdzić autentyczność aplikacji, smartfon generuje unikalny identyfikator zawierający informacje o wersji smartfona i aplikacji. Jest to konieczne w celu zapewnienia, by tylko osoby, które faktycznie używają aplikacji Corona-Warn-App mogły wysyłać dane do pomocy technicznej, i wykluczenia zmanipulowanych raportów o błędach. W tym celu identyfikator jest wysyłany do Apple. W tym procesie dane mogą być przekazywane do Stanów Zjednoczonych lub innych krajów trzecich, gdzie poziom prywatności danych może nie odpowiadać prawu europejskiemu i możesz nie być w stanie wyegzekwować swoich europejskich praw do prywatności danych. W szczególności organy ds. bezpieczeństwa w kraju trzecim mogłyby uzyskać dostęp do danych i analizować je przy pomocy Apple, nawet jeśli nie ma podstaw do podejrzeń, i na przykład łączyć te dane z innymi informacjami. Dotyczy to tylko identyfikatora wysyłanego do Apple. Apple nie otrzymuje informacji z Twojego raportu o błędzie, może jednak określić Twoją tożsamość na podstawie identyfikatora i poprzez prześledzenie danych ustalić, że sprawdzanie autentyczności zostało przeprowadzone na Twoim smartfonie.\n\nJeśli nie wyrażasz zgody na przekazanie swoich danych do kraju trzeciego, nie klikaj opcji „Akceptuj i wyślij”. Nadal będziesz mieć możliwość korzystania z aplikacji, ale wysyłanie raportów o błędach będzie niemożliwe.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Jak RKI analizuje raporty o błędach";
+
+"ErrorReport_DetailedInformation_Content2" = "Po zweryfikowaniu autentyczności aplikacji raport o błędzie jest wysyłany do RKI za pośrednictwem bezpiecznego połączenia. Raporty o błędach będą wykorzystywane wyłącznie do rozwiązywania problemów i korygowania błędów w ramach przyszłych aktualizacji aplikacji. Dostęp do raportów o błędach ma tylko personel pomocy technicznej. Raporty o błędach zawierają różne komunikaty o statusie i dane o zdarzeniach wyzwalanych w aplikacji, ale nie zawierają żadnych informacji, które umożliwiłyby RKI ustalenie Twojej tożsamości. Tylko jeśli podasz identyfikator raportu o błędzie w związku z kolejnymi komunikatami, możliwe będzie powiązanie komunikatu (i na przykład zawartego w nim Twojego nazwiska) z informacjami zawartymi w raporcie o błędzie (takimi jak komunikaty techniczne dotyczące obliczeń w ramach rejestrowania narażenia, wyświetlane informacje i czynności wykonane w aplikacji oraz, w stosownych przypadkach, pobrany wynik testu i losowe identyfikatory udostępniane w ramach powiadamiania innych).";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "Po zweryfikowaniu autentyczności aplikacji raport o błędzie jest wysyłany do RKI za pośrednictwem bezpiecznego połączenia. Raporty o błędach będą wykorzystywane wyłącznie do rozwiązywania problemów i korygowania błędów w ramach przyszłych aktualizacji aplikacji. Dostęp do raportów o błędach ma tylko personel pomocy technicznej. Raporty o błędach zawierają różne komunikaty o statusie i dane o zdarzeniach wyzwalanych w aplikacji, ale nie zawierają żadnych informacji, które umożliwiłyby RKI ustalenie Twojej tożsamości. Tylko jeśli podasz identyfikator raportu o błędzie w związku z kolejnymi komunikatami, możliwe będzie powiązanie komunikatu (i na przykład zawartego w nim Twojego nazwiska) z informacjami zawartymi w raporcie o błędzie (takimi jak komunikaty techniczne dotyczące obliczeń w ramach rejestrowania narażenia, wyświetlane informacje i czynności wykonane w aplikacji oraz, w stosownych przypadkach, pobrany wynik testu i losowe identyfikatory udostępniane w ramach powiadamiania innych).";
+
+"ErrorReport_History_Title" = "Historia identyfikatorów";
+
+"ErrorReport_History_Description" = "W tym miejscu wyświetlane są identyfikatory dzienników analizy błędów";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "Identyfikatory dotychczas udostępnionych analiz błędów";
+
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Nie można wysłać raportu o błędzie (kod błędu %@).";
+
+"ErrorReport_TRY_AGAIN_LATER" = "W tej chwili nie można wysłać raportu o błędzie. Spróbuj ponownie później (kod błędu %@).";
 
