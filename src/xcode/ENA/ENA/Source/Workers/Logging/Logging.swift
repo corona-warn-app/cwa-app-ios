@@ -124,19 +124,36 @@ struct FileLogger {
 
 	// MARK: - Internal
 
-
 	/// The directory where all logs are stored
 	let logFileBaseURL: URL = {
 		let fileManager = FileManager.default
-		return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+		return fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
 	}()
 
 	/// Path to a common log file for all log types combined
 	let allLogsFileURL: URL = {
 		let fileManager = FileManager.default
-		let baseURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+		let baseURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
 		return baseURL.appendingPathComponent("AllLogTypes.txt")
 	}()
+
+	init() {
+		// Quick and dirty migration to new log location
+		let fileManager = FileManager.default
+		let oldURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
+		var isDir: ObjCBool = true
+		if fileManager.fileExists(atPath: oldURL.path, isDirectory: &isDir) {
+			do {
+				try fileManager.moveItem(atPath: oldURL.path, toPath: logFileBaseURL.path)
+				Log.debug("Migrated logs to new location", log: .els)
+			} catch {
+				// Don't `Log` anything here unless you handle file access for write + deletion properly!
+				// swiftlint:disable:next force_try
+				try! fileManager.removeItem(at: oldURL) // Removal or bust! For GDPR!!!
+			}
+			assert(!fileManager.fileExists(atPath: oldURL.path, isDirectory: &isDir))
+		}
+	}
 
 	func log(_ logMessage: String, logType: OSLogType, file: String? = nil, line: Int? = nil, function: String? = nil) {
 		var meta: String = ""
@@ -162,7 +179,6 @@ struct FileLogger {
 		allLogsFileHandle.seekToEndOfFile()
 		allLogsFileHandle.write(logMessageData)
 	}
-
 
 	/// `StreamReader` for a given log type
 	/// - Parameter logType: the log type to read
