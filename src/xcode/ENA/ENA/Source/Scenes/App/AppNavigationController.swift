@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class AppNavigationController: UINavigationController {
+class AppNavigationController: ENANavigationControllerWithFooter {
 	private var scrollViewObserver: NSKeyValueObservation?
 	
 	@available(iOS 13.0, *)

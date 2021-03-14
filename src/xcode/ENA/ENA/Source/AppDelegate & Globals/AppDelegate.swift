@@ -78,7 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
-		setupUI()
+		var route: Route?
+		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
+			for key in activityDictionary.keys {
+				if let userActivity = activityDictionary[key] as? NSUserActivity {
+					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
+						route = Route(url: url)
+						break
+					}
+				}
+			}
+		}
+		setupUI(route)
 		setupQuickActions()
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
@@ -448,12 +459,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	private let riskConsumer = RiskConsumer()
 
-	private func setupUI() {
+	private func setupUI(_ route: Route?) {
 		setupNavigationBarAppearance()
 		setupAlertViewAppearance()
 
 		if store.isOnboarded {
-			showHome()
+			showHome(route)
 		} else {
 			showOnboarding()
 		}
@@ -490,21 +501,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .enaColor(for: .tint)
 	}
 
-	func showHome() {
+	func showHome(_ route: Route? = nil) {
 		if exposureManager.exposureManagerState.status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
 					return
 				}
-				self?.presentHomeVC()
+				self?.presentHomeVC(route)
 			}
 		} else {
-			presentHomeVC()
+			presentHomeVC(route)
 		}
 	}
 
-	private func presentHomeVC() {
+	private func presentHomeVC(_ route: Route?) {
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.exposureManagerState,
 			delegate: self
@@ -515,6 +526,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		coordinator.showHome(enStateHandler: enStateHandler)
+
+		if let eventRoute = route {
+			switch eventRoute {
+			case .checkin(let guid):
+				coordinator.showEvent(guid)
+			}
+		}
+
 	}
 
 	private func showOnboarding() {

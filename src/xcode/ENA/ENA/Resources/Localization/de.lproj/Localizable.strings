@@ -1797,6 +1797,8 @@ sein.";
 
 "Tabbar_Diary_Title" = "Tagebuch";
 
+"Tabbar_CheckIn_Title" = "Check In";
+
 /* Data Donation */
 
 "DataDonation_IntroductionText" = "Teilen Sie Daten über Ihre App-Nutzung mit uns und helfen Sie uns so, die Wirksamkeit der App zu bewerten.";
@@ -1919,7 +1921,14 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Contact_Journal_Notes_Description" = "Hier können Sie Notizen machen, die Ihnen helfen, das Infektionsrisiko besser einzuschätzen.\n\nNotieren Sie hier weitere Umstände Ihrer Begegnung bzw. Ihres Aufenthalts, die sich auf das Infektionsrisiko auswirken können, z. B. räumliche Nähe zu anderen Personen oder was Sie gemacht haben (Beispiele: „saßen nah beieinander“, „Sport gemacht“, „wenig Platz“, „wir haben gesungen“).\n\nDiese Notizen können Ihnen später helfen, sich besser zu erinnern. So können Sie, wenn nötig, die Menschen, mit denen Sie zusammen waren, frühzeitig warnen und auch das Gesundheitsamt bei der Nachverfolgung möglicher Infektionsketten unterstützen.";
 
 /* Quick Actions a.k.a. shortcuts */
+
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
+
+/* Events */
+
+"Events_QR_Scanner_Title" = "QR-Code scannen und einchecken";
+
+"Events_Qr_Scanner_Button_CheckIns" = "Meine Check Ins";
 
 /* Error Reporting */
 

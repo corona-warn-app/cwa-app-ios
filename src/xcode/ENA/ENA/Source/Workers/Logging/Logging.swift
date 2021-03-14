@@ -29,6 +29,11 @@ extension OSLog {
 	static let survey = OSLog(subsystem: subsystem, category: "survey")
 	/// PP Analytics
 	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
+	/// Event / Location Checkin
+	static let checkin = OSLog(subsystem: subsystem, category: "checkin")
+	/// Event / Location Organizer
+	static let traceLocation = OSLog(subsystem: subsystem, category: "traceLocation")
+
 }
 
 /// Logging

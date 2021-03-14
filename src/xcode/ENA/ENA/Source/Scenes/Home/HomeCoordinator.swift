@@ -15,6 +15,7 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	private var settingsController: SettingsViewController?
 
+	private var traceLocationsCoordinator: TraceLocationsCoordinator?
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
@@ -94,6 +95,9 @@ class HomeCoordinator: RequiresAppDependencies {
 				onStatisticsInfoButtonTap: { [weak self] in
 					self?.showStatisticsInfo()
 				},
+				onTraceLocationsCellTap: { [weak self] in
+					self?.showTraceLocations()
+				},
 				onInviteFriendsCellTap: { [weak self] in
 					self?.showInviteFriends()
 				},
@@ -170,7 +174,7 @@ class HomeCoordinator: RequiresAppDependencies {
 		}
 	}
 
-	func showRiskLegend() {
+	private func showRiskLegend() {
 		let riskLegendViewController = RiskLegendViewController(
 			onDismiss: { [weak rootViewController] in
 				rootViewController?.dismiss(animated: true)
@@ -239,6 +243,16 @@ class HomeCoordinator: RequiresAppDependencies {
 			UINavigationController(rootViewController: statisticsInfoController),
 			animated: true
 		)
+	}
+
+	private func showTraceLocations() {
+		traceLocationsCoordinator = TraceLocationsCoordinator(
+			store: store,
+			eventStore: MockEventStore(),
+			parentNavigationController: rootViewController
+		)
+
+		traceLocationsCoordinator?.start()
 	}
 
 	private func showInviteFriends() {
