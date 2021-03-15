@@ -40,7 +40,7 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, ENANavigatio
 		}
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.CheckinInformation.primaryButton
 	}
 
 	override var navigationItem: UINavigationItem {

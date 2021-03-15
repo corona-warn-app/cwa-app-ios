@@ -16,6 +16,7 @@ final class CheckinCoordinator {
 		
 		#if DEBUG
 		if isUITesting {
+			// app launch argument
 			if let checkinInfoScreenShown = UserDefaults.standard.string(forKey: "checkinInfoScreenShown") {
 				store.checkinInfoScreenShown = (checkinInfoScreenShown != "NO")
 			}
@@ -31,7 +32,7 @@ final class CheckinCoordinator {
 			showSettings: showSettings
 		)
 		
-		// temporary: show the info screen
+		// show the info screen only once
 		if !infoScreenShown {
 			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
 				guard let self = self else { return }

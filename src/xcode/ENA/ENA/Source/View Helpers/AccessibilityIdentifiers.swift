@@ -414,6 +414,8 @@ enum AccessibilityIdentifiers {
 		static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"
 		static let descriptionSubHeadline = "AppStrings.CheckInInformation.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.CheckInInformation.dataPrivacyTitle"
+		static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
+		static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
 	}
 
 }

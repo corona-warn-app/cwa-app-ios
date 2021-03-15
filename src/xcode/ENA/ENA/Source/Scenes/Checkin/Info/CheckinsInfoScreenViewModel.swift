@@ -74,8 +74,7 @@ struct CheckInsInfoScreenViewModel {
 					bulletPoints2: [
 						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
 						],
-					// TODO check accessibility identifier
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+					accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
 					}
