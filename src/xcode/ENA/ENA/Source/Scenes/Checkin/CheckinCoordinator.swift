@@ -18,8 +18,16 @@ final class CheckinCoordinator {
 			showQRCodeScanner: showQRCodeScanner,
 			showSettings: showSettings
 		)
+		
+		// temporary: show the info screen
+		return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+			guard let self = self else { return }
+		},
+		showDetail: { detailViewController in
+			self.viewController.pushViewController(detailViewController, animated: true)
+		}))
 
-		return UINavigationController(rootViewController: checkInsTableViewController)
+//		return UINavigationController(rootViewController: checkInsTableViewController)
 	}()
 
 	// MARK: - Private
@@ -63,6 +71,45 @@ final class CheckinCoordinator {
 			return
 		}
 		UIApplication.shared.open(url, options: [:])
+	}
+	
+	private func infoScreen(
+		hidesCloseButton: Bool = false,
+		dismissAction: @escaping (() -> Void),
+		showDetail: @escaping ((UIViewController) -> Void)
+	) -> UIViewController {
+		let viewController = CheckinsInfoScreenViewController(
+			viewModel: CheckInsInfoScreenViewModel(
+				presentDisclaimer: {
+					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+					detailViewController.title = AppStrings.AppInformation.privacyTitle
+					showDetail(detailViewController)
+				},
+				hidesCloseButton: hidesCloseButton
+			),
+			onDismiss: {
+				dismissAction()
+			}
+		)
+		return viewController
+	}
+
+	private func presentInfoScreen() {
+		// Promise the navigation view controller will be available,
+		// this is needed to resolve an inset issue with large titles
+		var navigationController: ENANavigationControllerWithFooter!
+		let infoVC = infoScreen(
+			dismissAction: {
+				navigationController.dismiss(animated: true)
+			},
+			showDetail: { detailViewController in
+				navigationController.pushViewController(detailViewController, animated: true)
+			}
+		)
+		// We need to use UINavigationController(rootViewController: UIViewController) here,
+		// otherwise the inset of the navigation title is wrong
+		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+		viewController.present(navigationController, animated: true)
 	}
 
 }
