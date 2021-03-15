@@ -142,22 +142,13 @@ struct SAP_Internal_Pt_SignedTraceLocation {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var location: SAP_Internal_Pt_TraceLocation {
-    get {return _location ?? SAP_Internal_Pt_TraceLocation()}
-    set {_location = newValue}
-  }
-  /// Returns true if `location` has been explicitly set.
-  var hasLocation: Bool {return self._location != nil}
-  /// Clears the value of `location`. Subsequent reads from it will return its default value.
-  mutating func clearLocation() {self._location = nil}
+  var location: Data = Data()
 
   var signature: Data = Data()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _location: SAP_Internal_Pt_TraceLocation? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -269,7 +260,7 @@ extension SAP_Internal_Pt_SignedTraceLocation: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._location) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.location) }()
       case 2: try { try decoder.decodeSingularBytesField(value: &self.signature) }()
       default: break
       }
@@ -277,8 +268,8 @@ extension SAP_Internal_Pt_SignedTraceLocation: SwiftProtobuf.Message, SwiftProto
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._location {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    if !self.location.isEmpty {
+      try visitor.visitSingularBytesField(value: self.location, fieldNumber: 1)
     }
     if !self.signature.isEmpty {
       try visitor.visitSingularBytesField(value: self.signature, fieldNumber: 2)
@@ -287,7 +278,7 @@ extension SAP_Internal_Pt_SignedTraceLocation: SwiftProtobuf.Message, SwiftProto
   }
 
   static func ==(lhs: SAP_Internal_Pt_SignedTraceLocation, rhs: SAP_Internal_Pt_SignedTraceLocation) -> Bool {
-    if lhs._location != rhs._location {return false}
+    if lhs.location != rhs.location {return false}
     if lhs.signature != rhs.signature {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
