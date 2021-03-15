@@ -52,7 +52,27 @@ class HomeTestResultCellModel {
 	private let homeState: HomeState
 	private var subscriptions = Set<AnyCancellable>()
 
+	// swiftlint:disable:next cyclomatic_complexity
 	private func configure(for testResult: TestResult?) {
+		#if DEBUG
+		if isUITesting {
+			// adding this for launch arguments to fake test results on home screen
+			if UserDefaults.standard.string(forKey: "showInvalidTestResult") == "YES" {
+				configureTestResultInvalid()
+				return
+			} else if UserDefaults.standard.string(forKey: "showPendingTestResult") == "YES" {
+				configureTestResultPending()
+				return
+			} else if UserDefaults.standard.string(forKey: "showNegativeTestResult") == "YES" {
+				configureTestResultNegative()
+				return
+			} else if UserDefaults.standard.string(forKey: "showLoadingTestResult") == "YES" {
+				configureLoading()
+				return
+			}
+		}
+		#endif
+
 		switch testResult {
 		case .none: configureSubmit()
 		case .invalid: configureTestResultInvalid()
