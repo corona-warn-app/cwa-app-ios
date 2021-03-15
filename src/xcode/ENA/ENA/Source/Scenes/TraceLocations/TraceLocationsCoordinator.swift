@@ -45,7 +45,7 @@ class TraceLocationsCoordinator {
 	private let store: Store
 	private let eventStore: EventStoring & EventProviding
 
-	private var tmpTraceLocation = TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615559082), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation = TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, signature: "")
 
 	private weak var parentNavigationController: UINavigationController?
 

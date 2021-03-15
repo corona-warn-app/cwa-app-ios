@@ -5,22 +5,22 @@
 import UIKit
 import OpenCombine
 
-class AddTraceLocationTableViewCell: UITableViewCell {
+class AddEventTableViewCell: UITableViewCell {
 
 	// MARK: - Internal
 
-	func configure(cellModel: AddTraceLocationCellModel) {
+	func configure(cellModel: AddEventCellModel) {
 		label.text = cellModel.text
 
-		cellModel.$iconImage
+		cellModel.iconImagePublisher
 			.assign(to: \.image, on: iconImageView)
 			.store(in: &subscriptions)
 
-		cellModel.$textColor
+		cellModel.textColorPublisher
 			.assign(to: \.textColor, on: label)
 			.store(in: &subscriptions)
 
-		cellModel.$accessibilityTraits
+		cellModel.accessibilityTraitsPublisher
 			.assign(to: \.accessibilityTraits, on: self)
 			.store(in: &subscriptions)
 
@@ -34,6 +34,6 @@ class AddTraceLocationTableViewCell: UITableViewCell {
 	@IBOutlet private weak var label: ENALabel!
 
 	private var subscriptions = Set<AnyCancellable>()
-	private var cellModel: AddTraceLocationCellModel?
+	private var cellModel: AddEventCellModel?
     
 }

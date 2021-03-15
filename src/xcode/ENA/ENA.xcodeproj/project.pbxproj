@@ -46,13 +46,13 @@
 		0138F62525F1147500A9B075 /* EmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F62425F1147500A9B075 /* EmptyStateViewModel.swift */; };
 		0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */; };
 		0138F65525F1174200A9B075 /* TraceLocationsOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */; };
-		0138F65625F1174200A9B075 /* AddTraceLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64425F1174000A9B075 /* AddTraceLocationTableViewCell.swift */; };
-		0138F65A25F1174200A9B075 /* AddTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64325F1174000A9B075 /* AddTraceLocationCellModel.swift */; };
+		0138F65625F1174200A9B075 /* AddEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64425F1174000A9B075 /* AddEventTableViewCell.swift */; };
+		0138F65A25F1174200A9B075 /* AddEventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64325F1174000A9B075 /* AddEventCellModel.swift */; };
 		0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */; };
-		0138F68F25F21C8000A9B075 /* TraceLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68D25F21C8000A9B075 /* TraceLocationTableViewCell.swift */; };
+		0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */; };
 		0138F69025F21C8000A9B075 /* TraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */; };
-		0138F6A025F21CC600A9B075 /* TraceLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F68C25F21C8000A9B075 /* TraceLocationTableViewCell.xib */; };
-		0138F6A425F2220300A9B075 /* AddTraceLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F64225F1174000A9B075 /* AddTraceLocationTableViewCell.xib */; };
+		0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */; };
+		0138F6A425F2220300A9B075 /* AddEventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */; };
 		0138F6AE25F25B1400A9B075 /* TraceLocationsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */; };
 		0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */; };
 		0138F6CA25F6133E00A9B075 /* TraceLocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */; };
@@ -246,6 +246,8 @@
 		01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */; };
 		01F52FFC2552E6F600997A26 /* ENARangeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F52FFB2552E6F600997A26 /* ENARangeTest.swift */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
+		01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6701125FF79830069C4F9 /* EventCellModel.swift */; };
+		01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */; };
 		01FD3EDB25D2F0DF0049497A /* UserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */; };
 		01FD3EE325D2F1020049497A /* DeadmanNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
@@ -959,11 +961,11 @@
 		0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
 		0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewModel.swift; sourceTree = "<group>"; };
 		0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsOverviewViewController.swift; sourceTree = "<group>"; };
-		0138F64225F1174000A9B075 /* AddTraceLocationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddTraceLocationTableViewCell.xib; sourceTree = "<group>"; };
-		0138F64325F1174000A9B075 /* AddTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModel.swift; sourceTree = "<group>"; };
-		0138F64425F1174000A9B075 /* AddTraceLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationTableViewCell.swift; sourceTree = "<group>"; };
-		0138F68C25F21C8000A9B075 /* TraceLocationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TraceLocationTableViewCell.xib; sourceTree = "<group>"; };
-		0138F68D25F21C8000A9B075 /* TraceLocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTableViewCell.swift; sourceTree = "<group>"; };
+		0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddEventTableViewCell.xib; sourceTree = "<group>"; };
+		0138F64325F1174000A9B075 /* AddEventCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventCellModel.swift; sourceTree = "<group>"; };
+		0138F64425F1174000A9B075 /* AddEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventTableViewCell.swift; sourceTree = "<group>"; };
+		0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
+		0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModel.swift; sourceTree = "<group>"; };
 		0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewController.swift; sourceTree = "<group>"; };
 		0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewModel.swift; sourceTree = "<group>"; };
@@ -1153,6 +1155,8 @@
 		01F52FF32552DB9600997A26 /* DMAppConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMAppConfigurationViewController.swift; sourceTree = "<group>"; };
 		01F52FFB2552E6F600997A26 /* ENARangeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENARangeTest.swift; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
+		01F6701125FF79830069C4F9 /* EventCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellModel.swift; sourceTree = "<group>"; };
+		01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModel.swift; sourceTree = "<group>"; };
 		01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationCenter.swift; sourceTree = "<group>"; };
 		01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadmanNotificationManager.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
@@ -1994,7 +1998,8 @@
 				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
 				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
 				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
-				0138F64125F1173F00A9B075 /* Cells */,
+				01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */,
+				0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -2002,12 +2007,12 @@
 		0138F64125F1173F00A9B075 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0138F64425F1174000A9B075 /* AddTraceLocationTableViewCell.swift */,
-				0138F64225F1174000A9B075 /* AddTraceLocationTableViewCell.xib */,
-				0138F64325F1174000A9B075 /* AddTraceLocationCellModel.swift */,
-				0138F68D25F21C8000A9B075 /* TraceLocationTableViewCell.swift */,
-				0138F68C25F21C8000A9B075 /* TraceLocationTableViewCell.xib */,
-				0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */,
+				0138F64425F1174000A9B075 /* AddEventTableViewCell.swift */,
+				0138F64225F1174000A9B075 /* AddEventTableViewCell.xib */,
+				0138F64325F1174000A9B075 /* AddEventCellModel.swift */,
+				0138F68D25F21C8000A9B075 /* EventTableViewCell.swift */,
+				0138F68C25F21C8000A9B075 /* EventTableViewCell.xib */,
+				01F6701125FF79830069C4F9 /* EventCellModel.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3965,6 +3970,7 @@
 			isa = PBXGroup;
 			children = (
 				ABE9615925F11FA500D0F699 /* Store */,
+				0138F64125F1173F00A9B075 /* Cells */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -5298,7 +5304,7 @@
 				01D0268D258B9CF800B6389A /* ExposureDetectionRiskCell.xib in Resources */,
 				01A4DCEA25926938007D5794 /* HomeListItemView.xib in Resources */,
 				01A4DCDE2592692D007D5794 /* HomeImageItemView.xib in Resources */,
-				0138F6A425F2220300A9B075 /* AddTraceLocationTableViewCell.xib in Resources */,
+				0138F6A425F2220300A9B075 /* AddEventTableViewCell.xib in Resources */,
 				01B72BFF2583B57300A3E3BC /* DiaryEditEntriesTableViewCell.xib in Resources */,
 				01E4298E251DCDC90057FCBE /* Localizable.legal.strings in Resources */,
 				01A6EFC7258BE9C20001D8C2 /* NotificationSettingsOnTableViewCell.xib in Resources */,
@@ -5315,7 +5321,7 @@
 				01D02667258B750800B6389A /* ExposureDetectionViewController.xib in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				017AD105259DC20E00FA2B3F /* HomeShownPositiveTestResultTableViewCell.xib in Resources */,
-				0138F6A025F21CC600A9B075 /* TraceLocationTableViewCell.xib in Resources */,
+				0138F6A025F21CC600A9B075 /* EventTableViewCell.xib in Resources */,
 				01D02733258BD36800B6389A /* MainSettingsCell.xib in Resources */,
 				BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
@@ -5431,6 +5437,7 @@
 				ABE9620425F67CB000D0F699 /* TraceTimeIntervalMatch.swift in Sources */,
 				508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */,
 				523D5E75256FDFE900EF67EA /* ExposureSubmissionThankYouViewController.swift in Sources */,
+				01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */,
 				01B72B6525821CD200A3E3BC /* EmptyStateView.swift in Sources */,
 				0138F54C25ECD44300A9B075 /* ppdd_ppa_parameters.pb.swift in Sources */,
 				35B2FAAA25B9CE8F009ABC8E /* main.swift in Sources */,
@@ -5590,7 +5597,7 @@
 				BA6C8AAE254D6476008344F5 /* ENARange.swift in Sources */,
 				50BD2E6424FE232E00932566 /* AppInformationImprintViewModel.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
-				0138F65A25F1174200A9B075 /* AddTraceLocationCellModel.swift in Sources */,
+				0138F65A25F1174200A9B075 /* AddEventCellModel.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStoreV1.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				50C0298825E4067400460FA4 /* AgeGroup.swift in Sources */,
@@ -5663,7 +5670,7 @@
 				94EAF87925B6CAA300BE1F40 /* DeltaOnboardingNewVersionFeaturesViewModel.swift in Sources */,
 				BA4C26A425EE9DF600E0505F /* CheckinDetailViewModel.swift in Sources */,
 				01A4DD4325935D1F007D5794 /* HomeRiskCellModel.swift in Sources */,
-				0138F68F25F21C8000A9B075 /* TraceLocationTableViewCell.swift in Sources */,
+				0138F68F25F21C8000A9B075 /* EventTableViewCell.swift in Sources */,
 				504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */,
 				94EAF87525B6CAA000BE1F40 /* DeltaOnboardingNewVersionFeaturesViewController.swift in Sources */,
 				01EA17FE259217B100E98E02 /* HomeState.swift in Sources */,
@@ -5871,7 +5878,7 @@
 				ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */,
 				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
-				0138F65625F1174200A9B075 /* AddTraceLocationTableViewCell.swift in Sources */,
+				0138F65625F1174200A9B075 /* AddEventTableViewCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				0138F5F425EFDBC300A9B075 /* HomeTraceLocationsCellModel.swift in Sources */,
 				01B7232724F812BC0064C0EB /* OptionGroupView.swift in Sources */,
@@ -5963,6 +5970,7 @@
 				0138F55125ECD44300A9B075 /* risk_calculation_parameters.pb.swift in Sources */,
 				35327FF6256D4CE600C36A44 /* UIStackView+prune.swift in Sources */,
 				504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */,
+				01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */,
 				BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */,
 				01EA17622590EAAF00E98E02 /* HomeTableViewController.swift in Sources */,
 				35BF067525DB1BA900D3868B /* AppDelegate+QuickActions.swift in Sources */,

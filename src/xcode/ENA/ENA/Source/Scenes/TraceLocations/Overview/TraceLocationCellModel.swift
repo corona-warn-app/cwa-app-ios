@@ -5,26 +5,6 @@
 import UIKit
 import OpenCombine
 
-protocol EventCellModel {
-
-	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
-	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
-	var isButtonHiddenPublisher: OpenCombine.Published<Bool>.Publisher { get }
-	var durationPublisher: OpenCombine.Published<String?>.Publisher { get }
-	var timePublisher: OpenCombine.Published<String?>.Publisher { get }
-
-	var isActiveIconHidden: Bool { get }
-	var isDurationStackViewHidden: Bool { get }
-
-	var date: String { get }
-
-	var title: String { get }
-	var address: String { get }
-
-	var buttonTitle: String { get }
-
-}
-
 class TraceLocationCellModel: EventCellModel {
 
 	// MARK: - Init
@@ -39,7 +19,7 @@ class TraceLocationCellModel: EventCellModel {
 
 		eventProvider.checkinsPublisher
 			.sink { [weak self] checkins in
-				self?.isButtonHidden = checkins.contains { $0.traceLocationGUID == traceLocation.guid }
+				self?.isButtonHiddenPublisher.value = checkins.contains { $0.traceLocationGUID == traceLocation.guid }
 				onUpdate()
 			}
 			.store(in: &subscriptions)
@@ -50,11 +30,11 @@ class TraceLocationCellModel: EventCellModel {
 
 	// MARK: - Internal
 
-	var isInactiveIconHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isInactiveIconHidden }
-	var isActiveContainerViewHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isActiveContainerViewHidden }
-	var isButtonHiddenPublisher: OpenCombine.Published<Bool>.Publisher { $isButtonHidden }
-	var durationPublisher: OpenCombine.Published<String?>.Publisher { $duration }
-	var timePublisher: OpenCombine.Published<String?>.Publisher { $time }
+	var isInactiveIconHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
+	var isActiveContainerViewHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
+	var isButtonHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
+	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
+	var timePublisher = CurrentValueSubject<String?, Never>(nil)
 
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true
@@ -84,24 +64,18 @@ class TraceLocationCellModel: EventCellModel {
 
 	private var subscriptions = Set<AnyCancellable>()
 
-	@OpenCombine.Published private var isInactiveIconHidden: Bool = true
-	@OpenCombine.Published private var isActiveContainerViewHidden: Bool = true
-	@OpenCombine.Published private var isButtonHidden: Bool = true
-	@OpenCombine.Published private var duration: String?
-	@OpenCombine.Published private var time: String?
-
 	private var updateTimer: Timer?
 
 	@objc
 	private func updateForActiveState() {
-		isInactiveIconHidden = traceLocation.isActive
-		isActiveContainerViewHidden = !traceLocation.isActive
+		isInactiveIconHiddenPublisher.value = traceLocation.isActive
+		isActiveContainerViewHiddenPublisher.value = !traceLocation.isActive
 
 		let dateFormatter = DateIntervalFormatter()
 		dateFormatter.dateStyle = traceLocation.isActive ? .none : .short
 		dateFormatter.timeStyle = .short
 
-		time = dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+		timePublisher.value = dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
 
 		onUpdate()
 	}

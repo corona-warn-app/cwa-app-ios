@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationTableViewCell: UITableViewCell {
+class EventTableViewCell: UITableViewCell {
 
 	// MARK: - Overrides
 

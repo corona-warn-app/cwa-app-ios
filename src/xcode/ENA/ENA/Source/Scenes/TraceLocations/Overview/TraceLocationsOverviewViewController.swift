@@ -155,13 +155,13 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: AddTraceLocationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: AddTraceLocationTableViewCell.self)
+			UINib(nibName: String(describing: AddEventTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: AddEventTableViewCell.self)
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: TraceLocationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: TraceLocationTableViewCell.self)
+			UINib(nibName: String(describing: EventTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: EventTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
@@ -199,8 +199,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	}
 
 	private func traceLocationAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddTraceLocationTableViewCell.self), for: indexPath) as? AddTraceLocationTableViewCell else {
-			fatalError("Could not dequeue DiaryDayAddTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddEventTableViewCell.self), for: indexPath) as? AddEventTableViewCell else {
+			fatalError("Could not dequeue AddEventTableViewCell")
 		}
 
 		cell.configure(cellModel: addEntryCellModel)
@@ -209,8 +209,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	}
 
 	private func traceLocationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TraceLocationTableViewCell.self), for: indexPath) as? TraceLocationTableViewCell else {
-			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EventTableViewCell.self), for: indexPath) as? EventTableViewCell else {
+			fatalError("Could not dequeue EventTableViewCell")
 		}
 
 		let cellModel = viewModel.traceLocationCellModel(
