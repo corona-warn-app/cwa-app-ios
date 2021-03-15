@@ -57,7 +57,9 @@ struct DataDonationModel {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
 
 		// If user has not given or revoked his consent, delete all analytics data. If he gives not the consent, delete all analytics data to have a clean state.
-		Analytics.deleteAnalyticsData()
+		if isConsentGiven == false {
+			Analytics.deleteAnalyticsData()
+		}
 
 		guard isConsentGiven else {
 			region = nil
