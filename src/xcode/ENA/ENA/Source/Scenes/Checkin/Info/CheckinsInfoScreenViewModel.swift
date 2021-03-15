@@ -22,32 +22,33 @@ struct CheckInsInfoScreenViewModel {
 	var dynamicTableViewModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 
-			// Illustration with information text
+			// Illustration with information text and bullet icons with text
 			.section(
 				header:
 					.image(
 						UIImage(
-							imageLiteralResourceName: "Illu_CheckIn-Information"
+							imageLiteralResourceName: "Illu_Event_Checkin_Info"
+							// TODO: dark mode illustration
 						),
-						accessibilityLabel: AppStrings.ContactDiary.Information.imageDescription,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.imageDescription
+						accessibilityLabel: AppStrings.Checkin.Information.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.imageDescription
 					),
 				cells: [
 					.title2(
-						text: AppStrings.ContactDiary.Information.descriptionTitle,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionTitle
+						text: AppStrings.Checkin.Information.descriptionTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.descriptionTitle
 					),
 					.subheadline(
-						text: AppStrings.ContactDiary.Information.descriptionSubHeadline,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.descriptionSubHeadline
+						text: AppStrings.Checkin.Information.descriptionSubHeadline,
+						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline
 					),
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.ContactDiary.Information.itemPersonTitle),
+						UIImage(imageLiteralResourceName: "Icons_Contact"), // TODO change icon
+						text: .string(AppStrings.Checkin.Information.itemPersonTitle), // TODO change text ID
 						alignment: .top
 					),
 					.space(
@@ -56,43 +57,7 @@ struct CheckInsInfoScreenViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.ContactDiary.Information.itemContactTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.ContactDiary.Information.itemLockTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
-						text: .string(AppStrings.ContactDiary.Information.deletedAutomatically),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
-						text: .string(AppStrings.ContactDiary.Information.exportTextformat),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Attention_high_small"),
-						text: .string(AppStrings.ContactDiary.Information.exposureHistory),
+						text: .string(AppStrings.Checkin.Information.itemContactTitle),
 						alignment: .top
 					)
 				]
@@ -100,17 +65,18 @@ struct CheckInsInfoScreenViewModel {
 			// Legal text
 			.section(cells: [
 				.legalExtended(
-					title: NSAttributedString(string: AppStrings.ContactDiary.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_1),
+					title: NSAttributedString(string: AppStrings.Checkin.Information.legalHeadline_1),
+					subheadline1: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_1),
 					bulletPoints1: [
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_1),
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_2)
+						NSAttributedString(string: AppStrings.Checkin.Information.legalText_1),
+						NSAttributedString(string: AppStrings.Checkin.Information.legalText_2)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.ContactDiary.Information.legalSubHeadline_2),
+					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
 					bulletPoints2: [
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_3),
-						NSAttributedString(string: AppStrings.ContactDiary.Information.legalText_4)
+						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3),
+						NSAttributedString(string: AppStrings.Checkin.Information.legalText_4)
 						],
+					// TODO check accessibility identifier
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
