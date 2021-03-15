@@ -310,6 +310,47 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(ppasError, .ppacError(.generationFailed))
 	}
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_SeveralTimes_THEN_SubmissionInProgressErrorIsReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		let client = ClientMock()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider
+		)
+
+		let expectation = self.expectation(description: "completion handler is called with an error")
+		expectation.expectedFulfillmentCount = 2
+
+		// WHEN
+		var ppasError: PPASError?
+		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case .failure:
+				expectation.fulfill()
+			}
+		})
+		
+		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case let .failure(error):
+				ppasError = error
+				expectation.fulfill()
+			}
+		})
+
+		// THEN
+		waitForExpectations(timeout: .short)
+		XCTAssertEqual(ppasError, .submissionInProgress)
+	}
 
 	// MARK: - Conversion to protobuf
 
