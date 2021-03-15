@@ -20,7 +20,7 @@ struct Checkin {
 	let createJournalEntry: Bool
 
 	var isActive: Bool {
-		checkinEndDate != nil
+		checkinEndDate == nil
 	}
-	
+
 }
