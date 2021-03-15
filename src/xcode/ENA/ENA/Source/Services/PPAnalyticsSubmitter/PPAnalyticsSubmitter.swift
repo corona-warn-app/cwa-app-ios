@@ -327,7 +327,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					self?.store.lastSubmissionAnalytics = Date()
 					completion?(result)
 				case let .failure(error):
-					Log.error("Analytics data were not submitted", log: .ppa, error: error)
+					Log.error("Analytics data were not submitted. Error: \(error)", log: .ppa, error: error)
 					completion?(result)
 				}
 			}
