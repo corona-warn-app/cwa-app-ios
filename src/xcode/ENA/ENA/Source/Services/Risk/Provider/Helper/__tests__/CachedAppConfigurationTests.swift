@@ -84,43 +84,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		subscription.cancel()
 	}
-	
-	func testClientMetadata_isUpdated_everytime_appconfiguration_isFetched() {
-		let mockStore = MockTestStore()
-		Analytics.setupMock(store: mockStore)
-		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		XCTAssertNil(mockStore.clientMetadata, "Client metadata should be initially nil")
-		let client = CachingHTTPClientMock(store: mockStore)
-		let cache = CachedAppConfiguration(client: client, store: mockStore)
-		let expectationClientMetadata = expectation(description: "ClientMetadata")
-		// AppVersion
-		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
-		guard appVersionParts.count == 3,
-			  let majorAppVersion = Int(appVersionParts[0]),
-			  let minorAppVersion = Int(appVersionParts[1]),
-			  let patchAppVersion = Int((appVersionParts[2])) else {
-			return
-		}
-		let expectedAppVersion = Version(major: majorAppVersion, minor: minorAppVersion, patch: patchAppVersion)
-		// iOSVersion
-		let expectediosVersion = Version(
-			major: ProcessInfo().operatingSystemVersion.majorVersion,
-			minor: ProcessInfo().operatingSystemVersion.minorVersion,
-			patch: ProcessInfo().operatingSystemVersion.patchVersion
-		)
-		// eTag
-		let expectedETag = "fake"
-		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
-			expectationClientMetadata.fulfill()
-		}
-		waitForExpectations(timeout: .medium) { _ in
-			XCTAssertNotNil(configuration, "configuration is not nil")
-			XCTAssertNotNil(mockStore.clientMetadata, "Client metadata should be filled after fetching")
-			XCTAssertEqual(expectedAppVersion, mockStore.clientMetadata?.cwaVersion, "appVersion not equal clientMetaData appVersion")
-			XCTAssertEqual(expectediosVersion, mockStore.clientMetadata?.iosVersion, "iosVersion not equal clientMetaData iosVersion")
-			XCTAssertEqual(expectedETag, mockStore.clientMetadata?.eTag, "eTag not equal clientMetaData eTag")
-		}
-	}
 
 	func testCacheEmptySupportedCountries() throws {
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")

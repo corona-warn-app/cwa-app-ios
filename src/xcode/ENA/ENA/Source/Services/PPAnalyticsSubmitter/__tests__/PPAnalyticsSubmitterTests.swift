@@ -314,6 +314,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_SeveralTimes_THEN_SubmissionInProgressErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		Analytics.setupMock(store: store)
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
