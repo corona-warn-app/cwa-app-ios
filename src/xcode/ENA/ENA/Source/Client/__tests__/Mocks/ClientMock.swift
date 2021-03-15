@@ -56,8 +56,9 @@ final class ClientMock {
 	var onGetTANForExposureSubmit: ((String, Bool, @escaping TANHandler) -> Void)?
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
+	var onGetELSToken: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmissionCompletionHandler) -> Void)?
-	var onSubmitErrorLog: ((Data, Bool, @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler) -> Void)?
+	var onSubmitErrorLog: ((Data, Bool, @escaping ErrorLogSubmitting.ELSSubmissionResponse) -> Void)?
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -176,6 +177,21 @@ extension ClientMock: Client {
 		onGetOTP(otp, ppacToken, isFake, completion)
 	}
 
+	func authorizeELS(
+		elsToken: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let onGetELSToken = self.onGetELSToken else {
+			completion(.success(Date()))
+			return
+		}
+
+		onGetELSToken(elsToken, ppacToken, isFake, completion)
+	}
+
 	func submit(
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		ppacToken: PPACToken,
@@ -192,7 +208,13 @@ extension ClientMock: Client {
 
 	}
 
-	func submit(logFile: Data, uploadToken: ErrorLogSubmitting.ELSToken, isFake: Bool = false, completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler) {
+	func submit(
+		logFile: Data,
+		uploadToken: PPACToken,
+		isFake: Bool = false,
+		forceApiTokenHeader: Bool,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
+	) {
 		guard let onSubmitErrorLog = self.onSubmitErrorLog else {
 			completion(.success(LogUploadResponse(id: "\(Int.random(in: 0..<Int.max))", hash: logFile.sha256String())))
 			return

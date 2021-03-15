@@ -76,6 +76,7 @@
     {
       "parallelizable" : true,
       "skippedTests" : [
+        "ELSSubmissionTests\/testELSAuthentication()",
         "StatisticsProviderTests\/testFetchLiveStats()"
       ],
       "target" : {

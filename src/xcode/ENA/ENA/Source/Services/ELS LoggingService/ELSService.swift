@@ -7,15 +7,26 @@ import OpenCombine
 
 protocol ErrorLogSubmitting {
 
-	typealias ELSSubmissionCompletionHandler = (Result<LogUploadResponse, PPASError>) -> Void
-	typealias ELSToken = String
+	typealias ELSAuthenticationResponse = (Result<ELSToken, OTPError>) -> Void
+	typealias ELSSubmissionResponse = (Result<LogUploadResponse, PPASError>) -> Void // TODO: PPAC or PPAS?
+	typealias ELSToken = TimestampedToken
 
+	/// Publisher returning the size in bytes for a given file
 	var logFileSizePublisher: OpenCombine.AnyPublisher<Int64, LogError> { get }
 
-	func submit(log: Data, completion: @escaping ELSSubmissionCompletionHandler)
+	func authenticate(completion: @escaping ELSAuthenticationResponse)
+	func submit(log: Data, completion: @escaping ELSSubmissionResponse)
 }
 
-struct LogUploadResponse {
+protocol ErrorLogHandling {
+	// Enable logging
+
+	// disable logging
+
+	// delete existing log
+}
+
+struct LogUploadResponse: Decodable {
 	let id: String
 	let hash: String
 }
@@ -41,21 +52,48 @@ final class ErrorLogSubmissionService: ErrorLogSubmitting {
 
 	// MARK: - ErrorLogSubmitting
 
+	func authenticate(completion: @escaping ELSAuthenticationResponse) {
+		if let token = store.elsApiToken, token.timestamp > Date() {
+			completion(.success(token))
+		} else {
+			let token = UUID().uuidString
+			PPACDeviceCheck().deviceToken(token) { result in
+				switch result {
+				case .success(let deviceToken):
+					self.client.authorizeELS(elsToken: token, ppacToken: deviceToken, isFake: false, forceApiTokenHeader: false) { result in
+						switch result {
+						case .success(let validUntil):
+							let elsToken = TimestampedToken(token: token, timestamp: validUntil)
+							self.store.elsApiToken = elsToken
+							completion(.success(elsToken))
+						case .failure(let error):
+							completion(.failure(error))
+						}
+					}
+				case .failure(let error):
+					completion(.failure(OTPError.generalError))
+				}
+			}
+		}
+	}
+
 	func submit(log: Data, completion: @escaping (Result<LogUploadResponse, PPASError>) -> Void) {
 		// get log data from the 'all logs' file
 		guard let item = LogDataItem(at: fileLogger.allLogsFileURL) else {
 			Log.warning("No log data to export.", log: .els)
+			completion(.failure(PPASError.generalError))
 			return
 		}
 
-		// if needed, generate els token on the fly
-		let token = store.elsUploadToken ?? {
-			let token = UUID().uuidString
-			Log.info("Creating new ELS upload token", log: .els)
-			store.elsUploadToken = token
-			return token
-		}()
-		client.submit(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
+		#warning("TODO!!!!!")
+//		// if needed, generate els token on the fly
+//		let token = store.elsApiToken ?? {
+//			let token = UUID().uuidString
+//			Log.info("Creating new ELS upload token", log: .els)
+//			store.elsUploadToken = token
+//			return token
+//		}()
+//		client.submit(logFile: item.compressedData as Data, uploadToken: token, isFake: false, completion: completion)
 	}
 
 	// MARK: - Helpers

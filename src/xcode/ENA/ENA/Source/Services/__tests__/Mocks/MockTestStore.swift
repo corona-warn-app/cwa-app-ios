@@ -99,5 +99,5 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
 
 	// MARSK: - ErrorLogProviding
-	var elsUploadToken: ErrorLogSubmitting.ELSToken?
+	var elsApiToken: ErrorLogSubmitting.ELSToken?
 }

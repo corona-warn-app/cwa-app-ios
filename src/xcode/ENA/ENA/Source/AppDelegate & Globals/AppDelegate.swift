@@ -60,8 +60,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		_: UIApplication,
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-
-
 		#if DEBUG
 		setupOnboardingForTesting()
 		setupDatadonationForTesting()

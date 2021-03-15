@@ -143,14 +143,14 @@ struct FileLogger {
 		let oldURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Logs")
 		var isDir: ObjCBool = true
 		if fileManager.fileExists(atPath: oldURL.path, isDirectory: &isDir) {
+			// Don't `Log` anything here unless you handle file access for write + deletion properly!
 			do {
 				try fileManager.moveItem(atPath: oldURL.path, toPath: logFileBaseURL.path)
-				Log.debug("Migrated logs to new location", log: .els)
 			} catch {
-				// Don't `Log` anything here unless you handle file access for write + deletion properly!
 				// swiftlint:disable:next force_try
 				try! fileManager.removeItem(at: oldURL) // Removal or bust! For GDPR!!!
 			}
+
 			assert(!fileManager.fileExists(atPath: oldURL.path, isDirectory: &isDir))
 		}
 	}

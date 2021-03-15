@@ -271,6 +271,46 @@ final class HTTPClient: Client {
 		})
 	}
 
+	func authorizeELS(
+		elsToken: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool = false,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	) {
+		guard let request = try? URLRequest.authorizeELSTokenRequest(
+				configuration: configuration,
+				elsToken: elsToken,
+				ppacToken: ppacToken,
+				isFake: isFake,
+				forceApiTokenHeader: forceApiTokenHeader) else {
+			completion(.failure(.invalidResponseError))
+			return
+		}
+
+		session.response(for: request, isFake: isFake, completion: { [weak self] result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					self?.otpAuthorizationSuccessHandler(for: response, completion: completion)
+				case 400, 401, 403:
+					self?.otpAuthorizationFailureHandler(for: response, completion: completion)
+				case 500:
+					Log.error("Failed to get authorized OTP - 500 status code", log: .api)
+					completion(.failure(.internalServerError))
+				default:
+					Log.error("Failed to authorize OTP - response error", log: .api)
+					Log.error(String(response.statusCode), log: .api)
+					completion(.failure(.internalServerError))
+				}
+			case let .failure(error):
+				Log.error("Failed to authorize OTP due to error: \(error).", log: .api)
+				completion(.failure(.invalidResponseError))
+			}
+		})
+	}
+
 	func submit(
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		ppacToken: PPACToken,
@@ -332,26 +372,50 @@ final class HTTPClient: Client {
 
 	func submit(
 		logFile: Data,
-		uploadToken: ErrorLogSubmitting.ELSToken,
+		uploadToken: PPACToken,
 		isFake: Bool = false,
-		completion: @escaping ErrorLogSubmitting.ELSSubmissionCompletionHandler
+		forceApiTokenHeader: Bool,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
 	) {
-		guard let request = try? URLRequest.errorLogSubmit(configuration: configuration, payload: logFile, uploadToken: uploadToken, isFake: isFake) else {
+		guard let request = try? URLRequest.errorLogSubmit(
+				configuration: configuration,
+				payload: logFile,
+				ppacToken: uploadToken,
+				isFake: isFake,
+				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.urlCreationError))
 			return
 		}
+		#if DEBUG
+		debugPrint("[\(request.httpMethod ?? "GET")] \(request)")
+		debugPrint(request.allHTTPHeaderFields ?? [:])
+		debugPrint(String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "<nil>")
+		#endif
 
 		session.response(for: request, isFake: isFake, extraHeaders: nil) { result in
-			switch result {
-			case .success(let response):
-				debugPrint(response)
-				switch response.statusCode {
-				default:
-					break
+			do {
+				switch result {
+				case .success(let response):
+					debugPrint(response)
+					switch response.statusCode {
+					case 201:
+						guard let body = response.body else {
+							throw PPASError.jsonError
+						}
+						let result = try JSONDecoder().decode(LogUploadResponse.self, from: body)
+						completion(.success(result))
+					case 400..<500:
+						fallthrough
+					default:
+						#warning("TODO")
+						debugPrint(String(data: response.body ?? Data(), encoding: .utf8))
+					}
+				case .failure(let error):
+					throw error
 				}
-			case .failure(let error):
-				debugPrint(error)
-				completion(.failure(.serverFailure(error)))
+			} catch {
+				#warning("TODO")
+				completion(.failure(.generalError))
 			}
 		}
 	}
@@ -748,6 +812,11 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 
+		request.setValue(
+			isFake ? "1" : "0",
+			forHTTPHeaderField: "cwa-fake"
+		)
+
 		#if !RELEASE
 		if forceApiTokenHeader {
 			request.setValue(
@@ -758,6 +827,54 @@ private extension URLRequest {
 		#endif
 
 		request.httpBody = body
+		return request
+	}
+
+	static func authorizeELSTokenRequest(
+		configuration: HTTPClient.Configuration,
+		elsToken: String,
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool
+	) throws -> URLRequest {
+		#warning(" client foo")
+
+		let ppacIos = SAP_Internal_Ppdd_PPACIOS.with {
+			$0.apiToken = ppacToken.apiToken
+			$0.deviceToken = ppacToken.deviceToken
+		}
+
+		let payload = SAP_Internal_Ppdd_ELSOneTimePassword.with {
+			$0.otp = elsToken
+		}
+
+		let protoBufRequest = SAP_Internal_Ppdd_ELSOneTimePasswordRequestIOS.with {
+			$0.payload = payload
+			$0.authentication = ppacIos
+		}
+
+		var request = URLRequest(url: configuration.elsAuthorizationURL)
+		request.httpMethod = "POST"
+		request.httpBody = try protoBufRequest.serializedData()
+
+		// Headers
+		request.setValue(
+			"application/x-protobuf",
+			forHTTPHeaderField: "Content-Type"
+		)
+		request.setValue(
+			isFake ? "1" : "0",
+			forHTTPHeaderField: "cwa-fake"
+		)
+		#if !RELEASE
+		if forceApiTokenHeader {
+			request.setValue(
+				"1",
+				forHTTPHeaderField: "cwa-ppac-ios-accept-api-token"
+			)
+		}
+		#endif
+
 		return request
 	}
 
@@ -806,10 +923,11 @@ private extension URLRequest {
 	static func errorLogSubmit(
 		configuration: HTTPClient.Configuration,
 		payload: Data,
-		uploadToken: String,
-		isFake: Bool
+		ppacToken: PPACToken,
+		isFake: Bool,
+		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
-		let boundary = UUID().uuidString
+		let boundary = payload.hashValue.description //UUID().uuidString
 		var request = URLRequest(url: configuration.logUploadURL)
 		request.httpMethod = "POST"
 		// create multipart body
@@ -817,17 +935,17 @@ private extension URLRequest {
 
 		// headers
 		request.setValue(
-			uploadToken,
+			ppacToken.apiToken,
 			forHTTPHeaderField: "cwa-otp"
 		)
 		request.setValue(
 			"multipart/form-data; boundary=\(boundary)",
 			forHTTPHeaderField: "Content-Type"
 		)
-		request.setValue(
-			"\(request.httpBody?.count ?? 0)",
-			forHTTPHeaderField: "Content-Length"
-		)
+//		request.setValue(
+//			"\(request.httpBody?.count ?? 0)",
+//			forHTTPHeaderField: "Content-Length"
+//		)
 
 		return request
 	}
@@ -877,8 +995,10 @@ private extension URLRequest {
 
 		// init form
 		try body.append("--\(boundary)\r\n")
-		try body.append("Content-Disposition: form-data; name=\"file\"\r\n")
+
+		try body.append("Content-Disposition: form-data; name=\"file\"; filename=\"errorlog.zip\"\r\n")
 		try body.append("Content-Type: application/zip\r\n")
+		try body.append("Content-Length: \(logData.count)\r\n")
 		try body.append("\r\n")
 		try body.append("\(logData)\r\n")
 
