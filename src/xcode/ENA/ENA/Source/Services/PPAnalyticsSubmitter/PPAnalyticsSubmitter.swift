@@ -57,6 +57,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 		
+		submissionState = .submissionInProgress
+		
 		// Check if user has given his consent to collect data
 		if userDeclinedAnalyticsCollectionConsent {
 			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
@@ -64,8 +66,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			completion?(.failure(.userConsentError))
 			return
 		}
-		
-		submissionState = .submissionInProgress
 		
 		// Sink on the app configuration if something has changed. But do this in background and wait for the result before continue.
 		dispatchQueueSubmission.enter()
