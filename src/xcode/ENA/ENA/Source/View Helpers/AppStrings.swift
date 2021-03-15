@@ -1334,6 +1334,7 @@ enum AppStrings {
 		}
 		
 		enum Information {
+			static let title = NSLocalizedString("Checkin_Information_Title", comment: "")
 			static let imageDescription = NSLocalizedString("Checkin_Information_ImageDescription", comment: "")
 			static let descriptionTitle = NSLocalizedString("Checkin_Information_DescriptionTitle", comment: "")
 			static let descriptionSubHeadline = NSLocalizedString("Checkin_Information_DescriptionSubHeadline", comment: "")
