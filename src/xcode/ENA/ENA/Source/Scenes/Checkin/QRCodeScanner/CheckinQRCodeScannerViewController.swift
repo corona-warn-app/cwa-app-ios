@@ -54,7 +54,6 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	private let viewModel: CheckinQRCodeScannerViewModel
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { setNeedsPreviewMaskUpdate() } }
-	private var needsPreviewMaskUpdate: Bool = true
 
 	private func setupView() {
 		
@@ -221,9 +220,6 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		}
 	}
 	private func setNeedsPreviewMaskUpdate() {
-		guard needsPreviewMaskUpdate else { return }
-		needsPreviewMaskUpdate = true
-
 		DispatchQueue.main.async(execute: updatePreviewMaskIfNeeded)
 	}
 
