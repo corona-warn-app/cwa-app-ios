@@ -1325,14 +1325,15 @@ extension ContactDiaryStore {
 			return nil
 		}
 
-		let latestDBVersion = 3
-		let schema = ContactDiaryStoreSchemaV3(
+		let latestDBVersion = 4
+		let schema = ContactDiaryStoreSchemaV4(
 			databaseQueue: databaseQueue
 		)
 		
 		let migrations: [Migration] = [
 			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
-			ContactDiaryMigration2To3(databaseQueue: databaseQueue)
+			ContactDiaryMigration2To3(databaseQueue: databaseQueue),
+			ContactDiaryMigration3To4(databaseQueue: databaseQueue)
 		]
 		let migrator = SerialDatabaseQueueMigrator(
 			queue: databaseQueue,
