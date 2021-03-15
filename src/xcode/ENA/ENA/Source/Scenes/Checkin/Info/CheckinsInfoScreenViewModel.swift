@@ -27,7 +27,7 @@ struct CheckInsInfoScreenViewModel {
 				header:
 					.image(
 						UIImage(
-							imageLiteralResourceName: "Illu_Event_Checkin_Info" // TODO: dark mode illustration
+							imageLiteralResourceName: "Illu_Event_Checkin_Info"
 						),
 						accessibilityLabel: AppStrings.Checkin.Information.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.imageDescription
@@ -46,7 +46,7 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Checkin"), // TODO: dark mode icon
+						UIImage(imageLiteralResourceName: "Icons_Checkin"),
 						text: .string(AppStrings.Checkin.Information.itemCheckinTitle),
 						alignment: .top
 					),
