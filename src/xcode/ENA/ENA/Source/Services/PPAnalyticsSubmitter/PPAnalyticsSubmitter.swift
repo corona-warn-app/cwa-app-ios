@@ -50,9 +50,18 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	) {
 		Log.info("Analytics submission was triggered. Checking now if we can submit...", log: .ppa)
 		
+		// Check if a submission is already in progress
 		guard submissionState == .readyForSubmission else {
 			Log.warning("Analytics submission abord due to submission is already in progress", log: .ppa)
 			completion?(.failure(.submissionInProgress))
+			return
+		}
+		
+		// Check if user has given his consent to collect data
+		if userDeclinedAnalyticsCollectionConsent {
+			Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
+			submissionState = .readyForSubmission
+			completion?(.failure(.userConsentError))
 			return
 		}
 		
@@ -75,14 +84,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
 				self?.submissionState = .readyForSubmission
 				completion?(.failure(.generalError))
-				return
-			}
-			
-			// Check if user has given his consent to collect data
-			if strongSelf.userDeclinedAnalyticsCollectionConsent {
-				Log.warning("Analytics submission abord due to missing users consent", log: .ppa)
-				strongSelf.submissionState = .readyForSubmission
-				completion?(.failure(.userConsentError))
 				return
 			}
 			
