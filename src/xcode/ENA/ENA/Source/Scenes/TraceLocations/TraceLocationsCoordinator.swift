@@ -25,6 +25,9 @@ class TraceLocationsCoordinator {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
 		eventStore.createTraceLocation(tmpTraceLocation)
+		eventStore.createTraceLocation(tmpTraceLocation1)
+		eventStore.createTraceLocation(tmpTraceLocation2)
+		eventStore.createTraceLocation(tmpTraceLocation3)
 
 		#if DEBUG
 		if isUITesting {
@@ -44,7 +47,10 @@ class TraceLocationsCoordinator {
 	private let store: Store
 	private let eventStore: EventStoring & EventProviding
 
-	private var tmpTraceLocation = TraceLocation(guid: "1234", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: /*Date(timeIntervalSince1970: 1506432400)*/nil, endDate: /*Date(timeIntervalSince1970: 1615805862)*/nil, defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation2 = TraceLocation(guid: "2", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation3 = TraceLocation(guid: "3", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, signature: "")
 
 	private weak var parentNavigationController: UINavigationController?
 
@@ -231,7 +237,7 @@ class TraceLocationsCoordinator {
 
 	private func showCheckInScreen(traceLocation: TraceLocation) {
 		// Show checkin screen here, for testing purposes we are temporarily directly checking in
-		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: tmpTraceLocation.guid, traceLocationVersion: tmpTraceLocation.version, traceLocationType: tmpTraceLocation.type, traceLocationDescription: tmpTraceLocation.description, traceLocationAddress: tmpTraceLocation.address, traceLocationStart: tmpTraceLocation.startDate, traceLocationEnd: tmpTraceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: tmpTraceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: tmpTraceLocation.signature, checkinStartDate: Date(timeIntervalSince1970: 1506432400), checkinEndDate: tmpTraceLocation.endDate, targetCheckinEndDate: tmpTraceLocation.endDate, createJournalEntry: false))
+		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: traceLocation.guid, traceLocationVersion: traceLocation.version, traceLocationType: traceLocation.type, traceLocationDescription: traceLocation.description, traceLocationAddress: traceLocation.address, traceLocationStart: traceLocation.startDate, traceLocationEnd: traceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: traceLocation.signature, checkinStartDate: Date(), checkinEndDate: nil, targetCheckinEndDate: nil, createJournalEntry: false))
 	}
 
 }
