@@ -144,7 +144,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
-		CheckinCoordinator()
+		CheckinCoordinator(store: store)
 	}()
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {

@@ -9,7 +9,19 @@ final class CheckinCoordinator {
 
 	// MARK: - Init
 
-	init() { }
+	init(
+		store: Store
+	) {
+		self.store = store
+		
+		#if DEBUG
+		if isUITesting {
+			if let checkinInfoScreenShown = UserDefaults.standard.string(forKey: "checkinInfoScreenShown") {
+				store.checkinInfoScreenShown = (checkinInfoScreenShown != "NO")
+			}
+		}
+		#endif
+	}
 
 	// MARK: - Internal
 
@@ -20,17 +32,26 @@ final class CheckinCoordinator {
 		)
 		
 		// temporary: show the info screen
-		return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
-			guard let self = self else { return }
-		},
-		showDetail: { detailViewController in
-			self.viewController.pushViewController(detailViewController, animated: true)
-		}))
-
-//		return UINavigationController(rootViewController: checkInsTableViewController)
+		if !infoScreenShown {
+			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+				guard let self = self else { return }
+				self.infoScreenShown = true
+			},
+			showDetail: { detailViewController in
+				self.viewController.pushViewController(detailViewController, animated: true)
+			}))
+		} else {
+			return UINavigationController(rootViewController: checkInsTableViewController)
+		}
+		
 	}()
 
 	// MARK: - Private
+	private let store: Store
+	private var infoScreenShown: Bool {
+		get { store.checkinInfoScreenShown }
+		set { store.checkinInfoScreenShown = newValue }
+	}
 
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
