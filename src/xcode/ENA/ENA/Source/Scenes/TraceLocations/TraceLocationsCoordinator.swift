@@ -235,7 +235,7 @@ class TraceLocationsCoordinator {
 
 	private func showCheckInScreen(traceLocation: TraceLocation) {
 		// Show checkin screen here, for testing purposes we are temporarily directly checking in
-		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: traceLocation.guid, traceLocationVersion: traceLocation.version, traceLocationType: traceLocation.type, traceLocationDescription: traceLocation.description, traceLocationAddress: traceLocation.address, traceLocationStart: traceLocation.startDate, traceLocationEnd: traceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: traceLocation.signature, checkinStartDate: Date(), checkinEndDate: nil, targetCheckinEndDate: Date(timeIntervalSinceNow: 3600), createJournalEntry: false))
+		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: traceLocation.guid, traceLocationVersion: traceLocation.version, traceLocationType: traceLocation.type, traceLocationDescription: traceLocation.description, traceLocationAddress: traceLocation.address, traceLocationStart: traceLocation.startDate, traceLocationEnd: traceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: traceLocation.signature, checkinStartDate: Date(), checkinEndDate: nil, targetCheckinEndDate: Date(timeIntervalSinceNow: 4500), createJournalEntry: false))
 	}
 
 }
