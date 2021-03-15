@@ -64,10 +64,12 @@ The following rule governs documentation contributions:
 Format: `{task_name} (closes #{issue_number})`. For example: `Use logger (closes #41)`.
 2. Set target branch.
 All feature branches should branch from the latest ```release``` branch, so the target should also be this ```release``` branch.
-3.  Set description.
+3. [Only applicable for core contributors] Set label.
+ Possible labels: `bug`, `chore`, `enhancement`, `feature`, `UI polish` and `UX`
+4.  Set description.
 Describe what is the pull request about and add some bullet points describing what’s changed and why. Also, any instructions how to review/test/etc. should be written here. The goal is to make it easier for reviewers to review the pull request, and to let them know what they should be careful of, what they should focus on, etc.
-4. Open the pull request.
-5. [Only applicable for members of the SAP development team] Open the team chat in Microsoft Teams and notify team members that the pull request is ready for review.
+5. Open the pull request.
+6. [Only applicable for members of the SAP development team] Open the team chat in Microsoft Teams and notify team members that the pull request is ready for review.
 Describe what’s the pull request about in one short sentence and post the link to the pull request. Additionally, describe how big the pull request is. The goal of this step is to provide team members with some information about the pull request to prevent them having to open the link to get the basic information about it.
 **Note: Every message like this in the team chat is a kind request to team members to review the pull request. These messages should not be ignored. If the message is ignored, the pull request creator should remind team members. Ultimately, stale pull request should/have to be mentioned in dailies.**
 
