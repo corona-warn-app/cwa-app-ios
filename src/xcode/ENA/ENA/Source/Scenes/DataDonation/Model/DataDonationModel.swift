@@ -16,7 +16,6 @@ struct DataDonationModel {
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 
 		let userMetadata = store.userData
-		Analytics.collect(.userData(.create(userMetadata)))
 		self.federalStateName = userMetadata?.federalState?.rawValue
 		self.age = userMetadata?.ageGroup?.text
 

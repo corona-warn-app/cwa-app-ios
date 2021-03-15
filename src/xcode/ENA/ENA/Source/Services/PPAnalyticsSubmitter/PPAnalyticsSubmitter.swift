@@ -109,8 +109,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	func getPPADataMessage() -> SAP_Internal_Ppdd_PPADataIOS {
-		// Need to add this call here to make sure the dev menu can see the client metadata, too.
-		Analytics.collect(.clientMetadata(.setClientMetaData))
 		return obtainUsageData(disableExposureWindowsProbability: true)
 	}
 
@@ -225,11 +223,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func generatePPACAndSubmitData(disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
-		// Must be set here for both submit calls. This call should be done at the moment right before the submission, because the submission can only work if we have a valid app config. And to log the client meta data, we need a valid app config.
-		// Must not use the Analytics.collect call because this would produce an extra submission call while we are on a submission.
-		let eTag = store.appConfigMetadata?.lastAppConfigETag
-		store.clientMetadata = ClientMetadata(etag: eTag)
-		
 		// Obtain authentication data
 		let deviceCheck = PPACDeviceCheck()
 		let ppacService = PPACService(store: self.store, deviceCheck: deviceCheck)
@@ -379,6 +372,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
+		// According to the tech spec, grap the user metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
+		store.userMetadata = store.userData
 		guard let storedUserData = store.userMetadata else {
 			return SAP_Internal_Ppdd_PPAUserMetadata.with { _ in }
 		}
@@ -397,6 +392,10 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
+		// According to the tech spec, grap the client metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
+		let eTag = store.appConfigMetadata?.lastAppConfigETag
+		store.clientMetadata = ClientMetadata(etag: eTag)
+		
 		guard let clientData = store.clientMetadata else {
 			return SAP_Internal_Ppdd_PPAClientMetadataIOS.with { _ in }
 		}
