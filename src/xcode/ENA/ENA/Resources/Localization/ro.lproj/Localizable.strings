@@ -63,6 +63,8 @@
 
 "ExposureDetection_High_Red_Color" = "Roșu";
 
+"ExposureDetection_DaysSinceInstallation" = "Instalat acum %u zile";
+
 "ExposureDetection_LastExposure" = "Cel mai recent pe %@";
 
 "ExposureDetection_LastExposure_One_Risk_Day" = "Pe %@";
@@ -97,9 +99,11 @@
 
 "ExposureDetection_Guide_Sneeze" = "Strănutați sau tușiți în pliul cotului sau într-un șervețel.";
 
+"ExposureDetection_Guide_Ventilation" = "Aerisiți spațiile interioare de mai multe ori pe zi. Astfel, deschideți ferestrele cât mai larg posibil timp de câteva minute („ventilație șoc”).";
+
 "ExposureDetection_Guide_Home" = "Dacă este posibil, mergeți acasă și rămâneți în casă.";
 
-"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau autoizolare, contactați:";
+"ExposureDetection_Guide_Hotline1" = "Dacă aveți întrebări despre simptome, disponibilitatea testării sau măsurile de carantină, contactați fie:";
 
 "ExposureDetection_Guide_Hotline2" = "Medicul de familie";
 
@@ -127,7 +131,7 @@
 
 "ExposureDetection_Explanation_Text_Low_With_Encounter" = "Aveți un risc redus de infectare deoarece nu a fost înregistrată nicio expunere la persoane diagnosticate ulterior cu coronavirus sau expunerile dvs. au fost limitate la o perioadă scurtă și la o distanță mai mare.";
 
-"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe %@ pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.";
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Aveți un risc crescut de infectare deoarece ați fost expus ultima dată pe o perioadă mai lungă de timp și în strânsă proximitate cu cel puțin o persoană diagnosticată cu COVID-19.";
 
 "ExposureDetection_Explanation_Text_High" = "Prin urmare, riscul dvs. de infectare a fost clasificat ca fiind crescut. \nRiscul dvs. de infectare este calculat pe baza datelor de înregistrare în jurnal a expunerilor (durata și proximitatea) la nivel local pe smartphone-ul dvs. Riscul dvs. de infectare nu poate fi văzut de o altă persoană sau transmis unei alte persoane. \nCând ajungeți acasă, evitați contactul strâns cu membrii familiei sau cu cei din gospodăria dvs.";
 
@@ -209,10 +213,11 @@
 "ExposureDetection_ActiveTracingSection_Subtitle" = "Această perioadă este inclusă în calcul.";
 
 /* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
 
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Înregistrarea în jurnal a expunerilor acoperă ultimele %1$u zile. În această perioadă, caracteristica de înregistrare în jurnal de pe dispozitivul dvs. a fost activă timp de %2$u zile. Aplicația șterge automat înregistrările mai vechi din jurnal, întrucât acestea nu mai sunt relevante pentru prevenirea infectării.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplicația Corona-Warn a fost instalată acum %u. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
 /* Exposure Detection Errors */
 "ExposureDetectionError_Alert_Message" = "A apărut o eroare în timpul înregistrării în jurnal a expunerilor.";
@@ -258,6 +263,16 @@
 "Settings_Reset_Description" = "Ștergeți toate datele dvs. din aplicație.";
 
 "Settings_NavTitle" = "Setări";
+
+"Settings_DaysSinceInstall_Title" = "Perioada înregistrată";
+
+"Settings_DaysSinceInstall_SubTitle" = "Această perioadă este inclusă în calcul.";
+
+"Settings_DaysSinceInstall_P1" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
+
+"Settings_DaysSinceInstall_P2a" = "Aplicația Corona-Warn a fost instalată acum %u. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+
+"Settings_DaysSinceInstall_P2b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
 "Settings_DataDonation_Label" = "Partajare date";
 
@@ -617,17 +632,11 @@
 
 "ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Înainte";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Important:\nSunteți pe punctul de a anula acest proces. Încă nu i-ați avertizat pe ceilalți. Vă rugăm să finalizați procesul și să ajutați la protejarea celorlalți.";
-
-"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Sigur doriți să anulați acest proces?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Doriți să anulați?";
-
-"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Intrările dvs. nu vor fi salvate.";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "După ce ați citit rezultatul testului dvs., îi puteți notifica pe ceilalți dacă este necesar și puteți întrerupe lanțul de infectare.";
 
 "ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anulare";
 
-"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Continuare";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Afișare rezultat";
 
 /* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Rezultatul testului dvs.";
@@ -804,7 +813,7 @@
 
 "ExposureSubmissionError_RegTokenNotExist" = "Un cod TAN de transmis nu poate fi generat. Contactați hotline-ul tehnic accesând Informații aplicație -> Hotline tehnic.";
 
-"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru asistența tehnică:";
+"ExposureSubmissionError_other" = "A apărut o eroare de conexiune. Cod de eroare pentru suportul tehnic:";
 
 "ExposureSubmissionError_otherend" = "Reîncercați.";
 
@@ -971,6 +980,8 @@
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Risc redus";
+
+"Home_Risk_DaysSinceInstallation" = "Instalat acum %u zile";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Risc crescut";
@@ -1186,6 +1197,31 @@
 
 "App_Information_Terms_Title" = "Condiții de utilizare";
 
+/* App Information - Error Report */
+"ErrorReport_PrivacyInformation" = "Pentru mai multe informații, consultați înștiințarea de confidențialitate";
+
+"ErrorReport_ActiveStatus_Title" = "Eroare la execuție analiză";
+
+"ErrorReport_InactiveStatus_Title" = "Inactivă";
+
+"ErrorReport_Progress_Description" = "Mărime curentă: %@ (necomprimat)";
+
+"ErrorReport_StartButtonTitle" = "Pornire";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Oprire și ștergere";
+
+"ErrorReport_SaveButtonTitle" = "Salvare locală și continuare";
+
+"ErrorReport_SendButtonTitle" = "Trimitere raport de erori";
+
+"ErrorReport_SendReports_Title" = "Trimitere raport de erori";
+
+"ErrorReport_SendReports_Paragraph" = "Consimțământul dvs. este necesar înainte de a trimite raportul de erori înregistrate la suportul tehnic al RKI.\n\nDupă ce trimiteți raportul, veți primi un ID pentru raportul de erori. Puteți specifica acest ID pentru a-i furniza suportului tehnic, de exemplu, informații suplimentare și permiteți astfel atribuirea acestora la raportul dvs. de erori. Dacă nu furnizați ID-ul raportului de erori, RKI nu vă poate atribui raportul dvs. individual.";
+
+"ErrorReport_SendReports_Details" = "Informații detaliate despre prelucrarea acestor date și riscurile privind prelucrarea datelor din SUA și din alte țări terțe";
+
+"ErrorReport_SendReports_Button_Title" = "Sunt de acord și trimitere";
+
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Recomandați-ne";
 
@@ -1305,7 +1341,7 @@
 "ENATanInput_CharacterIndex" = "Caracterul %1$u din %2$u";
 
 /* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile.";
+"Active_Tracing_Interval_Partially_Active" = "În ultimele 14 zile, înregistrarea în jurnal a expunerilor a fost activă timp de %1$u zile";
 
 "Active_Tracing_Interval_Permanently_Active" = "Înregistrarea în jurnal a expunerilor este permanent activă";
 
@@ -1323,22 +1359,14 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Modificările din această versiune pot fi găsite în informațiile aplicației, la „Caracteristici noi”.";
 
-/* Version 1.14 */
-"NewVersionFeature_114_additional_diary_functions_title" = "Caracteristici suplimentare în jurnalul de contacte";
+/* Version 1.15 */
+"NewVersionFeature_115_cross_border_switzerland_title" = "A fost adăugată Elveția la înregistrarea transnațională a expunerilor în jurnal ";
 
-"NewVersionFeature_114_additional_diary_functions_description" = "Acum puteți introduce circumstanțele specifice ale fiecărei întâlniri. Puteți selecta din opțiunile predefinite (precum durata întâlnirii, cu mască sau fără mască) și puteți, de asemenea, introduce o notă scurtă pentru a înregistra alte circumstanțe care pot duce la un risc crescut. Dacă vă infectați, aceste informații pot ajuta autoritatea de sănătate publică să urmărească posibilele lanțuri de infectare.";
+"NewVersionFeature_115_cross_border_switzerland_description" = "Utilizatorii aplicației Corona-Warn pot schimba acum ID-uri aleatorii criptate cu utilizatorii aplicației oficiale de avertizare din Elveția. Aceasta înseamnă că avertizările pot fi acum trimise și primite de utilizatorii aplicației din Elveția.";
 
-"NewVersionFeature_114_direct_access_diary_title" = "Acces direct la jurnalul de contacte";
+"NewVersionFeature_115_error_analytic_logs_title" = "Generarea rapoartelor de erori";
 
-"NewVersionFeature_114_direct_access_diary_description" = "Acum puteți adăuga o intrare direct la jurnalul dvs. de contacte, fără a mai fi nevoie să deschideți mai întâi aplicația. Pentru aceasta, atingeți și mențineți apăsată pictograma pentru aplicația Corona-Warn timp de aproximativ 2 secunde, până apare un meniu, apoi apăsați pe „Adăugare intrare în jurnal pentru astăzi”.";
-
-"NewVersionFeature_114_more_details_risk_status_title" = "Mai multe detalii despre starea riscului dvs. ";
-
-"NewVersionFeature_114_more_details_risk_status_description" = "Dacă aplicația indică un risc crescut pentru dvs., acum puteți vedea dacă starea riscului este afișată pe baza uneia sau mai multor expuneri cu un risc crescut sau pe baza mai multor expuneri cu risc redus.";
-
-"NewVersionFeature_114_screenshots_title" = "Capturi de ecran ale aplicației Corona-Warn";
-
-"NewVersionFeature_114_screenshots_description" = "Site-ul web https://www.coronawarn.app conține acum toate capturile de ecran ale aplicației, pentru a găsi, de exemplu, caracteristicile planificate.";
+"NewVersionFeature_115_error_analytic_logs_description" = "Acum puteți genera un raport de erori, la cerere de la suportul tehnic, și puteți înregistra etapele pe care le efectuați în aplicație. Această acțiune va facilita analizarea erorilor tehnice și corecția mai rapidă a acestora.";
 
 /* Delta Onboarding */
 "DeltaOnboarding_AccessibilityImageLabel" = "Înregistrare transnațională a expunerilor în jurnal";
@@ -1844,4 +1872,37 @@
 
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Adăugare intrare în jurnal pentru astăzi";
+
+/* Error Reporting */
+"ErrorReport_Title" = "Rapoarte de erori";
+
+"ErrorReport_Description1" = "Pentru a ajuta echipa de suport tehnic a aplicației la analiza erorilor, puteți înregistra un raport de erori din aplicația Corona-Warn. Astfel, sunt înregistrate etapele tehnice individuale și rezultatele proceselor aplicației. Puteți trimite apoi raportul de erori la suportul tehnic și ajutați la identificarea și corectarea erorilor.\n\nPentru mai multe informații, consultați pagina noastră de întrebări frecvente:";
+
+"ErrorReport_FAQ" = "Întrebări frecvente despre rapoartele de erori";
+
+"ErrorReport_Description2" = "Consimțământul dvs. este necesar înainte de a trimite raportul de erori înregistrate la suportul tehnic al RKI.\n\nDupă ce trimiteți raportul, veți primi un ID pentru raportul de erori. Puteți specifica acest ID pentru a-i furniza suportului tehnic, de exemplu, informații suplimentare și permiteți astfel atribuirea acestora la raportul dvs. de erori. Dacă nu furnizați ID-ul raportului de erori, RKI nu vă poate atribui raportul dvs. individual.";
+
+"ErrorReport_DetailedInformation_Title" = "Informații detaliate despre trimiterea rapoartelor de erori";
+
+"errorReport_DetailedInformation_Headline" = "Verificarea autenticității și a transferului de date către țări terțe";
+
+"errorReport_DetailedInformation_Content1" = "Pentru a confirma autenticitatea aplicației dvs., smartphone-ul dvs. generează un identificator unic ce conține informații despre versiunea smartphone-ului și a aplicației. Acest lucru este necesar pentru a ne asigura că doar persoanele care utilizează efectiv aplicația Corona-Warn pot trimite date la suportul tehnic și să excludem raportele de erori manipulate. În acest scop, identificatorul este trimis la Apple. În acest proces, pot fi transferate date în SUA sau în alte țări terțe, unde nivelul de confidențialitate a datelor poate să nu corespundă cu legislația europeană și se poate să nu vă puteți exercita drepturile europene în ceea ce privește confidențialitatea datelor. În special, serviciile de securitate din țările terțe ar putea să vă acceseze și să vă analizeze datele de la Apple, chiar dacă nu există temei de suspiciune, și pot, de exemplu, lega aceste date de alte informații. Acest lucru se referă doar la identificatorul care este trimis la Apple. Apple nu primește informațiile din raportul dvs. de erori, însă Apple ar putea determina identitatea dvs. pe baza identificatorului și ar putea urmări că a fost efectuată verificarea autenticității pe smartphone-ul dvs.\n\nDacă nu sunteți de acord cu acest transfer al datelor dvs. către o țară terță, nu apăsați pe „Sunt de acord și trimitere”. Veți putea utiliza aplicația în continuare, dar nu veți putea trimite rapoarte de erori.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Cum analizează RKI rapoartele de erori";
+
+"ErrorReport_DetailedInformation_Content2" = "După ce este verificată autenticitatea aplicației dvs., raportul de erori este trimis la RKI printr-o conexiune sigură. Rapoartele de erori vor fi utilizate doar pentru depanarea și corecția erorilor în cadrul unor actualizări viitoare ale aplicației. Doar angajații responsabili cu suportul tehnic pot accesa rapoartele de erori. Rapoartele de erori conțin o varietate de mesaje de stare și evenimente declanșate în aplicație, dar nu conțin informații care i-ar permite institutului RKI să vă determine identitatea. Doar dacă dezvăluiți ID-ul raportului de erori în legătură cu mesaje viitoare se poate face o conexiune între mesaj (și, de exemplu, numele dvs. conținut în acesta) și informațiile conținute în raportul de erori (precum mesajele tehnice pentru calculul ca parte din înregistrarea în jurnal a expunerilor, informațiile afișate și etapele efectuate în aplicație și, unde este cazul, un rezultat de test obținut și ID-urile aleatorii partajate ca parte din notificarea altor utilizatori).";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "După ce este verificată autenticitatea aplicației dvs., raportul de erori este trimis la RKI printr-o conexiune sigură. Rapoartele de erori vor fi utilizate doar pentru depanarea și corecția erorilor în cadrul unor actualizări viitoare ale aplicației. Doar angajații responsabili cu suportul tehnic pot accesa rapoartele de erori. Rapoartele de erori conțin o varietate de mesaje de stare și evenimente declanșate în aplicație, dar nu conțin informații care i-ar permite institutului RKI să vă determine identitatea. Doar dacă dezvăluiți ID-ul raportului de erori în legătură cu mesaje viitoare se poate face o conexiune între mesaj (și, de exemplu, numele dvs. conținut în acesta) și informațiile conținute în raportul de erori (precum mesajele tehnice pentru calculul ca parte din înregistrarea în jurnal a expunerilor, informațiile afișate și etapele efectuate în aplicație și, unde este cazul, un rezultat de test obținut și ID-urile aleatorii partajate ca parte din notificarea altor utilizatori).";
+
+"ErrorReport_History_Title" = "Istoric ID-uri";
+
+"ErrorReport_History_Description" = "Aici vedeți ID-urile jurnalelor de analiză a erorilor";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "ID-urile analizelor de erori partajate până în prezent";
+
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Raportul de erori nu poate fi trimis (cod de eroare %@).";
+
+"ErrorReport_TRY_AGAIN_LATER" = "Nu se poate trimite raportul de erori chiar acum. Încercați din nou mai târziu (cod de eroare %@).";
 
