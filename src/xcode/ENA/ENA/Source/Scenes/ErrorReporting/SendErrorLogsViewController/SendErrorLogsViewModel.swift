@@ -72,7 +72,7 @@ class SendErrorLogsViewModel {
 			.font: UIFont.preferredFont(forTextStyle: .headline)
 		]
 
-		let bullet1 = NSMutableAttributedString(string: "\(AppStrings.ErrorReport.Legal.sendReports_Bullet1_Part1)\(AppStrings.ErrorReport.Legal.sendReports_Bullet1_Part2)")
+		let bullet1 = NSMutableAttributedString(string: "\(AppStrings.ErrorReport.Legal.sendReports_Bullet1_Part1) \(AppStrings.ErrorReport.Legal.sendReports_Bullet1_Part2)")
 		bullet1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ErrorReport.Legal.sendReports_Bullet1_Part1.count))
 		
 		let bullet2 = NSMutableAttributedString(string: AppStrings.ErrorReport.Legal.sendReports_Bullet2)

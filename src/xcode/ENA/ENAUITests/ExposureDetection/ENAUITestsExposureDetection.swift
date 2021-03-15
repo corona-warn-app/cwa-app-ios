@@ -27,8 +27,9 @@ class ENAUITestsExposureDetection: XCTestCase {
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.AccessibilityLabel.close].waitForExistence(timeout: .long))
 
 		// Scroll to and tap survey card.
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell].waitForExistence(timeout: .long))
-		app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell].tap()
+		let surveyCard = app.cells[AccessibilityIdentifiers.ExposureDetection.surveyCardCell]
+		XCTAssertTrue(surveyCard.waitForExistence(timeout: .long))
+		surveyCard.tap()
 
 		// Tap the survey start button.
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.SurveyConsent.acceptButton].waitForExistence(timeout: .long))

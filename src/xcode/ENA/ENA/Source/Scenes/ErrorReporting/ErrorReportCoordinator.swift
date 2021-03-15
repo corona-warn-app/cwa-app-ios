@@ -38,10 +38,15 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 				self?.stopErrorLogging()
 			}
 		)
-		let viewModel = TopErrorReportViewModel {
-			// Navigate to History screen, TO DO: Prepare the view model with the array of error logs to be displayed
-			self.rootViewController.navigationController?.pushViewController(ErrorReportHistoryViewController(), animated: true)
-		}
+		let viewModel = TopErrorReportViewModel(
+			didPressHistoryCell: {
+				// Navigate to History screen, TO DO: Prepare the view model with the array of error logs to be displayed
+				self.rootViewController.navigationController?.pushViewController(ErrorReportHistoryViewController(), animated: true)
+
+			}, didPressPrivacyInformationCell: {
+				self.showPrivacyScreen()
+			}
+		)
 		viewModel.updateViewModel()
 		topViewControllerViewModel = viewModel
 
@@ -105,6 +110,12 @@ final class ErrorReportsCoordinator: ErrorReportsCoordinating {
 		)
 		
 		rootViewController.navigationController?.pushViewController(topBottomViewController, animated: true)
+	}
+	
+	private func showPrivacyScreen() {
+		let htmlViewController = HTMLViewController(model: AppInformationModel.privacyModel)
+		htmlViewController.title = AppStrings.AppInformation.privacyNavigation
+		rootViewController.navigationController?.pushViewController(htmlViewController, animated: true)
 	}
 	
 	private let rootViewController: UIViewController
