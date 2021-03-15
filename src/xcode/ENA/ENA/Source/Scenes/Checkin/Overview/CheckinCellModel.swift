@@ -58,7 +58,7 @@ class CheckinCellModel: EventCellModel {
 		checkin.traceLocationAddress
 	}
 
-	var buttonTitle: String = AppStrings.Checkins.Overview.selfCheckinButtonTitle
+	var buttonTitle: String = AppStrings.Checkins.Overview.checkoutButtonTitle
 
 	// MARK: - Private
 
@@ -75,14 +75,23 @@ class CheckinCellModel: EventCellModel {
 		isActiveContainerViewHiddenPublisher.value = !checkin.isActive
 		isButtonHiddenPublisher.value = !checkin.isActive
 
-		let dateFormatter = DateIntervalFormatter()
-		dateFormatter.dateStyle = checkin.isActive ? .none : .short
-		dateFormatter.timeStyle = .short
-
 		if let checkinEndDate = checkin.checkinEndDate {
+			let dateFormatter = DateIntervalFormatter()
+			dateFormatter.dateStyle = .short
+			dateFormatter.timeStyle = .short
+
 			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkinEndDate)
 		} else {
-			timePublisher.value = ""
+			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .none, timeStyle: .short)
+
+			let dateComponentsFormatter = DateComponentsFormatter()
+			dateComponentsFormatter.allowedUnits = [.hour, .minute]
+			dateComponentsFormatter.unitsStyle = .abbreviated
+
+			let automaticCheckoutTimeInterval = checkin.targetCheckinEndDate.timeIntervalSince(checkin.checkinStartDate)
+			let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(for: automaticCheckoutTimeInterval) ?? ""
+
+			timePublisher.value = String(format: "%@ - Automatisch auschecken nach %@", formattedCheckinTime, formattedAutomaticCheckoutDuration)
 		}
 
 		onUpdate()

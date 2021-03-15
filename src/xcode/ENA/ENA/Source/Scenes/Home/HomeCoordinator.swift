@@ -7,6 +7,7 @@ import UIKit
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoring & EventProviding
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
@@ -50,10 +51,12 @@ class HomeCoordinator: RequiresAppDependencies {
 
 	init(
 		_ delegate: CoordinatorDelegate,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		eventStore: EventStoring & EventProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
+		self.eventStore = eventStore
 	}
 
 	deinit {
@@ -248,7 +251,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
-			eventStore: MockEventStore(),
+			eventStore: eventStore,
 			parentNavigationController: rootViewController
 		)
 

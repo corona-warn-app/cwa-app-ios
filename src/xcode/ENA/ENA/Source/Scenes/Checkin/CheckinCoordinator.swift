@@ -9,20 +9,57 @@ final class CheckinCoordinator {
 
 	// MARK: - Init
 
-	init() { }
+	init(
+		store: Store,
+		eventStore: EventStoring & EventProviding
+	) {
+		self.store = store
+		self.eventStore = eventStore
+	}
 
 	// MARK: - Internal
 
 	lazy var viewController: UINavigationController = {
-		let checkInsTableViewController = CheckinsTableViewController(
-			showQRCodeScanner: showQRCodeScanner,
-			showSettings: showSettings
+		let checkinsOverviewViewController = CheckinsOverviewViewController(
+			viewModel: CheckinsOverviewViewModel(
+				store: eventStore,
+				onAddEntryCellTap: { [weak self] in
+					self?.showQRCodeScanner()
+				},
+				onEntryCellTap: { [weak self] checkin in
+					Log.debug("Checkin cell tapped: \(checkin)")
+				},
+				onEntryCellButtonTap: { [weak self] checkin in
+					Log.debug("Checkin cell button tapped: \(checkin)")
+				}
+			),
+			onInfoButtonTap: { [weak self] in
+				Log.debug("Info button tapped")
+			}
 		)
 
-		return UINavigationController(rootViewController: checkInsTableViewController)
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: true,
+				isSecondaryButtonHidden: true,
+				primaryButtonColor: .red
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: checkinsOverviewViewController,
+			bottomController: footerViewController
+		)
+
+		return UINavigationController(rootViewController: topBottomContainerViewController)
 	}()
 
 	// MARK: - Private
+
+	private let store: Store
+	private let eventStore: EventStoring & EventProviding
 
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckinQRCodeScannerViewController(

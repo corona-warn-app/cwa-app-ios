@@ -1334,14 +1334,14 @@ enum AppStrings {
 		enum Overview {
 			static let title = NSLocalizedString("Checkins_Overview_Title", comment: "")
 			static let menuButtonTitle = NSLocalizedString("Checkins_Overview_MenuButtonTitle", comment: "")
-			static let addButtonTitle = NSLocalizedString("Checkins_Overview_AddButtonTitle", comment: "")
+			static let scanButtonTitle = NSLocalizedString("Checkins_Overview_ScanButtonTitle", comment: "")
 			static let emptyTitle = NSLocalizedString("Checkins_Overview_EmptyTitle", comment: "")
 			static let emptyDescription = NSLocalizedString("Checkins_Overview_EmptyDescription", comment: "")
 			static let emptyImageDescription = NSLocalizedString("Checkins_Overview_EmptyImageDescription", comment: "")
 			static let deleteAllButtonTitle = NSLocalizedString("Checkins_Overview_DeleteAllButtonTitle", comment: "")
 
 			static let durationTitle = NSLocalizedString("Checkins_Overview_DurationTitle", comment: "")
-			static let selfCheckinButtonTitle = NSLocalizedString("Checkins_Overview_SelfCheckinButtonTitle", comment: "")
+			static let checkoutButtonTitle = NSLocalizedString("Checkins_Overview_CheckoutButtonTitle", comment: "")
 
 			enum DeleteOneAlert {
 				static let title = NSLocalizedString("Checkins_Overview_DeleteOne_AlertTitle", comment: "")

@@ -149,6 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
+	let eventStore: EventStoring & EventProviding = MockEventStore()
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
@@ -449,7 +450,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
-		contactDiaryStore: self.contactDiaryStore,
+		contactDiaryStore: contactDiaryStore,
+		eventStore: eventStore,
 		otpService: otpService
 	)
 
