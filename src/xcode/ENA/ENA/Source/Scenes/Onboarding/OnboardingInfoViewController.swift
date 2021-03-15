@@ -393,16 +393,8 @@ final class OnboardingInfoViewController: UIViewController {
 		case .privacyPage:
 			persistTimestamp(completion: completion)
 		case .enableLoggingOfContactsPage:
-			func handleBluetooth(completion: @escaping () -> Void) {
-				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
-					self.present(alertController, animated: true)
-				}
-				completion()
-			}
 			askExposureNotificationsPermissions(completion: {
-				handleBluetooth {
-					completion()
-				}
+				completion()
 			})
 
 		case .alwaysStayInformedPage:
