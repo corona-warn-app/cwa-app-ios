@@ -19,7 +19,7 @@ class TraceLocationCellModel: EventCellModel {
 
 		eventProvider.checkinsPublisher
 			.sink { [weak self] checkins in
-				self?.isButtonHiddenPublisher.value = checkins.contains { $0.traceLocationGUID == traceLocation.guid }
+				self?.isButtonHiddenPublisher.value = checkins.contains { $0.traceLocationGUID == traceLocation.guid && $0.isActive }
 				onUpdate()
 			}
 			.store(in: &subscriptions)
@@ -39,12 +39,16 @@ class TraceLocationCellModel: EventCellModel {
 	var isActiveIconHidden: Bool = false
 	var isDurationStackViewHidden: Bool = true
 
-	var date: String {
+	var date: String? {
+		guard let startDate = traceLocation.startDate, let endDate = traceLocation.endDate else {
+			return nil
+		}
+
 		let dateFormatter = DateIntervalFormatter()
 		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .none
 
-		return dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+		return dateFormatter.string(from: startDate, to: endDate)
 	}
 
 	var title: String {
@@ -75,7 +79,11 @@ class TraceLocationCellModel: EventCellModel {
 		dateFormatter.dateStyle = traceLocation.isActive ? .none : .short
 		dateFormatter.timeStyle = .short
 
-		timePublisher.value = dateFormatter.string(from: traceLocation.startDate, to: traceLocation.endDate)
+		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
+			timePublisher.value = dateFormatter.string(from: startDate, to: endDate)
+		} else {
+			timePublisher.value = nil
+		}
 
 		onUpdate()
 	}
@@ -85,11 +93,15 @@ class TraceLocationCellModel: EventCellModel {
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
+		guard let endDate = traceLocation.endDate else {
+			return
+		}
+
 		// Schedule new countdown.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		updateTimer = Timer(fireAt: traceLocation.endDate, interval: 0, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: false)
+		updateTimer = Timer(fireAt: endDate, interval: 0, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: false)
 		guard let updateTimer = updateTimer else { return }
 		RunLoop.current.add(updateTimer, forMode: .common)
 	}
@@ -104,12 +116,4 @@ class TraceLocationCellModel: EventCellModel {
 		scheduleUpdateTimer()
 	}
     
-}
-
-private extension TraceLocation {
-
-	var isActive: Bool {
-		Date() < endDate
-	}
-
 }

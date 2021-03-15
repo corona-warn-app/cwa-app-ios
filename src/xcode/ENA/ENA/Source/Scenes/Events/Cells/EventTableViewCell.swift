@@ -49,11 +49,19 @@ class EventTableViewCell: UITableViewCell {
 			.assign(to: \.text, on: timeLabel)
 			.store(in: &subscriptions)
 
+		cellModel.timePublisher
+			.sink { [weak self] in
+				self?.timeLabel.isHidden = $0 == nil
+			}
+			.store(in: &subscriptions)
+
 		activeIconImageView.isHidden = cellModel.isActiveIconHidden
 		durationStackView.isHidden = cellModel.isDurationStackViewHidden
 
 		titleLabel.text = cellModel.title
 		addressLabel.text = cellModel.address
+
+		dateContainerView.isHidden = cellModel.date == nil
 		dateLabel.text = cellModel.date
 
 		button.setTitle(cellModel.buttonTitle, for: .normal)
@@ -77,6 +85,7 @@ class EventTableViewCell: UITableViewCell {
 	@IBOutlet private weak var durationTitleLabel: ENALabel!
 	@IBOutlet private weak var durationLabel: ENALabel!
 
+	@IBOutlet private weak var dateContainerView: UIView!
 	@IBOutlet private weak var dateLabel: ENALabel!
 
 	@IBOutlet private weak var titleLabel: ENALabel!

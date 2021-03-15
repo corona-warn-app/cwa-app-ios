@@ -248,6 +248,11 @@
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		01F6701225FF79830069C4F9 /* EventCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6701125FF79830069C4F9 /* EventCellModel.swift */; };
 		01F6701A25FF7BC60069C4F9 /* AddTraceLocationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */; };
+		01F6702725FF80490069C4F9 /* CheckinsOverviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6702525FF80490069C4F9 /* CheckinsOverviewViewModel.swift */; };
+		01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */; };
+		01F6702925FF80490069C4F9 /* CheckinsOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */; };
+		01F6702A25FF80490069C4F9 /* AddCheckinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */; };
+		01F6702B25FF80490069C4F9 /* CheckinCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6702625FF80490069C4F9 /* CheckinCellModel.swift */; };
 		01FD3EDB25D2F0DF0049497A /* UserNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */; };
 		01FD3EE325D2F1020049497A /* DeadmanNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
@@ -1157,6 +1162,11 @@
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		01F6701125FF79830069C4F9 /* EventCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellModel.swift; sourceTree = "<group>"; };
 		01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModel.swift; sourceTree = "<group>"; };
+		01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewEmptyStateViewModel.swift; sourceTree = "<group>"; };
+		01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewController.swift; sourceTree = "<group>"; };
+		01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCheckinCellModel.swift; sourceTree = "<group>"; };
+		01F6702525FF80490069C4F9 /* CheckinsOverviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsOverviewViewModel.swift; sourceTree = "<group>"; };
+		01F6702625FF80490069C4F9 /* CheckinCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCellModel.swift; sourceTree = "<group>"; };
 		01FD3EDA25D2F0DF0049497A /* UserNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationCenter.swift; sourceTree = "<group>"; };
 		01FD3EE225D2F1020049497A /* DeadmanNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadmanNotificationManager.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
@@ -2547,6 +2557,18 @@
 				0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		01F6702125FF80470069C4F9 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */,
+				01F6702525FF80490069C4F9 /* CheckinsOverviewViewModel.swift */,
+				01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */,
+				01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */,
+				01F6702625FF80490069C4F9 /* CheckinCellModel.swift */,
+			);
+			path = Overview;
 			sourceTree = "<group>";
 		};
 		01FD3ED625D2F0D00049497A /* DeadmanNotification */ = {
@@ -4750,6 +4772,7 @@
 			children = (
 				BAA4D72F25E95B3A00821B5C /* CheckinCoordinator.swift */,
 				BA38183325CB104900C1DB6C /* ConfigureableCell.swift */,
+				01F6702125FF80470069C4F9 /* Overview */,
 				BA4C269025EE8DA700E0505F /* Checkins */,
 				BA4C269D25EE9DA600E0505F /* CheckInDetail */,
 				BAA4D73425E960FC00821B5C /* QRCodeScanner */,
@@ -5511,6 +5534,7 @@
 				35EA684225553AE300335F73 /* DownloadedPackagesSQLLiteStoreV2.swift in Sources */,
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
 				EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */,
+				01F6702925FF80490069C4F9 /* CheckinsOverviewViewController.swift in Sources */,
 				B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */,
 				BA4C269F25EE9DC700E0505F /* CheckinDetailViewController.swift in Sources */,
 				0138F6AF25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift in Sources */,
@@ -5536,6 +5560,7 @@
 				2FC951FE24DC23B9008D39F4 /* DMConfigurationCell.swift in Sources */,
 				3529BC1925D6BA800097E492 /* CachingHTTPClientMock.swift in Sources */,
 				50C0299325E4067400460FA4 /* RiskExposureMetadata.swift in Sources */,
+				01F6702825FF80490069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift in Sources */,
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
@@ -5840,6 +5865,8 @@
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
+				01F6702A25FF80490069C4F9 /* AddCheckinCellModel.swift in Sources */,
+				01F6702B25FF80490069C4F9 /* CheckinCellModel.swift in Sources */,
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
 				017AD122259DDED100FA2B3F /* ISO8601DateFormatter+ContactDiary.swift in Sources */,
 				504C9CC925C44C180005875B /* OTPService.swift in Sources */,
@@ -5929,6 +5956,7 @@
 				BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */,
 				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				BAF5371B25E7D1A300C835E2 /* UIImage+Resize.swift in Sources */,
+				01F6702725FF80490069C4F9 /* CheckinsOverviewViewModel.swift in Sources */,
 				01A4DC6E25922EB4007D5794 /* HomeImageItemView.swift in Sources */,
 				50C02FAC25D162F500469BF4 /* PPAnalyticsSubmitter.swift in Sources */,
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,

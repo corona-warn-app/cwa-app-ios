@@ -36,19 +36,19 @@
                                                 </constraints>
                                             </imageView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHY-Q2-Adb">
-                                                <rect key="frame" x="47" y="0.0" width="107" height="167"/>
+                                                <rect key="frame" x="47" y="0.0" width="95" height="167"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9gp-vZ-OFG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="107" height="167"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="95" height="167"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQo-Dg-RTl" customClass="GradientView" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="107" height="95"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AGB-RB-R4j">
-                                                                        <rect key="frame" x="8" y="26.5" width="91" height="42.5"/>
+                                                                        <rect key="frame" x="8" y="26.5" width="79" height="42.5"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSm-eW-rHn" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                                <rect key="frame" x="19.5" y="0.0" width="52" height="16"/>
+                                                                                <rect key="frame" x="13.5" y="0.0" width="52" height="16"/>
                                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -57,7 +57,7 @@
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ac8-dJ-mRI" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                                <rect key="frame" x="13.5" y="16" width="64" height="26.5"/>
+                                                                                <rect key="frame" x="7.5" y="16" width="64" height="26.5"/>
                                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_TraceLocations_Code" translatesAutoresizingMaskIntoConstraints="NO" id="1M2-XD-yvY">
-                                                                        <rect key="frame" x="28.5" y="22.5" width="50" height="50"/>
+                                                                        <rect key="frame" x="22.5" y="22.5" width="50" height="50"/>
                                                                     </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -79,16 +79,16 @@
                                                                     <constraint firstItem="1M2-XD-yvY" firstAttribute="centerX" secondItem="PQo-Dg-RTl" secondAttribute="centerX" id="e81-D7-ZdY"/>
                                                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="AGB-RB-R4j" secondAttribute="bottom" constant="8" id="f6b-G9-TVD"/>
                                                                     <constraint firstItem="AGB-RB-R4j" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PQo-Dg-RTl" secondAttribute="top" constant="8" id="hob-oi-3dE"/>
-                                                                    <constraint firstAttribute="width" constant="107" id="mPy-x0-oaq"/>
+                                                                    <constraint firstAttribute="width" constant="95" id="mPy-x0-oaq"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="95" id="nw7-7n-aWI"/>
                                                                     <constraint firstItem="AGB-RB-R4j" firstAttribute="centerY" secondItem="PQo-Dg-RTl" secondAttribute="centerY" id="tIY-8p-9hs"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94r-g5-dGf">
-                                                                <rect key="frame" x="0.0" y="95" width="107" height="72"/>
+                                                                <rect key="frame" x="0.0" y="95" width="95" height="72"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21R-hB-G31" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                        <rect key="frame" x="8" y="12" width="91" height="48"/>
+                                                                        <rect key="frame" x="8" y="12" width="79" height="48"/>
                                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -117,10 +117,10 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mJj-D6-Uzf">
-                                                <rect key="frame" x="169" y="0.0" width="87" height="69.5"/>
+                                                <rect key="frame" x="157" y="0.0" width="99" height="69.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LlW-QB-tlo" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="87" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="99" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -129,7 +129,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Org-Yd-acz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="24.5" width="87" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="24.5" width="99" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                         <nil key="highlightedColor"/>
@@ -138,7 +138,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRB-rD-hop" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="49" width="87" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="49" width="99" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -192,6 +192,7 @@
                 <outlet property="addressLabel" destination="Org-Yd-acz" id="sr4-Ub-ykv"/>
                 <outlet property="button" destination="Lw3-BW-ppn" id="V6d-RX-Xle"/>
                 <outlet property="containerView" destination="1nm-Ky-YXw" id="4HL-s8-vpP"/>
+                <outlet property="dateContainerView" destination="94r-g5-dGf" id="qb5-gO-tCq"/>
                 <outlet property="dateLabel" destination="21R-hB-G31" id="F3M-FD-qre"/>
                 <outlet property="durationLabel" destination="ac8-dJ-mRI" id="eig-qv-byn"/>
                 <outlet property="durationStackView" destination="AGB-RB-R4j" id="GTO-wX-bUi"/>

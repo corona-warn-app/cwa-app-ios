@@ -55,7 +55,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	private var previewLayer: AVCaptureVideoPreviewLayer!
 
 	private func setupView() {
-		navigationItem.title = AppStrings.Checkin.QRScanner.title
+		navigationItem.title = AppStrings.Checkins.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 	}
 
