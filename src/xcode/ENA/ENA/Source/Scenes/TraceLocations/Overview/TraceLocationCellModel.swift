@@ -44,6 +44,11 @@ class TraceLocationCellModel: EventCellModel {
 			return nil
 		}
 
+		if !Calendar.current.isDate(startDate, inSameDayAs: endDate) {
+			// Multi-day events show the full dates in the time label
+			return nil
+		}
+
 		let dateFormatter = DateIntervalFormatter()
 		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .none
@@ -75,11 +80,13 @@ class TraceLocationCellModel: EventCellModel {
 		isInactiveIconHiddenPublisher.value = traceLocation.isActive
 		isActiveContainerViewHiddenPublisher.value = !traceLocation.isActive
 
-		let dateFormatter = DateIntervalFormatter()
-		dateFormatter.dateStyle = traceLocation.isActive ? .none : .short
-		dateFormatter.timeStyle = .short
-
 		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
+			let endsOnSameDay = Calendar.current.isDate(startDate, inSameDayAs: endDate)
+
+			let dateFormatter = DateIntervalFormatter()
+			dateFormatter.dateStyle = traceLocation.isActive && endsOnSameDay ? .none : .short
+			dateFormatter.timeStyle = .short
+
 			timePublisher.value = dateFormatter.string(from: startDate, to: endDate)
 		} else {
 			timePublisher.value = nil
