@@ -150,8 +150,10 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.dataSource = self
 
 		tableView.separatorStyle = .none
+		tableView.sectionFooterHeight = 0
+		tableView.sectionHeaderHeight = 0
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+		tableView.estimatedRowHeight = 1000
 	}
 
 	private func entryAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -182,8 +184,15 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	private func updateForSelectedEntryType() {
-		tableView.reloadData()
-
+				
+		if #available(iOS 13, *) {
+			tableView.reloadData()
+		} else {
+			tableView.beginUpdates()
+			tableView.reloadSections(IndexSet(0..<viewModel.numberOfSections), with: .none)
+			tableView.endUpdates()
+		}
+		
 		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? DiaryDayEmptyView(entryType: viewModel.selectedEntryType) : nil
 	}
 
