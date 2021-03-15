@@ -57,7 +57,7 @@ struct CheckInsInfoScreenViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.Checkin.Information.itemContactTitle),
+						text: .string(AppStrings.Checkin.Information.itemLocationTitle),
 						alignment: .top
 					)
 				]

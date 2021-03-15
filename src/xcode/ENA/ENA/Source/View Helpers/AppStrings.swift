@@ -1334,11 +1334,11 @@ enum AppStrings {
 		}
 		
 		enum Information {
-			static let imageDescription = NSLocalizedString("CheckIn_Information_ImageDescription", comment: "")
-			static let descriptionTitle = NSLocalizedString("CheckIn_Information_DescriptionTitle", comment: "")
-			static let descriptionSubHeadline = NSLocalizedString("CheckIn_Information_DescriptionSubHeadline", comment: "")
-			static let itemPersonTitle = NSLocalizedString("ContactDiary_Information_Item_Person_Title", comment: "")
-			static let itemContactTitle = NSLocalizedString("ContactDiary_Information_Item_Location_Title", comment: "")
+			static let imageDescription = NSLocalizedString("Checkin_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("Checkin_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("Checkin_Information_DescriptionSubHeadline", comment: "")
+			static let itemPersonTitle = NSLocalizedString("Checkin_Information_Item_Person_Title", comment: "")
+			static let itemLocationTitle = NSLocalizedString("Checkin_Information_Item_Location_Title", comment: "")
 
 			static let legalHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
 			static let legalSubHeadline_1 = NSLocalizedString("ContactDiary_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
