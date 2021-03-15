@@ -384,6 +384,7 @@ enum AccessibilityIdentifiers {
 	enum Tabbar {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
+		static let checkin = "Tabbar.checkin"
 	}
 	
 	enum DataDonation {

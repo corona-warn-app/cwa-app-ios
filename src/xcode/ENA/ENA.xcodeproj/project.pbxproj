@@ -2848,12 +2848,12 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
-		5081EF1225FFDEDF004B8FDE /* EventCheckIn */ = {
+		5081EF1625FFE1F7004B8FDE /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
 				5081EF0D25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift */,
 			);
-			path = EventCheckIn;
+			path = __test__;
 			sourceTree = "<group>";
 		};
 		508ACB5825DE6205006B9945 /* __tests__ */ = {
@@ -3418,7 +3418,6 @@
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
 				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
-				5081EF1225FFDEDF004B8FDE /* EventCheckIn */,
 				AB7DE70025C4543700C52B3F /* ExposureDetection */,
 				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
 				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
@@ -4768,6 +4767,7 @@
 		BAA4D72E25E95B1D00821B5C /* Checkin */ = {
 			isa = PBXGroup;
 			children = (
+				5081EF1625FFE1F7004B8FDE /* __test__ */,
 				BAA4D72F25E95B3A00821B5C /* CheckinCoordinator.swift */,
 				BA38183325CB104900C1DB6C /* ConfigureableCell.swift */,
 				5081EEF525FF74A5004B8FDE /* Info */,
