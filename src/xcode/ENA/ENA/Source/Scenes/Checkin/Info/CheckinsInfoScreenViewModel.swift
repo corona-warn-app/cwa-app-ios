@@ -73,8 +73,8 @@ struct CheckInsInfoScreenViewModel {
 						],
 					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
 					bulletPoints2: [
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3),
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_4)
+						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
+//						NSAttributedString(string: AppStrings.Checkin.Information.legalText_4)
 						],
 					// TODO check accessibility identifier
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
