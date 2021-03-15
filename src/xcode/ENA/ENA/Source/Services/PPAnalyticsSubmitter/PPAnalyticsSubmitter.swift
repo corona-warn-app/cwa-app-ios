@@ -249,9 +249,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 
 	private func obtainUsageData(disableExposureWindowsProbability: Bool = false) -> SAP_Internal_Ppdd_PPADataIOS {
-
-		Log.info("Obtaining now all usage data for analytics submission.", log: .ppa)
-
+		Log.info("Obtaining now all usage data for analytics submission...", log: .ppa)
 		let exposureRiskMetadata = gatherExposureRiskMetadata()
 		let userMetadata = gatherUserMetadata()
 		let clientMetadata = gatherClientMetadata()
