@@ -43,8 +43,8 @@ class CheckinCellModel: EventCellModel {
 	var durationPublisher = CurrentValueSubject<String?, Never>(nil)
 	var timePublisher = CurrentValueSubject<String?, Never>(nil)
 
-	var isActiveIconHidden: Bool = false
-	var isDurationStackViewHidden: Bool = true
+	var isActiveIconHidden: Bool = true
+	var isDurationStackViewHidden: Bool = false
 
 	var date: String? {
 		DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .short, timeStyle: .none)
@@ -93,6 +93,15 @@ class CheckinCellModel: EventCellModel {
 
 			timePublisher.value = String(format: "%@ - Automatisch auschecken nach %@", formattedCheckinTime, formattedAutomaticCheckoutDuration)
 		}
+
+		let duration = Date().timeIntervalSince(checkin.checkinStartDate)
+
+		let dateComponentsFormatter = DateComponentsFormatter()
+		dateComponentsFormatter.allowedUnits = [.hour, .minute]
+		dateComponentsFormatter.unitsStyle = .positional
+		dateComponentsFormatter.zeroFormattingBehavior = .pad
+
+		durationPublisher.value = dateComponentsFormatter.string(from: duration)
 
 		onUpdate()
 	}
