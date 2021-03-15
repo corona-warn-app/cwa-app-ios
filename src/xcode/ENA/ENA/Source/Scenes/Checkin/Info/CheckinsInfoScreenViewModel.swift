@@ -88,9 +88,9 @@ struct CheckInsInfoScreenViewModel {
 				separators: .all,
 				cells: [
 					.body(
-						text: AppStrings.ContactDiary.Information.dataPrivacyTitle,
+						text: AppStrings.Checkin.Information.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
-						accessibilityIdentifier: AccessibilityIdentifiers.ContactDiaryInformation.dataPrivacyTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,
 						action: .execute { _, _ in
 							presentDisclaimer()
