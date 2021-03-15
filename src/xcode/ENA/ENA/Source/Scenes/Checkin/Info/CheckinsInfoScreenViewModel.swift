@@ -27,8 +27,7 @@ struct CheckInsInfoScreenViewModel {
 				header:
 					.image(
 						UIImage(
-							imageLiteralResourceName: "Illu_Event_Checkin_Info"
-							// TODO: dark mode illustration
+							imageLiteralResourceName: "Illu_Event_Checkin_Info" // TODO: dark mode illustration
 						),
 						accessibilityLabel: AppStrings.Checkin.Information.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.imageDescription
@@ -47,8 +46,8 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Contact"), // TODO change icon
-						text: .string(AppStrings.Checkin.Information.itemPersonTitle), // TODO change text ID
+						UIImage(imageLiteralResourceName: "Icons_Checkin"), // TODO: dark mode icon
+						text: .string(AppStrings.Checkin.Information.itemCheckinTitle),
 						alignment: .top
 					),
 					.space(
@@ -74,7 +73,6 @@ struct CheckInsInfoScreenViewModel {
 					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
 					bulletPoints2: [
 						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
-//						NSAttributedString(string: AppStrings.Checkin.Information.legalText_4)
 						],
 					// TODO check accessibility identifier
 					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
