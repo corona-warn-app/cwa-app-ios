@@ -159,7 +159,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 		}
 	}
 
-	/// filters the input string and extracts a guid.
+	/// Filters the input string and extracts a guid.
 	/// - the input needs to start with https://localhost/?
 	/// - the input must not be longer than 150 chars and cannot be empty
 	/// - the guid contains only the following characters: a-f, A-F, 0-9,-
