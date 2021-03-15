@@ -56,6 +56,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
+	var traceLocationsInfoScreenShown: Bool = false
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
 
@@ -90,6 +91,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
+	var submittedWithQR: Bool = false
 	var currentRiskExposureMetadata: RiskExposureMetadata?
 	var previousRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?

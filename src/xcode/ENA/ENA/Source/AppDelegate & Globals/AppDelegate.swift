@@ -534,7 +534,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		if let eventRoute = route {
 			switch eventRoute {
-			case .event(let guid):
+			case .checkin(let guid):
 				coordinator.showEvent(guid)
 			}
 		}

@@ -11,14 +11,13 @@ protocol RiskCalculationProtocol {
 		configuration: RiskCalculationConfiguration
 	) -> RiskCalculationResult
 	
-	var mappedExposureWindows: [RiskCalculationExposureWindow] { get set }
 }
 
 final class RiskCalculation: RiskCalculationProtocol, Codable {
 
 	// MARK: - Internal
 
-	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
+	private(set) var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var filteredExposureWindows: [RiskCalculationExposureWindow] = []
 	private(set) var exposureWindowsPerDate: [Date: [RiskCalculationExposureWindow]] = [:]
 	private(set) var normalizedTimePerDate: [Date: Double] = [:]
