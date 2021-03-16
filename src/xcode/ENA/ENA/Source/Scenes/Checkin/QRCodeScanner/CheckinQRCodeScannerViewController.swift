@@ -46,7 +46,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private var focusView: QRScannerFocusView!
+	private var focusView = QRScannerFocusView()
 
 	private let didScanCheckin: (Checkin) -> Void
 	private let dismiss: () -> Void
@@ -59,7 +59,6 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		navigationItem.title = AppStrings.Checkin.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 
-		focusView = QRScannerFocusView()
 		focusView.backdropOpacity = 0.2
 		focusView.tintColor = .enaColor(for: .textContrast)
 		focusView.translatesAutoresizingMaskIntoConstraints = false

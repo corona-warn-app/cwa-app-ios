@@ -190,8 +190,3 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	private let captureDevice: AVCaptureDevice?
 
 }
-enum TorchMode {
-	case notAvailable
-	case lightOn
-	case ligthOff
-}
