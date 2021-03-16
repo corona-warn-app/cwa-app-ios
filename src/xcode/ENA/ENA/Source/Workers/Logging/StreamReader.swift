@@ -23,20 +23,24 @@ class StreamReader {
 	///   - encoding: the file encoding to expect; defaults to `.utf8`
 	///   - chunkSize: the buffer size during the read process; defaults to 4096 bytes
 	init?(at url: URL, delimiter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096) {
-		guard
-			let fileHandle = try? FileHandle(forReadingFrom: url),
-			let delimData = delimiter.data(using: encoding),
-			let buffer = NSMutableData(capacity: chunkSize)
-		else {
-			preconditionFailure("Cannot initialize StreamReader for file at \(url)")
+		do {
+			let fileHandle = try FileHandle(forReadingFrom: url)
+			guard
+				let delimData = delimiter.data(using: encoding),
+				let buffer = NSMutableData(capacity: chunkSize)
+			else {
+				preconditionFailure("Cannot initialize StreamReader for file at \(url)")
+				return nil
+			}
+			self.chunkSize = chunkSize
+			self.encoding = encoding
+			self.fileHandle = fileHandle
+			self.delimData = delimData
+			self.buffer = buffer
+		} catch {
+			preconditionFailure(error.localizedDescription)
 			return nil
 		}
-
-		self.chunkSize = chunkSize
-		self.encoding = encoding
-		self.fileHandle = fileHandle
-		self.delimData = delimData
-		self.buffer = buffer
 	}
 
 	/// A StreamReader for large files. Reads them line by line.
