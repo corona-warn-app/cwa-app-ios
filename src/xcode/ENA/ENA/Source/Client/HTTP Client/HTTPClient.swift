@@ -399,52 +399,59 @@ final class HTTPClient: Client {
 		var responseError: TraceWarningError?
 		
 		session.response(for: request, completion: { [weak self] result in
-			
-			defer {
-				// no guard in defer!
-				if let error = responseError {
-					let retryCount = self?.traceWarningPackageDownloadRetries ?? 0
-					if retryCount > 2 {
-						completion(.failure(error))
+			self?.queue.async {
+				defer {
+					// no guard in defer!
+					if let error = responseError {
+						let retryCount = self?.traceWarningPackageDownloadRetries ?? 0
+						if retryCount > 2 {
+							completion(.failure(error))
+						} else {
+							self?.traceWarningPackageDownloadRetries? += 1
+							Log.info("TraceWarningDownload retries to download package after receiving error: \(error). Retry Count: \(retryCount) of 3)", log: .api)
+							self?.traceWarningPackageDownload(country: country, packageId: packageId, completion: completion)
+						}
 					} else {
-						self?.traceWarningPackageDownloadRetries? += 1
-						Log.info("TraceWarningDownload retries to download package after receiving error: \(error). Retry Count: \(retryCount) of 3)", log: .api)
-						self?.traceWarningPackageDownload(country: country, packageId: packageId, completion: completion)
+						// no error, no retry - clean up
+						self?.traceWarningPackageDownloadRetries = nil
 					}
-				} else {
-					// no error, no retry - clean up
-					self?.traceWarningPackageDownloadRetries = nil
 				}
-			}
-			
-			switch result {
-			case let .success(response):
-				switch response.statusCode {
-				case 200:
-					guard let body = response.body else {
-						Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
+				
+				switch result {
+				case let .success(response):
+					switch response.statusCode {
+					case 200:
+						guard let body = response.body else {
+							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						
+						guard let package = SAPDownloadedPackage(compressedData: body) else {
+							Log.error("Failed to create signed package for trace warning download", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						
+						var isEmpty = false
+						// According to tech spec: If present, indicates that the package is empty (i.e. no zip file, to extract).
+						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") != nil {
+							isEmpty = true
+						}
+						let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag, isEmpty: isEmpty)
+						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
+						completion(.success(downloadedZippedPackage))
+					default:
+						Log.error("Wrong http status code: \(String(response.statusCode))", log: .checkin)
 						responseError = .invalidResponseError(response.statusCode)
-						return
 					}
-					
-					guard let package = SAPDownloadedPackage(compressedData: body) else {
-						Log.error("Failed to create signed package for trace warning download", log: .api)
-						responseError = .invalidResponseError(response.statusCode)
-						return
-					}
-					let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
-					Log.info("Succesfully downloaded traceWarningPackage", log: .api)
-					completion(.success(downloadedZippedPackage))
-				default:
-					Log.error("Wrong http status code: \(String(response.statusCode))", log: .checkin)
-					responseError = .invalidResponseError(response.statusCode)
+				case let .failure(error):
+					Log.error("Error in response body", log: .checkin, error: error)
+					responseError = .defaultServerError(error)
 				}
-			case let .failure(error):
-				Log.error("Error in response body", log: .checkin, error: error)
-				responseError = .defaultServerError(error)
+				
 			}
-			
 		})
 	}
 
@@ -464,7 +471,7 @@ final class HTTPClient: Client {
 	private let serverEnvironmentProvider: ServerEnvironmentProviding
 	private let session: URLSession
 	private let packageVerifier: SAPDownloadedPackage.Verification
-	private var retries: [URL: Int] = [:]
+	private var fetchDayRetries: [URL: Int] = [:]
 	private var traceWarningPackageDownloadRetries: Int?
 
 	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
@@ -484,17 +491,17 @@ final class HTTPClient: Client {
 				defer {
 					// no guard in defer!
 					if let error = responseError {
-						let retryCount = self.retries[url] ?? 0
+						let retryCount = self.fetchDayRetries[url] ?? 0
 						if retryCount > 2 {
 							completeWith(.failure(error))
 						} else {
-							self.retries[url] = retryCount.advanced(by: 1)
+							self.fetchDayRetries[url] = retryCount.advanced(by: 1)
 							Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
 							self.fetchDay(from: url, completion: completeWith)
 						}
 					} else {
 						// no error, no retry - clean up
-						self.retries[url] = nil
+						self.fetchDayRetries[url] = nil
 					}
 				}
 
@@ -511,7 +518,7 @@ final class HTTPClient: Client {
 						return
 					}
 					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let payload = PackageDownloadResponse(package: package, etag: etag)
+					let payload = PackageDownloadResponse(package: package, etag: etag, isEmpty: false)
 					completeWith(.success(payload))
 				case let .failure(error):
 					responseError = error

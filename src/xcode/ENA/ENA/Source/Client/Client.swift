@@ -185,6 +185,7 @@ struct PackageDownloadResponse {
 	///
 	/// This is used to identify and revoke packages.
 	let etag: String?
+	let isEmpty: Bool?
 }
 
 /// Combined model for a submit keys request

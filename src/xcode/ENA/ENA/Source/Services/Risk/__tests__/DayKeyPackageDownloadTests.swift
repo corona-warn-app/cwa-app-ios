@@ -10,7 +10,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 
 	private lazy var dummyResponse: [String: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"", isEmpty: false)
 		return ["2020-10-04": dummyResponse, "2020-10-01": dummyResponse]
 	}()
 	
@@ -139,7 +139,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		let countryId = "IT"
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"", isEmpty: false)
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
@@ -344,7 +344,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"", isEmpty: false)
 		try packagesStore.addFetchedDays([yesterdayKeyString: dummyResponse], country: countryId)
 
 		let client = ClientMock()
@@ -386,7 +386,7 @@ final class DayKeyPackageDownloadTest: XCTestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"", isEmpty: false)
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])

@@ -107,7 +107,7 @@ extension ClientMock: ClientWifiOnly {
 
 extension ClientMock: Client {
 
-	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"", isEmpty: false)
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = availablePackageRequestFailure {
@@ -209,7 +209,7 @@ extension ClientMock: Client {
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
 		guard let onTraceWarningDownload = self.onTraceWarningDownload else {
-			completion(.success("TBA Package"))
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
 			return
 		}
 		onTraceWarningDownload(country, packageId, completion)
