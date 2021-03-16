@@ -383,86 +383,15 @@ final class HTTPClient: Client {
 			
 		})
 	}
-
 	
 	func traceWarningPackageDownload(
 		country: String,
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
-		guard let request = try? URLRequest.traceWarningPackageDownload(
-				configuration: configuration,
-				country: country,
-				packageId: packageId) else {
-			completion(.failure(.requestCreationError))
-			return
-		}
-		var responseError: TraceWarningError?
-		
-		session.response(for: request, completion: { [weak self] result in
-			self?.queue.async {
-				
-				guard let self = self else {
-					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
-					completion(.failure(.serverError))
-					return
-				}
-				
-				defer {
-					// no guard in defer!
-					if let error = responseError {
-						let retryCount = self.traceWarningPackageDownloadRetries ?? 0
-						if retryCount > 2 {
-							completion(.failure(error))
-						} else {
-							self.traceWarningPackageDownloadRetries? += 1
-							Log.info("TraceWarningDownload retries to download package after receiving error: \(error). Retry Count: \(retryCount) of 3)", log: .api)
-							self.traceWarningPackageDownload(country: country, packageId: packageId, completion: completion)
-						}
-					} else {
-						// no error, no retry - clean up
-						self.traceWarningPackageDownloadRetries = nil
-					}
-				}
-				
-				switch result {
-				case let .success(response):
-					switch response.statusCode {
-					case 200:
-						guard let body = response.body else {
-							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
-							responseError = .invalidResponseError(response.statusCode)
-							return
-						}
-						
-						guard let package = SAPDownloadedPackage(compressedData: body) else {
-							Log.error("Failed to create signed package for trace warning download", log: .api)
-							responseError = .invalidResponseError(response.statusCode)
-							return
-						}
-						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-						
-						var isEmpty = false
-						// According to tech spec: If present, indicates that the package is empty (i.e. no zip file, to extract).
-						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") != nil {
-							isEmpty = true
-						}
-						let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag, isEmpty: isEmpty)
-						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
-						completion(.success(downloadedZippedPackage))
-					default:
-						Log.error("Error in response with status code: \(String(response.statusCode))", log: .checkin)
-						responseError = .invalidResponseError(response.statusCode)
-					}
-				case let .failure(error):
-					Log.error("Error in response body", log: .checkin, error: error)
-					responseError = .defaultServerError(error)
-				}
-				
-			}
-		})
+		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
+		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
 	}
-
 
 	// MARK: - Public
 
@@ -480,7 +409,7 @@ final class HTTPClient: Client {
 	private let session: URLSession
 	private let packageVerifier: SAPDownloadedPackage.Verification
 	private var fetchDayRetries: [URL: Int] = [:]
-	private var traceWarningPackageDownloadRetries: Int?
+	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
 
 	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
 
@@ -642,6 +571,79 @@ final class HTTPClient: Client {
 			completion(.failure(.invalidResponseError))
 		}
 	}
+	
+	private func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		url: URL,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		var responseError: TraceWarningError?
+		
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				
+				guard let self = self else {
+					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
+					completion(.failure(.serverError))
+					return
+				}
+				
+				defer {
+					// no guard in defer!
+					if let error = responseError {
+						let retryCount = self.traceWarningPackageDownloadRetries[url] ?? 0
+						if retryCount > 2 {
+							completion(.failure(error))
+						} else {
+							self.traceWarningPackageDownloadRetries[url] = retryCount.advanced(by: 1)
+							Log.debug("TraceWarningDownload url: \(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+							self.traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
+						}
+					} else {
+						// no error, no retry - clean up
+						self.traceWarningPackageDownloadRetries[url] = nil
+					}
+				}
+				
+				switch result {
+				case let .success(response):
+					switch response.statusCode {
+					case 200:
+						guard let body = response.body else {
+							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						
+						guard let package = SAPDownloadedPackage(compressedData: body) else {
+							Log.error("Failed to create signed package for trace warning download", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						
+						var isEmpty = false
+						// According to tech spec: If present, indicates that the package is empty (i.e. no zip file, to extract).
+						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") != nil {
+							isEmpty = true
+						}
+						let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag, isEmpty: isEmpty)
+						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
+						completion(.success(downloadedZippedPackage))
+					default:
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .checkin)
+						responseError = .invalidResponseError(response.statusCode)
+					}
+				case let .failure(error):
+					Log.error("Error in response body", log: .checkin, error: error)
+					responseError = .defaultServerError(error)
+				}
+				
+			}
+		}
+	}
+
 }
 
 // MARK: Extensions
