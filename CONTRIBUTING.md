@@ -65,7 +65,7 @@ Format: `{task_name} (closes #{issue_number})`. For example: `Use logger (closes
 2. Set target branch.
 All feature branches should branch from the latest ```release``` branch, so the target should also be this ```release``` branch.
 3. [Only applicable for core contributors] Set label.
- Possible labels: `bug`, `chore`, `enhancement`, `feature`, `UI polish` and `UX`
+Possible labels: `bug`, `chore`, `enhancement`, `feature`, `UI polish` and `UX`
 4.  Set description.
 Describe what is the pull request about and add some bullet points describing what’s changed and why. Also, any instructions how to review/test/etc. should be written here. The goal is to make it easier for reviewers to review the pull request, and to let them know what they should be careful of, what they should focus on, etc.
 5. Add link to JIRA [only applicable for members of the SAP development team] or to GitHub Issue.
