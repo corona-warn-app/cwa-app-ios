@@ -45,7 +45,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		
 		
 		/// Check that store is setup correctly after successful submission
@@ -94,7 +94,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .userConsentError)
 	}
 
@@ -127,7 +127,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
 
@@ -162,7 +162,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
 
@@ -197,7 +197,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .submission23hoursError)
 	}
 
@@ -233,7 +233,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .onboardingError)
 	}
 
@@ -270,7 +270,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .appResetError)
 	}
 
