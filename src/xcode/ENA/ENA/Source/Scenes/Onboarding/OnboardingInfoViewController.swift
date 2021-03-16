@@ -389,20 +389,27 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .privacyPage:
-			persistTimestamp(completion: completion)
-		case .enableLoggingOfContactsPage:
-			askExposureNotificationsPermissions(completion: {
-				completion()
-			})
+			switch pageType {
+			case .privacyPage:
+				persistTimestamp(completion: completion)
+			case .enableLoggingOfContactsPage:
+				func handleBluetooth(completion: @escaping () -> Void) {
+					if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
+						self.present(alertController, animated: true)
+					}
+				}
+				askExposureNotificationsPermissions(completion: {
+					handleBluetooth {
+						completion()
+					}
+				})
 
-		case .alwaysStayInformedPage:
-			askLocalNotificationsPermissions(completion: completion)
-		default:
-			completion()
+			case .alwaysStayInformedPage:
+				askLocalNotificationsPermissions(completion: completion)
+			default:
+				completion()
+			}
 		}
-	}
 	
 	private func runIgnoreActionForPageType(completion: @escaping () -> Void) {
 		guard pageType == .enableLoggingOfContactsPage, !exposureManager.exposureManagerState.authorized else {
