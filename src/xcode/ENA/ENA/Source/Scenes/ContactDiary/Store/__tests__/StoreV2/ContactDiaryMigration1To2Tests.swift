@@ -44,12 +44,12 @@ class ContactDiaryMigration1To2Tests: XCTestCase {
 
 		// Check if the leading zeros are removed.
 
-		let contactPersonResult = contactDiaryAccess.fetchItem(from: "ContactPerson", with: contactPersonId, from: databaseQueue)
+		let contactPersonResult = databaseQueue.fetchItem(from: "ContactPerson", with: contactPersonId)
 		guard  let name = contactPersonResult.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
-		let location = contactDiaryAccess.fetchItem(from: "Location", with: locationId, from: databaseQueue)
+		let location = databaseQueue.fetchItem(from: "Location", with: locationId)
 		guard let locationName = location.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
@@ -66,12 +66,12 @@ class ContactDiaryMigration1To2Tests: XCTestCase {
 		let contactPersonId2 = contactDiaryAccess.addContactPerson(with: expectedFetchedNewName, to: databaseQueue)
 		let locationId2 = contactDiaryAccess.addLocation(with: expectedFetchedNewLocation, to: databaseQueue)
 
-		let newContactPersonResult = contactDiaryAccess.fetchItem(from: "ContactPerson", with: contactPersonId2, from: databaseQueue)
+		let newContactPersonResult = databaseQueue.fetchItem(from: "ContactPerson", with: contactPersonId2)
 		guard let newName = newContactPersonResult.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
-		let newLocation = contactDiaryAccess.fetchItem(from: "Location", with: locationId2, from: databaseQueue)
+		let newLocation = databaseQueue.fetchItem(from: "Location", with: locationId2)
 		guard let newLocationName = newLocation.string(forColumn: "name") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
