@@ -37,11 +37,11 @@ final class CheckinCoordinator {
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				primaryButtonName: AppStrings.Checkins.Overview.deleteAllButtonTitle,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: true,
 				isSecondaryButtonHidden: true,
-				primaryButtonColor: .red
+				primaryButtonColor: .enaColor(for: .buttonDestructive)
 			)
 		)
 

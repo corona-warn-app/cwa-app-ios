@@ -34,6 +34,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		super.viewDidLoad()
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
+		footerView?.setBackgroundColor(.enaColor(for: .darkBackground))
 
 		setupTableView()
 		parent?.navigationItem.largeTitleDisplayMode = .always

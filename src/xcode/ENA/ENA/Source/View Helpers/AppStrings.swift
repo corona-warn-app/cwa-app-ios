@@ -1328,7 +1328,6 @@ enum AppStrings {
 
 		enum QRScanner {
 			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
-			static let checkinsButton = NSLocalizedString("Checkins_Qr_Scanner_Button_CheckIns", comment: "")
 		}
 
 		enum Overview {
@@ -1341,6 +1340,7 @@ enum AppStrings {
 			static let deleteAllButtonTitle = NSLocalizedString("Checkins_Overview_DeleteAllButtonTitle", comment: "")
 
 			static let durationTitle = NSLocalizedString("Checkins_Overview_DurationTitle", comment: "")
+			static let checkinTimeTemplate = NSLocalizedString("Checkins_Overview_CheckinTimeTemplate", comment: "")
 			static let checkoutButtonTitle = NSLocalizedString("Checkins_Overview_CheckoutButtonTitle", comment: "")
 
 			enum DeleteOneAlert {

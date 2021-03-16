@@ -22,7 +22,7 @@ class EventTableViewCell: UITableViewCell {
 			activeContainerView.layer.cornerCurve = .continuous
 		}
 
-		durationTitleLabel.text = "Dauer"//AppStrings.Checkins.Overview.durationTitle
+		durationTitleLabel.text = AppStrings.Checkins.Overview.durationTitle
 		accessibilityTraits = [.button]
 	}
 

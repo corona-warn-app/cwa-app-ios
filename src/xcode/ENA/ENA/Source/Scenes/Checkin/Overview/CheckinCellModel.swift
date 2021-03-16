@@ -85,10 +85,14 @@ class CheckinCellModel: EventCellModel {
 			dateComponentsFormatter.allowedUnits = [.hour, .minute]
 			dateComponentsFormatter.unitsStyle = .short
 
-			let automaticCheckoutTimeInterval = checkin.targetCheckinEndDate.timeIntervalSince(checkin.checkinStartDate)
-			let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(from: automaticCheckoutTimeInterval) ?? ""
+			if let targetCheckinEndDate = checkin.targetCheckinEndDate,
+			   let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(from: targetCheckinEndDate.timeIntervalSince(checkin.checkinStartDate)) {
+				timePublisher.value = String(format: AppStrings.Checkins.Overview.checkinTimeTemplate, formattedCheckinTime, formattedAutomaticCheckoutDuration)
+			} else {
+				timePublisher.value = formattedCheckinTime
+			}
 
-			timePublisher.value = String(format: "%@ - Automatisch auschecken nach %@", formattedCheckinTime, formattedAutomaticCheckoutDuration)
+
 		}
 
 		let duration = Date().timeIntervalSince(checkin.checkinStartDate)

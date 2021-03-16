@@ -18,7 +18,7 @@ struct Checkin: Equatable {
 	let traceLocationSignature: String
 	let checkinStartDate: Date
 	let checkinEndDate: Date?
-	let targetCheckinEndDate: Date
+	let targetCheckinEndDate: Date?
 	let createJournalEntry: Bool
 
 	var isActive: Bool {

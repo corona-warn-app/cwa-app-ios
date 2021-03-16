@@ -84,11 +84,11 @@ class TraceLocationsCoordinator {
 
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				primaryButtonName: AppStrings.TraceLocations.Overview.deleteAllButtonTitle,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: true,
 				isSecondaryButtonHidden: true,
-				primaryButtonColor: .red
+				primaryButtonColor: .enaColor(for: .buttonDestructive)
 			)
 		)
 
