@@ -18,7 +18,7 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		
 	}
 
-    func testCheckinInfoScreen() throws {
+	func testCheckinInfoScreen_navigate_to_dataPrivacy() throws {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
 		
@@ -35,12 +35,28 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline].exists)
 		
 		// Navigate to Data Privacy
-//		app.swipeUp()
-//		XCTAssertFalse(app.staticTexts["AppStrings.AppInformation.privacyTitle"].exists)
-//		app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].tap()
-//		
-//		let x = AccessibilityLabels.accIdentifiersOfElement(app.cells)
-//		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+		app.swipeUp(velocity: .fast)
+		XCTAssertFalse(app.staticTexts["AppStrings.AppInformation.privacyTitle"].exists)
+		app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].tap()
+
+		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+	}
+
+	func testCheckinInfoScreen_confirmConsent() throws {
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
+		app.launch()
+
+		// Home screen
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		
+		// Navigate to CheckIn
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+
+		// Confirm consent
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].tap()
+		
+		// verify elements on the following screen – pending
     }
 
 }
