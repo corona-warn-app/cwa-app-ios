@@ -62,7 +62,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
-				DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) {
+				DispatchQueue.main.async {
 					self.tableView.reloadData()
 				}
 			}.store(in: &subscriptions)
