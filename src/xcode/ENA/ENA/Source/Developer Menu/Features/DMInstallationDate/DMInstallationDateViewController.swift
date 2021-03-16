@@ -44,6 +44,7 @@ class DMInstallationDateViewController: UITableViewController {
 			cell.configure(cellViewModel: cellViewModel)
 
 			cell.didSelectDate = { [weak self] date in
+				Log.debug("[Debug-Menu] Set installation date to \(date).")
 				self?.store.appInstallationDate = date
 			}
 			return cell
