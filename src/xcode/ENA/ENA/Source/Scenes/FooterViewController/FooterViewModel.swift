@@ -19,7 +19,8 @@ final class FooterViewModel {
 		isPrimaryButtonHidden: Bool = false,
 		isSecondaryButtonHidden: Bool = false,
 		primaryButtonColor: UIColor? = nil,
-		secondaryButtonColor: UIColor? = nil
+		secondaryButtonColor: UIColor? = nil,
+		backgroundColor: UIColor = .enaColor(for: .background)
 	) {
 		self.primaryButtonName = primaryButtonName
 		self.secondaryButtonName = secondaryButtonName
@@ -31,6 +32,7 @@ final class FooterViewModel {
 		self.isSecondaryButtonHidden = isSecondaryButtonHidden
 		self.primaryButtonColor = primaryButtonColor
 		self.secondaryButtonColor = secondaryButtonColor
+		self.backgroundColor = backgroundColor
 		updateHeight()
 	}
 
@@ -57,18 +59,19 @@ final class FooterViewModel {
 	let primaryIdentifier: String
 	let secondaryIdentifier: String
 
+	private(set) var isPrimaryButtonHidden: Bool
+	private(set) var isSecondaryButtonHidden: Bool
+
 	@OpenCombine.Published private(set) var height: CGFloat = 0.0
 	@OpenCombine.Published private(set) var isPrimaryLoading: Bool = false
 	@OpenCombine.Published private(set) var isSecondaryLoading: Bool = false
 	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool
 	@OpenCombine.Published private(set) var isSecondaryButtonEnabled: Bool
 
-	private(set) var isPrimaryButtonHidden: Bool
-	private(set) var isSecondaryButtonHidden: Bool
-
 	var primaryButtonName: String?
 	var secondaryButtonName: String?
 
+	@OpenCombine.Published var backgroundColor: UIColor?
 
 	func update(to state: VisibleButtons) {
 		switch state {

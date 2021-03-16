@@ -46,6 +46,8 @@ class FooterViewController: UIViewController {
 		setupPrimaryButton()
 		setupSecondaryButton()
 
+		view.backgroundColor = viewModel.backgroundColor
+
 		view.insetsLayoutMarginsFromSafeArea = false
 		view.preservesSuperviewLayoutMargins = false
 		view.layoutMargins = UIEdgeInsets(
@@ -122,6 +124,12 @@ class FooterViewController: UIViewController {
 			}
 			.store(in: &subscription)
 
+		viewModel.$backgroundColor
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] color in
+				self?.view.backgroundColor = color
+			}
+			.store(in: &subscription)
 	}
 
 	// MARK: - Internal

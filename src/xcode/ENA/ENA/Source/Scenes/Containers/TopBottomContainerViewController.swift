@@ -7,6 +7,8 @@ import OpenCombine
 
 protocol FooterViewUpdating {
 	var footerViewHandler: FooterViewHandling? { get }
+
+	func setBackgroundColor(_ color: UIColor)
 	func update(to state: FooterViewModel.VisibleButtons)
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
 }
@@ -24,7 +26,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		self.topViewController = topController
 		self.bottomViewController = bottomController
 
-		// the the bottom view controller is FooterViewController we use it's viewModel here as well
+		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
 		self.initialHeight = footerViewModel?.height ?? 0.0
 
@@ -42,7 +44,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		super.viewDidLoad()
 
 		// container configuration
-		view.backgroundColor = .enaColor(for: .background)
+		view.backgroundColor = footerViewModel?.backgroundColor
 		navigationController?.navigationBar.prefersLargeTitles = true
 
 		// add top controller
@@ -100,6 +102,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
 		footerViewModel?.setLoadingIndicator(show, disable: disable, button: button)
+	}
+
+	func setBackgroundColor(_ color: UIColor) {
+		footerViewModel?.backgroundColor = color
 	}
 
 	// MARK: - Public
