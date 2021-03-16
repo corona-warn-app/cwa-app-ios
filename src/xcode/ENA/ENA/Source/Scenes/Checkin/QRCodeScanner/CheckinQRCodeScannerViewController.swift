@@ -148,7 +148,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 			flashButton.isSelected = true
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
-		case .ligthOff:
+		case .lightOff:
 			flashButton.isEnabled = true
 			flashButton.isSelected = false
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
