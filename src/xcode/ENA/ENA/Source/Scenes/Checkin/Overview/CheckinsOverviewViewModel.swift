@@ -21,11 +21,28 @@ class CheckinsOverviewViewModel {
 		store.checkinsPublisher
 			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
 			.sink { [weak self] checkins in
-				if checkins.map({ $0.id }) != self?.checkins.map({ $0.id }) {
-					self?.checkins = checkins
-					self?.shouldReload = true
+				guard let self = self else { return }
+
+				if checkins.map({ $0.id }) != self.checkinCellModels.map({ $0.checkin.id }) {
+					self.checkinCellModels = checkins.map { checkin in
+						CheckinCellModel(
+							checkin: checkin,
+							eventProvider: store,
+							onUpdate: {
+								self.onUpdate?()
+							}
+						)
+					}
+
+					self.shouldReload = true
 				} else {
-					self?.checkins = checkins
+					self.checkinCellModels.forEach { cellModel in
+						guard let checkin = checkins.first(where: { $0.id == cellModel.checkin.id }) else {
+							return
+						}
+
+						cellModel.update(with: checkin)
+					}
 				}
 			}
 			.store(in: &subscriptions)
@@ -40,6 +57,8 @@ class CheckinsOverviewViewModel {
 
 	@OpenCombine.Published private(set) var shouldReload: Bool = false
 
+	var onUpdate: (() -> Void)?
+
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
@@ -53,7 +72,7 @@ class CheckinsOverviewViewModel {
 		case .add:
 			return 1
 		case .entries:
-			return checkins.count
+			return checkinCellModels.count
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -64,20 +83,13 @@ class CheckinsOverviewViewModel {
 	}
 
 	func checkinCellModel(
-		at indexPath: IndexPath,
-		onUpdate: @escaping () -> Void,
-		forceReload: @escaping () -> Void
+		at indexPath: IndexPath
 	) -> CheckinCellModel {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("Entry cell models have to used in the entries section")
 		}
 
-		return CheckinCellModel(
-			checkin: checkins[indexPath.row],
-			eventProvider: store,
-			onUpdate: onUpdate,
-			forceReload: forceReload
-		)
+		return checkinCellModels[indexPath.row]
 	}
 
 	func didTapAddEntryCell() {
@@ -89,7 +101,7 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		onEntryCellTap(checkins[indexPath.row])
+		onEntryCellTap(checkinCellModels[indexPath.row].checkin)
 	}
 
 	func didTapEntryCellButton(at indexPath: IndexPath) {
@@ -97,11 +109,11 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		store.updateCheckin(id: checkins[indexPath.row].id, endDate: Date())
+		store.updateCheckin(id: checkinCellModels[indexPath.row].checkin.id, endDate: Date())
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
-		store.deleteCheckin(id: checkins[indexPath.row].id)
+		store.deleteCheckin(id: checkinCellModels[indexPath.row].checkin.id)
 	}
 
 	func removeAll() {
@@ -110,7 +122,7 @@ class CheckinsOverviewViewModel {
 
 	// MARK: - Private
 
-	private var checkins: [Checkin] = []
+	private var checkinCellModels: [CheckinCellModel] = []
 
 	private let store: EventStoring & EventProviding
 	private let onAddEntryCellTap: () -> Void

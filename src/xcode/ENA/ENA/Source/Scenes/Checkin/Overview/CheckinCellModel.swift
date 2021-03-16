@@ -12,36 +12,18 @@ class CheckinCellModel: EventCellModel {
 	init(
 		checkin: Checkin,
 		eventProvider: EventProviding,
-		onUpdate: @escaping () -> Void,
-		forceReload: @escaping () -> Void
+		onUpdate: @escaping () -> Void
 	) {
 		self.checkin = checkin
-		self.checkins = eventProvider.checkinsPublisher.value
 		self.onUpdate = onUpdate
-
-		eventProvider.checkinsPublisher
-			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
-			.sink { [weak self] checkins in
-				guard
-					checkins.map({ $0.id }) == self?.checkins.map({ $0.id }),
-					let checkin = checkins.first(where: { $0.id == checkin.id })
-				else {
-					self?.checkins = checkins
-					return
-				}
-
-				self?.checkin = checkin
-				self?.checkins = checkins
-				self?.updateForActiveState()
-				onUpdate()
-			}
-			.store(in: &subscriptions)
 
 		updateForActiveState()
 		scheduleUpdateTimer()
 	}
 
 	// MARK: - Internal
+
+	var checkin: Checkin
 
 	var isInactiveIconHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
 	var isActiveContainerViewHiddenPublisher = CurrentValueSubject<Bool, Never>(true)
@@ -66,10 +48,18 @@ class CheckinCellModel: EventCellModel {
 
 	var buttonTitle: String = AppStrings.Checkins.Overview.checkoutButtonTitle
 
+	func update(with checkin: Checkin) {
+		guard checkin != self.checkin else {
+			return
+		}
+
+		self.checkin = checkin
+		updateForActiveState()
+		onUpdate()
+	}
+
 	// MARK: - Private
 
-	private var checkin: Checkin
-	private var checkins: [Checkin]
 	private let onUpdate: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
@@ -109,8 +99,6 @@ class CheckinCellModel: EventCellModel {
 		dateComponentsFormatter.zeroFormattingBehavior = .pad
 
 		durationPublisher.value = dateComponentsFormatter.string(from: duration)
-
-		onUpdate()
 	}
 
 	private func scheduleUpdateTimer() {

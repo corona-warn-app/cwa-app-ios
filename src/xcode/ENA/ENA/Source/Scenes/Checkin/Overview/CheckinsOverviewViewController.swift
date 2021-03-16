@@ -17,6 +17,10 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		self.onInfoButtonTap = onInfoButtonTap
 
 		super.init(nibName: nil, bundle: nil)
+
+		self.viewModel.onUpdate = { [weak self] in
+			self?.animateChanges()
+		}
 	}
 
 	@available(*, unavailable)
@@ -169,12 +173,8 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		tableView.estimatedRowHeight = 60
 	}
 
-	private func animateChanges(of cell: UITableViewCell) {
+	private func animateChanges() {
 		DispatchQueue.main.async { [self] in
-			guard tableView.visibleCells.contains(cell) else {
-				return
-			}
-
 			tableView.performBatchUpdates(nil, completion: nil)
 		}
 	}
@@ -214,12 +214,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		}
 
 		let cellModel = viewModel.checkinCellModel(
-			at: indexPath,
-			onUpdate: { [weak self] in
-				self?.animateChanges(of: cell)
-			}, forceReload: { [weak self] in
-				self?.tableView.reloadData()
-			}
+			at: indexPath
 		)
 		cell.configure(
 			cellModel: cellModel,
