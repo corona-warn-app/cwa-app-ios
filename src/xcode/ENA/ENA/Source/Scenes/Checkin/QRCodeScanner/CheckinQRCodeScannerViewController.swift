@@ -36,7 +36,6 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		setNeedsPreviewMaskUpdate()
 		updatePreviewMaskIfNeeded()
 	}
 
@@ -53,7 +52,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	private let dismiss: () -> Void
 
 	private let viewModel: CheckinQRCodeScannerViewModel
-	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { setNeedsPreviewMaskUpdate() } }
+	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMaskIfNeeded() } }
 
 	private func setupView() {
 		
@@ -218,9 +217,6 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		DispatchQueue.main.async { [weak self] in
 			self?.present(alert, animated: true)
 		}
-	}
-	private func setNeedsPreviewMaskUpdate() {
-		DispatchQueue.main.async(execute: updatePreviewMaskIfNeeded)
 	}
 
 	private func updatePreviewMaskIfNeeded() {
