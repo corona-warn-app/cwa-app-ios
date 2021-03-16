@@ -328,12 +328,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		expectation.expectedFulfillmentCount = 2
 
 		// WHEN
-		var ppasError: PPASError?
+		var ppasErrors: [PPASError] = []
 		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
 			switch result {
 			case .success:
 				XCTFail("Test should not success")
-			case .failure:
+			case let .failure(error):
+				ppasErrors.append(error)
 				expectation.fulfill()
 			}
 		})
@@ -343,14 +344,15 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			case .success:
 				XCTFail("Test should not success")
 			case let .failure(error):
-				ppasError = error
+				ppasErrors.append(error)
 				expectation.fulfill()
 			}
 		})
-
+		
 		// THEN
-		waitForExpectations(timeout: .short)
-		XCTAssertEqual(ppasError, .submissionInProgress)
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(ppasErrors.count, 2)
+		XCTAssertTrue(ppasErrors.contains(.submissionInProgress))
 	}
 
 	// MARK: - Conversion to protobuf
