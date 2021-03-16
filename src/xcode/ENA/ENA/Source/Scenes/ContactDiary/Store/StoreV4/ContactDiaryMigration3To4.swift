@@ -8,7 +8,6 @@ final class ContactDiaryMigration3To4: Migration {
 
 	private let databaseQueue: FMDatabaseQueue
 	private var error: Error?
-	private let maxTextLength = 250
 
 	init(databaseQueue: FMDatabaseQueue) {
 		self.databaseQueue = databaseQueue
