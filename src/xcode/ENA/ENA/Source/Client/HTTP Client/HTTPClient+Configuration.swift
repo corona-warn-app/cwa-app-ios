@@ -204,7 +204,7 @@ extension HTTPClient {
 				)
 		}
 		
-		func traceWarningPackageDownloadURL(country: String, hourInterval: Int) -> URL {
+		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
 			endpoints
 				.distribution
 				.appending(
@@ -215,7 +215,7 @@ extension HTTPClient {
 					country,
 					"date",
 					"hour",
-					String(hourInterval)
+					String(packageId)
 				)
 		}
 	}

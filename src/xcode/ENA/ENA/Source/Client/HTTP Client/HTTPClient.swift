@@ -4,7 +4,6 @@
 
 import ExposureNotification
 import Foundation
-import ZIPFoundation
 
 // swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
@@ -390,9 +389,63 @@ final class HTTPClient: Client {
 		packageId: Int,
 		completion: @escaping TraceWarningPackageDownloadCompletionHandler
 	) {
-		// url: traceWarningPackageDownloadURL
-		// success: create Protocol Buffer message TraceWarningPackage for export.bin and Protocol Buffer message TEKSignature for export.sig
-		completion(.success("Success"))
+		guard let request = try? URLRequest.traceWarningPackageDownload(
+				configuration: configuration,
+				country: country,
+				packageId: packageId) else {
+			completion(.failure(.requestCreationError))
+			return
+		}
+		var responseError: TraceWarningError?
+		
+		session.response(for: request, completion: { [weak self] result in
+			
+			defer {
+				// no guard in defer!
+				if let error = responseError {
+					let retryCount = self?.traceWarningPackageDownloadRetries ?? 0
+					if retryCount > 2 {
+						completion(.failure(error))
+					} else {
+						self?.traceWarningPackageDownloadRetries? += 1
+						Log.info("TraceWarningDownload retries to download package after receiving error: \(error). Retry Count: \(retryCount) of 3)", log: .api)
+						self?.traceWarningPackageDownload(country: country, packageId: packageId, completion: completion)
+					}
+				} else {
+					// no error, no retry - clean up
+					self?.traceWarningPackageDownloadRetries = nil
+				}
+			}
+			
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let body = response.body else {
+						Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
+						responseError = .invalidResponseError(response.statusCode)
+						return
+					}
+					
+					guard let package = SAPDownloadedPackage(compressedData: body) else {
+						Log.error("Failed to create signed package for trace warning download", log: .api)
+						responseError = .invalidResponseError(response.statusCode)
+						return
+					}
+					let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
+					Log.info("Succesfully downloaded traceWarningPackage", log: .api)
+					completion(.success(downloadedZippedPackage))
+				default:
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .checkin)
+					responseError = .invalidResponseError(response.statusCode)
+				}
+			case let .failure(error):
+				Log.error("Error in response body", log: .checkin, error: error)
+				responseError = .defaultServerError(error)
+			}
+			
+		})
 	}
 
 
@@ -412,6 +465,7 @@ final class HTTPClient: Client {
 	private let session: URLSession
 	private let packageVerifier: SAPDownloadedPackage.Verification
 	private var retries: [URL: Int] = [:]
+	private var traceWarningPackageDownloadRetries: Int?
 
 	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
 
@@ -847,6 +901,20 @@ private extension URLRequest {
 	) throws -> URLRequest {
 
 		let url = configuration.traceWarningPackageDiscoveryURL(country: country)
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.get
+		
+		return request
+	}
+	
+	static func traceWarningPackageDownload(
+		configuration: HTTPClient.Configuration,
+		country: String,
+		packageId: Int
+	) throws -> URLRequest {
+
+		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
 		var request = URLRequest(url: url)
 
 		request.httpMethod = HttpMethod.get

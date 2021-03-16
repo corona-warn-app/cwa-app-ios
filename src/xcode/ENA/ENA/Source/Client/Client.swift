@@ -22,7 +22,7 @@ protocol Client {
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
 	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
-	typealias TraceWarningPackageDownloadCompletionHandler = (Result<String, TraceWarningError>) -> Void
+	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
 	
 	// MARK: Interacting with a Client
 
