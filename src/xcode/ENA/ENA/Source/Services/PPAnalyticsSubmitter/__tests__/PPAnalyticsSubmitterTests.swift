@@ -56,7 +56,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
 		
 		/// Since the Date is super precise we have to be fuzzy here, and since we know our CI lets me a lot fuzzy here.
-		let tenSecondsAgo = Calendar.current.date(byAdding: .second, value: -10, to: Date())
+		let tenSecondsAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
 		let lastTenSeconds = try XCTUnwrap(tenSecondsAgo)...Date()
 		XCTAssertTrue(lastTenSeconds.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
 		
