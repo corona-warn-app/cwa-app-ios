@@ -5,7 +5,11 @@
 import FMDB
 import CWASQLite
 
-class ContactDiaryStoreSchemaV1: ContactDiarySchemaProtocol {
+protocol ContactDiaryStoreSchemaProtocol {
+	func create() -> Result<Void, SQLiteErrorCode>
+}
+
+class ContactDiaryStoreSchemaV1: ContactDiaryStoreSchemaProtocol {
 
 	// MARK: - Init
 
