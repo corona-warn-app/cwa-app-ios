@@ -262,8 +262,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		Analytics.triggerAnalyticsSubmission(completion: { _ in
-			// Ignore the result of the call, so we just complete after the call is finished.
+		Analytics.triggerAnalyticsSubmission(completion: { result in
+			switch result {
+			case .success:
+				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered succesfully from background", log: .ppa)
+			case let .failure(error):
+				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not succesfully from background with error: \(error)", log: .ppa, error: error)
+			}
 			completion()
 		})
 	}
