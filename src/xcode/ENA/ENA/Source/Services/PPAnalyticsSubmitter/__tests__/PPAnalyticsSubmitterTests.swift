@@ -39,14 +39,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			switch result {
 			case .success:
 				expectation.fulfill()
-			case .failure:
-				XCTFail("Test should not fail")
+			case let .failure(error):
+				XCTFail("Test should not fail. Received error: \(error)")
 			}
 		})
 
 		// THEN
 		waitForExpectations(timeout: .medium)
-		
 		
 		/// Check that store is setup correctly after successful submission
 		XCTAssertEqual(store.previousRiskExposureMetadata, currentRiskExposureMetadata)
