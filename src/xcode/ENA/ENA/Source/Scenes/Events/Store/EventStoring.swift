@@ -4,51 +4,54 @@
 
 import OpenCombine
 
-enum EventStoringError: Error {
-	case database(SQLiteErrorCode)
-	case timeout
-}
+typealias EventStoringProviding = EventStoring & EventProviding
 
 protocol EventStoring {
 
-	typealias IdResult = Result<Int, EventStoringError>
-	typealias VoidResult = Result<Void, EventStoringError>
+	@discardableResult
+	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func createTraceLocation(_ traceLocation: TraceLocation) -> VoidResult
+	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func deleteTraceLocation(id: String) -> VoidResult
+	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func deleteAllTraceLocations() -> VoidResult
+	func deleteAllTraceLocations() -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func createCheckin(_ checkin: Checkin) -> IdResult
+	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult
 
 	@discardableResult
-	func updateCheckin(
-		id: Int,
-		endDate: Date
-	) -> VoidResult
+	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func deleteCheckin(id: Int) -> VoidResult
+	func deleteCheckin(id: Int) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func deleteAllCheckins() -> VoidResult
+	func deleteAllCheckins() -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> IdResult
+	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> SecureSQLStore.IdResult
 
 	@discardableResult
-	func deleteTraceTimeIntervalMatch(id: Int) -> VoidResult
+	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> IdResult
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult
 
 	@discardableResult
-	func deleteTraceWarningPackageMetadata(id: Int) -> VoidResult
+	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult
+
+	@discardableResult
+	func cleanup() -> SecureSQLStore.VoidResult
+
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult
+	
+	@discardableResult
+	func reset() -> SecureSQLStore.VoidResult
 }
 
 protocol EventProviding {
