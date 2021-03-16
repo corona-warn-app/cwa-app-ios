@@ -28,9 +28,6 @@ final class CheckinCoordinator {
 				},
 				onEntryCellTap: { [weak self] checkin in
 					Log.debug("Checkin cell tapped: \(checkin)")
-				},
-				onEntryCellButtonTap: { [weak self] checkin in
-					Log.debug("Checkin cell button tapped: \(checkin)")
 				}
 			),
 			onInfoButtonTap: { [weak self] in

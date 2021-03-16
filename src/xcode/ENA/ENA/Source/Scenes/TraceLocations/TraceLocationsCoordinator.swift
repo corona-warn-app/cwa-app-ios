@@ -46,10 +46,10 @@ class TraceLocationsCoordinator {
 	private let store: Store
 	private let eventStore: EventStoring & EventProviding
 
-	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, signature: "")
-	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, signature: "")
-	private var tmpTraceLocation2 = TraceLocation(guid: "2", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, signature: "")
-	private var tmpTraceLocation3 = TraceLocation(guid: "3", version: 0, type: .type1, description: "Jahrestreffen der deutschen SAP Anwendergruppe", address: "Hauptstr 3, 69115 Heidelberg", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .type1, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .type1, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation2 = TraceLocation(guid: "2", version: 0, type: .type1, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, signature: "")
+	private var tmpTraceLocation3 = TraceLocation(guid: "3", version: 0, type: .type1, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, signature: "")
 
 	private weak var parentNavigationController: UINavigationController?
 

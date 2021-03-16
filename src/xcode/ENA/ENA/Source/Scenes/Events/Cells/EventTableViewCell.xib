@@ -20,13 +20,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1nm-Ky-YXw">
-                        <rect key="frame" x="16" y="12" width="288" height="261"/>
+                        <rect key="frame" x="16" y="4" width="288" height="277"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="LuB-hP-sBP">
-                                <rect key="frame" x="0.0" y="8" width="288" height="245"/>
+                                <rect key="frame" x="0.0" y="8" width="288" height="261"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6Aj-m6-RRD">
-                                        <rect key="frame" x="16" y="8" width="256" height="167"/>
+                                        <rect key="frame" x="16" y="8" width="256" height="183"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MeineCheck-ins" translatesAutoresizingMaskIntoConstraints="NO" id="lst-zi-Q1h">
                                                 <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -151,7 +151,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lw3-BW-ppn" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="187" width="256" height="50"/>
+                                        <rect key="frame" x="16" y="203" width="256" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="hasBorder" value="YES"/>
@@ -176,8 +176,8 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="1nm-Ky-YXw" firstAttribute="top" secondItem="cch-YX-JfG" secondAttribute="top" constant="12" id="0o6-q0-X7h"/>
-                    <constraint firstAttribute="bottom" secondItem="1nm-Ky-YXw" secondAttribute="bottom" constant="12" id="Up7-Uh-TG1"/>
+                    <constraint firstItem="1nm-Ky-YXw" firstAttribute="top" secondItem="cch-YX-JfG" secondAttribute="top" constant="4" id="0o6-q0-X7h"/>
+                    <constraint firstAttribute="bottom" secondItem="1nm-Ky-YXw" secondAttribute="bottom" constant="4" id="Up7-Uh-TG1"/>
                     <constraint firstAttribute="trailing" secondItem="1nm-Ky-YXw" secondAttribute="trailing" constant="16" id="emj-iC-8iz"/>
                     <constraint firstItem="1nm-Ky-YXw" firstAttribute="leading" secondItem="cch-YX-JfG" secondAttribute="leading" constant="16" id="esH-WA-jHN"/>
                 </constraints>

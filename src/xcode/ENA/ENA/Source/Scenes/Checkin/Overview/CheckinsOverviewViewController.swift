@@ -36,7 +36,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
 		updateRightBarButtonItem()
 
-		viewModel.$checkins
+		viewModel.$shouldReload
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, self.shouldReload else { return }
@@ -272,7 +272,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			confirmAction: { [weak self] in
 				guard let self = self else { return }
 
-				let numberOfRows = self.viewModel.checkins.count
+				let numberOfRows = self.viewModel.numberOfRows(in: CheckinsOverviewViewModel.Section.entries.rawValue)
 
 				self.shouldReload = false
 				self.viewModel.removeAll()

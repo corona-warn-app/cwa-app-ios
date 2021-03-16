@@ -34,7 +34,13 @@ class EventTableViewCell: UITableViewCell {
 			.store(in: &subscriptions)
 
 		cellModel.isActiveContainerViewHiddenPublisher
-			.assign(to: \.isHidden, on: activeContainerView)
+			.sink { [weak self] in
+				self?.activeContainerView.isHidden = $0
+
+				UIView.animate(withDuration: 0.25) {
+					self?.layoutIfNeeded()
+				}
+			}
 			.store(in: &subscriptions)
 
 		cellModel.isButtonHiddenPublisher

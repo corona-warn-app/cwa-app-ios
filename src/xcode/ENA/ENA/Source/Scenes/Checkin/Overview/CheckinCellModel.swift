@@ -16,16 +16,22 @@ class CheckinCellModel: EventCellModel {
 		forceReload: @escaping () -> Void
 	) {
 		self.checkin = checkin
+		self.checkins = eventProvider.checkinsPublisher.value
 		self.onUpdate = onUpdate
 
 		eventProvider.checkinsPublisher
+			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
 			.sink { [weak self] checkins in
-				guard let checkin = checkins.first(where: { $0.id == checkin.id }) else {
-					forceReload()
+				guard
+					checkins.map({ $0.id }) == self?.checkins.map({ $0.id }),
+					let checkin = checkins.first(where: { $0.id == checkin.id })
+				else {
+					self?.checkins = checkins
 					return
 				}
 
 				self?.checkin = checkin
+				self?.checkins = checkins
 				self?.updateForActiveState()
 				onUpdate()
 			}
@@ -63,6 +69,7 @@ class CheckinCellModel: EventCellModel {
 	// MARK: - Private
 
 	private var checkin: Checkin
+	private var checkins: [Checkin]
 	private let onUpdate: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()

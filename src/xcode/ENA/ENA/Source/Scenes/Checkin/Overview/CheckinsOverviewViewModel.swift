@@ -12,18 +12,23 @@ class CheckinsOverviewViewModel {
 	init(
 		store: EventStoring & EventProviding,
 		onAddEntryCellTap: @escaping () -> Void,
-		onEntryCellTap: @escaping (Checkin) -> Void,
-		onEntryCellButtonTap: @escaping (Checkin) -> Void
+		onEntryCellTap: @escaping (Checkin) -> Void
 	) {
 		self.store = store
 		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
-		self.onEntryCellButtonTap = onEntryCellButtonTap
 
 		store.checkinsPublisher
-			.sink { [weak self] in
-				self?.checkins = $0
-			}.store(in: &subscriptions)
+			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
+			.sink { [weak self] checkins in
+				if checkins.map({ $0.id }) != self?.checkins.map({ $0.id }) {
+					self?.checkins = checkins
+					self?.shouldReload = true
+				} else {
+					self?.checkins = checkins
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -33,7 +38,7 @@ class CheckinsOverviewViewModel {
 		case entries
 	}
 
-	@OpenCombine.Published private(set) var checkins: [Checkin] = []
+	@OpenCombine.Published private(set) var shouldReload: Bool = false
 
 	var numberOfSections: Int {
 		Section.allCases.count
@@ -92,7 +97,7 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		onEntryCellButtonTap(checkins[indexPath.row])
+		store.updateCheckin(id: checkins[indexPath.row].id, endDate: Date())
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
@@ -105,10 +110,11 @@ class CheckinsOverviewViewModel {
 
 	// MARK: - Private
 
+	private var checkins: [Checkin] = []
+
 	private let store: EventStoring & EventProviding
 	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (Checkin) -> Void
-	private let onEntryCellButtonTap: (Checkin) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
 
