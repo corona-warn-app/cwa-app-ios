@@ -13,8 +13,8 @@ class DiaryDayTest: XCTestCase {
 		let entries: [DiaryEntry] = [
 			.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow")),
 			.contactPerson(DiaryContactPerson(id: 1, name: "Thomas Augsten")),
-			.location(DiaryLocation(id: 0, name: "Bäckerei")),
-			.location(DiaryLocation(id: 1, name: "Supermarkt"))
+			.location(DiaryLocation(id: 0, name: "Bäckerei", traceLocationGUID: nil)),
+			.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationGUID: nil))
 		]
 
 		let diaryDay = DiaryDay(
@@ -42,10 +42,12 @@ class DiaryDayTest: XCTestCase {
 		let selectedLocation = DiaryLocation(
 			id: 1,
 			name: "Supermarkt",
+			traceLocationGUID: nil,
 			visit: LocationVisit(
 				id: 0,
 				date: dateString,
-				locationId: 1
+				locationId: 1,
+				checkinId: nil
 			)
 		)
 
@@ -62,7 +64,8 @@ class DiaryDayTest: XCTestCase {
 			.location(
 				DiaryLocation(
 					id: 0,
-					name: "Bäckerei"
+					name: "Bäckerei",
+					traceLocationGUID: nil
 				)
 			),
 			.location(

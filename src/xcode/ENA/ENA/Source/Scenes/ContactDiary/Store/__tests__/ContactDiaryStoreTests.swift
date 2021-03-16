@@ -49,7 +49,8 @@ class ContactDiaryStoreTests: XCTestCase {
 		let result = store.addLocation(
 			name: "Hinterm Mond",
 			phoneNumber: "123456",
-			emailAddress: "some@mail.de"
+			emailAddress: "some@mail.de",
+			traceLocationGUID: nil
 		)
 
 		if case let .failure(error) = result {
@@ -230,7 +231,8 @@ class ContactDiaryStoreTests: XCTestCase {
 			locationId: locationId,
 			date: "2020-12-10",
 			durationInMinutes: 42,
-			circumstances: "Some circumstances."
+			circumstances: "Some circumstances.",
+			checkinId: nil
 		)
 
 		if case let .failure(error) = result {
@@ -271,7 +273,8 @@ class ContactDiaryStoreTests: XCTestCase {
 			locationId: locationId,
 			date: "2020-12-10",
 			durationInMinutes: 42,
-			circumstances: "Some circumstances."
+			circumstances: "Some circumstances.",
+			checkinId: nil
 		)
 
 		guard case let .success(locationVisitId) = result else {
@@ -351,7 +354,8 @@ class ContactDiaryStoreTests: XCTestCase {
 		let result = store.addLocation(
 			name: "Woanders",
 			phoneNumber: "123456",
-			emailAddress: "some@mail.de"
+			emailAddress: "some@mail.de",
+			traceLocationGUID: nil
 		)
 
 		guard case let .success(id) = result else {
@@ -1025,7 +1029,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		eMail: String = "",
 		to store: ContactDiaryStore
 	) -> Int {
-		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail)
+		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail, traceLocationGUID: nil)
 		guard case let .success(locationId) = addLocationResult else {
 			fatalError("Failed to add Location")
 		}
@@ -1045,7 +1049,8 @@ class ContactDiaryStoreTests: XCTestCase {
 			locationId: locationId,
 			date: dateString,
 			durationInMinutes: durationInMinutes,
-			circumstances: circumstances
+			circumstances: circumstances,
+			checkinId: nil
 		)
 		guard case let .success(locationVisitId) = addLocationVisitResult else {
 			fatalError("Failed to add LocationVisit")

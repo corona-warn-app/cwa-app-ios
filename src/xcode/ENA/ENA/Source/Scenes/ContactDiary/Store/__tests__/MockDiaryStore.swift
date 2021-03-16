@@ -36,9 +36,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addLocation(name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringResult {
+	func addLocation(name: String, phoneNumber: String, emailAddress: String, traceLocationGUID: String?) -> DiaryStoringResult {
 		let id = (locations.map { $0.id }.max() ?? -1) + 1
-		locations.append(DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress))
+		locations.append(DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress, traceLocationGUID: traceLocationGUID))
 
 		updateDays()
 
@@ -56,9 +56,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringResult {
+	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String, checkinId: Int?) -> DiaryStoringResult {
 		let id = (locationVisits.map { $0.id }.max() ?? -1) + 1
-		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId, durationInMinutes: durationInMinutes, circumstances: circumstances))
+		locationVisits.append(LocationVisit(id: id, date: date, locationId: locationId, durationInMinutes: durationInMinutes, circumstances: circumstances, checkinId: checkinId))
 
 		updateDays()
 
@@ -78,7 +78,13 @@ class MockDiaryStore: DiaryStoringProviding {
 	@discardableResult
 	func updateLocation(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult {
 		guard let index = locations.firstIndex(where: { $0.id == id }) else { return .success(()) }
-		locations[index] = DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress)
+		locations[index] = DiaryLocation(
+			id: id,
+			name: name,
+			phoneNumber: phoneNumber,
+			emailAddress: emailAddress,
+			traceLocationGUID: locations[index].traceLocationGUID
+		)
 
 		updateDays()
 
@@ -98,7 +104,14 @@ class MockDiaryStore: DiaryStoringProviding {
 	@discardableResult
 	func updateLocationVisit(id: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult {
 		guard let index = locationVisits.firstIndex(where: { $0.id == id }) else { return .success(()) }
-		locationVisits[index] = LocationVisit(id: id, date: date, locationId: locationVisits[index].locationId, durationInMinutes: durationInMinutes, circumstances: circumstances)
+		locationVisits[index] = LocationVisit(
+			id: id,
+			date: date,
+			locationId: locationVisits[index].locationId,
+			durationInMinutes: durationInMinutes,
+			circumstances: circumstances,
+			checkinId: locationVisits[index].checkinId
+		)
 
 		updateDays()
 
@@ -215,7 +228,7 @@ class MockDiaryStore: DiaryStoringProviding {
 				.map { location -> DiaryEntry in
 					let visit = locationVisits.first { $0.date == dateString && $0.locationId == location.id }
 
-					let location = DiaryLocation(id: location.id, name: location.name, phoneNumber: location.phoneNumber, emailAddress: location.emailAddress, visit: visit)
+					let location = DiaryLocation(id: location.id, name: location.name, phoneNumber: location.phoneNumber, emailAddress: location.emailAddress, traceLocationGUID: location.traceLocationGUID, visit: visit)
 					return DiaryEntry.location(location)
 				}
 

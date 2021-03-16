@@ -280,7 +280,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addLocation(
 		name: String,
 		phoneNumber: String,
-		emailAddress: String
+		emailAddress: String,
+		traceLocationGUID: String?
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
 
@@ -291,19 +292,22 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				INSERT INTO Location (
 					name,
 					phoneNumber,
-					emailAddress
+					emailAddress,
+					traceLocationGUID
 				)
 				VALUES (
 					SUBSTR(:name, 1, \(maxTextLength)),
 					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
-					SUBSTR(:emailAddress, 1, \(maxTextLength))
+					SUBSTR(:emailAddress, 1, \(maxTextLength)),
+					:traceLocationGUID
 				);
 			"""
 
 			let parameters: [String: Any] = [
 				"name": name,
 				"phoneNumber": phoneNumber,
-				"emailAddress": emailAddress
+				"emailAddress": emailAddress,
+				"traceLocationGUID": traceLocationGUID as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -395,7 +399,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		locationId: Int,
 		date: String,
 		durationInMinutes: Int,
-		circumstances: String
+		circumstances: String,
+		checkinId: Int?
 	) -> DiaryStoringResult {
 		var result: DiaryStoringResult?
 
@@ -407,13 +412,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					date,
 					locationId,
 					durationInMinutes,
-					circumstances
+					circumstances,
+					checkinId
 				)
 				VALUES (
 					date(:dateString),
 					:locationId,
 					:durationInMinutes,
-					:circumstances
+					:circumstances,
+					:checkinId
 				);
 			"""
 
@@ -421,7 +428,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				"dateString": date,
 				"locationId": locationId,
 				"durationInMinutes": durationInMinutes,
-				"circumstances": circumstances
+				"circumstances": circumstances,
+				"checkinId": checkinId as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -1000,18 +1008,26 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			while queryResult.next() {
 				let locationVisitId = Int(queryResult.int(forColumn: "locationVisitId"))
+
+				var checkinId: Int?
+				if let _checkinId = queryResult.object(forColumn: "checkinId") as? Int {
+					checkinId = _checkinId
+				}
+
 				let locationVisit: LocationVisit? = locationVisitId == 0 ? nil : LocationVisit(
 					id: locationVisitId,
 					date: queryResult.string(forColumn: "locationVisitDate") ?? "",
 					locationId: Int(queryResult.int(forColumn: "locationId")),
 					durationInMinutes: Int(queryResult.int(forColumn: "locationVisitDuration")),
-					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? ""
+					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? "",
+					checkinId: checkinId
 				)
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
+					traceLocationGUID: queryResult.string(forColumn: "traceLocationGUID"),
 					visit: locationVisit
 				)
 				locations.append(location)
