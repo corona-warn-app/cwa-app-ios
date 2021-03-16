@@ -8,32 +8,32 @@ import XCTest
 class ENSettingTableViewCellTests: XCTestCase {
 	
 	func testDaysSinceInstallTableViewCell() {
-		let cell = DaysSinceInstallTableViewCell()
+		let cell = DaysSinceInstallTableViewCell(style: .default, reuseIdentifier: "")
 		XCTAssertNotNil(cell)
 	}
 	
 	func testImageTableViewCell() {
-		let cell = ImageTableViewCell()
+		let cell = ImageTableViewCell(style: .default, reuseIdentifier: "")
 		XCTAssertNotNil(cell)
 	}
 	
 	func testDescriptionTableViewCell() {
-		let cell = DescriptionTableViewCell()
+		let cell = DescriptionTableViewCell(style: .default, reuseIdentifier: "")
 		XCTAssertNotNil(cell)
 	}
 	
 	func testActionTableViewCell() {
-		let cell = ActionTableViewCell()
+		let cell = ActionTableViewCell(style: .default, reuseIdentifier: "")
 		XCTAssertNotNil(cell)
 	}
 	
 	func testEuTracingTableViewCell() {
-		let cell = EuTracingTableViewCell()
+		let cell = EuTracingTableViewCell(style: .default, reuseIdentifier: "")
 		XCTAssertNotNil(cell)
 	}
 	
 	func testActionDetailTableViewCell() {
-		let cell = ActionDetailTableViewCell()
+		let cell = ActionDetailTableViewCell(style: .default, reuseIdentifier: "")
 		XCTAssertNotNil(cell)
 	}
 }
