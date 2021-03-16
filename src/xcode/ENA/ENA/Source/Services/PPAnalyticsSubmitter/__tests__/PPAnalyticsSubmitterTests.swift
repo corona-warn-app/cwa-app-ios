@@ -12,7 +12,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -67,7 +66,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -101,7 +99,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_AppConfigIsMissing_THEN_ProbibilityErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -134,7 +131,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_ProbabilityIsLow_THEN_ProbibilityErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -169,7 +165,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_Submission23hoursErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -204,7 +199,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -240,7 +234,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_AppResetWas2HoursAgo_THEN_AppResetErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -277,7 +270,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_PpacCouldNotAuthorize_THEN_PpacErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -315,7 +307,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// GIVEN
 		let store = MockTestStore()
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
-		Analytics.setupMock(store: store)
 		let client = ClientMock()
 		let appConfigurationProvider = CachedAppConfigurationMock()
 		let analyticsSubmitter = PPAnalyticsSubmitter(
