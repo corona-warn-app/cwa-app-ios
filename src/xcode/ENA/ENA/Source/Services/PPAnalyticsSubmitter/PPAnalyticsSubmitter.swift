@@ -66,7 +66,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		
 		// Sink on the app configuration if something has changed. But do this in background.
-		self.configurationProvider.appConfiguration().receive(on: DispatchQueue.global(qos: .background).ocombine).sink { [ weak self] configuration in
+		self.configurationProvider.appConfiguration().receive(on: DispatchQueue.global(qos: .utility).ocombine).sink { [ weak self] configuration in
 			let ppaConfigData = configuration.privacyPreservingAnalyticsParameters.common
 			self?.probabilityToSubmitPPAUsageData = ppaConfigData.probabilityToSubmit
 			self?.hoursSinceTestResultToSubmitKeySubmissionMetadata = ppaConfigData.hoursSinceTestResultToSubmitKeySubmissionMetadata
