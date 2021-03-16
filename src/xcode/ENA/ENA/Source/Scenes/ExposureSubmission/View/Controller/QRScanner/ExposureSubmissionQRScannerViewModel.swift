@@ -50,7 +50,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 		switch device.torchMode {
 		case .off:
-			return .ligthOff
+			return .lightOff
 		case .on:
 			return .lightOn
 		case .auto:

@@ -69,7 +69,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 		switch device.torchMode {
 		case .off:
-			return .ligthOff
+			return .lightOff
 		case .on:
 			return .lightOn
 		case .auto:
