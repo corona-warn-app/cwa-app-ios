@@ -149,6 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
+	let eventStore: EventStoringProviding = EventStore.make()
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
@@ -261,6 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
+			eventStore: self.eventStore,
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
 		)
@@ -331,6 +333,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Reset contact diary
 		contactDiaryStore.reset()
+
+		// Reset event store
+		eventStore.reset()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
