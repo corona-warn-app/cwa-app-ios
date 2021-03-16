@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:ENA/ENA.xcodeproj">
+      location = "group:/Users/arturfriesen/Coding/iOS/CWA/cwa-app-ios/src/xcode/ENA/swift.xcodeproj">
    </FileRef>
 </Workspace>

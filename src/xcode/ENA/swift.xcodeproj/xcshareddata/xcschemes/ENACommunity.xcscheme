@@ -17,7 +17,7 @@
                      BlueprintIdentifier = "85D7593A2457048F008175F0"
                      BuildableName = "ENA.app"
                      BlueprintName = "ENA"
-                     ReferencedContainer = "container:ENA.xcodeproj">
+                     ReferencedContainer = "container:swift.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "85D7593A2457048F008175F0"
                BuildableName = "ENA.app"
                BlueprintName = "ENA"
-               ReferencedContainer = "container:ENA.xcodeproj">
+               ReferencedContainer = "container:swift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "85D7593A2457048F008175F0"
             BuildableName = "ENA.app"
             BlueprintName = "ENA"
-            ReferencedContainer = "container:ENA.xcodeproj">
+            ReferencedContainer = "container:swift.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -89,7 +89,7 @@
             BlueprintIdentifier = "85D7593A2457048F008175F0"
             BuildableName = "ENA.app"
             BlueprintName = "ENA"
-            ReferencedContainer = "container:ENA.xcodeproj">
+            ReferencedContainer = "container:swift.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

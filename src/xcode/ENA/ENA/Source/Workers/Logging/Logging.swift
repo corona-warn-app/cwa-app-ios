@@ -187,7 +187,15 @@ struct FileLogger {
 	/// - Throws: `FileLogger.Error.streamerInitError` if Reader initialization fails
 	/// - Returns: a `StreamReader`
 	func logReader() throws -> StreamReader {
-		guard let reader = StreamReader(at: allLogsFileURL) else {
+		
+		let url = allLogsFileURL
+		let fileManager = FileManager.default
+		if !fileManager.fileExists(atPath: url.path) {
+			try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+			fileManager.createFile(atPath: url.path, contents: Data())
+		}
+		
+		guard let reader = StreamReader(at: url) else {
 			throw Error.streamerInitError
 		}
 		return reader

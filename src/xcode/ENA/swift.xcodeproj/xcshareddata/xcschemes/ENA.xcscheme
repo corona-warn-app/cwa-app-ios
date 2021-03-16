@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1240"
-   version = "1.7">
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,10 +14,10 @@
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "85D7595324570491008175F0"
-                     BuildableName = "ENATests.xctest"
-                     BlueprintName = "ENATests"
-                     ReferencedContainer = "container:ENA.xcodeproj">
+                     BlueprintIdentifier = "85D7593A2457048F008175F0"
+                     BuildableName = "ENA.app"
+                     BlueprintName = "ENA"
+                     ReferencedContainer = "container:swift.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -27,15 +27,29 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "85D7593A2457048F008175F0"
+               BuildableName = "ENA.app"
+               BlueprintName = "ENA"
+               ReferencedContainer = "container:swift.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "85D7595324570491008175F0"
-               BuildableName = "ENATests.xctest"
-               BlueprintName = "ENATests"
-               ReferencedContainer = "container:ENA.xcodeproj">
+               BlueprintIdentifier = "85D7595E24570491008175F0"
+               BuildableName = "ENAUITests.xctest"
+               BlueprintName = "ENAUITests"
+               ReferencedContainer = "container:swift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -54,14 +68,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "# Ensure the hardware keyboard is DISCONNECTED from the simulators to prevent issues where the software keyboard is not shown.&#10;# Solution stolen from: https://stackoverflow.com/a/57269479/194585&#10;&#10;#killall Simulator&#10;&#10;defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false&#10;">
-            </ActionContent>
-         </ExecutionAction>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "function version {&#10;    echo &quot;$@&quot; | awk -F. &apos;{ printf(&quot;%d%03d%03d%03d\n&quot;, $1,$2,$3,$4); }&apos;;&#10;}&#10;# Don&#x2019;t run on iOS devices.&#10;if [[ &quot;${SDKROOT}&quot; != *&quot;simulator&quot;* ]]; then&#10;    exit 0&#10;fi&#10;# Don&#x2019;t run on iOS versions before 13.&#10;if [ $(version &quot;${TARGET_DEVICE_OS_VERSION}&quot;) -ge $(version &quot;13&quot;) ]; then&#10;    xcrun simctl boot &quot;${TARGET_DEVICE_IDENTIFIER}&quot;&#10;    xcrun simctl status_bar &quot;${TARGET_DEVICE_IDENTIFIER}&quot; override \&#10;        --time &quot;9:41 PM&quot; \&#10;        --dataNetwork wifi \&#10;        --wifiMode active \&#10;        --wifiBars 3 \&#10;        --cellularMode notSupported \&#10;        --batteryState discharging \&#10;        --batteryLevel 100&#10;fi&#10;">
+               scriptText = "# Ensure the hardware keyboard is DISCONNECTED from the simulators to prevent issues where the software keyboard is not shown.&#10;# Solution stolen from: https://stackoverflow.com/a/57269479/194585&#10;&#10;killall Simulator&#10;&#10;defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false&#10;&#10;killall Simulator || true &amp;&amp; open -a Simulator&#10;">
             </ActionContent>
          </ExecutionAction>
       </PreActions>
@@ -71,38 +78,34 @@
             BlueprintIdentifier = "85D7593A2457048F008175F0"
             BuildableName = "ENA.app"
             BlueprintName = "ENA"
-            ReferencedContainer = "container:ENA.xcodeproj">
+            ReferencedContainer = "container:swift.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <TestPlans>
          <TestPlanReference
-            reference = "container:TestPlans/Screenshots.xctestplan"
+            reference = "container:TestPlans/AllTests.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "85D7595324570491008175F0"
                BuildableName = "ENATests.xctest"
                BlueprintName = "ENATests"
-               ReferencedContainer = "container:ENA.xcodeproj">
+               ReferencedContainer = "container:swift.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES"
-            testExecutionOrdering = "random">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "85D7595E24570491008175F0"
                BuildableName = "ENAUITests.xctest"
                BlueprintName = "ENAUITests"
-               ReferencedContainer = "container:ENA.xcodeproj">
+               ReferencedContainer = "container:swift.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -111,14 +114,23 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = "de"
-      region = "DE"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
+      debugXPCServices = "NO"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "85D7593A2457048F008175F0"
+            BuildableName = "ENA.app"
+            BlueprintName = "ENA"
+            ReferencedContainer = "container:swift.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -126,15 +138,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "85D7595324570491008175F0"
-            BuildableName = "ENATests.xctest"
-            BlueprintName = "ENATests"
-            ReferencedContainer = "container:ENA.xcodeproj">
+            BlueprintIdentifier = "85D7593A2457048F008175F0"
+            BuildableName = "ENA.app"
+            BlueprintName = "ENA"
+            ReferencedContainer = "container:swift.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

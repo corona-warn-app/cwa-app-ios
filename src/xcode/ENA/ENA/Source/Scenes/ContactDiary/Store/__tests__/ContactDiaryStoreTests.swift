@@ -932,6 +932,10 @@ class ContactDiaryStoreTests: XCTestCase {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeContactDiaryStore(with: databaseQueue)
 
+		databaseQueue.inDatabase { database in
+			XCTAssertEqual(database.numberOfTables, 4, "Looks like there is a new table. Please extend this test and add the new table to the dropTables() function.")
+		}
+
 		// Add data and check if its persisted.
 
 		let personId = addContactPerson(name: "Some Person", to: store)
@@ -1170,11 +1174,11 @@ class ContactDiaryStoreTests: XCTestCase {
 	private func makeContactDiaryStore(
 		with databaseQueue: FMDatabaseQueue,
 		dateProvider: DateProviding = DateProvider(),
-		schema: ContactDiarySchemaProtocol? = nil,
+		schema: StoreSchemaProtocol? = nil,
 		migrator: SerialMigratorProtocol? = nil
 	) -> ContactDiaryStore {
 
-		let _schema: ContactDiarySchemaProtocol
+		let _schema: StoreSchemaProtocol
 		if let schema = schema {
 			_schema = schema
 		} else {
@@ -1248,7 +1252,7 @@ private class MigratorSpy: SerialDatabaseQueueMigrator {
 private class ContactDiarySchemaSpy: ContactDiaryStoreSchemaV4 {
 	var createWasCalled = false
 
-	override func create() -> Result<Void, SQLiteErrorCode> {
+	override func create() -> SecureSQLStore.VoidResult {
 		super.create()
 		createWasCalled = true
 		return .success(())
