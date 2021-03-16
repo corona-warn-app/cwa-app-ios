@@ -30,8 +30,17 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle].exists)
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].exists)
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionTitle].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline].exists)
+		
 		// Navigate to Data Privacy
-		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
+//		app.swipeUp()
+//		XCTAssertFalse(app.staticTexts["AppStrings.AppInformation.privacyTitle"].exists)
+//		app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].tap()
+//		
+//		let x = AccessibilityLabels.accIdentifiersOfElement(app.cells)
+//		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
     }
 
 }
