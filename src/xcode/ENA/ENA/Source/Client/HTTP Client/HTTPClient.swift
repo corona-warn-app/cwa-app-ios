@@ -384,6 +384,7 @@ final class HTTPClient: Client {
 		})
 	}
 
+	
 	func traceWarningPackageDownload(
 		country: String,
 		packageId: Int,
@@ -400,20 +401,27 @@ final class HTTPClient: Client {
 		
 		session.response(for: request, completion: { [weak self] result in
 			self?.queue.async {
+				
+				guard let self = self else {
+					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
+					completion(.failure(.serverError))
+					return
+				}
+				
 				defer {
 					// no guard in defer!
 					if let error = responseError {
-						let retryCount = self?.traceWarningPackageDownloadRetries ?? 0
+						let retryCount = self.traceWarningPackageDownloadRetries ?? 0
 						if retryCount > 2 {
 							completion(.failure(error))
 						} else {
-							self?.traceWarningPackageDownloadRetries? += 1
+							self.traceWarningPackageDownloadRetries? += 1
 							Log.info("TraceWarningDownload retries to download package after receiving error: \(error). Retry Count: \(retryCount) of 3)", log: .api)
-							self?.traceWarningPackageDownload(country: country, packageId: packageId, completion: completion)
+							self.traceWarningPackageDownload(country: country, packageId: packageId, completion: completion)
 						}
 					} else {
 						// no error, no retry - clean up
-						self?.traceWarningPackageDownloadRetries = nil
+						self.traceWarningPackageDownloadRetries = nil
 					}
 				}
 				
@@ -443,7 +451,7 @@ final class HTTPClient: Client {
 						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
 						completion(.success(downloadedZippedPackage))
 					default:
-						Log.error("Wrong http status code: \(String(response.statusCode))", log: .checkin)
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .checkin)
 						responseError = .invalidResponseError(response.statusCode)
 					}
 				case let .failure(error):

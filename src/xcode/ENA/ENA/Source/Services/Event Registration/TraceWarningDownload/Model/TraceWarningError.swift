@@ -10,6 +10,7 @@ enum TraceWarningError: Error {
 	case invalidResponseError(Int)
 	case decodingJsonError(Int)
 	case downloadError
+	case serverError
 }
 
 extension TraceWarningError: Equatable {
