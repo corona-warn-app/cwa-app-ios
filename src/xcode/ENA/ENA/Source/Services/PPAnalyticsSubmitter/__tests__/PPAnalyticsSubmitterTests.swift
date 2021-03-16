@@ -307,7 +307,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .ppacError(.generationFailed))
 	}
 	
