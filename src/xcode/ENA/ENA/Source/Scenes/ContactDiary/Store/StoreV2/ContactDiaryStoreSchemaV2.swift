@@ -5,7 +5,7 @@
 import FMDB
 import CWASQLite
 
-class ContactDiaryStoreSchemaV2: ContactDiarySchemaProtocol {
+class ContactDiaryStoreSchemaV2: ContactDiaryStoreSchemaProtocol {
 
 	// MARK: - Init
 

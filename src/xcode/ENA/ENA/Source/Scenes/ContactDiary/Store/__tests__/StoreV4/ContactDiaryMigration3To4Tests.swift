@@ -93,9 +93,7 @@ class ContactDiaryMigration3To4Tests: XCTestCase {
 	}
 
 	private func checkV4Data(from databaseQueue: FMDatabaseQueue) {
-		let contactDiaryAccess = ContactDiaryAccess()
-
-		let contactPersonsResult = contactDiaryAccess.fetch(table: "ContactPerson", from: databaseQueue)
+		let contactPersonsResult = databaseQueue.fetchAll(from: "ContactPerson")
 		XCTAssertEqual(contactPersonsResult.columnCount, 4)
 		XCTAssertEqual(contactPersonsResult.columnName(for: 0), "id")
 		XCTAssertEqual(contactPersonsResult.columnName(for: 1), "name")
@@ -111,7 +109,7 @@ class ContactDiaryMigration3To4Tests: XCTestCase {
 		XCTAssertEqual(contactPersonCount, 2)
 		XCTAssertEqual(contactPersonNames, ["Some Person Name", "Other Person Name"])
 
-		let locationsResult = contactDiaryAccess.fetch(table: "Location", from: databaseQueue)
+		let locationsResult = databaseQueue.fetchAll(from: "Location")
 		XCTAssertEqual(locationsResult.columnCount, 5)
 		XCTAssertEqual(locationsResult.columnName(for: 0), "id")
 		XCTAssertEqual(locationsResult.columnName(for: 1), "name")
@@ -128,7 +126,7 @@ class ContactDiaryMigration3To4Tests: XCTestCase {
 		XCTAssertEqual(locationCount, 2)
 		XCTAssertEqual(locationNames, ["Some Location Name", "Other Location Name"])
 
-		let contactPersonEncounterResult = contactDiaryAccess.fetch(table: "ContactPersonEncounter", from: databaseQueue)
+		let contactPersonEncounterResult = databaseQueue.fetchAll(from: "ContactPersonEncounter")
 		XCTAssertEqual(contactPersonEncounterResult.columnCount, 7)
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 0), "id")
 		XCTAssertEqual(contactPersonEncounterResult.columnName(for: 1), "date")
@@ -147,7 +145,7 @@ class ContactDiaryMigration3To4Tests: XCTestCase {
 		XCTAssertEqual(contactPersonEncounter, 2)
 		XCTAssertEqual(contactPersonEncounterDates, ["2021-02-12", "2021-02-11"])
 
-		let locationVisitResult = contactDiaryAccess.fetch(table: "LocationVisit", from: databaseQueue)
+		let locationVisitResult = databaseQueue.fetchAll(from: "LocationVisit")
 		XCTAssertEqual(locationVisitResult.columnCount, 6)
 		XCTAssertEqual(locationVisitResult.columnName(for: 0), "id")
 		XCTAssertEqual(locationVisitResult.columnName(for: 1), "date")
