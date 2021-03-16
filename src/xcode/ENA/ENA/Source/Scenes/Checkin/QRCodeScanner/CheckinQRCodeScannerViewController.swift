@@ -46,7 +46,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	// MARK: - Private
 
-	private var focusView = QRScannerFocusView()
+	private let focusView = QRScannerFocusView()
 
 	private let didScanCheckin: (Checkin) -> Void
 	private let dismiss: () -> Void
