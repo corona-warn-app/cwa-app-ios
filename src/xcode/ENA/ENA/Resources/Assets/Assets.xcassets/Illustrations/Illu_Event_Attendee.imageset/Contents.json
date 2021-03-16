@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Icons_Checkin.pdf",
+      "filename" : "Illu_Attendee_Light.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,6 +11,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "Illu_Attendee_Dark.pdf",
       "idiom" : "universal"
     }
   ],
