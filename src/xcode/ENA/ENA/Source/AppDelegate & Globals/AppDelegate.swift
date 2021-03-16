@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
+			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
 		self.client = HTTPClient(serverEnvironmentProvider: store)
