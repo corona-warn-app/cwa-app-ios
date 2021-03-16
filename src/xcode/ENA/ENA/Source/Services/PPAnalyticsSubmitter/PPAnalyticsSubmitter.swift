@@ -21,7 +21,6 @@ protocol PPAnalyticsSubmitting {
 	#endif
 }
 
-// swiftlint:disable:next type_body_length
 final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	// MARK: - Init
