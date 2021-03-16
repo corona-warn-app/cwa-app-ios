@@ -563,6 +563,7 @@
 		AB190F1525FFAF3100FBFF0D /* ContactDiaryStoreSchemaV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */; };
 		AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
 		AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */; };
+		AB190F562600FDDA00FBFF0D /* ContactDiaryStoreCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190F552600FDD900FBFF0D /* ContactDiaryStoreCreation.swift */; };
 		AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */; };
 		AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */; };
 		AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */; };
@@ -1516,6 +1517,7 @@
 		AB190EE325FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV4.swift; sourceTree = "<group>"; };
 		AB190EEA25FF6C3600FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV4Tests.swift; sourceTree = "<group>"; };
 		AB190EEB25FF6C3600FBFF0D /* ContactDiaryMigration3To4Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration3To4Tests.swift; sourceTree = "<group>"; };
+		AB190F552600FDD900FBFF0D /* ContactDiaryStoreCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreCreation.swift; sourceTree = "<group>"; };
 		AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewController.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestServerEnvironments.json; sourceTree = "<group>"; };
@@ -4059,6 +4061,7 @@
 			children = (
 				ABAE0A35257FA85B0030ED47 /* __tests__ */,
 				8F27018E259B593700E48CFE /* ContactDiaryStore.swift */,
+				AB190F552600FDD900FBFF0D /* ContactDiaryStoreCreation.swift */,
 				019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */,
 				8F2EDD3025A4B9BB006F6520 /* StoreV1 */,
 				8F27018D259B58D700E48CFE /* StoreV2 */,
@@ -5696,6 +5699,7 @@
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
 				AB190EE525FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
+				AB190F562600FDDA00FBFF0D /* ContactDiaryStoreCreation.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				AB190EA325FB690800FBFF0D /* UpdateCheckinQuery.swift in Sources */,
 				BAA4D73025E95B3A00821B5C /* CheckinCoordinator.swift in Sources */,
