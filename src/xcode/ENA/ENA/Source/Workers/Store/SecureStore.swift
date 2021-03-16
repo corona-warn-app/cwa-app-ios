@@ -361,7 +361,9 @@ extension SecureStore: PrivacyPreservingProviding {
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
 		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
 		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
-			userData = nil
+			if newValue == false {
+				userData = nil
+			}
 		}
 	}
 
