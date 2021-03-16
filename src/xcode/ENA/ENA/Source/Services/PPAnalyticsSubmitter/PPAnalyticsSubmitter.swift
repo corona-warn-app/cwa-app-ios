@@ -39,7 +39,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.client = client
 		self.submissionState = .readyForSubmission
 		self.configurationProvider = appConfig
-		self.dispatchGroupSubmission = DispatchGroup()
 	}
 	
 	// MARK: - Protocol PPAnalyticsSubmitting
@@ -67,19 +66,14 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			return
 		}
 		
-		// Sink on the app configuration if something has changed. But do this in background and wait for the result before continue.
-		dispatchGroupSubmission.enter()
+		// Sink on the app configuration if something has changed. But do this in background.
 		self.configurationProvider.appConfiguration().receive(on: DispatchQueue.global(qos: .background).ocombine).sink { [ weak self] configuration in
 			let ppaConfigData = configuration.privacyPreservingAnalyticsParameters.common
 			self?.probabilityToSubmitPPAUsageData = ppaConfigData.probabilityToSubmit
 			self?.hoursSinceTestResultToSubmitKeySubmissionMetadata = ppaConfigData.hoursSinceTestResultToSubmitKeySubmissionMetadata
 			self?.hoursSinceTestRegistrationToSubmitTestResultMetadata = ppaConfigData.hoursSinceTestRegistrationToSubmitTestResultMetadata
 			self?.probabilityToSubmitExposureWindows = ppaConfigData.probabilityToSubmitExposureWindows
-			self?.dispatchGroupSubmission.leave()
-		}.store(in: &subscriptions)
-		
-		// If we have the app config, we continue...
-		dispatchGroupSubmission.notify(queue: .global(qos: .background)) { [weak self] in
+			
 			guard let strongSelf = self else {
 				Log.warning("Analytics submission abord due fail at creating strong self", log: .ppa)
 				self?.submissionState = .readyForSubmission
@@ -127,7 +121,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 				Log.info("Analytics submission needs to generate new ppac token.", log: .ppa)
 				strongSelf.generatePPACAndSubmitData(completion: completion)
 			}
-		}
+		}.store(in: &subscriptions)
 	}
 	
 	#if !RELEASE
@@ -154,7 +148,6 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	private let store: (Store & PPAnalyticsData)
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
-	private let dispatchGroupSubmission: DispatchGroup
 	
 	private var submissionState: PPASubmissionState
 	private var subscriptions: Set<AnyCancellable> = []
