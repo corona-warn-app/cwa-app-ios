@@ -71,6 +71,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
+                <outlet property="containerView" destination="1nm-Ky-YXw" id="pdG-4j-XQx"/>
                 <outlet property="iconImageView" destination="FYm-e4-59U" id="zHB-Qy-qrg"/>
                 <outlet property="label" destination="VaD-d6-UT4" id="ElH-wJ-0uX"/>
             </connections>

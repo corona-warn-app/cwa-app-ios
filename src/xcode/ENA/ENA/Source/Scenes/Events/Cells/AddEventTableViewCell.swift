@@ -7,10 +7,21 @@ import OpenCombine
 
 class AddEventTableViewCell: UITableViewCell {
 
+	// MARK: - Overrides
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		isAccessibilityElement = false
+		containerView.isAccessibilityElement = true
+		containerView.accessibilityTraits = .button
+	}
+
 	// MARK: - Internal
 
 	func configure(cellModel: AddEventCellModel) {
 		label.text = cellModel.text
+		containerView.accessibilityLabel = cellModel.text
 
 		cellModel.iconImagePublisher
 			.assign(to: \.image, on: iconImageView)
@@ -30,6 +41,7 @@ class AddEventTableViewCell: UITableViewCell {
 
 	// MARK: - Private
 
+	@IBOutlet private weak var containerView: UIView!
 	@IBOutlet private weak var iconImageView: UIImageView!
 	@IBOutlet private weak var label: ENALabel!
 
