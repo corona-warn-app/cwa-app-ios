@@ -18,7 +18,7 @@ class DiaryEntryTextField: UITextField {
 		layer.borderColor = UIColor.enaColor(for: ENAColor.cellBackground).cgColor
 		layer.borderWidth = 1
 		layer.masksToBounds = true
-		layer.cornerRadius = 8.0
+		layer.cornerRadius = 14.0
 	}
 
 	@available(*, unavailable)
