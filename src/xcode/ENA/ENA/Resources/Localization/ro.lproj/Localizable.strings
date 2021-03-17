@@ -143,6 +143,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Ați avut o întâlnire cu o persoană diagnosticată cu coronavirus. Totuși, pe baza datelor de înregistrare în jurnal a expunerilor, riscul dvs. de infectare este redus. Riscul este redus dacă întâlnirea dvs. a fost de scurtă durată sau s-a păstrat o anumită distanță. Nu este cazul să vă îngrijorați și nu este nevoie de nicio acțiune specială din partea dvs. Vă recomandăm să respectați regulile generale privind distanțarea și igiena.";
 
+"ExposureDetection_Button_Enable" = "Activați înregistrarea în jurnal a expunerilor";
+
 "ExposureDetection_Button_Refresh" = "Actualizare";
 
 "ExposureDetection_Button_Title_Restart" = "Relansare";
