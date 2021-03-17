@@ -70,7 +70,7 @@ enum Log {
 		DispatchQueue.global(qos: .utility).async {
 			let meta: String = "[\(file):\(line)] [\(function)]"
 			
-			// obviously we have to disable swiftline here:
+			// obviously we have to disable swiftlint here:
 			// swiftlint:disable:next no_direct_oslog
 			os_log("%{private}@ %{private}@", log: log, type: type, meta, message)
 			
