@@ -31,8 +31,8 @@ final class CheckinCoordinator {
     lazy var viewController: UINavigationController = {
         let checkinsOverviewViewController = CheckinsOverviewViewController(
             viewModel: checkinsOverviewViewModel,
-            onInfoButtonTap: {
-                Log.debug("Info button tapped")
+            onInfoButtonTap: { [weak self] in
+				self?.presentInfoScreen()
             },
             onMissingPermissionsButtonTap: { [weak self] in
                 self?.showSettings()
