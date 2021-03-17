@@ -143,8 +143,6 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Daha sonra koronavirüs tanısı konmuş bir kişiyle karşılaştınız. Ancak maruz kalma günlüğü verilerine göre enfeksiyon riskiniz düşük. Kısa süreyle ya da uzak mesafeyle karşılaşmanız durumunda risk düşük olur. Endişelenmeniz gerekmez ve eylem gerçekleştirmeniz özel bir ihtiyaç bulunmuyor. Mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.";
 
-"ExposureDetection_Button_Enable" = "Maruz Kalma Günlüğünü Etkinleştir";
-
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
 "ExposureDetection_Button_Title_Restart" = "Yeniden başlat";
