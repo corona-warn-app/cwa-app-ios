@@ -51,6 +51,8 @@ class MissingPermissionsTableViewCell: UITableViewCell, ReuseIdentifierProviding
 	let button = ENAButton()
 
 	private func setupView() {
+		backgroundColor = .clear
+
 		let qrCodeImageView = UIImageView(image: UIImage(imageLiteralResourceName: "Icons_iOS_Einstellungen"))
 		qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
 		qrCodeImageView.contentMode = .right
