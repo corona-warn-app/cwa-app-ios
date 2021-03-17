@@ -49,12 +49,14 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 		// add top controller
 		addChild(topViewController)
+		topViewController.didMove(toParent: self)
 		let topView: UIView = topViewController.view
 		topView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(topView)
 
 		// add bottom controller
 		addChild(bottomViewController)
+		bottomViewController.didMove(toParent: self)
 		let bottomView: UIView = bottomViewController.view
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -72,8 +74,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				bottomViewHeightAnchorConstraint
 			]
 		)
-		topViewController.didMove(toParent: self)
-		bottomViewController.didMove(toParent: self)
 
 		footerViewModel?.$height.sink { [weak self] height in
 			self?.updateBottomHeight(height, animated: true)

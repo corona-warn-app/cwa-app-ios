@@ -19,10 +19,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 
 		super.init(nibName: nil, bundle: nil)
-
-		self.viewModel.onUpdate = { [weak self] in
-			self?.animateChanges()
-		}
 	}
 
 	@available(*, unavailable)
@@ -42,6 +38,10 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 		parent?.navigationItem.largeTitleDisplayMode = .always
 		parent?.navigationItem.title = AppStrings.Checkins.Overview.title
 		updateRightBarButtonItem()
+
+		viewModel.onUpdate = { [weak self] in
+			self?.animateChanges()
+		}
 
 		viewModel.$shouldReload
 			.receive(on: DispatchQueue.main.ocombine)
