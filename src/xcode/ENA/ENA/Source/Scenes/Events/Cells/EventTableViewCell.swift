@@ -26,6 +26,14 @@ class EventTableViewCell: UITableViewCell {
 		accessibilityTraits = [.button]
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+		cellModel = nil
+		onButtonTap = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(cellModel: EventCellModel, onButtonTap: @escaping () -> Void) {

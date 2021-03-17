@@ -17,6 +17,13 @@ class AddEventTableViewCell: UITableViewCell {
 		containerView.accessibilityTraits = .button
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+		cellModel = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(cellModel: AddEventCellModel) {

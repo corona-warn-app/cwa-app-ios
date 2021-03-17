@@ -20,6 +20,16 @@ class MissingPermissionsTableViewCell: UITableViewCell, ReuseIdentifierProviding
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+
+		subscriptions = []
+		cellModel = nil
+		onButtonTap = nil
+	}
+
 	// MARK: - Internal
 
 	func configure(cellModel: MissingPermissionsCellModel, onButtonTap: @escaping () -> Void) {
