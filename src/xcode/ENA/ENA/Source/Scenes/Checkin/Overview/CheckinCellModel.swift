@@ -100,8 +100,6 @@ class CheckinCellModel: EventCellModel {
 		dateComponentsFormatter.zeroFormattingBehavior = .pad
 
 		durationPublisher.value = dateComponentsFormatter.string(from: duration)
-
-		onUpdate()
 	}
 
 	private func scheduleUpdateTimer() {
