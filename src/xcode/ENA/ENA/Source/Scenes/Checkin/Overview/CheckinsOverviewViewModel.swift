@@ -4,6 +4,7 @@
 
 import UIKit
 import OpenCombine
+import AVFoundation
 
 class CheckinsOverviewViewModel {
 
@@ -52,6 +53,7 @@ class CheckinsOverviewViewModel {
 
 	enum Section: Int, CaseIterable {
 		case add
+		case missingPermission
 		case entries
 	}
 
@@ -70,7 +72,9 @@ class CheckinsOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .add:
-			return 1
+			return showMissingPermissionsSection ? 0 : 1
+		case .missingPermission:
+			return showMissingPermissionsSection ? 1 : 0
 		case .entries:
 			return checkinCellModels.count
 		case .none:
@@ -147,5 +151,11 @@ class CheckinsOverviewViewModel {
 	private let onEntryCellTap: (Checkin) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
+
+	private var showMissingPermissionsSection: Bool {
+		let status = AVCaptureDevice.authorizationStatus(for: .video)
+
+		return status == .notDetermined || status == .authorized
+	}
 
 }

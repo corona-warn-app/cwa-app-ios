@@ -227,6 +227,7 @@
 		01EA17FE259217B100E98E02 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA17FD259217B100E98E02 /* HomeState.swift */; };
 		01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */; };
 		01EBC9C325B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */; };
+		01EEC09F260224FF00924E15 /* MissingPermissionsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */; };
 		01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A542257FB90200DA96A6 /* CloseBarButtonItem.swift */; };
 		01F2A563257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */; };
 		01F2A564257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F2A562257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib */; };
@@ -1165,6 +1166,7 @@
 		01EA17FD259217B100E98E02 /* HomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		01EBC9A525B6002C0003496F /* HomeStatisticsCardViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModelTests.swift; sourceTree = "<group>"; };
 		01EBC9C225B70C310003496F /* SAP_Internal_Stats_Statistics+SupportedIDsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_Internal_Stats_Statistics+SupportedIDsTests.swift"; sourceTree = "<group>"; };
+		01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPermissionsCellModel.swift; sourceTree = "<group>"; };
 		01F2A542257FB90200DA96A6 /* CloseBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseBarButtonItem.swift; sourceTree = "<group>"; };
 		01F2A561257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayTableViewCell.swift; sourceTree = "<group>"; };
 		01F2A562257FC7D200DA96A6 /* DiaryOverviewDayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiaryOverviewDayTableViewCell.xib; sourceTree = "<group>"; };
@@ -2602,6 +2604,8 @@
 				01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */,
 				01F6702525FF80490069C4F9 /* CheckinsOverviewViewModel.swift */,
 				01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */,
+				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
+				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
 				01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */,
 				01F6702625FF80490069C4F9 /* CheckinCellModel.swift */,
 			);
@@ -5025,7 +5029,6 @@
 			children = (
 				BADB7BF425F66188001065FA /* CheckinTableViewCell.swift */,
 				BADB7C0125F6660D001065FA /* CheckinCellViewModel.swift */,
-				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
 				BADB7BEA25F66145001065FA /* ScanQRCodeTableViewCell.swift */,
 				BADB7BFC25F66549001065FA /* StatusCellViewModel.swift */,
 			);
@@ -5622,6 +5625,7 @@
 				EB855EFD25EED0C900FEE17C /* PDFDocument+EmbedImage.swift in Sources */,
 				50B5057D25CAEF5C00EEA380 /* OTPToken.swift in Sources */,
 				B1A89F3924819CC200DA1CEC /* ExposureStateUpdating.swift in Sources */,
+				01EEC09F260224FF00924E15 /* MissingPermissionsCellModel.swift in Sources */,
 				01909877257E64BD0065D050 /* DiaryEditEntriesViewController.swift in Sources */,
 				8F43A3CB25D55A3E008FD630 /* ppa_data.pb.swift in Sources */,
 				AB5F84B024F8F7C3000400D4 /* Migration.swift in Sources */,

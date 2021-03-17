@@ -26,12 +26,15 @@ final class CheckinCoordinator {
 				onAddEntryCellTap: { [weak self] in
 					self?.showQRCodeScanner()
 				},
-				onEntryCellTap: { [weak self] checkin in
+				onEntryCellTap: { checkin in
 					Log.debug("Checkin cell tapped: \(checkin)")
 				}
 			),
-			onInfoButtonTap: { [weak self] in
+			onInfoButtonTap: {
 				Log.debug("Info button tapped")
+			},
+			onMissingPermissionsButtonTap: { [weak self] in
+				self?.showSettings()
 			}
 		)
 

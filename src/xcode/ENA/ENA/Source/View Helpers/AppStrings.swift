@@ -1345,6 +1345,12 @@ enum AppStrings {
 			static let checkinTimeTemplate = NSLocalizedString("Checkins_Overview_CheckinTimeTemplate", comment: "")
 			static let checkoutButtonTitle = NSLocalizedString("Checkins_Overview_CheckoutButtonTitle", comment: "")
 
+			enum MissingPermissions {
+				static let title = NSLocalizedString("Checkins_Overview_MissingPermissions_Title", comment: "")
+				static let description = NSLocalizedString("Checkins_Overview_MissingPermissions_Description", comment: "")
+				static let buttonTitle = NSLocalizedString("Checkins_Overview_MissingPermissions_ButtonTitle", comment: "")
+			}
+
 			enum DeleteOneAlert {
 				static let title = NSLocalizedString("Checkins_Overview_DeleteOne_AlertTitle", comment: "")
 				static let message = NSLocalizedString("Checkins_Overview_DeleteOne_AlertMessage", comment: "")

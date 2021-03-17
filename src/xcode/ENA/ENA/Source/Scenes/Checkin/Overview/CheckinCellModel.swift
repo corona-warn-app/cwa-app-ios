@@ -66,7 +66,6 @@ class CheckinCellModel: EventCellModel {
 
 	private var updateTimer: Timer?
 
-	@objc
 	private func updateForActiveState() {
 		isInactiveIconHiddenPublisher.value = checkin.isActive
 		isActiveContainerViewHiddenPublisher.value = !checkin.isActive
@@ -101,6 +100,8 @@ class CheckinCellModel: EventCellModel {
 		dateComponentsFormatter.zeroFormattingBehavior = .pad
 
 		durationPublisher.value = dateComponentsFormatter.string(from: duration)
+
+		onUpdate()
 	}
 
 	private func scheduleUpdateTimer() {
@@ -118,7 +119,7 @@ class CheckinCellModel: EventCellModel {
 		let timeToNextCheckinSeconds = (60 - (currentSeconds - checkinSeconds)) % 60
 		let firstFireDate = now.addingTimeInterval(TimeInterval(timeToNextCheckinSeconds))
 
-		updateTimer = Timer(fireAt: firstFireDate, interval: 60, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: true)
+		updateTimer = Timer(fireAt: firstFireDate, interval: 60, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: true)
 		guard let updateTimer = updateTimer else { return }
 		RunLoop.current.add(updateTimer, forMode: .common)
 	}
@@ -131,6 +132,12 @@ class CheckinCellModel: EventCellModel {
 	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
 		scheduleUpdateTimer()
+	}
+
+	@objc
+	private func updateFromTimer() {
+		updateForActiveState()
+		onUpdate()
 	}
     
 }

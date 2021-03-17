@@ -1959,6 +1959,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
 
+"Checkins_Overview_MissingPermissions_Title" = "Benutzung der Kamera erlauben";
+
+"Checkins_Overview_MissingPermissions_Description" = "Um die Kamera für das Scannen des QR-Codes zu nutzen, müssen Sie die Verwendung der Kamera in den Geräte-Einstellungen zur App zulassen.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Geräte-Einstellungen öffnen";
+
 "Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich entfernen?";
 
 "Checkins_Overview_DeleteOne_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";

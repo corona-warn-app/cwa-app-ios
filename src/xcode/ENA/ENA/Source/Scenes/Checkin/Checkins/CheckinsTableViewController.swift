@@ -88,7 +88,7 @@ class CheckinsTableViewController: UITableViewController {
 		tableView.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(CheckinTableViewCell.self, forCellReuseIdentifier: CheckinTableViewCell.reuseIdentifier)
-		tableView.register(MissingPermissionsTableViewCell.self, forCellReuseIdentifier: MissingPermissionsTableViewCell.reuseIdentifier)
+//		tableView.register(MissingPermissionsTableViewCell.self, forCellReuseIdentifier: MissingPermissionsTableViewCell.reuseIdentifier)
 		tableView.register(ScanQRCodeTableViewCell.self, forCellReuseIdentifier: ScanQRCodeTableViewCell.reuseIdentifier)
 	}
 
