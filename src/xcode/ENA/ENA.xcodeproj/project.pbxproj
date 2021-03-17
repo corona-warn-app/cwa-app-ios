@@ -364,6 +364,7 @@
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift */; };
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
+		5090047A26027403005B0A25 /* TraceLocationsInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
@@ -1304,6 +1305,7 @@
 		508ACB6025DE6393006B9945 /* PPADataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPADataType.swift; sourceTree = "<group>"; };
 		508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollectorTests.swift; sourceTree = "<group>"; };
 		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewModelTest.swift; sourceTree = "<group>"; };
 		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENDiagnosisReportType+Protobuf.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
@@ -2062,6 +2064,7 @@
 		0138F6A825F25B1400A9B075 /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				50900478260273CD005B0A25 /* __test__ */,
 				0138F6A925F25B1400A9B075 /* TraceLocationsInfoViewController.swift */,
 				0138F6AA25F25B1400A9B075 /* TraceLocationsInfoViewModel.swift */,
 			);
@@ -2945,6 +2948,14 @@
 				508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		50900478260273CD005B0A25 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */,
+			);
+			path = __test__;
 			sourceTree = "<group>";
 		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
@@ -6400,6 +6411,7 @@
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
 				2ED4508E26010E46005465CE /* ENSettingTableViewCellTests.swift in Sources */,
+				5090047A26027403005B0A25 /* TraceLocationsInfoViewModelTest.swift in Sources */,
 				50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
