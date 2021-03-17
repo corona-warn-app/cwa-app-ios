@@ -36,7 +36,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		updatePreviewMaskIfNeeded()
+		updatePreviewMask()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -52,7 +52,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	private let dismiss: () -> Void
 
 	private let viewModel: CheckinQRCodeScannerViewModel
-	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMaskIfNeeded() } }
+	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {
 		
@@ -218,7 +218,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		}
 	}
 
-	private func updatePreviewMaskIfNeeded() {
+	private func updatePreviewMask() {
 
 		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
