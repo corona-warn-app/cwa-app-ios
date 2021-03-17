@@ -30,15 +30,7 @@ final class CheckinCoordinator {
 
     lazy var viewController: UINavigationController = {
         let checkinsOverviewViewController = CheckinsOverviewViewController(
-            viewModel: CheckinsOverviewViewModel(
-                store: eventStore,
-                onAddEntryCellTap: { [weak self] in
-                    self?.showQRCodeScanner()
-                },
-                onEntryCellTap: { checkin in
-                    Log.debug("Checkin cell tapped: \(checkin)")
-                }
-            ),
+            viewModel: checkinsOverviewViewModel,
             onInfoButtonTap: {
                 Log.debug("Info button tapped")
             },
@@ -67,7 +59,7 @@ final class CheckinCoordinator {
             return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
                 guard let self = self else { return }
                 // Push Checkin Table View Controller
-                self.viewController.pushViewController(topBottomContainerViewController,	animated: true)
+                self.viewController.pushViewController(topBottomContainerViewController, animated: true)
                 // Set as the only controller on the navigation stack to avoid back gesture etc.
                 self.viewController.setViewControllers([topBottomContainerViewController], animated: false)
                 self.infoScreenShown = true // remember and don't show it again
@@ -91,12 +83,25 @@ final class CheckinCoordinator {
         set { store.checkinInfoScreenShown = newValue }
     }
 
+	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
+		CheckinsOverviewViewModel(
+			store: eventStore,
+			onAddEntryCellTap: { [weak self] in
+				self?.showQRCodeScanner()
+			},
+			onEntryCellTap: { checkin in
+				Log.debug("Checkin cell tapped: \(checkin)")
+			}
+		)
+	}()
+
     private func showQRCodeScanner() {
         let qrCodeScanner = CheckinQRCodeScannerViewController(
             didScanCheckin: { [weak self] checkin in
                 self?.showCheckinDetails(checkin)
             },
             dismiss: { [weak self] in
+				self?.checkinsOverviewViewModel.updateForCameraPermission()
                 self?.viewController.dismiss(animated: true)
             }
         )

@@ -142,6 +142,10 @@ class CheckinsOverviewViewModel {
 		store.deleteAllCheckins()
 	}
 
+	func updateForCameraPermission() {
+		shouldReload = true
+	}
+
 	// MARK: - Private
 
 	private var checkinCellModels: [CheckinCellModel] = []
