@@ -361,7 +361,6 @@ enum AppStrings {
 		static let lowRiskExposureSubtitle = NSLocalizedString("ExposureDetection_LowRiskExposure_Subtitle", comment: "")
 		static let lowRiskExposureBody = NSLocalizedString("ExposureDetection_LowRiskExposure_Body", comment: "")
 
-		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
@@ -1369,6 +1368,26 @@ enum AppStrings {
 				static let infoTitle = NSLocalizedString("Checkins_Overview_ActionSheet_InfoTitle", comment: "")
 				static let editTitle = NSLocalizedString("Checkins_Overview_ActionSheet_EditTitle", comment: "")
 			}
+		}
+		
+		enum Information {
+			static let title = NSLocalizedString("Checkin_Information_Title", comment: "")
+			static let imageDescription = NSLocalizedString("Checkin_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("Checkin_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("Checkin_Information_DescriptionSubHeadline", comment: "")
+			static let itemCheckinTitle = NSLocalizedString("Checkin_Information_Item_Checkin_Title", comment: "")
+			static let itemLocationTitle = NSLocalizedString("Checkin_Information_Item_Location_Title", comment: "")
+
+			static let legalHeadline_1 = NSLocalizedString("Checkin_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_1 = NSLocalizedString("Checkin_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_2 = NSLocalizedString("Checkin_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_1 = NSLocalizedString("Checkin_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+			static let legalText_2 = NSLocalizedString("Checkin_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_3 = NSLocalizedString("Checkin_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("Checkin_Information_Dataprivacy_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("Checkin_Information_PrimaryButton_Title", comment: "")
+
+			
 		}
 
 	}

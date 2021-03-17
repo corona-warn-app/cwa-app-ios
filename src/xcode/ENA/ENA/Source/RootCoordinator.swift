@@ -83,6 +83,7 @@ class RootCoordinator: RequiresAppDependencies {
 		diaryCoordinator.viewController.tabBarItem = diaryTabbarItem
 
 		let eventsTabbarItem = UITabBarItem(title: AppStrings.Tabbar.checkInTitle, image: UIImage(named: "Icons_Tabbar_Checkin"), selectedImage: nil)
+		eventsTabbarItem.accessibilityIdentifier = AccessibilityIdentifiers.Tabbar.checkin
 		checkInCoordinator.viewController.tabBarItem = eventsTabbarItem
 
 		tabBarController.tabBar.tintColor = .enaColor(for: .tint)
