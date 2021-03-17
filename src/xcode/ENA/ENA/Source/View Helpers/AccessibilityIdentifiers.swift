@@ -384,6 +384,7 @@ enum AccessibilityIdentifiers {
 	enum Tabbar {
 		static let home = "Tabbar.home"
 		static let diary = "Tabbar.diary"
+		static let checkin = "Tabbar.checkin"
 	}
 	
 	enum DataDonation {
@@ -407,6 +408,15 @@ enum AccessibilityIdentifiers {
 		static let descriptionSubHeadline = "AppStrings.TraceLocations.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.TraceLocations.dataPrivacyTitle"
 		static let legal_1 = "AppStrings.TraceLocations.legalHeadline_1"
+	}
+	
+	enum CheckinInformation {
+		static let imageDescription = "AppStrings.CheckInInformation.imageDescription"
+		static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.CheckInInformation.descriptionSubHeadline"
+		static let dataPrivacyTitle = "AppStrings.CheckInInformation.dataPrivacyTitle"
+		static let primaryButton = "AppStrings.CheckInInformation.primaryButton"
+		static let acknowledgementTitle = "CheckInInformation.acknowledgement_title"
 	}
 
 }
