@@ -129,9 +129,11 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with coronavirus was logged, or because your exposures were only for a short time and at a greater distance.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "You have a low risk of infection because no exposure to people later diagnosed with coronavirus was logged, or because your exposures were only for a short time and at a greater distance.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "The risk of infection is calculated locally on your smartphone, using exposure logging data. The calculation also takes into account distance and duration of any exposure to persons diagnosed with coronavirus, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
 
-"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were exposed over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter_FAQ" = "For further information, please see our FAQ page.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were exposed over a longer period of time and at close proximity to at least one person diagnosed with coronavirus.";
 
 "ExposureDetection_Explanation_Text_High" = "Therefore, your risk of infection has been ranked as increased. \nYour risk of infection is calculated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to, anyone else. \nWhen you get home, please also avoid close contact with members of your family or household.";
 
@@ -139,7 +141,7 @@
 
 "ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
 
-"ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later diagnosed with COVID-19. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
+"ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later diagnosed with coronavirus. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
 
 "ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
@@ -387,7 +389,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break chains of infection much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a coronavirus warning system. Get an overview of your risk status and find out whether you’ve had close contact with people diagnosed with coronavirus in the last 14 days. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
 
@@ -780,7 +782,7 @@
 /* Exposure Submission Result */
 "ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
 
-"ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus, the public health authority will be notified through the legally prescribed channel and will contact you.";
 
 "ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
 
@@ -801,7 +803,7 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with coronavirus the public health authority will be notified through the legally prescribed channel and will contact you.";
 
 "ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
 
@@ -1127,7 +1129,7 @@
 
 "App_Information_About_Description" = "Robert Koch Institute (RKI) is Germany’s federal public health body. The RKI publishes the Corona-Warn-App on behalf of the Federal Government. The app is intended as a digital complement to public health measures already introduced: social distancing, hygiene, and face masks.";
 
-"App_Information_About_Text" = "People who use the app help to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
+"App_Information_About_Text" = "People who use the app help to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with coronavirus. Your identity and privacy are always protected.";
 
 "App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
 
@@ -1318,7 +1320,7 @@
 
 "RiskLegend_Random_Title" = "Random ID";
 
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons diagnosed with coronavirus can opt to share their random IDs of up to the last 14 days with other app users.";
 
 "RiskLegend_Image1_AccLabel" = "A device shows various numbered content.";
 
