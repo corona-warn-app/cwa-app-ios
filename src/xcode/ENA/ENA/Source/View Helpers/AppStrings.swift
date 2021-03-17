@@ -1362,14 +1362,13 @@ enum AppStrings {
 			static let descriptionSubHeadline = NSLocalizedString("TraceLocation_Information_DescriptionSubHeadline", comment: "")
 			static let itemPersonTitle = NSLocalizedString("TraceLocation_Information_Item_Person_Title", comment: "")
 			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_Location_Title", comment: "")
-			static let legalHeadline_1 = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalHeadline = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
 
-			static let legalSubHeadline_1 = NSLocalizedString("TraceLocation_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
-			static let legalSubHeadline_2 = NSLocalizedString("TraceLocation_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
 			static let legalText_1 = NSLocalizedString("TraceLocation_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
 			static let legalText_2 = NSLocalizedString("TraceLocation_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
 			static let legalText_3 = NSLocalizedString("TraceLocation_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
 			static let legalText_4 = NSLocalizedString("TraceLocation_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
+			static let legalText_5 = NSLocalizedString("TraceLocation_Information_Legal_Text_5", tableName: "Localizable.legal", comment: "")
 			static let dataPrivacyTitle = NSLocalizedString("TraceLocation_Information_Dataprivacy_Title", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TraceLocation_Information_PrimaryButton_Title", comment: "")
 		}

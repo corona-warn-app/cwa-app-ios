@@ -120,3 +120,11 @@
 "Checkin_Information_Legal_SubHeadline_2" = "Bitte wahren Sie die Privatsphäre Ihrer Mitmenschen.";
 
 "Checkin_Information_Legal_Text_3" = "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.";
+
+/* TraceLocation */
+"TraceLocation_Information_Legal_Headline_1" = "";
+"TraceLocation_Information_Legal_Text_1" = "";
+"TraceLocation_Information_Legal_Text_2" = "";
+"TraceLocation_Information_Legal_Text_3" = "";
+"TraceLocation_Information_Legal_Text_4" = "";
+"TraceLocation_Information_Legal_Text_5" = "";
