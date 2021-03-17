@@ -88,7 +88,7 @@ class TraceLocationsCoordinator {
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: true,
 				isSecondaryButtonHidden: true,
-				primaryButtonColor: .enaColor(for: .buttonDestructive)
+				primaryButtonColor: .systemRed
 			)
 		)
 
