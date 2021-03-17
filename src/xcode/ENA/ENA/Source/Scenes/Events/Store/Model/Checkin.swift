@@ -14,7 +14,6 @@ struct Checkin: Equatable {
 	let traceLocationAddress: String
 	let traceLocationStartDate: Date?
 	let traceLocationEndDate: Date?
->>>>>> release/2.0.x
 	let traceLocationDefaultCheckInLengthInMinutes: Int?
 	let traceLocationSignature: String
 	let checkinStartDate: Date

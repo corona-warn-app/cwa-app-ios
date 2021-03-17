@@ -11,7 +11,7 @@ final class CheckinCoordinator {
 
 	init(
 		store: Store,
-		eventStore: EventStoring & EventProviding
+		eventStore: EventStoringProviding
 	) {
 		self.store = store
 		self.eventStore = eventStore
@@ -56,7 +56,7 @@ final class CheckinCoordinator {
 	// MARK: - Private
 
 	private let store: Store
-	private let eventStore: EventStoring & EventProviding
+	private let eventStore: EventStoringProviding
 
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckinQRCodeScannerViewController(

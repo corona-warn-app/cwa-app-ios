@@ -10,7 +10,7 @@ class TraceLocationsCoordinator {
 
 	init(
 		store: Store,
-		eventStore: EventStoring & EventProviding,
+		eventStore: EventStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
@@ -44,7 +44,7 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 
 	private let store: Store
-	private let eventStore: EventStoring & EventProviding
+	private let eventStore: EventStoringProviding
 
 	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .type1, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, signature: "")
 	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .type1, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, signature: "")
@@ -235,7 +235,7 @@ class TraceLocationsCoordinator {
 
 	private func showCheckInScreen(traceLocation: TraceLocation) {
 		// Show checkin screen here, for testing purposes we are temporarily directly checking in
-		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: traceLocation.guid, traceLocationVersion: traceLocation.version, traceLocationType: traceLocation.type, traceLocationDescription: traceLocation.description, traceLocationAddress: traceLocation.address, traceLocationStart: traceLocation.startDate, traceLocationEnd: traceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: traceLocation.signature, checkinStartDate: Date(), checkinEndDate: nil, targetCheckinEndDate: Date(timeIntervalSinceNow: 4500), createJournalEntry: false))
+		eventStore.createCheckin(Checkin(id: 0, traceLocationGUID: traceLocation.guid, traceLocationVersion: traceLocation.version, traceLocationType: traceLocation.type, traceLocationDescription: traceLocation.description, traceLocationAddress: traceLocation.address, traceLocationStartDate: traceLocation.startDate, traceLocationEndDate: traceLocation.endDate, traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes, traceLocationSignature: traceLocation.signature, checkinStartDate: Date(), checkinEndDate: nil, targetCheckinEndDate: Date(timeIntervalSinceNow: 4500), createJournalEntry: false))
 	}
 
 }

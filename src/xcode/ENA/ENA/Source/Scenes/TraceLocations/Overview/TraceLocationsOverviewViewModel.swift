@@ -10,7 +10,7 @@ class TraceLocationsOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		store: EventStoring & EventProviding,
+		store: EventStoringProviding,
 		onAddEntryCellTap: @escaping () -> Void,
 		onEntryCellTap: @escaping (TraceLocation) -> Void,
 		onEntryCellButtonTap: @escaping (TraceLocation) -> Void
@@ -100,7 +100,7 @@ class TraceLocationsOverviewViewModel {
 
 	// MARK: - Private
 
-	private let store: EventStoring & EventProviding
+	private let store: EventStoringProviding
 	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (TraceLocation) -> Void
 	private let onEntryCellButtonTap: (TraceLocation) -> Void

@@ -27,7 +27,7 @@ class RootCoordinator: RequiresAppDependencies {
 	init(
 		_ delegate: CoordinatorDelegate,
 		contactDiaryStore: DiaryStoringProviding,
-		eventStore: EventStoring & EventProviding,
+		eventStore: EventStoringProviding,
 		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
@@ -142,7 +142,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let contactDiaryStore: DiaryStoringProviding
-	private let eventStore: EventStoring & EventProviding
+	private let eventStore: EventStoringProviding
 	private let otpService: OTPServiceProviding
 	private let tabBarController = UITabBarController()
 

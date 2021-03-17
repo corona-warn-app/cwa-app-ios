@@ -10,7 +10,7 @@ class CheckinsOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		store: EventStoring & EventProviding,
+		store: EventStoringProviding,
 		onAddEntryCellTap: @escaping () -> Void,
 		onEntryCellTap: @escaping (Checkin) -> Void
 	) {
@@ -109,7 +109,25 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		store.updateCheckin(id: checkinCellModels[indexPath.row].checkin.id, endDate: Date())
+		let checkin = checkinCellModels[indexPath.row].checkin
+		let updatedChecking = Checkin(
+			id: checkin.id,
+			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationVersion: checkin.traceLocationVersion,
+			traceLocationType: checkin.traceLocationType,
+			traceLocationDescription: checkin.traceLocationDescription,
+			traceLocationAddress: checkin.traceLocationAddress,
+			traceLocationStartDate: checkin.traceLocationStartDate,
+			traceLocationEndDate: checkin.traceLocationEndDate,
+			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: checkin.traceLocationSignature,
+			checkinStartDate: checkin.checkinStartDate,
+			checkinEndDate: Date(),
+			targetCheckinEndDate: checkin.targetCheckinEndDate,
+			createJournalEntry: checkin.createJournalEntry
+		)
+
+		store.updateCheckin(updatedChecking)
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
@@ -124,7 +142,7 @@ class CheckinsOverviewViewModel {
 
 	private var checkinCellModels: [CheckinCellModel] = []
 
-	private let store: EventStoring & EventProviding
+	private let store: EventStoringProviding
 	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (Checkin) -> Void
 
