@@ -373,11 +373,11 @@ final class HTTPClient: Client {
 						completion(.failure(.decodingJsonError(response.statusCode)))
 					}
 				default:
-					Log.error("Wrong http status code: \(String(response.statusCode))", log: .checkin)
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
 					completion(.failure(.invalidResponseError(response.statusCode)))
 				}
 			case let .failure(error):
-				Log.error("Error in response body", log: .checkin, error: error)
+				Log.error("Error in response body", log: .api, error: error)
 				completion(.failure(.defaultServerError(error)))
 			}
 			
@@ -585,7 +585,7 @@ final class HTTPClient: Client {
 				
 				guard let self = self else {
 					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
-					completion(.failure(.serverError))
+					completion(.failure(.downloadError))
 					return
 				}
 				
@@ -632,11 +632,11 @@ final class HTTPClient: Client {
 						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
 						completion(.success(downloadedZippedPackage))
 					default:
-						Log.error("Error in response with status code: \(String(response.statusCode))", log: .checkin)
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
 						responseError = .invalidResponseError(response.statusCode)
 					}
 				case let .failure(error):
-					Log.error("Error in response body", log: .checkin, error: error)
+					Log.error("Error in response body", log: .api, error: error)
 					responseError = .defaultServerError(error)
 				}
 				
