@@ -155,7 +155,7 @@ class CheckinsOverviewViewModel {
 	private var showMissingPermissionsSection: Bool {
 		let status = AVCaptureDevice.authorizationStatus(for: .video)
 
-		return status == .notDetermined || status == .authorized
+		return status != .notDetermined && status != .authorized
 	}
 
 }
