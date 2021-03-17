@@ -365,6 +365,7 @@
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
 		5090047A26027403005B0A25 /* TraceLocationsInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */; };
+		50900483260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
@@ -1306,6 +1307,7 @@
 		508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollectorTests.swift; sourceTree = "<group>"; };
 		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewModelTest.swift; sourceTree = "<group>"; };
+		50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_TraceLocations.swift; sourceTree = "<group>"; };
 		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENDiagnosisReportType+Protobuf.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
@@ -2018,6 +2020,7 @@
 			isa = PBXGroup;
 			children = (
 				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
+				50900481260275A7005B0A25 /* __test__ */,
 				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
 				0138F6C425F36C3F00A9B075 /* Details */,
@@ -2954,6 +2957,14 @@
 			isa = PBXGroup;
 			children = (
 				5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
+		50900481260275A7005B0A25 /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */,
 			);
 			path = __test__;
 			sourceTree = "<group>";
@@ -6471,6 +6482,7 @@
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
 				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
+				50900483260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 				3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */,
 			);

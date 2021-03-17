@@ -39,7 +39,7 @@ class TraceLocationsInfoViewController: DynamicTableViewController, ENANavigatio
 		}
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.primaryButton
 	}
 
 	override var navigationItem: UINavigationItem {
