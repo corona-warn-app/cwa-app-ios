@@ -44,8 +44,8 @@ struct SAP_Internal_Pt_TraceTimeIntervalWarning {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// uuid
-  var locationGuid: String = String()
+  /// Hash of the Location GUID
+  var locationGuidHash: Data = Data()
 
   /// 10-minute intervals since UNIX Epoch
   var startIntervalNumber: UInt32 = 0
@@ -111,7 +111,7 @@ extension SAP_Internal_Pt_TraceWarningPackage: SwiftProtobuf.Message, SwiftProto
 extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TraceTimeIntervalWarning"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "locationGuid"),
+    1: .same(proto: "locationGuidHash"),
     2: .same(proto: "startIntervalNumber"),
     3: .same(proto: "period"),
     4: .same(proto: "transmissionRiskLevel"),
@@ -123,7 +123,7 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.locationGuid) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.locationGuidHash) }()
       case 2: try { try decoder.decodeSingularUInt32Field(value: &self.startIntervalNumber) }()
       case 3: try { try decoder.decodeSingularUInt32Field(value: &self.period) }()
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.transmissionRiskLevel) }()
@@ -133,8 +133,8 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.locationGuid.isEmpty {
-      try visitor.visitSingularStringField(value: self.locationGuid, fieldNumber: 1)
+    if !self.locationGuidHash.isEmpty {
+      try visitor.visitSingularBytesField(value: self.locationGuidHash, fieldNumber: 1)
     }
     if self.startIntervalNumber != 0 {
       try visitor.visitSingularUInt32Field(value: self.startIntervalNumber, fieldNumber: 2)
@@ -149,7 +149,7 @@ extension SAP_Internal_Pt_TraceTimeIntervalWarning: SwiftProtobuf.Message, Swift
   }
 
   static func ==(lhs: SAP_Internal_Pt_TraceTimeIntervalWarning, rhs: SAP_Internal_Pt_TraceTimeIntervalWarning) -> Bool {
-    if lhs.locationGuid != rhs.locationGuid {return false}
+    if lhs.locationGuidHash != rhs.locationGuidHash {return false}
     if lhs.startIntervalNumber != rhs.startIntervalNumber {return false}
     if lhs.period != rhs.period {return false}
     if lhs.transmissionRiskLevel != rhs.transmissionRiskLevel {return false}
