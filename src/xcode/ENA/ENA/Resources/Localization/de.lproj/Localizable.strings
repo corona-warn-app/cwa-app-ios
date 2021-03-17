@@ -93,7 +93,7 @@
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
-"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig:";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig.";
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig mit Seife für 20 Sekunden.";
 
@@ -131,7 +131,9 @@
 
 "ExposureDetection_Explanation_Text_Low_No_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
 
-"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung des Abstands und der Dauer von Begegnungen mit nachweislich Corona-positiv getesteten Personen sowie deren vermutlicher Infektiosität lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_Low_With_Encounter_FAQ" = "Weitere Informationen finden Sie in den FAQ.";
 
 "ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.";
 
@@ -273,7 +275,7 @@
 
 "Settings_DaysSinceInstall_Title" = "Ermittlungszeitraum";
 
-"Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt";
+"Settings_DaysSinceInstall_SubTitle" = "Dieser Zeitraum wird berücksichtigt.";
 
 "Settings_DaysSinceInstall_P1" = "Die Berechnung des Infektionsrisikos kann nur für die Zeiträume erfolgen, an denen die Risiko-Ermittlung aktiv war. Die Risiko-
 Ermittlung sollte daher dauerhaft aktiv sein. Für Ihre Risiko-Ermittlung wird der Zeitraum der letzten 14 Tage betrachtet.";

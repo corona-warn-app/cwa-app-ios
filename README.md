@@ -22,8 +22,7 @@
 </p>
 
 The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **native iOS implementation** of the Corona-Warn-App.
-
-![Figure 1: UI Screens for Apple iOS](https://github.com/corona-warn-app/cwa-documentation/blob/master/images/ui_screens/ui_screens_ios.png "Figure 1: UI Screens for Apple iOS")
+**Visit our [FAQ page](https://www.coronawarn.app/en/faq/) for more information and common issues.**
 
 ## Development
 
@@ -109,18 +108,20 @@ The German government has asked SAP and Deutsche Telekom to develop the Corona-W
 
 ## Repositories
 
-| Repository          | Description                                                           |
-| ------------------- | --------------------------------------------------------------------- |
-| [cwa-documentation] | Project overview, general documentation, and white papers.            |
-| [cwa-app-ios]       | Native iOS app using the Apple/Google exposure notification API.      |
-| [cwa-app-android]   | Native Android app using the Apple/Google exposure notification API.  |
-| [cwa-wishlist]      | Community feature requests.                                           |
-| [cwa-website]       | The official website for the Corona-Warn-App                          |
-| [cwa-server]        | Backend implementation for the Apple/Google exposure notification API.|
-| [cwa-verification-server] | Backend implementation of the verification process.             |
-| [cwa-verification-portal] | The portal to interact with the verification server             |
-| [cwa-verification-iam]    | The identy and access management to interact with the verification server |
-| [cwa-testresult-server]   | Receives the test results from connected laboratories           |
+| Repository                | Description                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------- |
+| [cwa-documentation]       | Project overview, general documentation, and white papers.                   |
+| [cwa-app-ios]             | Native iOS app using the Apple/Google exposure notification API.             |
+| [cwa-app-android]         | Native Android app using the Apple/Google exposure notification API.         |
+| [cwa-wishlist]            | Community feature requests.                                                  |
+| [cwa-website]             | The official website for the Corona-Warn-App.                                |
+| [cwa-server]              | Backend implementation for the Apple/Google exposure notification API.       |
+| [cwa-ppa-server]          | Backend implementation for the privacy-preserving analytics server.          |
+| [cwa-verification-server] | Backend implementation of the verification process.                          |
+| [cwa-verification-portal] | The portal to interact with the verification server.                         |
+| [cwa-verification-iam]    | The identity and access management to interact with the verification server. |
+| [cwa-testresult-server]   | Receives the test results from connected laboratories.                       |
+| [cwa-log-upload]          | The log upload service is the counterpart of the log upload in the app.      |
 
 [cwa-documentation]: https://github.com/corona-warn-app/cwa-documentation
 [cwa-app-ios]: https://github.com/corona-warn-app/cwa-app-ios
@@ -128,10 +129,12 @@ The German government has asked SAP and Deutsche Telekom to develop the Corona-W
 [cwa-wishlist]: https://github.com/corona-warn-app/cwa-wishlist
 [cwa-website]: https://github.com/corona-warn-app/cwa-website
 [cwa-server]: https://github.com/corona-warn-app/cwa-server
+[cwa-ppa-server]: https://github.com/corona-warn-app/cwa-ppa-server
 [cwa-verification-server]: https://github.com/corona-warn-app/cwa-verification-server
 [cwa-verification-portal]: https://github.com/corona-warn-app/cwa-verification-portal
 [cwa-verification-iam]: https://github.com/corona-warn-app/cwa-verification-iam
 [cwa-testresult-server]: https://github.com/corona-warn-app/cwa-testresult-server
+[cwa-log-upload]: https://github.com/corona-warn-app/cwa-log-upload
 
 ## Licensing
 

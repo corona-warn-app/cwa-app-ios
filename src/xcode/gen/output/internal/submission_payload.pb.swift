@@ -58,7 +58,7 @@ struct SAP_Internal_SubmissionPayload {
   /// Clears the value of `consentToFederation`. Subsequent reads from it will return its default value.
   mutating func clearConsentToFederation() {self._consentToFederation = nil}
 
-  var checkIns: [SAP_Internal_Evreg_CheckIn] = []
+  var checkIns: [SAP_Internal_Pt_CheckIn] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 

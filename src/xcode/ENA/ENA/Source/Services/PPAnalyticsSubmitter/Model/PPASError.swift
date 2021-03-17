@@ -6,6 +6,7 @@ import Foundation
 
 enum PPASError: Error {
 
+	case submissionInProgress
 	case generalError
 	case urlCreationError
 	case responseError(Int)

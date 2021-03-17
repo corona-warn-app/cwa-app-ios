@@ -29,8 +29,10 @@ extension OSLog {
 	static let survey = OSLog(subsystem: subsystem, category: "survey")
 	/// PP Analytics
 	static let ppa = OSLog(subsystem: subsystem, category: "ppa")
-	/// Events
+	/// Event / Location Checkin
 	static let checkin = OSLog(subsystem: subsystem, category: "checkin")
+	/// Event / Location Organizer
+	static let traceLocation = OSLog(subsystem: subsystem, category: "traceLocation")
 
 }
 
@@ -185,7 +187,15 @@ struct FileLogger {
 	/// - Throws: `FileLogger.Error.streamerInitError` if Reader initialization fails
 	/// - Returns: a `StreamReader`
 	func logReader() throws -> StreamReader {
-		guard let reader = StreamReader(at: allLogsFileURL) else {
+		
+		let url = allLogsFileURL
+		let fileManager = FileManager.default
+		if !fileManager.fileExists(atPath: url.path) {
+			try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+			fileManager.createFile(atPath: url.path, contents: Data())
+		}
+		
+		guard let reader = StreamReader(at: url) else {
 			throw Error.streamerInitError
 		}
 		return reader

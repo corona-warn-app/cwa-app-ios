@@ -40,5 +40,12 @@
     "website": "https://github.com/OpenCombine/OpenCombine",
     "license": "MIT License",
     "licenseUrl": "https://raw.githubusercontent.com/OpenCombine/OpenCombine/master/LICENSE"
+  },
+  {
+    "component": "Base32",
+    "licensor": "Norio Nomura",
+    "website": "https://github.com/norio-nomura/Base32",
+    "license": "MIT License",
+    "licenseUrl": "https://raw.githubusercontent.com/norio-nomura/Base32/master/LICENSE"
   }
 ]
