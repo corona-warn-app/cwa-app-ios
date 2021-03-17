@@ -380,9 +380,9 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func collectExposureWindows(_ riskCalculationWindows: [RiskCalculationExposureWindow]) {
+		
 		self.clearReportedExposureWindowsQueueIfNeeded()
-
-		let mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
+		var mappedSubmissionExposureWindows: [SubmissionExposureWindow] = riskCalculationWindows.map {
 			SubmissionExposureWindow(
 				exposureWindow: $0.exposureWindow,
 				transmissionRiskLevel: $0.transmissionRiskLevel,
@@ -395,12 +395,11 @@ enum PPAnalyticsCollector {
 		if let metadata = store?.exposureWindowsMetadata {
 			// if store is initialized:
 			// - Queue if new: if the hash of the Exposure Window not included in reportedExposureWindowsQueue, the Exposure Window is added to reportedExposureWindowsQueue.
-			for exposureWindow in mappedSubmissionExposureWindows {
-				if !metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == exposureWindow.hash }) {
-					store?.exposureWindowsMetadata?.newExposureWindowsQueue.append(exposureWindow)
-					store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(exposureWindow)
-				}
-			}
+			mappedSubmissionExposureWindows.removeAll(where: { window -> Bool in
+				return metadata.reportedExposureWindowsQueue.contains(where: { $0.hash == window.hash })
+			})
+			store?.exposureWindowsMetadata?.newExposureWindowsQueue.append(contentsOf: mappedSubmissionExposureWindows)
+			store?.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(contentsOf: mappedSubmissionExposureWindows)
 		} else {
 			// if store is not initialized:
 			// - Initialize and add all of the exposure windows to both "newExposureWindowsQueue" and "reportedExposureWindowsQueue" arrays
