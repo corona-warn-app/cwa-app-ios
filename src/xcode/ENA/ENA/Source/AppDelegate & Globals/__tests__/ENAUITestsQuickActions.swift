@@ -11,6 +11,7 @@ class ENAUITestsQuickActions: XCTestCase {
 	private lazy var cwaBundleDisplayName = { XCUIApplication().label }() // "Corona-Warn"
 	/// The translated label string as we can't (?) use any identifiers there
 	private lazy var newDiaryEntryLabel = XCUIApplication().localized(AppStrings.QuickActions.contactDiaryNewEntry)
+	private lazy var eventCheckinLabel = XCUIApplication().localized(AppStrings.QuickActions.eventCheckin)
 
     override func setUpWithError() throws {
         continueAfterFailure = false
@@ -138,7 +139,7 @@ class ENAUITestsQuickActions: XCTestCase {
 		"qwdzxcsrhe".forEach {
 			app.keyboards.keys[String($0)].tap()
 		}
-		try checkAppMenu(expectNewDiaryItem: true)
+		try checkAppMenu(expectNewDiaryItem: true, expectEventCheckin: true)
 		// Submit TAN
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].isEnabled)
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
@@ -146,7 +147,7 @@ class ENAUITestsQuickActions: XCTestCase {
 
 		// Result Screen
 		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.primaryButton"].waitForExistence(timeout: .medium))
-		try checkAppMenu(expectNewDiaryItem: false) // !!! Quick action should be disabled until we leave the submission flow
+		try checkAppMenu(expectNewDiaryItem: false, expectEventCheckin: false) // !!! Quick action should be disabled until we leave the submission flow
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// Warn others screen
@@ -159,14 +160,17 @@ class ENAUITestsQuickActions: XCTestCase {
 
 		// Back on home screen?
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .medium))
-		try checkAppMenu(expectNewDiaryItem: true) // available again?
+		try checkAppMenu(expectNewDiaryItem: true, expectEventCheckin: true) // available again?
 	}
 
 
 	/// Checks the state of the quick action menu according to given parameter.
-	/// - Parameter expectNewDiaryItem: The desired state wether the menu item is existing or not.
+	///
+	///  Foo ba fs f we
+	/// - Parameter expectNewDiaryItem: The desired state wether the 'new diary entry; menu item is existing or not.
+	/// - Parameter expectEventCheckin: The desired state wether the 'event checkin' menu item is existing or not.
 	/// - Throws: All the funny test errors you might encounter when assertions are not met
-	private func checkAppMenu(expectNewDiaryItem: Bool) throws {
+	private func checkAppMenu(expectNewDiaryItem: Bool, expectEventCheckin: Bool) throws {
 		// to dashboard
 		XCUIDevice.shared.press(.home)
 
@@ -179,11 +183,18 @@ class ENAUITestsQuickActions: XCTestCase {
 		XCTAssertTrue(appIcon.isHittable)
 		appIcon.press(forDuration: 1.5)
 
-		let actionButton = springboard.buttons[newDiaryEntryLabel]
+		let diaryEntryButton = springboard.buttons[newDiaryEntryLabel]
 		if expectNewDiaryItem {
-			XCTAssertTrue(actionButton.exists, "Shortcuts should be available in this state of the submission flow")
+			XCTAssertTrue(diaryEntryButton.exists, "Shortcuts should be available in this state of the submission flow")
 		} else {
-			XCTAssertFalse(actionButton.exists, "Shortcuts should not be available once the user is in submission flow")
+			XCTAssertFalse(diaryEntryButton.exists, "Shortcuts should not be available once the user is in submission flow")
+		}
+
+		let eventCheckinButton = springboard.buttons[eventCheckinLabel]
+		if expectEventCheckin {
+			XCTAssertTrue(eventCheckinButton.exists, "Shortcuts should be available in this state of the submission flow")
+		} else {
+			XCTAssertFalse(eventCheckinButton.exists, "Shortcuts should not be available once the user is in submission flow")
 		}
 
 		// discard menu and return to app w/o quick action
