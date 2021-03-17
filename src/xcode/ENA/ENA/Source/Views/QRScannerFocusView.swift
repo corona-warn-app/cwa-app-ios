@@ -5,7 +5,7 @@
 import UIKit
 
 @IBDesignable
-final class ExposureSubmissionQRScannerFocusView: UIView {
+final class QRScannerFocusView: UIView {
 	@IBInspectable var backdropOpacity: CGFloat = 0
 	@IBInspectable var cornerRadius: CGFloat = 0
 	@IBInspectable var borderWidth: CGFloat = 1
@@ -20,7 +20,10 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
+		configure(cornerRadius: cornerRadius, borderWidth: borderWidth)
+	}
+	
+	func configure(cornerRadius: CGFloat, borderWidth: CGFloat) {
 		layer.cornerRadius = cornerRadius
 		layer.borderWidth = borderWidth
 		layer.borderColor = tintColor.cgColor

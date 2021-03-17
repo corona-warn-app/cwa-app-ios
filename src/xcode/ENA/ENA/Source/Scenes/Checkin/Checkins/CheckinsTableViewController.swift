@@ -63,9 +63,10 @@ class CheckinsTableViewController: UITableViewController {
 		guard let section = CheckinsViewModel.Sections(rawValue: indexPath.section) else {
 			return
 		}
+		let status = viewModel.statusCellViewModel.authorizationStatus
 		switch section {
 		case .state:
-			if viewModel.statusCellViewModel.authorizationStatus == .authorized {
+			if status == .authorized || status == .notDetermined {
 				showQRCodeScanner()
 			} else {
 				showSettings()
