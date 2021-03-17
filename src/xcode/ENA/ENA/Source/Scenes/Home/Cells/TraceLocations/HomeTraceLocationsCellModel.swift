@@ -10,7 +10,7 @@ struct HomeTraceLocationsCellModel {
 	let title = AppStrings.Home.traceLocationsCardTitle
 	let description = AppStrings.Home.traceLocationsCardBody
 	let buttonTitle = AppStrings.Home.traceLocationsCardButton
-	let image = UIImage(named: "Illu_TraceLocations")
+	let image = UIImage(named: "Illu_TraceLocations_HomeCard")
 	let accessibilityIdentifier = AccessibilityIdentifiers.Home.traceLocationsCardButton
 
 }
