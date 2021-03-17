@@ -67,15 +67,12 @@ struct TraceLocationsInfoViewModel {
 			),
 			// Legal text
 			.section(cells: [
-				.legalExtended(
+				.legalExtendedDataDonation(
 					title: NSAttributedString(string: AppStrings.TraceLocations.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.TraceLocations.Information.legalSubHeadline_1),
-					bulletPoints1: [
+					description: NSAttributedString(string: AppStrings.TraceLocations.Information.legalSubHeadline_1),
+					bulletPoints: [
 						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_1),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_2)
-						],
-					subheadline2: NSAttributedString(string: AppStrings.TraceLocations.Information.legalSubHeadline_2),
-					bulletPoints2: [
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_2),
 						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_3),
 						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_4)
 						],
