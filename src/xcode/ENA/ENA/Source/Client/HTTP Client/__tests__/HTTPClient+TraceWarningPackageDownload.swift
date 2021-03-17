@@ -170,6 +170,7 @@ final class HTTPClientTraceWarningPackageDownload: XCTestCase {
 	private let expectationsTimeout: TimeInterval = 2
 		
 	private func assertPackageFormat(for response: PackageDownloadResponse, isEmpty: Bool = false) {
+		// Packages for trace warnings can be empty if special http header is send.
 		guard let responseIsEmpty = response.isEmpty else {
 			XCTFail("isEmpty should not be nil")
 			return

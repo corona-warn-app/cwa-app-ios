@@ -533,6 +533,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 	}
 
 	private func assertPackageFormat(for response: PackageDownloadResponse) {
+		// Packages for key download are never empty
 		guard let isEmpty = response.isEmpty else {
 			XCTFail("is empty should not be nil")
 			return
