@@ -100,11 +100,11 @@ class TraceLocationCellModel: EventCellModel {
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		guard let endDate = traceLocation.endDate else {
+		guard let endDate = traceLocation.endDate, traceLocation.isActive else {
 			return
 		}
 
-		// Schedule new countdown.
+		// Schedule new timer.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 

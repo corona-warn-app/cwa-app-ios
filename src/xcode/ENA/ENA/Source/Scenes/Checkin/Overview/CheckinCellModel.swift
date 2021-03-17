@@ -91,8 +91,6 @@ class CheckinCellModel: EventCellModel {
 			} else {
 				timePublisher.value = formattedCheckinTime
 			}
-
-
 		}
 
 		let duration = Date().timeIntervalSince(checkin.checkinStartDate)
@@ -106,17 +104,23 @@ class CheckinCellModel: EventCellModel {
 	}
 
 	private func scheduleUpdateTimer() {
-//		updateTimer?.invalidate()
-//		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
-//		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-//
-//		// Schedule new countdown.
-//		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-//		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
-//
-//		updateTimer = Timer(fireAt: checkin.endDate, interval: 0, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: false)
-//		guard let updateTimer = updateTimer else { return }
-//		RunLoop.current.add(updateTimer, forMode: .common)
+		updateTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		// Schedule new timer.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+
+		let now = Date()
+		let currentSeconds = Calendar.current.component(.second, from: now)
+		let checkinSeconds = Calendar.current.component(.second, from: checkin.checkinStartDate)
+		let timeToNextCheckinSeconds = (60 - (currentSeconds - checkinSeconds)) % 60
+		let firstFireDate = now.addingTimeInterval(TimeInterval(timeToNextCheckinSeconds))
+
+		updateTimer = Timer(fireAt: firstFireDate, interval: 60, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: true)
+		guard let updateTimer = updateTimer else { return }
+		RunLoop.current.add(updateTimer, forMode: .common)
 	}
 
 	@objc
