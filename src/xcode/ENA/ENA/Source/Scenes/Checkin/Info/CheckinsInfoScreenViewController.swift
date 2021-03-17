@@ -67,11 +67,11 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, ENANavigatio
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 
-		item.primaryButtonTitle = AppStrings.Checkin.Information.primaryButtonTitle
+		item.primaryButtonTitle = AppStrings.Checkins.Information.primaryButtonTitle
 		item.isPrimaryButtonEnabled = true
 		item.isSecondaryButtonHidden = true
 
-		item.title = AppStrings.Checkin.Information.title
+		item.title = AppStrings.Checkins.Information.title
 
 		return item
 	}()

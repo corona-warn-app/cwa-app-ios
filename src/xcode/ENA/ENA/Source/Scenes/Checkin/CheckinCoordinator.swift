@@ -67,16 +67,16 @@ final class CheckinCoordinator {
             return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
                 guard let self = self else { return }
                 // Push Checkin Table View Controller
-                self.viewController.pushViewController(checkInsTableViewController,	animated: true)
+                self.viewController.pushViewController(topBottomContainerViewController,	animated: true)
                 // Set as the only controller on the navigation stack to avoid back gesture etc.
-                self.viewController.setViewControllers([checkInsTableViewController], animated: false)
+                self.viewController.setViewControllers([topBottomContainerViewController], animated: false)
                 self.infoScreenShown = true // remember and don't show it again
             },
             showDetail: { detailViewController in
                 self.viewController.pushViewController(detailViewController, animated: true)
             }))
         } else {
-            return UINavigationController(rootViewController: checkInsTableViewController)
+            return UINavigationController(rootViewController: topBottomContainerViewController)
         }
 
     }()
