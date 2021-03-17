@@ -143,6 +143,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na kontakt z osobą, u której zdiagnozowano koronawirusa. Jednak Twoje ryzyko zakażenia obliczone na podstawie Twoich danych rejestrowania narażenia jest niskie. Ryzyko jest niskie, jeśli Twój kontakt trwał krótko lub zachowany został dystans. Nie musisz się martwić i podejmować żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących zachowania dystansu i higieny.";
 
+"ExposureDetection_Button_Enable" = "Aktywuj rejestrowanie narażenia";
+
 "ExposureDetection_Button_Refresh" = "Aktualizuj";
 
 "ExposureDetection_Button_Title_Restart" = "Uruchom ponownie";
