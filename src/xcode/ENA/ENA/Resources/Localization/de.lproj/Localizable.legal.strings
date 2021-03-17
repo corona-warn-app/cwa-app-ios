@@ -122,9 +122,15 @@
 "Checkin_Information_Legal_Text_3" = "Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.";
 
 /* TraceLocation */
-"TraceLocation_Information_Legal_Headline_1" = "";
-"TraceLocation_Information_Legal_Text_1" = "";
-"TraceLocation_Information_Legal_Text_2" = "";
-"TraceLocation_Information_Legal_Text_3" = "";
-"TraceLocation_Information_Legal_Text_4" = "";
-"TraceLocation_Information_Legal_Text_5" = "";
+
+"TraceLocation_Information_Legal_Headline_1" = "Datenschutz und Datensicherheit";
+
+"TraceLocation_Information_Legal_Text_1" = "Wenn Sie auf „Weiter“ tippen, können Sie einen QR-Code für Ihre Gäste erstellen.";
+
+"TraceLocation_Information_Legal_Text_2" = "Ihre Angaben zum Event oder Ort werden in codierter Form in einem ausdruckbaren QR-Code gespeichert. Ihre Gäste können den QR-Code dann mit der App scannen.";
+
+"TraceLocation_Information_Legal_Text_3" = "Bitte achten Sie darauf, dass Sie möglichst präzise Angaben zur Bezeichnung, Kategorie und Uhrzeit Ihres Events oder Orts und zur typischen Aufenthaltsdauer machen. Je genauer Ihre Angaben sind, desto zuverlässiger können Ihre Gäste gewarnt werden.";
+
+"TraceLocation_Information_Legal_Text_4" = "Bitte stellen Sie den QR-Code so zur Verfügung, dass alle Ihre Gäste ihn unter Einhaltung der Abstands- und Hygieneregeln (mindestens 1,5 Meter) scannen können.";
+
+"TraceLocation_Information_Legal_Text_5" = "Wir empfehlen die QR-Codes für Orte in einmal täglich außerhalb der Öffnungszeiten neu zu erstellen, um dauerhaft zuverlässige Warnungen zu ermöglichen und Missbrauch der QR-Codes zu verhindern.";

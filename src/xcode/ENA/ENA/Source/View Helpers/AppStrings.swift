@@ -1360,8 +1360,8 @@ enum AppStrings {
 			static let imageDescription = NSLocalizedString("TraceLocation_Information_ImageDescription", comment: "")
 			static let descriptionTitle = NSLocalizedString("TraceLocation_Information_DescriptionTitle", comment: "")
 			static let descriptionSubHeadline = NSLocalizedString("TraceLocation_Information_DescriptionSubHeadline", comment: "")
-			static let itemPersonTitle = NSLocalizedString("TraceLocation_Information_Item_Person_Title", comment: "")
-			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_Location_Title", comment: "")
+			static let itemCheckinTitle = NSLocalizedString("TraceLocation_Information_Item_Checkin", comment: "")
+			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_RenewQRCode", comment: "")
 			static let legalHeadline = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
 
 			static let legalText_1 = NSLocalizedString("TraceLocation_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")

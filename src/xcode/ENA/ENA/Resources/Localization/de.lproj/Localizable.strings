@@ -1979,3 +1979,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
+
+/* Trace Location */
+
+"TraceLocation_Information_Title" = "QR-Code erstellen";
+
+"TraceLocation_Information_ImageDescription" = "";
+
+"TraceLocation_Information_DescriptionTitle" = "Mehr Sicherheit für Sie und Ihre Gäste";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Erstellen Sie einen QR-Code, den Ihre Gäste bei ihrer Ankunft scannen können. So können sie bei Bedarf andere Gäste warnen oder von ihnen gewarnt werden.\n\nJeder Check-in wird bei der Ermittlung Ihres Risikostatus zusätzlich berücksichtigt: Sie werden in jedem Fall gewarnt, wenn eine zur gleichen Zeit eingecheckte Person später positiv getestet wird.";
+
+"TraceLocation_Information_Item_Checkin" = "Stellen Sie den QR-Code Ihren Gästen entweder über Ihr Smartphone oder in ausgedruckter Form zur Verfügung.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich neu erstellen außerhalb der Öffnungszeiten.";
+

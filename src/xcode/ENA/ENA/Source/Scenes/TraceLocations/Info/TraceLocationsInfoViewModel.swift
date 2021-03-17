@@ -45,8 +45,8 @@ struct TraceLocationsInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.TraceLocations.Information.itemPersonTitle),
+						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
+						text: .string(AppStrings.TraceLocations.Information.itemCheckinTitle),
 						alignment: .top
 					),
 					.space(
@@ -54,7 +54,7 @@ struct TraceLocationsInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Location"),
+						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
 						text: .string(AppStrings.TraceLocations.Information.itemContactTitle),
 						alignment: .top
 					),
