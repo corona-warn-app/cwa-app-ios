@@ -925,20 +925,6 @@ private extension URLRequest {
 		return request
 	}
 	
-	static func traceWarningPackageDownload(
-		configuration: HTTPClient.Configuration,
-		country: String,
-		packageId: Int
-	) throws -> URLRequest {
-
-		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
-		var request = URLRequest(url: url)
-
-		request.httpMethod = HttpMethod.get
-		
-		return request
-	}
-	
 	// MARK: - Helper methods for adding padding to the requests.
 	
 	/// This method recreates the request body with a padding that consists of a random string.
