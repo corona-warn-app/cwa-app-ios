@@ -395,6 +395,19 @@ extension SecureStore: PrivacyPreservingProviding {
 	}
 }
 
+extension SecureStore: EventRegistrationProviding {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
+	}
+	
+	var lastTraceWarningPackageDownloadDate: Date {
+		get { kvStore["lastTraceWarningPackageDownloadDate"] as Date? ?? .distantPast }
+		set { kvStore["lastTraceWarningPackageDownloadDate"] = newValue }
+	}
+}
+
 extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"
