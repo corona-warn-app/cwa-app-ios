@@ -1343,11 +1343,8 @@ enum AppStrings {
 			static let descriptionSubHeadline = NSLocalizedString("TraceLocation_Information_DescriptionSubHeadline", comment: "")
 			static let itemPersonTitle = NSLocalizedString("TraceLocation_Information_Item_Person_Title", comment: "")
 			static let itemContactTitle = NSLocalizedString("TraceLocation_Information_Item_Location_Title", comment: "")
-			static let itemLockTitle = NSLocalizedString("TraceLocation_Information_Item_Lock_Title", comment: "")
-			static let deletedAutomatically = NSLocalizedString("TraceLocation_Information_Item_DeletedAutomatically_Title", comment: "")
-			static let exportTextformat = NSLocalizedString("TraceLocation_Information_Item_ExportTextFormat_Title", comment: "")
-			static let exposureHistory = NSLocalizedString("TraceLocation_Information_Item_ExposureHistory_Title", comment: "")
 			static let legalHeadline_1 = NSLocalizedString("TraceLocation_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+
 			static let legalSubHeadline_1 = NSLocalizedString("TraceLocation_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
 			static let legalSubHeadline_2 = NSLocalizedString("TraceLocation_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
 			static let legalText_1 = NSLocalizedString("TraceLocation_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")

@@ -12,6 +12,7 @@ struct TraceLocationsInfoViewModel {
 	) {
 		self.presentDisclaimer = presentDisclaimer
 		self.hidesCloseButton = hidesCloseButton
+		setUpBulletPointCells()
 	}
 
 	// MARK: - Internal
@@ -61,38 +62,6 @@ struct TraceLocationsInfoViewModel {
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.TraceLocations.Information.itemLockTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
-						text: .string(AppStrings.TraceLocations.Information.deletedAutomatically),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
-						text: .string(AppStrings.TraceLocations.Information.exportTextformat),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Attention_high_small"),
-						text: .string(AppStrings.TraceLocations.Information.exposureHistory),
-						alignment: .top
 					)
 				]
 			),
@@ -140,5 +109,36 @@ struct TraceLocationsInfoViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
-
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+	private var bulletPointCellWithBoldHeadline: [DynamicCell] = []
+	
+	private func setUpBulletPointCells() {
+//		bulletPointCellWithBoldHeadline.append(
+//			.bulletPoint(
+//				attributedText: bulletPointCellText(
+//					title: AppStrings.TraceLocation.Information.bullet1_title,
+//					text: AppStrings.TraceLocation.Information.bullet1_text)
+//			)
+//		)
+//		bulletPointCellWithBoldHeadline.append(
+//			.bulletPoint(
+//				attributedText: bulletPointCellText(
+//					title: AppStrings.TraceLocation.Information.bullet2_title,
+//					text: AppStrings.TraceLocation.Information.bullet2_text)
+//			)
+//		)
+	}
+	
+	private func bulletPointCellText(title: String, text: String) -> NSMutableAttributedString {
+		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
+		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
+		bulletPoint.append(NSAttributedString(string: "\n", attributes: normalTextAttribute))
+		return bulletPoint
+	}
+	
 }
