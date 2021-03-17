@@ -46,7 +46,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 	
 	// MARK: - Private
 
-	@IBOutlet private var focusView: ExposureSubmissionQRScannerFocusView!
+	@IBOutlet private var focusView: QRScannerFocusView!
 	@IBOutlet private var instructionLabel: DynamicTypeLabel!
 
 	private let viewModel: ExposureSubmissionQRScannerViewModel
@@ -89,7 +89,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		let flashButton = UIButton(type: .custom)
 		flashButton.imageView?.contentMode = .center
 		flashButton.addTarget(self, action: #selector(didToggleFlash), for: .touchUpInside)
-		flashButton.setImage(UIImage(named: "bolt"), for: .normal)
+		flashButton.setImage(UIImage(named: "flash_disabled"), for: .normal)
 		flashButton.setImage(UIImage(named: "bolt.fill"), for: .selected)
 		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
 		flashButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionQRScanner.flash
@@ -114,7 +114,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 			flashButton.isSelected = true
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(didToggleFlash))]
-		case .ligthOff:
+		case .lightOff:
 			flashButton.isEnabled = true
 			flashButton.isSelected = false
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
@@ -133,7 +133,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	@objc
 	private func didTapCancel() {
-		viewModel.stopCapturSession()
+		viewModel.stopCaptureSession()
 		onCancelScannerView()
 	}
 
@@ -175,5 +175,4 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 		previewLayer.mask?.addSublayer(throughHoleLayer)
 		previewLayer.mask?.addSublayer(backdropLayer)
 	}
-
 }

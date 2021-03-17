@@ -145,8 +145,6 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Sie hatten eine Begegnung mit einer später Corona-positiv getesteten Person. Ihr Infektionsrisiko wird auf Grundlage der Daten der Risiko-Ermittlung dennoch als niedrig eingestuft. Ein niedriges Risiko besteht insbesondere dann, wenn sich Ihre Begegnung auf einen kurzen Zeitraum oder einen größeren Abstand beschränkt hat. Sie müssen sich keine Sorgen machen und es besteht kein besonderer Handlungsbedarf. Es wird empfohlen, sich an die allgemein geltenden Abstands- und Hygieneregeln zu halten.";
 
-"ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
-
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
 "ExposureDetection_Button_Title_Restart" = "Erneut starten";
@@ -1928,10 +1926,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Events */
 
-"Events_QR_Scanner_Title" = "QR-Code scannen und einchecken";
+"Events_QR_Scanner_Instruction" = "QR-Code scannen und einchecken";
 
 "Events_Qr_Scanner_Button_CheckIns" = "Meine Check Ins";
 
+"Checkin_QR_Scanner_Title" = "QR-Code Scan";
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
@@ -1965,3 +1964,21 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "ErrorReport_DEVICE_NOT_SUPPORTED" = "Der Fehlerbericht kann nicht übertragen werden (Fehlercode %@).";
 
 "ErrorReport_TRY_AGAIN_LATER" = "Der Fehlerbericht kann aktuell nicht übertragen werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+
+/* Checkins */
+
+"Checkin_Information_Title" = "Einchecken";
+
+"Checkin_Information_ImageDescription" = "Lorem ipsum Smartphone";
+
+"Checkin_Information_DescriptionTitle" = "Infektionsketten schnell und sicher unterbrechen";
+
+"Checkin_Information_DescriptionSubHeadline" = "Scannen Sie den QR-Code, um sich einzuchecken und so Ihre Anwesenheit für dieses Event oder diesen Ort zu registrieren. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, werden alle benachrichtigt, die ebenfalls zu dieser Zeit eingecheckt waren.";
+
+"Checkin_Information_Item_Checkin_Title" = "Checken Sie ein in n commodo ligul onec quam feli.";
+
+"Checkin_Information_Item_Location_Title" = "Sie können so genau sehen wenn sie bei einem Check-In commodo ligul.";
+
+"Checkin_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
+
+"Checkin_Information_PrimaryButton_Title" = "Einverstanden";
