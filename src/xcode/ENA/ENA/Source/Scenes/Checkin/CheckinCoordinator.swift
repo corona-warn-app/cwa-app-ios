@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
 final class CheckinCoordinator {
 
@@ -24,6 +25,8 @@ final class CheckinCoordinator {
             }
         }
         #endif
+
+		setupCheckinBadgeCount()
     }
 
     // MARK: - Internal
@@ -70,13 +73,14 @@ final class CheckinCoordinator {
         } else {
             return UINavigationController(rootViewController: topBottomContainerViewController)
         }
-
     }()
 
     // MARK: - Private
 
     private let store: Store
     private let eventStore: EventStoringProviding
+
+	private var subscriptions: [AnyCancellable] = []
 
     private var infoScreenShown: Bool {
         get { store.checkinInfoScreenShown }
@@ -175,5 +179,14 @@ final class CheckinCoordinator {
         navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
         viewController.present(navigationController, animated: true)
     }
+
+	private func setupCheckinBadgeCount() {
+		eventStore.checkinsPublisher
+			.sink { [weak self] checkins in
+				let activeCheckinCount = checkins.filter { $0.isActive }.count
+				self?.viewController.tabBarItem.badgeValue = activeCheckinCount > 0 ? String(activeCheckinCount) : nil
+			}
+			.store(in: &subscriptions)
+	}
 
 }
