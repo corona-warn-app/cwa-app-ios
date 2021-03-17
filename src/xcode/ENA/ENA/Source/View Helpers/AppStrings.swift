@@ -1369,7 +1369,7 @@ enum AppStrings {
 			static let legalText_3 = NSLocalizedString("TraceLocation_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
 			static let legalText_4 = NSLocalizedString("TraceLocation_Information_Legal_Text_4", tableName: "Localizable.legal", comment: "")
 			static let legalText_5 = NSLocalizedString("TraceLocation_Information_Legal_Text_5", tableName: "Localizable.legal", comment: "")
-			static let dataPrivacyTitle = NSLocalizedString("TraceLocation_Information_Dataprivacy_Title", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("Checkin_Information_Dataprivacy_Title", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TraceLocation_Information_PrimaryButton_Title", comment: "")
 		}
 
