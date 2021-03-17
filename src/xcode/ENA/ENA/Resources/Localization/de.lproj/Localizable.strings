@@ -1989,7 +1989,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_EmptyDescription" = "Hier werden alle QR-Codes angezeigt, die Sie für ein Ort oder Event erstellt haben. Sie können die QR-Codes löschen, wenn diese nicht mehr verwendet werden sollen.";
 
-"TraceLocations_Overview_EmptyImageDescription" = "";
+"TraceLocations_Overview_EmptyImageDescription" = "Smartphone mit QR-Code-Symbol";
 
 "TraceLocations_Overview_DeleteAllButtonTitle" = "Alle entfernen";
 
