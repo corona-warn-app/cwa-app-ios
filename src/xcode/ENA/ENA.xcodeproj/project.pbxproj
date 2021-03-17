@@ -264,6 +264,7 @@
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
+		2ED4508E26010E46005465CE /* ENSettingTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4508026010D16005465CE /* ENSettingTableViewCellTests.swift */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
 		2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */; };
@@ -357,6 +358,10 @@
 		506A2F2025D2A08900B7DDFB /* DataDonationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */; };
 		507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */; };
 		507685D325E8EA040039B7B6 /* UserMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507685D225E8EA040039B7B6 /* UserMetadataTests.swift */; };
+		5081EEF125FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */; };
+		5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */; };
+		5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */; };
+		5081EF0E25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift */; };
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
@@ -1198,6 +1203,7 @@
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
+		2ED4508026010D16005465CE /* ENSettingTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSettingTableViewCellTests.swift; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1292,6 +1298,10 @@
 		506A2F1F25D2A08900B7DDFB /* DataDonationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewController.swift; sourceTree = "<group>"; };
 		507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDummyPPAnalyticsDataImplementation.swift; sourceTree = "<group>"; };
 		507685D225E8EA040039B7B6 /* UserMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMetadataTests.swift; sourceTree = "<group>"; };
+		5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModel.swift; sourceTree = "<group>"; };
+		5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewModelTest.swift; sourceTree = "<group>"; };
+		5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinsInfoScreenViewController.swift; sourceTree = "<group>"; };
+		5081EF0D25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_09_EventCheckIn.swift; sourceTree = "<group>"; };
 		508ACB6025DE6393006B9945 /* PPADataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPADataType.swift; sourceTree = "<group>"; };
 		508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollectorTests.swift; sourceTree = "<group>"; };
 		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
@@ -2632,6 +2642,14 @@
 			path = AppInformation;
 			sourceTree = "<group>";
 		};
+		2ED4507F26010CF0005465CE /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				2ED4508026010D16005465CE /* ENSettingTableViewCellTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		2F3D95352518BCBA002B2C81 /* EUSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2875,6 +2893,32 @@
 				507685CA25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		5081EEF525FF74A5004B8FDE /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */,
+				5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */,
+				5081EEFC25FF9C33004B8FDE /* __test__ */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
+		5081EEFC25FF9C33004B8FDE /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				5081EEFD25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
+		5081EF1625FFE1F7004B8FDE /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				5081EF0D25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift */,
+			);
+			path = __test__;
 			sourceTree = "<group>";
 		};
 		508ACB5825DE6205006B9945 /* __tests__ */ = {
@@ -3364,6 +3408,7 @@
 				2F3D95352518BCBA002B2C81 /* EUSettings */,
 				EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */,
 				853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */,
+				2ED4507F26010CF0005465CE /* __tests__ */,
 				01D026CF258BB65B00B6389A /* Cells */,
 			);
 			path = ENSetting;
@@ -4909,8 +4954,10 @@
 		BAA4D72E25E95B1D00821B5C /* Checkin */ = {
 			isa = PBXGroup;
 			children = (
+				5081EF1625FFE1F7004B8FDE /* __test__ */,
 				BAA4D72F25E95B3A00821B5C /* CheckinCoordinator.swift */,
 				BA38183325CB104900C1DB6C /* ConfigureableCell.swift */,
+				5081EEF525FF74A5004B8FDE /* Info */,
 				BA4C269025EE8DA700E0505F /* Checkins */,
 				BA4C269D25EE9DA600E0505F /* CheckInDetail */,
 				BAA4D73425E960FC00821B5C /* QRCodeScanner */,
@@ -5883,6 +5930,7 @@
 				AB5F84B224F8F7E3000400D4 /* Migration0To1.swift in Sources */,
 				5017F64D25FFAD11003A812E /* PPASubmissionState.swift in Sources */,
 				01A4DC7025922EB4007D5794 /* HomeItemView.swift in Sources */,
+				5081EEF125FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift in Sources */,
 				01F2A58125803AA500DA96A6 /* DiaryOverviewDescriptionTableViewCell.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
 				EB08F17A2541CE3300D11FA9 /* risk_level.pb.swift in Sources */,
@@ -5891,6 +5939,7 @@
 				01A4DC6F25922EB4007D5794 /* HomeListItemView.swift in Sources */,
 				ABE961E825F29A7000D0F699 /* StoreSchema.swift in Sources */,
 				EBDE11B2255EC2C4008C0F51 /* DMDeviceTimeCheckViewController.swift in Sources */,
+				5081EF0625FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift in Sources */,
 				B1A31F6924DAE6C000E263DF /* DMKeyCell.swift in Sources */,
 				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
 				01F52F8A2550679600997A26 /* RiskCalculationExposureWindow.swift in Sources */,
@@ -6225,6 +6274,7 @@
 				BA92A45E255163460063B46F /* ExposureSubmissionQRScannerViewModelGuidTests.swift in Sources */,
 				507685CB25E80E600039B7B6 /* TestDummyPPAnalyticsDataImplementation.swift in Sources */,
 				AB6887FE25D6AAEF00907465 /* ContactDiaryStoreSchemaV3Tests.swift in Sources */,
+				5081EEFE25FF9C5E004B8FDE /* CheckinsInfoScreenViewModelTest.swift in Sources */,
 				AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
@@ -6361,6 +6411,7 @@
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
+				2ED4508E26010E46005465CE /* ENSettingTableViewCellTests.swift in Sources */,
 				50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
@@ -6410,6 +6461,7 @@
 				356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */,
 				AB7DE70225C4547600C52B3F /* ENAUITestsExposureDetection.swift in Sources */,
 				941B68AE253F007100DC1962 /* Int+Increment.swift in Sources */,
+				5081EF0E25FFDEC7004B8FDE /* ENAUITests_09_EventCheckIn.swift in Sources */,
 				50D50A6025D6CCA70092BC2A /* ENAUITestsDataDonation.swift in Sources */,
 				13E50469248E3CD20086641C /* ENAUITestsAppInformation.swift in Sources */,
 				01A1B45C252E077600841B63 /* TimeInterval+Convenience.swift in Sources */,
