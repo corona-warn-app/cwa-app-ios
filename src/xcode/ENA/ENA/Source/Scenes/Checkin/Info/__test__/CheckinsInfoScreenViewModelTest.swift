@@ -19,8 +19,8 @@ class CheckinsInfoScreenViewModelTest: XCTestCase {
 			XCTAssertEqual(numberOfSection, 3)
 		}
 
-		// check if image section (0) contains right image
-		func testGIVEN_ViewModeln_WHEN_Header_THEN_ImageMatch() {
+		// check if image section (0) contains correct image
+		func testGIVEN_ViewModel_WHEN_Header_THEN_ImageMatch() {
 			// GIVEN
 			let viewModel = CheckInsInfoScreenViewModel(presentDisclaimer: {})
 
@@ -30,7 +30,7 @@ class CheckinsInfoScreenViewModelTest: XCTestCase {
 			// THEN
 			switch dynamicHeader {
 			case .image(let image, _, _, _, _):
-				XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Illu_Event_Checkin_Info"))
+				XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Illu_Event_Attendee"))
 			default:
 				XCTFail("Found wrong header image")
 			}
@@ -60,7 +60,7 @@ class CheckinsInfoScreenViewModelTest: XCTestCase {
 			XCTAssertEqual(numberOfCells, 1)
 		}
 
-		/// test if number of cells in disclaimer section (1) is correct
+		/// test if number of cells in disclaimer section (2) is correct
 		func testGIVEN_ViewModel_WHEN_GetNumberOfCellsInDisclaimerSection_THEN_CountMatchExpectations() {
 			// GIVEN
 			let viewModel = CheckInsInfoScreenViewModel(presentDisclaimer: {})
