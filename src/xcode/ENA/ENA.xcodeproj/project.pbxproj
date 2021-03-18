@@ -2612,6 +2612,7 @@
 		01F6702125FF80470069C4F9 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
+				5081EF1625FFE1F7004B8FDE /* __test__ */,
 				BAC7290C26037B5C006D83C7 /* Cells */,
 				01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */,
 				01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */,
@@ -4968,7 +4969,6 @@
 		BAA4D72E25E95B1D00821B5C /* Checkin */ = {
 			isa = PBXGroup;
 			children = (
-				5081EF1625FFE1F7004B8FDE /* __test__ */,
 				BAA4D72F25E95B3A00821B5C /* CheckinCoordinator.swift */,
 				BA38183325CB104900C1DB6C /* ConfigureableCell.swift */,
 				01F6702125FF80470069C4F9 /* Overview */,
