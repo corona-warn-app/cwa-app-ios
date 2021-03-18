@@ -2599,13 +2599,10 @@
 		01F6702125FF80470069C4F9 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
+				BAC7290C26037B5C006D83C7 /* Cells */,
+				01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */,
 				01F6702325FF80480069C4F9 /* CheckinsOverviewViewController.swift */,
 				01F6702525FF80490069C4F9 /* CheckinsOverviewViewModel.swift */,
-				01F6702225FF80480069C4F9 /* CheckinsOverviewEmptyStateViewModel.swift */,
-				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
-				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
-				01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */,
-				01F6702625FF80490069C4F9 /* CheckinCellModel.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -5031,6 +5028,17 @@
 				BAC0A4DD25768039002B5361 /* TanInputViewModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BAC7290C26037B5C006D83C7 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BADB7BEF25F66178001065FA /* MissingPermissionsTableViewCell.swift */,
+				01EEC09E260224FF00924E15 /* MissingPermissionsCellModel.swift */,
+				01F6702425FF80480069C4F9 /* AddCheckinCellModel.swift */,
+				01F6702625FF80490069C4F9 /* CheckinCellModel.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		BACCCC6325ADB7B400195AC3 /* __test__ */ = {
