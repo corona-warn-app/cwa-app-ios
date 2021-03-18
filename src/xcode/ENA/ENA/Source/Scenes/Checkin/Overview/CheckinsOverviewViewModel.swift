@@ -118,7 +118,7 @@ class CheckinsOverviewViewModel {
 
 	private let store: EventStoringProviding
 	private let onEntryCellTap: (Checkin) -> Void
-    private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
+	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 
 	private var subscriptions: [AnyCancellable] = []
 
