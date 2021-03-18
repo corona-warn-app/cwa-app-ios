@@ -42,13 +42,7 @@ extension ContactDiaryStore {
 	// MARK: - Internal
 
 	static func make(url: URL? = nil) -> ContactDiaryStore {
-		let storeURL: URL
-
-		if let url = url {
-			storeURL = url
-		} else {
-			storeURL = ContactDiaryStore.storeURL
-		}
+			let storeURL = url ?? ContactDiaryStore.storeURL
 
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
