@@ -819,6 +819,7 @@
 		BADBC82925D6BB6400488DB7 /* DistrictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC82825D6BB6400488DB7 /* DistrictTests.swift */; };
 		BADBC85625D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC85525D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift */; };
 		BADBC86725D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADBC86625D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift */; };
+		BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */; };
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
@@ -1782,6 +1783,7 @@
 		BADBC82825D6BB6400488DB7 /* DistrictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistrictTests.swift; sourceTree = "<group>"; };
 		BADBC85525D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataDonationViewModelTests.swift; sourceTree = "<group>"; };
 		BADBC86625D6C7FD00488DB7 /* SettingsDataDonationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDataDonationViewModelTests.swift; sourceTree = "<group>"; };
+		BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
@@ -2054,6 +2056,7 @@
 		0138F63A25F1173E00A9B075 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
+				BADDD82C2603920200337223 /* __tests__ */,
 				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
 				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
 				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
@@ -2916,9 +2919,9 @@
 		5081EEF525FF74A5004B8FDE /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */,
-				5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */,
 				5081EEFC25FF9C33004B8FDE /* __test__ */,
+				5081EF0525FFB7E0004B8FDE /* CheckinsInfoScreenViewController.swift */,
+				5081EEF025FF739B004B8FDE /* CheckinsInfoScreenViewModel.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -5091,6 +5094,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BADDD82C2603920200337223 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -6431,6 +6442,7 @@
 				BAFBF35725ADD734003F5DC2 /* HomeThankYouCellModelTests.swift in Sources */,
 				01D16C6224ED6DB3007DB387 /* MockLowPowerModeStatusProvider.swift in Sources */,
 				A1654EFF24B41FF600C0E115 /* DynamicCellTests.swift in Sources */,
+				BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */,
 				0144BDE32509288B00B0857C /* SymptomsOnsetTests.swift in Sources */,
 				BACD671725B7002F00BAF5D0 /* RiskCalculationResultTests.swift in Sources */,
 				A124E64C249C4C9000E95F72 /* SAPDownloadedPackagesStore+Helpers.swift in Sources */,
