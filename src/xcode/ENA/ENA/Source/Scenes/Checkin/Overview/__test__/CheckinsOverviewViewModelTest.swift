@@ -256,4 +256,94 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		XCTAssertEqual(traceLocationGUIDs, ["qwerty", "asdf", "137", "17", "964"])
 	}
 
+	func testAddedCheckinTriggersReload() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
+		eventStore.createCheckin(Checkin.mock())
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in }
+		)
+
+		let reloadExpectation = expectation(description: "shouldReload published")
+		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for added checkin
+		let cancellable = viewModel.$shouldReload
+			.sink { _ in
+				reloadExpectation.fulfill()
+			}
+
+		eventStore.createCheckin(Checkin.mock())
+
+		waitForExpectations(timeout: .medium)
+
+		cancellable.cancel()
+	}
+
+	func testDeletedCheckinTriggersReload() throws {
+		let eventStore = MockEventStore()
+		let idResult = eventStore.createCheckin(Checkin.mock())
+		eventStore.createCheckin(Checkin.mock())
+
+		guard case .success(let id) = idResult else {
+			XCTFail("Failed to create checkin")
+			return
+		}
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in }
+		)
+
+		let reloadExpectation = expectation(description: "shouldReload published")
+		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for removed checkin
+		let cancellable = viewModel.$shouldReload
+			.sink { _ in
+				reloadExpectation.fulfill()
+			}
+
+		eventStore.deleteCheckin(id: id)
+
+		waitForExpectations(timeout: .medium)
+
+		cancellable.cancel()
+	}
+
+	func testUpdatedCheckinDoesNotTriggersReloadButUpdate() throws {
+		let eventStore = MockEventStore()
+		let idResult = eventStore.createCheckin(
+			Checkin.mock(traceLocationGUID: "abc", checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: nil)
+		)
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date()))
+
+		guard case .success(let id) = idResult else {
+			XCTFail("Failed to create checkin")
+			return
+		}
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in }
+		)
+
+		let onUpdateExpectation = expectation(description: "onUpdate called")
+		onUpdateExpectation.assertForOverFulfill = false
+		viewModel.onUpdate = {
+			onUpdateExpectation.fulfill()
+		}
+
+		let reloadExpectation = expectation(description: "shouldReload published only once")
+		reloadExpectation.expectedFulfillmentCount = 1
+		let cancellable = viewModel.$shouldReload
+			.sink { _ in
+				reloadExpectation.fulfill()
+			}
+
+		eventStore.updateCheckin(Checkin.mock(id: id, traceLocationGUID: "abc", checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date()))
+
+		waitForExpectations(timeout: 100)
+
+		cancellable.cancel()
+	}
+
 }
