@@ -17,7 +17,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 		homeState: HomeState,
 		appConfigurationProvider: AppConfigurationProviding,
 		onSurveyTap: @escaping () -> Void,
-		onInactiveButtonTap: @escaping (@escaping (ExposureNotificationError?) -> Void) -> Void
+		onInactiveButtonTap: @escaping () -> Void
 	) {
 		self.homeState = homeState
 		self.appConfigurationProvider = appConfigurationProvider
@@ -104,8 +104,6 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	@OpenCombine.Published var isButtonEnabled: Bool = false
 	@OpenCombine.Published var isButtonHidden: Bool = true
 
-	@OpenCombine.Published var exposureNotificationError: ExposureNotificationError?
-
 	var previousRiskTitle: String {
 		switch homeState.lastRiskCalculationResult?.riskLevel {
 		case .low:
@@ -155,9 +153,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	func onButtonTap() {
 		switch homeState.riskState {
 		case .inactive:
-			onInactiveButtonTap { [weak self] error in
-				self?.exposureNotificationError = error
-			}
+			onInactiveButtonTap()
 		case .risk, .detectionFailed:
 			homeState.requestRisk(userInitiated: true)
 		}
@@ -167,7 +163,7 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	
 	private let homeState: HomeState
 
-	private let onInactiveButtonTap: (@escaping (ExposureNotificationError?) -> Void) -> Void
+	private let onInactiveButtonTap: () -> Void
 	private let onSurveyTap: () -> Void
 
 	private var countdownTimer: CountdownTimer?
