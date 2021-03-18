@@ -1394,6 +1394,10 @@ sein.";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
 
+"NewVersionFeature_115_days_since_install_title" = "Änderung der Risikokarten";
+
+"NewVersionFeature_115_days_since_install_description" = "Auf den Risikokarten entfällt die Anzeige der Anzahl aktiver Tage bzw. dass die App dauerhaft aktiv ist.";
+
 "NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehlerberichten";
 
 "NewVersionFeature_115_error_analytic_logs_description" = "Sie können nun nach Aufforderung des technischen Supports einen Fehlerbericht erstellen und die Schritte aufzeichnen, die Sie in der App ausführen. Mögliche technische Fehler können so besser analysiert und schneller behoben werden.";
