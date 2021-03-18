@@ -45,7 +45,6 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHa
 
 	// MARK: - Protocol FooterViewHandling
 
-
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		if type == .primary {
 			onDismiss()
