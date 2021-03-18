@@ -20,8 +20,13 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testNumberOfRowsWithCameraPermissionAuthorized() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
+		eventStore.createCheckin(Checkin.mock())
+		eventStore.createCheckin(Checkin.mock())
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
 			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
@@ -29,12 +34,15 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 3)
 	}
 
 	func testNumberOfRowsWithCameraPermissionNotDetermined() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
 			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .notDetermined }
@@ -42,7 +50,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 0)
-		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
+		XCTAssertEqual(viewModel.numberOfRows(in: 2), 1)
 	}
 
 	func testNumberOfRowsWithCameraPermissionDenied() throws {
@@ -69,6 +77,29 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 0)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 2), 0)
+	}
+
+	func testIsEmptyOnEmptyEntriesSection() throws {
+		let viewModel = CheckinsOverviewViewModel(
+			store: MockEventStore(),
+			onAddEntryCellTap: {},
+			onEntryCellTap: { _ in }
+		)
+
+		XCTAssertTrue(viewModel.isEmpty)
+	}
+
+	func testIsEmptyOnNonEmptyEntriesSection() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onAddEntryCellTap: {},
+			onEntryCellTap: { _ in }
+		)
+
+		XCTAssertFalse(viewModel.isEmpty)
 	}
 
 	// MARK: - Private Helpers
