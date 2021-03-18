@@ -47,7 +47,7 @@ struct CheckInsInfoScreenViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
-						text: .string(AppStrings.Checkin.Information.itemCheckinTitle),
+						text: .string(AppStrings.Checkin.Information.itemRiskStatusTitle),
 						alignment: .top
 					),
 					.space(
@@ -56,7 +56,7 @@ struct CheckInsInfoScreenViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.Checkin.Information.itemLocationTitle),
+						text: .string(AppStrings.Checkin.Information.itemTimeTitle),
 						alignment: .top
 					)
 				]
@@ -68,12 +68,13 @@ struct CheckInsInfoScreenViewModel {
 					subheadline1: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_1),
 					bulletPoints1: [
 						NSAttributedString(string: AppStrings.Checkin.Information.legalText_1),
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_2)
-						],
-					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
-					bulletPoints2: [
+						NSAttributedString(string: AppStrings.Checkin.Information.legalText_2),
 						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
 						],
+					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
+//					bulletPoints2: [
+//						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
+//						],
 					accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
