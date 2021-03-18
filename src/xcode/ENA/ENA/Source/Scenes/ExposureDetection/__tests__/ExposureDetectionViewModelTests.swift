@@ -44,7 +44,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -112,7 +112,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -239,7 +239,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -298,7 +298,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -397,7 +397,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -496,7 +496,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -573,7 +573,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { }
+			onInactiveButtonTap: { _ in }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -681,7 +681,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -741,7 +741,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -787,7 +787,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -834,7 +834,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()

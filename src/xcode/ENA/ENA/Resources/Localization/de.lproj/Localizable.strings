@@ -145,6 +145,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Sie hatten eine Begegnung mit einer später Corona-positiv getesteten Person. Ihr Infektionsrisiko wird auf Grundlage der Daten der Risiko-Ermittlung dennoch als niedrig eingestuft. Ein niedriges Risiko besteht insbesondere dann, wenn sich Ihre Begegnung auf einen kurzen Zeitraum oder einen größeren Abstand beschränkt hat. Sie müssen sich keine Sorgen machen und es besteht kein besonderer Handlungsbedarf. Es wird empfohlen, sich an die allgemein geltenden Abstands- und Hygieneregeln zu halten.";
 
+"ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
+
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
 "ExposureDetection_Button_Title_Restart" = "Erneut starten";

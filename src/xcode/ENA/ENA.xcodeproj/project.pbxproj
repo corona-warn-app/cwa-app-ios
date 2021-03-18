@@ -264,7 +264,6 @@
 		2E303E6625D50A3E00346FB8 /* ActionDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */; };
 		2E303E7D25D52E0A00346FB8 /* SeperatorLineLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */; };
 		2E67C3D525BAFFC8008C6C90 /* DiaryExportItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */; };
-		2ED4508E26010E46005465CE /* ENSettingTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED4508026010D16005465CE /* ENSettingTableViewCellTests.swift */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
 		2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */; };
@@ -1203,7 +1202,6 @@
 		2E303E6425D50A3E00346FB8 /* ActionDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E303E7C25D52E0900346FB8 /* SeperatorLineLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeperatorLineLayer.swift; sourceTree = "<group>"; };
 		2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryExportItem.swift; sourceTree = "<group>"; };
-		2ED4508026010D16005465CE /* ENSettingTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENSettingTableViewCellTests.swift; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		2F3D95362518BCD1002B2C81 /* EUSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewController.swift; sourceTree = "<group>"; };
@@ -2642,14 +2640,6 @@
 			path = AppInformation;
 			sourceTree = "<group>";
 		};
-		2ED4507F26010CF0005465CE /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				2ED4508026010D16005465CE /* ENSettingTableViewCellTests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		2F3D95352518BCBA002B2C81 /* EUSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -3408,7 +3398,6 @@
 				2F3D95352518BCBA002B2C81 /* EUSettings */,
 				EE22DB7F247FB409001B0A71 /* ENStateHandler.swift */,
 				853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */,
-				2ED4507F26010CF0005465CE /* __tests__ */,
 				01D026CF258BB65B00B6389A /* Cells */,
 			);
 			path = ENSetting;
@@ -6411,7 +6400,6 @@
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
-				2ED4508E26010E46005465CE /* ENSettingTableViewCellTests.swift in Sources */,
 				50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
