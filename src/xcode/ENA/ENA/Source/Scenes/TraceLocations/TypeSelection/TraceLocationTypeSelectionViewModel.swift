@@ -82,7 +82,7 @@ struct TraceLocationTypeSelectionViewModel {
 
 	private let onTraceLocationTypeSelection: (TraceLocationType) -> Void
 
-	private let locationTypes: [TraceLocationType] = [.type1]
-	private let traceLocationTypes: [TraceLocationType] = [.type2]
+	private let locationTypes: [TraceLocationType] = [.locationTypeUnspecified]
+	private let traceLocationTypes: [TraceLocationType] = [.locationTypePermanentOther]
 
 }

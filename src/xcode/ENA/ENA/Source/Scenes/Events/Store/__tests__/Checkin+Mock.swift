@@ -11,7 +11,7 @@ extension Checkin {
 		id: Int = 0,
 		traceLocationGUID: String = "",
 		traceLocationVersion: Int = 0,
-		traceLocationType: TraceLocationType = .type1,
+		traceLocationType: TraceLocationType = .locationTypeUnspecified,
 		traceLocationDescription: String = "",
 		traceLocationAddress: String = "",
 		traceLocationStartDate: Date? = nil,

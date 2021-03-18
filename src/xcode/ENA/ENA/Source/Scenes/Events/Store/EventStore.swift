@@ -460,7 +460,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				}
 
 				let version = Int(queryResult.int(forColumn: "version"))
-				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .type1
+				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .locationTypeUnspecified
 
 				var startDate: Date?
 				if let startDateInterval = queryResult.object(forColumn: "startDate") as? Int {
@@ -522,7 +522,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				}
 
 				let id = Int(queryResult.int(forColumn: "id"))
-				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .type1
+				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .locationTypeUnspecified
 				let traceLocationVersion = Int(queryResult.int(forColumn: "traceLocationVersion"))
 				let checkinStartDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinStartDate")))
 				let createJournalEntry = queryResult.bool(forColumn: "createJournalEntry")

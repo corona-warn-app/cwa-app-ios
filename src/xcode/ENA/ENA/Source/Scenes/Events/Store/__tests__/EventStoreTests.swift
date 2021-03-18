@@ -20,7 +20,7 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "SomeGUID",
 			version: 1,
-			type: .type2,
+			type: .locationTypePermanentOther,
 			description: "Some description",
 			address: "Some address",
 			startDate: startDate,
@@ -40,7 +40,7 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "SomeGUID")
 				XCTAssertEqual(traceLocation.version, 1)
-				XCTAssertEqual(traceLocation.type, .type2)
+				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 1)
@@ -72,7 +72,7 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "SomeGUID",
 			version: 1,
-			type: .type2,
+			type: .locationTypePermanentOther,
 			description: "Some description",
 			address: "Some address",
 			startDate: nil,
@@ -92,7 +92,7 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "SomeGUID")
 				XCTAssertEqual(traceLocation.version, 1)
-				XCTAssertEqual(traceLocation.type, .type2)
+				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
 				XCTAssertEqual(traceLocation.signature, "Some signature")
@@ -119,7 +119,7 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "1",
 			version: 2,
-			type: .type3,
+			type: .locationTypeTemporaryOther,
 			description: "Other description",
 			address: "Other address",
 			startDate: tomorrowDate,
@@ -139,7 +139,7 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "1")
 				XCTAssertEqual(traceLocation.version, 2)
-				XCTAssertEqual(traceLocation.type, .type3)
+				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 2)
@@ -173,7 +173,7 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "1",
 			version: 2,
-			type: .type3,
+			type: .locationTypeTemporaryOther,
 			description: "Other description",
 			address: "Other address",
 			startDate: nil,
@@ -193,7 +193,7 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "1")
 				XCTAssertEqual(traceLocation.version, 2)
-				XCTAssertEqual(traceLocation.type, .type3)
+				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
 				XCTAssertEqual(traceLocation.signature, "Other signature")
@@ -267,7 +267,7 @@ class EventStoreTests: XCTestCase {
 			id: 1,
 			traceLocationGUID: "SomeGUID",
 			traceLocationVersion: 1,
-			traceLocationType: .type2,
+			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
 			traceLocationStartDate: traceLocationStartDate,
@@ -292,7 +292,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "SomeGUID")
 				XCTAssertEqual(checkin.traceLocationVersion, 1)
-				XCTAssertEqual(checkin.traceLocationType, .type2)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypePermanentOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
@@ -339,7 +339,7 @@ class EventStoreTests: XCTestCase {
 			id: 1,
 			traceLocationGUID: "SomeGUID",
 			traceLocationVersion: 1,
-			traceLocationType: .type2,
+			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
 			traceLocationStartDate: nil,
@@ -364,7 +364,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "SomeGUID")
 				XCTAssertEqual(checkin.traceLocationVersion, 1)
-				XCTAssertEqual(checkin.traceLocationType, .type2)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypePermanentOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
@@ -396,7 +396,7 @@ class EventStoreTests: XCTestCase {
 			id: 1,
 			traceLocationGUID: "OtherGUID",
 			traceLocationVersion: 2,
-			traceLocationType: .type3,
+			traceLocationType: .locationTypeTemporaryOther,
 			traceLocationDescription: "Other description",
 			traceLocationAddress: "Other address",
 			traceLocationStartDate: tomorrowDate,
@@ -421,7 +421,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
 				XCTAssertEqual(checkin.traceLocationVersion, 2)
-				XCTAssertEqual(checkin.traceLocationType, .type3)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
@@ -471,7 +471,7 @@ class EventStoreTests: XCTestCase {
 			id: 1,
 			traceLocationGUID: "OtherGUID",
 			traceLocationVersion: 2,
-			traceLocationType: .type3,
+			traceLocationType: .locationTypeTemporaryOther,
 			traceLocationDescription: "Other description",
 			traceLocationAddress: "Other address",
 			traceLocationStartDate: nil,
@@ -496,7 +496,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
 				XCTAssertEqual(checkin.traceLocationVersion, 2)
-				XCTAssertEqual(checkin.traceLocationType, .type3)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
@@ -918,7 +918,7 @@ class EventStoreTests: XCTestCase {
 		TraceLocation(
 			guid: guid,
 			version: 1,
-			type: .type2,
+			type: .locationTypePermanentOther,
 			description: "Some description",
 			address: "Some address",
 			startDate: Date(),
@@ -933,7 +933,7 @@ class EventStoreTests: XCTestCase {
 			id: id,
 			traceLocationGUID: "SomeGUID",
 			traceLocationVersion: 1,
-			traceLocationType: .type2,
+			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
 			traceLocationStartDate: Date(),
