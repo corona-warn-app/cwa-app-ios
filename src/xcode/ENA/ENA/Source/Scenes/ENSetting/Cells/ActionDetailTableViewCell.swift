@@ -4,7 +4,6 @@
 
 import Foundation
 import UIKit
-import CoreBluetooth
 
 class ActionDetailTableViewCell: UITableViewCell {
 
@@ -91,14 +90,17 @@ class ActionDetailTableViewCell: UITableViewCell {
 		if let state = self.state, state == .unknown {
 			delegate?.performAction(action: .askConsent)
 		} else {
+			let url: URL?
 			if state == .bluetoothOff {
-				// this will open a prompt to open bluetooth settings
-				_ = CBCentralManager(delegate: nil, queue: nil, options: [CBCentralManagerOptionShowPowerAlertKey: true])
+				// this will open the os settings
+				url = URL(string: "App-Prefs:root=General")
 			} else {
-				if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-					UIApplication.shared.canOpenURL(settingsUrl) {
-					UIApplication.shared.open(settingsUrl, completionHandler: nil)
-				}
+				// this will open the app settings
+				url = URL(string: UIApplication.openSettingsURLString)
+			}
+			if let url = url,
+				UIApplication.shared.canOpenURL(url) {
+				UIApplication.shared.open(url, completionHandler: nil)
 			}
 		}
 	}
