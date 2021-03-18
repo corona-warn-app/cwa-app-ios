@@ -605,20 +605,28 @@ class ExposureDetectionViewModel: CountdownTimerDelegate {
 	}
 
 	private func explanationSection(text: String, numberOfExposures: Int = -1, accessibilityIdentifier: String?) -> DynamicSection {
-		return .section(
-			header: .backgroundSpace(height: 8),
-			footer: .backgroundSpace(height: 16),
-			cells: [
-				.header(
-					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: AppStrings.ExposureDetection.explanationSubtitle
-				),
-				.body(text: text, accessibilityIdentifier: accessibilityIdentifier),
+		var cells = [
+			DynamicCell.header(
+				title: AppStrings.ExposureDetection.explanationTitle,
+				subtitle: AppStrings.ExposureDetection.explanationSubtitle
+			),
+			.body(
+				text: text,
+				accessibilityIdentifier: accessibilityIdentifier
+			)
+		]
+		if numberOfExposures > 0 {
+			cells.append(
 				.link(
 					text: AppStrings.ExposureDetection.explanationTextLowWithEncounterFAQ,
 					url: URL(string: AppStrings.Home.riskEncounterLowFAQLink)
 				)
-			].compactMap { $0 }
+			)
+		}
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: cells.compactMap { $0 }
 		)
 	}
 
