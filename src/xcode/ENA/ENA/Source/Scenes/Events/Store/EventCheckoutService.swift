@@ -117,7 +117,7 @@ final class EventCheckoutService {
 	}
 }
 
-extension Checkin {
+private extension Checkin {
 	func updatedCheckin(with checkinEndDate: Date?) -> Checkin {
 		Checkin(
 			id: self.id,
