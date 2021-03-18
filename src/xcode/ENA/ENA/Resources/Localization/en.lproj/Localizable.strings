@@ -143,6 +143,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later diagnosed with coronavirus. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
 
+"ExposureDetection_Button_Enable" = "Activate Exposure Logging";
+
 "ExposureDetection_Button_Refresh" = "Update";
 
 "ExposureDetection_Button_Title_Restart" = "Restart";
