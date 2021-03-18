@@ -61,7 +61,7 @@ final class ExposureDetectionCoordinator {
 					guard let self = self else {
 						return
 					}
-					
+
 					let vc = ExposureNotificationSettingViewController(
 						initialEnState: self.homeState.enState,
 						store: self.store,

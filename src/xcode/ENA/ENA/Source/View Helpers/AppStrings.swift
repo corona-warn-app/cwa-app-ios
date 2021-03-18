@@ -361,6 +361,7 @@ enum AppStrings {
 		static let lowRiskExposureSubtitle = NSLocalizedString("ExposureDetection_LowRiskExposure_Subtitle", comment: "")
 		static let lowRiskExposureBody = NSLocalizedString("ExposureDetection_LowRiskExposure_Body", comment: "")
 
+		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
@@ -1327,11 +1328,19 @@ enum AppStrings {
 
 	enum Checkins {
 
-		enum QRScanner {
+        enum QRScanner {
 			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
+            static let title = NSLocalizedString("Checkin_QR_Scanner_Title", comment: "")
+            static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
+            static let instruction = NSLocalizedString("Checkins_Overview_QRScanner_Instruction", comment: "")
+
+            enum Error {
+                static let title = NSLocalizedString("Checkin_QR_Scanner_Error_Title", comment: "")
+                static let description = NSLocalizedString("Checkin_QR_Scanner_Error_Description", comment: "")
+            }
 		}
 
-		enum Overview {
+        enum Overview {
 			static let title = NSLocalizedString("Checkins_Overview_Title", comment: "")
 			static let menuButtonTitle = NSLocalizedString("Checkins_Overview_MenuButtonTitle", comment: "")
 			static let scanButtonTitle = NSLocalizedString("Checkins_Overview_ScanButtonTitle", comment: "")
