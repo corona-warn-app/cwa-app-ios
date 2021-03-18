@@ -13,11 +13,15 @@ class CheckinsOverviewViewModel {
 	init(
 		store: EventStoringProviding,
 		onAddEntryCellTap: @escaping () -> Void,
-		onEntryCellTap: @escaping (Checkin) -> Void
+		onEntryCellTap: @escaping (Checkin) -> Void,
+		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
+			AVCaptureDevice.authorizationStatus(for: .video)
+		}
 	) {
 		self.store = store
 		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
+        self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
 		store.checkinsPublisher
 			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
@@ -153,11 +157,12 @@ class CheckinsOverviewViewModel {
 	private let store: EventStoringProviding
 	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (Checkin) -> Void
+    private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 
 	private var subscriptions: [AnyCancellable] = []
 
 	private var showMissingPermissionsSection: Bool {
-		let status = AVCaptureDevice.authorizationStatus(for: .video)
+		let status = cameraAuthorizationStatus()
 
 		return status != .notDetermined && status != .authorized
 	}
