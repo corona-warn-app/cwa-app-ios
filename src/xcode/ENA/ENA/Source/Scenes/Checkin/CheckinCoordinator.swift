@@ -59,7 +59,7 @@ final class CheckinCoordinator {
 
         // show the info screen only once
         if !infoScreenShown {
-            return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+            return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
                 guard let self = self else { return }
                 // Push Checkin Table View Controller
                 self.viewController.pushViewController(topBottomContainerViewController, animated: true)
@@ -146,7 +146,8 @@ final class CheckinCoordinator {
         dismissAction: @escaping (() -> Void),
         showDetail: @escaping ((UIViewController) -> Void)
     ) -> UIViewController {
-        let viewController = CheckinsInfoScreenViewController(
+
+        let checkinsInfoScreenViewController = CheckinsInfoScreenViewController(
             viewModel: CheckInsInfoScreenViewModel(
                 presentDisclaimer: {
                     let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
@@ -159,13 +160,28 @@ final class CheckinCoordinator {
                 dismissAction()
             }
         )
-        return viewController
+
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: checkinsInfoScreenViewController,
+			bottomController: footerViewController
+		)
+
+        return topBottomContainerViewController
     }
 
     private func presentInfoScreen() {
         // Promise the navigation view controller will be available,
         // this is needed to resolve an inset issue with large titles
-        var navigationController: ENANavigationControllerWithFooter!
+        var navigationController: UINavigationController!
         let infoVC = infoScreen(
             dismissAction: {
                 navigationController.dismiss(animated: true)
@@ -176,7 +192,7 @@ final class CheckinCoordinator {
         )
         // We need to use UINavigationController(rootViewController: UIViewController) here,
         // otherwise the inset of the navigation title is wrong
-        navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+        navigationController = UINavigationController(rootViewController: infoVC)
         viewController.present(navigationController, animated: true)
     }
 
