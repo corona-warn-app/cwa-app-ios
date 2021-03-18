@@ -23,30 +23,8 @@ class CheckinsOverviewViewModel {
 
 		store.checkinsPublisher
 			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
-			.sink { [weak self] checkins in
-				guard let self = self else { return }
-
-				if checkins.map({ $0.id }) != self.checkinCellModels.map({ $0.checkin.id }) {
-					self.checkinCellModels = checkins.map { checkin in
-						CheckinCellModel(
-							checkin: checkin,
-							eventProvider: store,
-							onUpdate: {
-								self.onUpdate?()
-							}
-						)
-					}
-
-					self.shouldReload = true
-				} else {
-					self.checkinCellModels.forEach { cellModel in
-						guard let checkin = checkins.first(where: { $0.id == cellModel.checkin.id }) else {
-							return
-						}
-
-						cellModel.update(with: checkin)
-					}
-				}
+			.sink { [weak self] in
+				self?.update(from: $0)
 			}
 			.store(in: &subscriptions)
 	}
@@ -148,6 +126,30 @@ class CheckinsOverviewViewModel {
 		let status = cameraAuthorizationStatus()
 
 		return status != .notDetermined && status != .authorized
+	}
+
+	private func update(from checkins: [Checkin]) {
+		if checkins.map({ $0.id }) != checkinCellModels.map({ $0.checkin.id }) {
+			checkinCellModels = checkins.map { checkin in
+				CheckinCellModel(
+					checkin: checkin,
+					eventProvider: store,
+					onUpdate: { [weak self] in
+						self?.onUpdate?()
+					}
+				)
+			}
+
+			shouldReload = true
+		} else {
+			checkinCellModels.forEach { cellModel in
+				guard let checkin = checkins.first(where: { $0.id == cellModel.checkin.id }) else {
+					return
+				}
+
+				cellModel.update(with: checkin)
+			}
+		}
 	}
 
 }

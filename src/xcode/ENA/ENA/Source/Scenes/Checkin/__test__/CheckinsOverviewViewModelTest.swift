@@ -227,4 +227,33 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		cancellable.cancel()
 	}
 
+	func testEntrySortingByCheckinStartDate() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationGUID: "17", checkinStartDate: Date(timeIntervalSinceNow: 10))
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationGUID: "964", checkinStartDate: .distantFuture)
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date())
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationGUID: "qwerty", checkinStartDate: .distantPast)
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationGUID: "asdf", checkinStartDate: Date(timeIntervalSinceNow: -220))
+		)
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in }
+		)
+
+		let traceLocationGUIDs = viewModel.checkinCellModels
+			.map { $0.checkin.traceLocationGUID }
+
+		XCTAssertEqual(traceLocationGUIDs, ["qwerty", "asdf", "137", "17", "964"])
+	}
+
 }
