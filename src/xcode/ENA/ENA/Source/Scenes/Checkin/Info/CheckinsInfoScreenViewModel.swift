@@ -46,7 +46,7 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
+						UIImage(imageLiteralResourceName: "Icons_Risikoermittlung_12"),
 						text: .string(AppStrings.Checkin.Information.itemRiskStatusTitle),
 						alignment: .top
 					),
@@ -55,7 +55,7 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Location"),
+						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
 						text: .string(AppStrings.Checkin.Information.itemTimeTitle),
 						alignment: .top
 					)
