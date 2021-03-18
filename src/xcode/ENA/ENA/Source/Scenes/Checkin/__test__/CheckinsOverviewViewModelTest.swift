@@ -12,7 +12,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testNumberOfSections() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in }
 		)
 
@@ -27,7 +26,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -43,7 +41,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .notDetermined }
 		)
@@ -56,7 +53,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testNumberOfRowsWithCameraPermissionDenied() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -69,7 +65,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testNumberOfRowsWithCameraPermissionRestricted() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .restricted }
 		)
@@ -82,7 +77,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testIsEmptyOnEmptyEntriesSection() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in }
 		)
 
@@ -95,7 +89,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in }
 		)
 
@@ -105,7 +98,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testCanEditRowForAddSection() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in }
 		)
 
@@ -115,7 +107,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testCanEditRowForMissingPermissionSection() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in }
 		)
 
@@ -125,7 +116,6 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testCanEditRowForEntriesSection() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),
-			onAddEntryCellTap: {},
 			onEntryCellTap: { _ in }
 		)
 
