@@ -37,6 +37,9 @@ final class CheckinCoordinator {
             onInfoButtonTap: { [weak self] in
 				self?.presentInfoScreen()
             },
+			onAddEntryCellTap: { [weak self] in
+				self?.showQRCodeScanner()
+			},
             onMissingPermissionsButtonTap: { [weak self] in
                 self?.showSettings()
             }
@@ -90,9 +93,6 @@ final class CheckinCoordinator {
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(
 			store: eventStore,
-			onAddEntryCellTap: { [weak self] in
-				self?.showQRCodeScanner()
-			},
 			onEntryCellTap: { checkin in
 				Log.debug("Checkin cell tapped: \(checkin)")
 			}

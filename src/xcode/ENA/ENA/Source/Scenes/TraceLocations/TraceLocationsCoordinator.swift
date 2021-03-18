@@ -67,9 +67,6 @@ class TraceLocationsCoordinator {
 		let traceLocationsOverviewViewController = TraceLocationsOverviewViewController(
 			viewModel: TraceLocationsOverviewViewModel(
 				store: eventStore,
-				onAddEntryCellTap: { [weak self] in
-					self?.showTraceLocationTypeSelectionScreen()
-				},
 				onEntryCellTap: { [weak self] traceLocation in
 					self?.showTraceLocationDetailsScreen(traceLocation: traceLocation)
 				},
@@ -79,6 +76,9 @@ class TraceLocationsCoordinator {
 			),
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
+			},
+			onAddEntryCellTap: { [weak self] in
+				self?.showTraceLocationTypeSelectionScreen()
 			}
 		)
 

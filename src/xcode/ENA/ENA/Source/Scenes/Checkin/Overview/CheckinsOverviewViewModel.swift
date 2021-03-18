@@ -12,14 +12,12 @@ class CheckinsOverviewViewModel {
 
 	init(
 		store: EventStoringProviding,
-		onAddEntryCellTap: @escaping () -> Void,
 		onEntryCellTap: @escaping (Checkin) -> Void,
 		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
 			AVCaptureDevice.authorizationStatus(for: .video)
 		}
 	) {
 		self.store = store
-		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
         self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
@@ -92,10 +90,6 @@ class CheckinsOverviewViewModel {
 		return indexPath.section == Section.entries.rawValue
 	}
 
-	func didTapAddEntryCell() {
-		onAddEntryCellTap()
-	}
-
 	func didTapEntryCell(at indexPath: IndexPath) {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("didTapEntryCell can only be called from the entries section")
@@ -145,7 +139,6 @@ class CheckinsOverviewViewModel {
 	// MARK: - Private
 
 	private let store: EventStoringProviding
-	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (Checkin) -> Void
     private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 

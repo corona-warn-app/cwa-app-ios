@@ -11,12 +11,10 @@ class TraceLocationsOverviewViewModel {
 
 	init(
 		store: EventStoringProviding,
-		onAddEntryCellTap: @escaping () -> Void,
 		onEntryCellTap: @escaping (TraceLocation) -> Void,
 		onEntryCellButtonTap: @escaping (TraceLocation) -> Void
 	) {
 		self.store = store
-		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
 		self.onEntryCellButtonTap = onEntryCellButtonTap
 
@@ -70,10 +68,6 @@ class TraceLocationsOverviewViewModel {
 		)
 	}
 
-	func didTapAddEntryCell() {
-		onAddEntryCellTap()
-	}
-
 	func didTapEntryCell(at indexPath: IndexPath) {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("didTapEntryCell can only be called from the entries section")
@@ -101,7 +95,6 @@ class TraceLocationsOverviewViewModel {
 	// MARK: - Private
 
 	private let store: EventStoringProviding
-	private let onAddEntryCellTap: () -> Void
 	private let onEntryCellTap: (TraceLocation) -> Void
 	private let onEntryCellButtonTap: (TraceLocation) -> Void
 

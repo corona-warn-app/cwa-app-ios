@@ -12,10 +12,12 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	init(
 		viewModel: CheckinsOverviewViewModel,
 		onInfoButtonTap: @escaping () -> Void,
+		onAddEntryCellTap: @escaping () -> Void,
 		onMissingPermissionsButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoButtonTap = onInfoButtonTap
+		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onMissingPermissionsButtonTap = onMissingPermissionsButtonTap
 
 		super.init(nibName: nil, bundle: nil)
@@ -139,7 +141,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch CheckinsOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
-			viewModel.didTapAddEntryCell()
+			onAddEntryCellTap()
 		case .missingPermission:
 			return
 		case .entries:
@@ -159,6 +161,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 
 	private let viewModel: CheckinsOverviewViewModel
 	private let onInfoButtonTap: () -> Void
+	private let onAddEntryCellTap: () -> Void
 	private let onMissingPermissionsButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()

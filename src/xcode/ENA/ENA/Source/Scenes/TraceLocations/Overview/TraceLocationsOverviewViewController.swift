@@ -11,10 +11,12 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 	init(
 		viewModel: TraceLocationsOverviewViewModel,
-		onInfoButtonTap: @escaping () -> Void
+		onInfoButtonTap: @escaping () -> Void,
+		onAddEntryCellTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoButtonTap = onInfoButtonTap
+		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -130,7 +132,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
 		case .add:
-			viewModel.didTapAddEntryCell()
+			onAddEntryCellTap()
 		case .entries:
 			viewModel.didTapEntryCell(at: indexPath)
 		case .none:
@@ -148,6 +150,7 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 
 	private let viewModel: TraceLocationsOverviewViewModel
 	private let onInfoButtonTap: () -> Void
+	private let onAddEntryCellTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
