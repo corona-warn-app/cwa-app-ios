@@ -93,7 +93,7 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                         <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </label>
                                                                 </subviews>
@@ -206,7 +206,7 @@
     </objects>
     <designables>
         <designable name="21R-hB-G31">
-            <size key="intrinsicContentSize" width="36" height="20.5"/>
+            <size key="intrinsicContentSize" width="32.5" height="18"/>
         </designable>
         <designable name="LlW-QB-tlo">
             <size key="intrinsicContentSize" width="35" height="20.5"/>
