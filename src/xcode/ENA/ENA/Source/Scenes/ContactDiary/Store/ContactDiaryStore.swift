@@ -295,7 +295,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		name: String,
 		phoneNumber: String,
 		emailAddress: String,
-		traceLocationId: String?
+		traceLocationGUID: String?
 	) -> SecureSQLStore.IdResult {
 		var result: SecureSQLStore.IdResult?
 
@@ -307,13 +307,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					name,
 					phoneNumber,
 					emailAddress,
-					traceLocationId
+					traceLocationGUID
 				)
 				VALUES (
 					SUBSTR(:name, 1, \(maxTextLength)),
 					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
 					SUBSTR(:emailAddress, 1, \(maxTextLength)),
-					:traceLocationId
+					:traceLocationGUID
 				);
 			"""
 
@@ -321,7 +321,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				"name": name,
 				"phoneNumber": phoneNumber,
 				"emailAddress": emailAddress,
-				"traceLocationId": traceLocationId as Any
+				"traceLocationGUID": traceLocationGUID as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -972,7 +972,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					traceLocationId: queryResult.string(forColumn: "traceLocationId"),
+					traceLocationGUID: queryResult.string(forColumn: "traceLocationGUID"),
 					visit: locationVisit
 				)
 				locations.append(location)

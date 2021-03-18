@@ -12,7 +12,7 @@ protocol DiaryStoring {
 	@discardableResult
 	func addContactPerson(name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.IdResult
 	@discardableResult
-	func addLocation(name: String, phoneNumber: String, emailAddress: String, traceLocationId: String?) -> SecureSQLStore.IdResult
+	func addLocation(name: String, phoneNumber: String, emailAddress: String, traceLocationGUID: String?) -> SecureSQLStore.IdResult
 	@discardableResult
 	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> SecureSQLStore.IdResult
 	@discardableResult
@@ -58,7 +58,7 @@ extension DiaryStoring {
 
 	@discardableResult
 	func addLocation(name: String) -> SecureSQLStore.IdResult {
-		return addLocation(name: name, phoneNumber: "", emailAddress: "", traceLocationId: nil)
+		return addLocation(name: name, phoneNumber: "", emailAddress: "", traceLocationGUID: nil)
 	}
 
 	@discardableResult

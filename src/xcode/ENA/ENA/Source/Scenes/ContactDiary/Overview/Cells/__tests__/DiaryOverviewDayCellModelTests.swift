@@ -103,7 +103,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 					DiaryLocation(
 						id: 1,
 						name: "Supermarkt",
-						traceLocationId: nil,
+						traceLocationGUID: nil,
 						visit: LocationVisit(
 							id: 0,
 							date: "2021-01-14",
@@ -129,7 +129,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounter: ContactPersonEncounter(id: 0, date: "2021-01-14", contactPersonId: 0))),
-				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationId: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
+				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationGUID: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
 			]
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 0)
@@ -162,7 +162,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounter: ContactPersonEncounter(id: 0, date: "2021-01-14", contactPersonId: 0))),
-				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationId: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
+				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationGUID: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
 			]
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 1)
