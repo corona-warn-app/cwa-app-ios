@@ -4,7 +4,7 @@
 
 import XCTest
 
-class ENAUITests_09_EventCheckIn: XCTestCase {
+class ENAUITests_09_CheckIns: XCTestCase {
 
 	var app: XCUIApplication!
 	
