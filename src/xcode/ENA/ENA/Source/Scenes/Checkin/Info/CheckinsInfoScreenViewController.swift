@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHandling  {
+class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHandling {
 
 	// MARK: - Init
 	
