@@ -243,9 +243,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			fatalError("Could not dequeue EventTableViewCell")
 		}
 
-		let cellModel = viewModel.checkinCellModel(
-			at: indexPath
-		)
+		let cellModel = viewModel.checkinCellModels[indexPath.row]
 		cell.configure(
 			cellModel: cellModel,
 			onButtonTap: { [weak self] in

@@ -65,6 +65,8 @@ class CheckinsOverviewViewModel {
 
 	var onUpdate: (() -> Void)?
 
+	var checkinCellModels: [CheckinCellModel] = []
+
 	var numberOfSections: Int {
 		Section.allCases.count
 	}
@@ -88,16 +90,6 @@ class CheckinsOverviewViewModel {
 
 	func canEditRow(at indexPath: IndexPath) -> Bool {
 		return indexPath.section == Section.entries.rawValue
-	}
-
-	func checkinCellModel(
-		at indexPath: IndexPath
-	) -> CheckinCellModel {
-		guard indexPath.section == Section.entries.rawValue else {
-			fatalError("Entry cell models have to used in the entries section")
-		}
-
-		return checkinCellModels[indexPath.row]
 	}
 
 	func didTapAddEntryCell() {
@@ -151,8 +143,6 @@ class CheckinsOverviewViewModel {
 	}
 
 	// MARK: - Private
-
-	private var checkinCellModels: [CheckinCellModel] = []
 
 	private let store: EventStoringProviding
 	private let onAddEntryCellTap: () -> Void
