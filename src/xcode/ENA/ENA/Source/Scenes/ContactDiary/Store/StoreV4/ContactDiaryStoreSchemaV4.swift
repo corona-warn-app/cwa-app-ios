@@ -33,7 +33,7 @@ class ContactDiaryStoreSchemaV4: StoreSchemaProtocol {
 					name TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
 					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= \(maxTextLength)),
 					emailAddress TEXT CHECK (LENGTH(emailAddress) <= \(maxTextLength)),
-					traceLocationGUID TEXT
+					traceLocationId TEXT
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
