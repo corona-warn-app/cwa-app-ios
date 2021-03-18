@@ -30,7 +30,6 @@ class TraceLocationsCoordinator {
 			if let TraceLocationsInfoScreenShown = UserDefaults.standard.string(forKey: "TraceLocationsInfoScreenShown") {
 				store.traceLocationsInfoScreenShown = (TraceLocationsInfoScreenShown != "NO")
 			}
-
 		}
 		#endif
 

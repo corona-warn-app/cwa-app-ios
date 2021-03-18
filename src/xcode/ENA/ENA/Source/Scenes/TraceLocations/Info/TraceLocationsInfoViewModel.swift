@@ -36,9 +36,18 @@ struct TraceLocationsInfoViewModel {
 						text: AppStrings.TraceLocations.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.descriptionTitle
 					),
-					.subheadline(
+					.body(
 						text: AppStrings.TraceLocations.Information.descriptionSubHeadline,
 						accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.descriptionSubHeadline
+					),
+					.space(
+						height: 15.0,
+						color: .enaColor(for: .background)
+					),
+					.icon(
+						UIImage(imageLiteralResourceName: "Icons_RisikoBegegnung"),
+						text: .string(AppStrings.TraceLocations.Information.itemCheckinRiskStatus),
+						alignment: .top
 					),
 					.space(
 						height: 15.0,
@@ -54,7 +63,7 @@ struct TraceLocationsInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
+						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
 						text: .string(AppStrings.TraceLocations.Information.itemContactTitle),
 						alignment: .top
 					),

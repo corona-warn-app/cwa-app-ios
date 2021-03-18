@@ -45,7 +45,7 @@ class TraceLocationsInfoViewModelTest: XCTestCase {
 			let numberOfCells = viewModel.dynamicTableViewModel.numberOfRows(section: 0)
 
 			// THEN
-			XCTAssertEqual(numberOfCells, 7)
+			XCTAssertEqual(numberOfCells, 9)
 		}
 
 		/// test if number of cells in legal section (1) is correct
