@@ -219,6 +219,11 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	private func updatePreviewMask() {
 
+		guard let previewLayer = previewLayer else {
+			Log.debug("No preview layer available")
+			return
+		}
+
 		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
 
