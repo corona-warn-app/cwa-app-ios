@@ -17,10 +17,18 @@ class TraceLocationCellModel: EventCellModel {
 		self.traceLocation = traceLocation
 		self.onUpdate = onUpdate
 
+		// Set initial value so onUpdate isn't triggered on initial publisher call
+		isButtonHiddenPublisher.value = eventProvider.checkinsPublisher.value.contains { $0.traceLocationGUID == traceLocation.guid && $0.isActive }
+
 		eventProvider.checkinsPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] checkins in
-				self?.isButtonHiddenPublisher.value = checkins.contains { $0.traceLocationGUID == traceLocation.guid && $0.isActive }
-				onUpdate()
+				let isButtonHiddenPublisher = checkins.contains { $0.traceLocationGUID == traceLocation.guid && $0.isActive }
+
+				if self?.isButtonHiddenPublisher.value != isButtonHiddenPublisher {
+					self?.isButtonHiddenPublisher.value = isButtonHiddenPublisher
+					onUpdate()
+				}
 			}
 			.store(in: &subscriptions)
 
@@ -91,8 +99,6 @@ class TraceLocationCellModel: EventCellModel {
 		} else {
 			timePublisher.value = nil
 		}
-
-		onUpdate()
 	}
 
 	private func scheduleUpdateTimer() {
@@ -108,7 +114,7 @@ class TraceLocationCellModel: EventCellModel {
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateUpdatedTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshUpdateTimerAfterResumingFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		updateTimer = Timer(fireAt: endDate, interval: 0, target: self, selector: #selector(updateForActiveState), userInfo: nil, repeats: false)
+		updateTimer = Timer(fireAt: endDate, interval: 0, target: self, selector: #selector(updateFromTimer), userInfo: nil, repeats: false)
 		guard let updateTimer = updateTimer else { return }
 		RunLoop.current.add(updateTimer, forMode: .common)
 	}
@@ -121,6 +127,12 @@ class TraceLocationCellModel: EventCellModel {
 	@objc
 	private func refreshUpdateTimerAfterResumingFromBackground() {
 		scheduleUpdateTimer()
+	}
+
+	@objc
+	private func updateFromTimer() {
+		updateForActiveState()
+		onUpdate()
 	}
     
 }
