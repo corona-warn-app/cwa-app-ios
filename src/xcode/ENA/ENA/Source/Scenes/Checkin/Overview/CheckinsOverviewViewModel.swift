@@ -76,9 +76,9 @@ class CheckinsOverviewViewModel {
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .add:
-			return showMissingPermissionsSection ? 0 : 1
+			return showMissingPermissionSection ? 0 : 1
 		case .missingPermission:
-			return showMissingPermissionsSection ? 1 : 0
+			return showMissingPermissionSection ? 1 : 0
 		case .entries:
 			return checkinCellModels.count
 		case .none:
@@ -161,7 +161,7 @@ class CheckinsOverviewViewModel {
 
 	private var subscriptions: [AnyCancellable] = []
 
-	private var showMissingPermissionsSection: Bool {
+	private var showMissingPermissionSection: Bool {
 		let status = cameraAuthorizationStatus()
 
 		return status != .notDetermined && status != .authorized
