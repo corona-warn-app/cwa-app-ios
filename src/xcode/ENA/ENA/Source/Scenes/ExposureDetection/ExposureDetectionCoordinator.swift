@@ -57,20 +57,8 @@ final class ExposureDetectionCoordinator {
 						self.showSurveyConsent()
 					}
 				},
-				onInactiveButtonTap: { [weak self] in
-					guard let self = self else {
-						return
-					}
-					
-					let vc = ExposureNotificationSettingViewController(
-						initialEnState: self.homeState.enState,
-						store: self.store,
-						appConfigurationProvider: self.appConfigurationProvider,
-						setExposureManagerEnabled: { [weak self] newState, completion in
-							self?.setExposureManagerEnabled(newState, then: completion)
-						}
-					)
-					self.navigationController?.pushViewController(vc, animated: true)
+				onInactiveButtonTap: { [weak self] completion in
+					self?.setExposureManagerEnabled(true, then: completion)
 				}
 			),
 			store: store
