@@ -102,13 +102,34 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		XCTAssertFalse(viewModel.isEmpty)
 	}
 
-	// MARK: - Private Helpers
+	func testCanEditRowForAddSection() throws {
+		let viewModel = CheckinsOverviewViewModel(
+			store: MockEventStore(),
+			onAddEntryCellTap: {},
+			onEntryCellTap: { _ in }
+		)
 
-	func mockStore() -> MockEventStore {
-		let store = MockEventStore()
+		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: CheckinsOverviewViewModel.Section.add.rawValue)))
+	}
 
+	func testCanEditRowForMissingPermissionSection() throws {
+		let viewModel = CheckinsOverviewViewModel(
+			store: MockEventStore(),
+			onAddEntryCellTap: {},
+			onEntryCellTap: { _ in }
+		)
 
-		return store
+		XCTAssertFalse(viewModel.canEditRow(at: IndexPath(row: 0, section: CheckinsOverviewViewModel.Section.missingPermission.rawValue)))
+	}
+
+	func testCanEditRowForEntriesSection() throws {
+		let viewModel = CheckinsOverviewViewModel(
+			store: MockEventStore(),
+			onAddEntryCellTap: {},
+			onEntryCellTap: { _ in }
+		)
+
+		XCTAssertTrue(viewModel.canEditRow(at: IndexPath(row: 0, section: CheckinsOverviewViewModel.Section.entries.rawValue)))
 	}
 
 }
