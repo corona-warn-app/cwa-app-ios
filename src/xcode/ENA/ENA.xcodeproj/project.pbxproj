@@ -2058,12 +2058,10 @@
 		0138F63A25F1173E00A9B075 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
-				BADDD82C2603920200337223 /* __tests__ */,
+				BADDD84326039CF600337223 /* Cells */,
 				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
 				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
 				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
-				01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */,
-				0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -5103,6 +5101,16 @@
 				BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		BADDD84326039CF600337223 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BADDD82C2603920200337223 /* __tests__ */,
+				01F6701925FF7BC60069C4F9 /* AddTraceLocationCellModel.swift */,
+				0138F68E25F21C8000A9B075 /* TraceLocationCellModel.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
