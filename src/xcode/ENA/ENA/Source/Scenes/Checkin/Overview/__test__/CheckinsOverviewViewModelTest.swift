@@ -125,7 +125,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testDidTapEntryCell() throws {
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: -10)))
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date()))
+		eventStore.createCheckin(Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date()))
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: 10)))
 
 		let cellTapExpectation = expectation(description: "onEntryCellTap called")
