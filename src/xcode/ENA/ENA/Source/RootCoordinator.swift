@@ -66,6 +66,10 @@ class RootCoordinator: RequiresAppDependencies {
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
+		
+		// Setup checkin coordinator after app reset
+		let checkInCoordinator = CheckinCoordinator(store: store)
+		self.checkInCoordinator = checkInCoordinator
 
 		// Tabbar
 		let startTabbarItem = UITabBarItem(title: AppStrings.Tabbar.homeTitle, image: UIImage(named: "Icons_Tabbar_Home"), selectedImage: nil)
