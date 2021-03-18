@@ -1463,6 +1463,45 @@ enum AppStrings {
 			static let duplicateButtonTitle = NSLocalizedString("TraceLocations_Details_DuplicateButtonTitle", comment: "")
 		}
 
+		enum LocationType {
+			enum Title {
+				static let unspecified = NSLocalizedString("TraceLocations_Type_Title_Unspecified", comment: "")
+				enum Permanent {
+					static let other = NSLocalizedString("TraceLocations_Type_Title_PermanentOther", comment: "")
+					static let retail = NSLocalizedString("TraceLocations_Type_Title_PermanentRetail", comment: "")
+					static let foodService = NSLocalizedString("TraceLocations_Title_Type_PermanentFoodService", comment: "")
+					static let craft = NSLocalizedString("TraceLocations_Type_Title_PermanentCraft", comment: "")
+					static let workplace = NSLocalizedString("TraceLocations_Type_Title_PermanentWorkplace", comment: "")
+					static let educationalInstitution = NSLocalizedString("TraceLocations_Type_Title_PermanentEducationalInstitution", comment: "")
+					static let publicBuilding = NSLocalizedString("TraceLocations_Type_Title_PermanentPublicBuilding", comment: "")
+				}
+				enum Temporary {
+					static let other = NSLocalizedString("TraceLocations_Type_Title_TemporaryOther", comment: "")
+					static let culturalEvent = NSLocalizedString("TraceLocations_Type_Title_TemporaryCulturalEvent", comment: "")
+					static let clubActivity = NSLocalizedString("TraceLocations_Type_Title_TemporaryClubActivity", comment: "")
+					static let privateEvent = NSLocalizedString("TraceLocations_Type_Title_TemporaryPrivateEvent", comment: "")
+					static let worshipService = NSLocalizedString("TraceLocations_Type_Title_TemporaryWorshipService", comment: "")
+				}
+			}
+
+			enum Subtitle {
+				enum Permanent {
+					static let retail = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentRetail", comment: "")
+					static let foodService = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentFoodService", comment: "")
+					static let craft = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentCraft", comment: "")
+					static let workplace = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentWorkplace", comment: "")
+					static let educationalInstitution = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentEducationalInstitution", comment: "")
+					static let publicBuilding = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentPublicBuilding", comment: "")
+				}
+				enum Temporary {
+					static let culturalEvent = NSLocalizedString("TraceLocations_Type_Subtitle_TemporaryCulturalEvent", comment: "")
+					static let clubActivity = NSLocalizedString("TraceLocations_Type_Subtitle_TemporaryClubActivity", comment: "")
+					static let privateEvent = NSLocalizedString("TraceLocations_Type_Subtitle_TemporaryPrivateEvent", comment: "")
+				}
+			}
+
+		}
+
 		enum TypeSelection {
 			static let title = NSLocalizedString("TraceLocations_TypeSelection_Title", comment: "")
 			static let locationSectionTitle = NSLocalizedString("TraceLocations_TypeSelection_LocationSectionTitle", comment: "")
