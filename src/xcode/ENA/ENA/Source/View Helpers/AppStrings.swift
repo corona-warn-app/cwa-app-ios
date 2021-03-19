@@ -1406,12 +1406,14 @@ enum AppStrings {
 	}
 
 	enum TraceLocations {
+
 		enum unspecified {
 			static let title = NSLocalizedString("TraceLocations_Type_Title_Unspecified", comment: "")
-
 		}
 
 		enum permanent {
+			static let name = NSLocalizedString("TraceLocations_Section_Title_Permanent", comment: "")
+
 			enum title {
 				static let other = NSLocalizedString("TraceLocations_Type_Title_PermanentOther", comment: "")
 				static let retail = NSLocalizedString("TraceLocations_Type_Title_PermanentRetail", comment: "")
@@ -1433,6 +1435,8 @@ enum AppStrings {
 		}
 
 		enum temporary {
+			static let name = NSLocalizedString("TraceLocations_Section_Title_Temporary", comment: "")
+
 			enum title {
 				static let other = NSLocalizedString("TraceLocations_Type_Title_TemporaryOther", comment: "")
 				static let culturalEvent = NSLocalizedString("TraceLocations_Type_Title_TemporaryCulturalEvent", comment: "")
