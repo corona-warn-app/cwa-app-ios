@@ -57,6 +57,10 @@ final class ClientMock {
 	var onSupportedCountries: ((@escaping CountryFetchCompletion) -> Void)?
 	var onGetOTP: ((String, PPACToken, Bool, @escaping OTPAuthorizationCompletionHandler) -> Void)?
 	var onSubmitAnalytics: ((SAP_Internal_Ppdd_PPADataIOS, PPACToken, Bool, @escaping PPAnalyticsSubmitionCompletionHandler) -> Void)?
+	var onTraceWarningDiscovery: ((String, @escaping TraceWarningPackageDiscoveryCompletionHandler) -> Void)?
+	var onTraceWarningDownload: ((String, Int, @escaping TraceWarningPackageDownloadCompletionHandler) -> Void)?
+
+
 }
 
 extension ClientMock: ClientWifiOnly {
@@ -103,7 +107,7 @@ extension ClientMock: ClientWifiOnly {
 
 extension ClientMock: Client {
 
-	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
+	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"", isEmpty: false)
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = availablePackageRequestFailure {
@@ -171,7 +175,6 @@ extension ClientMock: Client {
 			completion(.success(Date()))
 			return
 		}
-
 		onGetOTP(otp, ppacToken, isFake, completion)
 	}
 
@@ -186,8 +189,29 @@ extension ClientMock: Client {
 			completion(.success(()))
 			return
 		}
-
 		onSubmitAnalytics(payload, ppacToken, isFake, completion)
-
+	}
+	
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	) {
+		guard let onTraceWarningDiscovery = self.onTraceWarningDiscovery else {
+			completion(.success((TraceWarningDiscovery(oldest: 448163, latest: 448522, eTag: "FakeETag"))))
+			return
+		}
+		onTraceWarningDiscovery(country, completion)
+	}
+	
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		guard let onTraceWarningDownload = self.onTraceWarningDownload else {
+			completion(.success(downloadedPackage ?? ClientMock.dummyResponse))
+			return
+		}
+		onTraceWarningDownload(country, packageId, completion)
 	}
 }

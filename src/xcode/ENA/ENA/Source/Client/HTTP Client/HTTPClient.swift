@@ -4,7 +4,6 @@
 
 import ExposureNotification
 import Foundation
-import ZIPFoundation
 
 // swiftlint:disable:next type_body_length
 final class HTTPClient: Client {
@@ -242,7 +241,6 @@ final class HTTPClient: Client {
 				configuration: configuration,
 				otp: otp,
 				ppacToken: ppacToken,
-				isFake: isFake,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.invalidResponseError))
 			return
@@ -282,7 +280,6 @@ final class HTTPClient: Client {
 				configuration: configuration,
 				payload: payload,
 				ppacToken: ppacToken,
-				isFake: isFake,
 				forceApiTokenHeader: forceApiTokenHeader) else {
 			completion(.failure(.urlCreationError))
 			return
@@ -329,6 +326,71 @@ final class HTTPClient: Client {
 			}
 		})
 	}
+	
+	
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	) {
+		guard let request = try? URLRequest.traceWarningPackageDiscovery(
+				configuration: configuration,
+				country: country) else {
+			completion(.failure(.requestCreationError))
+			return
+		}
+		
+		session.response(for: request, completion: { result in
+			switch result {
+			case let .success(response):
+				switch response.statusCode {
+				case 200:
+					guard let body = response.body else {
+						Log.error("Failed to unpack response body of trace warning discovery with http status code: \(String(response.statusCode))", log: .api)
+						completion(.failure(.invalidResponseError(response.statusCode)))
+						return
+					}
+					
+					do {
+						let decoder = JSONDecoder()
+						let decodedResponse = try decoder.decode(
+							TraceWarningDiscoveryResponse.self,
+							from: body
+						)
+						guard let oldest = decodedResponse.oldest,
+							  let latest = decodedResponse.latest else {
+							Log.error("Failed to get oldest or latest out of decoded response", log: .api)
+							completion(.failure(.decodingJsonError(response.statusCode)))
+							return
+						}
+						
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
+						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
+						completion(.success(traceWarningDiscovery))
+					} catch {
+						Log.error("Failed to decode response json", log: .api)
+						completion(.failure(.decodingJsonError(response.statusCode)))
+					}
+				default:
+					Log.error("Wrong http status code: \(String(response.statusCode))", log: .api)
+					completion(.failure(.invalidResponseError(response.statusCode)))
+				}
+			case let .failure(error):
+				Log.error("Error in response body", log: .api, error: error)
+				completion(.failure(.defaultServerError(error)))
+			}
+			
+		})
+	}
+	
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		let url = configuration.traceWarningPackageDownloadURL(country: country, packageId: packageId)
+		traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
+	}
 
 	// MARK: - Public
 
@@ -345,7 +407,8 @@ final class HTTPClient: Client {
 	private let serverEnvironmentProvider: ServerEnvironmentProviding
 	private let session: URLSession
 	private let packageVerifier: SAPDownloadedPackage.Verification
-	private var retries: [URL: Int] = [:]
+	private var fetchDayRetries: [URL: Int] = [:]
+	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
 
 	private let queue = DispatchQueue(label: "com.sap.HTTPClient")
 
@@ -364,17 +427,17 @@ final class HTTPClient: Client {
 				defer {
 					// no guard in defer!
 					if let error = responseError {
-						let retryCount = self.retries[url] ?? 0
+						let retryCount = self.fetchDayRetries[url] ?? 0
 						if retryCount > 2 {
 							completeWith(.failure(error))
 						} else {
-							self.retries[url] = retryCount.advanced(by: 1)
+							self.fetchDayRetries[url] = retryCount.advanced(by: 1)
 							Log.debug("\(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
 							self.fetchDay(from: url, completion: completeWith)
 						}
 					} else {
 						// no error, no retry - clean up
-						self.retries[url] = nil
+						self.fetchDayRetries[url] = nil
 					}
 				}
 
@@ -391,7 +454,7 @@ final class HTTPClient: Client {
 						return
 					}
 					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let payload = PackageDownloadResponse(package: package, etag: etag)
+					let payload = PackageDownloadResponse(package: package, etag: etag, isEmpty: false)
 					completeWith(.success(payload))
 				case let .failure(error):
 					responseError = error
@@ -507,6 +570,79 @@ final class HTTPClient: Client {
 			completion(.failure(.invalidResponseError))
 		}
 	}
+	
+	private func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		url: URL,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	) {
+		var responseError: TraceWarningError?
+		
+		session.GET(url) { [weak self] result in
+			self?.queue.async {
+				
+				guard let self = self else {
+					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
+					completion(.failure(.downloadError))
+					return
+				}
+				
+				defer {
+					// no guard in defer!
+					if let error = responseError {
+						let retryCount = self.traceWarningPackageDownloadRetries[url] ?? 0
+						if retryCount > 2 {
+							completion(.failure(error))
+						} else {
+							self.traceWarningPackageDownloadRetries[url] = retryCount.advanced(by: 1)
+							Log.debug("TraceWarningDownload url: \(url) received: \(error) – retry (\(retryCount.advanced(by: 1)) of 3)", log: .api)
+							self.traceWarningPackageDownload(country: country, packageId: packageId, url: url, completion: completion)
+						}
+					} else {
+						// no error, no retry - clean up
+						self.traceWarningPackageDownloadRetries[url] = nil
+					}
+				}
+				
+				switch result {
+				case let .success(response):
+					switch response.statusCode {
+					case 200:
+						guard let body = response.body else {
+							Log.error("Failed to unpack response body of trace warning download with http status code: \(String(response.statusCode))", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						
+						guard let package = SAPDownloadedPackage(compressedData: body) else {
+							Log.error("Failed to create signed package for trace warning download", log: .api)
+							responseError = .invalidResponseError(response.statusCode)
+							return
+						}
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						
+						var isEmpty = false
+						// According to tech spec: If present, indicates that the package is empty (i.e. no zip file, to extract).
+						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") != nil {
+							isEmpty = true
+						}
+						let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag, isEmpty: isEmpty)
+						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
+						completion(.success(downloadedZippedPackage))
+					default:
+						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
+						responseError = .invalidResponseError(response.statusCode)
+					}
+				case let .failure(error):
+					Log.error("Error in response body", log: .api, error: error)
+					responseError = .defaultServerError(error)
+				}
+				
+			}
+		}
+	}
+
 }
 
 // MARK: Extensions
@@ -571,7 +707,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		request.httpBody = payloadData
 		
 		return request
@@ -604,7 +740,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
@@ -641,7 +777,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["registrationToken": registrationToken]
@@ -679,7 +815,7 @@ private extension URLRequest {
 			forHTTPHeaderField: "Content-Type"
 		)
 		
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		
 		// Add body padding to request.
 		let originalBody = ["key": key, "keyType": type]
@@ -693,7 +829,6 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		otp: String,
 		ppacToken: PPACToken,
-		isFake: Bool,
 		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
@@ -715,7 +850,7 @@ private extension URLRequest {
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		request.setValue(
 			"application/x-protobuf",
@@ -739,7 +874,6 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		payload: SAP_Internal_Ppdd_PPADataIOS,
 		ppacToken: PPACToken,
-		isFake: Bool,
 		forceApiTokenHeader: Bool
 	) throws -> URLRequest {
 
@@ -757,7 +891,7 @@ private extension URLRequest {
 		let body = try protoBufRequest.serializedData()
 		var request = URLRequest(url: url)
 
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		request.setValue(
 			"application/x-protobuf",
@@ -776,7 +910,19 @@ private extension URLRequest {
 		request.httpBody = body
 		return request
 	}
+	
+	static func traceWarningPackageDiscovery(
+		configuration: HTTPClient.Configuration,
+		country: String
+	) throws -> URLRequest {
 
+		let url = configuration.traceWarningPackageDiscoveryURL(country: country)
+		var request = URLRequest(url: url)
+
+		request.httpMethod = HttpMethod.get
+		
+		return request
+	}
 	
 	// MARK: - Helper methods for adding padding to the requests.
 	
