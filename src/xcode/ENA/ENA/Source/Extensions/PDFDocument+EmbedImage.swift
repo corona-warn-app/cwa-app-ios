@@ -13,7 +13,7 @@ extension PDFDocument {
 	
 	/// Embeds an Image on the first Page on given position
 	/// Inspired  by https://pspdfkit.com/blog/2019/insert-image-into-pdf-with-swift/
-	func embed(image: UIImage, at position: CGPoint) throws {
+	func embed(image: UIImage, at position: CGPoint, text: NSString, of size: CGFloat?, with textRect: CGRect) throws {
 		
 		// `page` is of type `PDFPage`.
 		guard let page = page(at: 0) else {
@@ -41,6 +41,21 @@ extension PDFDocument {
 			
 			// Draw your image onto the context.
 			image.draw(in: imageRect)
+			
+			// Set the font as per the font size provided
+			let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: size, weight: .regular)
+
+			// Set the attributes of the text
+			guard let paragraphStyle: NSParagraphStyle = NSParagraphStyle.default.mutableCopy() as? NSParagraphStyle else { return }
+			let textColor = UIColor.black
+			let textFontAttributes: [NSAttributedString.Key: Any] = [
+				NSAttributedString.Key.font: font,
+				NSAttributedString.Key.foregroundColor: textColor,
+				NSAttributedString.Key.paragraphStyle: paragraphStyle
+			]
+			
+			// Draw text onto the context
+			text.draw(in: textRect, withAttributes: textFontAttributes)
 		}
 		
 		// Create a new `PDFPage` with the image that was generated above.
