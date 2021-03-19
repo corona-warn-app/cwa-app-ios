@@ -8,6 +8,7 @@ import OpenCombine
 protocol TraceWarningPackageDownloading {
 	var statusDidChange: ((TraceWarningDownloadStatus) -> Void)? { get set }
 	
+	/// Starts to download the traceWarningPackages from CDN by following several checks and steps. Does return nothing. Stores the successfull downloaded and verified packages in the database, also the matches from the downloaded ones to the local check-ins.
 	func startTraceWarningPackageDownload(completion: @escaping (Result<Void, TraceWarningError>) -> Void)
 }
 
@@ -282,6 +283,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 	
 	// MARK: - Private helpers
 	
+	/// Checks if we already downloaded packages last hour. Return true if last download was not successfull or we did not download in the last hour.
 	private func shouldStartPackageDownload(
 		for country: Country.ID
 	) -> Bool {
@@ -296,6 +298,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 		return shouldStart
 	}
 	
+	/// Filters all by the app config revoked TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages. Identified by their eTag.
 	private func removeRevokedTraceWarningMetadataPackages(
 		_ revokedPackages: [SAP_Internal_V2_TraceWarningPackageMetadata]
 	) {
@@ -308,6 +311,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 		removePackagesFromTraceWarningMetadataPackagesTable(packagesToRemove)
 	}
 	
+	/// Filters all outdated TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages.
 	private func cleanUpOutdatedMetadata(
 		from oldestPackage: Int,
 		to earliestRelevantPackage: Int
@@ -319,6 +323,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 		removePackagesFromTraceWarningMetadataPackagesTable(packagesToDelete)
 	}
 	
+	/// Filters out the packages to be downloaded by subtracting the actual packages from the available packages.
 	private func determinePackagesToDownload(
 		availables availablePackagesOnCDN: [Int],
 		to earliestRelevantPackage: Int
@@ -330,6 +335,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 		return earlierPackages.subtracting(metadataIds)
 	}
 	
+	/// Removes packages from database table TraceWarningMetadataPackages. Identified by their id.
 	private func removePackagesFromTraceWarningMetadataPackagesTable(
 		_ packages: [TraceWarningPackageMetadata]
 	) {
