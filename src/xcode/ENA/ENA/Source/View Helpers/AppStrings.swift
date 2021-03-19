@@ -1512,8 +1512,7 @@ enum AppStrings {
 
 		enum TypeSelection {
 			static let title = NSLocalizedString("TraceLocations_TypeSelection_Title", comment: "")
-			static let locationSectionTitle = NSLocalizedString("TraceLocations_TypeSelection_LocationSectionTitle", comment: "")
-			static let eventSectionTitle = NSLocalizedString("TraceLocations_TypeSelection_EventSectionTitle", comment: "")
+
 			static let otherLocationTitle = NSLocalizedString("TraceLocations_TypeSelection_OtherLocation_Title", comment: "")
 			static let otherEventTitle = NSLocalizedString("TraceLocations_TypeSelection_OtherEvent_Title", comment: "")
 		}
