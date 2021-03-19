@@ -78,6 +78,10 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 
 	var statistics: StatisticsMetadata?
 
+	// MARK: - QRCodePosterTemplateCaching
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
+
 	// MARK: - PrivacyPreservingProviding
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
