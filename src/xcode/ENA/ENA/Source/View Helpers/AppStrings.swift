@@ -44,6 +44,7 @@ enum AppStrings {
 
 	enum QuickActions {
 		static let contactDiaryNewEntry = NSLocalizedString("QuickAction_newContactDiaryEntry", comment: "")
+		static let eventCheckin = NSLocalizedString("QuickAction_eventCheckin", comment: "")
 	}
 
 	enum AccessibilityLabel {

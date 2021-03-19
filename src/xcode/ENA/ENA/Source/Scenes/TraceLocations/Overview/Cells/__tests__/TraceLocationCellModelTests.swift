@@ -67,7 +67,7 @@ class TraceLocationCellModelTests: XCTestCase {
 		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
 	}
 
-	func testGIVEN_CheckInCellModel_WHEN_UpdateTimerIsSetup_THEN_onUpdateGetsCalled() {
+	func testGIVEN_CheckInCellModel_THEN_onUpdateGetsCalled() {
 		// GIVEN
 		let traceLocation = TraceLocation.mock(
 			guid: "42",
@@ -79,25 +79,14 @@ class TraceLocationCellModelTests: XCTestCase {
 		let mockEventStore = MockEventStore()
 		let didUpdateExpectation = expectation(description: "didUpdate")
 
-		let cellViewModel = TraceLocationCellModel(
+		_ = TraceLocationCellModel(
 			traceLocation: traceLocation,
 			eventProvider: mockEventStore,
 			onUpdate: { didUpdateExpectation.fulfill() }
 		)
 
-		// WHEN
-		wait(for: [didUpdateExpectation], timeout: .medium)
-
 		// THEN
-		XCTAssertFalse(cellViewModel.isInactiveIconHiddenPublisher.value)
-		XCTAssertTrue(cellViewModel.isActiveContainerViewHiddenPublisher.value)
-		XCTAssertFalse(cellViewModel.isActiveIconHidden)
-		XCTAssertTrue(cellViewModel.isDurationStackViewHidden)
-		XCTAssertFalse(cellViewModel.isButtonHiddenPublisher.value)
-
-		XCTAssertEqual(cellViewModel.date, "18.03.21")
-		XCTAssertEqual(cellViewModel.title, "Sportstudio")
-		XCTAssertEqual(cellViewModel.address, "Musterstraße 1a, 01234 Musterstadt")
+		wait(for: [didUpdateExpectation], timeout: .medium)
 	}
 
 }
