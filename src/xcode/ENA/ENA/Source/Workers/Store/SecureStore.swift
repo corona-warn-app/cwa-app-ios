@@ -361,6 +361,13 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: QRCodePosterTemplateCaching {
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? {
+		get { kvStore["qrCodePosterTemplateMetadata"] as QRCodePosterTemplateMetadata? ?? nil }
+		set { kvStore["qrCodePosterTemplateMetadata"] = newValue }
+	}
+}
+
 extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
