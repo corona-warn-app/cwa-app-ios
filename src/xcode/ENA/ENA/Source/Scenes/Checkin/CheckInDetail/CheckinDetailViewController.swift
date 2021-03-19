@@ -3,8 +3,9 @@
 //
 
 import UIKit
+import OpenCombine
 
-class CheckinDetailViewController: UIViewController {
+class CheckinDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	// MARK: - Init
 
@@ -13,9 +14,10 @@ class CheckinDetailViewController: UIViewController {
 		dismiss: @escaping () -> Void,
 		presentCheckins: @escaping () -> Void
 	) {
-		self.viewModel = CheckinDetailViewModel(checkin)
 		self.dismiss = dismiss
 		self.presentCheckins = presentCheckins
+		self.viewModel = CheckinDetailViewModel(checkin)
+		
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -23,7 +25,7 @@ class CheckinDetailViewController: UIViewController {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	// MARK: - Overrides
 
 	override func viewDidLoad() {
@@ -31,86 +33,104 @@ class CheckinDetailViewController: UIViewController {
 
 		setupView()
 	}
+	
+	// MARK: - Protocol UIPickerViewDelegate
+
+	func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+		viewModel.pickerView(viewForRow: row, forComponent: component)
+	}
+
+	func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+		viewModel.pickerView(pickerView, widthForComponent: component)
+	}
+	
+	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+		viewModel.pickerView(didSelectRow: row, inComponent: component)
+		updatePickerButtonTitle()
+	}
+	
+	// MARK: - Protocol UIPickerViewDataSource
+
+	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+		viewModel.pickerView(numberOfRowsInComponent: component)
+	}
+	
+	func numberOfComponents(in pickerView: UIPickerView) -> Int {
+		viewModel.numberOfComponents
+	}
 
 	// MARK: - Private
-
+	
+	@IBOutlet private weak var pickerView: UIPickerView!
+	@IBOutlet private weak var bottomCardView: UIView!
+	@IBOutlet private weak var descriptionView: UIView!
+	@IBOutlet private weak var logoImageView: UIImageView!
+	@IBOutlet private weak var checkInForLabel: ENALabel!
+	@IBOutlet private weak var activityLabel: ENALabel!
+	@IBOutlet private weak var descriptionLabel: ENALabel!
+	@IBOutlet private weak var addressLabel: ENALabel!
+	@IBOutlet private weak var saveToDiaryLabel: ENALabel!
+	@IBOutlet private weak var automaticCheckOutLabel: ENALabel!
+	@IBOutlet private weak var pickerButton: ENAButton!
+	
 	private let viewModel: CheckinDetailViewModel
 	private let dismiss: () -> Void
 	private let presentCheckins: () -> Void
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
+		viewModel.setupView()
 
-		view.backgroundColor = UIColor(white: 0.25, alpha: 0.75)
+		view.backgroundColor = .enaColor(for: .background)
+		checkInForLabel.text = AppStrings.Checkin.Details.checkinFor
+		activityLabel.text = AppStrings.Checkin.Details.activity
+		saveToDiaryLabel.text = AppStrings.Checkin.Details.saveToDiary
+		automaticCheckOutLabel.text = AppStrings.Checkin.Details.automaticCheckout
+		viewModel.$descriptionLabelTitle
+			.sink { [weak self] description in
+				self?.descriptionLabel.text = description
+			}
+			.store(in: &subscriptions)
 
-		let cardView = UIView(frame: .zero)
-		cardView.backgroundColor = .enaColor(for: .background)
-		cardView.translatesAutoresizingMaskIntoConstraints = false
-		cardView.layer.cornerRadius = 15.0
-		cardView.layer.masksToBounds = true
+		viewModel.$addressLabelTitle
+			.sink { [weak self] address in
+				self?.addressLabel.text = address
+			}
+			.store(in: &subscriptions)
+		
+		pickerView.backgroundColor = .clear
 
-		view.addSubview(cardView)
-
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.text = "Event name etc."
-
-		let continueButton = UIButton(type: .custom)
-		continueButton.translatesAutoresizingMaskIntoConstraints = false
-		continueButton.contentHorizontalAlignment = .leading
-		continueButton.contentEdgeInsets = UIEdgeInsets(top: 19, left: 24, bottom: 19, right: 24)
-		continueButton.setTitle("Weiter", for: .normal)
-		continueButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
-		let colorImage = UIImage.with(color: .enaColor(for: .buttonPrimary))
-		continueButton.setBackgroundImage(colorImage, for: .normal)
-		continueButton.layer.cornerRadius = 8.0
-		continueButton.layer.masksToBounds = true
-		continueButton.addTarget(self, action: #selector(continueButtonHit), for: .primaryActionTriggered)
-
-		let cancelButton = UIButton(type: .custom)
-		cancelButton.translatesAutoresizingMaskIntoConstraints = false
-		cancelButton.contentHorizontalAlignment = .leading
-		cancelButton.contentEdgeInsets = UIEdgeInsets(top: 19, left: 24, bottom: 19, right: 24)
-		cancelButton.setTitle("Abbrechen", for: .normal)
-		cancelButton.setTitleColor(.enaColor(for: .buttonPrimary), for: .normal)
-		let cancelColorImage = UIImage.with(color: .enaColor(for: .cellBackground))
-		cancelButton.setBackgroundImage(cancelColorImage, for: .normal)
-		cancelButton.layer.cornerRadius = 8.0
-		cancelButton.layer.masksToBounds = true
-		cancelButton.addTarget(self, action: #selector(cancelButtonHit), for: .primaryActionTriggered)
-
-		let stackView = UIStackView(
-			arrangedSubviews: [
-				label,
-				continueButton,
-				cancelButton
-			]
-		)
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.alignment = .fill
-		stackView.axis = .vertical
-		stackView.spacing = 14
-		cardView.addSubview(stackView)
-
-		NSLayoutConstraint.activate([
-			cardView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -64),
-			cardView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -200),
-			cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -24),
-
-			stackView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 14.0),
-			stackView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: 14.0),
-			stackView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor)
-		])
+		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
+		logoImageView.tintColor = .enaColor(for: .textContrast)
+		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
+		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
+		pickerView.selectRow(viewModel.pickerValues.firstComponentSelectedValue ?? 0, inComponent: 0, animated: false)
+		pickerView.selectRow(((viewModel.pickerValues.secondComponentSelectedValue ?? 0) / 15), inComponent: 2, animated: false)
+		updatePickerButtonTitle()
 	}
-
-	@objc
-	private func continueButtonHit() {
+	
+	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
+		view.layer.borderColor = color.cgColor
+		view.layer.borderWidth = 1
+	}
+	
+	private func updatePickerButtonTitle() {
+		let hours = viewModel.formattedValueFor(component: 0)
+		let minuets = viewModel.formattedValueFor(component: 2)
+		let title = "\(hours):\(minuets)" + " " + AppStrings.Checkin.Details.hoursShortVersion
+		
+		pickerButton.setTitle(title, for: .normal)
+	}
+	
+	@IBAction private func showPickerButton(_ sender: Any) {
+		pickerView.isHidden = !pickerView.isHidden
+	}
+	
+	@IBAction private func checkInPressed(_ sender: Any) {
 		presentCheckins()
 	}
-
-	@objc
-	private func cancelButtonHit() {
+	
+	@IBAction private func cancelButtonPressed(_ sender: Any) {
 		dismiss()
 	}
-
 }
