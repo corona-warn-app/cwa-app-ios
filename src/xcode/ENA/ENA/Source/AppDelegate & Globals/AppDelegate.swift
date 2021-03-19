@@ -79,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
+		// Check for any URLs passed into the app – most likely via scanning a QR code
 		var route: Route?
 		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
 			for key in activityDictionary.keys {

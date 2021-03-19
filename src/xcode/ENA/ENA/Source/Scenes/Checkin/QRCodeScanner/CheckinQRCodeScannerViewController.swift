@@ -157,6 +157,8 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	private func setupViewModel() {
 		guard let captureSession = viewModel.captureSession else {
 			Log.debug("Failed to setup captureSession", log: .checkin)
+			// Add dummy layer because the simulator doesn't support the camera
+			previewLayer = AVCaptureVideoPreviewLayer()
 			return
 		}
 		viewModel.startCaptureSession()
