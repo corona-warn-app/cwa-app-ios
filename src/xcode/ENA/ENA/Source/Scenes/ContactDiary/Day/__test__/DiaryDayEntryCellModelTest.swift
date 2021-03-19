@@ -539,7 +539,8 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 			entry: .location(
 				DiaryLocation(
 					id: id,
-					name: name
+					name: name,
+					traceLocationGUID: nil
 				)
 			),
 			dateString: todayString,
@@ -570,12 +571,14 @@ class DiaryDayEntryCellModelTest: XCTestCase {
 				DiaryLocation(
 					id: locationID,
 					name: name,
+					traceLocationGUID: nil,
 					visit: LocationVisit(
 						id: visitID,
 						date: todayString,
 						locationId: locationID,
 						durationInMinutes: durationInMinutes,
-						circumstances: circumstances
+						circumstances: circumstances,
+						checkinId: nil
 					)
 				)
 			),
