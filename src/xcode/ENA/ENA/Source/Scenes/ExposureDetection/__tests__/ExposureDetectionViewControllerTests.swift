@@ -37,7 +37,7 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 				homeState: homeState,
 				appConfigurationProvider: CachedAppConfigurationMock(),
 				onSurveyTap: { },
-				onInactiveButtonTap: { _ in }
+				onInactiveButtonTap: { }
 			),
 			store: store
 		)

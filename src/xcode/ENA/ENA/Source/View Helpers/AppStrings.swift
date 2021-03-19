@@ -44,6 +44,7 @@ enum AppStrings {
 
 	enum QuickActions {
 		static let contactDiaryNewEntry = NSLocalizedString("QuickAction_newContactDiaryEntry", comment: "")
+		static let eventCheckin = NSLocalizedString("QuickAction_eventCheckin", comment: "")
 	}
 
 	enum AccessibilityLabel {
@@ -924,6 +925,10 @@ enum AppStrings {
 		
 		static let feature115SwitzerlandDescription = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_description", comment: "")
 		
+		static let feature115DaysSinceInstallTitle = NSLocalizedString("NewVersionFeature_115_days_since_install_title", comment: "")
+		
+		static let feature115DaysSinceInstallDescription = NSLocalizedString("NewVersionFeature_115_days_since_install_description", comment: "")
+		
 		static let feature115ErrorAnalyticsLogTitle = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_title", comment: "")
 		
 		static let feature115ErrorAnalyticsLogDescription = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_description", comment: "")
@@ -1331,6 +1336,32 @@ enum AppStrings {
 		enum QRScanner {
 			static let title = NSLocalizedString("Checkin_QR_Scanner_Title", comment: "")
 			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
+			static let instruction = NSLocalizedString("Events_QR_Scanner_Instruction", comment: "")
+			enum Error {
+				static let title = NSLocalizedString("Checkin_QR_Scanner_Error_Title", comment: "")
+				static let description = NSLocalizedString("Checkin_QR_Scanner_Error_Description", comment: "")
+			}
+
+		}
+		
+		enum Information {
+			static let title = NSLocalizedString("Checkin_Information_Title", comment: "")
+			static let imageDescription = NSLocalizedString("Checkin_Information_ImageDescription", comment: "")
+			static let descriptionTitle = NSLocalizedString("Checkin_Information_DescriptionTitle", comment: "")
+			static let descriptionSubHeadline = NSLocalizedString("Checkin_Information_DescriptionSubHeadline", comment: "")
+			static let itemCheckinTitle = NSLocalizedString("Checkin_Information_Item_Checkin_Title", comment: "")
+			static let itemLocationTitle = NSLocalizedString("Checkin_Information_Item_Location_Title", comment: "")
+
+			static let legalHeadline_1 = NSLocalizedString("Checkin_Information_Legal_Headline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_1 = NSLocalizedString("Checkin_Information_Legal_SubHeadline_1", tableName: "Localizable.legal", comment: "")
+			static let legalSubHeadline_2 = NSLocalizedString("Checkin_Information_Legal_SubHeadline_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_1 = NSLocalizedString("Checkin_Information_Legal_Text_1", tableName: "Localizable.legal", comment: "")
+			static let legalText_2 = NSLocalizedString("Checkin_Information_Legal_Text_2", tableName: "Localizable.legal", comment: "")
+			static let legalText_3 = NSLocalizedString("Checkin_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
+			static let dataPrivacyTitle = NSLocalizedString("Checkin_Information_Dataprivacy_Title", comment: "")
+			static let primaryButtonTitle = NSLocalizedString("Checkin_Information_PrimaryButton_Title", comment: "")
+
+			
 		}
 
 	}
