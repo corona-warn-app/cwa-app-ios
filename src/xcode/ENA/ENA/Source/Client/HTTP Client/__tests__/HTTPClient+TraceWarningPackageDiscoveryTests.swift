@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientTraceWarningPackageDiscovery: XCTestCase {
+final class HTTPClientTraceWarningPackageDiscoveryTests: XCTestCase {
 
 	let expectationsTimeout: TimeInterval = 2
 
@@ -23,7 +23,7 @@ final class HTTPClientTraceWarningPackageDiscovery: XCTestCase {
 			responseData: encoded
 		)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-		let expectedResponse = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: Array(oldest...latest), eTag: "FakeETag")
+		let expectedResponse = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: "FakeETag")
 		
 		// WHEN
 		var response: TraceWarningDiscovery?

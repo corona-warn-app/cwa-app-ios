@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-final class HTTPClientTraceWarningPackageDownload: XCTestCase {
+final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 	
 	// MARK: - Tests
 	
