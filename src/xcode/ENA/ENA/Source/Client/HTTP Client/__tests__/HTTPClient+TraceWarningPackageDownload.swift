@@ -100,7 +100,7 @@ final class HTTPClientTraceWarningPackageDownload: XCTestCase {
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(response, .downloadError)
+		XCTAssertEqual(response, .generalError)
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_PackageIsInvalid_THEN_InvalidResponseErrorIsReturned() {
