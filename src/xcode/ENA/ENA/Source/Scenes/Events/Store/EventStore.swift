@@ -47,6 +47,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	let schema: StoreSchemaProtocol
 	let migrator: SerialMigratorProtocol
 	let logIdentifier = "EventStore"
+	let sqlSettings = """
+				PRAGMA locking_mode=EXCLUSIVE;
+				PRAGMA auto_vacuum=2;
+				PRAGMA journal_mode=WAL;
+			"""
 
 	// MARK: - Protocol EventStoring
 

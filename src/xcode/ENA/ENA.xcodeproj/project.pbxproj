@@ -492,7 +492,6 @@
 		8FB5A60B25DD647200679990 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		8FB5A61625DD65D500679990 /* ExposureSubmission+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
-		8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
 		940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */; };
 		94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94092540254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift */; };
 		9412FAFE252349EA0086E139 /* DeltaOnboardingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9412FAF92523499D0086E139 /* DeltaOnboardingViewControllerTests.swift */; };
@@ -576,6 +575,13 @@
 		AB190EC125FB761500FBFF0D /* SecureSQLStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EC025FB761500FBFF0D /* SecureSQLStore.swift */; };
 		AB190ECF25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */; };
 		AB190ED725FBC45D00FBFF0D /* FMDB+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190ED625FBC45D00FBFF0D /* FMDB+Utils.swift */; };
+		AB190EE425FF5B0D00FBFF0D /* ContactDiaryMigration3To4.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EE225FF5B0D00FBFF0D /* ContactDiaryMigration3To4.swift */; };
+		AB190EE525FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EE325FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift */; };
+		AB190EEC25FF6C3700FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EEA25FF6C3600FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift */; };
+		AB190EED25FF6C3700FBFF0D /* ContactDiaryMigration3To4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB190EEB25FF6C3600FBFF0D /* ContactDiaryMigration3To4Tests.swift */; };
+		AB190F1525FFAF3100FBFF0D /* ContactDiaryStoreSchemaV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */; };
+		AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */; };
+		AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */; };
 		AB1BA92D25C30406002EA97F /* SurveyConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */; };
 		AB1FCBD42521FC47005930BA /* ServerEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */; };
 		AB1FCBDC2521FCD5005930BA /* TestServerEnvironments.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */; };
@@ -601,7 +607,6 @@
 		AB68531E25F9235200380F5A /* FMDB+Access.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68531925F9234F00380F5A /* FMDB+Access.swift */; };
 		AB6887E025D672DC00907465 /* ContactDiaryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F27018E259B593700E48CFE /* ContactDiaryStore.swift */; };
 		AB6887EA25D6757700907465 /* ContactDiaryMigration2To3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E825D6757700907465 /* ContactDiaryMigration2To3.swift */; };
-		AB6887EB25D6757700907465 /* ContactDiaryStoreSchemaV3.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887E925D6757700907465 /* ContactDiaryStoreSchemaV3.swift */; };
 		AB6887FE25D6AAEF00907465 /* ContactDiaryStoreSchemaV3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6887F625D6AA3700907465 /* ContactDiaryStoreSchemaV3Tests.swift */; };
 		AB68880625D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68880525D6AC7300907465 /* ContactDiaryMigration2To3Tests.swift */; };
 		AB68881025DA6C0200907465 /* ContactDiaryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */; };
@@ -627,10 +632,10 @@
 		AB8B0D4525306089009C067B /* Localizable.links.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB8B0D3425305384009C067B /* Localizable.links.strings */; };
 		AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BC3462551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift */; };
 		AB8BC34F2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8BC34E2551BBE100F3B5A7 /* HourKeyPackagesDownloadTests.swift */; };
-		ABAE0A1C257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A1B257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift */; };
 		ABAE0A37257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAE0A36257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift */; };
 		ABD2F634254C533200DC1958 /* KeyPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */; };
 		ABDA2792251CE308006BAE84 /* DMServerEnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */; };
+		ABE63CF126010EFF0024F856 /* ContactDiaryStoreCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE63CF026010EFF0024F856 /* ContactDiaryStoreCreation.swift */; };
 		ABE9612C25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9612A25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift */; };
 		ABE9612D25EFEB4E00D0F699 /* DMInstallationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9612B25EFEB4E00D0F699 /* DMInstallationDateViewController.swift */; };
 		ABE9613425EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE9613225EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift */; };
@@ -1545,6 +1550,10 @@
 		AB190EC025FB761500FBFF0D /* SecureSQLStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureSQLStore.swift; sourceTree = "<group>"; };
 		AB190ECE25FBB01500FBFF0D /* UpdateTraceLocationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTraceLocationQuery.swift; sourceTree = "<group>"; };
 		AB190ED625FBC45D00FBFF0D /* FMDB+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FMDB+Utils.swift"; sourceTree = "<group>"; };
+		AB190EE225FF5B0D00FBFF0D /* ContactDiaryMigration3To4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration3To4.swift; sourceTree = "<group>"; };
+		AB190EE325FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV4.swift; sourceTree = "<group>"; };
+		AB190EEA25FF6C3600FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV4Tests.swift; sourceTree = "<group>"; };
+		AB190EEB25FF6C3600FBFF0D /* ContactDiaryMigration3To4Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryMigration3To4Tests.swift; sourceTree = "<group>"; };
 		AB1BA92C25C30406002EA97F /* SurveyConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyConsentViewController.swift; sourceTree = "<group>"; };
 		AB1FCBCC2521FC44005930BA /* ServerEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerEnvironmentTests.swift; sourceTree = "<group>"; };
 		AB1FCBDB2521FCD5005930BA /* TestServerEnvironments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestServerEnvironments.json; sourceTree = "<group>"; };
@@ -1603,6 +1612,7 @@
 		ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreTests.swift; sourceTree = "<group>"; };
 		ABD2F633254C533200DC1958 /* KeyPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackageDownload.swift; sourceTree = "<group>"; };
 		ABDA2791251CE308006BAE84 /* DMServerEnvironmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServerEnvironmentViewController.swift; sourceTree = "<group>"; };
+		ABE63CF026010EFF0024F856 /* ContactDiaryStoreCreation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreCreation.swift; sourceTree = "<group>"; };
 		ABE9612A25EFEB4E00D0F699 /* DMInstallationDateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMInstallationDateViewModel.swift; sourceTree = "<group>"; };
 		ABE9612B25EFEB4E00D0F699 /* DMInstallationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMInstallationDateViewController.swift; sourceTree = "<group>"; };
 		ABE9613225EFEB5C00D0F699 /* DMDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMDatePickerTableViewCell.swift; sourceTree = "<group>"; };
@@ -3903,6 +3913,24 @@
 			path = TraceWarningPackageMetadata;
 			sourceTree = "<group>";
 		};
+		AB190EE125FF5AC500FBFF0D /* StoreV4 */ = {
+			isa = PBXGroup;
+			children = (
+				AB190EE225FF5B0D00FBFF0D /* ContactDiaryMigration3To4.swift */,
+				AB190EE325FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift */,
+			);
+			path = StoreV4;
+			sourceTree = "<group>";
+		};
+		AB190EE925FF5BD200FBFF0D /* StoreV4 */ = {
+			isa = PBXGroup;
+			children = (
+				AB190EEA25FF6C3600FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift */,
+				AB190EEB25FF6C3600FBFF0D /* ContactDiaryMigration3To4Tests.swift */,
+			);
+			path = StoreV4;
+			sourceTree = "<group>";
+		};
 		AB1BA92B25C303EF002EA97F /* Survey */ = {
 			isa = PBXGroup;
 			children = (
@@ -4138,10 +4166,12 @@
 			children = (
 				ABAE0A35257FA85B0030ED47 /* __tests__ */,
 				8F27018E259B593700E48CFE /* ContactDiaryStore.swift */,
+				ABE63CF026010EFF0024F856 /* ContactDiaryStoreCreation.swift */,
 				019C9EFF25894BAA00B26392 /* DiaryStoringProviding.swift */,
 				8F2EDD3025A4B9BB006F6520 /* StoreV1 */,
 				8F27018D259B58D700E48CFE /* StoreV2 */,
 				AB6887E725D6754C00907465 /* StoreV3 */,
+				AB190EE125FF5AC500FBFF0D /* StoreV4 */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -4152,6 +4182,7 @@
 				AB68882825DA767F00907465 /* StoreV1 */,
 				AB68881425DA6EFE00907465 /* StoreV2 */,
 				AB6887F525D6AA2200907465 /* StoreV3 */,
+				AB190EE925FF5BD200FBFF0D /* StoreV4 */,
 				ABAE0A3E257FAC970030ED47 /* ContactDiaryStoreTests.swift */,
 				019C9F0725894BE900B26392 /* MockDiaryStore.swift */,
 				BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */,
@@ -5769,7 +5800,6 @@
 				71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */,
 				BA6C8B05254D6B1F008344F5 /* RiskCalculation.swift in Sources */,
 				BA6D1640255ADD0500ED3492 /* DMSwitchCellViewModel.swift in Sources */,
-				ABAE0A1C257F77D90030ED47 /* ContactDiaryStoreSchemaV1.swift in Sources */,
 				EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */,
 				0138F54A25ECD44300A9B075 /* ppdd_ppac_parameters.pb.swift in Sources */,
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
@@ -5778,7 +5808,6 @@
 				BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */,
 				50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */,
 				EB91288B257FBD1E00241D3E /* DiaryInfoViewController.swift in Sources */,
-				AB6887EB25D6757700907465 /* ContactDiaryStoreSchemaV3.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
 				504E8B2C25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift in Sources */,
@@ -5802,7 +5831,9 @@
 				BA00740025D1A1810036DFDD /* District.swift in Sources */,
 				01C6AC26252B23D70052814D /* QRScannerFocusView.swift in Sources */,
 				01B7232424F812500064C0EB /* DynamicTableViewOptionGroupCell.swift in Sources */,
+				AB190EE525FF5B0D00FBFF0D /* ContactDiaryStoreSchemaV4.swift in Sources */,
 				ABF574DF25C308DF0098E315 /* SurveyConsentViewModel.swift in Sources */,
+				ABE63CF126010EFF0024F856 /* ContactDiaryStoreCreation.swift in Sources */,
 				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				AB190EA325FB690800FBFF0D /* UpdateCheckinQuery.swift in Sources */,
 				BAA4D73025E95B3A00821B5C /* CheckinCoordinator.swift in Sources */,
@@ -5900,7 +5931,6 @@
 				AB7DE73925C8528700C52B3F /* ExposureDetectionSurveyCellModel.swift in Sources */,
 				016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */,
 				0138F54925ECD44300A9B075 /* ppdd_edus_parameters.pb.swift in Sources */,
-				8FF9B2B2259B6B030080770D /* ContactDiaryStoreSchemaV2.swift in Sources */,
 				BA06D5A825DBE0910039D1DB /* TextFieldManager.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				EB2394A024E5492900E71225 /* BackgroundAppRefreshViewModel.swift in Sources */,
@@ -6155,6 +6185,7 @@
 				BA06D5B325DC11C60039D1DB /* DiaryAddAndEditEntryModel.swift in Sources */,
 				8F070CE925E58B9400D29344 /* HtmlInfoModel.swift in Sources */,
 				EB7D205424E6A3320089264C /* InfoBoxView.swift in Sources */,
+				AB190F1C25FFAF3400FBFF0D /* ContactDiaryStoreSchemaV2.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */,
 				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
 				710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */,
@@ -6236,6 +6267,7 @@
 				50C02FAC25D162F500469BF4 /* PPAnalyticsSubmitter.swift in Sources */,
 				019C9F39258951BD00B26392 /* DiaryEntryType.swift in Sources */,
 				01F2A543257FB90200DA96A6 /* CloseBarButtonItem.swift in Sources */,
+				AB190F1525FFAF3100FBFF0D /* ContactDiaryStoreSchemaV3.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
@@ -6290,8 +6322,10 @@
 				945CD05225DE5961007ADB4F /* DiaryDayNotesInfoViewModel.swift in Sources */,
 				BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */,
 				EB08F1792541CE3300D11FA9 /* attenuation_duration.pb.swift in Sources */,
+				AB190EE425FF5B0D00FBFF0D /* ContactDiaryMigration3To4.swift in Sources */,
 				BA38183425CB104900C1DB6C /* ConfigureableCell.swift in Sources */,
 				0138F6F925F66E8D00A9B075 /* TraceLocationPrintVersionViewController.swift in Sources */,
+				AB190F2A25FFAF3C00FBFF0D /* ContactDiaryStoreSchemaV1.swift in Sources */,
 				BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				94F594622521CBF50077681B /* DeltaOnboardingV15ViewModel.swift in Sources */,
@@ -6467,6 +6501,7 @@
 				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
 				AB5F84B424F8FA26000400D4 /* SerialMigratorTests.swift in Sources */,
 				ABAE0A37257FA88D0030ED47 /* ContactDiaryStoreSchemaV1Tests.swift in Sources */,
+				AB190EED25FF6C3700FBFF0D /* ContactDiaryMigration3To4Tests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */,
 				941F5ED02518E82800785F06 /* ENSettingEuTracingViewModelTests.swift in Sources */,
@@ -6507,6 +6542,7 @@
 				BAB6C80A25C4640500E042FB /* TimestampedTokenTests.swift in Sources */,
 				AB8BC3472551B97700F3B5A7 /* DownloadedPackagesStoreErrorStub.swift in Sources */,
 				50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */,
+				AB190EEC25FF6C3700FBFF0D /* ContactDiaryStoreSchemaV4Tests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				50C029A425E4068700460FA4 /* ExposureWindowsMetadataTests.swift in Sources */,
 				BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */,
