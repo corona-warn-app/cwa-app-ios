@@ -363,9 +363,8 @@ final class HTTPClient: Client {
 							return
 						}
 						
-						let availablePackagesOnCDN = Array(oldest...latest)
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, availablePackagesOnCDN: availablePackagesOnCDN, eTag: eTag)
+						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
 						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))
 					} catch {
