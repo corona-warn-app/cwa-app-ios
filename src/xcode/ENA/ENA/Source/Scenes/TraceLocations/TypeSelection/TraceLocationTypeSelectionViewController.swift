@@ -51,8 +51,13 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 		return cell
 	}
 
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return viewModel.sectionTitle(for: section)
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectTraceLocationTypeHeaderView.reuseIdentifier) as? SelectTraceLocationTypeHeaderView else {
+			Log.debug("Failed to dequeue SelectTraceLocationTypeHeaderView")
+			return nil
+		}
+		headerView.configure(viewModel.sectionTitle(for: section))
+		return headerView
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -69,8 +74,13 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableView.automaticDimension
+
+		tableView.estimatedSectionHeaderHeight = 33.0 // foter = 25.0
+		tableView.sectionHeaderHeight = UITableView.automaticDimension
+
 		tableView.separatorInset = UIEdgeInsets(top: 0, left: 23, bottom: 0, right: 17)
 
+		tableView.register(SelectTraceLocationTypeHeaderView.self, forHeaderFooterViewReuseIdentifier: SelectTraceLocationTypeHeaderView.reuseIdentifier)
 		tableView.register(SelectTraceLocationTypeCell.self, forCellReuseIdentifier: SelectTraceLocationTypeCell.reuseIdentifier)
 	}
 

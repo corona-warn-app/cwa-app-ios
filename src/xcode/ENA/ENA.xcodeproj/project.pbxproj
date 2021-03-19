@@ -802,6 +802,7 @@
 		BAA4D73625E9613200821B5C /* CheckinQRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D73525E9613200821B5C /* CheckinQRCodeScannerViewController.swift */; };
 		BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */; };
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
+		BAAD98092605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */; };
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
 		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
 		BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */; };
@@ -1774,6 +1775,7 @@
 		BAA4D73525E9613200821B5C /* CheckinQRCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextCellViewModel.swift; sourceTree = "<group>"; };
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
+		BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift"; sourceTree = "<group>"; };
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
 		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
 		BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedToken.swift; sourceTree = "<group>"; };
@@ -2115,6 +2117,7 @@
 		0138F6D225F6177500A9B075 /* TypeSelection */ = {
 			isa = PBXGroup;
 			children = (
+				BAAD98072605075700D95DDD /* Header */,
 				BAF5B3CB2604E1AD00DF8149 /* Cells */,
 				0138F6D325F6179000A9B075 /* TraceLocationTypeSelectionViewController.swift */,
 				0138F6D425F617C700A9B075 /* TraceLocationTypeSelectionViewModel.swift */,
@@ -5051,6 +5054,14 @@
 			path = CellsAndViewModels;
 			sourceTree = "<group>";
 		};
+		BAAD98072605075700D95DDD /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		BAB1239A25729FEA00A179FB /* TANInputViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -5978,6 +5989,7 @@
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				BAA4D73625E9613200821B5C /* CheckinQRCodeScannerViewController.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
+				BAAD98092605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift in Sources */,
 				ABE961EE25F61E0F00D0F699 /* EventStore+Creation.swift in Sources */,
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
