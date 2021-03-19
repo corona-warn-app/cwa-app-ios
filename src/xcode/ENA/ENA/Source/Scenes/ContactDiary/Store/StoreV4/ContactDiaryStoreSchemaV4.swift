@@ -5,7 +5,7 @@
 import FMDB
 import CWASQLite
 
-class ContactDiaryStoreSchemaV3: StoreSchemaProtocol {
+class ContactDiaryStoreSchemaV4: StoreSchemaProtocol {
 
 	// MARK: - Init
 
@@ -32,7 +32,8 @@ class ContactDiaryStoreSchemaV3: StoreSchemaProtocol {
 					id INTEGER PRIMARY KEY,
 					name TEXT NOT NULL CHECK (LENGTH(name) <= \(maxTextLength)),
 					phoneNumber TEXT CHECK (LENGTH(phoneNumber) <= \(maxTextLength)),
-					emailAddress TEXT CHECK (LENGTH(emailAddress) <= \(maxTextLength))
+					emailAddress TEXT CHECK (LENGTH(emailAddress) <= \(maxTextLength)),
+					traceLocationGUID TEXT
 				);
 
 				CREATE TABLE IF NOT EXISTS ContactPersonEncounter (
@@ -52,6 +53,7 @@ class ContactDiaryStoreSchemaV3: StoreSchemaProtocol {
 					durationInMinutes INTEGER,
 					circumstances TEXT CHECK (LENGTH(circumstances) <= \(maxTextLength)),
 					locationId INTEGER NOT NULL,
+					checkinId INTEGER,
 					FOREIGN KEY(locationId) REFERENCES Location(id) ON DELETE CASCADE
 				);
 			"""
@@ -63,7 +65,7 @@ class ContactDiaryStoreSchemaV3: StoreSchemaProtocol {
 				return
 			}
 
-			database.userVersion = 3
+			database.userVersion = 4
 			result = .success(())
 		}
 
