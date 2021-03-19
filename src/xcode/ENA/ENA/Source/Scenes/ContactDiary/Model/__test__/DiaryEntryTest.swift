@@ -48,7 +48,8 @@ class DiaryEntryTest: XCTestCase {
 				id: 0,
 				name: "Mars",
 				phoneNumber: "999-999999999",
-				emailAddress: "mars@universe.com"
+				emailAddress: "mars@universe.com",
+				traceLocationGUID: "traceLocationGUID"
 			)
 		)
 
@@ -64,12 +65,14 @@ class DiaryEntryTest: XCTestCase {
 				name: "Earth",
 				phoneNumber: "(11111) 11 1111111",
 				emailAddress: "earth@universe.com",
+				traceLocationGUID: "traceLocationGUID",
 				visit: LocationVisit(
 					id: 17,
 					date: "2021-02-11",
 					locationId: 0,
 					durationInMinutes: 90,
-					circumstances: "Astronaut Training"
+					circumstances: "Astronaut Training",
+					checkinId: 42
 				)
 			)
 		)
