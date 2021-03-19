@@ -23,7 +23,7 @@ class FooterViewModelTests: XCTestCase {
 		XCTAssertFalse(viewModel.isSecondaryButtonHidden)
 		XCTAssertNil(viewModel.primaryButtonColor)
 		XCTAssertNil(viewModel.secondaryButtonColor)
-		XCTAssertEqual(viewModel.height, 0.0)
+		XCTAssertEqual(viewModel.height, 140.0)
 	}
 
 	func testGIVEN_FooterViewModel_WHEN_UnhidePrimaryButton_THEN_HightChanged() {
