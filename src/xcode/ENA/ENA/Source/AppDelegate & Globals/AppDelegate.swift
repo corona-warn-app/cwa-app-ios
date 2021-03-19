@@ -188,7 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store
 		)
 		
-		let traceWarningDownload = TraceWarningDownload(
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
 			eventStore: eventStore,
@@ -203,7 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureManagerState: exposureManager.exposureManagerState,
 			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
 			keyPackageDownload: keyPackageDownload,
-			traceWarningDownload: traceWarningDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#else
@@ -213,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			keyPackageDownload: keyPackageDownload,
-			traceWarningDownload: traceWarningDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#endif

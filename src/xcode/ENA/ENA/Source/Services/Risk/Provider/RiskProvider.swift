@@ -19,7 +19,7 @@ final class RiskProvider: RiskProviding {
 		targetQueue: DispatchQueue = .main,
 		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
 		keyPackageDownload: KeyPackageDownloadProtocol,
-		tracePackageDownload: TraceWarningPackageDownloading,
+		traceWarningPackageDownload: TraceWarningPackageDownloading,
 		exposureDetectionExecutor: ExposureDetectionDelegate
 	) {
 		self.riskProvidingConfiguration = configuration
@@ -29,7 +29,7 @@ final class RiskProvider: RiskProviding {
 		self.targetQueue = targetQueue
 		self.riskCalculation = riskCalculation
 		self.keyPackageDownload = keyPackageDownload
-		self.tracePackageDownload = tracePackageDownload
+		self.traceWarningPackageDownload = traceWarningPackageDownload
 		self.exposureDetectionExecutor = exposureDetectionExecutor
 
 		self.registerForPackageDownloadStatusUpdate()
@@ -118,7 +118,7 @@ final class RiskProvider: RiskProviding {
 	private let targetQueue: DispatchQueue
 	private let riskCalculation: RiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
-	private let tracePackageDownload: TraceWarningPackageDownloading
+	private let traceWarningPackageDownload: TraceWarningPackageDownloading
 	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")

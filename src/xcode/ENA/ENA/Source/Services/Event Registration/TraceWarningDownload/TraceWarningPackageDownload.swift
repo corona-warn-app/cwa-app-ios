@@ -18,7 +18,7 @@ enum TraceWarningDownloadStatus {
 	case downloading
 }
 
-class TraceWarningDownload: TraceWarningPackageDownloading {
+class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	// MARK: - Init
 	
