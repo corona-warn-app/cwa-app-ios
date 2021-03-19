@@ -8,16 +8,7 @@ import OpenCombine
 protocol TraceWarningPackageDownloading {
 	var statusDidChange: ((TraceWarningDownloadStatus) -> Void)? { get set }
 	
-	func startTraceWarningPackageDownload(completion: @escaping (Result<Void, TraceWarningDownloadError>) -> Void)
-}
-
-enum TraceWarningDownloadError: Error {
-	case uncompletePackages
-	case noDiskSpace
-	case unableToWriteTraceWarnings
-	case downloadIsRunning
-	case errorAtDiscovery(TraceWarningError)
-	case errorAtDownload(TraceWarningError)
+	func startTraceWarningPackageDownload(completion: @escaping (Result<Void, TraceWarningError>) -> Void)
 }
 
 enum TraceWarningDownloadStatus {
@@ -42,6 +33,9 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 		self.eventStore = eventStore
 		self.appConfigurationProvider = appConfigurationProvider
 		self.countries = countries
+		
+		self.matcher = TraceWarningMatcher(eventStore: eventStore)
+		self.packageVerifier = SAPDownloadedPackage.Verifier()
 	}
 	
 	// MARK: - Overrides
@@ -51,7 +45,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 	var statusDidChange: ((TraceWarningDownloadStatus) -> Void)?
 	
 	func startTraceWarningPackageDownload(
-		completion: @escaping (Result<Void, TraceWarningDownloadError>) -> Void
+		completion: @escaping (Result<Void, TraceWarningError>) -> Void
 	) {
 		Log.info("TraceWarningPackageDownload: Start was triggered.", log: .checkin)
 		
@@ -66,9 +60,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 		guard !eventStore.checkinsPublisher.value.isEmpty else {
 			// If the database is empty, remove all traceWarningPackageMetadatas
 			let packagesToDelete = eventStore.traceWarningPackageMetadatasPublisher.value
-			packagesToDelete.forEach { traceWarningPackage in
-				eventStore.deleteTraceWarningPackageMetadata(id: traceWarningPackage.id)
-			}
+			removePackagesFromTraceWarningMetadataPackagesTable(packagesToDelete)
 			Log.info("TraceWarningPackageDownload: Aborted due to checkin database is empty.", log: .checkin)
 			completion(.success(()))
 			return
@@ -102,6 +94,8 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]
 	private let appConfigurationProvider: AppConfigurationProviding
+	private let matcher: TraceWarningMatching
+	private let packageVerifier: SAPDownloadedPackage.Verifier
 	
 	private var subscriptions: Set<AnyCancellable> = []
 	private var status: TraceWarningDownloadStatus = .idle {
@@ -112,13 +106,13 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 	
 	private func checkForDownloadTraceWarningPackages(
 		countries: [Country.ID],
-		completion: @escaping (Result<Void, TraceWarningDownloadError>) -> Void
+		completion: @escaping (Result<Void, TraceWarningError>) -> Void
 	) {
 		let countriesDG = DispatchGroup()
-		var errors = [TraceWarningDownloadError]()
+		var errors = [TraceWarningError]()
 		
 		// Download packages for each country
-		countries.forEach { [weak self] country in
+		countries.forEach { country in
 			Log.info("TraceWarningPackageDownload: Start processsing package download for country: \(country).", log: .checkin)
 			
 			// Check if we did not discover in the same hour before.
@@ -126,7 +120,7 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 				countriesDG.enter()
 				
 				// Go now for the real download
-				self?.downloadTraceWarningPackages(for: country, completion: { result in
+				downloadTraceWarningPackages(for: country, completion: { result in
 					switch result {
 					case .success:
 						Log.info("TraceWarningPackageDownload: Succeded downloading packages for country id: \(country).", log: .checkin)
@@ -134,77 +128,215 @@ class TraceWarningDownload: TraceWarningPackageDownloading {
 						Log.info("TraceWarningPackageDownload: Failed downloading packages for country id: \(country).", log: .checkin)
 						errors.append(error)
 					}
-
+					
 					countriesDG.leave()
 				})
 			}
 		}
 		
-		countriesDG.notify(queue: .main) {
+		countriesDG.notify(queue: .main) { [weak self] in
+			self?.store.lastTraceWarningPackageDownloadDate = Date()
 			if let error = errors.first {
 				Log.error("TraceWarningPackageDownload: Failed downloading packages with errors: \(errors).", log: .checkin)
-				self.store.wasRecentTraceWarningDownloadSuccessful = false
+				self?.store.wasRecentTraceWarningDownloadSuccessful = false
 				completion(.failure(error))
 			} else {
 				Log.info("TraceWarningPackageDownload: Completed downloading packages to cache.", log: .checkin)
-				self.store.wasRecentTraceWarningDownloadSuccessful = true
+				self?.store.wasRecentTraceWarningDownloadSuccessful = true
 				completion(.success(()))
 			}
 		}
+	}
 		
-	}
-	
-	private func shouldStartPackageDownload(
-		for country: Country.ID
-	) -> Bool {
-		// Did we check that already this hour?
-		let returnValue = true
-		Log.debug("TraceWarningPackageDownload: ShouldStartPackageDownload: \(returnValue)", log: .checkin)
-		return returnValue
-	}
-	
 	private func downloadTraceWarningPackages(
 		for country: Country.ID,
-		completion: @escaping (Result<Void, TraceWarningDownloadError>) -> Void
+		completion: @escaping (Result<Void, TraceWarningError>) -> Void
 	) {
 		// 2. Update the app config.
 		appConfigurationProvider.appConfiguration().sink { [weak self] config in
 			
 			// 3. Clean up Revoked Packages.
-			let packages = config.keyDownloadParameters.revokedTraceWarningPackages
+			let revokedPackages = config.keyDownloadParameters.revokedTraceWarningPackages
+			self?.removeRevokedTraceWarningMetadataPackages(revokedPackages)
 			
-			packages.forEach { traceWarningPackage in
-				let eTag = traceWarningPackage.etag
-				let matchingPackages = self?.eventStore.traceWarningPackageMetadatasPublisher.value.filter {
-					return $0.eTag == eTag
-				}
-				matchingPackages?.forEach { traceWarningPackages in
-					self?.eventStore.deleteTraceWarningPackageMetadata(id: traceWarningPackages.id)
-				}
-			}
 			
 			// 4. Determine availablePackagesOnCDN (http discovery)
-			self?.client.traceWarningPackageDiscovery(country: country, completion: { result in
+			self?.client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
 				
 				switch result {
 				case let .success(traceWarningDiscovery):
-					Log.info("TraceWarningPackageDownload: Discover trace warning packages successfull.")
+					self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
 					
-					// Check if they are empty. If so, nothing more todo.
-					guard !traceWarningDiscovery.availablePackagesOnCDN.isEmpty else {
-						Log.info("TraceWarningPackageDownload: Discovered trace warning packages are empty.")
-						completion(.success(()))
-						return
-					}
-				
 				case let .failure(error):
 					Log.error("TraceWarningPackageDownload: Error at discovery trace warning packages.", log: .checkin, error: error)
-					completion(.failure(.errorAtDiscovery(error)))
+					completion(.failure(error))
 				}
 			})
 		}.store(in: &subscriptions)
-
-		
 	}
+	
+	private func processDiscoverdPackages(
+		_ discoveredTraceWarnings: TraceWarningDiscovery,
+		country: Country.ID,
+		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+	) {
+		
+		Log.info("TraceWarningPackageDownload: Discover trace warning packages successfully.")
+				
+		let availablePackagesOnCDN = discoveredTraceWarnings.availablePackagesOnCDN
+		
+		// Check if they are empty. If so, nothing more todo.
+		guard !availablePackagesOnCDN.isEmpty else {
+			Log.info("TraceWarningPackageDownload: Discovered trace warning packages are empty.")
+			completion(.success(()))
+			return
+		}
+		Log.info("TraceWarningPackageDownload: AvailablePackagesOnCDN are not empty. Proceed with determination of packages to download...")
+		
+		// 5. Determine earliestRelevantPackage.
+		// Take the database entry with the oldest checkinStartDate and convert it to unix timestamp in hours.
+		guard let earliestRelevantPackage = eventStore.checkinsPublisher.value.min(by: { $0.checkinStartDate > $1.checkinStartDate })?.checkinStartDate.unixTimestampInHours else {
+			Log.error("TraceWarningPackageDownload: Could not determine earliestRelevantPackage. Abort Download.", log: .checkin)
+			completion(.failure(.noEarliestRelevantPackage))
+			return
+		}
+
+		// 6. Clean up the trace warning package metadatas.
+		cleanUpOutdatedMetadata(from: discoveredTraceWarnings.oldest, to: earliestRelevantPackage)
+				
+		// 7. Determine packagesToDownload
+		let packagesToDownload = determinePackagesToDownload(availables: availablePackagesOnCDN, to: earliestRelevantPackage)
+
+		Log.info("TraceWarningPackageDownload: Determined packages to download: \(packagesToDownload). Proceed with downloading the single packages...")
+		self.downloadDeterminedPackages(packageIds: packagesToDownload, country: country, completion: completion)
+	}
+	
+	private func downloadDeterminedPackages(
+		packageIds: Set<Int>,
+		country: Country.ID,
+		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+	) {
+		
+		// 8. download now for each packageId the package itself. There can be also empty packages, indicated by a property in the downloaded package.
+		packageIds.forEach { packageId in
+			
+			Log.info("TraceWarningPackageDownload: Try to download single package with id: \(packageId) ...")
+			client.traceWarningPackageDownload(country: country, packageId: packageId, completion: { [weak self] result in
+				
+				guard let self = self else {
+					Log.error("TraceWarningPackageDownload: Could not create strong self. Abord verification and matching for packageId: \(packageId)", log: .checkin)
+					completion(.failure(.generalError))
+					return
+				}
+				
+				switch result {
+				case let .success(packageDownloadResponse):
+					Log.info("TraceWarningPackageDownload: Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
+					
+					// 9. Verfify signature for every not-empty package.
+					if let isEmpty = packageDownloadResponse.isEmpty,
+					   !isEmpty {
+						let sapDownloadedPackage = packageDownloadResponse.package
+						
+						guard let eTag = packageDownloadResponse.etag else {
+							Log.error("TraceWarningPackageDownload: ETag of packageId: \(packageId) missing. Discard package.")
+							completion(.failure(.verificationError))
+							return
+						}
+						
+						guard self.packageVerifier(sapDownloadedPackage) else {
+							Log.warning("TraceWarningPackageDownload: Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
+							completion(.failure(.verificationError))
+							return
+						}
+						
+						Log.info("TraceWarningPackageDownload: Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
+						
+						// 10.+ 11. Match the verified package and store them.
+						self.matcher.matchAndStore(package: sapDownloadedPackage)
+						
+						Log.info("TraceWarningPackageDownload: Matching of packageId: \(packageId) done. Proceed with storing the package.")
+						
+						// 12. Store downloaded and verified
+						let traceWarningPackageMetadata = TraceWarningPackageMetadata(
+							id: packageId,
+							region: country,
+							eTag: eTag
+						)
+						self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
+						
+						Log.info("TraceWarningPackageDownload: Storing of packageId: \(packageId) done. Download successfull completed.")
+						completion(.success(()))
+					} else {
+						Log.info("TraceWarningPackageDownload: PackageId: \(packageId) is empty and was discarded.")
+						completion(.success(()))
+					}
+					
+				case let .failure(error):
+					Log.error("TraceWarningPackageDownload: Error at download single package with id: \(packageId).", log: .checkin, error: error)
+					completion(.failure(error))
+				}
+			})
+		}
+	}
+	
+	// MARK: - Private helpers
+	
+	private func shouldStartPackageDownload(
+		for country: Country.ID
+	) -> Bool {
+		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date())?.unixTimestampInHours else {
+			Log.error("TraceWarningPackageDownload: Could not create last hour date.", log: .checkin)
+			fatalError("TraceWarningPackageDownload: Could not create last hour date.")
+		}
+		
+		let lastHourInDatabase = eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == lastHourDate })
+		let shouldStart = !lastHourInDatabase || !store.wasRecentTraceWarningDownloadSuccessful
+		Log.info("TraceWarningPackageDownload: ShouldStartPackageDownload: \(shouldStart)", log: .checkin)
+		return shouldStart
+	}
+	
+	private func removeRevokedTraceWarningMetadataPackages(
+		_ revokedPackages: [SAP_Internal_V2_TraceWarningPackageMetadata]
+	) {
+		let packagesToRemove = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ databasePackage in
+			revokedPackages.contains(where: { appConfigPackage in
+				databasePackage.eTag == appConfigPackage.etag
+			})
+		})
+		
+		removePackagesFromTraceWarningMetadataPackagesTable(packagesToRemove)
+	}
+	
+	private func cleanUpOutdatedMetadata(
+		from oldestPackage: Int,
+		to earliestRelevantPackage: Int
+	) {
+		// Take the max of the oldest and earliestRelevantPackage and remove all metadatas that are older that this max.
+		let maxId = max(oldestPackage, earliestRelevantPackage)
+		let packagesToDelete = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ return $0.id < maxId })
+		Log.info("TraceWarningPackageDownload: Clean up packages: \(packagesToDelete).")
+		removePackagesFromTraceWarningMetadataPackagesTable(packagesToDelete)
+	}
+	
+	private func determinePackagesToDownload(
+		availables availablePackagesOnCDN: [Int],
+		to earliestRelevantPackage: Int
+	) -> Set<Int> {
+		// Get all packages that are earlier then the earliestRelevantPackage
+		let earlierPackages = Set(availablePackagesOnCDN.filter { return $0 >= earliestRelevantPackage })
+		// Now filter out all entries that are not in our metadata database
+		let metadataIds = Set(eventStore.traceWarningPackageMetadatasPublisher.value.map { $0.id })
+		return earlierPackages.subtracting(metadataIds)
+	}
+	
+	private func removePackagesFromTraceWarningMetadataPackagesTable(
+		_ packages: [TraceWarningPackageMetadata]
+	) {
+		packages.forEach { package in
+			eventStore.deleteTraceWarningPackageMetadata(id: package.id)
+		}
+	}
+	
 	
 }
