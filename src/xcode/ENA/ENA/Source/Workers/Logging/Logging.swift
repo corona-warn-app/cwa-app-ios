@@ -33,7 +33,8 @@ extension OSLog {
 	static let checkin = OSLog(subsystem: subsystem, category: "checkin")
 	/// Event / Location Organizer
 	static let traceLocation = OSLog(subsystem: subsystem, category: "traceLocation")
-
+	/// QR Code
+	static let qrCode = OSLog(subsystem: subsystem, category: "qrCode")
 }
 
 /// Logging
