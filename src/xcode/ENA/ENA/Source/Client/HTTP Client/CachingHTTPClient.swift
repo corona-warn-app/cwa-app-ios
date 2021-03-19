@@ -4,7 +4,7 @@
 
 import Foundation
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePosterTemplateFetching {
 
 	private let serverEnvironmentProvider: ServerEnvironmentProviding
 
@@ -106,6 +106,40 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 		}
 	}
 
+	// MARK: Event Registration - QR Code Poster Template
+	
+	/// Fetches the QR Code Poster Template Protobuf
+	/// - Parameters:
+	/// - etag: an optional ETag to download only versions that differ the given tag
+	/// - completion: The completion handler of the get call, which contains the prootbuf response
+	func fetchQRCodePosterTemplateData(
+		etag: String?,
+		completion: @escaping QRCodePosterTemplateCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.qrCodePosterTemplateURL, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let qrCodePosterTemplateData = try SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let qrCodePosterResponse = QRCodePosterTemplateResponse(qrCodePosterTemplateData, responseETag)
+					completion(.success(qrCodePosterResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+	
 	// MARK: - Helpers
 
 	private func verifyPackage(in response: URLSession.Response) throws -> SAPDownloadedPackage {
@@ -125,7 +159,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 
 		// data verified?
 		guard self.packageVerifier(package) else {
-			let error = CacheError.dataVerificationError(message: "Failed to verify signature")
+			let error = CacheError.dataVerificationError(message: "Failed to verify signature.")
 			throw error
 		}
 
