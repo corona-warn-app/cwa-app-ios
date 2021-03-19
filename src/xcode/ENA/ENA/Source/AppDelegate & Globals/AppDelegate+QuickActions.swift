@@ -6,10 +6,13 @@ import UIKit
 
 // MARK: - Quick Actions
 
-extension AppDelegate {
-
+private enum Shortcut: String {
 	/// General identifier for the 'add diary entry' shortcut action
-	private static let shortcutIdDiaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
+	case diaryNewEntry = "de.rki.coronawarnapp.shortcut.diarynewentry"
+	case eventCheckin = "de.rki.coronawarnapp.shortcut.eventcheckin"
+}
+
+extension AppDelegate {
 
 	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
 		handleShortcutItem(shortcutItem)
@@ -75,7 +78,8 @@ extension AppDelegate {
 		}
 
 		application.shortcutItems = [
-			UIApplicationShortcutItem(type: AppDelegate.shortcutIdDiaryNewEntry, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed"))
+			UIApplicationShortcutItem(type: Shortcut.diaryNewEntry.rawValue, localizedTitle: AppStrings.QuickActions.contactDiaryNewEntry, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "book.closed")),
+			UIApplicationShortcutItem(type: Shortcut.eventCheckin.rawValue, localizedTitle: AppStrings.QuickActions.eventCheckin, localizedSubtitle: nil, icon: UIApplicationShortcutIcon(templateImageName: "qrcode.viewfinder"))
 		]
 	}
 
@@ -88,16 +92,24 @@ extension AppDelegate {
 	/// - Parameter shortcutItem: the item to launch
 	func handleShortcutItem(_ shortcutItem: UIApplicationShortcutItem) {
 		Log.debug("Did open app via shortcut \(shortcutItem.type)", log: .ui)
-		if shortcutItem.type == AppDelegate.shortcutIdDiaryNewEntry {
+		switch shortcutItem.type {
+		case Shortcut.diaryNewEntry.rawValue:
 			Log.info("Shortcut: Open new diary entry", log: .ui)
 			guard let tabBarController = coordinator.tabBarController else { return }
 			tabBarController.selectedIndex = 2
-			
+
 			// dismiss an overlaying, modally presented view controller
 			coordinator.diaryCoordinator?.viewController.presentedViewController?.dismiss(animated: false, completion: nil)
 
 			// let diary coordinator handle pre-checks & navigation
 			coordinator.diaryCoordinator?.showCurrentDayScreen()
+		case Shortcut.eventCheckin.rawValue:
+			Log.info("Shortcut: Event checkin 📷", log: .ui)
+			guard let tabBarController = coordinator.tabBarController else { return }
+			tabBarController.selectedIndex = 1
+		default:
+			Log.warning("unhandled shortcut item type \(shortcutItem.type)", log: .ui)
+			assertionFailure("Check this!")
 		}
 	}
 }
