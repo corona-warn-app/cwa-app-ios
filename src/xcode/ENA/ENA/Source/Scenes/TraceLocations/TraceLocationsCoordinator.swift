@@ -23,7 +23,7 @@ class TraceLocationsCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 
-		eventStore.createTraceLocation(TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: ""))
+		eventStore.createTraceLocation(TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, byteRepresentation: Data(), signature: ""))
 
 		#if DEBUG
 		if isUITesting {

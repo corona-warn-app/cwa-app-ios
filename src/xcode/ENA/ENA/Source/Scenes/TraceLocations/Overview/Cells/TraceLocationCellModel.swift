@@ -8,7 +8,7 @@ struct TraceLocationCellModel {
 
 	// MARK: - Internal
 
-	let traceLocation = TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: "")
+	let traceLocation = TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, byteRepresentation: Data(), signature: "")
 
 	let title: String = "Jahrestreffen der deutschen SAP Anwendergruppe"
 	let location: String = "Hauptstr 3, 69115 Heidelberg"
