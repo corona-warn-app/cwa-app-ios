@@ -71,6 +71,8 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableView.automaticDimension
+		tableView.separatorInset = UIEdgeInsets(top: 0, left: 23, bottom: 0, right: 17)
+
 		tableView.register(SelectTraceLocationTypeCell.self, forCellReuseIdentifier: SelectTraceLocationTypeCell.reuseIdentifier)
 	}
 

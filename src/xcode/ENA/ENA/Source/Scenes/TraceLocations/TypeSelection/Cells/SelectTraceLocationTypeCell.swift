@@ -30,7 +30,7 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 		// Configure the view for the selected state
 	}
 
-	// MARK: - Protocol <#Name#>
+	// MARK: - Protocol ConfigureableCell
 
 	func configure(cellViewModel: TraceLocationType) {
 		titleLabel.text = cellViewModel.title
@@ -49,9 +49,11 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 	private func setupView() {
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.font = .enaFont(for: .body)
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
 
 		subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		subTitleLabel.font = .enaFont(for: .subheadline)
+		subTitleLabel.textColor = .enaColor(for: .textSemanticGray)
 
 		let stackView = UIStackView(arrangedSubviews: [
 			titleLabel,
