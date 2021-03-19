@@ -1978,7 +1978,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle Einträge entfernen?";
 
-"Checkins_Overview_DeleteAll_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+"Checkins_Overview_DeleteAll_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diese Orte oder Events eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
 
 "Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
 
