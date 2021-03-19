@@ -4,52 +4,61 @@
 
 import Foundation
 
-struct StatisticsMetadata: Codable {
+struct QRCodePosterTemplateMetadata: Codable, Equatable {
+	
+	// MARK: - Init
+	
+	init(with response: QRCodePosterTemplateResponse) {
+		self.lastQRCodePosterTemplateETag = response.eTag
+		self.lastQRCodePosterTemplateFetchDate = response.timestamp
+		self.qrCodePosterTemplate = response.qrCodePosterTemplate
+	}
 
-	var lastStatisticsETag: String?
-	var lastStatisticsFetch: Date
-	var statistics: SAP_Internal_Stats_Statistics
-
+	init(
+		lastQRCodePosterTemplateETag: String,
+		lastQRCodePosterTemplateFetchDate: Date,
+		qrCodePosterTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS
+	) {
+		self.lastQRCodePosterTemplateETag = lastQRCodePosterTemplateETag
+		self.lastQRCodePosterTemplateFetchDate = lastQRCodePosterTemplateFetchDate
+		self.qrCodePosterTemplate = qrCodePosterTemplate
+	}
+	
+	// MARK: - Protocol Codable
+	
 	enum CodingKeys: String, CodingKey {
-		case lastStatisticsETag
-		case lastStatisticsFetch
-		case statistics
+		case lastQRCodePosterTemplateETag
+		case lastQRCodePosterTemplateFetchDate
+		case qrCodePosterTemplate
 	}
-
-	init(with response: StatisticsFetchingResponse) {
-		lastStatisticsETag = response.eTag
-		lastStatisticsFetch = response.timestamp
-		statistics = response.stats
-	}
-
-	// Used for unit tests
-	init(stats: SAP_Internal_Stats_Statistics, eTag: String?, timestamp: Date = Date()) {
-		lastStatisticsETag = eTag
-		lastStatisticsFetch = timestamp
-		statistics = stats
-	}
-
+	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		lastQRCodePosterTemplateETag = try container.decode(String.self, forKey: .lastQRCodePosterTemplateETag)
+		lastQRCodePosterTemplateFetchDate = try container.decode(Date.self, forKey: .lastQRCodePosterTemplateFetchDate)
 
-		lastStatisticsETag = try container.decode(String.self, forKey: .lastStatisticsETag)
-		lastStatisticsFetch = try container.decode(Date.self, forKey: .lastStatisticsFetch)
-
-		let data = try container.decode(Data.self, forKey: .statistics)
-		statistics = try SAP_Internal_Stats_Statistics(serializedData: data)
+		let qrCodePosterTemplateData = try container.decode(Data.self, forKey: .qrCodePosterTemplate)
+		qrCodePosterTemplate = try SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: qrCodePosterTemplateData)
 	}
-
+	
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
+		
+		try container.encode(lastQRCodePosterTemplateETag, forKey: .lastQRCodePosterTemplateETag)
+		try container.encode(lastQRCodePosterTemplateFetchDate, forKey: .lastQRCodePosterTemplateFetchDate)
 
-		try container.encode(lastStatisticsETag, forKey: .lastStatisticsETag)
-		try container.encode(lastStatisticsFetch, forKey: .lastStatisticsFetch)
-
-		let data = try statistics.serializedData()
-		try container.encode(data, forKey: .statistics)
+		let qrCodePosterTemplateData = try qrCodePosterTemplate.serializedData()
+		try container.encode(qrCodePosterTemplateData, forKey: .qrCodePosterTemplate)
 	}
-
-	mutating func refeshLastFetchDate() {
-		lastStatisticsFetch = Date()
+	
+	// MARK: - Internal
+	
+	var lastQRCodePosterTemplateETag: String?
+	var lastQRCodePosterTemplateFetchDate: Date
+	var qrCodePosterTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS
+	
+	mutating func refeshLastQRCodePosterTemplateFetchDate() {
+		lastQRCodePosterTemplateFetchDate = Date()
 	}
 }
