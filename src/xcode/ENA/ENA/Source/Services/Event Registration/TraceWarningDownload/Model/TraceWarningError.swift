@@ -5,12 +5,14 @@
 import Foundation
 
 enum TraceWarningError: Error {
-	case requestCreationError
+	case generalError
 	case defaultServerError(Error)
+	case requestCreationError
 	case invalidResponseError(Int)
 	case decodingJsonError(Int)
-	case downloadError
-	case serverError
+	case noEarliestRelevantPackage
+	case downloadIsRunning
+	case verificationError
 }
 
 extension TraceWarningError: Equatable {

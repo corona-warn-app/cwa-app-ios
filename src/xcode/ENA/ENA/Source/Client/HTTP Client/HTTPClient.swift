@@ -585,7 +585,7 @@ final class HTTPClient: Client {
 				
 				guard let self = self else {
 					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
-					completion(.failure(.downloadError))
+					completion(.failure(.generalError))
 					return
 				}
 				
