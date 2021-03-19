@@ -33,6 +33,8 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 		navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
+
+		setupTableView()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -46,11 +48,8 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "SubtitleCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "SubtitleCell")
-
-		cell.textLabel?.text = viewModel.title(at: indexPath)
-		cell.detailTextLabel?.text = viewModel.description(at: indexPath)
-
+		let cell = tableView.dequeueReusableCell(cellType: SelectTraceLocationTypeCell.self, for: indexPath)
+		cell.configure(cellViewModel: viewModel.cellViewModel(at: indexPath))
 		return cell
 	}
 
@@ -67,7 +66,12 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: TraceLocationTypeSelectionViewModel
-
 	private let onDismiss: () -> Void
+
+	private func setupTableView() {
+		tableView.estimatedRowHeight = 60.0
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.register(SelectTraceLocationTypeCell.self, forCellReuseIdentifier: SelectTraceLocationTypeCell.reuseIdentifier)
+	}
 
 }

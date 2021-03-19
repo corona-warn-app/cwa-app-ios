@@ -58,6 +58,13 @@ struct TraceLocationTypeSelectionViewModel {
 		return traceLocationType.title
 	}
 
+	func cellViewModel(at indexPath: IndexPath) -> TraceLocationType {
+		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
+			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
+			fatalError("unknown tracelocationtype")
+		}
+		return traceLocationType
+	}
 	func description(at indexPath: IndexPath) -> String? {
 		switch TraceLocationSection(rawValue: indexPath.section) {
 		case .location:
