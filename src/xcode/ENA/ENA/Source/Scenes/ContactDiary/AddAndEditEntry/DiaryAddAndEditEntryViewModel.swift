@@ -54,7 +54,12 @@ class DiaryAddAndEditEntryViewModel {
 		case let .add(day, type):
 			switch type {
 			case .location:
-				let result = store.addLocation(name: entryModel.name, phoneNumber: entryModel.phoneNumber, emailAddress: entryModel.emailAddress)
+				let result = store.addLocation(
+					name: entryModel.name,
+					phoneNumber: entryModel.phoneNumber,
+					emailAddress: entryModel.emailAddress,
+					traceLocationGUID: nil
+				)
 
 				if case let .success(id) = result {
 					store.addLocationVisit(locationId: id, date: day.dateString)

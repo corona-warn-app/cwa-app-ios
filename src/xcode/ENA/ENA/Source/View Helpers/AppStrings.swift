@@ -362,6 +362,7 @@ enum AppStrings {
 		static let lowRiskExposureSubtitle = NSLocalizedString("ExposureDetection_LowRiskExposure_Subtitle", comment: "")
 		static let lowRiskExposureBody = NSLocalizedString("ExposureDetection_LowRiskExposure_Body", comment: "")
 
+		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 		static let buttonTitleRestart = NSLocalizedString("ExposureDetection_Button_Title_Restart", comment: "")
 
@@ -923,6 +924,10 @@ enum AppStrings {
 		static let feature115SwitzerlandTitle = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_title", comment: "")
 		
 		static let feature115SwitzerlandDescription = NSLocalizedString("NewVersionFeature_115_cross_border_switzerland_description", comment: "")
+		
+		static let feature115DaysSinceInstallTitle = NSLocalizedString("NewVersionFeature_115_days_since_install_title", comment: "")
+		
+		static let feature115DaysSinceInstallDescription = NSLocalizedString("NewVersionFeature_115_days_since_install_description", comment: "")
 		
 		static let feature115ErrorAnalyticsLogTitle = NSLocalizedString("NewVersionFeature_115_error_analytic_logs_title", comment: "")
 		

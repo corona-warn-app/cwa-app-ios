@@ -1024,8 +1024,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Explanation section
+		let numberOfExposures = viewController.viewModel.riskDetails?.numberOfDaysWithRiskLevel ?? -1
 		section = dynamicTableViewModel.section(3)
-		XCTAssertEqual(section.cells.count, 3)
+		XCTAssertEqual(section.cells.count, numberOfExposures > 0 ? 3 : 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}
