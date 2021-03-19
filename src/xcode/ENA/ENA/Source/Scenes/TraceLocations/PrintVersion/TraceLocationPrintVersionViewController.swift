@@ -25,7 +25,7 @@ class TraceLocationPrintVersionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.view = PDFView()
+		self.view = viewModel.pdfView
 
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapExportButton))
 	}
