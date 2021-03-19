@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import PDFKit
 
 class TraceLocationsCoordinator {
 
@@ -10,10 +11,12 @@ class TraceLocationsCoordinator {
 
 	init(
 		store: Store,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoring & EventProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
 	}
@@ -42,6 +45,7 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 
 	private let store: Store
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let eventStore: EventStoring & EventProviding
 
 	private weak var parentNavigationController: UINavigationController?
@@ -104,9 +108,11 @@ class TraceLocationsCoordinator {
 
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
 		let viewController = TraceLocationDetailsViewController(
-			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation),
-			onPrintVersionButtonTap: { [weak self] traceLocation in
-				self?.showPrintVersionScreen(traceLocation: traceLocation)
+			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: store, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider),
+			onPrintVersionButtonTap: { [weak self] pdfView in
+				DispatchQueue.main.async {
+					self?.showPrintVersionScreen(pdfView: pdfView)
+				}
 			},
 			onDuplicateButtonTap: { [weak self] traceLocation in
 				guard let self = self else { return }
@@ -125,9 +131,9 @@ class TraceLocationsCoordinator {
 		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
 	}
 
-	private func showPrintVersionScreen(traceLocation: TraceLocation) {
+	private func showPrintVersionScreen(pdfView: PDFView) {
 		let viewController = TraceLocationPrintVersionViewController(
-			viewModel: TraceLocationPrintVersionViewModel(traceLocation: traceLocation)
+			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
 
 		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
