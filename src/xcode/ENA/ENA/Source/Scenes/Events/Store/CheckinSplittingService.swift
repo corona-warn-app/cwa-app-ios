@@ -14,6 +14,10 @@ class CheckinSplittingService {
 		let endTimeInterval = checkin.checkinEndDate?.timeIntervalSince1970 ?? 0
 		let startTimeInterval = checkin.checkinStartDate.timeIntervalSince1970
 
+		guard endTimeInterval >= startTimeInterval else {
+			return [Checkin]()
+		}
+
 		let durationInDays = Int(ceil((endTimeInterval - intervalToMidnightUTC(from: startTimeInterval)) / 86400))
 
 		func isFirst(_ index: Int) -> Bool {

@@ -141,26 +141,105 @@ class EventCheckoutServiceTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_When_checkoutCheckinOfMoreThenOneDay_Then_TwoLocationVisitsAreCreated() {
+
+		guard
+			let todayDate = utcFormatter.date(from: "2021-03-06T09:30:00+01:00"),
+			let traceLocationStartDate = utcFormatter.date(from: "2021-03-03T08:00:00+01:00"),
+			  let traceLocationEndDate = utcFormatter.date(from: "2021-03-06T22:00:00+01:00"),
+			let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-05T09:30:00+01:00") else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		let twoDayCheckin = makeDummyCheckin(
+			id: -1,
+			checkinStartDate: checkinStartDate,
+			targetCheckinEndDate: checkinEndDate,
+			traceLocationGUID: "guid",
+			traceLocationDescription: "Some Description",
+			traceLocationAddress: "Some Address",
+			traceLocationStartDate: traceLocationStartDate,
+			traceLocationEndDate: traceLocationEndDate
+		)
+
+		let mockEventStore = MockEventStore()
+		mockEventStore.createCheckin(twoDayCheckin)
+
+		var dateProvider = DateProvider()
+		dateProvider.today = todayDate
+
+		let mockDiaryStore = MockDiaryStore(dateProvider: dateProvider)
+
+		let eventCheckoutService = EventCheckoutService(
+			eventStore: mockEventStore,
+			contactDiaryStore: mockDiaryStore,
+			userNotificationCenter: MockUserNotificationCenter()
+		)
+		eventCheckoutService.checkoutOverdueCheckins()
+
+		let diaryDays = mockDiaryStore.diaryDaysPublisher.value.filter {
+			$0.dateString == "2021-03-04" ||
+			$0.dateString == "2021-03-05"
+		}
+
+		XCTAssertEqual(diaryDays.count, 2)
+
+		XCTAssertEqual(diaryDays[0].selectedEntries.count, 1)
+		XCTAssertEqual(diaryDays[1].selectedEntries.count, 1)
+
+		let dayEntry0 = diaryDays[0].selectedEntries[0]
+		let dayEntry1 = diaryDays[1].selectedEntries[0]
+
+		guard case .location = dayEntry0,
+			  case .location = dayEntry1 else {
+			XCTFail("Entries should be location visits.")
+			return
+		}
+
+		let formattedStartDate = shortDateFormatter.string(from: traceLocationStartDate)
+		let formattedEndDate = shortDateFormatter.string(from: traceLocationEndDate)
+		XCTAssertEqual(dayEntry0.name, "Some Description, Some Address, \(formattedStartDate), \(formattedEndDate)")
+	}
+
 	func makeDummyCheckin(
 		id: Int,
+		checkinStartDate: Date = Date(),
+		checkinEndDate: Date? = nil,
 		targetCheckinEndDate: Date = Date(),
-		traceLocationGUID: String = "0"
+		traceLocationGUID: String = "0",
+		traceLocationDescription: String = "",
+		traceLocationAddress: String = "",
+		traceLocationStartDate: Date = Date(),
+		traceLocationEndDate: Date = Date()
 	) -> Checkin {
 		Checkin(
 			id: id,
 			traceLocationGUID: traceLocationGUID,
 			traceLocationVersion: 0,
 			traceLocationType: .type1,
-			traceLocationDescription: "",
-			traceLocationAddress: "",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Date(),
+			traceLocationDescription: traceLocationDescription,
+			traceLocationAddress: traceLocationAddress,
+			traceLocationStartDate: traceLocationStartDate,
+			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: 0,
 			traceLocationSignature: "",
-			checkinStartDate: Date(),
-			checkinEndDate: nil,
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate,
 			targetCheckinEndDate: targetCheckinEndDate,
 			createJournalEntry: true
 		)
 	}
+
+	var utcFormatter: ISO8601DateFormatter = {
+		let dateFormatter = ISO8601DateFormatter()
+		return dateFormatter
+	}()
+
+	private lazy var shortDateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		return dateFormatter
+	}()
 }

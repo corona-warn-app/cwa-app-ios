@@ -55,7 +55,7 @@ final class EventCheckoutService {
 	private let eventStore: EventStoringProviding
 	private let contactDiaryStore: DiaryStoringProviding
 	private let userNotificationCenter: UserNotificationCenter
-	private lazy var dateFormatter: DateFormatter = {
+	private lazy var shortDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
 		return dateFormatter
@@ -75,25 +75,44 @@ final class EventCheckoutService {
 		}
 
 		if !checkinLocationExists {
-			var locationNameElements = [
-				checkin.traceLocationDescription,
-				checkin.traceLocationAddress
-			]
+			var locationNameElements = [String]()
+
+			if !checkin.traceLocationDescription.isEmpty {
+				locationNameElements.append(checkin.traceLocationDescription)
+			}
+
+			if !checkin.traceLocationAddress.isEmpty {
+				locationNameElements.append(checkin.traceLocationAddress)
+			}
 
 			if let startDate = checkin.traceLocationStartDate {
-				locationNameElements.append(dateFormatter.string(from: startDate))
+				locationNameElements.append(shortDateFormatter.string(from: startDate))
 			}
 
 			if	let endDate = checkin.traceLocationEndDate {
-				locationNameElements.append(dateFormatter.string(from: endDate))
+				locationNameElements.append(shortDateFormatter.string(from: endDate))
 			}
 
-			contactDiaryStore.addLocation(
+			let addLocationResult = contactDiaryStore.addLocation(
 				name: locationNameElements.joined(separator: ", "),
 				phoneNumber: "",
 				emailAddress: "",
 				traceLocationGUID: checkin.traceLocationGUID
 			)
+
+			guard case let .success(locationId) = addLocationResult else {
+				return
+			}
+
+			let splittedCheckins = CheckinSplittingService().split(checkin)
+			splittedCheckins.forEach { checkin in
+				contactDiaryStore.addLocationVisit(
+					locationId: locationId,
+					date: ISO8601DateFormatter.contactDiaryFormatter.string(
+						from: checkin.checkinStartDate
+					)
+				)
+			}
 		}
 	}
 
