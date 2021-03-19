@@ -26,7 +26,7 @@ protocol QRCodePosterTemplateFetching {
 	/// - Parameters:
 	/// - etag: an optional ETag to download only versions that differ the given tag
 	/// - completion: The completion handler of the get call, which contains the prootbuf response
-	func fetchQRCodePosterTemplateProtobuf(
+	func fetchQRCodePosterTemplateData(
 		etag: String?,
 		completion: @escaping QRCodePosterTemplateCompletionHandler
 	)
