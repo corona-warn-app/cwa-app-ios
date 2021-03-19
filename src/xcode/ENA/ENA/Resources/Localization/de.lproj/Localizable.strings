@@ -1928,6 +1928,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
 
+"QuickAction_eventCheckin" = "Einchecken";
+
 /* Events */
 
 "Events_QR_Scanner_Instruction" = "QR-Code scannen und einchecken";
