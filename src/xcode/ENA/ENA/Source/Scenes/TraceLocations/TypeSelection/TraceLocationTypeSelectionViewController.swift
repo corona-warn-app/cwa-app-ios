@@ -29,11 +29,9 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 		super.viewDidLoad()
 
 		navigationItem.title = AppStrings.TraceLocations.TypeSelection.title
-
 		navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
-
 		setupTableView()
 	}
 
@@ -49,7 +47,7 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(cellType: SelectTraceLocationTypeCell.self, for: indexPath)
-		cell.configure(cellViewModel: viewModel.cellViewModel(at: indexPath))
+		cell.configure(cellModel: viewModel.cellViewModel(at: indexPath))
 		return cell
 	}
 

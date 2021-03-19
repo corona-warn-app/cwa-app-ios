@@ -19,27 +19,15 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 	}
 
 	// MARK: - Overrides
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		// Initialization code
-	}
-
-	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: animated)
-
-		// Configure the view for the selected state
-	}
-
-	// MARK: - Protocol ConfigureableCell
-
-	func configure(cellViewModel: TraceLocationType) {
-		titleLabel.text = cellViewModel.title
-		subTitleLabel.text = cellViewModel.subtitle
-	}
 
 	// MARK: - Public
 
 	// MARK: - Internal
+
+	func configure(cellModel: TraceLocationType) {
+		titleLabel.text = cellModel.title
+		subTitleLabel.text = cellModel.subtitle
+	}
 
 	// MARK: - Private#
 

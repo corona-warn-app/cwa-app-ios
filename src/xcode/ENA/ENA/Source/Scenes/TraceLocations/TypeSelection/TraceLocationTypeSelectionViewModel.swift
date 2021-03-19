@@ -10,7 +10,6 @@ struct TraceLocationTypeSelectionViewModel {
 
 	init(
 		_ allValues: [TraceLocationSection: [TraceLocationType]],
-//		preselected: TraceLocationType?,
 		onTraceLocationTypeSelection: @escaping (TraceLocationType) -> Void
 	) {
 		self.allValues = allValues
@@ -61,42 +60,24 @@ struct TraceLocationTypeSelectionViewModel {
 	func cellViewModel(at indexPath: IndexPath) -> TraceLocationType {
 		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
 			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
-			fatalError("unknown tracelocationtype")
+			Log.debug("missing TraceLocationType")
+			return .locationTypeUnspecified
 		}
 		return traceLocationType
 	}
-	func description(at indexPath: IndexPath) -> String? {
-		switch TraceLocationSection(rawValue: indexPath.section) {
-		case .location:
-			return nil
-		case .event:
-			return nil
-		case .none:
-			fatalError("Invalid section")
-		}
-	}
 
-	
 	func selectTraceLocationType(at indexPath: IndexPath) {
-		/*
-		switch TraceLocationSection(rawValue: indexPath.section) {
-		case .location:
-			onTraceLocationTypeSelection(locationTypes[indexPath.row])
-		case .traceLocation:
-			onTraceLocationTypeSelection(traceLocationTypes[indexPath.row])
-		case .none:
-			fatalError("Invalid section")
+		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
+			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
+			Log.debug("Failed to select a TraceLocationType")
+			return
 		}
-*/
+		onTraceLocationTypeSelection(traceLocationType)
 	}
 
 	// MARK: - Private
 
 	private let onTraceLocationTypeSelection: (TraceLocationType) -> Void
-
-//	private let locationTypes: [TraceLocationType] = [. ]
-//	private let traceLocationTypes: [TraceLocationType] = [.locationTypePermanentOther]
-
 	private let allValues: [TraceLocationSection: [TraceLocationType]]
 
 }
