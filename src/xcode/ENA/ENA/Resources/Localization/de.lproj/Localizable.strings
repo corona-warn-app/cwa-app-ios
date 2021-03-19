@@ -2018,7 +2018,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle QR-Codes löschen?";
 
-"TraceLocations_Overview_DeleteAll_AlertMessage" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Einchecken verwendet werden kann.";
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Bitte denken Sie daran, dass diese QR-Codes danach nicht mehr zum Einchecken verwendet werden können.";
 
 "TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
 
