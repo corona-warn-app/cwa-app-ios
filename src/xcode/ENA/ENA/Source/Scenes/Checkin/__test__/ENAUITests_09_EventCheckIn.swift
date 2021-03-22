@@ -33,6 +33,7 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionTitle].exists)
 		XCTAssertTrue(app.staticTexts[AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline].exists)
+		snapshot("CheckInInfoScreen")
 		
 		// Navigate to Data Privacy
 		app.swipeUp(velocity: .fast)
@@ -55,6 +56,8 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		// Confirm consent
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].waitForExistence(timeout: .short))
 		app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].tap()
+		
+		snapshot("CheckIn_MyCheckins")
 		
 		// verify elements on the following screen – pending
     }
