@@ -2143,11 +2143,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
 
-"Checkin_Details_Hours" = "Stunden";
-
 "Checkin_Details_HoursShortVersion" = "Std.";
-
-"Checkin_Details_Minutes" = " Minuten";
 
 "Checkin_Details_CheckinFor" = "Einchecken für:";
 
