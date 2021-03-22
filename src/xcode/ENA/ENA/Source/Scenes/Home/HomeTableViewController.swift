@@ -428,9 +428,16 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			fatalError("Could not dequeue HomeThankYouTableViewCell")
 		}
 
-		let cellModel = HomeThankYouCellModel(
-			testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
-		)
+		var cellModel: HomeThankYouCellModel
+		if !isUITesting {
+			cellModel = HomeThankYouCellModel(
+				testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
+			)
+		} else {
+			cellModel = HomeThankYouCellModel(
+				testResultTimestamp: 1615766400 // 15.03.2021, 18701 days since 01.01.1970
+			)
+		}
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in
