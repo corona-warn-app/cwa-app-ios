@@ -33,8 +33,6 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 		navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
-
-		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Protocol UITableViewDataSource
