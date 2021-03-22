@@ -95,6 +95,52 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		XCTAssertFalse(viewModel.isEmpty)
 	}
 
+	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithCameraPermission() throws {
+		let viewModel = CheckinsOverviewViewModel(
+			store: MockEventStore(),
+			onEntryCellTap: { _ in },
+			cameraAuthorizationStatus: { .authorized }
+		)
+
+		XCTAssertTrue(viewModel.isEmptyStateVisible)
+	}
+
+	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithoutCameraPermission() throws {
+		let viewModel = CheckinsOverviewViewModel(
+			store: MockEventStore(),
+			onEntryCellTap: { _ in },
+			cameraAuthorizationStatus: { .denied }
+		)
+
+		XCTAssertFalse(viewModel.isEmptyStateVisible)
+	}
+
+	func testIsEmptyStateVisibleOnNonEmptyEntriesSectionWithCameraPermission() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in },
+			cameraAuthorizationStatus: { .authorized }
+		)
+
+		XCTAssertFalse(viewModel.isEmptyStateVisible)
+	}
+
+	func testIsEmptyStateVisibleOnNonEmptyEntriesSectionWithoutCameraPermission() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock())
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in },
+			cameraAuthorizationStatus: { .denied }
+		)
+
+		XCTAssertFalse(viewModel.isEmptyStateVisible)
+	}
+
 	func testCanEditRowForAddSection() throws {
 		let viewModel = CheckinsOverviewViewModel(
 			store: MockEventStore(),

@@ -261,7 +261,7 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
 		}
 
-		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
+		tableView.backgroundView = viewModel.isEmptyStateVisible ? emptyStateView : nil
 	}
 
 	@objc
