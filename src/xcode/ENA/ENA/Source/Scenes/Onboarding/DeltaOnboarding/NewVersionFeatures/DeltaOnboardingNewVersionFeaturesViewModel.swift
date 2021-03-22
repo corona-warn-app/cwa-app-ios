@@ -13,7 +13,7 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		// ADD NEW FEATURES HERE
 		
-		self.featureVersion = "1.15"
+		self.featureVersion = "2.0"
 		
 		// Switzerland
 		self.newVersionFeatures.append(
