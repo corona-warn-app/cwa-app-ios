@@ -48,15 +48,6 @@ struct TraceLocationTypeSelectionViewModel {
 		TraceLocationSection.allCases[index].title
 	}
 
-	func title(at indexPath: IndexPath) -> String {
-		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
-			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
-			Log.debug("unknown section")
-			return ""
-		}
-		return traceLocationType.title
-	}
-
 	func cellViewModel(at indexPath: IndexPath) -> TraceLocationType {
 		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
 			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
