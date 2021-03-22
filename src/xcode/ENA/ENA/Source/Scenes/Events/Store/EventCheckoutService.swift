@@ -2,6 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
+import UIKit
 import UserNotifications
 
 final class EventCheckoutService {
@@ -16,12 +17,14 @@ final class EventCheckoutService {
 		self.eventStore = eventStore
 		self.contactDiaryStore = contactDiaryStore
 		self.userNotificationCenter = userNotificationCenter
+
+		registerToDidBecomeActiveNotification()
 	}
 
 	// MARK: - Internal
 
 	func checkout(checkin: Checkin, showNotification: Bool) {
-		let checkinEndDate = Date()
+		let checkinEndDate = checkin.targetCheckinEndDate ?? Date()
 		let updatedCheckin = checkin.updatedCheckin(with: checkinEndDate)
 		eventStore.updateCheckin(updatedCheckin)
 
@@ -133,6 +136,15 @@ final class EventCheckoutService {
 				Log.error("Checkout notification could not be scheduled.")
 			}
 		}
+	}
+
+	private func registerToDidBecomeActiveNotification() {
+		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+	}
+
+	@objc
+	private func didBecomeActiveNotification(_ notification: Notification) {
+		checkoutOverdueCheckins()
 	}
 }
 

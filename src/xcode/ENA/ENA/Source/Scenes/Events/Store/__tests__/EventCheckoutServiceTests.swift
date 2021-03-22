@@ -26,13 +26,22 @@ class EventCheckoutServiceTests: XCTestCase {
 			contactDiaryStore: MockDiaryStore(),
 			userNotificationCenter: mockNotificationCenter
 		)
-		let checkinWithId = makeDummyCheckin(id: checkinId)
+
+		guard let targetCheckinEndDate = utcFormatter.date(from: "2021-03-06T22:00:00+01:00") else {
+			XCTFail("Could not create date.")
+			return
+		}
+
+		let checkinWithId = makeDummyCheckin(
+			id: checkinId,
+			targetCheckinEndDate: targetCheckinEndDate
+		)
 		eventCheckoutService.checkout(checkin: checkinWithId, showNotification: false)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
 		mockEventStore.checkinsPublisher.sink { checkins in
 			XCTAssertEqual(checkins.count, 1)
-			XCTAssertNotNil(checkins[0].checkinEndDate)
+			XCTAssertEqual(checkins[0].checkinEndDate, targetCheckinEndDate)
 			sinkExpectation.fulfill()
 		}.store(in: &subscriptions)
 
