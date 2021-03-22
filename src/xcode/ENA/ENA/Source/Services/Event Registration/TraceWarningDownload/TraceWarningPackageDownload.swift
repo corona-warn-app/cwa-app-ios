@@ -9,7 +9,10 @@ protocol TraceWarningPackageDownloading {
 	var statusDidChange: ((TraceWarningDownloadStatus) -> Void)? { get set }
 	
 	/// Starts to download the traceWarningPackages from CDN by following several checks and steps. Does return nothing. Stores the successfull downloaded and verified packages in the database, also the matches from the downloaded ones to the local check-ins.
-	func startTraceWarningPackageDownload(completion: @escaping (Result<Void, TraceWarningError>) -> Void)
+	func startTraceWarningPackageDownload(
+		with appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
+		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+	)
 }
 
 enum TraceWarningDownloadStatus {
@@ -46,6 +49,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	var statusDidChange: ((TraceWarningDownloadStatus) -> Void)?
 	
 	func startTraceWarningPackageDownload(
+		with appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<Void, TraceWarningError>) -> Void
 	) {
 		Log.info("TraceWarningPackageDownload: Start was triggered.", log: .checkin)
@@ -69,7 +73,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 
 		status = .checkingForNewPackages
 		
-		checkForDownloadTraceWarningPackages(countries: countries, completion: { [weak self] result in
+		checkForDownloadTraceWarningPackages(with: appConfiguration, countries: countries, completion: { [weak self] result in
 			self?.status = .idle
 			
 			switch result {
@@ -106,6 +110,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	}
 	
 	private func checkForDownloadTraceWarningPackages(
+		with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
 		countries: [Country.ID],
 		completion: @escaping (Result<Void, TraceWarningError>) -> Void
 	) {
@@ -121,7 +126,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				countriesDG.enter()
 				
 				// Go now for the real download
-				downloadTraceWarningPackages(for: country, completion: { result in
+				downloadTraceWarningPackages(with: appConfig, for: country, completion: { result in
 					switch result {
 					case .success:
 						Log.info("TraceWarningPackageDownload: Succeded downloading packages for country id: \(country).", log: .checkin)
@@ -150,30 +155,28 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	}
 		
 	private func downloadTraceWarningPackages(
+		with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
 		for country: Country.ID,
 		completion: @escaping (Result<Void, TraceWarningError>) -> Void
 	) {
-		// 2. Update the app config.
-		appConfigurationProvider.appConfiguration().sink { [weak self] config in
+		// 2. Instead of updating the app config again, we got it injected.
+		// 3. Clean up revoked Packages.
+		let revokedPackages = appConfig.keyDownloadParameters.revokedTraceWarningPackages
+		removeRevokedTraceWarningMetadataPackages(revokedPackages)
+		
+		
+		// 4. Determine availablePackagesOnCDN (http discovery)
+		client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
 			
-			// 3. Clean up Revoked Packages.
-			let revokedPackages = config.keyDownloadParameters.revokedTraceWarningPackages
-			self?.removeRevokedTraceWarningMetadataPackages(revokedPackages)
-			
-			
-			// 4. Determine availablePackagesOnCDN (http discovery)
-			self?.client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
+			switch result {
+			case let .success(traceWarningDiscovery):
+				self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
 				
-				switch result {
-				case let .success(traceWarningDiscovery):
-					self?.processDiscoverdPackages(traceWarningDiscovery, country: country, completion: completion)
-					
-				case let .failure(error):
-					Log.error("TraceWarningPackageDownload: Error at discovery trace warning packages.", log: .checkin, error: error)
-					completion(.failure(error))
-				}
-			})
-		}.store(in: &subscriptions)
+			case let .failure(error):
+				Log.error("TraceWarningPackageDownload: Error at discovery trace warning packages.", log: .checkin, error: error)
+				completion(.failure(error))
+			}
+		})
 	}
 	
 	private func processDiscoverdPackages(
