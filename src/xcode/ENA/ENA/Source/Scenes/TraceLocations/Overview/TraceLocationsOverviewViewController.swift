@@ -5,16 +5,18 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationsOverviewViewController: UITableViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationsOverviewViewController: UITableViewController, FooterViewHandling {
 
 	// MARK: - Init
 
 	init(
 		viewModel: TraceLocationsOverviewViewModel,
-		onInfoButtonTap: @escaping () -> Void
+		onInfoButtonTap: @escaping () -> Void,
+		onAddEntryCellTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
 		self.onInfoButtonTap = onInfoButtonTap
+		self.onAddEntryCellTap = onAddEntryCellTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -30,12 +32,11 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		super.viewDidLoad()
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
+		footerView?.setBackgroundColor(.enaColor(for: .darkBackground))
 
 		setupTableView()
-
-		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = AppStrings.TraceLocations.Overview.title
-
+		parent?.navigationItem.largeTitleDisplayMode = .always
+		parent?.navigationItem.title = AppStrings.TraceLocations.Overview.title
 		updateRightBarButtonItem()
 
 		viewModel.$traceLocations
@@ -52,12 +53,26 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.sizeToFit()
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationController?.navigationBar.sizeToFit()
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+
+		updateRightBarButtonItem()
+		addEntryCellModel.setEnabled(!editing)
+		
+		let newState: FooterViewModel.VisibleButtons = editing ? .primary : .none
+		footerView?.update(to: newState)
+	}
+
+	// MARK: - FooterViewHandling
+
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		if type == .primary {
+			didTapDeleteAllButton()
+		}
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -81,24 +96,8 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		}
 	}
 
-	// MARK: - Protocol UITableViewDelegate
-
-	override func setEditing(_ editing: Bool, animated: Bool) {
-		super.setEditing(editing, animated: animated)
-
-		updateRightBarButtonItem()
-		(navigationItem as? ENANavigationFooterItem)?.isPrimaryButtonHidden = !editing
-	}
-
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
-		case .add:
-			viewModel.didTapAddEntryCell()
-		case .entries:
-			viewModel.didTapEntryCell(at: indexPath)
-		case .none:
-			fatalError("Invalid section")
-		}
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		viewModel.canEditRow(at: indexPath)
 	}
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -128,6 +127,19 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 		)
 	}
 
+	// MARK: - Protocol UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		switch TraceLocationsOverviewViewModel.Section(rawValue: indexPath.section) {
+		case .add:
+			onAddEntryCellTap()
+		case .entries:
+			viewModel.didTapEntryCell(at: indexPath)
+		case .none:
+			fatalError("Invalid section")
+		}
+	}
+
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
@@ -138,37 +150,37 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 
 	private let viewModel: TraceLocationsOverviewViewModel
 	private let onInfoButtonTap: () -> Void
+	private let onAddEntryCellTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
 	private var shouldReload = true
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.TraceLocations.Overview.deleteAllButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isPrimaryButtonHidden = !isEditing
-
-		item.isSecondaryButtonHidden = true
-
-		return item
-	}()
+	private var addEntryCellModel = AddTraceLocationCellModel()
 
 	private func setupTableView() {
 		tableView.register(
-			UINib(nibName: String(describing: AddTraceLocationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: AddTraceLocationTableViewCell.self)
+			UINib(nibName: String(describing: AddEventTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: AddEventTableViewCell.self)
 		)
 
 		tableView.register(
-			UINib(nibName: String(describing: TraceLocationTableViewCell.self), bundle: nil),
-			forCellReuseIdentifier: String(describing: TraceLocationTableViewCell.self)
+			UINib(nibName: String(describing: EventTableViewCell.self), bundle: nil),
+			forCellReuseIdentifier: String(describing: EventTableViewCell.self)
 		)
 
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
+	}
+
+	private func animateChanges(of cell: UITableViewCell) {
+		DispatchQueue.main.async { [self] in
+			guard tableView.visibleCells.contains(cell) else {
+				return
+			}
+
+			tableView.performBatchUpdates(nil, completion: nil)
+		}
 	}
 
 	private func updateRightBarButtonItem() {
@@ -187,26 +199,30 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 			barButtonItem.tintColor = .enaColor(for: .tint)
 		}
 
-		navigationItem.setRightBarButton(barButtonItem, animated: true)
+		parent?.navigationItem.setRightBarButton(barButtonItem, animated: true)
 	}
 
 	private func traceLocationAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddTraceLocationTableViewCell.self), for: indexPath) as? AddTraceLocationTableViewCell else {
-			fatalError("Could not dequeue DiaryDayAddTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddEventTableViewCell.self), for: indexPath) as? AddEventTableViewCell else {
+			fatalError("Could not dequeue AddEventTableViewCell")
 		}
 
-		let cellModel = AddTraceLocationCellModel()
-		cell.configure(cellModel: cellModel)
+		cell.configure(cellModel: addEntryCellModel)
 
 		return cell
 	}
 
 	private func traceLocationCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TraceLocationTableViewCell.self), for: indexPath) as? TraceLocationTableViewCell else {
-			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EventTableViewCell.self), for: indexPath) as? EventTableViewCell else {
+			fatalError("Could not dequeue EventTableViewCell")
 		}
 
-		let cellModel = viewModel.traceLocationCellModel(at: indexPath)
+		let cellModel = viewModel.traceLocationCellModel(
+			at: indexPath,
+			onUpdate: { [weak self] in
+				self?.animateChanges(of: cell)
+			}
+		)
 		cell.configure(
 			cellModel: cellModel,
 			onButtonTap: { [weak self] in
@@ -218,7 +234,21 @@ class TraceLocationsOverviewViewController: UITableViewController, ENANavigation
 	}
 
 	private func updateEmptyState() {
-		tableView.backgroundView = viewModel.isEmpty ? EmptyStateView(viewModel: TraceLocationsOverviewEmptyStateViewModel()) : nil
+		let emptyStateView = EmptyStateView(viewModel: TraceLocationsOverviewEmptyStateViewModel())
+
+		// Since we set the empty state view as a background view we need to push it below the add cell by
+		// adding top padding for the height of the add cell …
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		// … + the height of the navigation bar
+		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
+		// … + the height of the status bar
+		if #available(iOS 13.0, *) {
+			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+		} else {
+			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
+		}
+
+		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
 	}
 
 	@objc

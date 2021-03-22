@@ -4,7 +4,8 @@
 
 import UIKit
 
-class TraceLocationDetailsViewController: UIViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
+
 
 	// MARK: - Init
 
@@ -35,27 +36,25 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
 			}
 		)
 
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+//		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			onPrintVersionButtonTap(viewModel.traceLocation)
 
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrintVersionButtonTap(viewModel.traceLocation)
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		onDuplicateButtonTap(viewModel.traceLocation)
+		case .secondary:
+			onDuplicateButtonTap(viewModel.traceLocation)
+		}
 	}
 
 	// MARK: - Private
@@ -65,18 +64,5 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 	private let onPrintVersionButtonTap: (TraceLocation) -> Void
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.TraceLocations.Details.printVersionButtonTitle
-		item.isPrimaryButtonEnabled = true
-
-		item.secondaryButtonTitle = AppStrings.TraceLocations.Details.duplicateButtonTitle
-		item.isSecondaryButtonEnabled = true
-		item.isSecondaryButtonHidden = false
-
-		return item
-	}()
 
 }
