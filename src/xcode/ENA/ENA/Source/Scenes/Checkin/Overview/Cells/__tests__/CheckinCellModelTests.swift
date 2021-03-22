@@ -56,7 +56,8 @@ class CheckinCellModelTests: XCTestCase {
 			traceLocationDescription: "Sportstudio",
 			traceLocationAddress: "Musterstraße 1a, 01234 Musterstadt",
 			checkinStartDate: Date(timeIntervalSince1970: 1616074184),
-			checkinEndDate: Date(timeIntervalSince1970: 1616074530)
+			checkinEndDate: Date(timeIntervalSince1970: 1616074530),
+			checkinCompleted: true
 		)
 		cellViewModel.update(with: updatedCheckin)
 
