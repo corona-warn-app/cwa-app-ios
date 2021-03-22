@@ -106,6 +106,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}.store(in: &subscriptions)
 	}
 
+	
+	// [KGA]
+	// checkins aus Store holen, dann mappen auf Protobuff Struktur
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
 		Log.info("Getting temporary exposure keys...", log: .api)
 
@@ -123,6 +126,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	// [KGA] HIer könnte ich meine Werte einfügen. Keys sind instanzevariable. Aus store könnte ich mir hier die checkins holen, und auf protobuff mappen
+	// Proc
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
@@ -154,6 +159,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			submitExposureCleanup()
 			return
 		}
+		// [KGA]
 		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
 		// Request needs to be prepended by the fake request.
