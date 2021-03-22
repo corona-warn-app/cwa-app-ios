@@ -18,10 +18,6 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func configure(cellModel: TraceLocationType) {
@@ -73,6 +69,5 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		])
 	}
-
 
 }
