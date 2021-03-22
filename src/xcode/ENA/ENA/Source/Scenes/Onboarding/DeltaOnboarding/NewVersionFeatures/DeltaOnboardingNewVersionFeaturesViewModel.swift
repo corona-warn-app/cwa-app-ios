@@ -15,13 +15,9 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		
 		self.featureVersion = "2.0"
 		
-		// Switzerland
+		// Event registration
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115SwitzerlandTitle, description: AppStrings.NewVersionFeatures.feature115SwitzerlandDescription)
-		)
-		// Days since Install
-		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115DaysSinceInstallTitle, description: AppStrings.NewVersionFeatures.feature115DaysSinceInstallDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature200EventRegistrationTitle, description: AppStrings.NewVersionFeatures.feature200EventRegistrationDescription)
 		)
 	}
 
