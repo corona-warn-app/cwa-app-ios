@@ -27,7 +27,7 @@ class TraceLocationPrintVersionViewController: UIViewController {
 
 		self.view = viewModel.pdfView
 
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapExportButton))
+		navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapExportButton)), UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapExportButton))]
 	}
 
 	// MARK: - Private
@@ -36,7 +36,8 @@ class TraceLocationPrintVersionViewController: UIViewController {
 
 	@objc
 	private func didTapExportButton() {
-		let activityViewController = UIActivityViewController(activityItems: [""], applicationActivities: nil)
+		guard let data = viewModel.pdfView.document?.dataRepresentation() else { return }
+		let activityViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
 		present(activityViewController, animated: true, completion: nil)
 	}
 
