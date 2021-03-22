@@ -43,7 +43,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
-"Common_Deadman_AlertTitle" = "Risiko-Überprüfung";
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
 
 "Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
 
