@@ -1363,7 +1363,11 @@ enum AppStrings {
 
 			
 		}
+	}
 
+	enum Checkout {
+		static let notificationTitle = NSLocalizedString("Checkout_Notification_Title", comment: "")
+		static let notificationBody = NSLocalizedString("Checkout_Notification_Body", comment: "")
 	}
 
 	enum TraceLocations {

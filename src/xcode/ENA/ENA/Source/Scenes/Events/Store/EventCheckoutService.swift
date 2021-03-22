@@ -127,8 +127,8 @@ final class EventCheckoutService {
 		userNotificationCenter.removePendingNotificationRequests(withIdentifiers: ["\(checkin.id)"])
 
 		let content = UNMutableNotificationContent()
-		content.title = "Sie wurden automatisch ausgecheckt."
-		content.body = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenfalls an."
+		content.title = AppStrings.Checkout.notificationTitle
+		content.body = AppStrings.Checkout.notificationBody
 		content.sound = .default
 
 		let request = UNNotificationRequest(
