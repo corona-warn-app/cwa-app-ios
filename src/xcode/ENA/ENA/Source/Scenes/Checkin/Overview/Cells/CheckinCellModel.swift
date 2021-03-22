@@ -67,16 +67,16 @@ class CheckinCellModel: EventCellModel {
 	private var updateTimer: Timer?
 
 	private func updateForActiveState() {
-		isInactiveIconHiddenPublisher.value = checkin.isActive
-		isActiveContainerViewHiddenPublisher.value = !checkin.isActive
-		isButtonHiddenPublisher.value = !checkin.isActive
+		isInactiveIconHiddenPublisher.value = !checkin.checkinCompleted
+		isActiveContainerViewHiddenPublisher.value = checkin.checkinCompleted
+		isButtonHiddenPublisher.value = checkin.checkinCompleted
 
-		if let checkinEndDate = checkin.checkinEndDate {
+		if !checkin.checkinCompleted {
 			let dateFormatter = DateIntervalFormatter()
 			dateFormatter.dateStyle = .short
 			dateFormatter.timeStyle = .short
 
-			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkinEndDate)
+			timePublisher.value = dateFormatter.string(from: checkin.checkinStartDate, to: checkin.checkinEndDate)
 		} else {
 			let formattedCheckinTime = DateFormatter.localizedString(from: checkin.checkinStartDate, dateStyle: .none, timeStyle: .short)
 
@@ -84,8 +84,7 @@ class CheckinCellModel: EventCellModel {
 			dateComponentsFormatter.allowedUnits = [.hour, .minute]
 			dateComponentsFormatter.unitsStyle = .short
 
-			if let targetCheckinEndDate = checkin.targetCheckinEndDate,
-			   let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(from: targetCheckinEndDate.timeIntervalSince(checkin.checkinStartDate)) {
+			if let formattedAutomaticCheckoutDuration = dateComponentsFormatter.string(from: checkin.checkinEndDate.timeIntervalSince(checkin.checkinStartDate)) {
 				timePublisher.value = String(format: AppStrings.Checkins.Overview.checkinTimeTemplate, formattedCheckinTime, formattedAutomaticCheckoutDuration)
 			} else {
 				timePublisher.value = formattedCheckinTime
@@ -107,7 +106,7 @@ class CheckinCellModel: EventCellModel {
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 
-		guard checkin.isActive else {
+		guard !checkin.checkinCompleted else {
 			return
 		}
 

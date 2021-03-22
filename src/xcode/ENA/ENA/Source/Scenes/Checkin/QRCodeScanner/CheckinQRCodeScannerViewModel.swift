@@ -34,7 +34,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		Log.debug("Data found: \(String(describing: data))")
 
 		// creates a fake event for the moment
-		let checkin = Checkin(id: 0, traceLocationGUID: "", traceLocationVersion: 0, traceLocationType: .locationTypeUnspecified, traceLocationDescription: "", traceLocationAddress: "", traceLocationStartDate: Date(), traceLocationEndDate: Date(), traceLocationDefaultCheckInLengthInMinutes: 0, traceLocationSignature: "", checkinStartDate: Date(), checkinEndDate: Date(), targetCheckinEndDate: Date(), createJournalEntry: false)
+		let checkin = Checkin(id: 0, traceLocationGUID: "", traceLocationGUIDHash: Data(), traceLocationVersion: 0, traceLocationType: .locationTypeUnspecified, traceLocationDescription: "", traceLocationAddress: "", traceLocationStartDate: Date(), traceLocationEndDate: Date(), traceLocationDefaultCheckInLengthInMinutes: 0, traceLocationSignature: "", checkinStartDate: Date(), checkinEndDate: Date(), checkinCompleted: false, createJournalEntry: false)
 
 		onSuccess?(checkin)
 	}
