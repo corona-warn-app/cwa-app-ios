@@ -207,13 +207,13 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
 
 		addPersonToDayEntry("Max Mustermann")
-		addPersonToDayEntry("Erika Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
 
 		// check count for day entries: 1 add entry cell + 1 person added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
 
-		// deselect Erika Mustermann - 1 because new persons get entered on top
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Erika Mustermann"].tap()
+		// deselect Erika Musterfrau - 1 because new persons get entered on top
+		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Erika Musterfrau"].tap()
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
@@ -238,7 +238,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
 		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
-		XCTAssertFalse(dayCell.staticTexts["Erika Mustermann"].exists)
+		XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
 	}
 
 	func testScreenshotContactJournalInformation() throws {
@@ -275,7 +275,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.cells.element(boundBy: 1).tap()
 
 		// add persons
-		addPersonToDayEntry("Erika Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
 		addPersonToDayEntry("Max Mustermann")
 		// take screenshot
 		snapshot("contact_journal_listing_add_persons")
@@ -328,12 +328,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for day entries: 1 add entry cell
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
 
-		addPersonToDayEntry("Max Mustermann", phoneNumber: "12345678", eMail: "marcus@mustermann.de")
+		addPersonToDayEntry("Max Mustermann", phoneNumber: "12345678", eMail: "max@mustermann.de")
 
 		// check count for day entries: 1 add entry cell + 1 person added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
 
-		addPersonToDayEntry("Maria Musterfrau", phoneNumber: "12345678", eMail: "maria@musterfrau.de")
+		addPersonToDayEntry("Erika Musterfrau", phoneNumber: "12345678", eMail: "erika@musterfrau.de")
 
 		// check count for day entries: 1 add entry cell + 2 persons added
 		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
@@ -607,7 +607,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
 		addPersonToDayEntry("Max Mustermann")
-		addPersonToDayEntry("Erika Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 		addLocationToDayEntry("Bäckerei")
 		addLocationToDayEntry("Supermarkt")
