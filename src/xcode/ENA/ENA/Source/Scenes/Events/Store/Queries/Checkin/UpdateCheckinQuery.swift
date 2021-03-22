@@ -22,6 +22,7 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 		let sql = """
 			UPDATE Checkin SET
 			traceLocationGUID = ?,
+			traceLocationGUIDHash = ?,
 			traceLocationVersion = ?,
 			traceLocationType = ?,
 			traceLocationDescription = SUBSTR(?, 1, \(maxTextLength)),
@@ -31,8 +32,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			traceLocationDefaultCheckInLengthInMinutes = ?,
 			traceLocationSignature = ?,
 			checkinStartDate = ?,
-			targetCheckinEndDate = ?,
 			checkinEndDate = ?,
+			checkinCompleted = ?,
 			createJournalEntry = ?
 			WHERE id = ?;
 		"""
@@ -47,21 +48,12 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
 		}
 
-		var checkinEndDateInterval: Int?
-		if let checkinEndDate = checkin.checkinEndDate {
-			checkinEndDateInterval = Int(checkinEndDate.timeIntervalSince1970)
-		}
-
-		var targetCheckinEndDateInterval: Int?
-		if let targetCheckinEndDate = checkin.targetCheckinEndDate {
-			targetCheckinEndDateInterval = Int(targetCheckinEndDate.timeIntervalSince1970)
-		}
-
 		do {
 			try database.executeUpdate(
 				sql,
 				values: [
 					checkin.traceLocationGUID,
+					checkin.traceLocationGUIDHash,
 					checkin.traceLocationVersion,
 					checkin.traceLocationType.rawValue,
 					checkin.traceLocationDescription,
@@ -71,8 +63,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 					checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
 					checkin.traceLocationSignature,
 					Int(checkin.checkinStartDate.timeIntervalSince1970),
-					targetCheckinEndDateInterval as Any,
-					checkinEndDateInterval as Any,
+					Int(checkin.checkinEndDate.timeIntervalSince1970),
+					checkin.checkinCompleted,
 					checkin.createJournalEntry,
 					checkin.id
 				]
