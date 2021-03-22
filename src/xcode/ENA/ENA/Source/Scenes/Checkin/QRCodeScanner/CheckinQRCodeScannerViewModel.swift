@@ -34,23 +34,18 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		Log.debug("Data found: \(String(describing: data))")
 
 		// creates a fake event for the moment
-		let checkin = Checkin(
-			id: 0,
-			traceLocationGUID: "",
-			traceLocationVersion: 0,
-			traceLocationType: .type1,
-			traceLocationDescription: "Jahrestreffen derdeutschen SAP Anwendergruppe",
-			traceLocationAddress: "Lenaustr.6, 69115, Heidelberg",
-			traceLocationStartDate: Date(),
-			traceLocationEndDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
-			traceLocationDefaultCheckInLengthInMinutes: 0,
-			traceLocationSignature: "",
-			checkinStartDate: Date(),
-			checkinEndDate: Date(),
-			targetCheckinEndDate: Date(),
-			createJournalEntry: false
+		let traceLocation = TraceLocation(
+			guid: "",
+			version: 0,
+			type: .type1,
+			description: "Jahrestreffen derdeutschen SAP Anwendergruppe",
+			address: "Lenaustr.6, 69115, Heidelberg",
+			startDate: Date(),
+			endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
+			defaultCheckInLengthInMinutes: nil,
+			signature: ""
 		)
-		onSuccess?(checkin)
+		onSuccess?(traceLocation)
 	}
 
 	// MARK: - Internal
@@ -72,7 +67,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-	var onSuccess: ((Checkin) -> Void)?
+	var onSuccess: ((TraceLocation) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {

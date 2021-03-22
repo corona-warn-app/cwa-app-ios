@@ -3,11 +3,9 @@
 //
 
 struct TwoComponentsIntegerPicker {
-	var firstComponentSelectedValue: Int?
-	var secondComponentSelectedValue: Int?
-	let firstComponentValues: [Int]
-	let secondComponentValues: [Int]
 	
+	// MARK: - Init
+		
 	init(
 		firstComponentSelectedValue: Int?,
 		secondComponentSelectedValue: Int?,
@@ -19,4 +17,11 @@ struct TwoComponentsIntegerPicker {
 		self.firstComponentValues = firstComponentValues
 		self.secondComponentValues = secondComponentValues
 	}
+	
+	// MARK: - Internal
+
+	var firstComponentSelectedValue: Int?
+	var secondComponentSelectedValue: Int?
+	let firstComponentValues: [Int]
+	let secondComponentValues: [Int]
 }
