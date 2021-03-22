@@ -104,19 +104,15 @@ class TraceLocationsCoordinator {
 //			isSecondaryButtonHidden: true
 //		)
 //
-//		let footerViewController = FooterViewController.init(
-//			footerViewModel,
-//			didTapPrimaryButton: { },
-//			didTapSecondaryButton: { }
-//		)
+//		let footerViewController = FooterViewController.init(footerViewModel)
 //
 //		let topBottomContainerViewController = TopBottomContainerViewController(
 //			topController: CheckinsInfoScreenViewController,
-//			bottomController: footerViewController, bottomHeight: 140.0
+//			bottomController: footerViewController
 //		)
 //		return topBottomContainerViewController
-
-
+//
+//
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
 		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
