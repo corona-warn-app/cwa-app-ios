@@ -465,7 +465,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
-		contactDiaryStore: self.contactDiaryStore,
+		contactDiaryStore: contactDiaryStore,
+		eventStore: eventStore,
 		otpService: otpService
 	)
 

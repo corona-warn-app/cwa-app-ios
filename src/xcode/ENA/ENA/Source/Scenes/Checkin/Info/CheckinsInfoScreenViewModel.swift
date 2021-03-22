@@ -29,16 +29,16 @@ struct CheckInsInfoScreenViewModel {
 						UIImage(
 							imageLiteralResourceName: "Illu_Event_Attendee"
 						),
-						accessibilityLabel: AppStrings.Checkin.Information.imageDescription,
+						accessibilityLabel: AppStrings.Checkins.Information.imageDescription,
 						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.imageDescription
 					),
 				cells: [
 					.title2(
-						text: AppStrings.Checkin.Information.descriptionTitle,
+						text: AppStrings.Checkins.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.descriptionTitle
 					),
 					.subheadline(
-						text: AppStrings.Checkin.Information.descriptionSubHeadline,
+						text: AppStrings.Checkins.Information.descriptionSubHeadline,
 						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.descriptionSubHeadline
 					),
 					.space(
@@ -47,7 +47,7 @@ struct CheckInsInfoScreenViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
-						text: .string(AppStrings.Checkin.Information.itemCheckinTitle),
+						text: .string(AppStrings.Checkins.Information.itemCheckinTitle),
 						alignment: .top
 					),
 					.space(
@@ -56,7 +56,7 @@ struct CheckInsInfoScreenViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.Checkin.Information.itemLocationTitle),
+						text: .string(AppStrings.Checkins.Information.itemLocationTitle),
 						alignment: .top
 					)
 				]
@@ -64,15 +64,15 @@ struct CheckInsInfoScreenViewModel {
 			// Legal text
 			.section(cells: [
 				.legalExtended(
-					title: NSAttributedString(string: AppStrings.Checkin.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_1),
+					title: NSAttributedString(string: AppStrings.Checkins.Information.legalHeadline_1),
+					subheadline1: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline_1),
 					bulletPoints1: [
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_1),
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_2)
+						NSAttributedString(string: AppStrings.Checkins.Information.legalText_1),
+						NSAttributedString(string: AppStrings.Checkins.Information.legalText_2)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
+					subheadline2: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline_2),
 					bulletPoints2: [
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
+						NSAttributedString(string: AppStrings.Checkins.Information.legalText_3)
 						],
 					accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle,
 					configure: { _, cell, _ in
@@ -85,7 +85,7 @@ struct CheckInsInfoScreenViewModel {
 				separators: .all,
 				cells: [
 					.body(
-						text: AppStrings.Checkin.Information.dataPrivacyTitle,
+						text: AppStrings.Checkins.Information.dataPrivacyTitle,
 						style: DynamicCell.TextCellStyle.label,
 						accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle,
 						accessibilityTraits: UIAccessibilityTraits.link,

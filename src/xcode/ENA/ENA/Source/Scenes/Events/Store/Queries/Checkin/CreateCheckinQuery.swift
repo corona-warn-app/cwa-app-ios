@@ -22,6 +22,7 @@ class CreateCheckinQuery: StoreQueryProtocol {
 		let sql = """
 			INSERT INTO Checkin (
 				traceLocationGUID,
+				traceLocationGUIDHash,
 				traceLocationVersion,
 				traceLocationType,
 				traceLocationDescription,
@@ -31,12 +32,13 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				traceLocationDefaultCheckInLengthInMinutes,
 				traceLocationSignature,
 				checkinStartDate,
-				targetCheckinEndDate,
 				checkinEndDate,
+				checkinCompleted,
 				createJournalEntry
 			)
 			VALUES (
 				:traceLocationGUID,
+				:traceLocationGUIDHash,
 				:traceLocationVersion,
 				:traceLocationType,
 				SUBSTR(:traceLocationDescription, 1, \(maxTextLength)),
@@ -46,8 +48,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				:traceLocationDefaultCheckInLengthInMinutes,
 				:traceLocationSignature,
 				:checkinStartDate,
-				:targetCheckinEndDate,
 				:checkinEndDate,
+				:checkinCompleted,
 				:createJournalEntry
 			);
 		"""
@@ -62,18 +64,9 @@ class CreateCheckinQuery: StoreQueryProtocol {
 			traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
 		}
 
-		var checkinEndDateInterval: Int?
-		if let checkinEndDate = checkin.checkinEndDate {
-			checkinEndDateInterval = Int(checkinEndDate.timeIntervalSince1970)
-		}
-
-		var targetCheckinEndDateInterval: Int?
-		if let targetCheckinEndDate = checkin.targetCheckinEndDate {
-			targetCheckinEndDateInterval = Int(targetCheckinEndDate.timeIntervalSince1970)
-		}
-
 		let parameters: [String: Any] = [
 			"traceLocationGUID": checkin.traceLocationGUID,
+			"traceLocationGUIDHash": checkin.traceLocationGUIDHash,
 			"traceLocationVersion": checkin.traceLocationVersion,
 			"traceLocationType": checkin.traceLocationType.rawValue,
 			"traceLocationDescription": checkin.traceLocationDescription,
@@ -83,8 +76,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 			"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
 			"traceLocationSignature": checkin.traceLocationSignature,
 			"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
-			"targetCheckinEndDate": targetCheckinEndDateInterval as Any,
-			"checkinEndDate": checkinEndDateInterval as Any,
+			"checkinEndDate": Int(checkin.checkinEndDate.timeIntervalSince1970),
+			"checkinCompleted": checkin.checkinCompleted,
 			"createJournalEntry": checkin.createJournalEntry
 		]
 
