@@ -435,7 +435,7 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 			)
 		} else {
 			cellModel = HomeThankYouCellModel(
-				testResultTimestamp: 1615766400 // 15.03.2021, 18701 days since 01.01.1970
+				testResultTimestamp: 1604793600 // 08.11.2020, 18574 days since 01.01.1970
 			)
 		}
 		cell.configure(
