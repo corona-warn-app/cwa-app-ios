@@ -2058,12 +2058,12 @@
 			isa = PBXGroup;
 			children = (
 				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
+				0138F6FE25F6782F00A9B075 /* Configuration */,
+				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
-				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6E025F661DE00A9B075 /* PrintVersion */,
 				0138F6D225F6177500A9B075 /* TypeSelection */,
-				0138F6FE25F6782F00A9B075 /* Configuration */,
 			);
 			path = TraceLocations;
 			sourceTree = "<group>";
