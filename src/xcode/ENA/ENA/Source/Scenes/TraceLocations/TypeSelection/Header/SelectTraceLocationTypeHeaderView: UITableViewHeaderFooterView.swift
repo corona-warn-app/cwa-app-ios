@@ -28,7 +28,7 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 	private let titleLabel = ENALabel()
 
 	private func setupView() {
-		contentView.backgroundColor = .enaColor(for: .background)
+		contentView.backgroundColor = .enaColor(for: .cellBackground)
 
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(titleLabel)
