@@ -13,6 +13,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.unspecified.title, traceLocationType.title)
+		XCTAssertNil(traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentOther_THEN_TitleAndSubtitleMatch() {
@@ -21,6 +22,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.other, traceLocationType.title)
+		XCTAssertNil(traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypeTemporaryOther_THEN_TitleAndSubtitleMatch() {
@@ -29,6 +31,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.temporary.title.other, traceLocationType.title)
+		XCTAssertNil(traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentRetail_THEN_TitleAndSubtitleMatch() {
@@ -37,6 +40,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.retail, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.permanent.subtitle.retail, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentFoodService_THEN_TitleAndSubtitleMatch() {
@@ -45,6 +49,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.foodService, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.permanent.subtitle.foodService, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentCraft_THEN_TitleAndSubtitleMatch() {
@@ -53,6 +58,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.craft, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.permanent.subtitle.craft, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentWorkplace_THEN_TitleAndSubtitleMatch() {
@@ -61,6 +67,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.workplace, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.permanent.subtitle.workplace, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentEducationalInstitution_THEN_TitleAndSubtitleMatch() {
@@ -69,6 +76,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.educationalInstitution, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.permanent.subtitle.educationalInstitution, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypePermanentPublicBuilding_THEN_TitleAndSubtitleMatch() {
@@ -77,6 +85,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.permanent.title.publicBuilding, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.permanent.subtitle.publicBuilding, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypeTemporaryCulturalEvent_THEN_TitleAndSubtitleMatch() {
@@ -85,6 +94,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.temporary.title.culturalEvent, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.temporary.subtitle.culturalEvent, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypeTemporaryClubActivity_THEN_TitleAndSubtitleMatch() {
@@ -93,6 +103,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.temporary.title.clubActivity, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.temporary.subtitle.clubActivity, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypeTemporaryPrivateEvent_THEN_TitleAndSubtitleMatch() {
@@ -101,6 +112,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.temporary.title.privateEvent, traceLocationType.title)
+		XCTAssertEqual(AppStrings.TraceLocations.temporary.subtitle.privateEvent, traceLocationType.subtitle)
 	}
 
 	func testGIVEN_locationTypeTemporaryWorshipService_THEN_TitleAndSubtitleMatch() {
@@ -109,6 +121,7 @@ class TraceLocationTypeTest: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(AppStrings.TraceLocations.temporary.title.worshipService, traceLocationType.title)
+		XCTAssertNil(traceLocationType.subtitle)
 	}
 
 }
