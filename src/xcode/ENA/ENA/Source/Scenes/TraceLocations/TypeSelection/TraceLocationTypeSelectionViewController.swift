@@ -75,6 +75,8 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	private let onDismiss: () -> Void
 
 	private func setupTableView() {
+		view.backgroundColor = .enaColor(for: .background)
+
 		tableView.separatorStyle = .none
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableView.automaticDimension

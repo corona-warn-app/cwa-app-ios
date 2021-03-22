@@ -25,7 +25,7 @@ class SelectTraceLocationTypeFooterView: UITableViewHeaderFooterView, ReuseIdent
 	private func setupView() {
 		contentView.backgroundColor = .enaColor(for: .background)
 		NSLayoutConstraint.activate([
-			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 15.0),
+			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 15.0)
 		])
 	}
 

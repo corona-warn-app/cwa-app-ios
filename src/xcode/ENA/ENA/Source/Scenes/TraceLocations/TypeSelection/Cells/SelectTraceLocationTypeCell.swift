@@ -38,10 +38,12 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.font = .enaFont(for: .body)
 		titleLabel.textColor = .enaColor(for: .textPrimary1)
+		titleLabel.numberOfLines = 0
 
 		subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		subTitleLabel.font = .enaFont(for: .subheadline)
 		subTitleLabel.textColor = .enaColor(for: .textSemanticGray)
+		subTitleLabel.numberOfLines = 0
 
 		let stackView = UIStackView(arrangedSubviews: [
 			titleLabel,
