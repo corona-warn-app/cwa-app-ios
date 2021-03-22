@@ -24,32 +24,32 @@ final class EventCheckoutService {
 	// MARK: - Internal
 
 	func checkout(checkin: Checkin, showNotification: Bool) {
-		let checkinEndDate = checkin.targetCheckinEndDate ?? Date()
-		let updatedCheckin = checkin.updatedCheckin(with: checkinEndDate)
-		eventStore.updateCheckin(updatedCheckin)
+		let completedCheckin = checkin.completedCheckin()
+		eventStore.updateCheckin(completedCheckin)
 
-		if updatedCheckin.createJournalEntry {
-			createJournalEntry(of: updatedCheckin)
+		if completedCheckin.createJournalEntry {
+			createJournalEntry(of: completedCheckin)
 		}
 
 		if showNotification {
-			triggerNotificationForCheckout(of: updatedCheckin)
+			triggerNotificationForCheckout(of: completedCheckin)
 		}
 	}
 
 	func checkoutOverdueCheckins() {
 		let overdueCheckins = eventStore.checkinsPublisher.value.filter {
-			$0.checkinEndDate == nil && ($0.targetCheckinEndDate ?? Date()) < Date()
+			($0.checkinEndDate < Date())
 		}
-		overdueCheckins.forEach {
-			let updatedCheckin = $0.updatedCheckin(with: $0.targetCheckinEndDate)
-			eventStore.updateCheckin(updatedCheckin)
 
-			if updatedCheckin.createJournalEntry {
-				createJournalEntry(of: updatedCheckin)
+		overdueCheckins.forEach {
+			let completedCheckin = $0.completedCheckin()
+			eventStore.updateCheckin(completedCheckin)
+
+			if completedCheckin.createJournalEntry {
+				createJournalEntry(of: completedCheckin)
 			}
 
-			triggerNotificationForCheckout(of: updatedCheckin)
+			triggerNotificationForCheckout(of: completedCheckin)
 		}
 	}
 
@@ -155,10 +155,11 @@ final class EventCheckoutService {
 }
 
 private extension Checkin {
-	func updatedCheckin(with checkinEndDate: Date?) -> Checkin {
+	func completedCheckin() -> Checkin {
 		Checkin(
 			id: self.id,
 			traceLocationGUID: self.traceLocationGUID,
+			traceLocationGUIDHash: self.traceLocationGUIDHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -168,8 +169,8 @@ private extension Checkin {
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
 			traceLocationSignature: self.traceLocationSignature,
 			checkinStartDate: self.checkinStartDate,
-			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: self.targetCheckinEndDate,
+			checkinEndDate: self.checkinEndDate,
+			checkinCompleted: true,
 			createJournalEntry: self.createJournalEntry)
 	}
 }

@@ -29,6 +29,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 				startDate,
 				endDate,
 				defaultCheckInLengthInMinutes,
+				byteRepresentation,
 				signature
 			)
 			VALUES (
@@ -40,6 +41,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 				:startDate,
 				:endDate,
 				:defaultCheckInLengthInMinutes,
+				:byteRepresentation,
 				:signature
 			);
 		"""
@@ -63,6 +65,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 			"startDate": startDateInterval as Any,
 			"endDate": endDateInterval as Any,
 			"defaultCheckInLengthInMinutes": traceLocation.defaultCheckInLengthInMinutes as Any,
+			"byteRepresentation": traceLocation.byteRepresentation,
 			"signature": traceLocation.signature
 		]
 

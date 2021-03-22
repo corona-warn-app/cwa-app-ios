@@ -11,7 +11,7 @@ class CheckinSplittingService {
 	// Algorithm from: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/a053f23d4d33721ac98f70ccc05175fbcfc35632/sample-code/presence-tracing/pt-split-check-in-by-midnight-utc.js
 
 	func split(_ checkin: Checkin) -> [Checkin] {
-		let endTimeInterval = checkin.checkinEndDate?.timeIntervalSince1970 ?? 0
+		let endTimeInterval = checkin.checkinEndDate.timeIntervalSince1970
 		let startTimeInterval = checkin.checkinStartDate.timeIntervalSince1970
 
 		guard endTimeInterval >= startTimeInterval else {
@@ -35,8 +35,8 @@ class CheckinSplittingService {
 				let endDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinStartDate.timeIntervalSince1970) + nDaysInterval(index + 1))
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
 			} else if !isFirst(index) && isLast(index) {
-				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinEndDate?.timeIntervalSince1970 ?? 0))
-				let endDate = checkin.checkinEndDate ?? Date()
+				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinEndDate.timeIntervalSince1970))
+				let endDate = checkin.checkinEndDate
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
 			} else if !isFirst(index) && !isLast(index) {
 				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: startTimeInterval) + nDaysInterval(index))
@@ -67,6 +67,7 @@ private extension Checkin {
 		Checkin(
 			id: self.id,
 			traceLocationGUID: self.traceLocationGUID,
+			traceLocationGUIDHash: self.traceLocationGUIDHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -77,7 +78,7 @@ private extension Checkin {
 			traceLocationSignature: self.traceLocationSignature,
 			checkinStartDate: startDate ?? self.checkinStartDate,
 			checkinEndDate: endDate ?? self.checkinEndDate,
-			targetCheckinEndDate: self.targetCheckinEndDate,
+			checkinCompleted: self.checkinCompleted,
 			createJournalEntry: self.createJournalEntry
 		)
 	}
