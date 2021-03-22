@@ -62,10 +62,10 @@ class CheckinDetailViewController: UIViewController {
 		viewModel.setupView()
 
 		view.backgroundColor = .enaColor(for: .background)
-		checkInForLabel.text = AppStrings.Checkin.Details.checkinFor
-		activityLabel.text = AppStrings.Checkin.Details.activity
-		saveToDiaryLabel.text = AppStrings.Checkin.Details.saveToDiary
-		automaticCheckOutLabel.text = AppStrings.Checkin.Details.automaticCheckout
+		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
+		activityLabel.text = AppStrings.Checkins.Details.activity
+		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
+		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
@@ -104,7 +104,7 @@ class CheckinDetailViewController: UIViewController {
 		viewModel.pickerView(didSelectRow: datePicker.date.todaysMinutes)
 		let components = datePicker.date.todaysMinutes.quotientAndRemainder(dividingBy: 60)
 		pickerButton.setTitle(
-			"\(components.quotient):\(components.remainder) " + AppStrings.Checkin.Details.hoursShortVersion,
+			"\(components.quotient):\(components.remainder) " + AppStrings.Checkins.Details.hoursShortVersion,
 			for: .normal
 		)
 	}

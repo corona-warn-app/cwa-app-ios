@@ -118,9 +118,9 @@ final class CheckinCoordinator {
 		}
 	}
 	
-	private func showCheckinDetails(_ checkin: Checkin) {
+	private func showCheckinDetails(_ traceLocation: TraceLocation) {
 		let checkinDetailViewController = CheckinDetailViewController(
-			checkin,
+			traceLocation,
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
 			presentCheckins: { [weak self] in
 				self?.viewController.dismiss(animated: true, completion: {
