@@ -109,6 +109,8 @@ protocol StoreProtocol: AnyObject {
 	var submissionSymptomsOnset: SymptomsOnset { get set }
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
+	
+	var checkinInfoScreenShown: Bool { get set }
 
 	var traceLocationsInfoScreenShown: Bool { get set }
 

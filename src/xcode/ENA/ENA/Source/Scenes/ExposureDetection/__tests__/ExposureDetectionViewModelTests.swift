@@ -44,7 +44,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -112,7 +112,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -239,7 +239,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -298,7 +298,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -397,7 +397,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: configuration,
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 		
 		// Needed to check the isHidden state of sections
@@ -496,7 +496,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -573,7 +573,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in }
+			onInactiveButtonTap: { }
 		)
 
 		// Needed to check the isHidden state of sections
@@ -681,7 +681,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -741,7 +741,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -787,7 +787,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -834,7 +834,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			homeState: homeState,
 			appConfigurationProvider: CachedAppConfigurationMock(),
 			onSurveyTap: { },
-			onInactiveButtonTap: { _ in onInactiveButtonTapExpectation.fulfill() }
+			onInactiveButtonTap: { onInactiveButtonTapExpectation.fulfill() }
 		)
 
 		viewModel.onButtonTap()
@@ -901,7 +901,11 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		// Explanation section
 		section = dynamicTableViewModel.section(5)
-		XCTAssertEqual(section.cells.count, 2)
+		if hasAtLeastOneDayWithLowRiskLevel == true {
+			XCTAssertEqual(section.cells.count, 3)
+		} else {
+			XCTAssertEqual(section.cells.count, 2)
+		}
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 
@@ -1020,8 +1024,9 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		XCTAssertEqual(section.cells[5].cellReuseIdentifier.rawValue, "guideCell")
 
 		// Explanation section
+		let numberOfExposures = viewController.viewModel.riskDetails?.numberOfDaysWithRiskLevel ?? -1
 		section = dynamicTableViewModel.section(3)
-		XCTAssertEqual(section.cells.count, 2)
+		XCTAssertEqual(section.cells.count, numberOfExposures > 0 ? 3 : 2)
 		XCTAssertEqual(section.cells[0].cellReuseIdentifier.rawValue, "headerCell")
 		XCTAssertEqual(section.cells[1].cellReuseIdentifier.rawValue, "labelCell")
 	}

@@ -8,83 +8,120 @@ class MockEventStore: EventStoring, EventProviding {
 
 	// MARK: - Protocol EventStoring
 
-	func createTraceLocation(_ traceLocation: TraceLocation) -> VoidResult {
+	@discardableResult
+	func createTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
 		traceLocationsPublisher.value.append(traceLocation)
 		return .success(())
 	}
 
-	func deleteTraceLocation(id: String) -> EventStoring.VoidResult {
-		traceLocationsPublisher.value.removeAll { $0.guid == id }
+	@discardableResult
+	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult {
+		var traceLocations = traceLocationsPublisher.value
+		guard let oldTraceLocation = (traceLocations.first { $0.guid == traceLocation.guid }) else {
+			return .failure(.database(.unknown))
+		}
+		let updatedTraceLocation = oldTraceLocation.updatedWith(traceLocation: traceLocation)
+		traceLocations.removeAll { $0.guid == oldTraceLocation.guid }
+		traceLocations.append(updatedTraceLocation)
+		traceLocationsPublisher.send(traceLocations)
 		return .success(())
 	}
 
-	func deleteAllTraceLocations() -> EventStoring.VoidResult {
+	@discardableResult
+	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
+		traceLocationsPublisher.value.removeAll { $0.guid == guid }
+		return .success(())
+	}
+
+	@discardableResult
+	func deleteAllTraceLocations() -> SecureSQLStore.VoidResult {
 		traceLocationsPublisher.value = ([])
 		return .success(())
 	}
 
-	func createCheckin(_ checkin: Checkin) -> EventStoring.IdResult {
+	@discardableResult
+	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let checkinWithId = checkin.updatedWith(id: id)
 		checkinsPublisher.value.append(checkinWithId)
 		return .success(id)
 	}
 
-	func updateCheckin(id: Int, endDate: Date) -> EventStoring.VoidResult {
+	@discardableResult
+	func updateCheckin(_ checkin: Checkin) -> SecureSQLStore.VoidResult {
 		var checkins = checkinsPublisher.value
-		guard let checkin = (checkins.first { $0.id == id }) else {
+		guard let oldCheckin = (checkins.first { $0.id == checkin.id }) else {
 			return .failure(.database(.unknown))
 		}
-		let updatedCheckin = checkin.updatedWith(checkinEndDate: endDate)
-		checkins.removeAll { $0.id == id }
+		let updatedCheckin = oldCheckin.updatedWith(checkin: checkin)
+		checkins.removeAll { $0.id == oldCheckin.id }
 		checkins.append(updatedCheckin)
 		checkinsPublisher.send(checkins)
 		return .success(())
 	}
 
-	func updateCheckin(id: Int, targetCheckinEndDate: Date) -> EventStoring.VoidResult {
-		var checkins = checkinsPublisher.value
-		guard let checkin = (checkins.first { $0.id == id }) else {
-			return .failure(.database(.unknown))
-		}
-		let updatedCheckin = checkin.updatedWith(targetCheckinEndDate: targetCheckinEndDate)
-		checkins.removeAll { $0.id == id }
-		checkins.append(updatedCheckin)
-		checkinsPublisher.send(checkins)
-		return .success(())
-	}
-
-	func deleteCheckin(id: Int) -> EventStoring.VoidResult {
+	@discardableResult
+	func deleteCheckin(id: Int) -> SecureSQLStore.VoidResult {
 		checkinsPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
-	func deleteAllCheckins() -> EventStoring.VoidResult {
+	@discardableResult
+	func deleteAllCheckins() -> SecureSQLStore.VoidResult {
 		checkinsPublisher.value = ([])
 		return .success(())
 	}
 
-	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> EventStoring.IdResult {
+	@discardableResult
+	func createTraceTimeIntervalMatch(_ match: TraceTimeIntervalMatch) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let traceTimeIntervalMatch = match.updatedWith(id: id)
 		traceTimeIntervalMatchesPublisher.value.append(traceTimeIntervalMatch)
 		return .success(id)
 	}
 
-	func deleteTraceTimeIntervalMatch(id: Int) -> EventStoring.VoidResult {
+	@discardableResult
+	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult {
 		traceTimeIntervalMatchesPublisher.value.removeAll { $0.id == id }
 		return .success(())
 	}
 
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> EventStoring.IdResult {
+	@discardableResult
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let traceWarningPackageMetadata = metadata.updatedWith(id: id)
 		traceWarningPackageMetadatasPublisher.value.append(traceWarningPackageMetadata)
 		return .success(id)
 	}
 
-	func deleteTraceWarningPackageMetadata(id: Int) -> EventStoring.VoidResult {
+	@discardableResult
+	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult {
 		traceWarningPackageMetadatasPublisher.value.removeAll { $0.id == id }
+		return .success(())
+	}
+
+	@discardableResult
+	func deleteAllTraceWarningPackageMetadata() -> SecureSQLStore.VoidResult {
+		traceWarningPackageMetadatasPublisher.value = ([])
+		return .success(())
+	}
+
+	@discardableResult
+	func cleanup() -> SecureSQLStore.VoidResult {
+		return .success(())
+	}
+
+	@discardableResult
+	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult {
+		return .success(())
+	}
+
+	@discardableResult
+	func reset() -> SecureSQLStore.VoidResult {
+		traceLocationsPublisher.send([TraceLocation]())
+		checkinsPublisher.send([Checkin]())
+		traceTimeIntervalMatchesPublisher.send([TraceTimeIntervalMatch]())
+		traceWarningPackageMetadatasPublisher.send([TraceWarningPackageMetadata]())
 		return .success(())
 	}
 
@@ -126,61 +163,61 @@ private extension TraceWarningPackageMetadata {
 	}
 }
 
+private extension TraceLocation {
+	func updatedWith(traceLocation: TraceLocation) -> TraceLocation {
+		TraceLocation(
+			guid: guid,
+			version: traceLocation.version,
+			type: traceLocation.type,
+			description: traceLocation.description,
+			address: traceLocation.address,
+			startDate: traceLocation.startDate,
+			endDate: traceLocation.endDate,
+			defaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
+			byteRepresentation: traceLocation.byteRepresentation,
+			signature: traceLocation.signature
+		)
+	}
+}
+
 private extension Checkin {
 	func updatedWith(id: Int) -> Checkin {
 		Checkin(
 			id: id,
 			traceLocationGUID: self.traceLocationGUID,
+			traceLocationGUIDHash: self.traceLocationGUIDHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
 			traceLocationAddress: self.traceLocationAddress,
-			traceLocationStart: self.traceLocationStart,
-			traceLocationEnd: self.traceLocationEnd,
+			traceLocationStartDate: self.traceLocationStartDate,
+			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
 			traceLocationSignature: self.traceLocationSignature,
 			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: self.checkinEndDate,
-			targetCheckinEndDate: self.targetCheckinEndDate,
+			checkinCompleted: self.checkinCompleted,
 			createJournalEntry: self.createJournalEntry
 		)
 	}
 
-	func updatedWith(targetCheckinEndDate: Date) -> Checkin {
+	func updatedWith(checkin: Checkin) -> Checkin {
 		Checkin(
 			id: self.id,
-			traceLocationGUID: self.traceLocationGUID,
-			traceLocationVersion: self.traceLocationVersion,
-			traceLocationType: self.traceLocationType,
-			traceLocationDescription: self.traceLocationDescription,
-			traceLocationAddress: self.traceLocationAddress,
-			traceLocationStart: self.traceLocationStart,
-			traceLocationEnd: self.traceLocationEnd,
-			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: self.traceLocationSignature,
-			checkinStartDate: self.checkinStartDate,
-			checkinEndDate: self.checkinEndDate,
-			targetCheckinEndDate: targetCheckinEndDate,
-			createJournalEntry: self.createJournalEntry
-		)
-	}
-
-	func updatedWith(checkinEndDate: Date) -> Checkin {
-		Checkin(
-			id: self.id,
-			traceLocationGUID: self.traceLocationGUID,
-			traceLocationVersion: self.traceLocationVersion,
-			traceLocationType: self.traceLocationType,
-			traceLocationDescription: self.traceLocationDescription,
-			traceLocationAddress: self.traceLocationAddress,
-			traceLocationStart: self.traceLocationStart,
-			traceLocationEnd: self.traceLocationEnd,
-			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: self.traceLocationSignature,
-			checkinStartDate: self.checkinStartDate,
-			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: self.targetCheckinEndDate,
-			createJournalEntry: self.createJournalEntry
+			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
+			traceLocationVersion: checkin.traceLocationVersion,
+			traceLocationType: checkin.traceLocationType,
+			traceLocationDescription: checkin.traceLocationDescription,
+			traceLocationAddress: checkin.traceLocationAddress,
+			traceLocationStartDate: checkin.traceLocationStartDate,
+			traceLocationEndDate: checkin.traceLocationEndDate,
+			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: checkin.traceLocationSignature,
+			checkinStartDate: checkin.checkinStartDate,
+			checkinEndDate: checkin.checkinEndDate,
+			checkinCompleted: checkin.checkinCompleted,
+			createJournalEntry: checkin.createJournalEntry
 		)
 	}
 }

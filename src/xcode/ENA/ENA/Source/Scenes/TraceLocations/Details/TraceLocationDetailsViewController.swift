@@ -6,7 +6,8 @@ import UIKit
 import OpenCombine
 import PDFKit
 
-class TraceLocationDetailsViewController: UIViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
+
 
 	// MARK: - Init
 
@@ -37,30 +38,25 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
 			onTap: { [weak self] in
 				self?.onDismiss()
 			}
 		)
-		
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		navigationFooterItem.isPrimaryButtonEnabled = false
-		navigationFooterItem.isPrimaryButtonLoading = true
-		
-		generateAndPassQRCodePoster()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		onDuplicateButtonTap(viewModel.traceLocation)
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			
+			generateAndPassQRCodePoster()
+		case .secondary:
+			onDuplicateButtonTap(viewModel.traceLocation)
+		}
 	}
 	
 	private func generateAndPassQRCodePoster() {
@@ -68,15 +64,13 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 			switch templateData {
 			case let .success(templateData):
 				DispatchQueue.main.async { [weak self] in
-					self?.navigationFooterItem.isPrimaryButtonEnabled = true
-					self?.navigationFooterItem.isPrimaryButtonLoading = false
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 					
 					guard let pdfView = self?.createPdfView(templateData: templateData) else { return }
 					self?.onPrintVersionButtonTap(pdfView)
 				}
 			case let .failure(error):
-				self?.navigationFooterItem.isPrimaryButtonEnabled = true
-				self?.navigationFooterItem.isPrimaryButtonLoading = false
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 				
 				Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
 				return
@@ -88,10 +82,9 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 		let pdfView = PDFView()
 		let pdfDocument = PDFDocument(data: templateData.template)
 
-		let placeHolderString = "HTTPS://CORONAWARN.APP/E1/BIPEY33SMVWSA2LQON2W2IDEN5WG64RAONUXIIDBNVSXILBAMNXRBCM4UQARRKM6UQASAHRKCC7CTDWGQ4JCO7RVZSWVIMQK4UPA.GBCAEIA7TEORBTUA25QHBOCWT26BCA5PORBS2E4FFWMJ3UU3P6SXOL7SHUBCA7UEZBDDQ2R6VRJH7WBJKVF7GZYJA6YMRN27IPEP7NKGGJSWX3XQ"
-		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(with: placeHolderString, size: CGSize(width: 400, height: 400)) else { return pdfView }
+		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(with: viewModel.traceLocation.getURL, size: CGSize(width: 400, height: 400)) else { return pdfView }
+		let textDetails = templateData.descriptionTextBox
 
-		let textDetails = templateData.description_p
 		try? pdfDocument?.embed(
 			image: qrCodeImage,
 			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
@@ -114,20 +107,6 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 	private let onPrintVersionButtonTap: (PDFView) -> Void
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
-
 	private var subscriptions = [AnyCancellable]()
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.TraceLocations.Details.printVersionButtonTitle
-		item.isPrimaryButtonEnabled = true
-
-		item.secondaryButtonTitle = AppStrings.TraceLocations.Details.duplicateButtonTitle
-		item.isSecondaryButtonEnabled = true
-		item.isSecondaryButtonHidden = false
-
-		return item
-	}()
 
 }

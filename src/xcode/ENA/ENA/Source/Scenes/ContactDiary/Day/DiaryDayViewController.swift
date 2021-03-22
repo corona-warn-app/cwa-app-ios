@@ -150,8 +150,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.dataSource = self
 
 		tableView.separatorStyle = .none
+		tableView.sectionFooterHeight = 0
+		tableView.sectionHeaderHeight = 0
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiary.dayTableView
 	}
 
 	private func entryAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -182,9 +185,22 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	private func updateForSelectedEntryType() {
-		tableView.reloadData()
-
-		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? EmptyStateView(viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType)) : nil
+				
+		if #available(iOS 13, *) {
+			tableView.reloadData()
+		} else {
+			UIView.performWithoutAnimation { [weak self] in
+				guard let self = self else {
+					return
+				}
+				let numberOfSections = self.numberOfSections(in: tableView)
+				self.tableView.beginUpdates()
+				self.tableView.reloadSections(IndexSet(0..<numberOfSections), with: .automatic)
+				self.tableView.endUpdates()
+			}
+		}
+		
+        tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? EmptyStateView(viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType)) : nil
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {

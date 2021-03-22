@@ -29,7 +29,8 @@ class DiaryEditEntriesCellModelTest: XCTestCase {
 			entry: .location(
 				DiaryLocation(
 					id: 0,
-					name: name
+					name: name,
+					traceLocationGUID: nil
 				)
 			)
 		)

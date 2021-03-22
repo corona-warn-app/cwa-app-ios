@@ -16,9 +16,19 @@ struct TraceLocation {
 	let type: TraceLocationType
 	let description: String
 	let address: String
-	let startDate: Date
-	let endDate: Date
-	let defaultCheckInLengthInMinutes: Int
+	let startDate: Date?
+	let endDate: Date?
+	let defaultCheckInLengthInMinutes: Int?
+	let byteRepresentation: Data
 	/// The signature of the event (provided by the CWA server). It is stored as a base64-encoded string of the signature attribute of Protocol Buffer message SignedEvent.
 	let signature: String
+
+	var isActive: Bool {
+		guard let endDate = endDate else {
+			return true
+		}
+
+		return Date() < endDate
+	}
+
 }

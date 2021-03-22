@@ -178,6 +178,7 @@ struct FileLogger {
 	/// - Returns: a `StreamReader`
 	func logReader(for logType: OSLogType) throws -> StreamReader {
 		let fileURL = logFileBaseURL.appendingPathComponent(logType.logFilePath)
+		try createLogFile(for: fileURL)
 		guard let reader = StreamReader(at: fileURL) else {
 			throw Error.streamerInitError
 		}
@@ -188,7 +189,9 @@ struct FileLogger {
 	/// - Throws: `FileLogger.Error.streamerInitError` if Reader initialization fails
 	/// - Returns: a `StreamReader`
 	func logReader() throws -> StreamReader {
-		guard let reader = StreamReader(at: allLogsFileURL) else {
+		let url = allLogsFileURL
+		try createLogFile(for: url)
+		guard let reader = StreamReader(at: url) else {
 			throw Error.streamerInitError
 		}
 		return reader
@@ -206,6 +209,14 @@ struct FileLogger {
 
 	private let encoding: String.Encoding = .utf8
 	private let logDateFormatter = ISO8601DateFormatter()
+	
+	private func createLogFile(for url: URL) throws {
+		let fileManager = FileManager.default
+		if !fileManager.fileExists(atPath: url.path) {
+			try fileManager.createDirectory(at: logFileBaseURL, withIntermediateDirectories: true)
+			fileManager.createFile(atPath: url.path, contents: Data())
+		}
+	}
 
 	private func makeWriteFileHandle(with logType: OSLogType) -> FileHandle? {
 		let logFileURL = logFileBaseURL.appendingPathComponent("\(logType.title).txt")
