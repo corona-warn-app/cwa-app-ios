@@ -82,7 +82,8 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 		let pdfView = PDFView()
 		let pdfDocument = PDFDocument(data: templateData.template)
 
-		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(with: viewModel.traceLocation.getURL, size: CGSize(width: 400, height: 400)) else { return pdfView }
+		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
+		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
 		let textDetails = templateData.descriptionTextBox
 
 		try? pdfDocument?.embed(
