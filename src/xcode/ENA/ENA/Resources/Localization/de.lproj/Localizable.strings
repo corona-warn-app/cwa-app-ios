@@ -2030,6 +2030,55 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
+
+"TraceLocations_Section_Title_Permanent" = "ORT";
+
+"TraceLocations_Section_Title_Temporary" = "EVENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Gastronomiebetrieb";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb ";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte ";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte ";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Café, Kneipe, Restaurant, Hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Friseur, Schreinerei";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Büro, Konferenzraum, Kantine";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Klassenzimmer, Vorlesungssaal, Bibliothek";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung ";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität ";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier ";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst ";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konzert, Kunstausstellung";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Sporttraining, Mitgliederversammlung";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Geburtstag, Familienfeier";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
