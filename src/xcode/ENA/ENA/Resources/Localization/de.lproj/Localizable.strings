@@ -1094,6 +1094,16 @@ sein.";
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
 
+/* Home Trace Locations Card */
+
+"Home_TraceLocationsCard_Title" = "Sie planen eine Veranstaltung?";
+
+"Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
+
+"Home_TraceLocationsCard_Button" = "QR-Code erstellen";
+
+/* Home Info Card */
+
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
 "Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
@@ -1936,13 +1946,96 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "QuickAction_eventCheckin" = "Einchecken";
 
-/* Events */
+/* Checkins */
 
-"Events_QR_Scanner_Instruction" = "QR-Code scannen und einchecken";
+"Checkins_QR_Scanner_Title" = "QR-Code Scan";
 
-"Events_Qr_Scanner_Button_CheckIns" = "Meine Check Ins";
+"Checkins_Overview_Title" = "Meine Check-ins";
 
-"Checkin_QR_Scanner_Title" = "QR-Code Scan";
+"Checkins_Overview_MenuButtonTitle" = "Menü";
+
+"Checkins_Overview_ScanButtonTitle" = "QR-Code scannen";
+
+"Checkins_Overview_EmptyTitle" = "Noch keine Einträge vorhanden";
+
+"Checkins_Overview_EmptyDescription" = "Wenn Sie einen QR-Code scannen, um sich für ein Event oder einen Ort einzuchecken, wird automatisch ein Eintrag angelegt.";
+
+"Checkins_Overview_EmptyImageDescription" = "Gebäude mit QR-Code-Symbol im Hintergrund";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+
+"Checkins_Overview_DurationTitle" = "Dauer";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - Automatisch auschecken nach %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
+
+"Checkins_Overview_MissingPermissions_Title" = "Benutzung der Kamera erlauben";
+
+"Checkins_Overview_MissingPermissions_Description" = "Um die Kamera für das Scannen des QR-Codes zu nutzen, müssen Sie die Verwendung der Kamera in den Geräte-Einstellungen zur App zulassen.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Geräte-Einstellungen öffnen";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich entfernen?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Entfernen";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle Einträge entfernen?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diese Orte oder Events eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Info";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+"Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
+
+/* TraceLocations */
+
+"TraceLocations_Overview_Title" = "Meine QR-Codes";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menü";
+
+"TraceLocations_Overview_AddButtonTitle" = "QR-Code erstellen";
+
+"TraceLocations_Overview_EmptyTitle" = "Noch keine QR-Codes erstellt";
+
+"TraceLocations_Overview_EmptyDescription" = "Hier werden alle QR-Codes angezeigt, die Sie für einen Ort oder ein Event erstellt haben. Sie können die QR-Codes löschen, wenn diese nicht mehr verwendet werden sollen.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartphone mit QR-Code-Symbol";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Selbst einchecken";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Wollen Sie den QR-Code wirklich löschen?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Einchecken verwendet werden kann.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Löschen";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle QR-Codes löschen?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Bitte denken Sie daran, dass diese QR-Codes danach nicht mehr zum Einchecken verwendet werden können.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Info";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
