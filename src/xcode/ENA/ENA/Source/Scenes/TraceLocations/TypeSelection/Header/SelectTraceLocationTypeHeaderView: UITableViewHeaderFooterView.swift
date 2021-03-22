@@ -41,11 +41,20 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 		titleLabel.font = .enaFont(for: .footnote)
 		titleLabel.textColor = .enaColor(for: .textSemanticGray)
 
+		let separatorView = UIView()
+		separatorView.translatesAutoresizingMaskIntoConstraints = false
+		separatorView.backgroundColor = .enaColor(for: .hairline)
+		contentView.addSubview(separatorView)
+
 		NSLayoutConstraint.activate([
-			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12.0),
-			titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6.0),
+			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14.0),
+			titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7.0),
 			titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23.0),
-			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17.0)
+			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17.0),
+			separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			separatorView.heightAnchor.constraint(equalToConstant: 1.0)
 		])
 	}
 }
