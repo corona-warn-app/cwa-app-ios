@@ -18,10 +18,6 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "NO"])
 	}
 
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
-	}
-
 	func test_0010_HomeFlow_medium() throws {
 		app.setPreferredContentSizeCategory(accessibility: .normal, size: .M)
 		app.launch()
