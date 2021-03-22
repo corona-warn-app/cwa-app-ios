@@ -786,6 +786,7 @@
 		BA7EABAD25C973FE001AA5FE /* DMKeyValueCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */; };
 		BA811B4D25D422B600C9BC98 /* DataDonationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */; };
 		BA8824D725D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json in Resources */ = {isa = PBXBuildFile; fileRef = BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */; };
+		BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */; };
 		BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */; };
 		BA904C9E25769D1800692110 /* TanInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904C9D25769D1800692110 /* TanInputView.swift */; };
 		BA904CA62576A0B900692110 /* ENAInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA904CA52576A0B900692110 /* ENAInputLabel.swift */; };
@@ -1760,6 +1761,7 @@
 		BA7EABAC25C973FE001AA5FE /* DMKeyValueCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueCellViewModel.swift; sourceTree = "<group>"; };
 		BA811B4C25D422B600C9BC98 /* DataDonationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationModel.swift; sourceTree = "<group>"; };
 		BA8824D625D2A88800AD9B11 /* ppdd-ppa-administrative-unit-set-ua-approved.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ppdd-ppa-administrative-unit-set-ua-approved.json"; sourceTree = "<group>"; };
+		BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeFooterView.swift; sourceTree = "<group>"; };
 		BA8BBA07255A90690034D4BC /* WifiHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiHTTPClientTests.swift; sourceTree = "<group>"; };
 		BA904C9D25769D1800692110 /* TanInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputView.swift; sourceTree = "<group>"; };
 		BA904CA52576A0B900692110 /* ENAInputLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAInputLabel.swift; sourceTree = "<group>"; };
@@ -5058,6 +5060,7 @@
 			isa = PBXGroup;
 			children = (
 				BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */,
+				BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -5837,6 +5840,7 @@
 				BA6C8AA6254D63A0008344F5 /* MinutesAtAttenuationFilter.swift in Sources */,
 				35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
+				BA887F962608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift in Sources */,
 				EB1BB10D25CC3FD50076CB67 /* AppDelegate.swift in Sources */,
 				AB190EBC25FB741000FBFF0D /* DeleteTraceWarningPackageMetadataQuery.swift in Sources */,
 				01A4DC6D25922EB4007D5794 /* HomeLoadingItemView.swift in Sources */,

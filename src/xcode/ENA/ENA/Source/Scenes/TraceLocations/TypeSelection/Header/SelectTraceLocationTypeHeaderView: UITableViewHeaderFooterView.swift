@@ -47,7 +47,7 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 		contentView.addSubview(separatorView)
 
 		NSLayoutConstraint.activate([
-			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14.0),
+			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 22.0),
 			titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7.0),
 			titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23.0),
 			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17.0),

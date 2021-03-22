@@ -52,11 +52,22 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 		stackView.spacing = 4.0
 		contentView.addSubview(stackView)
 
+		let separatorView = UIView()
+		separatorView.translatesAutoresizingMaskIntoConstraints = false
+		separatorView.backgroundColor = .enaColor(for: .hairline)
+		contentView.addSubview(separatorView)
+
 		NSLayoutConstraint.activate([
+			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 52.0),
 			stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23.0),
 			stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17.0),
 			stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10.0),
-			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0)
+			stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
+			separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+			separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 23.0),
+			separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -17.0),
+			separatorView.heightAnchor.constraint(equalToConstant: 1.0)
+
 		])
 	}
 

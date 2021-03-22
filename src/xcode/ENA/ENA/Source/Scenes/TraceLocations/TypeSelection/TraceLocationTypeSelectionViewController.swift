@@ -14,8 +14,7 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	) {
 		self.viewModel = viewModel
 		self.onDismiss = onDismiss
-
-		super.init(nibName: nil, bundle: nil)
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -60,6 +59,10 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 		return headerView
 	}
 
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		return tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectTraceLocationTypeFooterView.reuseIdentifier) as? SelectTraceLocationTypeFooterView
+	}
+
 	// MARK: - Protocol UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -72,15 +75,17 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	private let onDismiss: () -> Void
 
 	private func setupTableView() {
+		tableView.separatorStyle = .none
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableView.automaticDimension
 
-		tableView.estimatedSectionHeaderHeight = 33.0 // foter = 25.0
+		tableView.estimatedSectionHeaderHeight = 33.0
 		tableView.sectionHeaderHeight = UITableView.automaticDimension
-
-		tableView.separatorInset = UIEdgeInsets(top: 0, left: 23, bottom: 0, right: 17)
+		tableView.estimatedSectionFooterHeight = 25.0
+		tableView.sectionFooterHeight = UITableView.automaticDimension
 
 		tableView.register(SelectTraceLocationTypeHeaderView.self, forHeaderFooterViewReuseIdentifier: SelectTraceLocationTypeHeaderView.reuseIdentifier)
+		tableView.register(SelectTraceLocationTypeFooterView.self, forHeaderFooterViewReuseIdentifier: SelectTraceLocationTypeFooterView.reuseIdentifier)
 		tableView.register(SelectTraceLocationTypeCell.self, forCellReuseIdentifier: SelectTraceLocationTypeCell.reuseIdentifier)
 	}
 
