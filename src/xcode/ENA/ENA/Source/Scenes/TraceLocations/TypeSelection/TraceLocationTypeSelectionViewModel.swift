@@ -9,80 +9,66 @@ struct TraceLocationTypeSelectionViewModel {
 	// MARK: - Init
 
 	init(
+		_ allValues: [TraceLocationSection: [TraceLocationType]],
 		onTraceLocationTypeSelection: @escaping (TraceLocationType) -> Void
 	) {
+		self.allValues = allValues
 		self.onTraceLocationTypeSelection = onTraceLocationTypeSelection
 	}
 
 	// MARK: - Internal
 
-	enum Section: Int, CaseIterable {
+	enum TraceLocationSection: Int, CaseIterable {
 		case location
-		case traceLocation
+		case event
+
+		var title: String {
+			switch self {
+			case .location:
+				return AppStrings.TraceLocations.permanent.name
+			case .event:
+				return AppStrings.TraceLocations.temporary.name
+			}
+		}
 	}
 
 	var numberOfSections: Int {
-		Section.allCases.count
+		allValues.keys.count
 	}
 
 	func numberOfRows(in section: Int) -> Int {
-		switch Section(rawValue: section) {
-		case .location:
-			return 1
-		case .traceLocation:
-			return 1
-		case .none:
-			fatalError("Invalid section")
+		guard let traceLocationSection = TraceLocationSection(rawValue: section),
+			  let traceLocations = allValues[traceLocationSection] else {
+			return 0
 		}
+		return traceLocations.count
 	}
 
 	func sectionTitle(for index: Int) -> String {
-		switch Section.allCases[index] {
-		case .location:
-			return AppStrings.TraceLocations.TypeSelection.locationSectionTitle
-		case .traceLocation:
-			return AppStrings.TraceLocations.TypeSelection.eventSectionTitle
-		}
+		TraceLocationSection.allCases[index].title
 	}
 
-	func title(at indexPath: IndexPath) -> String {
-		switch Section(rawValue: indexPath.section) {
-		case .location:
-			return AppStrings.TraceLocations.TypeSelection.otherLocationTitle
-		case .traceLocation:
-			return AppStrings.TraceLocations.TypeSelection.otherEventTitle
-		case .none:
-			fatalError("Invalid section")
+	func cellViewModel(at indexPath: IndexPath) -> TraceLocationType {
+		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
+			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
+			Log.debug("missing TraceLocationType")
+			return .locationTypeUnspecified
 		}
-	}
-
-	func description(at indexPath: IndexPath) -> String? {
-		switch Section(rawValue: indexPath.section) {
-		case .location:
-			return nil
-		case .traceLocation:
-			return nil
-		case .none:
-			fatalError("Invalid section")
-		}
+		return traceLocationType
 	}
 
 	func selectTraceLocationType(at indexPath: IndexPath) {
-		switch Section(rawValue: indexPath.section) {
-		case .location:
-			onTraceLocationTypeSelection(locationTypes[indexPath.row])
-		case .traceLocation:
-			onTraceLocationTypeSelection(traceLocationTypes[indexPath.row])
-		case .none:
-			fatalError("Invalid section")
+		guard let traceLocationSection = TraceLocationSection(rawValue: indexPath.section),
+			  let traceLocationType = allValues[traceLocationSection]?[indexPath.row] else {
+			Log.debug("Failed to select a TraceLocationType")
+			return
 		}
+		onTraceLocationTypeSelection(traceLocationType)
 	}
 
 	// MARK: - Private
 
 	private let onTraceLocationTypeSelection: (TraceLocationType) -> Void
-
-	private let locationTypes: [TraceLocationType] = [.type1]
-	private let traceLocationTypes: [TraceLocationType] = [.type2]
+	private let allValues: [TraceLocationSection: [TraceLocationType]]
 
 }
