@@ -46,6 +46,7 @@ enum AccessibilityIdentifiers {
 
 	enum ContactDiary {
 		static let segmentedControl = "AppStrings.ContactDiary.Day"
+		static let dayTableView = "AppStrings.ContactDiary.Day.TableView"
 	}
 
 	enum ContactDiaryInformation {
