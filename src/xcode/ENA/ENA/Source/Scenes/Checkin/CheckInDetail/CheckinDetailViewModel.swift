@@ -47,25 +47,26 @@ final class CheckinDetailViewModel {
 	}
 
 	func saveCheckinToDatabase() {
-		let startDate = Date()
-		let endDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: startDate)
-
-		let checkin = Checkin(
-			id: 0,
-			traceLocationGUID: traceLocation.guid,
-			traceLocationVersion: traceLocation.version,
-			traceLocationType: traceLocation.type,
-			traceLocationDescription: traceLocation.description,
-			traceLocationAddress: traceLocation.address,
-			traceLocationStartDate: traceLocation.startDate,
-			traceLocationEndDate: traceLocation.endDate,
-			traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
-			traceLocationSignature: traceLocation.signature,
-			checkinStartDate: Date(),
-			checkinEndDate: endDate,
-			targetCheckinEndDate: endDate,
-			createJournalEntry: shouldSaveToContactJournal
-		)
+//		let startDate = Date()
+//		let endDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: startDate)
+//
+//		let checkin: Checkin = Checkin(
+//			id: 0,
+//			traceLocationGUID: traceLocation.guid,
+//			traceLocationGUIDHash: Data(),
+//			traceLocationVersion: traceLocation.version,
+//			traceLocationType: traceLocation.type,
+//			traceLocationDescription: traceLocation.description,
+//			traceLocationAddress: traceLocation.address,
+//			traceLocationStartDate: traceLocation.startDate,
+//			traceLocationEndDate: traceLocation.endDate,
+//			traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
+//			traceLocationSignature: traceLocation.signature,
+//			checkinStartDate: Date(),
+//			checkinEndDate: endDate ?? Date(),
+//			checkinCompleted: false,
+//			createJournalEntry: shouldSaveToContactJournal
+//		)
 		// TO DO: SAVE to the store
 	}
 
