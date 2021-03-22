@@ -10,6 +10,7 @@ extension Checkin {
 	static func mock(
 		id: Int = 0,
 		traceLocationGUID: String = "",
+		traceLocationGUIDHash: Data = Data(),
 		traceLocationVersion: Int = 0,
 		traceLocationType: TraceLocationType = .type1,
 		traceLocationDescription: String = "",
@@ -19,13 +20,14 @@ extension Checkin {
 		traceLocationDefaultCheckInLengthInMinutes: Int? = nil,
 		traceLocationSignature: String = "",
 		checkinStartDate: Date = Date(),
-		checkinEndDate: Date? = nil,
-		targetCheckinEndDate: Date? = nil,
+		checkinEndDate: Date = Date(),
+		checkinCompleted: Bool = false,
 		createJournalEntry: Bool = false
 	) -> Self {
 		Checkin(
 			id: id,
 			traceLocationGUID: traceLocationGUID,
+			traceLocationGUIDHash: traceLocationGUIDHash,
 			traceLocationVersion: traceLocationVersion,
 			traceLocationType: traceLocationType,
 			traceLocationDescription: traceLocationDescription,
@@ -36,7 +38,7 @@ extension Checkin {
 			traceLocationSignature: traceLocationSignature,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: targetCheckinEndDate,
+			checkinCompleted: checkinCompleted,
 			createJournalEntry: createJournalEntry
 		)
    }
