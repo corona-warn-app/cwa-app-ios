@@ -6,9 +6,9 @@ import UIKit
 import PDFKit
 
 class TraceLocationsCoordinator {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		store: Store,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
@@ -20,17 +20,17 @@ class TraceLocationsCoordinator {
 		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
 	}
-
+	
 	// MARK: - Internal
-
+	
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
-
+		
 		eventStore.createTraceLocation(tmpTraceLocation)
 		eventStore.createTraceLocation(tmpTraceLocation1)
 		eventStore.createTraceLocation(tmpTraceLocation2)
 		eventStore.createTraceLocation(tmpTraceLocation3)
-
+		
 		#if DEBUG
 		if isUITesting {
 			if let TraceLocationsInfoScreenShown = UserDefaults.standard.string(forKey: "TraceLocationsInfoScreenShown") {
@@ -38,35 +38,35 @@ class TraceLocationsCoordinator {
 			}
 		}
 		#endif
-
+		
 		if !infoScreenShown {
 			showInfoScreen()
 		}
 	}
-
+	
 	// MARK: - Private
-
+	
 	private let store: Store
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let eventStore: EventStoringProviding
 
-	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .type1, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
-	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .type1, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
-	private var tmpTraceLocation2 = TraceLocation(guid: "2", version: 0, type: .type1, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
-	private var tmpTraceLocation3 = TraceLocation(guid: "3", version: 0, type: .type1, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
+	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .locationTypeUnspecified, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
+	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .locationTypeUnspecified, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
+	private var tmpTraceLocation2 = TraceLocation(guid: "2", version: 0, type: .locationTypeUnspecified, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
+	private var tmpTraceLocation3 = TraceLocation(guid: "3", version: 0, type: .locationTypeUnspecified, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
 
 	private weak var parentNavigationController: UINavigationController?
-
+	
 	private var traceLocationDetailsNavigationController: UINavigationController!
 	private var traceLocationAddingNavigationController: UINavigationController!
-
+	
 	private var infoScreenShown: Bool {
 		get { store.traceLocationsInfoScreenShown }
 		set { store.traceLocationsInfoScreenShown = newValue }
 	}
-
+	
 	// MARK: Show Screens
-
+	
 	private lazy var overviewScreen: UIViewController = {
 		let traceLocationsOverviewViewController = TraceLocationsOverviewViewController(
 			viewModel: TraceLocationsOverviewViewModel(
@@ -85,7 +85,7 @@ class TraceLocationsCoordinator {
 				self?.showTraceLocationTypeSelectionScreen()
 			}
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Overview.deleteAllButtonTitle,
@@ -95,15 +95,15 @@ class TraceLocationsCoordinator {
 				primaryButtonColor: .systemRed
 			)
 		)
-
+		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationsOverviewViewController,
 			bottomController: footerViewController
 		)
-
+		
 		return topBottomContainerViewController
 	}()
-
+	
 	private func showInfoScreen() {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
@@ -122,7 +122,7 @@ class TraceLocationsCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
@@ -133,7 +133,7 @@ class TraceLocationsCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-
+		
 		let topBottomLayoutViewController = TopBottomContainerViewController(
 			topController: traceLocationsInfoViewController,
 			bottomController: footerViewController
@@ -144,7 +144,7 @@ class TraceLocationsCoordinator {
 			self.infoScreenShown = true
 		}
 	}
-
+	
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
 		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
 			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: store, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider),
@@ -155,7 +155,7 @@ class TraceLocationsCoordinator {
 			},
 			onDuplicateButtonTap: { [weak self] traceLocation in
 				guard let self = self else { return }
-
+				
 				self.showTraceLocationConfigurationScreen(
 					on: self.traceLocationDetailsNavigationController,
 					mode: .duplicate(traceLocation)
@@ -165,7 +165,7 @@ class TraceLocationsCoordinator {
 				self?.traceLocationDetailsNavigationController.dismiss(animated: true)
 			}
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
@@ -174,12 +174,12 @@ class TraceLocationsCoordinator {
 				isSecondaryButtonHidden: false
 			)
 		)
-
+		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationDetailsViewController,
 			bottomController: footerViewController
 		)
-
+		
 		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
 	}
@@ -188,32 +188,54 @@ class TraceLocationsCoordinator {
 		let viewController = TraceLocationPrintVersionViewController(
 			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
-
+		
 		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
 	}
-
+	
 	private func showTraceLocationTypeSelectionScreen() {
+		
+		let locations: [TraceLocationType] = [
+			.locationTypePermanentRetail,
+			.locationTypePermanentFoodService,
+			.locationTypePermanentCraft,
+			.locationTypePermanentWorkplace,
+			.locationTypePermanentEducationalInstitution,
+			.locationTypePermanentPublicBuilding,
+			.locationTypePermanentOther
+		]
+		
+		let events: [TraceLocationType] = [
+			.locationTypeTemporaryCulturalEvent,
+			.locationTypeTemporaryClubActivity,
+			.locationTypeTemporaryPrivateEvent,
+			.locationTypeTemporaryWorshipService,
+			.locationTypeTemporaryOther
+		]
+		
 		let traceLocationTypeSelectionViewController = TraceLocationTypeSelectionViewController(
-			viewModel: TraceLocationTypeSelectionViewModel(
-				onTraceLocationTypeSelection: { [weak self] traceLocationType in
-					guard let self = self else { return }
-
-					self.showTraceLocationConfigurationScreen(
-						on: self.traceLocationAddingNavigationController,
-						mode: .new(traceLocationType)
-					)
-				}
+			viewModel: TraceLocationTypeSelectionViewModel([
+				.location: locations,
+				.event: events
+			],
+			onTraceLocationTypeSelection: { [weak self] traceLocationType in
+				guard let self = self else { return }
+				
+				self.showTraceLocationConfigurationScreen(
+					on: self.traceLocationAddingNavigationController,
+					mode: .new(traceLocationType)
+				)
+			}
 			),
 			onDismiss: { [weak self] in
 				self?.traceLocationAddingNavigationController.dismiss(animated: true)
 			}
 		)
-
+		
 		traceLocationAddingNavigationController = UINavigationController(rootViewController: traceLocationTypeSelectionViewController)
 		traceLocationAddingNavigationController.navigationBar.prefersLargeTitles = true
 		parentNavigationController?.present(traceLocationAddingNavigationController, animated: true)
 	}
-
+	
 	private func showTraceLocationConfigurationScreen(on navigationController: UINavigationController, mode: TraceLocationConfigurationViewModel.Mode) {
 		let traceLocationConfigurationViewController = TraceLocationConfigurationViewController(
 			viewModel: TraceLocationConfigurationViewModel(mode: mode),
@@ -221,7 +243,7 @@ class TraceLocationsCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-
+		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.TraceLocations.Configuration.primaryButtonTitle,
@@ -230,15 +252,15 @@ class TraceLocationsCoordinator {
 				isSecondaryButtonHidden: true
 			)
 		)
-
+		
 		let topBottomContainerViewController = TopBottomContainerViewController(
 			topController: traceLocationConfigurationViewController,
 			bottomController: footerViewController
 		)
-
+		
 		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
-
+	
 	private func showCheckInScreen(traceLocation: TraceLocation) {
 		// Show checkin screen here, for testing purposes we are temporarily directly checking in
 		eventStore.createCheckin(
@@ -261,5 +283,5 @@ class TraceLocationsCoordinator {
 			)
 		)
 	}
-
+	
 }
