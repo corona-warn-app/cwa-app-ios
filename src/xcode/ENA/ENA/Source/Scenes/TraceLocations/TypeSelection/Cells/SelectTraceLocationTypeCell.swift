@@ -35,6 +35,7 @@ class SelectTraceLocationTypeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let subTitleLabel = ENALabel()
 
 	private func setupView() {
+		accessibilityTraits = .button
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		titleLabel.font = .enaFont(for: .body)
 		titleLabel.textColor = .enaColor(for: .textPrimary1)

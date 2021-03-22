@@ -40,6 +40,7 @@ class SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView, ReuseIdent
 		contentView.addSubview(titleLabel)
 		titleLabel.font = .enaFont(for: .footnote)
 		titleLabel.textColor = .enaColor(for: .textSemanticGray)
+		titleLabel.accessibilityTraits = .header
 
 		let separatorView = UIView()
 		separatorView.translatesAutoresizingMaskIntoConstraints = false
