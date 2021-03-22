@@ -19,6 +19,7 @@ protocol SecureSQLStore {
 	var schema: StoreSchemaProtocol { get }
 	var migrator: SerialMigratorProtocol { get }
 	var logIdentifier: String { get }
+	var sqlSettings: String { get }
 }
 
 extension SecureSQLStore {
@@ -43,12 +44,7 @@ extension SecureSQLStore {
 
 			userVersion = database.userVersion
 
-			let sql = """
-				PRAGMA locking_mode=EXCLUSIVE;
-				PRAGMA auto_vacuum=2;
-				PRAGMA journal_mode=WAL;
-			"""
-			guard database.executeStatements(sql) else {
+			guard database.executeStatements(sqlSettings) else {
 				logLastErrorCode(from: database)
 				errorResult = .failure(dbError(from: database))
 				return

@@ -16,9 +16,9 @@ final class StatusCellViewModel {
 
 	var tableViewCell: UITableViewCell.Type {
 		switch authorizationStatus {
-		case .notDetermined, .restricted, .denied:
+		case .restricted, .denied:
 			return MissingPermissionsTableViewCell.self
-		case .authorized:
+		case .authorized, .notDetermined:
 			return ScanQRCodeTableViewCell.self
 
 		@unknown default:
