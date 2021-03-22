@@ -16,6 +16,7 @@ extension TraceLocation {
 		startDate: Date? = nil,
 		endDate: Date? = nil,
 		defaultCheckInLengthInMinutes: Int? = nil,
+		byteRepresentation: Data = Data(),
 		signature: String = ""
 	) -> Self {
 		TraceLocation(
@@ -27,6 +28,7 @@ extension TraceLocation {
 			startDate: startDate,
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
+			byteRepresentation: byteRepresentation,
 			signature: signature
 		)
    }
