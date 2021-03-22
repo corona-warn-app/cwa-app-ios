@@ -74,7 +74,9 @@ final class CheckinCoordinator {
                 self.viewController.pushViewController(detailViewController, animated: true)
             }))
         } else {
-            return UINavigationController(rootViewController: topBottomContainerViewController)
+			let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+			navigationController.navigationBar.prefersLargeTitles = true
+            return navigationController
         }
     }()
 
@@ -199,6 +201,7 @@ final class CheckinCoordinator {
 
 	private func setupCheckinBadgeCount() {
 		eventStore.checkinsPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] checkins in
 				let activeCheckinCount = checkins.filter { $0.isActive }.count
 				self?.viewController.tabBarItem.badgeValue = activeCheckinCount > 0 ? String(activeCheckinCount) : nil

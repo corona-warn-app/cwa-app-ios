@@ -53,8 +53,8 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.sizeToFit()
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationController?.navigationBar.sizeToFit()
 	}
 
 	override func setEditing(_ editing: Bool, animated: Bool) {
@@ -234,7 +234,17 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 	}
 
 	private func updateEmptyState() {
-		tableView.backgroundView = viewModel.isEmpty ? EmptyStateView(viewModel: TraceLocationsOverviewEmptyStateViewModel()) : nil
+		let emptyStateView = EmptyStateView(viewModel: TraceLocationsOverviewEmptyStateViewModel())
+
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
+		if #available(iOS 13.0, *) {
+			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+		} else {
+			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
+		}
+
+		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
 	}
 
 	@objc
