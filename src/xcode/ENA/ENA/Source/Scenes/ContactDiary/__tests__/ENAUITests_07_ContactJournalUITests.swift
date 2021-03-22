@@ -203,28 +203,30 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
+		let dayTableView = app.tables[AccessibilityIdentifiers.ContactDiary.dayTableView]
+
 		// check count for day entries: 1 add entry cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+		XCTAssertEqual(dayTableView.cells.count, 1)
 
 		addPersonToDayEntry("Marcus Mustermann")
 		addPersonToDayEntry("Manu Mustermann")
 
-		// check count for day entries: 1 add entry cell + 1 person added
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+		// check count for day entries: 1 add entry cell + 2 persons added
+		XCTAssertEqual(dayTableView.cells.count, 3)
 
 		// deselect Manu Mustermann - 1 because new persons get entered on top
-		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
+		dayTableView.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 
 		// check count for day entries: 1 add entry cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+		XCTAssertEqual(dayTableView.cells.count, 1)
 
 		addLocationToDayEntry("Pommesbude")
 
 		// check count for day entries: 1 add entry cell + 1 location added
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
+		XCTAssertEqual(dayTableView.cells.count, 2)
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()
@@ -325,18 +327,20 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
+		let dayTableView = app.tables[AccessibilityIdentifiers.ContactDiary.dayTableView]
+
 		// check count for day entries: 1 add entry cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+		XCTAssertEqual(dayTableView.cells.count, 1)
 
 		addPersonToDayEntry("Marcus Mustermann", phoneNumber: "12345678", eMail: "marcus@mustermann.de")
 
 		// check count for day entries: 1 add entry cell + 1 person added
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
+		XCTAssertEqual(dayTableView.cells.count, 2)
 
 		addPersonToDayEntry("Maria Musterfrau", phoneNumber: "12345678", eMail: "maria@musterfrau.de")
 
 		// check count for day entries: 1 add entry cell + 2 persons added
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+		XCTAssertEqual(dayTableView.cells.count, 3)
 	}
 
 	func testAddLocationToDate() throws {
@@ -354,18 +358,20 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
 
+		let dayTableView = app.tables[AccessibilityIdentifiers.ContactDiary.dayTableView]
+
 		// check count for day entries: 1 add entry cell
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 1)
+		XCTAssertEqual(dayTableView.firstMatch.cells.count, 1)
 
 		addLocationToDayEntry("Pommesbude", phoneNumber: "12345678", eMail: "pommes@bude.de")
 
 		// check count for day entries: 1 add entry cell + 1 location added
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 2)
+		XCTAssertEqual(dayTableView.cells.count, 2)
 
 		addLocationToDayEntry("Supermarkt", phoneNumber: "12345678", eMail: "super@markt.de")
 
 		// check count for day entries: 1 add entry cell + 2 locations added
-		XCTAssertEqual(app.descendants(matching: .table).firstMatch.cells.count, 3)
+		XCTAssertEqual(dayTableView.cells.count, 3)
 	}
 
 	func testDetailsSelectionOfPersonEncounter() {
