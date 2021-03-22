@@ -10,8 +10,9 @@ class TraceLocationTypeSelectionViewModelTests: XCTestCase {
 	func testGIVEN_SectionNames_THEN_NamesMatch() {
 		// GIVEN
 		let viewModel = TraceLocationTypeSelectionViewModel(
-			[.location: [],
-			 .event: []
+			[
+				.location: [],
+				.event: []
 			],
 			onTraceLocationTypeSelection: { _ in }
 		)
@@ -26,8 +27,16 @@ class TraceLocationTypeSelectionViewModelTests: XCTestCase {
 	func testGIVEN_ViewModel_WHEN_getNumberOfSectionsAndRows_THEN_Matches() {
 		// GIVEN
 		let viewModel = TraceLocationTypeSelectionViewModel(
-			[.location: [.locationTypePermanentOther, .locationTypePermanentFoodService, .locationTypePermanentRetail],
-			 .event: [.locationTypeTemporaryOther, .locationTypeTemporaryClubActivity]
+			[
+				.location: [
+					.locationTypePermanentOther,
+					.locationTypePermanentFoodService,
+					.locationTypePermanentRetail]
+				,
+				.event: [
+					.locationTypeTemporaryOther,
+					.locationTypeTemporaryClubActivity
+				]
 			],
 			onTraceLocationTypeSelection: { _ in }
 		)
@@ -48,8 +57,16 @@ class TraceLocationTypeSelectionViewModelTests: XCTestCase {
 	func testGIVEN_ViewModel_WHEN_getCellModel_THEN_TraceLocationTypeIsCorrect() {
 		// GIVEN
 		let viewModel = TraceLocationTypeSelectionViewModel(
-			[.location: [.locationTypePermanentOther, .locationTypePermanentFoodService, .locationTypePermanentRetail],
-			 .event: [.locationTypeTemporaryOther, .locationTypeTemporaryClubActivity]
+			[
+				.location: [
+					.locationTypePermanentOther,
+					.locationTypePermanentFoodService,
+					.locationTypePermanentRetail
+				],
+				.event: [
+					.locationTypeTemporaryOther,
+					.locationTypeTemporaryClubActivity
+				]
 			],
 			onTraceLocationTypeSelection: { _ in }
 		)
@@ -71,8 +88,16 @@ class TraceLocationTypeSelectionViewModelTests: XCTestCase {
 		var selection: TraceLocationType?
 		let didSelectExpectation = expectation(description: "did select traceLocationType")
 		let viewModel = TraceLocationTypeSelectionViewModel(
-			[.location: [.locationTypePermanentOther, .locationTypePermanentFoodService, .locationTypePermanentRetail],
-			 .event: [.locationTypeTemporaryOther, .locationTypeTemporaryClubActivity]
+			[
+				.location: [
+					.locationTypePermanentOther,
+					.locationTypePermanentFoodService,
+					.locationTypePermanentRetail
+				],
+				.event: [
+					.locationTypeTemporaryOther,
+					.locationTypeTemporaryClubActivity
+				]
 			],
 			onTraceLocationTypeSelection: { traceLocationType in
 				selection = traceLocationType
@@ -94,8 +119,12 @@ class TraceLocationTypeSelectionViewModelTests: XCTestCase {
 		didSelectExpectation.isInverted = true
 
 		let viewModel = TraceLocationTypeSelectionViewModel(
-			[.location: [],
-			 .event: [.locationTypeTemporaryOther, .locationTypeTemporaryClubActivity]
+			[
+				.location: [],
+				.event: [
+					.locationTypeTemporaryOther,
+					.locationTypeTemporaryClubActivity
+				]
 			],
 			onTraceLocationTypeSelection: { traceLocationType in
 				selection = traceLocationType
