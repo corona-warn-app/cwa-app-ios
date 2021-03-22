@@ -804,7 +804,6 @@
 		BAA4D73625E9613200821B5C /* CheckinQRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D73525E9613200821B5C /* CheckinQRCodeScannerViewController.swift */; };
 		BAA8BAE225CAD8B000E29CFE /* DMStaticTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */; };
 		BAA8BAED25CAD91700E29CFE /* DMStaticTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */; };
-		BAAD98092605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */; };
 		BAB1239C2572A06D00A179FB /* TanInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */; };
 		BAB123A22572A0B700A179FB /* TanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB123A02572A0B700A179FB /* TanInputViewController.swift */; };
 		BAB6C7EF25C4626100E042FB /* TimestampedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */; };
@@ -831,6 +830,7 @@
 		BADDD82E2603922000337223 /* AddTraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */; };
 		BADDD83F2603956600337223 /* TraceLocationCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */; };
 		BADE38092608D9EC00E07890 /* TraceLocationTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */; };
+		BADE38232608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */; };
 		BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */; };
 		BAE2101025C8460900162966 /* PPACDeviceCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */; };
 		BAE2101B25C8463400162966 /* PPACDeviceCheckMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */; };
@@ -1780,7 +1780,6 @@
 		BAA4D73525E9613200821B5C /* CheckinQRCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinQRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		BAA8BAE125CAD8B000E29CFE /* DMStaticTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextCellViewModel.swift; sourceTree = "<group>"; };
 		BAA8BAEC25CAD91700E29CFE /* DMStaticTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMStaticTextTableViewCell.swift; sourceTree = "<group>"; };
-		BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift"; sourceTree = "<group>"; };
 		BAB1239B2572A06D00A179FB /* TanInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewModel.swift; sourceTree = "<group>"; };
 		BAB123A02572A0B700A179FB /* TanInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanInputViewController.swift; sourceTree = "<group>"; };
 		BAB6C7EE25C4626100E042FB /* TimestampedToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimestampedToken.swift; sourceTree = "<group>"; };
@@ -1807,6 +1806,7 @@
 		BADDD82D2603922000337223 /* AddTraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		BADDD83E2603956600337223 /* TraceLocationCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationCellModelTests.swift; sourceTree = "<group>"; };
 		BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationTypeTest.swift; sourceTree = "<group>"; };
+		BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTraceLocationTypeHeaderView.swift; sourceTree = "<group>"; };
 		BAE20FF125C8321300162966 /* DMKeyValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMKeyValueTableViewCell.swift; sourceTree = "<group>"; };
 		BAE2100125C83E4400162966 /* PPACDeviceCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheck.swift; sourceTree = "<group>"; };
 		BAE2101A25C8463400162966 /* PPACDeviceCheckMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPACDeviceCheckMock.swift; sourceTree = "<group>"; };
@@ -5073,7 +5073,7 @@
 		BAAD98072605075700D95DDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				BAAD98082605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift */,
+				BADE38222608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift */,
 				BA887F952608B5C800623FF6 /* SelectTraceLocationTypeFooterView.swift */,
 			);
 			path = Header;
@@ -6015,7 +6015,6 @@
 				016146912487A43E00660992 /* LinkHelper.swift in Sources */,
 				BAA4D73625E9613200821B5C /* CheckinQRCodeScannerViewController.swift in Sources */,
 				50C0299425E4067400460FA4 /* TestResultMetadata.swift in Sources */,
-				BAAD98092605095B00D95DDD /* SelectTraceLocationTypeHeaderView: UITableViewHeaderFooterView.swift in Sources */,
 				ABE961EE25F61E0F00D0F699 /* EventStore+Creation.swift in Sources */,
 				50B5058E25CAF3FC00EEA380 /* DMOTPServiceViewModel.swift in Sources */,
 				BA904C9E25769D1800692110 /* TanInputView.swift in Sources */,
@@ -6120,6 +6119,7 @@
 				01A4DC6C25922EB4007D5794 /* HomeRiskTableViewCell.swift in Sources */,
 				BA6C8AF4254D65E1008344F5 /* ScanInstance.swift in Sources */,
 				BA6D1634255AD2AA00ED3492 /* DMWifiClientViewModel.swift in Sources */,
+				BADE38232608F20900E07890 /* SelectTraceLocationTypeHeaderView.swift in Sources */,
 				71D3C19A2494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
 				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */,
