@@ -30,5 +30,10 @@ struct TraceLocation {
 
 		return Date() < endDate
 	}
+	
+	var qrCodeURL: String {
+		let encodedByteRepresentation = byteRepresentation.base32EncodedString
+		return String(format: "https://e.coronawarn.app/c1/%@", encodedByteRepresentation).uppercased()
+	}
 
 }
