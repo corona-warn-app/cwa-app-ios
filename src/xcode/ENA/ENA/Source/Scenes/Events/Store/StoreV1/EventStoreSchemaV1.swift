@@ -25,6 +25,7 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 				CREATE TABLE IF NOT EXISTS Checkin (
 					id INTEGER PRIMARY KEY,
 					traceLocationGUID TEXT NOT NULL,
+					traceLocationGUIDHash BLOB NOT NULL,
 					traceLocationVersion INTEGER NOT NULL,
 					traceLocationType INTEGER NOT NULL,
 					traceLocationDescription TEXT NOT NULL CHECK (LENGTH(traceLocationDescription) <= \(maxTextLength)),
@@ -34,8 +35,8 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					traceLocationDefaultCheckInLengthInMinutes INTEGER,
 					traceLocationSignature TEXT NOT NULL,
 					checkinStartDate INTEGER NOT NULL,
-					checkinEndDate INTEGER,
-					targetCheckinEndDate INTEGER,
+					checkinEndDate INTEGER NOT NULL,
+					checkinCompleted INTEGER NOT NULL,
 					createJournalEntry INTEGER NOT NULL
 				);
 
@@ -48,6 +49,7 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					startDate INTEGER,
 					endDate INTEGER,
 					defaultCheckInLengthInMinutes INTEGER,
+					byteRepresentation BLOB NOT NULL,
 					signature TEXT NOT NULL
 				);
 

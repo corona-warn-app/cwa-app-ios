@@ -409,7 +409,7 @@ enum AppStrings {
 		static let surveyDetailsLegalHeader = NSLocalizedString("SurveyConsent_Legal_Details_Headline", tableName: "Localizable.legal", comment: "")
 		static let surveyDetailsLegalBody1 = NSLocalizedString("SurveyConsent_Details_Legal_Body1", tableName: "Localizable.legal", comment: "")
 		static let surveyDetailsLegalBody2 = NSLocalizedString("SurveyConsent_Details_Legal_Body2", tableName: "Localizable.legal", comment: "")
- 
+
 		static let surveyDetailsHeader = NSLocalizedString("SurveyConsent_Details_Headline", comment: "")
 		static let surveyDetailsBody = NSLocalizedString("SurveyConsent_Details_Body", comment: "")
 
@@ -1285,7 +1285,7 @@ enum AppStrings {
 			
 		}
 
-        enum DetailedInfo {
+		enum DetailedInfo {
 			static let title = NSLocalizedString("DetailedInfosDataDonation_Headline", comment: "")
 			
 			static let legalHeadline = NSLocalizedString("DataDonation_DetailedInformation_Headline", tableName: "Localizable.legal", comment: "")
@@ -1339,18 +1339,18 @@ enum AppStrings {
 
 	enum Checkins {
 
-        enum QRScanner {
+		enum QRScanner {
 			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
-            static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
-            static let instruction = NSLocalizedString("Checkins_Overview_QRScanner_Instruction", comment: "")
+			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
+			static let instruction = NSLocalizedString("Checkins_Overview_QRScanner_Instruction", comment: "")
 
-            enum Error {
-                static let title = NSLocalizedString("Checkin_QR_Scanner_Error_Title", comment: "")
-                static let description = NSLocalizedString("Checkin_QR_Scanner_Error_Description", comment: "")
-            }
+			enum Error {
+				static let title = NSLocalizedString("Checkin_QR_Scanner_Error_Title", comment: "")
+				static let description = NSLocalizedString("Checkin_QR_Scanner_Error_Description", comment: "")
+			}
 		}
 
-        enum Overview {
+		enum Overview {
 			static let title = NSLocalizedString("Checkins_Overview_Title", comment: "")
 			static let menuButtonTitle = NSLocalizedString("Checkins_Overview_MenuButtonTitle", comment: "")
 			static let scanButtonTitle = NSLocalizedString("Checkins_Overview_ScanButtonTitle", comment: "")
@@ -1412,6 +1412,51 @@ enum AppStrings {
 	}
 
 	enum TraceLocations {
+
+		enum unspecified {
+			static let title = NSLocalizedString("TraceLocations_Type_Title_Unspecified", comment: "")
+		}
+
+		enum permanent {
+			static let name = NSLocalizedString("TraceLocations_Section_Title_Permanent", comment: "")
+
+			enum title {
+				static let other = NSLocalizedString("TraceLocations_Type_Title_PermanentOther", comment: "")
+				static let retail = NSLocalizedString("TraceLocations_Type_Title_PermanentRetail", comment: "")
+				static let foodService = NSLocalizedString("TraceLocations_Title_Type_PermanentFoodService", comment: "")
+				static let craft = NSLocalizedString("TraceLocations_Type_Title_PermanentCraft", comment: "")
+				static let workplace = NSLocalizedString("TraceLocations_Type_Title_PermanentWorkplace", comment: "")
+				static let educationalInstitution = NSLocalizedString("TraceLocations_Type_Title_PermanentEducationalInstitution", comment: "")
+				static let publicBuilding = NSLocalizedString("TraceLocations_Type_Title_PermanentPublicBuilding", comment: "")
+			}
+
+			enum subtitle {
+				static let retail = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentRetail", comment: "")
+				static let foodService = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentFoodService", comment: "")
+				static let craft = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentCraft", comment: "")
+				static let workplace = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentWorkplace", comment: "")
+				static let educationalInstitution = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentEducationalInstitution", comment: "")
+				static let publicBuilding = NSLocalizedString("TraceLocations_Type_Subtitle_PermanentPublicBuilding", comment: "")
+			}
+		}
+
+		enum temporary {
+			static let name = NSLocalizedString("TraceLocations_Section_Title_Temporary", comment: "")
+
+			enum title {
+				static let other = NSLocalizedString("TraceLocations_Type_Title_TemporaryOther", comment: "")
+				static let culturalEvent = NSLocalizedString("TraceLocations_Type_Title_TemporaryCulturalEvent", comment: "")
+				static let clubActivity = NSLocalizedString("TraceLocations_Type_Title_TemporaryClubActivity", comment: "")
+				static let privateEvent = NSLocalizedString("TraceLocations_Type_Title_TemporaryPrivateEvent", comment: "")
+				static let worshipService = NSLocalizedString("TraceLocations_Type_Title_TemporaryWorshipService", comment: "")
+			}
+			enum subtitle {
+				static let culturalEvent = NSLocalizedString("TraceLocations_Type_Subtitle_TemporaryCulturalEvent", comment: "")
+				static let clubActivity = NSLocalizedString("TraceLocations_Type_Subtitle_TemporaryClubActivity", comment: "")
+				static let privateEvent = NSLocalizedString("TraceLocations_Type_Subtitle_TemporaryPrivateEvent", comment: "")
+			}
+		}
+
 		enum Information {
 			static let title = NSLocalizedString("TraceLocations_Information_Title", comment: "")
 			static let imageDescription = NSLocalizedString("TraceLocations_Information_ImageDescription", comment: "")
@@ -1470,10 +1515,10 @@ enum AppStrings {
 			static let duplicateButtonTitle = NSLocalizedString("TraceLocations_Details_DuplicateButtonTitle", comment: "")
 		}
 
+
 		enum TypeSelection {
 			static let title = NSLocalizedString("TraceLocations_TypeSelection_Title", comment: "")
-			static let locationSectionTitle = NSLocalizedString("TraceLocations_TypeSelection_LocationSectionTitle", comment: "")
-			static let eventSectionTitle = NSLocalizedString("TraceLocations_TypeSelection_EventSectionTitle", comment: "")
+
 			static let otherLocationTitle = NSLocalizedString("TraceLocations_TypeSelection_OtherLocation_Title", comment: "")
 			static let otherEventTitle = NSLocalizedString("TraceLocations_TypeSelection_OtherEvent_Title", comment: "")
 		}

@@ -101,6 +101,12 @@ class MockEventStore: EventStoring, EventProviding {
 	}
 
 	@discardableResult
+	func deleteAllTraceWarningPackageMetadata() -> SecureSQLStore.VoidResult {
+		traceWarningPackageMetadatasPublisher.value = ([])
+		return .success(())
+	}
+
+	@discardableResult
 	func cleanup() -> SecureSQLStore.VoidResult {
 		return .success(())
 	}
@@ -168,6 +174,7 @@ private extension TraceLocation {
 			startDate: traceLocation.startDate,
 			endDate: traceLocation.endDate,
 			defaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
+			byteRepresentation: traceLocation.byteRepresentation,
 			signature: traceLocation.signature
 		)
 	}
@@ -178,6 +185,7 @@ private extension Checkin {
 		Checkin(
 			id: id,
 			traceLocationGUID: self.traceLocationGUID,
+			traceLocationGUIDHash: self.traceLocationGUIDHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -188,7 +196,7 @@ private extension Checkin {
 			traceLocationSignature: self.traceLocationSignature,
 			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: self.checkinEndDate,
-			targetCheckinEndDate: self.targetCheckinEndDate,
+			checkinCompleted: self.checkinCompleted,
 			createJournalEntry: self.createJournalEntry
 		)
 	}
@@ -197,6 +205,7 @@ private extension Checkin {
 		Checkin(
 			id: self.id,
 			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
 			traceLocationVersion: checkin.traceLocationVersion,
 			traceLocationType: checkin.traceLocationType,
 			traceLocationDescription: checkin.traceLocationDescription,
@@ -207,7 +216,7 @@ private extension Checkin {
 			traceLocationSignature: checkin.traceLocationSignature,
 			checkinStartDate: checkin.checkinStartDate,
 			checkinEndDate: checkin.checkinEndDate,
-			targetCheckinEndDate: checkin.targetCheckinEndDate,
+			checkinCompleted: checkin.checkinCompleted,
 			createJournalEntry: checkin.createJournalEntry
 		)
 	}
