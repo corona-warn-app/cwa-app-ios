@@ -46,7 +46,6 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 				self?.onDismiss()
 			}
 		}
-
 	}
 
 	// MARK: - Private
