@@ -201,6 +201,7 @@ final class CheckinCoordinator {
 
 	private func setupCheckinBadgeCount() {
 		eventStore.checkinsPublisher
+			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] checkins in
 				let activeCheckinCount = checkins.filter { $0.isActive }.count
 				self?.viewController.tabBarItem.badgeValue = activeCheckinCount > 0 ? String(activeCheckinCount) : nil
