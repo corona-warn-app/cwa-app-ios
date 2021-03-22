@@ -2049,11 +2049,11 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Title_Type_PermanentFoodService" = "Gastronomiebetrieb";
 
-"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb ";
+"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb";
 
-"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte ";
+"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte";
 
-"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte ";
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
 
 "TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
 
@@ -2071,13 +2071,13 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
 
-"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung ";
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
 
-"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität ";
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
 
-"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier ";
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
 
-"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst ";
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
 
 "TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konzert, Kunstausstellung";
 
