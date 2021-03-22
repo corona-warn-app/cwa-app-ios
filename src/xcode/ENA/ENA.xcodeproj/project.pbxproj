@@ -843,7 +843,6 @@
 		EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */; };
 		EB54937E25F7CE3700A3C459 /* qr-code-print-template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */; };
 		EB54938525F7CFB300A3C459 /* qr-code-to-embed.png in Resources */ = {isa = PBXBuildFile; fileRef = EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */; };
-		EB54939825F7DD1A00A3C459 /* QRCodePlaygroundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB54939725F7DD1A00A3C459 /* QRCodePlaygroundTests.swift */; };
 		EB5FE15C2599F5E400797E4E /* ENActivityHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */; };
 		EB66267D25C3219900C4D7C2 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */; };
 		EB6B5D882539AE9400B0ED57 /* DMNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */; };
@@ -864,7 +863,6 @@
 		EBB92C72259E10ED00013B41 /* UpdateOSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */; };
 		EBB92C77259E110900013B41 /* UpdateOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */; };
 		EBB92C7C259E111A00013B41 /* UpdateOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB92C7B259E111A00013B41 /* UpdateOSView.swift */; };
-		EBCB271B25EBE2D500B96123 /* QRCodePlayground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */; };
 		EBCD2412250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */; };
 		EBD2D07F25A869B9006E4220 /* HomeTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */; };
 		EBD2D09825A86C1A006E4220 /* RiskProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskProviding.swift */; };
@@ -1783,7 +1781,6 @@
 		EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImageTests.swift"; sourceTree = "<group>"; };
 		EB54937525F7CE2300A3C459 /* qr-code-to-embed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qr-code-to-embed.png"; sourceTree = "<group>"; };
 		EB54937D25F7CE3700A3C459 /* qr-code-print-template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "qr-code-print-template.pdf"; sourceTree = "<group>"; };
-		EB54939725F7DD1A00A3C459 /* QRCodePlaygroundTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePlaygroundTests.swift; sourceTree = "<group>"; };
 		EB5FE1532599F5DB00797E4E /* ENActivityHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENActivityHandling.swift; sourceTree = "<group>"; };
 		EB66267C25C3219900C4D7C2 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		EB6B5D872539AE9400B0ED57 /* DMNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMNotificationsViewController.swift; sourceTree = "<group>"; };
@@ -1801,7 +1798,6 @@
 		EBB92C71259E10ED00013B41 /* UpdateOSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewController.swift; sourceTree = "<group>"; };
 		EBB92C76259E110900013B41 /* UpdateOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSViewModel.swift; sourceTree = "<group>"; };
 		EBB92C7B259E111A00013B41 /* UpdateOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOSView.swift; sourceTree = "<group>"; };
-		EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePlayground.swift; sourceTree = "<group>"; };
 		EBCB271F25EBE3FC00B96123 /* PDFDocument+EmbedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFDocument+EmbedImage.swift"; sourceTree = "<group>"; };
 		EBCD2411250790F400E5574C /* ExposureSubmissionSymptomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSymptomsViewController.swift; sourceTree = "<group>"; };
 		EBD2D07E25A869B9006E4220 /* HomeTableViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewModelTests.swift; sourceTree = "<group>"; };
@@ -2650,6 +2646,16 @@
 				34FE15932604ADC00002CB69 /* qr_code_template.bin */,
 			);
 			path = sample_qr_code_template;
+			sourceTree = "<group>";
+		};
+		34FE15B526050DA40002CB69 /* QRCodePosterTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */,
+				34FE1585260131830002CB69 /* QRCodePosterTemplateMetadata.swift */,
+				34FE158D260135E20002CB69 /* QRCodePosterTemplateProvider.swift */,
+			);
+			path = QRCodePosterTemplate;
 			sourceTree = "<group>";
 		};
 		35075C002526367700DE92F7 /* TestPlans */ = {
@@ -4947,10 +4953,7 @@
 			isa = PBXGroup;
 			children = (
 				EB0F740B25E93C81003BFAE7 /* __tests__ */,
-				EBCB271A25EBE2D500B96123 /* QRCodePlayground.swift */,
-				34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */,
-				34FE1585260131830002CB69 /* QRCodePosterTemplateMetadata.swift */,
-				34FE158D260135E20002CB69 /* QRCodePosterTemplateProvider.swift */,
+				34FE15B526050DA40002CB69 /* QRCodePosterTemplate */,
 			);
 			path = "Event Registration";
 			sourceTree = "<group>";
@@ -4960,7 +4963,6 @@
 			children = (
 				34FE15922604AD700002CB69 /* sample_qr_code_template */,
 				EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */,
-				EB54939725F7DD1A00A3C459 /* QRCodePlaygroundTests.swift */,
 				34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */,
 			);
 			path = __tests__;
@@ -5566,7 +5568,6 @@
 				2FA9E39924D2F4350030561C /* ExposureSubmission+ErrorParsing.swift in Sources */,
 				3523F8A82570F819004B0424 /* NSAttributedString+BulletPoint.swift in Sources */,
 				AB5F84AD24F8F7A1000400D4 /* SerialMigrator.swift in Sources */,
-				EBCB271B25EBE2D500B96123 /* QRCodePlayground.swift in Sources */,
 				01D3078A2562B03C00ADB67B /* RiskState.swift in Sources */,
 				01B72BF22583B51C00A3E3BC /* DiaryEditEntriesTableViewCell.swift in Sources */,
 				01F52FF42552DB9600997A26 /* DMAppConfigurationViewController.swift in Sources */,
@@ -6095,7 +6096,6 @@
 				01C2D4432501260D00FB23BF /* OptionGroupViewModelTests.swift in Sources */,
 				AB68883A25DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift in Sources */,
 				01EBC9BE25B706AF0003496F /* HomeStatisticsCardViewModelTests.swift in Sources */,
-				EB54939825F7DD1A00A3C459 /* QRCodePlaygroundTests.swift in Sources */,
 				BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */,
 				BAA4D71825E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
