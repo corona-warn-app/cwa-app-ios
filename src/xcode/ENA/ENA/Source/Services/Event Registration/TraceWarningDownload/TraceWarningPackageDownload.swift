@@ -164,6 +164,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		let revokedPackages = appConfig.keyDownloadParameters.revokedTraceWarningPackages
 		removeRevokedTraceWarningMetadataPackages(revokedPackages)
 		
+		self.status = .downloading
 		
 		// 4. Determine availablePackagesOnCDN (http discovery)
 		client.traceWarningPackageDiscovery(country: country, completion: { [weak self] result in
