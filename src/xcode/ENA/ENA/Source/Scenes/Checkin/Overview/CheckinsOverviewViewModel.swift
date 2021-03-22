@@ -51,6 +51,10 @@ class CheckinsOverviewViewModel {
 		numberOfRows(in: Section.entries.rawValue) == 0
 	}
 
+	var isEmptyStateVisible: Bool {
+		isEmpty && !showMissingPermissionSection
+	}
+
 	func numberOfRows(in section: Int) -> Int {
 		switch Section(rawValue: section) {
 		case .add:
