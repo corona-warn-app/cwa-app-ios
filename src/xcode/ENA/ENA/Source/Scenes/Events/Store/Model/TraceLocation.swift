@@ -3,19 +3,19 @@
 //
 
 enum TraceLocationType: Int {
-	case locationTypeUnspecified // = 0
-	case locationTypePermanentOther // = 1
-	case locationTypeTemporaryOther // = 2
-	case locationTypePermanentRetail // = 3
-	case locationTypePermanentFoodService // = 4
-	case locationTypePermanentCraft // = 5
-	case locationTypePermanentWorkplace // = 6
-	case locationTypePermanentEducationalInstitution // = 7
-	case locationTypePermanentPublicBuilding // = 8
-	case locationTypeTemporaryCulturalEvent // = 9
-	case locationTypeTemporaryClubActivity // = 10
-	case locationTypeTemporaryPrivateEvent // = 11
-	case locationTypeTemporaryWorshipService // = 12
+	case locationTypeUnspecified = 0
+	case locationTypePermanentOther = 1
+	case locationTypeTemporaryOther = 2
+	case locationTypePermanentRetail = 3
+	case locationTypePermanentFoodService = 4
+	case locationTypePermanentCraft = 5
+	case locationTypePermanentWorkplace = 6
+	case locationTypePermanentEducationalInstitution = 7
+	case locationTypePermanentPublicBuilding = 8
+	case locationTypeTemporaryCulturalEvent = 9
+	case locationTypeTemporaryClubActivity = 10
+	case locationTypeTemporaryPrivateEvent = 11
+	case locationTypeTemporaryWorshipService = 12
 
 	var title: String {
 		switch self {
