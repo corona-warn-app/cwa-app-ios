@@ -74,7 +74,9 @@ final class CheckinCoordinator {
                 self.viewController.pushViewController(detailViewController, animated: true)
             }))
         } else {
-            return UINavigationController(rootViewController: topBottomContainerViewController)
+			let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+			navigationController.navigationBar.prefersLargeTitles = true
+            return navigationController
         }
     }()
 

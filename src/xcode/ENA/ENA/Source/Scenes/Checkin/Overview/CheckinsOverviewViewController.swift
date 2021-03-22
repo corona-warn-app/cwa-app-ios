@@ -56,13 +56,6 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 			.store(in: &subscriptions)
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-		navigationController?.navigationBar.prefersLargeTitles = true
-		navigationController?.navigationBar.sizeToFit()
-	}
-
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 
@@ -258,7 +251,17 @@ class CheckinsOverviewViewController: UITableViewController, FooterViewHandling 
 	}
 
 	private func updateEmptyState() {
-		tableView.backgroundView = viewModel.isEmpty ? EmptyStateView(viewModel: CheckinsOverviewEmptyStateViewModel()) : nil
+		let emptyStateView = EmptyStateView(viewModel: CheckinsOverviewEmptyStateViewModel())
+
+		emptyStateView.additionalTopPadding = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY
+		emptyStateView.additionalTopPadding += parent?.navigationController?.navigationBar.frame.height ?? 0
+		if #available(iOS 13.0, *) {
+			emptyStateView.additionalTopPadding += UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+		} else {
+			emptyStateView.additionalTopPadding += UIApplication.shared.statusBarFrame.height
+		}
+
+		tableView.backgroundView = viewModel.isEmpty ? emptyStateView : nil
 	}
 
 	@objc
