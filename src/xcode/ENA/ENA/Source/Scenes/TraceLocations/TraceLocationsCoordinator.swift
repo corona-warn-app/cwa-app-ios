@@ -2,9 +2,7 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
-//import OpenCombine
 
 class TraceLocationsCoordinator {
 
@@ -95,24 +93,6 @@ class TraceLocationsCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-// NEW TopBottomVC with footerViewController
-//		let footerViewModel = FooterViewModel(
-//			primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
-//			secondaryButtonName: "",
-//			isSecondaryButtonEnabled: false,
-//			isPrimaryButtonHidden: false,
-//			isSecondaryButtonHidden: true
-//		)
-//
-//		let footerViewController = FooterViewController.init(footerViewModel)
-//
-//		let topBottomContainerViewController = TopBottomContainerViewController(
-//			topController: CheckinsInfoScreenViewController,
-//			bottomController: footerViewController
-//		)
-//		return topBottomContainerViewController
-//
-//
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
 		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)

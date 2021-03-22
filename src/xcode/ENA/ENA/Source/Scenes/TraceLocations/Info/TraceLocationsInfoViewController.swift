@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TraceLocationsInfoViewController: DynamicTableViewController {
+class TraceLocationsInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	
 	// MARK: - Init
 	
@@ -39,26 +39,18 @@ class TraceLocationsInfoViewController: DynamicTableViewController {
 		}
 
 		navigationController?.navigationBar.prefersLargeTitles = true
-//		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.primaryButton
+		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.primaryButton
 	}
 
-//	override var navigationItem: UINavigationItem {
-//		navigationFooterItem
-//	}
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
+	}
 
-	// MARK: - Protocol FooterViewHandling
-//
-//	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-//		if type == .primary {
-//			onDismiss()
-//		}
-//	}
-	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
-//
-//	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-//		onDismiss()
-//	}
+
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		onDismiss()
+	}
 
 	// MARK: - Internal
 	
@@ -71,17 +63,17 @@ class TraceLocationsInfoViewController: DynamicTableViewController {
 	private let viewModel: TraceLocationsInfoViewModel
 	private let onDismiss: () -> Void
 
-//	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-//		let item = ENANavigationFooterItem()
-//
-//		item.primaryButtonTitle = AppStrings.TraceLocations.Information.primaryButtonTitle
-//		item.isPrimaryButtonEnabled = true
-//		item.isSecondaryButtonHidden = true
-//
-//		item.title = AppStrings.TraceLocations.Information.title
-//
-//		return item
-//	}()
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+
+		item.primaryButtonTitle = AppStrings.TraceLocations.Information.primaryButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.isSecondaryButtonHidden = true
+
+		item.title = AppStrings.TraceLocations.Information.title
+
+		return item
+	}()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
