@@ -19,3 +19,12 @@ struct Checkin {
 	let targetCheckinEndDate: Date?
 	let createJournalEntry: Bool
 }
+
+extension Checkin {
+	var roundedDurationIn15mSteps: Int {
+		let checkingEndDate = checkinEndDate ?? Date()
+		let checkinDurationInM = (checkingEndDate - checkinStartDate) / 60
+		let roundedDuration = Int(round(checkinDurationInM / 15) * 15)
+		return roundedDuration
+	}
+}

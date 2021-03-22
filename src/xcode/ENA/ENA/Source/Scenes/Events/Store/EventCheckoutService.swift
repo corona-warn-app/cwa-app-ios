@@ -109,17 +109,23 @@ final class EventCheckoutService {
 
 			let splittedCheckins = CheckinSplittingService().split(checkin)
 			splittedCheckins.forEach { checkin in
+
 				contactDiaryStore.addLocationVisit(
 					locationId: locationId,
 					date: ISO8601DateFormatter.contactDiaryFormatter.string(
 						from: checkin.checkinStartDate
-					)
+					),
+					durationInMinutes: checkin.roundedDurationIn15mSteps,
+					circumstances: "",
+					checkinId: checkin.id
 				)
 			}
 		}
 	}
 
 	private func triggerNotificationForCheckout(of checkin: Checkin) {
+		userNotificationCenter.removePendingNotificationRequests(withIdentifiers: ["\(checkin.id)"])
+
 		let content = UNMutableNotificationContent()
 		content.title = "Sie wurden automatisch ausgecheckt."
 		content.body = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenfalls an."

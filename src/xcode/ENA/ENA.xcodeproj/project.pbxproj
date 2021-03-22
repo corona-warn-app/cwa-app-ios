@@ -544,6 +544,7 @@
 		A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* Hasher.swift */; };
+		AB124E40260893FB009004B3 /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E3F260893FB009004B3 /* CheckinTests.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
@@ -1512,6 +1513,7 @@
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* Hasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hasher.swift; sourceTree = "<group>"; };
+		AB124E3F260893FB009004B3 /* CheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -3807,6 +3809,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		AB124E3E260893EC009004B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB124E3F260893FB009004B3 /* CheckinTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AB126871254C0598006E9194 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -3980,6 +3990,7 @@
 		AB68530925F8F68A00380F5A /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				AB124E3E260893EC009004B3 /* Model */,
 				AB68530A25F8F69200380F5A /* StoreV1 */,
 				AB68531325F8F9D500380F5A /* EventStoreTests.swift */,
 				AB86B2AE26026AC3007C77B3 /* EventCheckoutServiceTests.swift */,
@@ -6280,6 +6291,7 @@
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
+				AB124E40260893FB009004B3 /* CheckinTests.swift in Sources */,
 				50C029AB25E4068D00460FA4 /* TestResultMetadataTests.swift in Sources */,
 				010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */,
 				AB68881E25DA734100907465 /* ContactDiaryAccess.swift in Sources */,

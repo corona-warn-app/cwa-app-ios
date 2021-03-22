@@ -201,8 +201,8 @@ class EventCheckoutServiceTests: XCTestCase {
 		let dayEntry0 = diaryDays[0].selectedEntries[0]
 		let dayEntry1 = diaryDays[1].selectedEntries[0]
 
-		guard case .location = dayEntry0,
-			  case .location = dayEntry1 else {
+		guard case .location(let location0) = dayEntry0,
+			  case .location(let location1) = dayEntry1 else {
 			XCTFail("Entries should be location visits.")
 			return
 		}
@@ -210,6 +210,19 @@ class EventCheckoutServiceTests: XCTestCase {
 		let formattedStartDate = shortDateFormatter.string(from: traceLocationStartDate)
 		let formattedEndDate = shortDateFormatter.string(from: traceLocationEndDate)
 		XCTAssertEqual(dayEntry0.name, "Some Description, Some Address, \(formattedStartDate), \(formattedEndDate)")
+
+		guard let locationVisit0 = location0.visit,
+			  let locationVisit1 = location1.visit else {
+			XCTFail("Location visits should not be nil")
+			return
+		}
+
+		XCTAssertEqual(locationVisit0.date, "2021-03-05")
+		XCTAssertEqual(locationVisit1.date, "2021-03-04")
+		XCTAssertNotNil(locationVisit0.checkinId)
+		XCTAssertNotNil(locationVisit1.checkinId)
+		XCTAssertGreaterThan(locationVisit0.durationInMinutes, 0)
+		XCTAssertGreaterThan(locationVisit1.durationInMinutes, 0)
 	}
 
 	func makeDummyCheckin(
