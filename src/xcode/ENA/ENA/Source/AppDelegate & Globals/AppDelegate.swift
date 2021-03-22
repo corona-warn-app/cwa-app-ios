@@ -225,7 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider: riskProvider
 	)
 
-	private lazy var eventCheckoutService: EventCheckoutService =  EventCheckoutService(
+	private lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
 		eventStore: eventStore,
 		contactDiaryStore: contactDiaryStore
 	)
