@@ -2,7 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
-struct Checkin {
+import Foundation
+
+struct Checkin: Equatable {
 
 	let id: Int
 	let traceLocationGUID: String
@@ -18,4 +20,9 @@ struct Checkin {
 	let checkinEndDate: Date?
 	let targetCheckinEndDate: Date?
 	let createJournalEntry: Bool
+
+	var isActive: Bool {
+		checkinEndDate == nil
+	}
+
 }

@@ -55,8 +55,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {
-		
-		navigationItem.title = AppStrings.Checkin.QRScanner.title
+		navigationItem.title = AppStrings.Checkins.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 
 		focusView.backdropOpacity = 0.2
@@ -69,7 +68,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		instructionLabel.textAlignment = .center
 		instructionLabel.textColor = .enaColor(for: .textContrast)
 		instructionLabel.font = .enaFont(for: .body)
-		instructionLabel.text = AppStrings.Checkin.QRScanner.instruction
+		instructionLabel.text = AppStrings.Checkins.QRScanner.instruction
 		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3
@@ -198,8 +197,8 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		viewModel.deactivateScanning()
 
 		let alert = UIAlertController(
-			title: AppStrings.Checkin.QRScanner.Error.title,
-			message: AppStrings.Checkin.QRScanner.Error.description,
+			title: AppStrings.Checkins.QRScanner.Error.title,
+			message: AppStrings.Checkins.QRScanner.Error.description,
 			preferredStyle: .alert
 		)
 		alert.addAction(
@@ -221,6 +220,11 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	}
 
 	private func updatePreviewMask() {
+
+		guard let previewLayer = previewLayer else {
+			Log.debug("No preview layer available")
+			return
+		}
 
 		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
