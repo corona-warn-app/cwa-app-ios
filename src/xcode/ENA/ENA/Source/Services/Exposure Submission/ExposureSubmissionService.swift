@@ -126,7 +126,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// [KGA] HIer könnte ich meine Werte einfügen. Keys sind instanzevariable. Aus store könnte ich mir hier die checkins holen, und auf protobuff mappen
+	// [KGA] Hier könnte ich meine Werte einfügen. Keys sind instanzevariable. Aus store könnte ich mir hier die checkins holen, und auf protobuff mappen
 	// Proc
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
@@ -159,7 +159,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			submitExposureCleanup()
 			return
 		}
-		// [KGA]
+		// [KGA] Hier Check-ins übernehmen und integrieren
 		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
 		// Request needs to be prepended by the fake request.
