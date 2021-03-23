@@ -491,7 +491,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let testResult = metadata?.testResult?.protobuf {
 				$0.testResult = testResult
 			}
-			if let hoursSinceTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+			if let hoursSinceTestRegistration = metadata?.hoursSinceTestRegistration {
 				$0.hoursSinceTestRegistration = Int32(hoursSinceTestRegistration)
 			}
 			if let riskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {
