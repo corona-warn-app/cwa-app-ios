@@ -83,8 +83,8 @@ class DiaryDayViewModelTest: XCTestCase {
 		waitForExpectations(timeout: .medium)
 
 		XCTAssertEqual(viewModel.entriesOfSelectedType, [
-			.location(DiaryLocation(id: 1, name: "Bakery")),
-			.location(DiaryLocation(id: 0, name: "Supermarket"))
+			.location(DiaryLocation(id: 1, name: "Bakery", traceLocationGUID: nil)),
+			.location(DiaryLocation(id: 0, name: "Supermarket", traceLocationGUID: nil))
 		])
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
 		XCTAssertEqual(viewModel.numberOfRows(in: 1), 2)
@@ -201,8 +201,8 @@ class DiaryDayViewModelTest: XCTestCase {
 				.contactPerson(DiaryContactPerson(id: 9, name: "Omar Ahmed")),
 				.contactPerson(DiaryContactPerson(id: 3, name: "Pascal Brause")),
 				.contactPerson(DiaryContactPerson(id: 8, name: "Puneet Mahali")),
-				.location(DiaryLocation(id: 1, name: "Bakery")),
-				.location(DiaryLocation(id: 0, name: "Supermarket"))
+				.location(DiaryLocation(id: 1, name: "Bakery", traceLocationGUID: nil)),
+				.location(DiaryLocation(id: 0, name: "Supermarket", traceLocationGUID: nil))
 			]
 		)
 	}

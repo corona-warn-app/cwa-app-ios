@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TraceLocationsInfoViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationsInfoViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 	
@@ -27,8 +27,9 @@ class TraceLocationsInfoViewController: DynamicTableViewController, ENANavigatio
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		setupView()
+
+		navigationItem.title = AppStrings.TraceLocations.Information.title
 
 		if !viewModel.hidesCloseButton {
 			navigationItem.rightBarButtonItem = CloseBarButtonItem(
@@ -38,12 +39,15 @@ class TraceLocationsInfoViewController: DynamicTableViewController, ENANavigatio
 			)
 		}
 
-		navigationController?.navigationBar.prefersLargeTitles = true
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.primaryButton
-	}
-
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+// <<<<<<< HEAD
+//		navigationController?.navigationBar.prefersLargeTitles = true
+//		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.primaryButton
+//	}
+//
+//	override var navigationItem: UINavigationItem {
+//		navigationFooterItem
+// =======
+// >>>>>>> origin/release/2.0.x
 	}
 
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
@@ -62,18 +66,6 @@ class TraceLocationsInfoViewController: DynamicTableViewController, ENANavigatio
 
 	private let viewModel: TraceLocationsInfoViewModel
 	private let onDismiss: () -> Void
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.TraceLocations.Information.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-
-		item.title = AppStrings.TraceLocations.Information.title
-
-		return item
-	}()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

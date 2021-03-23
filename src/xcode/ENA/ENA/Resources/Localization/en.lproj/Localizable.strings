@@ -143,6 +143,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later diagnosed with coronavirus. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the prevailing rules regarding distancing and hygiene.";
 
+"ExposureDetection_Button_Enable" = "Activate Exposure Logging";
+
 "ExposureDetection_Button_Refresh" = "Update";
 
 "ExposureDetection_Button_Title_Restart" = "Restart";
@@ -215,7 +217,7 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "The Corona-Warn-App was installed %u ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active in times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -270,7 +272,7 @@
 
 "Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
 
-"Settings_DaysSinceInstall_P2a" = "The Corona-Warn-App was installed %u ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
+"Settings_DaysSinceInstall_P2a" = "The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
 
 "Settings_DaysSinceInstall_P2b" = "If exposure logging was active in times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -1363,6 +1365,10 @@
 "NewVersionFeature_115_cross_border_switzerland_title" = "Switzerland Added to Transnational Exposure Logging ";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Corona-Warn-App users can now exchange encrypted random IDs with users of the official warning app in Switzerland. This means warnings can now be sent to and received from app users in Switzerland.";
+
+"NewVersionFeature_115_days_since_install_title" = "Change of Risk Tiles";
+
+"NewVersionFeature_115_days_since_install_description" = "The risk tiles no longer contain the number of active days or the note that the app is active permanently.";
 
 "NewVersionFeature_115_error_analytic_logs_title" = "Generation of Error Reports";
 

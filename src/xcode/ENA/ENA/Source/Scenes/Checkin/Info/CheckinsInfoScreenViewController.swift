@@ -5,8 +5,8 @@
 import Foundation
 import UIKit
 
-class CheckinsInfoScreenViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
-	
+class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHandling {
+
 	// MARK: - Init
 	
 	init(
@@ -32,30 +32,28 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, ENANavigatio
 		setupView()
 
 		if !viewModel.hidesCloseButton {
-			navigationItem.rightBarButtonItem = CloseBarButtonItem(
+			parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
 				onTap: { [weak self] in
 					self?.onDismiss()
 				}
 			)
 		}
 
+		parent?.navigationItem.title = AppStrings.Checkins.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.CheckinInformation.primaryButton
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onDismiss()
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		if type == .primary {
+			onDismiss()
+		}
 	}
 
 	// MARK: - Internal
 	
-	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+	private enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case legalExtended = "DynamicLegalExtendedCell"
 	}
 	
@@ -63,18 +61,6 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, ENANavigatio
 
 	private let viewModel: CheckInsInfoScreenViewModel
 	private let onDismiss: () -> Void
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.Checkin.Information.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-
-		item.title = AppStrings.Checkin.Information.title
-
-		return item
-	}()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)

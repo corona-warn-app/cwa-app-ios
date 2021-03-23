@@ -143,6 +143,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na kontakt z osobą, u której zdiagnozowano koronawirusa. Jednak Twoje ryzyko zakażenia obliczone na podstawie Twoich danych rejestrowania narażenia jest niskie. Ryzyko jest niskie, jeśli Twój kontakt trwał krótko lub zachowany został dystans. Nie musisz się martwić i podejmować żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących zachowania dystansu i higieny.";
 
+"ExposureDetection_Button_Enable" = "Aktywuj rejestrowanie narażenia";
+
 "ExposureDetection_Button_Refresh" = "Aktualizuj";
 
 "ExposureDetection_Button_Title_Restart" = "Uruchom ponownie";
@@ -215,7 +217,7 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplikacja Corona-Warn-App została zainstalowana %u temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplikacja Corona-Warn-App została zainstalowana %u dni temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -270,7 +272,7 @@
 
 "Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
 
-"Settings_DaysSinceInstall_P2a" = "Aplikacja Corona-Warn-App została zainstalowana %u temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
+"Settings_DaysSinceInstall_P2a" = "Aplikacja Corona-Warn-App została zainstalowana %u dni temu. Ryzyko zakażenia jest obliczane dla okresów, w których aktywne było rejestrowanie narażenia. Oblicza się je w przypadku kontaktowania się z innymi ludźmi przy aktywnej funkcji rejestrowania narażenia.";
 
 "Settings_DaysSinceInstall_P2b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
 
@@ -1363,6 +1365,10 @@
 "NewVersionFeature_115_cross_border_switzerland_title" = "Do międzynarodowego rejestrowania narażenia dodano Szwajcarię. ";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Użytkownicy aplikacji Corona-Warn-App mogą teraz wymieniać się zaszyfrowanymi losowymi identyfikatorami z użytkownikami oficjalnej aplikacji ostrzegawczej w Szwajcarii. Oznacza to, że ostrzeżenia mogą być teraz wysyłane do użytkowników aplikacji w Szwajcarii i od nich odbierane.";
+
+"NewVersionFeature_115_days_since_install_title" = "Zmiana w kafelkach ryzyka";
+
+"NewVersionFeature_115_days_since_install_description" = "Kafelki ryzyka nie zawierają już liczby aktywnych dni ani informacji, że aplikacja jest aktywna na stałe.";
 
 "NewVersionFeature_115_error_analytic_logs_title" = "Generowanie raportów o błędach";
 

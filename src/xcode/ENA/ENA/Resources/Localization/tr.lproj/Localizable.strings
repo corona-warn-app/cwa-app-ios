@@ -143,6 +143,8 @@
 
 "ExposureDetection_LowRiskExposure_Body" = "Daha sonra koronavirüs tanısı konmuş bir kişiyle karşılaştınız. Ancak maruz kalma günlüğü verilerine göre enfeksiyon riskiniz düşük. Kısa süreyle ya da uzak mesafeyle karşılaşmanız durumunda risk düşük olur. Endişelenmeniz gerekmez ve eylem gerçekleştirmeniz özel bir ihtiyaç bulunmuyor. Mesafe ve hijyen konusunda belirlenen kurallara riayet etmenizi öneririz.";
 
+"ExposureDetection_Button_Enable" = "Maruz Kalma Günlüğünü Etkinleştir";
+
 "ExposureDetection_Button_Refresh" = "Güncelle";
 
 "ExposureDetection_Button_Title_Restart" = "Yeniden başlat";
@@ -1363,6 +1365,10 @@
 "NewVersionFeature_115_cross_border_switzerland_title" = "Uluslararası Maruz Kalma Günlüğüne İsviçre Eklendi ";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Corona-Warn-App kullanıcıları artık şifrelenmiş rastgele kimlikleri, İsviçre’de resmi uyarı uygulamasının kullanıcıları ile değiştirebilir. Buna göre, artık İsviçre’deki uygulama kullanıcıları ile uyarı alışverişi yapılabilir.";
+
+"NewVersionFeature_115_days_since_install_title" = "Risk Kutucuklarındaki Değişiklik";
+
+"NewVersionFeature_115_days_since_install_description" = "Artık risk kutucukları etkin gün sayısını veya uygulamanın kalıcı olarak etkin olduğuna yönelik notu içermemektedir.";
 
 "NewVersionFeature_115_error_analytic_logs_title" = "Hata Raporlarının Oluşturulması";
 

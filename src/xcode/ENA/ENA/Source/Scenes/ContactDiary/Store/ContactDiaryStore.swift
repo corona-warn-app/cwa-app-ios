@@ -8,13 +8,11 @@ import FMDB
 import OpenCombine
 
 protocol DateProviding {
-	var today: Date { get }
+	var today: Date { get set }
 }
 
 struct DateProvider: DateProviding {
-	var today: Date {
-		Date()
-	}
+	var today: Date = Date()
 }
 
 private struct ExportEntry {
@@ -23,7 +21,7 @@ private struct ExportEntry {
 }
 
 // swiftlint:disable:next type_body_length
-class ContactDiaryStore: DiaryStoring, DiaryProviding {
+class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 
 	static let encryptionKeyKey = "ContactDiaryStoreEncryptionKey"
 
@@ -31,7 +29,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 	init?(
 		databaseQueue: FMDatabaseQueue,
-		schema: ContactDiaryStoreSchemaProtocol,
+		schema: StoreSchemaProtocol,
 		key: String,
 		dateProvider: DateProviding = DateProvider(),
 		migrator: SerialMigratorProtocol
@@ -50,7 +48,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			return nil
 		}
 
-		var updateDiaryResult: DiaryStoringVoidResult?
+		var updateDiaryResult: SecureSQLStore.VoidResult?
 		databaseQueue.inDatabase { database in
 			updateDiaryResult = updateDiaryDays(with: database)
 		}
@@ -154,11 +152,25 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
+	// MARK: - Protocol SecureSQLStore
+
+	let databaseQueue: FMDatabaseQueue
+	let key: String
+	let schema: StoreSchemaProtocol
+	let migrator: SerialMigratorProtocol
+	let logIdentifier = "ContactDiaryStore"
+	let sqlSettings = """
+				PRAGMA locking_mode=EXCLUSIVE;
+				PRAGMA auto_vacuum=2;
+				PRAGMA journal_mode=WAL;
+				PRAGMA foreign_keys=ON;
+			"""
+
 	// MARK: - Protocol DiaryStoring
 
 	@discardableResult
-	func cleanup() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult = .success(())
+	func cleanup() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult = .success(())
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Cleanup old entries.", log: .localData)
@@ -206,9 +218,9 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult {
+	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult {
 		let group = DispatchGroup()
-		var result: DiaryStoringVoidResult?
+		var result: SecureSQLStore.VoidResult?
 
 		group.enter()
 		DispatchQueue.global().async {
@@ -231,8 +243,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		name: String,
 		phoneNumber: String,
 		emailAddress: String
-	) -> DiaryStoringResult {
-		var result: DiaryStoringResult?
+	) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add ContactPerson.", log: .localData)
@@ -280,9 +292,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	func addLocation(
 		name: String,
 		phoneNumber: String,
-		emailAddress: String
-	) -> DiaryStoringResult {
-		var result: DiaryStoringResult?
+		emailAddress: String,
+		traceLocationGUID: String?
+	) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add Location.", log: .localData)
@@ -291,19 +304,22 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				INSERT INTO Location (
 					name,
 					phoneNumber,
-					emailAddress
+					emailAddress,
+					traceLocationGUID
 				)
 				VALUES (
 					SUBSTR(:name, 1, \(maxTextLength)),
 					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
-					SUBSTR(:emailAddress, 1, \(maxTextLength))
+					SUBSTR(:emailAddress, 1, \(maxTextLength)),
+					:traceLocationGUID
 				);
 			"""
 
 			let parameters: [String: Any] = [
 				"name": name,
 				"phoneNumber": phoneNumber,
-				"emailAddress": emailAddress
+				"emailAddress": emailAddress,
+				"traceLocationGUID": traceLocationGUID as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -335,8 +351,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		maskSituation: ContactPersonEncounter.MaskSituation,
 		setting: ContactPersonEncounter.Setting,
 		circumstances: String
-	) -> DiaryStoringResult {
-		var result: DiaryStoringResult?
+	) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add ContactPersonEncounter.", log: .localData)
@@ -395,9 +411,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		locationId: Int,
 		date: String,
 		durationInMinutes: Int,
-		circumstances: String
-	) -> DiaryStoringResult {
-		var result: DiaryStoringResult?
+		circumstances: String,
+		checkinId: Int?
+	) -> SecureSQLStore.IdResult {
+		var result: SecureSQLStore.IdResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Add LocationVisit.", log: .localData)
@@ -407,13 +424,15 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 					date,
 					locationId,
 					durationInMinutes,
-					circumstances
+					circumstances,
+					checkinId
 				)
 				VALUES (
 					date(:dateString),
 					:locationId,
 					:durationInMinutes,
-					:circumstances
+					:circumstances,
+					:checkinId
 				);
 			"""
 
@@ -421,7 +440,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 				"dateString": date,
 				"locationId": locationId,
 				"durationInMinutes": durationInMinutes,
-				"circumstances": circumstances
+				"circumstances": circumstances,
+				"checkinId": checkinId as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -451,8 +471,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		name: String,
 		phoneNumber: String,
 		emailAddress: String
-	) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Update ContactPerson with id: \(id).", log: .localData)
@@ -493,8 +513,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		name: String,
 		phoneNumber: String,
 		emailAddress: String
-	) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Update Location with id: \(id).", log: .localData)
@@ -538,8 +558,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		maskSituation: ContactPersonEncounter.MaskSituation,
 		setting: ContactPersonEncounter.Setting,
 		circumstances: String
-	) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Update ContactPersonEncounter with id: \(id).", log: .localData)
@@ -591,8 +611,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		date: String,
 		durationInMinutes: Int,
 		circumstances: String
-	) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Update LocationVisit with id: \(id).", log: .localData)
@@ -636,8 +656,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeContactPerson(id: Int) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	func removeContactPerson(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove ContactPerson with id: \(id).", log: .localData)
@@ -672,8 +692,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeLocation(id: Int) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	func removeLocation(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove Location with id: \(id).", log: .localData)
@@ -708,8 +728,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	func removeContactPersonEncounter(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove ContactPersonEncounter with id: \(id).", log: .localData)
@@ -744,8 +764,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	func removeLocationVisit(id: Int) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove LocationVisit with id: \(id).", log: .localData)
@@ -780,16 +800,16 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	func removeAllLocations() -> DiaryStoringVoidResult {
+	func removeAllLocations() -> SecureSQLStore.VoidResult {
 		return removeAllEntries(from: "Location")
 	}
 
-	func removeAllContactPersons() -> DiaryStoringVoidResult {
+	func removeAllContactPersons() -> SecureSQLStore.VoidResult {
 		return removeAllEntries(from: "ContactPerson")
 	}
 
 	@discardableResult
-	func reset() -> DiaryStoringVoidResult {
+	func reset() -> SecureSQLStore.VoidResult {
 		let dropTablesResult = dropTables()
 		if case let .failure(error) = dropTablesResult {
 			return .failure(error)
@@ -800,7 +820,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 			return openAndSetupResult
 		}
 
-		var updateDiaryDaysResult: DiaryStoringVoidResult?
+		var updateDiaryDaysResult: SecureSQLStore.VoidResult?
 		databaseQueue.inDatabase { database in
 			updateDiaryDaysResult = updateDiaryDays(with: database)
 		}
@@ -811,18 +831,11 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	func close() {
-		databaseQueue.close()
-	}
-
 	// MARK: - Private
 
 	private let maxTextLength = 250
-	private let key: String
 	private let dateProvider: DateProviding
-	private let schema: ContactDiaryStoreSchemaProtocol
-	private let migrator: SerialMigratorProtocol
-	
+
 	private var todayDateString: String {
 		dateFormatter.string(from: dateProvider.today)
 	}
@@ -840,68 +853,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return dateFormatter
 	}()
 
-	private let databaseQueue: FMDatabaseQueue
-
-	private func openAndSetup() -> DiaryStoringVoidResult {
-		var errorResult: DiaryStoringVoidResult?
-		var userVersion: UInt32 = 0
-		
-		databaseQueue.inDatabase { database in
-			Log.info("[ContactDiaryStore] Open and setup database.", log: .localData)
-			let dbHandle = OpaquePointer(database.sqliteHandle)
-			guard CWASQLite.sqlite3_key(dbHandle, key, Int32(key.count)) == SQLITE_OK else {
-				Log.error("[ContactDiaryStore] Unable to set Key for encryption.", log: .localData)
-				errorResult = .failure(dbError(from: database))
-				return
-			}
-			
-			guard database.open() else {
-				Log.error("[ContactDiaryStore] Database could not be opened", log: .localData)
-				errorResult = .failure(dbError(from: database))
-				return
-			}
-
-			userVersion = database.userVersion
-
-			let sql = """
-				PRAGMA locking_mode=EXCLUSIVE;
-				PRAGMA auto_vacuum=2;
-				PRAGMA journal_mode=WAL;
-				PRAGMA foreign_keys=ON;
-			"""
-			guard database.executeStatements(sql) else {
-				logLastErrorCode(from: database)
-				errorResult = .failure(dbError(from: database))
-				return
-			}
-		}
-		
-		if let _errorResult = errorResult {
-			return _errorResult
-		}
-		
-		// if version is zero then this means this is a fresh database "i.e no previous app was installed"
-		// then we create the latest schema
-		if userVersion == 0 {
-			let schemaCreateResult = schema.create()
-			if case let .failure(error) = schemaCreateResult {
-				return .failure(.database(error))
-			}
-		} else {
-			migrate()
-		}
-		
-		return .success(())
-	}
-	
-	private func migrate() {
-		do {
-			try migrator.migrate()
-		} catch {
-			_ = MigrationError.general(description: error.localizedDescription)
-		}
-	}
-	
 	private func registerToDidBecomeActiveNotification() {
 		NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActiveNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
@@ -911,7 +862,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		cleanup()
 	}
 
-	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], DiaryStoringError> {
+	private func fetchContactPersons(for date: String, in database: FMDatabase) -> Result<[DiaryContactPerson], SecureSQLStoreError> {
 		var contactPersons = [DiaryContactPerson]()
 
 		let sql = """
@@ -973,7 +924,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(contactPersons)
 	}
 
-	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], DiaryStoringError> {
+	private func fetchLocations(for date: String, in database: FMDatabase) -> Result<[DiaryLocation], SecureSQLStoreError> {
 		var locations = [DiaryLocation]()
 
 		let sql = """
@@ -1000,18 +951,26 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 
 			while queryResult.next() {
 				let locationVisitId = Int(queryResult.int(forColumn: "locationVisitId"))
+
+				var checkinId: Int?
+				if let _checkinId = queryResult.object(forColumn: "checkinId") as? Int {
+					checkinId = _checkinId
+				}
+
 				let locationVisit: LocationVisit? = locationVisitId == 0 ? nil : LocationVisit(
 					id: locationVisitId,
 					date: queryResult.string(forColumn: "locationVisitDate") ?? "",
 					locationId: Int(queryResult.int(forColumn: "locationId")),
 					durationInMinutes: Int(queryResult.int(forColumn: "locationVisitDuration")),
-					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? ""
+					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? "",
+					checkinId: checkinId
 				)
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
+					traceLocationGUID: queryResult.string(forColumn: "traceLocationGUID"),
 					visit: locationVisit
 				)
 				locations.append(location)
@@ -1025,7 +984,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 	}
 
 	@discardableResult
-	private func updateDiaryDays(with database: FMDatabase) -> DiaryStoringVoidResult {
+	private func updateDiaryDays(with database: FMDatabase) -> SecureSQLStore.VoidResult {
 		var diaryDays = [DiaryDay]()
 
 		for index in 0..<userVisiblePeriodInDays {
@@ -1068,8 +1027,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return .success(())
 	}
 
-	private func removeAllEntries(from tableName: String) -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	private func removeAllEntries(from tableName: String) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[ContactDiaryStore] Remove all entires from \(tableName)", log: .localData)
@@ -1101,8 +1060,8 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		return _result
 	}
 
-	private func dropTables() -> DiaryStoringVoidResult {
-		var result: DiaryStoringVoidResult?
+	private func dropTables() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			let sql = """
@@ -1219,133 +1178,6 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding {
 		}
 
 		return exportEntries
-	}
-
-	private func logLastErrorCode(from database: FMDatabase) {
-		Log.error("[ContactDiaryStore] (\(database.lastErrorCode())) \(database.lastErrorMessage())", log: .localData)
-	}
-
-	private func dbError(from database: FMDatabase) -> DiaryStoringError {
-		let dbError = SQLiteErrorCode(rawValue: database.lastErrorCode()) ?? SQLiteErrorCode.unknown
-		return .database(dbError)
-	}
-}
-
-// MARK: Creation
-
-extension ContactDiaryStore {
-
-	static func make(url: URL? = nil) -> ContactDiaryStore {
-		let storeURL: URL
-
-		if let url = url {
-			storeURL = url
-		} else {
-			storeURL = ContactDiaryStore.storeURL
-		}
-
-		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
-
-		if let store = ContactDiaryStore(url: storeURL) {
-			Log.info("[ContactDiaryStore] Successfully created contact diary store", log: .localData)
-			return store
-		}
-
-		Log.info("[ContactDiaryStore] Failed to create contact diary store. Try to rescue it...", log: .localData)
-
-		// The database could not be created – To the rescue!
-		// Remove the database file and try to init the store a second time.
-		do {
-			try FileManager.default.removeItem(at: storeURL)
-		} catch {
-			Log.error("Could not remove item at \(ContactDiaryStore.storeDirectoryURL)", log: .localData, error: error)
-			assertionFailure()
-		}
-
-		if let secondTryStore = ContactDiaryStore(url: storeURL) {
-			Log.info("[ContactDiaryStore] Successfully rescued contact diary store", log: .localData)
-			return secondTryStore
-		} else {
-			Log.info("[ContactDiaryStore] Failed to rescue contact diary store.", log: .localData)
-			fatalError("[ContactDiaryStore] Could not create contact diary store after second try.")
-		}
-	}
-
-	private static var storeURL: URL {
-		storeDirectoryURL
-			.appendingPathComponent("ContactDiary")
-			.appendingPathExtension("sqlite")
-	}
-
-	private static var storeDirectoryURL: URL {
-		let fileManager = FileManager.default
-
-		guard let storeDirectoryURL = try? fileManager
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("ContactDiary") else {
-			fatalError("[ContactDiaryStore] Could not create folder.")
-		}
-
-		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
-			do {
-				try fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
-			} catch {
-				Log.error("Could not create directory at \(storeDirectoryURL)", log: .localData, error: error)
-				assertionFailure()
-			}
-		}
-		return storeDirectoryURL
-	}
-
-	private static var encryptionKey: String {
-		guard let keychain = try? KeychainHelper() else {
-			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
-		}
-
-		let key: String
-		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKeyKey) {
-			key = String(decoding: keyData, as: UTF8.self)
-		} else {
-			do {
-				key = try keychain.generateContactDiaryDatabaseKey()
-			} catch {
-				fatalError("[ContactDiaryStore] Failed to create key for contact diary store.")
-			}
-		}
-
-		return key
-	}
-}
-
-extension ContactDiaryStore {
-	convenience init?(url: URL) {
-
-		guard let databaseQueue = FMDatabaseQueue(path: url.path) else {
-			Log.error("[ContactDiaryStore] Failed to create FMDatabaseQueue.", log: .localData)
-			return nil
-		}
-
-		let latestDBVersion = 3
-		let schema = ContactDiaryStoreSchemaV3(
-			databaseQueue: databaseQueue
-		)
-		
-		let migrations: [Migration] = [
-			ContactDiaryMigration1To2(databaseQueue: databaseQueue),
-			ContactDiaryMigration2To3(databaseQueue: databaseQueue)
-		]
-		let migrator = SerialDatabaseQueueMigrator(
-			queue: databaseQueue,
-			latestVersion: latestDBVersion,
-			migrations: migrations
-		)
-
-		self.init(
-			databaseQueue: databaseQueue,
-			schema: schema,
-			key: ContactDiaryStore.encryptionKey,
-			migrator: migrator
-		)
 	}
 }
 

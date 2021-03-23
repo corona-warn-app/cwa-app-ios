@@ -43,7 +43,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
-"Common_Deadman_AlertTitle" = "Risiko-Überprüfung";
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
 
 "Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
 
@@ -144,6 +144,8 @@
 "ExposureDetection_LowRiskExposure_Subtitle" = "Deshalb ist Ihr Infektionsrisiko niedrig";
 
 "ExposureDetection_LowRiskExposure_Body" = "Sie hatten eine Begegnung mit einer später Corona-positiv getesteten Person. Ihr Infektionsrisiko wird auf Grundlage der Daten der Risiko-Ermittlung dennoch als niedrig eingestuft. Ein niedriges Risiko besteht insbesondere dann, wenn sich Ihre Begegnung auf einen kurzen Zeitraum oder einen größeren Abstand beschränkt hat. Sie müssen sich keine Sorgen machen und es besteht kein besonderer Handlungsbedarf. Es wird empfohlen, sich an die allgemein geltenden Abstands- und Hygieneregeln zu halten.";
+
+"ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
@@ -1092,6 +1094,16 @@ sein.";
 
 "Home_SubmitCard_Button" = "Nächste Schritte";
 
+/* Home Trace Locations Card */
+
+"Home_TraceLocationsCard_Title" = "Sie planen eine Veranstaltung?";
+
+"Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
+
+"Home_TraceLocationsCard_Button" = "QR-Code erstellen";
+
+/* Home Info Card */
+
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App empfehlen";
 
 "Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Verschicken Sie einen Link auf die Corona-Warn-App an Familie, Freunde und Bekannte!";
@@ -1386,11 +1398,21 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.0 */
+
+"NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
+
+"NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, werden alle Personen automatisch gewarnt, die zur selben Zeit eingescheckt waren.";
+
 /* Version 1.15 */
 
 "NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Die Corona-Warn-App nutzende Personen können nun auch verschlüsselte Zufalls-IDs mit Personen austauschen, die die offizielle Warn-App der Schweiz nutzen. Somit können Warnungen an App nutzende Personen in der Schweiz geschickt sowie von ihnen empfangen werden.";
+
+"NewVersionFeature_115_days_since_install_title" = "Änderung der Risikokarten";
+
+"NewVersionFeature_115_days_since_install_description" = "Auf den Risikokarten entfällt die Anzeige der Anzahl aktiver Tage bzw. dass die App dauerhaft aktiv ist.";
 
 "NewVersionFeature_115_error_analytic_logs_title" = "Erstellung von Fehlerberichten";
 
@@ -1922,11 +1944,146 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "QuickAction_newContactDiaryEntry" = "Tagebuch-Eintrag für heute hinzufügen";
 
-/* Events */
+"QuickAction_eventCheckin" = "Einchecken";
 
-"Events_QR_Scanner_Title" = "QR-Code scannen und einchecken";
+/* Checkins */
 
-"Events_Qr_Scanner_Button_CheckIns" = "Meine Check Ins";
+"Checkins_QR_Scanner_Title" = "QR-Code Scan";
+
+"Checkins_Overview_Title" = "Meine Check-ins";
+
+"Checkins_Overview_MenuButtonTitle" = "Menü";
+
+"Checkins_Overview_ScanButtonTitle" = "QR-Code scannen";
+
+"Checkins_Overview_EmptyTitle" = "Noch keine Einträge vorhanden";
+
+"Checkins_Overview_EmptyDescription" = "Wenn Sie einen QR-Code scannen, um sich für ein Event oder einen Ort einzuchecken, wird automatisch ein Eintrag angelegt.";
+
+"Checkins_Overview_EmptyImageDescription" = "Gebäude mit QR-Code-Symbol im Hintergrund";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+
+"Checkins_Overview_DurationTitle" = "Dauer";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - Automatisch auschecken nach %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Jetzt auschecken";
+
+"Checkins_Overview_MissingPermissions_Title" = "Benutzung der Kamera erlauben";
+
+"Checkins_Overview_MissingPermissions_Description" = "Um die Kamera für das Scannen des QR-Codes zu nutzen, müssen Sie die Verwendung der Kamera in den Geräte-Einstellungen zur App zulassen.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Geräte-Einstellungen öffnen";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Wollen Sie diesen Eintrag wirklich entfernen?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diesen Ort oder Event eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Entfernen";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle Einträge entfernen?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Sie können dann Personen, die zur selben Zeit für diese Orte oder Events eingecheckt waren, bei Bedarf nicht mehr warnen oder von ihnen gewarnt werden.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Entfernen";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Info";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+"Checkins_Overview_QRScanner_Instruction" = "QR-Code scannen und einchecken";
+
+/* TraceLocations */
+
+"TraceLocations_Overview_Title" = "Meine QR-Codes";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menü";
+
+"TraceLocations_Overview_AddButtonTitle" = "QR-Code erstellen";
+
+"TraceLocations_Overview_EmptyTitle" = "Noch keine QR-Codes erstellt";
+
+"TraceLocations_Overview_EmptyDescription" = "Hier werden alle QR-Codes angezeigt, die Sie für einen Ort oder ein Event erstellt haben. Sie können die QR-Codes löschen, wenn diese nicht mehr verwendet werden sollen.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartphone mit QR-Code-Symbol";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Alle entfernen";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Selbst einchecken";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Wollen Sie den QR-Code wirklich löschen?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Bitte denken Sie daran, dass der QR-Code danach nicht mehr zum Einchecken verwendet werden kann.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Löschen";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Abbrechen";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Wollen Sie wirklich alle QR-Codes löschen?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Bitte denken Sie daran, dass diese QR-Codes danach nicht mehr zum Einchecken verwendet werden können.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Löschen";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Abbrechen";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Info";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
+
+"TraceLocations_Section_Title_Permanent" = "ORT";
+
+"TraceLocations_Section_Title_Temporary" = "EVENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Gastronomiebetrieb";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Café, Kneipe, Restaurant, Hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Friseur, Schreinerei";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Büro, Konferenzraum, Kantine";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Klassenzimmer, Vorlesungssaal, Bibliothek";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konzert, Kunstausstellung";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Sporttraining, Mitgliederversammlung";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Geburtstag, Familienfeier";
 
 /* Error Reporting */
 
@@ -1980,6 +2137,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
 
+<<<<<<< HEAD
 /* Trace Location */
 
 "TraceLocation_Information_Title" = "QR-Code erstellen";
@@ -2003,3 +2161,10 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
 
 "Home_TraceLocationsCard_Button" = "QR-Code erstellen";
+=======
+/* Checkout */
+
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+
+"Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenfalls an.";
+>>>>>>> origin/release/2.0.x

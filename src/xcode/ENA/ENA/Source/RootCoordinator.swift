@@ -27,10 +27,12 @@ class RootCoordinator: RequiresAppDependencies {
 	init(
 		_ delegate: CoordinatorDelegate,
 		contactDiaryStore: DiaryStoringProviding,
+		eventStore: EventStoringProviding,
 		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
 		self.contactDiaryStore = contactDiaryStore
+		self.eventStore = eventStore
 		self.otpService = otpService
 	}
 
@@ -54,7 +56,11 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		
-		let homeCoordinator = HomeCoordinator(delegate, otpService: otpService)
+		let homeCoordinator = HomeCoordinator(
+			delegate,
+			otpService: otpService,
+			eventStore: eventStore
+		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
 		
@@ -68,7 +74,7 @@ class RootCoordinator: RequiresAppDependencies {
 		self.diaryCoordinator = diaryCoordinator
 		
 		// Setup checkin coordinator after app reset
-		let checkInCoordinator = CheckinCoordinator(store: store)
+		let checkInCoordinator = CheckinCoordinator(store: store, eventStore: eventStore)
 		self.checkInCoordinator = checkInCoordinator
 
 		// Tabbar
@@ -141,6 +147,7 @@ class RootCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 
 	private let contactDiaryStore: DiaryStoringProviding
+	private let eventStore: EventStoringProviding
 	private let otpService: OTPServiceProviding
 	private let tabBarController = UITabBarController()
 
@@ -149,7 +156,10 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private(set) var diaryCoordinator: DiaryCoordinator?
 	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
-		CheckinCoordinator(store: store)
+		CheckinCoordinator(
+			store: store,
+			eventStore: eventStore
+		)
 	}()
 
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
