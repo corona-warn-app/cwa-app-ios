@@ -24,11 +24,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 1)
 
 		let splitedCheckinStartDate = splitedCheckins[0].checkinStartDate
-
-		guard let splitedCheckinEndDate = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate = splitedCheckins[0].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T08:30:00Z", utcFormatter.string(from: splitedCheckinStartDate))
 		XCTAssertEqual("2021-03-04T08:30:00Z", utcFormatter.string(from: splitedCheckinEndDate))
@@ -49,11 +45,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 1)
 
 		let splitedCheckinStartDate = splitedCheckins[0].checkinStartDate
-
-		guard let splitedCheckinEndDate = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate = splitedCheckins[0].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T08:30:00Z", utcFormatter.string(from: splitedCheckinStartDate))
 		XCTAssertEqual("2021-03-04T08:45:00Z", utcFormatter.string(from: splitedCheckinEndDate))
@@ -74,16 +66,10 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 2)
 
 		let splitedCheckinStartDate0 = splitedCheckins[0].checkinStartDate
-		guard let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate
 
 		let splitedCheckinStartDate1 = splitedCheckins[1].checkinStartDate
-		guard let splitedCheckinEndDate1 = splitedCheckins[1].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate1 = splitedCheckins[1].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T08:30:00Z", utcFormatter.string(from: splitedCheckinStartDate0))
 		XCTAssertEqual("2021-03-05T00:00:00Z", utcFormatter.string(from: splitedCheckinEndDate0))
@@ -106,20 +92,13 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 3)
 
 		let splitedCheckinStartDate0 = splitedCheckins[0].checkinStartDate
-		guard let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate
+
 		let splitedCheckinStartDate1 = splitedCheckins[1].checkinStartDate
-		guard let splitedCheckinEndDate1 = splitedCheckins[1].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate1 = splitedCheckins[1].checkinEndDate
+
 		let splitedCheckinStartDate2 = splitedCheckins[2].checkinStartDate
-		guard let splitedCheckinEndDate2 = splitedCheckins[2].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate2 = splitedCheckins[2].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T08:30:00Z", utcFormatter.string(from: splitedCheckinStartDate0))
 		XCTAssertEqual("2021-03-05T00:00:00Z", utcFormatter.string(from: splitedCheckinEndDate0))
@@ -144,10 +123,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 1)
 
 		let splitedCheckinStartDate0 = splitedCheckins[0].checkinStartDate
-		guard let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T00:00:00Z", utcFormatter.string(from: splitedCheckinStartDate0))
 		XCTAssertEqual("2021-03-04T09:00:00Z", utcFormatter.string(from: splitedCheckinEndDate0))
@@ -168,10 +144,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 1)
 
 		let splitedCheckinStartDate0 = splitedCheckins[0].checkinStartDate
-		guard let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T09:00:00Z", utcFormatter.string(from: splitedCheckinStartDate0))
 		XCTAssertEqual("2021-03-05T00:00:00Z", utcFormatter.string(from: splitedCheckinEndDate0))
@@ -193,16 +166,10 @@ class CheckinSplittingServiceTests: XCTestCase {
 		XCTAssertEqual(splitedCheckins.count, 2)
 
 		let splitedCheckinStartDate0 = splitedCheckins[0].checkinStartDate
-		guard let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate0 = splitedCheckins[0].checkinEndDate
 
 		let splitedCheckinStartDate1 = splitedCheckins[1].checkinStartDate
-		guard let splitedCheckinEndDate1 = splitedCheckins[1].checkinEndDate else {
-			XCTFail("checkinEndDate should not be nil")
-			return
-		}
+		let splitedCheckinEndDate1 = splitedCheckins[1].checkinEndDate
 
 		XCTAssertEqual("2021-03-04T08:30:00Z", utcFormatter.string(from: splitedCheckinStartDate0))
 		XCTAssertEqual("2021-03-05T00:00:00Z", utcFormatter.string(from: splitedCheckinEndDate0))
@@ -214,13 +181,15 @@ class CheckinSplittingServiceTests: XCTestCase {
 		id: Int,
 		startDate: Date = Date(),
 		endDate: Date = Date(),
+		checkinCompleted: Bool = false,
 		traceLocationGUID: String = "0"
 	) -> Checkin {
 		Checkin(
 			id: id,
 			traceLocationGUID: traceLocationGUID,
+			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
 			traceLocationVersion: 0,
-			traceLocationType: .type1,
+			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: "",
 			traceLocationAddress: "",
 			traceLocationStartDate: Date(),
@@ -229,7 +198,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 			traceLocationSignature: "",
 			checkinStartDate: startDate,
 			checkinEndDate: endDate,
-			targetCheckinEndDate: endDate,
+			checkinCompleted: checkinCompleted,
 			createJournalEntry: true
 		)
 	}

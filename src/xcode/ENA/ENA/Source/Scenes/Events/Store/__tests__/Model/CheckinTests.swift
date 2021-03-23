@@ -90,7 +90,8 @@ class CheckinTests: XCTestCase {
 	func makeDummyCheckin(
 		id: Int = 42,
 		checkinStartDate: Date = Date(),
-		checkinEndDate: Date? = nil,
+		checkinEndDate: Date = Date(),
+		checkinCompleted: Bool = false,
 		targetCheckinEndDate: Date = Date(),
 		traceLocationGUID: String = "0",
 		traceLocationDescription: String = "",
@@ -101,8 +102,9 @@ class CheckinTests: XCTestCase {
 		Checkin(
 			id: id,
 			traceLocationGUID: traceLocationGUID,
+			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
 			traceLocationVersion: 0,
-			traceLocationType: .type1,
+			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: traceLocationDescription,
 			traceLocationAddress: traceLocationAddress,
 			traceLocationStartDate: traceLocationStartDate,
@@ -111,7 +113,7 @@ class CheckinTests: XCTestCase {
 			traceLocationSignature: "",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: targetCheckinEndDate,
+			checkinCompleted: checkinCompleted,
 			createJournalEntry: true
 		)
 	}

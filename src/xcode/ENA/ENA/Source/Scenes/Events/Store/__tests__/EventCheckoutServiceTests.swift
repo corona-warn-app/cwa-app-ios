@@ -27,21 +27,21 @@ class EventCheckoutServiceTests: XCTestCase {
 			userNotificationCenter: mockNotificationCenter
 		)
 
-		guard let targetCheckinEndDate = utcFormatter.date(from: "2021-03-06T22:00:00+01:00") else {
+		guard let checkinEndDate = utcFormatter.date(from: "2021-03-06T22:00:00+01:00") else {
 			XCTFail("Could not create date.")
 			return
 		}
 
 		let checkinWithId = makeDummyCheckin(
 			id: checkinId,
-			targetCheckinEndDate: targetCheckinEndDate
+			checkinEndDate: checkinEndDate
 		)
 		eventCheckoutService.checkout(checkin: checkinWithId, showNotification: false)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
 		mockEventStore.checkinsPublisher.sink { checkins in
 			XCTAssertEqual(checkins.count, 1)
-			XCTAssertEqual(checkins[0].checkinEndDate, targetCheckinEndDate)
+			XCTAssertEqual(checkins[0].checkinEndDate, checkinEndDate)
 			sinkExpectation.fulfill()
 		}.store(in: &subscriptions)
 
@@ -116,11 +116,11 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	func test_When_checkoutOverdueCheckins_Then_OverdueCheckinsAreUpdated() {
 		let mockEventStore = MockEventStore()
-		let overdueCheckin = makeDummyCheckin(id: -1, targetCheckinEndDate: Date.distantPast)
+		let overdueCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantPast)
 		mockEventStore.createCheckin(overdueCheckin)
 		mockEventStore.createCheckin(overdueCheckin)
 
-		let currentCheckin = makeDummyCheckin(id: -1, targetCheckinEndDate: Date.distantFuture)
+		let currentCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantFuture)
 		mockEventStore.createCheckin(currentCheckin)
 
 		let mockNotificationCenter = MockUserNotificationCenter()
@@ -136,10 +136,10 @@ class EventCheckoutServiceTests: XCTestCase {
 		mockEventStore.checkinsPublisher.sink { checkins in
 			XCTAssertEqual(checkins.count, 3)
 
-			let checkedOutCount = checkins.filter { $0.checkinEndDate != nil }.count
+			let checkedOutCount = checkins.filter { $0.checkinCompleted }.count
 			XCTAssertEqual(checkedOutCount, 2)
 
-			let notCheckedOutCount = checkins.filter { $0.checkinEndDate == nil }.count
+			let notCheckedOutCount = checkins.filter { !$0.checkinCompleted }.count
 			XCTAssertEqual(notCheckedOutCount, 1)
 
 			sinkExpectation.fulfill()
@@ -165,7 +165,7 @@ class EventCheckoutServiceTests: XCTestCase {
 		let twoDayCheckin = makeDummyCheckin(
 			id: -1,
 			checkinStartDate: checkinStartDate,
-			targetCheckinEndDate: checkinEndDate,
+			checkinEndDate: checkinEndDate,
 			traceLocationGUID: "guid",
 			traceLocationDescription: "Some Description",
 			traceLocationAddress: "Some Address",
@@ -228,8 +228,8 @@ class EventCheckoutServiceTests: XCTestCase {
 	func makeDummyCheckin(
 		id: Int,
 		checkinStartDate: Date = Date(),
-		checkinEndDate: Date? = nil,
-		targetCheckinEndDate: Date = Date(),
+		checkinEndDate: Date = Date(),
+		checkinCompleted: Bool = false,
 		traceLocationGUID: String = "0",
 		traceLocationDescription: String = "",
 		traceLocationAddress: String = "",
@@ -239,8 +239,9 @@ class EventCheckoutServiceTests: XCTestCase {
 		Checkin(
 			id: id,
 			traceLocationGUID: traceLocationGUID,
+			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
 			traceLocationVersion: 0,
-			traceLocationType: .type1,
+			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: traceLocationDescription,
 			traceLocationAddress: traceLocationAddress,
 			traceLocationStartDate: traceLocationStartDate,
@@ -249,7 +250,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			traceLocationSignature: "",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: targetCheckinEndDate,
+			checkinCompleted: checkinCompleted,
 			createJournalEntry: true
 		)
 	}
