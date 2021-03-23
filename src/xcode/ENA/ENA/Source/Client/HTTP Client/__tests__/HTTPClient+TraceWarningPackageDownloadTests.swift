@@ -46,11 +46,10 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		
 		// GIVEN
 		let packageId = Date().unixTimestampInHours
-		let url = Bundle(for: type(of: self)).url(forResource: "api-response-traceWarning", withExtension: nil)
 		let stack = MockNetworkStack(
 			httpStatus: 200,
 			headerFields: ["etAg": "\"SomeEtag\"", "cwa-empty-pkg": "1"],
-			responseData: try Data(contentsOf: XCTUnwrap(url))
+			responseData: Data()
 		)
 
 		let expectation = self.expectation(description: "completion handler is called without an error")
@@ -71,7 +70,8 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertNotNil(response)
-		self.assertPackageFormat(for: try XCTUnwrap(response), isEmpty: true)
+		XCTAssertTrue(try XCTUnwrap(response).isEmpty)
+		XCTAssertNil(response?.package)
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_ReferenceIsKilled_THEN_DownloadErrorIsReturned() {
@@ -171,13 +171,9 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 		
 	private func assertPackageFormat(for response: PackageDownloadResponse, isEmpty: Bool = false) {
 		// Packages for trace warnings can be empty if special http header is send.
-		guard let responseIsEmpty = response.isEmpty else {
-			XCTFail("isEmpty should not be nil")
-			return
-		}
-		isEmpty ? XCTAssertTrue(responseIsEmpty) : XCTAssertFalse(responseIsEmpty)
+		isEmpty ? XCTAssertTrue(response.isEmpty) : XCTAssertFalse(response.isEmpty)
 		XCTAssertNotNil(response.etag)
-		XCTAssertEqual(response.package.bin.count, binFileSize)
-		XCTAssertEqual(response.package.signature.count, sigFileSize)
+		XCTAssertEqual(response.package?.bin.count, binFileSize)
+		XCTAssertEqual(response.package?.signature.count, sigFileSize)
 	}
 }
