@@ -454,7 +454,7 @@ final class HTTPClient: Client {
 						return
 					}
 					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let payload = PackageDownloadResponse(package: package, etag: etag, isEmpty: false)
+					let payload = PackageDownloadResponse(package: package, etag: etag)
 					completeWith(.success(payload))
 				case let .failure(error):
 					responseError = error
@@ -614,22 +614,23 @@ final class HTTPClient: Client {
 							responseError = .invalidResponseError(response.statusCode)
 							return
 						}
-						
-						guard let package = SAPDownloadedPackage(compressedData: body) else {
-							Log.error("Failed to create signed package for trace warning download", log: .api)
-							responseError = .invalidResponseError(response.statusCode)
-							return
-						}
 						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 						
-						var isEmpty = false
-						// According to tech spec: If present, indicates that the package is empty (i.e. no zip file, to extract).
-						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") != nil {
-							isEmpty = true
+						// First look if package will be empty. According to tech spec: If "cwa-empty-pkg" == 1, this indicates that the package is empty (i.e. no zip file, to extract).
+						if response.httpResponse.value(forCaseInsensitiveHeaderField: "cwa-empty-pkg") == "1" {
+							let emptyPackage = PackageDownloadResponse(package: nil, etag: eTag)
+							Log.info("Succesfully downloaded empty traceWarningPackage", log: .api)
+							completion(.success(emptyPackage))
+						} else {
+							guard let package = SAPDownloadedPackage(compressedData: body) else {
+								Log.error("Failed to create signed package for trace warning download", log: .api)
+								responseError = .invalidResponseError(response.statusCode)
+								return
+							}
+							let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag)
+							Log.info("Succesfully downloaded zipped traceWarningPackage", log: .api)
+							completion(.success(downloadedZippedPackage))
 						}
-						let downloadedZippedPackage = PackageDownloadResponse(package: package, etag: eTag, isEmpty: isEmpty)
-						Log.info("Succesfully downloaded traceWarningPackage", log: .api)
-						completion(.success(downloadedZippedPackage))
 					default:
 						Log.error("Error in response with status code: \(String(response.statusCode))", log: .api)
 						responseError = .invalidResponseError(response.statusCode)

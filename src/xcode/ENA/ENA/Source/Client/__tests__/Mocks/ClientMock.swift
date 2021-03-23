@@ -107,7 +107,7 @@ extension ClientMock: ClientWifiOnly {
 
 extension ClientMock: Client {
 
-	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"", isEmpty: false)
+	private static let dummyResponse = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 	func availableDays(forCountry country: String, completion: @escaping AvailableDaysCompletionHandler) {
 		if let failure = availablePackageRequestFailure {
