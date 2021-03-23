@@ -193,7 +193,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: -10)))
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date(), checkinEndDate: nil)
+			Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date(), checkinCompleted: false)
 		)
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: 10)))
 
@@ -207,7 +207,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		let tappedCheckin = eventStore.checkinsPublisher.value.first {
 			$0.traceLocationGUID == "137"
 		}
-		XCTAssertNotNil(tappedCheckin?.checkinEndDate)
+		XCTAssertTrue(tappedCheckin?.checkinCompleted ?? false)
 	}
 
 	func testRemoveEntry() throws {
@@ -358,7 +358,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testUpdatedCheckinDoesNotTriggersReloadButUpdate() throws {
 		let eventStore = MockEventStore()
 		let idResult = eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "abc", checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: nil)
+			Checkin.mock(traceLocationGUID: "abc", checkinStartDate: Date(timeIntervalSinceNow: -100), checkinCompleted: false)
 		)
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date()))
 

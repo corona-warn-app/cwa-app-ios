@@ -203,7 +203,7 @@ final class CheckinCoordinator {
 		eventStore.checkinsPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] checkins in
-				let activeCheckinCount = checkins.filter { $0.isActive }.count
+				let activeCheckinCount = checkins.filter { !$0.checkinCompleted }.count
 				self?.viewController.tabBarItem.badgeValue = activeCheckinCount > 0 ? String(activeCheckinCount) : nil
 			}
 			.store(in: &subscriptions)

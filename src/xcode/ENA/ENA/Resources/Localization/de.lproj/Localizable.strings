@@ -43,7 +43,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Hintergrundaktualisierung ausgeschaltet";
 
-"Common_Deadman_AlertTitle" = "Risiko-Überprüfung";
+"Common_Deadman_AlertTitle" = "Ihr Risikostatus";
 
 "Common_Deadman_AlertBody" = "Bitte denken Sie daran, die Corona-Warn-App regelmäßig zu öffnen, um Ihren Risikostatus zu überprüfen.";
 
@@ -1398,6 +1398,12 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.0 */
+
+"NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
+
+"NewVersionFeature_200_event_checkin_description" = "Die CWA ermöglicht nun einen Check-in für Events und Orte. Personen, die Events veranstalten oder ein Geschäft haben, können über die App einen QR-Code erstellen. Durch Scannen des QR-Codes können sich Gäste bei Ankunft einchecken, um so ihre Anwesenheit zu registrieren. Auf Wunsch legt die App außerdem einen entsprechenden Tagebuch-Eintrag an. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, werden alle Personen automatisch gewarnt, die zur selben Zeit eingescheckt waren.";
+
 /* Version 1.15 */
 
 "NewVersionFeature_115_cross_border_switzerland_title" = "Länderübergreifende Risiko-Ermittlung um Schweiz erweitert ";
@@ -2029,6 +2035,55 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TraceLocations_Overview_ActionSheet_InfoTitle" = "Info";
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
+
+"TraceLocations_Section_Title_Permanent" = "ORT";
+
+"TraceLocations_Section_Title_Temporary" = "EVENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Gastronomiebetrieb";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Café, Kneipe, Restaurant, Hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Friseur, Schreinerei";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Büro, Konferenzraum, Kantine";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Klassenzimmer, Vorlesungssaal, Bibliothek";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konzert, Kunstausstellung";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Sporttraining, Mitgliederversammlung";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Geburtstag, Familienfeier";
 
 /* Error Reporting */
 
