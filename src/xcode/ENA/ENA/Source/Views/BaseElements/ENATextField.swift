@@ -37,6 +37,22 @@ class ENATextField: UITextField {
 		return textRect(forBounds: bounds)
 	}
 
+	override var placeholder: String? {
+		didSet {
+			guard let placeholder = placeholder else {
+				attributedPlaceholder = nil
+				return
+			}
+
+			attributedPlaceholder = NSAttributedString(
+				string: placeholder,
+				attributes: [
+					.foregroundColor: UIColor.enaColor(for: .textPrimary2)
+				]
+			)
+		}
+	}
+
 	// MARK: - Internal
 
 	@IBInspectable var deltaXInset: CGFloat = 14.0
@@ -45,10 +61,11 @@ class ENATextField: UITextField {
 
 	private func setup() {
 		borderStyle = .none
-		backgroundColor = .enaColor(for: ENAColor.textField)
+		backgroundColor = .enaColor(for: .textField)
 
-		layer.borderColor = UIColor.enaColor(for: ENAColor.cellBackground).cgColor
-		layer.borderWidth = 1
+		textColor = .enaColor(for: .textPrimary1)
+
+		layer.borderWidth = 0
 		layer.masksToBounds = true
 		layer.cornerRadius = 14.0
 	}
