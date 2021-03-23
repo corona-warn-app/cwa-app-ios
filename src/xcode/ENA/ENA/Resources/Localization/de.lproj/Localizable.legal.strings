@@ -113,7 +113,9 @@
 
 "Checkin_Information_Legal_SubHeadline_1" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
 
-"Checkin_Information_Legal_Text_1" = "Die App merkt sich für 16 Tage, bei welchen Events oder Orten Sie sich eingecheckt haben. Wenn Sie einen QR-Code einscannen, um sich einzuchecken, wird auf Ihrem Smartphone ein Eintrag für das Event oder den Ort angelegt.";
+"Checkin_Information_Legal_Text_1_bold" = "Die App merkt sich für 16 Tage, bei welchen Events oder Orten Sie sich eingecheckt haben.";
+
+"Checkin_Information_Legal_Text_1_normal" = "Wenn Sie einen QR-Code einscannen, um sich einzuchecken, wird auf Ihrem Smartphone ein Eintrag für das Event oder den Ort angelegt.";
 
 "Checkin_Information_Legal_Text_2" = "Wenn ein zeitgleich mit Ihnen eingecheckter Nutzer später positiv getestet wird und eine Warnung auslöst, werden Sie automatisch anhand der Event-ID gewarnt – auch wenn Ihr Smartphone keine Zufalls-IDs des positiv getesteten Nutzers empfangen hat.";
 

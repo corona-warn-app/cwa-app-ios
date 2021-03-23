@@ -67,14 +67,11 @@ struct CheckInsInfoScreenViewModel {
 					title: NSAttributedString(string: AppStrings.Checkin.Information.legalHeadline_1),
 					subheadline1: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_1),
 					bulletPoints1: [
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_1),
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_2),
-						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
+						bulletPointCellWithBoldHeadline(title: AppStrings.Checkin.Information.legalText_1_bold, text: AppStrings.Checkin.Information.legalText_1_normal),
+						bulletPointCellWithBoldText(text: AppStrings.Checkin.Information.legalText_2),
+						bulletPointCellWithBoldText(text: AppStrings.Checkin.Information.legalText_3)
 						],
 					subheadline2: NSAttributedString(string: AppStrings.Checkin.Information.legalSubHeadline_2),
-//					bulletPoints2: [
-//						NSAttributedString(string: AppStrings.Checkin.Information.legalText_3)
-//						],
 					accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
@@ -105,5 +102,21 @@ struct CheckInsInfoScreenViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+	
+	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
+		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
+		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
+		return bulletPoint
+	}
 
+	private func bulletPointCellWithBoldText(text: String) -> NSMutableAttributedString {
+		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
+	}
+	
 }
