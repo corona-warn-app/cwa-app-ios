@@ -89,6 +89,7 @@ class CheckinsOverviewViewModel {
 		let updatedChecking = Checkin(
 			id: checkin.id,
 			traceLocationGUID: checkin.traceLocationGUID,
+			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
 			traceLocationVersion: checkin.traceLocationVersion,
 			traceLocationType: checkin.traceLocationType,
 			traceLocationDescription: checkin.traceLocationDescription,
@@ -98,8 +99,8 @@ class CheckinsOverviewViewModel {
 			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
 			traceLocationSignature: checkin.traceLocationSignature,
 			checkinStartDate: checkin.checkinStartDate,
-			checkinEndDate: Date(),
-			targetCheckinEndDate: checkin.targetCheckinEndDate,
+			checkinEndDate: checkin.checkinEndDate,
+			checkinCompleted: true,
 			createJournalEntry: checkin.createJournalEntry
 		)
 

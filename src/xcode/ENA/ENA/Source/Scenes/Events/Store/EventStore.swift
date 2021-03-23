@@ -297,6 +297,24 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
+	func deleteAllTraceWarningPackageMetadata() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Remove all TraceWarningPackageMetadata.", log: .localData)
+
+			let query = DeleteAllTraceWarningPackageMetadataQuery()
+			result = executeTraceWarningPackageMetadataQuery(query, in: database)
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
+	@discardableResult
 	func cleanup() -> SecureSQLStore.VoidResult {
 		var result: SecureSQLStore.VoidResult = .success(())
 
@@ -464,8 +482,13 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
 				}
 
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "byteRepresentation" is defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let byteRepresentation = queryResult.data(forColumn: "byteRepresentation") ?? Data()
+
 				let version = Int(queryResult.int(forColumn: "version"))
-				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .type1
+				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .locationTypeUnspecified
 
 				var startDate: Date?
 				if let startDateInterval = queryResult.object(forColumn: "startDate") as? Int {
@@ -491,6 +514,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					startDate: startDate,
 					endDate: endDate,
 					defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
+					byteRepresentation: byteRepresentation,
 					signature: signature
 				)
 
@@ -526,10 +550,17 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
 				}
 
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "traceLocationGUIDHash" is defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let traceLocationGUIDHash = queryResult.data(forColumn: "traceLocationGUIDHash") ?? Data()
+
 				let id = Int(queryResult.int(forColumn: "id"))
-				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .type1
+				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .locationTypeUnspecified
 				let traceLocationVersion = Int(queryResult.int(forColumn: "traceLocationVersion"))
 				let checkinStartDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinStartDate")))
+				let checkinEndDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinEndDate")))
+				let checkinCompleted = queryResult.bool(forColumn: "checkinCompleted")
 				let createJournalEntry = queryResult.bool(forColumn: "createJournalEntry")
 
 				var traceLocationStart: Date?
@@ -547,19 +578,10 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					traceLocationDefaultCheckInLengthInMinutes = _traceLocationDefaultCheckInLengthInMinutes
 				}
 
-				var checkinEndDate: Date?
-				if let checkinEndDateInterval = queryResult.object(forColumn: "checkinEndDate") as? Int {
-					checkinEndDate = Date(timeIntervalSince1970: Double(checkinEndDateInterval))
-				}
-
-				var targetCheckinEndDate: Date?
-				if let targetCheckinEndDateInterval = queryResult.object(forColumn: "targetCheckinEndDate") as? Int {
-					targetCheckinEndDate = Date(timeIntervalSince1970: Double(targetCheckinEndDateInterval))
-				}
-
 				let checkin = Checkin(
 					id: id,
 					traceLocationGUID: traceLocationGUID,
+					traceLocationGUIDHash: traceLocationGUIDHash,
 					traceLocationVersion: traceLocationVersion,
 					traceLocationType: traceLocationType,
 					traceLocationDescription: traceLocationDescription,
@@ -570,7 +592,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					traceLocationSignature: traceLocationSignature,
 					checkinStartDate: checkinStartDate,
 					checkinEndDate: checkinEndDate,
-					targetCheckinEndDate: targetCheckinEndDate,
+					checkinCompleted: checkinCompleted,
 					createJournalEntry: createJournalEntry
 				)
 

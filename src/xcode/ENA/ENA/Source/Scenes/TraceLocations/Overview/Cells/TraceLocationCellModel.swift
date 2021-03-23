@@ -18,12 +18,12 @@ class TraceLocationCellModel: EventCellModel {
 		self.onUpdate = onUpdate
 
 		// Set initial value so onUpdate isn't triggered on initial publisher call
-		isButtonHiddenPublisher.value = eventProvider.checkinsPublisher.value.contains { $0.traceLocationGUID == traceLocation.guid && $0.isActive }
+		isButtonHiddenPublisher.value = eventProvider.checkinsPublisher.value.contains { $0.traceLocationGUID == traceLocation.guid && !$0.checkinCompleted }
 
 		eventProvider.checkinsPublisher
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { [weak self] checkins in
-				let isButtonHiddenPublisher = checkins.contains { $0.traceLocationGUID == traceLocation.guid && $0.isActive }
+				let isButtonHiddenPublisher = checkins.contains { $0.traceLocationGUID == traceLocation.guid && !$0.checkinCompleted }
 
 				if self?.isButtonHiddenPublisher.value != isButtonHiddenPublisher {
 					self?.isButtonHiddenPublisher.value = isButtonHiddenPublisher

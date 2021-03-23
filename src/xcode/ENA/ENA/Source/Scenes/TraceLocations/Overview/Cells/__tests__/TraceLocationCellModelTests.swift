@@ -51,7 +51,7 @@ class TraceLocationCellModelTests: XCTestCase {
 		)
 
 		// WHEN
-		let checkin = Checkin.mock(id: 0, traceLocationGUID: "42", checkinEndDate: Date(timeIntervalSince1970: 1616074530))
+		let checkin = Checkin.mock(id: 0, traceLocationGUID: "42", checkinEndDate: Date(timeIntervalSince1970: 1616074530), checkinCompleted: true)
 		mockEventStore.checkinsPublisher.send([checkin])
 		wait(for: [didUpdateExpectation], timeout: .medium)
 
