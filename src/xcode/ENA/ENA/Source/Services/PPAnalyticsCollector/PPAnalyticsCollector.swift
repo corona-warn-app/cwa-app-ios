@@ -75,6 +75,10 @@ enum PPAnalyticsCollector {
 
 	/// Triggers the submission of all collected analytics data. Only if all checks success, the submission is done. Otherwise, the submission is aborted. Optionally, you can specify a completion handler to get the success or failure handlers.
 	static func triggerAnalyticsSubmission(completion: ((Result<Void, PPASError>) -> Void)? = nil) {
+		// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
+		if let riskCalculationResult = store?.riskCalculationResult {
+			updateRiskExposureMetadata(riskCalculationResult)
+		}
 		guard let submitter = submitter else {
 			Log.warning("I cannot submit analytics data. Perhaps i am a mock or setup was not called correctly?", log: .ppa)
 			return
