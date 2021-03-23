@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TraceLocationsInfoViewController: DynamicTableViewController {
+class TraceLocationsInfoViewController: DynamicTableViewController, FooterViewHandling {
 	
 	// MARK: - Init
 	
@@ -29,8 +29,6 @@ class TraceLocationsInfoViewController: DynamicTableViewController {
 		super.viewDidLoad()
 		setupView()
 
-		navigationItem.title = AppStrings.TraceLocations.Information.title
-
 		if !viewModel.hidesCloseButton {
 			navigationItem.rightBarButtonItem = CloseBarButtonItem(
 				onTap: { [weak self] in
@@ -38,22 +36,16 @@ class TraceLocationsInfoViewController: DynamicTableViewController {
 				}
 			)
 		}
-
-// <<<<<<< HEAD
-//		navigationController?.navigationBar.prefersLargeTitles = true
-//		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.primaryButton
-//	}
-//
-//	override var navigationItem: UINavigationItem {
-//		navigationFooterItem
-// =======
-// >>>>>>> origin/release/2.0.x
+		parent?.navigationItem.title = AppStrings.TraceLocations.Information.title
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
+	
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onDismiss()
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		if type == .primary {
+			onDismiss()
+		}
 	}
 
 	// MARK: - Internal
