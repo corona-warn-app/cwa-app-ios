@@ -272,6 +272,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
+		// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
+		if let riskCalculationResult = store.riskCalculationResult {
+			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		}
 		Analytics.triggerAnalyticsSubmission(completion: { result in
 			switch result {
 			case .success:
