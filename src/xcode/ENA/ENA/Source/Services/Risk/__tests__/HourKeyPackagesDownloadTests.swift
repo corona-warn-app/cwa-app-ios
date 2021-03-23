@@ -11,13 +11,13 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"", isEmpty: false)
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
 		return [2: dummyResponse, 3: dummyResponse]
 	}()
 	
 	private lazy var dummyDayResponse: [String: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"", isEmpty: false)
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"tinfoil\"")
 		return ["placeholderDate": dummyResponse]
 	}()
 	
@@ -146,7 +146,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		}
 		
 		let countryId = "IT"
-		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"", isEmpty: false)
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
@@ -181,7 +181,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 		let packagesStore: DownloadedPackagesSQLLiteStore = .inMemory()
 		packagesStore.open()
-		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"", isEmpty: false)
+		let dummyPackage = PackageDownloadResponse(package: SAPDownloadedPackage(keysBin: Data(), signature: Data()), etag: "\"etag\"")
 		let countryId = "IT"
 		try packagesStore.addFetchedDays(["2020-10-04": dummyPackage, "2020-10-01": dummyPackage], country: countryId)
 
@@ -347,7 +347,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		}
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"", isEmpty: false)
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
 
 		let packagesStore: DownloadedPackagesSQLLiteStoreV2 = .inMemory()
 		packagesStore.open()
@@ -393,7 +393,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 		packagesStore.open()
 
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
-		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"", isEmpty: false)
+		let dummyResponse = PackageDownloadResponse(package: dummyPackage, etag: "\"etag\"")
 
 		let client = ClientMock()
 		client.availableDaysAndHours = DaysAndHours(days: ["2020-10-01", "2020-10-02", "2020-10-03"], hours: [1, 2])

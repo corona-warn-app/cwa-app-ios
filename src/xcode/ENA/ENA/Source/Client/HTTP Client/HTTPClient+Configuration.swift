@@ -210,10 +210,9 @@ extension HTTPClient {
 				.appending(
 					"version",
 					apiVersion,
-					"diagnosis-keys",
+					"twp",
 					"country",
 					country,
-					"date",
 					"hour",
 					String(packageId)
 				)
