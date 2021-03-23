@@ -8,10 +8,10 @@ import OpenCombine
 protocol TraceWarningPackageDownloading {
 	var statusDidChange: ((TraceWarningDownloadStatus) -> Void)? { get set }
 	
-	/// Starts to download the traceWarningPackages from CDN by following several checks and steps. Does return nothing. Stores the successfull downloaded and verified packages in the database, also the matches from the downloaded ones to the local check-ins.
+	/// Starts to download the traceWarningPackages from CDN by following several checks and steps. Does return nothing. Stores the successfull downloaded and verified packages in the database, also the matches from the downloaded ones to the local check-ins. Return for failure a TraceWarningError and for success a TraceWarningSuccess. The success shall not be handled but it passed for testing purposes.
 	func startTraceWarningPackageDownload(
 		with appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	)
 }
 
@@ -29,13 +29,11 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		client: Client,
 		store: Store,
 		eventStore: EventStoringProviding,
-		appConfigurationProvider: AppConfigurationProviding,
 		countries: [Country.ID] = ["DE"]
 	) {
 		self.client = client
 		self.store = store
 		self.eventStore = eventStore
-		self.appConfigurationProvider = appConfigurationProvider
 		self.countries = countries
 		
 		self.matcher = TraceWarningMatcher(eventStore: eventStore)
@@ -50,7 +48,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	func startTraceWarningPackageDownload(
 		with appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		Log.info("TraceWarningPackageDownload: Start was triggered.", log: .checkin)
 		
@@ -67,7 +65,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			let packagesToDelete = eventStore.traceWarningPackageMetadatasPublisher.value
 			removePackagesFromTraceWarningMetadataPackagesTable(packagesToDelete)
 			Log.info("TraceWarningPackageDownload: Aborted due to checkin database is empty.", log: .checkin)
-			completion(.success(()))
+			completion(.success(.noCheckins))
 			return
 		}
 
@@ -80,7 +78,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			
 			case .success:
 				Log.info("TraceWarningPackageDownload: Completed processing packages!", log: .checkin)
-				completion(.success(()))
+				completion(.success(.success))
 			case let .failure(error):
 				Log.info("TraceWarningPackageDownload: Failed processing packages with error: \(error)")
 				completion(.failure(error))
@@ -98,7 +96,6 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]
-	private let appConfigurationProvider: AppConfigurationProviding
 	private let matcher: TraceWarningMatching
 	private let packageVerifier: SAPDownloadedPackage.Verifier
 	
@@ -147,7 +144,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				self?.store.wasRecentTraceWarningDownloadSuccessful = false
 				completion(.failure(error))
 			} else {
-				Log.info("TraceWarningPackageDownload: Completed downloading packages.", log: .checkin)
+				Log.info("TraceWarningPackageDownload: Completed downloading packages for all countries.", log: .checkin)
 				self?.store.wasRecentTraceWarningDownloadSuccessful = true
 				completion(.success(()))
 			}
@@ -245,10 +242,8 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		
 		singlePackageDG.notify(queue: .global(qos: .utility), execute: {
 			if let error = packagesErrors.first {
-				Log.error("TraceWarningPackageDownload: Failed downloading packages for country: \(country) with error: \(error).", log: .checkin)
 				completion(.failure(error))
 			} else {
-				Log.info("TraceWarningPackageDownload: Completed downloading packages for country: \(country).", log: .checkin)
 				completion(.success(()))
 			}
 		})
@@ -273,9 +268,8 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				Log.info("TraceWarningPackageDownload: Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
 				
 				// 9. Verfify signature for every not-empty package.
-				if let isEmpty = packageDownloadResponse.isEmpty,
-				   !isEmpty {
-					let sapDownloadedPackage = packageDownloadResponse.package
+				if !packageDownloadResponse.isEmpty,
+				   let sapDownloadedPackage = packageDownloadResponse.package {
 					
 					guard let eTag = packageDownloadResponse.etag else {
 						Log.error("TraceWarningPackageDownload: ETag of packageId: \(packageId) missing. Discard package.")

@@ -192,8 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: eventStore,
-			appConfigurationProvider: appConfigurationProvider
+			eventStore: eventStore
 		)
 
 		#if !RELEASE

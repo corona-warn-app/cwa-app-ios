@@ -641,8 +641,7 @@ final class RiskProviderTests: XCTestCase {
 		return TraceWarningPackageDownload(
 			client: client,
 			store: store,
-			eventStore: mockEventStore,
-			appConfigurationProvider: appConfig
+			eventStore: mockEventStore
 		)
 	}
 
