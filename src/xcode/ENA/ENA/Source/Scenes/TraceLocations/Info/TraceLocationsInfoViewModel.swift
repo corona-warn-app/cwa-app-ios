@@ -79,8 +79,14 @@ struct TraceLocationsInfoViewModel {
 					title: NSAttributedString(string: AppStrings.TraceLocations.Information.legalHeadline),
 					description: NSAttributedString(string: AppStrings.TraceLocations.Information.legalText01),
 					bulletPoints: [
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText02bold),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText03bold),
+						bulletPointCellWithBoldHeadline(
+							title: AppStrings.TraceLocations.Information.legalText02bold,
+							text: AppStrings.TraceLocations.Information.legalText02
+						),
+						bulletPointCellWithBoldHeadline(
+							title: AppStrings.TraceLocations.Information.legalText03bold,
+							text: AppStrings.TraceLocations.Information.legalText03
+						),
 						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText04),
 						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText05)
 						],
@@ -114,5 +120,17 @@ struct TraceLocationsInfoViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
 	
+	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
+		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
+		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
+		return bulletPoint
+	}
+
 }

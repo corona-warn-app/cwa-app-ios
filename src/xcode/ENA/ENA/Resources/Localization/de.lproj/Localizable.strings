@@ -2137,12 +2137,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
 
-<<<<<<< HEAD
+
 /* Trace Location */
 
 "TraceLocation_Information_Title" = "QR-Code erstellen";
 
-"TraceLocation_Information_ImageDescription" = "";
+"TraceLocation_Information_ImageDescription" = "Eine Person zeigt auf ein Flipchart, zwei Personen sitzen daneben und schauen auf das Flipchart.";
 
 "TraceLocation_Information_DescriptionTitle" = "Mehr Sicherheit für Sie und Ihre Gäste";
 
@@ -2161,10 +2161,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
 
 "Home_TraceLocationsCard_Button" = "QR-Code erstellen";
-=======
+
 /* Checkout */
 
 "Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenfalls an.";
->>>>>>> origin/release/2.0.x
