@@ -32,33 +32,6 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 
 		waitForExpectations(timeout: .medium)
 	}
-	
-	func testFetchLiveQRCodePosterTemplate() {
-		let fetchedFromClientExpectation = expectation(description: "Live QR code poster template fetched from client")
-		fetchedFromClientExpectation.expectedFulfillmentCount = 1
-
-		let store = MockTestStore()
-		XCTAssertNil(store.qrCodePosterTemplateMetadata)
-		
-		store.selectedServerEnvironment = ServerEnvironment().defaultEnvironment()
-		let client = CachingHTTPClient(serverEnvironmentProvider: store)
-		client.fetchQRCodePosterTemplateData(etag: "fake") { result in
-			switch result {
-			case .success(let response):
-				XCTAssertNotNil(response.eTag)
-				XCTAssertNotNil(response.qrCodePosterTemplate)
-				XCTAssertNotNil(response.qrCodePosterTemplate.template)
-				
-				// caching is not done here but in `QRCodePosterTemplateProvider`!
-				XCTAssertNil(store.qrCodePosterTemplateMetadata)
-			case .failure(let error):
-				XCTFail(error.localizedDescription)
-			}
-			fetchedFromClientExpectation.fulfill()
-		}
-
-		waitForExpectations(timeout: .medium)
-	}
 
 	func testQRCodePosterTemplateProviding() throws {
 		let valueReceived = expectation(description: "Value received")
