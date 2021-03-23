@@ -228,7 +228,6 @@ final class RiskProvider: RiskProviding {
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
 			
-			
 			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
 			if let riskCalculationResult = store.riskCalculationResult {
 				Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
