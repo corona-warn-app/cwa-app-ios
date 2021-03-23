@@ -20,12 +20,13 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "SomeGUID",
 			version: 1,
-			type: .type2,
+			type: .locationTypePermanentOther,
 			description: "Some description",
 			address: "Some address",
 			startDate: startDate,
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: 1,
+			byteRepresentation: "Some Representation".data(using: .utf8) ?? Data(),
 			signature: "Some signature"
 		)
 
@@ -40,10 +41,11 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "SomeGUID")
 				XCTAssertEqual(traceLocation.version, 1)
-				XCTAssertEqual(traceLocation.type, .type2)
+				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 1)
+				XCTAssertEqual(traceLocation.byteRepresentation, "Some Representation".data(using: .utf8))
 				XCTAssertEqual(traceLocation.signature, "Some signature")
 
 				guard let startDate2 = traceLocation.startDate else {
@@ -72,12 +74,13 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "SomeGUID",
 			version: 1,
-			type: .type2,
+			type: .locationTypePermanentOther,
 			description: "Some description",
 			address: "Some address",
 			startDate: nil,
 			endDate: nil,
 			defaultCheckInLengthInMinutes: nil,
+			byteRepresentation: Data(),
 			signature: "Some signature"
 		)
 
@@ -92,7 +95,7 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "SomeGUID")
 				XCTAssertEqual(traceLocation.version, 1)
-				XCTAssertEqual(traceLocation.type, .type2)
+				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
 				XCTAssertEqual(traceLocation.signature, "Some signature")
@@ -119,12 +122,13 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "1",
 			version: 2,
-			type: .type3,
+			type: .locationTypeTemporaryOther,
 			description: "Other description",
 			address: "Other address",
 			startDate: tomorrowDate,
 			endDate: tomorrowDate,
 			defaultCheckInLengthInMinutes: 2,
+			byteRepresentation: Data(),
 			signature: "Other signature"
 		)
 
@@ -139,7 +143,7 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "1")
 				XCTAssertEqual(traceLocation.version, 2)
-				XCTAssertEqual(traceLocation.type, .type3)
+				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 2)
@@ -173,12 +177,13 @@ class EventStoreTests: XCTestCase {
 		let traceLocation = TraceLocation(
 			guid: "1",
 			version: 2,
-			type: .type3,
+			type: .locationTypeTemporaryOther,
 			description: "Other description",
 			address: "Other address",
 			startDate: nil,
 			endDate: nil,
 			defaultCheckInLengthInMinutes: nil,
+			byteRepresentation: "Other representation".data(using: .utf8) ?? Data(),
 			signature: "Other signature"
 		)
 
@@ -193,9 +198,10 @@ class EventStoreTests: XCTestCase {
 				let traceLocation = traceLocations[0]
 				XCTAssertEqual(traceLocation.guid, "1")
 				XCTAssertEqual(traceLocation.version, 2)
-				XCTAssertEqual(traceLocation.type, .type3)
+				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
+				XCTAssertEqual(traceLocation.byteRepresentation, "Other representation".data(using: .utf8))
 				XCTAssertEqual(traceLocation.signature, "Other signature")
 				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
 				XCTAssertNil(traceLocation.startDate)
@@ -261,13 +267,13 @@ class EventStoreTests: XCTestCase {
 		let traceLocationEndDate = Date()
 		let checkinStartDate = Date()
 		let checkinEndDate = Date()
-		let targetCheckinEndDate = Date()
 
 		let checkin = Checkin(
 			id: 1,
 			traceLocationGUID: "SomeGUID",
+			traceLocationGUIDHash: "SomeGUIDHash".data(using: .utf8) ?? Data(),
 			traceLocationVersion: 1,
-			traceLocationType: .type2,
+			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
 			traceLocationStartDate: traceLocationStartDate,
@@ -276,7 +282,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationSignature: "Some signature",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: targetCheckinEndDate,
+			checkinCompleted: false,
 			createJournalEntry: true
 		)
 
@@ -291,13 +297,16 @@ class EventStoreTests: XCTestCase {
 				let checkin = checkins[0]
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "SomeGUID")
+				XCTAssertEqual(checkin.traceLocationGUIDHash, "SomeGUIDHash".data(using: .utf8))
 				XCTAssertEqual(checkin.traceLocationVersion, 1)
-				XCTAssertEqual(checkin.traceLocationType, .type2)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypePermanentOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
+				XCTAssertFalse(checkin.checkinCompleted)
 				XCTAssertTrue(checkin.createJournalEntry)
 
 				guard let traceLocationStartDate2 = checkin.traceLocationStartDate else {
@@ -308,19 +317,9 @@ class EventStoreTests: XCTestCase {
 					XCTFail("Nil for traceLocationEndDate2 not expected.")
 					return
 				}
-				guard let checkinEndDate2 = checkin.checkinEndDate else {
-					XCTFail("Nil for checkinEndDate not expected.")
-					return
-				}
-				guard let targetCheckinEndDate2 = checkin.targetCheckinEndDate else {
-					XCTFail("Nil for targetCheckinEndDate not expected.")
-					return
-				}
 
 				XCTAssertEqual(Int(traceLocationStartDate2.timeIntervalSince1970), Int(traceLocationStartDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(traceLocationEndDate2.timeIntervalSince1970), Int(traceLocationEndDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(checkinEndDate2.timeIntervalSince1970), Int(checkinEndDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(targetCheckinEndDate2.timeIntervalSince1970), Int(targetCheckinEndDate.timeIntervalSince1970))
 
 				sinkExpectation.fulfill()
 			}
@@ -334,12 +333,14 @@ class EventStoreTests: XCTestCase {
 	func test_When_createCheckinWithNilDates_Then_CheckinWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 		let checkinStartDate = Date()
+		let checkinEndDate = Date()
 
 		let checkin = Checkin(
 			id: 1,
 			traceLocationGUID: "SomeGUID",
+			traceLocationGUIDHash: Data(),
 			traceLocationVersion: 1,
-			traceLocationType: .type2,
+			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
 			traceLocationStartDate: nil,
@@ -347,8 +348,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationDefaultCheckInLengthInMinutes: nil,
 			traceLocationSignature: "Some signature",
 			checkinStartDate: checkinStartDate,
-			checkinEndDate: nil,
-			targetCheckinEndDate: nil,
+			checkinEndDate: checkinEndDate,
+			checkinCompleted: false,
 			createJournalEntry: true
 		)
 
@@ -364,17 +365,17 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "SomeGUID")
 				XCTAssertEqual(checkin.traceLocationVersion, 1)
-				XCTAssertEqual(checkin.traceLocationType, .type2)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypePermanentOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinEndDate.timeIntervalSince1970))
+				XCTAssertFalse(checkin.checkinCompleted)
 				XCTAssertTrue(checkin.createJournalEntry)
 				XCTAssertNil(checkin.traceLocationDefaultCheckInLengthInMinutes)
 				XCTAssertNil(checkin.traceLocationStartDate)
 				XCTAssertNil(checkin.traceLocationEndDate)
-				XCTAssertNil(checkin.checkinEndDate)
-				XCTAssertNil(checkin.targetCheckinEndDate)
 
 				sinkExpectation.fulfill()
 			}
@@ -395,8 +396,9 @@ class EventStoreTests: XCTestCase {
 		let checkin = Checkin(
 			id: 1,
 			traceLocationGUID: "OtherGUID",
+			traceLocationGUIDHash: "OtherGUIDHash".data(using: .utf8) ?? Data(),
 			traceLocationVersion: 2,
-			traceLocationType: .type3,
+			traceLocationType: .locationTypeTemporaryOther,
 			traceLocationDescription: "Other description",
 			traceLocationAddress: "Other address",
 			traceLocationStartDate: tomorrowDate,
@@ -405,7 +407,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationSignature: "Other signature",
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
-			targetCheckinEndDate: tomorrowDate,
+			checkinCompleted: true,
 			createJournalEntry: false
 		)
 
@@ -420,13 +422,16 @@ class EventStoreTests: XCTestCase {
 				let checkin = checkins[0]
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
+				XCTAssertEqual(checkin.traceLocationGUIDHash, "OtherGUIDHash".data(using: .utf8))
 				XCTAssertEqual(checkin.traceLocationVersion, 2)
-				XCTAssertEqual(checkin.traceLocationType, .type3)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
+				XCTAssertTrue(checkin.checkinCompleted)
 				XCTAssertFalse(checkin.createJournalEntry)
 
 				guard let traceLocationStartDate2 = checkin.traceLocationStartDate else {
@@ -437,19 +442,9 @@ class EventStoreTests: XCTestCase {
 					XCTFail("Nil for traceLocationEndDate2 not expected.")
 					return
 				}
-				guard let checkinEndDate2 = checkin.checkinEndDate else {
-					XCTFail("Nil for checkinEndDate not expected.")
-					return
-				}
-				guard let targetCheckinEndDate2 = checkin.targetCheckinEndDate else {
-					XCTFail("Nil for targetCheckinEndDate not expected.")
-					return
-				}
 
 				XCTAssertEqual(Int(traceLocationStartDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(traceLocationEndDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(checkinEndDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
-				XCTAssertEqual(Int(targetCheckinEndDate2.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 
 				sinkExpectation.fulfill()
 			}
@@ -470,8 +465,9 @@ class EventStoreTests: XCTestCase {
 		let checkin = Checkin(
 			id: 1,
 			traceLocationGUID: "OtherGUID",
+			traceLocationGUIDHash: Data(),
 			traceLocationVersion: 2,
-			traceLocationType: .type3,
+			traceLocationType: .locationTypeTemporaryOther,
 			traceLocationDescription: "Other description",
 			traceLocationAddress: "Other address",
 			traceLocationStartDate: nil,
@@ -479,8 +475,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationDefaultCheckInLengthInMinutes: nil,
 			traceLocationSignature: "Other signature",
 			checkinStartDate: tomorrowDate,
-			checkinEndDate: nil,
-			targetCheckinEndDate: nil,
+			checkinEndDate: tomorrowDate,
+			checkinCompleted: false,
 			createJournalEntry: false
 		)
 
@@ -496,7 +492,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.id, 1)
 				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
 				XCTAssertEqual(checkin.traceLocationVersion, 2)
-				XCTAssertEqual(checkin.traceLocationType, .type3)
+				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
@@ -506,8 +502,6 @@ class EventStoreTests: XCTestCase {
 				XCTAssertNil(checkin.traceLocationDefaultCheckInLengthInMinutes)
 				XCTAssertNil(checkin.traceLocationStartDate)
 				XCTAssertNil(checkin.traceLocationEndDate)
-				XCTAssertNil(checkin.checkinEndDate)
-				XCTAssertNil(checkin.targetCheckinEndDate)
 
 				sinkExpectation.fulfill()
 			}
@@ -670,6 +664,28 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_When_deleteAllTraceWarningPackageMetadata_Then_AllTraceWarningPackageMetadataWereDeleted_And_PublisherWasUpdated() {
+		let store = makeStore(with: makeDatabaseQueue())
+
+		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
+		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 2))
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		store.traceWarningPackageMetadatasPublisher
+			.dropFirst()
+			.sink { traceWarningPackageMetadatas in
+				XCTAssertEqual(traceWarningPackageMetadatas.count, 0)
+				sinkExpectation.fulfill()
+			}
+			.store(in: &subscriptions)
+
+		store.deleteAllTraceWarningPackageMetadata()
+
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_StoreIsInitiliazed_Then_OldCheckinAreRemoved() throws {
 		let databaseQueue = makeDatabaseQueue()
 		let store = makeStore(with: databaseQueue)
@@ -687,10 +703,10 @@ class EventStoreTests: XCTestCase {
 			sinkExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		// Create different checkins. 2 of them should survive: Nil date and todays date.
+		// Create different checkins. Todays date checkins should survive.
 		store.createCheckin(makeCheckin(id: 1, checkinEndDate: dateOlderThenRetention))
 		store.createCheckin(makeCheckin(id: 2, checkinEndDate: today))
-		store.createCheckin(makeCheckin(id: 3, checkinEndDate: nil))
+		store.createCheckin(makeCheckin(id: 3, checkinEndDate: today))
 
 		// At this point cleanup is called internally and old entries are removed.
 		let store2 = makeStore(with: databaseQueue)
@@ -918,22 +934,24 @@ class EventStoreTests: XCTestCase {
 		TraceLocation(
 			guid: guid,
 			version: 1,
-			type: .type2,
+			type: .locationTypePermanentOther,
 			description: "Some description",
 			address: "Some address",
 			startDate: Date(),
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: 1,
+			byteRepresentation: Data(),
 			signature: "Some signature"
 		)
 	}
 
-	private func makeCheckin(id: Int, checkinEndDate: Date? = Date()) -> Checkin {
+	private func makeCheckin(id: Int, checkinEndDate: Date = Date()) -> Checkin {
 		Checkin(
 			id: id,
 			traceLocationGUID: "SomeGUID",
+			traceLocationGUIDHash: "SomeGUIDHash".data(using: .utf8) ?? Data(),
 			traceLocationVersion: 1,
-			traceLocationType: .type2,
+			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
 			traceLocationAddress: "Some address",
 			traceLocationStartDate: Date(),
@@ -942,7 +960,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationSignature: "Some signature",
 			checkinStartDate: Date(),
 			checkinEndDate: checkinEndDate,
-			targetCheckinEndDate: Date(),
+			checkinCompleted: false,
 			createJournalEntry: true
 		)
 	}

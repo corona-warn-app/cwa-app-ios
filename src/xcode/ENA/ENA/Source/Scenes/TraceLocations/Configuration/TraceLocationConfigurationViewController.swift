@@ -4,7 +4,7 @@
 
 import UIKit
 
-class TraceLocationConfigurationViewController: UIViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationConfigurationViewController: UIViewController, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -30,53 +30,28 @@ class TraceLocationConfigurationViewController: UIViewController, ENANavigationC
 
 		view.backgroundColor = .enaColor(for: .background)
 
-		navigationItem.title = AppStrings.TraceLocations.Configuration.title
-
-		navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
+		parent?.navigationItem.title = AppStrings.TraceLocations.Configuration.title
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
-
-		navigationController?.navigationBar.prefersLargeTitles = true
-
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		navigationFooterItem.isPrimaryButtonLoading = true
-		navigationFooterItem.isPrimaryButtonEnabled = false
-
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		footerView?.setLoadingIndicator(true, disable: true, button: .primary)
 		viewModel.save { [weak self] success in
-			self?.navigationFooterItem.isPrimaryButtonLoading = false
-			self?.navigationFooterItem.isPrimaryButtonEnabled = true
-
+			self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 			if success {
 				self?.onDismiss()
 			}
 		}
-	}
 
+	}
 
 	// MARK: - Private
 
 	private let viewModel: TraceLocationConfigurationViewModel
-
 	private let onDismiss: () -> Void
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.TraceLocations.Configuration.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-
-		item.isSecondaryButtonHidden = true
-
-		return item
-	}()
 
 }

@@ -26,15 +26,34 @@ class EmptyStateView: UIView {
 		setUp()
 	}
 
+	// MARK: - Internal
+
+	var additionalTopPadding: CGFloat = 0 {
+		didSet {
+			topConstraint.constant = additionalTopPadding
+		}
+	}
+
 	// MARK: - Private
 
 	private let viewModel: EmptyStateViewModel
 
+	private var topConstraint: NSLayoutConstraint!
+
 	private func setUp() {
+		backgroundColor = .clear
+
+		let containerView = UIView()
+		containerView.backgroundColor = .clear
+		addSubview(containerView)
+		containerView.translatesAutoresizingMaskIntoConstraints = false
+
 		let stackView = UIStackView()
 		stackView.axis = .vertical
 		stackView.alignment = .center
 		stackView.spacing = 12
+		addSubview(stackView)
+		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 		let imageView = UIImageView()
 		imageView.image = viewModel.image
@@ -63,19 +82,22 @@ class EmptyStateView: UIView {
 		descriptionLabel.text = viewModel.description
 		stackView.addArrangedSubview(descriptionLabel)
 
-		addSubview(stackView)
-		stackView.translatesAutoresizingMaskIntoConstraints = false
+		topConstraint = containerView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor)
 
 		NSLayoutConstraint.activate([
-			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
-			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
+			containerView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor),
+			topConstraint,
+			containerView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
+			containerView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
 			stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 280),
-			stackView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 16),
-			stackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -16),
-			stackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
-			stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
-			stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-			stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 30)
+			stackView.leadingAnchor.constraint(greaterThanOrEqualTo: containerView.leadingAnchor, constant: 16),
+			stackView.topAnchor.constraint(greaterThanOrEqualTo: containerView.topAnchor, constant: 16),
+			stackView.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -16),
+			stackView.bottomAnchor.constraint(lessThanOrEqualTo: containerView.bottomAnchor, constant: -16),
+			stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+			stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+			imageView.widthAnchor.constraint(lessThanOrEqualToConstant: 200)
 		])
 	}
 

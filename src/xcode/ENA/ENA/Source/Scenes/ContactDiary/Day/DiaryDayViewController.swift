@@ -153,6 +153,8 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.sectionFooterHeight = 0
 		tableView.sectionHeaderHeight = 0
 		tableView.rowHeight = UITableView.automaticDimension
+
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiary.dayTableView
 	}
 
 	private func entryAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
