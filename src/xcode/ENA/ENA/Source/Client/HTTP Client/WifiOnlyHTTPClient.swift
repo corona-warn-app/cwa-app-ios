@@ -121,7 +121,7 @@ final class WifiOnlyHTTPClient: ClientWifiOnly {
 						return
 					}
 					let etag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
-					let payload = PackageDownloadResponse(package: package, etag: etag, isEmpty: false)
+					let payload = PackageDownloadResponse(package: package, etag: etag)
 					completeWith(.success(payload))
 				case let .failure(error):
 					responseError = error

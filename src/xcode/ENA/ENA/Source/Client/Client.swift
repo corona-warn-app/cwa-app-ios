@@ -188,13 +188,16 @@ extension SubmissionError: LocalizedError {
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
 struct PackageDownloadResponse {
-	let package: SAPDownloadedPackage
+	let package: SAPDownloadedPackage?
 
 	/// The response ETag
 	///
 	/// This is used to identify and revoke packages.
 	let etag: String?
-	let isEmpty: Bool?
+	
+	var isEmpty: Bool {
+		return package == nil
+	}
 }
 
 /// Combined model for a submit keys request
