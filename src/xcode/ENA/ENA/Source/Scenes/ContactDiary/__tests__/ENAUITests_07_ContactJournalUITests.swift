@@ -133,18 +133,18 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.navigationBars.element(boundBy: 1).identifier, app.localized("ContactDiary_AddEditEntry_LocationTitle"))
 		let textField = app.tables.firstMatch.cells.textFields.firstMatch
 		textField.tap()
-		textField.typeText("-RotWeiss")
+		textField.typeText(" Innenstadt")
 
 		XCTAssertTrue(textField.buttons.firstMatch.waitForExistence(timeout: .medium))
 		// tap the clear button inside textfield to clear input
 		textField.buttons.firstMatch.tap()
-		textField.typeText("PommesBude-RotWeiss")
+		textField.typeText("Supermarkt Innenstadt")
 
 		XCTAssertTrue(app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].waitForExistence(timeout: .medium))
 		app.buttons[app.localized("ContactDiary_AddEditEntry_PrimaryButton_Title")].tap()
 
 		XCTAssertNotEqual(originalLocation, locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
-		XCTAssertEqual("PommesBude-RotWeiss", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
+		XCTAssertEqual("Supermarkt Innenstadt", locationsTableView.cells.firstMatch.staticTexts.firstMatch.label)
 	}
 
 	func testScreenshotTwoPersonsOneLocationAndMessages() throws {
@@ -208,14 +208,14 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for day entries: 1 add entry cell
 		XCTAssertEqual(dayTableView.cells.count, 1)
 
-		addPersonToDayEntry("Marcus Mustermann")
-		addPersonToDayEntry("Manu Mustermann")
+		addPersonToDayEntry("Max Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
 
 		// check count for day entries: 1 add entry cell + 2 persons added
 		XCTAssertEqual(dayTableView.cells.count, 3)
 
-		// deselect Manu Mustermann - 1 because new persons get entered on top
-		dayTableView.cells.element(boundBy: 1).staticTexts["Manu Mustermann"].tap()
+		// deselect Erika Musterfrau - 1 because new persons get entered on top
+		dayTableView.cells.element(boundBy: 1).staticTexts["Erika Musterfrau"].tap()
 
 		XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: .medium))
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
@@ -223,7 +223,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for day entries: 1 add entry cell
 		XCTAssertEqual(dayTableView.cells.count, 1)
 
-		addLocationToDayEntry("Pommesbude")
+		addLocationToDayEntry("Bäckerei")
 
 		// check count for day entries: 1 add entry cell + 1 location added
 		XCTAssertEqual(dayTableView.cells.count, 2)
@@ -238,9 +238,9 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		let dayCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3)
 
-		XCTAssertTrue(dayCell.staticTexts["Marcus Mustermann"].exists)
-		XCTAssertTrue(dayCell.staticTexts["Pommesbude"].exists)
-		XCTAssertFalse(dayCell.staticTexts["Manu Mustermann"].exists)
+		XCTAssertTrue(dayCell.staticTexts["Max Mustermann"].exists)
+		XCTAssertTrue(dayCell.staticTexts["Bäckerei"].exists)
+		XCTAssertFalse(dayCell.staticTexts["Erika Musterfrau"].exists)
 	}
 
 	func testScreenshotContactJournalInformation() throws {
@@ -277,7 +277,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		app.cells.element(boundBy: 1).tap()
 
 		// add persons
-		addPersonToDayEntry("Erika Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
 		addPersonToDayEntry("Max Mustermann")
 		// take screenshot
 		snapshot("contact_journal_listing_add_persons")
@@ -332,12 +332,12 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for day entries: 1 add entry cell
 		XCTAssertEqual(dayTableView.cells.count, 1)
 
-		addPersonToDayEntry("Marcus Mustermann", phoneNumber: "12345678", eMail: "marcus@mustermann.de")
+		addPersonToDayEntry("Max Mustermann", phoneNumber: "12345678", eMail: "max@mustermann.de")
 
 		// check count for day entries: 1 add entry cell + 1 person added
 		XCTAssertEqual(dayTableView.cells.count, 2)
 
-		addPersonToDayEntry("Maria Musterfrau", phoneNumber: "12345678", eMail: "maria@musterfrau.de")
+		addPersonToDayEntry("Erika Musterfrau", phoneNumber: "12345678", eMail: "erika@musterfrau.de")
 
 		// check count for day entries: 1 add entry cell + 2 persons added
 		XCTAssertEqual(dayTableView.cells.count, 3)
@@ -363,7 +363,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		// check count for day entries: 1 add entry cell
 		XCTAssertEqual(dayTableView.firstMatch.cells.count, 1)
 
-		addLocationToDayEntry("Pommesbude", phoneNumber: "12345678", eMail: "pommes@bude.de")
+		addLocationToDayEntry("Bäckerei", phoneNumber: "12345678", eMail: "bäcker@meinestadt.de")
 
 		// check count for day entries: 1 add entry cell + 1 location added
 		XCTAssertEqual(dayTableView.cells.count, 2)
@@ -386,7 +386,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 
 		// Add person.
 
-		addPersonToDayEntry("Marcus Mustermann")
+		addPersonToDayEntry("Max Mustermann")
 
 		// Select details of encounter.
 
@@ -474,7 +474,7 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
-		addPersonToDayEntry("Marcus Mustermann")
+		addPersonToDayEntry("Max Mustermann")
 
 		// Tap info button.
 		app.buttons[AccessibilityIdentifiers.ContactDiaryInformation.Day.notesInfoButton].tap()
@@ -614,11 +614,11 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertTrue(app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).waitForExistence(timeout: .medium))
 		app.descendants(matching: .table).firstMatch.cells.element(boundBy: 3).tap()
 
-		addPersonToDayEntry("Marcus Mustermann")
-		addPersonToDayEntry("Manu Mustermann")
+		addPersonToDayEntry("Max Mustermann")
+		addPersonToDayEntry("Erika Musterfrau")
 		app.segmentedControls.firstMatch.buttons[app.localized("ContactDiary_Day_LocationsSegment")].tap()
-		addLocationToDayEntry("Pommesbude")
-		addLocationToDayEntry("Dönerstand")
+		addLocationToDayEntry("Bäckerei")
+		addLocationToDayEntry("Supermarkt")
 
 		XCTAssertTrue(app.navigationBars.firstMatch.buttons.element(boundBy: 0).waitForExistence(timeout: .medium))
 		app.navigationBars.firstMatch.buttons.element(boundBy: 0).tap()

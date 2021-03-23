@@ -217,7 +217,7 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplicația Corona-Warn a fost instalată acum %u. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "Aplicația Corona-Warn a fost instalată acum %u zi(le). Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
@@ -272,7 +272,7 @@
 
 "Settings_DaysSinceInstall_P1" = "Riscul dvs. de infectare poate fi calculat doar pentru perioadele în care a fost activă înregistrarea în jurnal a expunerilor. Prin urmare, caracteristica de înregistrare în jurnal trebuie să rămână permanent activă. Înregistrarea în jurnal a expunerilor acoperă ultimele 14 zile.";
 
-"Settings_DaysSinceInstall_P2a" = "Aplicația Corona-Warn a fost instalată acum %u. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
+"Settings_DaysSinceInstall_P2a" = "Aplicația Corona-Warn a fost instalată acum %u zi(le). Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.";
 
 "Settings_DaysSinceInstall_P2b" = "Dacă înregistrarea în jurnal a expunerilor a fost activă pe durata în care v-ați întâlnit cu alte persoane, riscul dvs. de infectare poate fi calculat pentru această perioadă.";
 
@@ -1365,6 +1365,10 @@
 "NewVersionFeature_115_cross_border_switzerland_title" = "A fost adăugată Elveția la înregistrarea transnațională a expunerilor în jurnal ";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Utilizatorii aplicației Corona-Warn pot schimba acum ID-uri aleatorii criptate cu utilizatorii aplicației oficiale de avertizare din Elveția. Aceasta înseamnă că avertizările pot fi acum trimise și primite de utilizatorii aplicației din Elveția.";
+
+"NewVersionFeature_115_days_since_install_title" = "Modificarea mozaicurilor riscului";
+
+"NewVersionFeature_115_days_since_install_description" = "Mozaicurile riscului nu mai conțin numărul de zile active sau nota că aplicația este activă permanent.";
 
 "NewVersionFeature_115_error_analytic_logs_title" = "Generarea rapoartelor de erori";
 
