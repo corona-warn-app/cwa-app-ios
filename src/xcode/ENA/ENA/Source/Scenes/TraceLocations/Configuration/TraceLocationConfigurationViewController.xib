@@ -10,18 +10,20 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TraceLocationConfigurationViewController" customModule="ENA" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TraceLocationConfigurationViewController" customModule="ENA" customModuleProvider="target">
+            <connections>
+                <outlet property="addressTextField" destination="f3I-9O-F37" id="OGq-4u-OEt"/>
+                <outlet property="descriptionTextField" destination="igz-gg-eID" id="Rth-2L-gcs"/>
+                <outlet property="textFieldContainerView" destination="ZdI-py-EEb" id="7Ce-b1-Rr6"/>
+                <outlet property="traceLocationTypeLabel" destination="01z-L4-bly" id="OYV-eJ-EYb"/>
+                <outlet property="view" destination="iN0-l3-epB" id="6XC-Wx-NUk"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qRf-rR-XlE">
-                    <rect key="frame" x="87" y="384" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <viewLayoutGuide key="contentLayoutGuide" id="pBG-Jy-ZpW"/>
-                    <viewLayoutGuide key="frameLayoutGuide" id="pXv-Qu-7em"/>
-                </scrollView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WER-Ff-Vf6">
                     <rect key="frame" x="16" y="54" width="382" height="792"/>
                     <subviews>
@@ -38,33 +40,49 @@
                                 <constraint firstAttribute="height" constant="2" id="MRn-SD-pFj"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdI-py-EEb">
-                            <rect key="frame" x="0.0" y="38.5" width="382" height="50"/>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdI-py-EEb" userLabel="Text Field Container View">
+                            <rect key="frame" x="0.0" y="38.5" width="382" height="85"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jl1-pC-2cs">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="85"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igz-gg-eID" customClass="DiaryEntryTextField" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="382" height="15"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igz-gg-eID" customClass="ENATextField" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="42"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="42" id="Qka-j9-nJO"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="deltaXInset">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </textField>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PaJ-YD-rXS">
-                                            <rect key="frame" x="0.0" y="15" width="382" height="1"/>
-                                            <color key="backgroundColor" name="ENA Separator Color"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PaJ-YD-rXS" userLabel="Separator">
+                                            <rect key="frame" x="0.0" y="42" width="382" height="1"/>
+                                            <color key="backgroundColor" name="ENA Hairline Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="ZQH-TX-Cy1"/>
                                             </constraints>
                                         </view>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f3I-9O-F37" customClass="DiaryEntryTextField" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="16" width="382" height="34"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f3I-9O-F37" customClass="ENATextField" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="43" width="382" height="42"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="42" id="cAt-d9-qAP"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="deltaXInset">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </textField>
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="ENA Textfield Color"/>
                             <constraints>
                                 <constraint firstItem="Jl1-pC-2cs" firstAttribute="leading" secondItem="ZdI-py-EEb" secondAttribute="leading" id="6Z8-fd-srO"/>
                                 <constraint firstAttribute="trailing" secondItem="Jl1-pC-2cs" secondAttribute="trailing" id="XY9-tf-ufQ"/>
@@ -73,10 +91,56 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U58-DU-Qmm">
-                            <rect key="frame" x="0.0" y="96.5" width="382" height="695.5"/>
+                            <rect key="frame" x="0.0" y="131.5" width="382" height="660.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KHo-CQ-ifr">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="695.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="660.5"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T7S-6q-B6t">
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="660.5"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bPj-7w-Mo7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="660.5"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R2s-bN-Sh8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="659.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5i-8u-DY8" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="340.5" height="659.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9d-0Q-DJn" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="340.5" y="0.0" width="41.5" height="659.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHy-rI-DUD" userLabel="Separator">
+                                                            <rect key="frame" x="0.0" y="659.5" width="382" height="1"/>
+                                                            <color key="backgroundColor" name="ENA Hairline Color"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="MN1-CW-DgG"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="bPj-7w-Mo7" secondAttribute="bottom" id="FBL-S5-BeK"/>
+                                                <constraint firstAttribute="trailing" secondItem="bPj-7w-Mo7" secondAttribute="trailing" id="Khk-fY-tDU"/>
+                                                <constraint firstItem="bPj-7w-Mo7" firstAttribute="top" secondItem="T7S-6q-B6t" secondAttribute="top" id="e6f-q7-BJa"/>
+                                                <constraint firstItem="bPj-7w-Mo7" firstAttribute="leading" secondItem="T7S-6q-B6t" secondAttribute="leading" id="gpe-xM-tzi"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
                                 </stackView>
                             </subviews>
                             <color key="backgroundColor" name="ENA Textfield Color"/>
@@ -105,16 +169,28 @@
         <designable name="01z-L4-bly">
             <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
+        <designable name="F9d-0Q-DJn">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="N5i-8u-DY8">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="f3I-9O-F37">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
+        <designable name="igz-gg-eID">
+            <size key="intrinsicContentSize" width="32" height="34"/>
+        </designable>
     </designables>
     <resources>
-        <namedColor name="ENA Separator Color">
-            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ENA Hairline Color">
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 2 Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Textfield Color">
-            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

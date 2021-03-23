@@ -34,6 +34,15 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
+
+		textFieldContainerView.layer.cornerRadius = 8
+		if #available(iOS 13.0, *) {
+			textFieldContainerView.layer.cornerCurve = .continuous
+		}
+
+		traceLocationTypeLabel.text = "Vereinsaktivität"
+		descriptionTextField.placeholder = "Bezeichnung"
+		addressTextField.placeholder = "Ort"
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -52,5 +61,12 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 	private let viewModel: TraceLocationConfigurationViewModel
 	private let onDismiss: () -> Void
+
+
+	@IBOutlet weak var traceLocationTypeLabel: ENALabel!
+
+	@IBOutlet weak var textFieldContainerView: UIView!
+	@IBOutlet weak var descriptionTextField: ENATextField!
+	@IBOutlet weak var addressTextField: ENATextField!
 
 }

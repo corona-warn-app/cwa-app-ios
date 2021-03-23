@@ -4,6 +4,7 @@
 
 import UIKit
 
+@IBDesignable
 class ENATextField: UITextField {
 
 	// MARK: - Init
