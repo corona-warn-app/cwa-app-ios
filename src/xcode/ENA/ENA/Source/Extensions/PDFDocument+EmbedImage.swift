@@ -11,9 +11,9 @@ enum PDFEmbeddingError: Error {
 
 extension PDFDocument {
 	
-	/// Embeds an Image on the first Page on given position
+	/// Embeds image and text on the first Page on given position
 	/// Inspired  by https://pspdfkit.com/blog/2019/insert-image-into-pdf-with-swift/
-	func embed(image: UIImage, at position: CGPoint, text: String, of size: CGFloat?, hex color: String, with textRect: CGRect) throws {
+	func embedImageAndText(image: UIImage, at position: CGPoint, text: String, of textSize: CGFloat?, and textColor: UIColor, with textRect: CGRect) throws {
 		
 		// `page` is of type `PDFPage`.
 		guard let page = page(at: 0) else {
@@ -28,6 +28,7 @@ extension PDFDocument {
 		
 		// This method returns an image and takes a block in which you can perform any kind of drawing.
 		let image = renderer.image { context in
+			
 			// We transform the CTM to match the PDF's coordinate system, but only long enough to draw the page.
 			context.cgContext.saveGState()
 			
@@ -37,17 +38,17 @@ extension PDFDocument {
 			
 			context.cgContext.restoreGState()
 			
-			let imageRect = CGRect(x: position.x, y: position.y, width: image.size.width, height: image.size.height) // `CGRect` for the image.
+			// `CGRect` for the image.
+			let imageRect = CGRect(x: position.x, y: position.y, width: image.size.width, height: image.size.height)
 			
 			// Draw your image onto the context.
 			image.draw(in: imageRect)
 			
 			// Set the font as per the font size provided
-			let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: size, weight: .regular)
+			let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: textSize, weight: .regular)
 
 			// Set the attributes of the text
 			guard let paragraphStyle: NSParagraphStyle = NSParagraphStyle.default.mutableCopy() as? NSParagraphStyle else { return }
-			let textColor = UIColor().hexStringToUIColor(hex: color)
 			let textFontAttributes: [NSAttributedString.Key: Any] = [
 				NSAttributedString.Key.font: font,
 				NSAttributedString.Key.foregroundColor: textColor,

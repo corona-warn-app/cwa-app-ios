@@ -85,13 +85,14 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
 		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
 		let textDetails = templateData.descriptionTextBox
-
-		try? pdfDocument?.embed(
+		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
+		
+		try? pdfDocument?.embedImageAndText(
 			image: qrCodeImage,
 			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
 			text: viewModel.traceLocation.address,
 			of: CGFloat(textDetails.fontSize),
-			hex: textDetails.fontColor,
+			and: textColor,
 			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))
 		)
 
