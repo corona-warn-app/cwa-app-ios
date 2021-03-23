@@ -10,20 +10,16 @@ class ENATextField: UITextField {
 
 	init(frame: CGRect, deltaXInset: CGFloat = 14.0) {
 		self.deltaXInset = deltaXInset
+
 		super.init(frame: frame)
 
-		borderStyle = .none
-		backgroundColor = .enaColor(for: ENAColor.textField)
-
-		layer.borderColor = UIColor.enaColor(for: ENAColor.cellBackground).cgColor
-		layer.borderWidth = 1
-		layer.masksToBounds = true
-		layer.cornerRadius = 14.0
+		setup()
 	}
 
-	@available(*, unavailable)
 	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init(coder: coder)
+
+		setup()
 	}
 
 	// MARK: - Overrides
@@ -42,8 +38,18 @@ class ENATextField: UITextField {
 
 	// MARK: - Internal
 
+	@IBInspectable var deltaXInset: CGFloat = 14.0
+
 	// MARK: - Private
 
-	private let deltaXInset: CGFloat
+	private func setup() {
+		borderStyle = .none
+		backgroundColor = .enaColor(for: ENAColor.textField)
+
+		layer.borderColor = UIColor.enaColor(for: ENAColor.cellBackground).cgColor
+		layer.borderWidth = 1
+		layer.masksToBounds = true
+		layer.cornerRadius = 14.0
+	}
 
 }
