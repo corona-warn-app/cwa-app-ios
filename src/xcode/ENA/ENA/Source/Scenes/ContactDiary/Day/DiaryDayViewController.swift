@@ -104,6 +104,10 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var topSpaceConstraint: NSLayoutConstraint!
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
+	
+	var day: DiaryDay {
+		return viewModel.day
+	}
 
 	private func setupSegmentedControl() {
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
