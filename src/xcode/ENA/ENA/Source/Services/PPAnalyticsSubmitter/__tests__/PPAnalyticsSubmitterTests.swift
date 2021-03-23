@@ -470,4 +470,36 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			"Wrong hoursSinceHighRiskWarningAtTestRegistration protobuf mapping"
 		)
 	}
+	
+	// MARK: - Helpers
+	
+	private func createMockSubmitter(with store: MockTestStore) -> PPAnalyticsSubmitter {
+		let client = ClientMock()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
+		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
+		return PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider
+		)
+	}
+
+	private func generateSHA256(_ window: ExposureWindow) -> String? {
+		let encoder = JSONEncoder()
+		do {
+			let windowData = try encoder.encode(window)
+			return windowData.sha256String()
+		} catch {
+			Log.error("ExposureWindow Encoding error", log: .ppa, error: error)
+		}
+		return nil
+	}
+	
+	private func formatToUnixTimestamp(for date: Date?) -> Int64 {
+		guard let date = date else {
+			Log.warning("mostRecentDate is nil", log: .ppa)
+			return -1
+		}
+		return Int64(date.timeIntervalSince1970)
+	}
 }
