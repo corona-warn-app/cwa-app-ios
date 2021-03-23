@@ -483,7 +483,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}]
 	}
 	
-	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
+	func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
 		let metadata = store.testResultMetadata
 		
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
