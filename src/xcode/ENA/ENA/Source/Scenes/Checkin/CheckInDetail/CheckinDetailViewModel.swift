@@ -67,7 +67,8 @@ final class CheckinDetailViewModel {
 //			checkinCompleted: false,
 //			createJournalEntry: shouldSaveToContactJournal
 //		)
-		// TO DO: SAVE to the store
+
+		// eventStore.createCheckin(checkin)
 	}
 
 	// MARK: - Private
