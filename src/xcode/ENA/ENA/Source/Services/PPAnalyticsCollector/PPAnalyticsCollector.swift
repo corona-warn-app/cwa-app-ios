@@ -41,8 +41,6 @@ enum PPAnalyticsCollector {
 			Analytics.logUserMetadata(userMetadata)
 		case let .riskExposureMetadata(riskExposureMetadata):
 			Analytics.logRiskExposureMetadata(riskExposureMetadata)
-		case let .clientMetadata(clientMetadata):
-			Analytics.logClientMetadata(clientMetadata)
 		case let .testResultMetadata(TestResultMetadata):
 			Analytics.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
@@ -176,23 +174,6 @@ enum PPAnalyticsCollector {
 		Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
 	}
 
-
-	// MARK: - ClientMetadata
-
-	private static func logClientMetadata(_ clientMetadata: PPAClientMetadata) {
-		switch clientMetadata {
-		case let .create(metaData):
-			store?.clientMetadata = metaData
-		case .setClientMetaData:
-			Analytics.setClientMetaData()
-		}
-	}
-
-	private static func setClientMetaData() {
-		let eTag = store?.appConfigMetadata?.lastAppConfigETag
-		Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: eTag))))
-	}
-
 	// MARK: - TestResultMetadata
 
 	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
@@ -234,7 +215,6 @@ enum PPAnalyticsCollector {
 			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
 		}
 	}
-	
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
 		guard store?.testResultMetadata?.testRegistrationToken == token,
