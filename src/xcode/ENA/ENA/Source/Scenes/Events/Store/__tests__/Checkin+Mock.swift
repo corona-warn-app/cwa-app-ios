@@ -12,7 +12,7 @@ extension Checkin {
 		traceLocationGUID: String = "",
 		traceLocationGUIDHash: Data = Data(),
 		traceLocationVersion: Int = 0,
-		traceLocationType: TraceLocationType = .type1,
+		traceLocationType: TraceLocationType = .locationTypeUnspecified,
 		traceLocationDescription: String = "",
 		traceLocationAddress: String = "",
 		traceLocationStartDate: Date? = nil,
