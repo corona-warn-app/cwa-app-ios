@@ -23,3 +23,11 @@ struct Checkin: Equatable {
 	let createJournalEntry: Bool
 
 }
+
+extension Checkin {
+	var roundedDurationIn15mSteps: Int {
+		let checkinDurationInM = (checkinEndDate - checkinStartDate) / 60
+		let roundedDuration = Int(round(checkinDurationInM / 15) * 15)
+		return roundedDuration
+	}
+}
