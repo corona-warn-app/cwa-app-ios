@@ -227,6 +227,12 @@ final class RiskProvider: RiskProviding {
 		// 2. There is a previous risk that is still valid and should not be recalculated
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+			
+			
+			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
+			if let riskCalculationResult = store.riskCalculationResult {
+				Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+			}
 			completion(.success(risk))
 			return
 		}
