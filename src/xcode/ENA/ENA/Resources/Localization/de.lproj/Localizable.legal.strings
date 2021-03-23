@@ -127,9 +127,13 @@
 
 "TraceLocation_Information_Legal_Text_1" = "Wenn Sie auf „Weiter“ tippen, können Sie einen QR-Code für Ihre Gäste erstellen.";
 
-"TraceLocation_Information_Legal_Text_2" = "Ihre Angaben zum Event oder Ort werden in codierter Form in einem ausdruckbaren QR-Code gespeichert. Ihre Gäste können den QR-Code dann mit der App scannen.";
+"TraceLocation_Information_Legal_Text_2_bold" = "Ihre Angaben zum Event oder Ort werden in codierter Form in einem ausdruckbaren QR-Code gespeichert.";
 
-"TraceLocation_Information_Legal_Text_3" = "Bitte achten Sie darauf, dass Sie möglichst präzise Angaben zur Bezeichnung, Kategorie und Uhrzeit Ihres Events oder Orts und zur typischen Aufenthaltsdauer machen. Je genauer Ihre Angaben sind, desto zuverlässiger können Ihre Gäste gewarnt werden.";
+"TraceLocation_Information_Legal_Text_2_normal" = "Ihre Gäste können den QR-Code dann mit der App scannen.";
+
+"TraceLocation_Information_Legal_Text_3_bold" = "Bitte achten Sie darauf, dass Sie möglichst präzise Angaben zur Bezeichnung, Kategorie und Uhrzeit Ihres Events oder Orts und zur typischen Aufenthaltsdauer machen.";
+
+"TraceLocation_Information_Legal_Text_3_normal" = "Je genauer Ihre Angaben sind, desto zuverlässiger können Ihre Gäste gewarnt werden.";
 
 "TraceLocation_Information_Legal_Text_4" = "Bitte stellen Sie den QR-Code so zur Verfügung, dass alle Ihre Gäste ihn unter Einhaltung der Abstands- und Hygieneregeln (mindestens 1,5 Meter) scannen können.";
 

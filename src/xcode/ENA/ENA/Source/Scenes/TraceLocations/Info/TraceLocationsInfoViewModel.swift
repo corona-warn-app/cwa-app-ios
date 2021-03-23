@@ -77,12 +77,12 @@ struct TraceLocationsInfoViewModel {
 			.section(cells: [
 				.legalExtendedDataDonation(
 					title: NSAttributedString(string: AppStrings.TraceLocations.Information.legalHeadline),
-					description: NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_1),
+					description: NSAttributedString(string: AppStrings.TraceLocations.Information.legalText01),
 					bulletPoints: [
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_2),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_3),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_4),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_5)
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText02bold),
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText03bold),
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText04),
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText05)
 						],
 					accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.acknowledgementTitle,
 					configure: { _, cell, _ in
