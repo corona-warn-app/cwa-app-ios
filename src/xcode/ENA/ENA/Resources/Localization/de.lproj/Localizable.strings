@@ -2136,3 +2136,9 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
+
+/* Checkout */
+
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+
+"Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenfalls an.";
