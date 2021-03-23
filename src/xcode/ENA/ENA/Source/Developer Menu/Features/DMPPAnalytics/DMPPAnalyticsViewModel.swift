@@ -53,6 +53,10 @@ final class DMPPAnalyticsViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
+					// it's added for the testers in case of force submission
+					if let riskCalculationResult = self?.store.riskCalculationResult {
+						Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+					}
 					Analytics.forcedAnalyticsSubmission(completion: { [weak self] result in
 						switch result {
 						case .success:
