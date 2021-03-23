@@ -45,6 +45,9 @@ protocol EventStoring {
 	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult
 
 	@discardableResult
+	func deleteAllTraceWarningPackageMetadata() -> SecureSQLStore.VoidResult
+
+	@discardableResult
 	func cleanup() -> SecureSQLStore.VoidResult
 
 	@discardableResult

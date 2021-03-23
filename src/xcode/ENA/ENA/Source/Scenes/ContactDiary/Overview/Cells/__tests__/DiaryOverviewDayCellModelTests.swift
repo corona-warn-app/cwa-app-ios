@@ -103,10 +103,12 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 					DiaryLocation(
 						id: 1,
 						name: "Supermarkt",
+						traceLocationGUID: nil,
 						visit: LocationVisit(
 							id: 0,
 							date: "2021-01-14",
-							locationId: 1
+							locationId: 1,
+							checkinId: nil
 						)
 					)
 				)
@@ -127,7 +129,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounter: ContactPersonEncounter(id: 0, date: "2021-01-14", contactPersonId: 0))),
-				.location(DiaryLocation(id: 1, name: "Supermarkt", visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1)))
+				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationGUID: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
 			]
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 0)
@@ -160,7 +162,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 			dateString: "2021-01-14",
 			entries: [
 				.contactPerson(DiaryContactPerson(id: 0, name: "Thomas Mesow", encounter: ContactPersonEncounter(id: 0, date: "2021-01-14", contactPersonId: 0))),
-				.location(DiaryLocation(id: 1, name: "Supermarkt", visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1)))
+				.location(DiaryLocation(id: 1, name: "Supermarkt", traceLocationGUID: nil, visit: LocationVisit(id: 1, date: "2021-01-14", locationId: 1, checkinId: nil)))
 			]
 		)
 		let cellViewModel = DiaryOverviewDayCellModel(diaryDay, historyExposure: .encounter(.high), minimumDistinctEncountersWithHighRisk: 1)
@@ -206,7 +208,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 
 	func testGIVEN_LocationVisit_THEN_CorrectEntryDetailTextIsReturned() {
 		// GIVEN
-		let locationVisit = LocationVisit(id: 0, date: "2021-01-14", locationId: 0, durationInMinutes: 3 * 60 + 42, circumstances: "")
+		let locationVisit = LocationVisit(id: 0, date: "2021-01-14", locationId: 0, durationInMinutes: 3 * 60 + 42, circumstances: "", checkinId: nil)
 		let cellViewModel = DiaryOverviewDayCellModel(DiaryDay(dateString: "", entries: []), historyExposure: .encounter(.low), minimumDistinctEncountersWithHighRisk: 0)
 		let detailText = cellViewModel.entryDetailTextFor(locationVisit: locationVisit)
 
