@@ -37,12 +37,13 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		let traceLocation = TraceLocation(
 			guid: "",
 			version: 0,
-			type: .type1,
+			type: .locationTypePermanentCraft,
 			description: "Jahrestreffen derdeutschen SAP Anwendergruppe",
 			address: "Lenaustr.6, 69115, Heidelberg",
 			startDate: Date(),
 			endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
 			defaultCheckInLengthInMinutes: nil,
+			byteRepresentation: Data(),
 			signature: ""
 		)
 		onSuccess?(traceLocation)
