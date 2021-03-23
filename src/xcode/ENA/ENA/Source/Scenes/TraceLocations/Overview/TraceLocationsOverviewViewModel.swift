@@ -10,13 +10,11 @@ class TraceLocationsOverviewViewModel {
 	// MARK: - Init
 
 	init(
-		store: EventStoring & EventProviding,
-		onAddEntryCellTap: @escaping () -> Void,
+		store: EventStoringProviding,
 		onEntryCellTap: @escaping (TraceLocation) -> Void,
 		onEntryCellButtonTap: @escaping (TraceLocation) -> Void
 	) {
 		self.store = store
-		self.onAddEntryCellTap = onAddEntryCellTap
 		self.onEntryCellTap = onEntryCellTap
 		self.onEntryCellButtonTap = onEntryCellButtonTap
 
@@ -54,16 +52,20 @@ class TraceLocationsOverviewViewModel {
 		}
 	}
 
-	func traceLocationCellModel(at indexPath: IndexPath) -> TraceLocationCellModel {
+	func canEditRow(at indexPath: IndexPath) -> Bool {
+		return indexPath.section == Section.entries.rawValue
+	}
+
+	func traceLocationCellModel(at indexPath: IndexPath, onUpdate: @escaping () -> Void) -> TraceLocationCellModel {
 		guard indexPath.section == Section.entries.rawValue else {
 			fatalError("Entry cell models have to used in the entries section")
 		}
 
-		return TraceLocationCellModel()
-	}
-
-	func didTapAddEntryCell() {
-		onAddEntryCellTap()
+		return TraceLocationCellModel(
+			traceLocation: traceLocations[indexPath.row],
+			eventProvider: store,
+			onUpdate: onUpdate
+		)
 	}
 
 	func didTapEntryCell(at indexPath: IndexPath) {
@@ -83,7 +85,7 @@ class TraceLocationsOverviewViewModel {
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
-		store.deleteTraceLocation(id: traceLocations[indexPath.row].guid)
+		store.deleteTraceLocation(guid: traceLocations[indexPath.row].guid)
 	}
 
 	func removeAll() {
@@ -92,8 +94,7 @@ class TraceLocationsOverviewViewModel {
 
 	// MARK: - Private
 
-	private let store: EventStoring & EventProviding
-	private let onAddEntryCellTap: () -> Void
+	private let store: EventStoringProviding
 	private let onEntryCellTap: (TraceLocation) -> Void
 	private let onEntryCellButtonTap: (TraceLocation) -> Void
 

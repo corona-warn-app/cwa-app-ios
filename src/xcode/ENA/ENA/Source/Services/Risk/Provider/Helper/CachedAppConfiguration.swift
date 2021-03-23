@@ -93,7 +93,6 @@ final class CachedAppConfiguration {
 							lastAppConfigFetch: Date(),
 							appConfig: response.config
 						)
-						Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: response.eTag))))
 						// update revokation list
 						let revokationList = self.store.appConfigMetadata?.appConfig.revokationEtags ?? []
 						self.packageStore?.revokationList = revokationList // for future package-operations

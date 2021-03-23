@@ -34,7 +34,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		Log.debug("Data found: \(String(describing: data))")
 
 		// creates a fake event for the moment
-		let checkin = Checkin(id: 0, traceLocationGUID: "", traceLocationVersion: 0, traceLocationType: .type1, traceLocationDescription: "", traceLocationAddress: "", traceLocationStart: Date(), traceLocationEnd: Date(), traceLocationDefaultCheckInLengthInMinutes: 0, traceLocationSignature: "", checkinStartDate: Date(), checkinEndDate: Date(), targetCheckinEndDate: Date(), createJournalEntry: false)
+		let checkin = Checkin(id: 0, traceLocationGUID: "", traceLocationGUIDHash: Data(), traceLocationVersion: 0, traceLocationType: .locationTypeUnspecified, traceLocationDescription: "", traceLocationAddress: "", traceLocationStartDate: Date(), traceLocationEndDate: Date(), traceLocationDefaultCheckInLengthInMinutes: 0, traceLocationSignature: "", checkinStartDate: Date(), checkinEndDate: Date(), checkinCompleted: false, createJournalEntry: false)
 
 		onSuccess?(checkin)
 	}
@@ -42,6 +42,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
+		
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)
@@ -59,13 +60,52 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	var onSuccess: ((Checkin) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
+	/// get current torchMode by device state
+	var torchMode: TorchMode {
+		guard let device = captureDevice,
+			  device.hasTorch else {
+			return .notAvailable
+		}
 
+		switch device.torchMode {
+		case .off:
+			return .lightOff
+		case .on:
+			return .lightOn
+		case .auto:
+			return .notAvailable
+		@unknown default:
+			return .notAvailable
+		}
+	}
 	func activateScanning() {
 		captureSession?.startRunning()
 	}
 
 	func deactivateScanning() {
 		captureSession?.stopRunning()
+	}
+
+	func toggleFlash() {
+		guard let device = captureDevice,
+			  device.hasTorch else {
+			return
+		}
+
+		defer { device.unlockForConfiguration() }
+
+		do {
+			try device.lockForConfiguration()
+
+			if device.torchMode == .on {
+				device.torchMode = .off
+			} else {
+				try device.setTorchModeOn(level: 1.0)
+			}
+
+		} catch {
+			Log.error(error.localizedDescription, log: .api)
+		}
 	}
 
 	// MARK: - Private
@@ -76,21 +116,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		captureSession?.isRunning ?? false
 	}
 
-	func setupCaptureSession() {
-		guard let currentCaptureDevice = captureDevice,
-			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
-			onError?(.cameraPermissionDenied)
-			return
-		}
-
-		let metadataOutput = AVCaptureMetadataOutput()
-		captureSession?.addInput(captureDeviceInput)
-		captureSession?.addOutput(metadataOutput)
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-	}
-
-	private func startCaptureSession() {
+	func startCaptureSession() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
 			Log.info("AVCaptureDevice.authorized - enable qr code scanner", log: .checkin)

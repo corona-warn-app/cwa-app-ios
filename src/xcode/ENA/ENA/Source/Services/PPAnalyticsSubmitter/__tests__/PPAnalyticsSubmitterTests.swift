@@ -12,7 +12,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_EverythingIsGiven_THEN_Success() throws {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -39,14 +38,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			switch result {
 			case .success:
 				expectation.fulfill()
-			case .failure:
-				XCTFail("Test should not fail")
+			case let .failure(error):
+				XCTFail("Test should not fail. Received error: \(error)")
 			}
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
-		
+		waitForExpectations(timeout: .medium)
 		
 		/// Check that store is setup correctly after successful submission
 		XCTAssertEqual(store.previousRiskExposureMetadata, currentRiskExposureMetadata)
@@ -56,9 +54,9 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata?.newExposureWindowsQueue)
 		
 		/// Since the Date is super precise we have to be fuzzy here, and since we know our CI lets me a lot fuzzy here.
-		let tenSecondsAgo = Calendar.current.date(byAdding: .second, value: -10, to: Date())
-		let lastTenSeconds = try XCTUnwrap(tenSecondsAgo)...Date()
-		XCTAssertTrue(lastTenSeconds.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
+		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
+		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
+		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastSubmissionAnalytics)))
 		
 	}
 
@@ -67,7 +65,6 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 	func testGIVEN_SubmissionIsTriggered_WHEN_UserConsentIsMissing_THEN_UserConsentErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let appConfigurationProvider = CachedAppConfigurationMock(with: config)
@@ -94,14 +91,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .userConsentError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_AppConfigIsMissing_THEN_ProbibilityErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -127,14 +123,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_ProbabilityIsLow_THEN_ProbibilityErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -162,14 +157,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .probibilityError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_SubmissionWas2HoursAgo_THEN_Submission23hoursErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -197,14 +191,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .submission23hoursError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_OnboardingWas2HoursAgo_THEN_OnboardingErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -233,14 +226,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .onboardingError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_AppResetWas2HoursAgo_THEN_AppResetErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -270,14 +262,13 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .appResetError)
 	}
 
 	func testGIVEN_SubmissionIsTriggered_WHEN_PpacCouldNotAuthorize_THEN_PpacErrorIsReturned() {
 		// GIVEN
 		let store = MockTestStore()
-		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		let client = ClientMock()
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
@@ -307,8 +298,51 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		})
 
 		// THEN
-		waitForExpectations(timeout: .short)
+		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(ppasError, .ppacError(.generationFailed))
+	}
+	
+	func testGIVEN_SubmissionIsTriggered_WHEN_SeveralTimes_THEN_SubmissionInProgressErrorIsReturned() {
+		// GIVEN
+		let store = MockTestStore()
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let client = ClientMock()
+		let appConfigurationProvider = CachedAppConfigurationMock()
+		let analyticsSubmitter = PPAnalyticsSubmitter(
+			store: store,
+			client: client,
+			appConfig: appConfigurationProvider
+		)
+
+		let expectation = self.expectation(description: "completion handler is called with an error")
+		expectation.expectedFulfillmentCount = 2
+
+		// WHEN
+		var ppasErrors: [PPASError] = []
+		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case let .failure(error):
+				ppasErrors.append(error)
+				expectation.fulfill()
+			}
+		})
+		
+		analyticsSubmitter.triggerSubmitData(ppacToken: nil, completion: { result in
+			switch result {
+			case .success:
+				XCTFail("Test should not success")
+			case let .failure(error):
+				ppasErrors.append(error)
+				expectation.fulfill()
+			}
+		})
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(ppasErrors.count, 2)
+		XCTAssertTrue(ppasErrors.contains(.submissionInProgress))
 	}
 
 	// MARK: - Conversion to protobuf

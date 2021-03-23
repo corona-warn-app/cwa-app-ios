@@ -475,7 +475,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func getKeyAndType(for key: DeviceRegistrationKey) -> (String, String) {
 		switch key {
 		case let .guid(guid):
-			return (Hasher.sha256(guid), "GUID")
+			return (ENAHasher.sha256(guid), "GUID")
 		case let .teleTan(teleTan):
 			// teleTAN should NOT be hashed, is for short time
 			// usage only.

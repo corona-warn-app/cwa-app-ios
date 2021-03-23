@@ -19,10 +19,9 @@ struct DeltaOnboardingNewVersionFeaturesViewModel {
 		self.newVersionFeatures.append(
 			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115SwitzerlandTitle, description: AppStrings.NewVersionFeatures.feature115SwitzerlandDescription)
 		)
-		
-		// Error analytics log
+		// Days since Install
 		self.newVersionFeatures.append(
-			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115ErrorAnalyticsLogTitle, description: AppStrings.NewVersionFeatures.feature115ErrorAnalyticsLogDescription)
+			NewVersionFeature(title: AppStrings.NewVersionFeatures.feature115DaysSinceInstallTitle, description: AppStrings.NewVersionFeatures.feature115DaysSinceInstallDescription)
 		)
 	}
 

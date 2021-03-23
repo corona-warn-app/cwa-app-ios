@@ -283,6 +283,11 @@ final class SecureStore: Store {
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
 
+	var checkinInfoScreenShown: Bool {
+		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["checkinInfoScreenShown"] = newValue }
+	}
+	
 	var traceLocationsInfoScreenShown: Bool {
 		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
@@ -366,7 +371,9 @@ extension SecureStore: PrivacyPreservingProviding {
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
 		get { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] as Bool? ?? false }
 		set { kvStore["isPrivacyPreservingAnalyticsConsentGiven"] = newValue
-			userData = nil
+			if newValue == false {
+				userData = nil
+			}
 		}
 	}
 

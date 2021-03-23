@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		if store.appInstallationDate == nil {
 			store.appInstallationDate = InstallationDate.inferredFromDocumentDirectoryCreationDate()
+			Log.debug("App installation date: \(String(describing: store.appInstallationDate))")
 		}
 
 		self.client = HTTPClient(serverEnvironmentProvider: store)
@@ -78,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			return true
 		}
 
+		// Check for any URLs passed into the app – most likely via scanning a QR code
 		var route: Route?
 		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
 			for key in activityDictionary.keys {
@@ -149,6 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 	let contactDiaryStore: DiaryStoringProviding = ContactDiaryStore.make()
+	let eventStore: EventStoringProviding = EventStore.make()
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
@@ -261,6 +264,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			riskProvider: self.riskProvider,
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
+			eventStore: self.eventStore,
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
 		)
@@ -331,6 +335,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Reset contact diary
 		contactDiaryStore.reset()
+
+		// Reset event store
+		eventStore.reset()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating
@@ -449,7 +456,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
-		contactDiaryStore: self.contactDiaryStore,
+		contactDiaryStore: contactDiaryStore,
+		eventStore: eventStore,
 		otpService: otpService
 	)
 

@@ -14,12 +14,14 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		riskProvider: RiskProvider,
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
+		eventStore: EventStoring,
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
 		self.riskProvider = riskProvider
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
+		self.eventStore = eventStore
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 	}
@@ -30,6 +32,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	var pdService: PlausibleDeniability
 	var dependencies: ExposureSubmissionServiceDependencies
 	var contactDiaryStore: DiaryStoring
+	var eventStore: EventStoring
 
 	/// This method executes the background tasks needed for fetching test results, performing exposure detection
 	/// and executing plausible deniability fake requests.
@@ -83,6 +86,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		DispatchQueue.global().async {
 			Log.info("Cleanup contact diary store.", log: .background)
 			self.contactDiaryStore.cleanup(timeout: 10.0)
+			group.leave()
+		}
+
+		group.enter()
+		DispatchQueue.global().async {
+			Log.info("Cleanup event store.", log: .background)
+			self.eventStore.cleanup(timeout: 10.0)
 			group.leave()
 		}
 
@@ -252,8 +262,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
-		Analytics.triggerAnalyticsSubmission(completion: { _ in
-			// Ignore the result of the call, so we just complete after the call is finished.
+		Analytics.triggerAnalyticsSubmission(completion: { result in
+			switch result {
+			case .success:
+				Log.info("[ENATaskExecutionDelegate] Analytics submission was triggered succesfully from background", log: .ppa)
+			case let .failure(error):
+				Log.error("[ENATaskExecutionDelegate] Analytics submission was triggered not succesfully from background with error: \(error)", log: .ppa, error: error)
+			}
 			completion()
 		})
 	}

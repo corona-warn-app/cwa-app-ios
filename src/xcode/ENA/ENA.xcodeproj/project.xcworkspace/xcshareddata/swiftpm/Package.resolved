@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Base32",
+        "repositoryURL": "https://github.com/norio-nomura/Base32",
+        "state": {
+          "branch": null,
+          "revision": "c4bc0a49689999ae2c7c778f3830a6a6e694efb8",
+          "version": "0.9.0"
+        }
+      },
+      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
