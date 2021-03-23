@@ -608,4 +608,5 @@ class TraceWarningMatcherTests: XCTestCase {
 		return dateFormatter
 	}()
 
+	// swiftlint:disable:next file_length
 }
