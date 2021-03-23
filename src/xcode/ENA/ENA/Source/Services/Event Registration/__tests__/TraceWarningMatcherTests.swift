@@ -16,6 +16,40 @@ class TraceWarningMatcherTests: XCTestCase {
 		let matcher = TraceWarningMatcher(eventStore: store)
 
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T09:45:00+01:00"),
+			  let warningStartDate = utcFormatter.date(from: "2021-03-04T10:00:00+01:00") else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		let checkin = createDummyCheckin(
+			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate
+		)
+		store.createCheckin(checkin)
+
+		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
+		warning.locationGuidHash = "69eb427e1a48133970486244487e31b3f1c5bde47415db9b52cc5a2ece1e0060".data(using: .utf8) ?? Data()
+		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
+		warning.period = 6
+		warning.transmissionRiskLevel = 8
+
+		let warnings = [warning]
+		var warningPackage = SAP_Internal_Pt_TraceWarningPackage()
+		warningPackage.timeIntervalWarnings.append(contentsOf: warnings)
+
+		matcher.matchAndStore(package: warningPackage)
+
+		XCTAssertEqual(store.traceTimeIntervalMatchesPublisher.value.count, 0)
+	}
+
+	// returns 0 if guids do not match (but the time machtes)
+	func test_Scenario1b() {
+		let store = MockEventStore()
+		let matcher = TraceWarningMatcher(eventStore: store)
+
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T010:00:00+01:00"),
 			  let warningStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00") else {
 			XCTFail("Could not create dates.")
