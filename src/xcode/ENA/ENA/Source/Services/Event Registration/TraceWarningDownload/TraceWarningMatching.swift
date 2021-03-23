@@ -25,7 +25,10 @@ final class TraceWarningMatcher: TraceWarningMatching {
 	// MARK: - Protocol TraceWarningMatching
 	
 	func matchAndStore(package: SAPDownloadedPackage) {
+		Log.info("[TraceWarningMatching] Start matching TraceTimeIntervalWarnings against Checkins. ", log: .checkin)
+
 		guard let warningPackage = try? SAP_Internal_Pt_TraceWarningPackage(serializedData: package.bin) else {
+			Log.error("[TraceWarningMatching] Failed to decode SAPDownloadedPackage", log: .checkin)
 			return
 		}
 		matchAndStore(package: warningPackage)
@@ -46,6 +49,8 @@ final class TraceWarningMatcher: TraceWarningMatching {
 				calculateOverlap(checkin: $0, warning: warning) > 0
 			}
 
+			Log.info("[TraceWarningMatching] Found \(checkins.count) number of matches. ", log: .checkin)
+
 			// Persist checkins and warning as matches.
 			for checkin in checkins {
 				let match = TraceTimeIntervalMatch(
@@ -57,6 +62,8 @@ final class TraceWarningMatcher: TraceWarningMatching {
 					startIntervalNumber: Int(warning.startIntervalNumber),
 					endIntervalNumber: Int(warning.startIntervalNumber + warning.period)
 				)
+
+				Log.info("[TraceWarningMatching] Persist match with checkinId: \(checkin.id) and traceWarningPackageId: \(package.intervalNumber). ", log: .checkin)
 				eventStore.createTraceTimeIntervalMatch(match)
 			}
 		}
