@@ -46,7 +46,7 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Risikoermittlung_12"),
+						UIImage(imageLiteralResourceName: "Icons_CheckInRiskStatus"),
 						text: .string(AppStrings.Checkin.Information.itemRiskStatusTitle),
 						alignment: .top
 					),
