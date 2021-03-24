@@ -158,7 +158,7 @@ class TraceLocationDetailViewController: UIViewController {
 		self.pickerContainerView.isHidden = !self.pickerContainerView.isHidden
 		self.pickerSeparator.isHidden = self.pickerContainerView.isHidden
 		
-		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .buttonPrimary)
+		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .textTint)
 		pickerButton.setTitleColor(color, for: .normal)
 		
 		if !pickerContainerView.isHidden && isInitialSetup {
