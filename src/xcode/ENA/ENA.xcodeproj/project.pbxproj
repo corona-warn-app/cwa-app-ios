@@ -2074,7 +2074,6 @@
 			isa = PBXGroup;
 			children = (
 				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
-				50900481260275A7005B0A25 /* __test__ */,
 				0138F6FE25F6782F00A9B075 /* Configuration */,
 				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6A825F25B1400A9B075 /* Info */,
@@ -3029,12 +3028,12 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
-		50900481260275A7005B0A25 /* __test__ */ = {
+		50AABBD8260B6CF600F3937C /* TraceLocations */ = {
 			isa = PBXGroup;
 			children = (
 				50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */,
 			);
-			path = __test__;
+			path = TraceLocations;
 			sourceTree = "<group>";
 		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
@@ -3574,6 +3573,7 @@
 			children = (
 				13E5046A248E3CE60086641C /* AppInformation */,
 				BADDD84A26039E1000337223 /* CheckIns */,
+				50AABBD8260B6CF600F3937C /* TraceLocations */,
 				50D50A5E25D6CC760092BC2A /* DataDonation */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
 				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
