@@ -199,13 +199,13 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		}
 		
 		countriesDG.notify(queue: .main) { [weak self] in
-			self?.store.lastTraceWarningPackageDownloadDate = Date()
 			if let error = errors.first {
 				Log.error("TraceWarningPackageDownload: Failed downloading packages for all countries with errors: \(errors).", log: .checkin)
 				self?.store.wasRecentTraceWarningDownloadSuccessful = false
 				completion(.failure(error))
 			} else {
 				Log.info("TraceWarningPackageDownload: Completed downloading packages for all countries.", log: .checkin)
+				self?.store.lastTraceWarningPackageDownloadDate = Date()
 				self?.store.wasRecentTraceWarningDownloadSuccessful = true
 				// pass the success case only for testing through
 				if successes.contains(.emptyAvailablePackages) {

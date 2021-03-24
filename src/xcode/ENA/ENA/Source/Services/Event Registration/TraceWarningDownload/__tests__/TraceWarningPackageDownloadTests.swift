@@ -31,7 +31,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			}
 			completion(.success(self.dummyResponseDownload))
 		}
-		
+		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -39,7 +39,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore,
 			verifier: MockVerifier()
 		)
@@ -63,6 +63,9 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .success)
+		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
+		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
+		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastTraceWarningPackageDownloadDate)))
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsEmpty_THEN_Success() {
@@ -237,13 +240,14 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		XCTAssertEqual(responseCodeError, .downloadIsRunning)
 	}
 	
-	func testGIVEN_TraceWarningDownload_WHEN_DiscoveryIsFailing_THEN_InvalidResponseError() {
+	func testGIVEN_TraceWarningDownload_WHEN_DiscoveryIsFailing_THEN_InvalidResponseError() throws {
 		
 		// GIVEN
 		let client = ClientMock()
 		client.onTraceWarningDiscovery = { _, completion in
 			completion(.failure(.invalidResponseError(404)))
 		}
+		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
@@ -251,7 +255,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: MockTestStore(),
+			store: store,
 			eventStore: eventStore
 		)
 		
@@ -272,6 +276,9 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .invalidResponseError(404))
+		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
+		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
+		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastTraceWarningPackageDownloadDate)))
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsFailing_THEN_InvalidResponseError() {
