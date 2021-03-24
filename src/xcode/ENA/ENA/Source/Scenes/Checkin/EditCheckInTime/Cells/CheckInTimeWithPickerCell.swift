@@ -96,7 +96,7 @@ class CheckInTimeWithPickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 		NSLayoutConstraint.activate(
 			[
-				tileView.topAnchor.constraint(equalTo: contentView.topAnchor),
+				tileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3.0),
 				tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),

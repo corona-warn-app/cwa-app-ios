@@ -46,6 +46,7 @@ class CheckInHeaderCell: UITableViewCell, ReuseIdentifierProviding {
 		titleLabel.font = .enaFont(for: .headline)
 		titleLabel.textColor = .enaColor(for: .textContrast)
 		titleLabel.accessibilityTraits = .header
+		titleLabel.numberOfLines = 0
 
 		NSLayoutConstraint.activate([
 			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26.0),
