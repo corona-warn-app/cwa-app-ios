@@ -58,8 +58,15 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 			onDuplicateButtonTap(viewModel.traceLocation)
 		}
 	}
-	
-	// MARK: QR Code Poster
+
+	// MARK: - Private
+
+	private let viewModel: TraceLocationDetailsViewModel
+
+	private let onPrintVersionButtonTap: (PDFView) -> Void
+	private let onDuplicateButtonTap: (TraceLocation) -> Void
+	private let onDismiss: () -> Void
+	private var subscriptions = [AnyCancellable]()
 
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
@@ -107,14 +114,4 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 		pdfView.autoScales = true
 		return pdfView
 	}
-
-	// MARK: - Private
-
-	private let viewModel: TraceLocationDetailsViewModel
-
-	private let onPrintVersionButtonTap: (PDFView) -> Void
-	private let onDuplicateButtonTap: (TraceLocation) -> Void
-	private let onDismiss: () -> Void
-	private var subscriptions = [AnyCancellable]()
-
 }
