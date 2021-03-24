@@ -12,6 +12,7 @@ enum TraceWarningError: Error {
 	case decodingJsonError(Int)
 	case noEarliestRelevantPackage
 	case downloadIsRunning
+	case identicationError
 	case verificationError
 }
 
