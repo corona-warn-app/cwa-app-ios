@@ -5,10 +5,8 @@
 import UIKit
 import Base32
 
-// Since this is a POC this enum exists. Content should be moved into model/service that will later be used.
-enum QRCodePlayground {
-	
-	static func generateQRCode(with string: String, size: CGSize = CGSize(width: 400, height: 400)) -> UIImage? {
+extension TraceLocation {
+	func generateQRCode(with string: String, size: CGSize = CGSize(width: 400, height: 400)) -> UIImage? {
 
 		/// Create data from string which will be feed into the CoreImage Filter
 		guard let data = string.data(using: .shiftJIS) else {
@@ -36,5 +34,11 @@ enum QRCodePlayground {
 		
 		/// Return scaled image
 		return UIImage(ciImage: transformedImage)
+	}
+	
+	func generateQRCode(size: CGSize = CGSize(width: 400, height: 400)) -> UIImage? {
+		
+		// Since tracelocation already has the QR Code URL
+		generateQRCode(with: qrCodeURL, size: size)
 	}
 }

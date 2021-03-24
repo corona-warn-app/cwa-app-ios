@@ -12,11 +12,23 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	}
 
 	static let staticAppConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+
 	static let staticStatistics: SAP_Internal_Stats_Statistics = {
 		guard
 			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "sample_stats", withExtension: "bin"),
 			let data = try? Data(contentsOf: url),
 			let stats = try? SAP_Internal_Stats_Statistics(serializedData: data)
+		else {
+			fatalError("Cannot initialize static test data")
+		}
+		return stats
+	}()
+	
+	static let staticQRCodeTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS = {
+		guard
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "qr_code_template", withExtension: "bin"),
+			let data = try? Data(contentsOf: url),
+			let stats = try? SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: data)
 		else {
 			fatalError("Cannot initialize static test data")
 		}
@@ -49,6 +61,19 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 	override func fetchStatistics(etag: String?, completion: @escaping CachingHTTPClient.StatisticsFetchingResultHandler) {
 		guard let handler = self.onFetchStatistics else {
 			let response = StatisticsFetchingResponse(CachingHTTPClientMock.staticStatistics, "fake")
+			completion(.success(response))
+			return
+		}
+		handler(etag, completion)
+	}
+	
+	// MARK: - QRCodePosterTemplateFetching
+	
+	var onFetchQRCodePosterTemplateData: ((String?, @escaping CachingHTTPClient.QRCodePosterTemplateCompletionHandler) -> Void)?
+		
+	override func fetchQRCodePosterTemplateData(etag: String?, completion: @escaping CachingHTTPClient.QRCodePosterTemplateCompletionHandler) {
+		guard let handler = self.onFetchQRCodePosterTemplateData else {
+			let response = QRCodePosterTemplateResponse(CachingHTTPClientMock.staticQRCodeTemplate, "fake")
 			completion(.success(response))
 			return
 		}
