@@ -99,10 +99,10 @@ final class CheckinCoordinator {
 	
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			
+
 			didScanCheckin: { [weak self] traceLocation in
 				self?.viewController.dismiss(animated: true, completion: {
-					self?.showCheckinDetails(traceLocation)
+					self?.showTraceLocationDetails(traceLocation)
 				})
 			},
 			dismiss: { [weak self] in
@@ -118,8 +118,8 @@ final class CheckinCoordinator {
 		}
 	}
 	
-	private func showCheckinDetails(_ traceLocation: TraceLocation) {
-		let checkinDetailViewController = CheckinDetailViewController(
+	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
+		let traceLocationDetailViewController = TraceLocationDetailViewController(
 			traceLocation,
 			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
 			presentCheckins: { [weak self] in
@@ -128,7 +128,7 @@ final class CheckinCoordinator {
 				})
 			}
 		)
-		viewController.present(checkinDetailViewController, animated: true)
+		viewController.present(traceLocationDetailViewController, animated: true)
 	}
 	
 	private func showSettings() {

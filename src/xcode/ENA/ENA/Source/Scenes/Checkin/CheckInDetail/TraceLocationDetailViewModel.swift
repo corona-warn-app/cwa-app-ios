@@ -5,13 +5,11 @@
 import UIKit
 import OpenCombine
 
-final class CheckinDetailViewModel {
+final class TraceLocationDetailViewModel {
 
 	// MARK: - Init
 	
-	init(
-		_ traceLocation: TraceLocation
-	) {
+	init(_ traceLocation: TraceLocation) {
 		self.traceLocation = traceLocation
 		
 		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
@@ -32,12 +30,17 @@ final class CheckinDetailViewModel {
 	@OpenCombine.Published var descriptionLabelTitle: String?
 	@OpenCombine.Published var addressLabelTitle: String?
 	@OpenCombine.Published var initialDuration: Int?
-	
+	@OpenCombine.Published var pickerButtonTitle: String?
+
 	var shouldSaveToContactJournal = true
 
 	func pickerView(didSelectRow numberOfMinutes: Int) {
 		selectedDurationInMinutes = numberOfMinutes
-		
+		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
+		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
+		if let hour = getFormattedHourString(date) {
+			pickerButtonTitle = hour + " " + AppStrings.Checkins.Details.hoursShortVersion
+		}
 	}
 		
 	func setupView() {
@@ -46,6 +49,44 @@ final class CheckinDetailViewModel {
 		initialDuration = selectedDurationInMinutes
 	}
 
+	func getTraceLocationStatus() -> TraceLocationDateStatus? {
+		guard let startDate = traceLocation.startDate,
+			  let endDate = traceLocation.endDate else {
+			return nil
+		}
+		if startDate > Date() {
+			return .notStarted
+		} else if endDate < Date() {
+			return .ended
+		} else {
+			return .inProgress
+		}
+	}
+	
+	func getFormattedString(for component: Calendar.Component) -> String? {
+		switch component {
+		case .day:
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .short
+			dateFormatter.locale = Locale.current
+			return dateFormatter.string(from: traceLocation.startDate ?? Date())
+		case .hour:
+			return getFormattedHourString(traceLocation.startDate)
+		default:
+			return nil
+		}
+	}
+	
+	func getFormattedHourString(_ date: Date?) -> String? {
+		let dateComponentsFormatter = DateComponentsFormatter()
+		dateComponentsFormatter.allowedUnits = [.hour, .minute]
+		dateComponentsFormatter.unitsStyle = .positional
+		dateComponentsFormatter.zeroFormattingBehavior = .pad
+		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
+		return dateComponentsFormatter.string(from: components)
+
+	}
+	
 	func saveCheckinToDatabase() {
 //		let startDate = Date()
 //		let endDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: startDate)
@@ -75,4 +116,10 @@ final class CheckinDetailViewModel {
 	
 	private var selectedDurationInMinutes: Int
 	private let traceLocation: TraceLocation
+}
+
+enum TraceLocationDateStatus {
+	case notStarted
+	case inProgress
+	case ended
 }

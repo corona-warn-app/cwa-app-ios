@@ -16,7 +16,7 @@ class TraceLocationDetailViewController: UIViewController {
 	) {
 		self.dismiss = dismiss
 		self.presentCheckins = presentCheckins
-		self.viewModel = CheckinDetailViewModel(traceLocation)
+		self.viewModel = TraceLocationDetailViewModel(traceLocation)
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -53,7 +53,7 @@ class TraceLocationDetailViewController: UIViewController {
 	@IBOutlet private weak var additionalInfoLabel: ENALabel!
 	@IBOutlet private weak var pickerSwitch: ENASwitch!
 		
-	private let viewModel: CheckinDetailViewModel
+	private let viewModel: TraceLocationDetailViewModel
 	private let dismiss: () -> Void
 	private let presentCheckins: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
