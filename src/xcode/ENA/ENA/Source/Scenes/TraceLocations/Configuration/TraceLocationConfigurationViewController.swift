@@ -181,6 +181,17 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		viewModel.permanentDefaultLengthHeaderTapped()
 	}
 
+	@IBAction private func didSelectDate(datePicker: UIDatePicker) {
+		switch datePicker {
+		case startDatePicker:
+			viewModel.startDate = datePicker.date
+		case endDatePicker:
+			viewModel.endDate = datePicker.date
+		default:
+			Log.error("Date picker selection not handled.")
+		}
+	}
+
 	private func setUpBindings() {
 		viewModel.$description
 			.assign(to: \.text, on: descriptionTextField)
@@ -190,19 +201,47 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 			.assign(to: \.text, on: addressTextField)
 			.store(in: &subscriptions)
 
+		viewModel.$startDate
+			.sink { [weak self] in
+				self?.startDatePicker.date = $0 ?? Date()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$startDate
+			.assign(to: \.minimumDate, on: endDatePicker)
+			.store(in: &subscriptions)
+
+		viewModel.$endDate
+			.sink { [weak self] in
+				self?.endDatePicker.date = $0 ?? Date()
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$formattedStartDate
+			.assign(to: \.text, on: startDateValueLabel)
+			.store(in: &subscriptions)
+
+		viewModel.$startDateValueTextColor
+			.assign(to: \.textColor, on: startDateValueLabel)
+			.store(in: &subscriptions)
+
+		viewModel.$formattedEndDate
+			.assign(to: \.text, on: endDateValueLabel)
+			.store(in: &subscriptions)
+
+		viewModel.$endDateValueTextColor
+			.assign(to: \.textColor, on: endDateValueLabel)
+			.store(in: &subscriptions)
+
 		viewModel.$startDatePickerIsHidden
 			.sink { [weak self] isHidden in
-				UIView.animate(withDuration: 0.25) {
-					self?.startDatePickerContainerView.isHidden = isHidden
-				}
+				self?.startDatePickerContainerView.isHidden = isHidden
 			}
 			.store(in: &subscriptions)
 
 		viewModel.$endDatePickerIsHidden
 			.sink { [weak self] isHidden in
-//				UIView.animate(withDuration: 0.25) {
-					self?.endDatePickerContainerView.isHidden = isHidden
-//				}
+				self?.endDatePickerContainerView.isHidden = isHidden
 			}
 			.store(in: &subscriptions)
 

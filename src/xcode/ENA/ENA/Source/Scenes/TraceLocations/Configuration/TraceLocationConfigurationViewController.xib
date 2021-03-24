@@ -187,6 +187,9 @@
                                                                             <rect key="frame" x="0.0" y="12" width="382" height="873"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
+                                                                            <connections>
+                                                                                <action selector="didSelectDateWithDatePicker:" destination="-1" eventType="valueChanged" id="Spw-yl-eDc"/>
+                                                                            </connections>
                                                                         </datePicker>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JmI-Hv-ic5" userLabel="Spacer View">
                                                                             <rect key="frame" x="0.0" y="885" width="382" height="12"/>
@@ -275,6 +278,9 @@
                                                                             <rect key="frame" x="0.0" y="12" width="382" height="873"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
+                                                                            <connections>
+                                                                                <action selector="didSelectDateWithDatePicker:" destination="-1" eventType="valueChanged" id="Ehe-nn-vT1"/>
+                                                                            </connections>
                                                                         </datePicker>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z2y-fx-wYm" userLabel="Spacer View">
                                                                             <rect key="frame" x="0.0" y="885" width="382" height="12"/>
