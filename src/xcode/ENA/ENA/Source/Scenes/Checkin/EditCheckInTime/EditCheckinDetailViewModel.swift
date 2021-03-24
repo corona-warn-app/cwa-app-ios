@@ -16,20 +16,21 @@ final class EditCheckinDetailViewModel {
 	}
 
 	enum TableViewSections: Int, CaseIterable {
+		case header
 		case description
 		case checkInStart
 		case startPicker
 //		case checkInEnd
 //		case endPicker
 
-		var sectionTitle: String? {
-			switch self {
-			case .description:
-				return AppStrings.Checkins.Edit.sectionHeaderTitle
-			default:
-				return nil
-			}
-		}
+//		var sectionTitle: String? {
+//			switch self {
+//			case .description:
+//				return AppStrings.Checkins.Edit.sectionHeaderTitle
+//			default:
+//				return nil
+//			}
+//		}
 	}
 
 	// MARK: - Internal
@@ -48,7 +49,7 @@ final class EditCheckinDetailViewModel {
 			return 0
 		}
 		switch section {
-		case .description, .checkInStart:
+		case .header, .description, .checkInStart:
 			return 1
 		case .startPicker:
 			return isStartDatePickerVisible ? 1 : 0

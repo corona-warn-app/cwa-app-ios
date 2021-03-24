@@ -758,6 +758,7 @@
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
 		BA14204A260B963900CF0726 /* CheckInDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */; };
+		BA142052260BA22F00CF0726 /* CheckInHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA142051260BA22F00CF0726 /* CheckInHeaderCell.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
@@ -809,7 +810,6 @@
 		BA941DCE25E5450D003F9653 /* TopBottomContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA941DCD25E5450D003F9653 /* TopBottomContainerViewController.swift */; };
 		BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */; };
 		BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */; };
-		BA9D92D3260B608900300DEA /* TextHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D92D2260B608900300DEA /* TextHeaderView.swift */; };
 		BA9D92DE260B71D400300DEA /* CheckInTimeWithPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D92DD260B71D400300DEA /* CheckInTimeWithPickerCell.swift */; };
 		BA9D92E3260B71E200300DEA /* CheckInTimeWithPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9D92E2260B71E200300DEA /* CheckInTimeWithPickerModel.swift */; };
 		BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */; };
@@ -1757,6 +1757,7 @@
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
 		BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInDatePickerCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInDatePickerCell.swift; sourceTree = SOURCE_ROOT; };
+		BA142051260BA22F00CF0726 /* CheckInHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInHeaderCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInHeaderCell.swift; sourceTree = SOURCE_ROOT; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -1808,7 +1809,6 @@
 		BA941DCD25E5450D003F9653 /* TopBottomContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBottomContainerViewController.swift; sourceTree = "<group>"; };
 		BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModel.swift; sourceTree = "<group>"; };
 		BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModelTests.swift; sourceTree = "<group>"; };
-		BA9D92D2260B608900300DEA /* TextHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextHeaderView.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Header/TextHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		BA9D92DD260B71D400300DEA /* CheckInTimeWithPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInTimeWithPickerCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInTimeWithPickerCell.swift; sourceTree = SOURCE_ROOT; };
 		BA9D92E2260B71E200300DEA /* CheckInTimeWithPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInTimeWithPickerModel.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInTimeWithPickerModel.swift; sourceTree = SOURCE_ROOT; };
 		BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModelTest.swift; sourceTree = "<group>"; };
@@ -5100,14 +5100,6 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		BA9D92D1260B605E00300DEA /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				BA9D92D2260B608900300DEA /* TextHeaderView.swift */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
 		BA9DD53D2567BD9100C326FF /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -5259,7 +5251,6 @@
 			children = (
 				BADD36DF260B4FBA00DD282A /* EditCheckinDetailViewModel.swift */,
 				BADD36E3260B4FBA00DD282A /* EditCheckinDetailViewController.swift */,
-				BA9D92D1260B605E00300DEA /* Header */,
 				BADD36E0260B4FBA00DD282A /* Cells */,
 				BADD36E5260B4FBA00DD282A /* Views */,
 			);
@@ -5269,6 +5260,7 @@
 		BADD36E0260B4FBA00DD282A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				BA142051260BA22F00CF0726 /* CheckInHeaderCell.swift */,
 				BADD36E2260B4FBA00DD282A /* CheckInDescriptionCell.swift */,
 				BADD36E1260B4FBA00DD282A /* CheckInDescriptionCellModel.swift */,
 				BA9D92DD260B71D400300DEA /* CheckInTimeWithPickerCell.swift */,
@@ -6352,7 +6344,6 @@
 				BAB6C7FE25C4630800E042FB /* PPACError.swift in Sources */,
 				BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */,
 				01B72C0B25875BC300A3E3BC /* DiaryDayAddCellModel.swift in Sources */,
-				BA9D92D3260B608900300DEA /* TextHeaderView.swift in Sources */,
 				01F6702A25FF80490069C4F9 /* AddCheckinCellModel.swift in Sources */,
 				01F6702B25FF80490069C4F9 /* CheckinCellModel.swift in Sources */,
 				0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */,
@@ -6435,6 +6426,7 @@
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
+				BA142052260BA22F00CF0726 /* CheckInHeaderCell.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,

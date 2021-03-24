@@ -59,6 +59,11 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			fatalError("unknown section - can't match a cell type")
 		}
 		switch section {
+		case .header:
+			let cell = tableView.dequeueReusableCell(cellType: CheckInHeaderCell.self, for: indexPath)
+			cell.configure(AppStrings.Checkins.Edit.sectionHeaderTitle)
+			return cell
+
 		case .description:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDescriptionCell.self, for: indexPath)
 			cell.configure(cellModel: viewModel.checkInDescriptionCellModel)
@@ -77,7 +82,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	// MARK: - UITableViewDelegate
-
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return CGFloat.leastNonzeroMagnitude
 	}
@@ -85,7 +89,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return CGFloat.leastNonzeroMagnitude
 	}
-
+/*
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let sectionTitle = EditCheckinDetailViewModel.TableViewSections(rawValue: section)?.sectionTitle,
 			  let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TextHeaderView.reuseIdentifier) as? TextHeaderView else {
@@ -102,6 +106,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		view.backgroundColor = .green // .enaColor(for: .cellBackground)
 		return view
 	}
+*/
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch EditCheckinDetailViewModel.TableViewSections(rawValue: indexPath.section) {
@@ -129,7 +134,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	private var subscriptions = Set<AnyCancellable>()
 	private var selectedDuration: Int?
 	private var isInitialSetup = true
-	private var tableView = UITableView(frame: .zero, style: .grouped)
+	private var tableView = UITableView(frame: .zero, style: .plain)
 
 	private func setupNavigationBar() {
 //		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
@@ -205,19 +210,39 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	private func setupTableView() {
+
+//		let containerView = UIView()
+//		containerView.translatesAutoresizingMaskIntoConstraints = false
+
+//		let titleLabel = ENALabel()
+//		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+//		titleLabel.font = .enaFont(for: .headline)
+//		titleLabel.textColor = .enaColor(for: .textContrast)
+//		titleLabel.accessibilityTraits = .header
+//		containerView.addSubview(titleLabel)
+//
+//		NSLayoutConstraint.activate([
+//			titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 26.0),
+//			titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0),
+//			titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16.0),
+//			titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16.0)
+//		])
+//		tableView.tableHeaderView = titleLabel
+
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .none
-
-		tableView.estimatedSectionHeaderHeight = 0.01
+/*
+		tableView.estimatedSectionHeaderHeight = 0.0
 		tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-		tableView.estimatedSectionFooterHeight = 0.01
+		tableView.estimatedSectionFooterHeight = 0.0
 		tableView.sectionFooterHeight = UITableView.automaticDimension
-
+*/
 		tableView.contentInsetAdjustmentBehavior = .never
 
-		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
+//		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
+		tableView.register(CheckInHeaderCell.self, forCellReuseIdentifier: CheckInHeaderCell.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
 		tableView.register(CheckInTimeWithPickerCell.self, forCellReuseIdentifier: CheckInTimeWithPickerCell.reuseIdentifier)
 		tableView.register(CheckInDatePickerCell.self, forCellReuseIdentifier: CheckInDatePickerCell.reuseIdentifier)

@@ -4,12 +4,12 @@
 
 import UIKit
 
-class TextHeaderView: UITableViewHeaderFooterView, ReuseIdentifierProviding {
+class CheckInHeaderCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 
-	override init(reuseIdentifier: String?) {
-		super.init(reuseIdentifier: reuseIdentifier)
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupView()
 	}
 
@@ -17,6 +17,12 @@ class TextHeaderView: UITableViewHeaderFooterView, ReuseIdentifierProviding {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+
+	// MARK: - Overrides
+
+	// MARK: - Protocol <#Name#>
+
+	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -26,9 +32,12 @@ class TextHeaderView: UITableViewHeaderFooterView, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
+	private let typeLabel = ENALabel()
+
 	private let titleLabel = ENALabel()
 
 	private func setupView() {
+		selectionStyle = .none
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
