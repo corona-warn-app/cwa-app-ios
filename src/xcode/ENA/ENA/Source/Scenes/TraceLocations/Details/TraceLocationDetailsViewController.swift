@@ -74,7 +74,6 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 			case let .success(templateData):
 				DispatchQueue.main.async { [weak self] in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-
 					do {
 						let pdfView = try self?.createPdfView(templateData: templateData)
 						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
