@@ -72,12 +72,12 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 						let pdfView = try self?.createPdfView(templateData: templateData)
 						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
 					} catch {
+						self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
 					}
 				}
 			case let .failure(error):
-					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-				
+				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 				Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
 				return
 			}
