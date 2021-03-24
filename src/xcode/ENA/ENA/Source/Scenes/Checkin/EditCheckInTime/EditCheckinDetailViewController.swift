@@ -76,10 +76,18 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let sectionTitle = EditCheckinDetailViewModel.TableViewSections(rawValue: section)?.sectionTitle,
 			  let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TextHeaderView.reuseIdentifier) as? TextHeaderView else {
-			return nil
+			let view = UIView(frame: .zero)
+			view.backgroundColor = .enaColor(for: .cellBackground)
+			return view
 		}
 		headerView.configure(sectionTitle)
 		return headerView
+	}
+
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		let view = UIView(frame: .zero)
+		view.backgroundColor = .enaColor(for: .cellBackground)
+		return view
 	}
 
 	// MARK: - Private
@@ -169,6 +177,12 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .none
+
+		tableView.estimatedSectionHeaderHeight = 3.5
+		tableView.sectionHeaderHeight = UITableView.automaticDimension
+
+		tableView.estimatedSectionFooterHeight = 3.5
+		tableView.sectionFooterHeight = UITableView.automaticDimension
 
 		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
