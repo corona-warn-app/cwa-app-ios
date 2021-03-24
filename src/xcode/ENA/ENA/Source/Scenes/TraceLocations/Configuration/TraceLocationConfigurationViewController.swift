@@ -42,8 +42,17 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		temporarySettingsContainerView.isHidden = viewModel.temporarySettingsContainerIsHidden
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
-		descriptionTextField.placeholder = "Bezeichnung"
-		addressTextField.placeholder = "Ort"
+		descriptionTextField.placeholder = AppStrings.TraceLocations.Configuration.descriptionPlaceholder
+		addressTextField.placeholder = AppStrings.TraceLocations.Configuration.addressPlaceholder
+
+		startDateTitleLabel.text = AppStrings.TraceLocations.Configuration.startDateTitle
+		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
+
+		temporaryDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		temporaryDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		permanentDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+
 	}
 
 	// MARK: - Protocol FooterViewHandling
