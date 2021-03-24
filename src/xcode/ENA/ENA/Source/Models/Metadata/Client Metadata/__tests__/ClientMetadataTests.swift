@@ -32,7 +32,7 @@ class ClientMetadataTests: XCTestCase {
 		let expectedETag = "fake"
 		
 		// WHEN
-		Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: expectedETag))))
+		mockStore.clientMetadata = ClientMetadata(etag: expectedETag)
 	
 		// THEN
 		XCTAssertNotNil(mockStore.clientMetadata, "Client metadata should be not nil")

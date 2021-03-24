@@ -9,7 +9,7 @@ extension ENCalibrationConfidence: Codable { }
 extension ENDiagnosisReportType: Codable { }
 extension ENInfectiousness: Codable { }
 
-struct ExposureWindow: Codable {
+struct ExposureWindow: Codable, Equatable {
 
 	// MARK: - Init
 
@@ -40,6 +40,16 @@ struct ExposureWindow: Codable {
 	enum CodingKeys: String, CodingKey {
 		case calibrationConfidence, reportType, infectiousness, scanInstances
 		case date = "ageInDays"
+	}
+
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: ExposureWindow, rhs: ExposureWindow) -> Bool {
+		return  lhs.calibrationConfidence == rhs.calibrationConfidence &&
+			lhs.date == rhs.date &&
+			lhs.reportType == rhs.reportType &&
+			lhs.infectiousness == rhs.infectiousness &&
+			lhs.scanInstances == rhs.scanInstances
 	}
 
 	init(from decoder: Decoder) throws {
