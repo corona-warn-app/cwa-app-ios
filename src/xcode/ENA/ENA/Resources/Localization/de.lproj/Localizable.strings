@@ -2123,15 +2123,15 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_Title" = "Einchecken";
 
-"Checkin_Information_ImageDescription" = "Lorem ipsum Smartphone";
+"Checkin_Information_ImageDescription" = "Drei Personen an einem Stehtisch, zwei von ihnen schauen auf ihr Smartphone.";
 
 "Checkin_Information_DescriptionTitle" = "Infektionsketten schnell und sicher unterbrechen";
 
-"Checkin_Information_DescriptionSubHeadline" = "Scannen Sie den QR-Code, um sich einzuchecken und so Ihre Anwesenheit für dieses Event oder diesen Ort zu registrieren. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, werden alle benachrichtigt, die ebenfalls zu dieser Zeit eingecheckt waren.";
+"Checkin_Information_DescriptionSubHeadline" = "Scannen Sie den QR-Code zu einem Event oder Ort, um sich einzuchecken und so Ihre Anwesenheit für dieses Event oder diesen Ort auf Ihrem Smartphone zu speichern.";
 
-"Checkin_Information_Item_Checkin_Title" = "Checken Sie ein in n commodo ligul onec quam feli.";
+"Checkin_Information_Item_RiskStatus_Title" = "Jeder Check-in wird bei der Ermittlung des Risikostatus zusätzlich berücksichtigt. Wird eine eingecheckte Person später positiv getestet, können Sie gewarnt werden, wenn Sie sich zur gleichen Zeit oder bis zu 30 Minuten nach der positiv getesteten Person im gleichen Raum aufgehalten haben.";
 
-"Checkin_Information_Item_Location_Title" = "Sie können so genau sehen wenn sie bei einem Check-In commodo ligul.";
+"Checkin_Information_Item_Time_Title" = "Bitte geben Sie Ihre Aufenthaltszeit so genau wie möglich an, damit gezielt gewarnt werden kann.";
 
 "Checkin_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
 
