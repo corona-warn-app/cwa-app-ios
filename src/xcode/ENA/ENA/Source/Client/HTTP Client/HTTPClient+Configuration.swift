@@ -217,6 +217,16 @@ extension HTTPClient {
 					String(packageId)
 				)
 		}
+		
+		var qrCodePosterTemplateURL: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"qr_code_poster_template_ios"
+			)
+		}
 	}
 }
 

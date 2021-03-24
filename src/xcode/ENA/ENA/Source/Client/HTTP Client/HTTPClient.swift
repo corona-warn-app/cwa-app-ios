@@ -956,6 +956,5 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
-
 	// swiftlint:disable:next file_length
 }
