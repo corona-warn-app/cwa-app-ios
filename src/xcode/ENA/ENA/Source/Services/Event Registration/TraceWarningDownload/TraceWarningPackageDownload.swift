@@ -91,6 +91,12 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	// MARK: - Internal
 	
+	/// Determines the earliest relevant package == the min of the checkin database table. Not private for testing purposes.
+	var earliestRelevantPackage: Int? {
+		let minCheckin = eventStore.checkinsPublisher.value.min(by: { $0.checkinStartDate < $1.checkinStartDate })
+		return minCheckin?.checkinStartDate.unixTimestampInHours
+	}
+	
 	/// Checks if we already downloaded packages last hour. Return true if last download was not successfull or we did not download in the last hour. Not private for testing purposes.
 	func shouldStartPackageDownload(
 		for country: Country.ID
@@ -260,7 +266,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// 5. Determine earliestRelevantPackage.
 		// Take the database entry with the oldest checkinStartDate and convert it to unix timestamp in hours.
 		// Normally, can never fail because we have a check at the beginning for an empty checkin database table.
-		guard let earliestRelevantPackage = eventStore.checkinsPublisher.value.min(by: { $0.checkinStartDate > $1.checkinStartDate })?.checkinStartDate.unixTimestampInHours else {
+		guard let earliestRelevantPackage = earliestRelevantPackage else {
 			Log.error("TraceWarningPackageDownload: Could not determine earliestRelevantPackage. Abort Download.", log: .checkin)
 			completion(.failure(.noEarliestRelevantPackage))
 			return

@@ -461,6 +461,8 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_RevokeMetadatas_THEN_IsRevoked() {
+		
+		// GIVEN
 		let eventStore = MockEventStore()
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 0, region: "DE", eTag: "123"))
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 1, region: "DE", eTag: "456"))
@@ -487,19 +489,62 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.eTag == "123" }))
 	}
 	
-	/*
+	func testGIVEN_TraceWarningDownload_WHEN_EarliestRelevantPackage_THEN_CorrectIdIsReturned() {
+		
+		// GIVEN
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: 44440.dateFromUnixTimestampInHours ?? Date()))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: 44441.dateFromUnixTimestampInHours ?? Date()))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: 44442.dateFromUnixTimestampInHours ?? Date()))
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
+	
+		XCTAssertEqual(eventStore.checkinsPublisher.value.count, 3)
+		
+		// WHEN
+		let earliestPackage = traceWarningPackageDownload.earliestRelevantPackage
+		
+		// THEN
+		XCTAssertEqual(earliestPackage, 44440)
+	}
+	
+	
 	func testGIVEN_TraceWarningDownload_WHEN_CleanUpOutdatedMetadata_THEN_IsRevoked() {
-	// GIVEN
-	<#given code#>
+		
+		// GIVEN
+		let eventStore = MockEventStore()
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44400, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44441, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44442, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44443, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44444, region: "DE", eTag: "FakeETag"))
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 	
-	// WHEN
-	<#when code#>
-	
-	// THEN
-	<#then code#>
+		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 5)
+		
+		// WHEN
+		traceWarningPackageDownload.cleanUpOutdatedMetadata(from: 44440, to: 44443)
+		
+		// THEN
+		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 2)
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44440 }))
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44441 }))
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44442 }))
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44443 }))
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44444 }))
 	
 	}
 	
+	/*
 	func testGIVEN_TraceWarningDownload_WHEN_DeterminePackagesToDownload_THEN_PackagesAreReturned() {
 	// GIVEN
 	<#given code#>

@@ -368,6 +368,7 @@
 		504E8B1425D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */; };
 		504E8B2C25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */; };
 		504E8B3125D41CD400CAFBDF /* DMPPAnalyticsActualData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */; };
+		5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */; };
 		505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F2E512587738900697CC2 /* AccessibilityLabels.swift */; };
 		505F506E25C833AA004920EB /* edus_otp_request_ios.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */; };
 		505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F506A25C833A9004920EB /* edus_otp.pb.swift */; };
@@ -1354,6 +1355,7 @@
 		504E8B1325D400DF00CAFBDF /* DMPPAnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsViewModel.swift; sourceTree = "<group>"; };
 		504E8B2B25D41CBD00CAFBDF /* DMPPAnalyticsMostRecent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsMostRecent.swift; sourceTree = "<group>"; };
 		504E8B3025D41CD400CAFBDF /* DMPPAnalyticsActualData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMPPAnalyticsActualData.swift; sourceTree = "<group>"; };
+		5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DateFromUnixTimestampInHours.swift"; sourceTree = "<group>"; };
 		505F2E512587738900697CC2 /* AccessibilityLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityLabels.swift; sourceTree = "<group>"; };
 		505F506925C833A9004920EB /* edus_otp_request_ios.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = edus_otp_request_ios.pb.swift; sourceTree = "<group>"; };
 		505F506A25C833A9004920EB /* edus_otp.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = edus_otp.pb.swift; sourceTree = "<group>"; };
@@ -3364,6 +3366,7 @@
 				2F96739A24AB70FA008E3147 /* ExposureSubmissionParsable.swift */,
 				EB17144525716EA80088D7A9 /* FileManager+KeyPackageStorage.swift */,
 				01D02625258A769200B6389A /* HTTPURLResponse+Header.swift */,
+				5051CBAE260BCE70003FC7C1 /* Int+DateFromUnixTimestampInHours.swift */,
 				017AD121259DDE6B00FA2B3F /* ISO8601DateFormatter+ContactDiary.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				3523F8A72570F819004B0424 /* NSAttributedString+BulletPoint.swift */,
@@ -6648,6 +6651,7 @@
 				8F11512425DC27E9007BDBC6 /* (null) in Sources */,
 				BAC0A4DE25768039002B5361 /* TanInputViewModelTests.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
+				5051CBB6260BCF6D003FC7C1 /* Int+DateFromUnixTimestampInHours.swift in Sources */,
 				B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */,
 				BA69A80525CDA6B300023265 /* SelectValueCellViewModelTests.swift in Sources */,
 				A372DA3F24BEF773003248BB /* ExposureSubmissionCoordinatorTests.swift in Sources */,
