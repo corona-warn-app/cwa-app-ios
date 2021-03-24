@@ -91,6 +91,58 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	// MARK: - Internal
 	
+	/// Checks if we already downloaded packages last hour. Return true if last download was not successfull or we did not download in the last hour. Not private for testing purposes.
+	func shouldStartPackageDownload(
+		for country: Country.ID
+	) -> Bool {
+		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date())?.unixTimestampInHours else {
+			Log.error("TraceWarningPackageDownload: Could not create last hour date.", log: .checkin)
+			fatalError("TraceWarningPackageDownload: Could not create last hour date.")
+		}
+		
+		let lastHourInDatabase = eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == lastHourDate })
+		let shouldStart = !lastHourInDatabase || !store.wasRecentTraceWarningDownloadSuccessful
+		Log.info("TraceWarningPackageDownload: ShouldStartPackageDownload: \(shouldStart)", log: .checkin)
+		return shouldStart
+	}
+	
+	/// Filters all by the app config revoked TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages. Identified by their eTag. Not private for testing purposes.
+	func removeRevokedTraceWarningMetadataPackages(
+		_ revokedPackages: [SAP_Internal_V2_TraceWarningPackageMetadata]
+	) {
+		let packagesToRemove = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ databasePackage in
+			revokedPackages.contains(where: { appConfigPackage in
+				databasePackage.eTag == appConfigPackage.etag
+			})
+		})
+		
+		removePackagesFromTraceWarningMetadataPackagesTable(packagesToRemove)
+	}
+	
+	/// Filters all outdated TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages. Not private for testing purposes.
+	func cleanUpOutdatedMetadata(
+		from oldestPackage: Int,
+		to earliestRelevantPackage: Int
+	) {
+		// Take the max of the oldest and earliestRelevantPackage and remove all metadatas that are older that this max.
+		let maxId = max(oldestPackage, earliestRelevantPackage)
+		let packagesToDelete = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ return $0.id < maxId })
+		Log.info("TraceWarningPackageDownload: Clean up packages: \(packagesToDelete).")
+		removePackagesFromTraceWarningMetadataPackagesTable(packagesToDelete)
+	}
+	
+	/// Filters out the packages to be downloaded by subtracting the actual packages from the available packages. Not private for testing purposes.
+	func determinePackagesToDownload(
+		availables availablePackagesOnCDN: [Int],
+		to earliestRelevantPackage: Int
+	) -> Set<Int> {
+		// Get all packages that are earlier then the earliestRelevantPackage
+		let earlierPackages = Set(availablePackagesOnCDN.filter { return $0 >= earliestRelevantPackage })
+		// Now filter out all entries that are not in our metadata database
+		let metadataIds = Set(eventStore.traceWarningPackageMetadatasPublisher.value.map { $0.id })
+		return earlierPackages.subtracting(metadataIds)
+	}
+	
 	// MARK: - Private
 	
 	private let client: Client
@@ -330,58 +382,6 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	// MARK: - Private helpers
 	
-	/// Checks if we already downloaded packages last hour. Return true if last download was not successfull or we did not download in the last hour.
-	private func shouldStartPackageDownload(
-		for country: Country.ID
-	) -> Bool {
-		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date())?.unixTimestampInHours else {
-			Log.error("TraceWarningPackageDownload: Could not create last hour date.", log: .checkin)
-			fatalError("TraceWarningPackageDownload: Could not create last hour date.")
-		}
-		
-		let lastHourInDatabase = eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == lastHourDate })
-		let shouldStart = !lastHourInDatabase || !store.wasRecentTraceWarningDownloadSuccessful
-		Log.info("TraceWarningPackageDownload: ShouldStartPackageDownload: \(shouldStart)", log: .checkin)
-		return shouldStart
-	}
-	
-	/// Filters all by the app config revoked TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages. Identified by their eTag.
-	private func removeRevokedTraceWarningMetadataPackages(
-		_ revokedPackages: [SAP_Internal_V2_TraceWarningPackageMetadata]
-	) {
-		let packagesToRemove = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ databasePackage in
-			revokedPackages.contains(where: { appConfigPackage in
-				databasePackage.eTag == appConfigPackage.etag
-			})
-		})
-		
-		removePackagesFromTraceWarningMetadataPackagesTable(packagesToRemove)
-	}
-	
-	/// Filters all outdated TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages.
-	private func cleanUpOutdatedMetadata(
-		from oldestPackage: Int,
-		to earliestRelevantPackage: Int
-	) {
-		// Take the max of the oldest and earliestRelevantPackage and remove all metadatas that are older that this max.
-		let maxId = max(oldestPackage, earliestRelevantPackage)
-		let packagesToDelete = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ return $0.id < maxId })
-		Log.info("TraceWarningPackageDownload: Clean up packages: \(packagesToDelete).")
-		removePackagesFromTraceWarningMetadataPackagesTable(packagesToDelete)
-	}
-	
-	/// Filters out the packages to be downloaded by subtracting the actual packages from the available packages.
-	private func determinePackagesToDownload(
-		availables availablePackagesOnCDN: [Int],
-		to earliestRelevantPackage: Int
-	) -> Set<Int> {
-		// Get all packages that are earlier then the earliestRelevantPackage
-		let earlierPackages = Set(availablePackagesOnCDN.filter { return $0 >= earliestRelevantPackage })
-		// Now filter out all entries that are not in our metadata database
-		let metadataIds = Set(eventStore.traceWarningPackageMetadatasPublisher.value.map { $0.id })
-		return earlierPackages.subtracting(metadataIds)
-	}
-	
 	/// Removes packages from database table TraceWarningMetadataPackages. Identified by their id.
 	private func removePackagesFromTraceWarningMetadataPackagesTable(
 		_ packages: [TraceWarningPackageMetadata]
@@ -390,6 +390,4 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			eventStore.deleteTraceWarningPackageMetadata(id: package.id)
 		}
 	}
-	
-	
 }

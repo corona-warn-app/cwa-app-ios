@@ -6,6 +6,7 @@
 import Foundation
 import XCTest
 
+// swiftlint:disable:next type_body_length
 class TraceWarningPackageDownloadTests: XCTestCase {
 	
 	// MARK: - Success
@@ -432,6 +433,100 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 	}
 	
 	// MARK: - TraceWarningDownload Helper Tests
+	
+	func testGIVEN_ShouldStartPackageDownload_WHEN_RecentDownloadWasNotSuccessful_THEN_ReturnTrue() {
+		// GIVEN
+		let store = MockTestStore()
+		store.wasRecentTraceWarningDownloadSuccessful = false
+		
+		let eventStore = MockEventStore()
+		
+		// WHEN
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: store,
+			eventStore: eventStore)
+		
+		// THEN
+		let result = traceWarningPackageDownload.shouldStartPackageDownload(for: "DE")
+		
+		XCTAssertTrue(result)
+	}
+	
+	
+	func testGIVEN_ShouldStartPackageDownload_WHEN_LastHourIsInDatabaseAndRecentDownloadWasSuccessful_THEN_ReturnFalse() {
+		// GIVEN
+		let store = MockTestStore()
+		store.wasRecentTraceWarningDownloadSuccessful = true
+		
+		let eventStore = MockEventStore()
+		guard let lastHourDate = Calendar.utcCalendar.date(byAdding: .hour, value: -1, to: Date()) else {
+			XCTFail("Could not create lastHourDate.")
+			return
+		}
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: lastHourDate.unixTimestampInHours, region: "DE", eTag: "FakeETag"))
+		
+		// WHEN
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: store,
+			eventStore: eventStore)
+		
+		// THEN
+		let result = traceWarningPackageDownload.shouldStartPackageDownload(for: "DE")
+		
+		XCTAssertFalse(result)
+	}
+	
+	/*
+	func testGIVEN_TraceWarningDownload_WHEN_RevokeMetadatas_THEN_IsRevoked() {
+	// GIVEN
+	<#given code#>
+	
+	// WHEN
+	<#when code#>
+	
+	// THEN
+	<#then code#>
+	
+	}
+	
+	func testGIVEN_TraceWarningDownload_WHEN_CleanUpOutdatedMetadata_THEN_IsRevoked() {
+	// GIVEN
+	<#given code#>
+	
+	// WHEN
+	<#when code#>
+	
+	// THEN
+	<#then code#>
+	
+	}
+	
+	func testGIVEN_TraceWarningDownload_WHEN_DeterminePackagesToDownload_THEN_PackagesAreReturned() {
+	// GIVEN
+	<#given code#>
+	
+	// WHEN
+	<#when code#>
+	
+	// THEN
+	<#then code#>
+	
+	}
+	
+	func testGIVEN_TraceWarningDownload_WHEN_DeterminePackagesToDownload_THEN_PackagesAreNotReturned() {
+	// GIVEN
+	<#given code#>
+	
+	// WHEN
+	<#when code#>
+	
+	// THEN
+	<#then code#>
+	
+	}
+*/
 	
 	// MARK: - Private
 	
