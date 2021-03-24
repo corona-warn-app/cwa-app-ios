@@ -1366,6 +1366,10 @@
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Corona-Warn-App kullanıcıları artık şifrelenmiş rastgele kimlikleri, İsviçre’de resmi uyarı uygulamasının kullanıcıları ile değiştirebilir. Buna göre, artık İsviçre’deki uygulama kullanıcıları ile uyarı alışverişi yapılabilir.";
 
+"NewVersionFeature_115_days_since_install_title" = "Risk Kutucuklarındaki Değişiklik";
+
+"NewVersionFeature_115_days_since_install_description" = "Artık risk kutucukları etkin gün sayısını veya uygulamanın kalıcı olarak etkin olduğuna yönelik notu içermemektedir.";
+
 "NewVersionFeature_115_error_analytic_logs_title" = "Hata Raporlarının Oluşturulması";
 
 "NewVersionFeature_115_error_analytic_logs_description" = "Artık teknik destek talebi üzerine bir hata raporu oluşturabilir ve uygulamada gerçekleştirdiğiniz adımları kaydedebilirsiniz. Bu sayede teknik hataların analiz edilmesi ve daha kısa süre içinde düzeltilmesi kolaylaştırılacaktır.";

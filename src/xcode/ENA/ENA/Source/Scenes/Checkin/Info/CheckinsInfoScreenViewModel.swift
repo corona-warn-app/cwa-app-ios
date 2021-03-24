@@ -46,8 +46,8 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
-						text: .string(AppStrings.Checkins.Information.itemCheckinTitle),
+						UIImage(imageLiteralResourceName: "Icons_CheckInRiskStatus"),
+						text: .string(AppStrings.Checkins.Information.itemRiskStatusTitle),
 						alignment: .top
 					),
 					.space(
@@ -55,8 +55,8 @@ struct CheckInsInfoScreenViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.Checkins.Information.itemLocationTitle),
+						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
+						text: .string(AppStrings.Checkins.Information.itemTimeTitle),
 						alignment: .top
 					)
 				]
@@ -64,16 +64,14 @@ struct CheckInsInfoScreenViewModel {
 			// Legal text
 			.section(cells: [
 				.legalExtended(
-					title: NSAttributedString(string: AppStrings.Checkins.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline_1),
+					title: NSAttributedString(string: AppStrings.Checkins.Information.legalHeadline01),
+					subheadline1: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline01),
 					bulletPoints1: [
-						NSAttributedString(string: AppStrings.Checkins.Information.legalText_1),
-						NSAttributedString(string: AppStrings.Checkins.Information.legalText_2)
+						bulletPointCellWithBoldHeadline(title: AppStrings.Checkins.Information.legalText01bold, text: AppStrings.Checkins.Information.legalText01normal),
+						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText02),
+						bulletPointCellWithBoldText(text: AppStrings.Checkins.Information.legalText03)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline_2),
-					bulletPoints2: [
-						NSAttributedString(string: AppStrings.Checkins.Information.legalText_3)
-						],
+					subheadline2: NSAttributedString(string: AppStrings.Checkins.Information.legalSubHeadline02),
 					accessibilityIdentifier: AccessibilityIdentifiers.CheckinInformation.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
@@ -104,5 +102,21 @@ struct CheckInsInfoScreenViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+	
+	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
+		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
+		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
+		return bulletPoint
+	}
 
+	private func bulletPointCellWithBoldText(text: String) -> NSMutableAttributedString {
+		return NSMutableAttributedString(string: "\(text)", attributes: boldTextAttribute)
+	}
+	
 }

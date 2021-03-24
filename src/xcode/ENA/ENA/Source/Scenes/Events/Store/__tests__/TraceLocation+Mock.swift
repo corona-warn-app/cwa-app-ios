@@ -10,7 +10,7 @@ extension TraceLocation {
 	static func mock(
 		guid: String = "",
 		version: Int = 0,
-		type: TraceLocationType = .type1,
+		type: TraceLocationType = .locationTypeUnspecified,
 		description: String = "",
 		address: String = "",
 		startDate: Date? = nil,

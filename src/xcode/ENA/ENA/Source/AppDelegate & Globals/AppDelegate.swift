@@ -233,6 +233,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		riskProvider: riskProvider
 	)
 
+	private lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
+		eventStore: eventStore,
+		contactDiaryStore: contactDiaryStore
+	)
+
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
@@ -273,6 +278,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			plausibleDeniabilityService: self.plausibleDeniabilityService,
 			contactDiaryStore: self.contactDiaryStore,
 			eventStore: self.eventStore,
+			eventCheckoutService: self.eventCheckoutService,
 			store: self.store,
 			exposureSubmissionDependencies: self.exposureSubmissionServiceDependencies
 		)

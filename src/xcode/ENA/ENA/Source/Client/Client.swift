@@ -57,14 +57,14 @@ protocol Client {
 		completion completeWith: @escaping RegistrationHandler
 	)
 
-	// getTestResultForDevice
+	/// Gets the test result for the device
 	func getTestResult(
 		forDevice registrationToken: String,
 		isFake: Bool,
 		completion completeWith: @escaping TestResultHandler
 	)
 
-	// getTANForDevice
+	/// Gets the TAN for the device
 	func getTANForExposureSubmit(
 		forDevice registrationToken: String,
 		isFake: Bool,

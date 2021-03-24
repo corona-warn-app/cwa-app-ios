@@ -65,30 +65,32 @@ class DiaryCoordinator {
 
 	/// Directly open the current day view. Used for deep links & shortcuts
 	func showCurrentDayScreen() {
-		// Info view MUST be shown
-		guard infoScreenShown else {
-			Log.debug("Diary info screen not shown. Skipping further navigation", log: .ui)
-			// set this to true to open current day screen after info screen has been dismissed
-			showCurrentDayScreenAfterInfoScreen = true
-			return
-		}
-
-		// check if the data model is correct
-		let model = DiaryOverviewViewModel(
-			diaryStore: diaryStore,
-			store: store,
-			homeState: homeState
-		)
-		guard let today = model.days.first else {
-			Log.warning("Can't get 'today' from `DiaryOverviewViewModel`. Discarding further quick action handling.", log: .ui)
-			return
-		}
 		// prevent navigation issues by falling back to overview screen
 		viewController.popToRootViewController(animated: false)
 		// dismiss all presented view controllers
 		viewController.view.window?.rootViewController?.dismiss(animated: false, completion: { [weak self] in
+			guard let self = self else {
+				return
+			}
+			// Info view MUST be shown
+			guard self.infoScreenShown else {
+				Log.debug("Diary info screen not shown. Skipping further navigation", log: .ui)
+				// set this to true to open current day screen after info screen has been dismissed
+				self.showCurrentDayScreenAfterInfoScreen = true
+				return
+			}
+			// check if the data model is correct
+			let model = DiaryOverviewViewModel(
+				diaryStore: self.diaryStore,
+				store: self.store,
+				homeState: self.homeState
+			)
+			guard let today = model.days.first else {
+				Log.warning("Can't get 'today' from `DiaryOverviewViewModel`. Discarding further quick action handling.", log: .ui)
+				return
+			}
 			// now show the screen
-			self?.showDayScreen(day: today)
+			self.showDayScreen(day: today)
 		})
 	}
 	
@@ -137,6 +139,7 @@ class DiaryCoordinator {
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
+		
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
 				presentDisclaimer: {
@@ -150,13 +153,28 @@ class DiaryCoordinator {
 				dismissAction()
 			}
 		)
-		return viewController
+			
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ContactDiary.Information.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: viewController,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 	
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
+		var navigationController: UINavigationController!
 		let infoVC = infoScreen(
 			dismissAction: {
 				navigationController.dismiss(animated: true)
@@ -169,7 +187,7 @@ class DiaryCoordinator {
 
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+		navigationController = UINavigationController(rootViewController: infoVC)
 		viewController.present(navigationController, animated: true)
 	}
 	
@@ -186,7 +204,15 @@ class DiaryCoordinator {
 				self?.showDiaryDayNotesInfoScreen()
 			}
 		)
+		
+		if let currentDayVC = self.viewController.viewControllers.last as? DiaryDayViewController, currentDayVC.day == day {
+			// prevent pushing the same day again
+			return
+		}
 
+		// reset to root before showing day
+		self.viewController.popToRootViewController(animated: false)
+		
 		self.viewController.pushViewController(viewController, animated: true)
 	}
 

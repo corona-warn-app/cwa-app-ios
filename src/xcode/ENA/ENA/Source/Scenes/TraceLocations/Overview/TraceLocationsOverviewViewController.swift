@@ -140,12 +140,6 @@ class TraceLocationsOverviewViewController: UITableViewController, FooterViewHan
 		}
 	}
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		didTapDeleteAllButton()
-	}
-
 	// MARK: - Private
 
 	private let viewModel: TraceLocationsOverviewViewModel

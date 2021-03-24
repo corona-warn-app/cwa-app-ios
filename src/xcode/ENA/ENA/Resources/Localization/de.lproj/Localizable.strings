@@ -2036,6 +2036,55 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
+
+"TraceLocations_Section_Title_Permanent" = "ORT";
+
+"TraceLocations_Section_Title_Temporary" = "EVENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "anderer Ort";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Einzelhandel";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Gastronomiebetrieb";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Handwerksbetrieb";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Arbeitsstätte";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Bildungsstätte";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "öffentliches Gebäude";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Geschäft, Verkaufsraum";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Café, Kneipe, Restaurant, Hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Friseur, Schreinerei";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Büro, Konferenzraum, Kantine";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Klassenzimmer, Vorlesungssaal, Bibliothek";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Bürgeramt, Museum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "anderes Event";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kulturveranstaltung";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Vereinsaktivität";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "private Feier";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Gottesdienst";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konzert, Kunstausstellung";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Sporttraining, Mitgliederversammlung";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Geburtstag, Familienfeier";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
@@ -2074,16 +2123,22 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_Title" = "Einchecken";
 
-"Checkin_Information_ImageDescription" = "Lorem ipsum Smartphone";
+"Checkin_Information_ImageDescription" = "Drei Personen an einem Stehtisch, zwei von ihnen schauen auf ihr Smartphone.";
 
 "Checkin_Information_DescriptionTitle" = "Infektionsketten schnell und sicher unterbrechen";
 
-"Checkin_Information_DescriptionSubHeadline" = "Scannen Sie den QR-Code, um sich einzuchecken und so Ihre Anwesenheit für dieses Event oder diesen Ort zu registrieren. Wird eine eingecheckte Person später positiv auf das Coronavirus getestet, werden alle benachrichtigt, die ebenfalls zu dieser Zeit eingecheckt waren.";
+"Checkin_Information_DescriptionSubHeadline" = "Scannen Sie den QR-Code zu einem Event oder Ort, um sich einzuchecken und so Ihre Anwesenheit für dieses Event oder diesen Ort auf Ihrem Smartphone zu speichern.";
 
-"Checkin_Information_Item_Checkin_Title" = "Checken Sie ein in n commodo ligul onec quam feli.";
+"Checkin_Information_Item_RiskStatus_Title" = "Jeder Check-in wird bei der Ermittlung des Risikostatus zusätzlich berücksichtigt. Wird eine eingecheckte Person später positiv getestet, können Sie gewarnt werden, wenn Sie sich zur gleichen Zeit oder bis zu 30 Minuten nach der positiv getesteten Person im gleichen Raum aufgehalten haben.";
 
-"Checkin_Information_Item_Location_Title" = "Sie können so genau sehen wenn sie bei einem Check-In commodo ligul.";
+"Checkin_Information_Item_Time_Title" = "Bitte geben Sie Ihre Aufenthaltszeit so genau wie möglich an, damit gezielt gewarnt werden kann.";
 
 "Checkin_Information_Dataprivacy_Title" = "Weitere Hinweise finden Sie in der Datenschutzerklärung.";
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
+
+/* Checkout */
+
+"Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
+
+"Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
