@@ -31,6 +31,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 //		setupNavigationBar()
 		setupView()
 		setupTableView()
+		setupCombine()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -93,6 +94,24 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		view.backgroundColor = .enaColor(for: .cellBackground)
 		return view
 	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		switch EditCheckinDetailViewModel.TableViewSections(rawValue: indexPath.section) {
+		case .none:
+			Log.debug("unknown section selected - ignoring")
+			return
+
+		case .some(let section):
+			switch section {
+			case .checkInStart:
+				viewModel.togglePicker()
+			default:
+				Log.debug("Section doesn't support selection")
+			}
+		}
+
+	}
+
 
 	// MARK: - Private
 	
@@ -192,6 +211,16 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
 		tableView.register(CheckInTimeWithPickerCell.self, forCellReuseIdentifier: CheckInTimeWithPickerCell.reuseIdentifier)
 		tableView.register(DatePickerCell.self, forCellReuseIdentifier: DatePickerCell.reuseIdentifier)
+	}
+
+	private func setupCombine() {
+		viewModel.$isStartDatePickerVisible
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] newValue in
+				let sectionIndex = EditCheckinDetailViewModel.TableViewSections.startPicker.rawValue
+				self?.tableView.reloadSections([sectionIndex], with: .automatic)
+			}
+			.store(in: &subscriptions)
 	}
 
 }

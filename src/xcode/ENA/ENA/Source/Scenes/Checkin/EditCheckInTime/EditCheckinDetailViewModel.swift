@@ -34,8 +34,6 @@ final class EditCheckinDetailViewModel {
 
 	// MARK: - Internal
 
-	var updateTableViewSection: (IndexSet) -> Void = { _ in }
-
 	var checkInDescriptionCellModel: CheckInDescriptionCellModel {
 		return CheckInDescriptionCellModel(checkIn: checkIn)
 	}
@@ -53,13 +51,20 @@ final class EditCheckinDetailViewModel {
 		case .description, .checkInStart:
 			return 1
 		case .startPicker:
-			return 1
+			return isStartDatePickerVisible ? 1 : 0
 		}
+	}
+
+	func togglePicker() {
+		isStartDatePickerVisible.toggle()
 	}
 
 	// MARK: - Private
 	
 	private let checkIn: Checkin
+
 	private var isStartDatePickerIsHidden: Bool = true
+
+	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
 
 }
