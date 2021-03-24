@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class CheckinDetailViewController: UIViewController {
+class TraceLocationDetailViewController: UIViewController {
 
 	// MARK: - Init
 
@@ -49,8 +49,10 @@ class CheckinDetailViewController: UIViewController {
 	@IBOutlet private weak var pickerContainerView: UIView!
 	@IBOutlet private weak var pickerSeparator: UIView!
 	@IBOutlet private weak var datePickerView: UIDatePicker!
-	
-	
+	@IBOutlet private weak var additionalInfoView: UIView!
+	@IBOutlet private weak var additionalInfoLabel: ENALabel!
+	@IBOutlet private weak var pickerSwitch: ENASwitch!
+		
 	private let viewModel: CheckinDetailViewModel
 	private let dismiss: () -> Void
 	private let presentCheckins: () -> Void
@@ -66,11 +68,15 @@ class CheckinDetailViewController: UIViewController {
 		activityLabel.text = AppStrings.Checkins.Details.activity
 		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
 		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
+		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
+		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
 
+		setupAdditionalInfoView()
+		
 		viewModel.$descriptionLabelTitle
 			.sink { [weak self] description in
 				self?.descriptionLabel.text = description
@@ -90,6 +96,42 @@ class CheckinDetailViewController: UIViewController {
 
 			}
 			.store(in: &subscriptions)
+		
+		viewModel.$pickerButtonTitle
+			.sink { [weak self] hour in
+				if let hour = hour {
+					self?.pickerButton.setTitle(hour, for: .normal)
+				}
+			}
+			.store(in: &subscriptions)
+	}
+	
+	private func setupAdditionalInfoView() {
+		
+		additionalInfoView.isHidden = false
+		additionalInfoLabel.text = String(
+			format: AppStrings.Checkins.Details.eventNotStartedYet,
+			viewModel.getFormattedString(for: .day) ?? "",
+			viewModel.getFormattedString(for: .hour) ?? ""
+		)
+//
+//		let status = viewModel.getTraceLocationStatus()
+//		switch status {
+//		case .notStarted:
+//			additionalInfoView.isHidden = false
+//			additionalInfoLabel.text = String(
+//				format: AppStrings.Checkins.Details.eventNotStartedYet,
+//				viewModel.getFormattedString(for: .day) ?? "",
+//				viewModel.getFormattedString(for: .hour) ?? ""
+//			)
+//		case .ended:
+//			additionalInfoView.isHidden = false
+//			additionalInfoLabel.text = AppStrings.Checkins.Details.eventEnded
+//		case .inProgress:
+//			additionalInfoView.isHidden = true
+//		case .none:
+//			additionalInfoView.isHidden = true
+//		}
 	}
 	
 	private func setupPicker(with duration: Int) {
@@ -102,29 +144,13 @@ class CheckinDetailViewController: UIViewController {
 	@objc
 	private func didSelectDuration(datePicker: UIDatePicker) {
 		viewModel.pickerView(didSelectRow: datePicker.date.todaysMinutes)
-		let components = datePicker.date.todaysMinutes.quotientAndRemainder(dividingBy: 60)
-		pickerButton.setTitle(
-			"\(components.quotient):\(components.remainder) " + AppStrings.Checkins.Details.hoursShortVersion,
-			for: .normal
-		)
 	}
 
 	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
 		view.layer.borderColor = color.cgColor
 		view.layer.borderWidth = 1
 	}
-	
-	@IBAction private func showPickerButton(_ sender: Any) {
-		pickerContainerView.isHidden = !pickerContainerView.isHidden
-		pickerSeparator.isHidden = pickerContainerView.isHidden
-		
-		if !pickerContainerView.isHidden && isInitialSetup {
-			isInitialSetup = false
-			let components = selectedDuration?.quotientAndRemainder(dividingBy: 60)
-			let date = DateComponents(calendar: Calendar.current, hour: components?.quotient, minute: components?.remainder).date ?? Date()
-			datePickerView.setDate(date, animated: true)
-		}
-	}
+
 	
 	@IBAction private func checkInPressed(_ sender: Any) {
 		viewModel.saveCheckinToDatabase()
@@ -135,7 +161,32 @@ class CheckinDetailViewController: UIViewController {
 		dismiss()
 	}
 	
-	@IBAction private func switchValueChanged(_ sender: UISwitch) {
-		viewModel.shouldSaveToContactJournal = sender.isOn
+	@IBAction private func switchViewTapped(_ sender: Any) {
+		pickerSwitch.setOn(!pickerSwitch.isOn, animated: true)
+		switchValueChanged(sender)
+	}
+	
+	@IBAction private func switchValueChanged(_ sender: Any) {
+		viewModel.shouldSaveToContactJournal = pickerSwitch.isOn
+	}
+
+	@IBAction private func pickerViewTapped(_ sender: Any) {
+		showPickerButton(sender)
+	}
+	
+	@IBAction private func showPickerButton(_ sender: Any) {
+		UIView.animate(withDuration: 0.5) {
+			self.pickerContainerView.isHidden = !self.pickerContainerView.isHidden
+			self.pickerSeparator.isHidden = self.pickerContainerView.isHidden
+		}
+		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .buttonPrimary)
+		pickerButton.setTitleColor(color, for: .normal)
+
+		if !pickerContainerView.isHidden && isInitialSetup {
+			isInitialSetup = false
+			let components = selectedDuration?.quotientAndRemainder(dividingBy: 60)
+			let date = DateComponents(calendar: Calendar.current, hour: components?.quotient, minute: components?.remainder).date ?? Date()
+			datePickerView.setDate(date, animated: true)
+		}
 	}
 }
