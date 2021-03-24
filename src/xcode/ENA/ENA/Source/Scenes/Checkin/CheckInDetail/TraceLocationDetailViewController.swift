@@ -167,13 +167,12 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 	
 	@IBAction private func showPickerButton(_ sender: Any) {
-		UIView.animate(withDuration: 0.5) {
-			self.pickerContainerView.isHidden = !self.pickerContainerView.isHidden
-			self.pickerSeparator.isHidden = self.pickerContainerView.isHidden
-		}
+		self.pickerContainerView.isHidden = !self.pickerContainerView.isHidden
+		self.pickerSeparator.isHidden = self.pickerContainerView.isHidden
+		
 		let color: UIColor = pickerContainerView.isHidden ? .enaColor(for: .textPrimary1) : .enaColor(for: .buttonPrimary)
 		pickerButton.setTitleColor(color, for: .normal)
-
+		
 		if !pickerContainerView.isHidden && isInitialSetup {
 			isInitialSetup = false
 			let components = selectedDuration?.quotientAndRemainder(dividingBy: 60)
