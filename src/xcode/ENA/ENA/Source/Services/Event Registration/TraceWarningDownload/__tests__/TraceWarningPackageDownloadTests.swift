@@ -31,25 +31,21 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			completion(.success(self.dummyResponseDownload))
 		}
 		
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
-		let verifier = MockVerifier()
-		
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
+			store: MockTestStore(),
 			eventStore: eventStore,
-			verifier: verifier
+			verifier: MockVerifier()
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage HappyCase_THEN_Success.")
 		
 		// WHEN
-		
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
@@ -71,20 +67,17 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsEmpty_THEN_Success() {
 		
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
-		let eventStore = MockEventStore()
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			store: store,
-			eventStore: eventStore)
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: MockEventStore()
+		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage CheckInDatabaseIsEmpty_THEN_Success.")
 		
 		// WHEN
-		
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
@@ -95,7 +88,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			case let .failure(error):
 				XCTFail("Test should not fail but did with error: \(error)")
 			}
-			
 		})
 		
 		// THEN
@@ -111,7 +103,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			let emptyAvailablePackagesResponse = TraceWarningDiscovery(oldest: 12345, latest: 12344, eTag: "FakeEtag")
 			completion(.success(emptyAvailablePackagesResponse))
 		}
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
@@ -119,13 +110,13 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
-			eventStore: eventStore)
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage AvailablePackagesOnCDNAreEmpty_THEN_Success.")
 		
 		// WHEN
-		
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
@@ -161,25 +152,21 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			completion(.success(emptyPackage))
 		}
 		
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
-		let verifier = MockVerifier()
-		
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
+			store: MockTestStore(),
 			eventStore: eventStore,
-			verifier: verifier
+			verifier: MockVerifier()
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage SinglePackageIsEmpty_THEN_Success.")
 		
 		// WHEN
-		
 		var responseCode: TraceWarningSuccess?
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
@@ -203,25 +190,23 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsAlreadyInProgress_THEN_DownloadIsRunning() {
 		
 		// GIVEN
-		let client = ClientMock()
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
-			client: client,
-			store: store,
-			eventStore: eventStore)
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage DownloadIsAlreadyInProgress_THEN_DownloadIsRunning.")
 		successExpectation.expectedFulfillmentCount = 2
 		var responseCodeSuccess: TraceWarningSuccess?
 		var responseCodeError: TraceWarningError?
+		
 		// WHEN
-		
-		
 		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
 			switch result {
 			case let .success(success):
@@ -258,7 +243,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		client.onTraceWarningDiscovery = { _, completion in
 			completion(.failure(.invalidResponseError(404)))
 		}
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock()
 		eventStore.createCheckin(checkInMock)
@@ -266,8 +250,9 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
-			eventStore: eventStore)
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 		
 		let expect = expectation(description: "TraceWarningPackage DiscoveryIsFailing_THEN_InvalidResponseError.")
 		var responseCodeError: TraceWarningError?
@@ -304,7 +289,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			completion(.failure(.invalidResponseError(999)))
 		}
 		
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
@@ -312,8 +296,9 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
-			eventStore: eventStore)
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 		
 		let expect = expectation(description: "TraceWarningPackage DownloadIsFailing_THEN_InvalidResponseError.")
 		var responseCodeError: TraceWarningError?
@@ -351,18 +336,16 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			completion(.success(response))
 		}
 		
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
-		
-		
 		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
 		eventStore.createCheckin(checkInMock)
 		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
-			eventStore: eventStore)
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 		
 		let expect = expectation(description: "TraceWarningPackage EtagMissing_THEN_IdenticationError.")
 		var responseCodeError: TraceWarningError?
@@ -400,7 +383,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			completion(.success(response))
 		}
 		
-		let store = MockTestStore()
 		let eventStore = MockEventStore()
 		
 		
@@ -410,8 +392,9 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: client,
-			store: store,
-			eventStore: eventStore)
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 		
 		let expect = expectation(description: "TraceWarningPackage VerificationFails_THEN_VerificationError.")
 		var responseCodeError: TraceWarningError?
@@ -435,26 +418,25 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 	// MARK: - TraceWarningDownload Helper Tests
 	
 	func testGIVEN_ShouldStartPackageDownload_WHEN_RecentDownloadWasNotSuccessful_THEN_ReturnTrue() {
+		
 		// GIVEN
 		let store = MockTestStore()
 		store.wasRecentTraceWarningDownloadSuccessful = false
-		
-		let eventStore = MockEventStore()
 		
 		// WHEN
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore)
+			eventStore: MockEventStore()
+		)
 		
 		// THEN
 		let result = traceWarningPackageDownload.shouldStartPackageDownload(for: "DE")
-		
 		XCTAssertTrue(result)
 	}
 	
-	
 	func testGIVEN_ShouldStartPackageDownload_WHEN_LastHourIsInDatabaseAndRecentDownloadWasSuccessful_THEN_ReturnFalse() {
+		
 		// GIVEN
 		let store = MockTestStore()
 		store.wasRecentTraceWarningDownloadSuccessful = true
@@ -465,32 +447,47 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			return
 		}
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: lastHourDate.unixTimestampInHours, region: "DE", eTag: "FakeETag"))
-		
-		// WHEN
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
 			store: store,
-			eventStore: eventStore)
+			eventStore: eventStore
+		)
 		
-		// THEN
+		// WHEN
 		let result = traceWarningPackageDownload.shouldStartPackageDownload(for: "DE")
-		
+	
+		// THEN
 		XCTAssertFalse(result)
 	}
 	
-	/*
 	func testGIVEN_TraceWarningDownload_WHEN_RevokeMetadatas_THEN_IsRevoked() {
-	// GIVEN
-	<#given code#>
+		let eventStore = MockEventStore()
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 0, region: "DE", eTag: "123"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 1, region: "DE", eTag: "456"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 2, region: "DE", eTag: "789"))
+		let revokedPackages = [
+			SAP_Internal_V2_TraceWarningPackageMetadata.with { $0.etag = "123" },
+			SAP_Internal_V2_TraceWarningPackageMetadata.with { $0.etag = "654" },
+			SAP_Internal_V2_TraceWarningPackageMetadata.with { $0.etag = "987" }
+		]
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
 	
-	// WHEN
-	<#when code#>
-	
-	// THEN
-	<#then code#>
-	
+		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 3)
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.eTag == "123" }))
+		
+		// WHEN
+		traceWarningPackageDownload.removeRevokedTraceWarningMetadataPackages(revokedPackages)
+		
+		// THEN
+		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 2)
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.eTag == "123" }))
 	}
 	
+	/*
 	func testGIVEN_TraceWarningDownload_WHEN_CleanUpOutdatedMetadata_THEN_IsRevoked() {
 	// GIVEN
 	<#given code#>

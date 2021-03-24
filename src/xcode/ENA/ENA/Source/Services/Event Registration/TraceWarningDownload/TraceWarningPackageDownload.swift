@@ -259,6 +259,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		
 		// 5. Determine earliestRelevantPackage.
 		// Take the database entry with the oldest checkinStartDate and convert it to unix timestamp in hours.
+		// Normally, can never fail because we have a check at the beginning for an empty checkin database table.
 		guard let earliestRelevantPackage = eventStore.checkinsPublisher.value.min(by: { $0.checkinStartDate > $1.checkinStartDate })?.checkinStartDate.unixTimestampInHours else {
 			Log.error("TraceWarningPackageDownload: Could not determine earliestRelevantPackage. Abort Download.", log: .checkin)
 			completion(.failure(.noEarliestRelevantPackage))
