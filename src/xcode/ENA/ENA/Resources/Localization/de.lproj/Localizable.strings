@@ -2137,6 +2137,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
 
+/* CheckIn edit */
+
+"Checkins_Edit_PrimaryButton_Title" = "Speichern";
+
+"Checkins_Edit_Section_Title" = "Aufenthaltsdauer anpassen für:";
+
 /* Checkout */
 
 "Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";

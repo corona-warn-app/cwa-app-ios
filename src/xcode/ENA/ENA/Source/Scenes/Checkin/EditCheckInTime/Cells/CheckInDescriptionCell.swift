@@ -39,6 +39,7 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 	private let traceLocationAddressLabel = ENALabel()
 
 	private func setupView() {
+		selectionStyle = .none
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
@@ -59,7 +60,7 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let backgroundCoverView = UIView()
 		backgroundCoverView.translatesAutoresizingMaskIntoConstraints = false
-		backgroundCoverView.backgroundColor = .enaColor(for: .background)
+		backgroundCoverView.backgroundColor = .enaColor(for: .cellBackground)
 		contentView.addSubview(backgroundCoverView)
 
 		let tileView = UIView()

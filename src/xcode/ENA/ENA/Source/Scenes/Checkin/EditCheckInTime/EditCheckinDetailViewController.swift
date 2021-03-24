@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, FooterViewHandling {
+class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -54,13 +54,20 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//		let cell = UITableViewCell(style: .default, reuseIdentifier: "TestALotCell")
-//		cell.textLabel?.text = "Hallo Welt"
-//		return cell
-
 		let cell = tableView.dequeueReusableCell(cellType: CheckInDescriptionCell.self, for: indexPath)
 		cell.configure(cellModel: viewModel.checkInDescriptionCellModel)
 		return cell
+	}
+
+	// MARK: - UITableViewDelegate
+
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let sectionTitle = EditCheckinDetailViewModel.TableViewSections(rawValue: section)?.sectionTitle,
+			  let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TextHeaderView.reuseIdentifier) as? TextHeaderView else {
+			return nil
+		}
+		headerView.configure(sectionTitle)
+		return headerView
 	}
 
 	// MARK: - Private
@@ -71,7 +78,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	private var subscriptions = Set<AnyCancellable>()
 	private var selectedDuration: Int?
 	private var isInitialSetup = true
-	private var tableView = UITableView()
+	private var tableView = UITableView(frame: .zero, style: .grouped)
 
 	private func setupNavigationBar() {
 //		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
@@ -109,7 +116,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 				gradientNavigationView.leadingAnchor.constraint(equalTo: backGroundView.leadingAnchor, constant: 16.0),
 				gradientNavigationView.trailingAnchor.constraint(equalTo: backGroundView.trailingAnchor, constant: -16.0),
 
-				tableView.topAnchor.constraint(equalTo: gradientNavigationView.bottomAnchor),
+				tableView.topAnchor.constraint(equalTo: gradientNavigationView.bottomAnchor, constant: 20.0),
 				tableView.leadingAnchor.constraint(equalTo: backGroundView.leadingAnchor),
 				tableView.trailingAnchor.constraint(equalTo: backGroundView.trailingAnchor),
 				tableView.bottomAnchor.constraint(equalTo: backGroundView.bottomAnchor)
@@ -149,8 +156,10 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	private func setupTableView() {
 		tableView.dataSource = self
+		tableView.delegate = self
 		tableView.separatorStyle = .none
 
+		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
 	}
 

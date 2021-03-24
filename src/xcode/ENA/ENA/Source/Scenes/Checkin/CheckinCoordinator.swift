@@ -109,7 +109,8 @@ final class CheckinCoordinator {
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: true
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .cellBackground)
 			)
 		)
 

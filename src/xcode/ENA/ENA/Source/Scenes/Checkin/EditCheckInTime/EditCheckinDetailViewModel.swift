@@ -28,6 +28,15 @@ final class EditCheckinDetailViewModel {
 				return 1
 			}
 		}
+
+		var sectionTitle: String? {
+			switch self {
+			case .description:
+				return AppStrings.Checkins.Edit.sectionHeaderTitle
+			default:
+				return nil
+			}
+		}
 	}
 
 	// MARK: - Internal

@@ -28,7 +28,7 @@ class GradientBackgroundView: UIView {
 
 		let backgroundViewContainer = UIView()
 		backgroundViewContainer.translatesAutoresizingMaskIntoConstraints = false
-		backgroundViewContainer.backgroundColor = .enaColor(for: .background)
+		backgroundViewContainer.backgroundColor = .enaColor(for: .cellBackground)
 		addSubview(backgroundViewContainer)
 
 		let gradientView = GradientView()
