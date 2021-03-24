@@ -67,7 +67,7 @@ final class CachingHTTPClientMock: CachingHTTPClient {
 		handler(etag, completion)
 	}
 	
-	// MARK: - QR Code Poster Template
+	// MARK: - QRCodePosterTemplateFetching
 	
 	var onFetchQRCodePosterTemplateData: ((String?, @escaping CachingHTTPClient.QRCodePosterTemplateCompletionHandler) -> Void)?
 		

@@ -106,7 +106,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 		}
 	}
 
-	// MARK: Event Registration - QR Code Poster Template
+	// MARK: QRCodePosterTemplateFetching
 	
 	/// Fetches the QR Code Poster Template Protobuf
 	/// - Parameters:

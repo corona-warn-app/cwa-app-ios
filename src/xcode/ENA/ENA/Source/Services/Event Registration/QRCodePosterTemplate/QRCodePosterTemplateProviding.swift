@@ -20,7 +20,7 @@ protocol QRCodePosterTemplateFetching {
 
 	typealias QRCodePosterTemplateCompletionHandler = (Result<QRCodePosterTemplateResponse, Error>) -> Void
 
-	// MARK: Event Registration - QR Code Poster Template
+	// MARK: QRCodePosterTemplateFetching
 	
 	/// Fetches the QR Code Poster Template Protobuf
 	/// - Parameters:
