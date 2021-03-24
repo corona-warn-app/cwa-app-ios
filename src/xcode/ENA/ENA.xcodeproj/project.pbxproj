@@ -62,6 +62,7 @@
 		0138F6FA25F66E8D00A9B075 /* TraceLocationPrintVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6E125F661DE00A9B075 /* TraceLocationPrintVersionViewModel.swift */; };
 		0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */; };
 		0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */; };
+		013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A551E260B48250092B5B1 /* TraceLocationType.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -1026,6 +1027,7 @@
 		0138F6E225F661DE00A9B075 /* TraceLocationPrintVersionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationPrintVersionViewController.swift; sourceTree = "<group>"; };
 		0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewModel.swift; sourceTree = "<group>"; };
 		0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewController.swift; sourceTree = "<group>"; };
+		013A551E260B48250092B5B1 /* TraceLocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationType.swift; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -4265,6 +4267,7 @@
 			children = (
 				BADE38072608D9D200E07890 /* __test__ */,
 				ABE9616625F1208300D0F699 /* TraceLocation.swift */,
+				013A551E260B48250092B5B1 /* TraceLocationType.swift */,
 				ABE9616B25F1208B00D0F699 /* Checkin.swift */,
 				ABE9620325F67CB000D0F699 /* TraceTimeIntervalMatch.swift */,
 				ABE9620825F67D2200D0F699 /* TraceWarningPackageMetadata.swift */,
@@ -6330,6 +6333,7 @@
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				B103193224E18A0A00DD02EF /* DMMenuItem.swift in Sources */,
 				BADB7BF025F66178001065FA /* MissingPermissionsTableViewCell.swift in Sources */,
+				013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */,
 				94BACE6A25D27DC2007B2A99 /* DeltaOnboardingDataDonation.swift in Sources */,
 				0190B225255C423600CF4244 /* Date+Age.swift in Sources */,
 				352E0F19255D537C00DC3E20 /* AppConfiguration+Validation.swift in Sources */,

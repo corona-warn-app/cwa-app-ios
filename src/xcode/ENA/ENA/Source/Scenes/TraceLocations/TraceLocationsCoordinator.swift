@@ -187,29 +187,10 @@ class TraceLocationsCoordinator {
 	}
 	
 	private func showTraceLocationTypeSelectionScreen() {
-		
-		let locations: [TraceLocationType] = [
-			.locationTypePermanentRetail,
-			.locationTypePermanentFoodService,
-			.locationTypePermanentCraft,
-			.locationTypePermanentWorkplace,
-			.locationTypePermanentEducationalInstitution,
-			.locationTypePermanentPublicBuilding,
-			.locationTypePermanentOther
-		]
-		
-		let events: [TraceLocationType] = [
-			.locationTypeTemporaryCulturalEvent,
-			.locationTypeTemporaryClubActivity,
-			.locationTypeTemporaryPrivateEvent,
-			.locationTypeTemporaryWorshipService,
-			.locationTypeTemporaryOther
-		]
-		
 		let traceLocationTypeSelectionViewController = TraceLocationTypeSelectionViewController(
 			viewModel: TraceLocationTypeSelectionViewModel([
-				.location: locations,
-				.event: events
+				.location: TraceLocationType.permanentTypes,
+				.event: TraceLocationType.temporaryTypes
 			],
 			onTraceLocationTypeSelection: { [weak self] traceLocationType in
 				guard let self = self else { return }
