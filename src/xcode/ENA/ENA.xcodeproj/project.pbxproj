@@ -757,7 +757,7 @@
 		BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */; };
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
-		BA14204A260B963900CF0726 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA142049260B963900CF0726 /* DatePickerCell.swift */; };
+		BA14204A260B963900CF0726 /* CheckInDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
@@ -1756,7 +1756,7 @@
 		BA112DF6255586E9007F5712 /* WifiOnlyHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WifiOnlyHTTPClient.swift; sourceTree = "<group>"; };
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
-		BA142049260B963900CF0726 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/DatePickerCell.swift; sourceTree = SOURCE_ROOT; };
+		BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInDatePickerCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInDatePickerCell.swift; sourceTree = SOURCE_ROOT; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -5273,7 +5273,7 @@
 				BADD36E1260B4FBA00DD282A /* CheckInDescriptionCellModel.swift */,
 				BA9D92DD260B71D400300DEA /* CheckInTimeWithPickerCell.swift */,
 				BA9D92E2260B71E200300DEA /* CheckInTimeWithPickerModel.swift */,
-				BA142049260B963900CF0726 /* DatePickerCell.swift */,
+				BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -6303,7 +6303,7 @@
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */,
 				2FA968CE24D8560B008EE367 /* String+Random.swift in Sources */,
-				BA14204A260B963900CF0726 /* DatePickerCell.swift in Sources */,
+				BA14204A260B963900CF0726 /* CheckInDatePickerCell.swift in Sources */,
 				019C9F32258951B900B26392 /* LocationVisit.swift in Sources */,
 				AB35609A2547167800C3F8E0 /* DeviceTimeCheck.swift in Sources */,
 				AB190ED725FBC45D00FBFF0D /* FMDB+Utils.swift in Sources */,

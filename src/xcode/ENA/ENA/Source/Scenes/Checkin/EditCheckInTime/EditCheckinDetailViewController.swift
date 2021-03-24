@@ -70,7 +70,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			return cell
 
 		case .startPicker:
-			let cell = tableView.dequeueReusableCell(cellType: DatePickerCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
 			return cell
 		}
 
@@ -78,11 +78,19 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	// MARK: - UITableViewDelegate
 
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return CGFloat.leastNonzeroMagnitude
+	}
+
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNonzeroMagnitude
+	}
+
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let sectionTitle = EditCheckinDetailViewModel.TableViewSections(rawValue: section)?.sectionTitle,
 			  let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TextHeaderView.reuseIdentifier) as? TextHeaderView else {
 			let view = UIView(frame: .zero)
-			view.backgroundColor = .enaColor(for: .cellBackground)
+			view.backgroundColor = .red // .enaColor(for: .cellBackground)
 			return view
 		}
 		headerView.configure(sectionTitle)
@@ -91,7 +99,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		let view = UIView(frame: .zero)
-		view.backgroundColor = .enaColor(for: .cellBackground)
+		view.backgroundColor = .green // .enaColor(for: .cellBackground)
 		return view
 	}
 
@@ -201,16 +209,18 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.delegate = self
 		tableView.separatorStyle = .none
 
-		tableView.estimatedSectionHeaderHeight = 3.5
+		tableView.estimatedSectionHeaderHeight = 0.01
 		tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-		tableView.estimatedSectionFooterHeight = 3.5
+		tableView.estimatedSectionFooterHeight = 0.01
 		tableView.sectionFooterHeight = UITableView.automaticDimension
+
+		tableView.contentInsetAdjustmentBehavior = .never
 
 		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
 		tableView.register(CheckInTimeWithPickerCell.self, forCellReuseIdentifier: CheckInTimeWithPickerCell.reuseIdentifier)
-		tableView.register(DatePickerCell.self, forCellReuseIdentifier: DatePickerCell.reuseIdentifier)
+		tableView.register(CheckInDatePickerCell.self, forCellReuseIdentifier: CheckInDatePickerCell.reuseIdentifier)
 	}
 
 	private func setupCombine() {

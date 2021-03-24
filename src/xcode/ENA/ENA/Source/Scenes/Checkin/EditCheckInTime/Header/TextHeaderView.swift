@@ -46,5 +46,4 @@ class TextHeaderView: UITableViewHeaderFooterView, ReuseIdentifierProviding {
 		])
 	}
 
-
 }
