@@ -3,6 +3,7 @@
 //
 
 import PDFKit
+import UIKit
 
 enum PDFEmbeddingError: Error {
 	case noPage // PDF does not contain a Page where the Image could be embedded
@@ -28,7 +29,6 @@ extension PDFDocument {
 		
 		// This method returns an image and takes a block in which you can perform any kind of drawing.
 		let image = renderer.image { context in
-			
 			// We transform the CTM to match the PDF's coordinate system, but only long enough to draw the page.
 			context.cgContext.saveGState()
 			
@@ -47,12 +47,9 @@ extension PDFDocument {
 			// Set the font as per the font size provided
 			let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: textSize, weight: .regular)
 
-			// Set the attributes of the text
-			guard let paragraphStyle: NSParagraphStyle = NSParagraphStyle.default.mutableCopy() as? NSParagraphStyle else { return }
 			let textFontAttributes: [NSAttributedString.Key: Any] = [
 				NSAttributedString.Key.font: font,
-				NSAttributedString.Key.foregroundColor: textColor,
-				NSAttributedString.Key.paragraphStyle: paragraphStyle
+				NSAttributedString.Key.foregroundColor: textColor
 			]
 			
 			// Draw text onto the context
@@ -61,7 +58,8 @@ extension PDFDocument {
 		
 		// Create a new `PDFPage` with the image that was generated above.
 		guard let newPage = PDFPage(image: image) else {
-			throw PDFEmbeddingError.pageCreation // Unable to create new PDFPage
+			// Unable to create new PDFPage
+			throw PDFEmbeddingError.pageCreation
 		}
 		
 		// Add the existing annotations from the existing page to the new page we created.
