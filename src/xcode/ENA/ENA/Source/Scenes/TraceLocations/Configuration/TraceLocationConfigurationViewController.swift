@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class TraceLocationConfigurationViewController: UIViewController, FooterViewHandling {
+class TraceLocationConfigurationViewController: UIViewController, FooterViewHandling, UITextFieldDelegate {
 
 	// MARK: - Init
 
@@ -164,21 +164,49 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	@objc
 	private func startDateHeaderTapped() {
 		viewModel.startDateHeaderTapped()
+		view.endEditing(true)
 	}
 
 	@objc
 	private func endDateHeaderTapped() {
 		viewModel.endDateHeaderTapped()
+		view.endEditing(true)
 	}
 
 	@objc
 	private func temporaryDefaultLengthHeaderTapped() {
 		viewModel.temporaryDefaultLengthHeaderTapped()
+		view.endEditing(true)
 	}
 
 	@objc
 	private func permanentDefaultLengthHeaderTapped() {
 		viewModel.permanentDefaultLengthHeaderTapped()
+		view.endEditing(true)
+	}
+
+	@IBAction func descriptionTextFieldEditingDidBegin() {
+		viewModel.collapseAllSections()
+	}
+
+	@IBAction func descriptionTextFieldEditingDidEnd(_ sender: ENATextField) {
+		viewModel.description = sender.text
+	}
+
+	@IBAction func descriptionTextFieldPrimaryActionTriggered() {
+		addressTextField.becomeFirstResponder()
+	}
+
+	@IBAction func addressTextFieldEditingDidBegin() {
+		viewModel.collapseAllSections()
+	}
+
+	@IBAction func addressTextFieldEditingDidEnd(_ sender: ENATextField) {
+		viewModel.address = sender.text
+	}
+
+	@IBAction func addressTextFieldPrimaryActionTriggered() {
+		view.endEditing(true)
 	}
 
 	@IBAction private func didSelectDate(datePicker: UIDatePicker) {
@@ -255,9 +283,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		viewModel.$permanentDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
-				UIView.animate(withDuration: 0.25) {
-					self?.permanentDefaultLengthPickerContainerView.isHidden = isHidden
-				}
+				self?.permanentDefaultLengthPickerContainerView.isHidden = isHidden
 			}
 			.store(in: &subscriptions)
 	}

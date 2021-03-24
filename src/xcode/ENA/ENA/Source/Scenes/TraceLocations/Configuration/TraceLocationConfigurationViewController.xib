@@ -47,7 +47,7 @@
         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rNc-bS-jlq">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="rNc-bS-jlq">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYV-bG-ieL">
@@ -75,18 +75,26 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jl1-pC-2cs">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="85"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igz-gg-eID" customClass="ENATextField" customModule="ENA" customModuleProvider="target">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="igz-gg-eID" customClass="ENATextField" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="382" height="42"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="42" id="Qka-j9-nJO"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="deltaXInset">
                                                                     <real key="value" value="20"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                                                    <integer key="value" value="100"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="descriptionTextFieldEditingDidBegin" destination="-1" eventType="editingDidBegin" id="Q6D-nY-Y8w"/>
+                                                                <action selector="descriptionTextFieldEditingDidEnd:" destination="-1" eventType="editingDidEnd" id="USV-AE-r3O"/>
+                                                                <action selector="descriptionTextFieldPrimaryActionTriggered" destination="-1" eventType="primaryActionTriggered" id="Bv9-0v-Hbw"/>
+                                                            </connections>
                                                         </textField>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PaJ-YD-rXS" userLabel="Separator">
                                                             <rect key="frame" x="0.0" y="42" width="382" height="1"/>
@@ -101,12 +109,20 @@
                                                                 <constraint firstAttribute="height" constant="42" id="cAt-d9-qAP"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="deltaXInset">
                                                                     <real key="value" value="20"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="maxLength">
+                                                                    <integer key="value" value="100"/>
+                                                                </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="addressTextFieldEditingDidBegin" destination="-1" eventType="editingDidBegin" id="sRv-Hh-HXW"/>
+                                                                <action selector="addressTextFieldEditingDidEnd:" destination="-1" eventType="editingDidEnd" id="g2a-n2-60F"/>
+                                                                <action selector="addressTextFieldPrimaryActionTriggered" destination="-1" eventType="primaryActionTriggered" id="i33-om-WyU"/>
+                                                            </connections>
                                                         </textField>
                                                     </subviews>
                                                 </stackView>

@@ -130,6 +130,12 @@ class TraceLocationConfigurationViewModel {
 		permanentDefaultLengthPickerIsHidden.toggle()
 	}
 
+	func collapseAllSections() {
+		startDatePickerIsHidden = true
+		endDatePickerIsHidden = true
+		permanentDefaultLengthPickerIsHidden = true
+	}
+
 	func save(completion: @escaping (Bool) -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			completion(true)
