@@ -18,7 +18,7 @@ final class EditCheckinDetailViewModel {
 	enum TableViewSections: Int, CaseIterable {
 		case description
 		case checkInStart
-//		case startPicker
+		case startPicker
 //		case checkInEnd
 //		case endPicker
 
@@ -51,6 +51,8 @@ final class EditCheckinDetailViewModel {
 		}
 		switch section {
 		case .description, .checkInStart:
+			return 1
+		case .startPicker:
 			return 1
 		}
 	}

@@ -67,6 +67,10 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeWithPickerCell.self, for: indexPath)
 			cell.configure(viewModel.checkInStartCellModel)
 			return cell
+
+		case .startPicker:
+			let cell = tableView.dequeueReusableCell(cellType: DatePickerCell.self, for: indexPath)
+			return cell
 		}
 
 	}
@@ -187,6 +191,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
 		tableView.register(CheckInTimeWithPickerCell.self, forCellReuseIdentifier: CheckInTimeWithPickerCell.reuseIdentifier)
+		tableView.register(DatePickerCell.self, forCellReuseIdentifier: DatePickerCell.reuseIdentifier)
 	}
 
 }
