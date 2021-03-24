@@ -17,17 +17,10 @@ final class EditCheckinDetailViewModel {
 
 	enum TableViewSections: Int, CaseIterable {
 		case description
-//		case checkInStart
+		case checkInStart
 //		case startPicker
 //		case checkInEnd
 //		case endPicker
-
-		var numberOfRows: Int {
-			switch self {
-			case .description:
-				return 1
-			}
-		}
 
 		var sectionTitle: String? {
 			switch self {
@@ -41,12 +34,30 @@ final class EditCheckinDetailViewModel {
 
 	// MARK: - Internal
 
+	var updateTableViewSection: (IndexSet) -> Void = { _ in }
+
 	var checkInDescriptionCellModel: CheckInDescriptionCellModel {
 		return CheckInDescriptionCellModel(checkIn: checkIn)
+	}
+
+	var checkInStartCellModel: CheckInTimeWithPickerModel {
+		return CheckInTimeWithPickerModel("Eingecheckt", date: checkIn.checkinStartDate)
+	}
+
+	func numberOfRows(_ section: TableViewSections?) ->  Int {
+		guard let section = section else {
+			Log.debug("unknown section -> better return 0 rows")
+			return 0
+		}
+		switch section {
+		case .description, .checkInStart:
+			return 1
+		}
 	}
 
 	// MARK: - Private
 	
 	private let checkIn: Checkin
+	private var isStartDatePickerIsHidden: Bool = true
 
 }

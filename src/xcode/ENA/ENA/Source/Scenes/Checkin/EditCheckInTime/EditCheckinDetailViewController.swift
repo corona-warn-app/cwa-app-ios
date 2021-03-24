@@ -50,13 +50,25 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return EditCheckinDetailViewModel.TableViewSections(rawValue: section)?.numberOfRows ?? 0
+		return viewModel.numberOfRows(EditCheckinDetailViewModel.TableViewSections(rawValue: section))
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(cellType: CheckInDescriptionCell.self, for: indexPath)
-		cell.configure(cellModel: viewModel.checkInDescriptionCellModel)
-		return cell
+		guard let section = EditCheckinDetailViewModel.TableViewSections(rawValue: indexPath.section) else {
+			fatalError("unknown section - can't match a cell type")
+		}
+		switch section {
+		case .description:
+			let cell = tableView.dequeueReusableCell(cellType: CheckInDescriptionCell.self, for: indexPath)
+			cell.configure(cellModel: viewModel.checkInDescriptionCellModel)
+			return cell
+
+		case .checkInStart:
+			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeWithPickerCell.self, for: indexPath)
+			cell.configure(viewModel.checkInStartCellModel)
+			return cell
+		}
+
 	}
 
 	// MARK: - UITableViewDelegate
@@ -103,7 +115,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.backgroundColor = .clear
 		backGroundView.addSubview(tableView)
-
 
 		NSLayoutConstraint.activate(
 			[
@@ -161,6 +172,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
+		tableView.register(CheckInTimeWithPickerCell.self, forCellReuseIdentifier: CheckInTimeWithPickerCell.reuseIdentifier)
 	}
 
 }
