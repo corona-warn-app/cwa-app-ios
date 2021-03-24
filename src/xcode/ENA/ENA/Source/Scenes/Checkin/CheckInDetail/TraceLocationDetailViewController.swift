@@ -107,31 +107,23 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 	
 	private func setupAdditionalInfoView() {
-		
-		additionalInfoView.isHidden = false
-		additionalInfoLabel.text = String(
-			format: AppStrings.Checkins.Details.eventNotStartedYet,
-			viewModel.getFormattedString(for: .day) ?? "",
-			viewModel.getFormattedString(for: .hour) ?? ""
-		)
-//
-//		let status = viewModel.getTraceLocationStatus()
-//		switch status {
-//		case .notStarted:
-//			additionalInfoView.isHidden = false
-//			additionalInfoLabel.text = String(
-//				format: AppStrings.Checkins.Details.eventNotStartedYet,
-//				viewModel.getFormattedString(for: .day) ?? "",
-//				viewModel.getFormattedString(for: .hour) ?? ""
-//			)
-//		case .ended:
-//			additionalInfoView.isHidden = false
-//			additionalInfoLabel.text = AppStrings.Checkins.Details.eventEnded
-//		case .inProgress:
-//			additionalInfoView.isHidden = true
-//		case .none:
-//			additionalInfoView.isHidden = true
-//		}
+		let status = viewModel.getTraceLocationStatus()
+		switch status {
+		case .notStarted:
+			additionalInfoView.isHidden = false
+			additionalInfoLabel.text = String(
+				format: AppStrings.Checkins.Details.eventNotStartedYet,
+				viewModel.getFormattedString(for: .day) ?? "",
+				viewModel.getFormattedString(for: .hour) ?? ""
+			)
+		case .ended:
+			additionalInfoView.isHidden = false
+			additionalInfoLabel.text = AppStrings.Checkins.Details.eventEnded
+		case .inProgress:
+			additionalInfoView.isHidden = true
+		case .none:
+			additionalInfoView.isHidden = true
+		}
 	}
 	
 	private func setupPicker(with duration: Int) {
