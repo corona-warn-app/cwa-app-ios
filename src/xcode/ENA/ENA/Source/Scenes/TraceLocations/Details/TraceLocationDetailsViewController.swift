@@ -59,6 +59,8 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 		}
 	}
 	
+	// MARK: QR Code Poster
+
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
 			switch templateData {
