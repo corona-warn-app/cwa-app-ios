@@ -4,21 +4,20 @@
 
 import Foundation
 import PDFKit
+import OpenCombine
 
 class TraceLocationPrintVersionViewModel {
 
 	// MARK: - Init
 
 	init(
-		traceLocation: TraceLocation
+		pdfView: PDFView
 	) {
-		self.traceLocation = traceLocation
+		self.pdfView = pdfView
 	}
 
 	// MARK: - Internal
 
-	// MARK: - Private
-
-	let traceLocation: TraceLocation
+	let pdfView: PDFView
 
 }
