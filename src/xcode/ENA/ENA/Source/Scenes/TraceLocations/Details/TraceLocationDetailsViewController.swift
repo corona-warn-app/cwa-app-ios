@@ -3,6 +3,8 @@
 //
 
 import UIKit
+import OpenCombine
+import PDFKit
 
 class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 
@@ -11,7 +13,7 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 
 	init(
 		viewModel: TraceLocationDetailsViewModel,
-		onPrintVersionButtonTap: @escaping (TraceLocation) -> Void,
+		onPrintVersionButtonTap: @escaping (PDFView) -> Void,
 		onDuplicateButtonTap: @escaping (TraceLocation) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
@@ -42,7 +44,6 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 			}
 		)
 
-//		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -50,19 +51,68 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		switch type {
 		case .primary:
-			onPrintVersionButtonTap(viewModel.traceLocation)
-
+			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			
+			generateAndPassQRCodePoster()
 		case .secondary:
 			onDuplicateButtonTap(viewModel.traceLocation)
 		}
+	}
+	
+	private func generateAndPassQRCodePoster() {
+		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
+			switch templateData {
+			case let .success(templateData):
+				DispatchQueue.main.async { [weak self] in
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+
+					do {
+						let pdfView = try self?.createPdfView(templateData: templateData)
+						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
+					} catch {
+						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
+					}
+				}
+			case let .failure(error):
+					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+				
+				Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
+				return
+			}
+		}
+	}
+
+	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
+		let pdfView = PDFView()
+		let pdfDocument = PDFDocument(data: templateData.template)
+
+		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
+		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		let textDetails = templateData.descriptionTextBox
+		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
+		
+		try? pdfDocument?.embedImageAndText(
+			image: qrCodeImage,
+			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
+			text: viewModel.traceLocation.address,
+			of: CGFloat(textDetails.fontSize),
+			and: textColor,
+			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))
+		)
+
+		pdfView.document = pdfDocument
+		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
+		pdfView.autoScales = true
+		return pdfView
 	}
 
 	// MARK: - Private
 
 	private let viewModel: TraceLocationDetailsViewModel
 
-	private let onPrintVersionButtonTap: (TraceLocation) -> Void
+	private let onPrintVersionButtonTap: (PDFView) -> Void
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
+	private var subscriptions = [AnyCancellable]()
 
 }
