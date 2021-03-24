@@ -148,6 +148,9 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	}
 
 	private func setUpGestureRecognizers() {
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+		view.addGestureRecognizer(tapGestureRecognizer)
+
 		let startDateGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startDateHeaderTapped))
 		startDateHeaderContainerView.addGestureRecognizer(startDateGestureRecognizer)
 
@@ -218,6 +221,11 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		default:
 			Log.error("Date picker selection not handled.")
 		}
+	}
+
+	@objc
+	private func viewTapped() {
+		view.endEditing(true)
 	}
 
 	private func setUpBindings() {
