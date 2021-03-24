@@ -6,7 +6,7 @@
 import Foundation
 import XCTest
 
-// swiftline:disable:file_length
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 class TraceWarningPackageDownloadTests: XCTestCase {
 	
