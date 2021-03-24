@@ -20,8 +20,8 @@ final class EditCheckinDetailViewModel {
 		case description
 		case checkInStart
 		case startPicker
-//		case checkInEnd
-//		case endPicker
+		case checkInEnd
+		case endPicker
 
 //		var sectionTitle: String? {
 //			switch self {
@@ -49,23 +49,30 @@ final class EditCheckinDetailViewModel {
 			return 0
 		}
 		switch section {
-		case .header, .description, .checkInStart:
+		case .header, .description, .checkInStart, .checkInEnd:
 			return 1
 		case .startPicker:
 			return isStartDatePickerVisible ? 1 : 0
+		case .endPicker:
+			return isEndDatePickerVisible ? 1 : 0
 		}
 	}
 
-	func togglePicker() {
+	func toggleStartPicker() {
 		isStartDatePickerVisible.toggle()
+	}
+
+	func toggleEndPicker() {
+		isEndDatePickerVisible.toggle()
 	}
 
 	// MARK: - Private
 	
 	private let checkIn: Checkin
 
-	private var isStartDatePickerIsHidden: Bool = true
+//	private var isStartDatePickerIsHidden: Bool = true
 
 	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
+	@OpenCombine.Published private(set) var isEndDatePickerVisible: Bool = false
 
 }

@@ -69,12 +69,16 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(cellModel: viewModel.checkInDescriptionCellModel)
 			return cell
 
-		case .checkInStart:
+		case .checkInStart, .checkInEnd:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeWithPickerCell.self, for: indexPath)
 			cell.configure(viewModel.checkInStartCellModel)
 			return cell
 
 		case .startPicker:
+			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
+			return cell
+
+		case .endPicker:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
 			return cell
 		}
@@ -117,7 +121,9 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		case .some(let section):
 			switch section {
 			case .checkInStart:
-				viewModel.togglePicker()
+				viewModel.toggleStartPicker()
+			case .checkInEnd:
+				viewModel.toggleEndPicker()
 			default:
 				Log.debug("Section doesn't support selection")
 			}
@@ -256,6 +262,15 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 				self?.tableView.reloadSections([sectionIndex], with: .automatic)
 			}
 			.store(in: &subscriptions)
+
+		viewModel.$isEndDatePickerVisible
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] newValue in
+				let sectionIndex = EditCheckinDetailViewModel.TableViewSections.endPicker.rawValue
+				self?.tableView.reloadSections([sectionIndex], with: .automatic)
+			}
+			.store(in: &subscriptions)
+
 	}
 
 }
