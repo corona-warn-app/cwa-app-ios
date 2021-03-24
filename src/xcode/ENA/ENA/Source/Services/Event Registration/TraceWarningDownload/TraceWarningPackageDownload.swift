@@ -29,15 +29,16 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		client: Client,
 		store: Store,
 		eventStore: EventStoringProviding,
-		countries: [Country.ID] = ["DE"]
+		countries: [Country.ID] = ["DE"],
+		verifier: Verify = Verifier()
 	) {
 		self.client = client
 		self.store = store
 		self.eventStore = eventStore
 		self.countries = countries
+		self.packageVerifier = verifier
 		
 		self.matcher = TraceWarningMatcher(eventStore: eventStore)
-		self.packageVerifier = SAPDownloadedPackage.Verifier()
 	}
 	
 	// MARK: - Overrides
@@ -76,9 +77,9 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			
 			switch result {
 			
-			case .success:
+			case let .success(success):
 				Log.info("TraceWarningPackageDownload: Completed processing packages!", log: .checkin)
-				completion(.success(.success))
+				completion(.success(success))
 			case let .failure(error):
 				Log.info("TraceWarningPackageDownload: Failed processing packages with error: \(error)")
 				completion(.failure(error))
@@ -97,7 +98,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]
 	private let matcher: TraceWarningMatching
-	private let packageVerifier: SAPDownloadedPackage.Verifier
+	private let packageVerifier: Verify
 	
 	private var subscriptions: Set<AnyCancellable> = []
 	private var status: TraceWarningDownloadStatus = .idle {
@@ -109,10 +110,11 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private func checkForDownloadTraceWarningPackages(
 		with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
 		countries: [Country.ID],
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		let countriesDG = DispatchGroup()
 		var errors = [TraceWarningError]()
+		var successes = [TraceWarningSuccess]()
 		
 		// Download packages for each country
 		countries.forEach { country in
@@ -125,9 +127,10 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				// Go now for the real download
 				downloadTraceWarningPackages(with: appConfig, for: country, completion: { result in
 					switch result {
-					case .success:
+					case let .success(success):
 						Log.info("TraceWarningPackageDownload: Succeded downloading packages for country id: \(country).", log: .checkin)
-					case .failure(let error):
+						successes.append(success)
+					case let .failure(error):
 						Log.info("TraceWarningPackageDownload: Failed downloading packages for country id: \(country).", log: .checkin)
 						errors.append(error)
 					}
@@ -146,7 +149,14 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			} else {
 				Log.info("TraceWarningPackageDownload: Completed downloading packages for all countries.", log: .checkin)
 				self?.store.wasRecentTraceWarningDownloadSuccessful = true
-				completion(.success(()))
+				// pass the success case only for testing through
+				if successes.contains(.emptyAvailablePackages) {
+					completion(.success(.emptyAvailablePackages))
+				} else if successes.contains(.emptySinglePackage) {
+					completion(.success(.emptySinglePackage))
+				} else {
+					completion(.success(.success))
+				}
 			}
 		}
 	}
@@ -154,7 +164,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private func downloadTraceWarningPackages(
 		with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS,
 		for country: Country.ID,
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		// 2. Instead of updating the app config again, we got it injected.
 		// 3. Clean up revoked Packages.
@@ -180,7 +190,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private func processDiscoverdPackages(
 		_ discoveredTraceWarnings: TraceWarningDiscovery,
 		country: Country.ID,
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		
 		Log.info("TraceWarningPackageDownload: Discover trace warning packages successfully.")
@@ -190,7 +200,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// Check if they are empty. If so, nothing more todo.
 		guard !availablePackagesOnCDN.isEmpty else {
 			Log.info("TraceWarningPackageDownload: Discovered trace warning packages are empty.")
-			completion(.success(()))
+			completion(.success(.emptyAvailablePackages))
 			return
 		}
 		Log.info("TraceWarningPackageDownload: AvailablePackagesOnCDN are not empty. Proceed with determination of packages to download...")
@@ -216,11 +226,12 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private func downloadDeterminedPackages(
 		packageIds: Set<Int>,
 		country: Country.ID,
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		
 		let singlePackageDG = DispatchGroup()
 		var packagesErrors = [TraceWarningError]()
+		var packagesSuccesses = [TraceWarningSuccess]()
 		
 		// 8. download now for each packageId the package itself. There can be also empty packages, indicated by a property in the downloaded package.
 		packageIds.forEach { packageId in
@@ -229,9 +240,10 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			downloadSinglePackage(packageId: packageId, country: country, completion: { result in
 				switch result {
 
-				case .success:
+				case let .success(success):
 					Log.info("TraceWarningPackageDownload: Download of single packageId: \(packageId) succesfully completed.")
-				case .failure(let error):
+					packagesSuccesses.append(success)
+				case let .failure(error):
 					Log.info("TraceWarningPackageDownload: Download of single packageId: \(packageId) failed with error: \(error).")
 					packagesErrors.append(error)
 				}
@@ -244,7 +256,11 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			if let error = packagesErrors.first {
 				completion(.failure(error))
 			} else {
-				completion(.success(()))
+				if packagesSuccesses.contains(.emptySinglePackage) {
+					completion(.success(.emptySinglePackage))
+				} else {
+					completion(.success(.success))
+				}
 			}
 		})
 	}
@@ -252,7 +268,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private func downloadSinglePackage(
 		packageId: Int,
 		country: Country.ID,
-		completion: @escaping (Result<Void, TraceWarningError>) -> Void
+		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		Log.info("TraceWarningPackageDownload: Try to download single package with id: \(packageId) ...")
 		client.traceWarningPackageDownload(country: country, packageId: packageId, completion: { [weak self] result in
@@ -273,11 +289,11 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					
 					guard let eTag = packageDownloadResponse.etag else {
 						Log.error("TraceWarningPackageDownload: ETag of packageId: \(packageId) missing. Discard package.")
-						completion(.failure(.verificationError))
+						completion(.failure(.identicationError))
 						return
 					}
 					
-					guard self.packageVerifier(sapDownloadedPackage) else {
+					guard self.packageVerifier.verify(sapDownloadedPackage) else {
 						Log.warning("TraceWarningPackageDownload: Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
 						completion(.failure(.verificationError))
 						return
@@ -299,10 +315,10 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
 					
 					Log.info("TraceWarningPackageDownload: Storing of packageId: \(packageId) done.")
-					completion(.success(()))
+					completion(.success(.success))
 				} else {
 					Log.info("TraceWarningPackageDownload: PackageId: \(packageId) is empty and was discarded.")
-					completion(.success(()))
+					completion(.success(.emptySinglePackage))
 				}
 				
 			case let .failure(error):
