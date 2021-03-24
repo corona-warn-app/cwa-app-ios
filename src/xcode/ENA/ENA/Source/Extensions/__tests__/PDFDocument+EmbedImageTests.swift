@@ -10,7 +10,7 @@ class PDFDocument_EmbedImageTests: XCTestCase {
 	
 	// swiftlint:disable force_unwrapping
 	/// Not proud of this test, if you have a nicer idea, please go ahead.
-    func testEmbedingImage() throws {
+    func testEmbedingImageAndText() throws {
 
 		let testBundle = Bundle(for: type(of: self))
 		
@@ -20,7 +20,7 @@ class PDFDocument_EmbedImageTests: XCTestCase {
 				
 		let image = UIImage(contentsOfFile: testBundle.path(forResource: "qr-code-to-embed", ofType: "png")!)
 		
-		try pdfDocument.embed(image: image!, at: CGPoint(x: 100, y: 100))
+		try pdfDocument.embedImageAndText(image: image!, at: CGPoint(x: 100, y: 100), text: "Hauptstr 3, 69115 Heidelberg", of: 14, and: .black, with: CGRect(x: 80, y: 510, width: 400, height: 20))
     }
 	// swiftlint:enable force_unwrapping
 
