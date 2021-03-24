@@ -33,7 +33,7 @@ extension Array where Element == SAP_External_Exposurenotification_TemporaryExpo
 			for exposureKey in exposureKeys {
 				var processedExposureKey = exposureKey
 
-				// [KGA] 
+				// [KGA]
 				/// Assign corresponding transmission risk level
 				processedExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[ageInDays]
 
