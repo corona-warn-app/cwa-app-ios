@@ -165,8 +165,8 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 	
 	// MARK: - Private
 	
-	private let binFileSize = 501
-	private let sigFileSize = 144
+	private let binFileSize = 50
+	private let sigFileSize = 138
 	private let expectationsTimeout: TimeInterval = 2
 		
 	private func assertPackageFormat(for response: PackageDownloadResponse, isEmpty: Bool = false) {

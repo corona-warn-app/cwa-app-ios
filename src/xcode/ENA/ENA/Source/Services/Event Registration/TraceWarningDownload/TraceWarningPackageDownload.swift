@@ -127,8 +127,8 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	/// Filters all outdated TraceWarningMetadataPackages and removes them from the database table TraceWarningMetadataPackages. Not private for testing purposes.
 	func cleanUpOutdatedMetadata(
-		from oldestPackage: Int,
-		to earliestRelevantPackage: Int
+		oldest oldestPackage: Int,
+		earliest earliestRelevantPackage: Int
 	) {
 		// Take the max of the oldest and earliestRelevantPackage and remove all metadatas that are older that this max.
 		let maxId = max(oldestPackage, earliestRelevantPackage)
@@ -140,7 +140,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	/// Filters out the packages to be downloaded by subtracting the actual packages from the available packages. Not private for testing purposes.
 	func determinePackagesToDownload(
 		availables availablePackagesOnCDN: [Int],
-		to earliestRelevantPackage: Int
+		earliest earliestRelevantPackage: Int
 	) -> Set<Int> {
 		// Get all packages that are earlier then the earliestRelevantPackage
 		let earlierPackages = Set(availablePackagesOnCDN.filter { return $0 >= earliestRelevantPackage })
@@ -273,10 +273,10 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		}
 
 		// 6. Clean up the trace warning package metadatas.
-		cleanUpOutdatedMetadata(from: discoveredTraceWarnings.oldest, to: earliestRelevantPackage)
+		cleanUpOutdatedMetadata(oldest: discoveredTraceWarnings.oldest, earliest: earliestRelevantPackage)
 				
 		// 7. Determine packagesToDownload
-		let packagesToDownload = determinePackagesToDownload(availables: availablePackagesOnCDN, to: earliestRelevantPackage)
+		let packagesToDownload = determinePackagesToDownload(availables: availablePackagesOnCDN, earliest: earliestRelevantPackage)
 
 		Log.info("TraceWarningPackageDownload: Determined packages to download: \(packagesToDownload). Proceed with downloading the single packages...")
 		self.downloadDeterminedPackages(packageIds: packagesToDownload, country: country, completion: completion)

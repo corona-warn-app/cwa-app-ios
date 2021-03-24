@@ -6,6 +6,7 @@
 import Foundation
 import XCTest
 
+// swiftline:disable:file_length
 // swiftlint:disable:next type_body_length
 class TraceWarningPackageDownloadTests: XCTestCase {
 	
@@ -493,9 +494,12 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		
 		// GIVEN
 		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: 44440.dateFromUnixTimestampInHours ?? Date()))
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: 44441.dateFromUnixTimestampInHours ?? Date()))
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: 44442.dateFromUnixTimestampInHours ?? Date()))
+		let earliestPackageId = 44440
+		let earliestPackageIdPlusOne = 44441
+		let earliestPackageIdPlusTwo = 44442
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: earliestPackageId.dateFromUnixTimestampInHours ?? Date()))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: earliestPackageIdPlusOne.dateFromUnixTimestampInHours ?? Date()))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: earliestPackageIdPlusTwo.dateFromUnixTimestampInHours ?? Date()))
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
@@ -509,19 +513,25 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		let earliestPackage = traceWarningPackageDownload.earliestRelevantPackage
 		
 		// THEN
-		XCTAssertEqual(earliestPackage, 44440)
+		XCTAssertEqual(earliestPackage, earliestPackageId)
 	}
-	
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CleanUpOutdatedMetadata_THEN_IsRevoked() {
 		
 		// GIVEN
 		let eventStore = MockEventStore()
-		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44400, region: "DE", eTag: "FakeETag"))
-		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44441, region: "DE", eTag: "FakeETag"))
-		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44442, region: "DE", eTag: "FakeETag"))
-		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44443, region: "DE", eTag: "FakeETag"))
-		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: 44444, region: "DE", eTag: "FakeETag"))
+		
+		let earliestPackageId = 44440
+		let earliestPackageIdPlusOne = 44441
+		let earliestPackageIdPlusTwo = 44442
+		let earliestPackageIdPlusThree = 44443
+		let earliestPackageIdPlusFour = 44444
+
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageId, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusOne, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusTwo, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusThree, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusFour, region: "DE", eTag: "FakeETag"))
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
 			client: ClientMock(),
@@ -532,43 +542,52 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 5)
 		
 		// WHEN
-		traceWarningPackageDownload.cleanUpOutdatedMetadata(from: 44440, to: 44443)
+		traceWarningPackageDownload.cleanUpOutdatedMetadata(oldest: earliestPackageId, earliest: earliestPackageIdPlusThree)
 		
 		// THEN
 		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 2)
-		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44440 }))
-		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44441 }))
-		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44442 }))
-		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44443 }))
-		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == 44444 }))
-	
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == earliestPackageId }))
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == earliestPackageIdPlusOne }))
+		XCTAssertFalse(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == earliestPackageIdPlusTwo }))
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == earliestPackageIdPlusThree }))
+		XCTAssertTrue(eventStore.traceWarningPackageMetadatasPublisher.value.contains(where: { $0.id == earliestPackageIdPlusFour }))
 	}
 	
-	/*
-	func testGIVEN_TraceWarningDownload_WHEN_DeterminePackagesToDownload_THEN_PackagesAreReturned() {
-	// GIVEN
-	<#given code#>
+	func testGIVEN_TraceWarningDownload_WHEN_DeterminePackagesToDownload_THEN_PackagesNotInDatabaseIsReturned() {
+		
+		// GIVEN
+		let eventStore = MockEventStore()
+		let earliestPackageId = 44440
+		let earliestPackageIdPlusOne = 44441
+		let earliestPackageIdPlusTwo = 44442
+		let earliestPackageIdPlusThree = 44443
+		let earliestPackageIdPlusFour = 44444
+
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageId, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusOne, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusTwo, region: "DE", eTag: "FakeETag"))
+		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusThree, region: "DE", eTag: "FakeETag"))
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: ClientMock(),
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
+		let availables = [earliestPackageIdPlusTwo, earliestPackageIdPlusThree, earliestPackageIdPlusFour]
+		let earliestRelevantPackageId = earliestPackageIdPlusThree
 	
-	// WHEN
-	<#when code#>
-	
-	// THEN
-	<#then code#>
-	
+		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 4)
+		
+		// WHEN
+		let packagesToDownload = traceWarningPackageDownload.determinePackagesToDownload(availables: availables, earliest: earliestRelevantPackageId)
+		
+		// THEN
+		XCTAssertEqual(packagesToDownload.count, 1)
+		XCTAssertFalse(packagesToDownload.contains(where: { $0 == earliestPackageId }))
+		XCTAssertFalse(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusThree }))
+		XCTAssertTrue(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusFour }))
 	}
-	
-	func testGIVEN_TraceWarningDownload_WHEN_DeterminePackagesToDownload_THEN_PackagesAreNotReturned() {
-	// GIVEN
-	<#given code#>
-	
-	// WHEN
-	<#when code#>
-	
-	// THEN
-	<#then code#>
-	
-	}
-*/
+
 	
 	// MARK: - Private
 	
