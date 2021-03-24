@@ -297,6 +297,7 @@
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
+		347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
 		34FE15942604ADC10002CB69 /* qr_code_template.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34FE15932604ADC00002CB69 /* qr_code_template.bin */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
@@ -562,10 +563,9 @@
 		A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */; };
 		A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
-		AB124E40260893FB009004B3 /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E3F260893FB009004B3 /* CheckinTests.swift */; };
-		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
 		A3FF84EC247BFAF00053E947 /* ENAHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* ENAHasher.swift */; };
 		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
+		AB124E40260893FB009004B3 /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E3F260893FB009004B3 /* CheckinTests.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
@@ -1268,6 +1268,7 @@
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
+		347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCode.swift"; sourceTree = "<group>"; };
 		34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCodeTests.swift"; sourceTree = "<group>"; };
 		34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviding.swift; sourceTree = "<group>"; };
@@ -1555,10 +1556,9 @@
 		A3E851B424ADDAC000402485 /* CountdownTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerTests.swift; sourceTree = "<group>"; };
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
-		AB124E3F260893FB009004B3 /* CheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
-		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* ENAHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAHasher.swift; sourceTree = "<group>"; };
 		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
+		AB124E3F260893FB009004B3 /* CheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -2084,9 +2084,9 @@
 			children = (
 				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
 				0138F6FE25F6782F00A9B075 /* Configuration */,
-				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
+				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6E025F661DE00A9B075 /* PrintVersion */,
 				0138F6D225F6177500A9B075 /* TypeSelection */,
 			);
@@ -2139,6 +2139,7 @@
 		0138F6C425F36C3F00A9B075 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				347FBB06260B8F5400672770 /* __tests__ */,
 				0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */,
 				0138F6C625F36C5900A9B075 /* TraceLocationDetailsViewModel.swift */,
 			);
@@ -2770,6 +2771,14 @@
 			children = (
 				2FD473BE251E0ECE000DCA40 /* EUSettingsViewControllerTests.swift */,
 				BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		347FBB06260B8F5400672770 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6607,6 +6616,7 @@
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
+				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
 				BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
