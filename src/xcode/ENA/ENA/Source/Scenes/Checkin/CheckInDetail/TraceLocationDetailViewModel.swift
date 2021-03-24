@@ -11,45 +11,15 @@ final class TraceLocationDetailViewModel {
 	
 	init(_ traceLocation: TraceLocation) {
 		self.traceLocation = traceLocation
-		
-		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
-			selectedDurationInMinutes = defaultDuration
-		} else {
-			let eventDuration = Calendar.current.dateComponents(
-				[.minute],
-				from: traceLocation.startDate ?? Date(),
-				to: traceLocation.endDate ?? Date()
-			)
-			// the 0 should not be possible since we expect either the defaultCheckInLengthInMinutes or the start and end dates to be available always
-			selectedDurationInMinutes = eventDuration.minute ?? 0
-		}
 	}
 	
 	// MARK: - Internal
 		
-	@OpenCombine.Published var descriptionLabelTitle: String?
-	@OpenCombine.Published var addressLabelTitle: String?
-	@OpenCombine.Published var initialDuration: Int?
 	@OpenCombine.Published var pickerButtonTitle: String?
 
+	var selectedDurationInMinutes = 0
 	var shouldSaveToContactJournal = true
-
-	func pickerView(didSelectRow numberOfMinutes: Int) {
-		selectedDurationInMinutes = numberOfMinutes
-		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
-		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
-		if let hour = getFormattedHourString(date) {
-			pickerButtonTitle = hour + " " + AppStrings.Checkins.Details.hoursShortVersion
-		}
-	}
-		
-	func setupView() {
-		descriptionLabelTitle = traceLocation.description
-		addressLabelTitle = traceLocation.address
-		initialDuration = selectedDurationInMinutes
-	}
-
-	func getTraceLocationStatus() -> TraceLocationDateStatus? {
+	var traceLocationStatus: TraceLocationDateStatus? {
 		guard let startDate = traceLocation.startDate,
 			  let endDate = traceLocation.endDate else {
 			return nil
@@ -63,7 +33,35 @@ final class TraceLocationDetailViewModel {
 		}
 	}
 	
-	func getFormattedString(for component: Calendar.Component) -> String? {
+	var initialDuration: Int {
+		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
+			return defaultDuration
+		} else {
+			let eventDuration = Calendar.current.dateComponents(
+				[.minute],
+				from: traceLocation.startDate ?? Date(),
+				to: traceLocation.endDate ?? Date()
+			)
+			// the 0 should not be possible since we expect either the defaultCheckInLengthInMinutes or the start and end dates to be available always
+			return eventDuration.minute ?? 0
+		}
+	}
+	
+	func setupViewModel() {
+		selectedDurationInMinutes = initialDuration
+	}
+	func pickerView(didSelectRow numberOfMinutes: Int) {
+		selectedDurationInMinutes = numberOfMinutes
+		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
+		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
+		if let hour = formattedHourString(date) {
+			pickerButtonTitle = hour + " " + AppStrings.Checkins.Details.hoursShortVersion
+		}
+	}
+	
+
+	
+	func formattedString(for component: Calendar.Component) -> String? {
 		switch component {
 		case .day:
 			let dateFormatter = DateFormatter()
@@ -71,20 +69,10 @@ final class TraceLocationDetailViewModel {
 			dateFormatter.locale = Locale.current
 			return dateFormatter.string(from: traceLocation.startDate ?? Date())
 		case .hour:
-			return getFormattedHourString(traceLocation.startDate)
+			return formattedHourString(traceLocation.startDate)
 		default:
 			return nil
 		}
-	}
-	
-	func getFormattedHourString(_ date: Date?) -> String? {
-		let dateComponentsFormatter = DateComponentsFormatter()
-		dateComponentsFormatter.allowedUnits = [.hour, .minute]
-		dateComponentsFormatter.unitsStyle = .positional
-		dateComponentsFormatter.zeroFormattingBehavior = .pad
-		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
-		return dateComponentsFormatter.string(from: components)
-
 	}
 	
 	func saveCheckinToDatabase() {
@@ -114,8 +102,17 @@ final class TraceLocationDetailViewModel {
 
 	// MARK: - Private
 	
-	private var selectedDurationInMinutes: Int
 	private let traceLocation: TraceLocation
+	
+	private func formattedHourString(_ date: Date?) -> String? {
+		let dateComponentsFormatter = DateComponentsFormatter()
+		dateComponentsFormatter.allowedUnits = [.hour, .minute]
+		dateComponentsFormatter.unitsStyle = .positional
+		dateComponentsFormatter.zeroFormattingBehavior = .pad
+		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
+		return dateComponentsFormatter.string(from: components)
+
+	}
 }
 
 enum TraceLocationDateStatus {

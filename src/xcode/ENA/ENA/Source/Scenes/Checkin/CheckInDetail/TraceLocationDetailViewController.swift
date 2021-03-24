@@ -17,6 +17,9 @@ class TraceLocationDetailViewController: UIViewController {
 		self.dismiss = dismiss
 		self.presentCheckins = presentCheckins
 		self.viewModel = TraceLocationDetailViewModel(traceLocation)
+		self.locationDescription = traceLocation.description
+		self.locationAddress = traceLocation.address
+		self.locationInitialDuration = viewModel.initialDuration
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -57,17 +60,22 @@ class TraceLocationDetailViewController: UIViewController {
 	private let dismiss: () -> Void
 	private let presentCheckins: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
-	private var selectedDuration: Int?
 	private var isInitialSetup = true
 
-	private func setupView() {
-		viewModel.setupView()
+	private let locationDescription: String
+	private let locationAddress: String
+	private let locationInitialDuration: Int
 
+	private func setupView() {
+		viewModel.setupViewModel()
+		
 		view.backgroundColor = .enaColor(for: .background)
 		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
 		activityLabel.text = AppStrings.Checkins.Details.activity
 		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
 		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
+		descriptionLabel.text = description
+		addressLabel.text = locationAddress
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
@@ -76,27 +84,8 @@ class TraceLocationDetailViewController: UIViewController {
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
 
 		setupAdditionalInfoView()
-		
-		viewModel.$descriptionLabelTitle
-			.sink { [weak self] description in
-				self?.descriptionLabel.text = description
-			}
-			.store(in: &subscriptions)
-		
-		viewModel.$addressLabelTitle
-			.sink { [weak self] address in
-				self?.addressLabel.text = address
-			}
-			.store(in: &subscriptions)
-		
-		viewModel.$initialDuration
-			.sink { [weak self] duration in
-				self?.selectedDuration = duration
-				self?.setupPicker(with: duration ?? 0)
+		setupPicker(with: locationInitialDuration)
 
-			}
-			.store(in: &subscriptions)
-		
 		viewModel.$pickerButtonTitle
 			.sink { [weak self] hour in
 				if let hour = hour {
@@ -107,14 +96,14 @@ class TraceLocationDetailViewController: UIViewController {
 	}
 	
 	private func setupAdditionalInfoView() {
-		let status = viewModel.getTraceLocationStatus()
+		let status = viewModel.traceLocationStatus
 		switch status {
 		case .notStarted:
 			additionalInfoView.isHidden = false
 			additionalInfoLabel.text = String(
 				format: AppStrings.Checkins.Details.eventNotStartedYet,
-				viewModel.getFormattedString(for: .day) ?? "",
-				viewModel.getFormattedString(for: .hour) ?? ""
+				viewModel.formattedString(for: .day) ?? "",
+				viewModel.formattedString(for: .hour) ?? ""
 			)
 		case .ended:
 			additionalInfoView.isHidden = false
@@ -142,7 +131,6 @@ class TraceLocationDetailViewController: UIViewController {
 		view.layer.borderColor = color.cgColor
 		view.layer.borderWidth = 1
 	}
-
 	
 	@IBAction private func checkInPressed(_ sender: Any) {
 		viewModel.saveCheckinToDatabase()
@@ -175,8 +163,8 @@ class TraceLocationDetailViewController: UIViewController {
 		
 		if !pickerContainerView.isHidden && isInitialSetup {
 			isInitialSetup = false
-			let components = selectedDuration?.quotientAndRemainder(dividingBy: 60)
-			let date = DateComponents(calendar: Calendar.current, hour: components?.quotient, minute: components?.remainder).date ?? Date()
+			let components = locationInitialDuration.quotientAndRemainder(dividingBy: 60)
+			let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
 			datePickerView.setDate(date, animated: true)
 		}
 	}
