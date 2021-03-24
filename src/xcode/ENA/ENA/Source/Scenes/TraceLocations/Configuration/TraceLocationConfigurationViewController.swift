@@ -38,7 +38,9 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		setUpGestureRecognizers()
 		setUpBindings()
 
-		traceLocationTypeLabel.text = "Vereinsaktivität"
+		traceLocationTypeLabel.text = viewModel.traceLocationTypeTitle
+		temporarySettingsContainerView.isHidden = viewModel.temporarySettingsContainerIsHidden
+		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
 
 		descriptionTextField.placeholder = "Bezeichnung"
 		addressTextField.placeholder = "Ort"
@@ -69,6 +71,8 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	@IBOutlet private weak var descriptionTextField: ENATextField!
 	@IBOutlet private weak var addressTextField: ENATextField!
 
+	// MARK: Temporary Trace Location Settings
+
 	@IBOutlet private weak var temporarySettingsContainerView: UIView!
 
 	@IBOutlet private weak var startDateHeaderContainerView: UIView!
@@ -93,6 +97,8 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	@IBOutlet private weak var temporaryDefaultLengthPickerContainerView: UIView!
 	@IBOutlet private weak var temporaryDefaultLengthPickerBackgroundView: UIView!
 	@IBOutlet private weak var temporaryDefaultLengthPicker: UIDatePicker!
+
+	// MARK: Permanent Trace Location Settings
 
 	@IBOutlet private weak var permanentSettingsContainerView: UIView!
 
@@ -167,7 +173,15 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	}
 
 	private func setUpBindings() {
-		viewModel.$isStartDatePickerHidden
+		viewModel.$description
+			.assign(to: \.text, on: descriptionTextField)
+			.store(in: &subscriptions)
+
+		viewModel.$address
+			.assign(to: \.text, on: addressTextField)
+			.store(in: &subscriptions)
+
+		viewModel.$startDatePickerIsHidden
 			.sink { [weak self] isHidden in
 				UIView.animate(withDuration: 0.25) {
 					self?.startDatePickerContainerView.isHidden = isHidden
@@ -175,15 +189,15 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$isEndDatePickerHidden
+		viewModel.$endDatePickerIsHidden
 			.sink { [weak self] isHidden in
-				UIView.animate(withDuration: 0.25) {
+//				UIView.animate(withDuration: 0.25) {
 					self?.endDatePickerContainerView.isHidden = isHidden
-				}
+//				}
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$isTemporaryDefaultLengthPickerHidden
+		viewModel.$temporaryDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
 				UIView.animate(withDuration: 0.25) {
 					self?.temporaryDefaultLengthPickerContainerView.isHidden = isHidden
@@ -191,7 +205,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 			}
 			.store(in: &subscriptions)
 
-		viewModel.$isPermanentDefaultLengthPickerHidden
+		viewModel.$permanentDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
 				UIView.animate(withDuration: 0.25) {
 					self?.permanentDefaultLengthPickerContainerView.isHidden = isHidden

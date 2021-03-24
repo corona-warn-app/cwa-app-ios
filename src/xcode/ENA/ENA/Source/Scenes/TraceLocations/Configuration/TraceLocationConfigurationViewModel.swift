@@ -19,37 +19,66 @@ class TraceLocationConfigurationViewModel {
 		mode: Mode
 	) {
 		self.mode = mode
+
+		switch mode {
+		case .new(let type):
+			traceLocationType = type
+		case .duplicate(let traceLocation):
+			traceLocationType = traceLocation.type
+			description = traceLocation.description
+			address = traceLocation.address
+			startDate = traceLocation.startDate
+			endDate = traceLocation.endDate
+			defaultCheckInLengthInMinutes = traceLocation.defaultCheckInLengthInMinutes
+		}
 	}
 
 	// MARK: - Internal
 
-	@OpenCombine.Published var isStartDatePickerHidden: Bool = true
-	@OpenCombine.Published var isEndDatePickerHidden: Bool = true
-	@OpenCombine.Published var isTemporaryDefaultLengthPickerHidden: Bool = true
-	@OpenCombine.Published var isPermanentDefaultLengthPickerHidden: Bool = true
+	@OpenCombine.Published var startDatePickerIsHidden: Bool = true
+	@OpenCombine.Published var endDatePickerIsHidden: Bool = true
+	@OpenCombine.Published var temporaryDefaultLengthPickerIsHidden: Bool = true
+	@OpenCombine.Published var permanentDefaultLengthPickerIsHidden: Bool = true
+
+	@OpenCombine.Published var description: String! = ""
+	@OpenCombine.Published var address: String! = ""
+	@OpenCombine.Published var startDate: Date?
+	@OpenCombine.Published var endDate: Date?
+
+	var traceLocationTypeTitle: String {
+		traceLocationType.title
+	}
+
+	var temporarySettingsContainerIsHidden: Bool {
+		traceLocationType.type != .temporary
+	}
+
+	var permanentSettingsContainerIsHidden: Bool {
+		traceLocationType.type != .permanent
+	}
 
 	func startDateHeaderTapped() {
-		isStartDatePickerHidden.toggle()
+		startDatePickerIsHidden.toggle()
 
-		if !isStartDatePickerHidden {
-			isEndDatePickerHidden = true
+		if !startDatePickerIsHidden {
+			endDatePickerIsHidden = true
 		}
 	}
 
 	func endDateHeaderTapped() {
-		isEndDatePickerHidden.toggle()
+		endDatePickerIsHidden.toggle()
 
-		if !isEndDatePickerHidden {
-			isStartDatePickerHidden = true
+		if !endDatePickerIsHidden {
+			startDatePickerIsHidden = true
 		}
 	}
 
 	func temporaryDefaultLengthHeaderTapped() {
-		isTemporaryDefaultLengthPickerHidden.toggle()
+		temporaryDefaultLengthPickerIsHidden.toggle()
 	}
 
 	func permanentDefaultLengthHeaderTapped() {
-		isPermanentDefaultLengthPickerHidden.toggle()
+		permanentDefaultLengthPickerIsHidden.toggle()
 	}
 
 	func save(completion: @escaping (Bool) -> Void) {
@@ -60,6 +89,9 @@ class TraceLocationConfigurationViewModel {
 
 	// MARK: - Private
 
-	let mode: Mode
+	private let mode: Mode
+
+	private let traceLocationType: TraceLocationType
+	private var defaultCheckInLengthInMinutes: Int?
 
 }
