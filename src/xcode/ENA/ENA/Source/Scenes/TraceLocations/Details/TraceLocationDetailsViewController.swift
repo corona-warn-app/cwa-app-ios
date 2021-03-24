@@ -65,9 +65,13 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 			case let .success(templateData):
 				DispatchQueue.main.async { [weak self] in
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-					
-					guard let pdfView = self?.createPdfView(templateData: templateData) else { return }
-					self?.onPrintVersionButtonTap(pdfView)
+
+					do {
+						let pdfView = try self?.createPdfView(templateData: templateData)
+						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
+					} catch {
+						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
+					}
 				}
 			case let .failure(error):
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
@@ -78,7 +82,7 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 		}
 	}
 
-	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) -> PDFView {
+	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
 		let pdfView = PDFView()
 		let pdfDocument = PDFDocument(data: templateData.template)
 
