@@ -181,6 +181,9 @@ struct CountrySubmissionPayload {
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]
 
+	/// List of  attended events
+	let eventCheckIns: [SAP_Internal_Pt_CheckIn]
+
 	/// a transaction number
 	let tan: String
 }
