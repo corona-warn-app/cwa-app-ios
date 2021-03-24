@@ -3597,19 +3597,19 @@
 				BADDD84A26039E1000337223 /* CheckIns */,
 				50D50A5E25D6CC760092BC2A /* DataDonation */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
-				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
-				85D7596324570491008175F0 /* ENAUITests.swift */,
 				AB7DE70025C4543700C52B3F /* ExposureDetection */,
 				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
 				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
 				941B68AD253F005600DC1962 /* Helper */,
 				134F0DB8247578FF00D88934 /* Home */,
-				85D7596524570491008175F0 /* Info.plist */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
+				EB1C221625B718FA00A5CA6E /* UpdateOS */,
+				85D7596324570491008175F0 /* ENAUITests.swift */,
+				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
-				EB1C221625B718FA00A5CA6E /* UpdateOS */,
+				85D7596524570491008175F0 /* Info.plist */,
 			);
 			path = ENAUITests;
 			sourceTree = "<group>";
