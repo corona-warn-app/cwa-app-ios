@@ -10,9 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CheckinDetailViewController" customModule="ENA" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TraceLocationDetailViewController" customModule="ENA" customModuleProvider="target">
             <connections>
                 <outlet property="activityLabel" destination="Jzq-Fo-8cl" id="DiN-Y3-Vfn"/>
+                <outlet property="additionalInfoLabel" destination="b0x-6m-KuJ" id="qdp-N3-dyH"/>
+                <outlet property="additionalInfoView" destination="5E9-lv-fpC" id="Mu3-y1-WBV"/>
                 <outlet property="addressLabel" destination="HOb-g7-FlT" id="fJO-si-HRM"/>
                 <outlet property="automaticCheckOutLabel" destination="UBN-wb-TKy" id="4IG-FN-bmZ"/>
                 <outlet property="bottomCardView" destination="Ek6-qj-gRz" id="zPW-8o-d4S"/>
@@ -24,6 +26,7 @@
                 <outlet property="pickerButton" destination="KL2-pg-6XN" id="Jje-6t-rMu"/>
                 <outlet property="pickerContainerView" destination="Wru-kA-6ul" id="rKM-FF-71m"/>
                 <outlet property="pickerSeparator" destination="wD3-ls-rxV" id="QEg-8T-WSc"/>
+                <outlet property="pickerSwitch" destination="FeX-e0-F2d" id="65a-lv-RG8"/>
                 <outlet property="saveToDiaryLabel" destination="M1z-st-0w7" id="c4n-cg-hT7"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vGI-7O-PiC"/>
             </connections>
@@ -80,200 +83,237 @@
                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-OV-LaG" userLabel="Description Card View">
-                                    <rect key="frame" x="16" y="56.5" width="382" height="221.5"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oNa-7R-1wU">
+                                    <rect key="frame" x="16" y="56.5" width="382" height="399.5"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZq-JQ-gwq">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-OV-LaG" userLabel="Description Card View">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
-                                            <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZq-JQ-gwq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
+                                                    <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ED-cS-AdJ">
+                                                    <rect key="frame" x="16" y="30" width="350" height="161.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="90" width="350" height="41"/>
+                                                            <string key="text">Jahrestreffen der 
+deutschen SAP Anwendergruppe</string>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hauptstr 3, 69115 Heidelberg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOb-g7-FlT" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="141" width="350" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Primary 2 Color"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" name="ENA Background Color"/>
+                                            <constraints>
+                                                <constraint firstItem="4ED-cS-AdJ" firstAttribute="top" secondItem="16U-OV-LaG" secondAttribute="top" constant="30" id="Bl9-f8-Iaw"/>
+                                                <constraint firstAttribute="trailing" secondItem="4ED-cS-AdJ" secondAttribute="trailing" constant="16" id="LHc-A7-WRj"/>
+                                                <constraint firstAttribute="bottom" secondItem="4ED-cS-AdJ" secondAttribute="bottom" constant="30" id="cWH-cL-ZVB"/>
+                                                <constraint firstItem="xZq-JQ-gwq" firstAttribute="top" secondItem="16U-OV-LaG" secondAttribute="top" id="dqG-uZ-1NF"/>
+                                                <constraint firstAttribute="bottom" secondItem="xZq-JQ-gwq" secondAttribute="bottom" id="oQg-yd-Zes"/>
+                                                <constraint firstItem="xZq-JQ-gwq" firstAttribute="leading" secondItem="16U-OV-LaG" secondAttribute="leading" id="oZ8-r3-qTN"/>
+                                                <constraint firstAttribute="trailing" secondItem="xZq-JQ-gwq" secondAttribute="trailing" id="uu0-zh-hta"/>
+                                                <constraint firstItem="4ED-cS-AdJ" firstAttribute="leading" secondItem="16U-OV-LaG" secondAttribute="leading" constant="16" id="z5P-n0-dBo"/>
+                                            </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                     <integer key="value" value="15"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ED-cS-AdJ">
-                                            <rect key="frame" x="16" y="30" width="350" height="161.5"/>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5E9-lv-fpC" userLabel="Additional Info View">
+                                            <rect key="frame" x="0.0" y="227.5" width="382" height="40"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="ENA Text Primary 2 Color"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="30.5" width="350" height="100.5"/>
-                                                    <string key="text">Jahrestreffen der 
-deutschen SAP Anwendergruppe</string>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Das Event beginnt erst am 21.01.21 um 18:00 Uhr. Wollen Sie bereits einchecken?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0x-6m-KuJ" userLabel="Additional Info Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="20" width="350" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hauptstr 3, 69115 Heidelberg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOb-g7-FlT" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="141" width="350" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="ENA Text Primary 2 Color"/>
-                                                    <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <color key="backgroundColor" name="ENA Background Color"/>
-                                    <constraints>
-                                        <constraint firstItem="4ED-cS-AdJ" firstAttribute="top" secondItem="16U-OV-LaG" secondAttribute="top" constant="30" id="Bl9-f8-Iaw"/>
-                                        <constraint firstAttribute="trailing" secondItem="4ED-cS-AdJ" secondAttribute="trailing" constant="16" id="LHc-A7-WRj"/>
-                                        <constraint firstAttribute="bottom" secondItem="4ED-cS-AdJ" secondAttribute="bottom" constant="30" id="cWH-cL-ZVB"/>
-                                        <constraint firstItem="xZq-JQ-gwq" firstAttribute="top" secondItem="16U-OV-LaG" secondAttribute="top" id="dqG-uZ-1NF"/>
-                                        <constraint firstAttribute="bottom" secondItem="xZq-JQ-gwq" secondAttribute="bottom" id="oQg-yd-Zes"/>
-                                        <constraint firstItem="xZq-JQ-gwq" firstAttribute="leading" secondItem="16U-OV-LaG" secondAttribute="leading" id="oZ8-r3-qTN"/>
-                                        <constraint firstAttribute="trailing" secondItem="xZq-JQ-gwq" secondAttribute="trailing" id="uu0-zh-hta"/>
-                                        <constraint firstItem="4ED-cS-AdJ" firstAttribute="leading" secondItem="16U-OV-LaG" secondAttribute="leading" constant="16" id="z5P-n0-dBo"/>
-                                    </constraints>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                            <integer key="value" value="15"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ek6-qj-gRz" userLabel="BottomStackView">
-                                    <rect key="frame" x="16" y="290" width="382" height="166"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XlJ-Tn-Nyv">
-                                            <rect key="frame" x="16" y="16" width="350" height="150"/>
+                                            <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="b0x-6m-KuJ" secondAttribute="trailing" constant="16" id="6hJ-lt-nbx"/>
+                                                <constraint firstAttribute="bottom" secondItem="b0x-6m-KuJ" secondAttribute="bottom" constant="20" id="cM5-gn-arG"/>
+                                                <constraint firstItem="b0x-6m-KuJ" firstAttribute="top" secondItem="5E9-lv-fpC" secondAttribute="top" constant="20" id="ctq-I6-hrl"/>
+                                                <constraint firstItem="b0x-6m-KuJ" firstAttribute="leading" secondItem="5E9-lv-fpC" secondAttribute="leading" constant="16" id="mRj-JH-5Ru"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ek6-qj-gRz" userLabel="BottomStackView">
+                                            <rect key="frame" x="0.0" y="233.5" width="382" height="166"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3S-Zc-NqF" userLabel="switchView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="77"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XlJ-Tn-Nyv">
+                                                    <rect key="frame" x="16" y="0.0" width="350" height="166"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nach dem Auschecken in mein Tagebuch eintragen? " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-st-0w7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="18" width="292" height="41"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-e0-F2d" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="300" y="23" width="52" height="31"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3S-Zc-NqF" userLabel="switchView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="93"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nach dem Auschecken in mein Tagebuch eintragen? " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-st-0w7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="18" width="292" height="57"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
+                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-e0-F2d" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="300" y="31" width="52" height="31"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="50" id="Ui2-tM-k69"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <action selector="switchValueChanged:" destination="-1" eventType="valueChanged" id="Jpq-J3-fYw"/>
+                                                                    </connections>
+                                                                </switch>
+                                                            </subviews>
+                                                            <gestureRecognizers/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="50" id="Ui2-tM-k69"/>
+                                                                <constraint firstItem="M1z-st-0w7" firstAttribute="centerY" secondItem="T3S-Zc-NqF" secondAttribute="centerY" id="8MD-gS-ZHi"/>
+                                                                <constraint firstAttribute="trailing" secondItem="FeX-e0-F2d" secondAttribute="trailing" id="IqS-FV-Dxs"/>
+                                                                <constraint firstItem="FeX-e0-F2d" firstAttribute="centerY" secondItem="M1z-st-0w7" secondAttribute="centerY" id="K6e-qv-q9s"/>
+                                                                <constraint firstItem="M1z-st-0w7" firstAttribute="leading" secondItem="T3S-Zc-NqF" secondAttribute="leading" id="Kgw-Sg-kwd"/>
+                                                                <constraint firstAttribute="bottom" secondItem="M1z-st-0w7" secondAttribute="bottom" constant="18" id="Qaf-j9-ggZ"/>
+                                                                <constraint firstItem="M1z-st-0w7" firstAttribute="top" secondItem="T3S-Zc-NqF" secondAttribute="top" constant="18" id="SJF-wr-xqP"/>
+                                                                <constraint firstItem="FeX-e0-F2d" firstAttribute="leading" secondItem="M1z-st-0w7" secondAttribute="trailing" constant="8" id="SNP-Sy-1Bg"/>
                                                             </constraints>
                                                             <connections>
-                                                                <action selector="switchValueChanged:" destination="-1" eventType="valueChanged" id="Jpq-J3-fYw"/>
+                                                                <outletCollection property="gestureRecognizers" destination="C71-Xs-XZQ" appends="YES" id="3Ie-EP-4zL"/>
                                                             </connections>
-                                                        </switch>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="M1z-st-0w7" firstAttribute="centerY" secondItem="T3S-Zc-NqF" secondAttribute="centerY" id="8MD-gS-ZHi"/>
-                                                        <constraint firstAttribute="trailing" secondItem="FeX-e0-F2d" secondAttribute="trailing" id="IqS-FV-Dxs"/>
-                                                        <constraint firstItem="FeX-e0-F2d" firstAttribute="centerY" secondItem="M1z-st-0w7" secondAttribute="centerY" id="K6e-qv-q9s"/>
-                                                        <constraint firstItem="M1z-st-0w7" firstAttribute="leading" secondItem="T3S-Zc-NqF" secondAttribute="leading" id="Kgw-Sg-kwd"/>
-                                                        <constraint firstAttribute="bottom" secondItem="M1z-st-0w7" secondAttribute="bottom" constant="18" id="Qaf-j9-ggZ"/>
-                                                        <constraint firstItem="M1z-st-0w7" firstAttribute="top" secondItem="T3S-Zc-NqF" secondAttribute="top" constant="18" id="SJF-wr-xqP"/>
-                                                        <constraint firstItem="FeX-e0-F2d" firstAttribute="leading" secondItem="M1z-st-0w7" secondAttribute="trailing" constant="8" id="SNP-Sy-1Bg"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4v-aA-02j" userLabel="Separator">
-                                                    <rect key="frame" x="0.0" y="77" width="350" height="1"/>
-                                                    <color key="backgroundColor" name="ENA Hairline Color"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="8RB-k8-Gz3"/>
-                                                    </constraints>
-                                                </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDB-JB-hDV" userLabel="Check-outView">
-                                                    <rect key="frame" x="0.0" y="78" width="350" height="72"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="18" width="209" height="36"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="249" y="11" width="101" height="50"/>
-                                                            <state key="normal" title="03:00 Std.">
-                                                                <color key="titleColor" name="ENA Text Primary 1 Color"/>
-                                                            </state>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
-                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4v-aA-02j" userLabel="Separator">
+                                                            <rect key="frame" x="0.0" y="93" width="350" height="1"/>
+                                                            <color key="backgroundColor" name="ENA Hairline Color"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="8RB-k8-Gz3"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDB-JB-hDV" userLabel="Check-outView">
+                                                            <rect key="frame" x="0.0" y="94" width="350" height="72"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="18" width="209" height="36"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="277" y="21" width="73" height="30"/>
+                                                                    <color key="tintColor" name="ENA Text Contrast Color"/>
+                                                                    <state key="normal" title="03:00 Std.">
+                                                                        <color key="titleColor" name="ENA Text Primary 1 Color"/>
+                                                                    </state>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                            <color key="value" systemColor="labelColor"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="showPickerButton:" destination="-1" eventType="touchUpInside" id="eOu-4A-awd"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <gestureRecognizers/>
+                                                            <constraints>
+                                                                <constraint firstItem="UBN-wb-TKy" firstAttribute="centerY" secondItem="GDB-JB-hDV" secondAttribute="centerY" id="0gt-Ij-GMf"/>
+                                                                <constraint firstAttribute="bottom" secondItem="UBN-wb-TKy" secondAttribute="bottom" constant="18" id="45E-dc-lCI"/>
+                                                                <constraint firstItem="UBN-wb-TKy" firstAttribute="top" secondItem="GDB-JB-hDV" secondAttribute="top" constant="18" id="OAY-gB-QPB"/>
+                                                                <constraint firstItem="KL2-pg-6XN" firstAttribute="centerY" secondItem="UBN-wb-TKy" secondAttribute="centerY" id="WpF-Du-Pdf"/>
+                                                                <constraint firstItem="UBN-wb-TKy" firstAttribute="leading" secondItem="GDB-JB-hDV" secondAttribute="leading" id="eEY-nn-GfT"/>
+                                                                <constraint firstItem="KL2-pg-6XN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UBN-wb-TKy" secondAttribute="trailing" constant="8" id="vS6-xt-3be"/>
+                                                                <constraint firstAttribute="trailing" secondItem="KL2-pg-6XN" secondAttribute="trailing" id="veV-6P-x7h"/>
+                                                            </constraints>
                                                             <connections>
-                                                                <action selector="showPickerButton:" destination="-1" eventType="touchUpInside" id="eOu-4A-awd"/>
+                                                                <outletCollection property="gestureRecognizers" destination="UID-rT-S6c" appends="YES" id="CtB-90-orJ"/>
                                                             </connections>
-                                                        </button>
+                                                        </view>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wD3-ls-rxV" userLabel="Separator">
+                                                            <rect key="frame" x="0.0" y="166" width="350" height="1"/>
+                                                            <color key="backgroundColor" name="ENA Hairline Color"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="Kp4-0A-5me"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wru-kA-6ul">
+                                                            <rect key="frame" x="0.0" y="166" width="350" height="0.0"/>
+                                                            <subviews>
+                                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yid-Kg-xeK">
+                                                                    <rect key="frame" x="35" y="0.0" width="280" height="0.0"/>
+                                                                </datePicker>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="yid-Kg-xeK" firstAttribute="centerX" secondItem="Wru-kA-6ul" secondAttribute="centerX" id="FcY-JW-uga"/>
+                                                                <constraint firstItem="yid-Kg-xeK" firstAttribute="top" secondItem="Wru-kA-6ul" secondAttribute="top" id="SA5-Ly-OpW"/>
+                                                                <constraint firstAttribute="bottom" secondItem="yid-Kg-xeK" secondAttribute="bottom" id="VrL-nd-wjf"/>
+                                                                <constraint firstItem="yid-Kg-xeK" firstAttribute="width" secondItem="Wru-kA-6ul" secondAttribute="width" multiplier="0.8" id="nYd-C8-vNK"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="UBN-wb-TKy" firstAttribute="centerY" secondItem="GDB-JB-hDV" secondAttribute="centerY" id="0gt-Ij-GMf"/>
-                                                        <constraint firstAttribute="bottom" secondItem="UBN-wb-TKy" secondAttribute="bottom" constant="18" id="45E-dc-lCI"/>
-                                                        <constraint firstItem="UBN-wb-TKy" firstAttribute="top" secondItem="GDB-JB-hDV" secondAttribute="top" constant="18" id="OAY-gB-QPB"/>
-                                                        <constraint firstItem="KL2-pg-6XN" firstAttribute="centerY" secondItem="UBN-wb-TKy" secondAttribute="centerY" id="WpF-Du-Pdf"/>
-                                                        <constraint firstItem="UBN-wb-TKy" firstAttribute="leading" secondItem="GDB-JB-hDV" secondAttribute="leading" id="eEY-nn-GfT"/>
-                                                        <constraint firstItem="KL2-pg-6XN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UBN-wb-TKy" secondAttribute="trailing" constant="8" id="vS6-xt-3be"/>
-                                                        <constraint firstAttribute="trailing" secondItem="KL2-pg-6XN" secondAttribute="trailing" id="veV-6P-x7h"/>
-                                                    </constraints>
-                                                </view>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wD3-ls-rxV" userLabel="Separator">
-                                                    <rect key="frame" x="0.0" y="150" width="350" height="1"/>
-                                                    <color key="backgroundColor" name="ENA Hairline Color"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="Kp4-0A-5me"/>
-                                                    </constraints>
-                                                </view>
-                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wru-kA-6ul">
-                                                    <rect key="frame" x="0.0" y="150" width="350" height="0.0"/>
-                                                    <subviews>
-                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yid-Kg-xeK">
-                                                            <rect key="frame" x="35" y="0.0" width="280" height="0.0"/>
-                                                        </datePicker>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="yid-Kg-xeK" firstAttribute="centerX" secondItem="Wru-kA-6ul" secondAttribute="centerX" id="FcY-JW-uga"/>
-                                                        <constraint firstItem="yid-Kg-xeK" firstAttribute="top" secondItem="Wru-kA-6ul" secondAttribute="top" id="SA5-Ly-OpW"/>
-                                                        <constraint firstAttribute="bottom" secondItem="yid-Kg-xeK" secondAttribute="bottom" id="VrL-nd-wjf"/>
-                                                        <constraint firstItem="yid-Kg-xeK" firstAttribute="width" secondItem="Wru-kA-6ul" secondAttribute="width" multiplier="0.8" id="nYd-C8-vNK"/>
-                                                    </constraints>
-                                                </view>
+                                                </stackView>
                                             </subviews>
-                                        </stackView>
+                                            <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="XlJ-Tn-Nyv" secondAttribute="trailing" constant="16" id="W76-I2-IVv"/>
+                                                <constraint firstItem="XlJ-Tn-Nyv" firstAttribute="top" secondItem="Ek6-qj-gRz" secondAttribute="top" id="X3Y-NR-tVU"/>
+                                                <constraint firstItem="XlJ-Tn-Nyv" firstAttribute="leading" secondItem="Ek6-qj-gRz" secondAttribute="leading" constant="16" id="XaR-e0-5PT"/>
+                                                <constraint firstAttribute="bottom" secondItem="XlJ-Tn-Nyv" secondAttribute="bottom" id="zAO-2p-GAa"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                     </subviews>
-                                    <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="XlJ-Tn-Nyv" secondAttribute="trailing" constant="16" id="W76-I2-IVv"/>
-                                        <constraint firstItem="XlJ-Tn-Nyv" firstAttribute="top" secondItem="Ek6-qj-gRz" secondAttribute="top" constant="16" id="X3Y-NR-tVU"/>
-                                        <constraint firstItem="XlJ-Tn-Nyv" firstAttribute="leading" secondItem="Ek6-qj-gRz" secondAttribute="leading" constant="16" id="XaR-e0-5PT"/>
-                                        <constraint firstAttribute="bottom" secondItem="XlJ-Tn-Nyv" secondAttribute="bottom" id="zAO-2p-GAa"/>
-                                    </constraints>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                            <integer key="value" value="15"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                </view>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" name="ENA Background Color"/>
                             <constraints>
                                 <constraint firstItem="qe2-Cr-Hsf" firstAttribute="trailing" secondItem="fx9-sT-lVo" secondAttribute="trailing" constant="16" id="3f5-Yx-H9G"/>
+                                <constraint firstItem="oNa-7R-1wU" firstAttribute="top" secondItem="qe2-Cr-Hsf" secondAttribute="bottom" constant="12" id="429-LQ-bU1"/>
                                 <constraint firstItem="fx9-sT-lVo" firstAttribute="leading" secondItem="WkR-AT-WXT" secondAttribute="leading" id="4mj-s3-UjU"/>
+                                <constraint firstAttribute="trailing" secondItem="oNa-7R-1wU" secondAttribute="trailing" constant="16" id="6l9-iZ-r5y"/>
+                                <constraint firstAttribute="bottom" secondItem="oNa-7R-1wU" secondAttribute="bottom" id="8tO-M6-3GE"/>
                                 <constraint firstAttribute="trailing" secondItem="fx9-sT-lVo" secondAttribute="trailing" id="F1I-tM-CZF"/>
                                 <constraint firstItem="qe2-Cr-Hsf" firstAttribute="leading" secondItem="fx9-sT-lVo" secondAttribute="leading" constant="16" id="FVO-dV-I70"/>
                                 <constraint firstItem="qe2-Cr-Hsf" firstAttribute="top" secondItem="fx9-sT-lVo" secondAttribute="top" constant="24" id="IgJ-BW-WpL"/>
-                                <constraint firstItem="Ek6-qj-gRz" firstAttribute="leading" secondItem="16U-OV-LaG" secondAttribute="leading" id="N4M-lp-IyU"/>
                                 <constraint firstItem="fx9-sT-lVo" firstAttribute="top" secondItem="WkR-AT-WXT" secondAttribute="top" id="OPg-en-47M"/>
-                                <constraint firstItem="16U-OV-LaG" firstAttribute="leading" secondItem="WkR-AT-WXT" secondAttribute="leading" constant="16" id="X7z-xF-3RR"/>
-                                <constraint firstItem="qe2-Cr-Hsf" firstAttribute="bottom" secondItem="16U-OV-LaG" secondAttribute="top" constant="-12" id="X9G-On-ZEo"/>
-                                <constraint firstAttribute="trailing" secondItem="16U-OV-LaG" secondAttribute="trailing" constant="16" id="rTU-qU-leN"/>
-                                <constraint firstItem="Ek6-qj-gRz" firstAttribute="top" secondItem="16U-OV-LaG" secondAttribute="bottom" constant="12" id="udJ-u8-rsQ"/>
-                                <constraint firstItem="Ek6-qj-gRz" firstAttribute="trailing" secondItem="16U-OV-LaG" secondAttribute="trailing" id="vRN-qY-e4n"/>
-                                <constraint firstAttribute="bottom" secondItem="Ek6-qj-gRz" secondAttribute="bottom" id="xLS-cJ-gQa"/>
+                                <constraint firstItem="oNa-7R-1wU" firstAttribute="leading" secondItem="WkR-AT-WXT" secondAttribute="leading" constant="16" id="VZU-OY-2EJ"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -314,6 +354,16 @@ deutschen SAP Anwendergruppe</string>
             </constraints>
             <point key="canvasLocation" x="-142.02898550724638" y="81.696428571428569"/>
         </view>
+        <tapGestureRecognizer id="C71-Xs-XZQ" userLabel="Switch View Gesture Recognizer">
+            <connections>
+                <action selector="switchViewTapped:" destination="-1" id="N9g-pj-Ct2"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="UID-rT-S6c" userLabel="Picker View Gesture Recognizer">
+            <connections>
+                <action selector="pickerViewTapped:" destination="-1" id="lBl-y9-szy"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <designables>
         <designable name="FeX-e0-F2d">
@@ -326,22 +376,25 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="121" height="20.5"/>
         </designable>
         <designable name="KL2-pg-6XN">
-            <size key="intrinsicContentSize" width="101" height="50"/>
+            <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
         <designable name="LzL-ri-WCR">
-            <size key="intrinsicContentSize" width="108" height="50"/>
+            <size key="intrinsicContentSize" width="79" height="30"/>
         </designable>
         <designable name="M1z-st-0w7">
-            <size key="intrinsicContentSize" width="362" height="18"/>
+            <size key="intrinsicContentSize" width="402" height="20.5"/>
         </designable>
         <designable name="UBN-wb-TKy">
             <size key="intrinsicContentSize" width="209" height="18"/>
         </designable>
+        <designable name="b0x-6m-KuJ">
+            <size key="intrinsicContentSize" width="614.5" height="20.5"/>
+        </designable>
         <designable name="qEg-yG-yRz">
-            <size key="intrinsicContentSize" width="434.5" height="67"/>
+            <size key="intrinsicContentSize" width="252" height="41"/>
         </designable>
         <designable name="qe2-Cr-Hsf">
-            <size key="intrinsicContentSize" width="123.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="117.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
@@ -365,6 +418,9 @@ deutschen SAP Anwendergruppe</string>
         <namedColor name="ENA Text Primary 2 Color">
             <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
