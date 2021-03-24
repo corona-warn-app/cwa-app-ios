@@ -223,7 +223,7 @@ class CryptoFallbackTests: iOS13TestCase {
 		let rootKey = try PrivateKey()
 		let publicKey = rootKey.publicKey
 
-		let verifier = SAPDownloadedPackage.Verifier(key: { publicKey })
+		let verifier = Verifier(key: { publicKey })
 		let package = try SAPDownloadedPackage.makePackage(key: rootKey)
 
 		XCTAssertTrue(verifier(package))

@@ -24,7 +24,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	let session: URLSession
 
 	/// Verifier for the fetched & signed protobuf packages
-	let packageVerifier: SAPDownloadedPackage.Verifier
+	let packageVerifier: Verifier
 
 	/// Initializer for the caching client.
 	///
@@ -35,7 +35,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	init(
 		serverEnvironmentProvider: ServerEnvironmentProviding,
 		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
+		packageVerifier: Verifier = Verifier()) {
 		self.session = session
 		self.serverEnvironmentProvider = serverEnvironmentProvider
 		self.packageVerifier = packageVerifier

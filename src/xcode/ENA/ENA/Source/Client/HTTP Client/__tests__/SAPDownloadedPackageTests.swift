@@ -13,7 +13,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	private lazy var signingKey: PrivateKeyProvider = CryptoProvider.createPrivateKey()
 	private lazy var mockKeyProvider: PublicKeyProtocol = CryptoProvider.createPublicKey(from: signingKey)
-	private lazy var verifier = SAPDownloadedPackage.Verifier(key: { self.mockKeyProvider })
+	private lazy var verifier = Verifier(key: { self.mockKeyProvider })
 	
 
 	// MARK: Signature Verification Tests
