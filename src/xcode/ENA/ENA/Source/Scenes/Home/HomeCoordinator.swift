@@ -20,7 +20,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-
+	
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
 			diagnosisKeysRetrieval: self.exposureManager,
@@ -42,6 +42,13 @@ class HomeCoordinator: RequiresAppDependencies {
 		#endif
 
 		return StatisticsProvider(
+			client: CachingHTTPClient(serverEnvironmentProvider: store),
+			store: store
+		)
+	}()
+	
+	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+		return QRCodePosterTemplateProvider(
 			client: CachingHTTPClient(serverEnvironmentProvider: store),
 			store: store
 		)
@@ -251,6 +258,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
 			parentNavigationController: rootViewController
 		)
