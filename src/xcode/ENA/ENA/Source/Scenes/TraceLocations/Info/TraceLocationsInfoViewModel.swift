@@ -45,7 +45,7 @@ struct TraceLocationsInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_RisikoBegegnung"),
+						UIImage(imageLiteralResourceName: "Icons_CheckInRiskStatus"),
 						text: .string(AppStrings.TraceLocations.Information.itemCheckinRiskStatus),
 						alignment: .top
 					),
