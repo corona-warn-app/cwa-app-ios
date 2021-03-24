@@ -139,6 +139,7 @@ class DiaryCoordinator {
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
+		
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
 				presentDisclaimer: {
@@ -152,13 +153,28 @@ class DiaryCoordinator {
 				dismissAction()
 			}
 		)
-		return viewController
+			
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ContactDiary.Information.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: viewController,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 	
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
+		var navigationController: UINavigationController!
 		let infoVC = infoScreen(
 			dismissAction: {
 				navigationController.dismiss(animated: true)
@@ -171,7 +187,7 @@ class DiaryCoordinator {
 
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+		navigationController = UINavigationController(rootViewController: infoVC)
 		viewController.present(navigationController, animated: true)
 	}
 	
