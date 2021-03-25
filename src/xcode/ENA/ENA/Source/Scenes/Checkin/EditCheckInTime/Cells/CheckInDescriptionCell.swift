@@ -54,11 +54,6 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 		traceLocationAddressLabel.textColor = .enaColor(for: .textPrimary2)
 		traceLocationAddressLabel.numberOfLines = 0
 
-		let backgroundCoverView = UIView()
-		backgroundCoverView.translatesAutoresizingMaskIntoConstraints = false
-		backgroundCoverView.backgroundColor = .enaColor(for: .cellBackground)
-		contentView.addSubview(backgroundCoverView)
-
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
 		tileView.backgroundColor = .enaColor(for: .background)
@@ -87,11 +82,6 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 				tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3.0),
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
-
-				backgroundCoverView.topAnchor.constraint(equalTo: tileView.centerYAnchor),
-				backgroundCoverView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-				backgroundCoverView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-				backgroundCoverView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
 				stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 32.0),
 				stackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -32.0),
