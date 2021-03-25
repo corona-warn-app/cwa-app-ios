@@ -6,13 +6,14 @@ import ExposureNotification
 import Foundation
 import OpenCombine
 
+// swiftlint:disable type_body_length
+
 /// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
 /// around the exposure submission process.
 /// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
-
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -106,9 +107,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}.store(in: &subscriptions)
 	}
 
-	
-	// [KGA]
-	// checkins aus Store holen, dann mappen auf Protobuff Struktur
 	func getTemporaryExposureKeys(completion: @escaping ExposureSubmissionHandler) {
 		Log.info("Getting temporary exposure keys...", log: .api)
 
@@ -126,8 +124,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// [KGA] Hier könnte ich meine Werte einfügen. Keys sind instanzevariable. Aus store könnte ich mir hier die checkins holen, und auf protobuff mappen
-	// Proc
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	/// __Extension for plausible deniability__:
@@ -159,12 +155,23 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			submitExposureCleanup()
 			return
 		}
-		// [KGA] Hier Check-ins übernehmen und integrieren
+
 		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
+
+		// Fetch & process checkins
+		let eventStore = EventStore(url: EventStore.storeURL)
+		let raw🐓 = eventStore?.checkinsPublisher.value ?? []
+
+		// Split checkins per day
+		let css = CheckinSplittingService()
+		let checkins = raw🐓.reduce([Checkin]()) { _, checkin -> [Checkin] in
+			css.split(checkin)
+		}
+		let convertedCheckIns = checkins.compactMap { $0.prepareForSubmission() }
 
 		// Request needs to be prepended by the fake request.
 		_fakeVerificationServerRequest(completion: { _ in
-			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: [/*TODO*/], completion: completion)
+			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: convertedCheckIns, completion: completion)
 		})
 	}
 
@@ -541,3 +548,5 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 }
+
+// swiftlint:enable type_body_length

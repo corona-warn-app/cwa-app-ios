@@ -41,8 +41,34 @@ extension ContactDiaryStore {
 
 	// MARK: - Internal
 
+	static var storeURL: URL {
+		storeDirectoryURL
+			.appendingPathComponent("ContactDiary")
+			.appendingPathExtension("sqlite")
+	}
+
+	static var storeDirectoryURL: URL {
+		let fileManager = FileManager.default
+
+		guard let storeDirectoryURL = try? fileManager
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("ContactDiary") else {
+			fatalError("[ContactDiaryStore] Could not create folder.")
+		}
+
+		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
+			do {
+				try fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+			} catch {
+				Log.error("Could not create directory at \(storeDirectoryURL)", log: .localData, error: error)
+				assertionFailure()
+			}
+		}
+		return storeDirectoryURL
+	}
+
 	static func make(url: URL? = nil) -> ContactDiaryStore {
-			let storeURL = url ?? ContactDiaryStore.storeURL
+		let storeURL = url ?? ContactDiaryStore.storeURL
 
 		Log.info("[ContactDiaryStore] Trying to create contact diary store...", log: .localData)
 
@@ -72,32 +98,6 @@ extension ContactDiaryStore {
 	}
 
 	// MARK: - Private
-
-	private static var storeURL: URL {
-		storeDirectoryURL
-			.appendingPathComponent("ContactDiary")
-			.appendingPathExtension("sqlite")
-	}
-
-	private static var storeDirectoryURL: URL {
-		let fileManager = FileManager.default
-
-		guard let storeDirectoryURL = try? fileManager
-			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("ContactDiary") else {
-			fatalError("[ContactDiaryStore] Could not create folder.")
-		}
-
-		if !fileManager.fileExists(atPath: storeDirectoryURL.path) {
-			do {
-				try fileManager.createDirectory(atPath: storeDirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
-			} catch {
-				Log.error("Could not create directory at \(storeDirectoryURL)", log: .localData, error: error)
-				assertionFailure()
-			}
-		}
-		return storeDirectoryURL
-	}
 
 	private static var encryptionKey: String {
 		guard let keychain = try? KeychainHelper() else {

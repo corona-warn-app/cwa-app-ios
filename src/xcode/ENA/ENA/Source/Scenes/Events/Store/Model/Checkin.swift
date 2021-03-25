@@ -31,3 +31,10 @@ extension Checkin {
 		return roundedDuration
 	}
 }
+
+extension Checkin {
+	func prepareForSubmission() -> SAP_Internal_Pt_CheckIn? {
+		#warning("not implemented")
+		return nil
+	}
+}

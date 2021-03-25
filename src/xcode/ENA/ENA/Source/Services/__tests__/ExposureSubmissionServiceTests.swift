@@ -406,9 +406,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Execute test.
 
 		service.getTemporaryExposureKeys { _ in
-			service.submitExposure { result in
+			service.submitExposure { error in
 				expectation.fulfill()
-				XCTAssertNotNil(result)
+				XCTAssertNotNil(error)
 
 				// Retry.
 				client.onSubmitCountries = { $2(.success(())) }
@@ -416,9 +416,9 @@ class ExposureSubmissionServiceTests: XCTestCase {
 					XCTAssertTrue(isFake, "When executing the real request, instead of using the stored TAN, we have made a request to the server.")
 					completion(.failure(.fakeResponse))
 				}
-				service.submitExposure { result in
+				service.submitExposure { error in
 					expectation.fulfill()
-					XCTAssertNil(result)
+					XCTAssertNil(error)
 				}
 			}
 		}
