@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, FooterViewHandling {
 	
 	// MARK: - Init
 
@@ -16,8 +16,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	) {
 		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
+		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -29,25 +29,15 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		setupView()
-		
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
-		footerView?.isHidden = false
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewHandling
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		onPrimaryButtonTap { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.navigationFooterItem?.isPrimaryButtonLoading = isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
+				self?.footerView?.setLoadingIndicator(isLoading, disable: !isLoading, button: .primary)
 			}
 		}
 	}
@@ -63,21 +53,14 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	private let viewModel: ExposureSubmissionWarnOthersViewModel
 	private let onPrimaryButtonTap: (@escaping (Bool) -> Void) -> Void
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-		item.hidesBackButton = true
-
-		item.title = AppStrings.ExposureSubmissionWarnOthers.title
-
-		return item
-	}()
+	private let dismiss: () -> Void
 
 	private func setupView() {
+		
+		parent?.navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
+		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
+		parent?.navigationItem.hidesBackButton = true
+				
 		view.backgroundColor = .enaColor(for: .background)
 
 		tableView.register(
