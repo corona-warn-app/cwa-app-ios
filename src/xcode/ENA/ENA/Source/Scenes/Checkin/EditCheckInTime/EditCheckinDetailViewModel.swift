@@ -23,15 +23,6 @@ final class EditCheckinDetailViewModel {
 		case checkInEnd
 		case endPicker
 		case notice
-
-//		var sectionTitle: String? {
-//			switch self {
-//			case .description:
-//				return AppStrings.Checkins.Edit.sectionHeaderTitle
-//			default:
-//				return nil
-//			}
-//		}
 	}
 
 	// MARK: - Internal
@@ -40,8 +31,8 @@ final class EditCheckinDetailViewModel {
 		return CheckInDescriptionCellModel(checkIn: checkIn)
 	}
 
-	var checkInStartCellModel: CheckInTimeWithPickerModel {
-		return CheckInTimeWithPickerModel("Eingecheckt", date: checkIn.checkinStartDate)
+	var checkInStartCellModel: CheckInTimeModel {
+		return CheckInTimeModel("Eingecheckt", date: checkIn.checkinStartDate)
 	}
 
 	func numberOfRows(_ section: TableViewSections?) ->  Int {

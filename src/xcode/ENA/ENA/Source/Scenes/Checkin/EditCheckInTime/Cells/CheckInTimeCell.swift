@@ -26,7 +26,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(_ cellModel: CheckInTimeWithPickerModel) {
+	func configure(_ cellModel: CheckInTimeModel) {
 		typeLabel.text = cellModel.type
 		dateLabel.text = cellModel.dateString
 		timeLabel.text = cellModel.timeString

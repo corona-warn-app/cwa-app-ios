@@ -28,7 +28,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		setupNavigationBar()
 		setupView()
 		setupTableView()
 		setupCombine()
@@ -86,7 +85,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			let cell = tableView.dequeueReusableCell(cellType: CheckInNoticeCell.self, for: indexPath)
 			cell.configure(AppStrings.Checkins.Edit.notice)
 			return cell
-
 		}
 
 	}
@@ -139,28 +137,19 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 
 	// MARK: - Private
-	
+	private let backGroundView = GradientBackgroundView()
+	private let tableView = UITableView(frame: .zero, style: .plain)
+
 	private let viewModel: EditCheckinDetailViewModel
 	private let dismiss: () -> Void
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var selectedDuration: Int?
 	private var isInitialSetup = true
-	private var tableView = UITableView(frame: .zero, style: .plain)
-
-	private func setupNavigationBar() {
-//		let logoImage = UIImage(imageLiteralResourceName: "Corona-Warn-App").withRenderingMode(.alwaysTemplate)
-//		let logoImageView = UIImageView(image: logoImage)
-//		logoImageView.tintColor = .enaColor(for: .textContrast)
-//		parent?.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoImageView)
-//		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss, contrastMode: true)
-
-//		parent?.navigationController?.navigationBar.isTranslucent = true
-	}
+	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupView() {
 		parent?.view.backgroundColor = .clear
-		let backGroundView = GradientBackgroundView()
 		backGroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(backGroundView)
 
@@ -189,58 +178,17 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 				tableView.bottomAnchor.constraint(equalTo: backGroundView.bottomAnchor)
 		])
 
-		/*
-		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
-		activityLabel.text = AppStrings.Checkins.Details.activity
-		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
-		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
-		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
-		logoImageView.tintColor = .enaColor(for: .textContrast)
-		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
-		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
-
-		viewModel.$descriptionLabelTitle
-			.sink { [weak self] description in
-				self?.descriptionLabel.text = description
+		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] tableView, change in
+			guard let self = self,
+				  let yOffset = change.newValue?.y else {
+				return
 			}
-			.store(in: &subscriptions)
-		
-		viewModel.$addressLabelTitle
-			.sink { [weak self] address in
-				self?.addressLabel.text = address
-			}
-			.store(in: &subscriptions)
-		
-		viewModel.$initialDuration
-			.sink { [weak self] duration in
-				self?.selectedDuration = duration
-				self?.setupPicker(with: duration ?? 0)
-
-			}
-			.store(in: &subscriptions)
-*/
+			let offsetLimit = tableView.frame.origin.y
+			self.backGroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+		}
 	}
 
 	private func setupTableView() {
-
-//		let containerView = UIView()
-//		containerView.translatesAutoresizingMaskIntoConstraints = false
-
-//		let titleLabel = ENALabel()
-//		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//		titleLabel.font = .enaFont(for: .headline)
-//		titleLabel.textColor = .enaColor(for: .textContrast)
-//		titleLabel.accessibilityTraits = .header
-//		containerView.addSubview(titleLabel)
-//
-//		NSLayoutConstraint.activate([
-//			titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 26.0),
-//			titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12.0),
-//			titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16.0),
-//			titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16.0)
-//		])
-//		tableView.tableHeaderView = titleLabel
-
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .none
@@ -253,7 +201,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 */
 		tableView.contentInsetAdjustmentBehavior = .never
 
-//		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInHeaderCell.self, forCellReuseIdentifier: CheckInHeaderCell.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
 		tableView.register(CheckInTimeCell.self, forCellReuseIdentifier: CheckInTimeCell.reuseIdentifier)

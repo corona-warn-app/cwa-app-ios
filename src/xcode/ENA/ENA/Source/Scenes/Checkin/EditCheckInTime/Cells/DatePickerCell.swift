@@ -62,7 +62,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.backgroundColor = .enaColor(for: .background)
 //		tileView.layer.cornerRadius = 12.0
 //		tileView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-////		tileView.layer.masksToBounds = true
+//		tileView.layer.masksToBounds = true
 //		tileView.layer.borderWidth = 1.0
 //		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		contentView.addSubview(tileView)

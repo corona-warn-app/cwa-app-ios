@@ -26,7 +26,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure(_ cellModel: CheckInTimeWithPickerModel) {
+	func configure(_ cellModel: CheckInTimeModel) {
 //		typeLabel.text = cellModel.type
 //		dateLabel.text = cellModel.dateString
 //		timeLabel.text = cellModel.timeString
@@ -54,7 +54,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func setupView() {
 		selectionStyle = .none
-		backgroundColor = .enaColor(for: .cellBackground)
+		backgroundColor = .green // .enaColor(for: .cellBackground)
 		contentView.backgroundColor = .enaColor(for: .cellBackground)
 
 		let tileView = UIView()

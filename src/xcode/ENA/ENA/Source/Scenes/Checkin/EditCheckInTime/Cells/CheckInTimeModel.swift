@@ -4,7 +4,7 @@
 
 import Foundation
 
-final class CheckInTimeWithPickerModel {
+final class CheckInTimeModel {
 
 	// MARK: - Init
 
