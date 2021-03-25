@@ -156,27 +156,36 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			onTestDeleted: { }
 		)
 		
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonHidden)
-		
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
-		XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
-		
-		model.didTapPrimaryButton()
-		
-		waitForExpectations(timeout: .short)
-		
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonHidden)
-		
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonHidden)
-		XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
+		do {
+
+			let modelBefore = try XCTUnwrap(model.footerViewModel)
+			
+			XCTAssertFalse(modelBefore.isPrimaryLoading)
+			XCTAssertTrue(modelBefore.isPrimaryButtonEnabled)
+			XCTAssertFalse(modelBefore.isPrimaryButtonHidden)
+			
+			XCTAssertFalse(modelBefore.isSecondaryLoading)
+			XCTAssertTrue(modelBefore.isSecondaryButtonEnabled)
+			XCTAssertFalse(modelBefore.isSecondaryButtonHidden)
+			
+			model.didTapPrimaryButton()
+			
+			waitForExpectations(timeout: .short)
+			
+			let modelAfter = try XCTUnwrap(model.footerViewModel)
+			
+			XCTAssertFalse(modelAfter.isPrimaryLoading)
+			XCTAssertTrue(modelAfter.isPrimaryButtonEnabled)
+			XCTAssertFalse(modelAfter.isPrimaryButtonHidden)
+			
+			XCTAssertFalse(modelAfter.isSecondaryLoading)
+			XCTAssertTrue(modelAfter.isSecondaryButtonEnabled)
+			XCTAssertTrue(modelAfter.isSecondaryButtonHidden)
+			
+		} catch {
+			
+			XCTFail(error.localizedDescription)
+		}
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultSetsError() {
@@ -223,10 +232,20 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		
 		exposureSubmissionService.getTestResultCallback = { completion in
-			// Buttons should be in loading state when getTestResult is called on the exposure submission service
-			XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonEnabled)
-			XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonLoading)
-			XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonEnabled)
+			
+			do {
+				
+				let footerViewModel = try XCTUnwrap(model.footerViewModel)
+				
+				// Buttons should be in loading state when getTestResult is called on the exposure submission service
+				XCTAssertFalse(footerViewModel.isPrimaryButtonEnabled)
+				XCTAssertTrue(footerViewModel.isPrimaryLoading)
+				XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
+				
+			} catch {
+				
+				XCTFail(error.localizedDescription)
+			}
 			
 			completion(.success(.pending))
 			
@@ -237,9 +256,18 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
+		do {
+			
+			let footerViewModel = try XCTUnwrap(model.footerViewModel)
+			
+			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+			XCTAssertFalse(footerViewModel.isPrimaryLoading)
+			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
+			
+		} catch {
+			
+			XCTFail(error.localizedDescription)
+		}
 	}
 		
 	func testDidTapSecondaryButtonOnPendingTestResult() {
@@ -316,53 +344,11 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testNavigationFooterItemForPendingTestResult() {
-		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			warnOthersReminder: WarnOthersReminder(store: self.store),
-			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { },
-			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
-		)
 		
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonHidden)
-		
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
-		XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
-	}
-	
-	func testNavigationFooterItemForPositiveTestResult() {
-		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
-			warnOthersReminder: WarnOthersReminder(store: self.store),
-			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { },
-			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
-		)
-		
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonHidden)
-		
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-		XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonEnabled)
-		XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonHidden)
-	}
-	
-	func testNavigationFooterItemForNegaitveInvalidOrExpiredTestResult() {
-		let testResults: [TestResult] = [.negative, .invalid, .expired]
-		for testResult in testResults {
+		do {
+			
 			let model = ExposureSubmissionTestResultViewModel(
-				testResult: testResult,
+				testResult: .pending,
 				exposureSubmissionService: MockExposureSubmissionService(),
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
@@ -372,15 +358,86 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 				onTestDeleted: { }
 			)
 			
-			XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonLoading)
-			XCTAssertTrue(model.navigationFooterItem.isPrimaryButtonEnabled)
-			XCTAssertFalse(model.navigationFooterItem.isPrimaryButtonHidden)
+			let footerViewModel = try XCTUnwrap(model.footerViewModel)
 			
-			XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonLoading)
-			XCTAssertFalse(model.navigationFooterItem.isSecondaryButtonEnabled)
-			XCTAssertTrue(model.navigationFooterItem.isSecondaryButtonHidden)
-			XCTAssertFalse(model.navigationFooterItem.secondaryButtonHasBorder)
+			XCTAssertFalse(footerViewModel.isPrimaryLoading)
+			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+			XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
+			
+			XCTAssertFalse(footerViewModel.isSecondaryLoading)
+			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
+			XCTAssertFalse(footerViewModel.isSecondaryButtonHidden)
+			
+		} catch {
+			
+			XCTFail(error.localizedDescription)
 		}
+	}
+	
+	func testNavigationFooterItemForPositiveTestResult() {
+		
+		do {
+			
+			let model = ExposureSubmissionTestResultViewModel(
+				testResult: .positive,
+				exposureSubmissionService: MockExposureSubmissionService(),
+				warnOthersReminder: WarnOthersReminder(store: self.store),
+				onSubmissionConsentCellTap: { _ in },
+				onContinueWithSymptomsFlowButtonTap: { },
+				onContinueWarnOthersButtonTap: { _ in },
+				onChangeToPositiveTestResult: { },
+				onTestDeleted: { }
+			)
+			
+			let footerViewModel = try XCTUnwrap(model.footerViewModel)
+			
+			XCTAssertFalse(footerViewModel.isPrimaryLoading)
+			XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+			XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
+			
+			XCTAssertFalse(footerViewModel.isSecondaryLoading)
+			XCTAssertTrue(footerViewModel.isSecondaryButtonEnabled)
+			XCTAssertFalse(footerViewModel.isSecondaryButtonHidden)
+			
+		} catch {
+			
+			XCTFail(error.localizedDescription)
+		}
+	}
+	
+	func testNavigationFooterItemForNegaitveInvalidOrExpiredTestResult() {
+		
+		do {
+
+			let testResults: [TestResult] = [.negative, .invalid, .expired]
+			for testResult in testResults {
+				let model = ExposureSubmissionTestResultViewModel(
+					testResult: testResult,
+					exposureSubmissionService: MockExposureSubmissionService(),
+					warnOthersReminder: WarnOthersReminder(store: self.store),
+					onSubmissionConsentCellTap: { _ in },
+					onContinueWithSymptomsFlowButtonTap: { },
+					onContinueWarnOthersButtonTap: { _ in },
+					onChangeToPositiveTestResult: { },
+					onTestDeleted: { }
+				)
+				
+				let footerViewModel = try XCTUnwrap(model.footerViewModel)
+				
+				XCTAssertFalse(footerViewModel.isPrimaryLoading)
+				XCTAssertTrue(footerViewModel.isPrimaryButtonEnabled)
+				XCTAssertFalse(footerViewModel.isPrimaryButtonHidden)
+				
+				XCTAssertFalse(footerViewModel.isSecondaryLoading)
+				XCTAssertFalse(footerViewModel.isSecondaryButtonEnabled)
+				XCTAssertTrue(footerViewModel.isSecondaryButtonHidden)
+			}
+			
+		} catch {
+			
+			XCTFail(error.localizedDescription)
+		}
+		
 	}
 	
 	func testDynamicTableViewModelForPositiveTestResult() {

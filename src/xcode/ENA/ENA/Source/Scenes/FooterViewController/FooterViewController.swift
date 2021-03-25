@@ -127,6 +127,7 @@ class FooterViewController: UIViewController {
 		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
 		primaryButton.alpha = viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
 		primaryButton.isHidden = !viewModel.isPrimaryButtonEnabled
+		primaryButton.isEnabled = viewModel.isPrimaryButtonEnabled
 		
 		// secondary button
 		
@@ -137,6 +138,7 @@ class FooterViewController: UIViewController {
 		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
 		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
 		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
+		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
 		
 		// update button constraints
 

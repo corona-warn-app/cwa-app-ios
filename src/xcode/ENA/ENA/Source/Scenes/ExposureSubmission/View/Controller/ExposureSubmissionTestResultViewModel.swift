@@ -5,7 +5,6 @@
 import UIKit
 import OpenCombine
 
-// swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Init
@@ -457,9 +456,7 @@ extension ExposureSubmissionTestResultViewModel {
 				primaryButtonName: AppStrings.ExposureSubmissionResult.refreshButton,
 				secondaryButtonName: AppStrings.ExposureSubmissionResult.deleteButton,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
-				isSecondaryButtonEnabled: true,
-				isSecondaryButtonHidden: false
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 			)
 		}
 	}
