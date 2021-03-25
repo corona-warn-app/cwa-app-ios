@@ -182,6 +182,7 @@ Nur der Mann im Mo schaut zu</string>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
                 <outlet property="checkinHistoryDetailLabel" destination="ETM-Eq-rvE" id="u3Q-Jj-rDz"/>
+                <outlet property="checkinHistoryNoticeImageView" destination="bqu-yO-Qy4" id="vrO-8I-3ba"/>
                 <outlet property="checkinHistoryStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>
                 <outlet property="checkinHistoryTitleLabel" destination="DhW-nb-RWO" id="7WS-6g-OvU"/>
                 <outlet property="dateLabel" destination="UAS-Bk-PQl" id="96b-bf-GYh"/>

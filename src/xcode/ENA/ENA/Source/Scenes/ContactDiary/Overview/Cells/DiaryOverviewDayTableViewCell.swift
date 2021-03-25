@@ -20,11 +20,11 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
-		// check-ins with risk
+		// Check-Ins with risk
 		checkinHistoryStackView.isHidden = false
 		checkinHistoryTitleLabel.text = "Erhöhtes Risiko"
 		checkinHistoryTitleLabel.style = .body
-		checkinHistoryDetailLabel.text = "aufgrund Ihrer Anwesenheit beim Superspreader Event in Ischgl."
+		checkinHistoryDetailLabel.text = "aufgrund Ihrer Anwesenheit beim Superspreader Event in Ischgl.\nDiaryOverviewDayTableViewCell.configure()"
 		checkinHistoryDetailLabel.style = .subheadline
 		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 		
@@ -122,7 +122,9 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
 	
+	// Check-Ins with risk
 	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
+	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
 }
