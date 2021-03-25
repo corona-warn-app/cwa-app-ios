@@ -917,6 +917,12 @@ enum AppStrings {
 		
 		static let generalDescription = NSLocalizedString("DeltaOnboarding_NewVersionFeatures_Description", comment: "")
 		
+		/* Version 2.00 */
+		
+		static let feature200EventRegistrationTitle = NSLocalizedString("NewVersionFeature_200_event_checkin_title", comment: "")
+		
+		static let feature200EventRegistrationDescription = NSLocalizedString("NewVersionFeature_200_event_checkin_description", comment: "")
+		
 		/* Version 1.15 */
 		
 		static let aboutAppInformation = NSLocalizedString("NewVersionFeatures_Info_about_abb_information", comment: "")
