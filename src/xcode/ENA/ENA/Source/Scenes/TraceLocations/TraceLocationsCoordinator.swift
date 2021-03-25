@@ -266,9 +266,6 @@ class TraceLocationsCoordinator {
 			traceLocation,
 			dismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
-			},
-			presentCheckins: { [weak self] in
-
 			}
 		)
 		parentNavigationController?.present(checkinViewController, animated: true)

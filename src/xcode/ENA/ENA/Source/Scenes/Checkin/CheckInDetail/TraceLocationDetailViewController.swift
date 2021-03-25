@@ -11,15 +11,10 @@ class TraceLocationDetailViewController: UIViewController {
 
 	init(
 		_ traceLocation: TraceLocation,
-		dismiss: @escaping () -> Void,
-		presentCheckins: @escaping () -> Void
+		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		self.presentCheckins = presentCheckins
 		self.viewModel = TraceLocationDetailViewModel(traceLocation)
-		self.locationDescription = traceLocation.description
-		self.locationAddress = traceLocation.address
-		self.locationInitialDuration = viewModel.initialDuration
 		
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -58,34 +53,23 @@ class TraceLocationDetailViewController: UIViewController {
 		
 	private let viewModel: TraceLocationDetailViewModel
 	private let dismiss: () -> Void
-	private let presentCheckins: () -> Void
 	private var subscriptions = Set<AnyCancellable>()
 	private var isInitialSetup = true
 
-	private let locationDescription: String
-	private let locationAddress: String
-	private let locationInitialDuration: Int
-
 	private func setupView() {
-		viewModel.setupViewModel()
-		
 		view.backgroundColor = .enaColor(for: .background)
-		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
-		activityLabel.text = AppStrings.Checkins.Details.activity
-		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
-		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
-		descriptionLabel.text = description
-		addressLabel.text = locationAddress
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
+		
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))
-
+		
+		setupLabels()
+		setupPicker()
 		setupAdditionalInfoView()
-		setupPicker(with: locationInitialDuration)
-
+		
 		viewModel.$pickerButtonTitle
 			.sink { [weak self] hour in
 				if let hour = hour {
@@ -93,6 +77,15 @@ class TraceLocationDetailViewController: UIViewController {
 				}
 			}
 			.store(in: &subscriptions)
+	}
+	
+	private func setupLabels() {
+		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
+		activityLabel.text = AppStrings.Checkins.Details.activity
+		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
+		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
+		descriptionLabel.text = viewModel.locationDescription
+		addressLabel.text = viewModel.locationAddress
 	}
 	
 	private func setupAdditionalInfoView() {
@@ -115,7 +108,7 @@ class TraceLocationDetailViewController: UIViewController {
 		}
 	}
 	
-	private func setupPicker(with duration: Int) {
+	private func setupPicker() {
 		datePickerView.locale = Locale(identifier: "de_DE")
 		datePickerView.datePickerMode = .countDownTimer
 		datePickerView.minuteInterval = 15
@@ -134,7 +127,7 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	@IBAction private func checkInPressed(_ sender: Any) {
 		viewModel.saveCheckinToDatabase()
-		presentCheckins()
+		dismiss()
 	}
 	
 	@IBAction private func cancelButtonPressed(_ sender: Any) {
@@ -163,7 +156,7 @@ class TraceLocationDetailViewController: UIViewController {
 		
 		if !pickerContainerView.isHidden && isInitialSetup {
 			isInitialSetup = false
-			let components = locationInitialDuration.quotientAndRemainder(dividingBy: 60)
+			let components = viewModel.selectedDurationInMinutes.quotientAndRemainder(dividingBy: 60)
 			let date = DateComponents(calendar: Calendar.current, hour: components.quotient, minute: components.remainder).date ?? Date()
 			datePickerView.setDate(date, animated: true)
 		}
