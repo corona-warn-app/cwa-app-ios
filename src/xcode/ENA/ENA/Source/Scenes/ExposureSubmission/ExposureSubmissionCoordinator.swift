@@ -246,7 +246,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		return TestResultAvailableViewController(viewModel)
 	}
 
-	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+	private func createTestResultViewController(with testResult: TestResult) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
 		// store is only initialized when a positive test result is received
 		if testResult == .positive {
 			updateStoreWithKeySubmissionMetadataDefaultValues()
@@ -255,7 +255,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
-		return ExposureSubmissionTestResultViewController(
+		
+		let vc = ExposureSubmissionTestResultViewController(
 			viewModel: .init(
 				testResult: testResult,
 				exposureSubmissionService: model.exposureSubmissionService,
@@ -301,6 +302,22 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ContactDiary.Information.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 
 	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
