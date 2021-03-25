@@ -35,55 +35,7 @@ class TraceLocationConfigurationViewModel {
 			defaultCheckInLengthInMinutes = traceLocation.defaultCheckInLengthInMinutes
 		}
 
-		$startDate
-			.compactMap { [weak self] in
-				$0.map { self?.dateFormatter.string(from: $0) }
-			}
-			.assign(to: &$formattedStartDate)
-
-		$startDate
-			.sink { [weak self] startDate in
-				guard let self = self, let startDate = startDate, let endDate = self.endDate else {
-					return
-				}
-
-				if endDate < startDate {
-					self.endDate = startDate
-				}
-			}
-			.store(in: &subscriptions)
-
-		$endDate
-			.compactMap { [weak self] in
-				$0.map { self?.dateFormatter.string(from: $0) }
-			}
-			.assign(to: &$formattedEndDate)
-
-		$startDatePickerIsHidden
-			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
-			.assign(to: &$startDateValueTextColor)
-
-		$endDatePickerIsHidden
-			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
-			.assign(to: &$endDateValueTextColor)
-
-		$defaultCheckInLengthInMinutes
-			.map { $0 == nil }
-			.assign(to: &$temporaryDefaultLengthPickerIsHidden)
-
-		$defaultCheckInLengthInMinutes
-			.map { $0 != nil }
-			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
-
-		$defaultCheckInLengthInMinutes
-			.compactMap { [weak self] in
-				TimeInterval(minutes: $0).map { self?.durationFormatter.string(from: $0) }
-			}
-			.assign(to: &$formattedDefaultCheckInLength)
-
-		$permanentDefaultLengthPickerIsHidden
-			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
-			.assign(to: &$permanentDefaultLengthValueTextColor)
+		setUpBindings()
 	}
 
 	// MARK: - Internal
@@ -206,6 +158,58 @@ class TraceLocationConfigurationViewModel {
 	private let defaultDefaultCheckInLengthInMinutes: Int = 15
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private func setUpBindings() {
+		$startDate
+			.compactMap { [weak self] in
+				$0.map { self?.dateFormatter.string(from: $0) }
+			}
+			.assign(to: &$formattedStartDate)
+
+		$startDate
+			.sink { [weak self] startDate in
+				guard let self = self, let startDate = startDate, let endDate = self.endDate else {
+					return
+				}
+
+				if endDate < startDate {
+					self.endDate = startDate
+				}
+			}
+			.store(in: &subscriptions)
+
+		$endDate
+			.compactMap { [weak self] in
+				$0.map { self?.dateFormatter.string(from: $0) }
+			}
+			.assign(to: &$formattedEndDate)
+
+		$startDatePickerIsHidden
+			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
+			.assign(to: &$startDateValueTextColor)
+
+		$endDatePickerIsHidden
+			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
+			.assign(to: &$endDateValueTextColor)
+
+		$defaultCheckInLengthInMinutes
+			.map { $0 == nil }
+			.assign(to: &$temporaryDefaultLengthPickerIsHidden)
+
+		$defaultCheckInLengthInMinutes
+			.map { $0 != nil }
+			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
+
+		$defaultCheckInLengthInMinutes
+			.compactMap { [weak self] in
+				TimeInterval(minutes: $0).map { self?.durationFormatter.string(from: $0) }
+			}
+			.assign(to: &$formattedDefaultCheckInLength)
+
+		$permanentDefaultLengthPickerIsHidden
+			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
+			.assign(to: &$permanentDefaultLengthValueTextColor)
+	}
 
 }
 
