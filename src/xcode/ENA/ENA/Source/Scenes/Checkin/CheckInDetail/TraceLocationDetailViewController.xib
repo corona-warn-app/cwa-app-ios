@@ -222,41 +222,43 @@ deutschen SAP Anwendergruppe</string>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDB-JB-hDV" userLabel="Check-outView">
                                                             <rect key="frame" x="0.0" y="310" width="350" height="72"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="18" width="209" height="36"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                                    <rect key="frame" x="249" y="11" width="101" height="50"/>
-                                                                    <color key="tintColor" name="ENA Text Contrast Color"/>
-                                                                    <state key="normal" title="03:00 Std.">
-                                                                        <color key="titleColor" name="ENA Text Primary 1 Color"/>
-                                                                    </state>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
-                                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                                            <color key="value" systemColor="labelColor"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                    <connections>
-                                                                        <action selector="showPickerButton:" destination="-1" eventType="touchUpInside" id="eOu-4A-awd"/>
-                                                                    </connections>
-                                                                </button>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fXe-5X-qHh" customClass="AccessibleStackView" customModule="ENA" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="72"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="72"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                        </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                                            <rect key="frame" x="249" y="0.0" width="101" height="72"/>
+                                                                            <color key="tintColor" name="ENA Text Contrast Color"/>
+                                                                            <state key="normal" title="03:00 Std.">
+                                                                                <color key="titleColor" name="ENA Text Primary 1 Color"/>
+                                                                            </state>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="hasBackground" value="NO"/>
+                                                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                                    <color key="value" systemColor="labelColor"/>
+                                                                                </userDefinedRuntimeAttribute>
+                                                                            </userDefinedRuntimeAttributes>
+                                                                            <connections>
+                                                                                <action selector="showPickerButton:" destination="-1" eventType="touchUpInside" id="eOu-4A-awd"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                </stackView>
                                                             </subviews>
                                                             <gestureRecognizers/>
                                                             <constraints>
-                                                                <constraint firstItem="UBN-wb-TKy" firstAttribute="centerY" secondItem="GDB-JB-hDV" secondAttribute="centerY" id="0gt-Ij-GMf"/>
-                                                                <constraint firstAttribute="bottom" secondItem="UBN-wb-TKy" secondAttribute="bottom" constant="18" id="45E-dc-lCI"/>
-                                                                <constraint firstItem="UBN-wb-TKy" firstAttribute="top" secondItem="GDB-JB-hDV" secondAttribute="top" constant="18" id="OAY-gB-QPB"/>
-                                                                <constraint firstItem="KL2-pg-6XN" firstAttribute="centerY" secondItem="UBN-wb-TKy" secondAttribute="centerY" id="WpF-Du-Pdf"/>
-                                                                <constraint firstItem="UBN-wb-TKy" firstAttribute="leading" secondItem="GDB-JB-hDV" secondAttribute="leading" id="eEY-nn-GfT"/>
-                                                                <constraint firstItem="KL2-pg-6XN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UBN-wb-TKy" secondAttribute="trailing" constant="8" id="vS6-xt-3be"/>
-                                                                <constraint firstAttribute="trailing" secondItem="KL2-pg-6XN" secondAttribute="trailing" id="veV-6P-x7h"/>
+                                                                <constraint firstAttribute="bottom" secondItem="fXe-5X-qHh" secondAttribute="bottom" id="3N7-mC-EoC"/>
+                                                                <constraint firstItem="fXe-5X-qHh" firstAttribute="leading" secondItem="GDB-JB-hDV" secondAttribute="leading" id="OvY-En-zXF"/>
+                                                                <constraint firstItem="fXe-5X-qHh" firstAttribute="top" secondItem="GDB-JB-hDV" secondAttribute="top" id="VTY-6y-49r"/>
+                                                                <constraint firstAttribute="trailing" secondItem="fXe-5X-qHh" secondAttribute="trailing" id="p9N-HB-coz"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outletCollection property="gestureRecognizers" destination="UID-rT-S6c" appends="YES" id="CtB-90-orJ"/>
