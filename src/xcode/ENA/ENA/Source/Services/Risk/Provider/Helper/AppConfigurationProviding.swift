@@ -24,7 +24,7 @@ protocol AppConfigurationProviding: AnyObject {
 protocol AppConfigurationFetching {
 	var configuration: HTTPClient.Configuration { get }
 	var session: URLSession { get }
-	var packageVerifier: Verifier { get }
+	var packageVerifier: SignatureVerifier { get }
 
 	typealias AppConfigResultHandler = ((Result<AppConfigurationFetchingResponse, Error>, Date?)) -> Void
 

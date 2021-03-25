@@ -4,7 +4,7 @@
 
 @testable import ENA
 
-struct MockVerifier: Verify {
+struct MockVerifier: SignatureVerification {
 
 	// MARK: - Init
 	

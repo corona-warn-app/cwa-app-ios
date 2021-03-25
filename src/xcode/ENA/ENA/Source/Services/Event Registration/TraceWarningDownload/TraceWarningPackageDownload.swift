@@ -30,7 +30,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		store: Store,
 		eventStore: EventStoringProviding,
 		countries: [Country.ID] = ["DE"],
-		verifier: Verify = Verifier()
+		verifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.client = client
 		self.store = store
@@ -156,7 +156,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]
 	private let matcher: TraceWarningMatching
-	private let packageVerifier: Verify
+	private let packageVerifier: SignatureVerification
 	
 	private var subscriptions: Set<AnyCancellable> = []
 	private var status: TraceWarningDownloadStatus = .idle {

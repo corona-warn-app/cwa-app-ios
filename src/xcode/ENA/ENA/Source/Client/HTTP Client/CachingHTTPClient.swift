@@ -24,7 +24,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	let session: URLSession
 
 	/// Verifier for the fetched & signed protobuf packages
-	let packageVerifier: Verifier
+	let packageVerifier: SignatureVerifier
 
 	/// Initializer for the caching client.
 	///
@@ -35,7 +35,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	init(
 		serverEnvironmentProvider: ServerEnvironmentProviding,
 		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		packageVerifier: Verifier = Verifier()) {
+		packageVerifier: SignatureVerifier = SignatureVerifier()) {
 		self.session = session
 		self.serverEnvironmentProvider = serverEnvironmentProvider
 		self.packageVerifier = packageVerifier

@@ -6,15 +6,13 @@ import Foundation
 
 // MARK: - Verification
 
-typealias Verification = (SAPDownloadedPackage) -> Bool
-
-protocol Verify {
+protocol SignatureVerification {
 	
 	/// Verifies a SAPDownloadedPackage
 	func verify(_ package: SAPDownloadedPackage) -> Bool
 }
 
-struct Verifier: Verify {
+struct SignatureVerifier: SignatureVerification {
 	
 	// MARK: - Init
 	
@@ -24,7 +22,7 @@ struct Verifier: Verify {
 	
 	// MARK: - Overrides
 	
-	// MARK: - Protocol Verify
+	// MARK: - Protocol SignatureVerification
 	
 	func verify(_ package: SAPDownloadedPackage) -> Bool {
 		guard

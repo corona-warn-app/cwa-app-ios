@@ -16,7 +16,7 @@ protocol QRCodePosterTemplateProviding: AnyObject {
 protocol QRCodePosterTemplateFetching {
 	var configuration: HTTPClient.Configuration { get }
 	var session: URLSession { get }
-	var packageVerifier: Verifier { get }
+	var packageVerifier: SignatureVerifier { get }
 
 	typealias QRCodePosterTemplateCompletionHandler = (Result<QRCodePosterTemplateResponse, Error>) -> Void
 
