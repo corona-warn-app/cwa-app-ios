@@ -63,7 +63,7 @@ class CheckinSplittingService {
 
 private extension Checkin {
 
-	func updatedWith(startDate: Date?, endDate: Date?) -> Checkin {
+	func updatedWith(startDate: Date, endDate: Date) -> Checkin {
 		Checkin(
 			id: self.id,
 			traceLocationGUID: self.traceLocationGUID,
@@ -76,8 +76,8 @@ private extension Checkin {
 			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
 			traceLocationSignature: self.traceLocationSignature,
-			checkinStartDate: startDate ?? self.checkinStartDate,
-			checkinEndDate: endDate ?? self.checkinEndDate,
+			checkinStartDate: startDate,
+			checkinEndDate: endDate,
 			checkinCompleted: self.checkinCompleted,
 			createJournalEntry: self.createJournalEntry
 		)

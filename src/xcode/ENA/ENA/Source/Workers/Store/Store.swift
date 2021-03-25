@@ -61,6 +61,8 @@ protocol StoreProtocol: AnyObject {
 
 	var riskCalculationResult: RiskCalculationResult? { get set }
 
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
+
 	/// Date when the risk was changed to high
 	var dateOfConversionToHighRisk: Date? { get set }
 
