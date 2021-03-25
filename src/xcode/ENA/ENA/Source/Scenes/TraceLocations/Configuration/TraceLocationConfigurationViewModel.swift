@@ -212,15 +212,3 @@ class TraceLocationConfigurationViewModel {
 	}
 
 }
-
-extension TimeInterval {
-
-	init?(minutes: Int?) {
-		guard let minutes = minutes else {
-			return nil
-		}
-
-		self.init(minutes * 60)
-	}
-
-}

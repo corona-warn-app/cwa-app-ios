@@ -63,6 +63,7 @@
 		0138F70425F679A400A9B075 /* TraceLocationConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */; };
 		0138F70825F679AC00A9B075 /* TraceLocationConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */; };
 		013A551F260B48250092B5B1 /* TraceLocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A551E260B48250092B5B1 /* TraceLocationType.swift */; };
+		013A5552260CEE340092B5B1 /* TimeInterval+Minutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */; };
 		013C412825545C2D00826C9F /* DebugRiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C412725545C2D00826C9F /* DebugRiskCalculation.swift */; };
 		013C413D255463A400826C9F /* DMDebugRiskCalculationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
@@ -1028,6 +1029,7 @@
 		0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewModel.swift; sourceTree = "<group>"; };
 		0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationConfigurationViewController.swift; sourceTree = "<group>"; };
 		013A551E260B48250092B5B1 /* TraceLocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationType.swift; sourceTree = "<group>"; };
+		013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Minutes.swift"; sourceTree = "<group>"; };
 		013C412725545C2D00826C9F /* DebugRiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRiskCalculation.swift; sourceTree = "<group>"; };
 		013C413C255463A400826C9F /* DMDebugRiskCalculationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugRiskCalculationViewController.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -3298,6 +3300,7 @@
 				B1EDFD8C248E74D000E7EAFF /* URL+StaticString.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
+				013A5551260CEE330092B5B1 /* TimeInterval+Minutes.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5938,6 +5941,7 @@
 				505F507225C833AA004920EB /* ppac_ios.pb.swift in Sources */,
 				50EACA9B25E682AE004DDADB /* ENInfectiousness+Protobuf.swift in Sources */,
 				50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */,
+				013A5552260CEE340092B5B1 /* TimeInterval+Minutes.swift in Sources */,
 				EB3BCA8C2507C3B0003F27C7 /* DynamicTableViewBulletPointCell.swift in Sources */,
 				2F3D95372518BCD1002B2C81 /* EUSettingsViewController.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
