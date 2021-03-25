@@ -34,7 +34,7 @@ class TraceLocationDetailsViewModelTests: XCTestCase {
 				// Check for QR Code image size
 				XCTAssertNotNil(viewModel.qrCodePosterTemplate.qrCodeSideLength)
 				
-				// Check for texts details
+				// Check for QR Code text details
 				XCTAssertNotNil(viewModel.qrCodePosterTemplate.descriptionTextBox)
 			case let .failure(error):
 				XCTFail(error.localizedDescription)
