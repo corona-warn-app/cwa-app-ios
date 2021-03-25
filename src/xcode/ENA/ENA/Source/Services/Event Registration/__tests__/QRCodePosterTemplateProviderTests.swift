@@ -59,8 +59,8 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 	}
 	
 	func testQRCodePosterTemplateProvidingHTTPErrors() throws {
-		let responseReceived = expectation(description: "Response received")
-		responseReceived.expectedFulfillmentCount = 1
+		let defaultTemplateReceived = expectation(description: "Default template received")
+		defaultTemplateReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock(store: store)
@@ -75,18 +75,14 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
-					XCTFail("Did not expect a success")
-				case .failure(let error):
-					switch error {
-					case URLSessionError.serverError(let code):
-						XCTAssertEqual(code, 503)
-						responseReceived.fulfill()
-					default:
-						XCTFail("Expected a different error")
-					}
+					break
+				case .failure:
+					XCTFail("Did not expect an error")
 				}
-			}, receiveValue: { _ in
-				XCTFail("Did not expect a value")
+			}, receiveValue: { qrCodePosterTemplate in
+				XCTAssertNotNil(qrCodePosterTemplate)
+				XCTAssertNotNil(qrCodePosterTemplate.template)
+				defaultTemplateReceived.fulfill()
 			})
 			.store(in: &subscriptions)
 
@@ -131,8 +127,8 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 	}
 	
 	func testQRCodePosterTemplateProvidingInvalidCacheState() throws {
-		let checkpoint = expectation(description: "Value received")
-		checkpoint.expectedFulfillmentCount = 2
+		let defaultTemplateReceived = expectation(description: "Default template received")
+		defaultTemplateReceived.expectedFulfillmentCount = 2
 
 		let store = MockTestStore()
 
@@ -140,7 +136,7 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 		client.onFetchQRCodePosterTemplateData = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))
-			checkpoint.fulfill()
+			defaultTemplateReceived.fulfill()
 		}
 
 		let provider = QRCodePosterTemplateProvider(client: client, store: store)
@@ -148,17 +144,14 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 			.sink(receiveCompletion: { result in
 				switch result {
 				case .finished:
-					XCTFail("Expected an error!")
-				case .failure(let error):
-					switch error {
-					case URLSessionError.notModified:
-						checkpoint.fulfill()
-					default:
-						XCTFail("Expected a different error")
-					}
+					break
+				case .failure:
+					XCTFail("Did not expect an error")
 				}
-			}, receiveValue: { _ in
-				XCTFail("not expected")
+			}, receiveValue: { qrCodePosterTemplate in
+				XCTAssertNotNil(qrCodePosterTemplate)
+				XCTAssertNotNil(qrCodePosterTemplate.template)
+				defaultTemplateReceived.fulfill()
 			})
 			.store(in: &subscriptions)
 
