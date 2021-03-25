@@ -62,10 +62,10 @@
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQK-F5-RWF">
-                    <rect key="frame" x="0.0" y="80" width="414" height="723"/>
+                    <rect key="frame" x="0.0" y="80" width="414" height="707"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WkR-AT-WXT" userLabel="contentView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="456"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx9-sT-lVo" userLabel="Gradiant View" customClass="GradientView" customModule="ENA" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
@@ -74,7 +74,7 @@
                                         <constraint firstAttribute="height" constant="160" id="d2t-gw-nUF"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einchecken für:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe2-Cr-Hsf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Einchecken für:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe2-Cr-Hsf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                     <rect key="frame" x="16" y="24" width="414" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" name="ENA Text Contrast Color"/>
@@ -84,7 +84,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="oNa-7R-1wU">
-                                    <rect key="frame" x="16" y="56.5" width="382" height="399.5"/>
+                                    <rect key="frame" x="16" y="56.5" width="382" height="615.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-OV-LaG" userLabel="Description Card View">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="221.5"/>
@@ -101,8 +101,8 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ED-cS-AdJ">
                                                     <rect key="frame" x="16" y="30" width="350" height="161.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vereinsaktivität " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzq-Fo-8cl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
@@ -111,7 +111,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEg-yG-yRz" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="90" width="350" height="41"/>
+                                                            <rect key="frame" x="0.0" y="30.5" width="350" height="100.5"/>
                                                             <string key="text">Jahrestreffen der 
 deutschen SAP Anwendergruppe</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -171,16 +171,16 @@ deutschen SAP Anwendergruppe</string>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ek6-qj-gRz" userLabel="BottomStackView">
-                                            <rect key="frame" x="0.0" y="233.5" width="382" height="166"/>
+                                            <rect key="frame" x="0.0" y="233.5" width="382" height="382"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XlJ-Tn-Nyv">
-                                                    <rect key="frame" x="16" y="0.0" width="350" height="166"/>
+                                                    <rect key="frame" x="16" y="0.0" width="350" height="382"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T3S-Zc-NqF" userLabel="switchView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="93"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="350" height="309"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nach dem Auschecken in mein Tagebuch eintragen? " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1z-st-0w7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="18" width="292" height="57"/>
+                                                                    <rect key="frame" x="0.0" y="18" width="292" height="273"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
@@ -189,7 +189,7 @@ deutschen SAP Anwendergruppe</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-e0-F2d" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
-                                                                    <rect key="frame" x="300" y="31" width="52" height="31"/>
+                                                                    <rect key="frame" x="300" y="139" width="52" height="31"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="50" id="Ui2-tM-k69"/>
                                                                     </constraints>
@@ -213,14 +213,14 @@ deutschen SAP Anwendergruppe</string>
                                                             </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4v-aA-02j" userLabel="Separator">
-                                                            <rect key="frame" x="0.0" y="93" width="350" height="1"/>
+                                                            <rect key="frame" x="0.0" y="309" width="350" height="1"/>
                                                             <color key="backgroundColor" name="ENA Hairline Color"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="8RB-k8-Gz3"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDB-JB-hDV" userLabel="Check-outView">
-                                                            <rect key="frame" x="0.0" y="94" width="350" height="72"/>
+                                                            <rect key="frame" x="0.0" y="310" width="350" height="72"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Automatisch auschecken nach" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBN-wb-TKy" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="18" width="209" height="36"/>
@@ -232,7 +232,7 @@ deutschen SAP Anwendergruppe</string>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KL2-pg-6XN" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                                    <rect key="frame" x="277" y="21" width="73" height="30"/>
+                                                                    <rect key="frame" x="249" y="11" width="101" height="50"/>
                                                                     <color key="tintColor" name="ENA Text Contrast Color"/>
                                                                     <state key="normal" title="03:00 Std.">
                                                                         <color key="titleColor" name="ENA Text Primary 1 Color"/>
@@ -263,24 +263,24 @@ deutschen SAP Anwendergruppe</string>
                                                             </connections>
                                                         </view>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wD3-ls-rxV" userLabel="Separator">
-                                                            <rect key="frame" x="0.0" y="166" width="350" height="1"/>
+                                                            <rect key="frame" x="0.0" y="382" width="350" height="1"/>
                                                             <color key="backgroundColor" name="ENA Hairline Color"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="Kp4-0A-5me"/>
                                                             </constraints>
                                                         </view>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wru-kA-6ul">
-                                                            <rect key="frame" x="0.0" y="166" width="350" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="382" width="350" height="0.0"/>
                                                             <subviews>
                                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yid-Kg-xeK">
-                                                                    <rect key="frame" x="35" y="0.0" width="280" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="0.0"/>
                                                                 </datePicker>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="yid-Kg-xeK" firstAttribute="centerX" secondItem="Wru-kA-6ul" secondAttribute="centerX" id="FcY-JW-uga"/>
                                                                 <constraint firstItem="yid-Kg-xeK" firstAttribute="top" secondItem="Wru-kA-6ul" secondAttribute="top" id="SA5-Ly-OpW"/>
                                                                 <constraint firstAttribute="bottom" secondItem="yid-Kg-xeK" secondAttribute="bottom" id="VrL-nd-wjf"/>
-                                                                <constraint firstItem="yid-Kg-xeK" firstAttribute="width" secondItem="Wru-kA-6ul" secondAttribute="width" multiplier="0.8" id="nYd-C8-vNK"/>
+                                                                <constraint firstItem="yid-Kg-xeK" firstAttribute="width" secondItem="Wru-kA-6ul" secondAttribute="width" id="nYd-C8-vNK"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -326,7 +326,7 @@ deutschen SAP Anwendergruppe</string>
                     </constraints>
                 </scrollView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LzL-ri-WCR" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                    <rect key="frame" x="16" y="811" width="382" height="51"/>
+                    <rect key="frame" x="16" y="803" width="382" height="51"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="51" id="kmj-0t-Xvj"/>
                     </constraints>
@@ -339,9 +339,9 @@ deutschen SAP Anwendergruppe</string>
             <viewLayoutGuide key="safeArea" id="M82-Om-I6C"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="M82-Om-I6C" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="bottom" id="D0K-at-lMO"/>
+                <constraint firstItem="M82-Om-I6C" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="bottom" constant="8" id="D0K-at-lMO"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="EC9-5g-hWO"/>
-                <constraint firstItem="lQK-F5-RWF" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="top" constant="-8" id="GIv-Bw-Moc"/>
+                <constraint firstItem="lQK-F5-RWF" firstAttribute="bottom" secondItem="LzL-ri-WCR" secondAttribute="top" constant="-16" id="GIv-Bw-Moc"/>
                 <constraint firstAttribute="trailing" secondItem="LzL-ri-WCR" secondAttribute="trailing" constant="16" id="Ox4-8M-dwR"/>
                 <constraint firstItem="lQK-F5-RWF" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Sib-2g-zc6"/>
                 <constraint firstItem="WjZ-Cc-86K" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="e9f-6O-9Xf"/>
@@ -376,13 +376,13 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="121" height="20.5"/>
         </designable>
         <designable name="KL2-pg-6XN">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="101" height="50"/>
         </designable>
         <designable name="LzL-ri-WCR">
-            <size key="intrinsicContentSize" width="79" height="30"/>
+            <size key="intrinsicContentSize" width="108" height="50"/>
         </designable>
         <designable name="M1z-st-0w7">
-            <size key="intrinsicContentSize" width="402" height="20.5"/>
+            <size key="intrinsicContentSize" width="362" height="18"/>
         </designable>
         <designable name="UBN-wb-TKy">
             <size key="intrinsicContentSize" width="209" height="18"/>
@@ -391,10 +391,10 @@ deutschen SAP Anwendergruppe</string>
             <size key="intrinsicContentSize" width="614.5" height="20.5"/>
         </designable>
         <designable name="qEg-yG-yRz">
-            <size key="intrinsicContentSize" width="252" height="41"/>
+            <size key="intrinsicContentSize" width="434.5" height="67"/>
         </designable>
         <designable name="qe2-Cr-Hsf">
-            <size key="intrinsicContentSize" width="117.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="123.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
