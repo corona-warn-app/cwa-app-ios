@@ -91,8 +91,8 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
+                                                                <action selector="descriptionTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="5lW-nM-yOK"/>
                                                                 <action selector="descriptionTextFieldEditingDidBegin" destination="-1" eventType="editingDidBegin" id="Q6D-nY-Y8w"/>
-                                                                <action selector="descriptionTextFieldEditingDidEnd:" destination="-1" eventType="editingDidEnd" id="USV-AE-r3O"/>
                                                                 <action selector="descriptionTextFieldPrimaryActionTriggered" destination="-1" eventType="primaryActionTriggered" id="Bv9-0v-Hbw"/>
                                                             </connections>
                                                         </textField>
@@ -119,8 +119,8 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
+                                                                <action selector="addressTextFieldEditingChanged:" destination="-1" eventType="editingChanged" id="OVa-kk-aAD"/>
                                                                 <action selector="addressTextFieldEditingDidBegin" destination="-1" eventType="editingDidBegin" id="sRv-Hh-HXW"/>
-                                                                <action selector="addressTextFieldEditingDidEnd:" destination="-1" eventType="editingDidEnd" id="g2a-n2-60F"/>
                                                                 <action selector="addressTextFieldPrimaryActionTriggered" destination="-1" eventType="primaryActionTriggered" id="i33-om-WyU"/>
                                                             </connections>
                                                         </textField>

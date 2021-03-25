@@ -199,8 +199,8 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		viewModel.collapseAllSections()
 	}
 
-	@IBAction func descriptionTextFieldEditingDidEnd(_ sender: ENATextField) {
-		viewModel.description = sender.text
+	@IBAction func descriptionTextFieldEditingChanged(_ sender: ENATextField) {
+		viewModel.update(description: sender.text ?? "")
 	}
 
 	@IBAction func descriptionTextFieldPrimaryActionTriggered() {
@@ -211,8 +211,8 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		viewModel.collapseAllSections()
 	}
 
-	@IBAction func addressTextFieldEditingDidEnd(_ sender: ENATextField) {
-		viewModel.address = sender.text
+	@IBAction func addressTextFieldEditingChanged(_ sender: ENATextField) {
+		viewModel.update(address: sender.text ?? "")
 	}
 
 	@IBAction func addressTextFieldPrimaryActionTriggered() {
@@ -316,6 +316,12 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		viewModel.$permanentDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
 				self?.permanentDefaultLengthPickerContainerView.isHidden = isHidden
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$primaryButtonIsEnabled
+			.sink { [weak self] in
+				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
 	}

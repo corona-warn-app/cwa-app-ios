@@ -57,6 +57,8 @@ class TraceLocationConfigurationViewModel {
 	@OpenCombine.Published var permanentDefaultLengthPickerIsHidden: Bool = true
 	@OpenCombine.Published var permanentDefaultLengthValueTextColor: UIColor = .enaColor(for: .textPrimary1)
 
+	@OpenCombine.Published var primaryButtonIsEnabled: Bool = false
+
 	@OpenCombine.Published var description: String! = ""
 	@OpenCombine.Published var address: String! = ""
 	@OpenCombine.Published var startDate: Date?
@@ -143,6 +145,23 @@ class TraceLocationConfigurationViewModel {
 		startDatePickerIsHidden = true
 		endDatePickerIsHidden = true
 		permanentDefaultLengthPickerIsHidden = true
+	}
+
+	func update(description: String) {
+		self.description = description
+		checkForCompleteness()
+	}
+
+	func update(address: String) {
+		self.address = address
+		checkForCompleteness()
+	}
+
+	func checkForCompleteness() {
+		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
+
+		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
 	}
 
 	func save(completion: @escaping (Bool) -> Void) {
