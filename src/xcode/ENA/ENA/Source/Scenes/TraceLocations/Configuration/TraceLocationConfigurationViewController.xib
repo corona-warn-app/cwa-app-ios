@@ -341,7 +341,7 @@
                                                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bA0-Fa-PRY">
+                                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bA0-Fa-PRY">
                                                                                     <rect key="frame" x="293" y="0.0" width="51" height="31"/>
                                                                                     <color key="tintColor" name="ENA Tint Color"/>
                                                                                     <color key="onTintColor" name="ENA Tint Color"/>
