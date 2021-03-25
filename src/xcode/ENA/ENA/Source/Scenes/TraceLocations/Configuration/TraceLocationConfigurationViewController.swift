@@ -148,9 +148,6 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	}
 
 	private func setUpGestureRecognizers() {
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-		view.addGestureRecognizer(tapGestureRecognizer)
-
 		let startDateGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(startDateHeaderTapped))
 		startDateHeaderContainerView.addGestureRecognizer(startDateGestureRecognizer)
 
