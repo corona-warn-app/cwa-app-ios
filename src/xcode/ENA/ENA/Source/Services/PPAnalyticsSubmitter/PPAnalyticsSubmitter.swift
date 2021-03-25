@@ -343,8 +343,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
-					self?.store.testResultMetadata = nil
-					self?.store.keySubmissionMetadata = nil
+					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata, shouldIncludeTestResultMetadata {
+						self?.store.testResultMetadata = nil
+					}
+					if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata, shouldIncludeKeySubmissionMetadata {
+						self?.store.keySubmissionMetadata = nil
+					}
 					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					self?.store.lastSubmissionAnalytics = Date()
