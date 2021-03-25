@@ -2239,7 +2239,6 @@
 		0190982A257E5A9D0065D050 /* ContactDiary */ = {
 			isa = PBXGroup;
 			children = (
-				BAEC99BE258B6FFA00B98ECA /* __tests__ */,
 				0190982B257E5AF70065D050 /* DiaryCoordinator.swift */,
 				0190982C257E5B340065D050 /* Info */,
 				0190982D257E5B4F0065D050 /* Overview */,
@@ -3615,7 +3614,6 @@
 				134F0DB8247578FF00D88934 /* Home */,
 				13E5046A248E3CE60086641C /* AppInformation */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
-				AB7DE70025C4543700C52B3F /* ExposureDetection */,
 				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
 				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
 				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
@@ -3624,6 +3622,7 @@
 				BADDD84A26039E1000337223 /* CheckIns */,
 				347FBB15260C8BBA00672770 /* TraceLocations */,
 				50D50A5E25D6CC760092BC2A /* DataDonation */,
+				AB7DE70025C4543700C52B3F /* ExposureDetection */,
 				941B68AD253F005600DC1962 /* Helper */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
@@ -5289,13 +5288,6 @@
 				BADE38082608D9EC00E07890 /* TraceLocationTypeTest.swift */,
 			);
 			path = __test__;
-			sourceTree = "<group>";
-		};
-		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = __tests__;
 			sourceTree = "<group>";
 		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {

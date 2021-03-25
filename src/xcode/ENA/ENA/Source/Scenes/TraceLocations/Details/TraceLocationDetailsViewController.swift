@@ -84,7 +84,7 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 				}
 			case let .failure(error):
 				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-				Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
+				Log.error("Could not get QR code poster template.", log: .qrCode, error: error)
 				return
 			}
 		}
