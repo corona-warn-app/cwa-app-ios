@@ -10,6 +10,7 @@ protocol FooterViewUpdating {
 
 	func setBackgroundColor(_ color: UIColor)
 	func update(to state: FooterViewModel.VisibleButtons)
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType)
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
 }
 
@@ -125,6 +126,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	func update(to state: FooterViewModel.VisibleButtons) {
 		footerViewModel?.update(to: state)
+	}
+
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType) {
+		footerViewModel?.setEnabled(isEnabled, button: button)
 	}
 
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
