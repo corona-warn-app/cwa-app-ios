@@ -305,11 +305,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 		
 		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton
-			)
+			ExposureSubmissionTestResultViewModel.footerViewModel(testResult: testResult, isSubmissionConsentGiven: model.exposureSubmissionService.isSubmissionConsentGiven)
 		)
 		
 		let topBottomContainerViewController = TopBottomContainerViewController(

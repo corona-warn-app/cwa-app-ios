@@ -39,10 +39,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 		
 		viewModel.updateWarnOthers()
 	}
-
-	override var navigationItem: UINavigationItem {
-		viewModel.navigationFooterItem
-	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 	
@@ -135,6 +131,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Fo
 
 				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true)
+			}
+			.store(in: &bindings)
+		
+		viewModel.$footerViewModel
+			.dropFirst()
+			.sink { [weak self] footerViewModel in
+				guard let self = self, let footerViewModel = footerViewModel else { return }
+				guard let topBottomViewController = self.parent as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> else { return }
+				
+				topBottomViewController.updateFooterViewModel(footerViewModel)
 			}
 			.store(in: &bindings)
 	}
