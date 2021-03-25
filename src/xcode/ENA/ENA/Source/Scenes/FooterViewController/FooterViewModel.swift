@@ -107,7 +107,7 @@ final class FooterViewModel {
 		case(false, false):
 			height = buttonHeight * 2 + spacer + topBottomInset * 2
 		case(true, false), (false, true):
-			height = buttonHeight + spacer + topBottomInset * 2
+			height = buttonHeight + topBottomInset * 2
 		case(true, true):
 			height = 0.0
 		}
