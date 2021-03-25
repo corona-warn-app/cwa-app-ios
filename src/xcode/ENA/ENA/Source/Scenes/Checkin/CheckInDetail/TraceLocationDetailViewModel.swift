@@ -49,12 +49,18 @@ final class TraceLocationDetailViewModel {
 		}
 	}
 	
+	enum TraceLocationDateStatus {
+		case notStarted
+		case inProgress
+		case ended
+	}
+
 	func pickerView(didSelectRow numberOfMinutes: Int) {
 		selectedDurationInMinutes = numberOfMinutes
 		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
 		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
 		if let hour = formattedHourString(date) {
-			pickerButtonTitle = hour + " " + AppStrings.Checkins.Details.hoursShortVersion
+			pickerButtonTitle = String(format: AppStrings.Checkins.Details.hoursShortVersion, hour)
 		}
 	}
 	
@@ -109,10 +115,4 @@ final class TraceLocationDetailViewModel {
 		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
 		return dateComponentsFormatter.string(from: components)
 	}
-}
-
-enum TraceLocationDateStatus {
-	case notStarted
-	case inProgress
-	case ended
 }
