@@ -37,7 +37,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		onPrimaryButtonTap { [weak self] isLoading in
 			DispatchQueue.main.async {
-				self?.footerView?.setLoadingIndicator(isLoading, disable: !isLoading, button: .primary)
+				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 			}
 		}
 	}
