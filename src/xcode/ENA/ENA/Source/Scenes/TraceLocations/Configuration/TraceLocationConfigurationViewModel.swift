@@ -17,9 +17,14 @@ class TraceLocationConfigurationViewModel {
 		case .new(let type):
 			traceLocationType = type
 
-			if type.type == .temporary {
+			switch type.type {
+			case .temporary:
 				startDate = Date()
 				endDate = Date()
+			case .permanent:
+				defaultCheckInLengthInMinutes = defaultDefaultCheckInLengthInMinutes
+			case .unspecified:
+				break
 			}
 		case .duplicate(let traceLocation):
 			traceLocationType = traceLocation.type
@@ -61,6 +66,24 @@ class TraceLocationConfigurationViewModel {
 		$endDatePickerIsHidden
 			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
 			.assign(to: &$endDateValueTextColor)
+
+		$defaultCheckInLengthInMinutes
+			.map { $0 == nil }
+			.assign(to: &$temporaryDefaultLengthPickerIsHidden)
+
+		$defaultCheckInLengthInMinutes
+			.map { $0 != nil }
+			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
+
+		$defaultCheckInLengthInMinutes
+			.compactMap { [weak self] in
+				TimeInterval(minutes: $0).map { self?.durationFormatter.string(from: $0) }
+			}
+			.assign(to: &$formattedDefaultCheckInLength)
+
+		$permanentDefaultLengthPickerIsHidden
+			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
+			.assign(to: &$permanentDefaultLengthValueTextColor)
 	}
 
 	// MARK: - Internal
@@ -77,7 +100,11 @@ class TraceLocationConfigurationViewModel {
 	@OpenCombine.Published var endDateValueTextColor: UIColor = .enaColor(for: .textPrimary1)
 
 	@OpenCombine.Published var temporaryDefaultLengthPickerIsHidden: Bool = true
+	@OpenCombine.Published var temporaryDefaultLengthSwitchIsOn: Bool = false
+
 	@OpenCombine.Published var permanentDefaultLengthPickerIsHidden: Bool = true
+	@OpenCombine.Published var permanentDefaultLengthValueTextColor: UIColor = .enaColor(for: .textPrimary1)
+
 
 	@OpenCombine.Published var description: String! = ""
 	@OpenCombine.Published var address: String! = ""
@@ -85,6 +112,12 @@ class TraceLocationConfigurationViewModel {
 	@OpenCombine.Published var formattedStartDate: String?
 	@OpenCombine.Published var endDate: Date?
 	@OpenCombine.Published var formattedEndDate: String?
+	@OpenCombine.Published var defaultCheckInLengthInMinutes: Int?
+	@OpenCombine.Published var formattedDefaultCheckInLength: String?
+
+	var defaultDefaultCheckInLengthTimeInterval: TimeInterval {
+		TimeInterval(defaultDefaultCheckInLengthInMinutes * 60)
+	}
 
 	var traceLocationTypeTitle: String {
 		traceLocationType.title
@@ -106,6 +139,15 @@ class TraceLocationConfigurationViewModel {
 		return dateFormatter
 	}()
 
+	lazy var durationFormatter: DateComponentsFormatter = {
+		let dateComponentsFormatter = DateComponentsFormatter()
+		dateComponentsFormatter.allowedUnits = [.hour, .minute]
+		dateComponentsFormatter.unitsStyle = .positional
+		dateComponentsFormatter.zeroFormattingBehavior = .pad
+
+		return dateComponentsFormatter
+	}()
+
 	func startDateHeaderTapped() {
 		startDatePickerIsHidden.toggle()
 
@@ -124,10 +166,20 @@ class TraceLocationConfigurationViewModel {
 
 	func temporaryDefaultLengthHeaderTapped() {
 		temporaryDefaultLengthPickerIsHidden.toggle()
+		temporaryDefaultLengthSwitchIsOn = !temporaryDefaultLengthPickerIsHidden
+	}
+
+	func temporaryDefaultLengthSwitchSet(to isOn: Bool) {
+		temporaryDefaultLengthPickerIsHidden = !isOn
+		temporaryDefaultLengthSwitchIsOn = isOn
 	}
 
 	func permanentDefaultLengthHeaderTapped() {
 		permanentDefaultLengthPickerIsHidden.toggle()
+	}
+
+	func defaultCheckinLengthValueChanged(to timeInterval: TimeInterval) {
+		defaultCheckInLengthInMinutes = Int(timeInterval / 60)
 	}
 
 	func collapseAllSections() {
@@ -145,8 +197,21 @@ class TraceLocationConfigurationViewModel {
 	// MARK: - Private
 
 	private let traceLocationType: TraceLocationType
-	private var defaultCheckInLengthInMinutes: Int?
+
+	private let defaultDefaultCheckInLengthInMinutes: Int = 15
 
 	private var subscriptions = Set<AnyCancellable>()
+
+}
+
+extension TimeInterval {
+
+	init?(minutes: Int?) {
+		guard let minutes = minutes else {
+			return nil
+		}
+
+		self.init(minutes * 60)
+	}
 
 }

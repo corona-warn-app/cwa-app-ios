@@ -23,7 +23,7 @@
                 <outlet property="permanentDefaultLengthPickerBackgroundView" destination="J1G-i6-v9Z" id="qle-7S-mIf"/>
                 <outlet property="permanentDefaultLengthPickerContainerView" destination="z5B-9Z-Xl6" id="INd-wp-cHN"/>
                 <outlet property="permanentDefaultLengthTitleLabel" destination="eEu-OE-nnH" id="DjO-Bz-ult"/>
-                <outlet property="permanentDefaultValueLabel" destination="078-Ur-eek" id="5yt-LG-icH"/>
+                <outlet property="permanentDefaultLengthValueLabel" destination="078-Ur-eek" id="5yt-LG-icH"/>
                 <outlet property="permanentSettingsContainerView" destination="Xhc-Zp-GkJ" id="IFs-Mh-oUk"/>
                 <outlet property="startDateHeaderContainerView" destination="T7S-6q-B6t" id="IbS-kk-CzC"/>
                 <outlet property="startDatePicker" destination="bCX-eI-LLW" id="twn-d4-uam"/>
@@ -342,6 +342,9 @@
                                                                                     <rect key="frame" x="293" y="0.0" width="51" height="31"/>
                                                                                     <color key="tintColor" name="ENA Tint Color"/>
                                                                                     <color key="onTintColor" name="ENA Tint Color"/>
+                                                                                    <connections>
+                                                                                        <action selector="temporaryDefaultLengthSwitchToggled:" destination="-1" eventType="valueChanged" id="zd3-Gd-vXE"/>
+                                                                                    </connections>
                                                                                 </switch>
                                                                             </subviews>
                                                                         </stackView>
@@ -377,6 +380,9 @@
                                                                             <color key="backgroundColor" name="ENA Dark Background Color"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
+                                                                            <connections>
+                                                                                <action selector="defaultCheckinLengthValueChanged:" destination="-1" eventType="valueChanged" id="IA6-2d-Csz"/>
+                                                                            </connections>
                                                                         </datePicker>
                                                                     </subviews>
                                                                     <color key="backgroundColor" name="ENA Dark Background Color"/>
@@ -471,6 +477,9 @@
                                                                             <color key="backgroundColor" name="ENA Dark Background Color"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
+                                                                            <connections>
+                                                                                <action selector="defaultCheckinLengthValueChanged:" destination="-1" eventType="valueChanged" id="AXt-hA-7Z8"/>
+                                                                            </connections>
                                                                         </datePicker>
                                                                     </subviews>
                                                                     <color key="backgroundColor" name="ENA Dark Background Color"/>

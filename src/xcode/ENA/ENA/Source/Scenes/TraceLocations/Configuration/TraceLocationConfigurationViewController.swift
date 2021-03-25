@@ -38,6 +38,11 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		setUpGestureRecognizers()
 		setUpBindings()
 
+		let initialDefaultCheckInLength = viewModel.defaultCheckInLengthTimeInterval ?? viewModel.defaultDefaultCheckInLengthTimeInterval
+
+		temporaryDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
+		permanentDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
+
 		traceLocationTypeLabel.text = viewModel.traceLocationTypeTitle
 		temporarySettingsContainerView.isHidden = viewModel.temporarySettingsContainerIsHidden
 		permanentSettingsContainerView.isHidden = viewModel.permanentSettingsContainerIsHidden
@@ -113,7 +118,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 	@IBOutlet private weak var permanentDefaultLengthHeaderContainerView: UIView!
 	@IBOutlet private weak var permanentDefaultLengthTitleLabel: ENALabel!
-	@IBOutlet private weak var permanentDefaultValueLabel: ENALabel!
+	@IBOutlet private weak var permanentDefaultLengthValueLabel: ENALabel!
 	@IBOutlet private weak var permanentDefaultLengthFootnoteLabel: ENALabel!
 
 	@IBOutlet private weak var permanentDefaultLengthPickerContainerView: UIView!
@@ -214,6 +219,10 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		view.endEditing(true)
 	}
 
+	@IBAction func defaultCheckinLengthValueChanged(_ sender: UIDatePicker) {
+		viewModel.defaultCheckinLengthValueChanged(to: sender.countDownDuration)
+	}
+
 	@IBAction private func didSelectDate(datePicker: UIDatePicker) {
 		switch datePicker {
 		case startDatePicker:
@@ -225,9 +234,8 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		}
 	}
 
-	@objc
-	private func viewTapped() {
-		view.endEditing(true)
+	@IBAction func temporaryDefaultLengthSwitchToggled(_ sender: UISwitch) {
+		viewModel.temporaryDefaultLengthSwitchSet(to: sender.isOn)
 	}
 
 	private func setUpBindings() {
@@ -285,10 +293,24 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		viewModel.$temporaryDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
-				UIView.animate(withDuration: 0.25) {
-					self?.temporaryDefaultLengthPickerContainerView.isHidden = isHidden
-				}
+				self?.temporaryDefaultLengthPickerContainerView.isHidden = isHidden
 			}
+			.store(in: &subscriptions)
+
+		viewModel.$temporaryDefaultLengthSwitchIsOn
+			.sink { [weak self] isOn in
+				self?.temporaryDefaultLengthSwitch.setOn(isOn, animated: true)
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$formattedDefaultCheckInLength
+			.sink { [weak self] in
+				self?.permanentDefaultLengthValueLabel.text = $0
+			}
+			.store(in: &subscriptions)
+
+		viewModel.$permanentDefaultLengthValueTextColor
+			.assign(to: \.textColor, on: permanentDefaultLengthValueLabel)
 			.store(in: &subscriptions)
 
 		viewModel.$permanentDefaultLengthPickerIsHidden
