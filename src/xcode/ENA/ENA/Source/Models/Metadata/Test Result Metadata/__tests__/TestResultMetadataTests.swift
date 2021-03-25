@@ -11,20 +11,23 @@ class TestResultMetadataTests: XCTestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockRiskCalculationResult()
-		let date = Date()
-		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: date)
+		
+		let today = Date()
+		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = 5
+		let mostRecentDateHighRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today) ?? Date()
+		let riskCalculationResult = mockRiskCalculationResult(risk: .high, mostRecentDateHighRisk: mostRecentDateHighRisk)
+		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(date, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
+		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
 		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
 			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
-			riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
-			"incorrect days since recent riskLEvel"
+			expectedDaysSinceRecentAtRiskLevelAtTestRegistration,
+			"incorrect days since recent riskLevel"
 		)
 
 		// the difference from dateOfConversionToHighRisk should be one day so 24 hours
@@ -35,19 +38,22 @@ class TestResultMetadataTests: XCTestCase {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
 		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
-		let date = Date()
+		
+		let today = Date()
+		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = 5
+		let mostRecentDateLowRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today) ?? Date()
+		let riskCalculationResult = mockRiskCalculationResult(risk: .low, mostRecentDateLowRisk: mostRecentDateLowRisk)
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(date, "")))
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
 
 		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
-		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, date, "incorrect RegistrationDate")
+		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
 		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
 		XCTAssertEqual(
 			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
-			riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
-			"incorrect days since recent riskLEvel"
+			expectedDaysSinceRecentAtRiskLevelAtTestRegistration,
+			"incorrect days since recent riskLevel"
 		)
 
 		// the for low risk the value should always be -1
@@ -166,13 +172,13 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, .positive, "testResult should be updated")
 	}
 
-	private func mockRiskCalculationResult(risk: RiskLevel = .high) -> RiskCalculationResult {
+	private func mockRiskCalculationResult(risk: RiskLevel = .high, mostRecentDateHighRisk: Date = Date(), mostRecentDateLowRisk: Date = Date()) -> RiskCalculationResult {
 		RiskCalculationResult(
 			riskLevel: risk,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
-			mostRecentDateWithLowRisk: Date(),
-			mostRecentDateWithHighRisk: Date(),
+			mostRecentDateWithLowRisk: mostRecentDateLowRisk,
+			mostRecentDateWithHighRisk: mostRecentDateHighRisk,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 2,
 			calculationDate: Date(),
