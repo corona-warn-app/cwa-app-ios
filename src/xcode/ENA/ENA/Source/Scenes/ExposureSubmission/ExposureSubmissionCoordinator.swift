@@ -303,7 +303,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		)
 	}
 
-	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+	private func createWarnOthersViewController() -> UIViewController {
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 
 		// ugly but works for the moment
@@ -331,7 +331,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		return vc
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 
 	// MARK: Screen Flow
