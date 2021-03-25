@@ -69,6 +69,7 @@ class TraceLocationDetailViewController: UIViewController {
 		setupLabels()
 		setupPicker()
 		setupAdditionalInfoView()
+		viewModel.pickerView(didSelectRow: viewModel.selectedDurationInMinutes)
 		
 		viewModel.$pickerButtonTitle
 			.sink { [weak self] hour in
@@ -117,7 +118,7 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	@objc
 	private func didSelectDuration(datePicker: UIDatePicker) {
-		viewModel.pickerView(didSelectRow: datePicker.date.todaysMinutes)
+		viewModel.pickerView(didSelectRow: Int(datePicker.countDownDuration / 60))
 	}
 
 	private func addBorderAndColorToView(_ view: UIView, color: UIColor) {
