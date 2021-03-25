@@ -199,7 +199,14 @@ enum PPAnalyticsCollector {
 		var testResultMetadata = TestResultMetadata(registrationToken: token)
 		testResultMetadata.testRegistrationDate = date
 		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
-		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
+		
+		if let mostRecentRiskCalculationDate = riskCalculationResult.mostRecentDateWithCurrentRiskLevel {
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
+			testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+			Log.warning("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
+		} else {
+			Log.warning("Could not set daysSinceMostRecentDateAtRiskLevelAtTestRegistration because mostRecentDateWithCurrentRiskLevel is nil", log: .ppa)
+		}
 
 		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
 
