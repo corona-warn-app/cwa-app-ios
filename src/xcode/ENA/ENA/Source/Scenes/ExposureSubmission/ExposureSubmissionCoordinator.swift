@@ -362,6 +362,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
+		
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -394,8 +395,22 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-
-		push(vc)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
