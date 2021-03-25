@@ -53,7 +53,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	) {
 		Log.info("TraceWarningPackageDownload: Start was triggered.", log: .checkin)
 		
-		// Cancel Download if a download is still in progress
+		// Refuse another download if a download is still running
 		guard status == .idle else {
 			Log.info("TraceWarningPackageDownload: Aborted due to already running download.", log: .checkin)
 			completion(.failure(.downloadIsRunning))
@@ -91,8 +91,8 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	
 	// MARK: - Internal
 	
-	/// Determines the earliest relevant package == the min of the checkin database table. Not private for testing purposes.
-	var earliestRelevantPackage: Int? {
+	/// Determines the earliest relevant package id == the min of the checkin database table. Not private for testing purposes.
+	var earliestRelevantPackageId: Int? {
 		let minCheckin = eventStore.checkinsPublisher.value.min(by: { $0.checkinStartDate < $1.checkinStartDate })
 		return minCheckin?.checkinStartDate.unixTimestampInHours
 	}
@@ -130,7 +130,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		oldest oldestPackage: Int,
 		earliest earliestRelevantPackage: Int
 	) {
-		// Take the max of the oldest and earliestRelevantPackage and remove all metadatas that are older that this max.
+		// Take the max of the oldest and earliestRelevantPackage and remove all metadatas that are older then this max.
 		let maxId = max(oldestPackage, earliestRelevantPackage)
 		let packagesToDelete = eventStore.traceWarningPackageMetadatasPublisher.value.filter({ return $0.id < maxId })
 		Log.info("TraceWarningPackageDownload: Clean up packages: \(packagesToDelete).")
@@ -266,7 +266,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		// 5. Determine earliestRelevantPackage.
 		// Take the database entry with the oldest checkinStartDate and convert it to unix timestamp in hours.
 		// Normally, can never fail because we have a check at the beginning for an empty checkin database table.
-		guard let earliestRelevantPackage = earliestRelevantPackage else {
+		guard let earliestRelevantPackage = earliestRelevantPackageId else {
 			Log.error("TraceWarningPackageDownload: Could not determine earliestRelevantPackage. Abort Download.", log: .checkin)
 			completion(.failure(.noEarliestRelevantPackage))
 			return
@@ -288,13 +288,13 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		completion: @escaping (Result<TraceWarningSuccess, TraceWarningError>) -> Void
 	) {
 		
-		let singlePackageDG = DispatchGroup()
+		let singlePackageDispatchGroup = DispatchGroup()
 		var packagesErrors = [TraceWarningError]()
 		var packagesSuccesses = [TraceWarningSuccess]()
 		
 		// 8. download now for each packageId the package itself. There can be also empty packages, indicated by a property in the downloaded package.
 		packageIds.forEach { packageId in
-			singlePackageDG.enter()
+			singlePackageDispatchGroup.enter()
 			
 			downloadSinglePackage(packageId: packageId, country: country, completion: { result in
 				switch result {
@@ -307,11 +307,11 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 					packagesErrors.append(error)
 				}
 				
-				singlePackageDG.leave()
+				singlePackageDispatchGroup.leave()
 			})
 		}
 		
-		singlePackageDG.notify(queue: .global(qos: .utility), execute: {
+		singlePackageDispatchGroup.notify(queue: .global(qos: .utility), execute: {
 			if let error = packagesErrors.first {
 				completion(.failure(error))
 			} else {
@@ -343,42 +343,43 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				Log.info("TraceWarningPackageDownload: Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
 				
 				// 9. Verfify signature for every not-empty package.
-				if !packageDownloadResponse.isEmpty,
-				   let sapDownloadedPackage = packageDownloadResponse.package {
-					
-					guard let eTag = packageDownloadResponse.etag else {
-						Log.error("TraceWarningPackageDownload: ETag of packageId: \(packageId) missing. Discard package.")
-						completion(.failure(.identicationError))
-						return
-					}
-					
-					guard self.signatureVerifier.verify(sapDownloadedPackage) else {
-						Log.warning("TraceWarningPackageDownload: Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
-						completion(.failure(.verificationError))
-						return
-					}
-					
-					Log.info("TraceWarningPackageDownload: Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
-					
-					// 10.+ 11. Match the verified package and store them.
-					self.matcher.matchAndStore(package: sapDownloadedPackage)
-					
-					Log.info("TraceWarningPackageDownload: Matching of packageId: \(packageId) done. Proceed with storing the package.")
-					
-					// 12. Store downloaded and verified
-					let traceWarningPackageMetadata = TraceWarningPackageMetadata(
-						id: packageId,
-						region: country,
-						eTag: eTag
-					)
-					self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
-					
-					Log.info("TraceWarningPackageDownload: Storing of packageId: \(packageId) done.")
-					completion(.success(.success))
-				} else {
+				guard packageDownloadResponse.isEmpty,
+					  let sapDownloadedPackage = packageDownloadResponse.package else {
 					Log.info("TraceWarningPackageDownload: PackageId: \(packageId) is empty and was discarded.")
 					completion(.success(.emptySinglePackage))
+					return
 				}
+				
+				guard let eTag = packageDownloadResponse.etag else {
+					Log.error("TraceWarningPackageDownload: ETag of packageId: \(packageId) missing. Discard package.")
+					completion(.failure(.identicationError))
+					return
+				}
+				
+				guard self.signatureVerifier.verify(sapDownloadedPackage) else {
+					Log.warning("TraceWarningPackageDownload: Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
+					completion(.failure(.verificationError))
+					return
+				}
+				
+				Log.info("TraceWarningPackageDownload: Verification of packageId: \(packageId) successful. Proceed with matching and storing the package.")
+				
+				// 10.+ 11. Match the verified package and store them.
+				self.matcher.matchAndStore(package: sapDownloadedPackage)
+				
+				Log.info("TraceWarningPackageDownload: Matching of packageId: \(packageId) done. Proceed with storing the package.")
+				
+				// 12. Store downloaded and verified
+				let traceWarningPackageMetadata = TraceWarningPackageMetadata(
+					id: packageId,
+					region: country,
+					eTag: eTag
+				)
+				self.eventStore.createTraceWarningPackageMetadata(traceWarningPackageMetadata)
+				
+				Log.info("TraceWarningPackageDownload: Storing of packageId: \(packageId) done.")
+				completion(.success(.success))
+				
 				
 			case let .failure(error):
 				Log.error("TraceWarningPackageDownload: Error at download single package with id: \(packageId).", log: .checkin, error: error)
