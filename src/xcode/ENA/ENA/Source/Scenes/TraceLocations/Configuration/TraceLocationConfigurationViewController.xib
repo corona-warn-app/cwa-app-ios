@@ -203,6 +203,9 @@
                                                                             <rect key="frame" x="0.0" y="12" width="382" height="200"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
+                                                                            <date key="minimumDate" timeIntervalSinceReferenceDate="39600">
+                                                                                <!--2001-01-01 11:00:00 +0000-->
+                                                                            </date>
                                                                             <connections>
                                                                                 <action selector="didSelectDateWithDatePicker:" destination="-1" eventType="valueChanged" id="Spw-yl-eDc"/>
                                                                             </connections>
