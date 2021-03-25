@@ -298,6 +298,7 @@
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
 		347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */; };
+		347FBB18260C9C4600672770 /* ENAUITests_10_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB17260C9C4600672770 /* ENAUITests_10_TraceLocations.swift */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
 		34FE15942604ADC10002CB69 /* qr_code_template.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34FE15932604ADC00002CB69 /* qr_code_template.bin */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
@@ -1269,6 +1270,7 @@
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
 		347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		347FBB17260C9C4600672770 /* ENAUITests_10_TraceLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_TraceLocations.swift; sourceTree = "<group>"; };
 		34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCode.swift"; sourceTree = "<group>"; };
 		34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCodeTests.swift"; sourceTree = "<group>"; };
 		34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviding.swift; sourceTree = "<group>"; };
@@ -2783,6 +2785,22 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		347FBB15260C8BBA00672770 /* TraceLocations */ = {
+			isa = PBXGroup;
+			children = (
+				347FBB17260C9C4600672770 /* ENAUITests_10_TraceLocations.swift */,
+			);
+			path = TraceLocations;
+			sourceTree = "<group>";
+		};
+		347FBB16260C911300672770 /* ContactJournal */ = {
+			isa = PBXGroup;
+			children = (
+				BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */,
+			);
+			path = ContactJournal;
+			sourceTree = "<group>";
+		};
 		34FE15922604AD700002CB69 /* sample_qr_code_template */ = {
 			isa = PBXGroup;
 			children = (
@@ -3593,18 +3611,20 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				13E5046A248E3CE60086641C /* AppInformation */,
-				BADDD84A26039E1000337223 /* CheckIns */,
-				50D50A5E25D6CC760092BC2A /* DataDonation */,
-				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
-				AB7DE70025C4543700C52B3F /* ExposureDetection */,
-				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
-				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
-				941B68AD253F005600DC1962 /* Helper */,
-				134F0DB8247578FF00D88934 /* Home */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
+				134F0DB8247578FF00D88934 /* Home */,
+				13E5046A248E3CE60086641C /* AppInformation */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
+				AB7DE70025C4543700C52B3F /* ExposureDetection */,
+				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
+				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
+				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
+				347FBB16260C911300672770 /* ContactJournal */,
 				EB1C221625B718FA00A5CA6E /* UpdateOS */,
+				BADDD84A26039E1000337223 /* CheckIns */,
+				347FBB15260C8BBA00672770 /* TraceLocations */,
+				50D50A5E25D6CC760092BC2A /* DataDonation */,
+				941B68AD253F005600DC1962 /* Helper */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
@@ -5274,7 +5294,6 @@
 		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6713,6 +6732,7 @@
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
 				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
+				347FBB18260C9C4600672770 /* ENAUITests_10_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 				3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */,
 			);
