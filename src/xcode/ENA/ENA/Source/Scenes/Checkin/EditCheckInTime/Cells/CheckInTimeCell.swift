@@ -28,15 +28,13 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(_ cellModel: CheckInTimeModel) {
 		typeLabel.text = cellModel.type
-		dateLabel.text = cellModel.dateString
-		timeLabel.text = cellModel.timeString
+		dateTimeLabel.text = cellModel.dateString
 	}
 
 	// MARK: - Private
 
 	private let typeLabel = ENALabel()
-	private let dateLabel = ENALabel()
-	private let timeLabel = ENALabel()
+	private let dateTimeLabel = ENALabel()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -47,17 +45,11 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		typeLabel.font = .enaFont(for: .subheadline)
 		typeLabel.textColor = .enaColor(for: .textPrimary1)
 
-		dateLabel.translatesAutoresizingMaskIntoConstraints = false
-		dateLabel.font = .enaFont(for: .subheadline)
-		dateLabel.textColor = .enaColor(for: .textPrimary1)
-		dateLabel.textAlignment = .right
-		dateLabel.numberOfLines = 1
-
-		timeLabel.translatesAutoresizingMaskIntoConstraints = false
-		timeLabel.font = .enaFont(for: .subheadline)
-		timeLabel.textColor = .enaColor(for: .textPrimary1)
-		timeLabel.textAlignment = .right
-		timeLabel.numberOfLines = 1
+		dateTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+		dateTimeLabel.font = .enaFont(for: .subheadline)
+		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
+		dateTimeLabel.textAlignment = .right
+		dateTimeLabel.numberOfLines = 1
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,23 +61,11 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		contentView.addSubview(tileView)
 
-		let rightStackView = UIStackView(
-			arrangedSubviews:
-				[
-					dateLabel,
-					timeLabel
-				]
-		)
-		rightStackView.translatesAutoresizingMaskIntoConstraints = false
-		rightStackView.axis = .horizontal
-		rightStackView.spacing = 1.0
-		rightStackView.distribution = .fillEqually
-
 		let mainStackView = UIStackView(
 			arrangedSubviews:
 				[
 					typeLabel,
-					rightStackView
+					dateTimeLabel
 				]
 		)
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false

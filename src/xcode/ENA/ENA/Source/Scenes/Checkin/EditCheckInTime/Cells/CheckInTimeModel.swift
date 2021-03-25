@@ -23,11 +23,7 @@ final class CheckInTimeModel {
 	let type: String
 
 	var dateString: String {
-		return DateFormatter.localizedString(from: currentDate, dateStyle: .short, timeStyle: .none)
-	}
-
-	var timeString: String {
-		return DateFormatter.localizedString(from: currentDate, dateStyle: .none, timeStyle: .short)
+		return DateFormatter.localizedString(from: currentDate, dateStyle: .short, timeStyle: .short)
 	}
 
 	// MARK: - Private
