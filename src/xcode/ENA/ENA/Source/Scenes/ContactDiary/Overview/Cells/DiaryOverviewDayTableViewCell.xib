@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="16" width="288" height="274"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5ET-0H-Nib">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="139.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="28"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAS-Bk-PQl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="59.5" width="240" height="20.5"/>
+                                                <rect key="frame" x="16" y="8" width="240" height="12"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons_Chevron_plain" translatesAutoresizingMaskIntoConstraints="NO" id="sfU-18-vBs">
-                                                <rect key="frame" x="264" y="64" width="8" height="12"/>
+                                                <rect key="frame" x="264" y="8" width="8" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="8" id="laU-9V-PD8"/>
                                                     <constraint firstAttribute="height" priority="999" constant="12" id="poU-Yj-4uo"/>
@@ -47,7 +47,7 @@
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="j6E-VI-Q9V">
-                                        <rect key="frame" x="0.0" y="139.5" width="288" height="79.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="288" height="106.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NxM-BO-PmY">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
@@ -57,16 +57,16 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wpC-Vc-BVa">
-                                                <rect key="frame" x="0.0" y="1" width="288" height="78.5"/>
+                                                <rect key="frame" x="0.0" y="1" width="288" height="105.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Icons_Attention_high" translatesAutoresizingMaskIntoConstraints="NO" id="csw-4j-F6h">
-                                                        <rect key="frame" x="16" y="8" width="32" height="62.5"/>
+                                                        <rect key="frame" x="16" y="8" width="32" height="89.5"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="Dz9-8h-utd"/>
                                                         </constraints>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LLD-bG-bol">
-                                                        <rect key="frame" x="63" y="8" width="209" height="62.5"/>
+                                                        <rect key="frame" x="63" y="8" width="209" height="89.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRf-oL-SUw" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="209" height="20.5"/>
@@ -75,7 +75,51 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQA-ud-XfW" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="28.5" width="209" height="34"/>
+                                                                <rect key="frame" x="0.0" y="28.5" width="209" height="61"/>
+                                                                <string key="text">la le lu
+Nur der Mann im Mo schaut zu</string>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="16" bottom="8" trailing="16"/>
+                                            </stackView>
+                                        </subviews>
+                                        <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8TA-t5-hG7" userLabel="CheckIn History Stack View">
+                                        <rect key="frame" x="0.0" y="134.5" width="288" height="106.5"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdg-B6-8si">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="1"/>
+                                                <color key="backgroundColor" name="ENA Hairline Color"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="HVA-29-qhN"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-KR-Fhz">
+                                                <rect key="frame" x="0.0" y="1" width="288" height="105.5"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="Icons_Attention_high" translatesAutoresizingMaskIntoConstraints="NO" id="bqu-yO-Qy4" userLabel="Checkin History Notice Image View">
+                                                        <rect key="frame" x="16" y="8" width="32" height="89.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="32" id="ZLg-dW-jqE"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-5K-GbX">
+                                                        <rect key="frame" x="63" y="8" width="209" height="89.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DhW-nb-RWO" userLabel="Checkin History Title Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="209" height="20.5"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETM-Eq-rvE" userLabel="Checkin History Detail Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="28.5" width="209" height="61"/>
                                                                 <string key="text">la le lu
 Nur der Mann im Mo schaut zu</string>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
@@ -91,7 +135,7 @@ Nur der Mann im Mo schaut zu</string>
                                         <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yux-ar-fw9">
-                                        <rect key="frame" x="0.0" y="219" width="288" height="55"/>
+                                        <rect key="frame" x="0.0" y="241" width="288" height="33"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deb-kv-rqF">
                                                 <rect key="frame" x="0.0" y="4" width="288" height="1"/>
@@ -101,7 +145,7 @@ Nur der Mann im Mo schaut zu</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-jl-ZTB">
-                                                <rect key="frame" x="0.0" y="5" width="288" height="50"/>
+                                                <rect key="frame" x="0.0" y="5" width="288" height="28"/>
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="16" bottom="4" trailing="8"/>
                                             </stackView>
                                         </subviews>
@@ -149,14 +193,20 @@ Nur der Mann im Mo schaut zu</string>
         </tableViewCell>
     </objects>
     <designables>
+        <designable name="DhW-nb-RWO">
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
+        </designable>
+        <designable name="ETM-Eq-rvE">
+            <size key="intrinsicContentSize" width="233.5" height="41"/>
+        </designable>
         <designable name="OQA-ud-XfW">
-            <size key="intrinsicContentSize" width="185.5" height="34"/>
+            <size key="intrinsicContentSize" width="233.5" height="41"/>
         </designable>
         <designable name="UAS-Bk-PQl">
             <size key="intrinsicContentSize" width="43.5" height="20.5"/>
         </designable>
         <designable name="iRf-oL-SUw">
-            <size key="intrinsicContentSize" width="43.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="41.5" height="20.5"/>
         </designable>
     </designables>
     <resources>
