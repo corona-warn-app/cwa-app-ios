@@ -28,8 +28,6 @@ class CheckInHeaderCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
-	private let typeLabel = ENALabel()
-
 	private let titleLabel = ENALabel()
 
 	private func setupView() {
