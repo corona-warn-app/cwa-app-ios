@@ -443,12 +443,12 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		// collect testResultMetadata
 		
 		let today = Date()
+		let differenceBetweenMostRecentRiskDateAndRegistrationDate = 5
 		let registrationDate = Calendar.current.date(byAdding: .day, value: -10, to: today) ?? Date()
-		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: today)
+		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -differenceBetweenMostRecentRiskDateAndRegistrationDate, to: registrationDate)
 		let dateOfRiskChangeToHigh = Calendar.current.date(byAdding: .day, value: -12, to: today)
 		let registrationToken = "123"
 		let testResult: TestResult = .negative
-		let numberOfDaysWithHightRisk = 25
 		let riskLevel: RiskLevel = .high
 		let differenceInHoursBetweenChangeToHighRiskAndRegistrationDate = Calendar.current.dateComponents([.hour], from: dateOfRiskChangeToHigh ?? Date(), to: registrationDate).hour
 		let differenceInHoursBetweenRegistrationDateAndTestResult = Calendar.current.dateComponents([.hour], from: registrationDate, to: today).hour
@@ -460,7 +460,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: mostRecentDayWithRisk,
 			numberOfDaysWithLowRisk: 0,
-			numberOfDaysWithHighRisk: numberOfDaysWithHightRisk,
+			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
@@ -471,7 +471,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
 		XCTAssertEqual(store.testResultMetadata?.testRegistrationDate, registrationDate, "Wrong Registration date")
 		XCTAssertEqual(store.testResultMetadata?.riskLevelAtTestRegistration, riskLevel, "Wrong Risk Level")
-		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, numberOfDaysWithHightRisk, "Wrong number of days with this risk level")
+		XCTAssertEqual(store.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration, differenceBetweenMostRecentRiskDateAndRegistrationDate, "Wrong number of days with this risk level")
 		XCTAssertEqual(store.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, differenceInHoursBetweenChangeToHighRiskAndRegistrationDate, "Wrong difference hoursSinceHighRiskWarningAtTestRegistration")
 
 		Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
