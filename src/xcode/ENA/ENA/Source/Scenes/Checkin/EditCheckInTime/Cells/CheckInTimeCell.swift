@@ -4,7 +4,7 @@
 
 import UIKit
 
-class CheckInTimeWithPickerCell: UITableViewCell, ReuseIdentifierProviding {
+class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Init
 

@@ -70,7 +70,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			return cell
 
 		case .checkInStart, .checkInEnd:
-			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeWithPickerCell.self, for: indexPath)
+			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeCell.self, for: indexPath)
 			cell.configure(viewModel.checkInStartCellModel)
 			return cell
 
@@ -81,6 +81,12 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		case .endPicker:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
 			return cell
+
+		case .notice:
+			let cell = tableView.dequeueReusableCell(cellType: CheckInNoticeCell.self, for: indexPath)
+			cell.configure(AppStrings.Checkins.Edit.notice)
+			return cell
+
 		}
 
 	}
@@ -250,8 +256,9 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 //		tableView.register(TextHeaderView.self, forHeaderFooterViewReuseIdentifier: TextHeaderView.reuseIdentifier)
 		tableView.register(CheckInHeaderCell.self, forCellReuseIdentifier: CheckInHeaderCell.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
-		tableView.register(CheckInTimeWithPickerCell.self, forCellReuseIdentifier: CheckInTimeWithPickerCell.reuseIdentifier)
+		tableView.register(CheckInTimeCell.self, forCellReuseIdentifier: CheckInTimeCell.reuseIdentifier)
 		tableView.register(CheckInDatePickerCell.self, forCellReuseIdentifier: CheckInDatePickerCell.reuseIdentifier)
+		tableView.register(CheckInNoticeCell.self, forCellReuseIdentifier: CheckInNoticeCell.reuseIdentifier)
 	}
 
 	private func setupCombine() {

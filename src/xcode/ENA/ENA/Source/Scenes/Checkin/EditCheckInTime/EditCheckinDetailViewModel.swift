@@ -22,6 +22,7 @@ final class EditCheckinDetailViewModel {
 		case startPicker
 		case checkInEnd
 		case endPicker
+		case notice
 
 //		var sectionTitle: String? {
 //			switch self {
@@ -49,7 +50,7 @@ final class EditCheckinDetailViewModel {
 			return 0
 		}
 		switch section {
-		case .header, .description, .checkInStart, .checkInEnd:
+		case .header, .description, .checkInStart, .checkInEnd, .notice:
 			return 1
 		case .startPicker:
 			return isStartDatePickerVisible ? 1 : 0

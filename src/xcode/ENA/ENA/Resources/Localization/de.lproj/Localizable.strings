@@ -2143,6 +2143,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkins_Edit_Section_Title" = "Aufenthaltsdauer anpassen für:";
 
+"Checkins_Edit_Notice" = "Die Aufenthaltsdauer wird nicht automatisch in Ihrem Kontakt-Tagebuch angepasst.";
+
 /* Checkout */
 
 "Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
