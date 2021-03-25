@@ -53,9 +53,7 @@ class ExposureSubmissionTestResultViewModel {
 	lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
 		
-		item.title = AppStrings.ExposureSubmissionResult.title
-		item.hidesBackButton = true
-		item.largeTitleDisplayMode = .always
+		
 		
 		return item
 	}()

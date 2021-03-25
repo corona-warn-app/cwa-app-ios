@@ -256,42 +256,44 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
 		
+		let viewModel = ExposureSubmissionTestResultViewModel(
+			testResult: testResult,
+			exposureSubmissionService: model.exposureSubmissionService,
+			warnOthersReminder: warnOthersReminder,
+			onSubmissionConsentCellTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						self?.showTestResultSubmissionConsentScreen(
+							supportedCountries: supportedCountries,
+							testResultAvailability: testResultAvailability
+						)
+					}
+				)
+			},
+			onContinueWithSymptomsFlowButtonTap: { [weak self] in
+				self?.showSymptomsScreen()
+			},
+			onContinueWarnOthersButtonTap: { [weak self] isLoading in
+				Log.debug("\(#function) will load app config", log: .appConfig)
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						Log.debug("\(#function) did load app config", log: .appConfig)
+						self?.showWarnOthersScreen(supportedCountries: supportedCountries)
+					}
+				)
+			},
+			onChangeToPositiveTestResult: { [weak self] in
+				self?.showTestResultAvailableScreen(with: .positive)
+			},
+			onTestDeleted: { [weak self] in
+				self?.dismiss()
+			}
+		)
+		
 		let vc = ExposureSubmissionTestResultViewController(
-			viewModel: .init(
-				testResult: testResult,
-				exposureSubmissionService: model.exposureSubmissionService,
-				warnOthersReminder: warnOthersReminder,
-				onSubmissionConsentCellTap: { [weak self] isLoading in
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: { supportedCountries in
-							self?.showTestResultSubmissionConsentScreen(
-								supportedCountries: supportedCountries,
-								testResultAvailability: testResultAvailability
-							)
-						}
-					)
-				},
-				onContinueWithSymptomsFlowButtonTap: { [weak self] in
-					self?.showSymptomsScreen()
-				},
-				onContinueWarnOthersButtonTap: { [weak self] isLoading in
-					Log.debug("\(#function) will load app config", log: .appConfig)
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: { supportedCountries in
-							Log.debug("\(#function) did load app config", log: .appConfig)
-							self?.showWarnOthersScreen(supportedCountries: supportedCountries)
-						}
-					)
-				},
-				onChangeToPositiveTestResult: { [weak self] in
-					self?.showTestResultAvailableScreen(with: .positive)
-				},
-				onTestDeleted: { [weak self] in
-					self?.dismiss()
-				}
-			),
+			viewModel: viewModel,
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			onDismiss: { [weak self] testResult, isLoading in
 				if testResult == TestResult.positive {
@@ -299,16 +301,14 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.dismiss()
 				}
-
 			}
 		)
 		
 		let footerViewController = FooterViewController(
 			FooterViewModel(
-				primaryButtonName: AppStrings.ContactDiary.Information.primaryButtonTitle,
+				primaryButtonName: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				isSecondaryButtonEnabled: false,
-				isSecondaryButtonHidden: true
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 			)
 		)
 		
