@@ -48,6 +48,17 @@ final class TraceLocationDetailViewModel {
 			return .inProgress
 		}
 	}
+	var formattedStartDateString: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		return dateFormatter.string(from: traceLocation.startDate ?? Date())
+	}
+	var formattedStartTimeString: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.timeStyle = .short
+		dateFormatter.dateStyle = .none
+		return dateFormatter.string(from: traceLocation.startDate ?? Date())
+	}
 	
 	enum TraceLocationDateStatus {
 		case notStarted
@@ -61,20 +72,6 @@ final class TraceLocationDetailViewModel {
 		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())
 		if let hour = formattedHourString(date) {
 			pickerButtonTitle = String(format: AppStrings.Checkins.Details.hoursShortVersion, hour)
-		}
-	}
-	
-	func formattedString(for component: Calendar.Component) -> String? {
-		switch component {
-		case .day:
-			let dateFormatter = DateFormatter()
-			dateFormatter.dateStyle = .short
-			dateFormatter.locale = Locale.current
-			return dateFormatter.string(from: traceLocation.startDate ?? Date())
-		case .hour:
-			return formattedHourString(traceLocation.startDate)
-		default:
-			return nil
 		}
 	}
 	

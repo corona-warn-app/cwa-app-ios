@@ -96,8 +96,8 @@ class TraceLocationDetailViewController: UIViewController {
 			additionalInfoView.isHidden = false
 			additionalInfoLabel.text = String(
 				format: AppStrings.Checkins.Details.eventNotStartedYet,
-				viewModel.formattedString(for: .day) ?? "",
-				viewModel.formattedString(for: .hour) ?? ""
+				viewModel.formattedStartDateString,
+				viewModel.formattedStartTimeString
 			)
 		case .ended:
 			additionalInfoView.isHidden = false
