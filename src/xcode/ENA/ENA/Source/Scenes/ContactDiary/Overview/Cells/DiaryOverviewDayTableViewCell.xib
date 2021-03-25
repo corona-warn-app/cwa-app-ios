@@ -181,6 +181,9 @@ Nur der Mann im Mo schaut zu</string>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="24" bottom="8" trailing="24"/>
             <connections>
+                <outlet property="checkinHistoryDetailLabel" destination="ETM-Eq-rvE" id="u3Q-Jj-rDz"/>
+                <outlet property="checkinHistoryStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>
+                <outlet property="checkinHistoryTitleLabel" destination="DhW-nb-RWO" id="7WS-6g-OvU"/>
                 <outlet property="dateLabel" destination="UAS-Bk-PQl" id="96b-bf-GYh"/>
                 <outlet property="encountersVisitsContainerStackView" destination="yux-ar-fw9" id="BDf-hv-0Gd"/>
                 <outlet property="encountersVisitsStackView" destination="Qc1-jl-ZTB" id="te0-WJ-Taf"/>

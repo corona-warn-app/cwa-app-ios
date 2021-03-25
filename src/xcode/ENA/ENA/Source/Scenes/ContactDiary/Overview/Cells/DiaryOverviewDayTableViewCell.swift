@@ -20,6 +20,14 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.style = .subheadline
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
+		// check-ins with risk
+		checkinHistoryStackView.isHidden = false
+		checkinHistoryTitleLabel.text = "Erhöhtes Risiko"
+		checkinHistoryTitleLabel.style = .body
+		checkinHistoryDetailLabel.text = "aufgrund Ihrer Anwesenheit beim Superspreader Event in Ischgl."
+		checkinHistoryDetailLabel.style = .subheadline
+		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
+		
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
 		for entry in cellViewModel.selectedEntries {
@@ -113,4 +121,8 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var exposureHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var exposureHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var exposureHistoryDetailLabel: ENALabel!
+	
+	@IBOutlet private weak var checkinHistoryStackView: UIStackView!
+	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
+	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
 }
