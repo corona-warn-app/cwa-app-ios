@@ -30,6 +30,17 @@ class QRCodePosterTemplateProvider: QRCodePosterTemplateProviding {
 			.eraseToAnyPublisher()
 	}
 
+	func defaultQRCodePosterTemplate() -> SAP_Internal_Pt_QRCodePosterTemplateIOS {
+		guard
+			let url = Bundle(for: CachingHTTPClientMock.self).url(forResource: "qr_code_template", withExtension: "bin"),
+			let data = try? Data(contentsOf: url),
+			let template = try? SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: data)
+		else {
+			fatalError("Cannot load default QR code poster template")
+		}
+		return template
+	}
+
 	// MARK: - Private
 
 	/// HTTP client
@@ -57,8 +68,8 @@ class QRCodePosterTemplateProvider: QRCodePosterTemplateProviding {
 					if let template = self.store.qrCodePosterTemplateMetadata, Calendar.current.isDateInToday(template.lastQRCodePosterTemplateFetchDate) {
 						promise(.success(template.qrCodePosterTemplate))
 					} else {
-						// otherwise return error
-						promise(.failure(error))
+						// otherwise return default QR Code Poster Template
+						promise(.success(self.defaultQRCodePosterTemplate()))
 					}
 				}
 			}
