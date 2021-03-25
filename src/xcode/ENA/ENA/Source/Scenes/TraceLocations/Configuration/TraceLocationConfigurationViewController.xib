@@ -51,10 +51,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYV-bG-ieL">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="13455.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="10000"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WER-Ff-Vf6">
-                                    <rect key="frame" x="16" y="10" width="382" height="13429.5"/>
+                                    <rect key="frame" x="16" y="10" width="382" height="10000"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01z-L4-bly" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -199,8 +199,8 @@
                                                                                 <constraint firstAttribute="height" constant="12" id="aqb-td-Z9r"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="bCX-eI-LLW">
-                                                                            <rect key="frame" x="0.0" y="12" width="382" height="873"/>
+                                                                        <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="bCX-eI-LLW">
+                                                                            <rect key="frame" x="0.0" y="12" width="382" height="200"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
                                                                             <connections>
@@ -290,8 +290,8 @@
                                                                                 <constraint firstAttribute="height" constant="12" id="Jql-Xc-i5b"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="OPw-tD-KIw">
-                                                                            <rect key="frame" x="0.0" y="12" width="382" height="873"/>
+                                                                        <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="OPw-tD-KIw">
+                                                                            <rect key="frame" x="0.0" y="12" width="382" height="200"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
                                                                             <connections>
@@ -376,9 +376,12 @@
                                                                     <rect key="frame" x="20" y="0.0" width="342" height="3975"/>
                                                                     <subviews>
                                                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTw-KI-uwR">
-                                                                            <rect key="frame" x="4" y="0.0" width="334" height="3975"/>
+                                                                            <rect key="frame" x="4" y="0.0" width="334" height="216"/>
                                                                             <color key="backgroundColor" name="ENA Dark Background Color"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="216" id="OMh-ga-stM"/>
+                                                                            </constraints>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
                                                                             <connections>
                                                                                 <action selector="defaultCheckinLengthValueChanged:" destination="-1" eventType="valueChanged" id="IA6-2d-Csz"/>
@@ -473,9 +476,12 @@
                                                                     <rect key="frame" x="20" y="0.0" width="342" height="3542"/>
                                                                     <subviews>
                                                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVg-49-4dl">
-                                                                            <rect key="frame" x="4" y="0.0" width="334" height="3542"/>
+                                                                            <rect key="frame" x="4" y="0.0" width="334" height="216"/>
                                                                             <color key="backgroundColor" name="ENA Dark Background Color"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="216" id="hCT-bh-al9"/>
+                                                                            </constraints>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
                                                                             <connections>
                                                                                 <action selector="defaultCheckinLengthValueChanged:" destination="-1" eventType="valueChanged" id="AXt-hA-7Z8"/>
