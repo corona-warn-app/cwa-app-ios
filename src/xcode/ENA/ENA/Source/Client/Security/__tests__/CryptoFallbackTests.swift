@@ -223,10 +223,10 @@ class CryptoFallbackTests: iOS13TestCase {
 		let rootKey = try PrivateKey()
 		let publicKey = rootKey.publicKey
 
-		let verifier = SignatureVerifier(key: { publicKey })
+		let signatureVerifier = SignatureVerifier(key: { publicKey })
 		let package = try SAPDownloadedPackage.makePackage(key: rootKey)
 
-		XCTAssertTrue(verifier(package))
+		XCTAssertTrue(signatureVerifier(package))
 
 		// flip a random bit
 		var bin = [UInt8](package.bin)
@@ -237,6 +237,6 @@ class CryptoFallbackTests: iOS13TestCase {
 		XCTAssertNotEqual(package.bin.sha256(), alteredBin.sha256())
 		let alteredPackage = SAPDownloadedPackage(keysBin: alteredBin, signature: package.signature)
 		
-		XCTAssertFalse(verifier(alteredPackage))
+		XCTAssertFalse(signatureVerifier(alteredPackage))
 	}
 }

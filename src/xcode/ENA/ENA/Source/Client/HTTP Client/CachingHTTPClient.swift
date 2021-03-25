@@ -23,22 +23,23 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 	/// The underlying URLSession for all network requests
 	let session: URLSession
 
-	/// Verifier for the fetched & signed protobuf packages
-	let packageVerifier: SignatureVerifier
+	/// SignatureVerifier for the fetched & signed protobuf packages
+	let signatureVerifier: SignatureVerifier
 
 	/// Initializer for the caching client.
 	///
 	/// - Parameters:
 	///   - clientConfiguration: The client configuration for the client.
 	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
-	///   - packageVerifier: The verifier to use for package validation.
+	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
 		serverEnvironmentProvider: ServerEnvironmentProviding,
 		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		packageVerifier: SignatureVerifier = SignatureVerifier()) {
+		signatureVerifier: SignatureVerifier = SignatureVerifier()
+	) {
 		self.session = session
 		self.serverEnvironmentProvider = serverEnvironmentProvider
-		self.packageVerifier = packageVerifier
+		self.signatureVerifier = signatureVerifier
 	}
 
 	// MARK: - AppConfigurationFetching
@@ -158,7 +159,7 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, QRCodePos
 		}
 
 		// data verified?
-		guard self.packageVerifier(package) else {
+		guard self.signatureVerifier(package) else {
 			let error = CacheError.dataVerificationError(message: "Failed to verify signature.")
 			throw error
 		}

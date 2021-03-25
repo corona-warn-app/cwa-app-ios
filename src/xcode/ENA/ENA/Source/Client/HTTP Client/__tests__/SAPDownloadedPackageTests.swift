@@ -13,7 +13,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	private lazy var signingKey: PrivateKeyProvider = CryptoProvider.createPrivateKey()
 	private lazy var mockKeyProvider: PublicKeyProtocol = CryptoProvider.createPublicKey(from: signingKey)
-	private lazy var verifier = SignatureVerifier(key: { self.mockKeyProvider })
+	private lazy var signatureVerifier = SignatureVerifier(key: { self.mockKeyProvider })
 	
 
 	// MARK: Signature Verification Tests
@@ -21,7 +21,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	func testVerifySignature_SingleSignature() throws {
 		// Test the package signature verification process
 		let package = try SAPDownloadedPackage.makePackage(key: signingKey)
-		XCTAssertTrue(verifier(package))
+		XCTAssertTrue(signatureVerifier(package))
 	}
 
 	func testVerifySignature_RejectModifiedBin() throws {
@@ -37,7 +37,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			).asList()
 		)
 
-		XCTAssertFalse(verifier(package))
+		XCTAssertFalse(signatureVerifier(package))
 	}
 
 	func testVerifySignature_RejectCorruptSignature() throws {
@@ -47,7 +47,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD] as [UInt8], count: 4)
 		)
 
-		XCTAssertFalse(verifier(package))
+		XCTAssertFalse(signatureVerifier(package))
 	}
 
 	func testVerifySignature_OneKeyMatchesBundleId() throws {
@@ -61,7 +61,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
 		// When no public key to sign is found, the verification should fail
-		XCTAssertTrue(verifier(package))
+		XCTAssertTrue(signatureVerifier(package))
 	}
 
 	func testVerifySignature_OneSignatureFails() throws {
@@ -77,7 +77,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
 		// Only one signature is necessary to pass the check
-		XCTAssertTrue(verifier(package))
+		XCTAssertTrue(signatureVerifier(package))
 	}
 
 	// MARK: - Init from ZIP Tests

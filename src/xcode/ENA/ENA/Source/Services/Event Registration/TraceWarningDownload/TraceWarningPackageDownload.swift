@@ -30,13 +30,13 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		store: Store,
 		eventStore: EventStoringProviding,
 		countries: [Country.ID] = ["DE"],
-		verifier: SignatureVerification = SignatureVerifier()
+		signatureVerifier: SignatureVerification = SignatureVerifier()
 	) {
 		self.client = client
 		self.store = store
 		self.eventStore = eventStore
 		self.countries = countries
-		self.packageVerifier = verifier
+		self.signatureVerifier = signatureVerifier
 		
 		self.matcher = TraceWarningMatcher(eventStore: eventStore)
 	}
@@ -156,7 +156,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 	private let eventStore: EventStoringProviding
 	private let countries: [Country.ID]
 	private let matcher: TraceWarningMatching
-	private let packageVerifier: SignatureVerification
+	private let signatureVerifier: SignatureVerification
 	
 	private var subscriptions: Set<AnyCancellable> = []
 	private var status: TraceWarningDownloadStatus = .idle {
@@ -352,7 +352,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 						return
 					}
 					
-					guard self.packageVerifier.verify(sapDownloadedPackage) else {
+					guard self.signatureVerifier.verify(sapDownloadedPackage) else {
 						Log.warning("TraceWarningPackageDownload: Verification of packageId: \(packageId) failed. Discard package but complete download as success.")
 						completion(.failure(.verificationError))
 						return

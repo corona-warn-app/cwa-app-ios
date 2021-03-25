@@ -41,7 +41,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			client: client,
 			store: store,
 			eventStore: eventStore,
-			verifier: MockVerifier()
+			signatureVerifier: MockVerifier()
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage HappyCase_THEN_Success.")
@@ -165,7 +165,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			client: client,
 			store: MockTestStore(),
 			eventStore: eventStore,
-			verifier: MockVerifier()
+			signatureVerifier: MockVerifier()
 		)
 		
 		let successExpectation = expectation(description: "TraceWarningPackage SinglePackageIsEmpty_THEN_Success.")
