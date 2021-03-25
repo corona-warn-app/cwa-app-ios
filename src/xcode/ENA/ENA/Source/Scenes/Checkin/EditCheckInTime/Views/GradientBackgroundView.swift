@@ -22,10 +22,11 @@ class GradientBackgroundView: UIView {
 	// MARK: - Internal
 
 	var topLayoutConstraint: NSLayoutConstraint!
+	var gradientHeightConstraint: NSLayoutConstraint!
 
 	func updatedTopLayout(with offset: CGFloat, limit: CGFloat) {
 		let height = gradientView.bounds.size.height
-		topLayoutConstraint.constant = max(-offset, -(height - limit))
+		topLayoutConstraint.constant = max(min(-offset,0), -(height - limit))
 	}
 
 	// MARK: - Private
@@ -42,14 +43,19 @@ class GradientBackgroundView: UIView {
 
 		gradientView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(gradientView)
-		topLayoutConstraint = gradientView.topAnchor.constraint(equalTo: topAnchor)
 
+		topLayoutConstraint = gradientView.topAnchor.constraint(equalTo: topAnchor)
+		gradientHeightConstraint = gradientView.heightAnchor.constraint(equalToConstant: 150)
+		gradientHeightConstraint.priority = .defaultHigh
+		
 		NSLayoutConstraint.activate(
 			[
 				topLayoutConstraint,
 				gradientView.leadingAnchor.constraint(equalTo: leadingAnchor),
 				gradientView.trailingAnchor.constraint(equalTo: trailingAnchor),
-				gradientView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0 / 2.5),
+				gradientHeightConstraint,
+
+				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
 				backgroundViewContainer.topAnchor.constraint(equalTo: gradientView.bottomAnchor),
 				backgroundViewContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
 				backgroundViewContainer.trailingAnchor.constraint(equalTo: trailingAnchor),

@@ -33,6 +33,11 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		setupCombine()
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		didCalculated = false
+	}
+
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -41,6 +46,20 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
 			self?.dismiss()
 		}
+	}
+
+	private var didCalculated: Bool = false
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		guard didCalculated == false,
+			indexPath == IndexPath(row: 0, section: EditCheckinDetailViewModel.TableViewSections.description.rawValue) else {
+			return
+		}
+
+		let cellRect = tableView.rectForRow(at: indexPath)
+		let result = view.convert(cellRect, from: tableView)
+		backGroundView.gradientHeightConstraint.constant = result.midY
+		didCalculated = true
 	}
 
 	// MARK: - UITableViewDataSource
@@ -132,9 +151,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 				Log.debug("Section doesn't support selection")
 			}
 		}
-
 	}
-
 
 	// MARK: - Private
 	private let backGroundView = GradientBackgroundView()
