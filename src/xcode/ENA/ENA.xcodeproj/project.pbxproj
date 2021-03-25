@@ -758,7 +758,6 @@
 		BA112E0A25559CDD007F5712 /* ClientWifiOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */; };
 		BA11D5BA2588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */; };
 		BA14204A260B963900CF0726 /* CheckInDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */; };
-		BA142052260BA22F00CF0726 /* CheckInHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA142051260BA22F00CF0726 /* CheckInHeaderCell.swift */; };
 		BA27993B255995E100C3B64D /* DMWifiClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */; };
 		BA288AF42582616E0071009A /* DiaryInfoViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */; };
 		BA2B393A25F7C6F700374CF1 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2B393925F7C6F700374CF1 /* GradientView.swift */; };
@@ -790,6 +789,7 @@
 		BA6C8B24254D76ED008344F5 /* ExposureWindowTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8AE3254D6598008344F5 /* ExposureWindowTestCase.swift */; };
 		BA6C8B2B254D76F7008344F5 /* TestCasesWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8A95254D62C3008344F5 /* TestCasesWithConfiguration.swift */; };
 		BA6C8B51254D80DF008344F5 /* ExposureWindowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */; };
+		BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6CC736260CF63B00F191FB /* CheckInHeaderCell.swift */; };
 		BA6D1634255AD2AA00ED3492 /* DMWifiClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1633255AD2AA00ED3492 /* DMWifiClientViewModel.swift */; };
 		BA6D163A255AD35900ED3492 /* DMSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */; };
 		BA6D163B255AD35900ED3492 /* DMSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */; };
@@ -1758,7 +1758,6 @@
 		BA112E0925559CDD007F5712 /* ClientWifiOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWifiOnly.swift; sourceTree = "<group>"; };
 		BA11D5B92588D590005DCD6B /* DiaryAddAndEditEntryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddAndEditEntryViewModelTest.swift; sourceTree = "<group>"; };
 		BA142049260B963900CF0726 /* CheckInDatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInDatePickerCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInDatePickerCell.swift; sourceTree = SOURCE_ROOT; };
-		BA142051260BA22F00CF0726 /* CheckInHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CheckInHeaderCell.swift; path = ENA/Source/Scenes/CheckIn/EditCheckInTime/Cells/CheckInHeaderCell.swift; sourceTree = SOURCE_ROOT; };
 		BA27993A255995E100C3B64D /* DMWifiClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewController.swift; sourceTree = "<group>"; };
 		BA288AF32582616E0071009A /* DiaryInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModelTest.swift; sourceTree = "<group>"; };
 		BA2B393925F7C6F700374CF1 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -1790,6 +1789,7 @@
 		BA6C8B04254D6B1F008344F5 /* RiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculation.swift; sourceTree = "<group>"; };
 		BA6C8B0D254D6BF9008344F5 /* RiskCalculationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculationTest.swift; sourceTree = "<group>"; };
 		BA6C8B50254D80DF008344F5 /* ExposureWindowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureWindowTest.swift; sourceTree = "<group>"; };
+		BA6CC736260CF63B00F191FB /* CheckInHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInHeaderCell.swift; sourceTree = "<group>"; };
 		BA6D1633255AD2AA00ED3492 /* DMWifiClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMWifiClientViewModel.swift; sourceTree = "<group>"; };
 		BA6D1638255AD35900ED3492 /* DMSwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMSwitchTableViewCell.swift; sourceTree = "<group>"; };
 		BA6D1639255AD35900ED3492 /* DMSwitchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DMSwitchTableViewCell.xib; sourceTree = "<group>"; };
@@ -5262,7 +5262,7 @@
 		BADD36E0260B4FBA00DD282A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				BA142051260BA22F00CF0726 /* CheckInHeaderCell.swift */,
+				BA6CC736260CF63B00F191FB /* CheckInHeaderCell.swift */,
 				BADD36E2260B4FBA00DD282A /* CheckInDescriptionCell.swift */,
 				BADD36E1260B4FBA00DD282A /* CheckInDescriptionCellModel.swift */,
 				BA9D92DD260B71D400300DEA /* CheckInTimeCell.swift */,
@@ -6430,7 +6430,7 @@
 				B1C7EEB024941A6B00F1F284 /* RiskConsumer.swift in Sources */,
 				01DB708525068167008F7244 /* Calendar+GregorianLocale.swift in Sources */,
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
-				BA142052260BA22F00CF0726 /* CheckInHeaderCell.swift in Sources */,
+				BA6CC737260CF63B00F191FB /* CheckInHeaderCell.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				AB5F84C024FE2EB3000400D4 /* DownloadedPackagesStoreV0.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
