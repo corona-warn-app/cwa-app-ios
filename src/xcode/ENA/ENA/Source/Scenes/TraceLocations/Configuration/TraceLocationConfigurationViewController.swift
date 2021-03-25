@@ -145,6 +145,11 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		descriptionTextField.layer.cornerRadius = 0
 		addressTextField.layer.cornerRadius = 0
+
+		if #available(iOS 14.0, *) {
+			startDatePicker.preferredDatePickerStyle = .inline
+			endDatePicker.preferredDatePickerStyle = .inline
+		}
 	}
 
 	private func setUpGestureRecognizers() {

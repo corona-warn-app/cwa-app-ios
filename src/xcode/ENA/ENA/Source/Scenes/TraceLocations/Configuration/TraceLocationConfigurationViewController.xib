@@ -199,7 +199,7 @@
                                                                                 <constraint firstAttribute="height" constant="12" id="aqb-td-Z9r"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="bCX-eI-LLW">
+                                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="bCX-eI-LLW">
                                                                             <rect key="frame" x="0.0" y="12" width="382" height="873"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
@@ -290,7 +290,7 @@
                                                                                 <constraint firstAttribute="height" constant="12" id="Jql-Xc-i5b"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="OPw-tD-KIw">
+                                                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="OPw-tD-KIw">
                                                                             <rect key="frame" x="0.0" y="12" width="382" height="873"/>
                                                                             <color key="tintColor" name="ENA Tint Color"/>
                                                                             <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="0.0" trailing="20"/>
