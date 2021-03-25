@@ -31,7 +31,7 @@ final class CheckinRiskCalculation {
 
 	// MARK: - Internal
 
-	func calculateRisk(completion: @escaping () -> ()) {
+	func calculateRisk(completion: @escaping () -> Void) {
 		appConfigProvider.appConfiguration().sink { [weak self] config in
 			self?.calculateRisk(with: config)
 			completion()
@@ -50,6 +50,7 @@ final class CheckinRiskCalculation {
 	private func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) {
 		let transmissionRiskValueMapping = config.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 		let normalizedTimePerCheckInToRiskLevelMapping = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerCheckInToRiskLevelMapping
+		let normalizedTimePerDayToRiskLevelMapping = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerDayToRiskLevelMapping
 		var checkinsWithRiskLevel = [CheckinWithRiskLevel]()
 
 		// Determine Risk Level per Check-In
@@ -102,7 +103,7 @@ final class CheckinRiskCalculation {
 
 				if let riskLevel = riskLevel {
 					let checkinWithRisk = CheckinWithRiskLevel(
-						checkin: checkin,
+						checkin: splittedCheckin,
 						riskLevel: riskLevel,
 						normalizedTime: normalizedTimePerCheckin
 					)
@@ -144,7 +145,7 @@ final class CheckinRiskCalculation {
 		}
 
 		let riskLevelPerDate: [Date: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel] = normalizedTimePerDates.compactMapValues { value in
-			let riskLevel = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerDayToRiskLevelMapping.first(where: {
+			let riskLevel = normalizedTimePerDayToRiskLevelMapping.first(where: {
 				let range = ENARange(from: $0.normalizedTimeRange)
 				return range.contains(value)
 			}).map {
