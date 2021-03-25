@@ -229,7 +229,14 @@ class TraceLocationConfigurationViewModel {
 
 		$defaultCheckInLengthInMinutes
 			.compactMap { [weak self] in
-				TimeInterval(minutes: $0).map { self?.durationFormatter.string(from: $0) }
+				guard
+					let timeInterval = TimeInterval(minutes: $0),
+					let formattedDuration = self?.durationFormatter.string(from: timeInterval)
+				else {
+					return nil
+				}
+
+				return String(format: AppStrings.TraceLocations.Configuration.hoursUnit, formattedDuration)
 			}
 			.assign(to: &$formattedDefaultCheckInLength)
 
