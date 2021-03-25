@@ -11,7 +11,10 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	// MARK: - Init
 
-	init() {
+	init(
+		dateProvider: DateProviding = DateProvider()
+	) {
+		self.dateProvider = dateProvider
 		updateDays()
 	}
 
@@ -203,6 +206,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	private var locations: [DiaryLocation] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
 	private var locationVisits: [LocationVisit] = []
+	private let dateProvider: DateProviding
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
@@ -211,7 +215,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		dateFormatter.formatOptions = [.withFullDate]
 
 		for dayDifference in 0..<15 {
-			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: Date()) else { continue }
+			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: dateProvider.today) else { continue }
 			let dateString = dateFormatter.string(from: date)
 
 			let contactPersonEntries = contactPersons

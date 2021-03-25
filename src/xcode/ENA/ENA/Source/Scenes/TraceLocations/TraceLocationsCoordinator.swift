@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import PDFKit
 
 class TraceLocationsCoordinator {
 	
@@ -10,10 +11,12 @@ class TraceLocationsCoordinator {
 	
 	init(
 		store: Store,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
 	}
@@ -44,6 +47,7 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 	
 	private let store: Store
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let eventStore: EventStoringProviding
 
 	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .locationTypeTemporaryPrivateEvent, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
@@ -143,9 +147,11 @@ class TraceLocationsCoordinator {
 	
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
 		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
-			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation),
-			onPrintVersionButtonTap: { [weak self] traceLocation in
-				self?.showPrintVersionScreen(traceLocation: traceLocation)
+			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: store, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider),
+			onPrintVersionButtonTap: { [weak self] pdfView in
+				DispatchQueue.main.async {
+					self?.showPrintVersionScreen(pdfView: pdfView)
+				}
 			},
 			onDuplicateButtonTap: { [weak self] traceLocation in
 				guard let self = self else { return }
@@ -177,10 +183,10 @@ class TraceLocationsCoordinator {
 		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
 	}
-	
-	private func showPrintVersionScreen(traceLocation: TraceLocation) {
+
+	private func showPrintVersionScreen(pdfView: PDFView) {
 		let viewController = TraceLocationPrintVersionViewController(
-			viewModel: TraceLocationPrintVersionViewModel(traceLocation: traceLocation)
+			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
 		
 		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
@@ -237,26 +243,13 @@ class TraceLocationsCoordinator {
 	}
 	
 	private func showCheckInScreen(traceLocation: TraceLocation) {
-		// Show checkin screen here, for testing purposes we are temporarily directly checking in
-		eventStore.createCheckin(
-			Checkin(
-				id: 0,
-				traceLocationGUID: traceLocation.guid,
-				traceLocationGUIDHash: Data(),
-				traceLocationVersion: traceLocation.version,
-				traceLocationType: traceLocation.type,
-				traceLocationDescription: traceLocation.description,
-				traceLocationAddress: traceLocation.address,
-				traceLocationStartDate: traceLocation.startDate,
-				traceLocationEndDate: traceLocation.endDate,
-				traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
-				traceLocationSignature: traceLocation.signature,
-				checkinStartDate: Date(),
-				checkinEndDate: Date(timeIntervalSinceNow: 4500),
-				checkinCompleted: false,
-				createJournalEntry: false
-			)
+		let checkinViewController = TraceLocationDetailViewController(
+			traceLocation,
+			dismiss: { [weak self] in
+				self?.parentNavigationController?.dismiss(animated: true)
+			}
 		)
+		parentNavigationController?.present(checkinViewController, animated: true)
 	}
 	
 }

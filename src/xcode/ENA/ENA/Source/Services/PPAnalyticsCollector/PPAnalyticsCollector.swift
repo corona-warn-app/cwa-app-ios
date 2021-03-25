@@ -41,8 +41,6 @@ enum PPAnalyticsCollector {
 			Analytics.logUserMetadata(userMetadata)
 		case let .riskExposureMetadata(riskExposureMetadata):
 			Analytics.logRiskExposureMetadata(riskExposureMetadata)
-		case let .clientMetadata(clientMetadata):
-			Analytics.logClientMetadata(clientMetadata)
 		case let .testResultMetadata(TestResultMetadata):
 			Analytics.logTestResultMetadata(TestResultMetadata)
 		case let .keySubmissionMetadata(keySubmissionMetadata):
@@ -176,23 +174,6 @@ enum PPAnalyticsCollector {
 		Analytics.collect(.riskExposureMetadata(.create(newRiskExposureMetadata)))
 	}
 
-
-	// MARK: - ClientMetadata
-
-	private static func logClientMetadata(_ clientMetadata: PPAClientMetadata) {
-		switch clientMetadata {
-		case let .create(metaData):
-			store?.clientMetadata = metaData
-		case .setClientMetaData:
-			Analytics.setClientMetaData()
-		}
-	}
-
-	private static func setClientMetaData() {
-		let eTag = store?.appConfigMetadata?.lastAppConfigETag
-		Analytics.collect(.clientMetadata(.create(ClientMetadata(etag: eTag))))
-	}
-
 	// MARK: - TestResultMetadata
 
 	private static func logTestResultMetadata(_ TestResultMetadata: PPATestResultMetadata) {
@@ -210,6 +191,37 @@ enum PPAnalyticsCollector {
 		}
 	}
 
+	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
+		guard let riskCalculationResult = store?.riskCalculationResult else {
+			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
+			return
+		}
+		var testResultMetadata = TestResultMetadata(registrationToken: token)
+		testResultMetadata.testRegistrationDate = date
+		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
+		
+		if let mostRecentRiskCalculationDate = riskCalculationResult.mostRecentDateWithCurrentRiskLevel {
+			let daysSinceMostRecentDateAtRiskLevelAtTestRegistration = Calendar.current.dateComponents([.day], from: mostRecentRiskCalculationDate, to: date).day
+			testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
+			Log.debug("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
+		} else {
+			Log.warning("Could not set daysSinceMostRecentDateAtRiskLevelAtTestRegistration because mostRecentDateWithCurrentRiskLevel is nil", log: .ppa)
+		}
+
+		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
+
+		switch riskCalculationResult.riskLevel {
+		case .high:
+			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
+				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
+				return
+			}
+			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
+		case .low:
+			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
+		}
+	}
 	private static func updateTestResult(_ testResult: TestResult, _ token: String) {
 		// we only save metadata for tests submitted on QR code,and there is the only place in the app where we set the registration date
 		guard store?.testResultMetadata?.testRegistrationToken == token,
@@ -246,32 +258,6 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
-		guard let riskCalculationResult = store?.riskCalculationResult else {
-			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
-			return
-		}
-		var testResultMetadata = TestResultMetadata(registrationToken: token)
-		testResultMetadata.testRegistrationDate = date
-		testResultMetadata.riskLevelAtTestRegistration = riskCalculationResult.riskLevel
-		testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = riskCalculationResult.numberOfDaysWithCurrentRiskLevel
-
-		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
-
-		switch riskCalculationResult.riskLevel {
-		case .high:
-			guard let timeOfRiskChangeToHigh = store?.dateOfConversionToHighRisk else {
-				Log.warning("Could not log risk calculation result due to timeOfRiskChangeToHigh is nil", log: .ppa)
-				return
-			}
-			let differenceInHours = Calendar.current.dateComponents([.hour], from: timeOfRiskChangeToHigh, to: date)
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = differenceInHours.hour
-		case .low:
-			store?.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration = -1
-		}
-
-
-	}
 
 	// MARK: - KeySubmissionMetadata
 
