@@ -38,7 +38,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		setUpGestureRecognizers()
 		setUpBindings()
 
-		let initialDefaultCheckInLength = viewModel.defaultCheckInLengthTimeInterval ?? viewModel.defaultDefaultCheckInLengthTimeInterval
+		let initialDefaultCheckInLength = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultDefaultCheckInLengthTimeInterval
 
 		temporaryDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
 		permanentDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength

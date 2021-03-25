@@ -105,7 +105,6 @@ class TraceLocationConfigurationViewModel {
 	@OpenCombine.Published var permanentDefaultLengthPickerIsHidden: Bool = true
 	@OpenCombine.Published var permanentDefaultLengthValueTextColor: UIColor = .enaColor(for: .textPrimary1)
 
-
 	@OpenCombine.Published var description: String! = ""
 	@OpenCombine.Published var address: String! = ""
 	@OpenCombine.Published var startDate: Date?
@@ -165,13 +164,19 @@ class TraceLocationConfigurationViewModel {
 	}
 
 	func temporaryDefaultLengthHeaderTapped() {
-		temporaryDefaultLengthPickerIsHidden.toggle()
-		temporaryDefaultLengthSwitchIsOn = !temporaryDefaultLengthPickerIsHidden
+		if defaultCheckInLengthInMinutes == nil {
+			defaultCheckInLengthInMinutes = defaultDefaultCheckInLengthInMinutes
+		} else {
+			defaultCheckInLengthInMinutes = nil
+		}
 	}
 
 	func temporaryDefaultLengthSwitchSet(to isOn: Bool) {
-		temporaryDefaultLengthPickerIsHidden = !isOn
-		temporaryDefaultLengthSwitchIsOn = isOn
+		if defaultCheckInLengthInMinutes == nil && isOn {
+			defaultCheckInLengthInMinutes = defaultDefaultCheckInLengthInMinutes
+		} else if !isOn {
+			defaultCheckInLengthInMinutes = nil
+		}
 	}
 
 	func permanentDefaultLengthHeaderTapped() {
