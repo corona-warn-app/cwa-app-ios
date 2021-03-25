@@ -2142,3 +2142,18 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
+
+"Checkin_Details_HoursShortVersion" = "%@ Std.";
+
+"Checkin_Details_CheckinFor" = "Einchecken für:";
+
+"Checkin_Details_Activity" = "Vereinsaktivität";
+
+"Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
+
+"Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
+
+"Checkin_Details_EventNotStartedYet" = "Das Event beginnt erst am %@ um %@ Uhr. Wollen Sie bereits einchecken?";
+
+"Checkin_Details_EventEnded" = "Das Event ist beendet. Wollen Sie nachträglich einchecken?";
+
