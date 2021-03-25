@@ -1406,7 +1406,16 @@ enum AppStrings {
 			static let legalText03 = NSLocalizedString("Checkin_Information_Legal_Text_3", tableName: "Localizable.legal", comment: "")
 			static let dataPrivacyTitle = NSLocalizedString("Checkin_Information_Dataprivacy_Title", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("Checkin_Information_PrimaryButton_Title", comment: "")
-
+		}
+		
+		enum Details {
+			static let hoursShortVersion = NSLocalizedString("Checkin_Details_HoursShortVersion", comment: "")
+			static let checkinFor = NSLocalizedString("Checkin_Details_CheckinFor", comment: "")
+			static let activity = NSLocalizedString("Checkin_Details_Activity", comment: "")
+			static let saveToDiary = NSLocalizedString("Checkin_Details_SaveToDiary", comment: "")
+			static let automaticCheckout = NSLocalizedString("Checkin_Details_AutomaticCheckout", comment: "")
+			static let eventNotStartedYet = NSLocalizedString("Checkin_Details_EventNotStartedYet", comment: "")
+			static let eventEnded = NSLocalizedString("Checkin_Details_EventEnded", comment: "")
 		}
 	}
 
