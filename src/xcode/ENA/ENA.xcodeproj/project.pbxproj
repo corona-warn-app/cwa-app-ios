@@ -569,10 +569,9 @@
 		A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */; };
 		A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
-		AB124E40260893FB009004B3 /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E3F260893FB009004B3 /* CheckinTests.swift */; };
-		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
 		A3FF84EC247BFAF00053E947 /* ENAHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* ENAHasher.swift */; };
 		AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */; };
+		AB124E40260893FB009004B3 /* CheckinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB124E3F260893FB009004B3 /* CheckinTests.swift */; };
 		AB126873254C05A7006E9194 /* ENAFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB126872254C05A7006E9194 /* ENAFormatter.swift */; };
 		AB1885D825238DD100D39BBE /* OnboardingInfoViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */; };
 		AB1886C4252DE1AF00D39BBE /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1886C3252DE1AE00D39BBE /* Logging.swift */; };
@@ -1571,10 +1570,9 @@
 		A3E851B424ADDAC000402485 /* CountdownTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerTests.swift; sourceTree = "<group>"; };
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
-		AB124E3F260893FB009004B3 /* CheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
-		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* ENAHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAHasher.swift; sourceTree = "<group>"; };
 		AB124E1F2604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAllTraceWarningPackageMetadataQuery.swift; sourceTree = "<group>"; };
+		AB124E3F260893FB009004B3 /* CheckinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTests.swift; sourceTree = "<group>"; };
 		AB126872254C05A7006E9194 /* ENAFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFormatter.swift; sourceTree = "<group>"; };
 		AB1885D025238DAA00D39BBE /* OnboardingInfoViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerTests.swift; sourceTree = "<group>"; };
 		AB1886C3252DE1AE00D39BBE /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -3067,8 +3065,9 @@
 		50AA51F825FA4D3F000C77BB /* TraceWarningDownload */ = {
 			isa = PBXGroup;
 			children = (
-				AB6993AE2608F39E00232AD7 /* TraceWarningMatching.swift */,
+				50F7B95F260DE9E1002D19E3 /* __tests__ */,
 				50AA51F925FA4D71000C77BB /* Model */,
+				AB6993AE2608F39E00232AD7 /* TraceWarningMatching.swift */,
 			);
 			path = TraceWarningDownload;
 			sourceTree = "<group>";
@@ -3217,6 +3216,14 @@
 				50D50A5F25D6CCA70092BC2A /* ENAUITestsDataDonation.swift */,
 			);
 			path = DataDonation;
+			sourceTree = "<group>";
+		};
+		50F7B95F260DE9E1002D19E3 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				AB3C60142609D1B3000C7772 /* TraceWarningMatcherTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
@@ -3718,6 +3725,7 @@
 				B15382DC248270220010F007 /* __tests__ */,
 				01FD3ED625D2F0D00049497A /* DeadmanNotification */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
+				50AA51F825FA4D3F000C77BB /* TraceWarningDownload */,
 				EB0F740A25E93C65003BFAE7 /* Event Registration */,
 				2FA9E39124D2F2620030561C /* Exposure Submission */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
@@ -5384,7 +5392,6 @@
 		EB0F740A25E93C65003BFAE7 /* Event Registration */ = {
 			isa = PBXGroup;
 			children = (
-				50AA51F825FA4D3F000C77BB /* TraceWarningDownload */,
 				EB0F740B25E93C81003BFAE7 /* __tests__ */,
 				34FE15B526050DA40002CB69 /* QRCodePosterTemplate */,
 			);
@@ -5396,8 +5403,6 @@
 			children = (
 				34FE15922604AD700002CB69 /* sample_qr_code_template */,
 				EB0F740C25E93CA2003BFAE7 /* Base32DecodingTests.swift */,
-				EB54939725F7DD1A00A3C459 /* QRCodePlaygroundTests.swift */,
-				AB3C60142609D1B3000C7772 /* TraceWarningMatcherTests.swift */,
 				34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */,
 			);
 			path = __tests__;

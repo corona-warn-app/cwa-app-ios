@@ -19,7 +19,6 @@ class CreateTraceTimeIntervalMatchQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			INSERT INTO TraceTimeIntervalMatch (
-				id,
 				checkinId,
 				traceWarningPackageId,
 				traceLocationGUID,
@@ -28,7 +27,6 @@ class CreateTraceTimeIntervalMatchQuery: StoreQueryProtocol {
 				endIntervalNumber
 			)
 			VALUES (
-				:id,
 				:checkinId,
 				:traceWarningPackageId,
 				:traceLocationGUID,
@@ -38,7 +36,6 @@ class CreateTraceTimeIntervalMatchQuery: StoreQueryProtocol {
 			);
 		"""
 		let parameters: [String: Any] = [
-			"id": match.id,
 			"checkinId": match.checkinId,
 			"traceWarningPackageId": match.traceWarningPackageId,
 			"traceLocationGUID": match.traceLocationGUID,

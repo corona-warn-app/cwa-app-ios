@@ -11,7 +11,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckin: @escaping (Checkin) -> Void,
+		didScanCheckin: @escaping (TraceLocation) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCheckin = didScanCheckin
@@ -48,7 +48,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	private let focusView = QRScannerFocusView()
 
-	private let didScanCheckin: (Checkin) -> Void
+	private let didScanCheckin: (TraceLocation) -> Void
 	private let dismiss: () -> Void
 
 	private let viewModel: CheckinQRCodeScannerViewModel
@@ -168,13 +168,13 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(previewLayer, at: 0)
 
-		viewModel.onSuccess = { [weak self] checkin in
+		viewModel.onSuccess = { [weak self] traceLocation in
 			guard let self = self else {
 				return
 			}
 			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			self.viewModel.deactivateScanning()
-			self.didScanCheckin(checkin)
+			self.didScanCheckin(traceLocation)
 		}
 
 		viewModel.onError = { [weak self] error in
