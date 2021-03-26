@@ -120,7 +120,7 @@ class ExposureSubmissionTestResultViewModel {
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
 			footerViewModel?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
-			footerViewModel?.setLoadingIndicator(!primaryButtonIsLoading, disable: false, button: .secondary)
+			footerViewModel?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
 		}
 	}
 
