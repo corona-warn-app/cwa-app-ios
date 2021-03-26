@@ -413,11 +413,6 @@ extension SecureStore: EventRegistrationProviding {
 		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
 		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
 	}
-	
-	var lastTraceWarningPackageDownloadDate: Date {
-		get { kvStore["lastTraceWarningPackageDownloadDate"] as Date? ?? .distantPast }
-		set { kvStore["lastTraceWarningPackageDownloadDate"] = newValue }
-	}
 }
 
 extension SecureStore {

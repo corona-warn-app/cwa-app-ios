@@ -108,5 +108,4 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	// MARK: - EventRegistrationProviding
 	
 	var wasRecentTraceWarningDownloadSuccessful: Bool = false
-	var lastTraceWarningPackageDownloadDate: Date = .distantPast
 }

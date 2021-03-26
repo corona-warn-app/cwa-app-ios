@@ -164,8 +164,6 @@ protocol PrivacyPreservingProviding: AnyObject {
 protocol EventRegistrationProviding: AnyObject {
 	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
 	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
-	/// Event registration - Date for the last succesfull trace warning download.
-	var lastTraceWarningPackageDownloadDate: Date { get set }
 }
 
 /// Wrapper protocol

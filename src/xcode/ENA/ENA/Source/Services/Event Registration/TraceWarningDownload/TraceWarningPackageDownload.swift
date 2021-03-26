@@ -76,7 +76,6 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 			self?.status = .idle
 			
 			switch result {
-			
 			case let .success(success):
 				Log.info("TraceWarningPackageDownload: Completed processing packages!", log: .checkin)
 				completion(.success(success))
@@ -205,7 +204,6 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				completion(.failure(error))
 			} else {
 				Log.info("TraceWarningPackageDownload: Completed downloading packages for all countries.", log: .checkin)
-				self?.store.lastTraceWarningPackageDownloadDate = Date()
 				self?.store.wasRecentTraceWarningDownloadSuccessful = true
 				// pass the success case only for testing through
 				if successes.contains(.emptyAvailablePackages) {

@@ -63,9 +63,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCode, .success)
-		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
-		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
-		XCTAssertTrue(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastTraceWarningPackageDownloadDate)))
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_CheckInDatabaseIsEmpty_THEN_Success() {
