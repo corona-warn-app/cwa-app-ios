@@ -12,10 +12,12 @@ class DiaryOverviewViewModel {
 	init(
 		diaryStore: DiaryStoringProviding,
 		store: Store,
+		eventStore: EventStoringProviding,
 		homeState: HomeState? = nil
 	) {
 		self.diaryStore = diaryStore
 		self.secureStore = store
+		self.eventStore = eventStore
 
 		$days
 			.receive(on: DispatchQueue.OCombine(.main))
@@ -83,6 +85,7 @@ class DiaryOverviewViewModel {
 
 	private let diaryStore: DiaryStoringProviding
 	private let secureStore: Store
+	private let eventStore: EventStoringProviding
 
 	private var subscriptions: [AnyCancellable] = []
 
