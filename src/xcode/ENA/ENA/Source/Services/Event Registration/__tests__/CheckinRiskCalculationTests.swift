@@ -5,6 +5,7 @@
 import XCTest
 @testable import ENA
 
+// swiftlint:disable type_body_length
 class CheckinRiskCalculationTests: XCTestCase {
 
 	// For all the test szenario please consider the risk calculation parameters in the mocked app configuration.
