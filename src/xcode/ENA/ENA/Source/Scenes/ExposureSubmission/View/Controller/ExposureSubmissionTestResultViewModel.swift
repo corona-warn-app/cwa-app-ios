@@ -456,7 +456,8 @@ extension ExposureSubmissionTestResultViewModel {
 				primaryButtonName: AppStrings.ExposureSubmissionResult.refreshButton,
 				secondaryButtonName: AppStrings.ExposureSubmissionResult.deleteButton,
 				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
-				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				secondaryButtonInverted: true
 			)
 		}
 	}

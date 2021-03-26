@@ -120,9 +120,8 @@ class FooterViewController: UIViewController {
 		
 		// primary button
 		
-		if let primaryButtonColor = viewModel.primaryButtonColor {
-			primaryButton.color = primaryButtonColor
-		}
+		primaryButton.color = viewModel.primaryButtonColor
+		primaryButton.hasBackground = !viewModel.primaryButtonInverted
 		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
 		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
 		primaryButton.alpha = viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
@@ -131,9 +130,8 @@ class FooterViewController: UIViewController {
 		
 		// secondary button
 		
-		if let secondaryButtonColor = viewModel.secondaryButtonColor {
-			secondaryButton.color = secondaryButtonColor
-		}
+		secondaryButton.color = viewModel.secondaryButtonColor
+		secondaryButton.hasBackground = !viewModel.secondaryButtonInverted
 		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
 		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
 		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
@@ -143,11 +141,12 @@ class FooterViewController: UIViewController {
 		// update button constraints
 
 		buttonConstraints = [
+			// primaryButton
 			primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
 			primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
 			primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
 			primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight),
-
+			// secondaryButton
 			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: viewModel.spacer),
 			secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor),
 			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor),
