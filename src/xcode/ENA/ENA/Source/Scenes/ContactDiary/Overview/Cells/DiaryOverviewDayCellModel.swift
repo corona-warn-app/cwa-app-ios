@@ -115,6 +115,20 @@ final class DiaryOverviewDayCellModel {
 			return nil
 		}
 	}
+	
+	var hideCheckinRisk: Bool {
+		return false
+	}
+	
+	var checkinTitleText: String {
+		return "Erhöhtes Risiko"
+	}
+	
+	var checkinDetailText: String {
+		return "aufgrund Ihrer Anwesenheit bei:"
+	}
+	
+	var checkinDetail
 
 	var selectedEntries: [DiaryEntry] {
 		diaryDay.selectedEntries
