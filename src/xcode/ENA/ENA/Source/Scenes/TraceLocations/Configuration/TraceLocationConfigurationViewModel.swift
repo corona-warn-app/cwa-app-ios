@@ -45,28 +45,29 @@ class TraceLocationConfigurationViewModel {
 		case duplicate(TraceLocation)
 	}
 
-	@OpenCombine.Published var startDatePickerIsHidden: Bool = true
-	@OpenCombine.Published var endDatePickerIsHidden: Bool = true
+	@OpenCombine.Published private(set) var startDatePickerIsHidden: Bool = true
+	@OpenCombine.Published private(set) var endDatePickerIsHidden: Bool = true
 
-	@OpenCombine.Published var startDateValueTextColor: UIColor = .enaColor(for: .textPrimary1)
-	@OpenCombine.Published var endDateValueTextColor: UIColor = .enaColor(for: .textPrimary1)
+	@OpenCombine.Published private(set) var startDateValueTextColor: UIColor = .enaColor(for: .textPrimary1)
+	@OpenCombine.Published private(set) var endDateValueTextColor: UIColor = .enaColor(for: .textPrimary1)
 
-	@OpenCombine.Published var temporaryDefaultLengthPickerIsHidden: Bool = true
-	@OpenCombine.Published var temporaryDefaultLengthSwitchIsOn: Bool = false
+	@OpenCombine.Published private(set) var temporaryDefaultLengthPickerIsHidden: Bool = true
+	@OpenCombine.Published private(set) var temporaryDefaultLengthSwitchIsOn: Bool = false
 
-	@OpenCombine.Published var permanentDefaultLengthPickerIsHidden: Bool = true
-	@OpenCombine.Published var permanentDefaultLengthValueTextColor: UIColor = .enaColor(for: .textPrimary1)
+	@OpenCombine.Published private(set) var permanentDefaultLengthPickerIsHidden: Bool = true
+	@OpenCombine.Published private(set) var permanentDefaultLengthValueTextColor: UIColor = .enaColor(for: .textPrimary1)
 
-	@OpenCombine.Published var primaryButtonIsEnabled: Bool = false
+	@OpenCombine.Published private(set) var primaryButtonIsEnabled: Bool = false
 
-	@OpenCombine.Published var description: String! = ""
-	@OpenCombine.Published var address: String! = ""
+	@OpenCombine.Published private(set) var description: String! = ""
+	@OpenCombine.Published private(set) var address: String! = ""
 	@OpenCombine.Published var startDate: Date?
-	@OpenCombine.Published var formattedStartDate: String?
 	@OpenCombine.Published var endDate: Date?
-	@OpenCombine.Published var formattedEndDate: String?
-	@OpenCombine.Published var defaultCheckInLengthInMinutes: Int?
-	@OpenCombine.Published var formattedDefaultCheckInLength: String?
+	@OpenCombine.Published private(set) var defaultCheckInLengthInMinutes: Int?
+
+	@OpenCombine.Published private(set) var formattedStartDate: String?
+	@OpenCombine.Published private(set) var formattedEndDate: String?
+	@OpenCombine.Published private(set) var formattedDefaultCheckInLength: String?
 
 	var defaultDefaultCheckInLengthTimeInterval: TimeInterval {
 		TimeInterval(defaultDefaultCheckInLengthInMinutes * 60)
@@ -83,23 +84,6 @@ class TraceLocationConfigurationViewModel {
 	var permanentSettingsContainerIsHidden: Bool {
 		traceLocationType.type != .permanent
 	}
-
-	lazy var dateFormatter: DateFormatter = {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .short
-
-		return dateFormatter
-	}()
-
-	lazy var durationFormatter: DateComponentsFormatter = {
-		let dateComponentsFormatter = DateComponentsFormatter()
-		dateComponentsFormatter.allowedUnits = [.hour, .minute]
-		dateComponentsFormatter.unitsStyle = .positional
-		dateComponentsFormatter.zeroFormattingBehavior = .pad
-
-		return dateComponentsFormatter
-	}()
 
 	func startDateHeaderTapped() {
 		startDatePickerIsHidden.toggle()
@@ -185,6 +169,23 @@ class TraceLocationConfigurationViewModel {
 	private let defaultDefaultCheckInLengthInMinutes: Int = 15
 
 	private var subscriptions = Set<AnyCancellable>()
+
+	private lazy var dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .short
+
+		return dateFormatter
+	}()
+
+	private lazy var durationFormatter: DateComponentsFormatter = {
+		let dateComponentsFormatter = DateComponentsFormatter()
+		dateComponentsFormatter.allowedUnits = [.hour, .minute]
+		dateComponentsFormatter.unitsStyle = .positional
+		dateComponentsFormatter.zeroFormattingBehavior = .pad
+
+		return dateComponentsFormatter
+	}()
 
 	private func setUpBindings() {
 		$startDate
