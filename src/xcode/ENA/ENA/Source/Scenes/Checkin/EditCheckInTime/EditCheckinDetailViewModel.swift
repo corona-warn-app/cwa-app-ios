@@ -17,8 +17,17 @@ final class EditCheckinDetailViewModel {
 		self.endDate = checkIn.checkinEndDate
 
 		self.checkInDescriptionCellModel = CheckInDescriptionCellModel(checkIn: checkIn)
-		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: startDate)
-		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: endDate)
+		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: checkIn.checkinStartDate)
+		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: checkIn.checkinEndDate)
+
+		// update viewModel on change of cellModels
+		checkInStartCellModel.$date
+			.assign(to: \EditCheckinDetailViewModel.startDate, on: self)
+			.store(in: &subscriptions)
+
+		checkInEndCellModel.$date
+			.assign(to: \EditCheckinDetailViewModel.endDate, on: self)
+			.store(in: &subscriptions)
 	}
 
 	enum TableViewSections: Int, CaseIterable {
@@ -41,10 +50,6 @@ final class EditCheckinDetailViewModel {
 
 	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
 	@OpenCombine.Published private(set) var isEndDatePickerVisible: Bool = false
-
-	var isDirty: Bool {
-		return checkIn.checkinStartDate != startDate || checkIn.checkinEndDate != endDate
-	}
 
 	func numberOfRows(_ section: TableViewSections?) -> Int {
 		guard let section = section else {
@@ -72,8 +77,9 @@ final class EditCheckinDetailViewModel {
 	// MARK: - Private
 	
 	private let checkIn: Checkin
+	private var subscriptions = Set<AnyCancellable>()
 
-	private var startDate: Date
-	private var endDate: Date
+	private (set) var startDate: Date
+	private (set) var endDate: Date
 
 }

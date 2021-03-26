@@ -48,8 +48,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		}
 	}
 
-	private var didCalculated: Bool = false
-
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		guard didCalculated == false,
 			indexPath == IndexPath(row: 0, section: EditCheckinDetailViewModel.TableViewSections.description.rawValue) else {
@@ -155,9 +153,10 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	private let viewModel: EditCheckinDetailViewModel
 	private let dismiss: () -> Void
 
+	private var didCalculated: Bool = false
+
 	private var subscriptions = Set<AnyCancellable>()
 	private var selectedDuration: Int?
-	private var isInitialSetup = true
 	private var tableContentObserver: NSKeyValueObservation!
 
 	private func setupView() {
