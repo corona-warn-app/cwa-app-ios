@@ -373,7 +373,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 		return config
 	}
 
-	func makeRiskCalculation(
+	private func makeRiskCalculation(
 		keyValueStore: Store,
 		checkinStartDate: Date,
 		checkinEndDate: Date,
