@@ -1029,6 +1029,13 @@ enum AppStrings {
 			enum LocationVisit {
 				static let abbreviationHours = NSLocalizedString("ContactDiary_Overview_LocationVisit_Abbreviation_Hours", comment: "")
 			}
+			
+			enum CheckinEncounter {
+				static let titleHeadline = NSLocalizedString("ContactDiaray_Overview_Checkin_Title_Headline", comment: "")
+				static let titleSubheadline = NSLocalizedString("ContactDiaray_Overview_Checkin_Title_Subheadline", comment: "")
+				static let highRisk = NSLocalizedString("ContactDiaray_Overview_Checkin_High_Risk_In_Brackets", comment: "")
+				static let lowRisk = NSLocalizedString("ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets", comment: "")
+			}
 		}
 
 		enum Day {
