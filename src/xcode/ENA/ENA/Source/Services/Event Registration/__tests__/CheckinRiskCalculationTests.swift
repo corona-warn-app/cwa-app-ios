@@ -110,7 +110,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 		XCTAssertEqual(checkinRiskCalculationResult.checkinIdsWithRiskPerDate.count, 1)
 	}
 
-	// 1 match with 30m overlap. Overlap time sum from all checkins is 35m.
+	// 1 match with 30m overlap. Overlap time sum from all checkins is 30m.
 	// Result: High checkin risk. Low day risk.
 	func test_Szenario_3() {
 		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
