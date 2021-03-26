@@ -78,7 +78,6 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 						let pdfView = try self?.createPdfView(templateData: templateData)
 						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
 					} catch {
-						self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
 					}
 				}
