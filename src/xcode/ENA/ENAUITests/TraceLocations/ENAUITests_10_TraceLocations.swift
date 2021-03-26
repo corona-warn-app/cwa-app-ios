@@ -63,7 +63,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
 
-  func test_traceLocation_print_flow() throws {
+	func test_screenshot_traceLocation_print_flow() throws {
 		app.launch()
 
 		// navigate to tracelocation card
