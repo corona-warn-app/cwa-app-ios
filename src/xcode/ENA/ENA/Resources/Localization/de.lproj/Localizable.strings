@@ -1542,6 +1542,16 @@ sein.";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mein Kontakt-Tagebuch";
 
+/* Checkin Risk */
+
+"ContactDiaray_Overview_Checkin_Title_Headline" = "Erhöhtes Risiko";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "aufgrund Ihrer Anwesenheit bei:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(erhöhtes Risiko)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niedriges Risiko)";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
 
