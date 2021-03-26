@@ -166,8 +166,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		let css = CheckinSplittingService()
 		let checkins = raw🐓.reduce([Checkin]()) { _, checkin -> [Checkin] in
 			css.split(checkin)
-		}
-		let convertedCheckIns = checkins.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
+		}.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
 			do {
 				return try checkin.prepareForSubmission()
 			} catch {
@@ -178,7 +177,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		// Request needs to be prepended by the fake request.
 		_fakeVerificationServerRequest(completion: { _ in
-			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: convertedCheckIns, completion: completion)
+			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: checkins, completion: completion)
 		})
 	}
 
