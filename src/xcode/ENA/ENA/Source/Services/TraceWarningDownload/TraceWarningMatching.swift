@@ -5,25 +5,25 @@
 import Foundation
 
 protocol TraceWarningMatching {
-	
+
 	func matchAndStore(package: SAPDownloadedPackage)
-	
+
 }
 
 final class TraceWarningMatcher: TraceWarningMatching {
 
 	// MARK: - Init
-	
+
 	init(
 		eventStore: EventStoringProviding
 	) {
 		self.eventStore = eventStore
 	}
-	
+
 	// MARK: - Overrides
-	
+
 	// MARK: - Protocol TraceWarningMatching
-	
+
 	func matchAndStore(package: SAPDownloadedPackage) {
 		Log.info("[TraceWarningMatching] Start matching TraceTimeIntervalWarnings against Checkins. ", log: .checkin)
 
@@ -94,6 +94,6 @@ final class TraceWarningMatcher: TraceWarningMatching {
 	}
 
 	// MARK: - Private
-	
+
 	private let eventStore: EventStoringProviding
 }

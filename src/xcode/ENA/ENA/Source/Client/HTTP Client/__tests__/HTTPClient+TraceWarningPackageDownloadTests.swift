@@ -100,7 +100,7 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 
 		// THEN
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(response, .downloadError)
+		XCTAssertEqual(response, .generalError)
 	}
 	
 	func testGIVEN_CountryAndPackageId_WHEN_PackageIsInvalid_THEN_InvalidResponseErrorIsReturned() {
@@ -165,8 +165,8 @@ final class HTTPClientTraceWarningPackageDownloadTests: XCTestCase {
 	
 	// MARK: - Private
 	
-	private let binFileSize = 501
-	private let sigFileSize = 144
+	private let binFileSize = 50
+	private let sigFileSize = 138
 	private let expectationsTimeout: TimeInterval = 2
 		
 	private func assertPackageFormat(for response: PackageDownloadResponse, isEmpty: Bool = false) {

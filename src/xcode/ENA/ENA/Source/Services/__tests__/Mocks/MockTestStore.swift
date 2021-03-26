@@ -104,4 +104,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	
+	// MARK: - EventRegistrationProviding
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool = false
 }
