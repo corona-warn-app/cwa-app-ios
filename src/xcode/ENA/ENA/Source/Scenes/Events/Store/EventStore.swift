@@ -254,21 +254,14 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult {
-		var result: SecureSQLStore.IdResult?
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Add TraceWarningPackageMetadata.", log: .localData)
 
 			let query = CreateTraceWarningPackageMetadataQuery(metadata: metadata)
-			let queryResult = executeTraceWarningPackageMetadataQuery(query, in: database)
-
-			switch queryResult {
-			case .success:
-				result = .success(Int(database.lastInsertRowId))
-			case .failure(let error):
-				result = .failure(error)
-			}
+			result = executeTraceWarningPackageMetadataQuery(query, in: database)
 		}
 
 		guard let _result = result else {
