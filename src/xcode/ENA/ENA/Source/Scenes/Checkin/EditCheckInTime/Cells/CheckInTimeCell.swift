@@ -54,11 +54,6 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
 		tileView.backgroundColor = .enaColor(for: .background)
-		tileView.layer.cornerRadius = 12.0
-		tileView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//		tileView.layer.masksToBounds = true
-		tileView.layer.borderWidth = 1.0
-		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		contentView.addSubview(tileView)
 
 		let mainStackView = UIStackView(
@@ -72,17 +67,18 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		mainStackView.axis = .horizontal
 		mainStackView.spacing = 36.0
 		mainStackView.distribution = .fillEqually
+		mainStackView.alignment = .center
 		tileView.addSubview(mainStackView)
 
 		NSLayoutConstraint.activate(
 			[
-				tileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3.0),
+				tileView.topAnchor.constraint(equalTo: contentView.topAnchor),
 				tileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				mainStackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 14.0),
-				mainStackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -14.0),
+				mainStackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0),
+				mainStackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -12.0),
 				mainStackView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
 				mainStackView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 			]

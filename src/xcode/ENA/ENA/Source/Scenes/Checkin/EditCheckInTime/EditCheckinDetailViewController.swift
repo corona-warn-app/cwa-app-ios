@@ -87,7 +87,10 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			cell.configure(cellModel: viewModel.checkInDescriptionCellModel)
 			return cell
 
-		case .checkInStart, .checkInEnd:
+		case .topCorner:
+			return tableView.dequeueReusableCell(cellType: CheckInTopCornerCell.self, for: indexPath)
+
+		case .checkInStart:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeCell.self, for: indexPath)
 			cell.configure(viewModel.checkInStartCellModel)
 			return cell
@@ -96,9 +99,17 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
 			return cell
 
+		case .checkInEnd:
+			let cell = tableView.dequeueReusableCell(cellType: CheckInTimeCell.self, for: indexPath)
+			cell.configure(viewModel.checkInEndCellModel)
+			return cell
+
 		case .endPicker:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
 			return cell
+
+		case .bottomCorner:
+			return tableView.dequeueReusableCell(cellType: CheckInBottomCornerCell.self, for: indexPath)
 
 		case .notice:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInNoticeCell.self, for: indexPath)
@@ -220,15 +231,17 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 		tableView.register(CheckInHeaderCell.self, forCellReuseIdentifier: CheckInHeaderCell.reuseIdentifier)
 		tableView.register(CheckInDescriptionCell.self, forCellReuseIdentifier: CheckInDescriptionCell.reuseIdentifier)
+		tableView.register(CheckInTopCornerCell.self, forCellReuseIdentifier: CheckInTopCornerCell.reuseIdentifier)
 		tableView.register(CheckInTimeCell.self, forCellReuseIdentifier: CheckInTimeCell.reuseIdentifier)
 		tableView.register(CheckInDatePickerCell.self, forCellReuseIdentifier: CheckInDatePickerCell.reuseIdentifier)
+		tableView.register(CheckInBottomCornerCell.self, forCellReuseIdentifier: CheckInBottomCornerCell.reuseIdentifier)
 		tableView.register(CheckInNoticeCell.self, forCellReuseIdentifier: CheckInNoticeCell.reuseIdentifier)
 	}
 
 	private func setupCombine() {
 		viewModel.$isStartDatePickerVisible
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] newValue in
+			.sink { [weak self] _ in
 				let sectionIndex = EditCheckinDetailViewModel.TableViewSections.startPicker.rawValue
 				self?.tableView.reloadSections([sectionIndex], with: .automatic)
 			}
@@ -236,7 +249,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 		viewModel.$isEndDatePickerVisible
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] newValue in
+			.sink { [weak self] _ in
 				let sectionIndex = EditCheckinDetailViewModel.TableViewSections.endPicker.rawValue
 				self?.tableView.reloadSections([sectionIndex], with: .automatic)
 			}

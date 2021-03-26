@@ -10,7 +10,7 @@ final class CheckInTimeModel {
 
 	init(_ type: String, date: Date) {
 		self.type = type
-		self.currentDate = date
+		self.dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 	}
 
 	// MARK: - Overrides
@@ -20,14 +20,10 @@ final class CheckInTimeModel {
 	// MARK: - Public
 
 	// MARK: - Internal
-	let type: String
 
-	var dateString: String {
-		return DateFormatter.localizedString(from: currentDate, dateStyle: .short, timeStyle: .short)
-	}
+	let type: String
+	let dateString: String
 
 	// MARK: - Private
-
-	private var currentDate: Date
 
 }

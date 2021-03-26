@@ -811,6 +811,8 @@
 		BA94BBAD260DF4F0005CF38F /* CheckInTimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBAC260DF4F0005CF38F /* CheckInTimeModel.swift */; };
 		BA94BBB5260DF507005CF38F /* CheckInDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBB4260DF507005CF38F /* CheckInDatePickerCell.swift */; };
 		BA94BBBD260DF51F005CF38F /* CheckInNoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBBC260DF51F005CF38F /* CheckInNoticeCell.swift */; };
+		BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBC1260DFD42005CF38F /* CheckInTopCornerCell.swift */; };
+		BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA94BBC9260DFF4C005CF38F /* CheckInBottomCornerCell.swift */; };
 		BA9BCF6225B0875100DD7974 /* DiaryOverviewDayCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */; };
 		BA9BCF7725B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */; };
 		BA9DD53F2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */; };
@@ -1811,6 +1813,8 @@
 		BA94BBAC260DF4F0005CF38F /* CheckInTimeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInTimeModel.swift; sourceTree = "<group>"; };
 		BA94BBB4260DF507005CF38F /* CheckInDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInDatePickerCell.swift; sourceTree = "<group>"; };
 		BA94BBBC260DF51F005CF38F /* CheckInNoticeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInNoticeCell.swift; sourceTree = "<group>"; };
+		BA94BBC1260DFD42005CF38F /* CheckInTopCornerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInTopCornerCell.swift; sourceTree = "<group>"; };
+		BA94BBC9260DFF4C005CF38F /* CheckInBottomCornerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInBottomCornerCell.swift; sourceTree = "<group>"; };
 		BA9BCF6125B0875100DD7974 /* DiaryOverviewDayCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModel.swift; sourceTree = "<group>"; };
 		BA9BCF7625B09B5500DD7974 /* DiaryOverviewDayCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryOverviewDayCellModelTests.swift; sourceTree = "<group>"; };
 		BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModelTest.swift; sourceTree = "<group>"; };
@@ -5269,6 +5273,8 @@
 				BA94BBAC260DF4F0005CF38F /* CheckInTimeModel.swift */,
 				BA94BBB4260DF507005CF38F /* CheckInDatePickerCell.swift */,
 				BA94BBBC260DF51F005CF38F /* CheckInNoticeCell.swift */,
+				BA94BBC9260DFF4C005CF38F /* CheckInBottomCornerCell.swift */,
+				BA94BBC1260DFD42005CF38F /* CheckInTopCornerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -6282,6 +6288,7 @@
 				0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */,
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
 				0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */,
+				BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
 				50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */,
 				ABE9617125F1220600D0F699 /* EventStore.swift in Sources */,
@@ -6310,6 +6317,7 @@
 				2F96739B24AB70FA008E3147 /* ExposureSubmissionParsable.swift in Sources */,
 				0138F6CE25F6134100A9B075 /* TraceLocationDetailsViewModel.swift in Sources */,
 				EB7F8E9524E434E000A3CCC4 /* BackgroundAppRefreshViewController.swift in Sources */,
+				BA94BBC2260DFD42005CF38F /* CheckInTopCornerCell.swift in Sources */,
 				EB7D205624E6A5930089264C /* InfoBoxViewModel.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				EB6B5D8D2539B36100B0ED57 /* DMNotificationCell.swift in Sources */,

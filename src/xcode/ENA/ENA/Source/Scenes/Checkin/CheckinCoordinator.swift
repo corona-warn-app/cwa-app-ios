@@ -138,8 +138,8 @@ final class CheckinCoordinator {
 			},
 			dismiss: { [weak self] in
 				self?.checkinsOverviewViewModel.updateForCameraPermission()
-                self?.viewController.dismiss(animated: true)
-            }
+				self?.viewController.dismiss(animated: true)
+			}
         )
         qrCodeScanner.definesPresentationContext = true
         DispatchQueue.main.async { [weak self] in

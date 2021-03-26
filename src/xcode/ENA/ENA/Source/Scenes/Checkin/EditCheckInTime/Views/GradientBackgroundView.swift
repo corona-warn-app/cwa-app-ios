@@ -26,7 +26,7 @@ class GradientBackgroundView: UIView {
 
 	func updatedTopLayout(with offset: CGFloat, limit: CGFloat) {
 		let height = gradientView.bounds.size.height
-		topLayoutConstraint.constant = max(min(-offset,0), -(height - limit))
+		topLayoutConstraint.constant = max(min(-offset, 0), -(height - limit))
 	}
 
 	// MARK: - Private

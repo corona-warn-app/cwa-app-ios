@@ -18,10 +18,12 @@ final class EditCheckinDetailViewModel {
 	enum TableViewSections: Int, CaseIterable {
 		case header
 		case description
+		case topCorner
 		case checkInStart
 		case startPicker
 		case checkInEnd
 		case endPicker
+		case bottomCorner
 		case notice
 	}
 
@@ -35,18 +37,22 @@ final class EditCheckinDetailViewModel {
 		return CheckInTimeModel("Eingecheckt", date: checkIn.checkinStartDate)
 	}
 
-	func numberOfRows(_ section: TableViewSections?) ->  Int {
+	var checkInEndCellModel: CheckInTimeModel {
+		return CheckInTimeModel("Ausgecheckt", date: checkIn.checkinStartDate)
+	}
+
+	func numberOfRows(_ section: TableViewSections?) -> Int {
 		guard let section = section else {
 			Log.debug("unknown section -> better return 0 rows")
 			return 0
 		}
 		switch section {
-		case .header, .description, .checkInStart, .checkInEnd, .notice:
-			return 1
 		case .startPicker:
 			return isStartDatePickerVisible ? 1 : 0
 		case .endPicker:
 			return isEndDatePickerVisible ? 1 : 0
+		default:
+			return 1
 		}
 	}
 
