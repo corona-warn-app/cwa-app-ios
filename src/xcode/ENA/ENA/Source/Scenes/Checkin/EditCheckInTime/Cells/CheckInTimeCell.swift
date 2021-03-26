@@ -18,6 +18,13 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+			stackView.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
+		}
+	}
+
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -31,6 +38,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let typeLabel = ENALabel()
 	private let dateTimeLabel = ENALabel()
+	private let stackView = UIStackView()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -52,19 +60,14 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.backgroundColor = .enaColor(for: .background)
 		contentView.addSubview(tileView)
 
-		let mainStackView = UIStackView(
-			arrangedSubviews:
-				[
-					typeLabel,
-					dateTimeLabel
-				]
-		)
-		mainStackView.translatesAutoresizingMaskIntoConstraints = false
-		mainStackView.axis = .horizontal
-		mainStackView.spacing = 36.0
-		mainStackView.distribution = .fillEqually
-		mainStackView.alignment = .center
-		tileView.addSubview(mainStackView)
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		stackView.addArrangedSubview(typeLabel)
+		stackView.addArrangedSubview(dateTimeLabel)
+		stackView.spacing = 36.0
+		stackView.distribution = .fill
+		stackView.alignment = .center
+		stackView.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
+		tileView.addSubview(stackView)
 
 		NSLayoutConstraint.activate(
 			[
@@ -73,10 +76,10 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				mainStackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0),
-				mainStackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -12.0),
-				mainStackView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
-				mainStackView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
+				stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0),
+				stackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -12.0),
+				stackView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
+				stackView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 			]
 		)
 	}
