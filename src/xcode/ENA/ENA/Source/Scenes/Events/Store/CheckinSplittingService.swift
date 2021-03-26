@@ -30,19 +30,19 @@ class CheckinSplittingService {
 
 		var checkins = [Checkin]()
 		(0..<durationInDays).forEach { index in
-			if isFirst(index) && !isLast(index) {
+			if isFirst(index) && !isLast(index) { // First
 				let startDate = checkin.checkinStartDate
 				let endDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinStartDate.timeIntervalSince1970) + nDaysInterval(index + 1))
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
-			} else if !isFirst(index) && isLast(index) {
+			} else if !isFirst(index) && isLast(index) { // Last
 				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: checkin.checkinEndDate.timeIntervalSince1970))
 				let endDate = checkin.checkinEndDate
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
-			} else if !isFirst(index) && !isLast(index) {
+			} else if !isFirst(index) && !isLast(index) { // Inbetween
 				let startDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: startTimeInterval) + nDaysInterval(index))
 				let endDate = Date(timeIntervalSince1970: intervalToMidnightUTC(from: startTimeInterval) + nDaysInterval(index + 1))
 				checkins.append(checkin.updatedWith(startDate: startDate, endDate: endDate))
-			} else {
+			} else { // No split
 				checkins.append(checkin)
 			}
 		}
