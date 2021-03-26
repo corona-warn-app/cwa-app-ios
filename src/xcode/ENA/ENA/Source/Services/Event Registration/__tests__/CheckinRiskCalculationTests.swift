@@ -8,7 +8,7 @@ import XCTest
 // swiftlint:disable type_body_length
 class CheckinRiskCalculationTests: XCTestCase {
 
-	// For all the test szenario please consider the risk calculation parameters in the mocked app configuration.
+	// For all the test szenarios, please consider the risk calculation parameters in the mocked app configuration.
 
 	// 1 match with 10m overlap. Overlap time sum from all checkins is 10m.
 	// Result: Low checkin risk. No day risk.
@@ -33,9 +33,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectatin = expectation(description: "Completion should be called")
+		let completionExpectation = expectation(description: "Completion should be called")
 		riskCalculation.calculateRisk {
-			completionExpectatin.fulfill()
+			completionExpectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 
@@ -83,9 +83,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectatin = expectation(description: "Completion should be called")
+		let completionExpectation = expectation(description: "Completion should be called")
 		riskCalculation.calculateRisk {
-			completionExpectatin.fulfill()
+			completionExpectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 
@@ -133,9 +133,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectatin = expectation(description: "Completion should be called")
+		let completionExpectation = expectation(description: "Completion should be called")
 		riskCalculation.calculateRisk {
-			completionExpectatin.fulfill()
+			completionExpectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 
@@ -183,9 +183,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectatin = expectation(description: "Completion should be called")
+		let completionExpectation = expectation(description: "Completion should be called")
 		riskCalculation.calculateRisk {
-			completionExpectatin.fulfill()
+			completionExpectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 
@@ -282,9 +282,9 @@ class CheckinRiskCalculationTests: XCTestCase {
 			appConfigProvider: appConfigProvider
 		)
 
-		let completionExpectatin = expectation(description: "Completion should be called")
+		let completionExpectation = expectation(description: "Completion should be called")
 		riskCalculation.calculateRisk {
-			completionExpectatin.fulfill()
+			completionExpectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 
