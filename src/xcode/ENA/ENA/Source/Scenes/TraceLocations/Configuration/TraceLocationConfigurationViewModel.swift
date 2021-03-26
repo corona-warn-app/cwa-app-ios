@@ -153,8 +153,8 @@ class TraceLocationConfigurationViewModel {
 		traceLocation.version = 1
 		traceLocation.description_p = description.trimmingCharacters(in: .whitespacesAndNewlines)
 		traceLocation.address = address.trimmingCharacters(in: .whitespacesAndNewlines)
-		traceLocation.startTimestamp = startDate?.unsignedTimeIntervalSince1970 ?? 0
-		traceLocation.endTimestamp = endDate?.unsignedTimeIntervalSince1970 ?? 0
+		traceLocation.startTimestamp = startDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
+		traceLocation.endTimestamp = endDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
 		traceLocation.defaultCheckInLengthInMinutes = defaultCheckInLengthInMinutes.map { UInt32($0) } ?? 0
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -244,14 +244,6 @@ class TraceLocationConfigurationViewModel {
 		$permanentDefaultLengthPickerIsHidden
 			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
 			.assign(to: &$permanentDefaultLengthValueTextColor)
-	}
-
-}
-
-extension Date {
-
-	var unsignedTimeIntervalSince1970: UInt64 {
-		UInt64(timeIntervalSince1970)
 	}
 
 }
