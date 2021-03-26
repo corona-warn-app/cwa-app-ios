@@ -410,7 +410,7 @@ enum AccessibilityIdentifiers {
 		static let descriptionTitle = "AppStrings.TraceLocations.descriptionTitle"
 		static let descriptionSubHeadline = "AppStrings.TraceLocations.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.TraceLocations.dataPrivacyTitle"
-		static let legal_1 = "AppStrings.TraceLocations.legalHeadline_1"
+		static let acknowledgementTitle = "TraceLocation.acknowledgementTitle"
 	}
 	
 	enum CheckinInformation {

@@ -28,7 +28,6 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHa
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		setupView()
 
 		if !viewModel.hidesCloseButton {
@@ -38,7 +37,6 @@ class CheckinsInfoScreenViewController: DynamicTableViewController, FooterViewHa
 				}
 			)
 		}
-
 		parent?.navigationItem.title = AppStrings.Checkins.Information.title
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
