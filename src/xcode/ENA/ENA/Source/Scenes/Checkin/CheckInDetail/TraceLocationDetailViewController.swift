@@ -10,11 +10,11 @@ class TraceLocationDetailViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		_ traceLocation: TraceLocation,
+		_ viewModel: TraceLocationDetailViewModel,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		self.viewModel = TraceLocationDetailViewModel(traceLocation)
+		self.viewModel = viewModel
 		
 		super.init(nibName: nil, bundle: nil)
 	}
