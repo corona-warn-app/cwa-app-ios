@@ -10,11 +10,12 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	// MARK: - Init
 
 	init(
+		eventStore: EventStoring,
 		checkIn: Checkin,
 		dismiss: @escaping () -> Void
 	) {
 		self.dismiss = dismiss
-		self.viewModel = EditCheckinDetailViewModel(checkIn)
+		self.viewModel = EditCheckinDetailViewModel(checkIn, eventStore: eventStore)
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -42,8 +43,8 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		footerView?.setLoadingIndicator(true, disable: true, button: .primary)
-		// ToDo remove delay
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+		viewModel.saveIfNeeded()
+		DispatchQueue.main.async { [weak self] in
 			self?.dismiss()
 		}
 	}

@@ -10,12 +10,14 @@ final class EditCheckinDetailViewModel {
 	// MARK: - Init
 	
 	init(
-		_ checkIn: Checkin
+		_ checkIn: Checkin,
+		eventStore: EventStoring
 	) {
 		self.checkIn = checkIn
+		self.eventStore = eventStore
+
 		self.startDate = checkIn.checkinStartDate
 		self.endDate = checkIn.checkinEndDate
-
 		self.checkInDescriptionCellModel = CheckInDescriptionCellModel(checkIn: checkIn)
 		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: checkIn.checkinStartDate)
 		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: checkIn.checkinEndDate)
@@ -74,12 +76,42 @@ final class EditCheckinDetailViewModel {
 		isEndDatePickerVisible.toggle()
 	}
 
+	func saveIfNeeded() {
+		guard isDirty else {
+			Log.debug("nothing to save here")
+			return
+		}
+		let updateCheckIn = Checkin(
+			id: checkIn.id,
+			traceLocationGUID: checkIn.traceLocationGUID,
+			traceLocationGUIDHash: checkIn.traceLocationGUIDHash,
+			traceLocationVersion: checkIn.traceLocationVersion,
+			traceLocationType: checkIn.traceLocationType,
+			traceLocationDescription: checkIn.traceLocationDescription,
+			traceLocationAddress: checkIn.traceLocationAddress,
+			traceLocationStartDate: checkIn.traceLocationStartDate,
+			traceLocationEndDate: checkIn.traceLocationEndDate,
+			traceLocationDefaultCheckInLengthInMinutes: checkIn.traceLocationDefaultCheckInLengthInMinutes,
+			traceLocationSignature: checkIn.traceLocationSignature,
+			checkinStartDate: startDate,
+			checkinEndDate: endDate,
+			checkinCompleted: checkIn.checkinCompleted,
+			createJournalEntry: checkIn.createJournalEntry
+		)
+		eventStore.updateCheckin(updateCheckIn)
+	}
+
 	// MARK: - Private
 	
 	private let checkIn: Checkin
+	private let eventStore: EventStoring
 	private var subscriptions = Set<AnyCancellable>()
 
 	private (set) var startDate: Date
 	private (set) var endDate: Date
+
+	private var isDirty: Bool {
+		return checkIn.checkinStartDate != startDate || checkIn.checkinEndDate != endDate
+	}
 
 }

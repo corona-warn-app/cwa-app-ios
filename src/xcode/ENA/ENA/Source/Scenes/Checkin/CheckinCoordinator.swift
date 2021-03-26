@@ -111,6 +111,7 @@ final class CheckinCoordinator {
 		)
 
 		let editCheckInViewController = EditCheckinDetailViewController(
+			eventStore: eventStore,
 			checkIn: checkIn,
 			dismiss: { [weak self] in
 				self?.viewController.dismiss(animated: true)
