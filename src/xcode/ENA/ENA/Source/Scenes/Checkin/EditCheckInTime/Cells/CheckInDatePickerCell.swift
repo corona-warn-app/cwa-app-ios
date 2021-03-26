@@ -17,11 +17,6 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
 	// MARK: - Public
 
 	// MARK: - Internal
@@ -34,10 +29,6 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Private
 
-//	private let typeLabel = ENALabel()
-//	private let dateLabel = ENALabel()
-//	private let timeLabel = ENALabel()
-
 	private lazy var startTimeDatePicker: UIDatePicker = {
 		let datePicker = UIDatePicker()
 
@@ -46,8 +37,6 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		datePicker.locale = Locale(identifier: "de_DE")
 		datePicker.datePickerMode = .dateAndTime
-//		datePicker.alpha = 0.0
-//		datePicker.isHidden = true
 		return datePicker
 	}()
 
@@ -60,11 +49,6 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
 		tileView.backgroundColor = .enaColor(for: .background)
-//		tileView.layer.cornerRadius = 12.0
-//		tileView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//		tileView.layer.masksToBounds = true
-//		tileView.layer.borderWidth = 1.0
-//		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor
 		contentView.addSubview(tileView)
 
 		startTimeDatePicker.translatesAutoresizingMaskIntoConstraints = false

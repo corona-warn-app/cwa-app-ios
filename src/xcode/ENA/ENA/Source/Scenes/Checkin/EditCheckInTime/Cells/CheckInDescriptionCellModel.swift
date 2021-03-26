@@ -14,10 +14,6 @@ final class CheckInDescriptionCellModel {
 		self.address = checkIn.traceLocationAddress
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
 	// MARK: - Public
 
 	// MARK: - Internal

@@ -13,10 +13,6 @@ final class CheckInTimeModel {
 		self.dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 	}
 
-	// MARK: - Overrides
-
-	// MARK: - Protocol <#Name#>
-
 	// MARK: - Public
 
 	// MARK: - Internal

@@ -29,6 +29,9 @@ final class EditCheckinDetailViewModel {
 
 	// MARK: - Internal
 
+	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
+	@OpenCombine.Published private(set) var isEndDatePickerVisible: Bool = false
+
 	var checkInDescriptionCellModel: CheckInDescriptionCellModel {
 		return CheckInDescriptionCellModel(checkIn: checkIn)
 	}
@@ -67,10 +70,5 @@ final class EditCheckinDetailViewModel {
 	// MARK: - Private
 	
 	private let checkIn: Checkin
-
-//	private var isStartDatePickerIsHidden: Bool = true
-
-	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
-	@OpenCombine.Published private(set) var isEndDatePickerVisible: Bool = false
 
 }

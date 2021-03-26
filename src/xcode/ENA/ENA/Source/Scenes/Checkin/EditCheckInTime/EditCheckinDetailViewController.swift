@@ -127,24 +127,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return CGFloat.leastNonzeroMagnitude
 	}
-/*
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard let sectionTitle = EditCheckinDetailViewModel.TableViewSections(rawValue: section)?.sectionTitle,
-			  let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: TextHeaderView.reuseIdentifier) as? TextHeaderView else {
-			let view = UIView(frame: .zero)
-			view.backgroundColor = .red // .enaColor(for: .cellBackground)
-			return view
-		}
-		headerView.configure(sectionTitle)
-		return headerView
-	}
-
-	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let view = UIView(frame: .zero)
-		view.backgroundColor = .green // .enaColor(for: .cellBackground)
-		return view
-	}
-*/
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch EditCheckinDetailViewModel.TableViewSections(rawValue: indexPath.section) {
@@ -220,13 +202,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .none
-/*
-		tableView.estimatedSectionHeaderHeight = 0.0
-		tableView.sectionHeaderHeight = UITableView.automaticDimension
 
-		tableView.estimatedSectionFooterHeight = 0.0
-		tableView.sectionFooterHeight = UITableView.automaticDimension
-*/
 		tableView.contentInsetAdjustmentBehavior = .never
 
 		tableView.register(CheckInHeaderCell.self, forCellReuseIdentifier: CheckInHeaderCell.reuseIdentifier)
@@ -254,7 +230,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 				self?.tableView.reloadSections([sectionIndex], with: .automatic)
 			}
 			.store(in: &subscriptions)
-
 	}
 
 }
