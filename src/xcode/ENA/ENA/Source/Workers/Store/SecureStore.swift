@@ -187,6 +187,11 @@ final class SecureStore: Store {
 		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? {
+		get { kvStore["checkinRiskCalculationResult"] as CheckinRiskCalculationResult? ?? nil }
+		set { kvStore["checkinRiskCalculationResult"] = newValue }
+	}
+
 	var dateOfConversionToHighRisk: Date? {
 		get { kvStore["dateOfConversionToHighRisk"] as Date? ?? nil }
 		set { kvStore["dateOfConversionToHighRisk"] = newValue }
@@ -404,6 +409,14 @@ extension SecureStore: PrivacyPreservingProviding {
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
+	}
+}
+
+extension SecureStore: EventRegistrationProviding {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
 	}
 }
 

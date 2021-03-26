@@ -61,6 +61,8 @@ protocol StoreProtocol: AnyObject {
 
 	var riskCalculationResult: RiskCalculationResult? { get set }
 
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
+
 	/// Date when the risk was changed to high
 	var dateOfConversionToHighRisk: Date? { get set }
 
@@ -109,7 +111,7 @@ protocol StoreProtocol: AnyObject {
 	var submissionSymptomsOnset: SymptomsOnset { get set }
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
-	
+
 	var checkinInfoScreenShown: Bool { get set }
 
 	var traceLocationsInfoScreenShown: Bool { get set }
@@ -161,5 +163,10 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
+protocol EventRegistrationProviding: AnyObject {
+	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
+	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, QRCodePosterTemplateCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, QRCodePosterTemplateCaching, EventRegistrationProviding {}

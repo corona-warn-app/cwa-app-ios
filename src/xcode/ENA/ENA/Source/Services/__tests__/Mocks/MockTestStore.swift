@@ -16,6 +16,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
 	var riskCalculationResult: RiskCalculationResult?
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
@@ -104,4 +105,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	
+	// MARK: - EventRegistrationProviding
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool = false
 }
