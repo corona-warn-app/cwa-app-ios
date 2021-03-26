@@ -281,6 +281,51 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastTraceWarningPackageDownloadDate)))
 	}
 	
+	func testGIVEN_TraceWarningDownload_WHEN_NoEarliestPackageFound_THEN_NoEarliestRelevantPackageError() {
+		
+		// GIVEN
+		
+		let eventStore = MockEventStore()
+		let client = ClientMock()
+		client.onTraceWarningDiscovery = { [weak self] _, completion in
+			guard let self = self else {
+				XCTFail("Could not create strong self")
+				return
+			}
+			// meanwhile the checkins are deleted.
+			eventStore.deleteAllCheckins()
+			completion(.success(self.dummyResponseDiscovery))
+		}
+		
+		let checkInMock = Checkin.mock(checkinStartDate: startAsDate, checkinEndDate: endAsDate)
+		eventStore.createCheckin(checkInMock)
+		let appConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: client,
+			store: MockTestStore(),
+			eventStore: eventStore
+		)
+		
+		let expect = expectation(description: "TraceWarningPackage DownloadIsFailing_THEN_InvalidResponseError.")
+		var responseCodeError: TraceWarningError?
+		
+		// WHEN
+		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfig, completion: { result in
+			switch result {
+			case let .success(success):
+				XCTFail("Test should not success but did with success: \(success)")
+			case let .failure(error):
+				responseCodeError = error
+				expect.fulfill()
+			}
+		})
+		
+		// THEN
+		waitForExpectations(timeout: .medium)
+		XCTAssertEqual(responseCodeError, .noEarliestRelevantPackage)
+	}
+	
 	func testGIVEN_TraceWarningDownload_WHEN_DownloadIsFailing_THEN_InvalidResponseError() {
 		
 		// GIVEN
@@ -517,7 +562,7 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		XCTAssertEqual(eventStore.checkinsPublisher.value.count, 3)
 		
 		// WHEN
-		let earliestPackage = traceWarningPackageDownload.earliestRelevantPackage
+		let earliestPackage = traceWarningPackageDownload.earliestRelevantPackageId
 		
 		// THEN
 		XCTAssertEqual(earliestPackage, earliestPackageId)
@@ -572,7 +617,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageId, region: "DE", eTag: "FakeETag"))
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusOne, region: "DE", eTag: "FakeETag"))
-		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusTwo, region: "DE", eTag: "FakeETag"))
 		eventStore.createTraceWarningPackageMetadata(TraceWarningPackageMetadata(id: earliestPackageIdPlusThree, region: "DE", eTag: "FakeETag"))
 		
 		let traceWarningPackageDownload = TraceWarningPackageDownload(
@@ -580,17 +624,19 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 			store: MockTestStore(),
 			eventStore: eventStore
 		)
-		let availables = [earliestPackageIdPlusTwo, earliestPackageIdPlusThree, earliestPackageIdPlusFour]
-		let earliestRelevantPackageId = earliestPackageIdPlusThree
+		let availables = [earliestPackageId, earliestPackageIdPlusOne, earliestPackageIdPlusTwo, earliestPackageIdPlusThree, earliestPackageIdPlusFour]
+		let earliestRelevantPackageId = earliestPackageIdPlusOne
 	
-		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 4)
+		XCTAssertEqual(eventStore.traceWarningPackageMetadatasPublisher.value.count, 3)
 		
 		// WHEN
 		let packagesToDownload = traceWarningPackageDownload.determinePackagesToDownload(availables: availables, earliest: earliestRelevantPackageId)
 		
 		// THEN
-		XCTAssertEqual(packagesToDownload.count, 1)
+		XCTAssertEqual(packagesToDownload.count, 2)
 		XCTAssertFalse(packagesToDownload.contains(where: { $0 == earliestPackageId }))
+		XCTAssertFalse(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusOne }))
+		XCTAssertTrue(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusTwo }))
 		XCTAssertFalse(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusThree }))
 		XCTAssertTrue(packagesToDownload.contains(where: { $0 == earliestPackageIdPlusFour }))
 	}

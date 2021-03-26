@@ -265,7 +265,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 		
 		// 5. Determine earliestRelevantPackage.
 		// Take the database entry with the oldest checkinStartDate and convert it to unix timestamp in hours.
-		// Normally, can never fail because we have a check at the beginning for an empty checkin database table.
+		// Normally, this is an edge case because we have a check at the beginning for an empty checkin database table. So the database should be cleared after our check. Possible, but rarely.
 		guard let earliestRelevantPackage = earliestRelevantPackageId else {
 			Log.error("TraceWarningPackageDownload: Could not determine earliestRelevantPackage. Abort Download.", log: .checkin)
 			completion(.failure(.noEarliestRelevantPackage))
@@ -343,7 +343,7 @@ class TraceWarningPackageDownload: TraceWarningPackageDownloading {
 				Log.info("TraceWarningPackageDownload: Successfully downloaded single packageId: \(packageId). Proceed with verification and matching...", log: .checkin)
 				
 				// 9. Verfify signature for every not-empty package.
-				guard packageDownloadResponse.isEmpty,
+				guard !packageDownloadResponse.isEmpty,
 					  let sapDownloadedPackage = packageDownloadResponse.package else {
 					Log.info("TraceWarningPackageDownload: PackageId: \(packageId) is empty and was discarded.")
 					completion(.success(.emptySinglePackage))
