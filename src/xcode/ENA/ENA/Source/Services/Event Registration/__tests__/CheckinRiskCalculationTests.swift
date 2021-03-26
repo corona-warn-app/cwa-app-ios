@@ -211,7 +211,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 
 	// Test 2 Checkins with a match, spanning over both checkins.
 	// Results in several high risk checkins and days.
-	func test_Szenario_4() {
+	func test_Szenario_5() {
 		guard let checkin1StartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
 			  let checkin1EndDate = utcFormatter.date(from: "2021-03-05T09:30:00+01:00"),
 			  let checkin2StartDate = utcFormatter.date(from: "2021-03-05T13:30:00+01:00"),
