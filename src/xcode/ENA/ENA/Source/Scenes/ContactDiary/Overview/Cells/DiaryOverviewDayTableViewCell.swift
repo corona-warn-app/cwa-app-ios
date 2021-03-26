@@ -21,10 +21,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 		exposureHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 
 		// Check-Ins with risk
-		checkinHistoryStackView.isHidden = false
-		checkinHistoryTitleLabel.text = "Erhöhtes Risiko"
+		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
+		checkinHistoryTitleLabel.text = cellViewModel.checkinTitleText
 		checkinHistoryTitleLabel.style = .body
-		checkinHistoryDetailLabel.text = "aufgrund Ihrer Anwesenheit beim Superspreader Event in Ischgl.\nDiaryOverviewDayTableViewCell.configure()"
+		checkinHistoryDetailLabel.text = cellViewModel.checkinDetailText
 		checkinHistoryDetailLabel.style = .subheadline
 		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 		
