@@ -292,7 +292,12 @@ final class SecureStore: Store {
 		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
 	}
-
+	
+	var shouldAddCheckinToContactDiarybyDefault: Bool {
+		get { kvStore["shouldAddCheckinToContactDiarybyDefault"] as Bool? ?? true }
+		set { kvStore["shouldAddCheckinToContactDiarybyDefault"] = newValue }
+	}
+	
 	#if !RELEASE
 
 	// Settings from the debug menu.

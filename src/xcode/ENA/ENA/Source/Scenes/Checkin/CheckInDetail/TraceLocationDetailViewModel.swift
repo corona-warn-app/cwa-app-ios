@@ -9,11 +9,13 @@ final class TraceLocationDetailViewModel {
 
 	// MARK: - Init
 	
-	init(_ traceLocation: TraceLocation, eventStore: EventStoringProviding) {
-		self.traceLocation = traceLocation
-		self.locationDescription = traceLocation.description
-		self.locationAddress = traceLocation.address
+	init(_ traceLocation: TraceLocation, eventStore: EventStoringProviding, store: Store) {
+		self.store = store
 		self.eventStore = eventStore
+		self.traceLocation = traceLocation
+		self.locationAddress = traceLocation.address
+		self.locationDescription = traceLocation.description
+		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiarybyDefault
 		
 		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
 			self.selectedDurationInMinutes = defaultDuration
@@ -35,7 +37,7 @@ final class TraceLocationDetailViewModel {
 	let locationDescription: String
 	let locationAddress: String
 	var selectedDurationInMinutes: Int
-	var shouldSaveToContactJournal = true
+	var shouldSaveToContactJournal: Bool
 	var traceLocationStatus: TraceLocationDateStatus? {
 		guard let startDate = traceLocation.startDate,
 			  let endDate = traceLocation.endDate else {
@@ -103,6 +105,7 @@ final class TraceLocationDetailViewModel {
 			createJournalEntry: shouldSaveToContactJournal
 		)
 
+		store.shouldAddCheckinToContactDiarybyDefault = shouldSaveToContactJournal
 		 eventStore.createCheckin(checkin)
 	}
 
@@ -110,6 +113,8 @@ final class TraceLocationDetailViewModel {
 	
 	private let traceLocation: TraceLocation
 	private let eventStore: EventStoringProviding
+	private let store: Store
+	
 	private func formattedHourString(_ date: Date?) -> String? {
 		let dateComponentsFormatter = DateComponentsFormatter()
 		dateComponentsFormatter.allowedUnits = [.hour, .minute]

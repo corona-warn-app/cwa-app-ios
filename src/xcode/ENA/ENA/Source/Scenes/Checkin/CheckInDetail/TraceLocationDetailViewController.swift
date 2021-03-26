@@ -61,7 +61,7 @@ class TraceLocationDetailViewController: UIViewController {
 		pickerButton.setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
 		logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysTemplate)
 		logoImageView.tintColor = .enaColor(for: .textContrast)
-		
+		pickerSwitch.setOn(viewModel.shouldSaveToContactJournal, animated: false)
 		addBorderAndColorToView(descriptionView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(bottomCardView, color: .enaColor(for: .hairline))
 		addBorderAndColorToView(additionalInfoView, color: .enaColor(for: .hairline))

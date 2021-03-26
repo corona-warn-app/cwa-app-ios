@@ -114,6 +114,8 @@ protocol StoreProtocol: AnyObject {
 
 	var traceLocationsInfoScreenShown: Bool { get set }
 
+	var shouldAddCheckinToContactDiarybyDefault: Bool { get set }
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
