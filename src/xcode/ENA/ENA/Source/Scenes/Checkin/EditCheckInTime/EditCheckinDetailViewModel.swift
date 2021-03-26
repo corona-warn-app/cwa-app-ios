@@ -13,6 +13,12 @@ final class EditCheckinDetailViewModel {
 		_ checkIn: Checkin
 	) {
 		self.checkIn = checkIn
+		self.startDate = checkIn.checkinStartDate
+		self.endDate = checkIn.checkinEndDate
+
+		self.checkInDescriptionCellModel = CheckInDescriptionCellModel(checkIn: checkIn)
+		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: startDate)
+		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: endDate)
 	}
 
 	enum TableViewSections: Int, CaseIterable {
@@ -29,19 +35,15 @@ final class EditCheckinDetailViewModel {
 
 	// MARK: - Internal
 
+	let checkInDescriptionCellModel: CheckInDescriptionCellModel
+	let checkInStartCellModel: CheckInTimeModel
+	let checkInEndCellModel: CheckInTimeModel
+
 	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
 	@OpenCombine.Published private(set) var isEndDatePickerVisible: Bool = false
 
-	var checkInDescriptionCellModel: CheckInDescriptionCellModel {
-		return CheckInDescriptionCellModel(checkIn: checkIn)
-	}
-
-	var checkInStartCellModel: CheckInTimeModel {
-		return CheckInTimeModel("Eingecheckt", date: checkIn.checkinStartDate)
-	}
-
-	var checkInEndCellModel: CheckInTimeModel {
-		return CheckInTimeModel("Ausgecheckt", date: checkIn.checkinStartDate)
+	var isDirty: Bool {
+		return checkIn.checkinStartDate != startDate || checkIn.checkinEndDate != endDate
 	}
 
 	func numberOfRows(_ section: TableViewSections?) -> Int {
@@ -70,5 +72,8 @@ final class EditCheckinDetailViewModel {
 	// MARK: - Private
 	
 	private let checkIn: Checkin
+
+	private var startDate: Date
+	private var endDate: Date
 
 }

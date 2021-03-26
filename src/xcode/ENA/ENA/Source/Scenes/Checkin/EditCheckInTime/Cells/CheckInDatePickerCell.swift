@@ -22,9 +22,8 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(_ cellModel: CheckInTimeModel) {
-//		typeLabel.text = cellModel.type
-//		dateLabel.text = cellModel.dateString
-//		timeLabel.text = cellModel.timeString
+		self.cellModel = cellModel
+		startTimeDatePicker.date = cellModel.date
 	}
 
 	// MARK: - Private
@@ -37,9 +36,11 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		}
 		datePicker.locale = Locale(identifier: "de_DE")
 		datePicker.datePickerMode = .dateAndTime
+		datePicker.minuteInterval = 5
 		return datePicker
 	}()
 
+	private var cellModel: CheckInTimeModel!
 
 	private func setupView() {
 		selectionStyle = .none
@@ -53,6 +54,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 		startTimeDatePicker.translatesAutoresizingMaskIntoConstraints = false
 		tileView.addSubview(startTimeDatePicker)
+		startTimeDatePicker.addTarget(self, action: #selector(updateDate(sender:)), for: .valueChanged)
 
 		NSLayoutConstraint.activate(
 			[
@@ -67,6 +69,11 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 				startTimeDatePicker.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 			]
 		)
+	}
+
+	@objc
+	private func updateDate(sender: UIDatePicker) {
+		cellModel.date = sender.date
 	}
 
 }

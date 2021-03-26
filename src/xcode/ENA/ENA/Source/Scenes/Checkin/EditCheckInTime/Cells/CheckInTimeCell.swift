@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
@@ -30,8 +31,15 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 	// MARK: - Internal
 
 	func configure(_ cellModel: CheckInTimeModel) {
+		self.cellModel = cellModel
 		typeLabel.text = cellModel.type
-		dateTimeLabel.text = cellModel.dateString
+
+		cellModel.$date
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { _ in
+				self.dateTimeLabel.text = cellModel.dateString
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
@@ -39,6 +47,8 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let typeLabel = ENALabel()
 	private let dateTimeLabel = ENALabel()
 	private let stackView = UIStackView()
+	private var cellModel: CheckInTimeModel?
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		selectionStyle = .none

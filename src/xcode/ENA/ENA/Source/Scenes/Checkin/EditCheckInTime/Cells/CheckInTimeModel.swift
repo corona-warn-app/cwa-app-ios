@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import OpenCombine
 
 final class CheckInTimeModel {
 
@@ -10,7 +11,7 @@ final class CheckInTimeModel {
 
 	init(_ type: String, date: Date) {
 		self.type = type
-		self.dateString = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+		self.date = date
 	}
 
 	// MARK: - Public
@@ -18,7 +19,12 @@ final class CheckInTimeModel {
 	// MARK: - Internal
 
 	let type: String
-	let dateString: String
+
+	@OpenCombine.Published var date: Date
+
+	var dateString: String {
+		DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
+	}
 
 	// MARK: - Private
 

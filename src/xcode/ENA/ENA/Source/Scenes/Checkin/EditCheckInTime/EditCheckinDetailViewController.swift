@@ -97,6 +97,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 		case .startPicker:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
+			cell.configure(viewModel.checkInStartCellModel)
 			return cell
 
 		case .checkInEnd:
@@ -106,6 +107,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 		case .endPicker:
 			let cell = tableView.dequeueReusableCell(cellType: CheckInDatePickerCell.self, for: indexPath)
+			cell.configure(viewModel.checkInEndCellModel)
 			return cell
 
 		case .bottomCorner:
