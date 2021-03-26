@@ -39,7 +39,6 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		setUpBindings()
 
 		let initialDefaultCheckInLength = TimeInterval(minutes: viewModel.defaultCheckInLengthInMinutes) ?? viewModel.defaultDefaultCheckInLengthTimeInterval
-
 		temporaryDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
 		permanentDefaultLengthPicker.countDownDuration = initialDefaultCheckInLength
 
@@ -293,7 +292,16 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		viewModel.$temporaryDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
-				self?.temporaryDefaultLengthPickerContainerView.isHidden = isHidden
+				guard let self = self, self.temporaryDefaultLengthPickerContainerView.isHidden != isHidden else {
+					return
+				}
+
+				self.temporaryDefaultLengthPickerContainerView.isHidden = isHidden
+
+				// Need to set the countDownDuration after unhiding, otherwise the first valueChanged event is not triggered
+				if !isHidden {
+					self.temporaryDefaultLengthPicker.countDownDuration = TimeInterval(minutes: self.viewModel.defaultCheckInLengthInMinutes) ?? self.viewModel.defaultDefaultCheckInLengthTimeInterval
+				}
 			}
 			.store(in: &subscriptions)
 
@@ -315,7 +323,16 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 
 		viewModel.$permanentDefaultLengthPickerIsHidden
 			.sink { [weak self] isHidden in
-				self?.permanentDefaultLengthPickerContainerView.isHidden = isHidden
+				guard let self = self, self.permanentDefaultLengthPickerContainerView.isHidden != isHidden else {
+					return
+				}
+
+				self.permanentDefaultLengthPickerContainerView.isHidden = isHidden
+
+				// Need to set the countDownDuration after unhiding, otherwise the first valueChanged event is not triggered
+				if !isHidden {
+					self.permanentDefaultLengthPicker.countDownDuration = TimeInterval(minutes: self.viewModel.defaultCheckInLengthInMinutes) ?? self.viewModel.defaultDefaultCheckInLengthTimeInterval
+				}
 			}
 			.store(in: &subscriptions)
 
