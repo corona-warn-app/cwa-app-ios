@@ -77,8 +77,14 @@ class DiaryOverviewViewModel {
 		let diaryDay = days[indexPath.row]
 		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
 		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskValue(by: diaryDay.utcMidnightDate)
+		let checkinsWithRisk = checkinsFor(day: diaryDay.utcMidnightDate)
 
-		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure, minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk)
+		return DiaryOverviewDayCellModel(
+			diaryDay: diaryDay,
+			historyExposure: currentHistoryExposure,
+			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
+			checkinsWithRisk: checkinsWithRisk
+		)
 	}
 
 	// MARK: - Private
@@ -101,5 +107,24 @@ class DiaryOverviewViewModel {
 			return -1
 		}
 		return minimumDistinctEncountersWithHighRisk
+	}
+	
+	private func checkinsFor(day: Date) -> [CheckinWithRisk] {
+//		guard let result = secureStore.checkinRiskCalculationResult else {
+//			return []
+//		}
+//
+//		let checkinIdsWithRisk = Set(result.checkinIdsWithRiskPerDate.filter({
+//			$0.key == day
+//		}).flatMap { $0.value })
+//
+//		var checkinsWithRisk: [CheckinWithRisk] = []
+//		for checkinIdWithRisk in checkinIdsWithRisk {
+//			for checkin in eventStore.checkinsPublisher.value where checkinIdWithRisk.checkinId == checkin.id {
+//				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
+//			}
+//		}
+//		return checkinsWithRisk
+		return [CheckinWithRisk(checkIn: Checkin.mock(traceLocationDescription: "SAP-Internes Event"), risk: .high), CheckinWithRisk(checkIn: Checkin.mock(traceLocationDescription: "Wurstbuden Sammelstellen Container"), risk: .low), CheckinWithRisk(checkIn: Checkin.mock(traceLocationDescription: "Komisches Treffen von nebulösen leuten"), risk: .high)]
 	}
 }

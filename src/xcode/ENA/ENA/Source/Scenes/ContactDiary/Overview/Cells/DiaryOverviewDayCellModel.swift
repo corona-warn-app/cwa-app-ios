@@ -10,13 +10,15 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Init
 
 	init(
-		_ diaryDay: DiaryDay,
+		diaryDay: DiaryDay,
 		historyExposure: HistoryExposure,
-		minimumDistinctEncountersWithHighRisk: Int
+		minimumDistinctEncountersWithHighRisk: Int,
+		checkinsWithRisk: [CheckinWithRisk]
 	) {
 		self.diaryDay = diaryDay
 		self.historyExposure = historyExposure
 		self.minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRisk
+		self.checkinsWithRisk = checkinsWithRisk
 	}
 
 	// MARK: - Public
@@ -24,6 +26,7 @@ final class DiaryOverviewDayCellModel {
 	// MARK: - Internal
 
 	let historyExposure: HistoryExposure
+	let checkinsWithRisk: [CheckinWithRisk]
 
 	func entryDetailTextFor(personEncounter: ContactPersonEncounter) -> String {
 		var detailComponents = [String]()
@@ -117,19 +120,25 @@ final class DiaryOverviewDayCellModel {
 	}
 	
 	var hideCheckinRisk: Bool {
-		return false
+		return checkinsWithRisk.isEmpty
 	}
 	
-	var checkinTitleText: String {
-		return "Erhöhtes Risiko"
+	var checkinTitleHeadlineText: String {
+		if checkinsWithRisk.contains(where: { $0.risk == .high }) {
+			return AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk
+		} else {
+			return AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk
+		}
 	}
 	
-	var checkinDetailText: String {
-		return "aufgrund Ihrer Anwesenheit bei:"
+	var checkinDetailDescription: String {
+		return AppStrings.ContactDiary.Overview.CheckinEncounter.titleSubheadline
 	}
 	
-	var checkinDetail
-
+	var isSinlgeRiskyCheckin: Bool {
+		return checkinsWithRisk.count > 1 ? false : true
+	}
+	
 	var selectedEntries: [DiaryEntry] {
 		diaryDay.selectedEntries
 	}
@@ -137,12 +146,31 @@ final class DiaryOverviewDayCellModel {
 	var formattedDate: String {
 		diaryDay.formattedDate
 	}
+	
+	func checkInDespription(checkinWithRisk: CheckinWithRisk) -> String {
+		let checkinName = checkinWithRisk.checkIn.traceLocationDescription
+		let riskLevel = checkinWithRisk.risk
+		var suffix = ""
+		switch riskLevel {
+		case .low:
+			suffix = AppStrings.ContactDiary.Overview.CheckinEncounter.lowRisk
+		case .high:
+			suffix = AppStrings.ContactDiary.Overview.CheckinEncounter.highRisk
+		default:
+			suffix = ""
+		}
+		return isSinlgeRiskyCheckin ? checkinName : checkinName + " \(suffix)"
+	}
+	
+	func colorFor(riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel) -> UIColor {
+		return riskLevel == .high ? .enaColor(for: .riskHigh) : .enaColor(for: .textPrimary2)
+	}
 
 	// MARK: - Private
 
 	private let diaryDay: DiaryDay
 	private let minimumDistinctEncountersWithHighRisk: Int
-
+	
 	private var dateComponentsFormatter: DateComponentsFormatter = {
 		let formatter = DateComponentsFormatter()
 		formatter.unitsStyle = .positional
@@ -150,7 +178,6 @@ final class DiaryOverviewDayCellModel {
 		formatter.allowedUnits = [.hour, .minute]
 		return formatter
 	}()
-
 }
 
 private extension ContactPersonEncounter.Duration {
