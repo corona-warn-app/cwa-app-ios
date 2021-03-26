@@ -36,7 +36,7 @@ struct TraceLocationsInfoViewModel {
 						text: AppStrings.TraceLocations.Information.descriptionTitle,
 						accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.descriptionTitle
 					),
-					.subheadline(
+					.body(
 						text: AppStrings.TraceLocations.Information.descriptionSubHeadline,
 						accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.descriptionSubHeadline
 					),
@@ -45,8 +45,8 @@ struct TraceLocationsInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Contact"),
-						text: .string(AppStrings.TraceLocations.Information.itemPersonTitle),
+						UIImage(imageLiteralResourceName: "Icons_CheckInRiskStatus"),
+						text: .string(AppStrings.TraceLocations.Information.itemCheckinRiskStatus),
 						alignment: .top
 					),
 					.space(
@@ -54,17 +54,8 @@ struct TraceLocationsInfoViewModel {
 						color: .enaColor(for: .background)
 					),
 					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Location"),
-						text: .string(AppStrings.TraceLocations.Information.itemContactTitle),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Lock"),
-						text: .string(AppStrings.TraceLocations.Information.itemLockTitle),
+						UIImage(imageLiteralResourceName: "Icons_Checkin_QR"),
+						text: .string(AppStrings.TraceLocations.Information.itemCheckinTitle),
 						alignment: .top
 					),
 					.space(
@@ -73,44 +64,33 @@ struct TraceLocationsInfoViewModel {
 					),
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Diary_Deleted_Automatically"),
-						text: .string(AppStrings.TraceLocations.Information.deletedAutomatically),
+						text: .string(AppStrings.TraceLocations.Information.itemContactTitle),
 						alignment: .top
 					),
 					.space(
 						height: 15.0,
 						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Diary_Export_Textformat"),
-						text: .string(AppStrings.TraceLocations.Information.exportTextformat),
-						alignment: .top
-					),
-					.space(
-						height: 15.0,
-						color: .enaColor(for: .background)
-					),
-					.icon(
-						UIImage(imageLiteralResourceName: "Icons_Attention_high_small"),
-						text: .string(AppStrings.TraceLocations.Information.exposureHistory),
-						alignment: .top
 					)
 				]
 			),
 			// Legal text
 			.section(cells: [
-				.legalExtended(
-					title: NSAttributedString(string: AppStrings.TraceLocations.Information.legalHeadline_1),
-					subheadline1: NSAttributedString(string: AppStrings.TraceLocations.Information.legalSubHeadline_1),
-					bulletPoints1: [
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_1),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_2)
+				.legalExtendedDataDonation(
+					title: NSAttributedString(string: AppStrings.TraceLocations.Information.legalHeadline),
+					description: NSAttributedString(string: AppStrings.TraceLocations.Information.legalText01),
+					bulletPoints: [
+						bulletPointCellWithBoldHeadline(
+							title: AppStrings.TraceLocations.Information.legalText02bold,
+							text: AppStrings.TraceLocations.Information.legalText02
+						),
+						bulletPointCellWithBoldHeadline(
+							title: AppStrings.TraceLocations.Information.legalText03bold,
+							text: AppStrings.TraceLocations.Information.legalText03
+						),
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText04),
+						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText05)
 						],
-					subheadline2: NSAttributedString(string: AppStrings.TraceLocations.Information.legalSubHeadline_2),
-					bulletPoints2: [
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_3),
-						NSAttributedString(string: AppStrings.TraceLocations.Information.legalText_4)
-						],
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle,
+					accessibilityIdentifier: AccessibilityIdentifiers.TraceLocation.acknowledgementTitle,
 					configure: { _, cell, _ in
 						cell.backgroundColor = .enaColor(for: .background)
 					}
@@ -140,5 +120,17 @@ struct TraceLocationsInfoViewModel {
 	// MARK: - Private
 
 	private let presentDisclaimer: () -> Void
+	private let boldTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body, weight: .bold)
+	]
+	private let normalTextAttribute: [NSAttributedString.Key: Any] = [
+		NSAttributedString.Key.font: UIFont.enaFont(for: .body)
+	]
+	
+	private func bulletPointCellWithBoldHeadline(title: String, text: String) -> NSMutableAttributedString {
+		let bulletPoint = NSMutableAttributedString(string: "\(title)" + "\n\t", attributes: boldTextAttribute)
+		bulletPoint.append(NSAttributedString(string: text, attributes: normalTextAttribute))
+		return bulletPoint
+	}
 
 }

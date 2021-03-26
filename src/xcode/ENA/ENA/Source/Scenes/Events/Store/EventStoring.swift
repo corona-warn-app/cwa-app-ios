@@ -39,7 +39,7 @@ protocol EventStoring {
 	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.VoidResult
 
 	@discardableResult
 	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult
