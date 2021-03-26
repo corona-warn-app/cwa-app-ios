@@ -575,8 +575,24 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showThankYouCancelAlert(isLoading: isLoading)
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ThankYouScreen.continueButton,
+				secondaryButtonName: AppStrings.ThankYouScreen.cancelButton,
+				primaryIdentifier: AccessibilityIdentifiers.ThankYouScreen.continueButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ThankYouScreen.closeButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: thankYouVC,
+			bottomController: footerViewController
+		)
 
-		push(thankYouVC)
+		push(topBottomContainerViewController)
 	}
 
 	// MARK: Symptoms
