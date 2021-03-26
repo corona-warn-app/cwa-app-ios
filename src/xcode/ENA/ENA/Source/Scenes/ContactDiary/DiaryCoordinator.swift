@@ -11,10 +11,12 @@ class DiaryCoordinator {
 	init(
 		store: Store,
 		diaryStore: DiaryStoringProviding,
+		eventStore: EventStoringProviding,
 		homeState: HomeState?
 	) {
 		self.store = store
 		self.diaryStore = diaryStore
+		self.eventStore = eventStore
 		self.homeState = homeState
 		
 		#if DEBUG
@@ -83,6 +85,7 @@ class DiaryCoordinator {
 			let model = DiaryOverviewViewModel(
 				diaryStore: self.diaryStore,
 				store: self.store,
+				eventStore: self.eventStore,
 				homeState: self.homeState
 			)
 			guard let today = model.days.first else {
@@ -98,6 +101,7 @@ class DiaryCoordinator {
 
 	private let store: Store
 	private let diaryStore: DiaryStoringProviding
+	private let eventStore: EventStoringProviding
 	private let homeState: HomeState?
 
 	private var infoScreenShown: Bool {
@@ -113,6 +117,7 @@ class DiaryCoordinator {
 			viewModel: DiaryOverviewViewModel(
 				diaryStore: diaryStore,
 				store: store,
+				eventStore: eventStore,
 				homeState: homeState
 			),
 			onCellSelection: { [weak self] day in
