@@ -7,7 +7,10 @@ import UIKit
 class GradientNavigationView: UIView {
 
 	// MARK: - Init
-	init() {
+	init(
+		didTapCloseButton: @escaping () -> Void
+	) {
+		self.didTapCloseButton = didTapCloseButton
 		super.init(frame: .zero)
 		setupView()
 	}
@@ -25,6 +28,8 @@ class GradientNavigationView: UIView {
 
 	// MARK: - Private
 
+	private let didTapCloseButton: () -> Void
+
 	private func setupView() {
 		backgroundColor = .clear
 
@@ -37,6 +42,7 @@ class GradientNavigationView: UIView {
 		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
+		closeButton.addTarget(self, action: #selector(didTapCloseButtonAction), for: .touchUpInside)
 
 		let stackView = UIStackView(arrangedSubviews: [logoImageView, closeButton])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +59,11 @@ class GradientNavigationView: UIView {
 				stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
 			]
 		)
+	}
+
+	@objc
+	private func didTapCloseButtonAction() {
+		didTapCloseButton()
 	}
 
 }

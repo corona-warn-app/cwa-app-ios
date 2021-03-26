@@ -163,7 +163,11 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 		backGroundView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(backGroundView)
 
-		let gradientNavigationView = GradientNavigationView()
+		let gradientNavigationView = GradientNavigationView(
+			didTapCloseButton: { [weak self] in
+				self?.dismiss()
+			}
+		)
 		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
 		backGroundView.addSubview(gradientNavigationView)
 
