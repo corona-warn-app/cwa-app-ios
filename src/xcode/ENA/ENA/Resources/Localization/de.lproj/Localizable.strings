@@ -1253,7 +1253,7 @@ sein.";
 
 "ErrorReport_SendReports_Title" = "Fehlerbericht senden";
 
-"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z.B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
+"ErrorReport_SendReports_Paragraph" = "Bevor Sie den aufgezeichneten Fehlerbericht an den technischen Support des RKI übersenden können, ist Ihr Einverständnis erforderlich.\n\nNach der Übersendung erhalten Sie eine Fehlerbericht-ID. Diese können Sie angeben, um dem technischen Support z. B. weitere Informationen zukommen zu lassen und dabei eine Zuordnung zu Ihrem Fehlerbericht zu ermöglichen. Wenn Sie die Fehlerbericht-ID nicht mitteilen, ist dem RKI eine Zuordnung zu Ihrer Person nicht möglich.";
 
 "ErrorReport_SendReports_Details" = "Ausführliche Informationen zu dieser Datenverarbeitung und den Datenschutzrisiken in den USA und anderen Drittländern";
 
@@ -2137,8 +2137,48 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
 
+
+/* Trace Location */
+
+"TraceLocation_Information_Title" = "QR-Code erstellen";
+
+"TraceLocation_Information_ImageDescription" = "Eine Person zeigt auf ein Flipchart, zwei Personen sitzen daneben und schauen auf das Flipchart.";
+
+"TraceLocation_Information_DescriptionTitle" = "Mehr Sicherheit für Sie und Ihre Gäste";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Erstellen Sie einen QR-Code, den Ihre Gäste bei ihrer Ankunft scannen können. So können sie bei Bedarf andere Gäste warnen oder von ihnen gewarnt werden.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Jeder Check-in wird bei der Ermittlung des Risikostatus zusätzlich berücksichtigt. Wird eine eingecheckte Person später positiv getestet, können die Gäste gewarnt werden, wenn sie sich zur gleichen Zeit oder bis zu 30 Minuten nach der positiv getesteten Person im gleichen Raum aufgehalten haben.";
+
+"TraceLocation_Information_Item_Checkin" = "Stellen Sie den QR-Code Ihren Gästen entweder über Ihr Smartphone oder in ausgedruckter Form zur Verfügung.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich neu erstellen außerhalb der Öffnungszeiten.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Weiter";
+
+"Home_TraceLocationsCard_Title" = "Sie planen eine Veranstaltung?";
+
+"Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
+
+"Home_TraceLocationsCard_Button" = "QR-Code erstellen";
+
 /* Checkout */
 
 "Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";
 
 "Checkout_Notification_Body" = "Bitte passen Sie Ihre Aufenthaltsdauer gegebenenfalls an.";
+
+"Checkin_Details_HoursShortVersion" = "%@ Std.";
+
+"Checkin_Details_CheckinFor" = "Einchecken für:";
+
+"Checkin_Details_Activity" = "Vereinsaktivität";
+
+"Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
+
+"Checkin_Details_AutomaticCheckout" = "Automatisch auschecken nach";
+
+"Checkin_Details_EventNotStartedYet" = "Das Event beginnt erst am %@ um %@ Uhr. Wollen Sie bereits einchecken?";
+
+"Checkin_Details_EventEnded" = "Das Event ist beendet. Wollen Sie nachträglich einchecken?";
+
