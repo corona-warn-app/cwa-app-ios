@@ -371,6 +371,13 @@ extension SecureStore: StatisticsCaching {
 	}
 }
 
+extension SecureStore: QRCodePosterTemplateCaching {
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? {
+		get { kvStore["qrCodePosterTemplateMetadata"] as QRCodePosterTemplateMetadata? ?? nil }
+		set { kvStore["qrCodePosterTemplateMetadata"] = newValue }
+	}
+}
+
 extension SecureStore: PrivacyPreservingProviding {
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool {
@@ -402,6 +409,14 @@ extension SecureStore: PrivacyPreservingProviding {
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
+	}
+}
+
+extension SecureStore: EventRegistrationProviding {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
 	}
 }
 

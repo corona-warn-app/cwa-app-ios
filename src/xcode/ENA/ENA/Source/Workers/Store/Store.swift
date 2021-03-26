@@ -111,7 +111,7 @@ protocol StoreProtocol: AnyObject {
 	var submissionSymptomsOnset: SymptomsOnset { get set }
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
-	
+
 	var checkinInfoScreenShown: Bool { get set }
 
 	var traceLocationsInfoScreenShown: Bool { get set }
@@ -146,6 +146,10 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
+protocol QRCodePosterTemplateCaching: AnyObject {
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
+}
+
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
@@ -159,5 +163,10 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
+protocol EventRegistrationProviding: AnyObject {
+	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
+	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, QRCodePosterTemplateCaching, EventRegistrationProviding {}

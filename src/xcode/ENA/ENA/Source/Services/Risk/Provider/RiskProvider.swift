@@ -19,6 +19,7 @@ final class RiskProvider: RiskProviding {
 		targetQueue: DispatchQueue = .main,
 		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
 		keyPackageDownload: KeyPackageDownloadProtocol,
+		traceWarningPackageDownload: TraceWarningPackageDownloading,
 		exposureDetectionExecutor: ExposureDetectionDelegate
 	) {
 		self.riskProvidingConfiguration = configuration
@@ -28,9 +29,12 @@ final class RiskProvider: RiskProviding {
 		self.targetQueue = targetQueue
 		self.riskCalculation = riskCalculation
 		self.keyPackageDownload = keyPackageDownload
+		self.traceWarningPackageDownload = traceWarningPackageDownload
 		self.exposureDetectionExecutor = exposureDetectionExecutor
+		self.keyPackageDownloadStatus = .idle
+		self.traceWarningDownloadStatus = .idle
 
-		self.registerForPackageDownloadStatusUpdate()
+		self.registerForPackagesDownloadStatusUpdates()
 	}
 
 	// MARK: - Protocol RiskProviding
@@ -109,6 +113,7 @@ final class RiskProvider: RiskProviding {
 	}
 
 	// MARK: - Private
+	
     private typealias Completion = (RiskProviderResult) -> Void
 
 	private let store: Store
@@ -116,14 +121,17 @@ final class RiskProvider: RiskProviding {
 	private let targetQueue: DispatchQueue
 	private let riskCalculation: RiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
-
+	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 
 	private var keyPackageDownload: KeyPackageDownloadProtocol
-	private var exposureDetection: ExposureDetection?
+	private var traceWarningPackageDownload: TraceWarningPackageDownloading
 
+	private var exposureDetection: ExposureDetection?
 	private var subscriptions = [AnyCancellable]()
+	private var keyPackageDownloadStatus: KeyPackageDownloadStatus
+	private var traceWarningDownloadStatus: TraceWarningDownloadStatus
 	
 	private var _consumers: Set<RiskConsumer> = Set<RiskConsumer>()
 	private var consumers: Set<RiskConsumer> {
@@ -145,26 +153,36 @@ final class RiskProvider: RiskProviding {
 		let group = DispatchGroup()
 		group.enter()
 		appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-			guard let self = self else { return }
+			guard let self = self else {
+				Log.error("RiskProvider: Error at creating self. Cancel download packages and calculate risk.", log: .riskDetection)
+				return
+			}
 			
 			self.updateRiskProvidingConfiguration(with: appConfiguration)
 			
-			self.downloadKeyPackages { result in
+			// First, download the diagnosis keys
+			self.downloadKeyPackages {result in
 				switch result {
 				case .success:
-					self.determineRisk(
-						userInitiated: userInitiated,
-						appConfiguration: appConfiguration
-					) { result in
-						
+					// If key download suceeds, continue with the download of the trace warning packages
+					self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
 						switch result {
-						case .success(let risk):
-							self.successOnTargetQueue(risk: risk)
+						case .success:
+							// And only if both downloads succeeds, we can determine a risk.
+							self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
+								switch result {
+								case .success(let risk):
+									self.successOnTargetQueue(risk: risk)
+								case .failure(let error):
+									self.failOnTargetQueue(error: error)
+								}
+								group.leave()
+							}
 						case .failure(let error):
 							self.failOnTargetQueue(error: error)
+							group.leave()
 						}
-						group.leave()
-					}
+					})
 				case .failure(let error):
 					self.failOnTargetQueue(error: error)
 					group.leave()
@@ -208,6 +226,20 @@ final class RiskProvider: RiskProviding {
 			completion()
 		})
 	}
+	
+	private func downloadTraceWarningPackages(
+		with appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
+		completion: @escaping (Result<Void, RiskProviderError>) -> Void
+	) {
+		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfiguration, completion: { result in
+			switch result {
+			case .success:
+				completion(.success(()))
+			case let .failure(error):
+				completion(.failure(.failedTraceWarningPackageDownload(error)))
+			}
+		})
+	}
 
 	private func determineRisk(
 		userInitiated: Bool,
@@ -227,6 +259,11 @@ final class RiskProvider: RiskProviding {
 		// 2. There is a previous risk that is still valid and should not be recalculated
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+			
+			// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
+			if let riskCalculationResult = store.riskCalculationResult {
+				Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+			}
 			completion(.success(risk))
 			return
 		}
@@ -416,19 +453,32 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func registerForPackageDownloadStatusUpdate() {
-		self.keyPackageDownload.statusDidChange = { [weak self] downloadStatus in
-			guard let self = self else { return }
-
-			switch downloadStatus {
-			case .downloading:
-				self.updateActivityState(.downloading)
-			/// In end-of-life state we only download the keys, therefore the activity state needs to be reset to idle when the download is finished
-			case .idle where self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown:
-				self.updateActivityState(.idle)
-			default:
-				break
+	private func registerForPackagesDownloadStatusUpdates() {
+		keyPackageDownload.statusDidChange = { [weak self] downloadStatus in
+			guard let self = self else {
+				Log.error("RiskProvider: Error at creating strong self.", log: .riskDetection)
+				return
 			}
+			self.keyPackageDownloadStatus = downloadStatus
+			self.updateRiskProviderActivityState()
+		}
+		
+		traceWarningPackageDownload.statusDidChange = { [weak self] downloadStatus in
+			guard let self = self else {
+				Log.error("RiskProvider: Error at creating strong self.", log: .riskDetection)
+				return
+			}
+			self.traceWarningDownloadStatus = downloadStatus
+			self.updateRiskProviderActivityState()
+		}
+	}
+	
+	private func updateRiskProviderActivityState() {
+		if keyPackageDownloadStatus == .downloading || traceWarningDownloadStatus == .downloading {
+			self.updateActivityState(.downloading)
+		} else if (keyPackageDownloadStatus == .idle && (self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown)) &&
+					traceWarningDownloadStatus == .idle {
+			self.updateActivityState(.idle)
 		}
 	}
 }

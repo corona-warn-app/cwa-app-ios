@@ -48,7 +48,7 @@
 "AutomaticSharingConsent_DescriptionPart5" = "Your test result will then be shown to you.";
 
 
-/* Contact diary information */
+/* Contact journal information */
 
 "ContactDiary_Information_Legal_Headline_1" = "Information on Data Processing";
 
@@ -56,11 +56,11 @@
 
 "ContactDiary_Information_Legal_Text_1" = "Using this additional feature of the Corona-Warn-App is voluntary. Only you decide which people and places you record.";
 
-"ContactDiary_Information_Legal_Text_2" = "Neither the RKI nor any other agency has access to the information you enter in the contact diary. The information is only stored in encrypted form on your iPhone.";
+"ContactDiary_Information_Legal_Text_2" = "Neither the RKI nor any other agency has access to the information you enter in the contact journal. The information is only stored in encrypted form on your iPhone.";
 
 "ContactDiary_Information_Legal_SubHeadline_2" = "Please respect other people’s privacy.";
 
-"ContactDiary_Information_Legal_Text_3" = "Please think carefully about with whom you share the information recorded in your contact diary, and how you share it. The information is meant to help you remember – it is not intended for anyone else. If the public health office (Gesundheitsamt) asks for your help with contact tracing, then sharing your entries is appropriate.";
+"ContactDiary_Information_Legal_Text_3" = "Please think carefully about with whom you share the information recorded in your contact journal, and how you share it. The information is meant to help you remember – it is not intended for anyone else. If the public health office (Gesundheitsamt) asks for your help with contact tracing, then sharing your entries is appropriate.";
 
 "ContactDiary_Information_Legal_Text_4" = "Private individuals as well as companies are not allowed to make you disclose the information you have recorded. Please respect the wishes of anyone who does not want to be recorded in your contact journal.";
 

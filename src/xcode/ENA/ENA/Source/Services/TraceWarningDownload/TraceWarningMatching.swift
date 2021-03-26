@@ -5,26 +5,27 @@
 import Foundation
 
 protocol TraceWarningMatching {
-	
+
 	func matchAndStore(package: SAPDownloadedPackage)
 	func calculateOverlap(checkin: Checkin, warning: SAP_Internal_Pt_TraceTimeIntervalWarning) -> Int
 	func calculateOverlap(checkin: Checkin, match: TraceTimeIntervalMatch) -> Int
+
 }
 
 final class TraceWarningMatcher: TraceWarningMatching {
 
 	// MARK: - Init
-	
+
 	init(
 		eventStore: EventStoringProviding
 	) {
 		self.eventStore = eventStore
 	}
-	
+
 	// MARK: - Overrides
-	
+
 	// MARK: - Protocol TraceWarningMatching
-	
+
 	func matchAndStore(package: SAPDownloadedPackage) {
 		Log.info("[TraceWarningMatching] Start matching TraceTimeIntervalWarnings against Checkins. ", log: .checkin)
 
@@ -92,7 +93,6 @@ final class TraceWarningMatcher: TraceWarningMatching {
 	
 	private let eventStore: EventStoringProviding
 
-
 	// Algorithm from: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/sample-code/presence-tracing/pt-calculate-overlap.js
 
 	private func calculateOverlap(checkin: Checkin, startIntervalNumber: Int, endIntervalNumber: Int) -> Int {
@@ -113,4 +113,5 @@ final class TraceWarningMatcher: TraceWarningMatching {
 			return Int(round(overlapInSeconds / 60))
 		}
 	}
+
 }

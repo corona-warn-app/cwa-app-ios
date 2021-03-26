@@ -10,6 +10,6 @@ struct TraceWarningDiscovery: Decodable {
 	let eTag: String?
 	
 	var availablePackagesOnCDN: [Int] {
-		return Array(oldest...latest)
+		return latest < oldest ? [] : Array(oldest...latest)
 	}
 }

@@ -247,7 +247,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		   differenceBetweenRegistrationAndCurrentDateInHours >= hoursSinceTestRegistrationToSubmitTestResultMetadata {
 			return true
 		}
-		return false
+		return true
 	}
 	
 	private func generatePPACAndSubmitData(disableExposureWindowsProbability: Bool = false, completion: ((Result<Void, PPASError>) -> Void)? = nil) {
@@ -343,8 +343,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 					// after succesful submission, store the current risk exposure metadata as the previous one to get the next time a comparison.
 					self?.store.previousRiskExposureMetadata = self?.store.currentRiskExposureMetadata
 					self?.store.currentRiskExposureMetadata = nil
-					self?.store.testResultMetadata = nil
-					self?.store.keySubmissionMetadata = nil
+					if let shouldIncludeTestResultMetadata = self?.shouldIncludeTestResultMetadata, shouldIncludeTestResultMetadata {
+						self?.store.testResultMetadata = nil
+					}
+					if let shouldIncludeKeySubmissionMetadata = self?.shouldIncludeKeySubmissionMetadata, shouldIncludeKeySubmissionMetadata {
+						self?.store.keySubmissionMetadata = nil
+					}
 					self?.store.lastSubmittedPPAData = payload.textFormatString()
 					self?.store.exposureWindowsMetadata?.newExposureWindowsQueue.removeAll()
 					self?.store.lastSubmissionAnalytics = Date()
@@ -359,7 +363,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		)
 	}
 	
-	private func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
+	func gatherExposureRiskMetadata() -> [SAP_Internal_Ppdd_ExposureRiskMetadata] {
 		guard let storedUsageData = store.currentRiskExposureMetadata else {
 			return []
 		}
@@ -371,7 +375,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}]
 	}
 	
-	private func gatherNewExposureWindows() -> [SAP_Internal_Ppdd_PPANewExposureWindow] {
+	func gatherNewExposureWindows() -> [SAP_Internal_Ppdd_PPANewExposureWindow] {
 		guard let exposureWindowsMetadata = store.exposureWindowsMetadata else {
 			return []
 		}
@@ -403,7 +407,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		return exposureWindowsMetadataProto
 	}
 	
-	private func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
+	func gatherUserMetadata() -> SAP_Internal_Ppdd_PPAUserMetadata {
 		// According to the tech spec, grap the user metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
 		store.userMetadata = store.userData
 		guard let storedUserData = store.userMetadata else {
@@ -423,7 +427,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 	}
 	
-	private func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
+	func gatherClientMetadata() -> SAP_Internal_Ppdd_PPAClientMetadataIOS {
 		// According to the tech spec, grap the client metadata right before the submission. We do not use "Analytics.collect()" here because we are probably already inside this call. So if we would use the call here, we could produce a infinite loop.
 		let eTag = store.appConfigMetadata?.lastAppConfigETag
 		store.clientMetadata = ClientMetadata(etag: eTag)
@@ -444,7 +448,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	}
 	
 	// swiftlint:disable:next cyclomatic_complexity
-	private func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
+	func gatherKeySubmissionMetadata() -> [SAP_Internal_Ppdd_PPAKeySubmissionMetadata] {
 		guard let storedUsageData = store.keySubmissionMetadata else {
 			return []
 		}
@@ -483,7 +487,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}]
 	}
 	
-	private func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
+	func gatherTestResultMetadata() -> [SAP_Internal_Ppdd_PPATestResultMetadata] {
 		let metadata = store.testResultMetadata
 		
 		let resultProtobuf = SAP_Internal_Ppdd_PPATestResultMetadata.with {
@@ -491,7 +495,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 			if let testResult = metadata?.testResult?.protobuf {
 				$0.testResult = testResult
 			}
-			if let hoursSinceTestRegistration = metadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration {
+			if let hoursSinceTestRegistration = metadata?.hoursSinceTestRegistration {
 				$0.hoursSinceTestRegistration = Int32(hoursSinceTestRegistration)
 			}
 			if let riskLevel = metadata?.riskLevelAtTestRegistration?.protobuf {

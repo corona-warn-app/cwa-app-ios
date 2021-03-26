@@ -12,12 +12,10 @@ final class HTTPClient: Client {
 
 	init(
 		serverEnvironmentProvider: ServerEnvironmentProviding,
-		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
 		session: URLSession = .coronaWarnSession()
 	) {
 		self.serverEnvironmentProvider = serverEnvironmentProvider
 		self.session = session
-		self.packageVerifier = packageVerifier
 	}
 
 	// MARK: - Overrides
@@ -406,7 +404,6 @@ final class HTTPClient: Client {
 
 	private let serverEnvironmentProvider: ServerEnvironmentProviding
 	private let session: URLSession
-	private let packageVerifier: SAPDownloadedPackage.Verification
 	private var fetchDayRetries: [URL: Int] = [:]
 	private var traceWarningPackageDownloadRetries: [URL: Int] = [:]
 
@@ -584,7 +581,7 @@ final class HTTPClient: Client {
 				
 				guard let self = self else {
 					Log.error("TraceWarningDownload failed due to strong self creation", log: .api)
-					completion(.failure(.downloadError))
+					completion(.failure(.generalError))
 					return
 				}
 				
@@ -956,6 +953,5 @@ private extension URLRequest {
 		guard let data = (String.getRandomString(of: 28 * paddedKeysAmount)).data(using: .ascii) else { return Data() }
 		return data
 	}
-
 	// swiftlint:disable:next file_length
 }

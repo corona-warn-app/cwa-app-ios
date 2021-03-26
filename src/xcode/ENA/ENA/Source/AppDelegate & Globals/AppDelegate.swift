@@ -188,6 +188,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			wifiClient: wifiClient,
 			store: store
 		)
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: client,
+			store: store,
+			eventStore: eventStore
+		)
 
 		#if !RELEASE
 		return RiskProvider(
@@ -197,6 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureManagerState: exposureManager.exposureManagerState,
 			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#else
@@ -206,6 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#endif

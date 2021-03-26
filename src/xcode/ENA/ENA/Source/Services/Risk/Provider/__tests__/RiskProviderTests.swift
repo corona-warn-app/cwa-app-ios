@@ -24,13 +24,15 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
 
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -70,14 +72,15 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-
+		let cachedAppConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -138,14 +141,16 @@ final class RiskProviderTests: XCTestCase {
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 1
 		appConfig.exposureDetectionParameters = parameters
-
+		
+		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -178,14 +183,15 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
-
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -229,14 +235,16 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .failure(DummyError()))
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -280,14 +288,16 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -331,14 +341,16 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -594,14 +606,17 @@ final class RiskProviderTests: XCTestCase {
 
 		let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore.inMemory()
 		downloadedPackagesStore.open()
+		
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
 
 		return RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			appConfigurationProvider: appConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -617,6 +632,16 @@ final class RiskProviderTests: XCTestCase {
 			client: client,
 			wifiClient: client,
 			store: store
+		)
+	}
+	
+	private func makeTraceWarningPackageDownloadMock(with store: Store, appConfig: CachedAppConfigurationMock) -> TraceWarningPackageDownload {
+		let mockEventStore = MockEventStore()
+		let client = ClientMock()
+		return TraceWarningPackageDownload(
+			client: client,
+			store: store,
+			eventStore: mockEventStore
 		)
 	}
 
@@ -659,6 +684,7 @@ final class RiskProviderTests: XCTestCase {
 			wifiClient: client,
 			store: store
 		)
+
 		return RiskProvider(
 			configuration: config,
 			store: store,
@@ -666,6 +692,7 @@ final class RiskProviderTests: XCTestCase {
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(riskLevel: newRiskLevel),
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 	}
@@ -724,14 +751,16 @@ final class RiskProviderTests: XCTestCase {
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.exposureDetectionParameters = parameters
+		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -801,14 +830,16 @@ final class RiskProviderTests: XCTestCase {
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.exposureDetectionParameters = parameters
-
+		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
+		
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -879,14 +910,16 @@ final class RiskProviderTests: XCTestCase {
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.exposureDetectionParameters = parameters
-
+		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
+		
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
@@ -956,14 +989,16 @@ final class RiskProviderTests: XCTestCase {
 		var parameters = SAP_Internal_V2_ExposureDetectionParametersIOS()
 		parameters.maxExposureDetectionsPerInterval = 6
 		appConfig.exposureDetectionParameters = parameters
+		let cachedAppConfig = CachedAppConfigurationMock(with: appConfig)
 
 		let riskProvider = RiskProvider(
 			configuration: config,
 			store: store,
-			appConfigurationProvider: CachedAppConfigurationMock(with: appConfig),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
 			riskCalculation: RiskCalculationFake(),
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: cachedAppConfig),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
 		)
 
