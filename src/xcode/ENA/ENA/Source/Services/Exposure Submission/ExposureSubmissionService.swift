@@ -167,7 +167,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		let checkins = raw🐓.reduce([Checkin]()) { _, checkin -> [Checkin] in
 			css.split(checkin)
 		}
-		let convertedCheckIns = checkins.compactMap { $0.prepareForSubmission() }
+		let convertedCheckIns = checkins.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
+			do {
+				return try checkin.prepareForSubmission()
+			} catch {
+				Log.error("Checkin conversion error", log: .checkin, error: error)
+				return nil
+			}
+		}
 
 		// Request needs to be prepended by the fake request.
 		_fakeVerificationServerRequest(completion: { _ in
