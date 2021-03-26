@@ -273,9 +273,6 @@ class TraceWarningPackageDownloadTests: XCTestCase {
 		// THEN
 		waitForExpectations(timeout: .medium)
 		XCTAssertEqual(responseCodeError, .invalidResponseError(404))
-		let someTimeAgo = Calendar.current.date(byAdding: .second, value: -20, to: Date())
-		let someTimeAgoTimeRange = try XCTUnwrap(someTimeAgo)...Date()
-		XCTAssertFalse(someTimeAgoTimeRange.contains(try XCTUnwrap(store.lastTraceWarningPackageDownloadDate)))
 	}
 	
 	func testGIVEN_TraceWarningDownload_WHEN_NoEarliestPackageFound_THEN_NoEarliestRelevantPackageError() {

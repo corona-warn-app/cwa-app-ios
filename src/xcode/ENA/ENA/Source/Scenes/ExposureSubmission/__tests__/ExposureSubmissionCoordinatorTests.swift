@@ -165,6 +165,6 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		store.positiveTestResultWasShown = true
 
 		let positive = coordinator.getInitialViewController(with: .positive)
-		XCTAssertTrue(positive.self is ExposureSubmissionWarnOthersViewController)
+		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)
 	}
 }

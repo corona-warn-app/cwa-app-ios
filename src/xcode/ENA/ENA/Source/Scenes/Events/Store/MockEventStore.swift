@@ -87,11 +87,9 @@ class MockEventStore: EventStoring, EventProviding {
 	}
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult {
-		let id = metadata.id
-		let traceWarningPackageMetadata = metadata.updatedWith(id: id)
-		traceWarningPackageMetadatasPublisher.value.append(traceWarningPackageMetadata)
-		return .success(id)
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.VoidResult {
+		traceWarningPackageMetadatasPublisher.value.append(metadata)
+		return .success(())
 	}
 
 	@discardableResult
