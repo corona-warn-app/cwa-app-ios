@@ -33,8 +33,22 @@ extension Checkin {
 }
 
 extension Checkin {
-	func prepareForSubmission() -> SAP_Internal_Pt_CheckIn? {
-		#warning("not implemented")
-		return nil
+	func prepareForSubmission() throws -> SAP_Internal_Pt_CheckIn {
+		var checkin = SAP_Internal_Pt_CheckIn()
+		checkin.startIntervalNumber = self.checkinEndDate
+		checkin.endIntervalNumber = 0
+
+		try checkin.signedLocation = {
+			var signed = SAP_Internal_Pt_SignedTraceLocation()
+			signed.location = try {
+				var loc = SAP_Internal_Pt_TraceLocation()
+				// ...
+				return try loc.serializedData()
+			}()
+			signed.signature = Data() // TODO
+			// ...
+			return signed
+		}()
+		return checkin
 	}
 }
