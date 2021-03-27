@@ -72,7 +72,7 @@ extension Checkin {
 			return signed
 		}()
 
-		checkin.transmissionRiskLevel = 42 // TODO: dummy value
+		checkin.transmissionRiskLevel = 42 // TODO: currently calculated outside this function
 		return checkin
 	}
 
@@ -85,7 +85,7 @@ extension Checkin {
 		guard
 			let match = matches.first(where: { $0.traceLocationGUID == traceLocationGUID })
 		else { return 0 }
-
+		
 		let maxStart = max(checkinStartDate.timeIntervalSince1970, Double(match.startIntervalNumber) * Checkin.INTERVAL_LENGTH)
 		let minEnd = max(checkinEndDate.timeIntervalSince1970, Double(match.endIntervalNumber) * Checkin.INTERVAL_LENGTH)
 		return Int(minEnd - maxStart)
