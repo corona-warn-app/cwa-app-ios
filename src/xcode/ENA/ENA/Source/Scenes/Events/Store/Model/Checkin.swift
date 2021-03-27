@@ -22,6 +22,7 @@ struct Checkin: Equatable {
 	let checkinCompleted: Bool
 	let createJournalEntry: Bool
 
+	var overlapInSeconds: Int = 0
 }
 
 extension Checkin {
@@ -32,7 +33,12 @@ extension Checkin {
 	}
 }
 
+// MARK: - Submission handling
+
 extension Checkin {
+
+	/// a 10 minute interval
+	private static let INTERVAL_LENGTH: TimeInterval = 600
 
 	/// Extract and return the  trace location of the current checkin
 	var traceLocation: SAP_Internal_Pt_TraceLocation {
@@ -55,8 +61,8 @@ extension Checkin {
 
 		// 10 minute time interval; derived from the unix timestamps
 		// see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#derive-10-minute-interval-from-timestamp
-		checkin.startIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / 600)
-		checkin.endIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / 600)
+		checkin.startIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
+		checkin.endIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
 		assert(checkin.startIntervalNumber < checkin.endIntervalNumber)
 
 		try checkin.signedLocation = {
@@ -68,5 +74,26 @@ extension Checkin {
 
 		checkin.transmissionRiskLevel = 42 // TODO: dummy value
 		return checkin
+	}
+
+	/// Caculates the overlap of the current checkin with a `TraceTimeIntervalMatch`, if existing.
+	///
+	/// For details please refer to [the specification](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#calculate-overlap-of-checkin-and-tracetimeintervalwarning).
+	/// - Parameter matches: The list of `TraceTimeIntervalMatch` to compare to
+	/// - Returns: The overlap in seconds; `0` if no match references to this checkin
+	func calculateOverlap(with matches: [TraceTimeIntervalMatch]) -> Int {
+		guard
+			let match = matches.first(where: { $0.traceLocationGUID == traceLocationGUID })
+		else { return 0 }
+
+		let maxStart = max(checkinStartDate.timeIntervalSince1970, Double(match.startIntervalNumber) * Checkin.INTERVAL_LENGTH)
+		let minEnd = max(checkinEndDate.timeIntervalSince1970, Double(match.endIntervalNumber) * Checkin.INTERVAL_LENGTH)
+		return Int(minEnd - maxStart)
+	}
+
+	/// Calculate and apply overlap to current checkin
+	/// - Parameter matches: The list of `TraceTimeIntervalMatch` to compare to
+	mutating func updateOverlap(with matches: [TraceTimeIntervalMatch]) {
+		overlapInSeconds = calculateOverlap(with: matches)
 	}
 }

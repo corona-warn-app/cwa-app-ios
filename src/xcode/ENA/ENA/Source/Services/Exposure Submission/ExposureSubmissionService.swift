@@ -6,8 +6,6 @@ import ExposureNotification
 import Foundation
 import OpenCombine
 
-// swiftlint:disable type_body_length
-
 /// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
 /// around the exposure submission process.
 /// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
@@ -156,24 +154,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
+		// Fetch & process keys and checkins
 		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
-
-		// Fetch & process checkins
-		let eventStore = EventStore(url: EventStore.storeURL)
-		let raw🐓 = eventStore?.checkinsPublisher.value ?? []
-
-		// Split checkins per day
-		let css = CheckinSplittingService()
-		let checkins = raw🐓.reduce([Checkin]()) { _, checkin -> [Checkin] in
-			css.split(checkin)
-		}.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
-			do {
-				return try checkin.prepareForSubmission()
-			} catch {
-				Log.error("Checkin conversion error", log: .checkin, error: error)
-				return nil
-			}
-		}
+		let checkins = preparedCheckinsForSubmission()
 
 		// Request needs to be prepended by the fake request.
 		_fakeVerificationServerRequest(completion: { _ in
@@ -554,5 +537,3 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 }
-
-// swiftlint:enable type_body_length

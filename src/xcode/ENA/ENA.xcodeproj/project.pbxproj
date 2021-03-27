@@ -325,6 +325,7 @@
 		354E305924EFF26E00526C9F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354E305824EFF26E00526C9F /* Country.swift */; };
 		356153AD257FA8A300F6CD4D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		356FBF49255EC27A00959346 /* CacheAppConfigMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */; };
+		35714896260F85E4007DE1CA /* ExposureSubmissionService+CheckinSubmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35714895260F85E4007DE1CA /* ExposureSubmissionService+CheckinSubmission.swift */; };
 		357B1858255A7F5C00584548 /* AppConfig+CacheInvalidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */; };
 		358249EE25E910AF00BFF303 /* LogDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358249EA25E910AF00BFF303 /* LogDataItem.swift */; };
 		358249EF25E910AF00BFF303 /* DMLogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358249EB25E910AF00BFF303 /* DMLogsViewController.swift */; };
@@ -1298,6 +1299,7 @@
 		354BB49925B07DB000FBCFEE /* StatisticsProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsProviding.swift; sourceTree = "<group>"; };
 		354E305824EFF26E00526C9F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		356FBF48255EC27A00959346 /* CacheAppConfigMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheAppConfigMockTests.swift; sourceTree = "<group>"; };
+		35714895260F85E4007DE1CA /* ExposureSubmissionService+CheckinSubmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureSubmissionService+CheckinSubmission.swift"; sourceTree = "<group>"; };
 		357B1857255A7F5C00584548 /* AppConfig+CacheInvalidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppConfig+CacheInvalidation.swift"; sourceTree = "<group>"; };
 		358249EA25E910AF00BFF303 /* LogDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDataItem.swift; sourceTree = "<group>"; };
 		358249EB25E910AF00BFF303 /* DMLogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMLogsViewController.swift; sourceTree = "<group>"; };
@@ -2751,6 +2753,7 @@
 				2FA9E39624D2F3C60030561C /* ExposureSubmissionError.swift */,
 				2FA9E39824D2F4350030561C /* ExposureSubmission+ErrorParsing.swift */,
 				2FA9E39A24D2F4A10030561C /* ExposureSubmissionService+Protocol.swift */,
+				35714895260F85E4007DE1CA /* ExposureSubmissionService+CheckinSubmission.swift */,
 			);
 			path = "Exposure Submission";
 			sourceTree = "<group>";
@@ -6087,6 +6090,7 @@
 				358249EF25E910AF00BFF303 /* DMLogsViewController.swift in Sources */,
 				01A4DD0325926A6A007D5794 /* HomeTextItemViewModel.swift in Sources */,
 				34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */,
+				35714896260F85E4007DE1CA /* ExposureSubmissionService+CheckinSubmission.swift in Sources */,
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
 				AB190E9E25FB684F00FBFF0D /* DeleteAllCheckins.swift in Sources */,
 				ABE9613A25EFEBE800D0F699 /* DaysSinceInstallTableViewCell.swift in Sources */,
