@@ -580,8 +580,8 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			FooterViewModel(
 				primaryButtonName: AppStrings.ThankYouScreen.continueButton,
 				secondaryButtonName: AppStrings.ThankYouScreen.cancelButton,
-				primaryIdentifier: AccessibilityIdentifiers.ThankYouScreen.continueButton,
-				secondaryIdentifier: AccessibilityIdentifiers.ThankYouScreen.closeButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: true
 			)

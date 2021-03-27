@@ -354,8 +354,6 @@ enum AccessibilityIdentifiers {
 	
 	enum ThankYouScreen {
 		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
-		static let continueButton = "AppStrings.ThankYouScreen.continueButton"
-		static let closeButton = "AppStrings.ThankYouScreen.closeButton"
 	}
 	
 	enum Statistics {

@@ -399,7 +399,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 	
@@ -456,7 +456,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
@@ -580,12 +580,12 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		// Open Thank You screen.
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ThankYouScreen.continueButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
-		app.buttons["AppStrings.ThankYouScreen.closeButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
-		app.buttons["AppStrings.ThankYouScreen.closeButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.firstMatch.tap() // no
 		
@@ -632,15 +632,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
-		app.buttons["AppStrings.ThankYouScreen.continueButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		
-		app.buttons["AppStrings.ThankYouScreen.closeButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.element(boundBy: 1).tap() // no
-		app.buttons["AppStrings.ThankYouScreen.closeButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons.firstMatch.tap() // yes
@@ -753,7 +753,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		snapshot("submissionflow_screenshot_thank_you_screen")
 
-		app.buttons["AppStrings.ThankYouScreen.closeButton"].tap()
+		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 		app.alerts.firstMatch.buttons.element(boundBy: 0).tap()
 
 		// Back to homescreen
