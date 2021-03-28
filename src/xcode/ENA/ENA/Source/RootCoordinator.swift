@@ -120,8 +120,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 	func showEvent(_ guid: String) {
 		let checkInNavigationController = checkInCoordinator.viewController
-		guard checkInNavigationController.topViewController as? UITableViewController != nil,
-			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 		tabBarController.selectedIndex = index
