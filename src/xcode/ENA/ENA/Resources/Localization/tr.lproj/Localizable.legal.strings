@@ -109,19 +109,19 @@
 
 /* Checkin */
 
-"Checkin_Information_Legal_Headline_1" = "Ihr Einverständnis";
+"Checkin_Information_Legal_Headline_1" = "Rıza beyanınız";
 
-"Checkin_Information_Legal_SubHeadline_1" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"Checkin_Information_Legal_SubHeadline_1" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
-"Checkin_Information_Legal_Text_1_bold" = "Die App merkt sich für 16 Tage, bei welchen Events oder Orten Sie sich eingecheckt haben.";
+"Checkin_Information_Legal_Text_1_bold" = "Uygulama, 16 gün boyunca hangi olaylarda veya konumlarda giriş denetimi yaptırdığınızı hatırlar.";
 
-"Checkin_Information_Legal_Text_1_normal" = "Wenn Sie einen QR-Code einscannen, um sich einzuchecken, wird auf Ihrem Smartphone ein Eintrag für das Event oder den Ort angelegt.";
+"Checkin_Information_Legal_Text_1_normal" = "Bir giriş denetimi sırasında QR kodu taradığınızda, akıllı telefonunuzda olay veya konum için bir veri girişi oluşturulur.";
 
-"Checkin_Information_Legal_Text_2" = "Wenn ein zeitgleich mit Ihnen eingecheckter Nutzer später positiv getestet wird und eine Warnung auslöst, werden Sie automatisch anhand der Event-ID gewarnt – auch wenn Ihr Smartphone keine Zufalls-IDs des positiv getesteten Nutzers empfangen hat.";
+"Checkin_Information_Legal_Text_2" = "Sizinle birlikte giriş denetimi yapan bir kullanıcının daha sonraki testi pozitif çıkarsa ve kendisi bir uyarı tetiklerse, akıllı telefonunuz testi pozitif çıkan bu kullanıcıdan rastgele kimlik numaraları almamış olsa bile, olay kimliği üzerinden otomatik olarak uyarılırsınız.";
 
-"Checkin_Information_Legal_Text_3" = "Falls Sie später selbst eine Warnung auslösen, werden automatisch alle anderen Nutzer, die zeitgleich mit Ihnen bei einem unter „Meine Check-ins“ eingetragenen Event oder Ort eingecheckt waren, anhand der Event-ID gewarnt.";
+"Checkin_Information_Legal_Text_3" = "Eğer kendiniz daha sonra bir uyarıyı tetiklerseniz, “Giriş denetimlerim” altında girilen bir olay veya konumda sizinle eş zamanlı giriş yapmış olan diğer tüm kullanıcılar, olay kimliği üzerinden otomatik olarak uyarılacaktır.";
 
-"Checkin_Information_Legal_SubHeadline_2" = "Unter „Meine Check-ins“ können Sie einen Check-in jederzeit löschen. In diesem Fall werden Sie nur gewarnt, wenn Ihr Smartphone die Zufalls-IDs des positiv getesteten Nutzers empfangen und eine Risiko-Begegnung ermittelt hat.";
+"Checkin_Information_Legal_SubHeadline_2" = "“Giriş denetimlerim” altındaki bir giriş denetimini istediğiniz zaman silebilirsiniz.  Bu durumda akıllı telefonunuz yalnızca, bir riskli karşılaşmada testi pozitif çıkan bir kullanıcının rastgele kimlik numaralarını alırsa uyarılırsınız.";
 
 /* TraceLocation */
 
