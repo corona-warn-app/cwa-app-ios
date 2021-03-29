@@ -50,6 +50,9 @@ final class EditCheckinDetailViewModel {
 	let checkInStartCellModel: CheckInTimeModel
 	let checkInEndCellModel: CheckInTimeModel
 
+	private (set) var startDate: Date
+	private (set) var endDate: Date
+
 	@OpenCombine.Published private(set) var isStartDatePickerVisible: Bool = false
 	@OpenCombine.Published private(set) var isEndDatePickerVisible: Bool = false
 
@@ -106,9 +109,6 @@ final class EditCheckinDetailViewModel {
 	private let checkIn: Checkin
 	private let eventStore: EventStoring
 	private var subscriptions = Set<AnyCancellable>()
-
-	private (set) var startDate: Date
-	private (set) var endDate: Date
 
 	private var isDirty: Bool {
 		return checkIn.checkinStartDate != startDate || checkIn.checkinEndDate != endDate

@@ -823,6 +823,7 @@
 		BA9E4B0125B5DFCB00F284EF /* RiskLevelPerDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E5C3925B5CF5D00C219DE /* RiskLevelPerDay.swift */; };
 		BAA19D652612151B00CBBDDD /* CheckInTimeModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA19D642612151B00CBBDDD /* CheckInTimeModelTests.swift */; };
 		BAA19D6D2612184E00CBBDDD /* CheckInDescriptionCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA19D6C2612184E00CBBDDD /* CheckInDescriptionCellModelTests.swift */; };
+		BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA19D7226121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift */; };
 		BAA4D71825E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D71725E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift */; };
 		BAA4D71D25E94D6000821B5C /* UIImage+resizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D71C25E94D6000821B5C /* UIImage+resizeTests.swift */; };
 		BAA4D72225E9501E00821B5C /* EUSettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */; };
@@ -1830,6 +1831,7 @@
 		BA9DD53E2567BDAC00C326FF /* TestResultAvailableViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultAvailableViewModelTest.swift; sourceTree = "<group>"; };
 		BAA19D642612151B00CBBDDD /* CheckInTimeModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInTimeModelTests.swift; sourceTree = "<group>"; };
 		BAA19D6C2612184E00CBBDDD /* CheckInDescriptionCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInDescriptionCellModelTests.swift; sourceTree = "<group>"; };
+		BAA19D7226121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCheckinDetailViewModelTests.swift; sourceTree = "<group>"; };
 		BAA4D71725E94BBB00821B5C /* Sequence+NSAttributedTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+NSAttributedTextTests.swift"; sourceTree = "<group>"; };
 		BAA4D71C25E94D6000821B5C /* UIImage+resizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+resizeTests.swift"; sourceTree = "<group>"; };
 		BAA4D72125E9501E00821B5C /* EUSettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EUSettingsViewModelTests.swift; sourceTree = "<group>"; };
@@ -5155,6 +5157,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		BAA19D7126121AB800CBBDDD /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				BAA19D7226121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		BAA4D72E25E95B1D00821B5C /* Checkin */ = {
 			isa = PBXGroup;
 			children = (
@@ -5296,6 +5306,7 @@
 		BADD36DE260B4FBA00DD282A /* EditCheckInTime */ = {
 			isa = PBXGroup;
 			children = (
+				BAA19D7126121AB800CBBDDD /* __tests__ */,
 				BADD36DF260B4FBA00DD282A /* EditCheckinDetailViewModel.swift */,
 				BADD36E3260B4FBA00DD282A /* EditCheckinDetailViewController.swift */,
 				BADD36E0260B4FBA00DD282A /* Cells */,
@@ -6576,6 +6587,7 @@
 				BAFBF36925ADE0F1003F5DC2 /* HomeInfoCellModelTests.swift in Sources */,
 				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				940109F225DFB5EF0017355C /* DiaryDayNotesInfoViewModelTest.swift in Sources */,
+				BAA19D7326121ACC00CBBDDD /* EditCheckinDetailViewModelTests.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				50C029AB25E4068D00460FA4 /* TestResultMetadataTests.swift in Sources */,
