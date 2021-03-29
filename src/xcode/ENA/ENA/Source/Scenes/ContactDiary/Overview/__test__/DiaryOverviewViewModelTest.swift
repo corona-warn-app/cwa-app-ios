@@ -105,6 +105,21 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		// THEN
 		XCTAssertEqual(diaryOverviewDayCellModel.historyExposure, .none)
 	}
+	
+	func testGIVEN_DiaryOverviewViewModel_WHEN_noneCheckinsWithRiskInStore_THEN_EmptyCheckinWithRiskIsReturned() {
+		// GIVEN
+		let viewModel = DiaryOverviewViewModel(
+			diaryStore: makeMockStore(),
+			store: MockTestStore(),
+			eventStore: MockEventStore()
+		)
+
+		// WHEN
+		let diaryOverviewDayCellModel = viewModel.cellModel(for: IndexPath(row: 4, section: 0))
+
+		// THEN
+		XCTAssertTrue(diaryOverviewDayCellModel.checkinsWithRisk.isEmpty)
+	}
 
 	func testGIVEN_DiaryOverviewViewModel_WHEN_lowHistoryExposureIsInStore_THEN_LowHistoryExposureIsReturned() throws {
 
@@ -184,6 +199,51 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		XCTAssertEqual(diaryOverviewDayCellModel.historyExposure, .encounter(.high))
 		XCTAssertEqual(diaryOverviewDayCellModelNone.historyExposure, .none)
 
+	}
+	
+	func testGIVEN_DiaryOverviewViewModel_WHEN_someCheckinsWithRiskAreInStore_THEN_CheckinsWithRiskAreReturned() throws {
+
+		// GIVEN
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+
+		let todayString = dateFormatter.string(from: Date())
+		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
+
+		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+		let todayMinus5DaysString = dateFormatter.string(from: wrongFormattedTodayMinus5Days)
+		let todayMinus5Days = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
+		
+		let eventStore = MockEventStore()
+		
+		guard case .success(let checkinId1) = eventStore.createCheckin(Checkin.mock()) else {
+			XCTFail("Success result expected.")
+			return
+		}
+		guard case .success(let checkinId2) = eventStore.createCheckin(Checkin.mock()) else {
+			XCTFail("Success result expected.")
+			return
+		}
+		let store = MockTestStore()
+
+		let checkinOne = CheckinIdWithRisk(checkinId: checkinId1, riskLevel: .low)
+		let checkinTwo = CheckinIdWithRisk(checkinId: checkinId2, riskLevel: .high)
+		let checkinRiskCalculation = CheckinRiskCalculationResult(
+			checkinIdsWithRiskPerDate: [todayMinus5Days: [checkinOne, checkinTwo]],
+			riskLevelPerDate: [:]
+		)
+		
+		store.checkinRiskCalculationResult = checkinRiskCalculation
+		let viewModel = DiaryOverviewViewModel(
+			diaryStore: makeMockStore(),
+			store: store,
+			eventStore: eventStore
+		)
+
+		// WHEN
+		let diaryOverviewDayCellModel = viewModel.cellModel(for: IndexPath(row: 5, section: 0))
+
+		// THEN
+		XCTAssertEqual(diaryOverviewDayCellModel.checkinsWithRisk.count, 2)
 	}
 
 	// MARK: - Private Helpers

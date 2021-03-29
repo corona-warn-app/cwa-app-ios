@@ -124,25 +124,37 @@ final class DiaryOverviewDayCellModel {
 	}
 	
 	var checkinImage: UIImage? {
-		return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
-			UIImage(imageLiteralResourceName: "Icons_Attention_high") :
-			UIImage(imageLiteralResourceName: "Icons_Attention_low")
+		if checkinsWithRisk.isEmpty {
+			return nil
+		} else {
+			return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
+				UIImage(imageLiteralResourceName: "Icons_Attention_high") :
+				UIImage(imageLiteralResourceName: "Icons_Attention_low")
+		}
 	}
 	
-	var checkinTitleHeadlineText: String {
-		return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
-			AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk :
-			AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk
+	var checkinTitleHeadlineText: String? {
+		if checkinsWithRisk.isEmpty {
+			return nil
+		} else {
+			return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
+				AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk :
+				AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk
+		}
 	}
 	
 	var checkinTitleAccessibilityIdentifier: String? {
-		return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
-			AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh :
-			AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow
+		if checkinsWithRisk.isEmpty {
+			return nil
+		} else {
+			return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
+				AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh :
+				AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow
+		}
 	}
 	
-	var checkinDetailDescription: String {
-		return AppStrings.ContactDiary.Overview.CheckinEncounter.titleSubheadline
+	var checkinDetailDescription: String? {
+		return checkinsWithRisk.isEmpty ? nil: AppStrings.ContactDiary.Overview.CheckinEncounter.titleSubheadline
 	}
 	
 	var isSinlgeRiskyCheckin: Bool {
