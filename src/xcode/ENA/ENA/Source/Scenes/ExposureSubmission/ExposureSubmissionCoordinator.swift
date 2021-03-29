@@ -632,6 +632,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true
 			)
@@ -663,6 +664,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionSymptomsOnset.continueButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
 				isPrimaryButtonHidden: false,

@@ -79,6 +79,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 				selectedSymptomsOption = .yes
 				let footerViewModel = FooterViewModel(
 					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
+					primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 					isSecondaryButtonEnabled: false,
 					isSecondaryButtonHidden: true
 				)
@@ -87,6 +88,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 				selectedSymptomsOption = .no
 				let footerViewModel = FooterViewModel(
 					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton,
+					primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 					isSecondaryButtonEnabled: false,
 					isSecondaryButtonHidden: true
 				)
@@ -95,6 +97,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 				selectedSymptomsOption = .preferNotToSay
 				let footerViewModel = FooterViewModel(
 					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton,
+					primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
 					isSecondaryButtonEnabled: false,
 					isSecondaryButtonHidden: true
 				)
