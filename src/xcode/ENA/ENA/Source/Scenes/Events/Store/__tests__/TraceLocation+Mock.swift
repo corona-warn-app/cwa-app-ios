@@ -8,7 +8,7 @@ import Foundation
 extension TraceLocation {
 
 	static func mock(
-		guid: String = "",
+		id: Data = Data(),
 		version: Int = 0,
 		type: TraceLocationType = .locationTypeUnspecified,
 		description: String = "",
@@ -16,11 +16,11 @@ extension TraceLocation {
 		startDate: Date? = nil,
 		endDate: Date? = nil,
 		defaultCheckInLengthInMinutes: Int? = nil,
-		byteRepresentation: Data = Data(),
-		signature: String = ""
+		cryptographicSeed: Data = Data(),
+		cnMainPublicKey: Data = Data()
 	) -> Self {
 		TraceLocation(
-			guid: guid,
+			id: id,
 			version: version,
 			type: type,
 			description: description,
@@ -28,8 +28,8 @@ extension TraceLocation {
 			startDate: startDate,
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
-			byteRepresentation: byteRepresentation,
-			signature: signature
+			cryptographicSeed: cryptographicSeed,
+			cnMainPublicKey: cnMainPublicKey
 		)
    }
 

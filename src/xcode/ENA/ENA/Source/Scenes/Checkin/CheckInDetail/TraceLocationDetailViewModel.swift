@@ -90,8 +90,8 @@ final class TraceLocationDetailViewModel {
 //		}
 //		let checkin: Checkin = Checkin(
 //			id: 0,
-//			traceLocationGUID: traceLocation.guid,
-//			traceLocationGUIDHash: guidHash,
+//			traceLocationId: traceLocation.guid,
+//			traceLocationIdHash: guidHash,
 //			traceLocationVersion: traceLocation.version,
 //			traceLocationType: traceLocation.type,
 //			traceLocationDescription: traceLocation.description,
@@ -131,7 +131,7 @@ final class TraceLocationDetailViewModel {
 			let guidData = try encoder.encode(guid)
 			return guidData.sha256()
 		} catch {
-			Log.error("traceLocationGUID Encoding error", log: .checkin, error: error)
+			Log.error("traceLocationId Encoding error", log: .checkin, error: error)
 			return nil
 		}
 	}
