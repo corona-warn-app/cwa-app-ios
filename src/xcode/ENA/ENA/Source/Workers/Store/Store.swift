@@ -110,10 +110,6 @@ protocol StoreProtocol: AnyObject {
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
 	
-	var checkinInfoScreenShown: Bool { get set }
-
-	var traceLocationsInfoScreenShown: Bool { get set }
-
 	func clearAll(key: String?)
 
 	#if !RELEASE
@@ -144,10 +140,6 @@ protocol StatisticsCaching: AnyObject {
 	var statistics: StatisticsMetadata? { get set }
 }
 
-protocol QRCodePosterTemplateCaching: AnyObject {
-	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
-}
-
 protocol PrivacyPreservingProviding: AnyObject {
 	/// A boolean storing if the user has already confirmed to collect and submit the data for PPA. By setting it, the existing anlytics data will be reset.
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool { get set }
@@ -161,5 +153,14 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
+protocol EventRegistrationCaching: AnyObject {
+	var checkinInfoScreenShown: Bool { get set }
+
+	var traceLocationsInfoScreenShown: Bool { get set }
+
+	var shouldAddCheckinToContactDiaryByDefault: Bool { get set }
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
+}
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, QRCodePosterTemplateCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching {}
