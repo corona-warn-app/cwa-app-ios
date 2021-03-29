@@ -98,7 +98,7 @@ class FooterViewController: UIViewController {
 	@objc
 	private func didHitSecondaryButton() {
 		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
-			didTapPrimaryButton()
+			didTapSecondaryButton()
 			return
 		}
 		footerViewHandler.didTapFooterViewButton(.secondary)

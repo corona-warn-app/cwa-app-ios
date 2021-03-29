@@ -243,8 +243,9 @@ class TraceLocationsCoordinator {
 	}
 	
 	private func showCheckInScreen(traceLocation: TraceLocation) {
+		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: store)
 		let checkinViewController = TraceLocationDetailViewController(
-			traceLocation,
+			viewModel,
 			dismiss: { [weak self] in
 				self?.parentNavigationController?.dismiss(animated: true)
 			}

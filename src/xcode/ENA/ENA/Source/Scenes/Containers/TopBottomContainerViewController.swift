@@ -76,7 +76,9 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
-			updateFooterViewModel(viewModel)
+			UIView.performWithoutAnimation {
+				self.updateFooterViewModel(viewModel)
+			}
 		}
 
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)

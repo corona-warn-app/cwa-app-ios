@@ -14,7 +14,7 @@ class TestResultMetadataTests: XCTestCase {
 		
 		let today = Date()
 		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = 5
-		let mostRecentDateHighRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today) ?? Date()
+		let mostRecentDateHighRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today)
 		let riskCalculationResult = mockRiskCalculationResult(risk: .high, mostRecentDateHighRisk: mostRecentDateHighRisk)
 		secureStore.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: today)
 		secureStore.riskCalculationResult = riskCalculationResult
@@ -41,7 +41,7 @@ class TestResultMetadataTests: XCTestCase {
 		
 		let today = Date()
 		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = 5
-		let mostRecentDateLowRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today) ?? Date()
+		let mostRecentDateLowRisk = Calendar.current.date(byAdding: .day, value: -expectedDaysSinceRecentAtRiskLevelAtTestRegistration, to: today)
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low, mostRecentDateLowRisk: mostRecentDateLowRisk)
 		secureStore.riskCalculationResult = riskCalculationResult
 
@@ -60,6 +60,31 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "incorrect hours")
 	}
 
+	func testRegisteringNewTestMetadata_NoRecentRiskDate() {
+		let secureStore = MockTestStore()
+		Analytics.setupMock(store: secureStore)
+		secureStore.isPrivacyPreservingAnalyticsConsentGiven = true
+		
+		let today = Date()
+		let expectedDaysSinceRecentAtRiskLevelAtTestRegistration = -1
+		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
+		secureStore.riskCalculationResult = riskCalculationResult
+
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(today, "")))
+
+		XCTAssertNotNil(secureStore.testResultMetadata, "The testResultMetadata should be initialized")
+		XCTAssertEqual(secureStore.testResultMetadata?.testRegistrationDate, today, "incorrect RegistrationDate")
+		XCTAssertEqual(secureStore.testResultMetadata?.riskLevelAtTestRegistration, riskCalculationResult.riskLevel, "incorrect risk level")
+		XCTAssertEqual(
+			secureStore.testResultMetadata?.daysSinceMostRecentDateAtRiskLevelAtTestRegistration,
+			expectedDaysSinceRecentAtRiskLevelAtTestRegistration,
+			"should be -1 if there is no recentDate for riskLevel"
+		)
+
+		// the for low risk the value should always be -1
+		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceHighRiskWarningAtTestRegistration, -1, "incorrect hours")
+	}
+	
 	func testUpdatingTestResult_ValidResult_NotPreviousTestResultStored() {
 		let secureStore = MockTestStore()
 		Analytics.setupMock(store: secureStore)
@@ -172,7 +197,7 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, .positive, "testResult should be updated")
 	}
 
-	private func mockRiskCalculationResult(risk: RiskLevel = .high, mostRecentDateHighRisk: Date = Date(), mostRecentDateLowRisk: Date = Date()) -> RiskCalculationResult {
+	private func mockRiskCalculationResult(risk: RiskLevel = .high, mostRecentDateHighRisk: Date? = nil, mostRecentDateLowRisk: Date? = nil) -> RiskCalculationResult {
 		RiskCalculationResult(
 			riskLevel: risk,
 			minimumDistinctEncountersWithLowRisk: 0,
