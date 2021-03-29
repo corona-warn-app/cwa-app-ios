@@ -2168,12 +2168,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocation_Information_PrimaryButton_Title" = "Weiter";
 
-"Home_TraceLocationsCard_Title" = "Sie planen eine Veranstaltung?";
-
-"Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
-
-"Home_TraceLocationsCard_Button" = "QR-Code erstellen";
-
 /* Checkout */
 
 "Checkout_Notification_Title" = "Sie wurden automatisch ausgecheckt.";

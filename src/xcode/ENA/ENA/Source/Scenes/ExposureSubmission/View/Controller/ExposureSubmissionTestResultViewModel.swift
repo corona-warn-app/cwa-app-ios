@@ -5,7 +5,6 @@
 import UIKit
 import OpenCombine
 
-// swiftlint:disable:next type_body_length
 class ExposureSubmissionTestResultViewModel {
 	
 	// MARK: - Init
@@ -39,6 +38,7 @@ class ExposureSubmissionTestResultViewModel {
 	@OpenCombine.Published var shouldShowDeletionConfirmationAlert: Bool = false
 	@OpenCombine.Published var error: ExposureSubmissionError?
 	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
+	@OpenCombine.Published var footerViewModel: FooterViewModel?
 
 	var testResult: TestResult {
 		didSet {
@@ -49,16 +49,6 @@ class ExposureSubmissionTestResultViewModel {
 	var timeStamp: Int64? {
 		exposureSubmissionService.devicePairingSuccessfulTimestamp
 	}
-	
-	lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-		
-		item.title = AppStrings.ExposureSubmissionResult.title
-		item.hidesBackButton = true
-		item.largeTitleDisplayMode = .always
-		
-		return item
-	}()
 	
 	func didTapPrimaryButton() {
 		switch testResult {
@@ -126,59 +116,17 @@ class ExposureSubmissionTestResultViewModel {
 
 	private var cancellables: Set<AnyCancellable> = []
 	
+	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
-			self.navigationFooterItem.isPrimaryButtonEnabled = !self.primaryButtonIsLoading
-			self.navigationFooterItem.isPrimaryButtonLoading = self.primaryButtonIsLoading
-			
-			self.navigationFooterItem.isSecondaryButtonEnabled = !self.primaryButtonIsLoading
+			footerViewModel?.setLoadingIndicator(primaryButtonIsLoading, disable: primaryButtonIsLoading, button: .primary)
+			footerViewModel?.setLoadingIndicator(false, disable: primaryButtonIsLoading, button: .secondary)
 		}
 	}
-	
-	private var secondaryButtonIsLoading: Bool = false {
-		didSet {
-			self.navigationFooterItem.isSecondaryButtonEnabled = !self.secondaryButtonIsLoading
-			self.navigationFooterItem.isSecondaryButtonLoading = self.secondaryButtonIsLoading
-			
-			self.navigationFooterItem.isPrimaryButtonEnabled = !self.secondaryButtonIsLoading
-		}
-	}
-	
+
 	private func updateForCurrentTestResult() {
 		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
-		updateButtons()
-	}
-	
-	private func updateButtons() {
-		// Make sure to reset buttons to default state.
-		navigationFooterItem.isPrimaryButtonLoading = false
-		navigationFooterItem.isPrimaryButtonEnabled = true
-		navigationFooterItem.isPrimaryButtonHidden = false
-		
-		navigationFooterItem.isSecondaryButtonLoading = false
-		navigationFooterItem.isSecondaryButtonEnabled = false
-		navigationFooterItem.isSecondaryButtonHidden = true
-		navigationFooterItem.secondaryButtonHasBorder = false
-		
-		switch testResult {
-		case .positive:
-			navigationFooterItem.primaryButtonTitle = isSubmissionConsentGiven ?
-				AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
-				AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle
-			navigationFooterItem.secondaryButtonTitle = isSubmissionConsentGiven ?
-				AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
-				AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle
-			navigationFooterItem.isSecondaryButtonEnabled = true
-			navigationFooterItem.isSecondaryButtonHidden = false
-			navigationFooterItem.secondaryButtonHasBackground = true
-		case .negative, .invalid, .expired:
-			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
-		case .pending:
-			navigationFooterItem.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
-			navigationFooterItem.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
-			navigationFooterItem.isSecondaryButtonEnabled = true
-			navigationFooterItem.isSecondaryButtonHidden = false
-		}
+		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(testResult: testResult, isSubmissionConsentGiven: isSubmissionConsentGiven)
 	}
 	
 	private func refreshTest(completion: @escaping () -> Void) {
@@ -408,13 +356,13 @@ class ExposureSubmissionTestResultViewModel {
 							guard let self = self else {
 								return
 							}
-							self.onSubmissionConsentCellTap { isLoading in
+							self.onSubmissionConsentCellTap { [weak self] isLoading in
 								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
 								cell?.isUserInteractionEnabled = !isLoading
-								self.navigationFooterItem.isPrimaryButtonEnabled = !isLoading
-								self.navigationFooterItem.isSecondaryButtonEnabled = !isLoading
+								self?.footerViewModel?.setLoadingIndicator(true, disable: isLoading, button: .primary)
+								self?.footerViewModel?.setLoadingIndicator(true, disable: isLoading, button: .secondary)
 							}
 						},
 						configure: { _, cell, _ in
@@ -477,4 +425,40 @@ class ExposureSubmissionTestResultViewModel {
 		}.store(in: &cancellables)
 	}
 
+}
+
+extension ExposureSubmissionTestResultViewModel {
+	
+	static func footerViewModel(testResult: TestResult, isSubmissionConsentGiven: Bool) -> FooterViewModel {
+		switch testResult {
+		case .positive:
+			return FooterViewModel(
+				primaryButtonName: isSubmissionConsentGiven ?
+					AppStrings.ExposureSubmissionPositiveTestResult.withConsentPrimaryButtonTitle :
+				 AppStrings.ExposureSubmissionPositiveTestResult.noConsentPrimaryButtonTitle,
+				secondaryButtonName: isSubmissionConsentGiven ?
+					AppStrings.ExposureSubmissionPositiveTestResult.withConsentSecondaryButtonTitle :
+					AppStrings.ExposureSubmissionPositiveTestResult.noConsentSecondaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: true,
+				isSecondaryButtonHidden: false
+			)
+		case .negative, .invalid, .expired:
+			return FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionResult.deleteButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		case .pending:
+			return FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionResult.refreshButton,
+				secondaryButtonName: AppStrings.ExposureSubmissionResult.deleteButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				secondaryButtonInverted: true
+			)
+		}
+	}
 }
