@@ -26,11 +26,6 @@ class TraceLocationsCoordinator {
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
 		
-		eventStore.createTraceLocation(tmpTraceLocation)
-		eventStore.createTraceLocation(tmpTraceLocation1)
-		eventStore.createTraceLocation(tmpTraceLocation2)
-		eventStore.createTraceLocation(tmpTraceLocation3)
-		
 		#if DEBUG
 		if isUITesting {
 			if let TraceLocationsInfoScreenShown = UserDefaults.standard.string(forKey: "TraceLocationsInfoScreenShown") {
@@ -49,11 +44,6 @@ class TraceLocationsCoordinator {
 	private let store: Store
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let eventStore: EventStoringProviding
-
-	private var tmpTraceLocation = TraceLocation(id: "0".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryPrivateEvent, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnMainPublicKey: Data())
-	private var tmpTraceLocation1 = TraceLocation(id: "1".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryOther, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnMainPublicKey: Data())
-	private var tmpTraceLocation2 = TraceLocation(id: "2".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryCulturalEvent, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnMainPublicKey: Data())
-	private var tmpTraceLocation3 = TraceLocation(id: "3".data(using: .utf8) ?? Data(), version: 0, type: .locationTypePermanentOther, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnMainPublicKey: Data())
 
 	private weak var parentNavigationController: UINavigationController?
 	
@@ -219,7 +209,10 @@ class TraceLocationsCoordinator {
 	
 	private func showTraceLocationConfigurationScreen(on navigationController: UINavigationController, mode: TraceLocationConfigurationViewModel.Mode) {
 		let traceLocationConfigurationViewController = TraceLocationConfigurationViewController(
-			viewModel: TraceLocationConfigurationViewModel(mode: mode),
+			viewModel: TraceLocationConfigurationViewModel(
+				mode: mode,
+				eventStore: eventStore
+			),
 			onDismiss: {
 				navigationController.dismiss(animated: true)
 			}
