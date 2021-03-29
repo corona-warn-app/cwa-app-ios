@@ -75,10 +75,12 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			]
 		)
 
-		footerViewModel?.$height.sink { [weak self] height in
-			self?.updateBottomHeight(height, animated: true)
+		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
+		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
+			UIView.performWithoutAnimation {
+				self.updateFooterViewModel(viewModel)
+			}
 		}
-		.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol DismissHandling

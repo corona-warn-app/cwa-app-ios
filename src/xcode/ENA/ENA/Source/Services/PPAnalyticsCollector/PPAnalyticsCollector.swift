@@ -205,7 +205,8 @@ enum PPAnalyticsCollector {
 			testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = daysSinceMostRecentDateAtRiskLevelAtTestRegistration
 			Log.debug("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: \(String(describing: daysSinceMostRecentDateAtRiskLevelAtTestRegistration))", log: .ppa)
 		} else {
-			Log.warning("Could not set daysSinceMostRecentDateAtRiskLevelAtTestRegistration because mostRecentDateWithCurrentRiskLevel is nil", log: .ppa)
+			testResultMetadata.daysSinceMostRecentDateAtRiskLevelAtTestRegistration = -1
+			Log.warning("daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1", log: .ppa)
 		}
 
 		Analytics.collect(.testResultMetadata(.create(testResultMetadata)))
