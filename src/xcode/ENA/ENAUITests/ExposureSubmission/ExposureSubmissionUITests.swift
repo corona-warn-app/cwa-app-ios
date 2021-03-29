@@ -664,7 +664,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open test result available screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		XCTAssertTrue(app.navigationBars["ENA.TestResultAvailableView"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .long))
 
 		snapshot("submissionflow_screenshot_test_result_available")
 	}
