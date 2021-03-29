@@ -82,7 +82,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Update TraceLocation with id: \(traceLocation.guid).", log: .localData)
+			Log.info("[EventStore] Update TraceLocation.", log: .localData)
 
 			let updateTraceLocationQuery = UpdateTraceLocationQuery(traceLocation: traceLocation, maxTextLength: maxTextLength)
 			result = executeTraceLocationQuery(updateTraceLocationQuery, in: database)
@@ -465,20 +465,20 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		do {
 			let queryResult = try database.executeQuery(sql, values: [])
-			var events = [TraceLocation]()
+			var traceLocations = [TraceLocation]()
 
 			while queryResult.next() {
-				guard let guid = queryResult.string(forColumn: "guid"),
-					  let description = queryResult.string(forColumn: "description"),
-					  let address = queryResult.string(forColumn: "address"),
-					  let signature = queryResult.string(forColumn: "signature") else {
+				guard let description = queryResult.string(forColumn: "description"),
+					  let address = queryResult.string(forColumn: "address") else {
 					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
 				}
 
 				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "byteRepresentation" is defined as NOT NULL, there should never be nil stored.
+				// Because of that, we map nil to empty Data. Because "id", "cryptographicSeed" and "cnMasterPublicKey" are defined as NOT NULL, there should never be nil stored.
 				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
-				let byteRepresentation = queryResult.data(forColumn: "byteRepresentation") ?? Data()
+				let id = queryResult.data(forColumn: "id") ?? Data()
+				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
+				let cnMainPublicKey = queryResult.data(forColumn: "cnMainPublicKey") ?? Data()
 
 				let version = Int(queryResult.int(forColumn: "version"))
 				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .locationTypeUnspecified
@@ -498,8 +498,8 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					defaultCheckInLengthInMinutes = _defaultCheckInLengthInMinutes
 				}
 
-				let event = TraceLocation(
-					guid: guid,
+				let traceLocation = TraceLocation(
+					id: id,
 					version: version,
 					type: type,
 					description: description,
@@ -507,14 +507,14 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					startDate: startDate,
 					endDate: endDate,
 					defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
-					byteRepresentation: byteRepresentation,
-					signature: signature
+					cryptographicSeed: cryptographicSeed,
+					cnMainPublicKey: cnMainPublicKey
 				)
 
-				events.append(event)
+				traceLocations.append(traceLocation)
 			}
 
-			traceLocationsPublisher.send(events)
+			traceLocationsPublisher.send(traceLocations)
 		} catch {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
@@ -536,17 +536,18 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			var checkins = [Checkin]()
 
 			while queryResult.next() {
-				guard let traceLocationGUID = queryResult.string(forColumn: "traceLocationGUID"),
-					  let traceLocationDescription = queryResult.string(forColumn: "traceLocationDescription"),
-					  let traceLocationAddress = queryResult.string(forColumn: "traceLocationAddress"),
-					  let traceLocationSignature = queryResult.string(forColumn: "traceLocationSignature") else {
+				guard let traceLocationDescription = queryResult.string(forColumn: "traceLocationDescription"),
+					  let traceLocationAddress = queryResult.string(forColumn: "traceLocationAddress") else {
 					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
 				}
 
 				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "traceLocationGUIDHash" is defined as NOT NULL, there should never be nil stored.
+				// Because of that, we map nil to empty Data. Because "traceLocationId", "traceLocationIdHash", "cryptographicSeed" and "cnMasterPublicKey" are defined as NOT NULL, there should never be nil stored.
 				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
-				let traceLocationGUIDHash = queryResult.data(forColumn: "traceLocationGUIDHash") ?? Data()
+				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
+				let traceLocationIdHash = queryResult.data(forColumn: "traceLocationIdHash") ?? Data()
+				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
+				let cnMainPublicKey = queryResult.data(forColumn: "cnMainPublicKey") ?? Data()
 
 				let id = Int(queryResult.int(forColumn: "id"))
 				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .locationTypeUnspecified
@@ -573,8 +574,8 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 				let checkin = Checkin(
 					id: id,
-					traceLocationGUID: traceLocationGUID,
-					traceLocationGUIDHash: traceLocationGUIDHash,
+					traceLocationId: traceLocationId,
+					traceLocationIdHash: traceLocationIdHash,
 					traceLocationVersion: traceLocationVersion,
 					traceLocationType: traceLocationType,
 					traceLocationDescription: traceLocationDescription,
@@ -582,7 +583,8 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					traceLocationStartDate: traceLocationStart,
 					traceLocationEndDate: traceLocationEnd,
 					traceLocationDefaultCheckInLengthInMinutes: traceLocationDefaultCheckInLengthInMinutes,
-					traceLocationSignature: traceLocationSignature,
+					cryptographicSeed: cryptographicSeed,
+					cnMainPublicKey: cnMainPublicKey,
 					checkinStartDate: checkinStartDate,
 					checkinEndDate: checkinEndDate,
 					checkinCompleted: checkinCompleted,
@@ -614,9 +616,6 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			var traceTimeIntervalMatches = [TraceTimeIntervalMatch]()
 
 			while queryResult.next() {
-				guard let traceLocationGUID = queryResult.string(forColumn: "traceLocationGUID") else {
-					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
-				}
 
 				let id = Int(queryResult.int(forColumn: "id"))
 				let checkinId = Int(queryResult.int(forColumn: "checkinId"))
@@ -625,12 +624,16 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				let startIntervalNumber = Int(queryResult.int(forColumn: "startIntervalNumber"))
 				let endIntervalNumber = Int(queryResult.int(forColumn: "endIntervalNumber"))
 
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "traceLocationId" is defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
 
 				let traceTimeIntervalMatch = TraceTimeIntervalMatch(
 					id: id,
 					checkinId: checkinId,
 					traceWarningPackageId: traceWarningPackageId,
-					traceLocationGUID: traceLocationGUID,
+					traceLocationId: traceLocationId,
 					transmissionRiskLevel: transmissionRiskLevel,
 					startIntervalNumber: startIntervalNumber,
 					endIntervalNumber: endIntervalNumber
