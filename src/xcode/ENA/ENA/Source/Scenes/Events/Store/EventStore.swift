@@ -474,7 +474,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				}
 
 				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "id", "cryptographicSeed" and "cnMasterPublicKey" are defined as NOT NULL, there should never be nil stored.
+				// Because of that, we map nil to empty Data. Because "id", "cryptographicSeed" and "cnMainPublicKey" are defined as NOT NULL, there should never be nil stored.
 				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
 				let id = queryResult.data(forColumn: "id") ?? Data()
 				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
@@ -542,7 +542,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				}
 
 				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "traceLocationId", "traceLocationIdHash", "cryptographicSeed" and "cnMasterPublicKey" are defined as NOT NULL, there should never be nil stored.
+				// Because of that, we map nil to empty Data. Because "traceLocationId", "traceLocationIdHash", "cryptographicSeed" and "cnMainPublicKey" are defined as NOT NULL, there should never be nil stored.
 				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
 				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
 				let traceLocationIdHash = queryResult.data(forColumn: "traceLocationIdHash") ?? Data()
