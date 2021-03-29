@@ -194,31 +194,31 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		view.endEditing(true)
 	}
 
-	@IBAction func descriptionTextFieldEditingDidBegin() {
+	@IBAction private func descriptionTextFieldEditingDidBegin() {
 		viewModel.collapseAllSections()
 	}
 
-	@IBAction func descriptionTextFieldEditingChanged(_ sender: ENATextField) {
+	@IBAction private func descriptionTextFieldEditingChanged(_ sender: ENATextField) {
 		viewModel.update(description: sender.text ?? "")
 	}
 
-	@IBAction func descriptionTextFieldPrimaryActionTriggered() {
+	@IBAction private func descriptionTextFieldPrimaryActionTriggered() {
 		addressTextField.becomeFirstResponder()
 	}
 
-	@IBAction func addressTextFieldEditingDidBegin() {
+	@IBAction private func addressTextFieldEditingDidBegin() {
 		viewModel.collapseAllSections()
 	}
 
-	@IBAction func addressTextFieldEditingChanged(_ sender: ENATextField) {
+	@IBAction private func addressTextFieldEditingChanged(_ sender: ENATextField) {
 		viewModel.update(address: sender.text ?? "")
 	}
 
-	@IBAction func addressTextFieldPrimaryActionTriggered() {
+	@IBAction private func addressTextFieldPrimaryActionTriggered() {
 		view.endEditing(true)
 	}
 
-	@IBAction func defaultCheckinLengthValueChanged(_ sender: UIDatePicker) {
+	@IBAction private func defaultCheckinLengthValueChanged(_ sender: UIDatePicker) {
 		viewModel.defaultCheckinLengthValueChanged(to: sender.countDownDuration)
 	}
 
@@ -233,7 +233,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		}
 	}
 
-	@IBAction func temporaryDefaultLengthSwitchToggled(_ sender: UISwitch) {
+	@IBAction private func temporaryDefaultLengthSwitchToggled(_ sender: UISwitch) {
 		viewModel.temporaryDefaultLengthSwitchSet(to: sender.isOn)
 	}
 
