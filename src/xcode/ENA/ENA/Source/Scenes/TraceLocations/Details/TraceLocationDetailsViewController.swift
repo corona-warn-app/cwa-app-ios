@@ -38,6 +38,11 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		setupTableView()
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		didCalculated = false
+	}
+
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
@@ -51,6 +56,18 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		}
 	}
 	
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		guard didCalculated == false,
+			indexPath == IndexPath(row: 0, section: TraceLocationDetailsViewModel.TableViewSections.qrCode.rawValue) else {
+			return
+		}
+
+		let cellRect = tableView.rectForRow(at: indexPath)
+		let result = view.convert(cellRect, from: tableView)
+		backGroundView.gradientHeightConstraint.constant = result.midY
+		didCalculated = true
+	}
+
 	// MARK: - UITableViewDataSource
 
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,7 +75,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return viewModel.numberOfRowsPerSection
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,6 +180,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 	private let onPrintVersionButtonTap: (PDFView) -> Void
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
+	private var didCalculated: Bool = false
 	private var subscriptions = [AnyCancellable]()
 	private var tableContentObserver: NSKeyValueObservation!
 

@@ -53,6 +53,11 @@ class TraceLocationDetailsViewModel {
 			return nil
 		}
 	}
+	
+	var numberOfRowsPerSection: Int {
+		// since every section has only one row
+		return 1
+	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {
 		qrCodePosterTemplateProvider.latestQRCodePosterTemplate()

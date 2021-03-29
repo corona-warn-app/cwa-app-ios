@@ -45,7 +45,7 @@ class GradientBackgroundView: UIView {
 		addSubview(gradientView)
 
 		topLayoutConstraint = gradientView.topAnchor.constraint(equalTo: topAnchor)
-		gradientHeightConstraint = gradientView.heightAnchor.constraint(equalToConstant: 350)
+		gradientHeightConstraint = gradientView.heightAnchor.constraint(equalToConstant: 150)
 		gradientHeightConstraint.priority = .defaultHigh
 		
 		NSLayoutConstraint.activate(
