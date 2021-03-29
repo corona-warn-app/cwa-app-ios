@@ -4,6 +4,7 @@
 
 import XCTest
 @testable import ENA
+import OpenCombine
 
 class EditCheckinDetailViewModelTests: XCTestCase {
 
@@ -65,6 +66,56 @@ class EditCheckinDetailViewModelTests: XCTestCase {
 		XCTAssertTrue(editCheckinDetailViewModel.isEndDatePickerVisible)
 		XCTAssertEqual(editCheckinDetailViewModel.numberOfRows(.startPicker), 1)
 		XCTAssertEqual(editCheckinDetailViewModel.numberOfRows(.endPicker), 1)
+	}
+
+	func testGIVEN_EditCheckinDetailViewModel_WHEN_SaveUnchanged_THEN_NotSaved() {
+		// GIVEN
+		let checkIn = Checkin.mock()
+		let eventStore = MockEventStore()
+
+		let editCheckinDetailViewModel = EditCheckinDetailViewModel(
+			checkIn,
+			eventStore: eventStore
+		)
+		var subscriptions = Set<AnyCancellable>()
+
+		let saveCheckInExpectation = expectation(description: "CheckIn saved")
+		eventStore.checkinsPublisher.sink { update in
+			saveCheckInExpectation.fulfill()
+		}
+		.store(in: &subscriptions)
+
+		// WHEN
+		editCheckinDetailViewModel.saveIfNeeded()
+
+		// THEN
+		wait(for: [saveCheckInExpectation], timeout: .medium)
+	}
+
+	func testGIVEN_EditCheckinDetailViewModel_WHEN_SaveChanged_THEN_Saved() {
+		// GIVEN
+		let checkIn = Checkin.mock()
+		let eventStore = MockEventStore()
+
+		let editCheckinDetailViewModel = EditCheckinDetailViewModel(
+			checkIn,
+			eventStore: eventStore
+		)
+		var subscriptions = Set<AnyCancellable>()
+
+		let saveCheckInExpectation = expectation(description: "CheckIn saved")
+		saveCheckInExpectation.expectedFulfillmentCount = 1
+		eventStore.checkinsPublisher.sink { _ in
+			saveCheckInExpectation.fulfill()
+		}
+		.store(in: &subscriptions)
+
+		// WHEN
+		editCheckinDetailViewModel.checkInStartCellModel.date = Date()
+		editCheckinDetailViewModel.saveIfNeeded()
+
+		// THEN
+		wait(for: [saveCheckInExpectation], timeout: .medium)
 	}
 
 }
