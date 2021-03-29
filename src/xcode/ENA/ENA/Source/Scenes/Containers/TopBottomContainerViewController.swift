@@ -26,11 +26,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	) {
 		self.topViewController = topController
 		self.bottomViewController = bottomController
-
-		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
 		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
-		self.initialHeight = footerViewModel?.height ?? 0.0
-
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -61,8 +57,9 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		let bottomView: UIView = bottomViewController.view
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 
-		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
+		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: 0.0)
 		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
 		view.addSubview(bottomView)
 		NSLayoutConstraint.activate(
 			[
@@ -77,10 +74,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 			]
 		)
 
-		footerViewModel?.$height.sink { [weak self] height in
-			self?.updateBottomHeight(height, animated: true)
+		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
+		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
+			updateFooterViewModel(viewModel)
 		}
-		.store(in: &subscriptions)
 
 		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
 			.sink { [weak self] notification in
@@ -139,8 +136,27 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 	func setBackgroundColor(_ color: UIColor) {
 		footerViewModel?.backgroundColor = color
 	}
-
-	// MARK: - Public
+	
+	func updateFooterViewModel(_ viewModel: FooterViewModel) {
+		
+		guard let footerViewController = (bottomViewController as? FooterViewController) else {
+			return
+		}
+		// clear
+		
+		subscriptions.forEach { $0.cancel() }
+		subscriptions.removeAll()
+		
+		// setup
+		
+		footerViewModel = viewModel
+		footerViewController.viewModel = viewModel
+		
+		footerViewModel?.$height.sink { [weak self] height in
+			self?.updateBottomHeight(height, animated: true)
+		}
+		.store(in: &subscriptions)
+	}
 
 	// MARK: - Internal
 
@@ -150,7 +166,6 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
-	private let initialHeight: CGFloat
 
 	private var subscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!

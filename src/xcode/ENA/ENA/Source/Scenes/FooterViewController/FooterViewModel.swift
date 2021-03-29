@@ -10,7 +10,7 @@ final class FooterViewModel {
 	// MARK: - Init
 	
 	init(
-		primaryButtonName: String? = nil,
+		primaryButtonName: String,
 		secondaryButtonName: String? = nil,
 		primaryIdentifier: String = AccessibilityIdentifiers.General.primaryFooterButton,
 		secondaryIdentifier: String = AccessibilityIdentifiers.General.secondaryFooterButton,
@@ -18,8 +18,10 @@ final class FooterViewModel {
 		isSecondaryButtonEnabled: Bool = true,
 		isPrimaryButtonHidden: Bool = false,
 		isSecondaryButtonHidden: Bool = false,
-		primaryButtonColor: UIColor? = nil,
-		secondaryButtonColor: UIColor? = nil,
+		primaryButtonColor: UIColor = .enaColor(for: .buttonPrimary),
+		secondaryButtonColor: UIColor = .enaColor(for: .buttonPrimary),
+		primaryButtonInverted: Bool = false,
+		secondaryButtonInverted: Bool = false,
 		backgroundColor: UIColor = .enaColor(for: .background)
 	) {
 		self.primaryButtonName = primaryButtonName
@@ -32,6 +34,8 @@ final class FooterViewModel {
 		self.isSecondaryButtonHidden = isSecondaryButtonHidden
 		self.primaryButtonColor = primaryButtonColor
 		self.secondaryButtonColor = secondaryButtonColor
+		self.primaryButtonInverted = primaryButtonInverted
+		self.secondaryButtonInverted = secondaryButtonInverted
 		self.backgroundColor = backgroundColor
 		updateHeight()
 	}
@@ -56,6 +60,8 @@ final class FooterViewModel {
 	let leftRightInset: CGFloat = 16.0
 	let primaryButtonColor: UIColor?
 	let secondaryButtonColor: UIColor?
+	let primaryButtonInverted: Bool
+	let secondaryButtonInverted: Bool
 	let primaryIdentifier: String
 	let secondaryIdentifier: String
 
