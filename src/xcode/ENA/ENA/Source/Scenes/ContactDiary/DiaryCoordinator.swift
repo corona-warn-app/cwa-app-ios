@@ -138,7 +138,7 @@ class DiaryCoordinator {
 		hidesCloseButton: Bool = false,
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
-	) -> UIViewController {
+	) -> TopBottomContainerViewController<DiaryInfoViewController, FooterViewController> {
 		
 		let viewController = DiaryInfoViewController(
 			viewModel: DiaryInfoViewModel(
