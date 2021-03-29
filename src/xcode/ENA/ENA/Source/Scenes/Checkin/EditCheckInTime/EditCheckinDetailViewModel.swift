@@ -19,8 +19,8 @@ final class EditCheckinDetailViewModel {
 		self.startDate = checkIn.checkinStartDate
 		self.endDate = checkIn.checkinEndDate
 		self.checkInDescriptionCellModel = CheckInDescriptionCellModel(checkIn: checkIn)
-		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: checkIn.checkinStartDate)
-		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: checkIn.checkinEndDate)
+		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: checkIn.checkinStartDate, hasTopSeparator: false)
+		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: checkIn.checkinEndDate, hasTopSeparator: true)
 
 		// update viewModel on change of cellModels
 		checkInStartCellModel.$date

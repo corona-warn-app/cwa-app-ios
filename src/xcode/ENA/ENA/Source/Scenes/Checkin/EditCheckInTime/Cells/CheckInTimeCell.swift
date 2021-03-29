@@ -33,7 +33,10 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 	func configure(_ cellModel: CheckInTimeModel) {
 		self.cellModel = cellModel
 		typeLabel.text = cellModel.type
-
+		topSeparatorView.isHidden = !cellModel.hasTopSeparator
+		topLayoutConstraint.constant = cellModel.hasTopSeparator ? 16.0 : 0.0
+		bottomLayoutConstraint.constant = cellModel.hasTopSeparator ? 0.0 : -16.0
+		setNeedsLayout()
 		cellModel.$date
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { _ in
@@ -46,7 +49,10 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private let typeLabel = ENALabel()
 	private let dateTimeLabel = ENALabel()
+	private let topSeparatorView = UIView()
 	private let stackView = UIStackView()
+	private var topLayoutConstraint: NSLayoutConstraint!
+	private var bottomLayoutConstraint: NSLayoutConstraint!
 	private var cellModel: CheckInTimeModel?
 	private var subscriptions = Set<AnyCancellable>()
 
@@ -70,6 +76,10 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.backgroundColor = .enaColor(for: .background)
 		contentView.addSubview(tileView)
 
+		topSeparatorView.translatesAutoresizingMaskIntoConstraints = false
+		topSeparatorView.backgroundColor = .enaColor(for: .hairline)
+		tileView.addSubview(topSeparatorView)
+
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.addArrangedSubview(typeLabel)
 		stackView.addArrangedSubview(dateTimeLabel)
@@ -79,6 +89,8 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		stackView.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
 		tileView.addSubview(stackView)
 
+		topLayoutConstraint = stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0)
+		bottomLayoutConstraint = stackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -12.0)
 		NSLayoutConstraint.activate(
 			[
 				tileView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -86,8 +98,13 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0),
-				stackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -12.0),
+				topSeparatorView.topAnchor.constraint(equalTo: tileView.topAnchor),
+				topSeparatorView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
+				topSeparatorView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0),
+				topSeparatorView.heightAnchor.constraint(equalToConstant: 1.0),
+
+				topLayoutConstraint,
+				bottomLayoutConstraint,
 				stackView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
 				stackView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 			]

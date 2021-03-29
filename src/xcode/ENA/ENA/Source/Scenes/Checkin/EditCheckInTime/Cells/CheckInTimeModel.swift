@@ -9,9 +9,10 @@ final class CheckInTimeModel {
 
 	// MARK: - Init
 
-	init(_ type: String, date: Date) {
+	init(_ type: String, date: Date, hasTopSeparator: Bool) {
 		self.type = type
 		self.date = date
+		self.hasTopSeparator = hasTopSeparator
 	}
 
 	// MARK: - Public
@@ -19,6 +20,7 @@ final class CheckInTimeModel {
 	// MARK: - Internal
 
 	let type: String
+	let hasTopSeparator: Bool
 
 	@OpenCombine.Published var date: Date
 
