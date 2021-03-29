@@ -36,7 +36,8 @@ class QRCodePosterTemplateProvider: QRCodePosterTemplateProviding {
 			let data = try? Data(contentsOf: url),
 			let template = try? SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: data)
 		else {
-			fatalError("Cannot load default QR code poster template")
+			Log.error("Error loading the default template data.", log: .qrCode)
+			return SAP_Internal_Pt_QRCodePosterTemplateIOS()
 		}
 		return template
 	}

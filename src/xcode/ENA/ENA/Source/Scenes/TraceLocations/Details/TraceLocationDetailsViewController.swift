@@ -70,10 +70,10 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
+			self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 			switch templateData {
 			case let .success(templateData):
 				DispatchQueue.main.async { [weak self] in
-					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 					do {
 						let pdfView = try self?.createPdfView(templateData: templateData)
 						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
@@ -82,7 +82,6 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 					}
 				}
 			case let .failure(error):
-				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 				Log.error("Could not get QR code poster template.", log: .qrCode, error: error)
 				return
 			}
