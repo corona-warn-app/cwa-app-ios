@@ -7,6 +7,8 @@ import Foundation
 protocol TraceWarningMatching {
 
 	func matchAndStore(package: SAPDownloadedPackage)
+	func calculateOverlap(checkin: Checkin, warning: SAP_Internal_Pt_TraceTimeIntervalWarning) -> Int
+	func calculateOverlap(checkin: Checkin, match: TraceTimeIntervalMatch) -> Int
 
 }
 
@@ -32,6 +34,24 @@ final class TraceWarningMatcher: TraceWarningMatching {
 			return
 		}
 		matchAndStore(package: warningPackage)
+	}
+
+	func calculateOverlap(checkin: Checkin, warning: SAP_Internal_Pt_TraceTimeIntervalWarning) -> Int {
+		let endIntervalNumber = warning.startIntervalNumber + warning.period
+
+		return calculateOverlap(
+			checkin: checkin,
+			startIntervalNumber: Int(warning.startIntervalNumber),
+			endIntervalNumber: Int(endIntervalNumber)
+		)
+	}
+
+	func calculateOverlap(checkin: Checkin, match: TraceTimeIntervalMatch) -> Int {
+		calculateOverlap(
+			checkin: checkin,
+			startIntervalNumber: match.startIntervalNumber,
+			endIntervalNumber: match.endIntervalNumber
+		)
 	}
 
 	// MARK: - Internal
@@ -69,17 +89,18 @@ final class TraceWarningMatcher: TraceWarningMatching {
 		}
 	}
 
+	// MARK: - Private
+	
+	private let eventStore: EventStoringProviding
+
 	// Algorithm from: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/sample-code/presence-tracing/pt-calculate-overlap.js
 
-	func calculateOverlap(checkin: Checkin, warning: SAP_Internal_Pt_TraceTimeIntervalWarning) -> Int {
-
-		func toTimeInterval(_ intervalNumber: UInt32) -> TimeInterval {
+	private func calculateOverlap(checkin: Checkin, startIntervalNumber: Int, endIntervalNumber: Int) -> Int {
+		func toTimeInterval(_ intervalNumber: Int) -> TimeInterval {
 			TimeInterval(intervalNumber * 600)
 		}
 
-		let endIntervalNumber = warning.startIntervalNumber + warning.period
-
-		let warningStartTimestamp = toTimeInterval(warning.startIntervalNumber)
+		let warningStartTimestamp = toTimeInterval(startIntervalNumber)
 		let warningEndTimestamp = toTimeInterval(endIntervalNumber)
 
 		let overlapStartTimestamp = max(checkin.checkinStartDate.timeIntervalSince1970, warningStartTimestamp)
@@ -93,7 +114,4 @@ final class TraceWarningMatcher: TraceWarningMatching {
 		}
 	}
 
-	// MARK: - Private
-
-	private let eventStore: EventStoringProviding
 }

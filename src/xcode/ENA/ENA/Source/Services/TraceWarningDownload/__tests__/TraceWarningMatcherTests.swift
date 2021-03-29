@@ -576,6 +576,30 @@ class TraceWarningMatcherTests: XCTestCase {
 		XCTAssertEqual(overlap, 12)
 	}
 
+	func test_When_OverlapWithMatch_Then_CorrectOverlapReturned() {
+		let store = MockEventStore()
+		let matcher = TraceWarningMatcher(eventStore: store)
+
+		guard let checkinStartDate = utcFormatter.date(from: "2021-03-04T09:30:00+01:00"),
+			  let checkinEndDate = utcFormatter.date(from: "2021-03-04T10:12:00+01:00"),
+			  let matchStartDate = utcFormatter.date(from: "2021-03-04T10:00:00+01:00"),
+			  let matchEndDate = utcFormatter.date(from: "2021-03-04T11:00:00+01:00") else {
+			XCTFail("Could not create dates.")
+			return
+		}
+
+		let checkin = createDummyCheckin(
+			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			checkinStartDate: checkinStartDate,
+			checkinEndDate: checkinEndDate
+		)
+
+		let match = TraceTimeIntervalMatch(id: 0, checkinId: 0, traceWarningPackageId: 0, traceLocationGUID: "", transmissionRiskLevel: 0, startIntervalNumber: Int(create10MinutesInterval(from: matchStartDate)), endIntervalNumber: Int(create10MinutesInterval(from: matchEndDate)))
+
+		let overlap = matcher.calculateOverlap(checkin: checkin, match: match)
+		XCTAssertEqual(overlap, 12)
+	}
+
 	private func create10MinutesInterval(from date: Date) -> UInt32 {
 		UInt32(date.timeIntervalSince1970 / 600)
 	}
