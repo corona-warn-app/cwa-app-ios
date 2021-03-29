@@ -95,7 +95,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		
 		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsQRCodeCell.self, for: indexPath)
-			guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: 350, height: 350)) else { return cell }
+			guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: 300, height: 300)) else { return cell }
 			cell.configure(qrCodeImage)
 			return cell
 			
@@ -113,15 +113,6 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 		return CGFloat.leastNonzeroMagnitude
-	}
-
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		guard let section = TraceLocationDetailsViewModel.TableViewSections(rawValue: indexPath.section) else {
-			fatalError("unknown section - can't match a cell type")
-		}
-		if section == .qrCode {
-			
-		}
 	}
 
 	private func generateAndPassQRCodePoster() {
