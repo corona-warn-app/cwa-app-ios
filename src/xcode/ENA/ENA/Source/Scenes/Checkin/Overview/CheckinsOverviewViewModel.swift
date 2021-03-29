@@ -22,7 +22,6 @@ class CheckinsOverviewViewModel {
         self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
 		store.checkinsPublisher
-			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
 			.sink { [weak self] in
 				self?.update(from: $0)
 			}
