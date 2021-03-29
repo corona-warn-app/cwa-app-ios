@@ -6,8 +6,7 @@ import UIKit
 import OpenCombine
 import PDFKit
 
-class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
-
+class TraceLocationDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FooterViewHandling {
 
 	// MARK: - Init
 
@@ -35,15 +34,8 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		view.backgroundColor = .enaColor(for: .background)
-
-		parent?.navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.onDismiss()
-			}
-		)
-
+		setupView()
+		setupTableView()
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -59,6 +51,62 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 		}
 	}
 	
+	// MARK: - UITableViewDataSource
+
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return TraceLocationDetailsViewModel.TableViewSections.allCases.count
+	}
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return 1
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let section = TraceLocationDetailsViewModel.TableViewSections(rawValue: indexPath.section) else {
+			fatalError("unknown section - can't match a cell type")
+		}
+		switch section {
+		case .header:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsHeaderCell.self, for: indexPath)
+			cell.configure(viewModel.title)
+			return cell
+		
+		case .location:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsLocationCell.self, for: indexPath)
+			cell.configure(viewModel.address)
+			return cell
+		
+		case .qrCode:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsQRCodeCell.self, for: indexPath)
+			guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: 350, height: 350)) else { return cell }
+			cell.configure(qrCodeImage)
+			return cell
+			
+		case .dateTime:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsDateTimeCell.self, for: indexPath)
+			cell.configure(viewModel.date)
+			return cell
+		}
+	}
+
+	// MARK: - UITableViewDelegate
+	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return CGFloat.leastNonzeroMagnitude
+	}
+
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNonzeroMagnitude
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let section = TraceLocationDetailsViewModel.TableViewSections(rawValue: indexPath.section) else {
+			fatalError("unknown section - can't match a cell type")
+		}
+		if section == .qrCode {
+			
+		}
+	}
+
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
 			switch templateData {
@@ -107,6 +155,8 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 	}
 
 	// MARK: - Private
+	private let backGroundView = GradientBackgroundView()
+	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private let viewModel: TraceLocationDetailsViewModel
 
@@ -114,5 +164,61 @@ class TraceLocationDetailsViewController: UIViewController, FooterViewHandling {
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
 	private var subscriptions = [AnyCancellable]()
+	private var tableContentObserver: NSKeyValueObservation!
 
+	private func setupView() {
+		parent?.view.backgroundColor = .clear
+		backGroundView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(backGroundView)
+
+		let gradientNavigationView = GradientNavigationView(
+			didTapCloseButton: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
+		backGroundView.addSubview(gradientNavigationView)
+
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.backgroundColor = .clear
+		backGroundView.addSubview(tableView)
+
+		NSLayoutConstraint.activate(
+			[
+				backGroundView.topAnchor.constraint(equalTo: view.topAnchor),
+				backGroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				backGroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				backGroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+				gradientNavigationView.topAnchor.constraint(equalTo: backGroundView.topAnchor, constant: 24.0),
+				gradientNavigationView.leadingAnchor.constraint(equalTo: backGroundView.leadingAnchor, constant: 16.0),
+				gradientNavigationView.trailingAnchor.constraint(equalTo: backGroundView.trailingAnchor, constant: -16.0),
+
+				tableView.topAnchor.constraint(equalTo: gradientNavigationView.bottomAnchor, constant: 20.0),
+				tableView.leadingAnchor.constraint(equalTo: backGroundView.leadingAnchor),
+				tableView.trailingAnchor.constraint(equalTo: backGroundView.trailingAnchor),
+				tableView.bottomAnchor.constraint(equalTo: backGroundView.bottomAnchor)
+		])
+
+		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] tableView, change in
+			guard let self = self,
+				  let yOffset = change.newValue?.y else {
+				return
+			}
+			let offsetLimit = tableView.frame.origin.y
+			self.backGroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+		}
+	}
+
+	private func setupTableView() {
+		tableView.dataSource = self
+		tableView.delegate = self
+		tableView.separatorStyle = .none
+		tableView.contentInsetAdjustmentBehavior = .never
+
+		tableView.register(TraceLocationDetailsHeaderCell.self, forCellReuseIdentifier: TraceLocationDetailsHeaderCell.reuseIdentifier)
+		tableView.register(TraceLocationDetailsLocationCell.self, forCellReuseIdentifier: TraceLocationDetailsLocationCell.reuseIdentifier)
+		tableView.register(TraceLocationDetailsQRCodeCell.self, forCellReuseIdentifier: TraceLocationDetailsQRCodeCell.reuseIdentifier)
+		tableView.register(TraceLocationDetailsDateTimeCell.self, forCellReuseIdentifier: TraceLocationDetailsDateTimeCell.reuseIdentifier)
+	}
 }
