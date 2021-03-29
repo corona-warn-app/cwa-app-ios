@@ -21,8 +21,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			UPDATE Checkin SET
-			traceLocationGUID = ?,
-			traceLocationGUIDHash = ?,
+			traceLocationId = ?,
+			traceLocationIdHash = ?,
 			traceLocationVersion = ?,
 			traceLocationType = ?,
 			traceLocationDescription = SUBSTR(?, 1, \(maxTextLength)),
@@ -30,7 +30,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			traceLocationStartDate = ?,
 			traceLocationEndDate = ?,
 			traceLocationDefaultCheckInLengthInMinutes = ?,
-			traceLocationSignature = ?,
+			cryptographicSeed = ?,
+			cnMainPublicKey = ?,
 			checkinStartDate = ?,
 			checkinEndDate = ?,
 			checkinCompleted = ?,
@@ -52,8 +53,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			try database.executeUpdate(
 				sql,
 				values: [
-					checkin.traceLocationGUID,
-					checkin.traceLocationGUIDHash,
+					checkin.traceLocationId,
+					checkin.traceLocationIdHash,
 					checkin.traceLocationVersion,
 					checkin.traceLocationType.rawValue,
 					checkin.traceLocationDescription,
@@ -61,7 +62,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 					traceLocationStartDateInterval as Any,
 					traceLocationEndDateInterval as Any,
 					checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
-					checkin.traceLocationSignature,
+					checkin.cryptographicSeed,
+					checkin.cnMainPublicKey,
 					Int(checkin.checkinStartDate.timeIntervalSince1970),
 					Int(checkin.checkinEndDate.timeIntervalSince1970),
 					checkin.checkinCompleted,

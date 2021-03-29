@@ -66,8 +66,8 @@ private extension Checkin {
 	func updatedWith(startDate: Date?, endDate: Date?) -> Checkin {
 		Checkin(
 			id: self.id,
-			traceLocationGUID: self.traceLocationGUID,
-			traceLocationGUIDHash: self.traceLocationGUIDHash,
+			traceLocationId: self.traceLocationId,
+			traceLocationIdHash: self.traceLocationIdHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -75,7 +75,8 @@ private extension Checkin {
 			traceLocationStartDate: self.traceLocationStartDate,
 			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: self.traceLocationSignature,
+			cryptographicSeed: self.cryptographicSeed,
+			cnMainPublicKey: self.cnMainPublicKey,
 			checkinStartDate: startDate ?? self.checkinStartDate,
 			checkinEndDate: endDate ?? self.checkinEndDate,
 			checkinCompleted: self.checkinCompleted,

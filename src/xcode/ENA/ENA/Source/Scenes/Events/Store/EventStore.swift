@@ -96,13 +96,13 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
+	func deleteTraceLocation(id: Data) -> SecureSQLStore.VoidResult {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Remove TraceLocation with id: \(guid).", log: .localData)
+			Log.info("[EventStore] Remove TraceLocation.", log: .localData)
 
-			let deleteTraceLocationQuery = DeleteTraceLocationQuery(guid: guid)
+			let deleteTraceLocationQuery = DeleteTraceLocationQuery(id: id)
 			result = executeTraceLocationQuery(deleteTraceLocationQuery, in: database)
 		}
 

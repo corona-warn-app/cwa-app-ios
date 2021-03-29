@@ -79,34 +79,35 @@ final class TraceLocationDetailViewModel {
 	}
 	
 	func saveCheckinToDatabase() {
-		let checkinStartDate = Date()
-		guard let checkinEndDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: checkinStartDate) else {
-			Log.warning("checkinEndDate is nill", log: .checkin)
-			return
-		}
-		guard let guidHash = generateSHA256(traceLocation.guid) else {
-			return
-		}
-		let checkin: Checkin = Checkin(
-			id: 0,
-			traceLocationGUID: traceLocation.guid,
-			traceLocationGUIDHash: guidHash,
-			traceLocationVersion: traceLocation.version,
-			traceLocationType: traceLocation.type,
-			traceLocationDescription: traceLocation.description,
-			traceLocationAddress: traceLocation.address,
-			traceLocationStartDate: traceLocation.startDate,
-			traceLocationEndDate: traceLocation.endDate,
-			traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
-			traceLocationSignature: traceLocation.signature,
-			checkinStartDate: checkinStartDate,
-			checkinEndDate: checkinEndDate,
-			checkinCompleted: false,
-			createJournalEntry: shouldSaveToContactJournal
-		)
-
-		store.shouldAddCheckinToContactDiaryByDefault = shouldSaveToContactJournal
-		 eventStore.createCheckin(checkin)
+//		let checkinStartDate = Date()
+//		guard let checkinEndDate = Calendar.current.date(byAdding: .minute, value: selectedDurationInMinutes, to: checkinStartDate) else {
+//			Log.warning("checkinEndDate is nill", log: .checkin)
+//			return
+//		}
+//
+//		guard let guidHash = generateSHA256(traceLocation.guid) else {
+//			return
+//		}
+//		let checkin: Checkin = Checkin(
+//			id: 0,
+//			traceLocationGUID: traceLocation.guid,
+//			traceLocationGUIDHash: guidHash,
+//			traceLocationVersion: traceLocation.version,
+//			traceLocationType: traceLocation.type,
+//			traceLocationDescription: traceLocation.description,
+//			traceLocationAddress: traceLocation.address,
+//			traceLocationStartDate: traceLocation.startDate,
+//			traceLocationEndDate: traceLocation.endDate,
+//			traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
+//			traceLocationSignature: traceLocation.signature,
+//			checkinStartDate: checkinStartDate,
+//			checkinEndDate: checkinEndDate,
+//			checkinCompleted: false,
+//			createJournalEntry: shouldSaveToContactJournal
+//		)
+//
+//		store.shouldAddCheckinToContactDiaryByDefault = shouldSaveToContactJournal
+//		 eventStore.createCheckin(checkin)
 	}
 
 	// MARK: - Private

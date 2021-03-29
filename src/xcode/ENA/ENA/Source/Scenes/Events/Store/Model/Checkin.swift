@@ -7,8 +7,8 @@ import Foundation
 struct Checkin: Equatable {
 
 	let id: Int
-	let traceLocationGUID: String
-	let traceLocationGUIDHash: Data
+	let traceLocationId: Data
+	let traceLocationIdHash: Data
 	let traceLocationVersion: Int
 	let traceLocationType: TraceLocationType
 	let traceLocationDescription: String
@@ -16,7 +16,8 @@ struct Checkin: Equatable {
 	let traceLocationStartDate: Date?
 	let traceLocationEndDate: Date?
 	let traceLocationDefaultCheckInLengthInMinutes: Int?
-	let traceLocationSignature: String
+	let cryptographicSeed: Data
+	let cnMainPublicKey: Data
 	let checkinStartDate: Date
 	let checkinEndDate: Date
 	let checkinCompleted: Bool
