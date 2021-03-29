@@ -632,9 +632,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		let footerViewController = FooterViewController(
 			FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
-				isPrimaryButtonEnabled: true,
 				isSecondaryButtonEnabled: false,
-				isPrimaryButtonHidden: false,
 				isSecondaryButtonHidden: true
 			)
 		)

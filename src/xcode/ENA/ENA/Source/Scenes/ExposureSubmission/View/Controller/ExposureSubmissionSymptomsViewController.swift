@@ -77,15 +77,27 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			switch index {
 			case 0:
 				selectedSymptomsOption = .yes
-				let footerViewModel = FooterViewModel(primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton)
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.continueButton,
+					isSecondaryButtonEnabled: false,
+					isSecondaryButtonHidden: true
+				)
 				topBottomViewController.updateFooterViewModel(footerViewModel)
 			case 1:
 				selectedSymptomsOption = .no
-				let footerViewModel = FooterViewModel(primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton)
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton,
+					isSecondaryButtonEnabled: false,
+					isSecondaryButtonHidden: true
+				)
 				topBottomViewController.updateFooterViewModel(footerViewModel)
 			case 2:
 				selectedSymptomsOption = .preferNotToSay
-				let footerViewModel = FooterViewModel(primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton)
+				let footerViewModel = FooterViewModel(
+					primaryButtonName: AppStrings.ExposureSubmissionSymptoms.doneButton,
+					isSecondaryButtonEnabled: false,
+					isSecondaryButtonHidden: true
+				)
 				topBottomViewController.updateFooterViewModel(footerViewModel)
 			default:
 				break
