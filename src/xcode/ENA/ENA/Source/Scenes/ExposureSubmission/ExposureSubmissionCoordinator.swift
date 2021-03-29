@@ -199,6 +199,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	// MARK: Initial Screens
 
 	private func createTestResultAvailableViewController(testResult: TestResult) -> UIViewController {
+		
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
 			onSubmissionConsentCellTap: { [weak self] isLoading in
@@ -243,7 +244,19 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showTestResultAvailableCloseAlert()
 			}
 		)
-		return TestResultAvailableViewController(viewModel)
+		
+		let footerViewModel = FooterViewModel(
+			primaryButtonName: AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle,
+			isSecondaryButtonEnabled: false,
+			isSecondaryButtonHidden: true
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: TestResultAvailableViewController(viewModel),
+			bottomController: FooterViewController(footerViewModel)
+		)
+		
+		return topBottomContainerViewController
 	}
 
 	private func createTestResultViewController(with testResult: TestResult) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
