@@ -159,7 +159,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		)
 
 		let unknown = coordinator.getInitialViewController(with: .positive)
-		XCTAssertTrue(unknown.self is TestResultAvailableViewController)
+		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 
 		// [CAR] work in progress!
 		store.positiveTestResultWasShown = true
