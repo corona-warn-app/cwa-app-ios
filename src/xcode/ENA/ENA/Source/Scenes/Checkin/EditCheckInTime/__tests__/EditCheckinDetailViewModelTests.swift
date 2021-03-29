@@ -80,7 +80,7 @@ class EditCheckinDetailViewModelTests: XCTestCase {
 		var subscriptions = Set<AnyCancellable>()
 
 		let saveCheckInExpectation = expectation(description: "CheckIn saved")
-		eventStore.checkinsPublisher.sink { update in
+		eventStore.checkinsPublisher.sink { _ in
 			saveCheckInExpectation.fulfill()
 		}
 		.store(in: &subscriptions)
