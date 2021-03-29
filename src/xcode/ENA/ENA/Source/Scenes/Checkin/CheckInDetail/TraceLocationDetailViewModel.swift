@@ -17,8 +17,9 @@ final class TraceLocationDetailViewModel {
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
 		
+		let duration: Int
 		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
-			self.selectedDurationInMinutes = defaultDuration
+			duration = defaultDuration
 		} else {
 			let eventDuration = Calendar.current.dateComponents(
 				[.minute],
@@ -26,7 +27,15 @@ final class TraceLocationDetailViewModel {
 				to: traceLocation.endDate ?? Date()
 			).minute
 			// the 0 should not be possible since we expect either the defaultCheckInLengthInMinutes or the start and end dates to be available always
-			self.selectedDurationInMinutes = eventDuration ?? 0
+			duration = eventDuration ?? 0
+		}
+		// rounding up to 15
+		let durationStep = 15
+		let reminderMinutes = duration % durationStep
+		if reminderMinutes != 0 {
+			selectedDurationInMinutes = duration + (durationStep - reminderMinutes)
+		} else {
+			selectedDurationInMinutes = duration
 		}
 	}
 	
