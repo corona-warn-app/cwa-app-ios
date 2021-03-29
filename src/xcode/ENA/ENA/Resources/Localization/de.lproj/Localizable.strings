@@ -2117,7 +2117,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Configuration_HoursUnit" = "%@ Std.";
 
-
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
