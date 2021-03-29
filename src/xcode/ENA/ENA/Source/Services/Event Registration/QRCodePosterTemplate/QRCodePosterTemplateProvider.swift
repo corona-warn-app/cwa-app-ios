@@ -48,7 +48,7 @@ class QRCodePosterTemplateProvider: QRCodePosterTemplateProviding {
 	private let client: QRCodePosterTemplateFetching
 
 	/// The place where the QR Code Poster Template and last etag is stored
-	private let store: QRCodePosterTemplateCaching
+	private let store: EventRegistrationCaching
 
 	private func fetchQRCodePosterTemplate(with etag: String? = nil) -> Future<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error> {
 		return Future { promise in
