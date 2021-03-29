@@ -60,7 +60,6 @@ class QRCodePosterTemplateProviderTests: XCTestCase {
 	
 	func testQRCodePosterTemplateProvidingHTTPErrors() throws {
 		let defaultTemplateReceived = expectation(description: "Default template received")
-		defaultTemplateReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
 		let client = CachingHTTPClientMock(store: store)
