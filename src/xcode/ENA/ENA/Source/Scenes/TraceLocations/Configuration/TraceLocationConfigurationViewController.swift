@@ -62,12 +62,9 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		footerView?.setLoadingIndicator(true, disable: true, button: .primary)
-		viewModel.save { [weak self] success in
-			self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-			if success {
-				self?.onDismiss()
-			}
+		let success = viewModel.save()
+		if success {
+			onDismiss()
 		}
 	}
 
