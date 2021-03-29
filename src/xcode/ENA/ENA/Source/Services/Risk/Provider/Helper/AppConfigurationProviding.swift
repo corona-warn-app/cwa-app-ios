@@ -24,7 +24,7 @@ protocol AppConfigurationProviding: AnyObject {
 protocol AppConfigurationFetching {
 	var configuration: HTTPClient.Configuration { get }
 	var session: URLSession { get }
-	var packageVerifier: SAPDownloadedPackage.Verifier { get }
+	var signatureVerifier: SignatureVerifier { get }
 
 	typealias AppConfigResultHandler = ((Result<AppConfigurationFetchingResponse, Error>, Date?)) -> Void
 
