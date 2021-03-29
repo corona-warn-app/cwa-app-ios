@@ -33,18 +33,7 @@ final class TestResultAvailableViewModel {
 	let onDismiss: () -> Void
 
 	@OpenCombine.Published var dynamicTableViewModel: DynamicTableViewModel = DynamicTableViewModel([])
-
-	lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.hidesBackButton = true
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionTestResultAvailable.primaryButtonTitle
-		item.isPrimaryButtonEnabled = true
-		item.isSecondaryButtonHidden = true
-		item.title = AppStrings.ExposureSubmissionTestResultAvailable.title
-
-		return item
-	}()
+	@OpenCombine.Published var isLoading: Bool = false
 	
 	// MARK: - Private
 	
@@ -85,12 +74,12 @@ final class TestResultAvailableViewModel {
 						  action: .execute { [weak self] _, cell in
 							guard let self = self else { return }
 
-							self.onSubmissionConsentCellTap { isLoading in
+							self.onSubmissionConsentCellTap { [weak self] isLoading in
+								self?.isLoading = isLoading
 								let activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
 								activityIndicatorView.startAnimating()
 								cell?.accessoryView = isLoading ? activityIndicatorView : nil
 								cell?.isUserInteractionEnabled = !isLoading
-								self.navigationFooterItem.isPrimaryButtonEnabled = !isLoading
 							}
 						  },
 						  configure: { _, cell, _ in
