@@ -9,8 +9,8 @@ final class CheckInDescriptionCellModel {
 	// MARK: - Init
 
 	init( checkIn: Checkin) {
-		self.locationType = "Vereinsaktivität" // checkIn.traceLocationType.title
-		self.description = "Jahrestreffen der deutschen SAP Anwendergruppe" // checkIn.traceLocationDescription
+		self.locationType = checkIn.traceLocationType.title
+		self.description = checkIn.traceLocationDescription
 		self.address = checkIn.traceLocationAddress
 	}
 
