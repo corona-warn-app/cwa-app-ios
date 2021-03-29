@@ -77,7 +77,7 @@ class DiaryOverviewViewModel {
 		let diaryDay = days[indexPath.row]
 		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
 		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskValue(by: diaryDay.utcMidnightDate)
-		let checkinsWithRisk = checkinsFor(day: diaryDay.utcMidnightDate)
+		let checkinsWithRisk = checkinsWithRiskFor(day: diaryDay.utcMidnightDate)
 
 		return DiaryOverviewDayCellModel(
 			diaryDay: diaryDay,
@@ -109,7 +109,7 @@ class DiaryOverviewViewModel {
 		return minimumDistinctEncountersWithHighRisk
 	}
 	
-	private func checkinsFor(day: Date) -> [CheckinWithRisk] {
+	private func checkinsWithRiskFor(day: Date) -> [CheckinWithRisk] {
 		guard let result = secureStore.checkinRiskCalculationResult else {
 			return []
 		}
