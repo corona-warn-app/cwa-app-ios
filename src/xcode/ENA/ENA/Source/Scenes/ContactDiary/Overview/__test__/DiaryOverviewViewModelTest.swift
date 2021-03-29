@@ -30,6 +30,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: diaryStore,
 			store: store,
+			eventStore: MockEventStore(),
 			homeState: homeState
 		)
 
@@ -53,7 +54,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: diaryStore,
-			store: store
+			store: store,
+			eventStore: MockEventStore()
 		)
 
 		let daysPublisherExpectation = expectation(description: "Days publisher called")
@@ -71,7 +73,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testNumberOfSections() throws {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
-			store: MockTestStore()
+			store: MockTestStore(),
+			eventStore: MockEventStore()
 		)
 
 		XCTAssertEqual(viewModel.numberOfSections, 2)
@@ -80,7 +83,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 	func testNumberOfRows() throws {
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
-			store: MockTestStore()
+			store: MockTestStore(),
+			eventStore: MockEventStore()
 		)
 
 		XCTAssertEqual(viewModel.numberOfRows(in: 0), 1)
@@ -91,7 +95,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		// GIVEN
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
-			store: MockTestStore()
+			store: MockTestStore(),
+			eventStore: MockEventStore()
 		)
 
 		// WHEN
@@ -109,7 +114,10 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
-		let todayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+		let todayMinus5DaysString = dateFormatter.string(from: wrongFormattedTodayMinus5Days)
+		let todayMinus5Days = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
+		
 		let store = MockTestStore()
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
@@ -125,7 +133,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
-			store: store
+			store: store,
+			eventStore: MockEventStore()
 		)
 
 		// WHEN
@@ -143,7 +152,10 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
-		let todayMinus7Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
+		let wrongFormattedTodayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
+		let todayMinus7DaysString = dateFormatter.string(from: wrongFormattedTodayMinus5Days)
+		let todayMinus7Days = try XCTUnwrap(dateFormatter.date(from: todayMinus7DaysString))
+		
 		let store = MockTestStore()
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
@@ -159,7 +171,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		)
 		let viewModel = DiaryOverviewViewModel(
 			diaryStore: makeMockStore(),
-			store: store
+			store: store,
+			eventStore: MockEventStore()
 		)
 
 
