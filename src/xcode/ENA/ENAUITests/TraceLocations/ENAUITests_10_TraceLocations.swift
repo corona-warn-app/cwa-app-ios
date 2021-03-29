@@ -65,9 +65,6 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 	func test_screenshot_traceLocation_print_flow() throws {
 		app.launch()
-
-		// navigate to tracelocation card
-		app.swipeUp(velocity: .fast)
 		
 		// check if the tracelocation card exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].waitForExistence(timeout: .short))
@@ -82,7 +79,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		snapshot("tracelocation_overview")
 
 		// navigate to tracelocation detail view for second item
-		app.cells.element(boundBy: 2).tap()
+		app.tables[AccessibilityIdentifiers.TraceLocation.Overview.tableView].cells.element(boundBy: 2).tap()
 	
 		// check if the print version button exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].waitForExistence(timeout: .short))
