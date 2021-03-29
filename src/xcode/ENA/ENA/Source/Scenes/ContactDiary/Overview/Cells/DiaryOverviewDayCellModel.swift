@@ -123,12 +123,22 @@ final class DiaryOverviewDayCellModel {
 		return checkinsWithRisk.isEmpty
 	}
 	
+	var checkinImage: UIImage? {
+		return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
+			UIImage(imageLiteralResourceName: "Icons_Attention_high") :
+			UIImage(imageLiteralResourceName: "Icons_Attention_low")
+	}
+	
 	var checkinTitleHeadlineText: String {
-		if checkinsWithRisk.contains(where: { $0.risk == .high }) {
-			return AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk
-		} else {
-			return AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk
-		}
+		return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
+			AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk :
+			AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk
+	}
+	
+	var checkinTitleAccessibilityIdentifier: String? {
+		return checkinsWithRisk.contains(where: { $0.risk == .high }) ?
+			AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh :
+			AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow
 	}
 	
 	var checkinDetailDescription: String {

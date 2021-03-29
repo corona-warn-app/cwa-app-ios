@@ -186,9 +186,9 @@ Nur der Mann im Mo schaut zu</string>
             <connections>
                 <outlet property="checkinHistoryDetailLabel" destination="ETM-Eq-rvE" id="u3Q-Jj-rDz"/>
                 <outlet property="checkinHistoryNoticeImageView" destination="bqu-yO-Qy4" id="vrO-8I-3ba"/>
-                <outlet property="checkinHistoryRiskyCheckInsStackView" destination="clK-BJ-qDX" id="gt4-sZ-n2A"/>
                 <outlet property="checkinHistoryStackView" destination="8TA-t5-hG7" id="VNy-WF-fCZ"/>
                 <outlet property="checkinHistoryTitleLabel" destination="DhW-nb-RWO" id="7WS-6g-OvU"/>
+                <outlet property="checkinsWithRiskStackView" destination="clK-BJ-qDX" id="gt4-sZ-n2A"/>
                 <outlet property="dateLabel" destination="UAS-Bk-PQl" id="96b-bf-GYh"/>
                 <outlet property="encountersVisitsContainerStackView" destination="yux-ar-fw9" id="BDf-hv-0Gd"/>
                 <outlet property="encountersVisitsStackView" destination="Qc1-jl-ZTB" id="te0-WJ-Taf"/>

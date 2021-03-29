@@ -22,14 +22,15 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 
 		// Check-Ins with risk
 		checkinHistoryStackView.isHidden = cellViewModel.hideCheckinRisk
+		checkinHistoryNoticeImageView.image = cellViewModel.checkinImage
 		checkinHistoryTitleLabel.text = cellViewModel.checkinTitleHeadlineText
+		checkinHistoryTitleLabel.accessibilityIdentifier = cellViewModel.checkinTitleAccessibilityIdentifier
 		checkinHistoryTitleLabel.style = .body
 		checkinHistoryDetailLabel.text = cellViewModel.checkinDetailDescription
 		checkinHistoryDetailLabel.style = .subheadline
 		checkinHistoryDetailLabel.textColor = .enaColor(for: .textPrimary2)
 		
-		checkinHistoryRiskyCheckInsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-
+		checkinsWithRiskStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 		
 		cellViewModel.checkinsWithRisk.forEach { riskyCheckin in
 			let checkInLabel = ENALabel()
@@ -40,10 +41,10 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			checkInLabel.textColor = .enaColor(for: .textPrimary2)
 			let riskColor = cellViewModel.colorFor(riskLevel: riskyCheckin.risk)
 			let eventName = cellViewModel.checkInDespription(checkinWithRisk: riskyCheckin)
-			let checkinName = NSAttributedString(string: eventName).bulletPointString(bulletPointFont: .enaFont(for: .headline, weight: .bold, italic: false), bulletPointColor: riskColor)
+			let checkinName = NSAttributedString(string: eventName).bulletPointString(bulletPointFont: .enaFont(for: .title2, weight: .bold, italic: false), bulletPointColor: riskColor)
 			
 			checkInLabel.attributedText = checkinName
-			checkinHistoryRiskyCheckInsStackView.addArrangedSubview(checkInLabel)
+			checkinsWithRiskStackView.addArrangedSubview(checkInLabel)
 		}
 		
 		encountersVisitsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -145,5 +146,5 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 	@IBOutlet private weak var checkinHistoryNoticeImageView: UIImageView!
 	@IBOutlet private weak var checkinHistoryTitleLabel: ENALabel!
 	@IBOutlet private weak var checkinHistoryDetailLabel: ENALabel!
-	@IBOutlet private weak var checkinHistoryRiskyCheckInsStackView: UIStackView!
+	@IBOutlet private weak var checkinsWithRiskStackView: UIStackView!
 }
