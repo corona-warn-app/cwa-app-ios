@@ -18,7 +18,7 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 			preconditionFailure("missing json file")
 		}
 		
-		weak var navigationController: DeltaOnboardingNavigationController?
+		var deltaOnboardingNavigationController: DeltaOnboardingNavigationController!
 		
 		let dataDonationViewModel = DefaultDataDonationViewModel(
 			store: store,
@@ -26,21 +26,19 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 				let selectValueViewController = SelectValueTableViewController(
 					selectValueViewModel,
 					dismiss: {
-						navigationController?.dismiss(animated: true)
+						deltaOnboardingNavigationController.dismiss(animated: true)
 					})
 				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
-				navigationController?.present(selectValueNavigationController, animated: true)
+				deltaOnboardingNavigationController.present(selectValueNavigationController, animated: true)
 			},
 			datadonationModel: DataDonationModel(
 				store: store,
 				jsonFileURL: url
 			)
 		)
-		
-		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
-		
+				
 		let containerViewController = TopBottomContainerViewController(
-			topController: dataDonationViewController,
+			topController: DataDonationViewController(viewModel: dataDonationViewModel),
 			bottomController: FooterViewController(
 				FooterViewModel(
 					primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
@@ -52,23 +50,18 @@ class DeltaOnboardingDataDonation: DeltaOnboarding {
 				),
 				didTapPrimaryButton: {
 					dataDonationViewModel.save(consentGiven: true)
-					dataDonationViewController.finished?()
+					deltaOnboardingNavigationController.finished?()
 				},
 				didTapSecondaryButton: {
 					dataDonationViewModel.save(consentGiven: false)
-					dataDonationViewController.finished?()
+					deltaOnboardingNavigationController.finished?()
 				}
 			)
 		)
 		
-		let deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: containerViewController)
+		deltaOnboardingNavigationController = DeltaOnboardingNavigationController(rootViewController: containerViewController)
 		deltaOnboardingNavigationController.navigationBar.prefersLargeTitles = true
 		
-		dataDonationViewController.finished = {
-			deltaOnboardingNavigationController.finished?()
-		}
-		
-		navigationController = deltaOnboardingNavigationController
 		return deltaOnboardingNavigationController
 	}
 }
