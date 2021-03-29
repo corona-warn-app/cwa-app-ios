@@ -293,7 +293,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		name: String,
 		phoneNumber: String,
 		emailAddress: String,
-		traceLocationGUID: String?
+		traceLocationId: Data?
 	) -> SecureSQLStore.IdResult {
 		var result: SecureSQLStore.IdResult?
 
@@ -305,13 +305,13 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					name,
 					phoneNumber,
 					emailAddress,
-					traceLocationGUID
+					traceLocationId
 				)
 				VALUES (
 					SUBSTR(:name, 1, \(maxTextLength)),
 					SUBSTR(:phoneNumber, 1, \(maxTextLength)),
 					SUBSTR(:emailAddress, 1, \(maxTextLength)),
-					:traceLocationGUID
+					:traceLocationId
 				);
 			"""
 
@@ -319,7 +319,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 				"name": name,
 				"phoneNumber": phoneNumber,
 				"emailAddress": emailAddress,
-				"traceLocationGUID": traceLocationGUID as Any
+				"traceLocationId": traceLocationId as Any
 			]
 			guard database.executeUpdate(sql, withParameterDictionary: parameters) else {
 				logLastErrorCode(from: database)
@@ -965,12 +965,18 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					circumstances: queryResult.string(forColumn: "locationVisitCircumstances") ?? "",
 					checkinId: checkinId
 				)
+
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "traceLocationId" is defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
+
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					traceLocationGUID: queryResult.string(forColumn: "traceLocationGUID"),
+					traceLocationId: traceLocationId,
 					visit: locationVisit
 				)
 				locations.append(location)

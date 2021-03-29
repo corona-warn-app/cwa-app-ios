@@ -21,8 +21,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			INSERT INTO Checkin (
-				traceLocationGUID,
-				traceLocationGUIDHash,
+				traceLocationId,
+				traceLocationIdHash,
 				traceLocationVersion,
 				traceLocationType,
 				traceLocationDescription,
@@ -30,15 +30,16 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				traceLocationStartDate,
 				traceLocationEndDate,
 				traceLocationDefaultCheckInLengthInMinutes,
-				traceLocationSignature,
+				cryptographicSeed,
+				cnMainPublicKey,
 				checkinStartDate,
 				checkinEndDate,
 				checkinCompleted,
 				createJournalEntry
 			)
 			VALUES (
-				:traceLocationGUID,
-				:traceLocationGUIDHash,
+				:traceLocationId,
+				:traceLocationIdHash,
 				:traceLocationVersion,
 				:traceLocationType,
 				SUBSTR(:traceLocationDescription, 1, \(maxTextLength)),
@@ -46,7 +47,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				:traceLocationStartDate,
 				:traceLocationEndDate,
 				:traceLocationDefaultCheckInLengthInMinutes,
-				:traceLocationSignature,
+				:cryptographicSeed,
+				:cnMainPublicKey,
 				:checkinStartDate,
 				:checkinEndDate,
 				:checkinCompleted,
@@ -65,8 +67,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 		}
 
 		let parameters: [String: Any] = [
-			"traceLocationGUID": checkin.traceLocationGUID,
-			"traceLocationGUIDHash": checkin.traceLocationGUIDHash,
+			"traceLocationId": checkin.traceLocationId,
+			"traceLocationIdHash": checkin.traceLocationIdHash,
 			"traceLocationVersion": checkin.traceLocationVersion,
 			"traceLocationType": checkin.traceLocationType.rawValue,
 			"traceLocationDescription": checkin.traceLocationDescription,
@@ -74,7 +76,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 			"traceLocationStartDate": traceLocationStartDateInterval as Any,
 			"traceLocationEndDate": traceLocationEndDateInterval as Any,
 			"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
-			"traceLocationSignature": checkin.traceLocationSignature,
+			"cryptographicSeed": checkin.cryptographicSeed,
+			"cnMainPublicKey": checkin.cnMainPublicKey,
 			"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
 			"checkinEndDate": Int(checkin.checkinEndDate.timeIntervalSince1970),
 			"checkinCompleted": checkin.checkinCompleted,

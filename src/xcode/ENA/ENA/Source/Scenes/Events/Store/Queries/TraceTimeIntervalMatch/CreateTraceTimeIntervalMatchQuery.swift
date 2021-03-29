@@ -21,7 +21,7 @@ class CreateTraceTimeIntervalMatchQuery: StoreQueryProtocol {
 			INSERT INTO TraceTimeIntervalMatch (
 				checkinId,
 				traceWarningPackageId,
-				traceLocationGUID,
+				traceLocationId,
 				transmissionRiskLevel,
 				startIntervalNumber,
 				endIntervalNumber
@@ -29,7 +29,7 @@ class CreateTraceTimeIntervalMatchQuery: StoreQueryProtocol {
 			VALUES (
 				:checkinId,
 				:traceWarningPackageId,
-				:traceLocationGUID,
+				:traceLocationId,
 				:transmissionRiskLevel,
 				:startIntervalNumber,
 				:endIntervalNumber
@@ -38,7 +38,7 @@ class CreateTraceTimeIntervalMatchQuery: StoreQueryProtocol {
 		let parameters: [String: Any] = [
 			"checkinId": match.checkinId,
 			"traceWarningPackageId": match.traceWarningPackageId,
-			"traceLocationGUID": match.traceLocationGUID,
+			"traceLocationId": match.traceLocationId,
 			"transmissionRiskLevel": match.transmissionRiskLevel,
 			"startIntervalNumber": match.startIntervalNumber,
 			"endIntervalNumber": match.endIntervalNumber

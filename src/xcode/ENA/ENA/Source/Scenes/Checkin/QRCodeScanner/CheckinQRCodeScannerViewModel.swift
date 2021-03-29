@@ -35,16 +35,16 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 		// creates a fake event for the moment
 		let traceLocation = TraceLocation(
-			guid: "",
+			id: Data(),
 			version: 0,
 			type: .locationTypePermanentCraft,
-			description: "Jahrestreffen derdeutschen SAP Anwendergruppe",
+			description: "Jahrestreffen der deutschen SAP Anwendergruppe",
 			address: "Lenaustr.6, 69115, Heidelberg",
 			startDate: Date(),
 			endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
 			defaultCheckInLengthInMinutes: nil,
-			byteRepresentation: Data(),
-			signature: ""
+			cryptographicSeed: Data(),
+			cnMainPublicKey: Data()
 		)
 		onSuccess?(traceLocation)
 	}

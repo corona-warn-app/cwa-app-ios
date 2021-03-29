@@ -28,9 +28,9 @@ class UpdateTraceLocationQuery: StoreQueryProtocol {
 			startDate = ?,
 			endDate = ?,
 			defaultCheckInLengthInMinutes = ?,
-			byteRepresentation = ?,
-			signature = ?
-			WHERE guid = ?;
+			cryptographicSeed = ?,
+			cnMainPublicKey = ?
+			WHERE id = ?;
 		"""
 
 		var startDateInterval: Int?
@@ -54,9 +54,9 @@ class UpdateTraceLocationQuery: StoreQueryProtocol {
 					startDateInterval as Any,
 					endDateInterval as Any,
 					traceLocation.defaultCheckInLengthInMinutes as Any,
-					traceLocation.byteRepresentation,
-					traceLocation.signature,
-					traceLocation.guid
+					traceLocation.cryptographicSeed,
+					traceLocation.cnMainPublicKey,
+					traceLocation.id
 				]
 			)
 			return true

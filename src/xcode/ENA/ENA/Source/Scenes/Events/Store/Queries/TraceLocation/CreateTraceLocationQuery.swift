@@ -21,7 +21,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			INSERT INTO TraceLocation (
-				guid,
+				id,
 				version,
 				type,
 				description,
@@ -29,11 +29,11 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 				startDate,
 				endDate,
 				defaultCheckInLengthInMinutes,
-				byteRepresentation,
-				signature
+				cryptographicSeed,
+				cnMainPublicKey
 			)
 			VALUES (
-				:guid,
+				:id,
 				:version,
 				:type,
 				SUBSTR(:description, 1, \(maxTextLength)),
@@ -41,8 +41,8 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 				:startDate,
 				:endDate,
 				:defaultCheckInLengthInMinutes,
-				:byteRepresentation,
-				:signature
+				:cryptographicSeed,
+				:cnMainPublicKey
 			);
 		"""
 
@@ -57,7 +57,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 		}
 
 		let parameters: [String: Any] = [
-			"guid": traceLocation.guid,
+			"id": traceLocation.id,
 			"version": traceLocation.version,
 			"type": traceLocation.type.rawValue,
 			"description": traceLocation.description,
@@ -65,8 +65,8 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 			"startDate": startDateInterval as Any,
 			"endDate": endDateInterval as Any,
 			"defaultCheckInLengthInMinutes": traceLocation.defaultCheckInLengthInMinutes as Any,
-			"byteRepresentation": traceLocation.byteRepresentation,
-			"signature": traceLocation.signature
+			"cryptographicSeed": traceLocation.cryptographicSeed,
+			"cnMainPublicKey": traceLocation.cnMainPublicKey
 		]
 
 		return database.executeUpdate(sql, withParameterDictionary: parameters)
