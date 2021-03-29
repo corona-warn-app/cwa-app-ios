@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import OpenCombine
 
-final class TestResultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+final class TestResultAvailableViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -14,7 +14,6 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -26,21 +25,20 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		parent?.navigationItem.hidesBackButton = true
+		parent?.navigationItem.title = AppStrings.ExposureSubmissionTestResultAvailable.title
+		parent?.navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 
 		setupTableView()
 		setupViewModel()
 	}
 
-	override var navigationItem: UINavigationItem {
-		viewModel.navigationFooterItem
-	}
+	// MARK: - Protocol FooterViewUpdating
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
 		viewModel.onPrimaryButtonTap { [weak self] isLoading in
-			self?.viewModel.navigationFooterItem.isPrimaryButtonEnabled = !isLoading
-			self?.viewModel.navigationFooterItem.isPrimaryButtonLoading = isLoading
+			self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .primary)
 		}
 	}
 
@@ -65,6 +63,9 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 		viewModel.$dynamicTableViewModel.sink { [weak self] dynamicTableViewModel in
 			self?.dynamicTableViewModel = dynamicTableViewModel
 			self?.tableView?.reloadData()
+		}.store(in: &bindings)
+		viewModel.$isLoading.sink { [weak self] isLoading in
+			self?.footerView?.setLoadingIndicator(false, disable: isLoading, button: .primary)
 		}.store(in: &bindings)
 	}
 
