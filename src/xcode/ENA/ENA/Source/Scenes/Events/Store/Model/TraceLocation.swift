@@ -116,6 +116,9 @@ struct TraceLocation {
 }
 
 extension TraceLocation {
+	
+	// MARK: - Init
+	
 	init?(qrCodeString: String) {
 		
 		guard let data = qrCodeString.base32DecodedData else {
