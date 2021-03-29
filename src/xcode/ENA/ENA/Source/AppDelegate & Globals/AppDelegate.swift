@@ -520,11 +520,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					Log.error("Cannot activate the  ENManager. The reason is \(error)", log: .api)
-					if let rootController = self?.window?.rootViewController {
-						let alert = rootController.setupErrorAlert(message: error.localizedDescription)
-						rootController.present(alert, animated: true, completion: nil)
-					}
-					return
 				}
 				self?.presentHomeVC(route)
 			}
