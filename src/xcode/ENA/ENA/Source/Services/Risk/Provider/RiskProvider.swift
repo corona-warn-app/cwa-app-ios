@@ -18,6 +18,7 @@ final class RiskProvider: RiskProviding {
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
 		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
+		checkinRiskCalculation: CheckinRiskCalculationProtocol,
 		keyPackageDownload: KeyPackageDownloadProtocol,
 		traceWarningPackageDownload: TraceWarningPackageDownloading,
 		exposureDetectionExecutor: ExposureDetectionDelegate
@@ -28,6 +29,7 @@ final class RiskProvider: RiskProviding {
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
 		self.riskCalculation = riskCalculation
+		self.checkinRiskCalculation = checkinRiskCalculation
 		self.keyPackageDownload = keyPackageDownload
 		self.traceWarningPackageDownload = traceWarningPackageDownload
 		self.exposureDetectionExecutor = exposureDetectionExecutor
@@ -91,8 +93,13 @@ final class RiskProvider: RiskProviding {
 		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
 			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
 
-			// Keep downloading key packages for plausible deniability
+			// Keep downloading key packages and trace warning packages for plausible deniability
+
 			downloadKeyPackages()
+
+			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
+				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
+			}.store(in: &subscriptions)
 
 			return
 		}
@@ -100,8 +107,13 @@ final class RiskProvider: RiskProviding {
 		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
 			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
 
-			// Keep downloading key packages for plausible deniability
+			// Keep downloading key packages and trace warning packages for plausible deniability
+
 			downloadKeyPackages()
+
+			appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
+				self?.downloadTraceWarningPackages(with: appConfiguration, completion: { _ in })
+			}.store(in: &subscriptions)
 
 			return
 		}
@@ -120,6 +132,7 @@ final class RiskProvider: RiskProviding {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
 	private let riskCalculation: RiskCalculationProtocol
+	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
 	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
@@ -303,9 +316,14 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
 		
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
-		   let riskCalculationResult = store.riskCalculationResult {
+		   let riskCalculationResult = store.riskCalculationResult,
+		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
+
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-			return Risk(riskCalculationResult: riskCalculationResult)
+			return Risk(
+				riskCalculationResult: riskCalculationResult,
+				checkinCalculationResult: checkinRiskCalculationResult
+			)
 		}
 
 		return nil
@@ -349,12 +367,19 @@ final class RiskProvider: RiskProviding {
 			let riskCalculationResult = riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
 			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
+
+			let checkinCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
+
 			let risk = Risk(
 				riskCalculationResult: riskCalculationResult,
-				previousRiskCalculationResult: store.riskCalculationResult
+				previousRiskCalculationResult: store.riskCalculationResult,
+				checkinCalculationResult: checkinCalculationResult,
+				previousCheckinCalculationResult: store.checkinRiskCalculationResult
 			)
 
 			store.riskCalculationResult = riskCalculationResult
+			store.checkinRiskCalculationResult = checkinCalculationResult
+
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 

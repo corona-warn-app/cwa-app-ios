@@ -17,10 +17,12 @@ class HomeState: ENStateHandlerUpdating {
 		exposureSubmissionService: ExposureSubmissionService,
 		statisticsProvider: StatisticsProviding
 	) {
-		if let riskCalculationResult = store.riskCalculationResult {
+		if let riskCalculationResult = store.riskCalculationResult,
+		   let checkinCalculationResult = store.checkinRiskCalculationResult {
 			self.riskState = .risk(
 				Risk(
-					riskCalculationResult: riskCalculationResult
+					riskCalculationResult: riskCalculationResult,
+					checkinCalculationResult: checkinCalculationResult
 				)
 			)
 		} else {

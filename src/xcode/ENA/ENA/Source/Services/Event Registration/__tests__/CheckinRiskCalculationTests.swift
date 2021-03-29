@@ -5,7 +5,6 @@
 import XCTest
 @testable import ENA
 
-// swiftlint:disable type_body_length
 class CheckinRiskCalculationTests: XCTestCase {
 
 	// For all the test szenarios, please consider the risk calculation parameters in the mocked app configuration.
@@ -21,10 +20,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			return
 		}
 
-		let keyValueStore = MockTestStore()
-
 		guard let riskCalculation = makeRiskCalculation(
-			keyValueStore: keyValueStore,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			matchStartDate: matchStartDate,
@@ -33,16 +29,8 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectation = expectation(description: "Completion should be called")
-		riskCalculation.calculateRisk {
-			completionExpectation.fulfill()
-		}
-		waitForExpectations(timeout: .medium)
 
-		guard let checkinRiskCalculationResult = keyValueStore.checkinRiskCalculationResult else {
-			XCTFail("checkinRiskCalculationResult should not be nil.")
-			return
-		}
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
 
 		let numberOfLowDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .low ? $0 + 1 : $0
@@ -71,10 +59,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			return
 		}
 
-		let keyValueStore = MockTestStore()
-
 		guard let riskCalculation = makeRiskCalculation(
-			keyValueStore: keyValueStore,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			matchStartDate: matchStartDate,
@@ -83,16 +68,8 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectation = expectation(description: "Completion should be called")
-		riskCalculation.calculateRisk {
-			completionExpectation.fulfill()
-		}
-		waitForExpectations(timeout: .medium)
 
-		guard let checkinRiskCalculationResult = keyValueStore.checkinRiskCalculationResult else {
-			XCTFail("checkinRiskCalculationResult should not be nil.")
-			return
-		}
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
 
 		let numberOfHighDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -121,10 +98,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			return
 		}
 
-		let keyValueStore = MockTestStore()
-
 		guard let riskCalculation = makeRiskCalculation(
-			keyValueStore: keyValueStore,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			matchStartDate: matchStartDate,
@@ -133,16 +107,8 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectation = expectation(description: "Completion should be called")
-		riskCalculation.calculateRisk {
-			completionExpectation.fulfill()
-		}
-		waitForExpectations(timeout: .medium)
 
-		guard let checkinRiskCalculationResult = keyValueStore.checkinRiskCalculationResult else {
-			XCTFail("checkinRiskCalculationResult should not be nil.")
-			return
-		}
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
 
 		let numberOfLowDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .low ? $0 + 1 : $0
@@ -171,10 +137,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			return
 		}
 
-		let keyValueStore = MockTestStore()
-
 		guard let riskCalculation = makeRiskCalculation(
-			keyValueStore: keyValueStore,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			matchStartDate: matchStartDate,
@@ -183,16 +146,8 @@ class CheckinRiskCalculationTests: XCTestCase {
 			XCTFail("Could not create CheckinRiskCalculation.")
 			return
 		}
-		let completionExpectation = expectation(description: "Completion should be called")
-		riskCalculation.calculateRisk {
-			completionExpectation.fulfill()
-		}
-		waitForExpectations(timeout: .medium)
 
-		guard let checkinRiskCalculationResult = keyValueStore.checkinRiskCalculationResult else {
-			XCTFail("checkinRiskCalculationResult should not be nil.")
-			return
-		}
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
 
 		let numberOfHighDayRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -223,10 +178,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			return
 		}
 
-		let config = createAppConfig()
-		let appConfigProvider = CachedAppConfigurationMock(with: config)
 		let eventStore = MockEventStore()
-		let keyValueStore = MockTestStore()
 		let checkinSplittingService = CheckinSplittingService()
 		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
 
@@ -276,22 +228,11 @@ class CheckinRiskCalculationTests: XCTestCase {
 
 		let riskCalculation = CheckinRiskCalculation(
 			eventStore: eventStore,
-			keyValueStore: keyValueStore,
 			checkinSplittingService: checkinSplittingService,
-			traceWarningMatcher: traceWarningMatcher,
-			appConfigProvider: appConfigProvider
+			traceWarningMatcher: traceWarningMatcher
 		)
 
-		let completionExpectation = expectation(description: "Completion should be called")
-		riskCalculation.calculateRisk {
-			completionExpectation.fulfill()
-		}
-		waitForExpectations(timeout: .medium)
-
-		guard let checkinRiskCalculationResult = keyValueStore.checkinRiskCalculationResult else {
-			XCTFail("checkinRiskCalculationResult should not be nil.")
-			return
-		}
+		let checkinRiskCalculationResult = riskCalculation.calculateRisk(with: createAppConfig())
 
 		let numberOfHighRisks: Int = checkinRiskCalculationResult.riskLevelPerDate.reduce(0) {
 			$1.value == .high ? $0 + 1 : $0
@@ -374,14 +315,11 @@ class CheckinRiskCalculationTests: XCTestCase {
 	}
 
 	private func makeRiskCalculation(
-		keyValueStore: Store,
 		checkinStartDate: Date,
 		checkinEndDate: Date,
 		matchStartDate: Date,
 		matchEndDate: Date
 	) -> CheckinRiskCalculation? {
-		let config = createAppConfig()
-		let appConfigProvider = CachedAppConfigurationMock(with: config)
 		let eventStore = MockEventStore()
 		let checkinSplittingService = CheckinSplittingService()
 		let traceWarningMatcher = TraceWarningMatcher(eventStore: eventStore)
@@ -410,10 +348,8 @@ class CheckinRiskCalculationTests: XCTestCase {
 
 		return CheckinRiskCalculation(
 			eventStore: eventStore,
-			keyValueStore: keyValueStore,
 			checkinSplittingService: checkinSplittingService,
-			traceWarningMatcher: traceWarningMatcher,
-			appConfigProvider: appConfigProvider
+			traceWarningMatcher: traceWarningMatcher
 		)
 	}
 

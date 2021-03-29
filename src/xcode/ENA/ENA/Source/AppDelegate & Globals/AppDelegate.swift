@@ -195,6 +195,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			eventStore: eventStore
 		)
 
+		let checkinRiskCalculation = CheckinRiskCalculation(
+			eventStore: eventStore,
+			checkinSplittingService: CheckinSplittingService(),
+			traceWarningMatcher: TraceWarningMatcher(eventStore: eventStore)
+		)
+
 		#if !RELEASE
 		return RiskProvider(
 			configuration: .default,
@@ -202,6 +208,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
 			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
@@ -212,6 +219,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
+			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor

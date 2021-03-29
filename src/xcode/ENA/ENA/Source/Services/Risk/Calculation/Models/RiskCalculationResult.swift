@@ -98,34 +98,3 @@ struct RiskCalculationResult: Codable {
 	}
 
 }
-
-extension Risk.Details {
-
-	init(
-		riskCalculationResult: RiskCalculationResult
-	) {
-		self.init(
-			mostRecentDateWithRiskLevel: riskCalculationResult.mostRecentDateWithCurrentRiskLevel,
-			numberOfDaysWithRiskLevel: riskCalculationResult.numberOfDaysWithCurrentRiskLevel,
-			exposureDetectionDate: riskCalculationResult.calculationDate
-		)
-	}
-
-}
-
-extension Risk {
-
-	init(
-		riskCalculationResult: RiskCalculationResult,
-		previousRiskCalculationResult: RiskCalculationResult? = nil
-	) {
-		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil && riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel
-
-		self.init(
-			level: riskCalculationResult.riskLevel == .high ? .high : .low,
-			details: Details(riskCalculationResult: riskCalculationResult),
-			riskLevelHasChanged: riskLevelHasChanged
-		)
-	}
-
-}
