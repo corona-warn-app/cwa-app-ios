@@ -49,7 +49,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .background)
+		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		contentView.addSubview(tileView)
 
 		startTimeDatePicker.translatesAutoresizingMaskIntoConstraints = false

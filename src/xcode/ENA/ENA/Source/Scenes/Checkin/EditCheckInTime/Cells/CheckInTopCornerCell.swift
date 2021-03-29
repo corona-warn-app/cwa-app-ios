@@ -39,7 +39,7 @@ class CheckInTopCornerCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .background)
+		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		tileView.layer.cornerRadius = 12.0
 		tileView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 

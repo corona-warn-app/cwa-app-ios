@@ -56,7 +56,7 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let tileView = UIView()
 		tileView.translatesAutoresizingMaskIntoConstraints = false
-		tileView.backgroundColor = .enaColor(for: .background)
+		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		tileView.layer.cornerRadius = 12.0
 		tileView.layer.masksToBounds = true
 		tileView.layer.borderWidth = 1.0

@@ -5151,8 +5151,8 @@
 		BAA19D63261214FF00CBBDDD /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
-				BAA19D642612151B00CBBDDD /* CheckInTimeModelTests.swift */,
 				BAA19D6C2612184E00CBBDDD /* CheckInDescriptionCellModelTests.swift */,
+				BAA19D642612151B00CBBDDD /* CheckInTimeModelTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
