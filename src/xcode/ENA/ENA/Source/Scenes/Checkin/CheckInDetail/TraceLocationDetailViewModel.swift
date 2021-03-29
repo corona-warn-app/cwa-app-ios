@@ -15,7 +15,7 @@ final class TraceLocationDetailViewModel {
 		self.traceLocation = traceLocation
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
-		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiarybyDefault
+		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
 		
 		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
 			self.selectedDurationInMinutes = defaultDuration
@@ -105,7 +105,7 @@ final class TraceLocationDetailViewModel {
 			createJournalEntry: shouldSaveToContactJournal
 		)
 
-		store.shouldAddCheckinToContactDiarybyDefault = shouldSaveToContactJournal
+		store.shouldAddCheckinToContactDiaryByDefault = shouldSaveToContactJournal
 		 eventStore.createCheckin(checkin)
 	}
 
