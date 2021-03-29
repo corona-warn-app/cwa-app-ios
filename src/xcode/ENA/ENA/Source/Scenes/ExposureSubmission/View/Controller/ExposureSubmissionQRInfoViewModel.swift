@@ -75,7 +75,8 @@ struct ExposureSubmissionQRInfoViewModel {
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal)
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement7)
 			])
 		)
 
@@ -111,14 +112,22 @@ struct ExposureSubmissionQRInfoViewModel {
 		]
 
 		// Don't forget the tab for all paragraphs after the first!
-		let ack1 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)")
-		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1.count))
+		let ack1 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet1_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet1_2)")
+		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet1_1.count))
 
-		let ack2 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)")
-		ack2.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1.count))
+		let ack2 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet2)")
+		ack2.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet2.count))
+
+		let ack3 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet3)")
+		ack3.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet3.count))
+		
+		let ack4 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent)")
+		ack4.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent.count))
 
 		points.append(ack1)
 		points.append(ack2)
+		points.append(ack3)
+		points.append(ack4)
 
 		return points
 	}
