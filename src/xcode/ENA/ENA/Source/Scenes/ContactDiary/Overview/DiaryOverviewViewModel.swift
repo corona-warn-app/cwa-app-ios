@@ -120,7 +120,7 @@ class DiaryOverviewViewModel {
 
 		var checkinsWithRisk: [CheckinWithRisk] = []
 		
-		checkinIdsWithRisk.forEach{ checkinIdWithRisk in
+		checkinIdsWithRisk.forEach { checkinIdWithRisk in
 			for checkin in eventStore.checkinsPublisher.value where checkinIdWithRisk.checkinId == checkin.id {
 				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
 			}
