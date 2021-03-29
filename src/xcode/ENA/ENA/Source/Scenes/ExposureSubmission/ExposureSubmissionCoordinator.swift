@@ -246,7 +246,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		return TestResultAvailableViewController(viewModel)
 	}
 
-	private func createTestResultViewController(with testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+	private func createTestResultViewController(with testResult: TestResult) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
 		// store is only initialized when a positive test result is received
 		if testResult == .positive {
 			updateStoreWithKeySubmissionMetadataDefaultValues()
@@ -255,42 +255,45 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
 		let testResultAvailability: TestResultAvailability = testResult == .positive ? .availableAndPositive : .notAvailable
-		return ExposureSubmissionTestResultViewController(
-			viewModel: .init(
-				testResult: testResult,
-				exposureSubmissionService: model.exposureSubmissionService,
-				warnOthersReminder: warnOthersReminder,
-				onSubmissionConsentCellTap: { [weak self] isLoading in
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: { supportedCountries in
-							self?.showTestResultSubmissionConsentScreen(
-								supportedCountries: supportedCountries,
-								testResultAvailability: testResultAvailability
-							)
-						}
-					)
-				},
-				onContinueWithSymptomsFlowButtonTap: { [weak self] in
-					self?.showSymptomsScreen()
-				},
-				onContinueWarnOthersButtonTap: { [weak self] isLoading in
-					Log.debug("\(#function) will load app config", log: .appConfig)
-					self?.model.exposureSubmissionService.loadSupportedCountries(
-						isLoading: isLoading,
-						onSuccess: { supportedCountries in
-							Log.debug("\(#function) did load app config", log: .appConfig)
-							self?.showWarnOthersScreen(supportedCountries: supportedCountries)
-						}
-					)
-				},
-				onChangeToPositiveTestResult: { [weak self] in
-					self?.showTestResultAvailableScreen(with: .positive)
-				},
-				onTestDeleted: { [weak self] in
-					self?.dismiss()
-				}
-			),
+		
+		let viewModel = ExposureSubmissionTestResultViewModel(
+			testResult: testResult,
+			exposureSubmissionService: model.exposureSubmissionService,
+			warnOthersReminder: warnOthersReminder,
+			onSubmissionConsentCellTap: { [weak self] isLoading in
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						self?.showTestResultSubmissionConsentScreen(
+							supportedCountries: supportedCountries,
+							testResultAvailability: testResultAvailability
+						)
+					}
+				)
+			},
+			onContinueWithSymptomsFlowButtonTap: { [weak self] in
+				self?.showSymptomsScreen()
+			},
+			onContinueWarnOthersButtonTap: { [weak self] isLoading in
+				Log.debug("\(#function) will load app config", log: .appConfig)
+				self?.model.exposureSubmissionService.loadSupportedCountries(
+					isLoading: isLoading,
+					onSuccess: { supportedCountries in
+						Log.debug("\(#function) did load app config", log: .appConfig)
+						self?.showWarnOthersScreen(supportedCountries: supportedCountries)
+					}
+				)
+			},
+			onChangeToPositiveTestResult: { [weak self] in
+				self?.showTestResultAvailableScreen(with: .positive)
+			},
+			onTestDeleted: { [weak self] in
+				self?.dismiss()
+			}
+		)
+		
+		let vc = ExposureSubmissionTestResultViewController(
+			viewModel: viewModel,
 			exposureSubmissionService: self.model.exposureSubmissionService,
 			onDismiss: { [weak self] testResult, isLoading in
 				if testResult == TestResult.positive {
@@ -298,12 +301,22 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				} else {
 					self?.dismiss()
 				}
-
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			ExposureSubmissionTestResultViewModel.footerViewModel(testResult: testResult, isSubmissionConsentGiven: model.exposureSubmissionService.isSubmissionConsentGiven)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 
-	private func createWarnOthersViewController() -> ExposureSubmissionWarnOthersViewController {
+	private func createWarnOthersViewController() -> UIViewController {
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenWarnOthers)))
 
 		// ugly but works for the moment
@@ -331,7 +344,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-		return vc
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
 
 	// MARK: Screen Flow
@@ -362,6 +391,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
+		
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
@@ -394,8 +424,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-
-		push(vc)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
@@ -502,8 +547,23 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 			},
 			dismiss: { [weak self] in self?.dismiss() }
 		)
-
-		push(vc)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ExposureSubmissionQRInfo.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: vc,
+			bottomController: footerViewController
+		)
+		
+		push(topBottomContainerViewController)
 	}
 
 	private func showThankYouScreen() {
@@ -515,8 +575,24 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				self?.showThankYouCancelAlert(isLoading: isLoading)
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.ThankYouScreen.continueButton,
+				secondaryButtonName: AppStrings.ThankYouScreen.cancelButton,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				secondaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.secondaryButton,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: thankYouVC,
+			bottomController: footerViewController
+		)
 
-		push(thankYouVC)
+		push(topBottomContainerViewController)
 	}
 
 	// MARK: Symptoms
