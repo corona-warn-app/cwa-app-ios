@@ -479,8 +479,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: nil,
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
-			cryptographicSeed: "Other signature".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Other seed".data(using: .utf8) ?? Data(),
+			cryptographicSeed: "Other".data(using: .utf8) ?? Data(),
+			cnMainPublicKey: "Other".data(using: .utf8) ?? Data(),
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: false,
@@ -502,8 +502,8 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
-				XCTAssertEqual(checkin.cryptographicSeed, "Other seed".data(using: .utf8))
-				XCTAssertEqual(checkin.cryptographicSeed, "Other signature".data(using: .utf8))
+				XCTAssertEqual(checkin.cryptographicSeed, "Other".data(using: .utf8))
+				XCTAssertEqual(checkin.cnMainPublicKey, "Other".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.createJournalEntry)
 
@@ -965,8 +965,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: Date(),
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 1,
-			cryptographicSeed: Data(),
-			cnMainPublicKey: Data(),
+			cryptographicSeed: "Some".data(using: .utf8) ?? Data(),
+			cnMainPublicKey: "Some".data(using: .utf8) ?? Data(),
 			checkinStartDate: Date(),
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,

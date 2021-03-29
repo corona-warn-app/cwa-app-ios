@@ -51,7 +51,7 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					endDate INTEGER,
 					defaultCheckInLengthInMinutes INTEGER,
 					cryptographicSeed BLOB NOT NULL,
-					cnMainPublicKey BLOB NOT NULL,
+					cnMainPublicKey BLOB NOT NULL
 				);
 
 				CREATE TABLE IF NOT EXISTS TraceTimeIntervalMatch (
