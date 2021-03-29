@@ -9,7 +9,7 @@ struct CheckinRiskCalculationResult: Codable {
 	let riskLevelPerDate: [Date: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel]
 }
 
-struct CheckinIdWithRisk: Codable, Hashable {
+struct CheckinIdWithRisk: Codable {
 	let checkinId: Int
 	let riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel
 }

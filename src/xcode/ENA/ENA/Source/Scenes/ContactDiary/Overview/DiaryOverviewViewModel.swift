@@ -114,9 +114,9 @@ class DiaryOverviewViewModel {
 			return []
 		}
 
-		let checkinIdsWithRisk = Set(result.checkinIdsWithRiskPerDate.filter({
+		let checkinIdsWithRisk = result.checkinIdsWithRiskPerDate.filter({
 			$0.key == day
-		}).flatMap { $0.value })
+		}).flatMap { $0.value }
 
 		var checkinsWithRisk: [CheckinWithRisk] = []
 		
