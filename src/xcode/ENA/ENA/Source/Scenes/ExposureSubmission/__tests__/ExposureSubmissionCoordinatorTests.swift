@@ -124,7 +124,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		XCTAssertNotNil(navigationController?.topViewController as? TestResultAvailableViewController)
+		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 	}
 
 	func testDismiss() {
