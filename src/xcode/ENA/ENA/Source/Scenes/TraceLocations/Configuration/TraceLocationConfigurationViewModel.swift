@@ -149,14 +149,6 @@ class TraceLocationConfigurationViewModel {
 	}
 
 	func save(completion: @escaping (Bool) -> Void) {
-		var traceLocation = SAP_Internal_Pt_TraceLocation()
-		traceLocation.version = 1
-		traceLocation.description_p = description.trimmingCharacters(in: .whitespacesAndNewlines)
-		traceLocation.address = address.trimmingCharacters(in: .whitespacesAndNewlines)
-		traceLocation.startTimestamp = startDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
-		traceLocation.endTimestamp = endDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
-		traceLocation.defaultCheckInLengthInMinutes = defaultCheckInLengthInMinutes.map { UInt32($0) } ?? 0
-
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			completion(true)
 		}
