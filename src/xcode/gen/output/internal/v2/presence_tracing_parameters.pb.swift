@@ -259,13 +259,13 @@ struct SAP_Internal_V2_PresenceTracingQRCodeDescriptor {
 
   var versionGroupIndex: UInt32 = 0
 
-  var encodedTraceLocationGroupIndex: UInt32 = 0
+  var encodedPayloadGroupIndex: UInt32 = 0
 
-  var traceLocationEncoding: SAP_Internal_V2_PresenceTracingQRCodeDescriptor.TraceLocationEncoding = .base32
+  var payloadEncoding: SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding = .base32
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  enum TraceLocationEncoding: SwiftProtobuf.Enum {
+  enum PayloadEncoding: SwiftProtobuf.Enum {
     typealias RawValue = Int
     case base32 // = 0
     case base64 // = 1
@@ -298,9 +298,9 @@ struct SAP_Internal_V2_PresenceTracingQRCodeDescriptor {
 
 #if swift(>=4.2)
 
-extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.TraceLocationEncoding: CaseIterable {
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [SAP_Internal_V2_PresenceTracingQRCodeDescriptor.TraceLocationEncoding] = [
+  static var allCases: [SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding] = [
     .base32,
     .base64,
   ]
@@ -682,8 +682,8 @@ extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor: SwiftProtobuf.Message
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "regexPattern"),
     2: .same(proto: "versionGroupIndex"),
-    3: .same(proto: "encodedTraceLocationGroupIndex"),
-    4: .same(proto: "traceLocationEncoding"),
+    3: .same(proto: "encodedPayloadGroupIndex"),
+    4: .same(proto: "payloadEncoding"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -694,8 +694,8 @@ extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor: SwiftProtobuf.Message
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.regexPattern) }()
       case 2: try { try decoder.decodeSingularUInt32Field(value: &self.versionGroupIndex) }()
-      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.encodedTraceLocationGroupIndex) }()
-      case 4: try { try decoder.decodeSingularEnumField(value: &self.traceLocationEncoding) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.encodedPayloadGroupIndex) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.payloadEncoding) }()
       default: break
       }
     }
@@ -708,11 +708,11 @@ extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor: SwiftProtobuf.Message
     if self.versionGroupIndex != 0 {
       try visitor.visitSingularUInt32Field(value: self.versionGroupIndex, fieldNumber: 2)
     }
-    if self.encodedTraceLocationGroupIndex != 0 {
-      try visitor.visitSingularUInt32Field(value: self.encodedTraceLocationGroupIndex, fieldNumber: 3)
+    if self.encodedPayloadGroupIndex != 0 {
+      try visitor.visitSingularUInt32Field(value: self.encodedPayloadGroupIndex, fieldNumber: 3)
     }
-    if self.traceLocationEncoding != .base32 {
-      try visitor.visitSingularEnumField(value: self.traceLocationEncoding, fieldNumber: 4)
+    if self.payloadEncoding != .base32 {
+      try visitor.visitSingularEnumField(value: self.payloadEncoding, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -720,14 +720,14 @@ extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor: SwiftProtobuf.Message
   static func ==(lhs: SAP_Internal_V2_PresenceTracingQRCodeDescriptor, rhs: SAP_Internal_V2_PresenceTracingQRCodeDescriptor) -> Bool {
     if lhs.regexPattern != rhs.regexPattern {return false}
     if lhs.versionGroupIndex != rhs.versionGroupIndex {return false}
-    if lhs.encodedTraceLocationGroupIndex != rhs.encodedTraceLocationGroupIndex {return false}
-    if lhs.traceLocationEncoding != rhs.traceLocationEncoding {return false}
+    if lhs.encodedPayloadGroupIndex != rhs.encodedPayloadGroupIndex {return false}
+    if lhs.payloadEncoding != rhs.payloadEncoding {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.TraceLocationEncoding: SwiftProtobuf._ProtoNameProviding {
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "BASE32"),
     1: .same(proto: "BASE64"),
