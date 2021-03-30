@@ -18,19 +18,7 @@ class CheckInBottomCornerCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	func configure(_ model: String) {
-		noticeLabel.text = model
-	}
-
 	// MARK: - Private
-
-	private let typeLabel = ENALabel()
-
-	private let noticeLabel = ENALabel()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -42,7 +30,9 @@ class CheckInBottomCornerCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		tileView.layer.cornerRadius = 12.0
 		tileView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-
+		if #available(iOS 13.0, *) {
+			tileView.layer.cornerCurve = .continuous
+		}
 		contentView.addSubview(tileView)
 
 		NSLayoutConstraint.activate([
@@ -53,6 +43,5 @@ class CheckInBottomCornerCell: UITableViewCell, ReuseIdentifierProviding {
 			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 20.0)
 		])
 	}
-
 
 }

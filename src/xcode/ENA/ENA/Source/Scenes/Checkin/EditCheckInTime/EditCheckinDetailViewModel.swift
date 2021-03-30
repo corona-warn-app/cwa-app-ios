@@ -86,8 +86,8 @@ final class EditCheckinDetailViewModel {
 		}
 		let updateCheckIn = Checkin(
 			id: checkIn.id,
-			traceLocationGUID: checkIn.traceLocationGUID,
-			traceLocationGUIDHash: checkIn.traceLocationGUIDHash,
+			traceLocationId: checkIn.traceLocationId,
+			traceLocationIdHash: checkIn.traceLocationIdHash,
 			traceLocationVersion: checkIn.traceLocationVersion,
 			traceLocationType: checkIn.traceLocationType,
 			traceLocationDescription: checkIn.traceLocationDescription,
@@ -95,7 +95,8 @@ final class EditCheckinDetailViewModel {
 			traceLocationStartDate: checkIn.traceLocationStartDate,
 			traceLocationEndDate: checkIn.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: checkIn.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkIn.traceLocationSignature,
+			cryptographicSeed: checkIn.cryptographicSeed,
+			cnPublicKey: checkIn.cnPublicKey,
 			checkinStartDate: startDate,
 			checkinEndDate: endDate,
 			checkinCompleted: checkIn.checkinCompleted,

@@ -41,6 +41,9 @@ class CheckInNoticeCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.translatesAutoresizingMaskIntoConstraints = false
 		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		tileView.layer.cornerRadius = 12.0
+		if #available(iOS 13.0, *) {
+			tileView.layer.cornerCurve = .continuous
+		}
 		tileView.layer.masksToBounds = true
 		tileView.layer.borderWidth = 1.0
 		tileView.layer.borderColor = UIColor.enaColor(for: .hairline).cgColor

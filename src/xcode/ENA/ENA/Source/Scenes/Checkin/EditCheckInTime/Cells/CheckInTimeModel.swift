@@ -15,8 +15,6 @@ final class CheckInTimeModel {
 		self.hasTopSeparator = hasTopSeparator
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	let type: String
@@ -27,7 +25,5 @@ final class CheckInTimeModel {
 	var dateString: String {
 		DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .short)
 	}
-
-	// MARK: - Private
 
 }

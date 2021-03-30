@@ -19,15 +19,6 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-			stackView.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
-		}
-	}
-
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func configure(_ cellModel: CheckInTimeModel) {
@@ -50,7 +41,6 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 	private let typeLabel = ENALabel()
 	private let dateTimeLabel = ENALabel()
 	private let topSeparatorView = UIView()
-	private let stackView = UIStackView()
 	private var topLayoutConstraint: NSLayoutConstraint!
 	private var bottomLayoutConstraint: NSLayoutConstraint!
 	private var cellModel: CheckInTimeModel?
@@ -61,11 +51,9 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .enaColor(for: .cellBackground)
 		contentView.backgroundColor = .enaColor(for: .cellBackground)
 
-		typeLabel.translatesAutoresizingMaskIntoConstraints = false
 		typeLabel.font = .enaFont(for: .subheadline)
 		typeLabel.textColor = .enaColor(for: .textPrimary1)
 
-		dateTimeLabel.translatesAutoresizingMaskIntoConstraints = false
 		dateTimeLabel.font = .enaFont(for: .subheadline)
 		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
 		dateTimeLabel.textAlignment = .right
@@ -80,9 +68,8 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		topSeparatorView.backgroundColor = .enaColor(for: .hairline)
 		tileView.addSubview(topSeparatorView)
 
+		let stackView = AccessibleStackView(arrangedSubviews: [typeLabel, dateTimeLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.addArrangedSubview(typeLabel)
-		stackView.addArrangedSubview(dateTimeLabel)
 		stackView.spacing = 36.0
 		stackView.distribution = .fill
 		stackView.alignment = .center

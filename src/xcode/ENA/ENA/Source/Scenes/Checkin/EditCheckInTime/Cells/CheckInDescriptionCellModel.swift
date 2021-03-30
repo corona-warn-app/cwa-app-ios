@@ -8,7 +8,7 @@ final class CheckInDescriptionCellModel {
 
 	// MARK: - Init
 
-	init( checkIn: Checkin) {
+	init(checkIn: Checkin) {
 		self.locationType = checkIn.traceLocationType.title
 		self.description = checkIn.traceLocationDescription
 		self.address = checkIn.traceLocationAddress
