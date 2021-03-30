@@ -147,7 +147,7 @@ extension DynamicCell {
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
-		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legal) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicLegalCell else {
 				fatalError("could not initialize cell of type `DynamicLegalCell`")
 			}

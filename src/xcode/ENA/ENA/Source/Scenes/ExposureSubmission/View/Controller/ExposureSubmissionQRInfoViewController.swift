@@ -45,6 +45,7 @@ class ExposureSubmissionQRInfoViewController: DynamicTableViewController, Footer
 	// MARK: - Internal
 
 	enum ReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case legal = "DynamicLegalCell"
 		case legalExtended = "DynamicLegalExtendedCell"
 		case countries = "LabeledCountriesCell"
 	}
