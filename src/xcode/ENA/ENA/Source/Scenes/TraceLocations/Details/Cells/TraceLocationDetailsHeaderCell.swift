@@ -21,9 +21,7 @@ class TraceLocationDetailsHeaderCell: UITableViewCell, ReuseIdentifierProviding 
 	// MARK: - Internal
 
 	func configure(_ model: String) {
-		let paragraph = NSMutableParagraphStyle()
-		paragraph.alignment = .center
-		titleLabel.attributedText = NSAttributedString(string: model, attributes: [.paragraphStyle: paragraph])
+		titleLabel.text = model
 	}
 
 	// MARK: - Private
@@ -41,6 +39,7 @@ class TraceLocationDetailsHeaderCell: UITableViewCell, ReuseIdentifierProviding 
 		titleLabel.textColor = .enaColor(for: .textContrast)
 		titleLabel.accessibilityTraits = .header
 		titleLabel.numberOfLines = 0
+		titleLabel.textAlignment = .center
 
 		NSLayoutConstraint.activate([
 			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 26.0),

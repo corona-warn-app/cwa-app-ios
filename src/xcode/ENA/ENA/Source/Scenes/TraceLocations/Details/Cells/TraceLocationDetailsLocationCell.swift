@@ -21,32 +21,31 @@ class TraceLocationDetailsLocationCell: UITableViewCell, ReuseIdentifierProvidin
 	// MARK: - Internal
 
 	func configure(_ model: String) {
-		let paragraph = NSMutableParagraphStyle()
-		paragraph.alignment = .center
-		titleLabel.attributedText = NSAttributedString(string: model, attributes: [.paragraphStyle: paragraph])
+		locationLabel.text = model
 	}
 
 	// MARK: - Private
 
-	private let titleLabel = ENALabel()
+	private let locationLabel = ENALabel()
 
 	private func setupView() {
 		selectionStyle = .none
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		contentView.addSubview(titleLabel)
-		titleLabel.font = .enaFont(for: .subheadline)
-		titleLabel.textColor = .enaColor(for: .textContrast)
-		titleLabel.accessibilityTraits = .header
-		titleLabel.numberOfLines = 0
+		locationLabel.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(locationLabel)
+		locationLabel.font = .enaFont(for: .subheadline)
+		locationLabel.textColor = .enaColor(for: .textContrast)
+		locationLabel.accessibilityTraits = .header
+		locationLabel.numberOfLines = 0
+		locationLabel.textAlignment = .center
 
 		NSLayoutConstraint.activate([
-			titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-			titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.0),
-			titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0)
+			locationLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+			locationLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.0),
+			locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
+			locationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0)
 		])
 	}
 }

@@ -42,10 +42,8 @@ class TraceLocationDetailsViewModel {
 
 	var date: String? {
 		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
-			let endsOnSameDay = Calendar.current.isDate(startDate, inSameDayAs: endDate)
-
 			let dateFormatter = DateIntervalFormatter()
-			dateFormatter.dateStyle = traceLocation.isActive && endsOnSameDay ? .none : .short
+			dateFormatter.dateStyle = .short
 			dateFormatter.timeStyle = .short
 
 			return dateFormatter.string(from: startDate, to: endDate)

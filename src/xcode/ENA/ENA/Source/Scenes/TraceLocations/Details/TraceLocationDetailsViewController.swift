@@ -106,16 +106,6 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		}
 	}
 
-	// MARK: - UITableViewDelegate
-
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return CGFloat.leastNonzeroMagnitude
-	}
-
-	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return CGFloat.leastNonzeroMagnitude
-	}
-
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
 			switch templateData {

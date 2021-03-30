@@ -21,9 +21,7 @@ class TraceLocationDetailsDateTimeCell: UITableViewCell, ReuseIdentifierProvidin
 	// MARK: - Internal
 
 	func configure(_ model: String?) {
-		let paragraph = NSMutableParagraphStyle()
-		paragraph.alignment = .center
-		dateTimeLabel.attributedText = NSAttributedString(string: model ?? String(), attributes: [.paragraphStyle: paragraph])
+		dateTimeLabel.text = model
 	}
 
 	// MARK: - Private
@@ -40,6 +38,7 @@ class TraceLocationDetailsDateTimeCell: UITableViewCell, ReuseIdentifierProvidin
 		dateTimeLabel.font = .enaFont(for: .subheadline)
 		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
 		dateTimeLabel.numberOfLines = 0
+		dateTimeLabel.textAlignment = .center
 
 		NSLayoutConstraint.activate([
 			dateTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.0),
