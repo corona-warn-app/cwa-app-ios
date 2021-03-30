@@ -26,18 +26,17 @@ struct ExposureSubmissionQRInfoViewModel {
 				   height: 250
 			   ),
 			   cells: [
-				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription)
+				.title2(
+					text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1
+				)
 			])
 		)
 
 		// Testergebnis abrufen
 		model.add(
 			.section(cells: [
-				.headline(
-					text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1
-				),
-				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection1),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription),
 				.icon(
 					UIImage(imageLiteralResourceName: "Icons - FaceID"),
 					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
