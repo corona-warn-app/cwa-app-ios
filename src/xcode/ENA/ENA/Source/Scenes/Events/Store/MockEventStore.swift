@@ -134,15 +134,16 @@ class MockEventStore: EventStoring, EventProviding {
 	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
 
 	/// private helper to simulate DESC order from EventStore
+
 	private func appendCheckInAndSort(_ checkIn: Checkin) -> [Checkin] {
 		var currentValues = checkinsPublisher.value
+		currentValues.removeAll { $0.id == checkIn.id }
 		currentValues.append(checkIn)
 		currentValues.sort { lhCheckIn, rhCheckIn -> Bool in
 			lhCheckIn.checkinEndDate > rhCheckIn.checkinEndDate
 		}
 		return currentValues
 	}
-
 }
 
 private extension TraceTimeIntervalMatch {
