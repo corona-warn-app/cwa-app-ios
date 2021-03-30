@@ -107,9 +107,9 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
-			switch templateData {
-			case let .success(templateData):
-				DispatchQueue.main.async { [weak self] in
+			DispatchQueue.main.async {
+				switch templateData {
+				case let .success(templateData):
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
 
 					do {
@@ -118,12 +118,12 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 					} catch {
 						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
 					}
-				}
-			case let .failure(error):
+				case let .failure(error):
 					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-				
-				Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
-				return
+
+					Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
+					return
+				}
 			}
 		}
 	}
