@@ -126,4 +126,3 @@ extension TraceLocation {
 		}
 	}
 }
-

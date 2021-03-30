@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 final class CheckinCoordinator {
 	
@@ -82,7 +83,8 @@ final class CheckinCoordinator {
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
-	
+	private var subscriptions: Set<AnyCancellable> = []
+
 	private var infoScreenShown: Bool {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
