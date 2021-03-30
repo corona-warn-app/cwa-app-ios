@@ -234,7 +234,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			makeDummyCheckin(
 				startDate: checkin1StartDate,
 				endDate: checkin1EndDate,
-				traceLocationGUID: "1"
+				traceLocationId: "1"
 			)
 		)
 
@@ -242,7 +242,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			makeDummyCheckin(
 				startDate: checkin2StartDate,
 				endDate: checkin2EndDate,
-				traceLocationGUID: "2"
+				traceLocationId: "2"
 			)
 		)
 
@@ -390,7 +390,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			makeDummyCheckin(
 				startDate: checkinStartDate,
 				endDate: checkinEndDate,
-				traceLocationGUID: "1"
+				traceLocationId: "1"
 			)
 		)
 
@@ -420,12 +420,12 @@ class CheckinRiskCalculationTests: XCTestCase {
 	private func makeDummyCheckin(
 		startDate: Date = Date(),
 		endDate: Date = Date(),
-		traceLocationGUID: String = "0"
+		traceLocationId: String = "0"
 	) -> Checkin {
 		Checkin(
 			id: 0,
-			traceLocationGUID: traceLocationGUID,
-			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
+			traceLocationId: traceLocationId.data(using: .utf8) ?? Data(),
+			traceLocationIdHash: traceLocationId.data(using: .utf8) ?? Data(),
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: "",
@@ -433,7 +433,8 @@ class CheckinRiskCalculationTests: XCTestCase {
 			traceLocationStartDate: Date(),
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 0,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: startDate,
 			checkinEndDate: endDate,
 			checkinCompleted: false,
@@ -451,7 +452,7 @@ class CheckinRiskCalculationTests: XCTestCase {
 			id: 0,
 			checkinId: checkinId,
 			traceWarningPackageId: 0,
-			traceLocationGUID: "",
+			traceLocationId: Data(),
 			transmissionRiskLevel: transmissionRiskLevel,
 			startIntervalNumber: startIntervalNumber,
 			endIntervalNumber: endIntervalNumber
