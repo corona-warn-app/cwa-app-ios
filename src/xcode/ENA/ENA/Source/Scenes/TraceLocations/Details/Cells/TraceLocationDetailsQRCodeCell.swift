@@ -35,6 +35,7 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 
 		let tileView = UIView()
 		tileView.backgroundColor = .enaColor(for: .background)
+		tileView.layer.cornerRadius = 12.0
 		if #available(iOS 13.0, *) {
 			tileView.layer.cornerCurve = .continuous
 		}
