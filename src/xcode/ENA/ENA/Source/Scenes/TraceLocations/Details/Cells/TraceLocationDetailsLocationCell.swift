@@ -18,8 +18,6 @@ class TraceLocationDetailsLocationCell: UITableViewCell, ReuseIdentifierProvidin
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func configure(_ model: String) {

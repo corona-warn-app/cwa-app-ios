@@ -18,8 +18,6 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
 	func configure(_ qrCode: UIImage) {
@@ -28,7 +26,7 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 
 	// MARK: - Private
 
-	let qrCodeView = UIImageView()
+	private let qrCodeView = UIImageView()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -37,7 +35,9 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 
 		let tileView = UIView()
 		tileView.backgroundColor = .enaColor(for: .background)
-		tileView.layer.cornerRadius = 12.0
+		if #available(iOS 13.0, *) {
+			tileView.layer.cornerCurve = .continuous
+		}
 		tileView.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(tileView)
 		
