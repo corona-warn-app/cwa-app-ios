@@ -36,9 +36,9 @@ struct TraceLocation {
 		}
 		// rounding up to 15
 		let durationStep = 15
-		let reminderMinutes = duration % durationStep
-		if reminderMinutes != 0 {
-			return duration + (durationStep - reminderMinutes)
+		let remainderMinutes = duration % durationStep
+		if remainderMinutes != 0 {
+			return duration + (durationStep - remainderMinutes)
 		} else {
 			return duration
 		}
