@@ -133,7 +133,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		let pdfDocument = PDFDocument(data: templateData.template)
 
 		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
-		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
 		let textDetails = templateData.descriptionTextBox
 		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
 		
