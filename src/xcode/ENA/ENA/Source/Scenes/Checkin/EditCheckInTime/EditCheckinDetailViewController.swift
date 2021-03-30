@@ -36,7 +36,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
-		didCalculated = false
+		didCalculateGradientHeight = false
 	}
 
 	// MARK: - Protocol FooterViewHandling
@@ -50,15 +50,15 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		guard didCalculated == false,
+		guard didCalculateGradientHeight == false,
 			indexPath == IndexPath(row: 0, section: EditCheckinDetailViewModel.TableViewSections.description.rawValue) else {
 			return
 		}
 
 		let cellRect = tableView.rectForRow(at: indexPath)
 		let result = view.convert(cellRect, from: tableView)
-		backGroundView.gradientHeightConstraint.constant = result.midY
-		didCalculated = true
+		backgroundView.gradientHeightConstraint.constant = result.midY
+		didCalculateGradientHeight = true
 	}
 
 	// MARK: - UITableViewDataSource
@@ -121,6 +121,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	// MARK: - UITableViewDelegate
+	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return CGFloat.leastNonzeroMagnitude
 	}
@@ -148,13 +149,14 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	// MARK: - Private
-	private let backGroundView = GradientBackgroundView()
+
+	private let backgroundView = GradientBackgroundView()
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private let viewModel: EditCheckinDetailViewModel
 	private let dismiss: () -> Void
 
-	private var didCalculated: Bool = false
+	private var didCalculateGradientHeight: Bool = false
 
 	private var subscriptions = Set<AnyCancellable>()
 	private var selectedDuration: Int?
@@ -162,8 +164,8 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 
 	private func setupView() {
 		parent?.view.backgroundColor = .clear
-		backGroundView.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(backGroundView)
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(backgroundView)
 
 		let gradientNavigationView = GradientNavigationView(
 			didTapCloseButton: { [weak self] in
@@ -171,27 +173,27 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 			}
 		)
 		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
-		backGroundView.addSubview(gradientNavigationView)
+		backgroundView.addSubview(gradientNavigationView)
 
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.backgroundColor = .clear
-		backGroundView.addSubview(tableView)
+		backgroundView.addSubview(tableView)
 
 		NSLayoutConstraint.activate(
 			[
-				backGroundView.topAnchor.constraint(equalTo: view.topAnchor),
-				backGroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-				backGroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-				backGroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+				backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
-				gradientNavigationView.topAnchor.constraint(equalTo: backGroundView.topAnchor, constant: 24.0),
-				gradientNavigationView.leadingAnchor.constraint(equalTo: backGroundView.leadingAnchor, constant: 16.0),
-				gradientNavigationView.trailingAnchor.constraint(equalTo: backGroundView.trailingAnchor, constant: -16.0),
+				gradientNavigationView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 24.0),
+				gradientNavigationView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16.0),
+				gradientNavigationView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16.0),
 
 				tableView.topAnchor.constraint(equalTo: gradientNavigationView.bottomAnchor, constant: 20.0),
-				tableView.leadingAnchor.constraint(equalTo: backGroundView.leadingAnchor),
-				tableView.trailingAnchor.constraint(equalTo: backGroundView.trailingAnchor),
-				tableView.bottomAnchor.constraint(equalTo: backGroundView.bottomAnchor)
+				tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+				tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+				tableView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
 		])
 
 		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] tableView, change in
@@ -200,7 +202,7 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 				return
 			}
 			let offsetLimit = tableView.frame.origin.y
-			self.backGroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
 		}
 	}
 
