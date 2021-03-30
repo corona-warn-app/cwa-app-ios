@@ -36,7 +36,6 @@ class DiaryOverviewDayTableViewCell: UITableViewCell {
 			let checkInLabel = ENALabel()
 			checkInLabel.adjustsFontForContentSizeCategory = true
 			checkInLabel.numberOfLines = 0
-			checkInLabel.lineBreakMode = .byClipping
 			checkInLabel.style = .subheadline
 			checkInLabel.textColor = .enaColor(for: .textPrimary2)
 			let riskColor = cellViewModel.colorFor(riskLevel: riskyCheckin.risk)
