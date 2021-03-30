@@ -73,7 +73,6 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		stackView.spacing = 36.0
 		stackView.distribution = .fill
 		stackView.alignment = .center
-		stackView.axis = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? .vertical : .horizontal
 		tileView.addSubview(stackView)
 
 		topLayoutConstraint = stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0)
