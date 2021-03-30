@@ -88,8 +88,8 @@ class CheckinsOverviewViewModel {
 		let checkin = checkinCellModels[indexPath.row].checkin
 		let updatedChecking = Checkin(
 			id: checkin.id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
+			traceLocationId: checkin.traceLocationId,
+			traceLocationIdHash: checkin.traceLocationIdHash,
 			traceLocationVersion: checkin.traceLocationVersion,
 			traceLocationType: checkin.traceLocationType,
 			traceLocationDescription: checkin.traceLocationDescription,
@@ -97,7 +97,8 @@ class CheckinsOverviewViewModel {
 			traceLocationStartDate: checkin.traceLocationStartDate,
 			traceLocationEndDate: checkin.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
+			cryptographicSeed: checkin.cryptographicSeed,
+			cnPublicKey: checkin.cnPublicKey,
 			checkinStartDate: checkin.checkinStartDate,
 			checkinEndDate: checkin.checkinEndDate,
 			checkinCompleted: true,

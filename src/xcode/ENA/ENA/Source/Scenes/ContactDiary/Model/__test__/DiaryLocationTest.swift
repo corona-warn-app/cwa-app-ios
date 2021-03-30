@@ -14,7 +14,7 @@ class DiaryLocationTest: XCTestCase {
 			name: "Mars",
 			phoneNumber: "999-999999999",
 			emailAddress: "mars@universe.com",
-			traceLocationGUID: nil
+			traceLocationId: nil
 		)
 
 		XCTAssertEqual(location.id, 0)
@@ -31,7 +31,7 @@ class DiaryLocationTest: XCTestCase {
 			name: "Earth",
 			phoneNumber: "(11111) 11 1111111",
 			emailAddress: "earth@universe.com",
-			traceLocationGUID: nil,
+			traceLocationId: nil,
 			visit: LocationVisit(
 				id: 17,
 				date: "2021-02-11",
