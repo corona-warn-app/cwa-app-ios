@@ -53,14 +53,7 @@ struct TraceLocation {
 	}
 	
 	var guidHash: Data? {
-		let encoder = JSONEncoder()
-		do {
-			let guidData = try encoder.encode(id)
-			return guidData.sha256()
-		} catch {
-			Log.error("traceLocationGUID Encoding error", log: .checkin, error: error)
-			return nil
-		}
+		return id.data(using: .utf8)?.sha256()
 	}
 	
 	var qrCodeURL: String {
