@@ -33,9 +33,8 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		if #available(iOS 14.0, *) {
 			datePicker.preferredDatePickerStyle = .inline
 		}
-		datePicker.locale = Locale(identifier: "de_DE")
 		datePicker.datePickerMode = .dateAndTime
-		datePicker.minuteInterval = 5
+		datePicker.tintColor = .enaColor(for: .tint)
 		return datePicker
 	}()
 
