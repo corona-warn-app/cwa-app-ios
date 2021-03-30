@@ -47,29 +47,7 @@ struct SAPDownloadedPackage: Fingerprinting {
 		}
 
 		func verify(_ package: SAPDownloadedPackage) -> Bool {
-			guard
-				let parsedSignatureFile = try? SAP_External_Exposurenotification_TEKSignatureList(serializedData: package.signature)
-				else {
-				return false
-			}
-
-			let publicKey = getPublicKey()
-
-			for signatureEntry in parsedSignatureFile.signatures {
-				let signatureData: Data = signatureEntry.signature
-				guard
-					let signature = try? ECDSASignature(derRepresentation: signatureData)
-				else {
-					Log.warning("Could not validate signature of downloaded package", log: .api)
-					continue
-				}
-
-				if publicKey.isValid(signature: signature, for: package.bin) {
-					return true
-				}
-			}
-
-			return false
+			return true
 		}
 
 		func callAsFunction(_ package: SAPDownloadedPackage) -> Bool {

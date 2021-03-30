@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import OpenCombine
 
 final class CheckinCoordinator {
 	
@@ -83,8 +82,6 @@ final class CheckinCoordinator {
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
-
-	private var subscriptions: [AnyCancellable] = []
 	
 	private var infoScreenShown: Bool {
 		get { store.checkinInfoScreenShown }
@@ -132,9 +129,9 @@ final class CheckinCoordinator {
 		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 			viewModel: CheckinQRCodeScannerViewModel(appConfiguration: appConfiguration),
-			didScanCheckin: { [weak self] traceLocation in
+			didScanCheckin: { [weak self] qrCodeString in
 				self?.viewController.dismiss(animated: true, completion: {
-					self?.showTraceLocationDetails(traceLocation)
+					self?.showTraceLocationDetails(qrCodeString)
 				})
 			},
 			dismiss: { [weak self] in
@@ -149,16 +146,40 @@ final class CheckinCoordinator {
 			self?.viewController.present(navigationController, animated: true)
 		}
 	}
-	
-	func showTraceLocationDetails(_ traceLocation: TraceLocation) {
-		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: store)
-		let traceLocationDetailViewController = TraceLocationDetailViewController(
-			viewModel,
-			dismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
-			}
-		)
-		viewController.present(traceLocationDetailViewController, animated: true)
+	let verificationService = QRCodeVerificationHelper()
+
+	func showTraceLocationDetails(_ qrCodeString: String) {
+		verificationService.verifyQrCode(
+			qrCodeString: qrCodeString,
+			appConfigurationProvider: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				
+				guard let self = self else { return }
+				let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
+				let traceLocationDetailViewController = TraceLocationDetailViewController(
+					viewModel,
+					dismiss: { [weak self] in
+						self?.viewController.dismiss(animated: true)
+					}
+				)
+				self.viewController.present(traceLocationDetailViewController, animated: true)
+			},
+			onError: { error in
+				let alert = UIAlertController(
+					title: AppStrings.Common.alertTitleGeneral,
+					message: error.localizedDescription,
+					preferredStyle: .alert
+				)
+				alert.addAction(
+					UIAlertAction(
+						title: AppStrings.Common.alertActionOk,
+						style: .default,
+						handler: { _ in
+							alert.dismiss(animated: true, completion: nil)
+						}
+					)
+				)
+			})
 	}
 	
 	private func showSettings() {

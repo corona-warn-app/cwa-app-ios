@@ -4,7 +4,6 @@
 
 import Foundation
 import AVFoundation
-import OpenCombine
 
 final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
@@ -30,7 +29,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		verifyQrCode(qrCodeString: url)
+		onSuccess?(url)
 	}
 	
 	// MARK: - Internal
@@ -52,7 +51,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-	var onSuccess: ((TraceLocation) -> Void)?
+	var onSuccess: ((String) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
@@ -106,8 +105,6 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	private let captureDevice: AVCaptureDevice?
 	private let appConfigurationProvider: AppConfigurationProviding
-	private var subscriptions: Set<AnyCancellable> = []
-
 	private var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
 	}
@@ -128,45 +125,5 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		default:
 			onError?(.cameraPermissionDenied)
 		}
-	}
-
-	private func verifyQrCode(qrCodeString url: String) {
-		appConfigurationProvider.appConfiguration().sink { appConfig in
-			
-			// 1-Validate URL
-			var match: NSTextCheckingResult?
-			let descriptor = appConfig.presenceTracingParameters.qrCodeDescriptors.first {
-				do {
-					let regex = try NSRegularExpression(pattern: $0.regexPattern, options: [.caseInsensitive])
-					match = regex.firstMatch(in: url, range: .init(location: 0, length: url.count))
-					return match != nil
-				} catch {
-					Log.error(error.localizedDescription, log: .checkin)
-					return false
-				}
-			}
-			// Extract ENCODED_PAYLOAD
-			// for some reason we get an extra match at index 0 which is the entire URL so  we need to add an offset of 1 to each index after that to get the correct corresponding parts
-			guard let unWrappedMatch = match,
-				  let qrDescriptor = descriptor,
-				  let versionIndex = descriptor?.versionGroupIndex,
-				  let versionRange = Range(unWrappedMatch.range(at: Int(versionIndex) + 1), in: url),
-				  let payLoadIndex = descriptor?.encodedPayloadGroupIndex,
-				  let payLoadRange = Range(unWrappedMatch.range(at: Int(payLoadIndex) + 1), in: url)
-			else {
-				Log.error("the QRCode matched none of the regular expressions", log: .checkin)
-				self.onError?(QRScannerError.codeNotFound)
-				return
-			}
-
-			let version = url[versionRange]
-			let payLoad = url[payLoadRange]
-			let encodingType = EncodingType(rawValue: qrDescriptor.payloadEncoding.rawValue) ?? .unspecified
-			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad), encoding: encodingType) else {
-				self.onError?(QRScannerError.codeNotFound)
-				return
-			}
-			self.onSuccess?(traceLocation)
-		}.store(in: &subscriptions)
 	}
 }
