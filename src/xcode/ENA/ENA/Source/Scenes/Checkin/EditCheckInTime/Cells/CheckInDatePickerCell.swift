@@ -17,7 +17,6 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	// MARK: - Public
 
 	// MARK: - Internal
 
@@ -44,7 +43,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 	private func setupView() {
 		selectionStyle = .none
-		backgroundColor = .green // .enaColor(for: .cellBackground)
+		backgroundColor = .enaColor(for: .cellBackground)
 		contentView.backgroundColor = .enaColor(for: .cellBackground)
 
 		let tileView = UIView()
