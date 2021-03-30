@@ -53,7 +53,7 @@ struct TraceLocation {
 	}
 	
 	var guidHash: Data? {
-		return id.data(using: .utf8)?.sha256()
+		return id.sha256()
 	}
 	
 	var qrCodeURL: String {

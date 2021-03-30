@@ -73,13 +73,14 @@ final class TraceLocationDetailViewModel {
 			Log.warning("checkinEndDate is nill", log: .checkin)
 			return
 		}
-		guard let guidHash = traceLocation.guidHash else {
+		guard let idHash = traceLocation.guidHash else {
 			return
 		}
+		
 		let checkin: Checkin = Checkin(
 			id: 0,
-			traceLocationGUID: traceLocation.guid,
-			traceLocationGUIDHash: guidHash,
+			traceLocationId: traceLocation.id,
+			traceLocationIdHash: idHash,
 			traceLocationVersion: traceLocation.version,
 			traceLocationType: traceLocation.type,
 			traceLocationDescription: traceLocation.description,
@@ -87,7 +88,8 @@ final class TraceLocationDetailViewModel {
 			traceLocationStartDate: traceLocation.startDate,
 			traceLocationEndDate: traceLocation.endDate,
 			traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
-			traceLocationSignature: traceLocation.signature,
+			cryptographicSeed: traceLocation.cryptographicSeed,
+			cnPublicKey: traceLocation.cnPublicKey,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
