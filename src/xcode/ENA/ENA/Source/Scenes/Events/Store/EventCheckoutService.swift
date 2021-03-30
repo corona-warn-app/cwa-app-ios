@@ -26,7 +26,7 @@ final class EventCheckoutService {
 
 	// MARK: - Internal
 
-	func checkout(checkin: Checkin, showNotification: Bool) {
+	func checkout(checkin: Checkin, manually: Bool) {
 		let completedCheckin = checkin.completedCheckin()
 		eventStore.updateCheckin(completedCheckin)
 
@@ -34,7 +34,7 @@ final class EventCheckoutService {
 			createJournalEntry(of: completedCheckin)
 		}
 
-		if showNotification {
+		if !manually {
 			triggerNotificationForCheckout(of: completedCheckin)
 		}
 	}
@@ -45,14 +45,7 @@ final class EventCheckoutService {
 		}
 
 		overdueCheckins.forEach {
-			let completedCheckin = $0.completedCheckin()
-			eventStore.updateCheckin(completedCheckin)
-
-			if completedCheckin.createJournalEntry {
-				createJournalEntry(of: completedCheckin)
-			}
-
-			triggerNotificationForCheckout(of: completedCheckin)
+			self.checkout(checkin: $0, manually: false)
 		}
 	}
 

@@ -12,12 +12,14 @@ class CheckinsOverviewViewModel {
 
 	init(
 		store: EventStoringProviding,
+		eventCheckoutService: EventCheckoutService,
 		onEntryCellTap: @escaping (Checkin) -> Void,
 		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
 			AVCaptureDevice.authorizationStatus(for: .video)
 		}
 	) {
 		self.store = store
+		self.eventCheckoutService = eventCheckoutService
 		self.onEntryCellTap = onEntryCellTap
         self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
@@ -84,27 +86,10 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		let checkin = checkinCellModels[indexPath.row].checkin
-		let updatedChecking = Checkin(
-			id: checkin.id,
-			traceLocationId: checkin.traceLocationId,
-			traceLocationIdHash: checkin.traceLocationIdHash,
-			traceLocationVersion: checkin.traceLocationVersion,
-			traceLocationType: checkin.traceLocationType,
-			traceLocationDescription: checkin.traceLocationDescription,
-			traceLocationAddress: checkin.traceLocationAddress,
-			traceLocationStartDate: checkin.traceLocationStartDate,
-			traceLocationEndDate: checkin.traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			cryptographicSeed: checkin.cryptographicSeed,
-			cnPublicKey: checkin.cnPublicKey,
-			checkinStartDate: checkin.checkinStartDate,
-			checkinEndDate: checkin.checkinEndDate,
-			checkinCompleted: true,
-			createJournalEntry: checkin.createJournalEntry
+		eventCheckoutService.checkout(
+			checkin: checkinCellModels[indexPath.row].checkin,
+			manually: true
 		)
-
-		store.updateCheckin(updatedChecking)
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
@@ -122,6 +107,7 @@ class CheckinsOverviewViewModel {
 	// MARK: - Private
 
 	private let store: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	private let onEntryCellTap: (Checkin) -> Void
 	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 
