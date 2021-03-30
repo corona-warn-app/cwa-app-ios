@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import UIKit
 import UserNotifications
 
@@ -74,7 +77,7 @@ final class EventCheckoutService {
 		}
 
 		let checkinLocationExists = locations.contains {
-			$0.traceLocationGUID == checkin.traceLocationGUID
+			$0.traceLocationId == checkin.traceLocationId
 		}
 
 		if !checkinLocationExists {
@@ -100,7 +103,7 @@ final class EventCheckoutService {
 				name: locationNameElements.joined(separator: ", "),
 				phoneNumber: "",
 				emailAddress: "",
-				traceLocationGUID: checkin.traceLocationGUID
+				traceLocationId: checkin.traceLocationId
 			)
 
 			guard case let .success(locationId) = addLocationResult else {
@@ -158,8 +161,8 @@ private extension Checkin {
 	func completedCheckin() -> Checkin {
 		Checkin(
 			id: self.id,
-			traceLocationGUID: self.traceLocationGUID,
-			traceLocationGUIDHash: self.traceLocationGUIDHash,
+			traceLocationId: self.traceLocationId,
+			traceLocationIdHash: self.traceLocationIdHash,
 			traceLocationVersion: self.traceLocationVersion,
 			traceLocationType: self.traceLocationType,
 			traceLocationDescription: self.traceLocationDescription,
@@ -167,7 +170,8 @@ private extension Checkin {
 			traceLocationStartDate: self.traceLocationStartDate,
 			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: self.traceLocationSignature,
+			cryptographicSeed: self.cryptographicSeed,
+			cnPublicKey: self.cnPublicKey,
 			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: self.checkinEndDate,
 			checkinCompleted: true,
