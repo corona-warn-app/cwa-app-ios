@@ -19,13 +19,17 @@ struct TraceLocation {
 	let defaultCheckInLengthInMinutes: Int?
 	let cryptographicSeed: Data
 	let cnPublicKey: Data
-
+	
 	var isActive: Bool {
 		guard let endDate = endDate else {
 			return true
 		}
 
 		return Date() < endDate
+	}
+
+	var idHash: Data? {
+		return id.sha256()
 	}
 	
 	var qrCodeURL: String? {
@@ -34,6 +38,29 @@ struct TraceLocation {
 		}
 
 		return String(format: "https://e.coronawarn.app/c1/%@", base32EncodedString).uppercased()
+	}
+
+	var suggestedCheckoutLength: Int {
+		let duration: Int
+		if let defaultDuration = defaultCheckInLengthInMinutes {
+			duration = defaultDuration
+		} else {
+			let eventDuration = Calendar.current.dateComponents(
+				[.minute],
+				from: startDate ?? Date(),
+				to: endDate ?? Date()
+			).minute
+			// the 0 should not be possible since we expect either the defaultCheckInLengthInMinutes or the start and end dates to be available always
+			duration = eventDuration ?? 0
+		}
+		// rounding up to 15
+		let durationStep = 15
+		let remainderMinutes = duration % durationStep
+		if remainderMinutes != 0 {
+			return duration + (durationStep - remainderMinutes)
+		} else {
+			return duration
+		}
 	}
 
 	// MARK: - Private
