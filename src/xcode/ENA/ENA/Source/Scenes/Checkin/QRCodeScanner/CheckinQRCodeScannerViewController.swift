@@ -11,11 +11,12 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
+		viewModel: CheckinQRCodeScannerViewModel,
 		didScanCheckin: @escaping (TraceLocation) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCheckin = didScanCheckin
-		self.viewModel = CheckinQRCodeScannerViewModel()
+		self.viewModel = viewModel
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
 	}

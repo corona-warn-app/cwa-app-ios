@@ -74,7 +74,7 @@ class RootCoordinator: RequiresAppDependencies {
 		self.diaryCoordinator = diaryCoordinator
 		
 		// Setup checkin coordinator after app reset
-		let checkInCoordinator = CheckinCoordinator(store: store, eventStore: eventStore)
+		let checkInCoordinator = CheckinCoordinator(store: store, eventStore: eventStore, appConfiguration: appConfigurationProvider)
 		self.checkInCoordinator = checkInCoordinator
 
 		// Tabbar
@@ -162,7 +162,8 @@ class RootCoordinator: RequiresAppDependencies {
 	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
 		CheckinCoordinator(
 			store: store,
-			eventStore: eventStore
+			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider
 		)
 	}()
 

@@ -10,7 +10,8 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	// MARK: - Init
 
-	override init() {
+	init(appConfiguration: AppConfigurationProviding) {
+		self.appConfigurationProvider = appConfiguration
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		super.init()
 	}
@@ -23,17 +24,15 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		from _: AVCaptureConnection
 	) {
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let route = Route(code.stringValue),
-			  case let Route.checkin(key) = route,
-			  let traceLocation = TraceLocation(qrCodeString: key)
+			  let url = code.stringValue
+			 // let traceLocation = TraceLocation(qrCodeString: key)
 		else {
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		onSuccess?(traceLocation)
+		verifyQrCode(qrCodeString: url)
 	}
 	
-
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
@@ -106,6 +105,8 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	// MARK: - Private
 
 	private let captureDevice: AVCaptureDevice?
+	private let appConfigurationProvider: AppConfigurationProviding
+	private var subscriptions: Set<AnyCancellable> = []
 
 	private var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
@@ -129,4 +130,43 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		}
 	}
 
+	private func verifyQrCode(qrCodeString url: String) {
+		appConfigurationProvider.appConfiguration().sink { appConfig in
+			
+			// 1-Validate URL
+			var match: NSTextCheckingResult?
+			let descriptor = appConfig.presenceTracingParameters.qrCodeDescriptors.first {
+				do {
+					let regex = try NSRegularExpression(pattern: $0.regexPattern, options: [.caseInsensitive])
+					match = regex.firstMatch(in: url, range: .init(location: 0, length: url.count))
+					return match != nil
+				} catch {
+					Log.error(error.localizedDescription, log: .checkin)
+					return false
+				}
+			}
+			// Extract ENCODED_PAYLOAD
+			// for some reason we get an extra match at index 0 which is the entire URL so  we need to add an offset of 1 to each index after that to get the correct corresponding parts
+			guard let unWrappedMatch = match,
+				  let qrDescriptor = descriptor,
+				  let versionIndex = descriptor?.versionGroupIndex,
+				  let versionRange = Range(unWrappedMatch.range(at: Int(versionIndex) + 1), in: url),
+				  let payLoadIndex = descriptor?.encodedPayloadGroupIndex,
+				  let payLoadRange = Range(unWrappedMatch.range(at: Int(payLoadIndex) + 1), in: url)
+			else {
+				Log.error("the QRCode matched none of the regular expressions", log: .checkin)
+				self.onError?(QRScannerError.codeNotFound)
+				return
+			}
+
+			let version = url[versionRange]
+			let payLoad = url[payLoadRange]
+			let encodingType = EncodingType(rawValue: qrDescriptor.payloadEncoding.rawValue) ?? .unspecified
+			guard let traceLocation = TraceLocation(qrCodeString: String(payLoad), encoding: encodingType) else {
+				self.onError?(QRScannerError.codeNotFound)
+				return
+			}
+			self.onSuccess?(traceLocation)
+		}.store(in: &subscriptions)
+	}
 }

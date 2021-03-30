@@ -10,10 +10,12 @@ final class CheckinCoordinator {
 	// MARK: - Init
 	init(
 		store: Store,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		appConfiguration: AppConfigurationProviding
 	) {
 		self.store = store
 		self.eventStore = eventStore
+		self.appConfiguration = appConfiguration
 		
 		#if DEBUG
 		if isUITesting {
@@ -80,7 +82,8 @@ final class CheckinCoordinator {
 	// MARK: - Private
 	private let store: Store
 	private let eventStore: EventStoringProviding
-	
+	private let appConfiguration: AppConfigurationProviding
+
 	private var subscriptions: [AnyCancellable] = []
 	
 	private var infoScreenShown: Bool {
@@ -126,8 +129,9 @@ final class CheckinCoordinator {
 	}
 
 	private func showQRCodeScanner() {
+		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
-
+			viewModel: CheckinQRCodeScannerViewModel(appConfiguration: appConfiguration),
 			didScanCheckin: { [weak self] traceLocation in
 				self?.viewController.dismiss(animated: true, completion: {
 					self?.showTraceLocationDetails(traceLocation)
