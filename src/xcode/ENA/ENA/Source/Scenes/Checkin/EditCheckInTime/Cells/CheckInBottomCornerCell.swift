@@ -30,7 +30,9 @@ class CheckInBottomCornerCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		tileView.layer.cornerRadius = 12.0
 		tileView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-
+		if #available(iOS 13.0, *) {
+			tileView.layer.cornerCurve = .continuous
+		}
 		contentView.addSubview(tileView)
 
 		NSLayoutConstraint.activate([
