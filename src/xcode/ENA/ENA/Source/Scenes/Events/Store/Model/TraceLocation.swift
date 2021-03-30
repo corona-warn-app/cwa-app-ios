@@ -21,7 +21,7 @@ struct TraceLocation {
 	let cryptographicSeed: Data
 	let cnPublicKey: Data
 
-	var initialTimeForCheckout: Int {
+	var suggestedCheckoutLength: Int {
 		let duration: Int
 		if let defaultDuration = defaultCheckInLengthInMinutes {
 			duration = defaultDuration
@@ -52,7 +52,7 @@ struct TraceLocation {
 		return Date() < endDate
 	}
 	
-	var guidHash: Data? {
+	var idHash: Data? {
 		return id.sha256()
 	}
 	

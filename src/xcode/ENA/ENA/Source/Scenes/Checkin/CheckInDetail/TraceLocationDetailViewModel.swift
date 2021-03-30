@@ -16,7 +16,7 @@ final class TraceLocationDetailViewModel {
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
-		self.selectedDurationInMinutes = traceLocation.initialTimeForCheckout
+		self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
 	}
 	
 	// MARK: - Internal
@@ -73,7 +73,7 @@ final class TraceLocationDetailViewModel {
 			Log.warning("checkinEndDate is nill", log: .checkin)
 			return
 		}
-		guard let idHash = traceLocation.guidHash else {
+		guard let idHash = traceLocation.idHash else {
 			return
 		}
 		
@@ -97,7 +97,7 @@ final class TraceLocationDetailViewModel {
 		)
 
 		store.shouldAddCheckinToContactDiaryByDefault = shouldSaveToContactJournal
-		 eventStore.createCheckin(checkin)
+		eventStore.createCheckin(checkin)
 	}
 
 	// MARK: - Private
