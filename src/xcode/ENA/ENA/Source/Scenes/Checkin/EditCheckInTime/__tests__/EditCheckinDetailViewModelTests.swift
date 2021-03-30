@@ -70,8 +70,16 @@ class EditCheckinDetailViewModelTests: XCTestCase {
 
 	func testGIVEN_EditCheckinDetailViewModel_WHEN_SaveUnchanged_THEN_NotSaved() {
 		// GIVEN
-		let checkIn = Checkin.mock()
+		var checkIn = Checkin.mock()
 		let eventStore = MockEventStore()
+		let result = eventStore.createCheckin(checkIn)
+
+		switch result {
+		case .success(let id):
+			checkIn = Checkin.mock(id: id)
+		case .failure:
+			XCTFail("CheckIn was not created insider the mock store")
+		}
 
 		let editCheckinDetailViewModel = EditCheckinDetailViewModel(
 			checkIn,
@@ -94,8 +102,16 @@ class EditCheckinDetailViewModelTests: XCTestCase {
 
 	func testGIVEN_EditCheckinDetailViewModel_WHEN_SaveChanged_THEN_Saved() {
 		// GIVEN
-		let checkIn = Checkin.mock()
+		var checkIn = Checkin.mock()
 		let eventStore = MockEventStore()
+		let result = eventStore.createCheckin(checkIn)
+
+		switch result {
+		case .success(let id):
+			checkIn = Checkin.mock(id: id)
+		case .failure:
+			XCTFail("CheckIn was not created insider the mock store")
+		}
 
 		let editCheckinDetailViewModel = EditCheckinDetailViewModel(
 			checkIn,
@@ -104,7 +120,7 @@ class EditCheckinDetailViewModelTests: XCTestCase {
 		var subscriptions = Set<AnyCancellable>()
 
 		let saveCheckInExpectation = expectation(description: "CheckIn saved")
-		saveCheckInExpectation.expectedFulfillmentCount = 1
+		saveCheckInExpectation.expectedFulfillmentCount = 2
 		eventStore.checkinsPublisher.sink { _ in
 			saveCheckInExpectation.fulfill()
 		}
