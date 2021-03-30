@@ -110,6 +110,17 @@ class DiaryOverviewViewModel {
 	}
 	
 	private func checkinsWithRiskFor(day: Date) -> [CheckinWithRisk] {
+		#if DEBUG
+		// ui test data for launch argument "-checkinRiskLevel"
+		if isUITesting {
+			if let checkinRisk = UserDefaults.standard.string(forKey: "checkinRiskLevel") {
+				let rawValue = checkinRisk == "high" ? 2 : 1
+				let riskLevel = SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel(rawValue: rawValue)
+				return createFakeDataForCheckin(with: riskLevel ?? .low)
+			}
+		}
+		#endif
+		
 		guard let result = secureStore.checkinRiskCalculationResult else {
 			return []
 		}
@@ -125,6 +136,70 @@ class DiaryOverviewViewModel {
 				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
 			}
 		}
+		
 		return checkinsWithRisk
 	}
+	
+	#if DEBUG
+	// needs to be injected here for the ui tests.
+	private func createFakeDataForCheckin(with risk: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel) -> [CheckinWithRisk] {
+		
+		let fakedCheckin1 = Checkin(
+			id: 0,
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
+			traceLocationVersion: 0,
+			traceLocationType: .locationTypePermanentFoodService,
+			traceLocationDescription: "Supermarkt",
+			traceLocationAddress: "",
+			traceLocationStartDate: nil,
+			traceLocationEndDate: nil,
+			traceLocationDefaultCheckInLengthInMinutes: nil,
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
+			checkinStartDate: Date(),
+			checkinEndDate: Date(),
+			checkinCompleted: true,
+			createJournalEntry: false)
+		let highRiskCheckin1 = CheckinWithRisk(checkIn: fakedCheckin1, risk: .low)
+		let fakedCheckin2 = Checkin(
+			id: 0,
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
+			traceLocationVersion: 0,
+			traceLocationType: .locationTypePermanentWorkplace,
+			traceLocationDescription: "Büro",
+			traceLocationAddress: "",
+			traceLocationStartDate: nil,
+			traceLocationEndDate: nil,
+			traceLocationDefaultCheckInLengthInMinutes: nil,
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
+			checkinStartDate: Date(),
+			checkinEndDate: Date(),
+			checkinCompleted: true,
+			createJournalEntry: false)
+		let highRiskCheckin2 = CheckinWithRisk(checkIn: fakedCheckin2, risk: risk)
+		let fakedCheckin3 = Checkin(
+			id: 0,
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
+			traceLocationVersion: 0,
+			traceLocationType: .locationTypePermanentWorkplace,
+			traceLocationDescription: "privates Treffen mit Freunden",
+			traceLocationAddress: "",
+			traceLocationStartDate: nil,
+			traceLocationEndDate: nil,
+			traceLocationDefaultCheckInLengthInMinutes: nil,
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
+			checkinStartDate: Date(),
+			checkinEndDate: Date(),
+			checkinCompleted: true,
+			createJournalEntry: false)
+		let highRiskCheckin3 = CheckinWithRisk(checkIn: fakedCheckin3, risk: risk)
+		return [highRiskCheckin1, highRiskCheckin2, highRiskCheckin3]
+		
+	}
+	#endif
 }
