@@ -152,7 +152,7 @@ class TraceLocationsCoordinator {
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.traceLocationDetailsNavigationController.dismiss(animated: true)
+				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
 		
@@ -170,8 +170,7 @@ class TraceLocationsCoordinator {
 			bottomController: footerViewController
 		)
 		
-		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
-		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
+		parentNavigationController?.present(topBottomContainerViewController, animated: true)
 	}
 
 	private func showPrintVersionScreen(pdfView: PDFView) {

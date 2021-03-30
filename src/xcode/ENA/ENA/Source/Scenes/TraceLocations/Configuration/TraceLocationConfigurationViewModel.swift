@@ -200,7 +200,7 @@ class TraceLocationConfigurationViewModel {
 				endDate: endDate,
 				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
 				cryptographicSeed: cryptographicSeed,
-				cnMainPublicKey: Data()
+				cnPublicKey: Data()
 			)
 		)
 

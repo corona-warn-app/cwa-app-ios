@@ -98,7 +98,7 @@ class CheckinsOverviewViewModel {
 			traceLocationEndDate: checkin.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
 			cryptographicSeed: checkin.cryptographicSeed,
-			cnMainPublicKey: checkin.cnMainPublicKey,
+			cnPublicKey: checkin.cnPublicKey,
 			checkinStartDate: checkin.checkinStartDate,
 			checkinEndDate: checkin.checkinEndDate,
 			checkinCompleted: true,

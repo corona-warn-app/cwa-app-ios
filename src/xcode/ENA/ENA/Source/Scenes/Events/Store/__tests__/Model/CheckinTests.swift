@@ -111,7 +111,7 @@ class CheckinTests: XCTestCase {
 			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: 0,
 			cryptographicSeed: Data(),
-			cnMainPublicKey: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: checkinCompleted,

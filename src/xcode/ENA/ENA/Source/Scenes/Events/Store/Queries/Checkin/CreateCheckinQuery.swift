@@ -4,6 +4,9 @@
 
 import FMDB
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 class CreateCheckinQuery: StoreQueryProtocol {
 
 	// MARK: - Init
@@ -31,7 +34,7 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				traceLocationEndDate,
 				traceLocationDefaultCheckInLengthInMinutes,
 				cryptographicSeed,
-				cnMainPublicKey,
+				cnPublicKey,
 				checkinStartDate,
 				checkinEndDate,
 				checkinCompleted,
@@ -48,7 +51,7 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				:traceLocationEndDate,
 				:traceLocationDefaultCheckInLengthInMinutes,
 				:cryptographicSeed,
-				:cnMainPublicKey,
+				:cnPublicKey,
 				:checkinStartDate,
 				:checkinEndDate,
 				:checkinCompleted,
@@ -77,7 +80,7 @@ class CreateCheckinQuery: StoreQueryProtocol {
 			"traceLocationEndDate": traceLocationEndDateInterval as Any,
 			"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
 			"cryptographicSeed": checkin.cryptographicSeed,
-			"cnMainPublicKey": checkin.cnMainPublicKey,
+			"cnPublicKey": checkin.cnPublicKey,
 			"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
 			"checkinEndDate": Int(checkin.checkinEndDate.timeIntervalSince1970),
 			"checkinCompleted": checkin.checkinCompleted,

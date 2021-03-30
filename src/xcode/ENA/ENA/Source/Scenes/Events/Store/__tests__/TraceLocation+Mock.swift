@@ -17,7 +17,7 @@ extension TraceLocation {
 		endDate: Date? = nil,
 		defaultCheckInLengthInMinutes: Int? = nil,
 		cryptographicSeed: Data = Data(),
-		cnMainPublicKey: Data = Data()
+		cnPublicKey: Data = Data()
 	) -> Self {
 		TraceLocation(
 			id: id,
@@ -29,7 +29,7 @@ extension TraceLocation {
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
 			cryptographicSeed: cryptographicSeed,
-			cnMainPublicKey: cnMainPublicKey
+			cnPublicKey: cnPublicKey
 		)
    }
 

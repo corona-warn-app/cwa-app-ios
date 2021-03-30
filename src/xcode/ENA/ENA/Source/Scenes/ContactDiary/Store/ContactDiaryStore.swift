@@ -966,17 +966,12 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 					checkinId: checkinId
 				)
 
-				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "traceLocationId" is defined as NOT NULL, there should never be nil stored.
-				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
-				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
-
 				let location = DiaryLocation(
 					id: Int(queryResult.int(forColumn: "locationId")),
 					name: queryResult.string(forColumn: "name") ?? "",
 					phoneNumber: queryResult.string(forColumn: "phoneNumber") ?? "",
 					emailAddress: queryResult.string(forColumn: "emailAddress") ?? "",
-					traceLocationId: traceLocationId,
+					traceLocationId: queryResult.data(forColumn: "traceLocationId"),
 					visit: locationVisit
 				)
 				locations.append(location)

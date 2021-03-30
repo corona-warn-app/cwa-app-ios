@@ -196,7 +196,7 @@ class CheckinSplittingServiceTests: XCTestCase {
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 0,
 			cryptographicSeed: Data(),
-			cnMainPublicKey: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: startDate,
 			checkinEndDate: endDate,
 			checkinCompleted: checkinCompleted,

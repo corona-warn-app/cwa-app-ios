@@ -24,30 +24,15 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	) {
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
 			  let route = Route(code.stringValue),
-			  case let Route.checkin(key) = route
+			  case let Route.checkin(key) = route,
+			  let traceLocation = TraceLocation(qrCodeString: key)
 		else {
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-
-		let data = key.base32DecodedString()
-		Log.debug("Data found: \(String(describing: data))")
-
-		// creates a fake event for the moment
-		let traceLocation = TraceLocation(
-			id: Data(),
-			version: 0,
-			type: .locationTypePermanentCraft,
-			description: "Jahrestreffen der deutschen SAP Anwendergruppe",
-			address: "Lenaustr.6, 69115, Heidelberg",
-			startDate: Date(),
-			endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
-			defaultCheckInLengthInMinutes: nil,
-			cryptographicSeed: Data(),
-			cnMainPublicKey: Data()
-		)
 		onSuccess?(traceLocation)
 	}
+	
 
 	// MARK: - Internal
 
