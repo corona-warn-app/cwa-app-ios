@@ -50,10 +50,10 @@ class TraceLocationsCoordinator {
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
 	private let eventStore: EventStoringProviding
 
-	private var tmpTraceLocation = TraceLocation(id: "0".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeUnspecified, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
-	private var tmpTraceLocation1 = TraceLocation(id: "1".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeUnspecified, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
-	private var tmpTraceLocation2 = TraceLocation(id: "2".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeUnspecified, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
-	private var tmpTraceLocation3 = TraceLocation(id: "3".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeUnspecified, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
+	private var tmpTraceLocation = TraceLocation(id: "0".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryPrivateEvent, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
+	private var tmpTraceLocation1 = TraceLocation(id: "1".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryOther, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
+	private var tmpTraceLocation2 = TraceLocation(id: "2".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryCulturalEvent, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
+	private var tmpTraceLocation3 = TraceLocation(id: "3".data(using: .utf8) ?? Data(), version: 0, type: .locationTypePermanentOther, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
 
 	private weak var parentNavigationController: UINavigationController?
 	
@@ -192,29 +192,10 @@ class TraceLocationsCoordinator {
 	}
 	
 	private func showTraceLocationTypeSelectionScreen() {
-		
-		let locations: [TraceLocationType] = [
-			.locationTypePermanentRetail,
-			.locationTypePermanentFoodService,
-			.locationTypePermanentCraft,
-			.locationTypePermanentWorkplace,
-			.locationTypePermanentEducationalInstitution,
-			.locationTypePermanentPublicBuilding,
-			.locationTypePermanentOther
-		]
-		
-		let events: [TraceLocationType] = [
-			.locationTypeTemporaryCulturalEvent,
-			.locationTypeTemporaryClubActivity,
-			.locationTypeTemporaryPrivateEvent,
-			.locationTypeTemporaryWorshipService,
-			.locationTypeTemporaryOther
-		]
-		
 		let traceLocationTypeSelectionViewController = TraceLocationTypeSelectionViewController(
 			viewModel: TraceLocationTypeSelectionViewModel([
-				.location: locations,
-				.event: events
+				.location: TraceLocationType.permanentTypes,
+				.event: TraceLocationType.temporaryTypes
 			],
 			onTraceLocationTypeSelection: { [weak self] traceLocationType in
 				guard let self = self else { return }

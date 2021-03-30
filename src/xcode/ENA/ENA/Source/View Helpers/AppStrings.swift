@@ -1347,6 +1347,14 @@ enum AppStrings {
 
 	enum Checkins {
 
+		enum Edit {
+			static let primaryButtonTitle = NSLocalizedString("Checkins_Edit_PrimaryButton_Title", comment: "")
+			static let sectionHeaderTitle = NSLocalizedString("Checkins_Edit_Section_Title", comment: "")
+			static let checkedIn = NSLocalizedString("Checkins_Edit_CheckedIn", comment: "")
+			static let checkedOut = NSLocalizedString("Checkins_Edit_CheckedOut", comment: "")
+			static let notice = NSLocalizedString("Checkins_Edit_Notice", comment: "")
+		}
+
 		enum QRScanner {
 			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
 			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
@@ -1545,7 +1553,14 @@ enum AppStrings {
 
 		enum Configuration {
 			static let title = NSLocalizedString("TraceLocations_Configuration_Title", comment: "")
+			static let descriptionPlaceholder = NSLocalizedString("TraceLocations_Configuration_DescriptionPlaceholder", comment: "")
+			static let addressPlaceholder = NSLocalizedString("TraceLocations_Configuration_AddressPlaceholder", comment: "")
+			static let startDateTitle = NSLocalizedString("TraceLocations_Configuration_StartDateTitle", comment: "")
+			static let endDateTitle = NSLocalizedString("TraceLocations_Configuration_EndDateTitle", comment: "")
+			static let defaultCheckinLengthTitle = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthTitle", comment: "")
+			static let defaultCheckinLengthFootnote = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthFootnote", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TraceLocations_Configuration_PrimaryButtonTitle", comment: "")
+			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 		}
 	}
 
