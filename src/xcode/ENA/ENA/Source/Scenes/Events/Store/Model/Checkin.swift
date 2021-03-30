@@ -47,13 +47,11 @@ extension Checkin {
 	/// Extract and return the  trace location of the current checkin
 	var traceLocation: SAP_Internal_Pt_TraceLocation {
 		var loc = SAP_Internal_Pt_TraceLocation()
-		loc.guid = traceLocationGUID
 		loc.version = UInt32(traceLocationVersion)
 		loc.description_p = traceLocationDescription
 		loc.address = traceLocationAddress
 		loc.startTimestamp = UInt64(traceLocationStartDate?.timeIntervalSince1970 ?? 0)
 		loc.endTimestamp = UInt64(traceLocationEndDate?.timeIntervalSince1970 ?? 0)
-		loc.defaultCheckInLengthInMinutes = UInt32(traceLocationDefaultCheckInLengthInMinutes ?? 0)
 		return loc
 	}
 
@@ -68,13 +66,7 @@ extension Checkin {
 		checkin.startIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
 		checkin.endIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
 		assert(checkin.startIntervalNumber < checkin.endIntervalNumber)
-
-		try checkin.signedLocation = {
-			var signed = SAP_Internal_Pt_SignedTraceLocation()
-			signed.location = try traceLocation.serializedData()
-			signed.signature = Data(base64Encoded: traceLocationSignature) ?? Data()
-			return signed
-		}()
+		checkin.locationID = traceLocationId
 
 		checkin.transmissionRiskLevel = 42 // TODO: currently calculated outside this function
 		return checkin
@@ -87,7 +79,7 @@ extension Checkin {
 	/// - Returns: The overlap in seconds; `0` if no match references to this checkin
 	func calculateOverlap(with matches: [TraceTimeIntervalMatch]) -> Int {
 		guard
-			let match = matches.first(where: { $0.traceLocationGUID == traceLocationGUID })
+			let match = matches.first(where: { $0.traceLocationId == traceLocationId })
 		else { return 0 }
 		
 		let maxStart = max(checkinStartDate.timeIntervalSince1970, Double(match.startIntervalNumber) * Checkin.INTERVAL_LENGTH)
