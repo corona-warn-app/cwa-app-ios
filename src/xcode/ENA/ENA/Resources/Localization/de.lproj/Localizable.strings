@@ -2099,23 +2099,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Trace Location Configuration */
 
- "TraceLocations_Configuration_Title" = "QR-Code erstellen";
+"TraceLocations_Configuration_Title" = "QR-Code erstellen";
 
- "TraceLocations_Configuration_DescriptionPlaceholder" = "Bezeichnung";
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Bezeichnung";
 
- "TraceLocations_Configuration_AddressPlaceholder" = "Ort";
+"TraceLocations_Configuration_AddressPlaceholder" = "Ort";
 
- "TraceLocations_Configuration_StartDateTitle" = "Beginn";
+"TraceLocations_Configuration_StartDateTitle" = "Beginn";
 
- "TraceLocations_Configuration_EndDateTitle" = "Ende";
+"TraceLocations_Configuration_EndDateTitle" = "Ende";
 
- "TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typische Aufenthaltsdauer";
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typische Aufenthaltsdauer";
 
- "TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Geben Sie an, wie lange sich Gäste üblicherweise bei Ihnen aufhalten.";
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Geben Sie an, wie lange sich Gäste üblicherweise bei Ihnen aufhalten.";
 
- "TraceLocations_Configuration_PrimaryButtonTitle" = "Speichern";
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Speichern";
 
- "TraceLocations_Configuration_HoursUnit" = "%@ Std.";
+"TraceLocations_Configuration_HoursUnit" = "%@ Std.";
 
 /* Error Reporting */
 

@@ -10,6 +10,7 @@ protocol FooterViewUpdating {
 
 	func setBackgroundColor(_ color: UIColor)
 	func update(to state: FooterViewModel.VisibleButtons)
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType)
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
 }
 
@@ -57,16 +58,18 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
 
 		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: 0.0)
+		bottomViewBottomAnchorConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
 		view.addSubview(bottomView)
 		NSLayoutConstraint.activate(
 			[
-				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-				topView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-				bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0),
-				bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				topView.topAnchor.constraint(equalTo: view.topAnchor),
+				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor),
+				bottomViewBottomAnchorConstraint,
 				bottomViewHeightAnchorConstraint
 			]
 		)
@@ -77,6 +80,32 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 				self.updateFooterViewModel(viewModel)
 			}
 		}
+
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
+			.sink { [weak self] notification in
+				let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+
+				guard let self = self, let keyboardHeight = keyboardSize?.height else {
+					return
+				}
+
+				self.bottomViewBottomAnchorConstraint.constant = -keyboardHeight
+
+				UIView.animate(withDuration: 0.5) {
+					self.view.layoutIfNeeded()
+				}
+			}
+			.store(in: &subscriptions)
+
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
+			.sink { [weak self] _ in
+				self?.bottomViewBottomAnchorConstraint.constant = 0
+
+				UIView.animate(withDuration: 0.5) {
+					self?.view.layoutIfNeeded()
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Protocol DismissHandling
@@ -96,6 +125,10 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	func update(to state: FooterViewModel.VisibleButtons) {
 		footerViewModel?.update(to: state)
+	}
+
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType) {
+		footerViewModel?.setEnabled(isEnabled, button: button)
 	}
 
 	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
@@ -138,6 +171,7 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	private var subscriptions: [AnyCancellable] = []
 	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
+	private var bottomViewBottomAnchorConstraint: NSLayoutConstraint!
 
 	private func updateBottomHeight(_ height: CGFloat, animated: Bool = false) {
 		guard bottomViewHeightAnchorConstraint.constant != height else {
