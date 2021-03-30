@@ -27,7 +27,7 @@ final class EventCheckoutService {
 	// MARK: - Internal
 
 	func checkout(checkin: Checkin, manually: Bool) {
-		let completedCheckin = checkin.completedCheckin()
+		let completedCheckin = checkin.completedCheckin(manually: manually)
 		eventStore.updateCheckin(completedCheckin)
 
 		if completedCheckin.createJournalEntry {
@@ -151,7 +151,7 @@ final class EventCheckoutService {
 }
 
 private extension Checkin {
-	func completedCheckin() -> Checkin {
+	func completedCheckin(manually: Bool) -> Checkin {
 		Checkin(
 			id: self.id,
 			traceLocationId: self.traceLocationId,
@@ -166,7 +166,7 @@ private extension Checkin {
 			cryptographicSeed: self.cryptographicSeed,
 			cnPublicKey: self.cnPublicKey,
 			checkinStartDate: self.checkinStartDate,
-			checkinEndDate: self.checkinEndDate,
+			checkinEndDate: manually ? Date() : self.checkinEndDate,
 			checkinCompleted: true,
 			createJournalEntry: self.createJournalEntry)
 	}
