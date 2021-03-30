@@ -540,22 +540,79 @@ class ENAUITests_07_ContactJournalUITests: XCTestCase {
 		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 	}
 
-	func testOverviewWithRiskLevelHighOnToday() throws {
+	/// Tests: ENF Risk High, Checkin Risk None
+	func testOverviewScenario1() throws {
 		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
-		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "low"])
 
 		navigateToJournalOverview()
 
         // check if overview is visible
         XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
 
-		let highRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
-		XCTAssertNotNil( highRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh])
-
-		let lowRiskCell = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
-		XCTAssertNotNil( lowRiskCell.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow])
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelLow]
+		XCTAssertTrue(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
+		XCTAssertFalse(checkinCell.isHittable)
+		
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
 	}
+	
+	/// Tests: ENF Risk High, Checkin Risk High
+	func testOverviewScenario2() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-riskLevel", "high"])
+		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "high"])
+		
+		navigateToJournalOverview()
 
+		// check if overview is visible
+		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertTrue(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertTrue(checkinCell.isHittable)
+		
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
+	}
+	
+	/// Tests: ENF Risk None, Checkin Risk High
+	func testOverviewScenario3() throws {
+		app.launchArguments.append(contentsOf: ["-diaryInfoScreenShown", "YES"])
+		app.launchArguments.append(contentsOf: ["-checkinRiskLevel", "low"])
+
+		navigateToJournalOverview()
+
+		// check if overview is visible
+		XCTAssertEqual(app.navigationBars.firstMatch.identifier, app.localized("ContactDiary_Overview_Title"))
+
+		// first cell should have the text for high risk, but none about checkin
+		let overviewCellWithEncounterRisk = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 1)
+		let highRiskCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCell.isHittable)
+		let checkinCell = overviewCellWithEncounterRisk.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelLow]
+		XCTAssertTrue(checkinCell.isHittable)
+		
+		let overviewCellEmpty = app.descendants(matching: .table).firstMatch.cells.element(boundBy: 4)
+		let highRiskCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.riskLevelHigh]
+		XCTAssertFalse(highRiskCellEmpty.isHittable)
+		let checkinCellEmpty = overviewCellEmpty.staticTexts[AccessibilityIdentifiers.ContactDiaryInformation.Overview.checkinRiskLevelHigh]
+		XCTAssertFalse(checkinCellEmpty.isHittable)
+	}
+	
 	// MARK: - Private
 
 	private func navigateToJournalOverview() {
