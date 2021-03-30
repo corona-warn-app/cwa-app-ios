@@ -32,7 +32,7 @@ class QRCodePosterTemplateProvider: QRCodePosterTemplateProviding {
 
 	func defaultQRCodePosterTemplate() -> SAP_Internal_Pt_QRCodePosterTemplateIOS {
 		guard
-			let url = Bundle(for: type(of: self)).url(forResource: "qr_code_template", withExtension: "bin"),
+			let url = Bundle(for: type(of: self)).url(forResource: "default_qr_code_poster_template_ios", withExtension: "bin"),
 			let data = try? Data(contentsOf: url),
 			let template = try? SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: data)
 		else {
