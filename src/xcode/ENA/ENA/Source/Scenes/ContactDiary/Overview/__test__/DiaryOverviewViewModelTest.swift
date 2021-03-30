@@ -106,18 +106,19 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
 
+		// Check if one of the dates is daylight saving time, then there difference will have an offset and we need to regenerate the a generic date without the offset hours
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
-		let todayMinus5DaysWithDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
-		let todayMinus5DaysWithoutDaylightSaving: Date
-		// check for daylight saving
+		let todayMinus5DaysBeforeCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+		let todayMinus5DaysAfterCheckingDaylightSaving: Date
+
 		let timeZone = TimeZone.current
-		if timeZone.isDaylightSavingTime(for: today) && !timeZone.isDaylightSavingTime(for: todayMinus5DaysWithDaylightSaving) {
+		if timeZone.isDaylightSavingTime(for: today) != timeZone.isDaylightSavingTime(for: todayMinus5DaysBeforeCheckingDaylightSaving) {
 			// If in DaylightSavingTime we re-generate the date from the date string so we remove the offset hours
-			let todayMinus5DaysWithDaylightSavingString = try XCTUnwrap(dateFormatter.string(from: todayMinus5DaysWithDaylightSaving))
-			todayMinus5DaysWithoutDaylightSaving = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysWithDaylightSavingString))
+			let todayMinus5DaysString = try XCTUnwrap(dateFormatter.string(from: todayMinus5DaysBeforeCheckingDaylightSaving))
+			todayMinus5DaysAfterCheckingDaylightSaving = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
 		} else {
-			todayMinus5DaysWithoutDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+			todayMinus5DaysAfterCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
 		}
 
 		let store = MockTestStore()
@@ -130,7 +131,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: today,
-			riskLevelPerDate: [todayMinus5DaysWithoutDaylightSaving: .low],
+			riskLevelPerDate: [todayMinus5DaysAfterCheckingDaylightSaving: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		let viewModel = DiaryOverviewViewModel(
@@ -150,18 +151,19 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
 
+		// Check if one of the dates is daylight saving time, then there difference will have an offset and we need to regenerate the a generic date without the offset hours
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
-		let todayMinus7DaysWithDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
-		let todayMinus7DaysWithoutDaylightSaving: Date
-		// check for daylight saving
+		let todayMinus7DaysBeforeCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
+		let todayMinus7DaysAfterCheckingDaylightSaving: Date
+		
 		let timeZone = TimeZone.current
-		if timeZone.isDaylightSavingTime(for: today) && !timeZone.isDaylightSavingTime(for: todayMinus7DaysWithDaylightSaving) {
+		if timeZone.isDaylightSavingTime(for: today) != timeZone.isDaylightSavingTime(for: todayMinus7DaysBeforeCheckingDaylightSaving) {
 			// If today in DaylightSavingTime we re-generate the date from the date string so we remove the offset hours
-			let todayMinus7DaysWithDaylightSavingString = try XCTUnwrap(dateFormatter.string(from: todayMinus7DaysWithDaylightSaving))
-			todayMinus7DaysWithoutDaylightSaving = try XCTUnwrap(dateFormatter.date(from: todayMinus7DaysWithDaylightSavingString))
+			let todayMinus7DayString = try XCTUnwrap(dateFormatter.string(from: todayMinus7DaysBeforeCheckingDaylightSaving))
+			todayMinus7DaysAfterCheckingDaylightSaving = try XCTUnwrap(dateFormatter.date(from: todayMinus7DayString))
 		} else {
-			todayMinus7DaysWithoutDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
+			todayMinus7DaysAfterCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
 		}
 
 		let store = MockTestStore()
@@ -174,7 +176,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: today,
-			riskLevelPerDate: [todayMinus7DaysWithoutDaylightSaving: .high],
+			riskLevelPerDate: [todayMinus7DaysAfterCheckingDaylightSaving: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 		let viewModel = DiaryOverviewViewModel(
