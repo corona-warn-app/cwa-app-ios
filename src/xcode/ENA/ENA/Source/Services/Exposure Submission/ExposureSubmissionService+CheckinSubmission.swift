@@ -10,12 +10,10 @@ extension ExposureSubmissionService {
 	///
 	///  Details on the implementation can be found in the [tech spec](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#attendee-check-in-submission).
 	/// - Returns: A list of converted checkins
-	func preparedCheckinsForSubmission(with appConfigProvider: AppConfigurationProviding, symptomOnset: SymptomsOnset) -> [SAP_Internal_Pt_CheckIn] {
+	func preparedCheckinsForSubmission(with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS, symptomOnset: SymptomsOnset, completion: @escaping (_ transformed: [SAP_Internal_Pt_CheckIn]) -> Void) {
 		let eventStore = EventStore(url: EventStore.storeURL)
 		let raw🐓 = eventStore?.checkinsPublisher.value ?? []
-
 		let css = CheckinSplittingService()
-		let appConfig = appConfigProvider.syncronousAppConfig()
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
 		let checkins = raw🐓
@@ -26,7 +24,7 @@ extension ExposureSubmissionService {
 			// transform for submission
 			.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
 				do {
-					var transformed = try checkin.prepareForSubmission() as SAP_Internal_Pt_CheckIn
+					var transformed = try checkin.prepareForSubmission()
 					// Determine Transmission Risk Level
 					let transmissionRiskLevel: Int
 					if let ageInDays = Calendar.autoupdatingCurrent.dateComponents([.day], from: checkin.checkinStartDate).day {
@@ -48,14 +46,6 @@ extension ExposureSubmissionService {
 					return nil
 				}
 			}
-
-		return checkins
-	}
-}
-
-private extension AppConfigurationProviding {
-	func syncronousAppConfig() -> SAP_Internal_V2_ApplicationConfigurationIOS {
-		#warning("not implemented - yet")
-		return SAP_Internal_V2_ApplicationConfigurationIOS()
+		completion(checkins)
 	}
 }

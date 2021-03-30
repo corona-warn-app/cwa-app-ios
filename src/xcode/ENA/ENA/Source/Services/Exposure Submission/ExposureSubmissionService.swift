@@ -156,14 +156,20 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return
 		}
 
-		// Fetch & process keys and checkins
-		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
-		let checkins = preparedCheckinsForSubmission(with: appConfigurationProvider, symptomOnset: symptomsOnset)
-
-		// Request needs to be prepended by the fake request.
-		_fakeVerificationServerRequest(completion: { _ in
-			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: checkins, completion: completion)
-		})
+		// we need the app configuration first…
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { appConfig in
+				// Fetch & process keys and checkins
+				let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
+				self.preparedCheckinsForSubmission(with: appConfig, symptomOnset: self.symptomsOnset, completion: { checkins in
+					// Request needs to be prepended by the fake request.
+					self._fakeVerificationServerRequest(completion: { _ in
+						self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: checkins, completion: completion)
+					})
+				})
+			}
+			.store(in: &subscriptions)
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
