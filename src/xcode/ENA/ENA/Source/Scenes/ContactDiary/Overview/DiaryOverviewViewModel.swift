@@ -12,10 +12,12 @@ class DiaryOverviewViewModel {
 	init(
 		diaryStore: DiaryStoringProviding,
 		store: Store,
+		eventStore: EventStoringProviding,
 		homeState: HomeState? = nil
 	) {
 		self.diaryStore = diaryStore
 		self.secureStore = store
+		self.eventStore = eventStore
 
 		$days
 			.receive(on: DispatchQueue.OCombine(.main))
@@ -75,14 +77,21 @@ class DiaryOverviewViewModel {
 		let diaryDay = days[indexPath.row]
 		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
 		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskValue(by: diaryDay.utcMidnightDate)
+		let checkinsWithRisk = checkinsWithRiskFor(day: diaryDay.utcMidnightDate)
 
-		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure, minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk)
+		return DiaryOverviewDayCellModel(
+			diaryDay: diaryDay,
+			historyExposure: currentHistoryExposure,
+			minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk,
+			checkinsWithRisk: checkinsWithRisk
+		)
 	}
 
 	// MARK: - Private
 
 	private let diaryStore: DiaryStoringProviding
 	private let secureStore: Store
+	private let eventStore: EventStoringProviding
 
 	private var subscriptions: [AnyCancellable] = []
 
@@ -98,5 +107,24 @@ class DiaryOverviewViewModel {
 			return -1
 		}
 		return minimumDistinctEncountersWithHighRisk
+	}
+	
+	private func checkinsWithRiskFor(day: Date) -> [CheckinWithRisk] {
+		guard let result = secureStore.checkinRiskCalculationResult else {
+			return []
+		}
+
+		let checkinIdsWithRisk = result.checkinIdsWithRiskPerDate.filter({
+			$0.key == day
+		}).flatMap { $0.value }
+
+		var checkinsWithRisk: [CheckinWithRisk] = []
+		
+		checkinIdsWithRisk.forEach { checkinIdWithRisk in
+			for checkin in eventStore.checkinsPublisher.value where checkinIdWithRisk.checkinId == checkin.id {
+				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
+			}
+		}
+		return checkinsWithRisk
 	}
 }
