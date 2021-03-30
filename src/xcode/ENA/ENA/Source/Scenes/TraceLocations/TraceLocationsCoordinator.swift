@@ -161,7 +161,8 @@ class TraceLocationsCoordinator {
 				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
 				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
 				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: false
+				isSecondaryButtonHidden: false,
+				secondaryButtonInverted: true
 			)
 		)
 		
