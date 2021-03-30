@@ -48,6 +48,12 @@ class TraceLocationConfigurationViewModel {
 		case duplicate(TraceLocation)
 	}
 
+	enum SavingError: Error {
+		case cryptographicSeedCreationFailed
+		case qrCodePayloadCreationFailed
+		case sqlStoreError(SecureSQLStoreError)
+	}
+
 	@OpenCombine.Published private(set) var startDatePickerIsHidden: Bool = true
 	@OpenCombine.Published private(set) var endDatePickerIsHidden: Bool = true
 
@@ -151,14 +157,16 @@ class TraceLocationConfigurationViewModel {
 		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
 	}
 
-	func save() -> Bool {
+	func save() throws {
 		guard let cryptographicSeed = cryptographicSeed() else {
-			return false
+			throw SavingError.cryptographicSeedCreationFailed
 		}
 
 		let version = 1
 		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
 		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
+
+		let cnPublicKey = Data() // still TBD according to tech spec
 
 		let cwaLocationData = SAP_Internal_Pt_CWALocationData.with {
 			$0.version = 1
@@ -166,11 +174,11 @@ class TraceLocationConfigurationViewModel {
 			$0.defaultCheckInLengthInMinutes = defaultCheckInLengthInMinutes.map { UInt32($0) } ?? 0
 		}
 
-		guard let cwaLocationSerializedData = try? cwaLocationData.serializedData() else {
-			return false
-		}
+		let cwaLocationSerializedData = try cwaLocationData.serializedData()
 
 		let qrCodePayload = SAP_Internal_Pt_QRCodePayload.with {
+			$0.version = 1
+
 			$0.locationData.version = UInt32(version)
 			$0.locationData.description_p = trimmedDescription
 			$0.locationData.address = trimmedAddress
@@ -179,11 +187,13 @@ class TraceLocationConfigurationViewModel {
 
 			$0.vendorData = cwaLocationSerializedData
 
+			$0.crowdNotifierData.version = 1
+			$0.crowdNotifierData.publicKey = cnPublicKey
 			$0.crowdNotifierData.cryptographicSeed = cryptographicSeed
 		}
 
 		guard let id = qrCodePayload.id else {
-			return false
+			throw SavingError.qrCodePayloadCreationFailed
 		}
 
 		let storeResult = eventStore.createTraceLocation(
@@ -197,15 +207,12 @@ class TraceLocationConfigurationViewModel {
 				endDate: endDate,
 				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
 				cryptographicSeed: cryptographicSeed,
-				cnPublicKey: Data()
+				cnPublicKey: cnPublicKey
 			)
 		)
 
-		switch storeResult {
-		case .success:
-			return true
-		case .failure:
-			return false
+		if case .failure(let error) = storeResult {
+			throw SavingError.sqlStoreError(error)
 		}
 	}
 

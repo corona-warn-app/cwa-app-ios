@@ -62,9 +62,11 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 	// MARK: - Protocol FooterViewHandling
 
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
-		let success = viewModel.save()
-		if success {
+		do {
+			try viewModel.save()
 			onDismiss()
+		} catch {
+			Log.error("Error saving trace location: \(error.localizedDescription)", log: .traceLocation, error: error)
 		}
 	}
 
