@@ -14,7 +14,7 @@ class TraceLocationDetailsViewModelTests: XCTestCase {
 		let provider = QRCodePosterTemplateProvider(client: client, store: store)
 
 		let viewModel = TraceLocationDetailsViewModel(
-			traceLocation: TraceLocation.mock(guid: "fake"),
+			traceLocation: TraceLocation.mock(),
 			store: store,
 			qrCodePosterTemplateProvider: provider
 		)
