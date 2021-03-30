@@ -182,12 +182,9 @@ class TraceLocationConfigurationViewModel {
 			$0.crowdNotifierData.cryptographicSeed = cryptographicSeed
 		}
 
-		guard var data = "CWA-GUID".data(using: .utf8), let qrCodePayloadData = try? qrCodePayload.serializedData() else {
+		guard let id = qrCodePayload.id else {
 			return false
 		}
-
-		data.append(qrCodePayloadData)
-		let id = data.sha256()
 
 		let storeResult = eventStore.createTraceLocation(
 			TraceLocation(
