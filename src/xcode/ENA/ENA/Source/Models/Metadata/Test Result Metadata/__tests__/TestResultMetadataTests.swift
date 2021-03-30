@@ -92,14 +92,15 @@ class TestResultMetadataTests: XCTestCase {
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
-		} else {
+		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
 			XCTFail("registration date is nil")
+			return
 		}
-
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
 		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
+		
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
+		
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
@@ -135,17 +136,16 @@ class TestResultMetadataTests: XCTestCase {
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
-
-		if let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) {
-			Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
-		} else {
+		
+		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
 			XCTFail("registration date is nil")
+			return
 		}
-
+		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
 		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
-
-		// The the date is updated if the risk results changes e.g from pendong to positive
+		
+		// The the date is updated if the risk results changes e.g from pending to positive
 		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
