@@ -18,19 +18,7 @@ class CheckInTopCornerCell: UITableViewCell, ReuseIdentifierProviding {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - Public
-
-	// MARK: - Internal
-
-	func configure(_ model: String) {
-		noticeLabel.text = model
-	}
-
 	// MARK: - Private
-
-	private let typeLabel = ENALabel()
-
-	private let noticeLabel = ENALabel()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -53,6 +41,5 @@ class CheckInTopCornerCell: UITableViewCell, ReuseIdentifierProviding {
 			contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 20.0)
 		])
 	}
-
 
 }
