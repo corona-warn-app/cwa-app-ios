@@ -20,7 +20,7 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 
 	// MARK: - Internal
 
-	func configure(_ qrCode: UIImage) {
+	func configure(_ qrCode: UIImage?) {
 		qrCodeView.image = qrCode
 	}
 

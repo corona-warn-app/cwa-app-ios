@@ -95,8 +95,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		
 		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsQRCodeCell.self, for: indexPath)
-			guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: 300, height: 300)) else { return cell }
-			cell.configure(qrCodeImage)
+			cell.configure(viewModel.qrCode)
 			return cell
 			
 		case .dateTime:

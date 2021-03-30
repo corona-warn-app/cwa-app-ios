@@ -52,6 +52,11 @@ class TraceLocationDetailsViewModel {
 		}
 	}
 	
+	var qrCode: UIImage? {
+		guard let qrCodeImage = traceLocation.generateQRCode(size: CGSize(width: 300, height: 300)) else { return nil }
+		return qrCodeImage
+	}
+
 	var numberOfRowsPerSection: Int {
 		// since every section has only one row
 		return 1
