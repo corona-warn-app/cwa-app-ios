@@ -110,6 +110,35 @@ class DiaryOverviewViewModel {
 	}
 	
 	private func checkinsWithRiskFor(day: Date) -> [CheckinWithRisk] {
+		#if DEBUG
+		// ui test data for launch argument "-checkinRiskLevel"
+		if isUITesting {
+			if let checkinRisk = UserDefaults.standard.string(forKey: "checkinRiskLevel") {
+				let rawValue = checkinRisk == "high" ? 2 : 1
+				let riskLevel = SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel(rawValue: rawValue)
+				let fakedCheckin = Checkin(
+					id: 0,
+					traceLocationGUID: "",
+					traceLocationGUIDHash: Data(),
+					traceLocationVersion: 0,
+					traceLocationType: .locationTypePermanentFoodService,
+					traceLocationDescription: "Supermarkt",
+					traceLocationAddress: "",
+					traceLocationStartDate: nil,
+					traceLocationEndDate: nil,
+					traceLocationDefaultCheckInLengthInMinutes: nil,
+					traceLocationSignature: "",
+					checkinStartDate: Date(),
+					checkinEndDate: Date(),
+					checkinCompleted: true,
+					createJournalEntry: false)
+				let highRiskCheckin = CheckinWithRisk(checkIn: fakedCheckin, risk: riskLevel ?? .high)
+				return [highRiskCheckin]
+				
+			}
+		}
+		#endif
+		
 		guard let result = secureStore.checkinRiskCalculationResult else {
 			return []
 		}
@@ -125,6 +154,7 @@ class DiaryOverviewViewModel {
 				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
 			}
 		}
+		
 		return checkinsWithRisk
 	}
 }
