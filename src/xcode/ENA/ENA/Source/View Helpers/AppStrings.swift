@@ -1347,6 +1347,14 @@ enum AppStrings {
 
 	enum Checkins {
 
+		enum Edit {
+			static let primaryButtonTitle = NSLocalizedString("Checkins_Edit_PrimaryButton_Title", comment: "")
+			static let sectionHeaderTitle = NSLocalizedString("Checkins_Edit_Section_Title", comment: "")
+			static let checkedIn = NSLocalizedString("Checkins_Edit_CheckedIn", comment: "")
+			static let checkedOut = NSLocalizedString("Checkins_Edit_CheckedOut", comment: "")
+			static let notice = NSLocalizedString("Checkins_Edit_Notice", comment: "")
+		}
+
 		enum QRScanner {
 			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
 			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
