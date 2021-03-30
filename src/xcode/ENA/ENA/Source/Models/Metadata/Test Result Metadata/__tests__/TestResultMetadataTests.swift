@@ -92,16 +92,16 @@ class TestResultMetadataTests: XCTestCase {
 		let riskCalculationResult = mockRiskCalculationResult(risk: .low)
 		secureStore.riskCalculationResult = riskCalculationResult
 
-		guard let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) else {
+		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
 			XCTFail("registration date is nil")
 			return
 		}
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, "")))
 		Analytics.collect(.testResultMetadata(.updateTestResult(.positive, "")))
+		
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
-		let hours = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date()).hour
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, hours, "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_ValidResult_previouslyStoredWithSameValue() {
@@ -146,8 +146,7 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
 		// The the date is updated if the risk results changes e.g from pending to positive
-		let hours = Calendar.current.dateComponents([.hour], from: registrationDate, to: Date()).hour
-		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, hours, "incorrect hoursSinceTestRegistration")
+		XCTAssertNotEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_Invalid() {

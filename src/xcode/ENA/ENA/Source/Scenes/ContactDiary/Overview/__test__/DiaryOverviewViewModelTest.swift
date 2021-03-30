@@ -109,17 +109,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		// Check if one of the dates is daylight saving time, then there difference will have an offset and we need to regenerate the a generic date without the offset hours
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
-		let todayMinus5DaysBeforeCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
-		let todayMinus5DaysAfterCheckingDaylightSaving: Date
+		let todayMinus5Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -5, to: today))
 
-		let timeZone = TimeZone.current
-		if timeZone.isDaylightSavingTime(for: today) != timeZone.isDaylightSavingTime(for: todayMinus5DaysBeforeCheckingDaylightSaving) {
-			// If in DaylightSavingTime we re-generate the date from the date string so we remove the offset hours
-			let todayMinus5DaysString = try XCTUnwrap(dateFormatter.string(from: todayMinus5DaysBeforeCheckingDaylightSaving))
-			todayMinus5DaysAfterCheckingDaylightSaving = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
-		} else {
-			todayMinus5DaysAfterCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
-		}
 
 		let store = MockTestStore()
 		store.riskCalculationResult = RiskCalculationResult(
@@ -131,7 +122,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: today,
-			riskLevelPerDate: [todayMinus5DaysAfterCheckingDaylightSaving: .low],
+			riskLevelPerDate: [todayMinus5Days: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		let viewModel = DiaryOverviewViewModel(
@@ -154,18 +145,8 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		// Check if one of the dates is daylight saving time, then there difference will have an offset and we need to regenerate the a generic date without the offset hours
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
-		let todayMinus7DaysBeforeCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
-		let todayMinus7DaysAfterCheckingDaylightSaving: Date
+		let todayMinus7Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -7, to: today))
 		
-		let timeZone = TimeZone.current
-		if timeZone.isDaylightSavingTime(for: today) != timeZone.isDaylightSavingTime(for: todayMinus7DaysBeforeCheckingDaylightSaving) {
-			// If today in DaylightSavingTime we re-generate the date from the date string so we remove the offset hours
-			let todayMinus7DayString = try XCTUnwrap(dateFormatter.string(from: todayMinus7DaysBeforeCheckingDaylightSaving))
-			todayMinus7DaysAfterCheckingDaylightSaving = try XCTUnwrap(dateFormatter.date(from: todayMinus7DayString))
-		} else {
-			todayMinus7DaysAfterCheckingDaylightSaving = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
-		}
-
 		let store = MockTestStore()
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
@@ -176,7 +157,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: today,
-			riskLevelPerDate: [todayMinus7DaysAfterCheckingDaylightSaving: .high],
+			riskLevelPerDate: [todayMinus7Days: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
 		let viewModel = DiaryOverviewViewModel(
