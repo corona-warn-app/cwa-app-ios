@@ -11,6 +11,13 @@ extension ExposureSubmissionService {
 	///  Details on the implementation, especially the risk calculation can be found in the [tech spec](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#risk-calculation).
 	/// - Returns: A list of converted checkins
 	func preparedCheckinsForSubmission(with appConfig: AppConfigurationProviding) -> [SAP_Internal_Pt_CheckIn] {
+		#if DEBUG
+		let checkins = [
+			SAP_Internal_Pt_CheckIn(),
+			SAP_Internal_Pt_CheckIn()
+		]
+		return checkins
+		#else
 		let eventStore = EventStore(url: EventStore.storeURL)
 		let raw🐓 = eventStore?.checkinsPublisher.value ?? []
 
@@ -46,6 +53,7 @@ extension ExposureSubmissionService {
 			}
 
 		return checkins
+		#endif
 	}
 }
 
