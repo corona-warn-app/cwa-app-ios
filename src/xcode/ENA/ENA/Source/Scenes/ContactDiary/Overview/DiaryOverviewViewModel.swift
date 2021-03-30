@@ -141,6 +141,7 @@ class DiaryOverviewViewModel {
 	}
 	
 	#if DEBUG
+	// needs to be injected here for the ui tests.
 	private func createFakeDataForCheckin(with risk: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel) -> [CheckinWithRisk] {
 		
 		let fakedCheckin1 = Checkin(
