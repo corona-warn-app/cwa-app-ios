@@ -43,7 +43,7 @@ class MockEventStore: EventStoring, EventProviding {
 	func createCheckin(_ checkin: Checkin) -> SecureSQLStore.IdResult {
 		let id = UUID().hashValue
 		let checkinWithId = checkin.updatedWith(id: id)
-		checkinsPublisher.value.append(checkinWithId)
+		checkinsPublisher.value = appendCheckInAndSort(checkinWithId)
 		return .success(id)
 	}
 
@@ -56,7 +56,7 @@ class MockEventStore: EventStoring, EventProviding {
 		let updatedCheckin = oldCheckin.updatedWith(checkin: checkin)
 		checkins.removeAll { $0.id == oldCheckin.id }
 		checkins.append(updatedCheckin)
-		checkinsPublisher.send(checkins)
+		checkinsPublisher.value = appendCheckInAndSort(updatedCheckin)
 		return .success(())
 	}
 
@@ -132,6 +132,16 @@ class MockEventStore: EventStoring, EventProviding {
 	var traceTimeIntervalMatchesPublisher = OpenCombine.CurrentValueSubject<[TraceTimeIntervalMatch], Never>([])
 
 	var traceWarningPackageMetadatasPublisher = OpenCombine.CurrentValueSubject<[TraceWarningPackageMetadata], Never>([])
+
+	/// private helper to simulate DESC order from EventStore
+	private func appendCheckInAndSort(_ checkIn: Checkin) -> [Checkin] {
+		var currentValues = checkinsPublisher.value
+		currentValues.append(checkIn)
+		currentValues.sort { lhCheckIn, rhCheckIn -> Bool in
+			lhCheckIn.checkinEndDate > rhCheckIn.checkinEndDate
+		}
+		return currentValues
+	}
 
 }
 
