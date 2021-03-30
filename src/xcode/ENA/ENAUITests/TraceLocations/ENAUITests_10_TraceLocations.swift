@@ -63,6 +63,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
 
+	/*
 	func test_screenshot_traceLocation_print_flow() throws {
 		app.launch()
 		
@@ -95,4 +96,5 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		// take snapshot
 		snapshot("tracelocation_pdf_view")
 	}
+    */
 }
