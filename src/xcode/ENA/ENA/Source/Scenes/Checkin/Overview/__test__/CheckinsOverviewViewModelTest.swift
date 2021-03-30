@@ -191,9 +191,9 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 	func testDidTapEntryCellButton() throws {
 		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: -10)))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(), checkinEndDate: Date(timeIntervalSinceNow: -100)))
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinStartDate: Date(), checkinCompleted: false)
+			Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date(timeIntervalSinceNow: -10), checkinCompleted: false)
 		)
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: 10)))
 
@@ -357,10 +357,11 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 	func testUpdatedCheckinDoesNotTriggersReloadButUpdate() throws {
 		let eventStore = MockEventStore()
+		let endDate = Date()
 		let idResult = eventStore.createCheckin(
-			Checkin.mock(traceLocationId: "abc".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinCompleted: false)
+			Checkin.mock(traceLocationId: "abc".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date(), checkinCompleted: false)
 		)
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date()))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(), checkinEndDate: Date(timeIntervalSinceNow: 100)))
 
 		guard case .success(let id) = idResult else {
 			XCTFail("Failed to create checkin")
@@ -385,7 +386,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 				reloadExpectation.fulfill()
 			}
 
-		eventStore.updateCheckin(Checkin.mock(id: id, traceLocationId: "abc".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date()))
+		eventStore.updateCheckin(Checkin.mock(id: id, traceLocationId: "abc".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: endDate))
 
 		waitForExpectations(timeout: 100)
 
