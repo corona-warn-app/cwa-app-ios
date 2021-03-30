@@ -51,11 +51,9 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .enaColor(for: .cellBackground)
 		contentView.backgroundColor = .enaColor(for: .cellBackground)
 
-		typeLabel.translatesAutoresizingMaskIntoConstraints = false
 		typeLabel.font = .enaFont(for: .subheadline)
 		typeLabel.textColor = .enaColor(for: .textPrimary1)
 
-		dateTimeLabel.translatesAutoresizingMaskIntoConstraints = false
 		dateTimeLabel.font = .enaFont(for: .subheadline)
 		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
 		dateTimeLabel.textAlignment = .right
@@ -72,8 +70,6 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 
 		let stackView = AccessibleStackView(arrangedSubviews: [typeLabel, dateTimeLabel])
 		stackView.translatesAutoresizingMaskIntoConstraints = false
-		stackView.addArrangedSubview(typeLabel)
-		stackView.addArrangedSubview(dateTimeLabel)
 		stackView.spacing = 36.0
 		stackView.distribution = .fill
 		stackView.alignment = .center

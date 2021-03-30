@@ -39,17 +39,14 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 		backgroundColor = .clear
 		contentView.backgroundColor = .clear
 
-		traceLocationTypeLabel.translatesAutoresizingMaskIntoConstraints = false
 		traceLocationTypeLabel.font = .enaFont(for: .body)
 		traceLocationTypeLabel.textColor = .enaColor(for: .textPrimary2)
 		traceLocationTypeLabel.numberOfLines = 0
 
-		traceLocationDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 		traceLocationDescriptionLabel.font = .enaFont(for: .title1)
 		traceLocationDescriptionLabel.textColor = .enaColor(for: .textPrimary1)
 		traceLocationDescriptionLabel.numberOfLines = 0
 
-		traceLocationAddressLabel.translatesAutoresizingMaskIntoConstraints = false
 		traceLocationAddressLabel.font = .enaFont(for: .body)
 		traceLocationAddressLabel.textColor = .enaColor(for: .textPrimary2)
 		traceLocationAddressLabel.numberOfLines = 0
