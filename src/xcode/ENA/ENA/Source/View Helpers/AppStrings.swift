@@ -1029,6 +1029,14 @@ enum AppStrings {
 			enum LocationVisit {
 				static let abbreviationHours = NSLocalizedString("ContactDiary_Overview_LocationVisit_Abbreviation_Hours", comment: "")
 			}
+			
+			enum CheckinEncounter {
+				static let titleHighRisk = NSLocalizedString("ContactDiaray_Overview_Checkin_Title_HighRisk", comment: "")
+				static let titleLowRisk = NSLocalizedString("ContactDiaray_Overview_Checkin_Title_LowRisk", comment: "")
+				static let titleSubheadline = NSLocalizedString("ContactDiaray_Overview_Checkin_Title_Subheadline", comment: "")
+				static let highRisk = NSLocalizedString("ContactDiaray_Overview_Checkin_High_Risk_In_Brackets", comment: "")
+				static let lowRisk = NSLocalizedString("ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets", comment: "")
+			}
 		}
 
 		enum Day {
@@ -1537,7 +1545,14 @@ enum AppStrings {
 
 		enum Configuration {
 			static let title = NSLocalizedString("TraceLocations_Configuration_Title", comment: "")
+			static let descriptionPlaceholder = NSLocalizedString("TraceLocations_Configuration_DescriptionPlaceholder", comment: "")
+			static let addressPlaceholder = NSLocalizedString("TraceLocations_Configuration_AddressPlaceholder", comment: "")
+			static let startDateTitle = NSLocalizedString("TraceLocations_Configuration_StartDateTitle", comment: "")
+			static let endDateTitle = NSLocalizedString("TraceLocations_Configuration_EndDateTitle", comment: "")
+			static let defaultCheckinLengthTitle = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthTitle", comment: "")
+			static let defaultCheckinLengthFootnote = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthFootnote", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TraceLocations_Configuration_PrimaryButtonTitle", comment: "")
+			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 		}
 	}
 

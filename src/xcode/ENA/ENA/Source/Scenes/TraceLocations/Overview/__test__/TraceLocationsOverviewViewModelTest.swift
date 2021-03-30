@@ -117,16 +117,16 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 
 	func testDidTapEntryCell() throws {
 		let eventStore = MockEventStore()
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "qwer"))
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "asdf"))
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "zxcv"))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "qwer".data(using: .utf8) ?? Data()))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "asdf".data(using: .utf8) ?? Data()))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "zxcv".data(using: .utf8) ?? Data()))
 
 		let cellTapExpectation = expectation(description: "onEntryCellTap called")
 
 		let viewModel = TraceLocationsOverviewViewModel(
 			store: eventStore,
 			onEntryCellTap: {
-				XCTAssertEqual($0.guid, "asdf")
+				XCTAssertEqual($0.id, "asdf".data(using: .utf8) ?? Data())
 				cellTapExpectation.fulfill()
 			},
 			onEntryCellButtonTap: { _ in }
@@ -139,9 +139,9 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 
 	func testDidTapEntryCellButton() throws {
 		let eventStore = MockEventStore()
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "qwer"))
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "asdf"))
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "zxcv"))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "qwer".data(using: .utf8) ?? Data()))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "asdf".data(using: .utf8) ?? Data()))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "zxcv".data(using: .utf8) ?? Data()))
 
 		let cellButtonTapExpectation = expectation(description: "onEntryCellButtonTap called")
 
@@ -149,7 +149,7 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 			store: eventStore,
 			onEntryCellTap: { _ in },
 			onEntryCellButtonTap: {
-				XCTAssertEqual($0.guid, "asdf")
+				XCTAssertEqual($0.id, "asdf".data(using: .utf8) ?? Data())
 				cellButtonTapExpectation.fulfill()
 			}
 		)
@@ -161,9 +161,9 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 
 	func testRemoveEntry() throws {
 		let eventStore = MockEventStore()
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "qwer"))
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "asdf"))
-		eventStore.createTraceLocation(TraceLocation.mock(guid: "zxcv"))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "qwer".data(using: .utf8) ?? Data()))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "asdf".data(using: .utf8) ?? Data()))
+		eventStore.createTraceLocation(TraceLocation.mock(id: "zxcv".data(using: .utf8) ?? Data()))
 
 		let viewModel = TraceLocationsOverviewViewModel(
 			store: eventStore,
@@ -173,8 +173,8 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 
 		viewModel.removeEntry(at: IndexPath(row: 1, section: 1))
 
-		let remainingGUIDs = eventStore.traceLocationsPublisher.value.map { $0.guid }
-		XCTAssertEqual(remainingGUIDs, ["qwer", "zxcv"])
+		let remainingIds = eventStore.traceLocationsPublisher.value.map { $0.id }
+		XCTAssertEqual(remainingIds, ["qwer".data(using: .utf8) ?? Data(), "zxcv".data(using: .utf8) ?? Data()])
 	}
 
 	func testRemoveAll() throws {

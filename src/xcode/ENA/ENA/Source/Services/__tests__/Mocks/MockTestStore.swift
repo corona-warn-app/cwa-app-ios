@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData, EventRegistrationCaching {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -57,8 +57,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var checkinInfoScreenShown: Bool = false
-	var traceLocationsInfoScreenShown: Bool = false
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
 
@@ -79,10 +77,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
-
-	// MARK: - QRCodePosterTemplateCaching
-	
-	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
 
 	// MARK: - PrivacyPreservingProviding
 
@@ -106,7 +100,11 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
 	
-	// MARK: - EventRegistrationProviding
+	// MARK: - EventRegistrationCaching
 	
 	var wasRecentTraceWarningDownloadSuccessful: Bool = false
+	var checkinInfoScreenShown: Bool = false
+	var traceLocationsInfoScreenShown: Bool = false
+	var shouldAddCheckinToContactDiaryByDefault = true
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
 }

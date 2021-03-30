@@ -84,8 +84,8 @@ class DiaryDayEntryTableViewCell: UITableViewCell, UITextFieldDelegate {
 		return segmentedControl
 	}()
 
-	private lazy var notesTextField: DiaryEntryTextField = {
-		let textField = DiaryEntryTextField(frame: .zero)
+	private lazy var notesTextField: ENATextField = {
+		let textField = ENATextField(frame: .zero)
 		textField.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Day.notesTextField
 		textField.backgroundColor = .enaColor(for: .darkBackground)
 		textField.clearButtonMode = .whileEditing

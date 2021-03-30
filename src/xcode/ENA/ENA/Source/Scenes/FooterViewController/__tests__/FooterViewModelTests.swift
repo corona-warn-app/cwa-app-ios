@@ -21,8 +21,8 @@ class FooterViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isSecondaryButtonEnabled)
 		XCTAssertFalse(viewModel.isPrimaryButtonHidden)
 		XCTAssertFalse(viewModel.isSecondaryButtonHidden)
-		XCTAssertNil(viewModel.primaryButtonColor)
-		XCTAssertNil(viewModel.secondaryButtonColor)
+		XCTAssertNotNil(viewModel.primaryButtonColor)
+		XCTAssertNotNil(viewModel.secondaryButtonColor)
 		XCTAssertEqual(viewModel.height, 140.0)
 	}
 
@@ -49,7 +49,7 @@ class FooterViewModelTests: XCTestCase {
 
 		// THEN
 		XCTAssertEqual(initialHeight, bothHidden)
-		XCTAssertEqual(primaryOnlyVisible, viewModel.buttonHeight + viewModel.spacer + viewModel.topBottomInset * 2)
+		XCTAssertEqual(primaryOnlyVisible, viewModel.buttonHeight + viewModel.topBottomInset * 2)
 		XCTAssertEqual(bothVisible, viewModel.buttonHeight * 2 + viewModel.spacer + viewModel.topBottomInset * 2)
 	}
 
