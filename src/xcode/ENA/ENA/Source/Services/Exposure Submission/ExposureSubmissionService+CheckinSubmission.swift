@@ -10,22 +10,12 @@ extension ExposureSubmissionService {
 	///
 	///  Details on the implementation can be found in the [tech spec](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#attendee-check-in-submission).
 	/// - Returns: A list of converted checkins
-	func preparedCheckinsForSubmission(with appConfig: AppConfigurationProviding) -> [SAP_Internal_Pt_CheckIn] {
-		#if DEBUG
-		let checkins = [
-			SAP_Internal_Pt_CheckIn(),
-			SAP_Internal_Pt_CheckIn()
-		]
-		return checkins
-		#else
+	func preparedCheckinsForSubmission(with appConfigProvider: AppConfigurationProviding, symptomOnset: SymptomsOnset) -> [SAP_Internal_Pt_CheckIn] {
 		let eventStore = EventStore(url: EventStore.storeURL)
 		let raw🐓 = eventStore?.checkinsPublisher.value ?? []
 
 		let css = CheckinSplittingService()
-		let matches = eventStore?.traceTimeIntervalMatchesPublisher.value ?? []
-		let warnings = eventStore?.traceWarningPackageMetadatasPublisher.value ?? []
-
-		let appConfig = appConfig.syncronousAppConfig()
+		let appConfig = appConfigProvider.syncronousAppConfig()
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
 		let checkins = raw🐓
@@ -33,18 +23,25 @@ extension ExposureSubmissionService {
 			.reduce([Checkin]()) { _, checkin -> [Checkin] in
 				css.split(checkin)
 			}
-			// calculate overlap
-			.map { checkin -> Checkin in
-				var checkin = checkin
-				checkin.updateOverlap(with: matches)
-				return checkin
-			}
 			// transform for submission
 			.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
 				do {
-					var transformed = try checkin.prepareForSubmission()
-					// let riskValue = transmissionRiskValueMapping.first(where: { $0.transmissionRiskLevel == })
-					// transformed.transmissionRiskLevel = 42
+					var transformed = try checkin.prepareForSubmission() as SAP_Internal_Pt_CheckIn
+					// Determine Transmission Risk Level
+					let transmissionRiskLevel: Int
+					if let ageInDays = Calendar.autoupdatingCurrent.dateComponents([.day], from: checkin.checkinStartDate).day {
+						let riskVector = symptomOnset.transmissionRiskVector
+						transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
+					} else {
+						transmissionRiskLevel = 1
+					}
+
+					// Filter out irrelevant checkins, i.e. ones with a risk value of zero
+					guard transmissionRiskValueMapping[transmissionRiskLevel].transmissionRiskValue > 0 else {
+						return nil
+					}
+
+					transformed.transmissionRiskLevel = UInt32(transmissionRiskLevel)
 					return transformed
 				} catch {
 					Log.error("Checkin conversion error", log: .checkin, error: error)
@@ -53,7 +50,6 @@ extension ExposureSubmissionService {
 			}
 
 		return checkins
-		#endif
 	}
 }
 

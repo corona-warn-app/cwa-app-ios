@@ -158,7 +158,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		// Fetch & process keys and checkins
 		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
-		let checkins = preparedCheckinsForSubmission(with: appConfigurationProvider)
+		let checkins = preparedCheckinsForSubmission(with: appConfigurationProvider, symptomOnset: symptomsOnset)
 
 		// Request needs to be prepended by the fake request.
 		_fakeVerificationServerRequest(completion: { _ in
