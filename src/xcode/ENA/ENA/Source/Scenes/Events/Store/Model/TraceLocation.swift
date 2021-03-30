@@ -7,6 +7,8 @@
 
 struct TraceLocation {
 
+	// MARK: - Internal
+
 	let id: Data
 	let version: Int
 	let type: TraceLocationType
@@ -26,11 +28,44 @@ struct TraceLocation {
 		return Date() < endDate
 	}
 	
-	var qrCodeURL: String {
-		return "ToDo"
-//		let encodedByteRepresentation = id.base32EncodedString
-//		return String(format: "https://e.coronawarn.app/c1/%@", id).uppercased()
+	var qrCodeURL: String? {
+		guard let base32EncodedString = qrCodePayloadData?.base32EncodedString.trimmingCharacters(in: ["="]) else {
+			return nil
+		}
+
+		return String(format: "https://e.coronawarn.app/c1/%@", base32EncodedString).uppercased()
 	}
+
+	// MARK: - Private
+
+	private var qrCodePayloadData: Data? {
+		let cwaLocationData = SAP_Internal_Pt_CWALocationData.with {
+			$0.version = 1
+			$0.type = SAP_Internal_Pt_TraceLocationType(rawValue: type.rawValue) ?? .locationTypeUnspecified
+			$0.defaultCheckInLengthInMinutes = defaultCheckInLengthInMinutes.map { UInt32($0) } ?? 0
+		}
+
+		guard let cwaLocationSerializedData = try? cwaLocationData.serializedData() else {
+			return nil
+		}
+
+		return try? SAP_Internal_Pt_QRCodePayload.with {
+			$0.version = 1
+
+			$0.locationData.version = UInt32(version)
+			$0.locationData.description_p = description
+			$0.locationData.address = address
+			$0.locationData.startTimestamp = startDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
+			$0.locationData.endTimestamp = endDate.map { UInt64($0.timeIntervalSince1970) } ?? 0
+
+			$0.vendorData = cwaLocationSerializedData
+
+			$0.crowdNotifierData.version = 1
+			$0.crowdNotifierData.publicKey = cnPublicKey
+			$0.crowdNotifierData.cryptographicSeed = cryptographicSeed
+		}.serializedData()
+	}
+
 }
 
 extension TraceLocation {
@@ -77,4 +112,5 @@ extension TraceLocation {
 			return nil
 		}
 	}
+
 }
