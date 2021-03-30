@@ -22,7 +22,7 @@ class CheckInDescriptionCell: UITableViewCell, ReuseIdentifierProviding {
 
 	// MARK: - Internal
 
-	func configure( cellModel: CheckInDescriptionCellModel) {
+	func configure(cellModel: CheckInDescriptionCellModel) {
 		traceLocationTypeLabel.text = cellModel.locationType
 		traceLocationDescriptionLabel.text = cellModel.description
 		traceLocationAddressLabel.text = cellModel.address
