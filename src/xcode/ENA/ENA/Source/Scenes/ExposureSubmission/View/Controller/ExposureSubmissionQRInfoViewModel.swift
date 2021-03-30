@@ -68,8 +68,9 @@ struct ExposureSubmissionQRInfoViewModel {
 		// Ihr Einverständnis
 		model.add(
 			.section(cells: [
-				.acknowledgement(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
+				.acknowledgement2(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
 								 description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
+								 description2: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent),
 								 bulletPoints: bulletPoints,
 								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
@@ -121,13 +122,9 @@ struct ExposureSubmissionQRInfoViewModel {
 		let ack3 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet3)")
 		ack3.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet3.count))
 		
-		let ack4 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent)")
-		ack4.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent.count))
-
 		points.append(ack1)
 		points.append(ack2)
 		points.append(ack3)
-		points.append(ack4)
 
 		return points
 	}
@@ -150,7 +147,7 @@ extension DynamicCell {
 		accessibilityIdentifier: String? = nil,
 		configure: CellConfigurator? = nil
 	) -> Self {
-		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legal) { viewController, cell, indexPath in
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicLegalCell else {
 				fatalError("could not initialize cell of type `DynamicLegalCell`")
 			}
@@ -159,6 +156,22 @@ extension DynamicCell {
 		}
 	}
 
+	static func acknowledgement2(
+		title: NSAttributedString,
+		description: NSAttributedString?,
+		description2: NSAttributedString?,
+		bulletPoints: [NSAttributedString]? =  nil,
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicLegalExtendedCell else {
+				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
+			}
+			cell.configure(title: title, description: description, description2: description2, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
+			configure?(viewController, cell, indexPath)
+		}
+	}
 
 	/// A `LabelledCountriesCell` that displays a list of country flags and their localized names as simple list below.
 	/// - Parameters:
