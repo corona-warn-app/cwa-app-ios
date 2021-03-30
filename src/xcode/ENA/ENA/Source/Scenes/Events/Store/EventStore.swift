@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import UIKit
 import OpenCombine
 import FMDB
@@ -474,11 +477,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				}
 
 				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "id", "cryptographicSeed" and "cnMainPublicKey" are defined as NOT NULL, there should never be nil stored.
+				// Because of that, we map nil to empty Data. Because "id", "cryptographicSeed" and "cnPublicKey" are defined as NOT NULL, there should never be nil stored.
 				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
 				let id = queryResult.data(forColumn: "id") ?? Data()
 				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
-				let cnMainPublicKey = queryResult.data(forColumn: "cnMainPublicKey") ?? Data()
+				let cnPublicKey = queryResult.data(forColumn: "cnPublicKey") ?? Data()
 
 				let version = Int(queryResult.int(forColumn: "version"))
 				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .locationTypeUnspecified
@@ -508,7 +511,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					endDate: endDate,
 					defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
 					cryptographicSeed: cryptographicSeed,
-					cnMainPublicKey: cnMainPublicKey
+					cnPublicKey: cnPublicKey
 				)
 
 				traceLocations.append(traceLocation)
@@ -542,12 +545,12 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				}
 
 				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
-				// Because of that, we map nil to empty Data. Because "traceLocationId", "traceLocationIdHash", "cryptographicSeed" and "cnMainPublicKey" are defined as NOT NULL, there should never be nil stored.
+				// Because of that, we map nil to empty Data. Because "traceLocationId", "traceLocationIdHash", "cryptographicSeed" and "cnPublicKey" are defined as NOT NULL, there should never be nil stored.
 				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
 				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
 				let traceLocationIdHash = queryResult.data(forColumn: "traceLocationIdHash") ?? Data()
 				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
-				let cnMainPublicKey = queryResult.data(forColumn: "cnMainPublicKey") ?? Data()
+				let cnPublicKey = queryResult.data(forColumn: "cnPublicKey") ?? Data()
 
 				let id = Int(queryResult.int(forColumn: "id"))
 				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .locationTypeUnspecified
@@ -584,7 +587,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					traceLocationEndDate: traceLocationEnd,
 					traceLocationDefaultCheckInLengthInMinutes: traceLocationDefaultCheckInLengthInMinutes,
 					cryptographicSeed: cryptographicSeed,
-					cnMainPublicKey: cnMainPublicKey,
+					cnPublicKey: cnPublicKey,
 					checkinStartDate: checkinStartDate,
 					checkinEndDate: checkinEndDate,
 					checkinCompleted: checkinCompleted,

@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 enum TraceLocationType: Int {
 	case locationTypeUnspecified = 0
 	case locationTypePermanentOther = 1
@@ -92,7 +95,7 @@ struct TraceLocation {
 	let endDate: Date?
 	let defaultCheckInLengthInMinutes: Int?
 	let cryptographicSeed: Data
-	let cnMainPublicKey: Data
+	let cnPublicKey: Data
 
 	var isActive: Bool {
 		guard let endDate = endDate else {

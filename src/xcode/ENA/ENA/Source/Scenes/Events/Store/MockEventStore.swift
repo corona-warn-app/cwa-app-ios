@@ -173,7 +173,7 @@ private extension TraceLocation {
 			endDate: traceLocation.endDate,
 			defaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
 			cryptographicSeed: traceLocation.cryptographicSeed,
-			cnMainPublicKey: traceLocation.cnMainPublicKey
+			cnPublicKey: traceLocation.cnPublicKey
 		)
 	}
 }
@@ -192,7 +192,7 @@ private extension Checkin {
 			traceLocationEndDate: self.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
 			cryptographicSeed: self.cryptographicSeed,
-			cnMainPublicKey: self.cnMainPublicKey,
+			cnPublicKey: self.cnPublicKey,
 			checkinStartDate: self.checkinStartDate,
 			checkinEndDate: self.checkinEndDate,
 			checkinCompleted: self.checkinCompleted,
@@ -213,7 +213,7 @@ private extension Checkin {
 			traceLocationEndDate: checkin.traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
 			cryptographicSeed: checkin.cryptographicSeed,
-			cnMainPublicKey: checkin.cnMainPublicKey,
+			cnPublicKey: checkin.cnPublicKey,
 			checkinStartDate: checkin.checkinStartDate,
 			checkinEndDate: checkin.checkinEndDate,
 			checkinCompleted: checkin.checkinCompleted,

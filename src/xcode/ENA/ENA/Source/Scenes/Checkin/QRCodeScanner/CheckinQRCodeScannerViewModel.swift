@@ -44,7 +44,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 			endDate: Calendar.current.date(byAdding: .hour, value: 3, to: Date(), wrappingComponents: false),
 			defaultCheckInLengthInMinutes: nil,
 			cryptographicSeed: Data(),
-			cnMainPublicKey: Data()
+			cnPublicKey: Data()
 		)
 		onSuccess?(traceLocation)
 	}

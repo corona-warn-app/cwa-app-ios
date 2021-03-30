@@ -26,8 +26,8 @@ class EventStoreTests: XCTestCase {
 			startDate: startDate,
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: 1,
-			cryptographicSeed: "Some Representation".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Some signature".data(using: .utf8) ?? Data()
+			cryptographicSeed: "Some Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -45,8 +45,8 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 1)
-				XCTAssertEqual(traceLocation.cryptographicSeed, "Some Representation".data(using: .utf8))
-				XCTAssertEqual(traceLocation.cnMainPublicKey, "Some signature".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cryptographicSeed, "Some Seed".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cnPublicKey, "Some Key".data(using: .utf8))
 
 				guard let startDate2 = traceLocation.startDate else {
 					XCTFail("Nil for startDate2 not expected.")
@@ -81,7 +81,7 @@ class EventStoreTests: XCTestCase {
 			endDate: nil,
 			defaultCheckInLengthInMinutes: nil,
 			cryptographicSeed: Data(),
-			cnMainPublicKey: "Some signature".data(using: .utf8) ?? Data()
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -98,7 +98,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
-				XCTAssertEqual(traceLocation.cnMainPublicKey, "Some signature".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cnPublicKey, "Some Key".data(using: .utf8))
 				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
 				XCTAssertNil(traceLocation.startDate)
 				XCTAssertNil(traceLocation.endDate)
@@ -129,7 +129,7 @@ class EventStoreTests: XCTestCase {
 			endDate: tomorrowDate,
 			defaultCheckInLengthInMinutes: 2,
 			cryptographicSeed: Data(),
-			cnMainPublicKey: "Other signature".data(using: .utf8) ?? Data()
+			cnPublicKey: "Other Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -147,7 +147,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 2)
-				XCTAssertEqual(traceLocation.cnMainPublicKey, "Other signature".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cnPublicKey, "Other Key".data(using: .utf8))
 
 				guard let startDate2 = traceLocation.startDate else {
 					XCTFail("Nil for startDate2 not expected.")
@@ -183,8 +183,8 @@ class EventStoreTests: XCTestCase {
 			startDate: nil,
 			endDate: nil,
 			defaultCheckInLengthInMinutes: nil,
-			cryptographicSeed: "Other representation".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Other signature".data(using: .utf8) ?? Data()
+			cryptographicSeed: "Other Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Other Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -201,8 +201,8 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
-				XCTAssertEqual(traceLocation.cryptographicSeed, "Other representation".data(using: .utf8))
-				XCTAssertEqual(traceLocation.cnMainPublicKey, "Other signature".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cryptographicSeed, "Other Seed".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cnPublicKey, "Other Key".data(using: .utf8))
 				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
 				XCTAssertNil(traceLocation.startDate)
 				XCTAssertNil(traceLocation.endDate)
@@ -280,7 +280,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: 1,
 			cryptographicSeed: "Some Seed".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Some signature".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
@@ -305,7 +305,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(checkin.cryptographicSeed, "Some Seed".data(using: .utf8))
-				XCTAssertEqual(checkin.cnMainPublicKey, "Some signature".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Some Key".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.checkinCompleted)
@@ -349,7 +349,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
 			cryptographicSeed: "Some Seed".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Some signature".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
@@ -372,7 +372,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.cryptographicSeed, "Some Seed".data(using: .utf8))
-				XCTAssertEqual(checkin.cnMainPublicKey, "Some signature".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Some Key".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinEndDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.checkinCompleted)
@@ -409,7 +409,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationEndDate: tomorrowDate,
 			traceLocationDefaultCheckInLengthInMinutes: 1,
 			cryptographicSeed: "Other Seed".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Other signature".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Other Key".data(using: .utf8) ?? Data(),
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: true,
@@ -434,7 +434,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
 				XCTAssertEqual(checkin.cryptographicSeed, "Other Seed".data(using: .utf8))
-				XCTAssertEqual(checkin.cnMainPublicKey, "Other signature".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Other Key".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.checkinCompleted)
@@ -480,7 +480,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
 			cryptographicSeed: "Other".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Other".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Other".data(using: .utf8) ?? Data(),
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: false,
@@ -503,7 +503,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.cryptographicSeed, "Other".data(using: .utf8))
-				XCTAssertEqual(checkin.cnMainPublicKey, "Other".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Other".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.createJournalEntry)
 
@@ -949,7 +949,7 @@ class EventStoreTests: XCTestCase {
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: 1,
 			cryptographicSeed: Data(),
-			cnMainPublicKey: Data()
+			cnPublicKey: Data()
 		)
 	}
 
@@ -966,7 +966,7 @@ class EventStoreTests: XCTestCase {
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 1,
 			cryptographicSeed: "Some".data(using: .utf8) ?? Data(),
-			cnMainPublicKey: "Some".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some".data(using: .utf8) ?? Data(),
 			checkinStartDate: Date(),
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,

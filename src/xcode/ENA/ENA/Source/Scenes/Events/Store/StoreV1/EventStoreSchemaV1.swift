@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import Foundation
 import FMDB
 
@@ -34,7 +37,7 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					traceLocationEndDate INTEGER,
 					traceLocationDefaultCheckInLengthInMinutes INTEGER,
 					cryptographicSeed BLOB NOT NULL,
-					cnMainPublicKey BLOB NOT NULL,
+					cnPublicKey BLOB NOT NULL,
 					checkinStartDate INTEGER NOT NULL,
 					checkinEndDate INTEGER NOT NULL,
 					checkinCompleted INTEGER NOT NULL,
@@ -51,7 +54,7 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					endDate INTEGER,
 					defaultCheckInLengthInMinutes INTEGER,
 					cryptographicSeed BLOB NOT NULL,
-					cnMainPublicKey BLOB NOT NULL
+					cnPublicKey BLOB NOT NULL
 				);
 
 				CREATE TABLE IF NOT EXISTS TraceTimeIntervalMatch (
