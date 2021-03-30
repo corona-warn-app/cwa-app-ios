@@ -24,7 +24,6 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	) {
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
 			  let url = code.stringValue
-			 // let traceLocation = TraceLocation(qrCodeString: key)
 		else {
 			onError?(QRScannerError.codeNotFound)
 			return
