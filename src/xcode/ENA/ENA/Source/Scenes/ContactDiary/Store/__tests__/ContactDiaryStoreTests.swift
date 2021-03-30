@@ -50,7 +50,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			name: "Hinterm Mond",
 			phoneNumber: "123456",
 			emailAddress: "some@mail.de",
-			traceLocationGUID: "Some Id"
+			traceLocationId: "Some Id".data(using: .utf8) ?? Data()
 		)
 
 		if case let .failure(error) = result {
@@ -62,7 +62,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			  let name = location.string(forColumn: "name"),
 			  let phoneNumber = location.string(forColumn: "phoneNumber"),
 			  let emailAddress = location.string(forColumn: "emailAddress"),
-			  let traceLocationGUID = location.string(forColumn: "traceLocationGUID") else {
+			  let traceLocationId = location.string(forColumn: "traceLocationId") else {
 			XCTFail("Failed to fetch ContactPerson")
 			return
 		}
@@ -70,7 +70,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(name, "Hinterm Mond")
 		XCTAssertEqual(phoneNumber, "123456")
 		XCTAssertEqual(emailAddress, "some@mail.de")
-		XCTAssertEqual(traceLocationGUID, "Some Id")
+		XCTAssertEqual(traceLocationId, "Some Id")
 	}
 
 	func test_When_addLocationWithNilValues_Then_LocationIsPersisted() {
@@ -81,7 +81,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			name: "Hinterm Mond",
 			phoneNumber: "123456",
 			emailAddress: "some@mail.de",
-			traceLocationGUID: nil
+			traceLocationId: nil
 		)
 
 		if case let .failure(error) = result {
@@ -100,7 +100,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		XCTAssertEqual(name, "Hinterm Mond")
 		XCTAssertEqual(phoneNumber, "123456")
 		XCTAssertEqual(emailAddress, "some@mail.de")
-		XCTAssertNil(location.string(forColumn: "traceLocationGUID"))
+		XCTAssertNil(location.string(forColumn: "traceLocationId"))
 	}
 	
 	func test_When_addZeroPrefixedLocation_Then_LocationIsPersistedCorrectly() {
@@ -431,7 +431,7 @@ class ContactDiaryStoreTests: XCTestCase {
 			name: "Woanders",
 			phoneNumber: "123456",
 			emailAddress: "some@mail.de",
-			traceLocationGUID: nil
+			traceLocationId: nil
 		)
 
 		guard case let .success(id) = result else {
@@ -1109,7 +1109,7 @@ class ContactDiaryStoreTests: XCTestCase {
 		eMail: String = "",
 		to store: ContactDiaryStore
 	) -> Int {
-		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail, traceLocationGUID: nil)
+		let addLocationResult = store.addLocation(name: name, phoneNumber: phoneNumber, emailAddress: eMail, traceLocationId: nil)
 		guard case let .success(locationId) = addLocationResult else {
 			fatalError("Failed to add Location")
 		}
