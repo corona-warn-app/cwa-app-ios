@@ -121,14 +121,6 @@ class EditCheckinDetailViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	// MARK: - UITableViewDelegate
-	
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return CGFloat.leastNonzeroMagnitude
-	}
-
-	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return CGFloat.leastNonzeroMagnitude
-	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		switch EditCheckinDetailViewModel.TableViewSections(rawValue: indexPath.section) {
