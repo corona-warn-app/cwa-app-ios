@@ -27,14 +27,7 @@ struct SAP_Internal_Pt_CheckIn {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var signedLocation: SAP_Internal_Pt_SignedTraceLocation {
-    get {return _signedLocation ?? SAP_Internal_Pt_SignedTraceLocation()}
-    set {_signedLocation = newValue}
-  }
-  /// Returns true if `signedLocation` has been explicitly set.
-  var hasSignedLocation: Bool {return self._signedLocation != nil}
-  /// Clears the value of `signedLocation`. Subsequent reads from it will return its default value.
-  mutating func clearSignedLocation() {self._signedLocation = nil}
+  var locationID: Data = Data()
 
   var startIntervalNumber: UInt32 = 0
 
@@ -45,8 +38,6 @@ struct SAP_Internal_Pt_CheckIn {
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _signedLocation: SAP_Internal_Pt_SignedTraceLocation? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -56,7 +47,7 @@ fileprivate let _protobuf_package = "SAP.internal.pt"
 extension SAP_Internal_Pt_CheckIn: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CheckIn"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "signedLocation"),
+    1: .same(proto: "locationId"),
     2: .same(proto: "startIntervalNumber"),
     3: .same(proto: "endIntervalNumber"),
     4: .same(proto: "transmissionRiskLevel"),
@@ -68,7 +59,7 @@ extension SAP_Internal_Pt_CheckIn: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._signedLocation) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.locationID) }()
       case 2: try { try decoder.decodeSingularUInt32Field(value: &self.startIntervalNumber) }()
       case 3: try { try decoder.decodeSingularUInt32Field(value: &self.endIntervalNumber) }()
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.transmissionRiskLevel) }()
@@ -78,8 +69,8 @@ extension SAP_Internal_Pt_CheckIn: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._signedLocation {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    if !self.locationID.isEmpty {
+      try visitor.visitSingularBytesField(value: self.locationID, fieldNumber: 1)
     }
     if self.startIntervalNumber != 0 {
       try visitor.visitSingularUInt32Field(value: self.startIntervalNumber, fieldNumber: 2)
@@ -94,7 +85,7 @@ extension SAP_Internal_Pt_CheckIn: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   static func ==(lhs: SAP_Internal_Pt_CheckIn, rhs: SAP_Internal_Pt_CheckIn) -> Bool {
-    if lhs._signedLocation != rhs._signedLocation {return false}
+    if lhs.locationID != rhs.locationID {return false}
     if lhs.startIntervalNumber != rhs.startIntervalNumber {return false}
     if lhs.endIntervalNumber != rhs.endIntervalNumber {return false}
     if lhs.transmissionRiskLevel != rhs.transmissionRiskLevel {return false}

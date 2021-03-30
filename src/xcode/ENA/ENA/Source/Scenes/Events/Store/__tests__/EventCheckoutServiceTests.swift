@@ -68,7 +68,7 @@ class EventCheckoutServiceTests: XCTestCase {
 		)
 		let checkinWithId = makeDummyCheckin(
 			id: checkinId,
-			traceLocationGUID: "someGUID"
+			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
 		)
 		eventCheckoutService.checkout(checkin: checkinWithId, showNotification: false)
 
@@ -82,7 +82,7 @@ class EventCheckoutServiceTests: XCTestCase {
 				}
 			}
 			let checkinLocationExists = locations.contains {
-				$0.traceLocationGUID == "someGUID"
+				$0.traceLocationId == "someGUID".data(using: .utf8)
 			}
 			XCTAssertTrue(checkinLocationExists)
 
@@ -166,7 +166,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			id: -1,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
-			traceLocationGUID: "guid",
+			traceLocationId: "id".data(using: .utf8) ?? Data(),
 			traceLocationDescription: "Some Description",
 			traceLocationAddress: "Some Address",
 			traceLocationStartDate: traceLocationStartDate,
@@ -230,7 +230,7 @@ class EventCheckoutServiceTests: XCTestCase {
 		checkinStartDate: Date = Date(),
 		checkinEndDate: Date = Date(),
 		checkinCompleted: Bool = false,
-		traceLocationGUID: String = "0",
+		traceLocationId: Data = "0".data(using: .utf8) ?? Data(),
 		traceLocationDescription: String = "",
 		traceLocationAddress: String = "",
 		traceLocationStartDate: Date = Date(),
@@ -238,8 +238,8 @@ class EventCheckoutServiceTests: XCTestCase {
 	) -> Checkin {
 		Checkin(
 			id: id,
-			traceLocationGUID: traceLocationGUID,
-			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
+			traceLocationId: traceLocationId,
+			traceLocationIdHash: traceLocationId,
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: traceLocationDescription,
@@ -247,7 +247,8 @@ class EventCheckoutServiceTests: XCTestCase {
 			traceLocationStartDate: traceLocationStartDate,
 			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: 0,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: checkinCompleted,

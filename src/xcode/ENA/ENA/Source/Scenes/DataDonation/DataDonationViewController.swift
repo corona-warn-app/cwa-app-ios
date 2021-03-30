@@ -26,9 +26,9 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationItem.title = AppStrings.DataDonation.Info.title
-		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
+		parent?.navigationItem.title = AppStrings.DataDonation.Info.title
+		parent?.navigationItem.largeTitleDisplayMode = .always
+		parent?.navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
 	}
 
