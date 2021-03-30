@@ -20,10 +20,47 @@ class TraceLocationDetailsViewModel {
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 	}
 
+	enum TableViewSections: Int, CaseIterable {
+		case header
+		case location
+		case qrCode
+		case dateTime
+	}
+
 	// MARK: - Internal
 
 	let traceLocation: TraceLocation
 	typealias QRCodePosterTemplateCompletionHandler = (Result<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>) -> Void
+
+	var title: String {
+		return traceLocation.description
+	}
+	
+	var address: String {
+		return traceLocation.address
+	}
+
+	var date: String? {
+		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
+			let dateFormatter = DateIntervalFormatter()
+			dateFormatter.dateStyle = .short
+			dateFormatter.timeStyle = .short
+
+			return dateFormatter.string(from: startDate, to: endDate)
+		} else {
+			return nil
+		}
+	}
+	
+	var qrCode: UIImage? {
+		guard let qrCodeImage = traceLocation.generateQRCode(size: CGSize(width: 300, height: 300)) else { return nil }
+		return qrCodeImage
+	}
+
+	var numberOfRowsPerSection: Int {
+		// since every section has only one row
+		return 1
+	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {
 		qrCodePosterTemplateProvider.latestQRCodePosterTemplate()
