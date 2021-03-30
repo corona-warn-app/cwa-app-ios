@@ -68,9 +68,6 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// check if the tracelocation card exists
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].waitForExistence(timeout: .short))
-		
-		// take snapshot
-		snapshot("tracelocation_card_home")
 
 		// navigate to tracelocation overview
 		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
