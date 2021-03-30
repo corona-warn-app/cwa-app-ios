@@ -131,10 +131,6 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		tabBarController.selectedIndex = index
-		
-//		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-//
-//		}
 		checkInCoordinator.showTraceLocationDetails(traceLocation)
 	}
 
