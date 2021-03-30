@@ -39,6 +39,7 @@ class TraceLocationConfigurationViewModel {
 		self.eventStore = eventStore
 
 		setUpBindings()
+		checkForCompleteness()
 	}
 
 	// MARK: - Internal
