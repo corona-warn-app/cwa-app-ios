@@ -329,6 +329,12 @@ final class SecureStore: Store {
 }
 
 extension SecureStore: EventRegistrationCaching {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
+	}
+	
 	var checkinInfoScreenShown: Bool {
 		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["checkinInfoScreenShown"] = newValue }
@@ -414,14 +420,6 @@ extension SecureStore: PrivacyPreservingProviding {
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
-	}
-}
-
-extension SecureStore: EventRegistrationProviding {
-	
-	var wasRecentTraceWarningDownloadSuccessful: Bool {
-		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
-		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
 	}
 }
 
