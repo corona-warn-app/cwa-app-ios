@@ -2048,6 +2048,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
+/* Trace Location Details */
+
+"TraceLocations_Details_PrintVersionButtonTitle" = "Druckversion anzeigen";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Als Vorlage verwenden";
+
 /* Selection of a TraceLocations */
 "TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
 
