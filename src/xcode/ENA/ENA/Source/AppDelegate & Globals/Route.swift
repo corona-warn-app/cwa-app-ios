@@ -18,9 +18,9 @@ enum Route {
 
 	init?(url: URL) {
 		let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-		guard components?.host?.lowercased() == "coronawarn.app",
+		guard components?.host?.lowercased() == "e.coronawarn.app",
 			let lowercasedPath = components?.path.lowercased(),
-			  lowercasedPath.contains("/e1") else {
+			  lowercasedPath.contains("/c1") else {
 			return nil
 		}
 		self = .checkin(url.lastPathComponent)
