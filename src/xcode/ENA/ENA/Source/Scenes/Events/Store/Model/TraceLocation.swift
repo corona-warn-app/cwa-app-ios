@@ -120,37 +120,38 @@ extension TraceLocation {
 	// MARK: - Init
 	
 	init?(qrCodeString: String) {
-		
-		guard let data = qrCodeString.base32DecodedData else {
-			Log.error("Couldn't serialize the data")
-			return nil
-		}
-		Log.debug("Data found: \(String(describing: data))")
-
-		
-		do {
-			// creates a fake event for the moment
-			let signedTraceLocation = try SAP_Internal_Pt_SignedTraceLocation(serializedData: data)
-			let protobufTraceLocation = try SAP_Internal_Pt_TraceLocation(serializedData: signedTraceLocation.location)
-			let startDate = protobufTraceLocation.startTimestamp == 0 ? nil : Date(timeIntervalSince1970: TimeInterval(protobufTraceLocation.startTimestamp))
-			let endDate = protobufTraceLocation.startTimestamp == 0 ? nil : Date(timeIntervalSince1970: TimeInterval(protobufTraceLocation.endTimestamp))
-
-			let traceLocation = TraceLocation(
-				guid: protobufTraceLocation.guid,
-				version: Int(protobufTraceLocation.version),
-				type: TraceLocationType(traceLocationTypeProtobuf: protobufTraceLocation.type),
-				description: protobufTraceLocation.description_p,
-				address: protobufTraceLocation.address,
-				startDate: startDate,
-				endDate: endDate,
-				defaultCheckInLengthInMinutes: Int(protobufTraceLocation.defaultCheckInLengthInMinutes),
-				byteRepresentation: Data(),
-				signature: ""
-			)
-			self = traceLocation
-		} catch {
-			Log.error(error.localizedDescription, log: .checkin, error: error)
-			return nil
-		}
+		return nil
+//
+//		guard let data = qrCodeString.base32DecodedData else {
+//			Log.error("Couldn't serialize the data")
+//			return nil
+//		}
+//		Log.debug("Data found: \(String(describing: data))")
+//
+//
+//		do {
+//			// creates a fake event for the moment
+//			let protobufTraceLocation = try SAP_Internal_Pt_TraceLocation(serializedData: data)
+//			let protobufTraceLocation = try SAP_Internal_Pt_TraceLocation(serializedData: signedTraceLocation.location)
+//			let startDate = protobufTraceLocation.startTimestamp == 0 ? nil : Date(timeIntervalSince1970: TimeInterval(protobufTraceLocation.startTimestamp))
+//			let endDate = protobufTraceLocation.startTimestamp == 0 ? nil : Date(timeIntervalSince1970: TimeInterval(protobufTraceLocation.endTimestamp))
+//
+//			let traceLocation = TraceLocation(
+//				guid: protobufTraceLocation.guid,
+//				version: Int(protobufTraceLocation.version),
+//				type: TraceLocationType(traceLocationTypeProtobuf: protobufTraceLocation.type),
+//				description: protobufTraceLocation.description_p,
+//				address: protobufTraceLocation.address,
+//				startDate: startDate,
+//				endDate: endDate,
+//				defaultCheckInLengthInMinutes: Int(protobufTraceLocation.defaultCheckInLengthInMinutes),
+//				byteRepresentation: Data(),
+//				signature: ""
+//			)
+//			self = traceLocation
+//		} catch {
+//			Log.error(error.localizedDescription, log: .checkin, error: error)
+//			return nil
+//		}
 	}
 }
