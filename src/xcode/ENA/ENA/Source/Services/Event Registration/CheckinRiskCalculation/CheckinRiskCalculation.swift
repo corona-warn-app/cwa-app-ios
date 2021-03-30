@@ -100,16 +100,9 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 
 		//	1. Determine Check-in ID with Risk Level per Date: group the (split) check-ins by the date of Check-in StartDate (considering only date information, no time information) and store the ID of the (split) check-in (from Database Table for CheckIns) and the calculated Risk Level
 
-		let checkinsRiskLevelPerDate = checkinsWithRiskLevel.reduce(into: [Date: [CheckinWithRiskLevel]]()) {
-			let checkinDate = uctCalendar.startOfDay(for: $1.checkin.checkinStartDate)
-
-			if var checkinsPerDate = $0[checkinDate] {
-				checkinsPerDate.append($1)
-				$0[checkinDate] = checkinsPerDate
-			} else {
-				$0[checkinDate] = [$1]
-			}
-		}
+		let checkinsRiskLevelPerDate: [Date: [CheckinWithRiskLevel]] = Dictionary(grouping: checkinsWithRiskLevel, by: {
+			uctCalendar.startOfDay(for: $0.checkin.checkinStartDate)
+		})
 
 		let checkinIdsWithRiskPerDate = checkinsRiskLevelPerDate.mapValues {
 			$0.map {
