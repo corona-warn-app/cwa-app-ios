@@ -35,7 +35,7 @@ class TraceLocationCellModelTests: XCTestCase {
 	func testGIVEN_CheckInCellModel_WHEN_UpdateCheckinForEvent_THEN_InitialStateIsAsExpected() {
 		// GIVEN
 		let traceLocation = TraceLocation.mock(
-			guid: "42",
+			id: "42".data(using: .utf8) ?? Data(),
 			description: "Sportstudio",
 			address: "Musterstraße 1a, 01234 Musterstadt",
 			startDate: Date(timeIntervalSince1970: 1616074184)
@@ -51,7 +51,7 @@ class TraceLocationCellModelTests: XCTestCase {
 		)
 
 		// WHEN
-		let checkin = Checkin.mock(id: 0, traceLocationGUID: "42", checkinEndDate: Date(timeIntervalSince1970: 1616074530), checkinCompleted: true)
+		let checkin = Checkin.mock(id: 0, traceLocationId: "42".data(using: .utf8) ?? Data(), checkinEndDate: Date(timeIntervalSince1970: 1616074530), checkinCompleted: true)
 		mockEventStore.checkinsPublisher.send([checkin])
 		wait(for: [didUpdateExpectation], timeout: .medium)
 
@@ -70,7 +70,7 @@ class TraceLocationCellModelTests: XCTestCase {
 	func testGIVEN_CheckInCellModel_THEN_onUpdateGetsCalled() {
 		// GIVEN
 		let traceLocation = TraceLocation.mock(
-			guid: "42",
+			id: "42".data(using: .utf8) ?? Data(),
 			description: "Sportstudio",
 			address: "Musterstraße 1a, 01234 Musterstadt",
 			startDate: Date(),

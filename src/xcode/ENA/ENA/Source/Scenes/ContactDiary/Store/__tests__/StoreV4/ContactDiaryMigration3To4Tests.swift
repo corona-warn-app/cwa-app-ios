@@ -115,7 +115,7 @@ class ContactDiaryMigration3To4Tests: XCTestCase {
 		XCTAssertEqual(locationsResult.columnName(for: 1), "name")
 		XCTAssertEqual(locationsResult.columnName(for: 2), "phoneNumber")
 		XCTAssertEqual(locationsResult.columnName(for: 3), "emailAddress")
-		XCTAssertEqual(locationsResult.columnName(for: 4), "traceLocationGUID")
+		XCTAssertEqual(locationsResult.columnName(for: 4), "traceLocationId")
 
 		var locationCount = 0
 		var locationNames = [String]()
