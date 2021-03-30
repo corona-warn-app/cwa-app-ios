@@ -170,15 +170,16 @@ class TraceLocationsCoordinator {
 			bottomController: footerViewController
 		)
 		
-		parentNavigationController?.present(topBottomContainerViewController, animated: true)
+		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
 	}
 
 	private func showPrintVersionScreen(pdfView: PDFView) {
 		let viewController = TraceLocationPrintVersionViewController(
 			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
-		
-		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
+
+		traceLocationDetailsNavigationController?.pushViewController(viewController, animated: true)
 	}
 	
 	private func showTraceLocationTypeSelectionScreen() {

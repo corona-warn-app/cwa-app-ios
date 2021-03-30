@@ -38,6 +38,16 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		setupTableView()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.setNavigationBarHidden(true, animated: animated)
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: animated)
+	}
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		didCalculateGradientHeight = false
@@ -105,54 +115,8 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		}
 	}
 
-	private func generateAndPassQRCodePoster() {
-		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
-			DispatchQueue.main.async {
-				switch templateData {
-				case let .success(templateData):
-					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-
-					do {
-						let pdfView = try self?.createPdfView(templateData: templateData)
-						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
-					} catch {
-						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
-					}
-				case let .failure(error):
-					self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-
-					Log.error("Could not retrieve QR code poster template from protobuf.", log: .qrCode, error: error)
-					return
-				}
-			}
-		}
-	}
-
-	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
-		let pdfView = PDFView()
-		let pdfDocument = PDFDocument(data: templateData.template)
-
-		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
-		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
-		let textDetails = templateData.descriptionTextBox
-		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
-		
-		try? pdfDocument?.embedImageAndText(
-			image: qrCodeImage,
-			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
-			text: viewModel.traceLocation.address,
-			of: CGFloat(textDetails.fontSize),
-			and: textColor,
-			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))
-		)
-
-		pdfView.document = pdfDocument
-		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
-		pdfView.autoScales = true
-		return pdfView
-	}
-
 	// MARK: - Private
+
 	private let backgroundView = GradientBackgroundView()
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
@@ -207,6 +171,51 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 			let offsetLimit = tableView.frame.origin.y
 			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
 		}
+	}
+
+	private func generateAndPassQRCodePoster() {
+		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
+			DispatchQueue.main.async { [weak self] in
+				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+				switch templateData {
+				case let .success(templateData):
+
+						do {
+							let pdfView = try self?.createPdfView(templateData: templateData)
+							self?.onPrintVersionButtonTap(pdfView ?? PDFView())
+						} catch {
+							Log.error("Could not create the PDF view.", log: .qrCode, error: error)
+						}
+				case let .failure(error):
+					Log.error("Could not get QR code poster template.", log: .qrCode, error: error)
+					return
+				}
+			}
+		}
+	}
+
+	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
+		let pdfView = PDFView()
+		let pdfDocument = PDFDocument(data: templateData.template)
+
+		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
+		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		let textDetails = templateData.descriptionTextBox
+		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
+		
+		try? pdfDocument?.embedImageAndText(
+			image: qrCodeImage,
+			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
+			text: viewModel.traceLocation.address,
+			of: CGFloat(textDetails.fontSize),
+			and: textColor,
+			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))
+		)
+
+		pdfView.document = pdfDocument
+		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
+		pdfView.autoScales = true
+		return pdfView
 	}
 
 	private func setupTableView() {
