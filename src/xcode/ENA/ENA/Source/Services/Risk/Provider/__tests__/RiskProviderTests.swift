@@ -886,6 +886,9 @@ final class RiskProviderTests: XCTestCase {
 			Calendar.current.date(byAdding: .day, value: -1, to: Date(), wrappingComponents: false)
 		)
 
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let previousRiskLevelPerDate = [today: previousRiskLevel]
+		
 		store.riskCalculationResult = RiskCalculationResult(
 			riskLevel: previousRiskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
@@ -895,13 +898,13 @@ final class RiskProviderTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: lastExposureDetectionDate,
-			riskLevelPerDate: [:],
+			riskLevelPerDate: previousRiskLevelPerDate,
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			checkinIdsWithRiskPerDate: [:],
-			riskLevelPerDate: [Date(): previousRiskLevel]
+			riskLevelPerDate: previousRiskLevelPerDate
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -924,7 +927,7 @@ final class RiskProviderTests: XCTestCase {
 			store: store
 		)
 		
-		let riskLevelPerDate = [Calendar.utcCalendar.startOfDay(for: Date()): newRiskLevel]
+		let riskLevelPerDate = [today: newRiskLevel]
 
 		return RiskProvider(
 			configuration: config,
@@ -1311,11 +1314,24 @@ final class RiskProviderTests: XCTestCase {
 private class RiskCalculationFake: RiskCalculationProtocol {
 	
 	init(
-		riskLevelPerDate: [Date: RiskLevel] = [Date(): .low]
+		riskLevelPerDate: [Date: RiskLevel]? = nil
 	) {
-		self.riskLevelPerDate = riskLevelPerDate
+		if let riskLevelPerDate = riskLevelPerDate {
+			self.riskLevelPerDate = riskLevelPerDate
+			guard let riskLevel = riskLevelPerDate.first?.value else {
+				XCTFail("Could not retrieve first value for risklevel")
+				self.riskLevel = .low
+				return
+			}
+			self.riskLevel = riskLevel
+		} else {
+			let today = Calendar.utcCalendar.startOfDay(for: Date())
+			self.riskLevel = RiskLevel.low
+			self.riskLevelPerDate = [today: riskLevel]
+		}
 	}
 
+	let riskLevel: RiskLevel
 	let riskLevelPerDate: [Date: RiskLevel]
 
 	func calculateRisk(
@@ -1325,7 +1341,7 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
 
 		return RiskCalculationResult(
-			riskLevel: .low,
+			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
