@@ -332,6 +332,38 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testGIVEN_StoreWithUnsortedCheckIns_WHEN_CheckinsPublisher_THEN_CheckinsIsSortedByEndDateDesc() {
+		// GIVEN
+		let store = makeStore(with: makeDatabaseQueue())
+		let nowPlus100 = Date(timeIntervalSinceNow: 100)
+		let nowPlus200 = Date(timeIntervalSinceNow: 200)
+		let checkInOne = makeCheckin(id: 1, checkinEndDate: nowPlus100)
+		let checkInTwo = makeCheckin(id: 2, checkinEndDate: nowPlus200)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		// WHEN
+		store.checkinsPublisher
+			.dropFirst(2)
+			.sink { checkins in
+				sinkExpectation.fulfill()
+				XCTAssertEqual(checkins.count, 2)
+
+				let checkinOne = checkins[0]
+				XCTAssertEqual(checkinOne.id, 2)
+
+				let checkinTwo = checkins[1]
+				XCTAssertEqual(checkinTwo.id, 1)
+			}
+			.store(in: &subscriptions)
+
+		// THEN
+		store.createCheckin(checkInOne)
+		store.createCheckin(checkInTwo)
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_createCheckinWithNilDates_Then_CheckinWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 		let checkinStartDate = Date()
