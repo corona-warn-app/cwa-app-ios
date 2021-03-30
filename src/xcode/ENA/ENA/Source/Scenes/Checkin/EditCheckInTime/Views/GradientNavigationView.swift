@@ -7,6 +7,7 @@ import UIKit
 class GradientNavigationView: UIView {
 
 	// MARK: - Init
+
 	init(
 		didTapCloseButton: @escaping () -> Void
 	) {
@@ -19,8 +20,6 @@ class GradientNavigationView: UIView {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: - Public
 
 	// MARK: - Internal
 
