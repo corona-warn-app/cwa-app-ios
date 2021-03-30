@@ -8,7 +8,7 @@ extension ExposureSubmissionService {
 
 	/// Helper function to convert checkins to required form factor for exposure submission
 	///
-	///  Details on the implementation, especially the risk calculation can be found in the [tech spec](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#risk-calculation).
+	///  Details on the implementation can be found in the [tech spec](https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#attendee-check-in-submission).
 	/// - Returns: A list of converted checkins
 	func preparedCheckinsForSubmission(with appConfig: AppConfigurationProviding) -> [SAP_Internal_Pt_CheckIn] {
 		#if DEBUG
