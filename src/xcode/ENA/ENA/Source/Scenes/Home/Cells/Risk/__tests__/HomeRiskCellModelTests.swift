@@ -13,7 +13,7 @@ class HomeRiskCellModelTests: XCTestCase {
 
 	func testLowRiskState() {
 		let store = MockTestStore()
-		let now = Date()
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let riskCalculationResult = RiskCalculationResult(
 			riskLevel: .low,
@@ -24,13 +24,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 2,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [now: .low],
+			riskLevelPerDate: [today: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
-			checkinIdsWithRiskPerDate: [now: [CheckinIdWithRisk(checkinId: 0, riskLevel: .low)]],
-			riskLevelPerDate: [now: .low]
+			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .low)]],
+			riskLevelPerDate: [today: .low]
 		)
 
 		store.riskCalculationResult = riskCalculationResult
@@ -140,7 +140,7 @@ class HomeRiskCellModelTests: XCTestCase {
 
 	func testHighRiskState() {
 		let store = MockTestStore()
-		let now = Date()
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let riskCalculationResult = RiskCalculationResult(
 			riskLevel: .high,
@@ -151,13 +151,13 @@ class HomeRiskCellModelTests: XCTestCase {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
 			calculationDate: Date(),
-			riskLevelPerDate: [now: .high],
-			minimumDistinctEncountersWithHighRiskPerDate: [now: 1]
+			riskLevelPerDate: [today: .high],
+			minimumDistinctEncountersWithHighRiskPerDate: [today: 1]
 		)
 
 		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
-			checkinIdsWithRiskPerDate: [now: [CheckinIdWithRisk(checkinId: 0, riskLevel: .high)]],
-			riskLevelPerDate: [now: .high]
+			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .high)]],
+			riskLevelPerDate: [today: .high]
 		)
 
 		store.riskCalculationResult = riskCalculationResult
