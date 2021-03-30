@@ -179,40 +179,41 @@ class FooterViewController: UIViewController {
 
 		viewModel.$isPrimaryLoading
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] show in
-				self?.primaryButton.isLoading = show
-			}
+			.assign(to: \.isLoading, on: primaryButton)
 			.store(in: &subscription)
 
 		viewModel.$isSecondaryLoading
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] show in
-				self?.secondaryButton.isLoading = show
-			}
+			.assign(to: \.isLoading, on: secondaryButton)
 			.store(in: &subscription)
 
 		// update enabled state on model change
 
 		viewModel.$isPrimaryButtonEnabled
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] isEnabled in
-				self?.primaryButton.isEnabled = isEnabled
-			}
+			.assign(to: \.isEnabled, on: primaryButton)
 			.store(in: &subscription)
 
 		viewModel.$isSecondaryButtonEnabled
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] isEnabled in
-				self?.secondaryButton.isEnabled = isEnabled
-			}
+			.assign(to: \.isEnabled, on: secondaryButton)
+			.store(in: &subscription)
+
+		// update hidden state on model change
+
+		viewModel.$isPrimaryButtonHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.isHidden, on: primaryButton)
+			.store(in: &subscription)
+
+		viewModel.$isSecondaryButtonHidden
+			.receive(on: DispatchQueue.main.ocombine)
+			.assign(to: \.isHidden, on: secondaryButton)
 			.store(in: &subscription)
 
 		viewModel.$backgroundColor
 			.receive(on: DispatchQueue.main.ocombine)
-			.sink { [weak self] color in
-				self?.view.backgroundColor = color
-			}
+			.assign(to: \.backgroundColor, on: view)
 			.store(in: &subscription)
-		
 	}
 }
