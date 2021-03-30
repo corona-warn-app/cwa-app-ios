@@ -677,10 +677,9 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
-		let protoRiskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel = previousRiskLevel == .low ? .low : .high
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			checkinIdsWithRiskPerDate: [:],
-			riskLevelPerDate: [Date(): protoRiskLevel]
+			riskLevelPerDate: [Date(): previousRiskLevel]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -1119,10 +1118,10 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 private class CheckinRiskCalculationFake: CheckinRiskCalculationProtocol {
 
 	init(riskLevel: RiskLevel = .low) {
-		self.riskLevel = riskLevel == .low ? .low : .high
+		self.riskLevel = riskLevel
 	}
 
-	let riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel
+	let riskLevel: RiskLevel
 
 	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
 		return CheckinRiskCalculationResult(checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: [Date(): riskLevel])

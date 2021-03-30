@@ -30,9 +30,7 @@ extension Risk {
 			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
 
 		let tracingRiskLevelPerDate = riskCalculationResult.riskLevelPerDate
-		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate.mapValues {
-			RiskLevel(from: $0)
-		}
+		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate
 
 		// Merge the results from both risk calculation. For each date, the higher risk level is used.
 		let mergedRiskLevelPerDate = tracingRiskLevelPerDate.merging(checkinRiskLevelPerDate) { lhs, rhs -> RiskLevel in

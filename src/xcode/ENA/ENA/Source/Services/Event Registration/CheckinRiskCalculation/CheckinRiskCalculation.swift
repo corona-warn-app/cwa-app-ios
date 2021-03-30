@@ -115,7 +115,7 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 			$0.map {
 				CheckinIdWithRisk(
 					checkinId: $0.checkin.id,
-					riskLevel: $0.riskLevel
+					riskLevel: RiskLevel(from: $0.riskLevel)
 				)
 			}
 		}
@@ -128,14 +128,19 @@ final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 			$0.reduce(0) { $0 + $1.normalizedTime }
 		}
 
-		let riskLevelPerDate: [Date: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel] = normalizedTimePerDates.compactMapValues { value in
+		let riskLevelPerDate: [Date: RiskLevel] = normalizedTimePerDates.compactMapValues { value in
 			let riskLevel = normalizedTimePerDayToRiskLevelMapping.first(where: {
 				let range = ENARange(from: $0.normalizedTimeRange)
 				return range.contains(value)
 			}).map {
 				$0.riskLevel
 			}
-			return riskLevel
+
+			if let riskLevel = riskLevel {
+				return RiskLevel(from: riskLevel)
+			} else {
+				return nil
+			}
 		}
 
 		return CheckinRiskCalculationResult(
