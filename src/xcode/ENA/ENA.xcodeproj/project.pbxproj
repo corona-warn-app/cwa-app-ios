@@ -300,12 +300,14 @@
 		2FE15A3C249B8C0B0077BD8D /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */; };
 		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */; };
+		347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */; };
+		347FBB18260C9C4600672770 /* ENAUITests_10_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB17260C9C4600672770 /* ENAUITests_10_TraceLocations.swift */; };
 		347FBB41260E405000672770 /* TraceLocationDetailsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB40260E405000672770 /* TraceLocationDetailsHeaderCell.swift */; };
 		347FBB622610D77400672770 /* TraceLocationDetailsLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB612610D77400672770 /* TraceLocationDetailsLocationCell.swift */; };
 		347FBB6A2610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB692610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift */; };
 		347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */; };
+		34CF3AFC26137A3C004A9435 /* default_qr_code_poster_template_ios.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34CF3AFB26137A3C004A9435 /* default_qr_code_poster_template_ios.bin */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
-		34FE15942604ADC10002CB69 /* qr_code_template.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34FE15932604ADC00002CB69 /* qr_code_template.bin */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
 		34FE15A82604F99E0002CB69 /* UIColor+HEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */; };
 		34FE15C2260914030002CB69 /* QRCodePosterTemplateProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */; };
@@ -390,7 +392,6 @@
 		5081EF0E25FFDEC7004B8FDE /* ENAUITests_09_CheckIns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5081EF0D25FFDEC7004B8FDE /* ENAUITests_09_CheckIns.swift */; };
 		508ACB6125DE6393006B9945 /* PPADataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB6025DE6393006B9945 /* PPADataType.swift */; };
 		508DB7D525D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */; };
-		50900483260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */; };
 		509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */; };
 		50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */; };
 		50B1D6E72551621C00684C3C /* DayKeyPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */; };
@@ -1298,16 +1299,18 @@
 		2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
 		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewRoundedCell.swift; sourceTree = "<group>"; };
+		347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		347FBB17260C9C4600672770 /* ENAUITests_10_TraceLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_TraceLocations.swift; sourceTree = "<group>"; };
 		347FBB40260E405000672770 /* TraceLocationDetailsHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsHeaderCell.swift; sourceTree = "<group>"; };
 		347FBB612610D77400672770 /* TraceLocationDetailsLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsLocationCell.swift; sourceTree = "<group>"; };
 		347FBB692610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsQRCodeCell.swift; sourceTree = "<group>"; };
 		347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsDateTimeCell.swift; sourceTree = "<group>"; };
+		34CF3AFB26137A3C004A9435 /* default_qr_code_poster_template_ios.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = default_qr_code_poster_template_ios.bin; sourceTree = "<group>"; };
 		34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCode.swift"; sourceTree = "<group>"; };
 		34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCodeTests.swift"; sourceTree = "<group>"; };
 		34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviding.swift; sourceTree = "<group>"; };
 		34FE1585260131830002CB69 /* QRCodePosterTemplateMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateMetadata.swift; sourceTree = "<group>"; };
 		34FE158D260135E20002CB69 /* QRCodePosterTemplateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProvider.swift; sourceTree = "<group>"; };
-		34FE15932604ADC00002CB69 /* qr_code_template.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = qr_code_template.bin; sourceTree = "<group>"; };
 		34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviderTests.swift; sourceTree = "<group>"; };
 		34FE15A72604F99D0002CB69 /* UIColor+HEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEX.swift"; sourceTree = "<group>"; };
 		35075C092526378D00DE92F7 /* AllTests.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AllTests.xctestplan; path = TestPlans/AllTests.xctestplan; sourceTree = "<group>"; };
@@ -1391,7 +1394,6 @@
 		508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollectorTests.swift; sourceTree = "<group>"; };
 		508DB7D425D6B49E00F153D6 /* DataDonationDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDonationDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsInfoViewModelTest.swift; sourceTree = "<group>"; };
-		50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests_10_TraceLocations.swift; sourceTree = "<group>"; };
 		509C69FD25B5D920000F2A4C /* ENAUITests-Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Statistics.swift"; sourceTree = "<group>"; };
 		50AF8B4525E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENDiagnosisReportType+Protobuf.swift"; sourceTree = "<group>"; };
 		50B1D6E62551621C00684C3C /* DayKeyPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyPackageDownloadTests.swift; sourceTree = "<group>"; };
@@ -2138,9 +2140,9 @@
 			children = (
 				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
 				0138F6FE25F6782F00A9B075 /* Configuration */,
-				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
+				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6E025F661DE00A9B075 /* PrintVersion */,
 				0138F6D225F6177500A9B075 /* TypeSelection */,
 			);
@@ -2194,6 +2196,7 @@
 		0138F6C425F36C3F00A9B075 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				347FBB06260B8F5400672770 /* __tests__ */,
 				0138F6C525F36C5800A9B075 /* TraceLocationDetailsViewController.swift */,
 				0138F6C625F36C5900A9B075 /* TraceLocationDetailsViewModel.swift */,
 				347FBB45260E405A00672770 /* Cells */,
@@ -2293,7 +2296,6 @@
 		0190982A257E5A9D0065D050 /* ContactDiary */ = {
 			isa = PBXGroup;
 			children = (
-				BAEC99BE258B6FFA00B98ECA /* __tests__ */,
 				0190982B257E5AF70065D050 /* DiaryCoordinator.swift */,
 				0190982C257E5B340065D050 /* Info */,
 				0190982D257E5B4F0065D050 /* Overview */,
@@ -2830,6 +2832,30 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		347FBB06260B8F5400672770 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				347FBB07260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
+		347FBB15260C8BBA00672770 /* TraceLocations */ = {
+			isa = PBXGroup;
+			children = (
+				347FBB17260C9C4600672770 /* ENAUITests_10_TraceLocations.swift */,
+			);
+			path = TraceLocations;
+			sourceTree = "<group>";
+		};
+		347FBB16260C911300672770 /* ContactJournal */ = {
+			isa = PBXGroup;
+			children = (
+				BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */,
+			);
+			path = ContactJournal;
+			sourceTree = "<group>";
+		};
 		347FBB45260E405A00672770 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2844,7 +2870,7 @@
 		34FE15922604AD700002CB69 /* sample_qr_code_template */ = {
 			isa = PBXGroup;
 			children = (
-				34FE15932604ADC00002CB69 /* qr_code_template.bin */,
+				34CF3AFB26137A3C004A9435 /* default_qr_code_poster_template_ios.bin */,
 			);
 			path = sample_qr_code_template;
 			sourceTree = "<group>";
@@ -3119,14 +3145,6 @@
 				5090047926027403005B0A25 /* TraceLocationsInfoViewModelTest.swift */,
 			);
 			path = __test__;
-			sourceTree = "<group>";
-		};
-		50AABBD8260B6CF600F3937C /* TraceLocations */ = {
-			isa = PBXGroup;
-			children = (
-				50900482260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift */,
-			);
-			path = TraceLocations;
 			sourceTree = "<group>";
 		};
 		50B5058725CAF3C500EEA380 /* DMOTPService */ = {
@@ -3670,24 +3688,25 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				13E5046A248E3CE60086641C /* AppInformation */,
-				BADDD84A26039E1000337223 /* CheckIns */,
-				50AABBD8260B6CF600F3937C /* TraceLocations */,
-				50D50A5E25D6CC760092BC2A /* DataDonation */,
-				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
-				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
-				85D7596324570491008175F0 /* ENAUITests.swift */,
-				AB7DE70025C4543700C52B3F /* ExposureDetection */,
-				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
-				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
-				941B68AD253F005600DC1962 /* Helper */,
-				134F0DB8247578FF00D88934 /* Home */,
-				85D7596524570491008175F0 /* Info.plist */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
+				134F0DB8247578FF00D88934 /* Home */,
+				13E5046A248E3CE60086641C /* AppInformation */,
 				EB11B02824EE7C7D00143A95 /* Settings */,
+				BA2E569725DEC1E600331C10 /* ExposureSubmission */,
+				948DCDC1252EFC4100CDE020 /* ExposureLogging */,
+				94C24B3D25304AE100F8C004 /* DeltaOnboarding */,
+				347FBB16260C911300672770 /* ContactJournal */,
+				EB1C221625B718FA00A5CA6E /* UpdateOS */,
+				BADDD84A26039E1000337223 /* CheckIns */,
+				347FBB15260C8BBA00672770 /* TraceLocations */,
+				50D50A5E25D6CC760092BC2A /* DataDonation */,
+				AB7DE70025C4543700C52B3F /* ExposureDetection */,
+				941B68AD253F005600DC1962 /* Helper */,
+				85D7596324570491008175F0 /* ENAUITests.swift */,
+				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */,
-				EB1C221625B718FA00A5CA6E /* UpdateOS */,
+				85D7596524570491008175F0 /* Info.plist */,
 			);
 			path = ENAUITests;
 			sourceTree = "<group>";
@@ -5408,14 +5427,6 @@
 			path = __test__;
 			sourceTree = "<group>";
 		};
-		BAEC99BE258B6FFA00B98ECA /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				BAEC99BF258B705500B98ECA /* ENAUITests_07_ContactJournalUITests.swift */,
-			);
-			path = __tests__;
-			sourceTree = "<group>";
-		};
 		BAF5B3CB2604E1AD00DF8149 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -5863,12 +5874,12 @@
 				8F32021F25FF87AD00D6A224 /* TraceLocationDetailViewController.xib in Resources */,
 				01D026C2258BACCE00B6389A /* ExposureDetectionLinkCell.xib in Resources */,
 				01D02692258BA0AD00B6389A /* ExposureDetectionLongGuideCell.xib in Resources */,
+				34CF3AFC26137A3C004A9435 /* default_qr_code_poster_template_ios.bin in Resources */,
 				01D026BF258BACCE00B6389A /* ExposureDetectionGuideCell.xib in Resources */,
 				01A4DCE225926931007D5794 /* HomeLoadingItemView.xib in Resources */,
 				01D0275D258BD56F00B6389A /* SettingsLabelCell.xib in Resources */,
 				351E630D256C5B9C00D89B29 /* LabeledCountriesCell.xib in Resources */,
 				3529BC2025D6BA900097E492 /* sample_stats.sha256 in Resources */,
-				34FE15942604ADC10002CB69 /* qr_code_template.bin in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				01D0268D258B9CF800B6389A /* ExposureDetectionRiskCell.xib in Resources */,
 				01A4DCEA25926938007D5794 /* HomeListItemView.xib in Resources */,
@@ -6779,6 +6790,7 @@
 				50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */,
 				BA8BBA08255A90690034D4BC /* WifiHTTPClientTests.swift in Sources */,
 				AB86B2AF26026AC3007C77B3 /* EventCheckoutServiceTests.swift in Sources */,
+				347FBB08260B8FE000672770 /* TraceLocationDetailsViewModelTests.swift in Sources */,
 				BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
@@ -6876,7 +6888,7 @@
 				A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
 				509C69FE25B5D920000F2A4C /* ENAUITests-Statistics.swift in Sources */,
-				50900483260275CC005B0A25 /* ENAUITests_10_TraceLocations.swift in Sources */,
+				347FBB18260C9C4600672770 /* ENAUITests_10_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 				3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */,
 			);
