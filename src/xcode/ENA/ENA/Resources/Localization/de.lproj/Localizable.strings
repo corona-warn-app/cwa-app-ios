@@ -1542,6 +1542,18 @@ sein.";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mein Kontakt-Tagebuch";
 
+/* Checkin Risk */
+
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Erhöhtes Risiko";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Niedriges Risiko";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "aufgrund Ihrer Anwesenheit bei:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(erhöhtes Risiko)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niedriges Risiko)";
+
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Personen";
 
@@ -2085,6 +2097,26 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Geburtstag, Familienfeier";
 
+/* Trace Location Configuration */
+
+"TraceLocations_Configuration_Title" = "QR-Code erstellen";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Bezeichnung";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Ort";
+
+"TraceLocations_Configuration_StartDateTitle" = "Beginn";
+
+"TraceLocations_Configuration_EndDateTitle" = "Ende";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typische Aufenthaltsdauer";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Geben Sie an, wie lange sich Gäste üblicherweise bei Ihnen aufhalten.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Speichern";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ Std.";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";
@@ -2137,6 +2169,17 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "Checkin_Information_PrimaryButton_Title" = "Einverstanden";
 
+/* CheckIn edit */
+
+"Checkins_Edit_PrimaryButton_Title" = "Speichern";
+
+"Checkins_Edit_Section_Title" = "Aufenthaltsdauer anpassen für:";
+
+"Checkins_Edit_CheckedIn" = "Eingecheckt";
+
+"Checkins_Edit_CheckedOut" = "Ausgecheckt";
+
+"Checkins_Edit_Notice" = "Die Aufenthaltsdauer wird nicht automatisch in Ihrem Kontakt-Tagebuch angepasst.";
 
 /* Trace Location */
 
@@ -2155,12 +2198,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich neu erstellen außerhalb der Öffnungszeiten.";
 
 "TraceLocation_Information_PrimaryButton_Title" = "Weiter";
-
-"Home_TraceLocationsCard_Title" = "Sie planen eine Veranstaltung?";
-
-"Home_TraceLocationsCard_Body" = "Sie planen ein Event oder haben ein Geschäft? Erstellen Sie einen QR-Code, mit dem sich Ihre Gäste bei Ankunft einchecken können.";
-
-"Home_TraceLocationsCard_Button" = "QR-Code erstellen";
 
 /* Checkout */
 

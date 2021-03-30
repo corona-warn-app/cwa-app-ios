@@ -23,14 +23,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "69eb427e1a48133970486244487e31b3f1c5bde47415db9b52cc5a2ece1e0060".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "69eb427e1a48133970486244487e31b3f1c5bde47415db9b52cc5a2ece1e0060".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -57,14 +57,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "69eb427e1a48133970486244487e31b3f1c5bde47415db9b52cc5a2ece1e0060".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "69eb427e1a48133970486244487e31b3f1c5bde47415db9b52cc5a2ece1e0060".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -91,14 +91,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -125,14 +125,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -159,14 +159,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -193,14 +193,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -227,14 +227,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -264,14 +264,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -300,14 +300,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -336,14 +336,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -372,14 +372,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -408,14 +408,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -444,14 +444,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -480,14 +480,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -515,14 +515,14 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -551,7 +551,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -559,7 +559,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		store.createCheckin(checkin)
 
 		var warning = SAP_Internal_Pt_TraceTimeIntervalWarning()
-		warning.locationGuidHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
+		warning.locationIDHash = "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871".data(using: .utf8) ?? Data()
 		warning.startIntervalNumber = create10MinutesInterval(from: warningStartDate)
 		warning.period = 6
 		warning.transmissionRiskLevel = 8
@@ -589,12 +589,12 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationGUID: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
 
-		let match = TraceTimeIntervalMatch(id: 0, checkinId: 0, traceWarningPackageId: 0, traceLocationGUID: "", transmissionRiskLevel: 0, startIntervalNumber: Int(create10MinutesInterval(from: matchStartDate)), endIntervalNumber: Int(create10MinutesInterval(from: matchEndDate)))
+		let match = TraceTimeIntervalMatch(id: 0, checkinId: 0, traceWarningPackageId: 0, traceLocationId: Data(), transmissionRiskLevel: 0, startIntervalNumber: Int(create10MinutesInterval(from: matchStartDate)), endIntervalNumber: Int(create10MinutesInterval(from: matchEndDate)))
 
 		let overlap = matcher.calculateOverlap(checkin: checkin, match: match)
 		XCTAssertEqual(overlap, 12)
@@ -605,14 +605,14 @@ class TraceWarningMatcherTests: XCTestCase {
 	}
 
 	private func createDummyCheckin(
-		traceLocationGUID: String,
+		traceLocationId: String,
 		checkinStartDate: Date = Date(),
 		checkinEndDate: Date = Date()
 		) -> Checkin {
 		Checkin(
 			id: 0,
-			traceLocationGUID: traceLocationGUID,
-			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
+			traceLocationId: traceLocationId.data(using: .utf8) ?? Data(),
+			traceLocationIdHash: traceLocationId.data(using: .utf8) ?? Data(),
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: "",
@@ -620,7 +620,8 @@ class TraceWarningMatcherTests: XCTestCase {
 			traceLocationStartDate: Date(),
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 0,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: true,

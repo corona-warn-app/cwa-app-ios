@@ -49,7 +49,7 @@ class DiaryEntryTest: XCTestCase {
 				name: "Mars",
 				phoneNumber: "999-999999999",
 				emailAddress: "mars@universe.com",
-				traceLocationGUID: "traceLocationGUID"
+				traceLocationId: "traceLocationId".data(using: .utf8) ?? Data()
 			)
 		)
 
@@ -65,7 +65,7 @@ class DiaryEntryTest: XCTestCase {
 				name: "Earth",
 				phoneNumber: "(11111) 11 1111111",
 				emailAddress: "earth@universe.com",
-				traceLocationGUID: "traceLocationGUID",
+				traceLocationId: "traceLocationId".data(using: .utf8) ?? Data(),
 				visit: LocationVisit(
 					id: 17,
 					date: "2021-02-11",

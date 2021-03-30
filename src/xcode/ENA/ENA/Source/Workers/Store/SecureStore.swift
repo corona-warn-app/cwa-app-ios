@@ -287,17 +287,7 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
-
-	var checkinInfoScreenShown: Bool {
-		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["checkinInfoScreenShown"] = newValue }
-	}
 	
-	var traceLocationsInfoScreenShown: Bool {
-		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
-	}
-
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -338,6 +328,34 @@ final class SecureStore: Store {
 
 }
 
+extension SecureStore: EventRegistrationCaching {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
+	}
+	
+	var checkinInfoScreenShown: Bool {
+		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["checkinInfoScreenShown"] = newValue }
+	}
+	
+	var traceLocationsInfoScreenShown: Bool {
+		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
+	}
+	
+	var shouldAddCheckinToContactDiaryByDefault: Bool {
+		get { kvStore["shouldAddCheckinToContactDiaryByDefault"] as Bool? ?? true }
+		set { kvStore["shouldAddCheckinToContactDiaryByDefault"] = newValue }
+	}
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? {
+		get { kvStore["qrCodePosterTemplateMetadata"] as QRCodePosterTemplateMetadata? ?? nil }
+		set { kvStore["qrCodePosterTemplateMetadata"] = newValue }
+	}
+}
+
 extension SecureStore {
 
 	var warnOthersNotificationOneTimer: TimeInterval {
@@ -368,13 +386,6 @@ extension SecureStore: StatisticsCaching {
 	var statistics: StatisticsMetadata? {
 		get { kvStore["statistics"] as StatisticsMetadata? ?? nil }
 		set { kvStore["statistics"] = newValue }
-	}
-}
-
-extension SecureStore: QRCodePosterTemplateCaching {
-	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? {
-		get { kvStore["qrCodePosterTemplateMetadata"] as QRCodePosterTemplateMetadata? ?? nil }
-		set { kvStore["qrCodePosterTemplateMetadata"] = newValue }
 	}
 }
 
@@ -409,14 +420,6 @@ extension SecureStore: PrivacyPreservingProviding {
 	var ppacApiToken: TimestampedToken? {
 		get { kvStore["ppacApiToken"] as TimestampedToken? }
 		set { kvStore["ppacApiToken"] = newValue }
-	}
-}
-
-extension SecureStore: EventRegistrationProviding {
-	
-	var wasRecentTraceWarningDownloadSuccessful: Bool {
-		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
-		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
 	}
 }
 

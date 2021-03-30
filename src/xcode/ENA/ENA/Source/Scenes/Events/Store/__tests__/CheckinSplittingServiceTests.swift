@@ -182,12 +182,12 @@ class CheckinSplittingServiceTests: XCTestCase {
 		startDate: Date = Date(),
 		endDate: Date = Date(),
 		checkinCompleted: Bool = false,
-		traceLocationGUID: String = "0"
+		traceLocationId: Data = "0".data(using: .utf8) ?? Data()
 	) -> Checkin {
 		Checkin(
 			id: id,
-			traceLocationGUID: traceLocationGUID,
-			traceLocationGUIDHash: traceLocationGUID.data(using: .utf8) ?? Data(),
+			traceLocationId: traceLocationId,
+			traceLocationIdHash: traceLocationId,
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: "",
@@ -195,7 +195,8 @@ class CheckinSplittingServiceTests: XCTestCase {
 			traceLocationStartDate: Date(),
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 0,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: startDate,
 			checkinEndDate: endDate,
 			checkinCompleted: checkinCompleted,
