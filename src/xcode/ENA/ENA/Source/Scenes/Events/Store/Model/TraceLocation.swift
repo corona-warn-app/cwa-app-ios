@@ -48,14 +48,15 @@ extension TraceLocation {
 
 		do {
 			// creates a fake event for the moment
-			let qRCodePayload = try SAP_Internal_Pt_QRCodePayload(serializedData: data)
-			let traceLocation = qRCodePayload.locationData
-			let eventInformation = try SAP_Internal_Pt_CWALocationData(serializedData: qRCodePayload.vendorData)
+			let qrCodePayload = try SAP_Internal_Pt_QRCodePayload(serializedData: data)
+			let traceLocation = qrCodePayload.locationData
+			let eventInformation = try SAP_Internal_Pt_CWALocationData(serializedData: qrCodePayload.vendorData)
 			
 			let startDate = traceLocation.startTimestamp == 0 ? nil : Date(timeIntervalSince1970: TimeInterval(traceLocation.startTimestamp))
 			let endDate = traceLocation.startTimestamp == 0 ? nil : Date(timeIntervalSince1970: TimeInterval(traceLocation.endTimestamp))
-			
-			guard let id = qRCodePayload.id else {
+			let defaultCheckInLengthInMinutes = eventInformation.defaultCheckInLengthInMinutes == 0 ? nil : Int(eventInformation.defaultCheckInLengthInMinutes)
+
+			guard let id = qrCodePayload.id else {
 				Log.error("Error in creating the qRCodePayload id", log: .checkin)
 				return nil
 			}
@@ -67,9 +68,9 @@ extension TraceLocation {
 				address: traceLocation.address,
 				startDate: startDate,
 				endDate: endDate,
-				defaultCheckInLengthInMinutes: Int(eventInformation.defaultCheckInLengthInMinutes),
-				cryptographicSeed: qRCodePayload.crowdNotifierData.cryptographicSeed,
-				cnPublicKey: qRCodePayload.crowdNotifierData.publicKey
+				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
+				cryptographicSeed: qrCodePayload.crowdNotifierData.cryptographicSeed,
+				cnPublicKey: qrCodePayload.crowdNotifierData.publicKey
 			)
 		} catch {
 			Log.error(error.localizedDescription, log: .checkin, error: error)

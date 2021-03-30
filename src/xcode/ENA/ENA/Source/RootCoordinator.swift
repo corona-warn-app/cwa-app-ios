@@ -119,13 +119,6 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 
 	func showEvent(_ guid: String) {
-		let checkInNavigationController = checkInCoordinator.viewController
-		guard checkInNavigationController.topViewController as? UITableViewController != nil,
-			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
-			return
-		}
-		tabBarController.selectedIndex = index
-		
 		guard let route = Route(guid),
 			  case let Route.checkin(key) = route,
 			  let traceLocation = TraceLocation(qrCodeString: key)
@@ -133,9 +126,16 @@ class RootCoordinator: RequiresAppDependencies {
 			Log.error("URL didn't match the route", log: .checkin, error: nil)
 			return
 		}
-		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-			
+		let checkInNavigationController = checkInCoordinator.viewController
+		guard checkInNavigationController.topViewController as? UITableViewController != nil,
+			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+			return
 		}
+		tabBarController.selectedIndex = index
+		
+//		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
+//
+//		}
 		checkInCoordinator.showTraceLocationDetails(traceLocation)
 	}
 
