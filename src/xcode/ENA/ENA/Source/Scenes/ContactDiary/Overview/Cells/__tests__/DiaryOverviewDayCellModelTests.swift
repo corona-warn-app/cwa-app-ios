@@ -39,7 +39,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		XCTAssertNil(detailCheckin)
 	}
 
-	func testGIVEN_LowEncounterDayWithoutEntries_WHEN_getTitleAndImage_THEN_LowAlterTextAndImage() {
+	func testGIVEN_LowEncounterDayWithoutEntries_WHEN_getTitleAndImage_THEN_LowOldTextAndImage() {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",
@@ -69,7 +69,7 @@ class DiaryOverviewDayCellModelTests: XCTestCase {
 		XCTAssertNil(detailCheckin)
 	}
 
-	func testGIVEN_HighEncounterDayWithoutEntries_WHEN_getTitleAndImage_THEN_HighAlterTextAndImage() {
+	func testGIVEN_HighEncounterDayWithoutEntries_WHEN_getTitleAndImage_THEN_HighOldTextAndImage() {
 		// GIVEN
 		let diaryDay = DiaryDay(
 			dateString: "2021-01-14",

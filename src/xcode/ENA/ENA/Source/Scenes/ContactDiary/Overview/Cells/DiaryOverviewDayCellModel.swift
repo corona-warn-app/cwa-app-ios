@@ -158,7 +158,7 @@ final class DiaryOverviewDayCellModel {
 	}
 	
 	var isSinlgeRiskyCheckin: Bool {
-		return checkinsWithRisk.count > 1 ? false : true
+		return checkinsWithRisk.count <= 1
 	}
 	
 	var selectedEntries: [DiaryEntry] {
