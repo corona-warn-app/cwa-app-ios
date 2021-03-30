@@ -137,7 +137,7 @@ class TestResultMetadataTests: XCTestCase {
 		secureStore.riskCalculationResult = riskCalculationResult
 		Analytics.collect(.testResultMetadata(.updateTestResult(.pending, "")))
 		
-		guard let registrationDate = Calendar.current.date(byAdding: .day, value: -4, to: Date()) else {
+		guard let registrationDate = Calendar.utcCalendar.date(byAdding: .day, value: -4, to: Date()) else {
 			XCTFail("registration date is nil")
 			return
 		}
@@ -146,7 +146,7 @@ class TestResultMetadataTests: XCTestCase {
 		XCTAssertEqual(secureStore.testResultMetadata?.testResult, TestResult.positive, "incorrect testResult")
 		
 		// The the date is updated if the risk results changes e.g from pending to positive
-		XCTAssertNotEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
+		XCTAssertEqual(secureStore.testResultMetadata?.hoursSinceTestRegistration, (24 * 4), "incorrect hoursSinceTestRegistration")
 	}
 
 	func testUpdatingTestResult_Invalid() {

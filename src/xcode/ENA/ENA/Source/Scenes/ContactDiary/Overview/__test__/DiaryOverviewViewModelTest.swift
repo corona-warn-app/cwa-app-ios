@@ -105,8 +105,6 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
-
-		// Check if one of the dates is daylight saving time, then there difference will have an offset and we need to regenerate the a generic date without the offset hours
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 		let todayMinus5Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -5, to: today))
@@ -141,8 +139,6 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
-
-		// Check if one of the dates is daylight saving time, then there difference will have an offset and we need to regenerate the a generic date without the offset hours
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 		let todayMinus7Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -7, to: today))
