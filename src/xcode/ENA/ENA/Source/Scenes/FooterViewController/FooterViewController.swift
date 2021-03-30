@@ -43,10 +43,6 @@ class FooterViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupPrimaryButton()
-		setupSecondaryButton()
-
-		view.backgroundColor = viewModel.backgroundColor
 
 		view.insetsLayoutMarginsFromSafeArea = false
 		view.preservesSuperviewLayoutMargins = false
@@ -60,26 +56,113 @@ class FooterViewController: UIViewController {
 		view.addSubview(primaryButton)
 		view.addSubview(secondaryButton)
 
+		primaryButton.hasBackground = true
+		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
 		primaryButton.translatesAutoresizingMaskIntoConstraints = false
+		
+		secondaryButton.hasBackground = true
+		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 
-		NSLayoutConstraint.activate([
+		updateViewModel()
+	}
+
+	// MARK: - Internal
+
+	var viewModel: FooterViewModel {
+		didSet {
+			updateViewModel()
+		}
+	}
+
+	// MARK: - Private
+
+	private let didTapPrimaryButton: () -> Void
+	private let didTapSecondaryButton: () -> Void
+
+	private let primaryButton: ENAButton = ENAButton(type: .custom)
+	private let secondaryButton: ENAButton = ENAButton(type: .custom)
+
+	private var buttonConstraints = [NSLayoutConstraint]()
+	private var subscription: [AnyCancellable] = []
+
+	@objc
+	private func didHitPrimaryButton() {
+		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
+			didTapPrimaryButton()
+			return
+		}
+		footerViewHandler.didTapFooterViewButton(.primary)
+	}
+
+	@objc
+	private func didHitSecondaryButton() {
+		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
+			didTapSecondaryButton()
+			return
+		}
+		footerViewHandler.didTapFooterViewButton(.secondary)
+	}
+	
+	private func updateViewModel() {
+		
+		// clear and reset
+		
+		subscription.forEach { $0.cancel() }
+		subscription.removeAll()
+		
+		NSLayoutConstraint.deactivate(buttonConstraints)
+		buttonConstraints.removeAll()
+		
+		// background color
+		
+		view.backgroundColor = viewModel.backgroundColor
+		
+		// primary button
+		
+		primaryButton.color = viewModel.primaryButtonColor
+		primaryButton.hasBackground = !viewModel.primaryButtonInverted
+		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
+		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
+		primaryButton.alpha = viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
+		primaryButton.isHidden = !viewModel.isPrimaryButtonEnabled
+		primaryButton.isEnabled = viewModel.isPrimaryButtonEnabled
+		
+		// secondary button
+		
+		secondaryButton.color = viewModel.secondaryButtonColor
+		secondaryButton.hasBackground = !viewModel.secondaryButtonInverted
+		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
+		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
+		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
+		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
+		secondaryButton.isEnabled = viewModel.isSecondaryButtonEnabled
+		
+		// update button constraints
+
+		buttonConstraints = [
+			// primaryButton
 			primaryButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
 			primaryButton.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
 			primaryButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
 			primaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight),
-
+			// secondaryButton
 			secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: viewModel.spacer),
 			secondaryButton.centerXAnchor.constraint(equalTo: primaryButton.centerXAnchor),
 			secondaryButton.widthAnchor.constraint(equalTo: primaryButton.widthAnchor),
 			secondaryButton.heightAnchor.constraint(equalToConstant: viewModel.buttonHeight)
-		])
-
-		// hide and show buttons by alpha to make it animatable
+		]
+		
+		NSLayoutConstraint.activate(buttonConstraints)
+		
+		// subscribe to view model properties
 
 		viewModel.$height
 			.receive(on: DispatchQueue.main.ocombine)
 			.sink { height in
+				
+				// hide and show buttons by alpha to make it animatable
+				
 				let alpha: CGFloat = height > 0.0 ? 1.0 : 0.0
 				let animator = UIViewPropertyAnimator(duration: 0.35, curve: .easeInOut) { [weak self] in
 					guard let self = self else {
@@ -130,57 +213,6 @@ class FooterViewController: UIViewController {
 				self?.view.backgroundColor = color
 			}
 			.store(in: &subscription)
-	}
-
-	// MARK: - Internal
-
-	let viewModel: FooterViewModel
-
-	// MARK: - Private
-
-	private let didTapPrimaryButton: () -> Void
-	private let didTapSecondaryButton: () -> Void
-
-	private let primaryButton: ENAButton = ENAButton(type: .custom)
-	private let secondaryButton: ENAButton = ENAButton(type: .custom)
-	private var subscription: [AnyCancellable] = []
-
-	private func setupPrimaryButton() {
-		if let primaryButtonColor = viewModel.primaryButtonColor {
-			primaryButton.color = primaryButtonColor
-		}
-		primaryButton.setTitle(viewModel.primaryButtonName, for: .normal)
-		primaryButton.hasBackground = true
-		primaryButton.addTarget(self, action: #selector(didHitPrimaryButton), for: .primaryActionTriggered)
-		primaryButton.accessibilityIdentifier = viewModel.primaryIdentifier
-		primaryButton.alpha = viewModel.isPrimaryButtonHidden ? 0.0 : 1.0
-		primaryButton.isHidden = !viewModel.isPrimaryButtonEnabled
-	}
-
-	private func setupSecondaryButton() {
-		secondaryButton.setTitle(viewModel.secondaryButtonName, for: .normal)
-		secondaryButton.hasBackground = true
-		secondaryButton.addTarget(self, action: #selector(didHitSecondaryButton), for: .primaryActionTriggered)
-		secondaryButton.accessibilityIdentifier = viewModel.secondaryIdentifier
-		secondaryButton.alpha = viewModel.isSecondaryButtonHidden ? 0.0 : 1.0
-		secondaryButton.isHidden = !viewModel.isSecondaryButtonEnabled
-	}
-
-	@objc
-	private func didHitPrimaryButton() {
-		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
-			didTapPrimaryButton()
-			return
-		}
-		footerViewHandler.didTapFooterViewButton(.primary)
-	}
-
-	@objc
-	private func didHitSecondaryButton() {
-		guard let footerViewHandler = (parent as? FooterViewUpdating)?.footerViewHandler else {
-			didTapPrimaryButton()
-			return
-		}
-		footerViewHandler.didTapFooterViewButton(.secondary)
+		
 	}
 }

@@ -58,7 +58,7 @@ class DiaryAddAndEditEntryViewModel {
 					name: entryModel.name,
 					phoneNumber: entryModel.phoneNumber,
 					emailAddress: entryModel.emailAddress,
-					traceLocationGUID: nil
+					traceLocationId: nil
 				)
 
 				if case let .success(id) = result {
