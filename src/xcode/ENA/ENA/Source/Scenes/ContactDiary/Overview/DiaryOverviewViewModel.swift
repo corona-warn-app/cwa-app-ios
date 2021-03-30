@@ -146,8 +146,8 @@ class DiaryOverviewViewModel {
 		
 		let fakedCheckin1 = Checkin(
 			id: 0,
-			traceLocationGUID: "",
-			traceLocationGUIDHash: Data(),
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentFoodService,
 			traceLocationDescription: "Supermarkt",
@@ -155,7 +155,8 @@ class DiaryOverviewViewModel {
 			traceLocationStartDate: nil,
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: Date(),
 			checkinEndDate: Date(),
 			checkinCompleted: true,
@@ -163,8 +164,8 @@ class DiaryOverviewViewModel {
 		let highRiskCheckin1 = CheckinWithRisk(checkIn: fakedCheckin1, risk: .low)
 		let fakedCheckin2 = Checkin(
 			id: 0,
-			traceLocationGUID: "",
-			traceLocationGUIDHash: Data(),
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentWorkplace,
 			traceLocationDescription: "Büro",
@@ -172,7 +173,8 @@ class DiaryOverviewViewModel {
 			traceLocationStartDate: nil,
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: Date(),
 			checkinEndDate: Date(),
 			checkinCompleted: true,
@@ -180,8 +182,8 @@ class DiaryOverviewViewModel {
 		let highRiskCheckin2 = CheckinWithRisk(checkIn: fakedCheckin2, risk: risk)
 		let fakedCheckin3 = Checkin(
 			id: 0,
-			traceLocationGUID: "",
-			traceLocationGUIDHash: Data(),
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentWorkplace,
 			traceLocationDescription: "privates Treffen mit Freunden",
@@ -189,7 +191,8 @@ class DiaryOverviewViewModel {
 			traceLocationStartDate: nil,
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
-			traceLocationSignature: "",
+			cryptographicSeed: Data(),
+			cnPublicKey: Data(),
 			checkinStartDate: Date(),
 			checkinEndDate: Date(),
 			checkinCompleted: true,
