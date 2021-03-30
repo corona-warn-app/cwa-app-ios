@@ -273,6 +273,35 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		cancellable.cancel()
 	}
 
+	func testEntrySortingByCheckinStartDate() throws {
+		let eventStore = MockEventStore()
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationId: "17".data(using: .utf8) ?? Data(), checkinEndDate: Date(timeIntervalSinceNow: 10))
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationId: "964".data(using: .utf8) ?? Data(), checkinEndDate: .distantFuture)
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinEndDate: Date())
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationId: "qwerty".data(using: .utf8) ?? Data(), checkinEndDate: .distantPast)
+		)
+		eventStore.createCheckin(
+			Checkin.mock(traceLocationId: "asdf".data(using: .utf8) ?? Data(), checkinEndDate: Date(timeIntervalSinceNow: -220))
+		)
+
+		let viewModel = CheckinsOverviewViewModel(
+			store: eventStore,
+			onEntryCellTap: { _ in }
+		)
+
+		let traceLocationIds = viewModel.checkinCellModels
+			.map { $0.checkin.traceLocationId }
+
+		XCTAssertEqual(traceLocationIds, ["964".data(using: .utf8), "17".data(using: .utf8), "137".data(using: .utf8), "asdf".data(using: .utf8), "qwerty".data(using: .utf8)])
+	}
+
 	func testAddedCheckinTriggersReload() throws {
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock())
