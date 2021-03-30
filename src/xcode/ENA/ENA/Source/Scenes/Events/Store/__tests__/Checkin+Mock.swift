@@ -9,8 +9,8 @@ extension Checkin {
 
 	static func mock(
 		id: Int = 0,
-		traceLocationGUID: String = "",
-		traceLocationGUIDHash: Data = Data(),
+		traceLocationId: Data = Data(),
+		traceLocationIdHash: Data = Data(),
 		traceLocationVersion: Int = 0,
 		traceLocationType: TraceLocationType = .locationTypeUnspecified,
 		traceLocationDescription: String = "",
@@ -18,7 +18,8 @@ extension Checkin {
 		traceLocationStartDate: Date? = nil,
 		traceLocationEndDate: Date? = nil,
 		traceLocationDefaultCheckInLengthInMinutes: Int? = nil,
-		traceLocationSignature: String = "",
+		cryptographicSeed: Data = Data(),
+		cnPublicKey: Data = Data(),
 		checkinStartDate: Date = Date(),
 		checkinEndDate: Date = Date(),
 		checkinCompleted: Bool = false,
@@ -26,8 +27,8 @@ extension Checkin {
 	) -> Self {
 		Checkin(
 			id: id,
-			traceLocationGUID: traceLocationGUID,
-			traceLocationGUIDHash: traceLocationGUIDHash,
+			traceLocationId: traceLocationId,
+			traceLocationIdHash: traceLocationIdHash,
 			traceLocationVersion: traceLocationVersion,
 			traceLocationType: traceLocationType,
 			traceLocationDescription: traceLocationDescription,
@@ -35,7 +36,8 @@ extension Checkin {
 			traceLocationStartDate: traceLocationStartDate,
 			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: traceLocationSignature,
+			cryptographicSeed: cryptographicSeed,
+			cnPublicKey: cnPublicKey,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: checkinCompleted,
