@@ -162,7 +162,7 @@ class TraceLocationsCoordinator {
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.traceLocationDetailsNavigationController.dismiss(animated: true)
+				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
 		
@@ -188,8 +188,8 @@ class TraceLocationsCoordinator {
 		let viewController = TraceLocationPrintVersionViewController(
 			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
-		
-		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
+
+		traceLocationDetailsNavigationController?.pushViewController(viewController, animated: true)
 	}
 	
 	private func showTraceLocationTypeSelectionScreen() {
