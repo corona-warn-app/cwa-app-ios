@@ -9,6 +9,228 @@ import ExposureNotification
 // swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 final class RiskProviderTests: XCTestCase {
+	
+	func testGIVEN_RiskCalculation_WHEN_ENFRiskHighAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskHigh() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		
+		let duration = DateComponents(day: 1)
+
+		store.riskCalculationResult = nil
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let eventStore = MockEventStore()
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+		   client: client,
+		   store: store,
+		   eventStore: eventStore
+	   )
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let riskLevelPerDateENF = [today: RiskLevel.high]
+		let riskLevelPerDateCheckin = [today: RiskLevel.low]
+		
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: appConfig,
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+		
+		let consumer = RiskConsumer()
+		
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+
+		var risk: Risk?
+		consumer.didCalculateRisk = { calculatedRisk in
+			risk = calculatedRisk
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+	
+		riskProvider.observeRisk(consumer)
+		
+		// WHEN
+		
+		riskProvider.requestRisk(userInitiated: true)
+
+		// THEN
+	
+		waitForExpectations(timeout: .long)
+		XCTAssertEqual(risk?.level, .high)
+	
+	}
+	
+	func testGIVEN_RiskCalculation_WHEN_ENFRiskLowAndCheckinRiskHigh_THEN_RiskConsumerReturnsRiskHigh() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		
+		let duration = DateComponents(day: 1)
+
+		store.riskCalculationResult = nil
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let eventStore = MockEventStore()
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+		   client: client,
+		   store: store,
+		   eventStore: eventStore
+	   )
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let riskLevelPerDateENF = [today: RiskLevel.low]
+		let riskLevelPerDateCheckin = [today: RiskLevel.high]
+		
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: appConfig,
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+		
+		let consumer = RiskConsumer()
+		
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+
+		var risk: Risk?
+		consumer.didCalculateRisk = { calculatedRisk in
+			risk = calculatedRisk
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+	
+		riskProvider.observeRisk(consumer)
+		
+		// WHEN
+		
+		riskProvider.requestRisk(userInitiated: true)
+
+		// THEN
+	
+		waitForExpectations(timeout: .long)
+		XCTAssertEqual(risk?.level, .high)
+	
+	}
+	
+	func testGIVEN_RiskCalculation_WHEN_ENFRiskLowAndCheckinRiskLow_THEN_RiskConsumerReturnsRiskLow() {
+		// GIVEN
+		let store = MockTestStore()
+		let client = ClientMock()
+		
+		let duration = DateComponents(day: 1)
+
+		store.riskCalculationResult = nil
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+		
+		let appConfig = CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS())
+
+		let eventStore = MockEventStore()
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+		   client: client,
+		   store: store,
+		   eventStore: eventStore
+	   )
+		let today = Calendar.utcCalendar.startOfDay(for: Date())
+		let riskLevelPerDateENF = [today: RiskLevel.low]
+		let riskLevelPerDateCheckin = [today: RiskLevel.low]
+		
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: appConfig,
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDateENF),
+			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDateCheckin),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			traceWarningPackageDownload: traceWarningPackageDownload,
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+		
+		let consumer = RiskConsumer()
+		
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+
+		var risk: Risk?
+		consumer.didCalculateRisk = { calculatedRisk in
+			risk = calculatedRisk
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+	
+		riskProvider.observeRisk(consumer)
+		
+		// WHEN
+		
+		riskProvider.requestRisk(userInitiated: true)
+
+		// THEN
+	
+		waitForExpectations(timeout: .long)
+		XCTAssertEqual(risk?.level, .low)
+	
+	}
 
 	func testGIVEN_RiskProvider_WHEN_requestRisk_THEN_TimeoutWillTrigger() {
 		// GIVEN
@@ -701,14 +923,16 @@ final class RiskProviderTests: XCTestCase {
 			wifiClient: client,
 			store: store
 		)
+		
+		let riskLevelPerDate = [Calendar.utcCalendar.startOfDay(for: Date()): newRiskLevel]
 
 		return RiskProvider(
 			configuration: config,
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
-			riskCalculation: RiskCalculationFake(riskLevel: newRiskLevel),
-			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevel: newRiskLevel),
+			riskCalculation: RiskCalculationFake(riskLevelPerDate: riskLevelPerDate),
+			checkinRiskCalculation: CheckinRiskCalculationFake(riskLevelPerDate: riskLevelPerDate),
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: makeTraceWarningPackageDownloadMock(with: store, appConfig: appConfigurationProvider),
 			exposureDetectionExecutor: exposureDetectionDelegateStub
@@ -1086,11 +1310,13 @@ final class RiskProviderTests: XCTestCase {
 
 private class RiskCalculationFake: RiskCalculationProtocol {
 	
-	init(riskLevel: RiskLevel = .low) {
-		self.riskLevel = riskLevel
+	init(
+		riskLevelPerDate: [Date: RiskLevel] = [Date(): .low]
+	) {
+		self.riskLevelPerDate = riskLevelPerDate
 	}
 
-	let riskLevel: RiskLevel
+	let riskLevelPerDate: [Date: RiskLevel]
 
 	func calculateRisk(
 		exposureWindows: [ExposureWindow],
@@ -1099,7 +1325,7 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
 
 		return RiskCalculationResult(
-			riskLevel: riskLevel,
+			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: nil,
@@ -1107,7 +1333,7 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: Date(),
-			riskLevelPerDate: [:],
+			riskLevelPerDate: riskLevelPerDate,
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
@@ -1117,14 +1343,16 @@ private class RiskCalculationFake: RiskCalculationProtocol {
 
 private class CheckinRiskCalculationFake: CheckinRiskCalculationProtocol {
 
-	init(riskLevel: RiskLevel = .low) {
-		self.riskLevel = riskLevel
+	init(
+		riskLevelPerDate: [Date: RiskLevel] = [Date(): .low]
+	) {
+		self.riskLevelPerDate = riskLevelPerDate
 	}
 
-	let riskLevel: RiskLevel
+	let riskLevelPerDate: [Date: RiskLevel]
 
 	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
-		return CheckinRiskCalculationResult(checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: [Date(): riskLevel])
+		return CheckinRiskCalculationResult(checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: riskLevelPerDate)
 	}
 }
 
