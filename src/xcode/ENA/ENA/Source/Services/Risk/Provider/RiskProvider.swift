@@ -368,17 +368,17 @@ final class RiskProvider: RiskProviding {
 			let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
 			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
 
-			let checkinCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
+			let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
 			let risk = Risk(
 				riskCalculationResult: riskCalculationResult,
 				previousRiskCalculationResult: store.riskCalculationResult,
-				checkinCalculationResult: checkinCalculationResult,
+				checkinCalculationResult: checkinRiskCalculationResult,
 				previousCheckinCalculationResult: store.checkinRiskCalculationResult
 			)
 
 			store.riskCalculationResult = riskCalculationResult
-			store.checkinRiskCalculationResult = checkinCalculationResult
+			store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
 			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
