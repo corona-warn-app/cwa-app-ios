@@ -4,6 +4,9 @@
 
 import FMDB
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 class CreateCheckinQuery: StoreQueryProtocol {
 
 	// MARK: - Init
@@ -21,8 +24,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			INSERT INTO Checkin (
-				traceLocationGUID,
-				traceLocationGUIDHash,
+				traceLocationId,
+				traceLocationIdHash,
 				traceLocationVersion,
 				traceLocationType,
 				traceLocationDescription,
@@ -30,15 +33,16 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				traceLocationStartDate,
 				traceLocationEndDate,
 				traceLocationDefaultCheckInLengthInMinutes,
-				traceLocationSignature,
+				cryptographicSeed,
+				cnPublicKey,
 				checkinStartDate,
 				checkinEndDate,
 				checkinCompleted,
 				createJournalEntry
 			)
 			VALUES (
-				:traceLocationGUID,
-				:traceLocationGUIDHash,
+				:traceLocationId,
+				:traceLocationIdHash,
 				:traceLocationVersion,
 				:traceLocationType,
 				SUBSTR(:traceLocationDescription, 1, \(maxTextLength)),
@@ -46,7 +50,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 				:traceLocationStartDate,
 				:traceLocationEndDate,
 				:traceLocationDefaultCheckInLengthInMinutes,
-				:traceLocationSignature,
+				:cryptographicSeed,
+				:cnPublicKey,
 				:checkinStartDate,
 				:checkinEndDate,
 				:checkinCompleted,
@@ -65,8 +70,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 		}
 
 		let parameters: [String: Any] = [
-			"traceLocationGUID": checkin.traceLocationGUID,
-			"traceLocationGUIDHash": checkin.traceLocationGUIDHash,
+			"traceLocationId": checkin.traceLocationId,
+			"traceLocationIdHash": checkin.traceLocationIdHash,
 			"traceLocationVersion": checkin.traceLocationVersion,
 			"traceLocationType": checkin.traceLocationType.rawValue,
 			"traceLocationDescription": checkin.traceLocationDescription,
@@ -74,7 +79,8 @@ class CreateCheckinQuery: StoreQueryProtocol {
 			"traceLocationStartDate": traceLocationStartDateInterval as Any,
 			"traceLocationEndDate": traceLocationEndDateInterval as Any,
 			"traceLocationDefaultCheckInLengthInMinutes": checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
-			"traceLocationSignature": checkin.traceLocationSignature,
+			"cryptographicSeed": checkin.cryptographicSeed,
+			"cnPublicKey": checkin.cnPublicKey,
 			"checkinStartDate": Int(checkin.checkinStartDate.timeIntervalSince1970),
 			"checkinEndDate": Int(checkin.checkinEndDate.timeIntervalSince1970),
 			"checkinCompleted": checkin.checkinCompleted,
