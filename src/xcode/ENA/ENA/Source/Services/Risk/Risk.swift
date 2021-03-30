@@ -47,7 +47,7 @@ extension Risk {
 			totalRiskLevel = .high
 		}
 
-		// 1. Filter for the dsired risk.
+		// 1. Filter for the desired risk.
 		// 2. Select the maximum by date (the most currrent).
 		let mostRecentDateWithRiskLevel = mergedRiskLevelPerDate.filter {
 			$1 == totalRiskLevel
