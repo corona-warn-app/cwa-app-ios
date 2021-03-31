@@ -115,8 +115,8 @@ class DiaryOverviewViewModel {
 		if isUITesting {
 			if let checkinRisk = UserDefaults.standard.string(forKey: "checkinRiskLevel") {
 				let rawValue = checkinRisk == "high" ? 2 : 1
-				let riskLevel = SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel(rawValue: rawValue)
-				return createFakeDataForCheckin(with: riskLevel ?? .low)
+				let riskLevel = RiskLevel(rawValue: rawValue)
+                return createFakeDataForCheckin(with: riskLevel ?? .low)
 			}
 		}
 		#endif
@@ -142,7 +142,7 @@ class DiaryOverviewViewModel {
 	
 	#if DEBUG
 	// needs to be injected here for the ui tests.
-	private func createFakeDataForCheckin(with risk: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel) -> [CheckinWithRisk] {
+	private func createFakeDataForCheckin(with risk: RiskLevel) -> [CheckinWithRisk] {
 		
 		let fakedCheckin1 = Checkin(
 			id: 0,

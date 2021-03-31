@@ -178,13 +178,11 @@ final class DiaryOverviewDayCellModel {
 			suffix = AppStrings.ContactDiary.Overview.CheckinEncounter.lowRisk
 		case .high:
 			suffix = AppStrings.ContactDiary.Overview.CheckinEncounter.highRisk
-		default:
-			suffix = ""
 		}
 		return isSinlgeRiskyCheckin ? checkinName : checkinName + " \(suffix)"
 	}
 	
-	func colorFor(riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel) -> UIColor {
+	func colorFor(riskLevel: RiskLevel) -> UIColor {
 		return riskLevel == .high ? .enaColor(for: .riskHigh) : .enaColor(for: .textPrimary2)
 	}
 
