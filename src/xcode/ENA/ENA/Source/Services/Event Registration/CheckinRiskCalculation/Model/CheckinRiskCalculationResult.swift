@@ -2,14 +2,27 @@
 // 🦠 Corona-Warn-App
 //
 
-extension SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel: Codable { }
-
 struct CheckinRiskCalculationResult: Codable {
+	let calculationDate: Date
 	let checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]]
-	let riskLevelPerDate: [Date: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel]
+	let riskLevelPerDate: [Date: RiskLevel]
 }
 
 struct CheckinIdWithRisk: Codable {
 	let checkinId: Int
-	let riskLevel: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel
+	let riskLevel: RiskLevel
+}
+
+extension CheckinRiskCalculationResult {
+
+	var riskLevel: RiskLevel {
+		// The Total Risk Level is High if there is least one Date with Risk Level per Date calculated as High; it is Low otherwise.
+		if riskLevelPerDate.contains(where: {
+			$0.value == .high
+		}) {
+			return .high
+		} else {
+			return .low
+		}
+	}
 }

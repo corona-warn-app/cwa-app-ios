@@ -23,7 +23,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -57,7 +57,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -91,7 +91,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -125,7 +125,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -159,7 +159,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -193,7 +193,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -227,7 +227,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -264,7 +264,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -300,7 +300,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -336,7 +336,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -372,7 +372,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -408,7 +408,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -444,7 +444,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -480,7 +480,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -515,7 +515,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -551,7 +551,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -589,7 +589,7 @@ class TraceWarningMatcherTests: XCTestCase {
 		}
 
 		let checkin = createDummyCheckin(
-			traceLocationId: "fe84394e73838590cc7707aba0350c130f6d0fb6f0f2535f9735f481dee61871",
+			traceLocationIdHash: "",
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate
 		)
@@ -605,14 +605,14 @@ class TraceWarningMatcherTests: XCTestCase {
 	}
 
 	private func createDummyCheckin(
-		traceLocationId: String,
+		traceLocationIdHash: String,
 		checkinStartDate: Date = Date(),
 		checkinEndDate: Date = Date()
 		) -> Checkin {
 		Checkin(
 			id: 0,
-			traceLocationId: traceLocationId.data(using: .utf8) ?? Data(),
-			traceLocationIdHash: traceLocationId.data(using: .utf8) ?? Data(),
+			traceLocationId: Data(),
+			traceLocationIdHash: traceLocationIdHash.data(using: .utf8) ?? Data(),
 			traceLocationVersion: 0,
 			traceLocationType: .locationTypePermanentCraft,
 			traceLocationDescription: "",

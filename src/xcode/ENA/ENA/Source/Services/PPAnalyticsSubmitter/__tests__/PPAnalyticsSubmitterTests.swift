@@ -453,7 +453,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let differenceInHoursBetweenChangeToHighRiskAndRegistrationDate = Calendar.current.dateComponents([.hour], from: dateOfRiskChangeToHigh ?? Date(), to: registrationDate).hour
 		let differenceInHoursBetweenRegistrationDateAndTestResult = Calendar.current.dateComponents([.hour], from: registrationDate, to: today).hour
 
-		let riskCalculationResult = RiskCalculationResult(
+		let enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
 			minimumDistinctEncountersWithHighRisk: 2,
@@ -465,7 +465,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 			riskLevelPerDate: [:],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
-		store.riskCalculationResult = riskCalculationResult
+		store.enfRiskCalculationResult = enfRiskCalculationResult
 		store.dateOfConversionToHighRisk = dateOfRiskChangeToHigh
 		
 		Analytics.collect(.testResultMetadata(.registerNewTestMetadata(registrationDate, registrationToken)))
@@ -520,7 +520,7 @@ class PPAnalyticsSubmitterTests: XCTestCase {
 		let riskLevel: RiskLevel = .high
 		let mostRecentDayWithRisk = Calendar.current.date(byAdding: .day, value: -5, to: Date())
 
-		let riskCalculationResult = RiskCalculationResult(
+		let riskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 6,
 			minimumDistinctEncountersWithHighRisk: 2,

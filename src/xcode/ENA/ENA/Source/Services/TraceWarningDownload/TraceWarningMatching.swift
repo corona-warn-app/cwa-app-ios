@@ -59,9 +59,9 @@ final class TraceWarningMatcher: TraceWarningMatching {
 	func matchAndStore(package: SAP_Internal_Pt_TraceWarningPackage) {
 		for warning in package.timeIntervalWarnings {
 
-			// Filter checkins with same GUID hash.
+			// Filter checkins with same id hash.
 			var checkins: [Checkin] = eventStore.checkinsPublisher.value.filter {
-				$0.traceLocationId == warning.locationIDHash
+				$0.traceLocationIdHash == warning.locationIDHash
 			}
 
 			// Filter checkins where the warning overlaps the timeframe.

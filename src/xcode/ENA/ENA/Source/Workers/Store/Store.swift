@@ -59,7 +59,7 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
-	var riskCalculationResult: RiskCalculationResult? { get set }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? { get set }
 
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
 
@@ -118,7 +118,7 @@ protocol StoreProtocol: AnyObject {
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
 
-	var mostRecentRiskCalculation: RiskCalculation? { get set }
+	var mostRecentRiskCalculation: ENFRiskCalculation? { get set }
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 

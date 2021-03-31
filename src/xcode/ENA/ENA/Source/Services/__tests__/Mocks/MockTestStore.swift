@@ -15,7 +15,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var riskCalculationResult: RiskCalculationResult?
+	var enfRiskCalculationResult: ENFRiskCalculationResult?
 	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var testResultReceivedTimeStamp: Int64?
@@ -64,7 +64,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var mostRecentRiskCalculation: RiskCalculation?
+	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false

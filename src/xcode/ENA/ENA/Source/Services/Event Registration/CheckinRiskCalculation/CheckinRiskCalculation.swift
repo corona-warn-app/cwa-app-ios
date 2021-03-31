@@ -5,7 +5,11 @@
 import Foundation
 import OpenCombine
 
-final class CheckinRiskCalculation {
+protocol CheckinRiskCalculationProtocol {
+	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult
+}
+
+final class CheckinRiskCalculation: CheckinRiskCalculationProtocol {
 
 	struct CheckinWithRiskLevel {
 		let checkin: Checkin
@@ -17,37 +21,17 @@ final class CheckinRiskCalculation {
 
 	init(
 		eventStore: EventStoringProviding,
-		keyValueStore: Store,
 		checkinSplittingService: CheckinSplittingService,
-		traceWarningMatcher: TraceWarningMatching,
-		appConfigProvider: AppConfigurationProviding
+		traceWarningMatcher: TraceWarningMatching
 	) {
 		self.eventStore = eventStore
-		self.keyValueStore = keyValueStore
 		self.checkinSplittingService = checkinSplittingService
 		self.traceWarningMatcher = traceWarningMatcher
-		self.appConfigProvider = appConfigProvider
 	}
 
-	// MARK: - Internal
+	// MARK: - Protocol CheckinRiskCalculationProtocol
 
-	func calculateRisk(completion: @escaping () -> Void) {
-		appConfigProvider.appConfiguration().sink { [weak self] config in
-			self?.calculateRisk(with: config)
-			completion()
-		}.store(in: &subscriptions)
-	}
-
-	// MARK: - Private
-
-	private let eventStore: EventStoringProviding
-	private let keyValueStore: Store
-	private let checkinSplittingService: CheckinSplittingService
-	private let traceWarningMatcher: TraceWarningMatching
-	private let appConfigProvider: AppConfigurationProviding
-	private var subscriptions = Set<AnyCancellable>()
-
-	private func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) {
+	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
 		let transmissionRiskValueMapping = config.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 		let normalizedTimePerCheckInToRiskLevelMapping = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerCheckInToRiskLevelMapping
 		let normalizedTimePerDayToRiskLevelMapping = config.presenceTracingParameters.riskCalculationParameters.normalizedTimePerDayToRiskLevelMapping
@@ -116,22 +100,15 @@ final class CheckinRiskCalculation {
 
 		//	1. Determine Check-in ID with Risk Level per Date: group the (split) check-ins by the date of Check-in StartDate (considering only date information, no time information) and store the ID of the (split) check-in (from Database Table for CheckIns) and the calculated Risk Level
 
-		let checkinsRiskLevelPerDate = checkinsWithRiskLevel.reduce(into: [Date: [CheckinWithRiskLevel]]()) {
-			let checkinDate = uctCalendar.startOfDay(for: $1.checkin.checkinStartDate)
-
-			if var checkinsPerDate = $0[checkinDate] {
-				checkinsPerDate.append($1)
-				$0[checkinDate] = checkinsPerDate
-			} else {
-				$0[checkinDate] = [$1]
-			}
-		}
+		let checkinsRiskLevelPerDate: [Date: [CheckinWithRiskLevel]] = Dictionary(grouping: checkinsWithRiskLevel, by: {
+			uctCalendar.startOfDay(for: $0.checkin.checkinStartDate)
+		})
 
 		let checkinIdsWithRiskPerDate = checkinsRiskLevelPerDate.mapValues {
 			$0.map {
 				CheckinIdWithRisk(
 					checkinId: $0.checkin.id,
-					riskLevel: $0.riskLevel
+					riskLevel: RiskLevel(from: $0.riskLevel)
 				)
 			}
 		}
@@ -144,23 +121,34 @@ final class CheckinRiskCalculation {
 			$0.reduce(0) { $0 + $1.normalizedTime }
 		}
 
-		let riskLevelPerDate: [Date: SAP_Internal_V2_NormalizedTimeToRiskLevelMapping.RiskLevel] = normalizedTimePerDates.compactMapValues { value in
+		let riskLevelPerDate: [Date: RiskLevel] = normalizedTimePerDates.compactMapValues { value in
 			let riskLevel = normalizedTimePerDayToRiskLevelMapping.first(where: {
 				let range = ENARange(from: $0.normalizedTimeRange)
 				return range.contains(value)
 			}).map {
 				$0.riskLevel
 			}
-			return riskLevel
+
+			if let riskLevel = riskLevel {
+				return RiskLevel(from: riskLevel)
+			} else {
+				return nil
+			}
 		}
 
-		//	Store Aggregated Results from Check-Ins
-
-		keyValueStore.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+		return CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: checkinIdsWithRiskPerDate,
 			riskLevelPerDate: riskLevelPerDate
 		)
 	}
+
+	// MARK: - Private
+
+	private let eventStore: EventStoringProviding
+	private let checkinSplittingService: CheckinSplittingService
+	private let traceWarningMatcher: TraceWarningMatching
+	private var subscriptions = Set<AnyCancellable>()
 
 	private lazy var uctCalendar: Calendar = {
 		Calendar.utc()

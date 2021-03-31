@@ -133,7 +133,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		let todayMinus5Days = try XCTUnwrap(dateFormatter.date(from: todayMinus5DaysString))
 		
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -170,7 +170,7 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		let todayMinus7Days = try XCTUnwrap(dateFormatter.date(from: todayMinus7DaysString))
 		
 		let store = MockTestStore()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 1,
