@@ -63,8 +63,15 @@ struct ExposureSubmissionQRInfoViewModel {
 				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList)
 			])
 		)
+		
+		// Check-Ins
+		model.add(
+			.section(cells: [
+				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection3)
+			])
+		)
 
-		// Ihr Einverständnis
+		// Ihr Einverständnis – legal text
 		model.add(
 			.section(cells: [
 				.acknowledgement2(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),

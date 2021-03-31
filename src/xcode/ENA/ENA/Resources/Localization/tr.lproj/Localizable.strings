@@ -777,6 +777,14 @@
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
 
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Onayınız gönüllülük esasına dayalıdır.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
+
 "ExposureSubmissionWarnOthers_continueButton" = "Kabul Et";
 
 /* Exposure Submission Result */

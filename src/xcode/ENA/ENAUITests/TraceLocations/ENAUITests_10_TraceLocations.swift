@@ -40,6 +40,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 		// WHEN
 		app.launch()
+		app.swipeUp()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].exists)
 		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
 		
@@ -55,6 +56,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 		// WHEN
 		app.launch()
+		app.swipeUp()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].exists)
 		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
 		
