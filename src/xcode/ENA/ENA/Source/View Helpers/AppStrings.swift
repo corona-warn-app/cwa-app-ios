@@ -149,7 +149,6 @@ enum AppStrings {
 		static let imageDescription = NSLocalizedString("ExposureSubmissionQRInfo_imageDescription", comment: "")
 		static let titleDescription = NSLocalizedString("ExposureSubmissionQRInfo_title_description", comment: "")
 		static let headerSection1 = NSLocalizedString("ExposureSubmissionQRInfo_header_section_1", comment: "")
-		static let bodySection1 = NSLocalizedString("ExposureSubmissionQRInfo_body_section_1", comment: "")
 		static let instruction1 = NSLocalizedString("ExposureSubmissionQRInfo_instruction1", comment: "")
 		static let instruction2 = NSLocalizedString("ExposureSubmissionQRInfo_instruction2", comment: "")
 		static let instruction3 = NSLocalizedString("ExposureSubmissionQRInfo_instruction3", comment: "")
@@ -158,14 +157,18 @@ enum AppStrings {
 		static let bodySection2 = NSLocalizedString("ExposureSubmissionQRInfo_body_section_2", comment: "")
 		static let acknowledgementTitle = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_title", tableName: "Localizable.legal", comment: "")
 		static let acknowledgementBody = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_body", tableName: "Localizable.legal", comment: "")
-		static let acknowledgement1_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_1_1", tableName: "Localizable.legal", comment: "")
-		static let acknowledgement1_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_1_2", tableName: "Localizable.legal", comment: "")
-		static let acknowledgement2_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_2_1", tableName: "Localizable.legal", comment: "")
-		static let acknowledgement2_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_2_2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet1_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet1_1", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet1_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet1_2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet3 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet3", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementWithdrawConsent = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementWithdrawConsent", tableName: "Localizable.legal", comment: "")
+		
+		
 		static let acknowledgement3 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_3", comment: "")
 		static let acknowledgement4 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_4", comment: "")
 		static let acknowledgement5 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_5", comment: "")
 		static let acknowledgement6 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_6", comment: "")
+		static let acknowledgement7 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_7", comment: "")
 		static let primaryButtonTitle = NSLocalizedString("ExposureSubmissionQRInfo_primaryButtonTitle", comment: "")
 	}
 
@@ -1347,6 +1350,14 @@ enum AppStrings {
 
 	enum Checkins {
 
+		enum Edit {
+			static let primaryButtonTitle = NSLocalizedString("Checkins_Edit_PrimaryButton_Title", comment: "")
+			static let sectionHeaderTitle = NSLocalizedString("Checkins_Edit_Section_Title", comment: "")
+			static let checkedIn = NSLocalizedString("Checkins_Edit_CheckedIn", comment: "")
+			static let checkedOut = NSLocalizedString("Checkins_Edit_CheckedOut", comment: "")
+			static let notice = NSLocalizedString("Checkins_Edit_Notice", comment: "")
+		}
+
 		enum QRScanner {
 			static let title = NSLocalizedString("Checkins_QR_Scanner_Title", comment: "")
 			static let checkinsButton = NSLocalizedString("Checkin_Qr_Scanner_Button_CheckIns", comment: "")
@@ -1545,7 +1556,14 @@ enum AppStrings {
 
 		enum Configuration {
 			static let title = NSLocalizedString("TraceLocations_Configuration_Title", comment: "")
+			static let descriptionPlaceholder = NSLocalizedString("TraceLocations_Configuration_DescriptionPlaceholder", comment: "")
+			static let addressPlaceholder = NSLocalizedString("TraceLocations_Configuration_AddressPlaceholder", comment: "")
+			static let startDateTitle = NSLocalizedString("TraceLocations_Configuration_StartDateTitle", comment: "")
+			static let endDateTitle = NSLocalizedString("TraceLocations_Configuration_EndDateTitle", comment: "")
+			static let defaultCheckinLengthTitle = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthTitle", comment: "")
+			static let defaultCheckinLengthFootnote = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthFootnote", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TraceLocations_Configuration_PrimaryButtonTitle", comment: "")
+			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
 		}
 	}
 

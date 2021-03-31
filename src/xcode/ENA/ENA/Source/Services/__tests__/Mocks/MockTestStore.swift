@@ -101,8 +101,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	
 	// MARK: - EventRegistrationCaching
 
-	var checkinInfoScreenShown: Bool = false
-	var traceLocationsInfoScreenShown: Bool = false
+	var checkinInfoScreenShown = false
+	var traceLocationsInfoScreenShown = false
 	var shouldAddCheckinToContactDiaryByDefault = true
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
 }

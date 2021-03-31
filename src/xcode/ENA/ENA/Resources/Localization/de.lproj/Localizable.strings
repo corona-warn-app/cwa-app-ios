@@ -417,9 +417,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr iPhone per Bluetooth verschlüsselte Zufalls-IDs anderer App nutzenden Personen empfängt und Ihre eigenen Zufalls-IDs an deren Smartphones weitergibt. Die Risiko-Ermittlung lässt sich jederzeit deaktivieren.\n\nDie verschlüsselten Zufalls-IDs geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Rückschlüsse auf einzelne Personen sind anhand der Zufalls-IDs nicht möglich.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "App-Nutzung ab 16 Jahren";
 
@@ -445,9 +445,9 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken erkennen";
 
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Quarantäne begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Onboarding EU Keys */
 
@@ -559,9 +559,7 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_header_section_1" = "Testergebnis abrufen";
 
-"ExposureSubmissionQRInfo_body_section_1" = "Scannen Sie im nächsten Schritt den QR-Code auf Ihrem Test und rufen Sie Ihr Testergebnis ab.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Bitte scannen Sie nur Ihren eigenen Test.";
+"ExposureSubmissionQRInfo_instruction1" = "Scannen Sie nun per QR-Code Ihren eigenen Test und rufen Sie Ihr Testergebnis ab.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Ihr Test kann nur einmal gescannt werden. Die App kann nicht gleichzeitig mehrere Tests verwalten.";
 
@@ -573,13 +571,15 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_body_section_2" = "Wenn Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Ihr Einverständnis ist freiwillig.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Unter „Meine Check-ins“ können Sie Ihre Events und Orte einsehen, deren eingecheckte Gäste gewarnt werden. Sie können einzelne Check-Ins auch entfernen und so von der Warnung ausschließen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "Erteilen Sie im nächsten Schritt Ihre Erlaubnis zum Zugriff auf die Zufalls-IDs.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Einverstanden";
 
@@ -2099,23 +2099,23 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 /* Trace Location Configuration */
 
- "TraceLocations_Configuration_Title" = "QR-Code erstellen";
+"TraceLocations_Configuration_Title" = "QR-Code erstellen";
 
- "TraceLocations_Configuration_DescriptionPlaceholder" = "Bezeichnung";
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Bezeichnung";
 
- "TraceLocations_Configuration_AddressPlaceholder" = "Ort";
+"TraceLocations_Configuration_AddressPlaceholder" = "Ort";
 
- "TraceLocations_Configuration_StartDateTitle" = "Beginn";
+"TraceLocations_Configuration_StartDateTitle" = "Beginn";
 
- "TraceLocations_Configuration_EndDateTitle" = "Ende";
+"TraceLocations_Configuration_EndDateTitle" = "Ende";
 
- "TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typische Aufenthaltsdauer";
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typische Aufenthaltsdauer";
 
- "TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Geben Sie an, wie lange sich Gäste üblicherweise bei Ihnen aufhalten.";
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Geben Sie an, wie lange sich Gäste üblicherweise bei Ihnen aufhalten.";
 
- "TraceLocations_Configuration_PrimaryButtonTitle" = "Speichern";
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Speichern";
 
- "TraceLocations_Configuration_HoursUnit" = "%@ Std.";
+"TraceLocations_Configuration_HoursUnit" = "%@ Std.";
 
 /* Error Reporting */
 
