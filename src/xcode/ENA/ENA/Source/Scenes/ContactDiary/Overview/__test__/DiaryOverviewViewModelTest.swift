@@ -226,8 +226,9 @@ class DiaryOverviewViewModelTest: XCTestCase {
 		let checkinOne = CheckinIdWithRisk(checkinId: checkinId1, riskLevel: .low)
 		let checkinTwo = CheckinIdWithRisk(checkinId: checkinId2, riskLevel: .high)
 		let checkinRiskCalculation = CheckinRiskCalculationResult(
-			checkinIdsWithRiskPerDate: [todayMinus5Days: [checkinOne, checkinTwo]],
-			riskLevelPerDate: [:]
+            calculationDate: today,
+            checkinIdsWithRiskPerDate: [todayMinus5Days: [checkinOne, checkinTwo]],
+            riskLevelPerDate: [:]
 		)
 		
 		store.checkinRiskCalculationResult = checkinRiskCalculation
