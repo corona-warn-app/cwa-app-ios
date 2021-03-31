@@ -21,17 +21,19 @@
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Your Consent";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Your Consent";
 
-"ExposureSubmissionQRInfo_acknowledgement_body" = "By tapping on “Accept”, you consent to the following steps:";
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "By tapping on “Accept”, you consent to the following steps:";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_1" = "The app will retrieve your test result.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "The app will retrieve your test result.";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_2" = "If you change your mind later, you can delete the test in the app.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "If you change your mind later, you can delete the test in the app.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_1" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered. This includes users of the official coronavirus apps of the countries mentioned above. If you provide additional information about the onset of your symptoms, this will also be shared.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "If you have tested positive for coronavirus, the app will share your test result in order to warn other users whom you have encountered. This applies to users of coronavirus apps from the above countries and users who were simultaneously checked in at the same event or place as you.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "You can withdraw your consent at any time. The setting for this can be found under “Display Test”. Before sharing your test result, you will be reminded of your consent and asked to confirm your willingness to share your test result.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "If you provide additional information about the onset of your symptoms, this will also be shared.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "You can withdraw your consent at any time. The setting for this can be found under “Display Test”. Before sharing your test result, you will be reminded of your consent.";
 
 /* Automatic share submission result consent */
 
