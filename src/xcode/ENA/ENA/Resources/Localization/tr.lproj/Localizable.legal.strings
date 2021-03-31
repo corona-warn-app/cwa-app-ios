@@ -21,17 +21,19 @@
 
 /* Exposure Submission QR Code Info */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Rıza Beyanınız";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Rıza Beyanınız";
 
-"ExposureSubmissionQRInfo_acknowledgement_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Uygulama, test sonucunuzu çağırır.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "Uygulama, test sonucunuzu çağırır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Daha sonra fikrinizi değiştirirseniz, söz konusu testi Uygulamadan kaldırabilirsiniz.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "Korona testiniz pozitif çıkmışsa, Uygulama karşılaştığınız kullanıcıları uyarmak üzere test sonucunuzu paylaşır. Bu, yukarıda belirtilen ülkelerdeki resmi Korona uygulamalarının kullanıcıları için geçerlidir. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi Göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirilecek ve test sonucunuzu yayınlamaya izin vermeniz istenecektir.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
+
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "Verdiğiniz rıza beyanını istediğiniz zaman geri alabilirsiniz. Bunun ayarını, “Testi Göster” altında bulabilirsiniz. Paylaşmadan önce, rıza beyanınıza ilişkin yeniden bilgilendirileceksiniz.";
 
 /* Automatic share submission result consent */
 
