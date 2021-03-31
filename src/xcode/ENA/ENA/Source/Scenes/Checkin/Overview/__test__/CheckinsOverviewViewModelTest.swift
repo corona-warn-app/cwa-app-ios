@@ -10,8 +10,14 @@ import OpenCombine
 class CheckinsOverviewViewModelTest: XCTestCase {
 
 	func testNumberOfSections() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -26,6 +32,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -41,6 +51,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .notDetermined }
 		)
@@ -51,8 +65,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testNumberOfRowsWithCameraPermissionDenied() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -63,8 +83,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testNumberOfRowsWithCameraPermissionRestricted() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .restricted }
 		)
@@ -75,8 +101,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testIsEmptyOnEmptyEntriesSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -89,6 +121,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -96,8 +132,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithCameraPermission() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -106,8 +148,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithoutCameraPermission() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -121,6 +169,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -134,6 +186,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -142,8 +198,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testCanEditRowForAddSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -151,8 +213,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testCanEditRowForMissingPermissionSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -160,8 +228,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testCanEditRowForEntriesSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -178,6 +252,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: {
 				XCTAssertEqual($0.traceLocationId, "137".data(using: .utf8))
 				cellTapExpectation.fulfill()
@@ -199,6 +277,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -224,6 +306,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -244,6 +330,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -256,8 +346,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		let reloadExpectation = expectation(description: "shouldReload published")
 		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for camera permission
 
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -293,6 +389,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -309,6 +409,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -338,6 +442,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -370,6 +478,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 

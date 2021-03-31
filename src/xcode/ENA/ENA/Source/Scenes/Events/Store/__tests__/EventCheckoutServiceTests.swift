@@ -36,7 +36,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			id: checkinId,
 			checkinEndDate: checkinEndDate
 		)
-		eventCheckoutService.checkout(checkin: checkinWithId, showNotification: false)
+		eventCheckoutService.checkout(checkin: checkinWithId, manually: false)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
 		mockEventStore.checkinsPublisher.sink { checkins in
@@ -70,7 +70,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			id: checkinId,
 			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
 		)
-		eventCheckoutService.checkout(checkin: checkinWithId, showNotification: false)
+		eventCheckoutService.checkout(checkin: checkinWithId, manually: false)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
 		mockDiaryStore.diaryDaysPublisher.sink { diaryDays in
@@ -109,7 +109,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			userNotificationCenter: mockNotificationCenter
 		)
 		let checkinWithId = makeDummyCheckin(id: checkinId)
-		eventCheckoutService.checkout(checkin: checkinWithId, showNotification: true)
+		eventCheckoutService.checkout(checkin: checkinWithId, manually: true)
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 1)
 	}
