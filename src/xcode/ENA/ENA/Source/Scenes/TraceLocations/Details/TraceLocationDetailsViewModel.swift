@@ -55,7 +55,7 @@ class TraceLocationDetailsViewModel {
 	}
 	
 	var qrCode: UIImage? {
-		guard let qrCodeImage = traceLocation.generateQRCode(size: CGSize(width: 300, height: 300)) else { return nil }
+		guard let qrCodeImage = traceLocation.qrCode(size: CGSize(width: 300, height: 300)) else { return nil }
 		return qrCodeImage
 	}
 

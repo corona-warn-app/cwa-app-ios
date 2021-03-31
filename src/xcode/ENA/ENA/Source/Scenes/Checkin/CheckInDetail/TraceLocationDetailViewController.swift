@@ -82,9 +82,10 @@ class TraceLocationDetailViewController: UIViewController {
 	
 	private func setupLabels() {
 		checkInForLabel.text = AppStrings.Checkins.Details.checkinFor
-		activityLabel.text = AppStrings.Checkins.Details.activity
 		saveToDiaryLabel.text = AppStrings.Checkins.Details.saveToDiary
 		automaticCheckOutLabel.text = AppStrings.Checkins.Details.automaticCheckout
+
+		activityLabel.text = viewModel.locationType
 		descriptionLabel.text = viewModel.locationDescription
 		addressLabel.text = viewModel.locationAddress
 	}

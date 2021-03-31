@@ -120,8 +120,8 @@ enum PPAnalyticsCollector {
 		}
 	}
 
-	private static func updateRiskExposureMetadata(_ riskCalculationResult: RiskCalculationResult) {
-		let riskLevel = riskCalculationResult.riskLevel
+	private static func updateRiskExposureMetadata(_ enfRiskCalculationResult: ENFRiskCalculationResult) {
+		let riskLevel = enfRiskCalculationResult.riskLevel
 		let riskLevelChangedComparedToPreviousSubmission: Bool
 		let dateChangedComparedToPreviousSubmission: Bool
 
@@ -142,7 +142,7 @@ enum PPAnalyticsCollector {
 
 		// if there is most recent date store for previous submission
 		if store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel != nil {
-			if riskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
+			if enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel !=
 				store?.previousRiskExposureMetadata?.mostRecentDateAtRiskLevel {
 				// if there is a change in date
 				dateChangedComparedToPreviousSubmission = true
@@ -155,7 +155,7 @@ enum PPAnalyticsCollector {
 			dateChangedComparedToPreviousSubmission = false
 		}
 
-		guard let mostRecentDateWithCurrentRiskLevel = riskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
+		guard let mostRecentDateWithCurrentRiskLevel = enfRiskCalculationResult.mostRecentDateWithCurrentRiskLevel else {
 			// most recent date is not available because of no exposure
 			let newRiskExposureMetadata = RiskExposureMetadata(
 				riskLevel: riskLevel,
@@ -192,7 +192,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func registerNewTestMetadata(_ date: Date = Date(), _ token: String) {
-		guard let riskCalculationResult = store?.riskCalculationResult else {
+		guard let riskCalculationResult = store?.enfRiskCalculationResult else {
 			Log.warning("Could not register new test meta data due to riskCalculationResult is nil", log: .ppa)
 			return
 		}
@@ -330,7 +330,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration() {
-		guard let numberOfDaysWithCurrentRiskLevel = store?.riskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
+		guard let numberOfDaysWithCurrentRiskLevel = store?.enfRiskCalculationResult?.numberOfDaysWithCurrentRiskLevel  else {
 			Log.warning("Could not log daysSinceMostRecentDateAtRiskLevelAtTestRegistration due to numberOfDaysWithCurrentRiskLevel is nil", log: .ppa)
 			return
 		}
@@ -338,7 +338,7 @@ enum PPAnalyticsCollector {
 	}
 
 	private static func setHoursSinceHighRiskWarningAtTestRegistration() {
-		guard let riskLevel = store?.riskCalculationResult?.riskLevel  else {
+		guard let riskLevel = store?.enfRiskCalculationResult?.riskLevel  else {
 			Log.warning("Could not log hoursSinceHighRiskWarningAtTestRegistration due to riskLevel is nil", log: .ppa)
 			return
 		}

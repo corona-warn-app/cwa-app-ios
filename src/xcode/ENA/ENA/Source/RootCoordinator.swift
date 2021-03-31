@@ -28,11 +28,13 @@ class RootCoordinator: RequiresAppDependencies {
 		_ delegate: CoordinatorDelegate,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
+		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
+		self.eventCheckoutService = eventCheckoutService
 		self.otpService = otpService
 	}
 
@@ -69,12 +71,17 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
+			eventStore: eventStore,
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
 		
 		// Setup checkin coordinator after app reset
-		let checkInCoordinator = CheckinCoordinator(store: store, eventStore: eventStore)
+		let checkInCoordinator = CheckinCoordinator(
+			store: store,
+			eventStore: eventStore,
+			eventCheckoutService: eventCheckoutService
+		)
 		self.checkInCoordinator = checkInCoordinator
 
 		// Tabbar
@@ -127,15 +134,10 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		let checkInNavigationController = checkInCoordinator.viewController
-		guard checkInNavigationController.topViewController as? UITableViewController != nil,
-			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 		tabBarController.selectedIndex = index
-		
-//		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-//
-//		}
 		checkInCoordinator.showTraceLocationDetails(traceLocation)
 	}
 
@@ -152,6 +154,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	private let otpService: OTPServiceProviding
 	private let tabBarController = UITabBarController()
 
@@ -162,7 +165,8 @@ class RootCoordinator: RequiresAppDependencies {
 	private(set) lazy var checkInCoordinator: CheckinCoordinator = {
 		CheckinCoordinator(
 			store: store,
-			eventStore: eventStore
+			eventStore: eventStore,
+			eventCheckoutService: eventCheckoutService
 		)
 	}()
 
