@@ -177,9 +177,9 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"otp"
-			)
+				)
 		}
-
+		
 		var ppaSubmitURL: URL {
 			endpoints
 				.dataDonation
@@ -188,7 +188,34 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"dat"
-			)
+				)
+		}
+		
+		func traceWarningPackageDiscoveryURL(country: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour"
+				)
+		}
+		
+		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour",
+					String(packageId)
+				)
 		}
 		
 		var qrCodePosterTemplateURL: URL {

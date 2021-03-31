@@ -133,15 +133,10 @@ class RootCoordinator: RequiresAppDependencies {
 			return
 		}
 		let checkInNavigationController = checkInCoordinator.viewController
-		guard checkInNavigationController.topViewController as? UITableViewController != nil,
-			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
+		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 		tabBarController.selectedIndex = index
-		
-//		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-//
-//		}
 		checkInCoordinator.showTraceLocationDetails(traceLocation)
 	}
 

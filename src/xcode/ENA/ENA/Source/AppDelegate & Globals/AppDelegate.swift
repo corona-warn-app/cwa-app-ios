@@ -80,17 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		// Check for any URLs passed into the app – most likely via scanning a QR code
-		var route: Route?
-		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
-			for key in activityDictionary.keys {
-				if let userActivity = activityDictionary[key] as? NSUserActivity {
-					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-						route = Route(url: url)
-						break
-					}
-				}
-			}
-		}
+		let route = routeForScannedQRCode(in: launchOptions)
 		setupUI(route)
 		setupQuickActions()
 
@@ -144,6 +134,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		Log.info("Application did enter background.", log: .background)
 	}
 
+	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+		// handle QR cdes scanned in the camera app
+		guard
+			userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+			let incomingURL = userActivity.webpageURL,
+			let route = Route(url: incomingURL),
+			store.isOnboarded
+		else {
+			return false
+		}
+		showHome(route)
+		return true
+	}
+
 	// MARK: - Protocol CoronaWarnAppDelegate
 
 	let client: HTTPClient
@@ -188,6 +192,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			wifiClient: wifiClient,
 			store: store
 		)
+		
+		let traceWarningPackageDownload = TraceWarningPackageDownload(
+			client: client,
+			store: store,
+			eventStore: eventStore
+		)
+
+		let checkinRiskCalculation = CheckinRiskCalculation(
+			eventStore: eventStore,
+			checkinSplittingService: CheckinSplittingService(),
+			traceWarningMatcher: TraceWarningMatcher(eventStore: eventStore)
+		)
 
 		#if !RELEASE
 		return RiskProvider(
@@ -195,8 +211,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
-			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			enfRiskCalculation: DebugRiskCalculation(riskCalculation: ENFRiskCalculation(), store: store),
+			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#else
@@ -205,7 +223,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
+			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
+			traceWarningPackageDownload: traceWarningPackageDownload,
 			exposureDetectionExecutor: exposureDetectionExecutor
 		)
 		#endif
@@ -302,12 +322,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
 		exposureSubmissionService.reset()
 
-		// Reset key value store. Preserve environment settings.
+		// Reset key value store. Preserve some values.
 
 		do {
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
 			/// - App installation date
+			/// - Environment setting
 			///
 			/// read values from the current store
 			let ppacAPIToken = store.ppacApiToken
@@ -375,6 +396,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureDetector: self.exposureManager
 		)
 	}()
+
+	/// Prepare handling of scanned QR codes
+	///
+	/// - Parameter launchOptions: Launch options passed on app launch
+	/// - Returns: A `Route` if a valid URL is passed in the launch options
+	private func routeForScannedQRCode(in launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
+		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
+			return nil
+		}
+
+		for key in activityDictionary.keys {
+			if let userActivity = activityDictionary[key] as? NSUserActivity,
+			   userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+			   let url = userActivity.webpageURL {
+				return Route(url: url)
+			}
+		}
+
+		return nil
+	}
 
 	private func showError(_ riskProviderError: RiskProviderError) {
 		guard let rootController = window?.rootViewController else {
