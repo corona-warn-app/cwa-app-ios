@@ -91,12 +91,40 @@ final class CheckinCoordinator {
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(
 			store: eventStore,
-			onEntryCellTap: { checkin in
-				Log.debug("Checkin cell tapped: \(checkin)")
+			onEntryCellTap: { [weak self] checkin in
+				self?.showEditCheckIn(checkin)
 			}
 		)
 	}()
-	
+
+	private func showEditCheckIn(_ checkIn: Checkin) {
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Edit.primaryButtonTitle,
+				secondaryButtonName: nil,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .cellBackground)
+			)
+		)
+
+		let editCheckInViewController = EditCheckinDetailViewController(
+			eventStore: eventStore,
+			checkIn: checkIn,
+			dismiss: { [weak self] in
+				self?.viewController.dismiss(animated: true)
+			}
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: editCheckInViewController,
+			bottomController: footerViewController
+		)
+		viewController.present(topBottomContainerViewController, animated: true)
+	}
+
 	private func showQRCodeScanner() {
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
 
@@ -118,7 +146,7 @@ final class CheckinCoordinator {
 		}
 	}
 	
-	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
+	func showTraceLocationDetails(_ traceLocation: TraceLocation) {
 		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: store)
 		let traceLocationDetailViewController = TraceLocationDetailViewController(
 			viewModel,

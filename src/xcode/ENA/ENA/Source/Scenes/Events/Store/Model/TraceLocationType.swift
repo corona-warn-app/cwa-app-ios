@@ -114,4 +114,7 @@ enum TraceLocationType: Int {
 		.locationTypeTemporaryOther
 	]
 
+	init(traceLocationTypeProtobuf: SAP_Internal_Pt_TraceLocationType) {
+		self = TraceLocationType(rawValue: traceLocationTypeProtobuf.rawValue) ?? .locationTypeUnspecified
+	}
 }

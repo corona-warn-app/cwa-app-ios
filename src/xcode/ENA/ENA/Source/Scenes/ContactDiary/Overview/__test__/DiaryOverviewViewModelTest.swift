@@ -105,11 +105,11 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
-
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
+		let todayMinus5Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -5, to: today))
 
-		let todayMinus5Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -5, to: today))
+
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
@@ -139,11 +139,10 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
-
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
-
-		let todayMinus7Days = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: -7, to: today))
+		let todayMinus7Days = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -7, to: today))
+		
 		let store = MockTestStore()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
