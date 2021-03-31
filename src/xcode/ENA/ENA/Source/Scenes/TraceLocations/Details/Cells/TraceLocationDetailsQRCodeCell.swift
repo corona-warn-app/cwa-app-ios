@@ -59,7 +59,8 @@ class TraceLocationDetailsQRCodeCell: UITableViewCell, ReuseIdentifierProviding 
 			qrCodeView.topAnchor.constraint(equalTo: tileView.topAnchor),
 			qrCodeView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor),
 			qrCodeView.leadingAnchor.constraint(equalTo: tileView.leadingAnchor),
-			qrCodeView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor)
+			qrCodeView.trailingAnchor.constraint(equalTo: tileView.trailingAnchor),
+			qrCodeView.widthAnchor.constraint(equalTo: qrCodeView.heightAnchor)
 		])
 	}
 }

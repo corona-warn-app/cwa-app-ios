@@ -10,10 +10,12 @@ final class CheckinCoordinator {
 	// MARK: - Init
 	init(
 		store: Store,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		eventCheckoutService: EventCheckoutService
 	) {
 		self.store = store
 		self.eventStore = eventStore
+		self.eventCheckoutService = eventCheckoutService
 		
 		#if DEBUG
 		if isUITesting {
@@ -78,8 +80,10 @@ final class CheckinCoordinator {
 	}()
 	
 	// MARK: - Private
+
 	private let store: Store
 	private let eventStore: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	
 	private var subscriptions: [AnyCancellable] = []
 	
@@ -91,6 +95,7 @@ final class CheckinCoordinator {
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: eventCheckoutService,
 			onEntryCellTap: { [weak self] checkin in
 				guard checkin.checkinCompleted else {
 					Log.debug("Editing uncompleted checkin is not allowed", log: .default)

@@ -26,15 +26,15 @@ final class EventCheckoutService {
 
 	// MARK: - Internal
 
-	func checkout(checkin: Checkin, showNotification: Bool) {
-		let completedCheckin = checkin.completedCheckin()
+	func checkout(checkin: Checkin, manually: Bool) {
+		let completedCheckin = checkin.completedCheckin(manually: manually)
 		eventStore.updateCheckin(completedCheckin)
 
 		if completedCheckin.createJournalEntry {
 			createJournalEntry(of: completedCheckin)
 		}
 
-		if showNotification {
+		if !manually {
 			triggerNotificationForCheckout(of: completedCheckin)
 		}
 	}
@@ -45,14 +45,7 @@ final class EventCheckoutService {
 		}
 
 		overdueCheckins.forEach {
-			let completedCheckin = $0.completedCheckin()
-			eventStore.updateCheckin(completedCheckin)
-
-			if completedCheckin.createJournalEntry {
-				createJournalEntry(of: completedCheckin)
-			}
-
-			triggerNotificationForCheckout(of: completedCheckin)
+			self.checkout(checkin: $0, manually: false)
 		}
 	}
 
@@ -158,7 +151,7 @@ final class EventCheckoutService {
 }
 
 private extension Checkin {
-	func completedCheckin() -> Checkin {
+	func completedCheckin(manually: Bool) -> Checkin {
 		Checkin(
 			id: self.id,
 			traceLocationId: self.traceLocationId,
@@ -173,7 +166,7 @@ private extension Checkin {
 			cryptographicSeed: self.cryptographicSeed,
 			cnPublicKey: self.cnPublicKey,
 			checkinStartDate: self.checkinStartDate,
-			checkinEndDate: self.checkinEndDate,
+			checkinEndDate: manually ? Date() : self.checkinEndDate,
 			checkinCompleted: true,
 			createJournalEntry: self.createJournalEntry)
 	}
