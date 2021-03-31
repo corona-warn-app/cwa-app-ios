@@ -10,8 +10,8 @@ protocol DownloadedPackagesStoreV2: AnyObject {
 	func open()
 	func close()
 
-	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws
-	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws
+	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage?) throws
+	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage?) throws
 
 	/// Fetch key packages with a given ETag
 	/// - Parameter etag: The ETag to match or `nil` to fetch all packages that do not contain an ETag

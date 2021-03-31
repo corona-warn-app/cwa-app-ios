@@ -205,7 +205,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				title: "Purge Cache and request Risk",
 				style: .destructive
 			) { _ in
-				self.store.riskCalculationResult = nil
+				self.store.enfRiskCalculationResult = nil
+				self.store.checkinRiskCalculationResult = nil
 				self.riskProvider.requestRisk(userInitiated: true)
 			}
 		)

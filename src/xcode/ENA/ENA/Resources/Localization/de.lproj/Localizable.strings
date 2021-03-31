@@ -2058,6 +2058,12 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Overview_ActionSheet_EditTitle" = "Bearbeiten";
 
+/* Trace Location Details */
+
+"TraceLocations_Details_PrintVersionButtonTitle" = "Druckversion anzeigen";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Als Vorlage verwenden";
+
 /* Selection of a TraceLocations */
 "TraceLocations_TypeSelection_Title" = "QR-Code erstellen";
 
@@ -2218,8 +2224,6 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 "Checkin_Details_HoursShortVersion" = "%@ Std.";
 
 "Checkin_Details_CheckinFor" = "Einchecken für:";
-
-"Checkin_Details_Activity" = "Vereinsaktivität";
 
 "Checkin_Details_SaveToDiary" = "Nach dem Auschecken in mein Kontakt-Tagebuch eintragen?";
 
