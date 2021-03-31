@@ -79,20 +79,26 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testLowRiskStateWithEncounters() {
+		let mostRecentDateWithLowRisk = Calendar.utcCalendar.startOfDay(for: Date())
 
-		let mostRecentDateWithLowRisk = Date()
 		let calculationDate = Date()
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 2,
+			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: mostRecentDateWithLowRisk,
 			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 2,
+			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 0,
 			calculationDate: calculationDate,
 			riskLevelPerDate: [mostRecentDateWithLowRisk: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithLowRisk: .low]
 		)
 
 		let homeState = HomeState(
@@ -140,7 +146,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			viewModel.riskDetails,
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithLowRisk,
-				numberOfDaysWithRiskLevel: 2,
+				numberOfDaysWithRiskLevel: 1,
 				calculationDate: calculationDate
 			)
 		)
@@ -219,6 +225,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
 		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
+		)
 		
 		let homeState = HomeState(
 			store: store,
@@ -277,6 +289,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			calculationDate: calculationDate,
 			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
 		)
 
 		let homeState = HomeState(
@@ -376,6 +394,12 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			calculationDate: calculationDate,
 			riskLevelPerDate: [mostRecentDateWithHighRisk: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: calculationDate,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [mostRecentDateWithHighRisk: .high]
 		)
 
 		let homeState = HomeState(
@@ -632,17 +656,24 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 	
 	func testOnButtonTapInLowRiskStateAndManualMode() {
+		let date = Calendar.utcCalendar.startOfDay(for: Date())
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
-			minimumDistinctEncountersWithLowRisk: 2,
+			minimumDistinctEncountersWithLowRisk: 1,
 			minimumDistinctEncountersWithHighRisk: 0,
 			mostRecentDateWithLowRisk: Date(),
 			mostRecentDateWithHighRisk: nil,
-			numberOfDaysWithLowRisk: 2,
+			numberOfDaysWithLowRisk: 1,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .low],
+			calculationDate: date,
+			riskLevelPerDate: [date: .low],
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: date,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [date: .low]
 		)
 
 		let homeState = HomeState(
@@ -692,17 +723,25 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInHighRiskStateAndManualMode() {
+		let date = Calendar.utcCalendar.startOfDay(for: Date())
+
 		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
-			minimumDistinctEncountersWithHighRisk: 2,
+			minimumDistinctEncountersWithHighRisk: 1,
 			mostRecentDateWithLowRisk: nil,
 			mostRecentDateWithHighRisk: Date(),
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 1,
-			calculationDate: Date(),
-			riskLevelPerDate: [Date(): .high],
+			calculationDate: date,
+			riskLevelPerDate: [date: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [Date(): 1]
+		)
+
+		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: date,
+			checkinIdsWithRiskPerDate: [:],
+			riskLevelPerDate: [date: .low]
 		)
 
 		let homeState = HomeState(
