@@ -87,14 +87,14 @@ class DiaryOverviewViewModel {
 	private var subscriptions: [AnyCancellable] = []
 
 	private func historyExposure(by date: Date) -> HistoryExposure {
-		guard let riskLevelPerDate = secureStore.riskCalculationResult?.riskLevelPerDate[date] else {
+		guard let riskLevelPerDate = secureStore.enfRiskCalculationResult?.riskLevelPerDate[date] else {
 			return .none
 		}
 		return .encounter(riskLevelPerDate)
 	}
 
 	private func minimumDistinctEncountersWithHighRiskValue(by date: Date) -> Int {
-		guard let minimumDistinctEncountersWithHighRisk = secureStore.riskCalculationResult?.minimumDistinctEncountersWithHighRiskPerDate[date] else {
+		guard let minimumDistinctEncountersWithHighRisk = secureStore.enfRiskCalculationResult?.minimumDistinctEncountersWithHighRiskPerDate[date] else {
 			return -1
 		}
 		return minimumDistinctEncountersWithHighRisk

@@ -11,7 +11,7 @@ class RiskCalculationResultTests: XCTestCase {
 	func testGIVEN_InitRiskCalculationResult_THEN_AllValuesGetStored() {
 	// GIVEN
 		let today = Date()
-	let riskCalculationResult = RiskCalculationResult(
+	let enfRiskCalculationResult = ENFRiskCalculationResult(
 		riskLevel: .low,
 		minimumDistinctEncountersWithLowRisk: 0,
 		minimumDistinctEncountersWithHighRisk: 5,
@@ -25,15 +25,15 @@ class RiskCalculationResultTests: XCTestCase {
 	)
 
 	// THEN
-		XCTAssertEqual(riskCalculationResult.riskLevel, .low)
-		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithLowRisk, 0)
-		XCTAssertEqual(riskCalculationResult.minimumDistinctEncountersWithHighRisk, 5)
-		XCTAssertEqual(riskCalculationResult.mostRecentDateWithLowRisk, today)
-		XCTAssertEqual(riskCalculationResult.mostRecentDateWithHighRisk, today)
-		XCTAssertEqual(riskCalculationResult.numberOfDaysWithLowRisk, 10)
-		XCTAssertEqual(riskCalculationResult.numberOfDaysWithHighRisk, 3)
-		XCTAssertEqual(riskCalculationResult.calculationDate, today)
-		XCTAssertEqual(riskCalculationResult.riskLevelPerDate, [today: .high])
+		XCTAssertEqual(enfRiskCalculationResult.riskLevel, .low)
+		XCTAssertEqual(enfRiskCalculationResult.minimumDistinctEncountersWithLowRisk, 0)
+		XCTAssertEqual(enfRiskCalculationResult.minimumDistinctEncountersWithHighRisk, 5)
+		XCTAssertEqual(enfRiskCalculationResult.mostRecentDateWithLowRisk, today)
+		XCTAssertEqual(enfRiskCalculationResult.mostRecentDateWithHighRisk, today)
+		XCTAssertEqual(enfRiskCalculationResult.numberOfDaysWithLowRisk, 10)
+		XCTAssertEqual(enfRiskCalculationResult.numberOfDaysWithHighRisk, 3)
+		XCTAssertEqual(enfRiskCalculationResult.calculationDate, today)
+		XCTAssertEqual(enfRiskCalculationResult.riskLevelPerDate, [today: .high])
 	}
 
 
@@ -54,7 +54,7 @@ class RiskCalculationResultTests: XCTestCase {
 			.data(using: .utf8)
 
 		// WHEN
-		let riskCalculationResult = try JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
+		let riskCalculationResult = try JSONDecoder().decode(ENFRiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
 
 		// THEN
 		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 0)
@@ -85,7 +85,7 @@ class RiskCalculationResultTests: XCTestCase {
 			.data(using: .utf8)
 
 		// WHEN
-		let riskCalculationResult = try JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
+		let riskCalculationResult = try JSONDecoder().decode(ENFRiskCalculationResult.self, from: XCTUnwrap(newFormattedData))
 
 		// THEN
 		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 3)
@@ -109,7 +109,7 @@ class RiskCalculationResultTests: XCTestCase {
 			.data(using: .utf8)
 
 		// WHEN
-		let riskCalculationResult = try JSONDecoder().decode(RiskCalculationResult.self, from: XCTUnwrap(oldFormattedData))
+		let riskCalculationResult = try JSONDecoder().decode(ENFRiskCalculationResult.self, from: XCTUnwrap(oldFormattedData))
 
 		// THEN
 		XCTAssertEqual(riskCalculationResult.riskLevelPerDate.count, 0)
