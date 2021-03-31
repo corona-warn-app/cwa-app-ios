@@ -9,8 +9,16 @@ final class CheckInTimeModel {
 
 	// MARK: - Init
 
-	init(_ type: String, date: Date, hasTopSeparator: Bool, isPickerVisible: Bool) {
+	init(
+		_ type: String,
+		minDate: Date? = nil,
+		maxDate: Date? = nil,
+		date: Date,
+		hasTopSeparator: Bool,
+		isPickerVisible: Bool
+	) {
 		self.type = type
+		self.minDate = minDate
 		self.date = date
 		self.hasTopSeparator = hasTopSeparator
 		self.isPickerVisible = isPickerVisible
@@ -21,6 +29,8 @@ final class CheckInTimeModel {
 	let type: String
 	let hasTopSeparator: Bool
 
+	@OpenCombine.Published var minDate: Date?
+	@OpenCombine.Published var maxDate: Date?
 	@OpenCombine.Published var date: Date
 	@OpenCombine.Published var isPickerVisible: Bool = false
 
