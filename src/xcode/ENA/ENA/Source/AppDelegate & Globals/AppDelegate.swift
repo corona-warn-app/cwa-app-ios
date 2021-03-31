@@ -472,6 +472,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		self,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
+		eventCheckoutService: eventCheckoutService,
 		otpService: otpService
 	)
 

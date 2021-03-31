@@ -13,6 +13,7 @@ final class TraceLocationDetailViewModel {
 		self.store = store
 		self.eventStore = eventStore
 		self.traceLocation = traceLocation
+		self.locationType = traceLocation.type.title
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
@@ -23,6 +24,7 @@ final class TraceLocationDetailViewModel {
 		
 	@OpenCombine.Published var pickerButtonTitle: String?
 
+	let locationType: String
 	let locationDescription: String
 	let locationAddress: String
 	var selectedDurationInMinutes: Int
