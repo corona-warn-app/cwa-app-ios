@@ -1,5 +1,9 @@
 /* ExposureSubmissionWarnOthers */
 
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Ihr Einverständnis";
+
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer von offiziellen Corona-Apps, denen Sie begegnet sind, zu warnen. Die Warnung funktioniert in den oben genannten Ländern. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Bitte geben Sie Ihr Testergebnis (genauer gesagt: Ihre Zufalls-IDs der letzten 14 Tage) im nächsten Schritt frei, indem Sie „Teilen“ antippen.";

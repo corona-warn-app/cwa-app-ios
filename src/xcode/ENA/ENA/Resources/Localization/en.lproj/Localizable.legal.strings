@@ -1,5 +1,9 @@
 /* ExposureSubmissionWarnOthers */
 
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Your Consent";
+
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "By tapping on “Accept”, you consent to the following steps:";
+
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "The app will share your test result in order to warn other users of official coronavirus apps whom you have encountered. The warning will work in the countries mentioned above. If you provide additional information about the onset of your symptoms, this will also be shared.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_2" = "In the next step, please share your test result (or more precisely: your random IDs from the last 14 days) by tapping on “Share”.";

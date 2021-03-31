@@ -1,5 +1,9 @@
 /* ExposureSubmissionWarnOthers */
 
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Rıza Beyanınız";
+
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "“Kabul ediyorum”a tıklayarak aşağıdaki adımlara onay vermiş olursunuz:";
+
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Uygulama, karşılaştığınız resmi Korona uygulamaları kullanıcıları uyarmak üzere onlara test sonucunuzu paylaşır. Uyarı, yukarıda sözü geçen ülkelerde çalışır. Ayrıca semptomlarınızın başlangıcı hakkında bilgi verirseniz, bu veri de paylaşılacaktır.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Lütfen bir sonraki adımda “Paylaş”a tıklayarak test sonucunuzu (daha doğrusu: Son 14 güne ait rastgele kimlik no'larınız) paylaşın.";
