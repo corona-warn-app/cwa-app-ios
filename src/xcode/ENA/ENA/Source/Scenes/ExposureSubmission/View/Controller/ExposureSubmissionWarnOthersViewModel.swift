@@ -83,14 +83,15 @@ struct ExposureSubmissionWarnOthersViewModel {
 						NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
 					   ],
 					   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet1, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet2, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet3, alignment: .legal),
+				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet4, alignment: .legal),
 				.space(height: 16)
 			])
 		)
 
-		// Even more info
+		// Button: detailed information
 		model.add(
 			.section(separators: .all, cells: [
 				.body(

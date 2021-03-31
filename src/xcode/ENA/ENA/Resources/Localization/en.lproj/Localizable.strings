@@ -767,6 +767,7 @@
 "ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "No";
 
 /* ExposureSubmissionWarnOthers */
+
 "ExposureSubmissionWarnOthers_title" = "Warn Others";
 
 "ExposureSubmissionWarnOthers_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
@@ -776,6 +777,14 @@
 "ExposureSubmissionWarnOthers_description" = "Because you tested positive for coronavirus, you can now warn others through the app.";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "The warning feature works in several countries. The following countries are currently participating:";
+
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Your consent is voluntary.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "You must be at least 16 years old to grant your consent.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Accept";
 
