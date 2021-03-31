@@ -53,15 +53,15 @@ class TraceLocationDetailsViewModel {
 			return nil
 		}
 	}
-	
-	var qrCode: UIImage? {
-		guard let qrCodeImage = traceLocation.qrCode(size: CGSize(width: 300, height: 300)) else { return nil }
-		return qrCodeImage
-	}
 
 	var numberOfRowsPerSection: Int {
 		// since every section has only one row
 		return 1
+	}
+
+	func qrCode(size: CGSize = CGSize(width: 300, height: 300)) -> UIImage? {
+		guard let qrCodeImage = traceLocation.qrCode(size: size, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel) else { return nil }
+		return qrCodeImage
 	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {

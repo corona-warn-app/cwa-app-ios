@@ -21,7 +21,7 @@ class QRCodeErrorCorrectionLevelProvider {
 	) {
 		appConfigurationProvider.appConfiguration().sink { appConfig in
 			let qrCodeErrorCorrectionLevel = appConfig.presenceTracingParameters.qrCodeErrorCorrectionLevel
-			var mappedErrorCorrectionLevel: String = "H"
+			var mappedErrorCorrectionLevel
 			
 			switch qrCodeErrorCorrectionLevel {
 			case .medium:

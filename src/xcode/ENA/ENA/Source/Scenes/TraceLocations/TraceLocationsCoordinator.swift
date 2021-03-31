@@ -146,7 +146,6 @@ class TraceLocationsCoordinator {
 				guard let self = self else { return }
 				let traceLocationDetailsViewController = TraceLocationDetailsViewController(
 					viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: self.store, qrCodePosterTemplateProvider: self.qrCodePosterTemplateProvider, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel),
-					appConfig: self.appConfig,
 					onPrintVersionButtonTap: { [weak self] pdfView in
 						DispatchQueue.main.async {
 							self?.showPrintVersionScreen(pdfView: pdfView)
