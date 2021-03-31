@@ -527,7 +527,7 @@ private extension URLRequest {
 		configuration: HTTPClient.Configuration,
 		payload: CountrySubmissionPayload,
 		isFake: Bool
-	) throws -> URLRequest { // [KGA]
+	) throws -> URLRequest {
 		// construct the request
 		let submPayload = SAP_Internal_SubmissionPayload.with {
 			$0.requestPadding = self.getSubmissionPadding(for: payload.exposureKeys)

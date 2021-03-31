@@ -5,7 +5,6 @@
 import Foundation
 import ExposureNotification
 
-// [KGA] Hier wäre Ziel, processedforSubmission zu nutzen für meine Keys. Wie alt ist der Checkin. Dann entsprechend transmissionRiskLevel infektion zu weisen
 extension Array where Element == SAP_External_Exposurenotification_TemporaryExposureKey {
 
 	/// Prepare an array of `SAP_External_Exposurenotification_TemporaryExposureKey` for exposure submission.
@@ -33,7 +32,6 @@ extension Array where Element == SAP_External_Exposurenotification_TemporaryExpo
 			for exposureKey in exposureKeys {
 				var processedExposureKey = exposureKey
 
-				// [KGA]
 				/// Assign corresponding transmission risk level
 				processedExposureKey.transmissionRiskLevel = symptomsOnset.transmissionRiskVector[ageInDays]
 
