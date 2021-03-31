@@ -19,16 +19,22 @@ final class EditCheckinDetailViewModel {
 		self.startDate = checkIn.checkinStartDate
 		self.endDate = checkIn.checkinEndDate
 		self.checkInDescriptionCellModel = CheckInDescriptionCellModel(checkIn: checkIn)
-		self.checkInStartCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: checkIn.checkinStartDate, hasTopSeparator: false)
-		self.checkInEndCellModel = CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: checkIn.checkinEndDate, hasTopSeparator: true)
 
 		// update viewModel on change of cellModels
 		checkInStartCellModel.$date
 			.assign(to: \EditCheckinDetailViewModel.startDate, on: self)
 			.store(in: &subscriptions)
 
+		$isStartDatePickerVisible
+			.assign(to: \CheckInTimeModel.isPickerVisible, on: checkInStartCellModel)
+			.store(in: &subscriptions)
+
 		checkInEndCellModel.$date
 			.assign(to: \EditCheckinDetailViewModel.endDate, on: self)
+			.store(in: &subscriptions)
+
+		$isEndDatePickerVisible
+			.assign(to: \CheckInTimeModel.isPickerVisible, on: checkInEndCellModel)
 			.store(in: &subscriptions)
 	}
 
@@ -47,8 +53,12 @@ final class EditCheckinDetailViewModel {
 	// MARK: - Internal
 
 	let checkInDescriptionCellModel: CheckInDescriptionCellModel
-	let checkInStartCellModel: CheckInTimeModel
-	let checkInEndCellModel: CheckInTimeModel
+	lazy var checkInStartCellModel: CheckInTimeModel = {
+		CheckInTimeModel(AppStrings.Checkins.Edit.checkedIn, date: checkIn.checkinStartDate, hasTopSeparator: false, isPickerVisible: self.isStartDatePickerVisible)
+	}()
+	lazy var  checkInEndCellModel: CheckInTimeModel = {
+		CheckInTimeModel(AppStrings.Checkins.Edit.checkedOut, date: checkIn.checkinEndDate, hasTopSeparator: true, isPickerVisible: self.isEndDatePickerVisible)
+	}()
 
 	private (set) var startDate: Date
 	private (set) var endDate: Date
