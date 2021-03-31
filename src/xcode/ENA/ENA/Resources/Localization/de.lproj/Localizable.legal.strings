@@ -25,13 +25,19 @@
 
 "ExposureSubmissionQRInfo_acknowledgement_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_1" = "Die App ruft Ihr Testergebnis ab.";
+"ExposureSubmissionQRInfo_acknowledgementBullet1_1" = "Die App ruft Ihr Testergebnis ab.";
 
-"ExposureSubmissionQRInfo_acknowledgement_1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"ExposureSubmissionQRInfo_acknowledgementBullet1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_1" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von offiziellen Corona-Apps der oben genannten Länder. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"ExposureSubmissionQRInfo_acknowledgementBullet2" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
 
-"ExposureSubmissionQRInfo_acknowledgement_2_2" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen und um Freigabe Ihres Testergebnisses gebeten.";
+"ExposureSubmissionQRInfo_acknowledgementBullet3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"ExposureSubmissionQRInfo_acknowledgementWithdrawConsent" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
+
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen und um Freigabe Ihres Testergebnisses gebeten.";
 
 /* Automatic share submission result consent */
 
@@ -139,4 +145,4 @@
 
 "TraceLocation_Information_Legal_Text_4" = "Bitte stellen Sie den QR-Code so zur Verfügung, dass alle Ihre Gäste ihn unter Einhaltung der Abstands- und Hygieneregeln (mindestens 1,5 Meter) scannen können.";
 
-"TraceLocation_Information_Legal_Text_5" = "Wir empfehlen die QR-Codes für Orte in einmal täglich außerhalb der Öffnungszeiten neu zu erstellen, um dauerhaft zuverlässige Warnungen zu ermöglichen und Missbrauch der QR-Codes zu verhindern.";
+"TraceLocation_Information_Legal_Text_5" = "Wir empfehlen die QR-Codes für Orte in regelmäßigen Abständen neu zu erstellen, um dauerhaft zuverlässige Warnungen zu ermöglichen und Missbrauch der QR-Codes zu verhindern.";

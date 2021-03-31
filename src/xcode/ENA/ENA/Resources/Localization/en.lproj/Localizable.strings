@@ -39,7 +39,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Background app refresh deactivated";
 
-"Common_Deadman_AlertTitle" = "Exposure Check";
+"Common_Deadman_AlertTitle" = "Your Risk Status";
 
 "Common_Deadman_AlertBody" = "Please remember to open the Corona-Warn-App regularly to check your risk status.";
 
@@ -217,7 +217,7 @@
 /* There are two paragraphs in this section. The first one just contains text… */
 "ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
 
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1a" = "The Corona-Warn-App was installed %u ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
 
 "ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "If exposure logging was active in times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -272,7 +272,7 @@
 
 "Settings_DaysSinceInstall_P1" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently. Exposure logging covers the last 14 days.";
 
-"Settings_DaysSinceInstall_P2a" = "The Corona-Warn-App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
+"Settings_DaysSinceInstall_P2a" = "The Corona-Warn-App was installed %u ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.";
 
 "Settings_DaysSinceInstall_P2b" = "If exposure logging was active in times during which you encountered other people, your risk of infection can be calculated for this period.";
 
@@ -405,9 +405,9 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "How You Make Exposure Logging Possible";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify any possible exposure, you need to enable exposure logging.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate exposure logging.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other app users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your iPhone receiving, via Bluetooth, encrypted random IDs of other app users and passing your own random IDs to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about the date, duration, and proximity to other persons (calculated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
 
@@ -543,9 +543,7 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Retrieve Test Result";
 
-"ExposureSubmissionQRInfo_body_section_1" = "In the next step, scan the QR code on your test and retrieve your test result.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Please only scan your own test.";
+"ExposureSubmissionQRInfo_instruction1" = "Now scan the QR code for your test and retrieve your test result.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Your test can only be scanned once. The app cannot manage multiple tests at the same time.";
 
@@ -557,13 +555,15 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "If you have been diagnosed with coronavirus, you can warn others through the app. The warning feature works in several countries. The following countries are currently participating:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Your consent is voluntary.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Your identity will remain secret. Other users will not find out who has shared a test result.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Under “My Check-Ins”, you can see the events and places whose checked-in guests will be warned. You can remove individual check-ins from the list to exclude them from the warning process.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "You must be at least 16 years old to grant your consent.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "In the next step, grant your consent to access the random IDs.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Accept";
 
@@ -1070,6 +1070,14 @@
 
 "Home_SubmitCard_Button" = "Next Steps";
 
+/* Home Trace Locations Card */
+"Home_TraceLocationsCard_Title" = "Planning an event?";
+
+"Home_TraceLocationsCard_Body" = "Are you planning an event or do you run a business? Create a QR code so your guests can check in when they arrive.";
+
+"Home_TraceLocationsCard_Button" = "Create QR Code";
+
+/* Home Info Card */
 "Home_InfoCard_ShareTitle" = "Share the Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "The more people who use the app, the faster we can break chains of infection. Please invite your family and friends to download the app.";
@@ -1361,6 +1369,11 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Changes in this release can be found in the app information, under “New Features”.";
 
+/* Version 2.0 */
+"NewVersionFeature_200_event_checkin_title" = "QR code check-in to effectively track chains of infection";
+
+"NewVersionFeature_200_event_checkin_description" = "The CWA now enables you to check in to events and places. Event organizers and store owners can use the app to create a QR code. Guests can then scan this QR code when they arrive to register their presence. The app can also create a journal entry upon request. If someone who checked in to this event or place is diagnosed with coronavirus later, everyone who was checked in at the same time is notified automatically.";
+
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Switzerland Added to Transnational Exposure Logging ";
 
@@ -1496,6 +1509,17 @@
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edit Places";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "My Contact Journal";
+
+/* Checkin Risk */
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Increased Risk";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Low Risk";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "Based to your presence at:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(increased risk)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(low risk)";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "People";
@@ -1759,6 +1783,8 @@
 
 "Tabbar_Diary_Title" = "Journal";
 
+"Tabbar_CheckIn_Title" = "Check In";
+
 /* Data Donation */
 "DataDonation_IntroductionText" = "Let us know how you use the app and help us to assess its effectiveness.";
 
@@ -1879,6 +1905,164 @@
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Add Journal Entry for Today";
 
+"QuickAction_eventCheckin" = "Check In";
+
+/* Checkins */
+"Checkins_QR_Scanner_Title" = "QR Code Scan";
+
+"Checkins_Overview_Title" = "My Check-Ins";
+
+"Checkins_Overview_MenuButtonTitle" = "Menu";
+
+"Checkins_Overview_ScanButtonTitle" = "Scan QR Code";
+
+"Checkins_Overview_EmptyTitle" = "No entries yet";
+
+"Checkins_Overview_EmptyDescription" = "When you scan a QR code to check in to an event or place, an entry is created automatically.";
+
+"Checkins_Overview_EmptyImageDescription" = "A building with a QR code symbol in the background";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Remove All";
+
+"Checkins_Overview_DurationTitle" = "Duration";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - check out automatically after %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Check Out Now";
+
+"Checkins_Overview_MissingPermissions_Title" = "Allow Camera Access";
+
+"Checkins_Overview_MissingPermissions_Description" = "To use your smartphone camera to scan QR codes, you have to allow access to the camera in the device settings for the app.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Open Device Settings";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Do you really want to remove this entry?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "You will no longer be able to warn people who were checked in to this place or event at the same time, nor will you be warned by them.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Remove";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Cancel";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Do you really want to remove all entries?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "You will no longer be able to warn people who were checked in to these places or events at the same time, nor will you be warned by them.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Remove";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Cancel";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Information";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Edit";
+
+"Checkins_Overview_QRScanner_Instruction" = "Scan QR Code and Check In";
+
+/* TraceLocations */
+"TraceLocations_Overview_Title" = "My QR Codes";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menu";
+
+"TraceLocations_Overview_AddButtonTitle" = "Create QR Code";
+
+"TraceLocations_Overview_EmptyTitle" = "No QR codes created yet";
+
+"TraceLocations_Overview_EmptyDescription" = "All the QR codes you have created for a place or event are displayed here. You can delete QR codes that you no longer intend to use.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartphone with QR code symbol";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Remove All";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Check In";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Do you want to delete the QR code?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Please consider that if you do, the QR code can no longer be used for check-ins.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Delete";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Cancel";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Do you really want to delete all QR codes?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Please consider that if you do, these QR codes can no longer be used for check-ins.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Delete";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Cancel";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Information";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Edit";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "Create QR Code";
+
+"TraceLocations_Section_Title_Permanent" = "PLACE";
+
+"TraceLocations_Section_Title_Temporary" = "EVENT";
+
+"TraceLocations_Type_Title_PermanentOther" = "Other place";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Retail";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Hospitality";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Craft business";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Workplace";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Education facility";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Public building";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Store, sales floor";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Cafe, bar, restaurant, hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Hairdresser, carpenter";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Office, conference room, cafeteria";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Classroom, lecture hall, library";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Municipal office, museum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "Other event";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Cultural event";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Club activities";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Private party";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Religious service";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Concert, art exhibit";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Sports training, general meeting";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Birthday, family gathering";
+
+/* Trace Location Configuration */
+"TraceLocations_Configuration_Title" = "Create QR Code";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Description";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Place";
+
+"TraceLocations_Configuration_StartDateTitle" = "Start";
+
+"TraceLocations_Configuration_EndDateTitle" = "End";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typical Stay";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Specify how long guests usually stay with you.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Save";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ hrs.";
+
 /* Error Reporting */
 "ErrorReport_Title" = "Error Reports";
 
@@ -1911,4 +2095,68 @@
 "ErrorReport_DEVICE_NOT_SUPPORTED" = "The error report cannot be sent (error code %@).";
 
 "ErrorReport_TRY_AGAIN_LATER" = "The error report cannot be sent right now. Please try again later (error code %@).";
+
+/* Checkins */
+"Checkin_Information_Title" = "Check In";
+
+"Checkin_Information_ImageDescription" = "Three persons are standing at a high table, two of them are looking at their smartphones.";
+
+"Checkin_Information_DescriptionTitle" = "Interrupt chains of infection quickly and reliably";
+
+"Checkin_Information_DescriptionSubHeadline" = "Scan the QR code for an event or place to check in and record your presence at this event or place on your smartphone.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "Every check-in is also taken into account when calculating your risk status. If someone who checked in to this event or place is diagnosed with coronavirus later, you can be notified if you were in the same room at the same time or up to 30 minutes after the diagnosed person.";
+
+"Checkin_Information_Item_Time_Title" = "Please specify your length of stay as precisely as possible to enable targeted warnings.";
+
+"Checkin_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+
+"Checkin_Information_PrimaryButton_Title" = "Accept";
+
+/* CheckIn edit */
+"Checkins_Edit_PrimaryButton_Title" = "Save";
+
+"Checkins_Edit_Section_Title" = "Change length of stay for:";
+
+"Checkins_Edit_CheckedIn" = "Checked In";
+
+"Checkins_Edit_CheckedOut" = "Checked Out";
+
+"Checkins_Edit_Notice" = "The length of stay will not be adjusted automatically in your contact journal.";
+
+/* Trace Location */
+"TraceLocation_Information_Title" = "Create QR Code";
+
+"TraceLocation_Information_ImageDescription" = "One person points to a flip chart, while two people are sitting adjacent and looking at the flip chart.";
+
+"TraceLocation_Information_DescriptionTitle" = "Increased Safety for You and Your Guests";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Create a QR code that your guests can scan when they arrive. This will enable them to warn other guests or be warned by them if necessary.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Every check-in is also taken into account when calculating the risk status. If someone who checked in to this event or place is diagnosed with coronavirus later, the guests can be notified if they were in the same room at the same time or up to 30 minutes after the diagnosed person.";
+
+"TraceLocation_Information_Item_Checkin" = "You can provide the QR code to your guests on your smartphone or as a printed form.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "If you want to use a QR code for the long term, you should generate it again each day, outside of your operating hours.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Next";
+
+/* Checkout */
+"Checkout_Notification_Title" = "You were checked out automatically.";
+
+"Checkout_Notification_Body" = "Please adjust the length of your stay if needed.";
+
+"Checkin_Details_HoursShortVersion" = "%@ hrs.";
+
+"Checkin_Details_CheckinFor" = "Check in for:";
+
+"Checkin_Details_Activity" = "Club activities";
+
+"Checkin_Details_SaveToDiary" = "Record in my contact journal after check-out?";
+
+"Checkin_Details_AutomaticCheckout" = "Check out automatically after";
+
+"Checkin_Details_EventNotStartedYet" = "This event doesn’t start until %@ on %@. Do you want to check in already?";
+
+"Checkin_Details_EventEnded" = "This event is already over. Do you want to check in retroactively?";
 

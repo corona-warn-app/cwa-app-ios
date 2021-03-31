@@ -125,7 +125,6 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
-
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 
@@ -163,7 +162,6 @@ class DiaryOverviewViewModelTest: XCTestCase {
 
 		// GIVEN
 		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
-
 		let todayString = dateFormatter.string(from: Date())
 		let today = try XCTUnwrap(dateFormatter.date(from: todayString))
 

@@ -120,20 +120,24 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 
 	func showEvent(_ guid: String) {
+		guard let route = Route(guid),
+			  case let Route.checkin(key) = route,
+			  let traceLocation = TraceLocation(qrCodeString: key)
+		else {
+			Log.error("URL didn't match the route", log: .checkin, error: nil)
+			return
+		}
 		let checkInNavigationController = checkInCoordinator.viewController
 		guard checkInNavigationController.topViewController as? UITableViewController != nil,
 			  let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 		tabBarController.selectedIndex = index
-
-		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
-			let alert = UIAlertController(title: "Event found", message: "Event on launch arguments found", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-				Log.debug("Did tap even ok")
-			}))
-			checkInNavigationController.present(alert, animated: true)
-		}
+		
+//		DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.5) {
+//
+//		}
+		checkInCoordinator.showTraceLocationDetails(traceLocation)
 	}
 
 	func updateDetectionMode(

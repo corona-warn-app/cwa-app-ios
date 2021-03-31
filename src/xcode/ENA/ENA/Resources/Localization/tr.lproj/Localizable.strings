@@ -39,7 +39,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Arka planda uygulamayı yenileme devre dışı bırakıldı";
 
-"Common_Deadman_AlertTitle" = "Maruz Kalma Denetimi";
+"Common_Deadman_AlertTitle" = "Risk Durumunuz";
 
 "Common_Deadman_AlertBody" = "Risk durumunuzu kontrol etmek için lütfen Corona-Warn-App'i düzenli olarak açmayı unutmayın.";
 
@@ -405,9 +405,9 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Maruz Kalma Günlüğünüzü Nasıl Etkinleştirirsiniz?";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Tüm olası maruz kalmaları belirlemek için maruz kalma günlüğü özelliğini etkinleştirmeniz gerekir.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Enfeksiyon riski taşıyıp taşımadığınızı belirlemek için maruz kalma günlüğünü etkinleştirmeniz gerekir.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, iPhone'unuzun Bluetooth üzerinden diğer uygulama kullanıcılarının şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimliği diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri rastgele kimliklere göre belirlenemez.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Maruz kalma günlüğü, iPhone'unuzun Bluetooth üzerinden diğer uygulama kullanıcılarının şifrelenmiş rastgele kimliklerini alması ve size ait rastgele kimlikleri diğer kullanıcıların cihazlarına aktarmasıyla çalışır. Bu özellik dilediğiniz zaman devre dışı bırakılabilir. \n\nŞifrelenmiş rastgele kimliklerde diğer kişilere yalnızca tarih, süre ve yakınlık bilgileri (sinyal gücüne göre hesaplanır) gönderilir. Ad, adres ve konum gibi kişisel veriler hiçbir durumda kaydedilmez. Kişilerin kimlikleri rastgele kimliklere göre belirlenemez.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Yaş Sınırı: 16 ve Üzeri";
 
@@ -543,9 +543,7 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Test Sonucunu Al";
 
-"ExposureSubmissionQRInfo_body_section_1" = "Sonraki adımda, testinizdeki QR kodu tarayın ve test sonucunuzu alın.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Lütfen yalnızca kendi testinizi tarayın.";
+"ExposureSubmissionQRInfo_instruction1" = "Şimdi, testinizin QR kodunu tarayın ve test sonucunuzu alın.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Testiniz yalnızca bir kez taranabilir. Uygulama aynı anda birden fazla testi yönetememektedir.";
 
@@ -557,13 +555,15 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "Koronavirüs tanısı aldıysanız uygulama üzerinden diğer kullanıcıları uyarabilirsiniz. Uyarı özelliği birden fazla ülkede etkindir. Şu anda aşağıdaki ülkeler katılmaktadır:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Onayınız gönüllülük esasına dayalıdır.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Paylaşmamayı seçseniz de test sonucunuzu alabilirsiniz. Ancak test sonucunuzu paylaşırsanız diğer kullanıcıların enfeksiyona karşı korunmasına yardımcı olursunuz.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Kimliğiniz gizli tutulacaktır. Diğer kullanıcılar, kimin test sonucunu paylaştığını öğrenmeyecektir.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "“Check-In’lerim” bölümünde check-in yapan konuklarına uyarı gönderilecek etkinlikleri ve yerleri görebilirsiniz. Uyarı işlemlerinin dışında tutmak için listeden ayrı ayrı check-in’leri kaldırabilirsiniz.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "Onay vermek için 16 yaşın üzerinde olmanız gerekir.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "Sonraki adımda, rastgele kimliklerinize erişim onayı verin.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Kabul Et";
 
@@ -1070,6 +1070,14 @@
 
 "Home_SubmitCard_Button" = "Sonraki Adımlar";
 
+/* Home Trace Locations Card */
+"Home_TraceLocationsCard_Title" = "Bir etkinlik mi planlıyorsunuz?";
+
+"Home_TraceLocationsCard_Body" = "Bir etkinlik planlıyor ya da işletme mi çalıştırıyorsunuz? Konuklarınızın geldiklerinde check in yapabilmeleri için bir QR kod oluşturun.";
+
+"Home_TraceLocationsCard_Button" = "QR Kod Oluştur";
+
+/* Home Info Card */
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App'i Paylaş";
 
 "Home_InfoCard_ShareBody" = "Uygulamayı ne kadar çok kişi kullanırsa enfeksiyon zincirlerini o kadar kısa süre içinde kırabiliriz. Lütfen ailenizi ve arkadaşlarınızı uygulamayı indirmeye davet edin.";
@@ -1361,6 +1369,11 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Bu sürümdeki değişiklikleri uygulama bilgilerinde “Yeni Özellikler” bölümünde bulabilirsiniz.";
 
+/* Version 2.0 */
+"NewVersionFeature_200_event_checkin_title" = "Enfeksiyon zincirlerini etkili bir biçimde takip etmek için QR kod ile check in";
+
+"NewVersionFeature_200_event_checkin_description" = "CWA artık etkinliklere ve yerlere check in yapabilmenizi sağlar. Etkinlik organizatörleri ve mağaza sahipleri uygulamayı kullanarak bir QR kod oluşturabilir. Ardından konuklar geldiklerinde bu QR kodu tarayarak katılımlarını kayıt altına alabilir. Uygulama, talep üzerine günce girişi oluşturma seçeneği de sunmaktadır. Bu etkinliğe ya da yere check in yapan bir kişi daha sonra koronavirüs tanısı alırsa aynı anda check in yapmış herkese otomatik olarak uyarı gönderilir.";
+
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Uluslararası Maruz Kalma Günlüğüne İsviçre Eklendi ";
 
@@ -1496,6 +1509,17 @@
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Yerleri Düzenle";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Temas Güncem";
+
+/* Checkin Risk */
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Daha Yüksek Risk";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Düşük Risk";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "Şurada bulunmanıza bağlı olarak:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(daha yüksek risk)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(düşük risk)";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Kişiler";
@@ -1759,6 +1783,8 @@
 
 "Tabbar_Diary_Title" = "Günce";
 
+"Tabbar_CheckIn_Title" = "Check In";
+
 /* Data Donation */
 "DataDonation_IntroductionText" = "Uygulamayı nasıl kullandığınızı belirtin ve uygulamanın etkinliğini değerlendirmemize yardımcı olun.";
 
@@ -1879,6 +1905,164 @@
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Bugün için Günce Girişi Ekle";
 
+"QuickAction_eventCheckin" = "Check In";
+
+/* Checkins */
+"Checkins_QR_Scanner_Title" = "QR Kod Tarama";
+
+"Checkins_Overview_Title" = "Check-In’lerim";
+
+"Checkins_Overview_MenuButtonTitle" = "Menü";
+
+"Checkins_Overview_ScanButtonTitle" = "QR Kodu Tara";
+
+"Checkins_Overview_EmptyTitle" = "Henüz hiçbir giriş yok";
+
+"Checkins_Overview_EmptyDescription" = "Bir etkinliğe ya da yere check-in yapmak için QR kod taradığınızda otomatik olarak bir giriş oluşturulur.";
+
+"Checkins_Overview_EmptyImageDescription" = "Arka planda QR kod sembolü bulunan bir bina";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Tümünü Kaldır";
+
+"Checkins_Overview_DurationTitle" = "Süre";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - %@ sonra otomatik olarak check out yap";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Şimdi Check Out Yap";
+
+"Checkins_Overview_MissingPermissions_Title" = "Kamera Erişimine İzin Ver";
+
+"Checkins_Overview_MissingPermissions_Description" = "Akıllı telefonunuzun kamerasını kullanarak QR kodları taramak için uygulamanın cihaz ayarlarında kamera erişimine izin vermeniz gerekir.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Cihaz Ayarlarını Aç";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Bu girişi gerçekten kaldırmak istiyor musunuz?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Bundan sonra bu yere veya etkinliğe aynı anda check in yapan kişilere uyarı gönderemeyecek ya da bu kişilerden uyarı alamayacaksınız.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Kaldır";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "İptal Et";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Tüm girişleri gerçekten kaldırmak istiyor musunuz?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Bundan sonra bu yerlere veya etkinliklere aynı anda check in yapan kişilere uyarı gönderemeyecek ya da bu kişilerden uyarı alamayacaksınız.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Kaldır";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "İptal Et";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Bilgi";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Düzenle";
+
+"Checkins_Overview_QRScanner_Instruction" = "QR Kodu Tara ve Check In Yap";
+
+/* TraceLocations */
+"TraceLocations_Overview_Title" = "QR Kodlarım";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menü";
+
+"TraceLocations_Overview_AddButtonTitle" = "QR Kod Oluştur";
+
+"TraceLocations_Overview_EmptyTitle" = "Henüz hiçbir QR kod oluşturulmadı";
+
+"TraceLocations_Overview_EmptyDescription" = "Bir yer ya da etkinlik için oluşturduğunuz tüm QR kodlar burada görüntülenir. Artık kullanmayı planlamadığınız QR kodları silebilirsiniz.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "QR kod sembolü bulunan bir akıllı telefon";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Tümünü Kaldır";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Check In";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "QR kodu silmek istiyor musunuz?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Lütfen unutmayın; QR kodu silerseniz artık check in yaparken bunu kullanamazsınız.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Sil";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "İptal Et";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Tüm QR kodları gerçekten silmek istiyor musunuz?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Lütfen unutmayın; bu QR kodları silerseniz artık check in yaparken bunları kullanamazsınız.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Sil";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "İptal Et";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Bilgi";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Düzenle";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "QR Kod Oluştur";
+
+"TraceLocations_Section_Title_Permanent" = "YER";
+
+"TraceLocations_Section_Title_Temporary" = "ETKİNLİK";
+
+"TraceLocations_Type_Title_PermanentOther" = "Diğer yer";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Mağaza";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Konaklama";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Esnaf";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "İşyeri";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Eğitim yeri";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Kamu binası";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Dükkan, satış katı";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Kafe, bar, restoran, otel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Kuaför, marangoz";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Ofis, konferans odası, kafeterya";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Sınıf, amfi, kütüphane";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Belediye, müze";
+
+"TraceLocations_Type_Title_TemporaryOther" = "Diğer etkinlik";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Kültürel etkinlik";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Kulüp faaliyetleri";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Özel parti";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Dini tören";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Konser, sanat sergisi";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Spor antrenmanı, genel toplantı";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Doğum günü, aile toplantısı";
+
+/* Trace Location Configuration */
+"TraceLocations_Configuration_Title" = "QR Kod Oluştur";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Tanım";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Yer";
+
+"TraceLocations_Configuration_StartDateTitle" = "Başlangıç";
+
+"TraceLocations_Configuration_EndDateTitle" = "Bitiş";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Tipik Kalış";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Konukların genellikle ne kadar süreyle sizinle birlikte kaldığını belirtin.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Kaydet";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ sa.";
+
 /* Error Reporting */
 "ErrorReport_Title" = "Hata Raporları";
 
@@ -1911,4 +2095,68 @@
 "ErrorReport_DEVICE_NOT_SUPPORTED" = "Hata raporu gönderilemiyor (hata kodu %@).";
 
 "ErrorReport_TRY_AGAIN_LATER" = "Hata raporu şu anda gönderilemiyor. Lütfen daha sonra tekrar deneyin (hata kodu: %@).";
+
+/* Checkins */
+"Checkin_Information_Title" = "Check In";
+
+"Checkin_Information_ImageDescription" = "Üç kişi yüksek bir masanın etrafında ayakta duruyor, ikisi akıllı telefonuna bakıyor.";
+
+"Checkin_Information_DescriptionTitle" = "Enfeksiyon zincirlerini hızlı ve güvenilir şekilde kırın";
+
+"Checkin_Information_DescriptionSubHeadline" = "Bir etkinlik veya yer için QR kodu tarayarak check in yapın ve akıllı telefonunuza bu etkinliğe ya da yere katıldığınızı kaydedin.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "Risk durumunuz hesaplanırken her bir check-in de dikkate alınır. Bu etkinliğe veya yere check in yapan biri daha sonra koronavirüs tanısı alırsa tanı alan kişi ile aynı anda ya da bu kişi odadan çıktıktan sonra en fazla 30 dakika içinde aynı odada bulunmuşsanız size uyarı gönderilebilir.";
+
+"Checkin_Information_Item_Time_Title" = "Hedeflenen uyarıları etkinleştirmek için lütfen kalış sürenizi mümkün olduğunca net bir biçimde belirtin.";
+
+"Checkin_Information_Dataprivacy_Title" = "Daha fazla bilgi için lütfen gizlilik bildirimine başvurun.";
+
+"Checkin_Information_PrimaryButton_Title" = "Kabul Et";
+
+/* CheckIn edit */
+"Checkins_Edit_PrimaryButton_Title" = "Kaydet";
+
+"Checkins_Edit_Section_Title" = "Kalış süresini değiştir:";
+
+"Checkins_Edit_CheckedIn" = "Check In yapıldı";
+
+"Checkins_Edit_CheckedOut" = "Check Out yapıldı";
+
+"Checkins_Edit_Notice" = "Kalış süresi temas güncenizde otomatik olarak ayarlanmayacak.";
+
+/* Trace Location */
+"TraceLocation_Information_Title" = "QR Kod Oluştur";
+
+"TraceLocation_Information_ImageDescription" = "Bir kişi bir kağıt tahtayı işaret ederken iki kişi yanında oturuyor ve tahtaya bakıyor.";
+
+"TraceLocation_Information_DescriptionTitle" = "Siz ve Konuklarınız için Daha Yüksek Düzeyde Güvenlik";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Geldiklerinde konuklarınızın tarayabilmeleri için bir QR kod oluşturun. Bu sayede gerekirse diğer konukları uyarabilir ya da diğer konuklardan uyarı alabileceklerdir.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Risk durumu hesaplanırken her bir check-in de dikkate alınır. Bu etkinliğe veya yere check in yapan biri daha sonra koronavirüs tanısı alırsa tanı alan kişi ile aynı anda ya da bu kişi odadan çıktıktan sonra en fazla 30 dakika içinde aynı odada bulunmuşlarsa konuklara uyarı gönderilebilir.";
+
+"TraceLocation_Information_Item_Checkin" = "QR kodu konuklarınıza akıllı telefonunuzda ya da yazılı bir form halinde sunabilirsiniz.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "QR kodu uzun süreli olarak kullanmak istiyorsanız mesai saatlerinizin dışında her gün yeniden QR kod oluşturmanız gerekir.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Sonraki";
+
+/* Checkout */
+"Checkout_Notification_Title" = "Otomatik olarak check out yaptınız.";
+
+"Checkout_Notification_Body" = "Gerekiyorsa lütfen kalış sürenizi düzenleyin.";
+
+"Checkin_Details_HoursShortVersion" = "%@ sa.";
+
+"Checkin_Details_CheckinFor" = "Check in niteliği:";
+
+"Checkin_Details_Activity" = "Kulüp faaliyetleri";
+
+"Checkin_Details_SaveToDiary" = "Check-out yapıldıktan sonra temas günceme kaydedilsin mi?";
+
+"Checkin_Details_AutomaticCheckout" = "Daha sonra otomatik olarak check out yap";
+
+"Checkin_Details_EventNotStartedYet" = "Bu etkinliğin başlangıç saati, %@ %@ olarak belirlenmiştir. Şimdiden check in yapmak istiyor musunuz?";
+
+"Checkin_Details_EventEnded" = "Bu etkinlik zaten bitmiş. Geriye dönük olarak check in yapmak istiyor musunuz?";
 
