@@ -68,7 +68,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 		// 'Flags'
 		model.add(
 			.section(separators: .all, cells: [
-				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList),
+				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.countryList),
 				.space(height: 8)
 			])
 		)
@@ -76,13 +76,13 @@ struct ExposureSubmissionWarnOthersViewModel {
 		// Ihr Einverständnis
 		model.add(
 			.section(cells: [
-				.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
-					   description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
+				.legal(title: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementTitle),
+					   description: NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgementBody),
 					   textBlocks: [
 						acknowledgementString,
 						NSAttributedString(string: AppStrings.ExposureSubmissionWarnOthers.acknowledgement_footer)
 					   ],
-					   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
+					   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.acknowledgementTitle),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet1, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet2, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionWarnOthers.consent_bullet3, alignment: .legal),
@@ -97,7 +97,7 @@ struct ExposureSubmissionWarnOthersViewModel {
 				.body(
 					text: AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo,
 					style: DynamicCell.TextCellStyle.label,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.dataProcessingDetailInfo,
 					accessibilityTraits: UIAccessibilityTraits.link,
 					action: .push(
 						htmlModel: AppInformationModel.privacyModel,
