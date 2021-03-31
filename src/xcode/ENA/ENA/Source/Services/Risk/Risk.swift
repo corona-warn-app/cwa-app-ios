@@ -19,17 +19,17 @@ struct Risk: Equatable {
 
 extension Risk {
 	init(
-		riskCalculationResult: RiskCalculationResult,
-		previousRiskCalculationResult: RiskCalculationResult? = nil,
+		enfRiskCalculationResult: ENFRiskCalculationResult,
+		previousENFRiskCalculationResult: ENFRiskCalculationResult? = nil,
 		checkinCalculationResult: CheckinRiskCalculationResult,
 		previousCheckinCalculationResult: CheckinRiskCalculationResult? = nil
 	) {
-		let riskLevelHasChanged = previousRiskCalculationResult?.riskLevel != nil &&
-			riskCalculationResult.riskLevel != previousRiskCalculationResult?.riskLevel ||
+		let riskLevelHasChanged = previousENFRiskCalculationResult?.riskLevel != nil &&
+			enfRiskCalculationResult.riskLevel != previousENFRiskCalculationResult?.riskLevel ||
 			previousCheckinCalculationResult?.riskLevel != nil &&
 			checkinCalculationResult.riskLevel != previousCheckinCalculationResult?.riskLevel
 
-		let tracingRiskLevelPerDate = riskCalculationResult.riskLevelPerDate
+		let tracingRiskLevelPerDate = enfRiskCalculationResult.riskLevelPerDate
 		let checkinRiskLevelPerDate = checkinCalculationResult.riskLevelPerDate
 
 		// Merge the results from both risk calculation. For each date, the higher risk level is used.
@@ -57,7 +57,7 @@ extension Risk {
 			$1 == totalRiskLevel
 		}.count
 
-		let details = Details(mostRecentDateWithRiskLevel: mostRecentDateWithRiskLevel, numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel, exposureDetectionDate: riskCalculationResult.calculationDate)
+		let details = Details(mostRecentDateWithRiskLevel: mostRecentDateWithRiskLevel, numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel, exposureDetectionDate: enfRiskCalculationResult.calculationDate)
 
 		self.init(
 			level: totalRiskLevel,

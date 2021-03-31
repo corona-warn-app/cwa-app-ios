@@ -17,11 +17,11 @@ class HomeState: ENStateHandlerUpdating {
 		exposureSubmissionService: ExposureSubmissionService,
 		statisticsProvider: StatisticsProviding
 	) {
-		if let riskCalculationResult = store.riskCalculationResult,
+		if let riskCalculationResult = store.enfRiskCalculationResult,
 		   let checkinCalculationResult = store.checkinRiskCalculationResult {
 			self.riskState = .risk(
 				Risk(
-					riskCalculationResult: riskCalculationResult,
+					enfRiskCalculationResult: riskCalculationResult,
 					checkinCalculationResult: checkinCalculationResult
 				)
 			)
@@ -87,8 +87,8 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider.manualExposureDetectionState
 	}
 
-	var lastRiskCalculationResult: RiskCalculationResult? {
-		store.riskCalculationResult
+	var lastRiskCalculationResult: ENFRiskCalculationResult? {
+		store.enfRiskCalculationResult
 	}
 
 	var nextExposureDetectionDate: Date {

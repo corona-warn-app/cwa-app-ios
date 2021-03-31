@@ -207,7 +207,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store: store,
 			appConfigurationProvider: appConfigurationProvider,
 			exposureManagerState: exposureManager.exposureManagerState,
-			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			riskCalculation: DebugRiskCalculation(riskCalculation: ENFRiskCalculation(), store: store),
 			checkinRiskCalculation: checkinRiskCalculation,
 			keyPackageDownload: keyPackageDownload,
 			traceWarningPackageDownload: traceWarningPackageDownload,

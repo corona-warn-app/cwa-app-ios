@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct RiskCalculationResult: Codable {
+struct ENFRiskCalculationResult: Codable {
 
 	// MARK: - Init
 

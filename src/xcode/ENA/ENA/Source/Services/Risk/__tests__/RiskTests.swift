@@ -24,7 +24,7 @@ class RiskTests: XCTestCase {
 		)
 
 		let risk = Risk(
-			riskCalculationResult: tracingRiskResult,
+			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
 		)
 
@@ -50,7 +50,7 @@ class RiskTests: XCTestCase {
 		)
 
 		let risk = Risk(
-			riskCalculationResult: tracingRiskResult,
+			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
 		)
 
@@ -76,7 +76,7 @@ class RiskTests: XCTestCase {
 		)
 
 		let risk = Risk(
-			riskCalculationResult: tracingRiskResult,
+			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
 		)
 
@@ -102,7 +102,7 @@ class RiskTests: XCTestCase {
 		)
 
 		let risk = Risk(
-			riskCalculationResult: tracingRiskResult,
+			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
 		)
 
@@ -132,7 +132,7 @@ class RiskTests: XCTestCase {
 		)
 
 		let risk = Risk(
-			riskCalculationResult: tracingRiskResult,
+			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
 		)
 
@@ -162,7 +162,7 @@ class RiskTests: XCTestCase {
 		)
 
 		let risk = Risk(
-			riskCalculationResult: tracingRiskResult,
+			enfRiskCalculationResult: tracingRiskResult,
 			checkinCalculationResult: checkinRiskResult
 		)
 
@@ -171,8 +171,8 @@ class RiskTests: XCTestCase {
 		XCTAssertEqual(risk.details.numberOfDaysWithRiskLevel, 3)
 	}
 
-	private func makeRiskCalculationResult(riskLevelPerDate: [Date: RiskLevel]) -> RiskCalculationResult {
-		RiskCalculationResult(
+	private func makeRiskCalculationResult(riskLevelPerDate: [Date: RiskLevel]) -> ENFRiskCalculationResult {
+		ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,

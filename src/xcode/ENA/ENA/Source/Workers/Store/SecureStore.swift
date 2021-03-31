@@ -182,8 +182,9 @@ final class SecureStore: Store {
 		set { kvStore["appInstallationDate"] = newValue }
 	}
 
-	var riskCalculationResult: RiskCalculationResult? {
-		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? {
+		// After renaming "riskCalculationResult" to "enfRiskCalculationResult" the key for the kvStore was NOT renamed intentionally to avoid a migration.
+		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
 	}
 
@@ -302,8 +303,8 @@ final class SecureStore: Store {
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
 	}
 
-	var mostRecentRiskCalculation: RiskCalculation? {
-		get { kvStore["mostRecentRiskCalculation"] as RiskCalculation? }
+	var mostRecentRiskCalculation: ENFRiskCalculation? {
+		get { kvStore["mostRecentRiskCalculation"] as ENFRiskCalculation? }
 		set { kvStore["mostRecentRiskCalculation"] = newValue }
 	}
 

@@ -94,7 +94,7 @@
 		016E262F25AF45770077C64C /* StatisticsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E261325AF43450077C64C /* StatisticsInfoViewController.swift */; };
 		016E264C25B0327B0077C64C /* HomeStatisticsCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */; };
 		01734B6E255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */; };
-		0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* RiskCalculationResult.swift */; };
+		0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F48125501111009DD568 /* ENFRiskCalculationResult.swift */; };
 		0177F4B125503805009DD568 /* ScanInstanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0177F4B025503805009DD568 /* ScanInstanceTest.swift */; };
 		017AD0C1259BBD1700FA2B3F /* HomeTestResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A4DC7925922EBD007D5794 /* HomeTestResultTableViewCell.swift */; };
 		017AD0C5259BBD1C00FA2B3F /* HomeTestResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A4DC7825922EBD007D5794 /* HomeTestResultTableViewCell.xib */; };
@@ -1086,7 +1086,7 @@
 		016E261325AF43450077C64C /* StatisticsInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsInfoViewController.swift; sourceTree = "<group>"; };
 		016E264B25B0327B0077C64C /* HomeStatisticsCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatisticsCardViewModel.swift; sourceTree = "<group>"; };
 		01734B6D255D73E400E60A8B /* ENExposureConfiguration+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENExposureConfiguration+Convenience.swift"; sourceTree = "<group>"; };
-		0177F48125501111009DD568 /* RiskCalculationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCalculationResult.swift; sourceTree = "<group>"; };
+		0177F48125501111009DD568 /* ENFRiskCalculationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENFRiskCalculationResult.swift; sourceTree = "<group>"; };
 		0177F4B025503805009DD568 /* ScanInstanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanInstanceTest.swift; sourceTree = "<group>"; };
 		017AD113259DCD3400FA2B3F /* HomeShownPositiveTestResultCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModel.swift; sourceTree = "<group>"; };
 		017AD121259DDE6B00FA2B3F /* ISO8601DateFormatter+ContactDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+ContactDiary.swift"; sourceTree = "<group>"; };
@@ -5082,7 +5082,7 @@
 			isa = PBXGroup;
 			children = (
 				BA6C8AAD254D6476008344F5 /* ENARange.swift */,
-				0177F48125501111009DD568 /* RiskCalculationResult.swift */,
+				0177F48125501111009DD568 /* ENFRiskCalculationResult.swift */,
 				BA6C8AEB254D65C4008344F5 /* ExposureWindow.swift */,
 				BA6C8AA5254D63A0008344F5 /* MinutesAtAttenuationFilter.swift */,
 				BA6C8AB8254D64D3008344F5 /* MinutesAtAttenuationWeight.swift */,
@@ -6337,7 +6337,7 @@
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				0138F65D25F1174200A9B075 /* TraceLocationsOverviewViewController.swift in Sources */,
 				505F506F25C833AA004920EB /* edus_otp.pb.swift in Sources */,
-				0177F48825501111009DD568 /* RiskCalculationResult.swift in Sources */,
+				0177F48825501111009DD568 /* ENFRiskCalculationResult.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
 				50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */,
 				ABE9617125F1220600D0F699 /* EventStore.swift in Sources */,

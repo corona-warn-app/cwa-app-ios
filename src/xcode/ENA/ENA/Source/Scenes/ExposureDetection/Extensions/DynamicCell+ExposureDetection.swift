@@ -81,7 +81,7 @@ extension DynamicCell {
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
-			if let date: Date = viewController.store.riskCalculationResult?.calculationDate {
+			if let date: Date = viewController.store.enfRiskCalculationResult?.calculationDate {
 				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever

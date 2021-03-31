@@ -82,7 +82,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let mostRecentDateWithLowRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 2,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -207,7 +207,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 				
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -266,7 +266,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 		
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -365,7 +365,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 
 		let mostRecentDateWithHighRisk = Date()
 		let calculationDate = Date()
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 1,
@@ -632,7 +632,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 	
 	func testOnButtonTapInLowRiskStateAndManualMode() {
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .low,
 			minimumDistinctEncountersWithLowRisk: 2,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -692,7 +692,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 	}
 
 	func testOnButtonTapInHighRiskStateAndManualMode() {
-		store.riskCalculationResult = RiskCalculationResult(
+		store.enfRiskCalculationResult = ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 2,
