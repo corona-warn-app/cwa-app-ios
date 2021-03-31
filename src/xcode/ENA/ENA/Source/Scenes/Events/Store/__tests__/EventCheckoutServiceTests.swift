@@ -10,7 +10,48 @@ class EventCheckoutServiceTests: XCTestCase {
 
 	var subscriptions = Set<AnyCancellable>()
 
-	func test_When_Checkout_Then_CheckinWasUpdated() {
+	func test_When_CheckoutManually_Then_CheckinWasUpdated() {
+		let mockEventStore = MockEventStore()
+		let checkin = makeDummyCheckin(id: -1)
+		let createCheckinResult = mockEventStore.createCheckin(checkin)
+		guard case let .success(checkinId) = createCheckinResult else {
+			XCTFail("Could not create checkin.")
+			return
+		}
+
+		let mockNotificationCenter = MockUserNotificationCenter()
+
+		let eventCheckoutService = EventCheckoutService(
+			eventStore: mockEventStore,
+			contactDiaryStore: MockDiaryStore(),
+			userNotificationCenter: mockNotificationCenter
+		)
+
+		guard let checkinEndDate = utcFormatter.date(from: "2021-03-06T22:00:00+01:00") else {
+			XCTFail("Could not create date.")
+			return
+		}
+
+		let checkinWithId = makeDummyCheckin(
+			id: checkinId,
+			checkinEndDate: checkinEndDate
+		)
+		eventCheckoutService.checkout(checkin: checkinWithId, manually: true)
+
+		let sinkExpectation = expectation(description: "Sink should be called.")
+		mockEventStore.checkinsPublisher.sink { checkins in
+			XCTAssertEqual(checkins.count, 1)
+			XCTAssertTrue(checkins[0].checkinCompleted)
+			XCTAssertEqual(checkins[0].checkinEndDate.timeIntervalSinceReferenceDate, Date().timeIntervalSinceReferenceDate, accuracy: 10)
+			sinkExpectation.fulfill()
+		}.store(in: &subscriptions)
+
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func test_When_CheckoutAutomatically_Then_CheckinWasUpdated() {
 		let mockEventStore = MockEventStore()
 		let checkin = makeDummyCheckin(id: -1)
 		let createCheckinResult = mockEventStore.createCheckin(checkin)
@@ -41,11 +82,12 @@ class EventCheckoutServiceTests: XCTestCase {
 		let sinkExpectation = expectation(description: "Sink should be called.")
 		mockEventStore.checkinsPublisher.sink { checkins in
 			XCTAssertEqual(checkins.count, 1)
+			XCTAssertTrue(checkins[0].checkinCompleted)
 			XCTAssertEqual(checkins[0].checkinEndDate, checkinEndDate)
 			sinkExpectation.fulfill()
 		}.store(in: &subscriptions)
 
-		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 0)
+		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 1)
 
 		waitForExpectations(timeout: .medium)
 	}
@@ -70,7 +112,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			id: checkinId,
 			traceLocationId: "someGUID".data(using: .utf8) ?? Data()
 		)
-		eventCheckoutService.checkout(checkin: checkinWithId, manually: false)
+		eventCheckoutService.checkout(checkin: checkinWithId, manually: true)
 
 		let sinkExpectation = expectation(description: "Sink should be called.")
 		mockDiaryStore.diaryDaysPublisher.sink { diaryDays in
@@ -109,7 +151,7 @@ class EventCheckoutServiceTests: XCTestCase {
 			userNotificationCenter: mockNotificationCenter
 		)
 		let checkinWithId = makeDummyCheckin(id: checkinId)
-		eventCheckoutService.checkout(checkin: checkinWithId, manually: true)
+		eventCheckoutService.checkout(checkin: checkinWithId, manually: false)
 
 		XCTAssertEqual(mockNotificationCenter.notificationRequests.count, 1)
 	}
