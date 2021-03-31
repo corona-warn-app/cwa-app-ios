@@ -11,6 +11,7 @@ class RiskTests: XCTestCase {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [
 				today: .low
@@ -37,6 +38,7 @@ class RiskTests: XCTestCase {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [
 				today: .high
@@ -63,6 +65,7 @@ class RiskTests: XCTestCase {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [
 				today: .low
@@ -89,6 +92,7 @@ class RiskTests: XCTestCase {
 		let today = Calendar.utcCalendar.startOfDay(for: Date())
 
 		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [
 				today: .high
@@ -117,6 +121,7 @@ class RiskTests: XCTestCase {
 		let threeDayAgo = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -3, to: today))
 
 		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [
 				today: .low,
@@ -147,6 +152,7 @@ class RiskTests: XCTestCase {
 		let threeDayAgo = try XCTUnwrap(Calendar.utcCalendar.date(byAdding: .day, value: -3, to: today))
 
 		let checkinRiskResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [
 				today: .low,

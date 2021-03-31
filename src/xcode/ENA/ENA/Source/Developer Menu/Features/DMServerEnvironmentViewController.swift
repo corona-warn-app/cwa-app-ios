@@ -101,6 +101,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 			self.store.selectedServerEnvironment = self.serverEnvironment.availableEnvironments()[selectedRow]
 			self.updateCurrentEnviromentLabel()
 			self.store.enfRiskCalculationResult = nil
+			self.store.checkinRiskCalculationResult = nil
 			self.downloadedPackagesStore.reset()
 			exit(0)
 		}

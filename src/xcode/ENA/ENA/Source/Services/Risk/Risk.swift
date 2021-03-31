@@ -9,7 +9,7 @@ struct Risk: Equatable {
 	struct Details: Equatable {
 		var mostRecentDateWithRiskLevel: Date?
 		var numberOfDaysWithRiskLevel: Int
-		var exposureDetectionDate: Date?
+		var calculationDate: Date?
 	}
 
 	let level: RiskLevel
@@ -57,7 +57,13 @@ extension Risk {
 			$1 == totalRiskLevel
 		}.count
 
-		let details = Details(mostRecentDateWithRiskLevel: mostRecentDateWithRiskLevel, numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel, exposureDetectionDate: enfRiskCalculationResult.calculationDate)
+		let calculationDate = max(enfRiskCalculationResult.calculationDate, checkinCalculationResult.calculationDate)
+
+		let details = Details(
+			mostRecentDateWithRiskLevel: mostRecentDateWithRiskLevel,
+			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel,
+			calculationDate: calculationDate
+		)
 
 		self.init(
 			level: totalRiskLevel,
@@ -77,7 +83,7 @@ extension Risk {
 		details: Risk.Details(
 			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 			numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
-			exposureDetectionDate: Date()),
+			calculationDate: Date()),
 		riskLevelHasChanged: true
 	)
 
@@ -88,7 +94,7 @@ extension Risk {
 			details: Risk.Details(
 				mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
 				numberOfDaysWithRiskLevel: numberOfDaysWithRiskLevel ?? numberOfDaysWithRiskLevelDefaultValue,
-				exposureDetectionDate: Date()),
+				calculationDate: Date()),
 			riskLevelHasChanged: true
 		)
 	}

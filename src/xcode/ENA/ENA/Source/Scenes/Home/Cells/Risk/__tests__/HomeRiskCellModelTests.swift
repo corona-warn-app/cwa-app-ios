@@ -29,6 +29,7 @@ class HomeRiskCellModelTests: XCTestCase {
 		)
 
 		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .low)]],
 			riskLevelPerDate: [today: .low]
 		)
@@ -156,6 +157,7 @@ class HomeRiskCellModelTests: XCTestCase {
 		)
 
 		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .high)]],
 			riskLevelPerDate: [today: .high]
 		)

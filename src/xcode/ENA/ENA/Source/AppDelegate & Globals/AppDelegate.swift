@@ -318,12 +318,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
 		exposureSubmissionService.reset()
 
-		// Reset key value store. Preserve environment settings.
+		// Reset key value store. Preserve some values.
 
 		do {
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
 			/// - App installation date
+			/// - Environment setting
 			///
 			/// read values from the current store
 			let ppacAPIToken = store.ppacApiToken

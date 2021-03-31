@@ -32,7 +32,7 @@ class HomeState: ENStateHandlerUpdating {
 					details: .init(
 						mostRecentDateWithRiskLevel: nil,
 						numberOfDaysWithRiskLevel: 0,
-						exposureDetectionDate: nil
+						calculationDate: nil
 					),
 					riskLevelHasChanged: false
 				)
@@ -87,8 +87,19 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider.manualExposureDetectionState
 	}
 
-	var lastRiskCalculationResult: ENFRiskCalculationResult? {
-		store.enfRiskCalculationResult
+	var risk: Risk? {
+		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
+			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
+			return nil
+		}
+		return Risk(
+			enfRiskCalculationResult: enfRiskCalculationResult,
+			checkinCalculationResult: checkinRiskCalculationResult
+		)
+	}
+
+	var riskCalculationDate: Date? {
+		risk?.details.calculationDate
 	}
 
 	var nextExposureDetectionDate: Date {

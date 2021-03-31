@@ -206,6 +206,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				style: .destructive
 			) { _ in
 				self.store.enfRiskCalculationResult = nil
+				self.store.checkinRiskCalculationResult = nil
 				self.riskProvider.requestRisk(userInitiated: true)
 			}
 		)

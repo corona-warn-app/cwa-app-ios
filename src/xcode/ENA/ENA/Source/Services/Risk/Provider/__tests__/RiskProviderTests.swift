@@ -130,6 +130,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -678,6 +679,7 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [Date(): previousRiskLevel]
 		)
@@ -742,6 +744,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -828,6 +831,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -912,6 +916,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -998,6 +1003,7 @@ final class RiskProviderTests: XCTestCase {
 			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [:],
 			riskLevelPerDate: [:]
 		)
@@ -1124,7 +1130,7 @@ private class CheckinRiskCalculationFake: CheckinRiskCalculationProtocol {
 	let riskLevel: RiskLevel
 
 	func calculateRisk(with config: SAP_Internal_V2_ApplicationConfigurationIOS) -> CheckinRiskCalculationResult {
-		return CheckinRiskCalculationResult(checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: [Date(): riskLevel])
+		return CheckinRiskCalculationResult(calculationDate: Date(), checkinIdsWithRiskPerDate: [Date: [CheckinIdWithRisk]](), riskLevelPerDate: [Date(): riskLevel])
 	}
 }
 
