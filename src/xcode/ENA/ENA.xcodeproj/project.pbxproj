@@ -346,6 +346,7 @@
 		35B2FABA25B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */; };
 		35BE8598251CE495005C2FD0 /* CachingHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */; };
 		35BF067525DB1BA900D3868B /* AppDelegate+QuickActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */; };
+		35C0C883261492D5004BF509 /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C0C882261492D5004BF509 /* ArrayExtensionTests.swift */; };
 		35C701EC2556BCB9008AEA91 /* Migration1To2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701EB2556BCB9008AEA91 /* Migration1To2.swift */; };
 		35C701F82556C01F008AEA91 /* Migration1To2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C701F32556C016008AEA91 /* Migration1To2Tests.swift */; };
 		35D16DDE2567FB980069AD1B /* DynamicLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */; };
@@ -1372,6 +1373,7 @@
 		35B2FAB925B9D3F3009ABC8E /* ENATaskExecutionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskExecutionDelegate.swift; sourceTree = "<group>"; };
 		35BE8597251CE495005C2FD0 /* CachingHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachingHTTPClient.swift; sourceTree = "<group>"; };
 		35BF067425DB1BA900D3868B /* AppDelegate+QuickActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+QuickActions.swift"; sourceTree = "<group>"; };
+		35C0C882261492D5004BF509 /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		35C701EB2556BCB9008AEA91 /* Migration1To2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2.swift; sourceTree = "<group>"; };
 		35C701F32556C016008AEA91 /* Migration1To2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration1To2Tests.swift; sourceTree = "<group>"; };
 		35D16DDC2567FB980069AD1B /* DynamicLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalCell.swift; sourceTree = "<group>"; };
@@ -3598,6 +3600,7 @@
 				2FC0356E24B342FA00E234AC /* UIViewcontroller+AlertTest.swift */,
 				EB54936A25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift */,
 				34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */,
+				35C0C882261492D5004BF509 /* ArrayExtensionTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -6959,6 +6962,7 @@
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
 				014086B82588F9FD00E9E5B2 /* DiaryEditEntriesViewModelTest.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
+				35C0C883261492D5004BF509 /* ArrayExtensionTests.swift in Sources */,
 				50C029B625E406A400460FA4 /* RiskExposureMetadataTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
 				BA6C8B0E254D6BF9008344F5 /* RiskCalculationTest.swift in Sources */,
