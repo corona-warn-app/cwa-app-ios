@@ -92,6 +92,10 @@ final class CheckinCoordinator {
 		CheckinsOverviewViewModel(
 			store: eventStore,
 			onEntryCellTap: { [weak self] checkin in
+				guard checkin.checkinCompleted else {
+					Log.debug("Editing uncompleted checkin is not allowed", log: .default)
+					return
+				}
 				self?.showEditCheckIn(checkin)
 			}
 		)
