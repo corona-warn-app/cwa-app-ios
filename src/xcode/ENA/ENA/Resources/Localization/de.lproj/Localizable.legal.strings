@@ -1,5 +1,9 @@
 /* ExposureSubmissionWarnOthers */
 
+"ExposureSubmissionWarnOthers_acknowledgementTitle" = "Ihr Einverständnis";
+
+"ExposureSubmissionWarnOthers_acknowledgementBody" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+
 "ExposureSubmissionWarnOthers_acknowledgement_1_1" = "Die App teilt Ihr Testergebnis, um Nutzer von offiziellen Corona-Apps, denen Sie begegnet sind, zu warnen. Die Warnung funktioniert in den oben genannten Ländern. Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
 "ExposureSubmissionWarnOthers_acknowledgement_1_2" = "Bitte geben Sie Ihr Testergebnis (genauer gesagt: Ihre Zufalls-IDs der letzten 14 Tage) im nächsten Schritt frei, indem Sie „Teilen“ antippen.";
@@ -19,25 +23,21 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Risiko-Begegnungen mit App-Nutzern der teilnehmenden Länder hatten und für Sie ein Ansteckungsrisiko besteht, müssen Sie die Risiko-Ermittlung aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung durch die App stimmen Sie mit Antippen des Buttons „Risiko-Ermittlung aktivieren“ zu.\n\nUm die Risiko-Ermittlung nutzen zu können, müssen Sie zudem auf Ihrem iPhone die von Apple bereitgestellte Funktion „Begegnungsmitteilungen“ aktivieren und für die Corona-Warn-App freigeben.\n\nAnschließend erzeugt Ihr iPhone kontinuierlich Zufalls-IDs und versendet diese per Bluetooth, damit diese von Smartphones in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs von anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden von Ihrem iPhone aufgezeichnet und dort für 14 Tage gespeichert.\n\nFür die Risiko-Ermittlung lädt die App täglich aktuelle Listen mit den Zufalls-IDs aller Nutzer herunter, die ihr Testergebnis (genauer gesagt: die eigenen Zufalls-IDs) zur Warnung anderer über ihre offizielle Corona-App geteilt haben. Diese Listen werden dann mit den von Ihrem iPhone aufgezeichneten Zufalls-IDs anderer Nutzer verglichen.\n\nWenn dabei eine Risiko-Begegnung festgestellt wird, werden Sie von der App informiert. In diesem Fall erhält die App Zugriff auf die von Ihrem iPhone zu der Risiko-Begegnung aufgezeichneten Daten (Datum, Dauer und Bluetooth-Signalstärke des Kontakts). Aus der Bluetooth-Signalstärke wird der räumliche Abstand zu dem anderen Nutzer abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Ansteckungsrisiko zu berechnen und Ihnen Verhaltensempfehlungen zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt.\n\nAußer Ihnen erfährt niemand (auch nicht das RKI oder die Gesundheitsbehörden teilnehmender Länder), ob Sie eine Risiko-Begegnung hatten und welches Ansteckungsrisiko für Sie ermittelt wird.\n\nSie können Ihr Einverständnis zur Risiko-Ermittlung jederzeit zurücknehmen, indem Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Risiko-Begegnungen hatten. Um auch das Aussenden und den Empfang der Zufalls-IDs anzuhalten, müssen Sie die Funktion „Begegnungsmitteilungen“ in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die durch diese Funktion von Ihrem iPhone aufgezeichneten fremden und eigenen Zufalls-IDs nicht von der App gelöscht werden. Diese können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\nDie Datenschutzerklärung der App (einschließlich Informationen zur Datenverarbeitung für die länderübergreifende Risiko-Ermittlung) finden Sie unter dem Menüpunkt „App-Informationen“ > „Datenschutz“.";
 
-/* Exposure Submission QR Code Info */
+/* Exposure Submission QR Code Info Screen */
 
-"ExposureSubmissionQRInfo_acknowledgement_title" = "Ihr Einverständnis";
+"ExposureSubmissionQRInfo_acknowledgement_legal_title" = "Ihr Einverständnis";
 
-"ExposureSubmissionQRInfo_acknowledgement_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
+"ExposureSubmissionQRInfo_acknowledgement_legal_body" = "Durch Antippen von „Einverstanden“ willigen Sie in folgende Schritte ein:";
 
-"ExposureSubmissionQRInfo_acknowledgementBullet1_1" = "Die App ruft Ihr Testergebnis ab.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1" = "Die App ruft Ihr Testergebnis ab.";
 
-"ExposureSubmissionQRInfo_acknowledgementBullet1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2" = "Wenn Sie es sich später anders überlegen, können Sie den Test in der App entfernen.";
 
-"ExposureSubmissionQRInfo_acknowledgementBullet2" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2" = "Wenn Sie positiv auf Corona getestet wurden, teilt die App Ihr Testergebnis, um Nutzer, denen Sie begegnet sind, zu warnen. Dies betrifft Nutzer von Corona-Apps der oben genannten Länder und Nutzer, die zeitgleich am selben Event oder Ort wie Sie eingecheckt waren.";
 
-"ExposureSubmissionQRInfo_acknowledgementBullet3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
 
-"ExposureSubmissionQRInfo_acknowledgementWithdrawConsent" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
-
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Wenn Sie zusätzlich Angaben zum Beginn Ihrer Symptome machen, werden auch diese geteilt.";
-
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen und um Freigabe Ihres Testergebnisses gebeten.";
+"ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent" = "Sie können Ihr Einverständnis jederzeit zurücknehmen. Die Einstellung hierfür finden Sie unter „Test anzeigen“. Vor dem Teilen werden Sie nochmal auf Ihr Einverständnis hingewiesen.";
 
 /* Automatic share submission result consent */
 
