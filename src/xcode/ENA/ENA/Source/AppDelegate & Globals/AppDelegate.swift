@@ -80,17 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		}
 
 		// Check for any URLs passed into the app – most likely via scanning a QR code
-		var route: Route?
-		if let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] {
-			for key in activityDictionary.keys {
-				if let userActivity = activityDictionary[key] as? NSUserActivity {
-					if userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL {
-						route = Route(url: url)
-						break
-					}
-				}
-			}
-		}
+		let route = routeForScannedQRCode(in: launchOptions)
 		setupUI(route)
 		setupQuickActions()
 
@@ -142,6 +132,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			taskScheduler.scheduleTask()
 		}
 		Log.info("Application did enter background.", log: .background)
+	}
+
+	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+		// handle QR cdes scanned in the camera app
+		guard
+			userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+			let incomingURL = userActivity.webpageURL,
+			let route = Route(url: incomingURL),
+			store.isOnboarded
+		else {
+			return false
+		}
+		showHome(route)
+		return true
 	}
 
 	// MARK: - Protocol CoronaWarnAppDelegate
@@ -392,6 +396,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			exposureDetector: self.exposureManager
 		)
 	}()
+
+	/// Prepare handling of scanned QR codes
+	///
+	/// - Parameter launchOptions: Launch options passed on app launch
+	/// - Returns: A `Route` if a valid URL is passed in the launch options
+	private func routeForScannedQRCode(in launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Route? {
+		guard let activityDictionary = launchOptions?[.userActivityDictionary] as? [AnyHashable: Any] else {
+			return nil
+		}
+
+		for key in activityDictionary.keys {
+			if let userActivity = activityDictionary[key] as? NSUserActivity,
+			   userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+			   let url = userActivity.webpageURL {
+				return Route(url: url)
+			}
+		}
+
+		return nil
+	}
 
 	private func showError(_ riskProviderError: RiskProviderError) {
 		guard let rootController = window?.rootViewController else {
