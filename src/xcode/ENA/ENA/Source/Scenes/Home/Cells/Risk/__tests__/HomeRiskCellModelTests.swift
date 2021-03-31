@@ -155,14 +155,14 @@ class HomeRiskCellModelTests: XCTestCase {
 			riskLevelPerDate: [today: .high],
 			minimumDistinctEncountersWithHighRiskPerDate: [today: 1]
 		)
+		store.enfRiskCalculationResult = riskCalculationResult
 
 		let checkinRiskCalculationResult = CheckinRiskCalculationResult(
 			calculationDate: Date(),
 			checkinIdsWithRiskPerDate: [today: [CheckinIdWithRisk(checkinId: 0, riskLevel: .high)]],
 			riskLevelPerDate: [today: .high]
 		)
-
-		store.enfRiskCalculationResult = riskCalculationResult
+		store.checkinRiskCalculationResult = checkinRiskCalculationResult
 
 		let homeState = HomeState(
 			store: store,

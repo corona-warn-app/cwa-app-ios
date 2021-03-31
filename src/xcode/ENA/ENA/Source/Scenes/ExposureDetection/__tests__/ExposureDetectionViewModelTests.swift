@@ -73,7 +73,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: nil,
 				numberOfDaysWithRiskLevel: 0,
-				exposureDetectionDate: nil
+				calculationDate: nil
 			)
 		)
 	}
@@ -141,7 +141,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithLowRisk,
 				numberOfDaysWithRiskLevel: 2,
-				exposureDetectionDate: calculationDate
+				calculationDate: calculationDate
 			)
 		)
 
@@ -343,7 +343,7 @@ class ExposureDetectionViewModelTests: XCTestCase {
 			Risk.Details(
 				mostRecentDateWithRiskLevel: mostRecentDateWithHighRisk,
 				numberOfDaysWithRiskLevel: 1,
-				exposureDetectionDate: calculationDate
+				calculationDate: calculationDate
 			)
 		)
 
