@@ -9,17 +9,17 @@ extension TraceLocation {
 
 	// MARK: - Internal
 	
-	func qrCode(size: CGSize = CGSize(width: 400, height: 400)) -> UIImage? {
+	func qrCode(size: CGSize = CGSize(width: 400, height: 400), qrCodeErrorCorrectionLevel: String = "H") -> UIImage? {
 		guard let qrCodeURL = qrCodeURL else {
 			return nil
 		}
 		
-		return qrCode(with: qrCodeURL, size: size)
+		return qrCode(with: qrCodeURL, size: size, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel)
 	}
 
 	// MARK: - Private
 
-	private func qrCode(with string: String, size: CGSize = CGSize(width: 400, height: 400)) -> UIImage? {
+	private func qrCode(with string: String, size: CGSize = CGSize(width: 400, height: 400), qrCodeErrorCorrectionLevel: String = "H") -> UIImage? {
 		/// Create data from string which will be feed into the CoreImage Filter
 		guard let data = string.data(using: .shiftJIS) else {
 			return nil
@@ -30,7 +30,7 @@ extension TraceLocation {
 			return nil
 		}
 		filter.setValue(data, forKey: "inputMessage") /// Feed data into Filter
-		filter.setValue("H", forKey: "inputCorrectionLevel") /// Set ErrorCorrectionLevel
+		filter.setValue(qrCodeErrorCorrectionLevel, forKey: "inputCorrectionLevel") /// Set ErrorCorrectionLevel
 
 		guard let image = filter.outputImage else {
 			return nil
