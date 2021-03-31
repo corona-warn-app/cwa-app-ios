@@ -652,6 +652,7 @@
 		AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68883425DACD0B00907465 /* SerialDatabaseQueueMigrator.swift */; };
 		AB68883A25DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68883925DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift */; };
 		AB68884225DACD8C00907465 /* MigrationStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68884125DACD8C00907465 /* MigrationStub.swift */; };
+		AB68D1662614930D00DFD2EB /* AccessibleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB68D1652614930D00DFD2EB /* AccessibleStackView.swift */; };
 		AB6993AF2608F39E00232AD7 /* TraceWarningMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6993AE2608F39E00232AD7 /* TraceWarningMatching.swift */; };
 		AB7420AC251B67A8006666AC /* DeltaOnboardingV15.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */; };
 		AB7420B7251B69E2006666AC /* DeltaOnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */; };
@@ -1686,6 +1687,7 @@
 		AB68883425DACD0B00907465 /* SerialDatabaseQueueMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialDatabaseQueueMigrator.swift; sourceTree = "<group>"; };
 		AB68883925DACD5B00907465 /* SerialDatabaseQueueMigratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerialDatabaseQueueMigratorTests.swift; sourceTree = "<group>"; };
 		AB68884125DACD8C00907465 /* MigrationStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrationStub.swift; sourceTree = "<group>"; };
+		AB68D1652614930D00DFD2EB /* AccessibleStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccessibleStackView.swift; path = ENA/Source/Views/AccessibleStackView.swift; sourceTree = SOURCE_ROOT; };
 		AB6993AE2608F39E00232AD7 /* TraceWarningMatching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraceWarningMatching.swift; sourceTree = "<group>"; };
 		AB7420AB251B67A8006666AC /* DeltaOnboardingV15.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingV15.swift; sourceTree = "<group>"; };
 		AB7420B6251B69E2006666AC /* DeltaOnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaOnboardingCoordinator.swift; sourceTree = "<group>"; };
@@ -6141,6 +6143,7 @@
 				50F9130D253F1D7800DFE683 /* OnboardingPageType.swift in Sources */,
 				BA0073BE25D18A5B0036DFDD /* DataDonationViewController.swift in Sources */,
 				BA6898CD25ED49E00037A3EE /* Route.swift in Sources */,
+				AB68D1662614930D00DFD2EB /* AccessibleStackView.swift in Sources */,
 				A372DA3B24BDA075003248BB /* ExposureSubmissionCoordinator.swift in Sources */,
 				AB68883525DACD0B00907465 /* SerialDatabaseQueueMigrator.swift in Sources */,
 				01A4DD3825935AC1007D5794 /* CellPositionInSection.swift in Sources */,
