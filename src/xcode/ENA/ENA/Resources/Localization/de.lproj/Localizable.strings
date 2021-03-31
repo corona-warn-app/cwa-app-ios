@@ -571,6 +571,8 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 
 "ExposureSubmissionQRInfo_body_section_2" = "Wenn Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen. Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
 
+"ExposureSubmissionQRInfo_body_section_3" = "Es werden auch Ihre Mitmenschen gewarnt, die zeitgleich mit Ihnen an denselben Events oder Orten eingecheckt waren.";
+
 "ExposureSubmissionQRInfo_acknowledgement_3" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
 
 "ExposureSubmissionQRInfo_acknowledgement_4" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
@@ -795,6 +797,14 @@ Bei ausgeschalteter Hintergrundaktualisierung müssen Sie die App täglich aufru
 "ExposureSubmissionWarnOthers_description" = "Da Sie positiv auf Corona getestet wurden, können Sie Ihre Mitmenschen über die App warnen.";
 
 "ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Die Warnung funktioniert in mehreren Ländern. Derzeit nehmen folgende Länder teil:";
+
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Ihr Einverständnis ist freiwillig.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Sie können Ihr Testergebnis auch abrufen, wenn Sie dies nicht teilen. Wenn Sie ihr Testergebnis teilen, helfen Sie jedoch mit, Ihre Mitmenschen vor Ansteckungen zu schützen.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Ihre Identität bleibt geheim. Andere Nutzer erfahren nicht, wer sein Testergebnis geteilt hat.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "Sie können Ihr Einverständnis abgeben, wenn Sie mindestens 16 Jahre alt sind.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Einverstanden";
 
