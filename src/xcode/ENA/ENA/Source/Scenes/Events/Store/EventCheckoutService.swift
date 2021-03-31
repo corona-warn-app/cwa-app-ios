@@ -127,7 +127,8 @@ final class EventCheckoutService {
 	}
 
 	private func triggerNotificationForCheckout(of checkin: Checkin) {
-		userNotificationCenter.removePendingNotificationRequests(withIdentifiers: ["\(checkin.id)"])
+		let uniqueIdentifier = "EventCheckoutService"
+		userNotificationCenter.removePendingNotificationRequests(withIdentifiers: [uniqueIdentifier + "\(checkin.id)"])
 
 		let content = UNMutableNotificationContent()
 		content.title = AppStrings.Checkout.notificationTitle
@@ -135,7 +136,7 @@ final class EventCheckoutService {
 		content.sound = .default
 
 		let request = UNNotificationRequest(
-			identifier: "\(checkin.id)",
+			identifier: uniqueIdentifier + "\(checkin.id)",
 			content: content,
 			trigger: nil // nil triggers right away.
 		)
