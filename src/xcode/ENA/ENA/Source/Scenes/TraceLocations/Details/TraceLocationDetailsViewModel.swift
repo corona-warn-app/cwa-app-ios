@@ -13,11 +13,13 @@ class TraceLocationDetailsViewModel {
 	init(
 		traceLocation: TraceLocation,
 		store: Store,
-		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		qrCodeErrorCorrectionLevel: String
 	) {
 		self.traceLocation = traceLocation
 		self.store = store
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.qrCodeErrorCorrectionLevel = qrCodeErrorCorrectionLevel
 	}
 
 	enum TableViewSections: Int, CaseIterable {
@@ -89,6 +91,7 @@ class TraceLocationDetailsViewModel {
 
 	private let store: Store
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let qrCodeErrorCorrectionLevel: String
 	private var subscriptions = Set<AnyCancellable>()
 	@OpenCombine.Published private(set) var qrCodePosterTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS = SAP_Internal_Pt_QRCodePosterTemplateIOS()
 }

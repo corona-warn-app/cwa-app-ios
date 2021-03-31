@@ -11,11 +11,13 @@ class TraceLocationsCoordinator {
 	
 	init(
 		store: Store,
+		appConfig: AppConfigurationProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
+		self.appConfig = appConfig
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
@@ -47,7 +49,9 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 	
 	private let store: Store
+	private let appConfig: AppConfigurationProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let qrCodeErrorCorrectionLevelProvider = QRCodeErrorCorrectionLevelProvider()
 	private let eventStore: EventStoringProviding
 
 	private var tmpTraceLocation = TraceLocation(id: "0".data(using: .utf8) ?? Data(), version: 0, type: .locationTypeTemporaryPrivateEvent, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, cryptographicSeed: Data(), cnPublicKey: Data())
@@ -64,7 +68,7 @@ class TraceLocationsCoordinator {
 		get { store.traceLocationsInfoScreenShown }
 		set { store.traceLocationsInfoScreenShown = newValue }
 	}
-	
+
 	// MARK: Show Screens
 	
 	private lazy var overviewScreen: UIViewController = {
@@ -144,43 +148,49 @@ class TraceLocationsCoordinator {
 			self.infoScreenShown = true
 		}
 	}
-	
+
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
-		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
-			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: store, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider),
-			onPrintVersionButtonTap: { [weak self] pdfView in
-				DispatchQueue.main.async {
-					self?.showPrintVersionScreen(pdfView: pdfView)
-				}
-			},
-			onDuplicateButtonTap: { [weak self] traceLocation in
+		qrCodeErrorCorrectionLevelProvider.errorCorrectionLevel(
+			appConfigurationProvider: appConfig,
+			onSuccess: { [weak self] qrCodeErrorCorrectionLevel in
 				guard let self = self else { return }
-				
-				self.showTraceLocationConfigurationScreen(
-					on: self.traceLocationDetailsNavigationController,
-					mode: .duplicate(traceLocation)
+				let traceLocationDetailsViewController = TraceLocationDetailsViewController(
+					viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: self.store, qrCodePosterTemplateProvider: self.qrCodePosterTemplateProvider, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel),
+					appConfig: self.appConfig,
+					onPrintVersionButtonTap: { [weak self] pdfView in
+						DispatchQueue.main.async {
+							self?.showPrintVersionScreen(pdfView: pdfView)
+						}
+					},
+					onDuplicateButtonTap: { [weak self] traceLocation in
+						guard let self = self else { return }
+						
+						self.showTraceLocationConfigurationScreen(
+							on: self.traceLocationDetailsNavigationController,
+							mode: .duplicate(traceLocation)
+						)
+					},
+					onDismiss: { [weak self] in
+						self?.parentNavigationController?.dismiss(animated: true)
+					}
 				)
-			},
-			onDismiss: { [weak self] in
-				self?.parentNavigationController?.dismiss(animated: true)
-			}
-		)
-		
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
-				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
-				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: false
-			)
-		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: traceLocationDetailsViewController,
-			bottomController: footerViewController
-		)
-		
-		parentNavigationController?.present(topBottomContainerViewController, animated: true)
+				
+				let footerViewController = FooterViewController(
+					FooterViewModel(
+						primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
+						secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
+						isPrimaryButtonHidden: false,
+						isSecondaryButtonHidden: false
+					)
+				)
+				
+				let topBottomContainerViewController = TopBottomContainerViewController(
+					topController: traceLocationDetailsViewController,
+					bottomController: footerViewController
+				)
+
+				self.parentNavigationController?.present(topBottomContainerViewController, animated: true)
+			})
 	}
 
 	private func showPrintVersionScreen(pdfView: PDFView) {

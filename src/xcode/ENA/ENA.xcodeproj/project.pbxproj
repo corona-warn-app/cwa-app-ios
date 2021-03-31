@@ -304,6 +304,7 @@
 		347FBB622610D77400672770 /* TraceLocationDetailsLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB612610D77400672770 /* TraceLocationDetailsLocationCell.swift */; };
 		347FBB6A2610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB692610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift */; };
 		347FBB752611C9F100672770 /* TraceLocationDetailsDateTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */; };
+		34CF3B072614BD3E004A9435 /* QRCodeErrorCorrectionLevelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF3B062614BD3E004A9435 /* QRCodeErrorCorrectionLevelProvider.swift */; };
 		34FE156A26010A840002CB69 /* TraceLocation+GenerateQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */; };
 		34FE15942604ADC10002CB69 /* qr_code_template.bin in Resources */ = {isa = PBXBuildFile; fileRef = 34FE15932604ADC00002CB69 /* qr_code_template.bin */; };
 		34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE159B2604B1800002CB69 /* QRCodePosterTemplateProviderTests.swift */; };
@@ -1302,6 +1303,7 @@
 		347FBB612610D77400672770 /* TraceLocationDetailsLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsLocationCell.swift; sourceTree = "<group>"; };
 		347FBB692610DDBD00672770 /* TraceLocationDetailsQRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsQRCodeCell.swift; sourceTree = "<group>"; };
 		347FBB742611C9EF00672770 /* TraceLocationDetailsDateTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailsDateTimeCell.swift; sourceTree = "<group>"; };
+		34CF3B062614BD3E004A9435 /* QRCodeErrorCorrectionLevelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeErrorCorrectionLevelProvider.swift; sourceTree = "<group>"; };
 		34FE156926010A830002CB69 /* TraceLocation+GenerateQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCode.swift"; sourceTree = "<group>"; };
 		34FE156E26010FBD0002CB69 /* TraceLocation+GenerateQRCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+GenerateQRCodeTests.swift"; sourceTree = "<group>"; };
 		34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePosterTemplateProviding.swift; sourceTree = "<group>"; };
@@ -2138,9 +2140,9 @@
 			children = (
 				0138F61925EFE63400A9B075 /* TraceLocationsCoordinator.swift */,
 				0138F6FE25F6782F00A9B075 /* Configuration */,
-				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6A825F25B1400A9B075 /* Info */,
 				0138F63A25F1173E00A9B075 /* Overview */,
+				0138F6C425F36C3F00A9B075 /* Details */,
 				0138F6E025F661DE00A9B075 /* PrintVersion */,
 				0138F6D225F6177500A9B075 /* TypeSelection */,
 			);
@@ -2160,10 +2162,10 @@
 			isa = PBXGroup;
 			children = (
 				01DF18692603B16800A002E4 /* __test__ */,
-				BADDD84326039CF600337223 /* Cells */,
 				0138F64025F1173F00A9B075 /* TraceLocationsOverviewViewController.swift */,
 				0138F63F25F1173F00A9B075 /* TraceLocationsOverviewViewModel.swift */,
 				0138F63D25F1173F00A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift */,
+				BADDD84326039CF600337223 /* Cells */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -2855,6 +2857,7 @@
 				34FE1580260126080002CB69 /* QRCodePosterTemplateProviding.swift */,
 				34FE1585260131830002CB69 /* QRCodePosterTemplateMetadata.swift */,
 				34FE158D260135E20002CB69 /* QRCodePosterTemplateProvider.swift */,
+				34CF3B062614BD3E004A9435 /* QRCodeErrorCorrectionLevelProvider.swift */,
 			);
 			path = QRCodePosterTemplate;
 			sourceTree = "<group>";
@@ -6583,6 +6586,7 @@
 				01909888257E7B900065D050 /* ExposureSubmissionQRInfoViewController.swift in Sources */,
 				358249EE25E910AF00BFF303 /* LogDataItem.swift in Sources */,
 				8F270194259B5BA700E48CFE /* ContactDiaryMigration1To2.swift in Sources */,
+				34CF3B072614BD3E004A9435 /* QRCodeErrorCorrectionLevelProvider.swift in Sources */,
 				BA112DF7255586E9007F5712 /* WifiOnlyHTTPClient.swift in Sources */,
 				0138F61D25EFE71B00A9B075 /* TraceLocationsCoordinator.swift in Sources */,
 				0138F65425F1174200A9B075 /* TraceLocationsOverviewEmptyStateViewModel.swift in Sources */,

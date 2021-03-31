@@ -12,12 +12,13 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	init(
 		viewModel: TraceLocationDetailsViewModel,
+		appConfig: AppConfigurationProviding,
 		onPrintVersionButtonTap: @escaping (PDFView) -> Void,
 		onDuplicateButtonTap: @escaping (TraceLocation) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-
+		self.appConfig = appConfig
 		self.onPrintVersionButtonTap = onPrintVersionButtonTap
 		self.onDuplicateButtonTap = onDuplicateButtonTap
 		self.onDismiss = onDismiss
@@ -157,6 +158,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 	private let tableView = UITableView(frame: .zero, style: .plain)
 
 	private let viewModel: TraceLocationDetailsViewModel
+	private let appConfig: AppConfigurationProviding
 
 	private let onPrintVersionButtonTap: (PDFView) -> Void
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
