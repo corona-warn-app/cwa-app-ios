@@ -9,8 +9,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 
 	// MARK: - Init
 
-	init(appConfiguration: AppConfigurationProviding) {
-		self.appConfigurationProvider = appConfiguration
+	override init() {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		super.init()
 	}
@@ -103,7 +102,6 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	// MARK: - Private
 
 	private let captureDevice: AVCaptureDevice?
-	private let appConfigurationProvider: AppConfigurationProviding
 	private var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
 	}

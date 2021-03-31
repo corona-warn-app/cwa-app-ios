@@ -130,7 +130,7 @@ final class CheckinCoordinator {
 	private func showQRCodeScanner() {
 		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			viewModel: CheckinQRCodeScannerViewModel(appConfiguration: appConfiguration),
+			viewModel: CheckinQRCodeScannerViewModel(),
 			didScanCheckin: { [weak self] qrCodeString in
 				self?.viewController.dismiss(animated: true, completion: {
 					self?.showTraceLocationDetails(qrCodeString)
