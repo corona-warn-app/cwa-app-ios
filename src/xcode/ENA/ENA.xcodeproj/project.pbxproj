@@ -10,7 +10,6 @@
 		0103CED12536D1A100BDAAD1 /* AppInformationCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103CED02536D1A100BDAAD1 /* AppInformationCellModel.swift */; };
 		0105D8AA25B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0105D8A925B87920007E288B /* SAP_Internal_Stats_KeyFigure+Formatting.swift */; };
 		0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB762603682C00624BB3 /* CheckinsOverviewViewModelTest.swift */; };
-		0109DB8F26037E1F00624BB3 /* Checkin+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */; };
 		0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
@@ -360,6 +359,8 @@
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
 		500120F625E3FA1C00EDF3A5 /* PPAnalyticsCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508ACB7B25DE6AE2006B9945 /* PPAnalyticsCollectorTests.swift */; };
+		5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5006C274260E2A4900533CAA /* CheckinWithRisk.swift */; };
+		5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB8E26037E1F00624BB3 /* Checkin+Mock.swift */; };
 		5008F60325DC0237008B516F /* PPAnalyticsCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */; };
 		500DB4CC25CDDECF0038DFED /* PPASResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4CB25CDDECF0038DFED /* PPASResponse.swift */; };
 		500DB4D425CDE5C20038DFED /* PPASError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500DB4D325CDE5C20038DFED /* PPASError.swift */; };
@@ -1378,6 +1379,7 @@
 		35EA68512555488600335F73 /* SQLiteError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteError.swift; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
+		5006C274260E2A4900533CAA /* CheckinWithRisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinWithRisk.swift; sourceTree = "<group>"; };
 		5008F60225DC0237008B516F /* PPAnalyticsCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPAnalyticsCollector.swift; sourceTree = "<group>"; };
 		500DB4CB25CDDECF0038DFED /* PPASResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPASResponse.swift; sourceTree = "<group>"; };
 		500DB4D325CDE5C20038DFED /* PPASError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPASError.swift; sourceTree = "<group>"; };
@@ -1460,6 +1462,7 @@
 		50FA071026021180003C1E46 /* api-response-traceWarning */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-traceWarning"; sourceTree = "<group>"; };
 		50FA072A26023784003C1E46 /* TraceWarningPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownload.swift; sourceTree = "<group>"; };
 		50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownloadTests.swift; sourceTree = "<group>"; };
+		50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibleStackView.swift; sourceTree = "<group>"; };
 		514C0A09247AEEE200F235F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
@@ -2415,6 +2418,7 @@
 				019C9F31258951B900B26392 /* LocationVisit.swift */,
 				BAB953D525B86015007B80C7 /* HistoryExposure.swift */,
 				2E67C3D425BAFFC8008C6C90 /* DiaryExportItem.swift */,
+				5006C274260E2A4900533CAA /* CheckinWithRisk.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3339,6 +3343,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		50FE67EA2614B73B00A2B2E7 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				AB68D1652614930D00DFD2EB /* AccessibleStackView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3683,7 +3695,7 @@
 				853D987824694A1E00490DBA /* BaseElements */,
 				0138F63025F114E700A9B075 /* EmptyStateView */,
 				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
-				AB68D1652614930D00DFD2EB /* AccessibleStackView.swift */,
+				50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */,
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
 				85E33443247EB357006E74EC /* CircularProgressView.swift */,
@@ -3708,6 +3720,7 @@
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
 				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
+				50FE67EA2614B73B00A2B2E7 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -6522,6 +6535,7 @@
 				BAE20FF325C8321300162966 /* DMKeyValueTableViewCell.swift in Sources */,
 				94092541254BFE6800FE61A2 /* DMWarnOthersNotificationViewController.swift in Sources */,
 				EB17144625716EA80088D7A9 /* FileManager+KeyPackageStorage.swift in Sources */,
+				5006C275260E2A4900533CAA /* CheckinWithRisk.swift in Sources */,
 				AB124E202604EC34009004B3 /* DeleteAllTraceWarningPackageMetadataQuery.swift in Sources */,
 				ABE9613F25EFEC3700D0F699 /* InstallationDate.swift in Sources */,
 				BAC42DC42583AF9D001A94C0 /* ENATextField.swift in Sources */,
@@ -6832,6 +6846,7 @@
 				0109DB8726036E4400624BB3 /* CheckinsOverviewViewModelTest.swift in Sources */,
 				EB0F740D25E93CA2003BFAE7 /* Base32DecodingTests.swift in Sources */,
 				BADBC85625D6C1C500488DB7 /* BaseDataDonationViewModelTests.swift in Sources */,
+				5006C283260E4ABA00533CAA /* Checkin+Mock.swift in Sources */,
 				35AA4AF4259B40FC00D32306 /* CryptoFallbackTests.swift in Sources */,
 				01B72BC02583875600A3E3BC /* DiaryDayViewModelTest.swift in Sources */,
 				01B605C9258A32F00093DB8E /* DiaryDayTest.swift in Sources */,
@@ -6892,7 +6907,6 @@
 				BA06D5BB25DC2E910039D1DB /* TextFieldsManagerTests.swift in Sources */,
 				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
-				0109DB8F26037E1F00624BB3 /* Checkin+Mock.swift in Sources */,
 				EB54936B25F7CC0400A3C459 /* PDFDocument+EmbedImageTests.swift in Sources */,
 				8F3D71AA25A86AD300D52CCD /* HomeExposureLoggingCellModelTests.swift in Sources */,
 				BACCCC7525ADB9FD00195AC3 /* RiskLegendeTest.swift in Sources */,

@@ -71,6 +71,7 @@ class RootCoordinator: RequiresAppDependencies {
 		let diaryCoordinator = DiaryCoordinator(
 			store: store,
 			diaryStore: contactDiaryStore,
+			eventStore: eventStore,
 			homeState: homeState
 		)
 		self.diaryCoordinator = diaryCoordinator
