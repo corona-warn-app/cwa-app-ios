@@ -17,7 +17,7 @@ class QRCodeErrorCorrectionLevelProvider {
 
 	func errorCorrectionLevel(
 		appConfigurationProvider: AppConfigurationProviding,
-		onSuccess: @escaping((String) -> Void)
+		onCompletion: @escaping((String) -> Void)
 	) {
 		appConfigurationProvider.appConfiguration().sink { appConfig in
 			let qrCodeErrorCorrectionLevel = appConfig.presenceTracingParameters.qrCodeErrorCorrectionLevel
@@ -35,7 +35,7 @@ class QRCodeErrorCorrectionLevelProvider {
 			default:
 				mappedErrorCorrectionLevel = "H"
 			}
-			onSuccess(mappedErrorCorrectionLevel)
+			onCompletion(mappedErrorCorrectionLevel)
 		}.store(in: &subscriptions)
 	}
 }

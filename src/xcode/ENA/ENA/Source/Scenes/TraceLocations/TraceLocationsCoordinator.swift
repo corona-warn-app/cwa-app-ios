@@ -142,7 +142,7 @@ class TraceLocationsCoordinator {
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
 		qrCodeErrorCorrectionLevelProvider.errorCorrectionLevel(
 			appConfigurationProvider: appConfig,
-			onSuccess: { [weak self] qrCodeErrorCorrectionLevel in
+			onCompletion: { [weak self] qrCodeErrorCorrectionLevel in
 				guard let self = self else { return }
 				let traceLocationDetailsViewController = TraceLocationDetailsViewController(
 					viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: self.store, qrCodePosterTemplateProvider: self.qrCodePosterTemplateProvider, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel),
