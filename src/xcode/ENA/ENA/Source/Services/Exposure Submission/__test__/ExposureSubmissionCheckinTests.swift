@@ -65,8 +65,8 @@ class ExposureSubmissionCheckinTests: XCTestCase {
 
 			// trace location conversion
 			let location = checkin.traceLocation
-			XCTAssertEqual(TimeInterval(location.startTimestamp), checkin.checkinStartDate.timeIntervalSince1970)
-			XCTAssertEqual(TimeInterval(location.endTimestamp), checkin.checkinEndDate.timeIntervalSince1970)
+			XCTAssertEqual(location.startTimestamp, UInt64(checkin.traceLocationStartDate?.timeIntervalSince1970 ?? 0))
+			XCTAssertEqual(location.endTimestamp, UInt64(checkin.traceLocationEndDate?.timeIntervalSince1970 ?? 0))
 		}
 	}
 }

@@ -7,6 +7,9 @@ import Foundation
 
 extension Checkin {
 
+
+	/// Provide a set of default parameters to quickly generate a `Checkin`
+	/// - Returns: A mocked `Checkin`
 	static func mock(
 		id: Int = 0,
 		traceLocationId: Data = Data(),
@@ -15,8 +18,8 @@ extension Checkin {
 		traceLocationType: TraceLocationType = .locationTypeUnspecified,
 		traceLocationDescription: String = "traceLocationDescription",
 		traceLocationAddress: String = "traceLocationAddress",
-		traceLocationStartDate: Date? = nil,
-		traceLocationEndDate: Date? = nil,
+		traceLocationStartDate: Date = Date(timeIntervalSinceNow: -14400),
+		traceLocationEndDate: Date = Date(timeIntervalSinceNow: -1800),
 		traceLocationDefaultCheckInLengthInMinutes: Int? = nil,
 		cryptographicSeed: Data = Data(),
 		cnPublicKey: Data = Data(),
