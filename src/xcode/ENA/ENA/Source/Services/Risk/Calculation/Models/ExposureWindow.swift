@@ -61,7 +61,7 @@ struct ExposureWindow: Codable, Equatable {
 		let scanInstances = try container.decode([ScanInstance].self, forKey: .scanInstances)
 
 		let ageInDays = try container.decode(Int.self, forKey: .date)
-		guard let date = Calendar.current.date(byAdding: .day, value: -ageInDays, to: Calendar.current.startOfDay(for: Date())) else {
+		guard let date = Calendar.utcCalendar.date(byAdding: .day, value: -ageInDays, to: Calendar.utcCalendar.startOfDay(for: Date())) else {
 			fatalError("Date could not be generated")
 		}
 

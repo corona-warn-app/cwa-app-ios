@@ -155,13 +155,14 @@ enum AppStrings {
 		static let instruction3HighlightedPhrase = NSLocalizedString("ExposureSubmissionQRInfo_instruction3_highlightedPhrase", comment: "")
 		static let headerSection2 = NSLocalizedString("ExposureSubmissionQRInfo_header_section_2", comment: "")
 		static let bodySection2 = NSLocalizedString("ExposureSubmissionQRInfo_body_section_2", comment: "")
-		static let acknowledgementTitle = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_title", tableName: "Localizable.legal", comment: "")
-		static let acknowledgementBody = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_body", tableName: "Localizable.legal", comment: "")
-		static let acknowledgementBullet1_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet1_1", tableName: "Localizable.legal", comment: "")
-		static let acknowledgementBullet1_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet1_2", tableName: "Localizable.legal", comment: "")
-		static let acknowledgementBullet2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet2", tableName: "Localizable.legal", comment: "")
-		static let acknowledgementBullet3 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementBullet3", tableName: "Localizable.legal", comment: "")
-		static let acknowledgementWithdrawConsent = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgementWithdrawConsent", tableName: "Localizable.legal", comment: "")
+		static let bodySection3 = NSLocalizedString("ExposureSubmissionQRInfo_body_section_3", comment: "")
+		static let acknowledgementTitle = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_title", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBody = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_body", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet1_1 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_1", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet1_2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_Bullet1_2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet2 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_Bullet2", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBullet3 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_Bullet3", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementWithdrawConsent = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_legal_WithdrawConsent", tableName: "Localizable.legal", comment: "")
 		
 		
 		static let acknowledgement3 = NSLocalizedString("ExposureSubmissionQRInfo_acknowledgement_3", comment: "")
@@ -265,9 +266,17 @@ enum AppStrings {
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnOthers_sectionTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionWarnOthers_description", comment: "")
 		static let supportedCountriesTitle = NSLocalizedString("ExposureSubmissionWarnOthers_supportedCountriesTitle", comment: "")
+		
+		static let acknowledgementTitle = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgementTitle", tableName: "Localizable.legal", comment: "")
+		static let acknowledgementBody = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgementBody", tableName: "Localizable.legal", comment: "")
 		static let acknowledgement_1_1 = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgement_1_1", tableName: "Localizable.legal", comment: "")
 		static let acknowledgement_1_2 = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgement_1_2", tableName: "Localizable.legal", comment: "")
 		static let acknowledgement_footer = NSLocalizedString("ExposureSubmissionWarnOthers_acknowledgement_footer", tableName: "Localizable.legal", comment: "")
+		
+		static let consent_bullet1 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet1", comment: "")
+		static let consent_bullet2 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet2", comment: "")
+		static let consent_bullet3 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet3", comment: "")
+		static let consent_bullet4 = NSLocalizedString("ExposureSubmissionWarnOthers_consent_bullet4", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {
