@@ -155,7 +155,7 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 	// MARK: - Protocol SecureSQLStore
 
 	let databaseQueue: FMDatabaseQueue
-	let key: String
+	var key: String
 	let schema: StoreSchemaProtocol
 	let migrator: SerialMigratorProtocol
 	let logIdentifier = "ContactDiaryStore"
@@ -813,6 +813,10 @@ class ContactDiaryStore: DiaryStoring, DiaryProviding, SecureSQLStore {
 		let dropTablesResult = dropTables()
 		if case let .failure(error) = dropTablesResult {
 			return .failure(error)
+		}
+		
+		if let newKey = try? ContactDiaryStore.resetEncryptionKey() {
+			key = newKey
 		}
 
 		let openAndSetupResult = openAndSetup()
