@@ -42,7 +42,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		app.launch()
 		// Swipe up until it is visible
 		
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app)	{
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
 		} else {
 			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
@@ -60,7 +60,7 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 		
 		// WHEN
 		app.launch()
-		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app)	{
+		if let button = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Home.traceLocationsCardButton, element: app, app: app) {
 			button.tap()
 		} else {
 			XCTFail("Can't find element \(AccessibilityIdentifiers.Home.traceLocationsCardButton)")
