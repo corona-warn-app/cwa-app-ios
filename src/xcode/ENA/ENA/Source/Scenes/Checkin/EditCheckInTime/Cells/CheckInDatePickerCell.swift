@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import OpenCombine
 
 class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
@@ -22,12 +23,19 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 
 	func configure(_ cellModel: CheckInTimeModel) {
 		self.cellModel = cellModel
-		startTimeDatePicker.date = cellModel.date
+		timeDatePicker.date = cellModel.date
+		cellModel.$minDate
+			.assign(to: \UIDatePicker.minimumDate, on: timeDatePicker)
+			.store(in: &subscriptions)
+
+		cellModel.$maxDate
+			.assign(to: \UIDatePicker.maximumDate, on: timeDatePicker)
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
 
-	private lazy var startTimeDatePicker: UIDatePicker = {
+	private lazy var timeDatePicker: UIDatePicker = {
 		let datePicker = UIDatePicker()
 
 		if #available(iOS 14.0, *) {
@@ -39,6 +47,7 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 	}()
 
 	private var cellModel: CheckInTimeModel!
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		selectionStyle = .none
@@ -50,9 +59,9 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 		tileView.backgroundColor = .enaColor(for: .darkBackground)
 		contentView.addSubview(tileView)
 
-		startTimeDatePicker.translatesAutoresizingMaskIntoConstraints = false
-		tileView.addSubview(startTimeDatePicker)
-		startTimeDatePicker.addTarget(self, action: #selector(updateDate(sender:)), for: .valueChanged)
+		timeDatePicker.translatesAutoresizingMaskIntoConstraints = false
+		tileView.addSubview(timeDatePicker)
+		timeDatePicker.addTarget(self, action: #selector(updateDate(sender:)), for: .valueChanged)
 
 		NSLayoutConstraint.activate(
 			[
@@ -61,10 +70,10 @@ class CheckInDatePickerCell: UITableViewCell, ReuseIdentifierProviding {
 				tileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
 				tileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
 
-				startTimeDatePicker.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 14.0),
-				startTimeDatePicker.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -14.0),
-				startTimeDatePicker.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
-				startTimeDatePicker.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
+				timeDatePicker.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 14.0),
+				timeDatePicker.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -14.0),
+				timeDatePicker.leadingAnchor.constraint(equalTo: tileView.leadingAnchor, constant: 16.0),
+				timeDatePicker.trailingAnchor.constraint(equalTo: tileView.trailingAnchor, constant: -16.0)
 			]
 		)
 	}
