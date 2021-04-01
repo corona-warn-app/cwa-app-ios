@@ -159,6 +159,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
+	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
+		eventStore: eventStore,
+		contactDiaryStore: contactDiaryStore
+	)
+
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
 			exposureManager: self.exposureManager,
@@ -227,11 +232,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		store: store,
 		client: client,
 		riskProvider: riskProvider
-	)
-
-	private lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
-		eventStore: eventStore,
-		contactDiaryStore: contactDiaryStore
 	)
 
 	#if targetEnvironment(simulator) || COMMUNITY
