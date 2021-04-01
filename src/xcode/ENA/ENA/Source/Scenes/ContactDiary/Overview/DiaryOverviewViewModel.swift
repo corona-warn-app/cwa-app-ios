@@ -136,7 +136,7 @@ class DiaryOverviewViewModel {
 				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
 			}
 		}
-		
+		checkinsWithRisk.sort(by: { $0.checkIn.traceLocationDescription < $1.checkIn.traceLocationDescription })
 		return checkinsWithRisk
 	}
 	
