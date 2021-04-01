@@ -11,10 +11,12 @@ class DMRecentCreatedEventViewController: UITableViewController {
     // MARK: - Init
 
     init(
-        store: Store
+        store: Store,
+        eventStore: EventStoringProviding
     ) {
         self.viewModel = DMRecentCreatedEventViewModel(
-            store: store
+            store: store,
+            eventStore: eventStore
         )
 
         if #available(iOS 13.0, *) {
@@ -45,35 +47,32 @@ class DMRecentCreatedEventViewController: UITableViewController {
 
     // MARK: - Protocol UITableViewDataSource
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // by help of a protocol for cellViewModel we might simplyfiy this even more
-        let cellViewModel = viewModel.cellViewModel(by: indexPath)
-        if cellViewModel is DMButtonCellViewModel {
-            let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
-            cell.configure(cellViewModel: cellViewModel)
-            return cell
-        } else {
-            fatalError("unsopported cellViewModel - can't find a matching cell")
-        }
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.numberOfSections
+        return viewModel.numberOfSections
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.numberOfRows(in: section)
+        return viewModel.numberOfRows(in: section)
     }
+	
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "cellId")
+		cell.textLabel?.numberOfLines = 0
+		cell.detailTextLabel?.numberOfLines = 0
+		cell.textLabel?.text = viewModel.titleText(indexPath)
+		cell.detailTextLabel?.text = viewModel.detailText(indexPath)
+		return cell
+	}
+	
 
     // MARK: - Private
 
     private let viewModel: DMRecentCreatedEventViewModel
-
+	
     private func setupTableView() {
         tableView.estimatedRowHeight = 45.0
         tableView.rowHeight = UITableView.automaticDimension
-
-        tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
+		tableView.allowsSelection = false
 
         // wire up tableview with the viewModel
         viewModel.refreshTableView = { indexSet in
@@ -82,9 +81,10 @@ class DMRecentCreatedEventViewController: UITableViewController {
             }
         }
     }
+	
 
     private func setupNavigationBar() {
-        title = "Recent Created Event data"
+        title = "All created trace locations"
     }
 }
 #endif
