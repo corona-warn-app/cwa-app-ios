@@ -11,11 +11,13 @@ final class CheckinCoordinator {
 	init(
 		store: Store,
 		eventStore: EventStoringProviding,
-		appConfiguration: AppConfigurationProviding
+		appConfiguration: AppConfigurationProviding,
+		eventCheckoutService: EventCheckoutService
 	) {
 		self.store = store
 		self.eventStore = eventStore
 		self.appConfiguration = appConfiguration
+		self.eventCheckoutService = eventCheckoutService
 		
 		#if DEBUG
 		if isUITesting {
@@ -80,11 +82,13 @@ final class CheckinCoordinator {
 	}()
 	
 	// MARK: - Private
+
 	private let store: Store
 	private let eventStore: EventStoringProviding
 	private let appConfiguration: AppConfigurationProviding
-	private var subscriptions: Set<AnyCancellable> = []
-
+	private let eventCheckoutService: EventCheckoutService
+	private var subscriptions: [AnyCancellable] = []
+	
 	private var infoScreenShown: Bool {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
@@ -93,6 +97,7 @@ final class CheckinCoordinator {
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: eventCheckoutService,
 			onEntryCellTap: { [weak self] checkin in
 				self?.showEditCheckIn(checkin)
 			}

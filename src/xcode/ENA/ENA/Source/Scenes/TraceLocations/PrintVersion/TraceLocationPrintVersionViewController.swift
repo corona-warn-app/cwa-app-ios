@@ -27,7 +27,7 @@ class TraceLocationPrintVersionViewController: UIViewController {
 
 		self.view = viewModel.pdfView
 
-		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Print"), style: .plain, target: self, action: #selector(didTapPrintButton))
+		let printButton = UIBarButtonItem(image: UIImage(named: "Icons_Printer"), style: .plain, target: self, action: #selector(didTapPrintButton))
 		let shareButton = UIBarButtonItem(image: UIImage(named: "Icons_Share"), style: .plain, target: self, action: #selector(didTapShareButton))
 		
 		if UIPrintInteractionController.isPrintingAvailable {

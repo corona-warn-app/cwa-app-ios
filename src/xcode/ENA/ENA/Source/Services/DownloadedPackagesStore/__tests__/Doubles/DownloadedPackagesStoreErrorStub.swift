@@ -17,11 +17,11 @@ class DownloadedPackagesStoreErrorStub: DownloadedPackagesStoreV2 {
 
 	func close() { }
 
-	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage?) throws {
 		throw error
 	}
 
-	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws {
+	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage?) throws {
 		throw error
 	}
 

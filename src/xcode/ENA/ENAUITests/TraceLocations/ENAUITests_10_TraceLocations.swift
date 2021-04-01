@@ -40,11 +40,12 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 		// WHEN
 		app.launch()
+		app.swipeUp()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].exists)
 		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
 		
 		// THEN
-		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .long))
 		XCTAssertTrue(app.images[AccessibilityIdentifiers.TraceLocation.imageDescription].exists)
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
@@ -55,11 +56,12 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 		// WHEN
 		app.launch()
+		app.swipeUp()
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].exists)
 		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
 		
 		// THEN
-		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .short))
+		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .long))
 		XCTAssertFalse(app.buttons[AccessibilityIdentifiers.General.primaryFooterButton].exists)
 	}
 

@@ -75,6 +75,10 @@ enum AccessibilityIdentifiers {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
 			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
+	
+			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
+			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
+			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
 		}
 		
 		enum NotesInformation {
@@ -283,6 +287,9 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
+		static let acknowledgementTitle = "AppStrings.ExposureSubmissionWarnOthers.acknowledgement_title"
+		static let countryList = "AppStrings.ExposureSubmissionWarnOthers.countryList"
+		static let dataProcessingDetailInfo = "AppStrings.AppStrings.ExposureSubmissionWarnOthers.dataProcessingDetailInfo"
 	}
 	
 	enum DeltaOnboarding {
