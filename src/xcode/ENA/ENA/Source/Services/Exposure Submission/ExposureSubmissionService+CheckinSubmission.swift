@@ -12,11 +12,11 @@ extension ExposureSubmissionService {
 	/// - Returns: A list of converted checkins
 	func preparedCheckinsForSubmission(with appConfig: SAP_Internal_V2_ApplicationConfigurationIOS, symptomOnset: SymptomsOnset, completion: @escaping (_ transformed: [SAP_Internal_Pt_CheckIn]) -> Void) {
 		let eventStore = EventStore(url: EventStore.storeURL)
-		let raw🐓 = eventStore?.checkinsPublisher.value ?? []
+		let rawCheckin = eventStore?.checkinsPublisher.value ?? []
 		let css = CheckinSplittingService()
 		let transmissionRiskValueMapping = appConfig.presenceTracingParameters.riskCalculationParameters.transmissionRiskValueMapping
 
-		let checkins = raw🐓
+		let checkins = rawCheckin
 			// Split checkins per day
 			.reduce([Checkin]()) { _, checkin -> [Checkin] in
 				css.split(checkin)
