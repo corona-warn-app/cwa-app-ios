@@ -287,6 +287,9 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
+		static let acknowledgementTitle = "AppStrings.ExposureSubmissionWarnOthers.acknowledgement_title"
+		static let countryList = "AppStrings.ExposureSubmissionWarnOthers.countryList"
+		static let dataProcessingDetailInfo = "AppStrings.AppStrings.ExposureSubmissionWarnOthers.dataProcessingDetailInfo"
 	}
 	
 	enum DeltaOnboarding {
