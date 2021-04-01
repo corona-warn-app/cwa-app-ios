@@ -23,28 +23,23 @@ extension ExposureSubmissionService {
 			}
 			// transform for submission
 			.compactMap { checkin -> SAP_Internal_Pt_CheckIn? in
-				do {
-					var transformed = try checkin.prepareForSubmission()
-					// Determine Transmission Risk Level
-					let transmissionRiskLevel: Int
-					if let ageInDays = Calendar.autoupdatingCurrent.dateComponents([.day], from: checkin.checkinStartDate).day {
-						let riskVector = symptomOnset.transmissionRiskVector
-						transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
-					} else {
-						transmissionRiskLevel = 1
-					}
+				var transformed = checkin.prepareForSubmission()
+				// Determine Transmission Risk Level
+				let transmissionRiskLevel: Int
+				if let ageInDays = Calendar.current.dateComponents([.day], from: checkin.checkinStartDate).day {
+					let riskVector = symptomOnset.transmissionRiskVector
+					transmissionRiskLevel = Int(riskVector[safe: ageInDays] ?? 1)
+				} else {
+					transmissionRiskLevel = 1
+				}
 
-					// Filter out irrelevant checkins, i.e. ones with a risk value of zero
-					guard transmissionRiskValueMapping[transmissionRiskLevel].transmissionRiskValue > 0 else {
-						return nil
-					}
-
-					transformed.transmissionRiskLevel = UInt32(transmissionRiskLevel)
-					return transformed
-				} catch {
-					Log.error("Checkin conversion error", log: .checkin, error: error)
+				// Filter out irrelevant checkins, i.e. ones with a risk value of zero
+				guard transmissionRiskValueMapping[transmissionRiskLevel].transmissionRiskValue > 0 else {
 					return nil
 				}
+
+				transformed.transmissionRiskLevel = UInt32(transmissionRiskLevel)
+				return transformed
 			}
 		completion(checkins)
 	}

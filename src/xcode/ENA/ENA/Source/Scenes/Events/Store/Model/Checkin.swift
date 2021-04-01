@@ -58,14 +58,14 @@ extension Checkin {
 	/// Converts a `Checkin` to the protobuf structure required for submission
 	/// - Throws: `BinaryEncodingError` in case the conversion to a serialized signed location fails
 	/// - Returns: The converted `SAP_Internal_Pt_CheckIn`
-	func prepareForSubmission() throws -> SAP_Internal_Pt_CheckIn {
+	func prepareForSubmission() -> SAP_Internal_Pt_CheckIn {
 		var checkin = SAP_Internal_Pt_CheckIn()
 
 		// 10 minute time interval; derived from the unix timestamps
 		// see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/proposal/event-registration-mvp/docs/spec/event-registration-client.md#derive-10-minute-interval-from-timestamp
-		checkin.startIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
+		checkin.startIntervalNumber = UInt32(checkinStartDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
 		checkin.endIntervalNumber = UInt32(checkinEndDate.timeIntervalSince1970 / Checkin.INTERVAL_LENGTH)
-		assert(checkin.startIntervalNumber < checkin.endIntervalNumber)
+		assert(checkin.startIntervalNumber <= checkin.endIntervalNumber)
 		checkin.locationID = traceLocationId
 
 		// `transmissionRiskLevel` currently calculated outside this function and left at the default value
