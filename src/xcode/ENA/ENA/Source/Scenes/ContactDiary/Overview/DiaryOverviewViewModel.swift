@@ -136,7 +136,7 @@ class DiaryOverviewViewModel {
 				checkinsWithRisk.append(CheckinWithRisk(checkIn: checkin, risk: checkinIdWithRisk.riskLevel))
 			}
 		}
-		
+		checkinsWithRisk.sort(by: { $0.checkIn.traceLocationDescription < $1.checkIn.traceLocationDescription })
 		return checkinsWithRisk
 	}
 	
@@ -198,7 +198,8 @@ class DiaryOverviewViewModel {
 			checkinCompleted: true,
 			createJournalEntry: false)
 		let highRiskCheckin3 = CheckinWithRisk(checkIn: fakedCheckin3, risk: risk)
-		return [highRiskCheckin1, highRiskCheckin2, highRiskCheckin3]
+		let checkins = [highRiskCheckin1, highRiskCheckin2, highRiskCheckin3]
+		return checkins.sorted(by: { $0.checkIn.traceLocationDescription < $1.checkIn.traceLocationDescription })
 		
 	}
 	#endif
