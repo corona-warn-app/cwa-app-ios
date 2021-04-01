@@ -26,18 +26,17 @@ struct ExposureSubmissionQRInfoViewModel {
 				   height: 250
 			   ),
 			   cells: [
-				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription)
+				.title2(
+					text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
+					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1
+				)
 			])
 		)
 
 		// Testergebnis abrufen
 		model.add(
 			.section(cells: [
-				.headline(
-					text: AppStrings.ExposureSubmissionQRInfo.headerSection1,
-					accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.headerSection1
-				),
-				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection1),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.titleDescription),
 				.icon(
 					UIImage(imageLiteralResourceName: "Icons - FaceID"),
 					text: .string(AppStrings.ExposureSubmissionQRInfo.instruction1)
@@ -64,18 +63,27 @@ struct ExposureSubmissionQRInfoViewModel {
 				.countries(countries: countries, accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.countryList)
 			])
 		)
-
-		// Ihr Einverständnis
+		
+		// Check-Ins
 		model.add(
 			.section(cells: [
-				.acknowledgement(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.bodySection3)
+			])
+		)
+
+		// Ihr Einverständnis – legal text
+		model.add(
+			.section(cells: [
+				.acknowledgement2(title: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementTitle),
 								 description: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementBody),
+								 description2: NSAttributedString(string: AppStrings.ExposureSubmissionQRInfo.acknowledgementWithdrawConsent),
 								 bulletPoints: bulletPoints,
 								 accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.acknowledgementTitle),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement3, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement4, alignment: .legal),
 				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement5, alignment: .legal),
-				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal)
+				.bulletPoint(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement6, alignment: .legal),
+				.body(text: AppStrings.ExposureSubmissionQRInfo.acknowledgement7)
 			])
 		)
 
@@ -111,14 +119,18 @@ struct ExposureSubmissionQRInfoViewModel {
 		]
 
 		// Don't forget the tab for all paragraphs after the first!
-		let ack1 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgement1_2)")
-		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgement1_1.count))
+		let ack1 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet1_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet1_2)")
+		ack1.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet1_1.count))
 
-		let ack2 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1)\n\t\(AppStrings.ExposureSubmissionQRInfo.acknowledgement2_2)")
-		ack2.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgement2_1.count))
+		let ack2 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet2)")
+		ack2.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet2.count))
 
+		let ack3 = NSMutableAttributedString(string: "\(AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet3)")
+		ack3.addAttributes(attributes, range: NSRange(location: 0, length: AppStrings.ExposureSubmissionQRInfo.acknowledgementBullet3.count))
+		
 		points.append(ack1)
 		points.append(ack2)
+		points.append(ack3)
 
 		return points
 	}
@@ -150,6 +162,22 @@ extension DynamicCell {
 		}
 	}
 
+	static func acknowledgement2(
+		title: NSAttributedString,
+		description: NSAttributedString?,
+		description2: NSAttributedString?,
+		bulletPoints: [NSAttributedString]? =  nil,
+		accessibilityIdentifier: String? = nil,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(ExposureSubmissionQRInfoViewController.ReuseIdentifiers.legalExtended) { viewController, cell, indexPath in
+			guard let cell = cell as? DynamicLegalExtendedCell else {
+				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
+			}
+			cell.configure(title: title, description: description, description2: description2, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
+			configure?(viewController, cell, indexPath)
+		}
+	}
 
 	/// A `LabelledCountriesCell` that displays a list of country flags and their localized names as simple list below.
 	/// - Parameters:

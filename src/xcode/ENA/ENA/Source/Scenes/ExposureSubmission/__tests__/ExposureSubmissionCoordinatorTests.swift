@@ -104,7 +104,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionTestResultViewController)
+		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController>)
 	}
 
 	func testStart_withPositiveResult() {
@@ -124,7 +124,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		XCTAssertNotNil(navigationController?.topViewController as? TestResultAvailableViewController)
+		XCTAssertNotNil(navigationController?.topViewController as? TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 	}
 
 	func testDismiss() {
@@ -159,12 +159,12 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		)
 
 		let unknown = coordinator.getInitialViewController(with: .positive)
-		XCTAssertTrue(unknown.self is TestResultAvailableViewController)
+		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 
 		// [CAR] work in progress!
 		store.positiveTestResultWasShown = true
 
 		let positive = coordinator.getInitialViewController(with: .positive)
-		XCTAssertTrue(positive.self is ExposureSubmissionWarnOthersViewController)
+		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)
 	}
 }

@@ -3,66 +3,64 @@
 //
 
 import UIKit
+import PDFKit
 
 class TraceLocationsCoordinator {
-
+	
 	// MARK: - Init
-
+	
 	init(
 		store: Store,
-		eventStore: EventStoring & EventProviding,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		eventStore: EventStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
 	}
-
+	
 	// MARK: - Internal
-
+	
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
-
-		eventStore.createTraceLocation(TraceLocation(guid: "", version: 0, type: .type1, description: "", address: "", startDate: Date(), endDate: Date(), defaultCheckInLengthInMinutes: 0, signature: ""))
-
+		
 		#if DEBUG
 		if isUITesting {
 			if let TraceLocationsInfoScreenShown = UserDefaults.standard.string(forKey: "TraceLocationsInfoScreenShown") {
 				store.traceLocationsInfoScreenShown = (TraceLocationsInfoScreenShown != "NO")
 			}
-
 		}
 		#endif
-
+		
 		if !infoScreenShown {
 			showInfoScreen()
 		}
 	}
-
+	
 	// MARK: - Private
-
+	
 	private let store: Store
-	private let eventStore: EventStoring & EventProviding
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let eventStore: EventStoringProviding
 
 	private weak var parentNavigationController: UINavigationController?
-
-	private var traceLocationDetailsNavigationController: ENANavigationControllerWithFooter!
-	private var traceLocationAddingNavigationController: ENANavigationControllerWithFooter!
-
+	
+	private var traceLocationDetailsNavigationController: UINavigationController!
+	private var traceLocationAddingNavigationController: UINavigationController!
+	
 	private var infoScreenShown: Bool {
 		get { store.traceLocationsInfoScreenShown }
 		set { store.traceLocationsInfoScreenShown = newValue }
 	}
-
+	
 	// MARK: Show Screens
-
-	private lazy var overviewScreen: TraceLocationsOverviewViewController = {
-		return TraceLocationsOverviewViewController(
+	
+	private lazy var overviewScreen: UIViewController = {
+		let traceLocationsOverviewViewController = TraceLocationsOverviewViewController(
 			viewModel: TraceLocationsOverviewViewModel(
 				store: eventStore,
-				onAddEntryCellTap: { [weak self] in
-					self?.showTraceLocationTypeSelectionScreen()
-				},
 				onEntryCellTap: { [weak self] traceLocation in
 					self?.showTraceLocationDetailsScreen(traceLocation: traceLocation)
 				},
@@ -72,15 +70,35 @@ class TraceLocationsCoordinator {
 			),
 			onInfoButtonTap: { [weak self] in
 				self?.showInfoScreen()
+			},
+			onAddEntryCellTap: { [weak self] in
+				self?.showTraceLocationTypeSelectionScreen()
 			}
 		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Overview.deleteAllButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: true,
+				isSecondaryButtonHidden: true,
+				primaryButtonColor: .systemRed
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: traceLocationsOverviewViewController,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}()
-
+	
 	private func showInfoScreen() {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
-		let viewController = TraceLocationsInfoViewController(
+		var navigationController: UINavigationController!
+		let traceLocationsInfoViewController = TraceLocationsInfoViewController(
 			viewModel: TraceLocationsInfoViewModel(
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
@@ -94,79 +112,139 @@ class TraceLocationsCoordinator {
 				navigationController.dismiss(animated: true)
 			}
 		)
-		// We need to use UINavigationController(rootViewController: UIViewController) here,
-		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Information.primaryButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			),
+			didTapPrimaryButton: {
+				navigationController.dismiss(animated: true)
+			}
+		)
+		
+		let topBottomLayoutViewController = TopBottomContainerViewController(
+			topController: traceLocationsInfoViewController,
+			bottomController: footerViewController
+		)
+		navigationController = UINavigationController(rootViewController: topBottomLayoutViewController)
+		
 		parentNavigationController?.present(navigationController, animated: true) {
 			self.infoScreenShown = true
 		}
 	}
-
+	
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
-		let viewController = TraceLocationDetailsViewController(
-			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation),
-			onPrintVersionButtonTap: { [weak self] traceLocation in
-				self?.showPrintVersionScreen(traceLocation: traceLocation)
+		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
+			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: store, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider),
+			onPrintVersionButtonTap: { [weak self] pdfView in
+				DispatchQueue.main.async {
+					self?.showPrintVersionScreen(pdfView: pdfView)
+				}
 			},
 			onDuplicateButtonTap: { [weak self] traceLocation in
 				guard let self = self else { return }
-
+				
 				self.showTraceLocationConfigurationScreen(
 					on: self.traceLocationDetailsNavigationController,
 					mode: .duplicate(traceLocation)
 				)
 			},
 			onDismiss: { [weak self] in
-				self?.traceLocationDetailsNavigationController.dismiss(animated: true)
+				self?.parentNavigationController?.dismiss(animated: true)
 			}
 		)
-
-		traceLocationDetailsNavigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
+				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: false,
+				secondaryButtonInverted: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: traceLocationDetailsViewController,
+			bottomController: footerViewController
+		)
+		
+		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
 		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
 	}
 
-	private func showPrintVersionScreen(traceLocation: TraceLocation) {
+	private func showPrintVersionScreen(pdfView: PDFView) {
 		let viewController = TraceLocationPrintVersionViewController(
-			viewModel: TraceLocationPrintVersionViewModel(traceLocation: traceLocation)
+			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
 
-		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
+		traceLocationDetailsNavigationController?.pushViewController(viewController, animated: true)
 	}
-
+	
 	private func showTraceLocationTypeSelectionScreen() {
-		let viewController = TraceLocationTypeSelectionViewController(
-			viewModel: TraceLocationTypeSelectionViewModel(
-				onTraceLocationTypeSelection: { [weak self] traceLocationType in
-					guard let self = self else { return }
-
-					self.showTraceLocationConfigurationScreen(
-						on: self.traceLocationAddingNavigationController,
-						mode: .new(traceLocationType)
-					)
-				}
+		let traceLocationTypeSelectionViewController = TraceLocationTypeSelectionViewController(
+			viewModel: TraceLocationTypeSelectionViewModel([
+				.location: TraceLocationType.permanentTypes,
+				.event: TraceLocationType.temporaryTypes
+			],
+			onTraceLocationTypeSelection: { [weak self] traceLocationType in
+				guard let self = self else { return }
+				
+				self.showTraceLocationConfigurationScreen(
+					on: self.traceLocationAddingNavigationController,
+					mode: .new(traceLocationType)
+				)
+			}
 			),
 			onDismiss: { [weak self] in
 				self?.traceLocationAddingNavigationController.dismiss(animated: true)
 			}
 		)
-
-		traceLocationAddingNavigationController = ENANavigationControllerWithFooter(rootViewController: viewController)
+		
+		traceLocationAddingNavigationController = UINavigationController(rootViewController: traceLocationTypeSelectionViewController)
+		traceLocationAddingNavigationController.navigationBar.prefersLargeTitles = true
 		parentNavigationController?.present(traceLocationAddingNavigationController, animated: true)
 	}
-
+	
 	private func showTraceLocationConfigurationScreen(on navigationController: UINavigationController, mode: TraceLocationConfigurationViewModel.Mode) {
-		let viewController = TraceLocationConfigurationViewController(
-			viewModel: TraceLocationConfigurationViewModel(mode: mode),
+		let traceLocationConfigurationViewController = TraceLocationConfigurationViewController(
+			viewModel: TraceLocationConfigurationViewModel(
+				mode: mode,
+				eventStore: eventStore
+			),
 			onDismiss: {
 				navigationController.dismiss(animated: true)
 			}
 		)
-
-		navigationController.pushViewController(viewController, animated: true)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.TraceLocations.Configuration.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.ExposureSubmission.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: traceLocationConfigurationViewController,
+			bottomController: footerViewController
+		)
+		
+		navigationController.pushViewController(topBottomContainerViewController, animated: true)
 	}
-
+	
 	private func showCheckInScreen(traceLocation: TraceLocation) {
-
+		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: store)
+		let checkinViewController = TraceLocationDetailViewController(
+			viewModel,
+			dismiss: { [weak self] in
+				self?.parentNavigationController?.dismiss(animated: true)
+			}
+		)
+		parentNavigationController?.present(checkinViewController, animated: true)
 	}
-
+	
 }

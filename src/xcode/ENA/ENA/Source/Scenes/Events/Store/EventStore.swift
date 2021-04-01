@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import UIKit
 import OpenCombine
 import FMDB
@@ -82,7 +85,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Update TraceLocation with id: \(traceLocation.guid).", log: .localData)
+			Log.info("[EventStore] Update TraceLocation.", log: .localData)
 
 			let updateTraceLocationQuery = UpdateTraceLocationQuery(traceLocation: traceLocation, maxTextLength: maxTextLength)
 			result = executeTraceLocationQuery(updateTraceLocationQuery, in: database)
@@ -96,13 +99,13 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult {
+	func deleteTraceLocation(id: Data) -> SecureSQLStore.VoidResult {
 		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
-			Log.info("[EventStore] Remove TraceLocation with id: \(guid).", log: .localData)
+			Log.info("[EventStore] Remove TraceLocation.", log: .localData)
 
-			let deleteTraceLocationQuery = DeleteTraceLocationQuery(guid: guid)
+			let deleteTraceLocationQuery = DeleteTraceLocationQuery(id: id)
 			result = executeTraceLocationQuery(deleteTraceLocationQuery, in: database)
 		}
 
@@ -254,21 +257,14 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	}
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult {
-		var result: SecureSQLStore.IdResult?
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
 
 		databaseQueue.inDatabase { database in
 			Log.info("[EventStore] Add TraceWarningPackageMetadata.", log: .localData)
 
 			let query = CreateTraceWarningPackageMetadataQuery(metadata: metadata)
-			let queryResult = executeTraceWarningPackageMetadataQuery(query, in: database)
-
-			switch queryResult {
-			case .success:
-				result = .success(Int(database.lastInsertRowId))
-			case .failure(let error):
-				result = .failure(error)
-			}
+			result = executeTraceWarningPackageMetadataQuery(query, in: database)
 		}
 
 		guard let _result = result else {
@@ -286,6 +282,24 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			Log.info("[EventStore] Remove TraceWarningPackageMetadata with id: \(id).", log: .localData)
 
 			let query = DeleteTraceWarningPackageMetadataQuery(id: id)
+			result = executeTraceWarningPackageMetadataQuery(query, in: database)
+		}
+
+		guard let _result = result else {
+			fatalError("[EventStore] Result should not be nil.")
+		}
+
+		return _result
+	}
+
+	@discardableResult
+	func deleteAllTraceWarningPackageMetadata() -> SecureSQLStore.VoidResult {
+		var result: SecureSQLStore.VoidResult?
+
+		databaseQueue.inDatabase { database in
+			Log.info("[EventStore] Remove all TraceWarningPackageMetadata.", log: .localData)
+
+			let query = DeleteAllTraceWarningPackageMetadataQuery()
 			result = executeTraceWarningPackageMetadataQuery(query, in: database)
 		}
 
@@ -454,18 +468,23 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 
 		do {
 			let queryResult = try database.executeQuery(sql, values: [])
-			var events = [TraceLocation]()
+			var traceLocations = [TraceLocation]()
 
 			while queryResult.next() {
-				guard let guid = queryResult.string(forColumn: "guid"),
-					  let description = queryResult.string(forColumn: "description"),
-					  let address = queryResult.string(forColumn: "address"),
-					  let signature = queryResult.string(forColumn: "signature") else {
+				guard let description = queryResult.string(forColumn: "description"),
+					  let address = queryResult.string(forColumn: "address") else {
 					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
 				}
 
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "id", "cryptographicSeed" and "cnPublicKey" are defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let id = queryResult.data(forColumn: "id") ?? Data()
+				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
+				let cnPublicKey = queryResult.data(forColumn: "cnPublicKey") ?? Data()
+
 				let version = Int(queryResult.int(forColumn: "version"))
-				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .type1
+				let type = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "type"))) ?? .locationTypeUnspecified
 
 				var startDate: Date?
 				if let startDateInterval = queryResult.object(forColumn: "startDate") as? Int {
@@ -482,8 +501,8 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					defaultCheckInLengthInMinutes = _defaultCheckInLengthInMinutes
 				}
 
-				let event = TraceLocation(
-					guid: guid,
+				let traceLocation = TraceLocation(
+					id: id,
 					version: version,
 					type: type,
 					description: description,
@@ -491,13 +510,14 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					startDate: startDate,
 					endDate: endDate,
 					defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
-					signature: signature
+					cryptographicSeed: cryptographicSeed,
+					cnPublicKey: cnPublicKey
 				)
 
-				events.append(event)
+				traceLocations.append(traceLocation)
 			}
 
-			traceLocationsPublisher.send(events)
+			traceLocationsPublisher.send(traceLocations)
 		} catch {
 			logLastErrorCode(from: database)
 			return .failure(dbError(from: database))
@@ -511,7 +531,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		Log.info("[EventStore] Update checkins publisher.", log: .localData)
 
 		let sql = """
-				SELECT * FROM Checkin;
+				SELECT * FROM Checkin ORDER BY checkinEndDate DESC;
 			"""
 
 		do {
@@ -519,17 +539,25 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			var checkins = [Checkin]()
 
 			while queryResult.next() {
-				guard let traceLocationGUID = queryResult.string(forColumn: "traceLocationGUID"),
-					  let traceLocationDescription = queryResult.string(forColumn: "traceLocationDescription"),
-					  let traceLocationAddress = queryResult.string(forColumn: "traceLocationAddress"),
-					  let traceLocationSignature = queryResult.string(forColumn: "traceLocationSignature") else {
+				guard let traceLocationDescription = queryResult.string(forColumn: "traceLocationDescription"),
+					  let traceLocationAddress = queryResult.string(forColumn: "traceLocationAddress") else {
 					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
 				}
 
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "traceLocationId", "traceLocationIdHash", "cryptographicSeed" and "cnPublicKey" are defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
+				let traceLocationIdHash = queryResult.data(forColumn: "traceLocationIdHash") ?? Data()
+				let cryptographicSeed = queryResult.data(forColumn: "cryptographicSeed") ?? Data()
+				let cnPublicKey = queryResult.data(forColumn: "cnPublicKey") ?? Data()
+
 				let id = Int(queryResult.int(forColumn: "id"))
-				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .type1
+				let traceLocationType = TraceLocationType(rawValue: Int(queryResult.int(forColumn: "traceLocationType"))) ?? .locationTypeUnspecified
 				let traceLocationVersion = Int(queryResult.int(forColumn: "traceLocationVersion"))
 				let checkinStartDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinStartDate")))
+				let checkinEndDate = Date(timeIntervalSince1970: Double(queryResult.int(forColumn: "checkinEndDate")))
+				let checkinCompleted = queryResult.bool(forColumn: "checkinCompleted")
 				let createJournalEntry = queryResult.bool(forColumn: "createJournalEntry")
 
 				var traceLocationStart: Date?
@@ -547,19 +575,10 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					traceLocationDefaultCheckInLengthInMinutes = _traceLocationDefaultCheckInLengthInMinutes
 				}
 
-				var checkinEndDate: Date?
-				if let checkinEndDateInterval = queryResult.object(forColumn: "checkinEndDate") as? Int {
-					checkinEndDate = Date(timeIntervalSince1970: Double(checkinEndDateInterval))
-				}
-
-				var targetCheckinEndDate: Date?
-				if let targetCheckinEndDateInterval = queryResult.object(forColumn: "targetCheckinEndDate") as? Int {
-					targetCheckinEndDate = Date(timeIntervalSince1970: Double(targetCheckinEndDateInterval))
-				}
-
 				let checkin = Checkin(
 					id: id,
-					traceLocationGUID: traceLocationGUID,
+					traceLocationId: traceLocationId,
+					traceLocationIdHash: traceLocationIdHash,
 					traceLocationVersion: traceLocationVersion,
 					traceLocationType: traceLocationType,
 					traceLocationDescription: traceLocationDescription,
@@ -567,10 +586,11 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 					traceLocationStartDate: traceLocationStart,
 					traceLocationEndDate: traceLocationEnd,
 					traceLocationDefaultCheckInLengthInMinutes: traceLocationDefaultCheckInLengthInMinutes,
-					traceLocationSignature: traceLocationSignature,
+					cryptographicSeed: cryptographicSeed,
+					cnPublicKey: cnPublicKey,
 					checkinStartDate: checkinStartDate,
 					checkinEndDate: checkinEndDate,
-					targetCheckinEndDate: targetCheckinEndDate,
+					checkinCompleted: checkinCompleted,
 					createJournalEntry: createJournalEntry
 				)
 
@@ -599,9 +619,6 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			var traceTimeIntervalMatches = [TraceTimeIntervalMatch]()
 
 			while queryResult.next() {
-				guard let traceLocationGUID = queryResult.string(forColumn: "traceLocationGUID") else {
-					fatalError("[EventStore] SQL column is NOT NULL. Nil was not expected.")
-				}
 
 				let id = Int(queryResult.int(forColumn: "id"))
 				let checkinId = Int(queryResult.int(forColumn: "checkinId"))
@@ -610,12 +627,16 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 				let startIntervalNumber = Int(queryResult.int(forColumn: "startIntervalNumber"))
 				let endIntervalNumber = Int(queryResult.int(forColumn: "endIntervalNumber"))
 
+				// Persisting empty Data to a BLOB field leads to retrieving nil when reading it.
+				// Because of that, we map nil to empty Data. Because "traceLocationId" is defined as NOT NULL, there should never be nil stored.
+				// For more information about that problem, please see the issue opened here: https://github.com/ccgus/fmdb/issues/73
+				let traceLocationId = queryResult.data(forColumn: "traceLocationId") ?? Data()
 
 				let traceTimeIntervalMatch = TraceTimeIntervalMatch(
 					id: id,
 					checkinId: checkinId,
 					traceWarningPackageId: traceWarningPackageId,
-					traceLocationGUID: traceLocationGUID,
+					traceLocationId: traceLocationId,
 					transmissionRiskLevel: transmissionRiskLevel,
 					startIntervalNumber: startIntervalNumber,
 					endIntervalNumber: endIntervalNumber

@@ -3,14 +3,16 @@
 //
 
 import UIKit
+import OpenCombine
+import PDFKit
 
-class TraceLocationDetailsViewController: UIViewController, ENANavigationControllerWithFooterChild {
+class TraceLocationDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FooterViewHandling {
 
 	// MARK: - Init
 
 	init(
 		viewModel: TraceLocationDetailsViewModel,
-		onPrintVersionButtonTap: @escaping (TraceLocation) -> Void,
+		onPrintVersionButtonTap: @escaping (PDFView) -> Void,
 		onDuplicateButtonTap: @escaping (TraceLocation) -> Void,
 		onDismiss: @escaping () -> Void
 	) {
@@ -32,51 +34,199 @@ class TraceLocationDetailsViewController: UIViewController, ENANavigationControl
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		view.backgroundColor = .enaColor(for: .background)
-
-		navigationItem.rightBarButtonItem = CloseBarButtonItem(
-			onTap: { [weak self] in
-				self?.onDismiss()
-			}
-		)
-
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
+		setupView()
+		setupTableView()
 	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.setNavigationBarHidden(true, animated: animated)
 	}
 
-	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		onPrintVersionButtonTap(viewModel.traceLocation)
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: animated)
 	}
 
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		onDuplicateButtonTap(viewModel.traceLocation)
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		didCalculateGradientHeight = false
+	}
+
+	// MARK: - Protocol FooterViewHandling
+
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			self.footerView?.setLoadingIndicator(true, disable: true, button: .primary)
+			
+			generateAndPassQRCodePoster()
+		case .secondary:
+			onDuplicateButtonTap(viewModel.traceLocation)
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		guard didCalculateGradientHeight == false,
+			indexPath == IndexPath(row: 0, section: TraceLocationDetailsViewModel.TableViewSections.qrCode.rawValue) else {
+			return
+		}
+
+		let cellRect = tableView.rectForRow(at: indexPath)
+		let result = view.convert(cellRect, from: tableView)
+		backgroundView.gradientHeightConstraint.constant = result.midY
+		didCalculateGradientHeight = true
+	}
+
+	// MARK: - UITableViewDataSource
+
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return TraceLocationDetailsViewModel.TableViewSections.allCases.count
+	}
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return viewModel.numberOfRowsPerSection
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let section = TraceLocationDetailsViewModel.TableViewSections(rawValue: indexPath.section) else {
+			fatalError("unknown section - can't match a cell type")
+		}
+		switch section {
+		case .header:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsHeaderCell.self, for: indexPath)
+			cell.configure(viewModel.title)
+			return cell
+		
+		case .location:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsLocationCell.self, for: indexPath)
+			cell.configure(viewModel.address)
+			return cell
+		
+		case .qrCode:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsQRCodeCell.self, for: indexPath)
+			cell.configure(viewModel.qrCode)
+			return cell
+			
+		case .dateTime:
+			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsDateTimeCell.self, for: indexPath)
+			cell.configure(viewModel.date)
+			return cell
+		}
 	}
 
 	// MARK: - Private
 
+	private let backgroundView = GradientBackgroundView()
+	private let tableView = UITableView(frame: .zero, style: .plain)
+
 	private let viewModel: TraceLocationDetailsViewModel
 
-	private let onPrintVersionButtonTap: (TraceLocation) -> Void
+	private let onPrintVersionButtonTap: (PDFView) -> Void
 	private let onDuplicateButtonTap: (TraceLocation) -> Void
 	private let onDismiss: () -> Void
+	private var didCalculateGradientHeight: Bool = false
+	private var subscriptions = [AnyCancellable]()
+	private var tableContentObserver: NSKeyValueObservation!
 
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
+	private func setupView() {
+		parent?.view.backgroundColor = .clear
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(backgroundView)
 
-		item.primaryButtonTitle = AppStrings.TraceLocations.Details.printVersionButtonTitle
-		item.isPrimaryButtonEnabled = true
+		let gradientNavigationView = GradientNavigationView(
+			didTapCloseButton: { [weak self] in
+				self?.onDismiss()
+			}
+		)
+		gradientNavigationView.translatesAutoresizingMaskIntoConstraints = false
+		backgroundView.addSubview(gradientNavigationView)
 
-		item.secondaryButtonTitle = AppStrings.TraceLocations.Details.duplicateButtonTitle
-		item.isSecondaryButtonEnabled = true
-		item.isSecondaryButtonHidden = false
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.backgroundColor = .clear
+		backgroundView.addSubview(tableView)
 
-		return item
-	}()
+		NSLayoutConstraint.activate(
+			[
+				backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+				backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
+				gradientNavigationView.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 24.0),
+				gradientNavigationView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor, constant: 16.0),
+				gradientNavigationView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor, constant: -16.0),
+
+				tableView.topAnchor.constraint(equalTo: gradientNavigationView.bottomAnchor, constant: 20.0),
+				tableView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+				tableView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+				tableView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor)
+		])
+
+		tableContentObserver = tableView.observe(\UITableView.contentOffset, options: .new) { [weak self] tableView, change in
+			guard let self = self,
+				  let yOffset = change.newValue?.y else {
+				return
+			}
+			let offsetLimit = tableView.frame.origin.y
+			self.backgroundView.updatedTopLayout(with: yOffset, limit: offsetLimit)
+		}
+	}
+
+	private func generateAndPassQRCodePoster() {
+		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
+			DispatchQueue.main.async { [weak self] in
+				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+				switch templateData {
+				case let .success(templateData):
+
+						do {
+							let pdfView = try self?.createPdfView(templateData: templateData)
+							self?.onPrintVersionButtonTap(pdfView ?? PDFView())
+						} catch {
+							Log.error("Could not create the PDF view.", log: .qrCode, error: error)
+						}
+				case let .failure(error):
+					Log.error("Could not get QR code poster template.", log: .qrCode, error: error)
+					return
+				}
+			}
+		}
+	}
+
+	private func createPdfView(templateData: SAP_Internal_Pt_QRCodePosterTemplateIOS) throws -> PDFView {
+		let pdfView = PDFView()
+		let pdfDocument = PDFDocument(data: templateData.template)
+
+		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
+		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		let textDetails = templateData.descriptionTextBox
+		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
+		
+		try? pdfDocument?.embedImageAndText(
+			image: qrCodeImage,
+			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
+			text: viewModel.traceLocation.address,
+			of: CGFloat(textDetails.fontSize),
+			and: textColor,
+			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))
+		)
+
+		pdfView.document = pdfDocument
+		pdfView.scaleFactor = pdfView.scaleFactorForSizeToFit
+		pdfView.autoScales = true
+		return pdfView
+	}
+
+	private func setupTableView() {
+		tableView.dataSource = self
+		tableView.delegate = self
+		tableView.separatorStyle = .none
+		tableView.contentInsetAdjustmentBehavior = .never
+
+		tableView.register(TraceLocationDetailsHeaderCell.self, forCellReuseIdentifier: TraceLocationDetailsHeaderCell.reuseIdentifier)
+		tableView.register(TraceLocationDetailsLocationCell.self, forCellReuseIdentifier: TraceLocationDetailsLocationCell.reuseIdentifier)
+		tableView.register(TraceLocationDetailsQRCodeCell.self, forCellReuseIdentifier: TraceLocationDetailsQRCodeCell.reuseIdentifier)
+		tableView.register(TraceLocationDetailsDateTimeCell.self, forCellReuseIdentifier: TraceLocationDetailsDateTimeCell.reuseIdentifier)
+	}
 }

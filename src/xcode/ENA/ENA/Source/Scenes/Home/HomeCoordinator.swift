@@ -7,6 +7,7 @@ import UIKit
 class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 	private let otpService: OTPServiceProviding
+	private let eventStore: EventStoringProviding
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
@@ -19,7 +20,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private var settingsCoordinator: SettingsCoordinator?
 
 	private var exposureDetectionCoordinator: ExposureDetectionCoordinator?
-
+	
 	private lazy var exposureSubmissionService: ExposureSubmissionService = {
 		ExposureSubmissionServiceFactory.create(
 			diagnosisKeysRetrieval: self.exposureManager,
@@ -46,14 +47,23 @@ class HomeCoordinator: RequiresAppDependencies {
 		)
 	}()
 	
+	private lazy var qrCodePosterTemplateProvider: QRCodePosterTemplateProvider = {
+		return QRCodePosterTemplateProvider(
+			client: CachingHTTPClient(serverEnvironmentProvider: store),
+			store: store
+		)
+	}()
+	
 	private var enStateUpdateList = NSHashTable<AnyObject>.weakObjects()
 
 	init(
 		_ delegate: CoordinatorDelegate,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		eventStore: EventStoringProviding
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
+		self.eventStore = eventStore
 	}
 
 	deinit {
@@ -248,7 +258,8 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
-			eventStore: MockEventStore(),
+			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
+			eventStore: eventStore,
 			parentNavigationController: rootViewController
 		)
 

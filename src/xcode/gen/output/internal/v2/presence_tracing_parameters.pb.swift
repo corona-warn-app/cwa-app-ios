@@ -49,6 +49,17 @@ struct SAP_Internal_V2_PresenceTracingParameters {
 
   var revokedTraceLocationVersions: [UInt32] = []
 
+  var plausibleDeniabilityParameters: SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters {
+    get {return _plausibleDeniabilityParameters ?? SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters()}
+    set {_plausibleDeniabilityParameters = newValue}
+  }
+  /// Returns true if `plausibleDeniabilityParameters` has been explicitly set.
+  var hasPlausibleDeniabilityParameters: Bool {return self._plausibleDeniabilityParameters != nil}
+  /// Clears the value of `plausibleDeniabilityParameters`. Subsequent reads from it will return its default value.
+  mutating func clearPlausibleDeniabilityParameters() {self._plausibleDeniabilityParameters = nil}
+
+  var qrCodeDescriptors: [SAP_Internal_V2_PresenceTracingQRCodeDescriptor] = []
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum QRCodeErrorCorrectionLevel: SwiftProtobuf.Enum {
@@ -89,6 +100,7 @@ struct SAP_Internal_V2_PresenceTracingParameters {
 
   fileprivate var _riskCalculationParameters: SAP_Internal_V2_PresenceTracingRiskCalculationParameters? = nil
   fileprivate var _submissionParameters: SAP_Internal_V2_PresenceTracingSubmissionParameters? = nil
+  fileprivate var _plausibleDeniabilityParameters: SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters? = nil
 }
 
 #if swift(>=4.2)
@@ -181,6 +193,121 @@ struct SAP_Internal_V2_PresenceTracingSubmissionParameters {
   init() {}
 }
 
+struct SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var checkInSizesInBytes: [UInt32] = []
+
+  var probabilityToFakeCheckInsIfNoCheckIns: Double = 0
+
+  var probabilityToFakeCheckInsIfSomeCheckIns: Double = 0
+
+  var numberOfFakeCheckInsFunctionParameters: [SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOfFakeCheckInsFunctionParameters] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  struct NumberOfFakeCheckInsFunctionParameters {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var randomNumberRange: SAP_Internal_V2_Range {
+      get {return _randomNumberRange ?? SAP_Internal_V2_Range()}
+      set {_randomNumberRange = newValue}
+    }
+    /// Returns true if `randomNumberRange` has been explicitly set.
+    var hasRandomNumberRange: Bool {return self._randomNumberRange != nil}
+    /// Clears the value of `randomNumberRange`. Subsequent reads from it will return its default value.
+    mutating func clearRandomNumberRange() {self._randomNumberRange = nil}
+
+    var p: Double = 0
+
+    var q: Double = 0
+
+    var r: Double = 0
+
+    var s: Double = 0
+
+    var t: Double = 0
+
+    var u: Double = 0
+
+    var a: Double = 0
+
+    var b: Double = 0
+
+    var c: Double = 0
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+
+    fileprivate var _randomNumberRange: SAP_Internal_V2_Range? = nil
+  }
+
+  init() {}
+}
+
+struct SAP_Internal_V2_PresenceTracingQRCodeDescriptor {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var regexPattern: String = String()
+
+  var versionGroupIndex: UInt32 = 0
+
+  var encodedPayloadGroupIndex: UInt32 = 0
+
+  var payloadEncoding: SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding = .base32
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum PayloadEncoding: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case base32 // = 0
+    case base64 // = 1
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .base32
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .base32
+      case 1: self = .base64
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .base32: return 0
+      case .base64: return 1
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding] = [
+    .base32,
+    .base64,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "SAP.internal.v2"
@@ -192,6 +319,8 @@ extension SAP_Internal_V2_PresenceTracingParameters: SwiftProtobuf.Message, Swif
     2: .same(proto: "submissionParameters"),
     3: .same(proto: "qrCodeErrorCorrectionLevel"),
     4: .same(proto: "revokedTraceLocationVersions"),
+    5: .same(proto: "plausibleDeniabilityParameters"),
+    6: .same(proto: "qrCodeDescriptors"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -204,6 +333,8 @@ extension SAP_Internal_V2_PresenceTracingParameters: SwiftProtobuf.Message, Swif
       case 2: try { try decoder.decodeSingularMessageField(value: &self._submissionParameters) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.qrCodeErrorCorrectionLevel) }()
       case 4: try { try decoder.decodeRepeatedUInt32Field(value: &self.revokedTraceLocationVersions) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._plausibleDeniabilityParameters) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.qrCodeDescriptors) }()
       default: break
       }
     }
@@ -222,6 +353,12 @@ extension SAP_Internal_V2_PresenceTracingParameters: SwiftProtobuf.Message, Swif
     if !self.revokedTraceLocationVersions.isEmpty {
       try visitor.visitPackedUInt32Field(value: self.revokedTraceLocationVersions, fieldNumber: 4)
     }
+    if let v = self._plausibleDeniabilityParameters {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    }
+    if !self.qrCodeDescriptors.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.qrCodeDescriptors, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -230,6 +367,8 @@ extension SAP_Internal_V2_PresenceTracingParameters: SwiftProtobuf.Message, Swif
     if lhs._submissionParameters != rhs._submissionParameters {return false}
     if lhs.qrCodeErrorCorrectionLevel != rhs.qrCodeErrorCorrectionLevel {return false}
     if lhs.revokedTraceLocationVersions != rhs.revokedTraceLocationVersions {return false}
+    if lhs._plausibleDeniabilityParameters != rhs._plausibleDeniabilityParameters {return false}
+    if lhs.qrCodeDescriptors != rhs.qrCodeDescriptors {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -400,4 +539,197 @@ extension SAP_Internal_V2_PresenceTracingSubmissionParameters.AerosoleDecayFunct
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PresenceTracingPlausibleDeniabilityParameters"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "checkInSizesInBytes"),
+    2: .same(proto: "probabilityToFakeCheckInsIfNoCheckIns"),
+    3: .same(proto: "probabilityToFakeCheckInsIfSomeCheckIns"),
+    4: .same(proto: "numberOfFakeCheckInsFunctionParameters"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedUInt32Field(value: &self.checkInSizesInBytes) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.probabilityToFakeCheckInsIfNoCheckIns) }()
+      case 3: try { try decoder.decodeSingularDoubleField(value: &self.probabilityToFakeCheckInsIfSomeCheckIns) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.numberOfFakeCheckInsFunctionParameters) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.checkInSizesInBytes.isEmpty {
+      try visitor.visitPackedUInt32Field(value: self.checkInSizesInBytes, fieldNumber: 1)
+    }
+    if self.probabilityToFakeCheckInsIfNoCheckIns != 0 {
+      try visitor.visitSingularDoubleField(value: self.probabilityToFakeCheckInsIfNoCheckIns, fieldNumber: 2)
+    }
+    if self.probabilityToFakeCheckInsIfSomeCheckIns != 0 {
+      try visitor.visitSingularDoubleField(value: self.probabilityToFakeCheckInsIfSomeCheckIns, fieldNumber: 3)
+    }
+    if !self.numberOfFakeCheckInsFunctionParameters.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.numberOfFakeCheckInsFunctionParameters, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters, rhs: SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters) -> Bool {
+    if lhs.checkInSizesInBytes != rhs.checkInSizesInBytes {return false}
+    if lhs.probabilityToFakeCheckInsIfNoCheckIns != rhs.probabilityToFakeCheckInsIfNoCheckIns {return false}
+    if lhs.probabilityToFakeCheckInsIfSomeCheckIns != rhs.probabilityToFakeCheckInsIfSomeCheckIns {return false}
+    if lhs.numberOfFakeCheckInsFunctionParameters != rhs.numberOfFakeCheckInsFunctionParameters {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOfFakeCheckInsFunctionParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.protoMessageName + ".NumberOfFakeCheckInsFunctionParameters"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "randomNumberRange"),
+    2: .same(proto: "p"),
+    3: .same(proto: "q"),
+    4: .same(proto: "r"),
+    5: .same(proto: "s"),
+    6: .same(proto: "t"),
+    7: .same(proto: "u"),
+    8: .same(proto: "a"),
+    9: .same(proto: "b"),
+    10: .same(proto: "c"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._randomNumberRange) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.p) }()
+      case 3: try { try decoder.decodeSingularDoubleField(value: &self.q) }()
+      case 4: try { try decoder.decodeSingularDoubleField(value: &self.r) }()
+      case 5: try { try decoder.decodeSingularDoubleField(value: &self.s) }()
+      case 6: try { try decoder.decodeSingularDoubleField(value: &self.t) }()
+      case 7: try { try decoder.decodeSingularDoubleField(value: &self.u) }()
+      case 8: try { try decoder.decodeSingularDoubleField(value: &self.a) }()
+      case 9: try { try decoder.decodeSingularDoubleField(value: &self.b) }()
+      case 10: try { try decoder.decodeSingularDoubleField(value: &self.c) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._randomNumberRange {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if self.p != 0 {
+      try visitor.visitSingularDoubleField(value: self.p, fieldNumber: 2)
+    }
+    if self.q != 0 {
+      try visitor.visitSingularDoubleField(value: self.q, fieldNumber: 3)
+    }
+    if self.r != 0 {
+      try visitor.visitSingularDoubleField(value: self.r, fieldNumber: 4)
+    }
+    if self.s != 0 {
+      try visitor.visitSingularDoubleField(value: self.s, fieldNumber: 5)
+    }
+    if self.t != 0 {
+      try visitor.visitSingularDoubleField(value: self.t, fieldNumber: 6)
+    }
+    if self.u != 0 {
+      try visitor.visitSingularDoubleField(value: self.u, fieldNumber: 7)
+    }
+    if self.a != 0 {
+      try visitor.visitSingularDoubleField(value: self.a, fieldNumber: 8)
+    }
+    if self.b != 0 {
+      try visitor.visitSingularDoubleField(value: self.b, fieldNumber: 9)
+    }
+    if self.c != 0 {
+      try visitor.visitSingularDoubleField(value: self.c, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOfFakeCheckInsFunctionParameters, rhs: SAP_Internal_V2_PresenceTracingPlausibleDeniabilityParameters.NumberOfFakeCheckInsFunctionParameters) -> Bool {
+    if lhs._randomNumberRange != rhs._randomNumberRange {return false}
+    if lhs.p != rhs.p {return false}
+    if lhs.q != rhs.q {return false}
+    if lhs.r != rhs.r {return false}
+    if lhs.s != rhs.s {return false}
+    if lhs.t != rhs.t {return false}
+    if lhs.u != rhs.u {return false}
+    if lhs.a != rhs.a {return false}
+    if lhs.b != rhs.b {return false}
+    if lhs.c != rhs.c {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PresenceTracingQRCodeDescriptor"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "regexPattern"),
+    2: .same(proto: "versionGroupIndex"),
+    3: .same(proto: "encodedPayloadGroupIndex"),
+    4: .same(proto: "payloadEncoding"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.regexPattern) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.versionGroupIndex) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.encodedPayloadGroupIndex) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.payloadEncoding) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.regexPattern.isEmpty {
+      try visitor.visitSingularStringField(value: self.regexPattern, fieldNumber: 1)
+    }
+    if self.versionGroupIndex != 0 {
+      try visitor.visitSingularUInt32Field(value: self.versionGroupIndex, fieldNumber: 2)
+    }
+    if self.encodedPayloadGroupIndex != 0 {
+      try visitor.visitSingularUInt32Field(value: self.encodedPayloadGroupIndex, fieldNumber: 3)
+    }
+    if self.payloadEncoding != .base32 {
+      try visitor.visitSingularEnumField(value: self.payloadEncoding, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_V2_PresenceTracingQRCodeDescriptor, rhs: SAP_Internal_V2_PresenceTracingQRCodeDescriptor) -> Bool {
+    if lhs.regexPattern != rhs.regexPattern {return false}
+    if lhs.versionGroupIndex != rhs.versionGroupIndex {return false}
+    if lhs.encodedPayloadGroupIndex != rhs.encodedPayloadGroupIndex {return false}
+    if lhs.payloadEncoding != rhs.payloadEncoding {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_V2_PresenceTracingQRCodeDescriptor.PayloadEncoding: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "BASE32"),
+    1: .same(proto: "BASE64"),
+  ]
 }

@@ -106,22 +106,53 @@ extension SAP_Internal_Pt_TraceLocationType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+struct SAP_Internal_Pt_QRCodePayload {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var version: UInt32 = 0
+
+  var locationData: SAP_Internal_Pt_TraceLocation {
+    get {return _locationData ?? SAP_Internal_Pt_TraceLocation()}
+    set {_locationData = newValue}
+  }
+  /// Returns true if `locationData` has been explicitly set.
+  var hasLocationData: Bool {return self._locationData != nil}
+  /// Clears the value of `locationData`. Subsequent reads from it will return its default value.
+  mutating func clearLocationData() {self._locationData = nil}
+
+  var crowdNotifierData: SAP_Internal_Pt_CrowdNotifierData {
+    get {return _crowdNotifierData ?? SAP_Internal_Pt_CrowdNotifierData()}
+    set {_crowdNotifierData = newValue}
+  }
+  /// Returns true if `crowdNotifierData` has been explicitly set.
+  var hasCrowdNotifierData: Bool {return self._crowdNotifierData != nil}
+  /// Clears the value of `crowdNotifierData`. Subsequent reads from it will return its default value.
+  mutating func clearCrowdNotifierData() {self._crowdNotifierData = nil}
+
+  /// byte sequence of CWALocationData
+  var vendorData: Data = Data()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _locationData: SAP_Internal_Pt_TraceLocation? = nil
+  fileprivate var _crowdNotifierData: SAP_Internal_Pt_CrowdNotifierData? = nil
+}
+
 struct SAP_Internal_Pt_TraceLocation {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// uuid
-  var guid: String = String()
-
   var version: UInt32 = 0
 
-  var type: SAP_Internal_Pt_TraceLocationType = .locationTypeUnspecified
-
-  /// max. 150 characters
+  /// max. 100 characters
   var description_p: String = String()
 
-  /// max. 150 characters
+  /// max. 100 characters
   var address: String = String()
 
   /// UNIX timestamp (in seconds)
@@ -130,21 +161,37 @@ struct SAP_Internal_Pt_TraceLocation {
   /// UNIX timestamp (in seconds)
   var endTimestamp: UInt64 = 0
 
-  var defaultCheckInLengthInMinutes: UInt32 = 0
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct SAP_Internal_Pt_CrowdNotifierData {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var version: UInt32 = 0
+
+  var publicKey: Data = Data()
+
+  var cryptographicSeed: Data = Data()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct SAP_Internal_Pt_SignedTraceLocation {
+struct SAP_Internal_Pt_CWALocationData {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var location: Data = Data()
+  var version: UInt32 = 0
 
-  var signature: Data = Data()
+  var type: SAP_Internal_Pt_TraceLocationType = .locationTypeUnspecified
+
+  var defaultCheckInLengthInMinutes: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -173,17 +220,13 @@ extension SAP_Internal_Pt_TraceLocationType: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension SAP_Internal_Pt_TraceLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TraceLocation"
+extension SAP_Internal_Pt_QRCodePayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".QRCodePayload"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "guid"),
-    2: .same(proto: "version"),
-    3: .same(proto: "type"),
-    4: .same(proto: "description"),
-    5: .same(proto: "address"),
-    6: .same(proto: "startTimestamp"),
-    7: .same(proto: "endTimestamp"),
-    8: .same(proto: "defaultCheckInLengthInMinutes"),
+    1: .same(proto: "version"),
+    2: .same(proto: "locationData"),
+    3: .same(proto: "crowdNotifierData"),
+    4: .same(proto: "vendorData"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -192,66 +235,49 @@ extension SAP_Internal_Pt_TraceLocation: SwiftProtobuf.Message, SwiftProtobuf._M
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.guid) }()
-      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.version) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.type) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.address) }()
-      case 6: try { try decoder.decodeSingularUInt64Field(value: &self.startTimestamp) }()
-      case 7: try { try decoder.decodeSingularUInt64Field(value: &self.endTimestamp) }()
-      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.defaultCheckInLengthInMinutes) }()
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.version) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._locationData) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._crowdNotifierData) }()
+      case 4: try { try decoder.decodeSingularBytesField(value: &self.vendorData) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.guid.isEmpty {
-      try visitor.visitSingularStringField(value: self.guid, fieldNumber: 1)
-    }
     if self.version != 0 {
-      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 2)
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 1)
     }
-    if self.type != .locationTypeUnspecified {
-      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 3)
+    if let v = self._locationData {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 4)
+    if let v = self._crowdNotifierData {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     }
-    if !self.address.isEmpty {
-      try visitor.visitSingularStringField(value: self.address, fieldNumber: 5)
-    }
-    if self.startTimestamp != 0 {
-      try visitor.visitSingularUInt64Field(value: self.startTimestamp, fieldNumber: 6)
-    }
-    if self.endTimestamp != 0 {
-      try visitor.visitSingularUInt64Field(value: self.endTimestamp, fieldNumber: 7)
-    }
-    if self.defaultCheckInLengthInMinutes != 0 {
-      try visitor.visitSingularUInt32Field(value: self.defaultCheckInLengthInMinutes, fieldNumber: 8)
+    if !self.vendorData.isEmpty {
+      try visitor.visitSingularBytesField(value: self.vendorData, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SAP_Internal_Pt_TraceLocation, rhs: SAP_Internal_Pt_TraceLocation) -> Bool {
-    if lhs.guid != rhs.guid {return false}
+  static func ==(lhs: SAP_Internal_Pt_QRCodePayload, rhs: SAP_Internal_Pt_QRCodePayload) -> Bool {
     if lhs.version != rhs.version {return false}
-    if lhs.type != rhs.type {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.address != rhs.address {return false}
-    if lhs.startTimestamp != rhs.startTimestamp {return false}
-    if lhs.endTimestamp != rhs.endTimestamp {return false}
-    if lhs.defaultCheckInLengthInMinutes != rhs.defaultCheckInLengthInMinutes {return false}
+    if lhs._locationData != rhs._locationData {return false}
+    if lhs._crowdNotifierData != rhs._crowdNotifierData {return false}
+    if lhs.vendorData != rhs.vendorData {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension SAP_Internal_Pt_SignedTraceLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SignedTraceLocation"
+extension SAP_Internal_Pt_TraceLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TraceLocation"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "location"),
-    2: .same(proto: "signature"),
+    1: .same(proto: "version"),
+    2: .same(proto: "description"),
+    3: .same(proto: "address"),
+    5: .same(proto: "startTimestamp"),
+    6: .same(proto: "endTimestamp"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -260,26 +286,129 @@ extension SAP_Internal_Pt_SignedTraceLocation: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBytesField(value: &self.location) }()
-      case 2: try { try decoder.decodeSingularBytesField(value: &self.signature) }()
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.version) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.address) }()
+      case 5: try { try decoder.decodeSingularUInt64Field(value: &self.startTimestamp) }()
+      case 6: try { try decoder.decodeSingularUInt64Field(value: &self.endTimestamp) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.location.isEmpty {
-      try visitor.visitSingularBytesField(value: self.location, fieldNumber: 1)
+    if self.version != 0 {
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 1)
     }
-    if !self.signature.isEmpty {
-      try visitor.visitSingularBytesField(value: self.signature, fieldNumber: 2)
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    if !self.address.isEmpty {
+      try visitor.visitSingularStringField(value: self.address, fieldNumber: 3)
+    }
+    if self.startTimestamp != 0 {
+      try visitor.visitSingularUInt64Field(value: self.startTimestamp, fieldNumber: 5)
+    }
+    if self.endTimestamp != 0 {
+      try visitor.visitSingularUInt64Field(value: self.endTimestamp, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SAP_Internal_Pt_SignedTraceLocation, rhs: SAP_Internal_Pt_SignedTraceLocation) -> Bool {
-    if lhs.location != rhs.location {return false}
-    if lhs.signature != rhs.signature {return false}
+  static func ==(lhs: SAP_Internal_Pt_TraceLocation, rhs: SAP_Internal_Pt_TraceLocation) -> Bool {
+    if lhs.version != rhs.version {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.address != rhs.address {return false}
+    if lhs.startTimestamp != rhs.startTimestamp {return false}
+    if lhs.endTimestamp != rhs.endTimestamp {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_Pt_CrowdNotifierData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CrowdNotifierData"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "version"),
+    2: .same(proto: "publicKey"),
+    3: .same(proto: "cryptographicSeed"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.version) }()
+      case 2: try { try decoder.decodeSingularBytesField(value: &self.publicKey) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self.cryptographicSeed) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.version != 0 {
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 1)
+    }
+    if !self.publicKey.isEmpty {
+      try visitor.visitSingularBytesField(value: self.publicKey, fieldNumber: 2)
+    }
+    if !self.cryptographicSeed.isEmpty {
+      try visitor.visitSingularBytesField(value: self.cryptographicSeed, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_Pt_CrowdNotifierData, rhs: SAP_Internal_Pt_CrowdNotifierData) -> Bool {
+    if lhs.version != rhs.version {return false}
+    if lhs.publicKey != rhs.publicKey {return false}
+    if lhs.cryptographicSeed != rhs.cryptographicSeed {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SAP_Internal_Pt_CWALocationData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CWALocationData"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "version"),
+    2: .same(proto: "type"),
+    3: .same(proto: "defaultCheckInLengthInMinutes"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.version) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.defaultCheckInLengthInMinutes) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.version != 0 {
+      try visitor.visitSingularUInt32Field(value: self.version, fieldNumber: 1)
+    }
+    if self.type != .locationTypeUnspecified {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
+    }
+    if self.defaultCheckInLengthInMinutes != 0 {
+      try visitor.visitSingularUInt32Field(value: self.defaultCheckInLengthInMinutes, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SAP_Internal_Pt_CWALocationData, rhs: SAP_Internal_Pt_CWALocationData) -> Bool {
+    if lhs.version != rhs.version {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.defaultCheckInLengthInMinutes != rhs.defaultCheckInLengthInMinutes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -14,8 +14,7 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	) {
 		self.viewModel = viewModel
 		self.onDismiss = onDismiss
-
-		super.init(nibName: nil, bundle: nil)
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -29,12 +28,10 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 		super.viewDidLoad()
 
 		navigationItem.title = AppStrings.TraceLocations.TypeSelection.title
-
 		navigationItem.rightBarButtonItem = CloseBarButtonItem { [weak self] in
 			self?.onDismiss()
 		}
-
-		navigationController?.navigationBar.prefersLargeTitles = true
+		setupTableView()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -48,16 +45,22 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "SubtitleCell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "SubtitleCell")
-
-		cell.textLabel?.text = viewModel.title(at: indexPath)
-		cell.detailTextLabel?.text = viewModel.description(at: indexPath)
-
+		let cell = tableView.dequeueReusableCell(cellType: SelectTraceLocationTypeCell.self, for: indexPath)
+		cell.configure(cellModel: viewModel.cellViewModel(at: indexPath))
 		return cell
 	}
 
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return viewModel.sectionTitle(for: section)
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectTraceLocationTypeHeaderView.reuseIdentifier) as? SelectTraceLocationTypeHeaderView else {
+			Log.debug("Failed to dequeue SelectTraceLocationTypeHeaderView")
+			return nil
+		}
+		headerView.configure(viewModel.sectionTitle(for: section))
+		return headerView
+	}
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		return tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectTraceLocationTypeFooterView.reuseIdentifier) as? SelectTraceLocationTypeFooterView
 	}
 
 	// MARK: - Protocol UITableViewDelegate
@@ -69,7 +72,23 @@ class TraceLocationTypeSelectionViewController: UITableViewController {
 	// MARK: - Private
 
 	private let viewModel: TraceLocationTypeSelectionViewModel
-
 	private let onDismiss: () -> Void
+
+	private func setupTableView() {
+		view.backgroundColor = .enaColor(for: .darkBackground)
+
+		tableView.separatorStyle = .none
+		tableView.estimatedRowHeight = 60.0
+		tableView.rowHeight = UITableView.automaticDimension
+
+		tableView.estimatedSectionHeaderHeight = 33.0
+		tableView.sectionHeaderHeight = UITableView.automaticDimension
+		tableView.estimatedSectionFooterHeight = 25.0
+		tableView.sectionFooterHeight = UITableView.automaticDimension
+
+		tableView.register(SelectTraceLocationTypeHeaderView.self, forHeaderFooterViewReuseIdentifier: SelectTraceLocationTypeHeaderView.reuseIdentifier)
+		tableView.register(SelectTraceLocationTypeFooterView.self, forHeaderFooterViewReuseIdentifier: SelectTraceLocationTypeFooterView.reuseIdentifier)
+		tableView.register(SelectTraceLocationTypeCell.self, forCellReuseIdentifier: SelectTraceLocationTypeCell.reuseIdentifier)
+	}
 
 }

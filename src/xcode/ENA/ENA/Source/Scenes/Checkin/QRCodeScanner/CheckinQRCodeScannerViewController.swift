@@ -11,11 +11,12 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		didScanCheckin: @escaping (Checkin) -> Void,
+		viewModel: CheckinQRCodeScannerViewModel,
+		didScanCheckin: @escaping (String) -> Void,
 		dismiss: @escaping () -> Void
 	) {
 		self.didScanCheckin = didScanCheckin
-		self.viewModel = CheckinQRCodeScannerViewModel()
+		self.viewModel = viewModel
 		self.dismiss = dismiss
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -48,15 +49,14 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	private let focusView = QRScannerFocusView()
 
-	private let didScanCheckin: (Checkin) -> Void
+	private let didScanCheckin: (String) -> Void
 	private let dismiss: () -> Void
 
 	private let viewModel: CheckinQRCodeScannerViewModel
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {
-		
-		navigationItem.title = AppStrings.Checkin.QRScanner.title
+		navigationItem.title = AppStrings.Checkins.QRScanner.title
 		view.backgroundColor = .enaColor(for: .background)
 
 		focusView.backdropOpacity = 0.2
@@ -69,7 +69,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		instructionLabel.textAlignment = .center
 		instructionLabel.textColor = .enaColor(for: .textContrast)
 		instructionLabel.font = .enaFont(for: .body)
-		instructionLabel.text = AppStrings.Checkin.QRScanner.instruction
+		instructionLabel.text = AppStrings.Checkins.QRScanner.instruction
 		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3
@@ -169,13 +169,13 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(previewLayer, at: 0)
 
-		viewModel.onSuccess = { [weak self] checkin in
+		viewModel.onSuccess = { [weak self] qrCodeString in
 			guard let self = self else {
 				return
 			}
 			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 			self.viewModel.deactivateScanning()
-			self.didScanCheckin(checkin)
+			self.didScanCheckin(qrCodeString)
 		}
 
 		viewModel.onError = { [weak self] error in
@@ -198,8 +198,8 @@ class CheckinQRCodeScannerViewController: UIViewController {
 		viewModel.deactivateScanning()
 
 		let alert = UIAlertController(
-			title: AppStrings.Checkin.QRScanner.Error.title,
-			message: AppStrings.Checkin.QRScanner.Error.description,
+			title: AppStrings.Checkins.QRScanner.Error.title,
+			message: AppStrings.Checkins.QRScanner.Error.description,
 			preferredStyle: .alert
 		)
 		alert.addAction(
@@ -221,6 +221,11 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	}
 
 	private func updatePreviewMask() {
+
+		guard let previewLayer = previewLayer else {
+			Log.debug("No preview layer available")
+			return
+		}
 
 		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
 		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)

@@ -182,9 +182,15 @@ final class SecureStore: Store {
 		set { kvStore["appInstallationDate"] = newValue }
 	}
 
-	var riskCalculationResult: RiskCalculationResult? {
-		get { kvStore["riskCalculationResult"] as RiskCalculationResult? ?? nil }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? {
+		// After renaming "riskCalculationResult" to "enfRiskCalculationResult" the key for the kvStore was NOT renamed intentionally to avoid a migration.
+		get { kvStore["riskCalculationResult"] as ENFRiskCalculationResult? ?? nil }
 		set { kvStore["riskCalculationResult"] = newValue }
+	}
+
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? {
+		get { kvStore["checkinRiskCalculationResult"] as CheckinRiskCalculationResult? ?? nil }
+		set { kvStore["checkinRiskCalculationResult"] = newValue }
 	}
 
 	var dateOfConversionToHighRisk: Date? {
@@ -282,17 +288,7 @@ final class SecureStore: Store {
 		get { kvStore["journalWithExposureHistoryInfoScreenShown"] as Bool? ?? false }
 		set { kvStore["journalWithExposureHistoryInfoScreenShown"] = newValue }
 	}
-
-	var checkinInfoScreenShown: Bool {
-		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["checkinInfoScreenShown"] = newValue }
-	}
 	
-	var traceLocationsInfoScreenShown: Bool {
-		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
-		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
-	}
-
 	#if !RELEASE
 
 	// Settings from the debug menu.
@@ -307,8 +303,8 @@ final class SecureStore: Store {
 		set { kvStore["dmKillDeviceTimeCheck"] = newValue }
 	}
 
-	var mostRecentRiskCalculation: RiskCalculation? {
-		get { kvStore["mostRecentRiskCalculation"] as RiskCalculation? }
+	var mostRecentRiskCalculation: ENFRiskCalculation? {
+		get { kvStore["mostRecentRiskCalculation"] as ENFRiskCalculation? }
 		set { kvStore["mostRecentRiskCalculation"] = newValue }
 	}
 
@@ -331,6 +327,34 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private var serverEnvironment: ServerEnvironment
 
+}
+
+extension SecureStore: EventRegistrationCaching {
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool {
+		get { kvStore["wasRecentTraceWarningDownloadSuccessful"] as Bool? ?? false }
+		set { kvStore["wasRecentTraceWarningDownloadSuccessful"] = newValue }
+	}
+	
+	var checkinInfoScreenShown: Bool {
+		get { kvStore["checkinInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["checkinInfoScreenShown"] = newValue }
+	}
+	
+	var traceLocationsInfoScreenShown: Bool {
+		get { kvStore["traceLocationsInfoScreenShown"] as Bool? ?? false }
+		set { kvStore["traceLocationsInfoScreenShown"] = newValue }
+	}
+	
+	var shouldAddCheckinToContactDiaryByDefault: Bool {
+		get { kvStore["shouldAddCheckinToContactDiaryByDefault"] as Bool? ?? true }
+		set { kvStore["shouldAddCheckinToContactDiaryByDefault"] = newValue }
+	}
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? {
+		get { kvStore["qrCodePosterTemplateMetadata"] as QRCodePosterTemplateMetadata? ?? nil }
+		set { kvStore["qrCodePosterTemplateMetadata"] = newValue }
+	}
 }
 
 extension SecureStore {

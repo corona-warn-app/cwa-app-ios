@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import Foundation
 import FMDB
 
@@ -24,7 +27,8 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 
 				CREATE TABLE IF NOT EXISTS Checkin (
 					id INTEGER PRIMARY KEY,
-					traceLocationGUID TEXT NOT NULL,
+					traceLocationId BLOB NOT NULL,
+					traceLocationIdHash BLOB NOT NULL,
 					traceLocationVersion INTEGER NOT NULL,
 					traceLocationType INTEGER NOT NULL,
 					traceLocationDescription TEXT NOT NULL CHECK (LENGTH(traceLocationDescription) <= \(maxTextLength)),
@@ -32,15 +36,16 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					traceLocationStartDate INTEGER,
 					traceLocationEndDate INTEGER,
 					traceLocationDefaultCheckInLengthInMinutes INTEGER,
-					traceLocationSignature TEXT NOT NULL,
+					cryptographicSeed BLOB NOT NULL,
+					cnPublicKey BLOB NOT NULL,
 					checkinStartDate INTEGER NOT NULL,
-					checkinEndDate INTEGER,
-					targetCheckinEndDate INTEGER,
+					checkinEndDate INTEGER NOT NULL,
+					checkinCompleted INTEGER NOT NULL,
 					createJournalEntry INTEGER NOT NULL
 				);
 
 				CREATE TABLE IF NOT EXISTS TraceLocation (
-					guid TEXT PRIMARY KEY,
+					id BLOB PRIMARY KEY,
 					version INTEGER NOT NULL,
 					type INTEGER NOT NULL,
 					description TEXT NOT NULL CHECK (LENGTH(description) <= \(maxTextLength)),
@@ -48,14 +53,15 @@ class EventStoreSchemaV1: StoreSchemaProtocol {
 					startDate INTEGER,
 					endDate INTEGER,
 					defaultCheckInLengthInMinutes INTEGER,
-					signature TEXT NOT NULL
+					cryptographicSeed BLOB NOT NULL,
+					cnPublicKey BLOB NOT NULL
 				);
 
 				CREATE TABLE IF NOT EXISTS TraceTimeIntervalMatch (
 					id INTEGER PRIMARY KEY,
 					checkinId INTEGER NOT NULL,
 					traceWarningPackageId INTEGER NOT NULL,
-					traceLocationGUID TEXT NOT NULL,
+					traceLocationId BLOB NOT NULL,
 					transmissionRiskLevel INTEGER NOT NULL,
 					startIntervalNumber INTEGER NOT NULL,
 					endIntervalNumber INTEGER NOT NULL

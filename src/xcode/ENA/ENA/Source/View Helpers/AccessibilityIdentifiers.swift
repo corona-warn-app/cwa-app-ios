@@ -46,6 +46,7 @@ enum AccessibilityIdentifiers {
 
 	enum ContactDiary {
 		static let segmentedControl = "AppStrings.ContactDiary.Day"
+		static let dayTableView = "AppStrings.ContactDiary.Day.TableView"
 	}
 
 	enum ContactDiaryInformation {
@@ -74,6 +75,10 @@ enum AccessibilityIdentifiers {
 			static let riskLevelLow = "AppStrings.ContactDiary.Overview.lowRiskTitle"
 			static let riskLevelHigh = "AppStrings.ContactDiary.Overview.increasedRiskTitle"
 			static let tableView = "AppStrings.ContactDiary.Overview.tableView"
+	
+			static let checkinRiskLevelLow = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleLowRisk"
+			static let checkinRiskLevelHigh = "AppStrings.ContactDiary.Overview.CheckinEncounter.titleHighRisk"
+			static let checkinTableView = "AppStrings.ContactDiary.Overview.CheckinEncounter.tableView"
 		}
 		
 		enum NotesInformation {
@@ -282,6 +287,9 @@ enum AccessibilityIdentifiers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
+		static let acknowledgementTitle = "AppStrings.ExposureSubmissionWarnOthers.acknowledgement_title"
+		static let countryList = "AppStrings.ExposureSubmissionWarnOthers.countryList"
+		static let dataProcessingDetailInfo = "AppStrings.AppStrings.ExposureSubmissionWarnOthers.dataProcessingDetailInfo"
 	}
 	
 	enum DeltaOnboarding {
@@ -407,7 +415,17 @@ enum AccessibilityIdentifiers {
 		static let descriptionTitle = "AppStrings.TraceLocations.descriptionTitle"
 		static let descriptionSubHeadline = "AppStrings.TraceLocations.descriptionSubHeadline"
 		static let dataPrivacyTitle = "AppStrings.TraceLocations.dataPrivacyTitle"
+		static let acknowledgementTitle = "TraceLocation.acknowledgementTitle"
 		static let legal_1 = "AppStrings.TraceLocations.legalHeadline_1"
+		
+		enum Details {
+			static let printVersionButton = "AppStrings.TraceLocations.Details.printVersionButtonTitle"
+			static let duplicateButton = "AppStrings.TraceLocations.Details.duplicateButtonTitle"
+		}
+		
+		enum Overview {
+			static let tableView = "TableView.TracelocationOverview"
+		}
 	}
 	
 	enum CheckinInformation {

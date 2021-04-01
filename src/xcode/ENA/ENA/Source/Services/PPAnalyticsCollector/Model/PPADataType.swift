@@ -9,7 +9,6 @@ import Foundation
 enum PPADataType {
 	case userData(PPAUserMetadata)
 	case riskExposureMetadata(PPARiskExposureMetadata)
-	case clientMetadata(PPAClientMetadata)
 	case testResultMetadata(PPATestResultMetadata)
 	case keySubmissionMetadata(PPAKeySubmissionMetadata)
 	case exposureWindowsMetadata(PPAExposureWindowsMetadata)
@@ -22,12 +21,7 @@ enum PPAUserMetadata {
 
 enum PPARiskExposureMetadata {
 	case create(RiskExposureMetadata)
-	case updateRiskExposureMetadata(RiskCalculationResult)
-}
-
-enum PPAClientMetadata {
-	case create(ClientMetadata)
-	case setClientMetaData
+	case updateRiskExposureMetadata(ENFRiskCalculationResult)
 }
 
 enum PPATestResultMetadata {

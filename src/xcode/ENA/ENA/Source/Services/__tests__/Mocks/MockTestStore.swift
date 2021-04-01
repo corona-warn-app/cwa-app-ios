@@ -5,7 +5,7 @@
 import Foundation
 @testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData, EventRegistrationCaching {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -15,7 +15,8 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var riskCalculationResult: RiskCalculationResult?
+	var enfRiskCalculationResult: ENFRiskCalculationResult?
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
@@ -56,8 +57,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var checkinInfoScreenShown: Bool = false
-	var traceLocationsInfoScreenShown: Bool = false
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
 
@@ -65,7 +64,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var mostRecentRiskCalculation: RiskCalculation?
+	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
@@ -100,4 +99,12 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var keySubmissionMetadata: KeySubmissionMetadata?
 	var testResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	
+	// MARK: - EventRegistrationCaching
+	
+	var wasRecentTraceWarningDownloadSuccessful: Bool = false
+	var checkinInfoScreenShown: Bool = false
+	var traceLocationsInfoScreenShown: Bool = false
+	var shouldAddCheckinToContactDiaryByDefault = true
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
 }

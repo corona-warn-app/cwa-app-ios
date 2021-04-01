@@ -15,7 +15,7 @@ protocol EventStoring {
 	func updateTraceLocation(_ traceLocation: TraceLocation) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func deleteTraceLocation(guid: String) -> SecureSQLStore.VoidResult
+	func deleteTraceLocation(id: Data) -> SecureSQLStore.VoidResult
 
 	@discardableResult
 	func deleteAllTraceLocations() -> SecureSQLStore.VoidResult
@@ -39,10 +39,13 @@ protocol EventStoring {
 	func deleteTraceTimeIntervalMatch(id: Int) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.IdResult
+	func createTraceWarningPackageMetadata(_ metadata: TraceWarningPackageMetadata) -> SecureSQLStore.VoidResult
 
 	@discardableResult
 	func deleteTraceWarningPackageMetadata(id: Int) -> SecureSQLStore.VoidResult
+
+	@discardableResult
+	func deleteAllTraceWarningPackageMetadata() -> SecureSQLStore.VoidResult
 
 	@discardableResult
 	func cleanup() -> SecureSQLStore.VoidResult

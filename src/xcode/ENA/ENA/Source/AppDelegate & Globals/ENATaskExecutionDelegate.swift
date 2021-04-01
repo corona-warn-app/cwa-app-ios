@@ -15,6 +15,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		plausibleDeniabilityService: PlausibleDeniabilityService,
 		contactDiaryStore: DiaryStoring,
 		eventStore: EventStoring,
+		eventCheckoutService: EventCheckoutService,
 		store: Store,
 		exposureSubmissionDependencies: ExposureSubmissionServiceDependencies
 	) {
@@ -22,6 +23,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 		self.pdService = plausibleDeniabilityService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
+		self.eventCheckoutService = eventCheckoutService
 		self.store = store
 		self.dependencies = exposureSubmissionDependencies
 	}
@@ -32,7 +34,6 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	var pdService: PlausibleDeniability
 	var dependencies: ExposureSubmissionServiceDependencies
 	var contactDiaryStore: DiaryStoring
-	var eventStore: EventStoring
 
 	/// This method executes the background tasks needed for fetching test results, performing exposure detection
 	/// and executing plausible deniability fake requests.
@@ -98,6 +99,13 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 
 		group.enter()
 		DispatchQueue.global().async {
+			Log.info("Checkout overdue checkins.", log: .background)
+			self.eventCheckoutService.checkoutOverdueCheckins()
+			group.leave()
+		}
+
+		group.enter()
+		DispatchQueue.global().async {
 			Log.info("Trigger analytics submission.", log: .background)
 			self.executeAnalyticsSubmission {
 				group.leave()
@@ -118,6 +126,8 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	// MARK: - Private
 
 	private let backgroundTaskConsumer = RiskConsumer()
+	private let eventStore: EventStoring
+	private let eventCheckoutService: EventCheckoutService
 
 	/// This method attempts a submission of temporary exposure keys. The exposure submission service itself checks
 	/// whether a submission should actually be executed.
@@ -262,6 +272,10 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 	}
 
 	private func executeAnalyticsSubmission(completion: @escaping () -> Void) {
+		// fill in the risk exposure metadata if new risk calculation is not done in the meanwhile
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult {
+			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(enfRiskCalculationResult)))
+		}
 		Analytics.triggerAnalyticsSubmission(completion: { result in
 			switch result {
 			case .success:

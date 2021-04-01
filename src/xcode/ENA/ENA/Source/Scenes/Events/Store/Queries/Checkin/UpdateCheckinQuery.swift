@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import FMDB
 
 class UpdateCheckinQuery: StoreQueryProtocol {
@@ -21,7 +24,8 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			UPDATE Checkin SET
-			traceLocationGUID = ?,
+			traceLocationId = ?,
+			traceLocationIdHash = ?,
 			traceLocationVersion = ?,
 			traceLocationType = ?,
 			traceLocationDescription = SUBSTR(?, 1, \(maxTextLength)),
@@ -29,10 +33,11 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			traceLocationStartDate = ?,
 			traceLocationEndDate = ?,
 			traceLocationDefaultCheckInLengthInMinutes = ?,
-			traceLocationSignature = ?,
+			cryptographicSeed = ?,
+			cnPublicKey = ?,
 			checkinStartDate = ?,
-			targetCheckinEndDate = ?,
 			checkinEndDate = ?,
+			checkinCompleted = ?,
 			createJournalEntry = ?
 			WHERE id = ?;
 		"""
@@ -47,21 +52,12 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 			traceLocationEndDateInterval = Int(traceLocationEnd.timeIntervalSince1970)
 		}
 
-		var checkinEndDateInterval: Int?
-		if let checkinEndDate = checkin.checkinEndDate {
-			checkinEndDateInterval = Int(checkinEndDate.timeIntervalSince1970)
-		}
-
-		var targetCheckinEndDateInterval: Int?
-		if let targetCheckinEndDate = checkin.targetCheckinEndDate {
-			targetCheckinEndDateInterval = Int(targetCheckinEndDate.timeIntervalSince1970)
-		}
-
 		do {
 			try database.executeUpdate(
 				sql,
 				values: [
-					checkin.traceLocationGUID,
+					checkin.traceLocationId,
+					checkin.traceLocationIdHash,
 					checkin.traceLocationVersion,
 					checkin.traceLocationType.rawValue,
 					checkin.traceLocationDescription,
@@ -69,10 +65,11 @@ class UpdateCheckinQuery: StoreQueryProtocol {
 					traceLocationStartDateInterval as Any,
 					traceLocationEndDateInterval as Any,
 					checkin.traceLocationDefaultCheckInLengthInMinutes as Any,
-					checkin.traceLocationSignature,
+					checkin.cryptographicSeed,
+					checkin.cnPublicKey,
 					Int(checkin.checkinStartDate.timeIntervalSince1970),
-					targetCheckinEndDateInterval as Any,
-					checkinEndDateInterval as Any,
+					Int(checkin.checkinEndDate.timeIntervalSince1970),
+					checkin.checkinCompleted,
 					checkin.createJournalEntry,
 					checkin.id
 				]

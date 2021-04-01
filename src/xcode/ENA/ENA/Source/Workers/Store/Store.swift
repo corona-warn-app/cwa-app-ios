@@ -59,7 +59,9 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
-	var riskCalculationResult: RiskCalculationResult? { get set }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? { get set }
+
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
 
 	/// Date when the risk was changed to high
 	var dateOfConversionToHighRisk: Date? { get set }
@@ -109,10 +111,6 @@ protocol StoreProtocol: AnyObject {
 	var submissionSymptomsOnset: SymptomsOnset { get set }
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
-	
-	var checkinInfoScreenShown: Bool { get set }
-
-	var traceLocationsInfoScreenShown: Bool { get set }
 
 	func clearAll(key: String?)
 
@@ -120,7 +118,7 @@ protocol StoreProtocol: AnyObject {
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
 
-	var mostRecentRiskCalculation: RiskCalculation? { get set }
+	var mostRecentRiskCalculation: ENFRiskCalculation? { get set }
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
@@ -157,5 +155,17 @@ protocol PrivacyPreservingProviding: AnyObject {
 	var ppacApiToken: TimestampedToken? { get set }
 }
 
+protocol EventRegistrationCaching: AnyObject {
+	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
+	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
+	
+	var checkinInfoScreenShown: Bool { get set }
+
+	var traceLocationsInfoScreenShown: Bool { get set }
+
+	var shouldAddCheckinToContactDiaryByDefault: Bool { get set }
+	
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
+}
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching {}

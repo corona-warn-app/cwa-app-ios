@@ -2,17 +2,22 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import UIKit
+import OpenCombine
 
 final class CheckinCoordinator {
-
+	
 	// MARK: - Init
-
 	init(
-		store: Store
+		store: Store,
+		eventStore: EventStoringProviding,
+		appConfiguration: AppConfigurationProviding,
+		eventCheckoutService: EventCheckoutService
 	) {
 		self.store = store
+		self.eventStore = eventStore
+		self.appConfiguration = appConfiguration
+		self.eventCheckoutService = eventCheckoutService
 		
 		#if DEBUG
 		if isUITesting {
@@ -22,49 +27,122 @@ final class CheckinCoordinator {
 			}
 		}
 		#endif
+		
+		setupCheckinBadgeCount()
 	}
-
+	
 	// MARK: - Internal
-
 	lazy var viewController: UINavigationController = {
-		let checkInsTableViewController = CheckinsTableViewController(
-			showQRCodeScanner: showQRCodeScanner,
-			showSettings: showSettings
+		let checkinsOverviewViewController = CheckinsOverviewViewController(
+			viewModel: checkinsOverviewViewModel,
+			onInfoButtonTap: { [weak self] in
+				self?.presentInfoScreen()
+			},
+			onAddEntryCellTap: { [weak self] in
+				self?.showQRCodeScanner()
+			},
+			onMissingPermissionsButtonTap: { [weak self] in
+				self?.showSettings()
+			}
+		)
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Overview.deleteAllButtonTitle,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: true,
+				isSecondaryButtonHidden: true,
+				primaryButtonColor: .systemRed
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: checkinsOverviewViewController,
+			bottomController: footerViewController
 		)
 		
 		// show the info screen only once
 		if !infoScreenShown {
-			return ENANavigationControllerWithFooter(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
+			return UINavigationController(rootViewController: infoScreen(hidesCloseButton: true, dismissAction: { [weak self] in
 				guard let self = self else { return }
 				// Push Checkin Table View Controller
-				self.viewController.pushViewController(checkInsTableViewController,	animated: true)
+				self.viewController.pushViewController(topBottomContainerViewController, animated: true)
 				// Set as the only controller on the navigation stack to avoid back gesture etc.
-				self.viewController.setViewControllers([checkInsTableViewController], animated: false)
+				self.viewController.setViewControllers([topBottomContainerViewController], animated: false)
 				self.infoScreenShown = true // remember and don't show it again
 			},
 			showDetail: { detailViewController in
 				self.viewController.pushViewController(detailViewController, animated: true)
 			}))
 		} else {
-			return UINavigationController(rootViewController: checkInsTableViewController)
+			let navigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+			navigationController.navigationBar.prefersLargeTitles = true
+			return navigationController
 		}
-		
 	}()
-
-	// MARK: - Private
 	
+	// MARK: - Private
+
 	private let store: Store
+	private let eventStore: EventStoringProviding
+	private let appConfiguration: AppConfigurationProviding
+	private let eventCheckoutService: EventCheckoutService
+	private var subscriptions: [AnyCancellable] = []
+	
 	private var infoScreenShown: Bool {
 		get { store.checkinInfoScreenShown }
 		set { store.checkinInfoScreenShown = newValue }
 	}
 	
+	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
+		CheckinsOverviewViewModel(
+			store: eventStore,
+			eventCheckoutService: eventCheckoutService,
+			onEntryCellTap: { [weak self] checkin in
+				self?.showEditCheckIn(checkin)
+			}
+		)
+	}()
+
+	private func showEditCheckIn(_ checkIn: Checkin) {
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Edit.primaryButtonTitle,
+				secondaryButtonName: nil,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .cellBackground)
+			)
+		)
+
+		let editCheckInViewController = EditCheckinDetailViewController(
+			eventStore: eventStore,
+			checkIn: checkIn,
+			dismiss: { [weak self] in
+				self?.viewController.dismiss(animated: true)
+			}
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: editCheckInViewController,
+			bottomController: footerViewController
+		)
+		viewController.present(topBottomContainerViewController, animated: true)
+	}
+
 	private func showQRCodeScanner() {
+		
 		let qrCodeScanner = CheckinQRCodeScannerViewController(
-			didScanCheckin: { [weak self] checkin in
-				self?.showCheckinDetails(checkin)
+			viewModel: CheckinQRCodeScannerViewModel(),
+			didScanCheckin: { [weak self] qrCodeString in
+				self?.viewController.dismiss(animated: true, completion: {
+					self?.showTraceLocationDetails(qrCodeString)
+				})
 			},
 			dismiss: { [weak self] in
+				self?.checkinsOverviewViewModel.updateForCameraPermission()
 				self?.viewController.dismiss(animated: true)
 			}
 		)
@@ -75,22 +153,42 @@ final class CheckinCoordinator {
 			self?.viewController.present(navigationController, animated: true)
 		}
 	}
+	let verificationService = QRCodeVerificationHelper()
 
-	private func showCheckinDetails(_ checkin: Checkin) {
-		let checkinDetailViewController = CheckinDetailViewController(
-			checkin,
-			dismiss: { [weak self] in self?.viewController.dismiss(animated: true) },
-			presentCheckins: { [weak self] in
-				self?.viewController.dismiss(animated: true, completion: {
-//					self?.showCheckins()
-				})
-			}
-		)
-		checkinDetailViewController.modalPresentationStyle = .overCurrentContext
-		checkinDetailViewController.modalTransitionStyle = .flipHorizontal
-		viewController.present(checkinDetailViewController, animated: true)
+	func showTraceLocationDetails(_ qrCodeString: String) {
+		verificationService.verifyQrCode(
+			qrCodeString: qrCodeString,
+			appConfigurationProvider: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				
+				guard let self = self else { return }
+				let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
+				let traceLocationDetailViewController = TraceLocationDetailViewController(
+					viewModel,
+					dismiss: { [weak self] in
+						self?.viewController.dismiss(animated: true)
+					}
+				)
+				self.viewController.present(traceLocationDetailViewController, animated: true)
+			},
+			onError: { error in
+				let alert = UIAlertController(
+					title: AppStrings.Common.alertTitleGeneral,
+					message: error.localizedDescription,
+					preferredStyle: .alert
+				)
+				alert.addAction(
+					UIAlertAction(
+						title: AppStrings.Common.alertActionOk,
+						style: .default,
+						handler: { _ in
+							alert.dismiss(animated: true, completion: nil)
+						}
+					)
+				)
+			})
 	}
-
+	
 	private func showSettings() {
 		guard let url = URL(string: UIApplication.openSettingsURLString),
 			  UIApplication.shared.canOpenURL(url) else {
@@ -105,7 +203,8 @@ final class CheckinCoordinator {
 		dismissAction: @escaping (() -> Void),
 		showDetail: @escaping ((UIViewController) -> Void)
 	) -> UIViewController {
-		let viewController = CheckinsInfoScreenViewController(
+		
+		let checkinsInfoScreenViewController = CheckinsInfoScreenViewController(
 			viewModel: CheckInsInfoScreenViewModel(
 				presentDisclaimer: {
 					let detailViewController = HTMLViewController(model: AppInformationModel.privacyModel)
@@ -118,13 +217,29 @@ final class CheckinCoordinator {
 				dismissAction()
 			}
 		)
-		return viewController
+		
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Information.primaryButtonTitle,
+				primaryIdentifier: AccessibilityIdentifiers.CheckinInformation.primaryButton,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true
+			)
+		)
+		
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: checkinsInfoScreenViewController,
+			bottomController: footerViewController
+		)
+		
+		return topBottomContainerViewController
 	}
-
+	
 	private func presentInfoScreen() {
 		// Promise the navigation view controller will be available,
 		// this is needed to resolve an inset issue with large titles
-		var navigationController: ENANavigationControllerWithFooter!
+		var navigationController: UINavigationController!
 		let infoVC = infoScreen(
 			dismissAction: {
 				navigationController.dismiss(animated: true)
@@ -135,8 +250,17 @@ final class CheckinCoordinator {
 		)
 		// We need to use UINavigationController(rootViewController: UIViewController) here,
 		// otherwise the inset of the navigation title is wrong
-		navigationController = ENANavigationControllerWithFooter(rootViewController: infoVC)
+		navigationController = UINavigationController(rootViewController: infoVC)
 		viewController.present(navigationController, animated: true)
 	}
-
+	
+	private func setupCheckinBadgeCount() {
+		eventStore.checkinsPublisher
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] checkins in
+				let activeCheckinCount = checkins.filter { !$0.checkinCompleted }.count
+				self?.viewController.tabBarItem.badgeValue = activeCheckinCount > 0 ? String(activeCheckinCount) : nil
+			}
+			.store(in: &subscriptions)
+	}
 }

@@ -39,7 +39,7 @@
 
 "Common_BackgroundFetch_AlertTitle" = "Фоновото опресняване за приложението е дезактивирано";
 
-"Common_Deadman_AlertTitle" = "Проверка за излагане на риск";
+"Common_Deadman_AlertTitle" = "Вашият статус на риск";
 
 "Common_Deadman_AlertBody" = "Моля, не забравяйте да отваряте приложението Corona-Warn-App редовно, за да проверявате статуса си на риск.";
 
@@ -405,9 +405,9 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Как да активирате регистрирането на излаганията";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "За да разберете дали е възможно да сте се заразили, трябва да активирате регистрирането на излагания на риск от заразяване.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "За да установите дали за Вас съществува риск от заразяване, трябва да активирате функцията за регистриране на излагания на риск.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излаганията на риск се извършва с помощта на Bluetooth връзка, при която Вашият iPhone получава криптираните случайни идентификатори на други потребители на приложението и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за дата, продължителност и близост на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват, а самоличността Ви не може да бъде определена по идентификаторите.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Регистрирането на излаганията на риск се извършва с помощта на Bluetooth връзка, при която Вашият iPhone получава криптираните случайни идентификатори на други потребители на приложението и изпраща до техните устройства Вашите случайни идентификатори. Функцията може да бъде дезактивирана по всяко време. \n\nКриптираните случайни ИД кодове предават само информация за датата, продължителността и близостта на контакта с други лица (изчислена чрез силата на сигнала). Лични данни от типа на име, адрес и местоположение не се записват, а самоличността Ви не може да бъде определена по идентификаторите.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Минимална възраст: 16 год.";
 
@@ -543,9 +543,7 @@
 
 "ExposureSubmissionQRInfo_header_section_1" = "Извличане на резултат от тест";
 
-"ExposureSubmissionQRInfo_body_section_1" = "В следващата стъпка сканирайте QR кода от Вашия тест, за да получите резултата.";
-
-"ExposureSubmissionQRInfo_instruction1" = "Моля, сканирайте само Вашия собствен тест.";
+"ExposureSubmissionQRInfo_instruction1" = "Сега сканирайте QR кода от Вашия тест, за да получите резултата.";
 
 "ExposureSubmissionQRInfo_instruction2" = "Можете да сканирате Вашия тест само веднъж. Приложението не може да обработва няколко теста едновременно.";
 
@@ -557,13 +555,15 @@
 
 "ExposureSubmissionQRInfo_body_section_2" = "Ако Ви е поставена диагноза „коронавирус“, можете да предупредите останалите с помощта на приложението. Функцията за предупреждаване работи в няколко държави. Към момента това са:";
 
-"ExposureSubmissionQRInfo_acknowledgement_3" = "Вашето съгласие е доброволно.";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте. Ако обаче споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
 
-"ExposureSubmissionQRInfo_acknowledgement_4" = "Можете да получите резултата от Вашия тест, без да е необходимо да го споделяте, но ако споделите резултата си, ще помогнете на другите да се предпазят от заразяване.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
 
-"ExposureSubmissionQRInfo_acknowledgement_5" = "Вашата самоличност няма да бъде разкрита. Другите потребители няма да узнаят кой е споделил резултата от теста си.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "В раздела „Моите регистрации“ виждате събитията и местата, чиито регистрирани гости ще бъдат предупредени. Можете да изтриете отделни регистрации от списъка, за да ги изключите от процеса на предупреждаване.";
 
 "ExposureSubmissionQRInfo_acknowledgement_6" = "За да дадете съгласието си, трябва да имате навършени 16 години.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "В следващата стъпка давате съгласие за достъп до случайно генерирани ИД кодове.";
 
 "ExposureSubmissionQRInfo_primaryButtonTitle" = "Приемам";
 
@@ -1070,6 +1070,14 @@
 
 "Home_SubmitCard_Button" = "Следващи стъпки";
 
+/* Home Trace Locations Card */
+"Home_TraceLocationsCard_Title" = "Планирате събитие?";
+
+"Home_TraceLocationsCard_Body" = "Планирате събитие или ръководите бизнес? Създайте QR код, за да могат посетителите да се регистрират, когато пристигнат.";
+
+"Home_TraceLocationsCard_Button" = "Създаване на QR код";
+
+/* Home Info Card */
 "Home_InfoCard_ShareTitle" = "Споделете приложението Corona-Warn-App";
 
 "Home_InfoCard_ShareBody" = "Колкото повече хора използват приложението, толкова по-бързо можем да прекъснем веригите на заразяване. Предложете на семейството и приятелите си да изтеглят приложението.";
@@ -1361,10 +1369,19 @@
 /* New Version Features */
 "NewVersionFeatures_Info_about_abb_information" = "Може да видите промените в тази версия в подраздела „Нови функции“ на информацията за приложението.";
 
+/* Version 2.0 */
+"NewVersionFeature_200_event_checkin_title" = "Прекъснете успешно веригите на заразяване чрез регистрация с QR код";
+
+"NewVersionFeature_200_event_checkin_description" = "CWA Ви позволява да се регистрирате, когато пристигате на определени места и събития. Организаторите на събития и собствениците на магазини могат да използват приложението за създаване на QR код, който посетителите да сканират, когато пристигат, за да регистрират присъствието си. При поискване приложението може също да създава запис в дневника. Ако на някой от посетителите на съответното място или събитие бъде поставена диагноза коронавирус, всички лица, които са се регистрирали на същото място по същото време, ще бъдат уведомени.";
+
 /* Version 1.15 */
 "NewVersionFeature_115_cross_border_switzerland_title" = "Швейцария е добавена към международното регистриране на излаганията на риск ";
 
 "NewVersionFeature_115_cross_border_switzerland_description" = "Потребителите на Corona-Warn-App вече могат да разменят криптирани случайни идентификатори с потребителите на официалното приложение за борба с коронавируса в Швейцария. Това означава, че потребителите там също могат да изпращат и получават предупреждения.";
+
+"NewVersionFeature_115_days_since_install_title" = "Промяна в плочките за риск";
+
+"NewVersionFeature_115_days_since_install_description" = "Плочките за риск вече не съдържат броя активни дни или бележката, че приложението постоянно активно.";
 
 "NewVersionFeature_115_error_analytic_logs_title" = "Генериране на отчети за грешки";
 
@@ -1492,6 +1509,17 @@
 "ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Редактиране на места";
 
 "ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Дневник на моите контакти";
+
+/* Checkin Risk */
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Повишен риск";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Нисък риск";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "Въз основа на Вашето присъствие в:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(повишен риск)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(нисък риск)";
 
 /* Day */
 "ContactDiary_Day_ContactPersonsSegment" = "Лица";
@@ -1755,6 +1783,8 @@
 
 "Tabbar_Diary_Title" = "Дневник";
 
+"Tabbar_CheckIn_Title" = "Регистрация";
+
 /* Data Donation */
 "DataDonation_IntroductionText" = "Покажете ни как използвате приложението. Това ще ни помогне да оценим неговата ефективност.";
 
@@ -1875,6 +1905,164 @@
 /* Quick Actions a.k.a. shortcuts */
 "QuickAction_newContactDiaryEntry" = "Добавяне на запис с днешна дата в дневника";
 
+"QuickAction_eventCheckin" = "Регистрация";
+
+/* Checkins */
+"Checkins_QR_Scanner_Title" = "Сканиране на QR кода";
+
+"Checkins_Overview_Title" = "Моите регистрации";
+
+"Checkins_Overview_MenuButtonTitle" = "Меню";
+
+"Checkins_Overview_ScanButtonTitle" = "Сканиране на QR код";
+
+"Checkins_Overview_EmptyTitle" = "Все още няма записи";
+
+"Checkins_Overview_EmptyDescription" = "Създаването на запис се извършва автоматично, когато сканирате QR код, за да се регистрирате на дадено събитие или място.";
+
+"Checkins_Overview_EmptyImageDescription" = "Сграда, на чийто фон се вижда символ за QR код";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Изтриване на всички";
+
+"Checkins_Overview_DurationTitle" = "Продължителност";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - автоматично прекратяване на регистрацията след %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Прекрати регистрацията сега";
+
+"Checkins_Overview_MissingPermissions_Title" = "Разрешаване на достъпа до камерата";
+
+"Checkins_Overview_MissingPermissions_Description" = "За да използвате камерата на телефона си за сканиране на QR кодове, трябва да разрешите на приложението да получи достъп до нея от настройките на устройството си.";
+
+"Checkins_Overview_MissingPermissions_ButtonTitle" = "Към настройките на устройството";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Наистина ли искате да изтриете този запис?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Повече няма да можете да предупреждавате други потребители, които са се регистрирали на това място или събитие по същото време, нито ще можете да получавате предупреждения от тях.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Изтриване";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Отказ";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Наистина ли искате да изтриете всички записи?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Повече няма да можете да предупреждавате други потребители, които са се регистрирали от същите места или събития по същото време, нито ще можете да получавате предупреждения от тях.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Изтриване";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Отказ";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Информация";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Редактиране";
+
+"Checkins_Overview_QRScanner_Instruction" = "Сканиране на QR код и регистриране";
+
+/* TraceLocations */
+"TraceLocations_Overview_Title" = "Моите QR кодове";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Меню";
+
+"TraceLocations_Overview_AddButtonTitle" = "Създаване на QR код";
+
+"TraceLocations_Overview_EmptyTitle" = "Все още няма създадени QR кодове";
+
+"TraceLocations_Overview_EmptyDescription" = "Тук се показват всички QR кодове, които сте създали за дадено място или събитие. Може да изтриете кодовете, които повече нямате намерение да използвате.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Смартфон със символ за QR код";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Изтриване на всички";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Регистрация";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Желаете ли да изтриете QR кода?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Моля, имайте предвид, че ако го направите, този код повече няма да може да се използва за регистрации.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Изтриване";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Отказ";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Наистина ли желаете да изтриете всички QR кодове?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Моля, имайте предвид, че ако го направите, тези кодове повече няма да може да се използват за регистрации.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Изтриване";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Отказ";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Информация";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Редактиране";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "Създаване на QR код";
+
+"TraceLocations_Section_Title_Permanent" = "МЯСТО";
+
+"TraceLocations_Section_Title_Temporary" = "СЪБИТИЕ";
+
+"TraceLocations_Type_Title_PermanentOther" = "Друго място";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Търговия на дребно";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Хотелиерство и ресторантьорство";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Занаятчийска дейност";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Работно място";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Образователен обект";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Обществена сграда";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Магазин, зала за продажби";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Кафе, бар, ресторант, хотел";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Фризьорски салон, дърводелска работилница";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Офис, конферентна зала, кафетерия";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Класна стая, лекционна зала, библиотека";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Кметство, музей";
+
+"TraceLocations_Type_Title_TemporaryOther" = "Друго събитие";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Културно събитие";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Клубни дейности";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Частно парти";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Религиозна служба";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Концерт, изложба";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Тренировка, общо събрание";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Рожден ден, семейно събиране";
+
+/* Trace Location Configuration */
+"TraceLocations_Configuration_Title" = "Създаване на QR код";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Описание";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Място";
+
+"TraceLocations_Configuration_StartDateTitle" = "Начало";
+
+"TraceLocations_Configuration_EndDateTitle" = "Край";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Обичаен престой";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Посочете обичайната продължителност на престой на Вашите посетители.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Запазване";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ ч";
+
 /* Error Reporting */
 "ErrorReport_Title" = "Отчети за грешки";
 
@@ -1907,4 +2095,68 @@
 "ErrorReport_DEVICE_NOT_SUPPORTED" = "Отчетът за грешки не може да бъде изпратен. Код на грешката: %@.";
 
 "ErrorReport_TRY_AGAIN_LATER" = "Отчетът за грешки не може да бъде изпратен в момента. Моля, опитайте по-късно. Код на грешката: %@.";
+
+/* Checkins */
+"Checkin_Information_Title" = "Регистрация";
+
+"Checkin_Information_ImageDescription" = "Трима души стоят до висока маса и двама от тях гледат телефоните си.";
+
+"Checkin_Information_DescriptionTitle" = "Бързо и надеждно прекъсване на веригите на заразяване";
+
+"Checkin_Information_DescriptionSubHeadline" = "Сканирайте QR кода, за да регистрирате своето присъствие на дадено място или събитие.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "Всяка регистрация се взема предвид също и при изчисляване на Вашия статус на риск. При диагностициране на дадено лице с коронавирус Вие ще получите уведомление, ако по същото време или в рамките на 30 минути след това сте се намирали в едно и също помещение с него.";
+
+"Checkin_Information_Item_Time_Title" = "Моля, отбележете продължителността на престоя си възможно най-точно, за да може да получите адекватни предупреждения.";
+
+"Checkin_Information_Dataprivacy_Title" = "За повече информация прочетете декларацията за поверителност.";
+
+"Checkin_Information_PrimaryButton_Title" = "Приемам";
+
+/* CheckIn edit */
+"Checkins_Edit_PrimaryButton_Title" = "Запазване";
+
+"Checkins_Edit_Section_Title" = "Промяна на продължителността на престой за:";
+
+"Checkins_Edit_CheckedIn" = "Регистрирано пристигане";
+
+"Checkins_Edit_CheckedOut" = "Регистрирано напускане";
+
+"Checkins_Edit_Notice" = "Продължителността на престоя няма да бъде коригирана автоматично във вашия дневник на контактите.";
+
+/* Trace Location */
+"TraceLocation_Information_Title" = "Създаване на QR код";
+
+"TraceLocation_Information_ImageDescription" = "Eдин човек посочва флипчарт, а други двама седят в близост един до друг и гледат към него.";
+
+"TraceLocation_Information_DescriptionTitle" = "Повече безопасност за Вас и Вашите посетители";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Създайте QR код, който посетителите Ви могат да сканират при пристигането си. Това ще им позволи при необходимост.да предупредят останалите посетители или да бъдат предупредени от тях.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Всяка регистрация се взема предвид също и при изчисляване на нивото на риска. При поставяне на диагноза коронавирус на лице, което се е регистрирало от дадено място или събитие, ще бъдат уведомени всички останали посетители, които по същото време или в рамките на 30 минути след това са се намирали в едно и също помещение с него.";
+
+"TraceLocation_Information_Item_Checkin" = "Можете да предоставите QR кода на посетителите си от смартфон или отпечатан на хартия.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Ако желаете да използвате QR код дългосрочно, трябва да генерирате такъв ежедневно извън работно време.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Напред";
+
+/* Checkout */
+"Checkout_Notification_Title" = "Регистрацията Ви беше прекратена автоматично.";
+
+"Checkout_Notification_Body" = "Моля, коригирайте продължителността на престоя си, ако е необходимо.";
+
+"Checkin_Details_HoursShortVersion" = "%@ ч";
+
+"Checkin_Details_CheckinFor" = "Регистрация за:";
+
+"Checkin_Details_Activity" = "Клубни дейности";
+
+"Checkin_Details_SaveToDiary" = "Да се създаде ли запис дневника на контактите след прекратяване на регистрацията?";
+
+"Checkin_Details_AutomaticCheckout" = "Автоматично прекратяване на регистрацията след";
+
+"Checkin_Details_EventNotStartedYet" = "Това събитие започва в %@ на %@. Желаете ли да се регистрирате още сега?";
+
+"Checkin_Details_EventEnded" = "Това събитие вече е отминало. Желаете ли да се регистрирате със задна дата?";
 

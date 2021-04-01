@@ -11,7 +11,10 @@ class MockDiaryStore: DiaryStoringProviding {
 
 	// MARK: - Init
 
-	init() {
+	init(
+		dateProvider: DateProviding = DateProvider()
+	) {
+		self.dateProvider = dateProvider
 		updateDays()
 	}
 
@@ -36,9 +39,9 @@ class MockDiaryStore: DiaryStoringProviding {
 	}
 
 	@discardableResult
-	func addLocation(name: String, phoneNumber: String, emailAddress: String, traceLocationGUID: String?) -> SecureSQLStore.IdResult {
+	func addLocation(name: String, phoneNumber: String, emailAddress: String, traceLocationId: Data?) -> SecureSQLStore.IdResult {
 		let id = (locations.map { $0.id }.max() ?? -1) + 1
-		locations.append(DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress, traceLocationGUID: traceLocationGUID))
+		locations.append(DiaryLocation(id: id, name: name, phoneNumber: phoneNumber, emailAddress: emailAddress, traceLocationId: traceLocationId))
 
 		updateDays()
 
@@ -83,7 +86,7 @@ class MockDiaryStore: DiaryStoringProviding {
 			name: name,
 			phoneNumber: phoneNumber,
 			emailAddress: emailAddress,
-			traceLocationGUID: locations[index].traceLocationGUID
+			traceLocationId: locations[index].traceLocationId
 		)
 
 		updateDays()
@@ -203,6 +206,7 @@ class MockDiaryStore: DiaryStoringProviding {
 	private var locations: [DiaryLocation] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
 	private var locationVisits: [LocationVisit] = []
+	private let dateProvider: DateProviding
 
 	private func updateDays() {
 		var diaryDays = [DiaryDay]()
@@ -211,7 +215,7 @@ class MockDiaryStore: DiaryStoringProviding {
 		dateFormatter.formatOptions = [.withFullDate]
 
 		for dayDifference in 0..<15 {
-			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: Date()) else { continue }
+			guard let date = Calendar.current.date(byAdding: .day, value: -dayDifference, to: dateProvider.today) else { continue }
 			let dateString = dateFormatter.string(from: date)
 
 			let contactPersonEntries = contactPersons
@@ -228,7 +232,7 @@ class MockDiaryStore: DiaryStoringProviding {
 				.map { location -> DiaryEntry in
 					let visit = locationVisits.first { $0.date == dateString && $0.locationId == location.id }
 
-					let location = DiaryLocation(id: location.id, name: location.name, phoneNumber: location.phoneNumber, emailAddress: location.emailAddress, traceLocationGUID: location.traceLocationGUID, visit: visit)
+					let location = DiaryLocation(id: location.id, name: location.name, phoneNumber: location.phoneNumber, emailAddress: location.emailAddress, traceLocationId: location.traceLocationId, visit: visit)
 					return DiaryEntry.location(location)
 				}
 

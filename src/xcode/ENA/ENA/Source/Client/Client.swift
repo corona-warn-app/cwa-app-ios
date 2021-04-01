@@ -21,7 +21,9 @@ protocol Client {
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
-
+	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
+	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
+	
 	// MARK: Interacting with a Client
 
 	/// Determines days that can be downloaded.
@@ -55,14 +57,14 @@ protocol Client {
 		completion completeWith: @escaping RegistrationHandler
 	)
 
-	// getTestResultForDevice
+	/// Gets the test result for the device
 	func getTestResult(
 		forDevice registrationToken: String,
 		isFake: Bool,
 		completion completeWith: @escaping TestResultHandler
 	)
 
-	// getTANForDevice
+	/// Gets the TAN for the device
 	func getTANForExposureSubmit(
 		forDevice registrationToken: String,
 		isFake: Bool,
@@ -115,6 +117,28 @@ protocol Client {
 		forceApiTokenHeader: Bool,
 		completion: @escaping PPAnalyticsSubmitionCompletionHandler
 	)
+	
+	// MARK: Event / Check-In (aka traceWarning)
+	
+	/// GET call to load the IDs from the traceWarnings from CDN. It eventually returns the ID of the the first and last TraceWarningPackage that is available on CDN. The return is the set of all integers between (and including) first and last.
+	/// - Parameters:
+	///   - country: The country.ID for which country we want the IDs.
+	///   - completion: The completion handler of the get call, which contains the set of availbalePackagesOnCDN.
+	func traceWarningPackageDiscovery(
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	)
+	
+	/// GET call to load the packge to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
+	/// - Parameters:
+	///   - country: The country.ID for which country we want the IDs.
+	///   - packageId: The packageID for the package we want to download
+	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
+	func traceWarningPackageDownload(
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	)
 }
 
 enum SubmissionError: Error {
@@ -164,12 +188,16 @@ extension SubmissionError: LocalizedError {
 
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
 struct PackageDownloadResponse {
-	let package: SAPDownloadedPackage
+	let package: SAPDownloadedPackage?
 
 	/// The response ETag
 	///
 	/// This is used to identify and revoke packages.
 	let etag: String?
+	
+	var isEmpty: Bool {
+		return package == nil
+	}
 }
 
 /// Combined model for a submit keys request

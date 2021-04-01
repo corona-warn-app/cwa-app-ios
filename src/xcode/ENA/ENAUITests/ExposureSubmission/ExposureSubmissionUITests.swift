@@ -73,11 +73,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
 		// QR Code Info Screen
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRInfoView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// QR Code Scanner Screen
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionQRScannerView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 	}
 	
 	func test_Switch_consentSubmission() {
@@ -116,7 +116,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
 		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		
-		// launch and nagivate to the desired screen
+		// launch and navigate to the desired screen
 		launch()
 		navigateToSymptomsScreen()
 		
@@ -396,10 +396,10 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
 	
@@ -452,11 +452,11 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		snapshot("tan_submissionflow_tan_\(String(format: "%04d", (screenshotCounter.inc() )))")
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 	}
@@ -571,15 +571,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		
 		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		// Open Warn Others screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// Open Thank You screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
@@ -610,7 +610,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		
 		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
@@ -621,17 +621,17 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.secondaryButton"].tap()
 				
 		// quick hack - can't easily use `addUIInterruptionMonitor` in this test
 		app.alerts.firstMatch.buttons[AccessibilityIdentifiers.General.cancelButton].tap()
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 		
 		app.navigationBars["ExposureSubmissionNavigationController"].buttons.element(boundBy: 0).tap()
@@ -664,7 +664,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open test result available screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		XCTAssertTrue(app.navigationBars["ENA.TestResultAvailableView"].waitForExistence(timeout: .long))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .long))
 
 		snapshot("submissionflow_screenshot_test_result_available")
 	}
@@ -704,7 +704,7 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		// Open test result screen.
 		XCTAssertTrue(app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].waitForExistence(timeout: .long))
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		snapshot("submissionflow_screenshot_test_result_positive_constent_given")
 	}
@@ -741,15 +741,15 @@ class ENAUITests_04_ExposureSubmissionUITests: XCTestCase {
 		app.cells.buttons[AccessibilityIdentifiers.Home.submitCardButton].tap()
 
 		// Open Test Result screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionTestResultView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// Open Warn Others screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionWarnOthersView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmission.primaryButton"].tap()
 
 		// Open Thank You screen.
-		XCTAssertTrue(app.navigationBars["ENA.ExposureSubmissionThankYouView"].waitForExistence(timeout: .medium))
+		XCTAssertTrue(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		snapshot("submissionflow_screenshot_thank_you_screen")
 

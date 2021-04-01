@@ -51,9 +51,9 @@ class DMDebugRiskCalculationViewController: UIViewController {
 	private let store: Store
 	private let textView = UITextView()
 
-	private struct  RiskCalculationDebugHelper: Encodable {
+	private struct RiskCalculationDebugHelper: Encodable {
 		let configuration: RiskCalculationConfiguration
-		let mostRecentRiskCalculation: RiskCalculation
+		let mostRecentRiskCalculation: ENFRiskCalculation
 	}
 
 	private func setUp() {

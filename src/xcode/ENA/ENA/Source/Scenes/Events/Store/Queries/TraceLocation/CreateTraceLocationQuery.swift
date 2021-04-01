@@ -2,6 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
+// This implementation is based on the following technical specification.
+// For more details please see: https://github.com/corona-warn-app/cwa-app-tech-spec/blob/e87ef2851c91141573d5714fd24485219280543e/docs/spec/event-registration-client.md
+
 import FMDB
 
 class CreateTraceLocationQuery: StoreQueryProtocol {
@@ -21,7 +24,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 	func execute(in database: FMDatabase) -> Bool {
 		let sql = """
 			INSERT INTO TraceLocation (
-				guid,
+				id,
 				version,
 				type,
 				description,
@@ -29,10 +32,11 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 				startDate,
 				endDate,
 				defaultCheckInLengthInMinutes,
-				signature
+				cryptographicSeed,
+				cnPublicKey
 			)
 			VALUES (
-				:guid,
+				:id,
 				:version,
 				:type,
 				SUBSTR(:description, 1, \(maxTextLength)),
@@ -40,7 +44,8 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 				:startDate,
 				:endDate,
 				:defaultCheckInLengthInMinutes,
-				:signature
+				:cryptographicSeed,
+				:cnPublicKey
 			);
 		"""
 
@@ -55,7 +60,7 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 		}
 
 		let parameters: [String: Any] = [
-			"guid": traceLocation.guid,
+			"id": traceLocation.id,
 			"version": traceLocation.version,
 			"type": traceLocation.type.rawValue,
 			"description": traceLocation.description,
@@ -63,7 +68,8 @@ class CreateTraceLocationQuery: StoreQueryProtocol {
 			"startDate": startDateInterval as Any,
 			"endDate": endDateInterval as Any,
 			"defaultCheckInLengthInMinutes": traceLocation.defaultCheckInLengthInMinutes as Any,
-			"signature": traceLocation.signature
+			"cryptographicSeed": traceLocation.cryptographicSeed,
+			"cnPublicKey": traceLocation.cnPublicKey
 		]
 
 		return database.executeUpdate(sql, withParameterDictionary: parameters)
