@@ -157,5 +157,4 @@ extension TraceLocation {
 			return nil
 		}
 	}
-
 }

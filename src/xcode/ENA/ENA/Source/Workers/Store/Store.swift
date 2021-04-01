@@ -125,6 +125,8 @@ protocol StoreProtocol: AnyObject {
 	var dmKillDeviceTimeCheck: Bool { get set }
 
 	var forceAPITokenAuthorization: Bool { get set }
+	
+	var recentScannedQRCodeTraceLocation: DMRecentScannedTraceWarning? { get set }
 
 	#endif
 

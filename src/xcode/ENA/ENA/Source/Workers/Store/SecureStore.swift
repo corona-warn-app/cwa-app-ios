@@ -317,6 +317,12 @@ final class SecureStore: Store {
 		get { kvStore["forceAPITokenAuthorization"] as Bool? ?? false }
 		set { kvStore["forceAPITokenAuthorization"] = newValue }
 	}
+	
+	var recentScannedQRCodeTraceLocation: DMRecentScannedTraceWarning? {
+		get { kvStore["recentScannedQRCodeTraceLocation"] as DMRecentScannedTraceWarning? ?? nil }
+		set { kvStore["recentScannedQRCodeTraceLocation"] = newValue }
+	}
+
 
 	#endif
 
