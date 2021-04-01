@@ -17,7 +17,6 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		onDismiss: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
-
 		self.onPrintVersionButtonTap = onPrintVersionButtonTap
 		self.onDuplicateButtonTap = onDuplicateButtonTap
 		self.onDismiss = onDismiss
@@ -105,7 +104,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		
 		case .qrCode:
 			let cell = tableView.dequeueReusableCell(cellType: TraceLocationDetailsQRCodeCell.self, for: indexPath)
-			cell.configure(viewModel.qrCode)
+			cell.configure(viewModel.qrCode())
 			return cell
 			
 		case .dateTime:
@@ -199,7 +198,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		let pdfDocument = PDFDocument(data: templateData.template)
 
 		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
-		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		guard let qrCodeImage = viewModel.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
 		let textDetails = templateData.descriptionTextBox
 		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
 		
