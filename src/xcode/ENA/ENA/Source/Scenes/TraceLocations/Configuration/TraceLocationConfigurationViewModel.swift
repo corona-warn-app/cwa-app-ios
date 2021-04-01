@@ -309,7 +309,7 @@ class TraceLocationConfigurationViewModel {
 		var bytes = [UInt8](repeating: 0, count: 16)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {
-			Log.error("Error creating random bytes.", log: .api)
+			Log.error("Error creating random bytes.", log: .traceLocation)
 			return nil
 		}
 
