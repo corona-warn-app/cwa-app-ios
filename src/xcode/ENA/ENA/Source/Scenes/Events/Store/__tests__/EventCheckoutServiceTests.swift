@@ -332,7 +332,33 @@ class EventCheckoutServiceTests: XCTestCase {
 		// After calling updating checkout to 'checkinCompleted == true' for 1 checkin, only 1 notification requests should be pending.
 
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 2)
+
+		// Updating checkin with 'checkinCompleted == true' will trigger a checkout handling in the EventCheckoutService.
 		mockEventStore.updateCheckin(completedCheckin)
+		
+		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 1)
+	}
+
+	func test_When_CheckoutOverdueCheckins_Then_OnlyEventCheckoutServiceNotificationsAreAffected() {
+		let mockEventStore = MockEventStore()
+		let overdueCheckin = makeDummyCheckin(id: -1, checkinEndDate: Date.distantPast)
+		mockEventStore.createCheckin(overdueCheckin)
+
+		let mockUserNotificationCenter = MockUserNotificationCenter()
+		let request = UNNotificationRequest(identifier: "SomeOther", content: UNNotificationContent(), trigger: nil)
+		mockUserNotificationCenter.add(request, withCompletionHandler: nil)
+
+		let eventCheckoutService = EventCheckoutService(
+			eventStore: mockEventStore,
+			contactDiaryStore: MockDiaryStore(),
+			userNotificationCenter: mockUserNotificationCenter
+		)
+
+		// Before calling checkoutOverdueCheckins there should be 2 notification requests pending. 1 from the EventCheckoutService and 1 other.
+		// After calling checkoutOverdueCheckins the EventCheckoutService notification request should be removed. The notification request from NOT EventCheckoutService should still be pending.
+
+		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 2)
+		eventCheckoutService.checkoutOverdueCheckins()
 		XCTAssertEqual(mockUserNotificationCenter.notificationRequests.count, 1)
 	}
 

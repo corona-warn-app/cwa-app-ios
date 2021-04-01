@@ -43,7 +43,7 @@ final class EventCheckoutService {
 	}
 
 	func checkout(checkin: Checkin, manually: Bool) {
-		Log.info("[EventCheckoutService] Checkout checkin with id: \(checkin.id)", log: .checkin)
+		Log.info("[EventCheckoutService] Checkout checkin with id: \(checkin.id), manually: \(manually)", log: .checkin)
 
 		let checkinEndDate = manually ? Date() : checkin.checkinEndDate
 		let completedCheckin = checkin.completedCheckin(checkinEndDate: checkinEndDate)
@@ -68,7 +68,7 @@ final class EventCheckoutService {
 		eventStore.checkinsPublisher.sink { [weak self] checkins in
 
 			// Cancel all notifications.
-			// This will also cancel the deleted checkins, which are not part of the publisher.
+			// This will also cancel the deleted checkins, which are not part of the publishers value.
 			// After that, trigger notifications for not completed checkins again.
 			// This way, updated checkinEndDates will be taken into account.
 			// For completed checkins (checked out) just create journal entries, don't trigger a notification anymore.
