@@ -17,7 +17,7 @@ class TraceLocationDetailsViewModelTests: XCTestCase {
 			traceLocation: TraceLocation.mock(),
 			store: store,
 			qrCodePosterTemplateProvider: provider,
-			qrCodeErrorCorrectionLevel: "M"
+			qrCodeErrorCorrectionLevel: .medium
 		)
 		
 		viewModel.fetchQRCodePosterTemplateData { templateData in
