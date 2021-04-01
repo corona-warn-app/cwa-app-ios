@@ -49,13 +49,9 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "NO"])
 		app.launch()
 		
-		// Home screen
-		if let element = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Tabbar.checkin, element: app, app: app) {
-			// Navigate to CheckIn
-			element.tap()
-		} else {
-			XCTFail("Can't find element \(AccessibilityIdentifiers.Tabbar.checkin)")
-		}
+		// Navigate to CheckIn
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
 		
 		// Confirm consent
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].waitForExistence(timeout: .short))
@@ -66,4 +62,24 @@ class ENAUITests_09_CheckIns: XCTestCase {
 		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.title)].waitForExistence(timeout: .short))
 	}
 	
+	func test_QRCodeScanOpened() throws {
+		app.launchArguments.append(contentsOf: ["-checkinInfoScreenShown", "YES"])
+		app.launch()
+		
+		// Navigate to CheckIn
+		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
+		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.emptyTitle)].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.Overview.emptyDescription)].exists)
+		XCTAssertTrue(app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].exists)
+		
+		app.buttons[AccessibilityLabels.localized(AppStrings.Checkins.Overview.scanButtonTitle)].tap()
+
+
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionQRScanner.flash"].waitForExistence(timeout: .short))
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.ExposureSubmissionQRScanner.title)].exists)
+		XCTAssertTrue(app.staticTexts[AccessibilityLabels.localized(AppStrings.Checkins.QRScanner.instruction)].exists)
+
+	}
 }
