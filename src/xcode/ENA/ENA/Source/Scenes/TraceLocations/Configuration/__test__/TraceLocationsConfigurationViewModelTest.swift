@@ -218,6 +218,143 @@ class TraceLocationsConfigurationViewModelTest: XCTestCase {
 		checkNoDatePickerIsVisible(on: viewModel)
 	}
 
+	func testTemporaryDefaultLengthHeaderTapped() {
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypeTemporaryOther),
+			eventStore: MockEventStore()
+		)
+
+		viewModel.temporaryDefaultLengthHeaderTapped()
+
+		XCTAssertEqual(viewModel.defaultCheckInLengthInMinutes, 15)
+		XCTAssertNotNil(viewModel.formattedDefaultCheckInLength)
+		XCTAssertFalse(viewModel.temporaryDefaultLengthPickerIsHidden)
+		XCTAssertTrue(viewModel.temporaryDefaultLengthSwitchIsOn)
+
+		viewModel.temporaryDefaultLengthHeaderTapped()
+
+		XCTAssertNil(viewModel.defaultCheckInLengthInMinutes)
+		XCTAssertNil(viewModel.formattedDefaultCheckInLength)
+		XCTAssertTrue(viewModel.temporaryDefaultLengthPickerIsHidden)
+		XCTAssertFalse(viewModel.temporaryDefaultLengthSwitchIsOn)
+	}
+
+	func testTemporaryDefaultLengthSwitchSet() {
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypeTemporaryOther),
+			eventStore: MockEventStore()
+		)
+
+		viewModel.temporaryDefaultLengthSwitchSet(to: true)
+
+		XCTAssertEqual(viewModel.defaultCheckInLengthInMinutes, 15)
+		XCTAssertNotNil(viewModel.formattedDefaultCheckInLength)
+		XCTAssertFalse(viewModel.temporaryDefaultLengthPickerIsHidden)
+		XCTAssertTrue(viewModel.temporaryDefaultLengthSwitchIsOn)
+
+		viewModel.temporaryDefaultLengthSwitchSet(to: false)
+
+		XCTAssertNil(viewModel.defaultCheckInLengthInMinutes)
+		XCTAssertNil(viewModel.formattedDefaultCheckInLength)
+		XCTAssertTrue(viewModel.temporaryDefaultLengthPickerIsHidden)
+		XCTAssertFalse(viewModel.temporaryDefaultLengthSwitchIsOn)
+	}
+
+	func testPermanentDefaultLengthHeaderTapped() {
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypePermanentOther),
+			eventStore: MockEventStore()
+		)
+
+		viewModel.permanentDefaultLengthHeaderTapped()
+
+		XCTAssertFalse(viewModel.permanentDefaultLengthPickerIsHidden)
+		XCTAssertEqual(viewModel.permanentDefaultLengthValueTextColor, .enaColor(for: .textTint))
+
+		viewModel.permanentDefaultLengthHeaderTapped()
+
+		XCTAssertTrue(viewModel.permanentDefaultLengthPickerIsHidden)
+		XCTAssertEqual(viewModel.permanentDefaultLengthValueTextColor, .enaColor(for: .textPrimary1))
+
+		viewModel.permanentDefaultLengthHeaderTapped()
+
+		XCTAssertFalse(viewModel.permanentDefaultLengthPickerIsHidden)
+		XCTAssertEqual(viewModel.permanentDefaultLengthValueTextColor, .enaColor(for: .textTint))
+
+		viewModel.collapseAllSections()
+
+		XCTAssertTrue(viewModel.permanentDefaultLengthPickerIsHidden)
+		XCTAssertEqual(viewModel.permanentDefaultLengthValueTextColor, .enaColor(for: .textPrimary1))
+	}
+
+	func testDefaultCheckinLengthValueChanged() {
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypeTemporaryOther),
+			eventStore: MockEventStore()
+		)
+
+		viewModel.defaultCheckinLengthValueChanged(to: 660)
+
+		XCTAssertEqual(viewModel.defaultCheckInLengthInMinutes, 11)
+	}
+
+	func testUpdateTextFields() {
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypeTemporaryOther),
+			eventStore: MockEventStore()
+		)
+
+		XCTAssertEqual(viewModel.description, "")
+		XCTAssertEqual(viewModel.address, "")
+		XCTAssertFalse(viewModel.primaryButtonIsEnabled)
+
+		viewModel.update(description: "d")
+
+		XCTAssertEqual(viewModel.description, "d")
+		XCTAssertEqual(viewModel.address, "")
+		XCTAssertFalse(viewModel.primaryButtonIsEnabled)
+
+		viewModel.update(address: "a")
+
+		XCTAssertEqual(viewModel.description, "d")
+		XCTAssertEqual(viewModel.address, "a")
+		XCTAssertTrue(viewModel.primaryButtonIsEnabled)
+
+		viewModel.update(address: "")
+
+		XCTAssertEqual(viewModel.description, "d")
+		XCTAssertEqual(viewModel.address, "")
+		XCTAssertFalse(viewModel.primaryButtonIsEnabled)
+
+		viewModel.update(description: "")
+		viewModel.update(address: "a")
+
+		XCTAssertEqual(viewModel.description, "")
+		XCTAssertEqual(viewModel.address, "a")
+		XCTAssertFalse(viewModel.primaryButtonIsEnabled)
+
+		viewModel.update(description: "d")
+
+		XCTAssertEqual(viewModel.description, "d")
+		XCTAssertEqual(viewModel.address, "a")
+		XCTAssertTrue(viewModel.primaryButtonIsEnabled)
+	}
+
+	func testSaving() throws {
+		let eventStore = MockEventStore()
+
+		let viewModel = TraceLocationConfigurationViewModel(
+			mode: .new(.locationTypeTemporaryOther),
+			eventStore: eventStore
+		)
+
+		XCTAssertEqual(eventStore.traceLocationsPublisher.value.count, 0)
+
+		try viewModel.save()
+
+		XCTAssertEqual(eventStore.traceLocationsPublisher.value.count, 1)
+	}
+
 	// MARK: - Private
 
 	private func checkOnlyStartDatePickerIsVisible(on viewModel: TraceLocationConfigurationViewModel) {

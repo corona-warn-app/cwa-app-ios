@@ -152,13 +152,6 @@ class TraceLocationConfigurationViewModel {
 		checkForCompleteness()
 	}
 
-	func checkForCompleteness() {
-		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
-		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
-
-		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
-	}
-
 	func save() throws {
 		guard let cryptographicSeed = cryptographicSeed() else {
 			throw SavingError.cryptographicSeedCreationFailed
@@ -288,7 +281,7 @@ class TraceLocationConfigurationViewModel {
 			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
 
 		$defaultCheckInLengthInMinutes
-			.compactMap { [weak self] in
+			.map { [weak self] in
 				guard
 					let timeInterval = TimeInterval(minutes: $0),
 					let formattedDuration = self?.durationFormatter.string(from: timeInterval)
@@ -303,6 +296,13 @@ class TraceLocationConfigurationViewModel {
 		$permanentDefaultLengthPickerIsHidden
 			.map { $0 ? UIColor.enaColor(for: .textPrimary1) : UIColor.enaColor(for: .textTint) }
 			.assign(to: &$permanentDefaultLengthValueTextColor)
+	}
+
+	private func checkForCompleteness() {
+		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
+
+		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
 	}
 
 	private func cryptographicSeed() -> Data? {
