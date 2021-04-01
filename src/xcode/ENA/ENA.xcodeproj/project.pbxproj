@@ -442,6 +442,8 @@
 		50FA071126021180003C1E46 /* api-response-traceWarning in Resources */ = {isa = PBXBuildFile; fileRef = 50FA071026021180003C1E46 /* api-response-traceWarning */; };
 		50FA072B26023784003C1E46 /* TraceWarningPackageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA072A26023784003C1E46 /* TraceWarningPackageDownload.swift */; };
 		50FA07882609ECB3003C1E46 /* TraceWarningPackageDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */; };
+		50FE680B2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE680A2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift */; };
+		50FE68132615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FE68122615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
 		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
@@ -1463,6 +1465,8 @@
 		50FA072A26023784003C1E46 /* TraceWarningPackageDownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownload.swift; sourceTree = "<group>"; };
 		50FA07832609EC80003C1E46 /* TraceWarningPackageDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceWarningPackageDownloadTests.swift; sourceTree = "<group>"; };
 		50FE67D226149C5F00A2B2E7 /* AccessibleStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibleStackView.swift; sourceTree = "<group>"; };
+		50FE680A2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRecentCreatedEventViewController.swift; sourceTree = "<group>"; };
+		50FE68122615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMRecentCreatedEventViewModel.swift; sourceTree = "<group>"; };
 		514C0A09247AEEE200F235F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
@@ -3351,6 +3355,15 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		50FE68092615C99F00A2B2E7 /* DMRecentCreatedEvent */ = {
+			isa = PBXGroup;
+			children = (
+				50FE680A2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift */,
+				50FE68122615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift */,
+			);
+			path = DMRecentCreatedEvent;
+			sourceTree = "<group>";
+		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -4815,6 +4828,7 @@
 				BA4693AF25C82ED3004B2DBB /* DMPPACService */,
 				50B5058725CAF3C500EEA380 /* DMOTPService */,
 				504E8B0A25D400A400CAFBDF /* DMPPAnalytics */,
+				50FE68092615C99F00A2B2E7 /* DMRecentCreatedEvent */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -6447,6 +6461,7 @@
 				713EA26124798AD100AB7EE8 /* ExposureDetectionHotlineCell.swift in Sources */,
 				ABE9616C25F1208B00D0F699 /* Checkin.swift in Sources */,
 				0138F54E25ECD44300A9B075 /* key_download_parameters.pb.swift in Sources */,
+				50FE68132615C9C800A2B2E7 /* DMRecentCreatedEventViewModel.swift in Sources */,
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				50AA51FB25FA4D89000C77BB /* TraceWarningDiscoveryResponse.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
@@ -6495,6 +6510,7 @@
 				BA94BBCA260DFF4C005CF38F /* CheckInBottomCornerCell.swift in Sources */,
 				01EA17972590F03600E98E02 /* HomeCardView.swift in Sources */,
 				50AF8B4625E00D7200F65328 /* ENDiagnosisReportType+Protobuf.swift in Sources */,
+				50FE680B2615C9BF00A2B2E7 /* DMRecentCreatedEventViewController.swift in Sources */,
 				ABE9617125F1220600D0F699 /* EventStore.swift in Sources */,
 				50C0298525E4067400460FA4 /* UserMetadata.swift in Sources */,
 				BAEB174525E567830012FEF9 /* FooterViewModel.swift in Sources */,

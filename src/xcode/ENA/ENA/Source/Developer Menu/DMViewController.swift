@@ -160,6 +160,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
+        case .recentCreatedEvent:
+            vc = DMRecentCreatedEventViewController(store: store)
 		}
 
 		if let vc = vc {

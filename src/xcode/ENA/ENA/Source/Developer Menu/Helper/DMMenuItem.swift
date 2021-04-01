@@ -31,6 +31,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case ppaActual
 	case ppaSubmission
 	case installationDate
+    case recentCreatedEvent
 }
 
 extension DMMenuItem {
@@ -71,6 +72,7 @@ extension DMMenuItem {
 		case .ppaActual: return "PPA Actual Data"
 		case .ppaSubmission: return "PPA Submission"
 		case .installationDate: return "Installation Date"
+        case .recentCreatedEvent: return "Created event data"
 		}
 	}
 	var subtitle: String {
@@ -99,6 +101,7 @@ extension DMMenuItem {
 		case .ppaActual: return "See current analytics data as they were submitted now"
 		case .ppaSubmission: return "Analytics data submission settings"
 		case .installationDate: return "Installation date setup"
+        case .recentCreatedEvent: return "See the data of the last created event"
 		}
 	}
 }
