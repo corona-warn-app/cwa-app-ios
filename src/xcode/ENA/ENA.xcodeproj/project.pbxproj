@@ -435,6 +435,7 @@
 		50C5204025ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */; };
 		50C5C1B525891CC800C4817A /* DynamicLegalExtendedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */; };
 		50C5C1BA258920AD00C4817A /* DynamicLegalExtendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */; };
+		50CB610F2615F95800B8EF8C /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CB610E2615F95800B8EF8C /* UITestHelper.swift */; };
 		50D50A6025D6CCA70092BC2A /* ENAUITestsDataDonation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D50A5F25D6CCA70092BC2A /* ENAUITestsDataDonation.swift */; };
 		50DC527924FEB2AE00F6D8EB /* AppInformationDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */; };
 		50DC527B24FEB5CA00F6D8EB /* AppInformationModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */; };
@@ -1459,6 +1460,7 @@
 		50C5203F25ADACBB008DF2F4 /* HomeShownPositiveTestResultCellModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShownPositiveTestResultCellModelTest.swift; sourceTree = "<group>"; };
 		50C5C1B425891CC800C4817A /* DynamicLegalExtendedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DynamicLegalExtendedCell.xib; sourceTree = "<group>"; };
 		50C5C1B9258920AD00C4817A /* DynamicLegalExtendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLegalExtendedCell.swift; sourceTree = "<group>"; };
+		50CB610E2615F95800B8EF8C /* UITestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
 		50D50A5F25D6CCA70092BC2A /* ENAUITestsDataDonation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsDataDonation.swift; sourceTree = "<group>"; };
 		50DC527824FEB2AE00F6D8EB /* AppInformationDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDynamicCell.swift; sourceTree = "<group>"; };
 		50DC527A24FEB5CA00F6D8EB /* AppInformationModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationModelTest.swift; sourceTree = "<group>"; };
@@ -3939,6 +3941,7 @@
 			children = (
 				941B689E253EFF2300DC1962 /* Int+Increment.swift */,
 				505F2E512587738900697CC2 /* AccessibilityLabels.swift */,
+				50CB610E2615F95800B8EF8C /* UITestHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -7022,6 +7025,7 @@
 				347FBB18260C9C4600672770 /* ENAUITests_10_TraceLocations.swift in Sources */,
 				505F2E522587738900697CC2 /* AccessibilityLabels.swift in Sources */,
 				3543135025DE992F00926575 /* ENAUITestsQuickActions.swift in Sources */,
+				50CB610F2615F95800B8EF8C /* UITestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7218,7 +7222,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -7374,7 +7378,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -7549,7 +7553,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
@@ -7786,7 +7790,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -7827,7 +7831,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -7970,7 +7974,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -8014,7 +8018,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -8057,7 +8061,7 @@
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
