@@ -80,6 +80,7 @@ class RootCoordinator: RequiresAppDependencies {
 		let checkInCoordinator = CheckinCoordinator(
 			store: store,
 			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
 			eventCheckoutService: eventCheckoutService
 		)
 		self.checkInCoordinator = checkInCoordinator
@@ -126,19 +127,12 @@ class RootCoordinator: RequiresAppDependencies {
 	}
 
 	func showEvent(_ guid: String) {
-		guard let route = Route(guid),
-			  case let Route.checkin(key) = route,
-			  let traceLocation = TraceLocation(qrCodeString: key)
-		else {
-			Log.error("URL didn't match the route", log: .checkin, error: nil)
-			return
-		}
 		let checkInNavigationController = checkInCoordinator.viewController
 		guard let index = tabBarController.viewControllers?.firstIndex(of: checkInNavigationController) else {
 			return
 		}
 		tabBarController.selectedIndex = index
-		checkInCoordinator.showTraceLocationDetails(traceLocation)
+		checkInCoordinator.showTraceLocationDetails(guid)
 	}
 
 	func updateDetectionMode(
@@ -166,6 +160,7 @@ class RootCoordinator: RequiresAppDependencies {
 		CheckinCoordinator(
 			store: store,
 			eventStore: eventStore,
+			appConfiguration: appConfigurationProvider,
 			eventCheckoutService: eventCheckoutService
 		)
 	}()
