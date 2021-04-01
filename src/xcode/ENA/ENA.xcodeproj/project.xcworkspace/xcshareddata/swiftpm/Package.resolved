@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Base32",
+        "repositoryURL": "https://github.com/norio-nomura/Base32",
+        "state": {
+          "branch": null,
+          "revision": "c4bc0a49689999ae2c7c778f3830a6a6e694efb8",
+          "version": "0.9.0"
+        }
+      },
+      {
+        "package": "FMDB",
+        "repositoryURL": "https://github.com/ccgus/fmdb.git",
+        "state": {
+          "branch": null,
+          "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
+          "version": "2.7.7"
+        }
+      },
+      {
+        "package": "OpenCombine",
+        "repositoryURL": "https://github.com/OpenCombine/OpenCombine.git",
+        "state": {
+          "branch": null,
+          "revision": "9bba5081344163296ddf537048566b95513b8f39",
+          "version": "0.11.0"
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "0279688c9fc5a40028e1b5bb0cb56534a45a6020",
+          "version": "1.12.0"
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
+        "state": {
+          "branch": null,
+          "revision": "ec32d62d412578542c0ffb7a6ce34d3e64b43b94",
+          "version": "0.9.11"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
