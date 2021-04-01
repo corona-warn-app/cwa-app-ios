@@ -52,7 +52,7 @@ class TraceLocationConfigurationViewModel {
 	enum SavingError: Error {
 		case cryptographicSeedCreationFailed
 		case qrCodePayloadCreationFailed
-		case publicKeyEncodingFailed
+		case publicKeyDecodingFailed
 		case sqlStoreError(SecureSQLStoreError)
 	}
 
@@ -178,9 +178,8 @@ class TraceLocationConfigurationViewModel {
 
 		let publicKey = "gwLMzE153tQwAOf2MZoUXXfzWTdlSpfS99iZffmcmxOG9njSK4RTimFOFwDh6t0Tyw8XR01ugDYjtuKwjjuK49Oh83FWct6XpefPi9Skjxvvz53i9gaMmUEc96pbtoaA"
 		guard let publicKeyData = Data(base64Encoded: publicKey) else {
-			throw SavingError.publicKeyEncodingFailed
+			throw SavingError.publicKeyDecodingFailed
 		}
-
 
 		let qrCodePayload = SAP_Internal_Pt_QRCodePayload.with {
 			$0.version = 1
