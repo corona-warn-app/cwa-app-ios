@@ -206,7 +206,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		try? pdfDocument?.embedImageAndText(
 			image: qrCodeImage,
 			at: CGPoint(x: CGFloat(templateData.offsetX), y: CGFloat(templateData.offsetY)),
-			text: viewModel.traceLocation.address,
+			text: viewModel.posterDescription,
 			of: CGFloat(textDetails.fontSize),
 			and: textColor,
 			with: CGRect(x: CGFloat(textDetails.offsetX), y: CGFloat(textDetails.offsetY), width: CGFloat(textDetails.width), height: CGFloat(textDetails.height))

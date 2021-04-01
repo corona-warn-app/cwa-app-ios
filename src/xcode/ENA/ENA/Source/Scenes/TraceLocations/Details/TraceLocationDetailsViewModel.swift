@@ -40,6 +40,10 @@ class TraceLocationDetailsViewModel {
 		return traceLocation.address
 	}
 
+	var posterDescription: String {
+		String(format: "%@\n%@", traceLocation.description, traceLocation.address)
+	}
+
 	var date: String? {
 		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
 			let dateFormatter = DateIntervalFormatter()
