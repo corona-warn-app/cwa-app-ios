@@ -42,6 +42,11 @@ final class DMRecentCreatedEventViewModel {
 	
 	func detailText(_ indexPath: IndexPath) -> String {
 		let checkin = traceLocations[indexPath.row]
+
+		var optionalid = "--"
+		if let id = String(data: checkin.id, encoding: .ascii) {
+			optionalid = id
+		}
 		
 		var optionalStartDate = "--"
 		if let startDate = checkin.startDate {
@@ -57,6 +62,16 @@ final class DMRecentCreatedEventViewModel {
 		if let defaultCheckInLengthInMinutes = checkin.defaultCheckInLengthInMinutes {
 			optionalDefaultCheckInLengthInMinutes = String(defaultCheckInLengthInMinutes)
 		}
+
+		var optionalCryptographicSeed = "--"
+		if let cryptographicSeed = String(data: checkin.cryptographicSeed, encoding: .ascii) {
+			optionalCryptographicSeed = cryptographicSeed
+		}
+
+		var optionalcnPublicKey = "--"
+		if let cnPublicKey = String(data: checkin.cnPublicKey, encoding: .ascii) {
+			optionalcnPublicKey = cnPublicKey
+		}
 		
 		var optionalidHash = "--"
 		if let idHash = checkin.idHash {
@@ -64,7 +79,7 @@ final class DMRecentCreatedEventViewModel {
 		}
 		
 		let details = """
-		id: \(String(describing: checkin.id))
+		id: \(optionalid)
 		version: \(checkin.version)
 		type: \(checkin.type)
 		description: \(checkin.description)
@@ -72,8 +87,8 @@ final class DMRecentCreatedEventViewModel {
 		startDate: \(optionalStartDate)
 		endDate: \(optionalEndDate)
 		defaultCheckInLengthInMinutes: \(optionalDefaultCheckInLengthInMinutes)
-		cryptographicSeed: \(String(describing: checkin.cryptographicSeed))
-		cnPublicKey: \(String(describing: checkin.cnPublicKey))
+		cryptographicSeed: \(optionalCryptographicSeed)
+		cnPublicKey: \(optionalcnPublicKey)
 		isActive: \(checkin.isActive)
 		idHash: \(optionalidHash)
 		qrCodeURL: \(checkin.qrCodeURL ?? "--")

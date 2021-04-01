@@ -32,6 +32,7 @@ enum DMMenuItem: Int, CaseIterable {
 	case ppaSubmission
 	case installationDate
     case allTraceLocations
+	case mostRecentScannedQRCodeTraceLocation
 }
 
 extension DMMenuItem {
@@ -73,6 +74,7 @@ extension DMMenuItem {
 		case .ppaSubmission: return "PPA Submission"
 		case .installationDate: return "Installation Date"
 		case .allTraceLocations: return "All created trace locations"
+		case .mostRecentScannedQRCodeTraceLocation: return "most recent scanned QRCode trace location"
 		}
 	}
 	var subtitle: String {
@@ -102,6 +104,7 @@ extension DMMenuItem {
 		case .ppaSubmission: return "Analytics data submission settings"
 		case .installationDate: return "Installation date setup"
 		case .allTraceLocations: return "See the data of the created trace locations"
+		case .mostRecentScannedQRCodeTraceLocation: return "See the calculated ID of the most recent scanned QR code"
 		}
 	}
 }

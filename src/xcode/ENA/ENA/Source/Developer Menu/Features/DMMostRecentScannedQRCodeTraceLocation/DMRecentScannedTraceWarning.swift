@@ -8,7 +8,7 @@ import Foundation
 
 struct DMRecentScannedTraceWarning: Codable {
 	let description: String
-	let id: Data
+	let id: Data?
 	let date: Date
 }
 

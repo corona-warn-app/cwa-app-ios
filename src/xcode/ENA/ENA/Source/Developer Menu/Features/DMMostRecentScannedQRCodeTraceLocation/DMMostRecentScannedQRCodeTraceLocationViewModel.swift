@@ -39,29 +39,30 @@ final class DMMostRecentScannedQRCodeTraceLocationViewModel {
 
 		switch section {
 		case .description:
-			let creationDate: String
-			if let timestamp = store.otpToken?.timestamp {
-				creationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
+			let value: String
+			if let description = store.recentScannedQRCodeTraceLocation?.description {
+				value = String(describing: description)
 			} else {
-				creationDate = "Due to no generated OTP Token, there is no timestamp"
+				value = "Could not read description"
 			}
-			return DMKeyValueCellViewModel(key: "otp timestamp", value: creationDate)
+			return DMKeyValueCellViewModel(key: "description", value: value)
 		case .id:
-			let expirationDate: String
-			if let timestamp = store.otpToken?.expirationDate {
-				expirationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
+			let value: String
+			if let unwrappedid = store.recentScannedQRCodeTraceLocation?.id,
+			   let id = String(data: unwrappedid, encoding: .ascii) {
+				value = id
 			} else {
-				expirationDate = "The OTP was not authorized and so has no expirationDate"
+				value = "Could not read id"
 			}
-			return DMKeyValueCellViewModel(key: "otp expiration date", value: expirationDate)
+			return DMKeyValueCellViewModel(key: "id", value: value)
 		case .date:
-			let authorizationDate: String
-			if let timestamp = store.otpAuthorizationDate {
-				authorizationDate = DateFormatter.localizedString(from: timestamp, dateStyle: .medium, timeStyle: .medium)
+			let value: String
+			if let date = store.recentScannedQRCodeTraceLocation?.date {
+				value = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .medium)
 			} else {
-				authorizationDate = "The OTP was not authorized and so has no authorizationDate"
+				value = "Could not read scanning date"
 			}
-			return DMKeyValueCellViewModel(key: "otp authorization date", value: authorizationDate)
+			return DMKeyValueCellViewModel(key: "scanning date", value: value)
 		}
 
 	}

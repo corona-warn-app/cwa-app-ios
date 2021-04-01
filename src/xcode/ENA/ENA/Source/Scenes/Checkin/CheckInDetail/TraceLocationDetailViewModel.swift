@@ -17,7 +17,7 @@ final class TraceLocationDetailViewModel {
 		// save the trace location for dev menu to see every data.
 		store.recentScannedQRCodeTraceLocation = DMRecentScannedTraceWarning(
 			description: traceLocation.description,
-			id: traceLocation.id,
+			id: traceLocation.idHash,
 			date: Date()
 		)
 		#endif

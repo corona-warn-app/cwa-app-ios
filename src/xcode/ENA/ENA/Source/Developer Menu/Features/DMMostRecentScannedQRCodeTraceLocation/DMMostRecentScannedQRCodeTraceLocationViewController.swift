@@ -44,10 +44,6 @@ class DMMostRecentScannedQRCodeTraceLocationViewController: UITableViewControlle
 			let cell = tableView.dequeueReusableCell(cellType: DMKeyValueTableViewCell.self, for: indexPath)
 			cell.configure(cellViewModel: cellViewModel)
 			return cell
-		} else if cellViewModel is DMButtonCellViewModel {
-			let cell = tableView.dequeueReusableCell(cellType: DMButtonTableViewCell.self, for: indexPath)
-			cell.configure(cellViewModel: cellViewModel)
-			return cell
 		} else {
 			fatalError("unsopported cellViewModel - can't find a matching cell")
 		}
@@ -70,7 +66,6 @@ class DMMostRecentScannedQRCodeTraceLocationViewController: UITableViewControlle
 		tableView.rowHeight = UITableView.automaticDimension
 
 		tableView.register(DMKeyValueTableViewCell.self, forCellReuseIdentifier: DMKeyValueTableViewCell.reuseIdentifier)
-		tableView.register(DMButtonTableViewCell.self, forCellReuseIdentifier: DMButtonTableViewCell.reuseIdentifier)
 
 		// wire up tableview with the viewModel
 		viewModel.refreshTableView = { indexSet in
@@ -81,7 +76,7 @@ class DMMostRecentScannedQRCodeTraceLocationViewController: UITableViewControlle
 	}
 
 	private func setupNavigationBar() {
-		title = "OTP Token 🔑"
+		title = "Most recent Trace Location"
 	}
 }
 #endif
