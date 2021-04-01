@@ -8,7 +8,7 @@ import OpenCombine
  protocol QRCodeErrorCorrectionLevelProviding {
 	func errorCorrectionLevel(
 		appConfigurationProvider: AppConfigurationProviding,
-		onCompletion: @escaping((String) -> Void)
+		onCompletion: @escaping((MappedErrorCorrectionType) -> Void)
 	)
  }
 
@@ -17,24 +17,12 @@ class QRCodeErrorCorrectionLevelProvider {
 
 	func errorCorrectionLevel(
 		appConfigurationProvider: AppConfigurationProviding,
-		onCompletion: @escaping((String) -> Void)
+		onCompletion: @escaping((MappedErrorCorrectionType) -> Void)
 	) {
 		appConfigurationProvider.appConfiguration().sink { appConfig in
 			let qrCodeErrorCorrectionLevel = appConfig.presenceTracingParameters.qrCodeErrorCorrectionLevel
-			var mappedErrorCorrectionLevel = "M"
+			let mappedErrorCorrectionLevel = MappedErrorCorrectionType(qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel)
 			
-			switch qrCodeErrorCorrectionLevel {
-			case .medium:
-				mappedErrorCorrectionLevel = "M"
-			case .low:
-				mappedErrorCorrectionLevel = "L"
-			case .quantile:
-				mappedErrorCorrectionLevel = "Q"
-			case .high:
-				mappedErrorCorrectionLevel = "H"
-			default:
-				mappedErrorCorrectionLevel = "M"
-			}
 			onCompletion(mappedErrorCorrectionLevel)
 		}.store(in: &subscriptions)
 	}

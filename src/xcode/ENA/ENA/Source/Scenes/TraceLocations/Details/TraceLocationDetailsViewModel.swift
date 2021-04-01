@@ -14,7 +14,7 @@ class TraceLocationDetailsViewModel {
 		traceLocation: TraceLocation,
 		store: Store,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
-		qrCodeErrorCorrectionLevel: String
+		qrCodeErrorCorrectionLevel: MappedErrorCorrectionType
 	) {
 		self.traceLocation = traceLocation
 		self.store = store
@@ -91,7 +91,7 @@ class TraceLocationDetailsViewModel {
 
 	private let store: Store
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
-	private let qrCodeErrorCorrectionLevel: String
+	private let qrCodeErrorCorrectionLevel: MappedErrorCorrectionType
 	private var subscriptions = Set<AnyCancellable>()
 	@OpenCombine.Published private(set) var qrCodePosterTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS = SAP_Internal_Pt_QRCodePosterTemplateIOS()
 }
