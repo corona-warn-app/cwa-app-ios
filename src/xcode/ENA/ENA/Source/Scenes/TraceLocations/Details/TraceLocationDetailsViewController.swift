@@ -175,20 +175,21 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 
 	private func generateAndPassQRCodePoster() {
 		viewModel.fetchQRCodePosterTemplateData { [weak self] templateData in
-			self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
-			switch templateData {
-			case let .success(templateData):
-				DispatchQueue.main.async { [weak self] in
-					do {
-						let pdfView = try self?.createPdfView(templateData: templateData)
-						self?.onPrintVersionButtonTap(pdfView ?? PDFView())
-					} catch {
-						Log.error("Could not create the PDF view.", log: .qrCode, error: error)
-					}
+			DispatchQueue.main.async { [weak self] in
+				self?.footerView?.setLoadingIndicator(false, disable: false, button: .primary)
+				switch templateData {
+				case let .success(templateData):
+
+						do {
+							let pdfView = try self?.createPdfView(templateData: templateData)
+							self?.onPrintVersionButtonTap(pdfView ?? PDFView())
+						} catch {
+							Log.error("Could not create the PDF view.", log: .qrCode, error: error)
+						}
+				case let .failure(error):
+					Log.error("Could not get QR code poster template.", log: .qrCode, error: error)
+					return
 				}
-			case let .failure(error):
-				Log.error("Could not get QR code poster template.", log: .qrCode, error: error)
-				return
 			}
 		}
 	}
@@ -198,7 +199,7 @@ class TraceLocationDetailsViewController: UIViewController, UITableViewDataSourc
 		let pdfDocument = PDFDocument(data: templateData.template)
 
 		let qrSideLength = CGFloat(templateData.qrCodeSideLength)
-		guard let qrCodeImage = viewModel.traceLocation.generateQRCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
+		guard let qrCodeImage = viewModel.traceLocation.qrCode(size: CGSize(width: qrSideLength, height: qrSideLength)) else { return pdfView }
 		let textDetails = templateData.descriptionTextBox
 		let textColor = UIColor().hexStringToUIColor(hex: textDetails.fontColor)
 		

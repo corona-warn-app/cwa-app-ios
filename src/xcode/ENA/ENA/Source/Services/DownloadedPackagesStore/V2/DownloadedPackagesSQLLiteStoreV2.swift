@@ -107,8 +107,9 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 
 	// MARK: - Write Operations
 
-	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage) throws {
-		guard !revokationList.contains(etag ?? "") else {
+	func set(country: Country.ID, hour: Int, day: String, etag: String?, package: SAPDownloadedPackage?) throws {
+		guard !revokationList.contains(etag ?? ""),
+			  let package = package else {
 			// Package is on block list.
 			Log.info("[DownloadedPackagesSQLLiteStoreV2] Revoke hour package day: \(day) hour: \(hour) with etag: \(String(describing: etag)) for country: \(country)")
 			throw StoreError.revokedPackage
@@ -163,8 +164,9 @@ extension DownloadedPackagesSQLLiteStoreV2: DownloadedPackagesStoreV2 {
 		}
 	}
 
-	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage) throws {
-		guard !revokationList.contains(etag ?? "") else {
+	func set(country: Country.ID, day: String, etag: String?, package: SAPDownloadedPackage?) throws {
+		guard !revokationList.contains(etag ?? ""),
+			  let package = package else {
 			// Package is on block list.
 			Log.info("[DownloadedPackagesSQLLiteStoreV2] Revoke package \(day) with etag: \(String(describing: etag)) for country: \(country)")
 			throw StoreError.revokedPackage

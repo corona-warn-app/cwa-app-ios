@@ -525,7 +525,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			store: store,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
-		store.riskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
 		// Execute test.
 		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
 			expectation.fulfill()
@@ -559,7 +559,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			store: store,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
-		store.riskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
 		// Execute test.
 		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
 			expectation.fulfill()
@@ -591,7 +591,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			store: store,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
-		store.riskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
 		// Execute test.
 		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
 			expectation.fulfill()
@@ -606,8 +606,8 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
-	func mockRiskCalculationResult() -> RiskCalculationResult {
-		RiskCalculationResult(
+	func mockRiskCalculationResult() -> ENFRiskCalculationResult {
+		ENFRiskCalculationResult(
 			riskLevel: .high,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -632,7 +632,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			store: store,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
-		store.riskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
 		// Execute test.
 		service.getTestResult(forKey: DeviceRegistrationKey.guid("wrong"), useStoredRegistration: false) { result in
 			expectation.fulfill()
@@ -661,7 +661,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 			store: store,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
-		store.riskCalculationResult = mockRiskCalculationResult()
+		store.enfRiskCalculationResult = mockRiskCalculationResult()
 		store.dateOfConversionToHighRisk = Calendar.current.date(byAdding: .day, value: -1, to: Date())
 		service.updateStoreWithKeySubmissionMetadataDefaultValues()
 		// Execute test.
