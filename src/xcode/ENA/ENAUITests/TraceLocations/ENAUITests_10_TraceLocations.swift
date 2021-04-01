@@ -40,9 +40,15 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 		// WHEN
 		app.launch()
-		app.swipeUp()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].exists)
-		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
+		// Swipe up until it is visible
+		let maxSwipes = 10
+		var swipeCount = 0
+		let button = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		while !button.exists && swipeCount < maxSwipes {
+			app.swipeUp()
+			swipeCount += 1
+		}
+		button.tap()
 		
 		// THEN
 		XCTAssertTrue(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .long))
@@ -56,9 +62,15 @@ class ENAUITests_10_TraceLocations: XCTestCase {
 
 		// WHEN
 		app.launch()
-		app.swipeUp()
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].exists)
-		app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton].tap()
+		// Swipe up until it is visible
+		let maxSwipes = 10
+		var swipeCount = 0
+		let button = app.buttons[AccessibilityIdentifiers.Home.traceLocationsCardButton]
+		while !button.exists && swipeCount < maxSwipes {
+			app.swipeUp()
+			swipeCount += 1
+		}
+		button.tap()
 		
 		// THEN
 		XCTAssertFalse(app.cells[AccessibilityIdentifiers.TraceLocation.dataPrivacyTitle].waitForExistence(timeout: .long))
