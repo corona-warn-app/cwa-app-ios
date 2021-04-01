@@ -36,9 +36,12 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		snapshot("CheckInInfoScreen")
 		
 		// Navigate to Data Privacy
-		app.swipeUp(velocity: .fast)
-		XCTAssertFalse(app.staticTexts["AppStrings.AppInformation.privacyTitle"].exists)
-		app.cells[AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle].tap()
+//		XCTAssertFalse(app.staticTexts["AppStrings.AppInformation.privacyTitle"].exists)
+		if let target = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle, element: app, app: app) {
+			target.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.CheckinInformation.dataPrivacyTitle)")
+		}
 
 		XCTAssertTrue(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: .short))
 	}
@@ -48,10 +51,12 @@ class ENAUITests_09_EventCheckIn: XCTestCase {
 		app.launch()
 
 		// Home screen
-		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.Tabbar.checkin].waitForExistence(timeout: .short))
-		
-		// Navigate to CheckIn
-		app.buttons[AccessibilityIdentifiers.Tabbar.checkin].tap()
+		if let element = UITestHelper.scrollTo(identifier: AccessibilityIdentifiers.Tabbar.checkin, element: app, app: app)	{
+			// Navigate to CheckIn
+			element.tap()
+		} else {
+			XCTFail("Can't find element \(AccessibilityIdentifiers.Tabbar.checkin)")
+		}
 
 		// Confirm consent
 		XCTAssertTrue(app.buttons[AccessibilityIdentifiers.CheckinInformation.primaryButton].waitForExistence(timeout: .short))
