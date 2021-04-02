@@ -2133,6 +2133,8 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocations_Configuration_HoursUnit" = "%@ Std.";
 
+"TraceLocations_Configuration_SavingErrorMessage" = "Der QR-Code kann aktuell nicht gespeichert werden. Bitte versuchen Sie es später noch einmal (Fehlercode %@).";
+
 /* Error Reporting */
 
 "ErrorReport_Title" = "Fehlerberichte";

@@ -463,7 +463,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 		Log.info("[EventStore] Update TraceLocations publisher.", log: .localData)
 
 		let sql = """
-				SELECT * FROM TraceLocation;
+				SELECT * FROM TraceLocation ORDER BY description ASC;
 			"""
 
 		do {
