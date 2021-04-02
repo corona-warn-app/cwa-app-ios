@@ -82,8 +82,8 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 	func testCellModels() throws {
 		let eventStore = MockEventStore()
 		eventStore.createTraceLocation(TraceLocation.mock(description: "qwer"))
-		eventStore.createTraceLocation(TraceLocation.mock(description: "asdf"))
 		eventStore.createTraceLocation(TraceLocation.mock(description: "zxcv"))
+		eventStore.createTraceLocation(TraceLocation.mock(description: "asdf"))
 
 		let viewModel = TraceLocationsOverviewViewModel(
 			store: eventStore,
@@ -93,11 +93,11 @@ class TraceLocationsOverviewViewModelTest: XCTestCase {
 
 		XCTAssertEqual(
 			viewModel.traceLocationCellModel(at: IndexPath(row: 0, section: 1), onUpdate: {}).title,
-			"qwer"
+			"asdf"
 		)
 		XCTAssertEqual(
 			viewModel.traceLocationCellModel(at: IndexPath(row: 1, section: 1), onUpdate: {}).title,
-			"asdf"
+			"qwer"
 		)
 		XCTAssertEqual(
 			viewModel.traceLocationCellModel(at: IndexPath(row: 2, section: 1), onUpdate: {}).title,

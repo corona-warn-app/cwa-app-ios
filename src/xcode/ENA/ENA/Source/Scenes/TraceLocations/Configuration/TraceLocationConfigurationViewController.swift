@@ -67,6 +67,7 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 			onDismiss()
 		} catch {
 			Log.error("Error saving trace location: \(error.localizedDescription)", log: .traceLocation, error: error)
+			showError(error)
 		}
 	}
 
@@ -340,6 +341,26 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 				self?.footerView?.setEnabled($0, button: .primary)
 			}
 			.store(in: &subscriptions)
+	}
+
+	private func showError(_ error: Error) {
+		let alert = UIAlertController(
+			title: String(
+				format: AppStrings.TraceLocations.Configuration.savingErrorMessage,
+				String(describing: error)
+			),
+			message: nil,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: AppStrings.Common.alertActionOk,
+				style: .default
+			)
+		)
+
+		present(alert, animated: true)
 	}
 
 }
