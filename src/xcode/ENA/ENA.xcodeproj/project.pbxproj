@@ -13,6 +13,7 @@
 		0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */; };
 		010B3D3B25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */; };
 		010B3DA225ADEBFF00EB44AB /* HomeRiskCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */; };
+		01131E46261611A3001DB2CD /* TraceLocationsConfigurationViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01131E41261610F7001DB2CD /* TraceLocationsConfigurationViewModelTest.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		0120ECDD25875D8B00F78944 /* DiaryDayEntryCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */; };
@@ -1045,6 +1046,7 @@
 		0109DB9926037E6A00624BB3 /* TraceLocation+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TraceLocation+Mock.swift"; sourceTree = "<group>"; };
 		010B3D3A25A8667C00EB44AB /* ExposureDetectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewModelTests.swift; sourceTree = "<group>"; };
 		010B3D8525ADE5FD00EB44AB /* HomeRiskCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellModelTests.swift; sourceTree = "<group>"; };
+		01131E41261610F7001DB2CD /* TraceLocationsConfigurationViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationsConfigurationViewModelTest.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		011E4B002483A35A002E6412 /* ENACommunity.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENACommunity.entitlements; sourceTree = "<group>"; };
 		0120ECDC25875D8B00F78944 /* DiaryDayEntryCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayEntryCellModel.swift; sourceTree = "<group>"; };
@@ -2145,6 +2147,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		01131E40261610F7001DB2CD /* __test__ */ = {
+			isa = PBXGroup;
+			children = (
+				01131E41261610F7001DB2CD /* TraceLocationsConfigurationViewModelTest.swift */,
+			);
+			path = __test__;
+			sourceTree = "<group>";
+		};
 		0123D5962501381900A91838 /* __test__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -2284,6 +2294,7 @@
 		0138F6FE25F6782F00A9B075 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				01131E40261610F7001DB2CD /* __test__ */,
 				0138F70025F6784000A9B075 /* TraceLocationConfigurationViewController.swift */,
 				01DF188D2608D3BB00A002E4 /* TraceLocationConfigurationViewController.xib */,
 				0138F6FF25F6784000A9B075 /* TraceLocationConfigurationViewModel.swift */,
@@ -6827,6 +6838,7 @@
 				35A7F081250A7CF8005E6C33 /* KeychainHelperTests.swift in Sources */,
 				014086C52589040200E9E5B2 /* DiaryEditEntriesCellModelTest.swift in Sources */,
 				34FE15A02604B1880002CB69 /* QRCodePosterTemplateProviderTests.swift in Sources */,
+				01131E46261611A3001DB2CD /* TraceLocationsConfigurationViewModelTest.swift in Sources */,
 				0120ECF32587607600F78944 /* DiaryDayEntryCellModelTest.swift in Sources */,
 				B1C7EE482493D97000F1F284 /* RiskProvidingConfigurationManualTriggerTests.swift in Sources */,
 				B1221BE22492ED0F00E6C4E4 /* CFDictionary+KeychainQueryTests.swift in Sources */,
