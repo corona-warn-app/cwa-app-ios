@@ -258,6 +258,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private func showTraceLocations() {
 		traceLocationsCoordinator = TraceLocationsCoordinator(
 			store: store,
+			appConfig: appConfigurationProvider,
 			qrCodePosterTemplateProvider: qrCodePosterTemplateProvider,
 			eventStore: eventStore,
 			parentNavigationController: rootViewController
