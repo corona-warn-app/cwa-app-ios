@@ -200,12 +200,15 @@ class MockDiaryStore: DiaryStoringProviding {
 		reset()
 	}
 
+	// MARK: - Internal
+
+	var locations: [DiaryLocation] = []
+	var locationVisits: [LocationVisit] = []
+
 	// MARK: - Private
 
 	private var contactPersons: [DiaryContactPerson] = []
-	private var locations: [DiaryLocation] = []
 	private var contactPersonEncounters: [ContactPersonEncounter] = []
-	private var locationVisits: [LocationVisit] = []
 	private let dateProvider: DateProviding
 
 	private func updateDays() {
