@@ -68,7 +68,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
 	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
-	var recentScannedQRCodeTraceLocation: TraceLocation?
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	#endif
 
 	// MARK: - AppConfigCaching
