@@ -34,6 +34,13 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 				self.dateTimeLabel.text = cellModel.dateString
 			}
 			.store(in: &subscriptions)
+
+		cellModel.$isPickerVisible
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { isVisible in
+				self.dateTimeLabel.textColor = isVisible ? .enaColor(for: .textTint) : .enaColor(for: .textPrimary1)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private

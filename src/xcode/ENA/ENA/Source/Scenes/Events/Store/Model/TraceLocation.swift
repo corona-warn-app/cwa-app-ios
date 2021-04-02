@@ -19,14 +19,6 @@ struct TraceLocation {
 	let defaultCheckInLengthInMinutes: Int?
 	let cryptographicSeed: Data
 	let cnPublicKey: Data
-	
-	var isActive: Bool {
-		guard let endDate = endDate else {
-			return true
-		}
-
-		return Date() < endDate
-	}
 
 	var idHash: Data? {
 		return id.sha256()
@@ -99,18 +91,36 @@ extension TraceLocation {
 	
 	// MARK: - Init
 	
-	init?(qrCodeString: String) {
+	init?(qrCodeString: String, encoding: EncodingType) {
 		
-		guard let data = qrCodeString.base32DecodedData else {
-			Log.error("Couldn't serialize the data")
-			return nil
+		let decodedData: Data
+		switch encoding {
+		case .base32:
+			guard let data = qrCodeString.base32DecodedData else {
+				Log.error("Couldn't serialize the data using base32")
+				return nil
+			}
+			decodedData = data
+		case .base64:
+			guard let data = Data(base64Encoded: qrCodeString) else {
+				Log.error("Couldn't serialize the data using base64")
+				return nil
+			}
+			decodedData = data
+		case .unspecified:
+			guard let data = qrCodeString.base32DecodedData else {
+				Log.error("Got unspecified encoding type, will try to encode using base32")
+				return nil
+			}
+			decodedData = data
 		}
-		Log.debug("Data found: \(String(describing: data))")
+	
+		Log.debug("Data found: \(String(describing: decodedData))")
 
 
 		do {
 			// creates a fake event for the moment
-			let qrCodePayload = try SAP_Internal_Pt_QRCodePayload(serializedData: data)
+			let qrCodePayload = try SAP_Internal_Pt_QRCodePayload(serializedData: decodedData)
 			let traceLocation = qrCodePayload.locationData
 			let eventInformation = try SAP_Internal_Pt_CWALocationData(serializedData: qrCodePayload.vendorData)
 			

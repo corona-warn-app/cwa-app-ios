@@ -103,7 +103,7 @@ extension ContactDiaryStore {
 		guard let keychain = try? KeychainHelper() else {
 			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
 		}
-
+		
 		let key: String
 		if let keyData = keychain.loadFromKeychain(key: ContactDiaryStore.encryptionKeyKey) {
 			key = String(decoding: keyData, as: UTF8.self)
@@ -116,5 +116,13 @@ extension ContactDiaryStore {
 		}
 
 		return key
+	}
+	
+	static func resetEncryptionKey() throws -> String {
+		guard let keychain = try? KeychainHelper() else {
+			fatalError("[ContactDiaryStore] Failed to create KeychainHelper for contact diary store.")
+		}
+		try keychain.clearInKeychain(key: ContactDiaryStore.encryptionKeyKey)
+		return encryptionKey
 	}
 }
