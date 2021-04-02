@@ -35,6 +35,26 @@ extension Checkin {
 		let roundedDuration = Int(round(checkinDurationInM / 15) * 15)
 		return roundedDuration
 	}
+
+	func completedCheckin(checkinEndDate: Date) -> Checkin {
+		Checkin(
+			id: self.id,
+			traceLocationId: self.traceLocationId,
+			traceLocationIdHash: self.traceLocationIdHash,
+			traceLocationVersion: self.traceLocationVersion,
+			traceLocationType: self.traceLocationType,
+			traceLocationDescription: self.traceLocationDescription,
+			traceLocationAddress: self.traceLocationAddress,
+			traceLocationStartDate: self.traceLocationStartDate,
+			traceLocationEndDate: self.traceLocationEndDate,
+			traceLocationDefaultCheckInLengthInMinutes: self.traceLocationDefaultCheckInLengthInMinutes,
+			cryptographicSeed: self.cryptographicSeed,
+			cnPublicKey: self.cnPublicKey,
+			checkinStartDate: self.checkinStartDate,
+			checkinEndDate: checkinEndDate,
+			checkinCompleted: true,
+			createJournalEntry: self.createJournalEntry)
+	}
 }
 
 // MARK: - Submission handling
