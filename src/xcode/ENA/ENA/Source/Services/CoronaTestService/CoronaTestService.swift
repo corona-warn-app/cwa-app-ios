@@ -141,7 +141,14 @@ class CoronaTestService: CoronaTestServiceProviding {
 	}
 
 	func removeTest(_ coronaTest: CoronaTest) {
+		switch coronaTest {
+		case .pcr:
+			store.pcrTest = nil
+		case .antigen:
+			store.antigenTest = nil
+		}
 
+		updatePublishersFromStore()
 	}
 
 	// MARK: - Public
