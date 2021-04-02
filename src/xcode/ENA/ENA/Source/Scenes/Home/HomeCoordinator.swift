@@ -170,7 +170,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
-			otpService: otpService
+			otpService: otpService,
+			eventStore: eventStore
 		)
 		developerMenu?.enableIfAllowed()
 	}

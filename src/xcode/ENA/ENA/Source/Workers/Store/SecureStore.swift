@@ -317,6 +317,12 @@ final class SecureStore: Store {
 		get { kvStore["forceAPITokenAuthorization"] as Bool? ?? false }
 		set { kvStore["forceAPITokenAuthorization"] = newValue }
 	}
+	
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? {
+		get { kvStore["recentTraceLocationCheckedInto"] as DMRecentTraceLocationCheckedInto? ?? nil }
+		set { kvStore["recentTraceLocationCheckedInto"] = newValue }
+	}
+
 
 	#endif
 
