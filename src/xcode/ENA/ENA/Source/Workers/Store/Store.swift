@@ -167,5 +167,13 @@ protocol EventRegistrationCaching: AnyObject {
 	
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata? { get set }
 }
+
+protocol CoronaTestStoring {
+
+	var pcrTest: PCRTest? { get set }
+	var antigenTest: AntigenTest? { get set }
+
+}
+
 /// Wrapper protocol
-protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching {}
+protocol Store: StoreProtocol, AppConfigCaching, StatisticsCaching, ServerEnvironmentProviding, PrivacyPreservingProviding, EventRegistrationCaching, CoronaTestStoring {}

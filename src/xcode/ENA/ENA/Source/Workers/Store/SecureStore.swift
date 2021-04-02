@@ -424,6 +424,20 @@ extension SecureStore: PrivacyPreservingProviding {
 	}
 }
 
+extension SecureStore: CoronaTestStoring {
+
+	var pcrTest: PCRTest? {
+		get { kvStore["pcrTest"] as PCRTest? }
+		set { kvStore["pcrTest"] = newValue }
+	}
+
+	var antigenTest: AntigenTest? {
+		get { kvStore["antigenTest"] as AntigenTest? }
+		set { kvStore["antigenTest"] = newValue }
+	}
+
+}
+
 extension SecureStore {
 
 	static let keychainDatabaseKey = "secureStoreDatabaseKey"

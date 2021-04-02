@@ -530,4 +530,5 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 		}
 	}
+
 }

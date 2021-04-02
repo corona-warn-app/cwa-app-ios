@@ -60,7 +60,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var dateOfConversionToHighRisk: Date?
 	var testRegistrationDate: Date?
 
-
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
@@ -107,4 +106,10 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var traceLocationsInfoScreenShown: Bool = false
 	var shouldAddCheckinToContactDiaryByDefault = true
 	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
+
+	// MARK: - CoronaTestStoring
+
+	var pcrTest: PCRTest?
+	var antigenTest: AntigenTest?
+
 }
