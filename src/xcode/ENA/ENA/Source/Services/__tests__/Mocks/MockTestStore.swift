@@ -11,7 +11,6 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
 
 	var positiveTestResultWasShown: Bool = false
-	var isAllowedToPerformBackgroundFakeRequests = false
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
@@ -111,5 +110,7 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 
 	var pcrTest: PCRTest?
 	var antigenTest: AntigenTest?
+
+	var isAllowedToPerformBackgroundFakeRequests = false
 
 }

@@ -13,6 +13,7 @@ protocol CoronaTestServiceProviding {
 
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
 	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
+	typealias SubmissionTANResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 
 	var pcrTestPublisher: OpenCombine.CurrentValueSubject<PCRTest?, Never> { get }
 	var antigenTestPublisher: OpenCombine.CurrentValueSubject<AntigenTest?, Never> { get }
@@ -31,7 +32,7 @@ protocol CoronaTestServiceProviding {
 
 	func updateTestResult(for coronaTest: CoronaTest, completion: @escaping VoidResultHandler)
 
-	func getSubmissionTAN(for coronaTest: CoronaTest, completion: @escaping VoidResultHandler)
+	func getSubmissionTAN(for coronaTest: CoronaTest, completion: @escaping SubmissionTANResultHandler)
 
 	func removeTest(_ coronaTest: CoronaTest)
 
@@ -136,8 +137,48 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	}
 
-	func getSubmissionTAN(for coronaTest: CoronaTest, completion: @escaping VoidResultHandler) {
+	func getSubmissionTAN(for coronaTest: CoronaTest, completion: @escaping SubmissionTANResultHandler) {
+		if let submissionTAN = coronaTest.submissionTAN {
+			completion(.success(submissionTAN))
+			return
+		}
 
+		client.getTANForExposureSubmit(forDevice: coronaTest.registrationToken, isFake: false) { result in
+			switch result {
+			case let .failure(error):
+				completion(.failure(.responseFailure(error)))
+			case let .success(submissionTAN):
+				switch coronaTest {
+				case .pcr(let pcrTest):
+					self.store.pcrTest = PCRTest(
+						registrationToken: pcrTest.registrationToken,
+						testRegistrationDate: pcrTest.testRegistrationDate,
+						testResult: pcrTest.testResult,
+						submissionConsentGiven: pcrTest.submissionConsentGiven,
+						submissionTAN: submissionTAN,
+						keysSubmitted: pcrTest.keysSubmitted,
+						journalEntryCreated: pcrTest.journalEntryCreated
+					)
+
+				case .antigen(let antigenTest):
+					self.store.antigenTest = AntigenTest(
+						registrationToken: antigenTest.registrationToken,
+						testedPerson: antigenTest.testedPerson,
+						pointOfCareConsentTimestamp: antigenTest.pointOfCareConsentTimestamp,
+						testResult: antigenTest.testResult,
+						submissionConsentGiven: antigenTest.submissionConsentGiven,
+						submissionTAN: submissionTAN,
+						keysSubmitted: antigenTest.keysSubmitted,
+						journalEntryCreated: antigenTest.journalEntryCreated
+					)
+				}
+
+				self.updatePublishersFromStore()
+
+				self.store.isAllowedToPerformBackgroundFakeRequests = true
+				completion(.success(submissionTAN))
+			}
+		}
 	}
 
 	func removeTest(_ coronaTest: CoronaTest) {
@@ -150,10 +191,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 		updatePublishersFromStore()
 	}
-
-	// MARK: - Public
-
-	// MARK: - Internal
 
 	// MARK: - Private
 
@@ -169,6 +206,10 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 		if antigenTestPublisher.value != store.antigenTest {
 			antigenTestPublisher.value = store.antigenTest
+		}
+
+		if store.pcrTest == nil && store.antigenTest == nil {
+			store.isAllowedToPerformBackgroundFakeRequests = false
 		}
 	}
 
