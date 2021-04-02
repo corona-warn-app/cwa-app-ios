@@ -65,7 +65,7 @@ enum CoronaTest {
 
 }
 
-struct PCRTest: Codable {
+struct PCRTest: Codable, Equatable {
 
 	let registrationToken: String
 	let testRegistrationDate: Date?
@@ -81,7 +81,7 @@ struct PCRTest: Codable {
 
 }
 
-struct AntigenTest: Codable {
+struct AntigenTest: Codable, Equatable {
 
 	let registrationToken: String
 	let testedPerson: TestedPerson
@@ -100,7 +100,7 @@ struct AntigenTest: Codable {
 
 }
 
-struct TestedPerson: Codable {
+struct TestedPerson: Codable, Equatable {
 
 	let name: String?
 	let birthday: String?

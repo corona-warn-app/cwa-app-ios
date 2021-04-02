@@ -122,6 +122,7 @@ class CoronaTestService: CoronaTestServiceProviding {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
+					self?.updatePublishersFromStore()
 
 					completion(.success(()))
 				case .failure(let error):
@@ -154,6 +155,16 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 	private let fakeRequestService: FakeRequestService
 
+	private func updatePublishersFromStore() {
+		if pcrTestPublisher.value != store.pcrTest {
+			pcrTestPublisher.value = store.pcrTest
+		}
+
+		if antigenTestPublisher.value != store.antigenTest {
+			antigenTestPublisher.value = store.antigenTest
+		}
+	}
+
 	private func getRegistrationToken(
 		forKey key: String,
 		withType type: String,
@@ -184,6 +195,8 @@ class CoronaTestService: CoronaTestServiceProviding {
 			keysSubmitted: false,
 			journalEntryCreated: false
 		)
+
+		updatePublishersFromStore()
 	}
 
 }
