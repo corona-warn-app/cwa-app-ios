@@ -60,7 +60,7 @@ final class TraceLocationDetailViewModel {
 		case ended
 	}
 
-	func pickerView(didSelectRow numberOfMinutes: Int) {
+	func pickerView(didSelectDuration numberOfMinutes: Int) {
 		selectedDurationInMinutes = numberOfMinutes
 		let components = numberOfMinutes.quotientAndRemainder(dividingBy: 60)
 		let date = Calendar.current.date(bySettingHour: components.quotient, minute: components.remainder, second: 0, of: Date())

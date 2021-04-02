@@ -528,6 +528,7 @@
 		8FA88F672613325700FD36DA /* QRCodePayload+extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */; };
 		8FA88F9F2613A7E300FD36DA /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88F9E2613A7E300FD36DA /* EncodingType.swift */; };
 		8FA88FAA2613B38D00FD36DA /* QRCodeVerificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */; };
+		8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */; };
 		8FB5A60B25DD647200679990 /* ExposureSubmissionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842642491136E006B1F09 /* ExposureSubmissionUITests.swift */; };
 		8FB5A61625DD65D500679990 /* ExposureSubmission+TestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA9E39224D2F2920030561C /* ExposureSubmission+TestResult.swift */; };
 		8FF3525E25ADAD06008A07BD /* HomeTestResultCellModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */; };
@@ -1573,6 +1574,7 @@
 		8FA88F662613325700FD36DA /* QRCodePayload+extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodePayload+extention.swift"; sourceTree = "<group>"; };
 		8FA88F9E2613A7E300FD36DA /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
 		8FA88FA92613B38D00FD36DA /* QRCodeVerificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeVerificationHelper.swift; sourceTree = "<group>"; };
+		8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceLocationDetailViewModelTests.swift; sourceTree = "<group>"; };
 		8FF3525D25ADAD06008A07BD /* HomeTestResultCellModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellModelTests.swift; sourceTree = "<group>"; };
 		8FF9B2B1259B6B030080770D /* ContactDiaryStoreSchemaV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDiaryStoreSchemaV2.swift; sourceTree = "<group>"; };
 		940109ED25DFB40E0017355C /* DiaryDayNotesInfoViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDayNotesInfoViewModelTest.swift; sourceTree = "<group>"; };
@@ -3927,6 +3929,14 @@
 			path = HTMLViewController;
 			sourceTree = "<group>";
 		};
+		8FA88FDE261668EE00FD36DA /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				8FA88FDF2616692000FD36DA /* TraceLocationDetailViewModelTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		8FF3525C25ADACEC008A07BD /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -5108,6 +5118,7 @@
 		BA4C269D25EE9DA600E0505F /* CheckInDetail */ = {
 			isa = PBXGroup;
 			children = (
+				8FA88FDE261668EE00FD36DA /* __tests__ */,
 				5093B9A7260DEB2D007C0B09 /* TraceLocationDetailViewController.swift */,
 				5093B9A6260DEB2D007C0B09 /* TraceLocationDetailViewController.xib */,
 				5093B9A8260DEB2D007C0B09 /* TraceLocationDetailViewModel.swift */,
@@ -6971,6 +6982,7 @@
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
 				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				B1AC51D624CED8820087C35B /* DetectionModeTests.swift in Sources */,
+				8FA88FE02616692000FD36DA /* TraceLocationDetailViewModelTests.swift in Sources */,
 				0109DB9A26037E6A00624BB3 /* TraceLocation+Mock.swift in Sources */,
 				0144DD9725D40CC600CFB1D1 /* MockDeadmanNotificationManager.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
