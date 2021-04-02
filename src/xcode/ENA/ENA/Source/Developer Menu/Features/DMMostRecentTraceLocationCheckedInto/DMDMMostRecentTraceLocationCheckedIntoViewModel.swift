@@ -6,7 +6,7 @@
 
 import Foundation
 
-final class DMMostRecentScannedQRCodeTraceLocationViewModel {
+final class DMDMMostRecentTraceLocationCheckedIntoViewModel {
 
 	// MARK: - Init
 
@@ -40,7 +40,7 @@ final class DMMostRecentScannedQRCodeTraceLocationViewModel {
 		switch section {
 		case .description:
 			let value: String
-			if let description = store.recentScannedQRCodeTraceLocation?.description {
+			if let description = store.recentTraceLocationCheckedInto?.description {
 				value = String(describing: description)
 			} else {
 				value = "Could not read description"
@@ -48,21 +48,20 @@ final class DMMostRecentScannedQRCodeTraceLocationViewModel {
 			return DMKeyValueCellViewModel(key: "description", value: value)
 		case .id:
 			let value: String
-			if let unwrappedid = store.recentScannedQRCodeTraceLocation?.id,
-			   let id = String(data: unwrappedid, encoding: .ascii) {
-				value = id
+			if let unwrappedId = store.recentTraceLocationCheckedInto?.id?.base64EncodedString() {
+				value = unwrappedId
 			} else {
 				value = "Could not read id"
 			}
 			return DMKeyValueCellViewModel(key: "id", value: value)
 		case .date:
 			let value: String
-			if let date = store.recentScannedQRCodeTraceLocation?.date {
+			if let date = store.recentTraceLocationCheckedInto?.date {
 				value = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .medium)
 			} else {
 				value = "Could not read scanning date"
 			}
-			return DMKeyValueCellViewModel(key: "scanning date", value: value)
+			return DMKeyValueCellViewModel(key: "check-in date", value: value)
 		}
 
 	}

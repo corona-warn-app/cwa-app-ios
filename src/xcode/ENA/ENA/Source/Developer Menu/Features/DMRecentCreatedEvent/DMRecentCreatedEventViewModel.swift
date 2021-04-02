@@ -33,7 +33,7 @@ final class DMRecentCreatedEventViewModel {
     }
 
     func numberOfRows(in section: Int) -> Int {
-		return traceLocations .count
+		return traceLocations.count
     }
 	
 	func titleText(_ indexPath: IndexPath) -> String {
@@ -43,10 +43,7 @@ final class DMRecentCreatedEventViewModel {
 	func detailText(_ indexPath: IndexPath) -> String {
 		let checkin = traceLocations[indexPath.row]
 
-		var optionalid = "--"
-		if let id = String(data: checkin.id, encoding: .ascii) {
-			optionalid = id
-		}
+		let id = checkin.id.base64EncodedString()
 		
 		var optionalStartDate = "--"
 		if let startDate = checkin.startDate {
@@ -63,15 +60,9 @@ final class DMRecentCreatedEventViewModel {
 			optionalDefaultCheckInLengthInMinutes = String(defaultCheckInLengthInMinutes)
 		}
 
-		var optionalCryptographicSeed = "--"
-		if let cryptographicSeed = String(data: checkin.cryptographicSeed, encoding: .ascii) {
-			optionalCryptographicSeed = cryptographicSeed
-		}
+		let cryptographicSeed = checkin.cryptographicSeed.base64EncodedString()
 
-		var optionalcnPublicKey = "--"
-		if let cnPublicKey = String(data: checkin.cnPublicKey, encoding: .ascii) {
-			optionalcnPublicKey = cnPublicKey
-		}
+		let cnPublicKey = checkin.cnPublicKey.base64EncodedString()
 		
 		var optionalidHash = "--"
 		if let idHash = checkin.idHash {
@@ -79,7 +70,7 @@ final class DMRecentCreatedEventViewModel {
 		}
 		
 		let details = """
-		id: \(optionalid)
+		id: \(id)
 		version: \(checkin.version)
 		type: \(checkin.type)
 		description: \(checkin.description)
@@ -87,9 +78,8 @@ final class DMRecentCreatedEventViewModel {
 		startDate: \(optionalStartDate)
 		endDate: \(optionalEndDate)
 		defaultCheckInLengthInMinutes: \(optionalDefaultCheckInLengthInMinutes)
-		cryptographicSeed: \(optionalCryptographicSeed)
-		cnPublicKey: \(optionalcnPublicKey)
-		isActive: \(checkin.isActive)
+		cryptographicSeed: \(cryptographicSeed)
+		cnPublicKey: \(cnPublicKey)
 		idHash: \(optionalidHash)
 		qrCodeURL: \(checkin.qrCodeURL ?? "--")
 		suggestedCheckoutLength: \(checkin.suggestedCheckoutLength)

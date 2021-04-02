@@ -126,7 +126,7 @@ protocol StoreProtocol: AnyObject {
 
 	var forceAPITokenAuthorization: Bool { get set }
 	
-	var recentScannedQRCodeTraceLocation: DMRecentScannedTraceWarning? { get set }
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
 
 	#endif
 

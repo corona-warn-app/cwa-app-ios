@@ -6,7 +6,7 @@
 
 import Foundation
 
-struct DMRecentScannedTraceWarning: Codable {
+struct DMRecentTraceLocationCheckedInto: Codable {
 	let description: String
 	let id: Data?
 	let date: Date

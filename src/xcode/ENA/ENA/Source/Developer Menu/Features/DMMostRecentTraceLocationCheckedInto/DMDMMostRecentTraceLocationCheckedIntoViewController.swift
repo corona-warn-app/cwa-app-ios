@@ -6,14 +6,14 @@
 
 import UIKit
 
-class DMMostRecentScannedQRCodeTraceLocationViewController: UITableViewController {
+class DMDMMostRecentTraceLocationCheckedIntoViewController: UITableViewController {
 
 	// MARK: - Init
 
 	init(
 		store: Store
 	) {
-		self.viewModel = DMMostRecentScannedQRCodeTraceLocationViewModel(store: store)
+		self.viewModel = DMDMMostRecentTraceLocationCheckedIntoViewModel(store: store)
 
 		if #available(iOS 13.0, *) {
 			super.init(style: .insetGrouped)
@@ -59,7 +59,7 @@ class DMMostRecentScannedQRCodeTraceLocationViewController: UITableViewControlle
 
 	// MARK: - Private
 
-	private let viewModel: DMMostRecentScannedQRCodeTraceLocationViewModel
+	private let viewModel: DMDMMostRecentTraceLocationCheckedIntoViewModel
 
 	private func setupTableView() {
 		tableView.estimatedRowHeight = 45.0

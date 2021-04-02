@@ -165,8 +165,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			vc = DMInstallationDateViewController(store: store)
 		case .allTraceLocations:
 			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore)
-		case .mostRecentScannedQRCodeTraceLocation:
-			vc = DMMostRecentScannedQRCodeTraceLocationViewController(store: store)
+		case .mostRecentTraceLocationCheckedInto:
+			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
 		}
 
 		if let vc = vc {
