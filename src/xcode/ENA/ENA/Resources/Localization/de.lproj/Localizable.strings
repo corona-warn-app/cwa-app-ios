@@ -2195,7 +2195,7 @@ Die Angaben werden statistisch ausgewertet, sie werden nicht zu einem Profil ges
 
 "TraceLocation_Information_Item_Checkin" = "Stellen Sie den QR-Code Ihren Gästen entweder über Ihr Smartphone oder in ausgedruckter Form zur Verfügung.";
 
-"TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich neu erstellen außerhalb der Öffnungszeiten.";
+"TraceLocation_Information_Item_RenewQRCode" = "Wenn Sie dauerhaft einen QR-Code verwenden, sollten Sie diesen einmal täglich außerhalb der Öffnungszeiten neu erstellen.";
 
 "TraceLocation_Information_PrimaryButton_Title" = "Weiter";
 
