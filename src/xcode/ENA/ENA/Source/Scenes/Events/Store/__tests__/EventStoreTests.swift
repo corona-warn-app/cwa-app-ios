@@ -18,7 +18,7 @@ class EventStoreTests: XCTestCase {
 		let endDate = Date()
 
 		let traceLocation = TraceLocation(
-			guid: "SomeGUID",
+			id: "SomeGUID".data(using: .utf8) ?? Data(),
 			version: 1,
 			type: .locationTypePermanentOther,
 			description: "Some description",
@@ -26,8 +26,8 @@ class EventStoreTests: XCTestCase {
 			startDate: startDate,
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: 1,
-			byteRepresentation: "Some Representation".data(using: .utf8) ?? Data(),
-			signature: "Some signature"
+			cryptographicSeed: "Some Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -39,14 +39,14 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocations.count, 1)
 
 				let traceLocation = traceLocations[0]
-				XCTAssertEqual(traceLocation.guid, "SomeGUID")
+				XCTAssertEqual(traceLocation.id, "SomeGUID".data(using: .utf8))
 				XCTAssertEqual(traceLocation.version, 1)
 				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 1)
-				XCTAssertEqual(traceLocation.byteRepresentation, "Some Representation".data(using: .utf8))
-				XCTAssertEqual(traceLocation.signature, "Some signature")
+				XCTAssertEqual(traceLocation.cryptographicSeed, "Some Seed".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cnPublicKey, "Some Key".data(using: .utf8))
 
 				guard let startDate2 = traceLocation.startDate else {
 					XCTFail("Nil for startDate2 not expected.")
@@ -72,7 +72,7 @@ class EventStoreTests: XCTestCase {
 		let store = makeStore(with: makeDatabaseQueue())
 
 		let traceLocation = TraceLocation(
-			guid: "SomeGUID",
+			id: "SomeGUID".data(using: .utf8) ?? Data(),
 			version: 1,
 			type: .locationTypePermanentOther,
 			description: "Some description",
@@ -80,8 +80,8 @@ class EventStoreTests: XCTestCase {
 			startDate: nil,
 			endDate: nil,
 			defaultCheckInLengthInMinutes: nil,
-			byteRepresentation: Data(),
-			signature: "Some signature"
+			cryptographicSeed: Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -93,12 +93,12 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocations.count, 1)
 
 				let traceLocation = traceLocations[0]
-				XCTAssertEqual(traceLocation.guid, "SomeGUID")
+				XCTAssertEqual(traceLocation.id, "SomeGUID".data(using: .utf8))
 				XCTAssertEqual(traceLocation.version, 1)
 				XCTAssertEqual(traceLocation.type, .locationTypePermanentOther)
 				XCTAssertEqual(traceLocation.description, "Some description")
 				XCTAssertEqual(traceLocation.address, "Some address")
-				XCTAssertEqual(traceLocation.signature, "Some signature")
+				XCTAssertEqual(traceLocation.cnPublicKey, "Some Key".data(using: .utf8))
 				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
 				XCTAssertNil(traceLocation.startDate)
 				XCTAssertNil(traceLocation.endDate)
@@ -115,12 +115,12 @@ class EventStoreTests: XCTestCase {
 	func test_When_updateTraceLocation_Then_TraceLocationWasUpdated_And_PublisherWasUpdated() throws {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		store.createTraceLocation(makeTraceLocation(guid: "1"))
+		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data()))
 
 		let tomorrowDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
 
 		let traceLocation = TraceLocation(
-			guid: "1",
+			id: "1".data(using: .utf8) ?? Data(),
 			version: 2,
 			type: .locationTypeTemporaryOther,
 			description: "Other description",
@@ -128,8 +128,8 @@ class EventStoreTests: XCTestCase {
 			startDate: tomorrowDate,
 			endDate: tomorrowDate,
 			defaultCheckInLengthInMinutes: 2,
-			byteRepresentation: Data(),
-			signature: "Other signature"
+			cryptographicSeed: Data(),
+			cnPublicKey: "Other Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -141,13 +141,13 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocations.count, 1)
 
 				let traceLocation = traceLocations[0]
-				XCTAssertEqual(traceLocation.guid, "1")
+				XCTAssertEqual(traceLocation.id, "1".data(using: .utf8))
 				XCTAssertEqual(traceLocation.version, 2)
 				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
 				XCTAssertEqual(traceLocation.defaultCheckInLengthInMinutes, 2)
-				XCTAssertEqual(traceLocation.signature, "Other signature")
+				XCTAssertEqual(traceLocation.cnPublicKey, "Other Key".data(using: .utf8))
 
 				guard let startDate2 = traceLocation.startDate else {
 					XCTFail("Nil for startDate2 not expected.")
@@ -172,10 +172,10 @@ class EventStoreTests: XCTestCase {
 	func test_When_updateTraceLocationWithNilValues_Then_TraceLocationWasUpdated_And_PublisherWasUpdated() throws {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		store.createTraceLocation(makeTraceLocation(guid: "1"))
+		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data()))
 
 		let traceLocation = TraceLocation(
-			guid: "1",
+			id: "1".data(using: .utf8) ?? Data(),
 			version: 2,
 			type: .locationTypeTemporaryOther,
 			description: "Other description",
@@ -183,8 +183,8 @@ class EventStoreTests: XCTestCase {
 			startDate: nil,
 			endDate: nil,
 			defaultCheckInLengthInMinutes: nil,
-			byteRepresentation: "Other representation".data(using: .utf8) ?? Data(),
-			signature: "Other signature"
+			cryptographicSeed: "Other Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Other Key".data(using: .utf8) ?? Data()
 		)
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
@@ -196,13 +196,13 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceLocations.count, 1)
 
 				let traceLocation = traceLocations[0]
-				XCTAssertEqual(traceLocation.guid, "1")
+				XCTAssertEqual(traceLocation.id, "1".data(using: .utf8))
 				XCTAssertEqual(traceLocation.version, 2)
 				XCTAssertEqual(traceLocation.type, .locationTypeTemporaryOther)
 				XCTAssertEqual(traceLocation.description, "Other description")
 				XCTAssertEqual(traceLocation.address, "Other address")
-				XCTAssertEqual(traceLocation.byteRepresentation, "Other representation".data(using: .utf8))
-				XCTAssertEqual(traceLocation.signature, "Other signature")
+				XCTAssertEqual(traceLocation.cryptographicSeed, "Other Seed".data(using: .utf8))
+				XCTAssertEqual(traceLocation.cnPublicKey, "Other Key".data(using: .utf8))
 				XCTAssertNil(traceLocation.defaultCheckInLengthInMinutes)
 				XCTAssertNil(traceLocation.startDate)
 				XCTAssertNil(traceLocation.endDate)
@@ -219,7 +219,7 @@ class EventStoreTests: XCTestCase {
 	func test_When_deleteTraceLocation_Then_TraceLocationWasDeleted_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		let traceLocation = makeTraceLocation(guid: "SomeGUID")
+		let traceLocation = makeTraceLocation(id: "SomeGUID".data(using: .utf8) ?? Data())
 
 		store.createTraceLocation(traceLocation)
 
@@ -234,7 +234,7 @@ class EventStoreTests: XCTestCase {
 			}
 			.store(in: &subscriptions)
 
-		store.deleteTraceLocation(guid: "SomeGUID")
+		store.deleteTraceLocation(id: "SomeGUID".data(using: .utf8) ?? Data())
 
 		waitForExpectations(timeout: .medium)
 	}
@@ -242,8 +242,8 @@ class EventStoreTests: XCTestCase {
 	func test_When_deleteAllTraceLocation_Then_AllTraceLocationWereDeleted_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 
-		store.createTraceLocation(makeTraceLocation(guid: "SomeGUID1"))
-		store.createTraceLocation(makeTraceLocation(guid: "SomeGUID2"))
+		store.createTraceLocation(makeTraceLocation(id: "SomeGUID1".data(using: .utf8) ?? Data()))
+		store.createTraceLocation(makeTraceLocation(id: "SomeGUID2".data(using: .utf8) ?? Data()))
 
 		let sinkExpectation = expectation(description: "Sink is called once.")
 		sinkExpectation.expectedFulfillmentCount = 1
@@ -261,6 +261,35 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testGIVEN_StoreWithUnsortedTraceLocations_WHEN_TraceLocationPublisherFires_THEN_TraceLocationsAreSortedByDescriptionASC() {
+		// GIVEN
+		let store = makeStore(with: makeDatabaseQueue())
+		let traceLocationOne = makeTraceLocation(id: "1".data(using: .utf8) ?? Data(), description: "B")
+		let traceLocationTwo = makeTraceLocation(id: "2".data(using: .utf8) ?? Data(), description: "A")
+
+		let traceLocationsPublisherExpectation = expectation(description: "traceLocationsPublisher is triggered.")
+
+		// WHEN
+		store.traceLocationsPublisher
+			.dropFirst(2)
+			.sink { traceLocations in
+				traceLocationsPublisherExpectation.fulfill()
+				XCTAssertEqual(traceLocations.count, 2)
+
+				let traceLocationOne = traceLocations[0]
+				XCTAssertEqual(traceLocationOne.description, "A")
+
+				let traceLocationTwo = traceLocations[1]
+				XCTAssertEqual(traceLocationTwo.description, "B")
+			}
+			.store(in: &subscriptions)
+
+		// THEN
+		store.createTraceLocation(traceLocationOne)
+		store.createTraceLocation(traceLocationTwo)
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_createCheckin_Then_CheckinWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 		let traceLocationStartDate = Date()
@@ -270,8 +299,8 @@ class EventStoreTests: XCTestCase {
 
 		let checkin = Checkin(
 			id: 1,
-			traceLocationGUID: "SomeGUID",
-			traceLocationGUIDHash: "SomeGUIDHash".data(using: .utf8) ?? Data(),
+			traceLocationId: "SomeGUID".data(using: .utf8) ?? Data(),
+			traceLocationIdHash: "SomeGUIDHash".data(using: .utf8) ?? Data(),
 			traceLocationVersion: 1,
 			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
@@ -279,7 +308,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: traceLocationStartDate,
 			traceLocationEndDate: traceLocationEndDate,
 			traceLocationDefaultCheckInLengthInMinutes: 1,
-			traceLocationSignature: "Some signature",
+			cryptographicSeed: "Some Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
@@ -296,14 +326,15 @@ class EventStoreTests: XCTestCase {
 
 				let checkin = checkins[0]
 				XCTAssertEqual(checkin.id, 1)
-				XCTAssertEqual(checkin.traceLocationGUID, "SomeGUID")
-				XCTAssertEqual(checkin.traceLocationGUIDHash, "SomeGUIDHash".data(using: .utf8))
+				XCTAssertEqual(checkin.traceLocationId, "SomeGUID".data(using: .utf8))
+				XCTAssertEqual(checkin.traceLocationIdHash, "SomeGUIDHash".data(using: .utf8))
 				XCTAssertEqual(checkin.traceLocationVersion, 1)
 				XCTAssertEqual(checkin.traceLocationType, .locationTypePermanentOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
-				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
+				XCTAssertEqual(checkin.cryptographicSeed, "Some Seed".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Some Key".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.checkinCompleted)
@@ -330,6 +361,38 @@ class EventStoreTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func testGIVEN_StoreWithUnsortedCheckIns_WHEN_CheckinsPublisher_THEN_CheckinsIsSortedByEndDateDesc() {
+		// GIVEN
+		let store = makeStore(with: makeDatabaseQueue())
+		let nowPlus100 = Date(timeIntervalSinceNow: 100)
+		let nowPlus200 = Date(timeIntervalSinceNow: 200)
+		let checkInOne = makeCheckin(id: 1, checkinEndDate: nowPlus100)
+		let checkInTwo = makeCheckin(id: 2, checkinEndDate: nowPlus200)
+
+		let sinkExpectation = expectation(description: "Sink is called once.")
+		sinkExpectation.expectedFulfillmentCount = 1
+
+		// WHEN
+		store.checkinsPublisher
+			.dropFirst(2)
+			.sink { checkins in
+				sinkExpectation.fulfill()
+				XCTAssertEqual(checkins.count, 2)
+
+				let checkinOne = checkins[0]
+				XCTAssertEqual(checkinOne.id, 2)
+
+				let checkinTwo = checkins[1]
+				XCTAssertEqual(checkinTwo.id, 1)
+			}
+			.store(in: &subscriptions)
+
+		// THEN
+		store.createCheckin(checkInOne)
+		store.createCheckin(checkInTwo)
+		waitForExpectations(timeout: .medium)
+	}
+
 	func test_When_createCheckinWithNilDates_Then_CheckinWasCreated_And_PublisherWasUpdated() {
 		let store = makeStore(with: makeDatabaseQueue())
 		let checkinStartDate = Date()
@@ -337,8 +400,8 @@ class EventStoreTests: XCTestCase {
 
 		let checkin = Checkin(
 			id: 1,
-			traceLocationGUID: "SomeGUID",
-			traceLocationGUIDHash: Data(),
+			traceLocationId: "SomeGUID".data(using: .utf8) ?? Data(),
+			traceLocationIdHash: Data(),
 			traceLocationVersion: 1,
 			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
@@ -346,7 +409,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: nil,
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
-			traceLocationSignature: "Some signature",
+			cryptographicSeed: "Some Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some Key".data(using: .utf8) ?? Data(),
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
@@ -363,12 +427,13 @@ class EventStoreTests: XCTestCase {
 
 				let checkin = checkins[0]
 				XCTAssertEqual(checkin.id, 1)
-				XCTAssertEqual(checkin.traceLocationGUID, "SomeGUID")
+				XCTAssertEqual(checkin.traceLocationId, "SomeGUID".data(using: .utf8))
 				XCTAssertEqual(checkin.traceLocationVersion, 1)
 				XCTAssertEqual(checkin.traceLocationType, .locationTypePermanentOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Some description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Some address")
-				XCTAssertEqual(checkin.traceLocationSignature, "Some signature")
+				XCTAssertEqual(checkin.cryptographicSeed, "Some Seed".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Some Key".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(checkinStartDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(checkinEndDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.checkinCompleted)
@@ -395,8 +460,8 @@ class EventStoreTests: XCTestCase {
 
 		let checkin = Checkin(
 			id: 1,
-			traceLocationGUID: "OtherGUID",
-			traceLocationGUIDHash: "OtherGUIDHash".data(using: .utf8) ?? Data(),
+			traceLocationId: "OtherGUID".data(using: .utf8) ?? Data(),
+			traceLocationIdHash: "OtherGUIDHash".data(using: .utf8) ?? Data(),
 			traceLocationVersion: 2,
 			traceLocationType: .locationTypeTemporaryOther,
 			traceLocationDescription: "Other description",
@@ -404,7 +469,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: tomorrowDate,
 			traceLocationEndDate: tomorrowDate,
 			traceLocationDefaultCheckInLengthInMinutes: 1,
-			traceLocationSignature: "Other signature",
+			cryptographicSeed: "Other Seed".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Other Key".data(using: .utf8) ?? Data(),
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: true,
@@ -421,14 +487,15 @@ class EventStoreTests: XCTestCase {
 
 				let checkin = checkins[0]
 				XCTAssertEqual(checkin.id, 1)
-				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
-				XCTAssertEqual(checkin.traceLocationGUIDHash, "OtherGUIDHash".data(using: .utf8))
+				XCTAssertEqual(checkin.traceLocationId, "OtherGUID".data(using: .utf8))
+				XCTAssertEqual(checkin.traceLocationIdHash, "OtherGUIDHash".data(using: .utf8))
 				XCTAssertEqual(checkin.traceLocationVersion, 2)
 				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
 				XCTAssertEqual(checkin.traceLocationDefaultCheckInLengthInMinutes, 1)
-				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
+				XCTAssertEqual(checkin.cryptographicSeed, "Other Seed".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Other Key".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertEqual(Int(checkin.checkinEndDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertTrue(checkin.checkinCompleted)
@@ -464,8 +531,8 @@ class EventStoreTests: XCTestCase {
 
 		let checkin = Checkin(
 			id: 1,
-			traceLocationGUID: "OtherGUID",
-			traceLocationGUIDHash: Data(),
+			traceLocationId: "OtherGUID".data(using: .utf8) ?? Data(),
+			traceLocationIdHash: Data(),
 			traceLocationVersion: 2,
 			traceLocationType: .locationTypeTemporaryOther,
 			traceLocationDescription: "Other description",
@@ -473,7 +540,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: nil,
 			traceLocationEndDate: nil,
 			traceLocationDefaultCheckInLengthInMinutes: nil,
-			traceLocationSignature: "Other signature",
+			cryptographicSeed: "Other".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Other".data(using: .utf8) ?? Data(),
 			checkinStartDate: tomorrowDate,
 			checkinEndDate: tomorrowDate,
 			checkinCompleted: false,
@@ -490,12 +558,13 @@ class EventStoreTests: XCTestCase {
 
 				let checkin = checkins[0]
 				XCTAssertEqual(checkin.id, 1)
-				XCTAssertEqual(checkin.traceLocationGUID, "OtherGUID")
+				XCTAssertEqual(checkin.traceLocationId, "OtherGUID".data(using: .utf8))
 				XCTAssertEqual(checkin.traceLocationVersion, 2)
 				XCTAssertEqual(checkin.traceLocationType, .locationTypeTemporaryOther)
 				XCTAssertEqual(checkin.traceLocationDescription, "Other description")
 				XCTAssertEqual(checkin.traceLocationAddress, "Other address")
-				XCTAssertEqual(checkin.traceLocationSignature, "Other signature")
+				XCTAssertEqual(checkin.cryptographicSeed, "Other".data(using: .utf8))
+				XCTAssertEqual(checkin.cnPublicKey, "Other".data(using: .utf8))
 				XCTAssertEqual(Int(checkin.checkinStartDate.timeIntervalSince1970), Int(tomorrowDate.timeIntervalSince1970))
 				XCTAssertFalse(checkin.createJournalEntry)
 
@@ -563,7 +632,7 @@ class EventStoreTests: XCTestCase {
 			id: 1,
 			checkinId: 2,
 			traceWarningPackageId: 3,
-			traceLocationGUID: "someGUID",
+			traceLocationId: "someGUID".data(using: .utf8) ?? Data(),
 			transmissionRiskLevel: 5,
 			startIntervalNumber: 6,
 			endIntervalNumber: 7
@@ -581,7 +650,7 @@ class EventStoreTests: XCTestCase {
 				XCTAssertEqual(traceTimeIntervalMatch.id, 1)
 				XCTAssertEqual(traceTimeIntervalMatch.checkinId, 2)
 				XCTAssertEqual(traceTimeIntervalMatch.traceWarningPackageId, 3)
-				XCTAssertEqual(traceTimeIntervalMatch.traceLocationGUID, "someGUID")
+				XCTAssertEqual(traceTimeIntervalMatch.traceLocationId, "someGUID".data(using: .utf8))
 				XCTAssertEqual(traceTimeIntervalMatch.transmissionRiskLevel, 5)
 				XCTAssertEqual(traceTimeIntervalMatch.startIntervalNumber, 6)
 				XCTAssertEqual(traceTimeIntervalMatch.endIntervalNumber, 7)
@@ -739,9 +808,9 @@ class EventStoreTests: XCTestCase {
 		}.store(in: &subscriptions)
 
 		// Create different traceLocations. 2 of them should survive: 0 date and todays date.
-		store.createTraceLocation(makeTraceLocation(guid: "1", endDate: dateOlderThenRetention))
-		store.createTraceLocation(makeTraceLocation(guid: "2", endDate: today))
-		store.createTraceLocation(makeTraceLocation(guid: "3", endDate: Date(timeIntervalSince1970: 0)))
+		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data(), endDate: dateOlderThenRetention))
+		store.createTraceLocation(makeTraceLocation(id: "2".data(using: .utf8) ?? Data(), endDate: today))
+		store.createTraceLocation(makeTraceLocation(id: "3".data(using: .utf8) ?? Data(), endDate: Date(timeIntervalSince1970: 0)))
 
 		// At this point cleanup is called internally and old entries are removed.
 		let store2 = makeStore(with: databaseQueue)
@@ -774,9 +843,9 @@ class EventStoreTests: XCTestCase {
 		}.store(in: &subscriptions)
 
 		// Create different traceLocations. 1 of them should survive: todays date.
-		store.createTraceLocation(makeTraceLocation(guid: "1", endDate: dateOlderThenRetention))
-		store.createTraceLocation(makeTraceLocation(guid: "2", endDate: today))
-		store.createTraceLocation(makeTraceLocation(guid: "3", endDate: Date(timeIntervalSince1970: 0)))
+		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data(), endDate: dateOlderThenRetention))
+		store.createTraceLocation(makeTraceLocation(id: "2".data(using: .utf8) ?? Data(), endDate: today))
+		store.createTraceLocation(makeTraceLocation(id: "3".data(using: .utf8) ?? Data(), endDate: Date(timeIntervalSince1970: 0)))
 
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1, endIntervalNumber: Int(dateOlderThenRetention.timeIntervalSince1970)))
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 2, endIntervalNumber: Int(today.timeIntervalSince1970)))
@@ -806,7 +875,7 @@ class EventStoreTests: XCTestCase {
 		// Add data.
 
 		store.createCheckin(makeCheckin(id: 1))
-		store.createTraceLocation(makeTraceLocation(guid: "1"))
+		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data()))
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
 		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
 
@@ -834,7 +903,7 @@ class EventStoreTests: XCTestCase {
 		// Add again some data an check if persistence is still working.
 
 		store.createCheckin(makeCheckin(id: 1))
-		store.createTraceLocation(makeTraceLocation(guid: "1"))
+		store.createTraceLocation(makeTraceLocation(id: "1".data(using: .utf8) ?? Data()))
 		store.createTraceTimeIntervalMatch(makeTraceTimeIntervalMatch(id: 1))
 		store.createTraceWarningPackageMetadata(makeTraceWarningPackageMetadata(id: 1))
 
@@ -930,26 +999,26 @@ class EventStoreTests: XCTestCase {
 		return store
 	}
 
-	private func makeTraceLocation(guid: String, endDate: Date = Date()) -> TraceLocation {
+	private func makeTraceLocation(id: Data, description: String = "Some description", endDate: Date = Date()) -> TraceLocation {
 		TraceLocation(
-			guid: guid,
+			id: id,
 			version: 1,
 			type: .locationTypePermanentOther,
-			description: "Some description",
+			description: description,
 			address: "Some address",
 			startDate: Date(),
 			endDate: endDate,
 			defaultCheckInLengthInMinutes: 1,
-			byteRepresentation: Data(),
-			signature: "Some signature"
+			cryptographicSeed: Data(),
+			cnPublicKey: Data()
 		)
 	}
 
 	private func makeCheckin(id: Int, checkinEndDate: Date = Date()) -> Checkin {
 		Checkin(
 			id: id,
-			traceLocationGUID: "SomeGUID",
-			traceLocationGUIDHash: "SomeGUIDHash".data(using: .utf8) ?? Data(),
+			traceLocationId: Data(),
+			traceLocationIdHash: Data(),
 			traceLocationVersion: 1,
 			traceLocationType: .locationTypePermanentOther,
 			traceLocationDescription: "Some description",
@@ -957,7 +1026,8 @@ class EventStoreTests: XCTestCase {
 			traceLocationStartDate: Date(),
 			traceLocationEndDate: Date(),
 			traceLocationDefaultCheckInLengthInMinutes: 1,
-			traceLocationSignature: "Some signature",
+			cryptographicSeed: "Some".data(using: .utf8) ?? Data(),
+			cnPublicKey: "Some".data(using: .utf8) ?? Data(),
 			checkinStartDate: Date(),
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
@@ -970,7 +1040,7 @@ class EventStoreTests: XCTestCase {
 			id: id,
 			checkinId: 2,
 			traceWarningPackageId: 3,
-			traceLocationGUID: "someGUID",
+			traceLocationId: Data(),
 			transmissionRiskLevel: 5,
 			startIntervalNumber: 6,
 			endIntervalNumber: endIntervalNumber

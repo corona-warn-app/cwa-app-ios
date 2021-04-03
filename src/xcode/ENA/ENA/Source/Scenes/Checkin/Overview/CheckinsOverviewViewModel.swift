@@ -12,17 +12,18 @@ class CheckinsOverviewViewModel {
 
 	init(
 		store: EventStoringProviding,
+		eventCheckoutService: EventCheckoutService,
 		onEntryCellTap: @escaping (Checkin) -> Void,
 		cameraAuthorizationStatus: @escaping () -> AVAuthorizationStatus = {
 			AVCaptureDevice.authorizationStatus(for: .video)
 		}
 	) {
 		self.store = store
+		self.eventCheckoutService = eventCheckoutService
 		self.onEntryCellTap = onEntryCellTap
         self.cameraAuthorizationStatus = cameraAuthorizationStatus
 
 		store.checkinsPublisher
-			.map { $0.sorted { $0.checkinStartDate < $1.checkinStartDate } }
 			.sink { [weak self] in
 				self?.update(from: $0)
 			}
@@ -85,26 +86,10 @@ class CheckinsOverviewViewModel {
 			fatalError("didTapEntryCell can only be called from the entries section")
 		}
 
-		let checkin = checkinCellModels[indexPath.row].checkin
-		let updatedChecking = Checkin(
-			id: checkin.id,
-			traceLocationGUID: checkin.traceLocationGUID,
-			traceLocationGUIDHash: checkin.traceLocationGUIDHash,
-			traceLocationVersion: checkin.traceLocationVersion,
-			traceLocationType: checkin.traceLocationType,
-			traceLocationDescription: checkin.traceLocationDescription,
-			traceLocationAddress: checkin.traceLocationAddress,
-			traceLocationStartDate: checkin.traceLocationStartDate,
-			traceLocationEndDate: checkin.traceLocationEndDate,
-			traceLocationDefaultCheckInLengthInMinutes: checkin.traceLocationDefaultCheckInLengthInMinutes,
-			traceLocationSignature: checkin.traceLocationSignature,
-			checkinStartDate: checkin.checkinStartDate,
-			checkinEndDate: checkin.checkinEndDate,
-			checkinCompleted: true,
-			createJournalEntry: checkin.createJournalEntry
+		eventCheckoutService.checkout(
+			checkin: checkinCellModels[indexPath.row].checkin,
+			manually: true
 		)
-
-		store.updateCheckin(updatedChecking)
 	}
 
 	func removeEntry(at indexPath: IndexPath) {
@@ -122,6 +107,7 @@ class CheckinsOverviewViewModel {
 	// MARK: - Private
 
 	private let store: EventStoringProviding
+	private let eventCheckoutService: EventCheckoutService
 	private let onEntryCellTap: (Checkin) -> Void
 	private let cameraAuthorizationStatus: () -> AVAuthorizationStatus
 

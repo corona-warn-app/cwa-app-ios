@@ -15,7 +15,7 @@ extension URLSession {
 	// This method executes HTTP POST requests.
 	func POST(_ url: URL, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		response(for: request, isFake: false, extraHeaders: extraHeaders, completion: completion)
 	}
@@ -23,7 +23,7 @@ extension URLSession {
 	// This method executes HTTP POST with HTTP BODY requests.
 	func POST(_ url: URL, _ body: Data, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		request.httpBody = body
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		response(for: request, isFake: false, extraHeaders: extraHeaders, completion: completion)

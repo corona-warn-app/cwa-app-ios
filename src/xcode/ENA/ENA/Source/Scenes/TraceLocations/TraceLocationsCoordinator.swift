@@ -11,11 +11,13 @@ class TraceLocationsCoordinator {
 	
 	init(
 		store: Store,
+		appConfig: AppConfigurationProviding,
 		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
 		eventStore: EventStoringProviding,
 		parentNavigationController: UINavigationController
 	) {
 		self.store = store
+		self.appConfig = appConfig
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
 		self.eventStore = eventStore
 		self.parentNavigationController = parentNavigationController
@@ -25,11 +27,6 @@ class TraceLocationsCoordinator {
 	
 	func start() {
 		parentNavigationController?.pushViewController(overviewScreen, animated: true)
-		
-		eventStore.createTraceLocation(tmpTraceLocation)
-		eventStore.createTraceLocation(tmpTraceLocation1)
-		eventStore.createTraceLocation(tmpTraceLocation2)
-		eventStore.createTraceLocation(tmpTraceLocation3)
 		
 		#if DEBUG
 		if isUITesting {
@@ -47,13 +44,10 @@ class TraceLocationsCoordinator {
 	// MARK: - Private
 	
 	private let store: Store
+	private let appConfig: AppConfigurationProviding
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let qrCodeErrorCorrectionLevelProvider = QRCodeErrorCorrectionLevelProvider()
 	private let eventStore: EventStoringProviding
-
-	private var tmpTraceLocation = TraceLocation(guid: "0", version: 0, type: .locationTypeUnspecified, description: "Event in the past", address: "Street 1, 12345 City", startDate: Date(timeIntervalSince1970: 1506432400), endDate: Date(timeIntervalSince1970: 1615805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
-	private var tmpTraceLocation1 = TraceLocation(guid: "1", version: 0, type: .locationTypeUnspecified, description: "Current single-day event", address: "Street 2, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616805862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
-	private var tmpTraceLocation2 = TraceLocation(guid: "2", version: 0, type: .locationTypeUnspecified, description: "Current multi-day event", address: "Street 3, 12345 City", startDate: Date(timeIntervalSince1970: 1616803862), endDate: Date(timeIntervalSince1970: 1616903862), defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
-	private var tmpTraceLocation3 = TraceLocation(guid: "3", version: 0, type: .locationTypeUnspecified, description: "Location", address: "Street 4, 12345 City", startDate: nil, endDate: nil, defaultCheckInLengthInMinutes: 30, byteRepresentation: Data(), signature: "")
 
 	private weak var parentNavigationController: UINavigationController?
 	
@@ -64,7 +58,7 @@ class TraceLocationsCoordinator {
 		get { store.traceLocationsInfoScreenShown }
 		set { store.traceLocationsInfoScreenShown = newValue }
 	}
-	
+
 	// MARK: Show Screens
 	
 	private lazy var overviewScreen: UIViewController = {
@@ -144,78 +138,64 @@ class TraceLocationsCoordinator {
 			self.infoScreenShown = true
 		}
 	}
-	
+
 	private func showTraceLocationDetailsScreen(traceLocation: TraceLocation) {
-		let traceLocationDetailsViewController = TraceLocationDetailsViewController(
-			viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: store, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider),
-			onPrintVersionButtonTap: { [weak self] pdfView in
-				DispatchQueue.main.async {
-					self?.showPrintVersionScreen(pdfView: pdfView)
-				}
-			},
-			onDuplicateButtonTap: { [weak self] traceLocation in
+		qrCodeErrorCorrectionLevelProvider.errorCorrectionLevel(
+			appConfigurationProvider: appConfig,
+			onCompletion: { [weak self] qrCodeErrorCorrectionLevel in
 				guard let self = self else { return }
-				
-				self.showTraceLocationConfigurationScreen(
-					on: self.traceLocationDetailsNavigationController,
-					mode: .duplicate(traceLocation)
+				let traceLocationDetailsViewController = TraceLocationDetailsViewController(
+					viewModel: TraceLocationDetailsViewModel(traceLocation: traceLocation, store: self.store, qrCodePosterTemplateProvider: self.qrCodePosterTemplateProvider, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel),
+					onPrintVersionButtonTap: { [weak self] pdfView in
+						DispatchQueue.main.async {
+							self?.showPrintVersionScreen(pdfView: pdfView)
+						}
+					},
+					onDuplicateButtonTap: { [weak self] traceLocation in
+						guard let self = self else { return }
+						
+						self.showTraceLocationConfigurationScreen(
+							on: self.traceLocationDetailsNavigationController,
+							mode: .duplicate(traceLocation)
+						)
+					},
+					onDismiss: { [weak self] in
+						self?.parentNavigationController?.dismiss(animated: true)
+					}
 				)
-			},
-			onDismiss: { [weak self] in
-				self?.traceLocationDetailsNavigationController.dismiss(animated: true)
-			}
-		)
-		
-		let footerViewController = FooterViewController(
-			FooterViewModel(
-				primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
-				secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
-				isPrimaryButtonHidden: false,
-				isSecondaryButtonHidden: false
-			)
-		)
-		
-		let topBottomContainerViewController = TopBottomContainerViewController(
-			topController: traceLocationDetailsViewController,
-			bottomController: footerViewController
-		)
-		
-		traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
-		parentNavigationController?.present(traceLocationDetailsNavigationController, animated: true)
+				
+				let footerViewController = FooterViewController(
+					FooterViewModel(
+						primaryButtonName: AppStrings.TraceLocations.Details.printVersionButtonTitle,
+						secondaryButtonName: AppStrings.TraceLocations.Details.duplicateButtonTitle,
+						isPrimaryButtonHidden: false,
+						isSecondaryButtonHidden: false
+					)
+				)
+				
+				let topBottomContainerViewController = TopBottomContainerViewController(
+					topController: traceLocationDetailsViewController,
+					bottomController: footerViewController
+				)
+
+				self.traceLocationDetailsNavigationController = UINavigationController(rootViewController: topBottomContainerViewController)
+				self.parentNavigationController?.present(self.traceLocationDetailsNavigationController, animated: true)
+			})
 	}
 
 	private func showPrintVersionScreen(pdfView: PDFView) {
 		let viewController = TraceLocationPrintVersionViewController(
 			viewModel: TraceLocationPrintVersionViewModel(pdfView: pdfView)
 		)
-		
-		traceLocationDetailsNavigationController.pushViewController(viewController, animated: true)
+
+		traceLocationDetailsNavigationController?.pushViewController(viewController, animated: true)
 	}
 	
 	private func showTraceLocationTypeSelectionScreen() {
-		
-		let locations: [TraceLocationType] = [
-			.locationTypePermanentRetail,
-			.locationTypePermanentFoodService,
-			.locationTypePermanentCraft,
-			.locationTypePermanentWorkplace,
-			.locationTypePermanentEducationalInstitution,
-			.locationTypePermanentPublicBuilding,
-			.locationTypePermanentOther
-		]
-		
-		let events: [TraceLocationType] = [
-			.locationTypeTemporaryCulturalEvent,
-			.locationTypeTemporaryClubActivity,
-			.locationTypeTemporaryPrivateEvent,
-			.locationTypeTemporaryWorshipService,
-			.locationTypeTemporaryOther
-		]
-		
 		let traceLocationTypeSelectionViewController = TraceLocationTypeSelectionViewController(
 			viewModel: TraceLocationTypeSelectionViewModel([
-				.location: locations,
-				.event: events
+				.location: TraceLocationType.permanentTypes,
+				.event: TraceLocationType.temporaryTypes
 			],
 			onTraceLocationTypeSelection: { [weak self] traceLocationType in
 				guard let self = self else { return }
@@ -238,7 +218,10 @@ class TraceLocationsCoordinator {
 	
 	private func showTraceLocationConfigurationScreen(on navigationController: UINavigationController, mode: TraceLocationConfigurationViewModel.Mode) {
 		let traceLocationConfigurationViewController = TraceLocationConfigurationViewController(
-			viewModel: TraceLocationConfigurationViewModel(mode: mode),
+			viewModel: TraceLocationConfigurationViewModel(
+				mode: mode,
+				eventStore: eventStore
+			),
 			onDismiss: {
 				navigationController.dismiss(animated: true)
 			}

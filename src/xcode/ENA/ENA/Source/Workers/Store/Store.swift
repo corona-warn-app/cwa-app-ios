@@ -59,7 +59,9 @@ protocol StoreProtocol: AnyObject {
 	/// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
-	var riskCalculationResult: RiskCalculationResult? { get set }
+	var enfRiskCalculationResult: ENFRiskCalculationResult? { get set }
+
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult? { get set }
 
 	/// Date when the risk was changed to high
 	var dateOfConversionToHighRisk: Date? { get set }
@@ -109,20 +111,22 @@ protocol StoreProtocol: AnyObject {
 	var submissionSymptomsOnset: SymptomsOnset { get set }
 
 	var journalWithExposureHistoryInfoScreenShown: Bool { get set }
-	
+
 	func clearAll(key: String?)
 
 	#if !RELEASE
 	/// Settings from the debug menu.
 	var fakeSQLiteError: Int32? { get set }
 
-	var mostRecentRiskCalculation: RiskCalculation? { get set }
+	var mostRecentRiskCalculation: ENFRiskCalculation? { get set }
 
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration? { get set }
 
 	var dmKillDeviceTimeCheck: Bool { get set }
 
 	var forceAPITokenAuthorization: Bool { get set }
+	
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto? { get set }
 
 	#endif
 
@@ -154,6 +158,9 @@ protocol PrivacyPreservingProviding: AnyObject {
 }
 
 protocol EventRegistrationCaching: AnyObject {
+	/// Event registration - Flag that indicates if the recent trace warning download was succesful or not.
+	var wasRecentTraceWarningDownloadSuccessful: Bool { get set }
+	
 	var checkinInfoScreenShown: Bool { get set }
 
 	var traceLocationsInfoScreenShown: Bool { get set }

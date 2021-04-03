@@ -13,7 +13,7 @@ struct DiaryLocation: Equatable {
 		let name: String
 		let phoneNumber: String
 		let emailAddress: String
-		let traceLocationGUID: String?
+		let traceLocationId: Data?
 	}
 
 	// MARK: - Init
@@ -23,14 +23,14 @@ struct DiaryLocation: Equatable {
 		name: String,
 		phoneNumber: String = "",
 		emailAddress: String = "",
-		traceLocationGUID: String?,
+		traceLocationId: Data?,
 		visit: LocationVisit? = nil
 	) {
 		self.id = id
 		self.name = name
 		self.phoneNumber = phoneNumber
 		self.emailAddress = emailAddress
-		self.traceLocationGUID = traceLocationGUID
+		self.traceLocationId = traceLocationId
 		self.visit = visit
 	}
 
@@ -40,7 +40,7 @@ struct DiaryLocation: Equatable {
 	let name: String
 	let phoneNumber: String
 	let emailAddress: String
-	let traceLocationGUID: String?
+	let traceLocationId: Data?
 	let visit: LocationVisit?
 
 	var isSelected: Bool {

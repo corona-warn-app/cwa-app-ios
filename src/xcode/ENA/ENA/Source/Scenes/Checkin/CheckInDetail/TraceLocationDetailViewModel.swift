@@ -13,27 +13,26 @@ final class TraceLocationDetailViewModel {
 		self.store = store
 		self.eventStore = eventStore
 		self.traceLocation = traceLocation
+		#if !RELEASE
+		// save the trace location for dev menu to see every data.
+		store.recentTraceLocationCheckedInto = DMRecentTraceLocationCheckedInto(
+			description: traceLocation.description,
+			id: traceLocation.id,
+			date: Date()
+		)
+		#endif
+		self.locationType = traceLocation.type.title
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
-		
-		if let defaultDuration = traceLocation.defaultCheckInLengthInMinutes {
-			self.selectedDurationInMinutes = defaultDuration
-		} else {
-			let eventDuration = Calendar.current.dateComponents(
-				[.minute],
-				from: traceLocation.startDate ?? Date(),
-				to: traceLocation.endDate ?? Date()
-			).minute
-			// the 0 should not be possible since we expect either the defaultCheckInLengthInMinutes or the start and end dates to be available always
-			self.selectedDurationInMinutes = eventDuration ?? 0
-		}
+		self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
 	}
 	
 	// MARK: - Internal
 		
 	@OpenCombine.Published var pickerButtonTitle: String?
 
+	let locationType: String
 	let locationDescription: String
 	let locationAddress: String
 	var selectedDurationInMinutes: Int
@@ -84,13 +83,14 @@ final class TraceLocationDetailViewModel {
 			Log.warning("checkinEndDate is nill", log: .checkin)
 			return
 		}
-		guard let guidHash = generateSHA256(traceLocation.guid) else {
+		guard let idHash = traceLocation.idHash else {
 			return
 		}
+		
 		let checkin: Checkin = Checkin(
 			id: 0,
-			traceLocationGUID: traceLocation.guid,
-			traceLocationGUIDHash: guidHash,
+			traceLocationId: traceLocation.id,
+			traceLocationIdHash: idHash,
 			traceLocationVersion: traceLocation.version,
 			traceLocationType: traceLocation.type,
 			traceLocationDescription: traceLocation.description,
@@ -98,7 +98,8 @@ final class TraceLocationDetailViewModel {
 			traceLocationStartDate: traceLocation.startDate,
 			traceLocationEndDate: traceLocation.endDate,
 			traceLocationDefaultCheckInLengthInMinutes: traceLocation.defaultCheckInLengthInMinutes,
-			traceLocationSignature: traceLocation.signature,
+			cryptographicSeed: traceLocation.cryptographicSeed,
+			cnPublicKey: traceLocation.cnPublicKey,
 			checkinStartDate: checkinStartDate,
 			checkinEndDate: checkinEndDate,
 			checkinCompleted: false,
@@ -106,7 +107,7 @@ final class TraceLocationDetailViewModel {
 		)
 
 		store.shouldAddCheckinToContactDiaryByDefault = shouldSaveToContactJournal
-		 eventStore.createCheckin(checkin)
+		eventStore.createCheckin(checkin)
 	}
 
 	// MARK: - Private
@@ -122,16 +123,5 @@ final class TraceLocationDetailViewModel {
 		dateComponentsFormatter.zeroFormattingBehavior = .pad
 		let components = Calendar.current.dateComponents([.hour, .minute], from: date ?? Date())
 		return dateComponentsFormatter.string(from: components)
-	}
-	
-	private func generateSHA256(_ guid: String) -> Data? {
-		let encoder = JSONEncoder()
-		do {
-			let guidData = try encoder.encode(guid)
-			return guidData.sha256()
-		} catch {
-			Log.error("traceLocationGUID Encoding error", log: .checkin, error: error)
-			return nil
-		}
 	}
 }

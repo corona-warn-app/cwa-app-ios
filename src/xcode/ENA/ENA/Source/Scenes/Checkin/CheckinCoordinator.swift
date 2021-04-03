@@ -10,10 +10,14 @@ final class CheckinCoordinator {
 	// MARK: - Init
 	init(
 		store: Store,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		appConfiguration: AppConfigurationProviding,
+		eventCheckoutService: EventCheckoutService
 	) {
 		self.store = store
 		self.eventStore = eventStore
+		self.appConfiguration = appConfiguration
+		self.eventCheckoutService = eventCheckoutService
 		
 		#if DEBUG
 		if isUITesting {
@@ -78,9 +82,11 @@ final class CheckinCoordinator {
 	}()
 	
 	// MARK: - Private
+
 	private let store: Store
 	private let eventStore: EventStoringProviding
-	
+	private let appConfiguration: AppConfigurationProviding
+	private let eventCheckoutService: EventCheckoutService
 	private var subscriptions: [AnyCancellable] = []
 	
 	private var infoScreenShown: Bool {
@@ -91,18 +97,52 @@ final class CheckinCoordinator {
 	private lazy var checkinsOverviewViewModel: CheckinsOverviewViewModel = {
 		CheckinsOverviewViewModel(
 			store: eventStore,
-			onEntryCellTap: { checkin in
-				Log.debug("Checkin cell tapped: \(checkin)")
+			eventCheckoutService: eventCheckoutService,
+			onEntryCellTap: { [weak self] checkin in
+				guard checkin.checkinCompleted else {
+					Log.debug("Editing uncompleted checkin is not allowed", log: .default)
+					return
+				}
+				self?.showEditCheckIn(checkin)
 			}
 		)
 	}()
-	
-	private func showQRCodeScanner() {
-		let qrCodeScanner = CheckinQRCodeScannerViewController(
 
-			didScanCheckin: { [weak self] traceLocation in
+	private func showEditCheckIn(_ checkIn: Checkin) {
+		let footerViewController = FooterViewController(
+			FooterViewModel(
+				primaryButtonName: AppStrings.Checkins.Edit.primaryButtonTitle,
+				secondaryButtonName: nil,
+				isPrimaryButtonEnabled: true,
+				isSecondaryButtonEnabled: false,
+				isPrimaryButtonHidden: false,
+				isSecondaryButtonHidden: true,
+				backgroundColor: .enaColor(for: .cellBackground)
+			)
+		)
+
+		let editCheckInViewController = EditCheckinDetailViewController(
+			eventStore: eventStore,
+			checkIn: checkIn,
+			dismiss: { [weak self] in
+				self?.viewController.dismiss(animated: true)
+			}
+		)
+
+		let topBottomContainerViewController = TopBottomContainerViewController(
+			topController: editCheckInViewController,
+			bottomController: footerViewController
+		)
+		viewController.present(topBottomContainerViewController, animated: true)
+	}
+
+	private func showQRCodeScanner() {
+		
+		let qrCodeScanner = CheckinQRCodeScannerViewController(
+			viewModel: CheckinQRCodeScannerViewModel(),
+			didScanCheckin: { [weak self] qrCodeString in
 				self?.viewController.dismiss(animated: true, completion: {
-					self?.showTraceLocationDetails(traceLocation)
+					self?.showTraceLocationDetails(qrCodeString)
 				})
 			},
 			dismiss: { [weak self] in
@@ -117,16 +157,40 @@ final class CheckinCoordinator {
 			self?.viewController.present(navigationController, animated: true)
 		}
 	}
-	
-	private func showTraceLocationDetails(_ traceLocation: TraceLocation) {
-		let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: eventStore, store: store)
-		let traceLocationDetailViewController = TraceLocationDetailViewController(
-			viewModel,
-			dismiss: { [weak self] in
-				self?.viewController.dismiss(animated: true)
-			}
-		)
-		viewController.present(traceLocationDetailViewController, animated: true)
+	let verificationService = QRCodeVerificationHelper()
+
+	func showTraceLocationDetails(_ qrCodeString: String) {
+		verificationService.verifyQrCode(
+			qrCodeString: qrCodeString,
+			appConfigurationProvider: appConfiguration,
+			onSuccess: { [weak self] traceLocation in
+				
+				guard let self = self else { return }
+				let viewModel = TraceLocationDetailViewModel(traceLocation, eventStore: self.eventStore, store: self.store)
+				let traceLocationDetailViewController = TraceLocationDetailViewController(
+					viewModel,
+					dismiss: { [weak self] in
+						self?.viewController.dismiss(animated: true)
+					}
+				)
+				self.viewController.present(traceLocationDetailViewController, animated: true)
+			},
+			onError: { error in
+				let alert = UIAlertController(
+					title: AppStrings.Common.alertTitleGeneral,
+					message: error.localizedDescription,
+					preferredStyle: .alert
+				)
+				alert.addAction(
+					UIAlertAction(
+						title: AppStrings.Common.alertActionOk,
+						style: .default,
+						handler: { _ in
+							alert.dismiss(animated: true, completion: nil)
+						}
+					)
+				)
+			})
 	}
 	
 	private func showSettings() {

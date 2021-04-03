@@ -7,11 +7,18 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
+// swiftlint:disable:next type_body_length
 class CheckinsOverviewViewModelTest: XCTestCase {
 
 	func testNumberOfSections() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -26,6 +33,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -41,6 +52,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .notDetermined }
 		)
@@ -51,8 +66,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testNumberOfRowsWithCameraPermissionDenied() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -63,8 +84,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testNumberOfRowsWithCameraPermissionRestricted() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .restricted }
 		)
@@ -75,8 +102,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testIsEmptyOnEmptyEntriesSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -89,6 +122,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -96,8 +133,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithCameraPermission() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -106,8 +149,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testIsEmptyStateVisibleOnEmptyEntriesSectionWithoutCameraPermission() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -121,6 +170,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .authorized }
 		)
@@ -134,6 +187,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in },
 			cameraAuthorizationStatus: { .denied }
 		)
@@ -142,8 +199,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testCanEditRowForAddSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -151,8 +214,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testCanEditRowForMissingPermissionSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -160,8 +229,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	}
 
 	func testCanEditRowForEntriesSection() throws {
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -171,15 +246,19 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testDidTapEntryCell() throws {
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: -10)))
-		eventStore.createCheckin(Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date()))
+		eventStore.createCheckin(Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinStartDate: Date()))
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: 10)))
 
 		let cellTapExpectation = expectation(description: "onEntryCellTap called")
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: {
-				XCTAssertEqual($0.traceLocationGUID, "137")
+				XCTAssertEqual($0.traceLocationId, "137".data(using: .utf8))
 				cellTapExpectation.fulfill()
 			}
 		)
@@ -191,21 +270,25 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 	func testDidTapEntryCellButton() throws {
 		let eventStore = MockEventStore()
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: -10)))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(), checkinEndDate: Date(timeIntervalSinceNow: -100)))
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date(), checkinCompleted: false)
+			Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date(timeIntervalSinceNow: -10), checkinCompleted: false)
 		)
 		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(timeIntervalSinceNow: 10)))
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
 		viewModel.didTapEntryCellButton(at: IndexPath(row: 1, section: 2))
 
 		let tappedCheckin = eventStore.checkinsPublisher.value.first {
-			$0.traceLocationGUID == "137"
+			$0.traceLocationId == "137".data(using: .utf8)
 		}
 		XCTAssertTrue(tappedCheckin?.checkinCompleted ?? false)
 	}
@@ -213,17 +296,21 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testRemoveEntry() throws {
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "17", checkinStartDate: Date(timeIntervalSinceNow: -10))
+			Checkin.mock(traceLocationId: "17".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -10))
 		)
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date())
+			Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinStartDate: Date())
 		)
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "964", checkinStartDate: Date(timeIntervalSinceNow: 10))
+			Checkin.mock(traceLocationId: "964".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: 10))
 		)
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -231,9 +318,9 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let remainingGUIDs = eventStore.checkinsPublisher.value
 			.sorted { $0.checkinStartDate < $1.checkinStartDate }
-			.map { $0.traceLocationGUID }
+			.map { $0.traceLocationId }
 
-		XCTAssertEqual(remainingGUIDs, ["17", "964"])
+		XCTAssertEqual(remainingGUIDs, ["17".data(using: .utf8), "964".data(using: .utf8)])
 	}
 
 	func testRemoveAll() throws {
@@ -244,6 +331,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -256,8 +347,14 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 		let reloadExpectation = expectation(description: "shouldReload published")
 		reloadExpectation.expectedFulfillmentCount = 2 // initial call + update for camera permission
 
+		let eventStore = MockEventStore()
+
 		let viewModel = CheckinsOverviewViewModel(
-			store: MockEventStore(),
+			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -276,30 +373,34 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 	func testEntrySortingByCheckinStartDate() throws {
 		let eventStore = MockEventStore()
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "17", checkinStartDate: Date(timeIntervalSinceNow: 10))
+			Checkin.mock(traceLocationId: "17".data(using: .utf8) ?? Data(), checkinEndDate: Date(timeIntervalSinceNow: 10))
 		)
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "964", checkinStartDate: .distantFuture)
+			Checkin.mock(traceLocationId: "964".data(using: .utf8) ?? Data(), checkinEndDate: .distantFuture)
 		)
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "137", checkinStartDate: Date())
+			Checkin.mock(traceLocationId: "137".data(using: .utf8) ?? Data(), checkinEndDate: Date())
 		)
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "qwerty", checkinStartDate: .distantPast)
+			Checkin.mock(traceLocationId: "qwerty".data(using: .utf8) ?? Data(), checkinEndDate: .distantPast)
 		)
 		eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "asdf", checkinStartDate: Date(timeIntervalSinceNow: -220))
+			Checkin.mock(traceLocationId: "asdf".data(using: .utf8) ?? Data(), checkinEndDate: Date(timeIntervalSinceNow: -220))
 		)
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
-		let traceLocationGUIDs = viewModel.checkinCellModels
-			.map { $0.checkin.traceLocationGUID }
+		let traceLocationIds = viewModel.checkinCellModels
+			.map { $0.checkin.traceLocationId }
 
-		XCTAssertEqual(traceLocationGUIDs, ["qwerty", "asdf", "137", "17", "964"])
+		XCTAssertEqual(traceLocationIds, ["964".data(using: .utf8), "17".data(using: .utf8), "137".data(using: .utf8), "asdf".data(using: .utf8), "qwerty".data(using: .utf8)])
 	}
 
 	func testAddedCheckinTriggersReload() throws {
@@ -309,6 +410,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -338,6 +443,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -357,10 +466,11 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 	func testUpdatedCheckinDoesNotTriggersReloadButUpdate() throws {
 		let eventStore = MockEventStore()
+		let endDate = Date()
 		let idResult = eventStore.createCheckin(
-			Checkin.mock(traceLocationGUID: "abc", checkinStartDate: Date(timeIntervalSinceNow: -100), checkinCompleted: false)
+			Checkin.mock(traceLocationId: "abc".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date(), checkinCompleted: false)
 		)
-		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date()))
+		eventStore.createCheckin(Checkin.mock(checkinStartDate: Date(), checkinEndDate: Date(timeIntervalSinceNow: 100)))
 
 		guard case .success(let id) = idResult else {
 			XCTFail("Failed to create checkin")
@@ -369,6 +479,10 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 
 		let viewModel = CheckinsOverviewViewModel(
 			store: eventStore,
+			eventCheckoutService: EventCheckoutService(
+				eventStore: eventStore,
+				contactDiaryStore: MockDiaryStore()
+			),
 			onEntryCellTap: { _ in }
 		)
 
@@ -385,7 +499,7 @@ class CheckinsOverviewViewModelTest: XCTestCase {
 				reloadExpectation.fulfill()
 			}
 
-		eventStore.updateCheckin(Checkin.mock(id: id, traceLocationGUID: "abc", checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: Date()))
+		eventStore.updateCheckin(Checkin.mock(id: id, traceLocationId: "abc".data(using: .utf8) ?? Data(), checkinStartDate: Date(timeIntervalSinceNow: -100), checkinEndDate: endDate))
 
 		waitForExpectations(timeout: 100)
 

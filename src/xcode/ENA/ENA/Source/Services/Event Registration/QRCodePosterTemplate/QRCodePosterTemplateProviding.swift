@@ -10,13 +10,16 @@ protocol QRCodePosterTemplateProviding: AnyObject {
 
 	/// Provides the latest QR Code Poster Template
 	func latestQRCodePosterTemplate() -> AnyPublisher<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>
+	
+	/// Provides the default QR Code Poster Template
+	func defaultQRCodePosterTemplate() -> SAP_Internal_Pt_QRCodePosterTemplateIOS
 }
 
 /// Some requirements for QR Code Poster Template handling
 protocol QRCodePosterTemplateFetching {
 	var configuration: HTTPClient.Configuration { get }
 	var session: URLSession { get }
-	var packageVerifier: SAPDownloadedPackage.Verifier { get }
+	var signatureVerifier: SignatureVerifier { get }
 
 	typealias QRCodePosterTemplateCompletionHandler = (Result<QRCodePosterTemplateResponse, Error>) -> Void
 

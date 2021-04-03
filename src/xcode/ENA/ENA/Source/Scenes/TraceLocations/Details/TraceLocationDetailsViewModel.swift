@@ -13,17 +13,56 @@ class TraceLocationDetailsViewModel {
 	init(
 		traceLocation: TraceLocation,
 		store: Store,
-		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		qrCodeErrorCorrectionLevel: MappedErrorCorrectionType
 	) {
 		self.traceLocation = traceLocation
 		self.store = store
 		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.qrCodeErrorCorrectionLevel = qrCodeErrorCorrectionLevel
+	}
+
+	enum TableViewSections: Int, CaseIterable {
+		case header
+		case location
+		case qrCode
+		case dateTime
 	}
 
 	// MARK: - Internal
 
 	let traceLocation: TraceLocation
 	typealias QRCodePosterTemplateCompletionHandler = (Result<SAP_Internal_Pt_QRCodePosterTemplateIOS, Error>) -> Void
+
+	var title: String {
+		return traceLocation.description
+	}
+	
+	var address: String {
+		return traceLocation.address
+	}
+
+	var date: String? {
+		if let startDate = traceLocation.startDate, let endDate = traceLocation.endDate {
+			let dateFormatter = DateIntervalFormatter()
+			dateFormatter.dateStyle = .short
+			dateFormatter.timeStyle = .short
+
+			return dateFormatter.string(from: startDate, to: endDate)
+		} else {
+			return nil
+		}
+	}
+
+	var numberOfRowsPerSection: Int {
+		// since every section has only one row
+		return 1
+	}
+
+	func qrCode(size: CGSize = CGSize(width: 300, height: 300)) -> UIImage? {
+		guard let qrCodeImage = traceLocation.qrCode(size: size, qrCodeErrorCorrectionLevel: qrCodeErrorCorrectionLevel) else { return nil }
+		return qrCodeImage
+	}
 
 	func fetchQRCodePosterTemplateData(completion: @escaping QRCodePosterTemplateCompletionHandler) {
 		qrCodePosterTemplateProvider.latestQRCodePosterTemplate()
@@ -52,6 +91,7 @@ class TraceLocationDetailsViewModel {
 
 	private let store: Store
 	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let qrCodeErrorCorrectionLevel: MappedErrorCorrectionType
 	private var subscriptions = Set<AnyCancellable>()
 	@OpenCombine.Published private(set) var qrCodePosterTemplate: SAP_Internal_Pt_QRCodePosterTemplateIOS = SAP_Internal_Pt_QRCodePosterTemplateIOS()
 }
