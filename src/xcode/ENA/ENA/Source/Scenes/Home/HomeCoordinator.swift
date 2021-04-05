@@ -8,6 +8,7 @@ class HomeCoordinator: RequiresAppDependencies {
 	private weak var delegate: CoordinatorDelegate?
 	private let otpService: OTPServiceProviding
 	private let eventStore: EventStoringProviding
+	private let coronaTestService: CoronaTestService
 
 	let rootViewController: UINavigationController = AppNavigationController(rootViewController: UIViewController())
 
@@ -59,11 +60,13 @@ class HomeCoordinator: RequiresAppDependencies {
 	init(
 		_ delegate: CoordinatorDelegate,
 		otpService: OTPServiceProviding,
-		eventStore: EventStoringProviding
+		eventStore: EventStoringProviding,
+		coronaTestService: CoronaTestService
 	) {
 		self.delegate = delegate
 		self.otpService = otpService
 		self.eventStore = eventStore
+		self.coronaTestService = coronaTestService
 	}
 
 	deinit {
@@ -235,6 +238,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			warnOthersReminder: WarnOthersReminder(store: store),
 			parentNavigationController: rootViewController,
 			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService,
 			store: self.store,
 			delegate: self
 		)

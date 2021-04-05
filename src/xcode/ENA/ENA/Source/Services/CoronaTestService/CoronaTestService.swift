@@ -16,6 +16,7 @@ class CoronaTestService {
 
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
 	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
+	typealias TestResultHandler = (Result<TestResult, CoronaTestServiceError>) -> Void
 	typealias SubmissionTANResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 
 	// MARK: - Init
@@ -38,7 +39,7 @@ class CoronaTestService {
 	func registerPCRTestAndGetResult(
 		guid: String,
 		submissionConsentGiven: Bool,
-		completion: @escaping VoidResultHandler
+		completion: @escaping TestResultHandler
 	) {
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -92,7 +93,7 @@ class CoronaTestService {
 		name: String?,
 		birthday: String?,
 		submissionConsentGiven: Bool,
-		completion: @escaping VoidResultHandler
+		completion: @escaping TestResultHandler
 	) {
 		getRegistrationToken(
 			forKey: ENAHasher.sha256(guid),
@@ -129,7 +130,7 @@ class CoronaTestService {
 		)
 	}
 
-	func updateTestResult(for coronaTest: CoronaTest, completion: @escaping VoidResultHandler) {
+	func updateTestResult(for coronaTest: CoronaTest, completion: @escaping TestResultHandler) {
 		getTestResult(for: coronaTest, duringRegistration: false) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
@@ -257,7 +258,7 @@ class CoronaTestService {
 	private func getTestResult(
 		for coronaTest: CoronaTest,
 		duringRegistration: Bool,
-		_ completion: @escaping VoidResultHandler
+		_ completion: @escaping TestResultHandler
 	) {
 		guard let registrationToken = coronaTest.registrationToken else {
 			completion(.failure(.noRegistrationToken))
@@ -299,16 +300,16 @@ class CoronaTestService {
 						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 					}
 
-					completion(.success(()))
+					completion(.success(testResult))
 				case .pending:
-					completion(.success(()))
+					completion(.success(testResult))
 				case .expired:
 					if duringRegistration {
 						// The .expired status is only known after the test has been registered on the server
 						// so we generate an error here, even if the server returned the http result 201
 						completion(.failure(.testExpired))
 					} else {
-						completion(.success(()))
+						completion(.success(testResult))
 					}
 
 					switch coronaTest {

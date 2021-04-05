@@ -11,7 +11,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 	// MARK: - Init
 
 	init(
-		onSuccess: @escaping (DeviceRegistrationKey) -> Void,
+		onSuccess: @escaping (String) -> Void,
 		onError: @escaping (QRScannerError, _ reactivateScanning: @escaping () -> Void) -> Void
 	) {
 		self.onSuccess = onSuccess
@@ -155,7 +155,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 				}
 				return
 			}
-			onSuccess(.guid(extractedGuid))
+			onSuccess(extractedGuid)
 		}
 	}
 
@@ -186,7 +186,7 @@ class ExposureSubmissionQRScannerViewModel: NSObject, AVCaptureMetadataOutputObj
 
 	// MARK: - Private
 
-	private let onSuccess: (DeviceRegistrationKey) -> Void
+	private let onSuccess: (String) -> Void
 	private let captureDevice: AVCaptureDevice?
 
 }

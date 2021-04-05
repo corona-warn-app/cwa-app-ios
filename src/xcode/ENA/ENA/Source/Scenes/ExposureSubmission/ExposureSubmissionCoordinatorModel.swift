@@ -10,8 +10,12 @@ class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
 
-	init(exposureSubmissionService: ExposureSubmissionService) {
+	init(
+		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService
+	) {
 		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -93,22 +97,32 @@ class ExposureSubmissionCoordinatorModel {
 	}
 
 	func getTestResults(
-		for key: DeviceRegistrationKey,
+		for guid: String,
+		submissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		onError: @escaping (CoronaTestServiceError) -> Void
 	) {
 		isLoading(true)
 		// QR code test fetch
-		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
-			isLoading(false)
+		coronaTestService.registerPCRTestAndGetResult(
+			guid: guid,
+			submissionConsentGiven: submissionConsentGiven,
+			completion: { result in
+				isLoading(false)
 
-			switch result {
-			case let .failure(error):
-				onError(error)
-			case let .success(testResult):
-				onSuccess(testResult)
+				switch result {
+				case let .failure(error):
+					onError(error)
+				case let .success(testResult):
+					onSuccess(testResult)
+				}
 			}
-		})
+		)
 	}
+
+	// MARK: - Private
+
+	private let coronaTestService: CoronaTestService
+
 }

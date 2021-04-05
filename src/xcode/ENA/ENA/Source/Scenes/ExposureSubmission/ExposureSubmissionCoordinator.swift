@@ -46,6 +46,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		warnOthersReminder: WarnOthersRemindable,
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService,
 		store: Store,
 		delegate: ExposureSubmissionCoordinatorDelegate? = nil
 	) {
@@ -54,7 +55,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 		self.warnOthersReminder = warnOthersReminder
 
 		super.init()
-		model = ExposureSubmissionCoordinatorModel(exposureSubmissionService: exposureSubmissionService)
+
+		model = ExposureSubmissionCoordinatorModel(
+			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: coronaTestService
+		)
 	}
 
 	// MARK: - Protocol ExposureSubmissionCoordinating
@@ -460,9 +465,9 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	private func showQRScreen(isLoading: @escaping (Bool) -> Void) {
 		let scannerViewController = ExposureSubmissionQRScannerViewController(
-			onSuccess: { [weak self] deviceRegistrationKey in
+			onSuccess: { [weak self] guid in
 				self?.presentedViewController?.dismiss(animated: true) {
-					self?.getTestResults(for: deviceRegistrationKey, isLoading: isLoading)
+					self?.getTestResults(for: guid, submissionConsentGiven: true, isLoading: isLoading)
 				}
 			},
 			onError: { [weak self] error, reactivateScanning in
@@ -871,9 +876,14 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 
 	// MARK: Test Result Helper
 
-	private func getTestResults(for key: DeviceRegistrationKey, isLoading: @escaping (Bool) -> Void) {
+	private func getTestResults(
+		for guid: String,
+		submissionConsentGiven: Bool,
+		isLoading: @escaping (Bool) -> Void
+	) {
 		model.getTestResults(
-			for: key,
+			for: guid,
+			submissionConsentGiven: submissionConsentGiven,
 			isLoading: isLoading,
 			onSuccess: { [weak self] testResult in
 				switch testResult {
@@ -887,12 +897,12 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 				let alert: UIAlertController
 
 				switch error {
-				case .qrDoesNotExist:
+				case .responseFailure(.qrDoesNotExist):
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmissionError.qrNotExistTitle,
 						message: error.localizedDescription
 					)
-				case .qrAlreadyUsed:
+				case .responseFailure(.qrAlreadyUsed):
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmissionError.qrAlreadyUsedTitle,
 						message: error.localizedDescription,
@@ -905,7 +915,7 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 							self?.showQRScreen(isLoading: isLoading)
 						}
 					)
-				case .qrExpired:
+				case .testExpired:
 					alert = UIAlertController.errorAlert(
 						title: AppStrings.ExposureSubmission.qrCodeExpiredTitle,
 						message: error.localizedDescription
@@ -915,7 +925,11 @@ class ExposureSubmissionCoordinator: NSObject, ExposureSubmissionCoordinating, R
 						message: error.localizedDescription,
 						secondaryActionTitle: AppStrings.Common.alertActionRetry,
 						secondaryActionCompletion: {
-							self?.getTestResults(for: key, isLoading: isLoading)
+							self?.getTestResults(
+								for: guid,
+								submissionConsentGiven: submissionConsentGiven,
+								isLoading: isLoading
+							)
 						}
 					)
 				}

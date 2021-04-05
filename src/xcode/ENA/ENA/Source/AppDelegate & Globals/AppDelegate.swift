@@ -503,6 +503,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var coordinator = RootCoordinator(
 		self,
+		coronaTestService: coronaTestService,
 		contactDiaryStore: contactDiaryStore,
 		eventStore: eventStore,
 		eventCheckoutService: eventCheckoutService,

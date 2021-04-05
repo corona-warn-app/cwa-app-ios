@@ -26,12 +26,14 @@ class RootCoordinator: RequiresAppDependencies {
 	
 	init(
 		_ delegate: CoordinatorDelegate,
+		coronaTestService: CoronaTestService,
 		contactDiaryStore: DiaryStoringProviding,
 		eventStore: EventStoringProviding,
 		eventCheckoutService: EventCheckoutService,
 		otpService: OTPServiceProviding
 	) {
 		self.delegate = delegate
+		self.coronaTestService = coronaTestService
 		self.contactDiaryStore = contactDiaryStore
 		self.eventStore = eventStore
 		self.eventCheckoutService = eventCheckoutService
@@ -61,7 +63,8 @@ class RootCoordinator: RequiresAppDependencies {
 		let homeCoordinator = HomeCoordinator(
 			delegate,
 			otpService: otpService,
-			eventStore: eventStore
+			eventStore: eventStore,
+			coronaTestService: coronaTestService
 		)
 		self.homeCoordinator = homeCoordinator
 		homeCoordinator.showHome(enStateHandler: enStateHandler)
@@ -146,6 +149,7 @@ class RootCoordinator: RequiresAppDependencies {
 
 	private weak var delegate: CoordinatorDelegate?
 
+	private let coronaTestService: CoronaTestService
 	private let contactDiaryStore: DiaryStoringProviding
 	private let eventStore: EventStoringProviding
 	private let eventCheckoutService: EventCheckoutService
