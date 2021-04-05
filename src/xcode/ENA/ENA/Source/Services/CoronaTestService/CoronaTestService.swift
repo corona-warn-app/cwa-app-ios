@@ -5,7 +5,7 @@
 import Foundation
 import OpenCombine
 
-enum CoronaTestServiceError: Error {
+enum CoronaTestServiceError: Error, Equatable {
 	case responseFailure(URLSession.Response.Failure)
 	case unknownTestResult
 	case testExpired
@@ -17,6 +17,7 @@ class CoronaTestService {
 	typealias VoidResultHandler = (Result<Void, CoronaTestServiceError>) -> Void
 	typealias RegistrationResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, CoronaTestServiceError>) -> Void
+	typealias CoronaTestHandler = (Result<CoronaTest, CoronaTestServiceError>) -> Void
 	typealias SubmissionTANResultHandler = (Result<String, CoronaTestServiceError>) -> Void
 
 	// MARK: - Init
@@ -29,6 +30,8 @@ class CoronaTestService {
 		self.store = store
 
 		self.fakeRequestService = FakeRequestService(client: client)
+
+		updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol CoronaTestServiceProviding
@@ -38,7 +41,7 @@ class CoronaTestService {
 
 	func registerPCRTestAndGetResult(
 		guid: String,
-		submissionConsentGiven: Bool,
+		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
 		getRegistrationToken(
@@ -47,7 +50,7 @@ class CoronaTestService {
 			completion: { result in
 				switch result {
 				case .success(let registrationToken):
-					let pcrTest = self.storePCRTest(withRegistrationToken: registrationToken, submissionConsentGiven: submissionConsentGiven)
+					let pcrTest = self.storePCRTest(withRegistrationToken: registrationToken, isSubmissionConsentGiven: isSubmissionConsentGiven)
 
 					// because this block is only called in QR submission
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
@@ -67,19 +70,19 @@ class CoronaTestService {
 
 	func registerPCRTest(
 		teleTAN: String,
-		submissionConsentGiven: Bool,
-		completion: @escaping VoidResultHandler
+		isSubmissionConsentGiven: Bool,
+		completion: @escaping CoronaTestHandler
 	) {
 		getRegistrationToken(
 			forKey: teleTAN,
 			withType: "TELETAN",
-			completion: { [weak self] result in
-				self?.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
+			completion: { result in
+				self.fakeRequestService.fakeVerificationAndSubmissionServerRequest()
 
 				switch result {
 				case .success(let registrationToken):
-					self?.storePCRTest(withRegistrationToken: registrationToken, submissionConsentGiven: submissionConsentGiven)
-					completion(.success(()))
+					let pcrTest = self.storePCRTest(withRegistrationToken: registrationToken, isSubmissionConsentGiven: isSubmissionConsentGiven)
+					completion(.success(.pcr(pcrTest)))
 				case .failure(let error):
 					completion(.failure(error))
 				}
@@ -92,7 +95,7 @@ class CoronaTestService {
 		pointOfCareConsentTimestamp: Date,
 		name: String?,
 		birthday: String?,
-		submissionConsentGiven: Bool,
+		isSubmissionConsentGiven: Bool,
 		completion: @escaping TestResultHandler
 	) {
 		getRegistrationToken(
@@ -104,10 +107,11 @@ class CoronaTestService {
 					let antigenTest = AntigenTest(
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
-						pointOfCareConsentTimestamp: pointOfCareConsentTimestamp,
+						pointOfCareConsentDate: pointOfCareConsentTimestamp,
 						testResult: nil,
 						testResultReceivedDate: nil,
-						submissionConsentGiven: submissionConsentGiven,
+						positiveTestResultWasShown: false,
+						isSubmissionConsentGiven: false,
 						submissionTAN: nil,
 						keysSubmitted: false,
 						journalEntryCreated: false
@@ -160,8 +164,9 @@ class CoronaTestService {
 						registrationToken: pcrTest.registrationToken,
 						testRegistrationDate: pcrTest.testRegistrationDate,
 						testResult: pcrTest.testResult,
-						testResultReceivedDate: nil,
-						submissionConsentGiven: pcrTest.submissionConsentGiven,
+						testResultReceivedDate: pcrTest.testResultReceivedDate,
+						positiveTestResultWasShown: pcrTest.positiveTestResultWasShown,
+						isSubmissionConsentGiven: pcrTest.isSubmissionConsentGiven,
 						submissionTAN: submissionTAN,
 						keysSubmitted: pcrTest.keysSubmitted,
 						journalEntryCreated: pcrTest.journalEntryCreated
@@ -171,10 +176,11 @@ class CoronaTestService {
 					self.store.antigenTest = AntigenTest(
 						registrationToken: antigenTest.registrationToken,
 						testedPerson: antigenTest.testedPerson,
-						pointOfCareConsentTimestamp: antigenTest.pointOfCareConsentTimestamp,
+						pointOfCareConsentDate: antigenTest.pointOfCareConsentDate,
 						testResult: antigenTest.testResult,
-						testResultReceivedDate: nil,
-						submissionConsentGiven: antigenTest.submissionConsentGiven,
+						testResultReceivedDate: antigenTest.testResultReceivedDate,
+						positiveTestResultWasShown: antigenTest.positiveTestResultWasShown,
+						isSubmissionConsentGiven: antigenTest.isSubmissionConsentGiven,
 						submissionTAN: submissionTAN,
 						keysSubmitted: antigenTest.keysSubmitted,
 						journalEntryCreated: antigenTest.journalEntryCreated
@@ -234,14 +240,15 @@ class CoronaTestService {
 	@discardableResult
 	private func storePCRTest(
 		withRegistrationToken registrationToken: String,
-		submissionConsentGiven: Bool
+		isSubmissionConsentGiven: Bool
 	) -> PCRTest {
 		let pcrTest = PCRTest(
 			registrationToken: registrationToken,
 			testRegistrationDate: Date(),
 			testResult: nil,
 			testResultReceivedDate: nil,
-			submissionConsentGiven: submissionConsentGiven,
+			positiveTestResultWasShown: false,
+			isSubmissionConsentGiven: isSubmissionConsentGiven,
 			submissionTAN: nil,
 			keysSubmitted: false,
 			journalEntryCreated: false

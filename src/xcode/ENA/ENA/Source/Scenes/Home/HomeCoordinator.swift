@@ -243,7 +243,7 @@ class HomeCoordinator: RequiresAppDependencies {
 			delegate: self
 		)
 
-		coordinator.start(with: result)
+//		coordinator.start(with: result)
 	}
 
 	func showStatisticsInfo() {
@@ -320,7 +320,7 @@ class HomeCoordinator: RequiresAppDependencies {
 }
 
 extension HomeCoordinator: ExposureSubmissionCoordinatorDelegate {
-	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinating) {
+	func exposureSubmissionCoordinatorWillDisappear(_ coordinator: ExposureSubmissionCoordinator) {
 		homeController?.reload()
 		homeState?.updateTestResult()
 	}

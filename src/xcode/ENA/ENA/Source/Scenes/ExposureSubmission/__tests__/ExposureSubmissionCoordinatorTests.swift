@@ -37,13 +37,14 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
+			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			store: self.store,
 			delegate: delegate
 		)
 	}
 
-	private func getNavigationController(from coordinator: ExposureSubmissionCoordinating) -> UINavigationController? {
-		guard let navigationController = (coordinator as? ExposureSubmissionCoordinator)?.navigationController else {
+	private func getNavigationController(from coordinator: ExposureSubmissionCoordinator) -> UINavigationController? {
+		guard let navigationController = coordinator.navigationController else {
 			XCTFail("Could not load navigation controller from coordinator.")
 			return nil
 		}
@@ -96,7 +97,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			delegate: delegate
 		)
 
-		coordinator.start(with: result)
+		coordinator.start(with: CoronaTest.pcr(PCRTest.mock(testResult: result)))
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -116,7 +117,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			delegate: delegate
 		)
 
-		coordinator.start(with: result)
+		coordinator.start(with: CoronaTest.pcr(PCRTest.mock(testResult: result)))
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
@@ -158,13 +159,12 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			delegate: delegate
 		)
 
-		let unknown = coordinator.getInitialViewController(with: .positive)
+		let unknown = coordinator.getInitialViewController(with: CoronaTest.pcr(PCRTest.mock(testResult: .positive)))
 		XCTAssertTrue(unknown is TopBottomContainerViewController<TestResultAvailableViewController, FooterViewController>)
 
-		// [CAR] work in progress!
-		store.positiveTestResultWasShown = true
+		let coronaTest = CoronaTest.pcr(PCRTest.mock(testResult: .positive, positiveTestResultWasShown: true))
 
-		let positive = coordinator.getInitialViewController(with: .positive)
+		let positive = coordinator.getInitialViewController(with: coronaTest)
 		XCTAssertTrue(positive is TopBottomContainerViewController<ExposureSubmissionWarnOthersViewController, FooterViewController>)
 	}
 }

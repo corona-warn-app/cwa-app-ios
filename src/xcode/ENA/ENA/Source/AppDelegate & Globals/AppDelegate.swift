@@ -159,7 +159,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
-	lazy var coronaTestService: CoronaTestService = CoronaTestService(client: client, store: store)
+	lazy var coronaTestService: CoronaTestService = {
+		#if DEBUG
+		if isUITesting {
+			var testResult: TestResult?
+			if let testResultStringValue = UserDefaults.standard.string(forKey: "testResult") {
+				testResult = TestResult(stringValue: testResultStringValue)
+			}
+
+			let showTestResultAvailableViewController = UserDefaults.standard.string(forKey: "showTestResultAvailableViewController") == "YES"
+
+			let store = MockTestStore()
+
+			store.pcrTest = PCRTest(
+				registrationToken: nil,
+				testRegistrationDate: Date(),
+				testResult: testResult,
+				testResultReceivedDate: Date(),
+				positiveTestResultWasShown: !showTestResultAvailableViewController,
+				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
+				submissionTAN: nil,
+				keysSubmitted: false,
+				journalEntryCreated: false
+			)
+
+			return CoronaTestService(
+				client: ClientMock(),
+				store: store
+			)
+		}
+		#endif
+
+		return CoronaTestService(client: client, store: store)
+	}()
 
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
 		eventStore: eventStore,

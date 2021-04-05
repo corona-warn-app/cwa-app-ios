@@ -28,6 +28,7 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
+	let coronaTestService: CoronaTestService
 
 	var shouldShowSymptomsOnsetScreen = false
 
@@ -96,9 +97,9 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
-	func getTestResults(
+	func registerPCRTestAndGetResult(
 		for guid: String,
-		submissionConsentGiven: Bool,
+		isSubmissionConsentGiven: Bool,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
 		onError: @escaping (CoronaTestServiceError) -> Void
@@ -107,7 +108,7 @@ class ExposureSubmissionCoordinatorModel {
 		// QR code test fetch
 		coronaTestService.registerPCRTestAndGetResult(
 			guid: guid,
-			submissionConsentGiven: submissionConsentGiven,
+			isSubmissionConsentGiven: isSubmissionConsentGiven,
 			completion: { result in
 				isLoading(false)
 
@@ -120,9 +121,5 @@ class ExposureSubmissionCoordinatorModel {
 			}
 		)
 	}
-
-	// MARK: - Private
-
-	private let coronaTestService: CoronaTestService
 
 }

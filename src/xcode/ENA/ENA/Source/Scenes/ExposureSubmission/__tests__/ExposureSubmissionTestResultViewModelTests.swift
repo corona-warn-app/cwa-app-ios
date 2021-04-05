@@ -15,24 +15,6 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		store = MockTestStore()
 	}
 	
-	func testTimeStamp() {
-		let exposureSubmissionService = MockExposureSubmissionService()
-		exposureSubmissionService.devicePairingSuccessfulTimestamp = 37
-		
-		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .positive,
-			exposureSubmissionService: exposureSubmissionService,
-			warnOthersReminder: WarnOthersReminder(store: self.store),
-			onSubmissionConsentCellTap: { _ in },
-			onContinueWithSymptomsFlowButtonTap: { },
-			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
-			onTestDeleted: { }
-		)
-		
-		XCTAssertEqual(model.timeStamp, exposureSubmissionService.devicePairingSuccessfulTimestamp)
-	}
-	
 	func testDidTapPrimaryButtonOnPositiveTestResult() {
 		let getTestResultExpectation = expectation(description: "getTestResult on exposure submission service is called")
 		getTestResultExpectation.isInverted = true
@@ -45,16 +27,18 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			description: "onContinueWithSymptomsFlowButtonTap closure is called"
 		)
 
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .positive,
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -81,16 +65,18 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			)
 			onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 
+			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 			let model = ExposureSubmissionTestResultViewModel(
-				testResult: testResult,
-				exposureSubmissionService: exposureSubmissionService,
+				coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: testResult)),
+				coronaTestService: coronaTestService,
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: {
 					onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 				},
 				onContinueWarnOthersButtonTap: { _ in },
-				onChangeToPositiveTestResult: { },
+				onChangeToPositiveTestResult: { _ in },
 				onTestDeleted: { }
 			)
 			
@@ -115,16 +101,18 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		)
 		onContinueWithSymptomsFlowButtonTapExpectation.isInverted = true
 
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: {
 				onContinueWithSymptomsFlowButtonTapExpectation.fulfill()
 			},
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -146,14 +134,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			getTestResultExpectation.fulfill()
 		}
 
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -198,14 +188,21 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 			getTestResultExpectation.fulfill()
 		}
 
+		let client = ClientMock()
+		client.onGetTestResult = { _, _, completion in
+			completion(.failure(.invalidResponse))
+		}
+
+		let coronaTestService = CoronaTestService(client: client, store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -213,7 +210,7 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		waitForExpectations(timeout: .short)
 		
-		XCTAssertEqual(model.error, .internal)
+		XCTAssertEqual(model.error, .responseFailure(.invalidResponse))
 	}
 	
 	func testDidTapPrimaryButtonOnPendingTestResultUpdatesButtonsLoadingState() {
@@ -221,14 +218,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		let exposureSubmissionService = MockExposureSubmissionService()
 
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -272,14 +271,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 		
 	func testDidTapSecondaryButtonOnPendingTestResult() {
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -295,14 +296,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	func testDidTapSecondaryButtonOnNegativeInvalidOrExpiredTestResult() {
 		let testResults: [TestResult] = [.negative, .invalid, .expired]
 		for testResult in testResults {
+			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 			let model = ExposureSubmissionTestResultViewModel(
-				testResult: testResult,
-				exposureSubmissionService: MockExposureSubmissionService(),
+				coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: testResult)),
+				coronaTestService: coronaTestService,
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
-				onChangeToPositiveTestResult: { },
+				onChangeToPositiveTestResult: { _ in },
 				onTestDeleted: { }
 			)
 			
@@ -326,14 +329,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 		
 		let onTestDeletedCalledExpectation = expectation(description: "onTestDeleted closure is called")
 
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .expired,
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .expired)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: {
 				onTestDeletedCalledExpectation.fulfill()
 			}
@@ -347,15 +352,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	func testNavigationFooterItemForPendingTestResult() {
 		
 		do {
-			
+			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 			let model = ExposureSubmissionTestResultViewModel(
-				testResult: .pending,
-				exposureSubmissionService: MockExposureSubmissionService(),
+				coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+				coronaTestService: coronaTestService,
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
-				onChangeToPositiveTestResult: { },
+				onChangeToPositiveTestResult: { _ in },
 				onTestDeleted: { }
 			)
 			
@@ -378,15 +384,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	func testNavigationFooterItemForPositiveTestResult() {
 		
 		do {
-			
+			let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 			let model = ExposureSubmissionTestResultViewModel(
-				testResult: .positive,
-				exposureSubmissionService: MockExposureSubmissionService(),
+				coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)),
+				coronaTestService: coronaTestService,
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
-				onChangeToPositiveTestResult: { },
+				onChangeToPositiveTestResult: { _ in },
 				onTestDeleted: { }
 			)
 			
@@ -412,14 +419,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 
 			let testResults: [TestResult] = [.negative, .invalid, .expired]
 			for testResult in testResults {
+				let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 				let model = ExposureSubmissionTestResultViewModel(
-					testResult: testResult,
-					exposureSubmissionService: MockExposureSubmissionService(),
+					coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: testResult)),
+					coronaTestService: coronaTestService,
 					warnOthersReminder: WarnOthersReminder(store: self.store),
 					onSubmissionConsentCellTap: { _ in },
 					onContinueWithSymptomsFlowButtonTap: { },
 					onContinueWarnOthersButtonTap: { _ in },
-					onChangeToPositiveTestResult: { },
+					onChangeToPositiveTestResult: { _ in },
 					onTestDeleted: { }
 				)
 				
@@ -442,14 +451,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForPositiveTestResult() {
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .positive,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -478,14 +489,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForNegativeTestResult() {
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .negative,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .negative)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -534,14 +547,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForInvalidTestResult() {
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .invalid,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .invalid)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -570,14 +585,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForPendingTestResult() {
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .pending,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .pending)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		
@@ -610,14 +627,16 @@ class ExposureSubmissionTestResultViewModelTests: XCTestCase {
 	}
 	
 	func testDynamicTableViewModelForExpiredTestResult() {
+		let coronaTestService = CoronaTestService(client: ClientMock(), store: MockTestStore())
+
 		let model = ExposureSubmissionTestResultViewModel(
-			testResult: .expired,
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .expired)),
+			coronaTestService: coronaTestService,
 			warnOthersReminder: WarnOthersReminder(store: self.store),
 			onSubmissionConsentCellTap: { _ in },
 			onContinueWithSymptomsFlowButtonTap: { },
 			onContinueWarnOthersButtonTap: { _ in },
-			onChangeToPositiveTestResult: { },
+			onChangeToPositiveTestResult: { _ in },
 			onTestDeleted: { }
 		)
 		

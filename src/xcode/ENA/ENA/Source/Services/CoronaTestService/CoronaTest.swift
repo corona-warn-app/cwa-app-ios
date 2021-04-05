@@ -27,6 +27,14 @@ enum CoronaTest {
 		}
 	}
 
+	var testDate: Date {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.testRegistrationDate
+		case .antigen(let antigenTest):
+			return antigenTest.pointOfCareConsentDate
+		}
+	}
 
 	var testResultReceivedDate: Date? {
 		switch self {
@@ -37,12 +45,21 @@ enum CoronaTest {
 		}
 	}
 
-	var submissionConsentGiven: Bool {
+	var positiveTestResultWasShown: Bool {
 		switch self {
 		case .pcr(let pcrTest):
-			return pcrTest.submissionConsentGiven
+			return pcrTest.positiveTestResultWasShown
 		case .antigen(let antigenTest):
-			return antigenTest.submissionConsentGiven
+			return antigenTest.positiveTestResultWasShown
+		}
+	}
+
+	var isSubmissionConsentGiven: Bool {
+		switch self {
+		case .pcr(let pcrTest):
+			return pcrTest.isSubmissionConsentGiven
+		case .antigen(let antigenTest):
+			return antigenTest.isSubmissionConsentGiven
 		}
 	}
 
@@ -78,11 +95,12 @@ enum CoronaTest {
 struct PCRTest: Codable, Equatable {
 
 	var registrationToken: String?
-	var testRegistrationDate: Date?
+	var testRegistrationDate: Date
 
 	var testResult: TestResult?
 	var testResultReceivedDate: Date?
-	var submissionConsentGiven: Bool
+	var positiveTestResultWasShown: Bool
+	var isSubmissionConsentGiven: Bool
 
 	// Can only be used once to submit, cached here in case submission fails
 	var submissionTAN: String?
@@ -98,11 +116,12 @@ struct AntigenTest: Codable, Equatable {
 	var testedPerson: TestedPerson
 
 	// The date of when the consent was provided by the tested person at the Point of Care.
-	var pointOfCareConsentTimestamp: Date
+	var pointOfCareConsentDate: Date
 
 	var testResult: TestResult?
 	var testResultReceivedDate: Date?
-	var submissionConsentGiven: Bool
+	var positiveTestResultWasShown: Bool
+	var isSubmissionConsentGiven: Bool
 
 	// Can only be used once to submit, cached here in case submission fails
 	var submissionTAN: String?

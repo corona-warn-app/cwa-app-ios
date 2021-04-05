@@ -2,8 +2,9 @@
 // 🦠 Corona-Warn-App
 //
 
-@testable import ENA
 import ExposureNotification
+
+#if DEBUG
 
 final class ClientMock {
 	
@@ -215,3 +216,5 @@ extension ClientMock: Client {
 		onTraceWarningDownload(country, packageId, completion)
 	}
 }
+
+#endif

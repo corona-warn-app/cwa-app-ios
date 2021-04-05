@@ -69,7 +69,7 @@ extension URLSession {
 			}
 
 			if let error = error {
-				completion(.failure(.httpError(error, response)))
+				completion(.failure(.httpError(error.localizedDescription, response)))
 				return
 			}
 
@@ -112,9 +112,9 @@ extension URLSession {
 typealias URLSessionError = URLSession.Response.Failure
 
 extension URLSession.Response {
-	enum Failure: Error {
+	enum Failure: Error, Equatable {
 		/// The session received an `Error`.
-		case httpError(Error, HTTPURLResponse)
+		case httpError(String, HTTPURLResponse)
 		case teleTanAlreadyUsed
 		case qrAlreadyUsed
 		case qrDoesNotExist

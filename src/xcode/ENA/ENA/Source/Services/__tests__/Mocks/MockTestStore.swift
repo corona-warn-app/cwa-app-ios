@@ -3,9 +3,10 @@
 //
 
 import Foundation
-@testable import ENA
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData, EventRegistrationCaching {
+#if DEBUG
+
+final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData, EventRegistrationCaching, CoronaTestStoring {
 
 	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
 	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
@@ -113,3 +114,5 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var antigenTest: AntigenTest?
 
 }
+
+#endif

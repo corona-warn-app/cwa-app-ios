@@ -15,16 +15,16 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 		store = MockTestStore()
 	}
 
-	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
+	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
 		ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				testResult: testResult,
-				exposureSubmissionService: MockExposureSubmissionService(),
+				coronaTest: coronaTest,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
-				onChangeToPositiveTestResult: { },
+				onChangeToPositiveTestResult: { _ in },
 				onTestDeleted: { }
 			),
 			exposureSubmissionService: MockExposureSubmissionService(),
@@ -33,7 +33,7 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	}
 
 	func testPositiveState() {
-		let vc = createVC(testResult: .positive)
+		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)))
 		_ = vc.view
 		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
 
