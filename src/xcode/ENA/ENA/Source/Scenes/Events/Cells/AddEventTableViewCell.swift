@@ -24,6 +24,15 @@ class AddEventTableViewCell: UITableViewCell {
 		cellModel = nil
 	}
 
+	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+		super.setHighlighted(highlighted, animated: animated)
+		if highlighted {
+			containerView.backgroundColor = .enaColor(for: .listHighlight)
+		} else {
+			containerView.backgroundColor = .enaColor(for: .cellBackground)
+		}
+	}
+
 	// MARK: - Internal
 
 	func configure(cellModel: AddEventCellModel) {
