@@ -441,15 +441,18 @@ class HomeTableViewController: UITableViewController, NavigationBarOpacityDelega
 		}
 
 		var cellModel: HomeThankYouCellModel
-		if !isUITesting {
-			cellModel = HomeThankYouCellModel(
-				testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
-			)
-		} else {
+		cellModel = HomeThankYouCellModel(
+			testResultTimestamp: viewModel.store.devicePairingSuccessfulTimestamp
+		)
+
+		#if DEBUG
+		if isUITesting {
 			cellModel = HomeThankYouCellModel(
 				testResultTimestamp: 1604793600 // 08.11.2020, 18574 days since 01.01.1970
 			)
 		}
+		#endif
+
 		cell.configure(
 			with: cellModel,
 			onPrimaryAction: { [weak self] in

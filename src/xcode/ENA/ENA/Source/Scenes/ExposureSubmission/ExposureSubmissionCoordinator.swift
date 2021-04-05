@@ -44,8 +44,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// - NOTE: The delegate is called by the `viewWillDisappear(_:)` method of the `navigationController`.
 	weak var delegate: ExposureSubmissionCoordinatorDelegate?
 
-	func start(with coronaTest: CoronaTest? = nil) {
-		let initialVC = getInitialViewController(with: coronaTest)
+	func start(with coronaTestType: CoronaTestType? = nil) {
+		model.coronaTestType = coronaTestType
+
+		let initialVC = getInitialViewController()
 		guard let parentNavigationController = parentNavigationController else {
 			Log.error("Parent navigation controller not set.", log: .ui)
 			return
@@ -71,12 +73,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		})
 	}
 
-	func showTestResultScreen(with coronaTest: CoronaTest) {
-		let vc = createTestResultViewController(with: coronaTest)
+	func showTestResultScreen() {
+		let vc = createTestResultViewController()
 		push(vc)
 
 		// If a TAN was entered, we skip `showTestResultAvailableScreen(with:)`, so we notify (again) about the new state
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": coronaTest.testResult?.rawValue as Any]))
+		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
 	}
 
 	func showTanScreen() {
@@ -85,10 +87,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			presentInvalidTanAlert: { [weak self] localizedDescription, completion  in
 				self?.presentTanInvalidAlert(localizedDescription: localizedDescription, completion: completion)
 			},
-			tanSuccessfullyTransferred: { [weak self] coronaTest in
+			tanSuccessfullyTransferred: { [weak self] in
 				Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(true)))
+
+				self?.model.coronaTestType = .pcr
+
 				// A TAN always indicates a positive test result.
-				self?.showTestResultScreen(with: coronaTest)
+				self?.showTestResultScreen()
 			}
 		)
 
@@ -104,18 +109,18 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	/// Option 2: if a test result was passed, the method checks further preconditions (e.g. the exposure submission service has a registration token)
 	/// and returns an ExposureSubmissionTestResultViewController.
 	/// Option 3: (default) return the ExposureSubmissionIntroViewController.
-	func getInitialViewController(with coronaTest: CoronaTest? = nil) -> UIViewController {
+	func getInitialViewController() -> UIViewController {
 		// We got a test result and can jump straight into the test result view controller.
-		if let coronaTest = coronaTest, let testResult = coronaTest.testResult {
+		if let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest {
 			// For a positive test result we show the test result available screen if it wasn't shown before
-			if testResult == .positive {
+			if coronaTest.testResult == .positive {
 				if !coronaTest.positiveTestResultWasShown {
-					return createTestResultAvailableViewController(coronaTest: coronaTest)
+					return createTestResultAvailableViewController()
 				} else {
 					return createWarnOthersViewController()
 				}
 			} else {
-				return createTestResultViewController(with: coronaTest)
+				return createTestResultViewController()
 			}
 		}
 
@@ -160,8 +165,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 
 	// MARK: Initial Screens
 
-	private func createTestResultAvailableViewController(coronaTest: CoronaTest) -> UIViewController {
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": coronaTest.testResult?.rawValue as Any]))
+	private func createTestResultAvailableViewController() -> UIViewController {
+		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
 		
 		let viewModel = TestResultAvailableViewModel(
 			exposureSubmissionService: model.exposureSubmissionService,
@@ -177,10 +182,10 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 			},
 			onPrimaryButtonTap: { [weak self] isLoading in
-				guard let self = self else { return }
+				guard let self = self, let coronaTest = self.model.coronaTest else { return }
 
 				guard coronaTest.isSubmissionConsentGiven else {
-					self.showTestResultScreen(with: coronaTest)
+					self.showTestResultScreen()
 					return
 				}
 
@@ -189,15 +194,15 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					isLoading(false)
 
 					guard let error = error else {
-						self.showTestResultScreen(with: coronaTest)
+						self.showTestResultScreen()
 						return
 					}
 
 					// User selected "Don't Share" / "Nicht teilen"
 					if error == .notAuthorized {
 						Log.info("OS submission authorization was declined.")
-						self.model.exposureSubmissionService.isSubmissionConsentGiven = false
-						self.showTestResultScreen(with: coronaTest)
+						self.model.setSubmissionConsentGiven(false)
+						self.showTestResultScreen()
 					} else {
 						self.showErrorAlert(for: error)
 					}
@@ -222,18 +227,22 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		return topBottomContainerViewController
 	}
 
-	private func createTestResultViewController(with coronaTest: CoronaTest) -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
+	private func createTestResultViewController() -> TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> {
+		guard let coronaTestType = model.coronaTestType, let coronaTest = model.coronaTest else {
+			fatalError("Could not find corona test to create test result view controller for.")
+		}
+
 		// store is only initialized when a positive test result is received
 		if coronaTest.testResult == .positive {
-			updateStoreWithKeySubmissionMetadataDefaultValues()
-			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": coronaTest.testResult?.rawValue as Any]))
+			updateStoreWithKeySubmissionMetadataDefaultValues(for: coronaTest)
+			NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
 		}
 		Analytics.collect(.keySubmissionMetadata(.lastSubmissionFlowScreen(.submissionFlowScreenTestResult)))
 
-		let testResultAvailability: TestResultAvailability = coronaTest.testResult == .positive ? .availableAndPositive : .notAvailable
+		let testResultAvailability: TestResultAvailability = model.coronaTest?.testResult == .positive ? .availableAndPositive : .notAvailable
 		
 		let viewModel = ExposureSubmissionTestResultViewModel(
-			coronaTest: coronaTest,
+			coronaTestType: coronaTestType,
 			coronaTestService: model.coronaTestService,
 			warnOthersReminder: warnOthersReminder,
 			onSubmissionConsentCellTap: { [weak self] isLoading in
@@ -261,7 +270,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				)
 			},
 			onChangeToPositiveTestResult: { [weak self] coronaTest in
-				self?.showTestResultAvailableScreen(with: coronaTest)
+				self?.showTestResultAvailableScreen()
 			},
 			onTestDeleted: { [weak self] in
 				self?.dismiss()
@@ -301,14 +310,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				self?.showTestResultAvailableCloseAlert()
 			},
 			onPrimaryButtonTap: { [weak self] isLoading in
-				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
+				self?.model.setSubmissionConsentGiven(true)
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 					guard let error = error else {
 						self?.showThankYouScreen()
 						return
 					}
-					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					self?.model.setSubmissionConsentGiven(false)
 					if error == .notAuthorized {
 						Log.info("Submission consent reset to false after OS authorization was not given.")
 					} else {
@@ -365,12 +374,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showQRInfoScreen(supportedCountries: [Country]) {
-		
 		let vc = ExposureSubmissionQRInfoViewController(
 			supportedCountries: supportedCountries,
 			onPrimaryButtonTap: { [weak self] isLoading in
-				self?.model.exposureSubmissionService.acceptPairing()
-				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
 				if #available(iOS 14.4, *) {
 					self?.exposureManager.preAuthorizeKeys(completion: { error in
 						DispatchQueue.main.async { [weak self] in
@@ -452,7 +458,6 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 				}
 			},
 			onCancel: { [weak self] in
-				self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
 				self?.presentedViewController?.dismiss(animated: true)
 			}
 		)
@@ -464,12 +469,12 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		presentedViewController = qrScannerNavigationController
 	}
 
-	private func showTestResultAvailableScreen(with coronaTest: CoronaTest) {
-		let vc = createTestResultAvailableViewController(coronaTest: coronaTest)
+	private func showTestResultAvailableScreen() {
+		let vc = createTestResultAvailableViewController()
 		push(vc)
 
 		// used for updating (hiding) app shortcuts
-		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": coronaTest.testResult?.rawValue as Any]))
+		NotificationCenter.default.post(Notification(name: .didStartExposureSubmissionFlow, object: nil, userInfo: ["result": model.coronaTest?.testResult.rawValue as Any]))
 	}
 
 	private func showTestResultSubmissionConsentScreen(supportedCountries: [Country], testResultAvailability: TestResultAvailability) {
@@ -499,7 +504,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		let vc = ExposureSubmissionWarnOthersViewController(
 			viewModel: viewModel,
 			onPrimaryButtonTap: { [weak self] isLoading in
-				self?.model.exposureSubmissionService.isSubmissionConsentGiven = true
+				self?.model.setSubmissionConsentGiven(true)
 				self?.model.exposureSubmissionService.getTemporaryExposureKeys { error in
 					isLoading(false)
 
@@ -508,7 +513,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 						return
 					}
 
-					self?.model.exposureSubmissionService.isSubmissionConsentGiven = false
+					self?.model.setSubmissionConsentGiven(false)
 
 					// User selected "Don't Share" / "Nicht teilen"
 					if error == .notAuthorized {
@@ -672,7 +677,9 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 	}
 
 	private func showPositiveTestResultCancelAlert(isLoading: @escaping (Bool) -> Void) {
-		let isSubmissionConsentGiven = self.model.exposureSubmissionService.isSubmissionConsentGiven
+		guard let coronaTest = model.coronaTest else { return }
+
+		let isSubmissionConsentGiven = coronaTest.isSubmissionConsentGiven
 
 		let alertTitle = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.title : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertTitle
 		let alertMessage = isSubmissionConsentGiven ? AppStrings.ExposureSubmissionSymptomsCancelAlert.message : AppStrings.ExposureSubmissionPositiveTestResult.noConsentAlertDescription
@@ -688,7 +695,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			message: alertMessage,
 			preferredStyle: .alert)
 
-		let statyOnScreenAction = UIAlertAction(
+		let stayOnScreenAction = UIAlertAction(
 			title: cancelAlertButtonTitle,
 			style: .default,
 			handler: { [weak self] _ in
@@ -701,8 +708,8 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 			}
 		)
 		// DEFAULT action, although this is labelled as 'cancelAlertButtonTitle'!
-		statyOnScreenAction.accessibilityIdentifier = AccessibilityIdentifiers.General.defaultButton
-		alert.addAction(statyOnScreenAction)
+		stayOnScreenAction.accessibilityIdentifier = AccessibilityIdentifiers.General.defaultButton
+		alert.addAction(stayOnScreenAction)
 
 		let leaveScreenAction = UIAlertAction(
 			title: continueAlertButtonTitle,
@@ -715,7 +722,7 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true, completion: {
 			#if DEBUG
 			// see: https://stackoverflow.com/a/40688141/194585
-			let stayButton = statyOnScreenAction.value(forKey: "__representer")
+			let stayButton = stayOnScreenAction.value(forKey: "__representer")
 			let leaveButton = leaveScreenAction.value(forKey: "__representer")
 
 			let stayView = stayButton as? UIView
@@ -811,14 +818,14 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 		navigationController?.present(alert, animated: true)
 	}
 
-	private func updateStoreWithKeySubmissionMetadataDefaultValues() {
+	private func updateStoreWithKeySubmissionMetadataDefaultValues(for coronaTest: CoronaTest) {
 		let keySubmissionMetadata = KeySubmissionMetadata(
 			submitted: false,
 			submittedInBackground: false,
 			submittedAfterCancel: false,
 			submittedAfterSymptomFlow: false,
 			lastSubmissionFlowScreen: .submissionFlowScreenUnknown,
-			advancedConsentGiven: self.store.isSubmissionConsentGiven,
+			advancedConsentGiven: coronaTest.isSubmissionConsentGiven,
 			hoursSinceTestResult: 0,
 			hoursSinceTestRegistration: 0,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: -1,
@@ -844,11 +851,13 @@ class ExposureSubmissionCoordinator: NSObject, RequiresAppDependencies {
 					fatalError("Received success call but corona test is not registered")
 				}
 
+				self?.model.coronaTestType = .pcr
+
 				switch testResult {
 				case .positive:
-					self?.showTestResultAvailableScreen(with: .pcr(pcrTest))
+					self?.showTestResultAvailableScreen()
 				case .pending, .negative, .invalid, .expired:
-					self?.showTestResultScreen(with: .pcr(pcrTest))
+					self?.showTestResultScreen()
 				}
 			},
 			onError: { [weak self] error in

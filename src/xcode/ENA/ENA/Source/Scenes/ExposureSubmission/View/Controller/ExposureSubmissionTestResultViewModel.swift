@@ -10,18 +10,16 @@ class ExposureSubmissionTestResultViewModel {
 	// MARK: - Init
 	
 	init(
-		coronaTest: CoronaTest,
+		coronaTestType: CoronaTestType,
 		coronaTestService: CoronaTestService,
 		warnOthersReminder: WarnOthersRemindable,
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onChangeToPositiveTestResult: @escaping (CoronaTest) -> Void,
+		onChangeToPositiveTestResult: @escaping (CoronaTestType) -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
-		self.coronaTest = coronaTest
-		// Starting point: make this view model and controller configurable with a CoronaTest instead of the result. Use the CoronaTestService to update and get updates from the publisher!
-		self.testResult = coronaTest.testResult ?? .pending
+		self.coronaTestType = coronaTestType
 		self.coronaTestService = coronaTestService
 		self.warnOthersReminder = warnOthersReminder
 		self.onSubmissionConsentCellTap = onSubmissionConsentCellTap
@@ -30,7 +28,12 @@ class ExposureSubmissionTestResultViewModel {
 		self.onChangeToPositiveTestResult = onChangeToPositiveTestResult
 		self.onTestDeleted = onTestDeleted
 
-		updateForCurrentTestResult()
+		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
+			return
+		}
+
+		self.testResult = coronaTest.testResult
+		updateForCurrentTestResult(coronaTest: coronaTest)
 		bindToSubmissionConsent()
 	}
 	
@@ -42,14 +45,14 @@ class ExposureSubmissionTestResultViewModel {
 	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
 	@OpenCombine.Published var footerViewModel: FooterViewModel?
 
-	var testResult: TestResult {
+	var testResult: TestResult = .pending {
 		didSet {
-			updateForCurrentTestResult()
+//			updateForCurrentTestResult()
 		}
 	}
 	
 	var timeStamp: Int64? {
-		Int64(coronaTest.testDate.timeIntervalSince1970)
+		coronaTestService.coronaTest(ofType: coronaTestType).map { Int64($0.testDate.timeIntervalSince1970) }
 	}
 	
 	func didTapPrimaryButton() {
@@ -91,7 +94,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func deleteTest() {
-//		exposureSubmissionService.deleteTest()
+		coronaTestService.removeTest(coronaTestType)
 		onTestDeleted()
 		
 		// Update warn others model
@@ -107,13 +110,13 @@ class ExposureSubmissionTestResultViewModel {
 	private var coronaTestService: CoronaTestService
 	private var warnOthersReminder: WarnOthersRemindable
 
-	private let coronaTest: CoronaTest
+	private let coronaTestType: CoronaTestType
 
 	private let onSubmissionConsentCellTap: (@escaping (Bool) -> Void) -> Void
 	private let onContinueWithSymptomsFlowButtonTap: () -> Void
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 
-	private let onChangeToPositiveTestResult: (CoronaTest) -> Void
+	private let onChangeToPositiveTestResult: (CoronaTestType) -> Void
 	private let onTestDeleted: () -> Void
 
 	private var isSubmissionConsentGiven: Bool = false
@@ -128,13 +131,13 @@ class ExposureSubmissionTestResultViewModel {
 		}
 	}
 
-	private func updateForCurrentTestResult() {
+	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
 		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
 		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
 	
 	private func refreshTest(completion: @escaping () -> Void) {
-		coronaTestService.updateTestResult(for: coronaTest) { [weak self] result in
+		coronaTestService.updateTestResult(for: coronaTestType) { [weak self] result in
 			guard let self = self else { return }
 
 			switch result {
@@ -142,7 +145,7 @@ class ExposureSubmissionTestResultViewModel {
 				self.error = error
 			// Positive test results are not shown immediately
 			case let .success(testResult) where testResult == .positive:
-				self.onChangeToPositiveTestResult(self.coronaTest)
+				self.onChangeToPositiveTestResult(self.coronaTestType)
 			case let .success(testResult):
 				self.testResult = testResult
 				self.updateWarnOthers()
@@ -458,7 +461,7 @@ extension ExposureSubmissionTestResultViewModel {
 				isSecondaryButtonEnabled: false,
 				isSecondaryButtonHidden: true
 			)
-		case .pending, .none:
+		case .pending:
 			return FooterViewModel(
 				primaryButtonName: AppStrings.ExposureSubmissionResult.refreshButton,
 				secondaryButtonName: AppStrings.ExposureSubmissionResult.deleteButton,

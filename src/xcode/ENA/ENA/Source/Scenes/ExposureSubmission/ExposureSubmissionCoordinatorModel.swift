@@ -30,6 +30,19 @@ class ExposureSubmissionCoordinatorModel {
 	let exposureSubmissionService: ExposureSubmissionService
 	let coronaTestService: CoronaTestService
 
+	var coronaTestType: CoronaTestType?
+
+	var coronaTest: CoronaTest? {
+		switch coronaTestType {
+		case .pcr:
+			return coronaTestService.pcrTestPublisher.value.map { .pcr($0) }
+		case .antigen:
+			return coronaTestService.antigenTestPublisher.value.map { .antigen($0) }
+		case .none:
+			return nil
+		}
+	}
+
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
@@ -120,6 +133,10 @@ class ExposureSubmissionCoordinatorModel {
 				}
 			}
 		)
+	}
+
+	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
+		// TODO
 	}
 
 }

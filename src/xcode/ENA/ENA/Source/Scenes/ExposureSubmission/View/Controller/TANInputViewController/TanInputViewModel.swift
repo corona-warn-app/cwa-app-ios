@@ -12,7 +12,7 @@ final class TanInputViewModel {
 	init(
 		coronaTestService: CoronaTestService,
 		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
-		tanSuccessfullyTransferred: @escaping (CoronaTest) -> Void,
+		tanSuccessfullyTransferred: @escaping () -> Void,
 		givenTan: String? = nil
 	) {
 		self.coronaTestService = coronaTestService
@@ -74,8 +74,8 @@ final class TanInputViewModel {
 				self?.presentInvalidTanAlert(error.localizedDescription) {
 					self?.didDissMissInvalidTanAlert?()
 				}
-			case let .success(coronaTest):
-				self?.tanSuccessfullyTransferred(coronaTest)
+			case .success:
+				self?.tanSuccessfullyTransferred()
 			}
 		}
 	}
@@ -102,7 +102,7 @@ final class TanInputViewModel {
 
 	private let coronaTestService: CoronaTestService
 	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
-	private let tanSuccessfullyTransferred: (CoronaTest) -> Void
+	private let tanSuccessfullyTransferred: () -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
 		let hash = ENAHasher.sha256(input)

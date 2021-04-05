@@ -10,6 +10,7 @@ enum CoronaTestServiceError: Error, Equatable {
 	case unknownTestResult
 	case testExpired
 	case noRegistrationToken
+	case noCoronaTestOfRequestedType
 }
 
 class CoronaTestService {
@@ -39,6 +40,15 @@ class CoronaTestService {
 	var pcrTestPublisher = OpenCombine.CurrentValueSubject<PCRTest?, Never>(nil)
 	var antigenTestPublisher = OpenCombine.CurrentValueSubject<AntigenTest?, Never>(nil)
 
+	func coronaTest(ofType type: CoronaTestType) -> CoronaTest? {
+		switch type {
+		case .pcr:
+			return pcrTestPublisher.value.map { .pcr($0) }
+		case .antigen:
+			return antigenTestPublisher.value.map { .antigen($0) }
+		}
+	}
+
 	func registerPCRTestAndGetResult(
 		guid: String,
 		isSubmissionConsentGiven: Bool,
@@ -50,13 +60,13 @@ class CoronaTestService {
 			completion: { result in
 				switch result {
 				case .success(let registrationToken):
-					let pcrTest = self.storePCRTest(withRegistrationToken: registrationToken, isSubmissionConsentGiven: isSubmissionConsentGiven)
+					self.storePCRTest(withRegistrationToken: registrationToken, isSubmissionConsentGiven: isSubmissionConsentGiven)
 
 					// because this block is only called in QR submission
 					Analytics.collect(.testResultMetadata(.registerNewTestMetadata(Date(), registrationToken)))
 					Analytics.collect(.keySubmissionMetadata(.submittedWithTeletan(false)))
 
-					self.getTestResult(for: .pcr(pcrTest), duringRegistration: true) { result in
+					self.getTestResult(for: .pcr, duringRegistration: true) { result in
 						completion(result)
 					}
 				case .failure(let error):
@@ -104,11 +114,11 @@ class CoronaTestService {
 			completion: { [weak self] result in
 				switch result {
 				case .success(let registrationToken):
-					let antigenTest = AntigenTest(
+					self?.store.antigenTest = AntigenTest(
 						registrationToken: registrationToken,
 						testedPerson: TestedPerson(name: name, birthday: birthday),
 						pointOfCareConsentDate: pointOfCareConsentTimestamp,
-						testResult: nil,
+						testResult: .pending,
 						testResultReceivedDate: nil,
 						positiveTestResultWasShown: false,
 						isSubmissionConsentGiven: false,
@@ -116,11 +126,9 @@ class CoronaTestService {
 						keysSubmitted: false,
 						journalEntryCreated: false
 					)
-
-					self?.store.antigenTest = antigenTest
 					self?.updatePublishersFromStore()
 
-					self?.getTestResult(for: .antigen(antigenTest), duringRegistration: true) { result in
+					self?.getTestResult(for: .antigen, duringRegistration: true) { result in
 						completion(result)
 					}
 
@@ -134,15 +142,20 @@ class CoronaTestService {
 		)
 	}
 
-	func updateTestResult(for coronaTest: CoronaTest, completion: @escaping TestResultHandler) {
-		getTestResult(for: coronaTest, duringRegistration: false) { result in
+	func updateTestResult(for coronaTestType: CoronaTestType, completion: @escaping TestResultHandler) {
+		getTestResult(for: coronaTestType, duringRegistration: false) { result in
 			self.fakeRequestService.fakeVerificationAndSubmissionServerRequest {
 				completion(result)
 			}
 		}
 	}
 
-	func getSubmissionTAN(for coronaTest: CoronaTest, completion: @escaping SubmissionTANResultHandler) {
+	func getSubmissionTAN(for coronaTestType: CoronaTestType, completion: @escaping SubmissionTANResultHandler) {
+		guard let coronaTest = coronaTest(ofType: coronaTestType) else {
+			completion(.failure(.noCoronaTestOfRequestedType))
+			return
+		}
+
 		if let submissionTAN = coronaTest.submissionTAN {
 			completion(.success(submissionTAN))
 			return
@@ -194,8 +207,8 @@ class CoronaTestService {
 		}
 	}
 
-	func removeTest(_ coronaTest: CoronaTest) {
-		switch coronaTest {
+	func removeTest(_ coronaTestType: CoronaTestType) {
+		switch coronaTestType {
 		case .pcr:
 			store.pcrTest = nil
 		case .antigen:
@@ -205,14 +218,7 @@ class CoronaTestService {
 		updatePublishersFromStore()
 	}
 
-	// MARK: - Private
-
-	private let client: Client
-	private var store: CoronaTestStoring
-
-	private let fakeRequestService: FakeRequestService
-
-	private func updatePublishersFromStore() {
+	func updatePublishersFromStore() {
 		if pcrTestPublisher.value != store.pcrTest {
 			pcrTestPublisher.value = store.pcrTest
 		}
@@ -221,6 +227,13 @@ class CoronaTestService {
 			antigenTestPublisher.value = store.antigenTest
 		}
 	}
+
+	// MARK: - Private
+
+	private let client: Client
+	private var store: CoronaTestStoring
+
+	private let fakeRequestService: FakeRequestService
 
 	private func getRegistrationToken(
 		forKey key: String,
@@ -245,7 +258,7 @@ class CoronaTestService {
 		let pcrTest = PCRTest(
 			registrationToken: registrationToken,
 			testRegistrationDate: Date(),
-			testResult: nil,
+			testResult: .pending,
 			testResultReceivedDate: nil,
 			positiveTestResultWasShown: false,
 			isSubmissionConsentGiven: isSubmissionConsentGiven,
@@ -263,11 +276,11 @@ class CoronaTestService {
 
 	// swiftlint:disable:next cyclomatic_complexity
 	private func getTestResult(
-		for coronaTest: CoronaTest,
+		for coronaTestType: CoronaTestType,
 		duringRegistration: Bool,
 		_ completion: @escaping TestResultHandler
 	) {
-		guard let registrationToken = coronaTest.registrationToken else {
+		guard let coronaTest = coronaTest(ofType: coronaTestType), let registrationToken = coronaTest.registrationToken else {
 			completion(.failure(.noRegistrationToken))
 			return
 		}
@@ -284,7 +297,7 @@ class CoronaTestService {
 
 				Analytics.collect(.testResultMetadata(.updateTestResult(testResult, registrationToken)))
 
-				switch coronaTest {
+				switch coronaTestType {
 				case .pcr:
 					self.store.pcrTest?.testResult = testResult
 				case .antigen:
@@ -294,7 +307,7 @@ class CoronaTestService {
 				switch testResult {
 				case .positive, .negative, .invalid:
 					if coronaTest.testResultReceivedDate == nil {
-						switch coronaTest {
+						switch coronaTestType {
 						case .pcr:
 							self.store.pcrTest?.testResultReceivedDate = Date()
 						case .antigen:
@@ -302,7 +315,7 @@ class CoronaTestService {
 						}
 					}
 
-					if case .pcr = coronaTest {
+					if coronaTestType == .pcr {
 						Analytics.collect(.keySubmissionMetadata(.setHoursSinceHighRiskWarningAtTestRegistration))
 						Analytics.collect(.keySubmissionMetadata(.setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration))
 					}
@@ -319,7 +332,7 @@ class CoronaTestService {
 						completion(.success(testResult))
 					}
 
-					switch coronaTest {
+					switch coronaTestType {
 					case .pcr:
 						self.store.pcrTest?.registrationToken = nil
 					case .antigen:

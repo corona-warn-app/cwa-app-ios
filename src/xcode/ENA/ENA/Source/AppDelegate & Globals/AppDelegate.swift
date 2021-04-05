@@ -174,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 			store.pcrTest = PCRTest(
 				registrationToken: nil,
 				testRegistrationDate: Date(),
-				testResult: testResult,
+				testResult: testResult ?? .pending,
 				testResultReceivedDate: Date(),
 				positiveTestResultWasShown: !showTestResultAvailableViewController,
 				isSubmissionConsentGiven: UserDefaults.standard.string(forKey: "isSubmissionConsentGiven") == "YES",
@@ -352,10 +352,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	/// Resets all stores and notifies the Onboarding and resets all pending notifications
 	func coordinatorUserDidRequestReset(exposureSubmissionService: ExposureSubmissionService) {
-		exposureSubmissionService.reset()
-
 		// Reset key value store. Preserve some values.
-
 		do {
 			/// Following values are excluded from reset:
 			/// - PPAC API Token
@@ -397,6 +394,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 		// Reset event store
 		eventStore.reset()
+
+		coronaTestService.updatePublishersFromStore()
 	}
 
 	// MARK: - Protocol ExposureStateUpdating

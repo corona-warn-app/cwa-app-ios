@@ -4,6 +4,13 @@
 
 import Foundation
 
+enum CoronaTestType {
+
+	case pcr
+	case antigen
+
+}
+
 enum CoronaTest {
 
 	case pcr(PCRTest)
@@ -18,7 +25,7 @@ enum CoronaTest {
 		}
 	}
 
-	var testResult: TestResult? {
+	var testResult: TestResult {
 		switch self {
 		case .pcr(let pcrTest):
 			return pcrTest.testResult
@@ -97,7 +104,7 @@ struct PCRTest: Codable, Equatable {
 	var registrationToken: String?
 	var testRegistrationDate: Date
 
-	var testResult: TestResult?
+	var testResult: TestResult = .pending
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 	var isSubmissionConsentGiven: Bool
@@ -118,7 +125,7 @@ struct AntigenTest: Codable, Equatable {
 	// The date of when the consent was provided by the tested person at the Point of Care.
 	var pointOfCareConsentDate: Date
 
-	var testResult: TestResult?
+	var testResult: TestResult = .pending
 	var testResultReceivedDate: Date?
 	var positiveTestResultWasShown: Bool
 	var isSubmissionConsentGiven: Bool
