@@ -123,7 +123,7 @@ class CheckinQRCodeScannerViewModelTests: XCTestCase {
 					onErrorExpectation.fulfill()
 				case .codeNotFound:
 					onErrorExpectation.fulfill()
-				case .other:
+				default:
 					XCTFail("unexpected error")
 				}
 			}

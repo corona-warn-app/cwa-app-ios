@@ -11,7 +11,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 
 	init(
 		onSuccess: @escaping(String) -> Void,
-		onError: ((QRScannerError) -> Void)?
+		onError: ((CheckinQRScannerError) -> Void)?
 	) {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
 		self.onSuccess = onSuccess
@@ -40,7 +40,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 			  let url = code.stringValue,
 			  !url.isEmpty
 		else {
-			onError?(QRScannerError.codeNotFound)
+			onError?(CheckinQRScannerError.codeNotFound)
 			return
 		}
 		onSuccess(url)
@@ -67,7 +67,7 @@ class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDel
 	}()
 
 	var onSuccess: (String) -> Void
-	var onError: ((QRScannerError) -> Void)?
+	var onError: ((CheckinQRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
 		guard let device = captureDevice,

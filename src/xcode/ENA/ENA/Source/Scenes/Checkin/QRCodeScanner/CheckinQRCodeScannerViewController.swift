@@ -26,16 +26,14 @@ class CheckinQRCodeScannerViewController: UIViewController {
 			},
 			onError: { error in
 				switch error {
-			 // for the moment we always show the same alert
-			 case .cameraPermissionDenied:
-				 DispatchQueue.main.async {
-					 self.dismiss()
-				 }
-			 case .codeNotFound:
-				self.showErrorAlert()
-			 case .other:
-				self.showErrorAlert()
-			 }
+				// for the moment we always show the same alert
+				case .cameraPermissionDenied:
+					DispatchQueue.main.async {
+						self.dismiss()
+					}
+				default:
+					self.showErrorAlert()
+				}
 		 })
 	}
 
