@@ -27,25 +27,25 @@ class FakeRequestService {
 	/// This method is called randomly sometimes in the foreground and from the background.
 	/// It represents the full-fledged dummy request needed to realize plausible deniability.
 	/// Nothing called in this method is considered a "real" request.
-	func fakeRequest(completionHandler: ((_ error: ExposureSubmissionError?) -> Void)? = nil) {
-		fakeVerificationServerRequest { _ in
-			self.fakeVerificationServerRequest(completion: { _ in
-				self.fakeSubmissionServerRequest(completion: { _ in
-					completionHandler?(.fakeResponse)
-				})
-			})
+	func fakeRequest(completionHandler: (() -> Void)? = nil) {
+		fakeVerificationServerRequest {
+			self.fakeVerificationServerRequest {
+				self.fakeSubmissionServerRequest {
+					completionHandler?()
+				}
+			}
 		}
 	}
 
 	/// This method represents a dummy method that is sent to the verification server.
-	func fakeVerificationServerRequest(completion completeWith: @escaping (Result<String, FakeError>) -> Void) {
+	func fakeVerificationServerRequest(completion: @escaping () -> Void) {
 		client.getTANForExposureSubmit(forDevice: Self.fakeRegistrationToken, isFake: true) { _ in
-			completeWith(.failure(.fakeResponse))
+			completion()
 		}
 	}
 
 	/// This method represents a dummy method that is sent to the submission server.
-	func fakeSubmissionServerRequest(completion: @escaping (_ error: ExposureSubmissionError?) -> Void) {
+	func fakeSubmissionServerRequest(completion: (() -> Void)? = nil) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: [],
 			visitedCountries: [],
@@ -53,15 +53,15 @@ class FakeRequestService {
 		)
 
 		client.submit(payload: payload, isFake: true) { _ in
-			completion(.fakeResponse)
+			completion?()
 		}
 	}
 
 	/// This method is convenience for sending a V + S request pattern.
-	func fakeVerificationAndSubmissionServerRequest(completionHandler: ((_ error: ExposureSubmissionError?) -> Void)? = nil) {
-		fakeVerificationServerRequest { _ in
-			self.fakeSubmissionServerRequest { _ in
-				completionHandler?(.fakeResponse)
+	func fakeVerificationAndSubmissionServerRequest(completion: (() -> Void)? = nil) {
+		fakeVerificationServerRequest {
+			self.fakeSubmissionServerRequest {
+				completion?()
 			}
 		}
 	}
