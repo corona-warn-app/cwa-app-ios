@@ -50,11 +50,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Protocol ExposureSubmissionService
 
+	@available(*, deprecated)
 	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
 		get { store.devicePairingConsentAcceptTimestamp }
 		set { store.devicePairingConsentAcceptTimestamp = newValue }
 	}
 
+	@available(*, deprecated)
 	private(set) var devicePairingSuccessfulTimestamp: Int64? {
 		get { store.devicePairingSuccessfulTimestamp }
 		set { store.devicePairingSuccessfulTimestamp = newValue }
@@ -65,6 +67,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		set { store.submissionSymptomsOnset = newValue }
 	}
 
+	@available(*, deprecated)
 	var hasRegistrationToken: Bool {
 		guard let token = store.registrationToken, !token.isEmpty else {
 			return false
@@ -72,8 +75,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		return true
 	}
 
+	@available(*, deprecated)
 	var isSubmissionConsentGivenPublisher: OpenCombine.Published<Bool>.Publisher { $_isSubmissionConsentGiven }
 
+	@available(*, deprecated)
 	var isSubmissionConsentGiven: Bool {
 		get {
 			return _isSubmissionConsentGiven
@@ -165,6 +170,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// Stores the provided key, retrieves the registration token and deletes the key.
 	/// __Extension for plausible deniability__:
 	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. Please kindly check `getTestResult` for more information.
+	@available(*, deprecated)
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
@@ -186,6 +192,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// We append two fake requests to this request in order to fulfill the V+V+S sequence. (This means, we
 	/// always send three requests, regardless which API call we do. The first two have to go to the verification server,
 	/// and the last one goes to the submission server.)
+	@available(*, deprecated)
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
@@ -200,6 +207,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	@available(*, deprecated)
 	func getTestResult(forKey deviceRegistrationKey: DeviceRegistrationKey, useStoredRegistration: Bool = true, completion: @escaping TestResultHandler) {
 		if useStoredRegistration {
 			getTestResult(completion)
@@ -229,6 +237,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	@available(*, deprecated)
 	func deleteTest() {
 		store.registrationToken = nil
 		store.testResultReceivedTimeStamp = nil
@@ -242,6 +251,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		diagnosisKeysRetrieval.exposureManagerState
 	}
 
+	@available(*, deprecated)
 	func acceptPairing() {
 		devicePairingConsentAccept = true
 		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
@@ -260,6 +270,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	@available(*, deprecated)
 	func reset() {
 		Log.info("ExposureSubmissionServce: isConsentGiven value resetted to 'false'")
 		isSubmissionConsentGiven = false
@@ -267,6 +278,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Internal
 
+	@available(*, deprecated)
 	static let fakeRegistrationToken = "63b4d3ff-e0de-4bd4-90c1-17c2bb683a2f"
 
 	func updateStoreWithKeySubmissionMetadataDefaultValues() {
@@ -287,6 +299,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Private
 
+	@available(*, deprecated)
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
 
 	private var subscriptions: Set<AnyCancellable> = []
@@ -300,6 +313,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	@OpenCombine.Published private var _isSubmissionConsentGiven: Bool
 
+	@available(*, deprecated)
 	private var devicePairingConsentAccept: Bool {
 		get { store.devicePairingConsentAccept }
 		set { store.devicePairingConsentAccept = newValue }
