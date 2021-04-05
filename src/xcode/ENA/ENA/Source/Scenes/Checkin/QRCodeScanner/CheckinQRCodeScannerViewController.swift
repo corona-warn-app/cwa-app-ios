@@ -11,14 +11,32 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	// MARK: - Init
 
 	init(
-		viewModel: CheckinQRCodeScannerViewModel,
 		didScanCheckin: @escaping (String) -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.didScanCheckin = didScanCheckin
-		self.viewModel = viewModel
 		self.dismiss = dismiss
+		
 		super.init(nibName: nil, bundle: nil)
+		
+		self.viewModel = CheckinQRCodeScannerViewModel(
+			onSuccess: { [weak self] qrCodeString in
+				AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+				self?.viewModel?.deactivateScanning()
+				didScanCheckin(qrCodeString)
+			},
+			onError: { error in
+				switch error {
+			 // for the moment we always show the same alert
+			 case .cameraPermissionDenied:
+				 DispatchQueue.main.async {
+					 self.dismiss()
+				 }
+			 case .codeNotFound:
+				self.showErrorAlert()
+			 case .other:
+				self.showErrorAlert()
+			 }
+		 })
 	}
 
 	@available(*, unavailable)
@@ -42,17 +60,16 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		viewModel.deactivateScanning()
+		viewModel?.deactivateScanning()
 	}
 
 	// MARK: - Private
 
 	private let focusView = QRScannerFocusView()
 
-	private let didScanCheckin: (String) -> Void
 	private let dismiss: () -> Void
 
-	private let viewModel: CheckinQRCodeScannerViewModel
+	private var viewModel: CheckinQRCodeScannerViewModel?
 	private var previewLayer: AVCaptureVideoPreviewLayer! { didSet { updatePreviewMask() } }
 
 	private func setupView() {
@@ -126,7 +143,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 	
 	@objc
 	private func didToggleFlash() {
-		viewModel.toggleFlash()
+		viewModel?.toggleFlash()
 		updateToggleFlashAccessibility()
 	}
 	
@@ -137,7 +154,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 
 		flashButton.accessibilityCustomActions?.removeAll()
 
-		switch viewModel.torchMode {
+		switch viewModel?.torchMode {
 		case .notAvailable:
 			flashButton.isEnabled = false
 			flashButton.isSelected = false
@@ -152,50 +169,29 @@ class CheckinQRCodeScannerViewController: UIViewController {
 			flashButton.isSelected = false
 			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
 			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(didToggleFlash))]
+		case .none:
+			break
 		}
 	}
 
 	private func setupViewModel() {
-		guard let captureSession = viewModel.captureSession else {
+		guard let captureSession = viewModel?.captureSession else {
 			Log.debug("Failed to setup captureSession", log: .checkin)
 			// Add dummy layer because the simulator doesn't support the camera
 			previewLayer = AVCaptureVideoPreviewLayer()
 			return
 		}
-		viewModel.startCaptureSession()
+		viewModel?.startCaptureSession()
 
 		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		previewLayer.frame = view.layer.bounds
 		previewLayer.videoGravity = .resizeAspectFill
 		view.layer.insertSublayer(previewLayer, at: 0)
-
-		viewModel.onSuccess = { [weak self] qrCodeString in
-			guard let self = self else {
-				return
-			}
-			AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-			self.viewModel.deactivateScanning()
-			self.didScanCheckin(qrCodeString)
-		}
-
-		viewModel.onError = { [weak self] error in
-			switch error {
-			// for the moment we always show the same alert
-			case .cameraPermissionDenied:
-				DispatchQueue.main.async {
-					self?.dismiss()
-				}
-			case .codeNotFound:
-				self?.showErrorAlert()
-			case .other:
-				self?.showErrorAlert()
-			}
-		}
 	}
 
 	private func showErrorAlert() {
 
-		viewModel.deactivateScanning()
+		viewModel?.deactivateScanning()
 
 		let alert = UIAlertController(
 			title: AppStrings.Checkins.QRScanner.Error.title,
@@ -212,7 +208,7 @@ class CheckinQRCodeScannerViewController: UIViewController {
 			)
 		)
 		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { [weak self] _ in
-			self?.viewModel.activateScanning()
+			self?.viewModel?.activateScanning()
 		}))
 
 		DispatchQueue.main.async { [weak self] in

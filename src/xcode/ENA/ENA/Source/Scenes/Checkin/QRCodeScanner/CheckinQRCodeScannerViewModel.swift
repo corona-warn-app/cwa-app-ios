@@ -5,12 +5,17 @@
 import Foundation
 import AVFoundation
 
-final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
 	// MARK: - Init
 
-	override init() {
+	init(
+		onSuccess: @escaping(String) -> Void,
+		onError: ((QRScannerError) -> Void)?
+	) {
 		self.captureDevice = AVCaptureDevice.default(for: .video)
+		self.onSuccess = onSuccess
+		self.onError = onError
 		super.init()
 	}
 
@@ -21,15 +26,26 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		didOutput metadataObjects: [AVMetadataObject],
 		from _: AVCaptureConnection
 	) {
+		didScan(metadataObjects: metadataObjects)
+	}
+	
+	func didScan(metadataObjects: [MetadataObject]) {
+		guard isScanningActivated else {
+			Log.info("Scanning not stopped from previous run")
+			return
+		}
+
+		deactivateScanning()
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let url = code.stringValue
+			  let url = code.stringValue,
+			  !url.isEmpty
 		else {
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		onSuccess?(url)
+		onSuccess(url)
+
 	}
-	
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
@@ -37,6 +53,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		guard let currentCaptureDevice = captureDevice,
 			let captureDeviceInput = try? AVCaptureDeviceInput(device: currentCaptureDevice) else {
 			onError?(.cameraPermissionDenied)
+			Log.error("Failed to setup AVCaptureDeviceInput", log: .ui)
 			return nil
 		}
 
@@ -49,7 +66,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-	var onSuccess: ((String) -> Void)?
+	var onSuccess: (String) -> Void
 	var onError: ((QRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
@@ -102,7 +119,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	// MARK: - Private
 
 	private let captureDevice: AVCaptureDevice?
-	private var isScanningActivated: Bool {
+	var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
 	}
 
@@ -115,12 +132,14 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 			AVCaptureDevice.requestAccess(for: .video) { [weak self] isAllowed in
 				guard isAllowed else {
 					self?.onError?(.cameraPermissionDenied)
+					Log.error("camera requestAccess denied - stop here we can't go on", log: .ui)
 					return
 				}
 				self?.activateScanning()
 			}
 		default:
 			onError?(.cameraPermissionDenied)
+			Log.info(".cameraPermissionDenied - stop here we can't go on", log: .ui)
 		}
 	}
 }
