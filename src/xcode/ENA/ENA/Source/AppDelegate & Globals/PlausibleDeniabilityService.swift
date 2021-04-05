@@ -14,29 +14,23 @@ protocol PlausibleDeniability {
 
 struct PlausibleDeniabilityService: PlausibleDeniability {
 
-	var exposureManager: DiagnosisKeysRetrieval
-	var appConfigurationProvider: AppConfigurationProviding
-	var client: Client
-	var store: Store
-	var warnOthersReminder: WarnOthersRemindable
+	init(
+		client: Client,
+		store: Store,
+		coronaTestService: CoronaTestService
+	) {
+		self.client = client
+		self.store = store
+		self.coronaTestService = coronaTestService
 
-
-	private enum Constants {
-		static let minHoursToNextBackgroundExecution = 0.0
-		static let maxHoursToNextBackgroundExecution = 0.0
-		static let numberOfDaysToRunPlaybook = 0.0
-		static let minNumberOfSequentialPlaybooks = 0
-		static let maxNumberOfSequentialPlaybooks = 0
-		/// In seconds
-		static let minDelayBetweenSequentialPlaybooks = 0
-		/// In seconds
-		static let maxDelayBetweenSequentialPlaybooks = 0
-		static let secondsPerDay = 86_400.0
+		fakeRequestService = FakeRequestService(client: client)
 	}
+
+	// MARK: - Internal
 
 	/// Trigger a fake playbook to enable plausible deniability.
 	func executeFakeRequests(_ completion: (() -> Void)? = nil) {
-		guard store.isAllowedToPerformBackgroundFakeRequests else {
+		guard isAllowedToPerformBackgroundFakeRequests else {
 			completion?()
 			return
 		}
@@ -78,24 +72,41 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 		return false
 	}
 
+	// MARK: - Private
+
+	private enum Constants {
+		static let minHoursToNextBackgroundExecution = 0.0
+		static let maxHoursToNextBackgroundExecution = 0.0
+		static let numberOfDaysToRunPlaybook = 0.0
+		static let minNumberOfSequentialPlaybooks = 0
+		static let maxNumberOfSequentialPlaybooks = 0
+		/// In seconds
+		static let minDelayBetweenSequentialPlaybooks = 0
+		/// In seconds
+		static let maxDelayBetweenSequentialPlaybooks = 0
+		static let secondsPerDay = 86_400.0
+	}
+
+	private let client: Client
+	private let store: Store
+	private let coronaTestService: CoronaTestService
+	private let fakeRequestService: FakeRequestService
+
+	private var isAllowedToPerformBackgroundFakeRequests: Bool {
+		return coronaTestService.pcrTestPublisher.value != nil || coronaTestService.antigenTestPublisher.value != nil
+	}
+
 	/// Triggers one or more fake requests over a time interval of multiple seconds.
 	/// - Parameters:
 	///   - completion: called after all requests were triggered. Currently, only required when running in background mode to avoid terminating before the requests were made.
 	private func sendFakeRequest(_ completion: (() -> Void)? = nil) {
-		let service = ENAExposureSubmissionService(
-			diagnosisKeysRetrieval: exposureManager,
-			appConfigurationProvider: appConfigurationProvider,
-			client: client,
-			store: store,
-			warnOthersReminder: WarnOthersReminder(store: store)
-		)
 		let group = DispatchGroup()
 
 		for i in 0..<Int.random(in: Constants.minNumberOfSequentialPlaybooks...Constants.maxNumberOfSequentialPlaybooks) {
 			let delay = Int.random(in: Constants.minDelayBetweenSequentialPlaybooks...Constants.maxDelayBetweenSequentialPlaybooks)
 			group.enter()
 			DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(i * delay)) {
-				service.fakeRequest()
+				self.fakeRequestService.fakeRequest()
 				group.leave()
 			}
 		}
@@ -105,4 +116,5 @@ struct PlausibleDeniabilityService: PlausibleDeniability {
 			completion?()
 		}
 	}
+
 }

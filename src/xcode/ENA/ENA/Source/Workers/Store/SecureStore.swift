@@ -218,6 +218,11 @@ final class SecureStore: Store {
 		set { kvStore["firstPlaybookExecution"] = newValue }
 	}
 
+	var isAllowedToPerformBackgroundFakeRequests: Bool {
+		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
+		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
+	}
+
 	var selectedServerEnvironment: ServerEnvironmentData {
 		get { kvStore["selectedServerEnvironment"] as ServerEnvironmentData? ?? serverEnvironment.defaultEnvironment() }
 		set { kvStore["selectedServerEnvironment"] = newValue }
@@ -429,11 +434,6 @@ extension SecureStore: CoronaTestStoring {
 	var antigenTest: AntigenTest? {
 		get { kvStore["antigenTest"] as AntigenTest? }
 		set { kvStore["antigenTest"] = newValue }
-	}
-
-	var isAllowedToPerformBackgroundFakeRequests: Bool {
-		get { kvStore["shouldPerformBackgroundFakeRequests"] as Bool? ?? false }
-		set { kvStore["shouldPerformBackgroundFakeRequests"] = newValue }
 	}
 
 }

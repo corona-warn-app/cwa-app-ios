@@ -175,7 +175,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 				self.updatePublishersFromStore()
 
-				self.store.isAllowedToPerformBackgroundFakeRequests = true
 				completion(.success(submissionTAN))
 			}
 		}
@@ -206,10 +205,6 @@ class CoronaTestService: CoronaTestServiceProviding {
 
 		if antigenTestPublisher.value != store.antigenTest {
 			antigenTestPublisher.value = store.antigenTest
-		}
-
-		if store.pcrTest == nil && store.antigenTest == nil {
-			store.isAllowedToPerformBackgroundFakeRequests = false
 		}
 	}
 

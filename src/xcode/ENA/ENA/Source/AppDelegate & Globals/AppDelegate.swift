@@ -159,6 +159,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
     let serverEnvironment: ServerEnvironment
 	var store: Store
 
+	lazy var coronaTestService: CoronaTestService = CoronaTestService(client: client, store: store)
+
 	lazy var eventCheckoutService: EventCheckoutService = EventCheckoutService(
 		eventStore: eventStore,
 		contactDiaryStore: contactDiaryStore
@@ -166,11 +168,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 
 	lazy var plausibleDeniabilityService: PlausibleDeniabilityService = {
 		PlausibleDeniabilityService(
-			exposureManager: self.exposureManager,
-			appConfigurationProvider: self.appConfigurationProvider,
 			client: self.client,
 			store: self.store,
-			warnOthersReminder: WarnOthersReminder(store: self.store)
+			coronaTestService: coronaTestService
 		)
 	}()
 

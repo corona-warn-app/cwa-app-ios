@@ -73,6 +73,9 @@ protocol StoreProtocol: AnyObject {
 	/// We only inform the user once. By default the value of this property is `true`.
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks: Bool { get set }
 
+	/// True if the app is allowed to execute fake requests (for plausible deniability) in the background.
+	var isAllowedToPerformBackgroundFakeRequests: Bool { get set }
+
 	/// Time when the app sent the last background fake request.
 	var lastBackgroundFakeRequest: Date { get set }
 
@@ -169,9 +172,6 @@ protocol CoronaTestStoring {
 
 	var pcrTest: PCRTest? { get set }
 	var antigenTest: AntigenTest? { get set }
-
-	/// True if the app is allowed to execute fake requests (for plausible deniability) in the background.
-	var isAllowedToPerformBackgroundFakeRequests: Bool { get set }
 
 }
 
