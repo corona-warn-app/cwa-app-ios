@@ -6,13 +6,14 @@ import ExposureNotification
 import Foundation
 import OpenCombine
 
+// swiftlint:disable type_body_length
+
 /// The `ENASubmissionSubmission Service` provides functions and attributes to access relevant information
 /// around the exposure submission process.
 /// Especially, when it comes to the `submissionConsent`, then only this service should be used to modify (change) the value of the current
 /// state. It wraps around the `SecureStore` binding.
 /// The consent value is published using the `isSubmissionConsentGivenPublisher` and the rest of the application can simply subscribe to
 /// it to stay in sync.
-
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Init
@@ -22,6 +23,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
+		eventStore: EventStoringProviding,
 		warnOthersReminder: WarnOthersRemindable,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil
 	) {
@@ -29,6 +31,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
 		self.warnOthersReminder = warnOthersReminder
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
@@ -44,6 +47,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: dependencies.warnOthersReminder
 		)
 	}
@@ -154,12 +158,21 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			submitExposureCleanup()
 			return
 		}
-		let processedKeys = keys.processedForSubmission(with: symptomsOnset)
 
-		// Request needs to be prepended by the fake request.
-		_fakeVerificationServerRequest(completion: { _ in
-			self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, completion: completion)
-		})
+		// we need the app configuration first…
+		appConfigurationProvider
+			.appConfiguration()
+			.sink { appConfig in
+				// Fetch & process keys and checkins
+				let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
+				self.preparedCheckinsForSubmission(with: self.eventStore, appConfig: appConfig, symptomOnset: self.symptomsOnset, completion: { checkins in
+					// Request needs to be prepended by the fake request.
+					self._fakeVerificationServerRequest(completion: { _ in
+						self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: checkins, completion: completion)
+					})
+				})
+			}
+			.store(in: &subscriptions)
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
@@ -284,7 +297,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		Analytics.collect(.keySubmissionMetadata(.create(keySubmissionMetadata)))
 	}
 
-
 	// MARK: - Private
 
 	private static var fakeSubmissionTan: String { return UUID().uuidString }
@@ -295,6 +307,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let eventStore: EventStoringProviding
 	private let warnOthersReminder: WarnOthersRemindable
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 
@@ -396,6 +409,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func _submitExposure(
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		visitedCountries: [Country],
+		attendedEvents events: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		_getTANForExposureSubmit(hasConsent: true, completion: { result in
@@ -403,7 +417,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case let .failure(error):
 				completion(error)
 			case let .success(tan):
-				self._submit(keys, with: tan, visitedCountries: visitedCountries, completion: completion)
+				self._submit(keys, with: tan, visitedCountries: visitedCountries, attendedEvents: events, completion: completion)
 			}
 		})
 	}
@@ -415,11 +429,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		_ keys: [SAP_External_Exposurenotification_TemporaryExposureKey],
 		with tan: String,
 		visitedCountries: [Country],
+		attendedEvents events: [SAP_Internal_Pt_CheckIn],
 		completion: @escaping ExposureSubmissionHandler
 	) {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: keys,
 			visitedCountries: visitedCountries,
+			eventCheckIns: events,
 			tan: tan
 		)
 		client.submit(payload: payload, isFake: false) { result in
@@ -514,6 +530,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		let payload = CountrySubmissionPayload(
 			exposureKeys: [],
 			visitedCountries: [],
+			eventCheckIns: [],
 			tan: ENAExposureSubmissionService.fakeSubmissionTan
 		)
 
@@ -531,3 +548,4 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 }
+// swiftlint:enable type_body_length
