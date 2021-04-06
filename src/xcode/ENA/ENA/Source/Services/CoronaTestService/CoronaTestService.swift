@@ -185,8 +185,10 @@ class CoronaTestService {
 				switch coronaTestType {
 				case .pcr:
 					self.pcrTest?.submissionTAN = submissionTAN
+					self.pcrTest?.registrationToken = nil
 				case .antigen:
 					self.antigenTest?.submissionTAN = submissionTAN
+					self.antigenTest?.registrationToken = nil
 				}
 
 				completion(.success(submissionTAN))
@@ -317,13 +319,6 @@ class CoronaTestService {
 						completion(.failure(.testExpired))
 					} else {
 						completion(.success(testResult))
-					}
-
-					switch coronaTestType {
-					case .pcr:
-						self.pcrTest?.registrationToken = nil
-					case .antigen:
-						self.antigenTest?.registrationToken = nil
 					}
 				}
 			}
