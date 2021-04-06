@@ -25,7 +25,13 @@ final class TraceLocationDetailViewModel {
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
-		self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
+		// max duration in the picker is 23:45
+		let maxDurationInMinutes = (23 * 60) + 45
+		if traceLocation.suggestedCheckoutLength <= maxDurationInMinutes {
+			self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
+		} else {
+			self.selectedDurationInMinutes = maxDurationInMinutes
+		}
 	}
 	
 	// MARK: - Internal

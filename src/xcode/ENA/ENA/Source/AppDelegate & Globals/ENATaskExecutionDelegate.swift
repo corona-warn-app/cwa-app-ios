@@ -139,6 +139,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
 		)
 
@@ -176,6 +177,7 @@ class TaskExecutionHandler: ENATaskExecutionDelegate {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: WarnOthersReminder(store: dependencies.store)
 		)
 
