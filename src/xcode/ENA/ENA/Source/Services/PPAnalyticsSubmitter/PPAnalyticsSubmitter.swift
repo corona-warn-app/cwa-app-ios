@@ -29,7 +29,8 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	init(
 		store: Store,
 		client: Client,
-		appConfig: AppConfigurationProviding
+		appConfig: AppConfigurationProviding,
+		coronaTestService: CoronaTestService
 	) {
 		guard let store = store as? (Store & PPAnalyticsData) else {
 			Log.error("I will never submit any analytics data. Could not cast to correct store protocol", log: .ppa)
@@ -39,6 +40,7 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		self.client = client
 		self.submissionState = .readyForSubmission
 		self.configurationProvider = appConfig
+		self.coronaTestService = coronaTestService
 	}
 	
 	// MARK: - Protocol PPAnalyticsSubmitting
@@ -141,15 +143,12 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 	
 	#endif
 	
-	// MARK: - Public
-	
-	// MARK: - Internal
-	
 	// MARK: - Private
 	
 	private let store: (Store & PPAnalyticsData)
 	private let client: Client
 	private let configurationProvider: AppConfigurationProviding
+	private let coronaTestService: CoronaTestService
 	
 	private var submissionState: PPASubmissionState
 	private var subscriptions: Set<AnyCancellable> = []
@@ -207,18 +206,15 @@ final class PPAnalyticsSubmitter: PPAnalyticsSubmitting {
 		}
 		
 		// if there is no test result time stamp
-		// TODO
-//		guard let resultDateTimeStamp = store.testResultReceivedTimeStamp else {
-//			return isSubmitted
-//		}
-		
-//		let timeInterval = TimeInterval(resultDateTimeStamp)
-//		let testResultDate = Date(timeIntervalSince1970: timeInterval)
-//		let differenceBetweenTestResultAndCurrentDate = Calendar.current.dateComponents([.hour], from: testResultDate, to: Date())
-//		if let differenceBetweenTestResultAndCurrentDateInHours = differenceBetweenTestResultAndCurrentDate.hour,
-//		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
-//			timeDifferenceFulfillsCriteria = true
-//		}
+		guard let testResultReceivedDate = coronaTestService.pcrTest?.testResultReceivedDate else {
+			return isSubmitted
+		}
+
+		let differenceBetweenTestResultAndCurrentDate = Calendar.current.dateComponents([.hour], from: testResultReceivedDate, to: Date())
+		if let differenceBetweenTestResultAndCurrentDateInHours = differenceBetweenTestResultAndCurrentDate.hour,
+		   differenceBetweenTestResultAndCurrentDateInHours >= hoursSinceTestResultToSubmitKeySubmissionMetadata {
+			timeDifferenceFulfillsCriteria = true
+		}
 		return isSubmitted || timeDifferenceFulfillsCriteria
 	}
 	

@@ -164,7 +164,6 @@ class HomeCoordinator: RequiresAppDependencies {
 	#if !RELEASE
 	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
-
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
 			client: client,
@@ -174,7 +173,8 @@ class HomeCoordinator: RequiresAppDependencies {
 			developerStore: UserDefaults.standard,
 			exposureSubmissionService: exposureSubmissionService,
 			serverEnvironment: serverEnvironment,
-			otpService: otpService
+			otpService: otpService,
+			coronaTestService: coronaTestService
 		)
 		developerMenu?.enableIfAllowed()
 	}

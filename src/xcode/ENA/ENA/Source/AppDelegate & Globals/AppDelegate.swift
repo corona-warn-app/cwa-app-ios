@@ -276,7 +276,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CoronaWarnAppDelegate, Re
 		return PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfigurationProvider
+			appConfig: appConfigurationProvider,
+			coronaTestService: coronaTestService
 		)
 	}()
 

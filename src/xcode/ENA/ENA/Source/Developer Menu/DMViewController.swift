@@ -14,12 +14,14 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		client: Client,
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		coronaTestService: CoronaTestService
 	) {
 		self.client = client
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
+		self.coronaTestService = coronaTestService
 
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
@@ -35,6 +37,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	private let consumer = RiskConsumer()
 	private let exposureSubmissionService: ExposureSubmissionService
 	private let otpService: OTPServiceProviding
+	private let coronaTestService: CoronaTestService
 
 	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
 		didSet {
@@ -154,11 +157,11 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, otpService: otpService)
 		case .ppaMostRecent:
-			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .ppaActual:
-			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .ppaSubmission:
-			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService)
 		case .installationDate:
 			vc = DMInstallationDateViewController(store: store)
 		}
