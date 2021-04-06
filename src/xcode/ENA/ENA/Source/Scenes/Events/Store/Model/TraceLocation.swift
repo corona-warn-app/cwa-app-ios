@@ -102,7 +102,8 @@ extension TraceLocation {
 			}
 			decodedData = data
 		case .base64:
-			guard let data = Data(base64Encoded: qrCodeString) else {
+			
+			guard let data = Data(base64Encoded: qrCodeString.toggleBase64URLSafe(on: false)) else {
 				Log.error("Couldn't serialize the data using base64")
 				return nil
 			}
