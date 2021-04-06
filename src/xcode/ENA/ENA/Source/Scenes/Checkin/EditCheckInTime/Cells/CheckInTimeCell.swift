@@ -34,6 +34,13 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 				self.dateTimeLabel.text = cellModel.dateString
 			}
 			.store(in: &subscriptions)
+
+		cellModel.$isPickerVisible
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { isVisible in
+				self.dateTimeLabel.textColor = isVisible ? .enaColor(for: .textTint) : .enaColor(for: .textPrimary1)
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Private
@@ -54,7 +61,7 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		typeLabel.font = .enaFont(for: .subheadline)
 		typeLabel.textColor = .enaColor(for: .textPrimary1)
 
-		dateTimeLabel.font = .enaFont(for: .subheadline)
+		dateTimeLabel.font = .enaFont(for: .subheadline, weight: .semibold)
 		dateTimeLabel.textColor = .enaColor(for: .textPrimary1)
 		dateTimeLabel.textAlignment = .right
 		dateTimeLabel.numberOfLines = 1
@@ -75,8 +82,8 @@ class CheckInTimeCell: UITableViewCell, ReuseIdentifierProviding {
 		stackView.alignment = .center
 		tileView.addSubview(stackView)
 
-		topLayoutConstraint = stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 12.0)
-		bottomLayoutConstraint = stackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -12.0)
+		topLayoutConstraint = stackView.topAnchor.constraint(equalTo: tileView.topAnchor, constant: 18.0)
+		bottomLayoutConstraint = stackView.bottomAnchor.constraint(equalTo: tileView.bottomAnchor, constant: -18.0)
 		NSLayoutConstraint.activate(
 			[
 				tileView.topAnchor.constraint(equalTo: contentView.topAnchor),

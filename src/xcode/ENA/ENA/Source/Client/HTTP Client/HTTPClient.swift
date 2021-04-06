@@ -354,14 +354,16 @@ final class HTTPClient: Client {
 							TraceWarningDiscoveryResponse.self,
 							from: body
 						)
+						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+						
 						guard let oldest = decodedResponse.oldest,
 							  let latest = decodedResponse.latest else {
-							Log.error("Failed to get oldest or latest out of decoded response", log: .api)
-							completion(.failure(.decodingJsonError(response.statusCode)))
+							Log.info("Succesfully discovered that there are no availablePackagesOnCDN", log: .api)
+							// create false package with latest < oldest, then computed property availablePackagesOnCDN will be empty for the downloading check later.
+							completion(.success(TraceWarningDiscovery(oldest: 0, latest: -1, eTag: eTag)))
 							return
 						}
 						
-						let eTag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
 						let traceWarningDiscovery = TraceWarningDiscovery(oldest: oldest, latest: latest, eTag: eTag)
 						Log.info("Succesfully downloaded availablePackagesOnCDN", log: .api)
 						completion(.success(traceWarningDiscovery))

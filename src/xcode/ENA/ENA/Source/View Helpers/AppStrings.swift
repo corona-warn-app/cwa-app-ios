@@ -1572,6 +1572,7 @@ enum AppStrings {
 			static let defaultCheckinLengthFootnote = NSLocalizedString("TraceLocations_Configuration_DefaultCheckinLengthFootnote", comment: "")
 			static let primaryButtonTitle = NSLocalizedString("TraceLocations_Configuration_PrimaryButtonTitle", comment: "")
 			static let hoursUnit = NSLocalizedString("TraceLocations_Configuration_HoursUnit", comment: "")
+			static let savingErrorMessage = NSLocalizedString("TraceLocations_Configuration_SavingErrorMessage", comment: "")
 		}
 	}
 
