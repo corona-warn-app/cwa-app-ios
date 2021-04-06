@@ -430,9 +430,12 @@ enum AccessibilityIdentifiers {
 		enum Configuration {
 			static let descriptionPlaceholder = "AppStrings.TraceLocations.Configuration.descriptionPlaceholder"
 			static let addressPlaceholder = "AppStrings.TraceLocations.Configuration.addressPlaceholder"
+			static let temporaryDefaultLengthTitleLabel = "AppStrings.TraceLocations.Configuration.temporaryDefaultLengthTitleLabel"
+			static let temporaryDefaultLengthFootnoteLabel = "AppStrings.TraceLocations.Configuration.temporaryDefaultLengthFootnoteLabel"
+			static let permanentDefaultLengthTitleLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthTitleLabel"
+			static let permanentDefaultLengthFootnoteLabel = "AppStrings.TraceLocations.Configuration.permanentDefaultLengthFootnoteLabel"
 		}
 	}
-	
 	enum CheckinInformation {
 		static let imageDescription = "AppStrings.CheckInInformation.imageDescription"
 		static let descriptionTitle = "AppStrings.CheckInInformation.descriptionTitle"

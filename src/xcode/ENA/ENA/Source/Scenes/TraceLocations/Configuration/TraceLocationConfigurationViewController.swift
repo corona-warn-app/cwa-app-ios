@@ -55,9 +55,13 @@ class TraceLocationConfigurationViewController: UIViewController, FooterViewHand
 		endDateTitleLabel.text = AppStrings.TraceLocations.Configuration.endDateTitle
 
 		temporaryDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		temporaryDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthTitleLabel
 		temporaryDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		temporaryDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.temporaryDefaultLengthFootnoteLabel
 		permanentDefaultLengthTitleLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthTitle
+		permanentDefaultLengthTitleLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthTitleLabel
 		permanentDefaultLengthFootnoteLabel.text = AppStrings.TraceLocations.Configuration.defaultCheckinLengthFootnote
+		permanentDefaultLengthFootnoteLabel.accessibilityIdentifier = AccessibilityIdentifiers.TraceLocation.Configuration.permanentDefaultLengthFootnoteLabel
 
 	}
 
