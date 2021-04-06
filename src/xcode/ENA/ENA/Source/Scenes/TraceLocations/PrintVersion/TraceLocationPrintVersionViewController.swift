@@ -4,7 +4,6 @@
 
 import UIKit
 import PDFKit
-import LinkPresentation
 
 class TraceLocationPrintVersionViewController: UIViewController, UIActivityItemSource {
 
