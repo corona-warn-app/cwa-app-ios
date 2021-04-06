@@ -11,6 +11,9 @@ import OpenCombine
 */
 protocol FooterViewHandling {
 	var footerView: FooterViewUpdating? { get }
+
+	func didShowKeyboard(_ size: CGRect)
+	func didHideKeyboard()
 	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType)
 }
 
@@ -18,6 +21,9 @@ extension FooterViewHandling where Self: UIViewController {
 	var footerView: FooterViewUpdating? {
 		return parent as? FooterViewUpdating
 	}
+
+	func didShowKeyboard(_ size: CGRect) {}
+	func didHideKeyboard() {}
 }
 
 class FooterViewController: UIViewController {
