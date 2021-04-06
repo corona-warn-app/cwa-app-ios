@@ -23,6 +23,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
 		store: Store,
+		eventStore: EventStoringProviding,
 		warnOthersReminder: WarnOthersRemindable,
 		deadmanNotificationManager: DeadmanNotificationManageable? = nil
 	) {
@@ -30,6 +31,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		self.appConfigurationProvider = appConfigurationProvider
 		self.client = client
 		self.store = store
+		self.eventStore = eventStore
 		self.warnOthersReminder = warnOthersReminder
 		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 		self._isSubmissionConsentGiven = store.isSubmissionConsentGiven
@@ -45,6 +47,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			appConfigurationProvider: dependencies.appConfigurationProvider,
 			client: dependencies.client,
 			store: dependencies.store,
+			eventStore: dependencies.eventStore,
 			warnOthersReminder: dependencies.warnOthersReminder
 		)
 	}
@@ -162,7 +165,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			.sink { appConfig in
 				// Fetch & process keys and checkins
 				let processedKeys = keys.processedForSubmission(with: self.symptomsOnset)
-				self.preparedCheckinsForSubmission(with: appConfig, symptomOnset: self.symptomsOnset, completion: { checkins in
+				self.preparedCheckinsForSubmission(with: self.eventStore, appConfig: appConfig, symptomOnset: self.symptomsOnset, completion: { checkins in
 					// Request needs to be prepended by the fake request.
 					self._fakeVerificationServerRequest(completion: { _ in
 						self._submitExposure(processedKeys, visitedCountries: self.supportedCountries, attendedEvents: checkins, completion: completion)
@@ -304,6 +307,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let client: Client
 	private let store: Store
+	private let eventStore: EventStoringProviding
 	private let warnOthersReminder: WarnOthersRemindable
 	private let deadmanNotificationManager: DeadmanNotificationManageable
 

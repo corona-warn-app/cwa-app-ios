@@ -12,7 +12,8 @@ enum ExposureSubmissionServiceFactory {
 		diagnosisKeysRetrieval: DiagnosisKeysRetrieval,
 		appConfigurationProvider: AppConfigurationProviding,
 		client: Client,
-		store: Store
+		store: Store,
+		eventStore: EventStoringProviding
 	) -> ExposureSubmissionService {
 		#if DEBUG
 		if isUITesting {
@@ -22,6 +23,7 @@ enum ExposureSubmissionServiceFactory {
 					appConfigurationProvider: appConfigurationProvider,
 					client: client,
 					store: store,
+					eventStore: eventStore,
 					warnOthersReminder: WarnOthersReminder(store: store)
 				)
 			}
@@ -71,6 +73,7 @@ enum ExposureSubmissionServiceFactory {
 			appConfigurationProvider: appConfigurationProvider,
 			client: client,
 			store: store,
+			eventStore: eventStore,
 			warnOthersReminder: WarnOthersReminder(store: store)
 		)
 
