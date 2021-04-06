@@ -19,14 +19,6 @@ struct TraceLocation {
 	let defaultCheckInLengthInMinutes: Int?
 	let cryptographicSeed: Data
 	let cnPublicKey: Data
-	
-	var isActive: Bool {
-		guard let endDate = endDate else {
-			return true
-		}
-
-		return Date() < endDate
-	}
 
 	var idHash: Data? {
 		return id.sha256()
@@ -157,5 +149,4 @@ extension TraceLocation {
 			return nil
 		}
 	}
-
 }

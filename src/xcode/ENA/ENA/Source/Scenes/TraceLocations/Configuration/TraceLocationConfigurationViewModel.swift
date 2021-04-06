@@ -52,6 +52,7 @@ class TraceLocationConfigurationViewModel {
 	enum SavingError: Error {
 		case cryptographicSeedCreationFailed
 		case qrCodePayloadCreationFailed
+		case publicKeyDecodingFailed
 		case sqlStoreError(SecureSQLStoreError)
 	}
 
@@ -151,13 +152,6 @@ class TraceLocationConfigurationViewModel {
 		checkForCompleteness()
 	}
 
-	func checkForCompleteness() {
-		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
-		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
-
-		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
-	}
-
 	func save() throws {
 		guard let cryptographicSeed = cryptographicSeed() else {
 			throw SavingError.cryptographicSeedCreationFailed
@@ -167,8 +161,6 @@ class TraceLocationConfigurationViewModel {
 		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
 		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
 
-		let cnPublicKey = Data() // still TBD according to tech spec
-
 		let cwaLocationData = SAP_Internal_Pt_CWALocationData.with {
 			$0.version = 1
 			$0.type = SAP_Internal_Pt_TraceLocationType(rawValue: traceLocationType.rawValue) ?? .locationTypeUnspecified
@@ -176,6 +168,11 @@ class TraceLocationConfigurationViewModel {
 		}
 
 		let cwaLocationSerializedData = try cwaLocationData.serializedData()
+
+		let publicKey = "gwLMzE153tQwAOf2MZoUXXfzWTdlSpfS99iZffmcmxOG9njSK4RTimFOFwDh6t0Tyw8XR01ugDYjtuKwjjuK49Oh83FWct6XpefPi9Skjxvvz53i9gaMmUEc96pbtoaA"
+		guard let publicKeyData = Data(base64Encoded: publicKey) else {
+			throw SavingError.publicKeyDecodingFailed
+		}
 
 		let qrCodePayload = SAP_Internal_Pt_QRCodePayload.with {
 			$0.version = 1
@@ -189,7 +186,7 @@ class TraceLocationConfigurationViewModel {
 			$0.vendorData = cwaLocationSerializedData
 
 			$0.crowdNotifierData.version = 1
-			$0.crowdNotifierData.publicKey = cnPublicKey
+			$0.crowdNotifierData.publicKey = publicKeyData
 			$0.crowdNotifierData.cryptographicSeed = cryptographicSeed
 		}
 
@@ -208,7 +205,7 @@ class TraceLocationConfigurationViewModel {
 				endDate: endDate,
 				defaultCheckInLengthInMinutes: defaultCheckInLengthInMinutes,
 				cryptographicSeed: cryptographicSeed,
-				cnPublicKey: cnPublicKey
+				cnPublicKey: publicKeyData
 			)
 		)
 
@@ -284,7 +281,7 @@ class TraceLocationConfigurationViewModel {
 			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
 
 		$defaultCheckInLengthInMinutes
-			.compactMap { [weak self] in
+			.map { [weak self] in
 				guard
 					let timeInterval = TimeInterval(minutes: $0),
 					let formattedDuration = self?.durationFormatter.string(from: timeInterval)
@@ -301,11 +298,18 @@ class TraceLocationConfigurationViewModel {
 			.assign(to: &$permanentDefaultLengthValueTextColor)
 	}
 
+	private func checkForCompleteness() {
+		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
+
+		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
+	}
+
 	private func cryptographicSeed() -> Data? {
 		var bytes = [UInt8](repeating: 0, count: 16)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {
-			Log.error("Error creating random bytes.", log: .api)
+			Log.error("Error creating random bytes.", log: .traceLocation)
 			return nil
 		}
 

@@ -12,6 +12,7 @@ Before opening a new issue, please make sure that we do not have any duplicates 
 
 ## Avoid duplicates
 * [ ] Question is not already answered in the [FAQ](https://www.coronawarn.app/en/faq/)
+* [ ] Question is specific for iOS only, for general issues / questions that apply to iOS and Android please raise them in the [documentation repository](https://github.com/corona-warn-app/cwa-documentation)
 * [ ] Question has not already been asked in another issue
 
 ## Your Question
