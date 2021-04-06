@@ -16,10 +16,13 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	}
 
 	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
-		ExposureSubmissionTestResultViewController(
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+
+		return ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				coronaTest: coronaTest,
-				coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
+				coronaTestType: .pcr,
+				coronaTestService: CoronaTestService(client: ClientMock(), store: store),
 				warnOthersReminder: WarnOthersReminder(store: self.store),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },

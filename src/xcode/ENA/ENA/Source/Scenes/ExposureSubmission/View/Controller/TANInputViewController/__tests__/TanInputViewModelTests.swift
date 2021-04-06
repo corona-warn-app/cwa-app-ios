@@ -12,7 +12,7 @@ class TanInputViewModelTests: XCTestCase {
 		let viewModel = TanInputViewModel(
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { _ in },
+			tanSuccessfullyTransferred: { },
 			givenTan: "234567893D"
 		)
 
@@ -30,7 +30,7 @@ class TanInputViewModelTests: XCTestCase {
 		let viewModel = TanInputViewModel(
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { _ in },
+			tanSuccessfullyTransferred: { },
 			givenTan: "ZBYKEVDBNU"
 		)
 
@@ -48,7 +48,7 @@ class TanInputViewModelTests: XCTestCase {
 		let viewModel = TanInputViewModel(
 			coronaTestService: CoronaTestService(client: ClientMock(), store: MockTestStore()),
 			presentInvalidTanAlert: { _, _  in },
-			tanSuccessfullyTransferred: { _ in },
+			tanSuccessfullyTransferred: { },
 			givenTan: "ZBYKEVDBNL"
 		)
 

@@ -10,7 +10,7 @@ extension PCRTest {
 	static func mock(
 		registrationToken: String? = nil,
 		testRegistrationDate: Date = Date(),
-		testResult: TestResult? = nil,
+		testResult: TestResult = .pending,
 		testResultReceivedDate: Date? = nil,
 		positiveTestResultWasShown: Bool = false,
 		isSubmissionConsentGiven: Bool = false,
