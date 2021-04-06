@@ -32,12 +32,6 @@ final class TestableCheckinQRCodeScannerViewModel: CheckinQRCodeScannerViewModel
 		}
 	}
 	
-	override var captureSession: AVCaptureSession? = {
-		guard isScanningActivated else {
-			onError(.cameraPermissionDenied, {})
-			return
-		}
-	}
 	#endif
 }
 

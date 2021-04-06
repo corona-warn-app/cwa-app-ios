@@ -39,6 +39,38 @@ class TraceLocationDetailViewModelTests: XCTestCase {
 		XCTAssertEqual(sut.shouldSaveToContactJournal, store.shouldAddCheckinToContactDiaryByDefault)
 	}
 
+	func testTraceLocationViewModel_initialization_suggestedCheckoutIsLessThanADay() {
+		guard let id = Data(base64Encoded: "Test") else {
+			XCTFail("Failed to encode id into data")
+			return
+		}
+		guard let startDate = Calendar.utcCalendar.date(byAdding: .hour, value: 1, to: Date()),
+			  let endDate = Calendar.utcCalendar.date(byAdding: .day, value: 2, to: Date()) else {
+			XCTFail("Failed create start and end date")
+			return
+		}
+		let traceLocation = TraceLocation(
+			id: id,
+			version: 1,
+			type: .locationTypePermanentFoodService,
+			description: "Los Pollos Hermanos",
+			address: "13 Main Street, Albuquerque",
+			startDate: startDate,
+			endDate: endDate,
+			defaultCheckInLengthInMinutes: nil,
+			cryptographicSeed: Data(),
+			cnPublicKey: Data()
+		)
+
+		let store = MockTestStore()
+		let sut = TraceLocationDetailViewModel(traceLocation, eventStore: MockEventStore(), store: store)
+		
+		XCTAssertEqual(sut.locationType, TraceLocationType.locationTypePermanentFoodService.title)
+		XCTAssertEqual(sut.locationDescription, "Los Pollos Hermanos")
+		XCTAssertEqual(sut.locationAddress, "13 Main Street, Albuquerque")
+		// max checkout Duration should be clipped to 23:45 to match the picker
+		XCTAssertEqual(sut.selectedDurationInMinutes, (23 * 60) + 45)
+	}
     func testTraceLocationViewModel_EventStatus_EventWithNoStartAndEndDate() {
 		guard let id = Data(base64Encoded: "Test") else {
 			XCTFail("Failed to encode id into data")
