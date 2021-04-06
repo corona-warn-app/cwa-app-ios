@@ -46,7 +46,7 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 	// MARK: - Protocol SecureSQLStore
 
 	let databaseQueue: FMDatabaseQueue
-	let key: String
+	var key: String
 	let schema: StoreSchemaProtocol
 	let migrator: SerialMigratorProtocol
 	let logIdentifier = "EventStore"
@@ -398,6 +398,10 @@ class EventStore: SecureSQLStore, EventStoringProviding {
 			return .failure(error)
 		}
 
+		if let newKey = try? EventStore.resetEncryptionKey() {
+			key = newKey
+		}
+		
 		let openAndSetupResult = openAndSetup()
 		if case .failure = openAndSetupResult {
 			return openAndSetupResult

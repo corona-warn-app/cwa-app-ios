@@ -13,11 +13,25 @@ final class TraceLocationDetailViewModel {
 		self.store = store
 		self.eventStore = eventStore
 		self.traceLocation = traceLocation
+		#if !RELEASE
+		// save the trace location for dev menu to see every data.
+		store.recentTraceLocationCheckedInto = DMRecentTraceLocationCheckedInto(
+			description: traceLocation.description,
+			id: traceLocation.id,
+			date: Date()
+		)
+		#endif
 		self.locationType = traceLocation.type.title
 		self.locationAddress = traceLocation.address
 		self.locationDescription = traceLocation.description
 		self.shouldSaveToContactJournal = store.shouldAddCheckinToContactDiaryByDefault
-		self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
+		// max duration in the picker is 23:45
+		let maxDurationInMinutes = (23 * 60) + 45
+		if traceLocation.suggestedCheckoutLength <= maxDurationInMinutes {
+			self.selectedDurationInMinutes = traceLocation.suggestedCheckoutLength
+		} else {
+			self.selectedDurationInMinutes = maxDurationInMinutes
+		}
 	}
 	
 	// MARK: - Internal

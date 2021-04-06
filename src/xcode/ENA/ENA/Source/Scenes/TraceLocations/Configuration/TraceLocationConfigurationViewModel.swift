@@ -152,13 +152,6 @@ class TraceLocationConfigurationViewModel {
 		checkForCompleteness()
 	}
 
-	func checkForCompleteness() {
-		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
-		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
-
-		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
-	}
-
 	func save() throws {
 		guard let cryptographicSeed = cryptographicSeed() else {
 			throw SavingError.cryptographicSeedCreationFailed
@@ -288,7 +281,7 @@ class TraceLocationConfigurationViewModel {
 			.assign(to: &$temporaryDefaultLengthSwitchIsOn)
 
 		$defaultCheckInLengthInMinutes
-			.compactMap { [weak self] in
+			.map { [weak self] in
 				guard
 					let timeInterval = TimeInterval(minutes: $0),
 					let formattedDuration = self?.durationFormatter.string(from: timeInterval)
@@ -305,11 +298,18 @@ class TraceLocationConfigurationViewModel {
 			.assign(to: &$permanentDefaultLengthValueTextColor)
 	}
 
+	private func checkForCompleteness() {
+		let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
+		let trimmedAddress = address.trimmingCharacters(in: .whitespacesAndNewlines)
+
+		primaryButtonIsEnabled = !trimmedDescription.isEmpty && !trimmedAddress.isEmpty
+	}
+
 	private func cryptographicSeed() -> Data? {
 		var bytes = [UInt8](repeating: 0, count: 16)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {
-			Log.error("Error creating random bytes.", log: .api)
+			Log.error("Error creating random bytes.", log: .traceLocation)
 			return nil
 		}
 
