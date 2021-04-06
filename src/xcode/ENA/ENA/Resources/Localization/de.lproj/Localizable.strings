@@ -1408,6 +1408,12 @@ sein.";
 
 "NewVersionFeatures_Info_about_abb_information" = "Änderungen zum Release finden Sie in den App-Informationen unter dem Menüpunkt „Neue Funktionen”.";
 
+/* Version 2.1 */
+
+"NewVersionFeature_21_xxx_title" = "";
+
+"NewVersionFeature_21_xxx_description" = "";
+
 /* Version 2.0 */
 
 "NewVersionFeature_200_event_checkin_title" = "Check-in per QR-Code für effiziente Rückverfolgbarkeit von Infektionsketten";
