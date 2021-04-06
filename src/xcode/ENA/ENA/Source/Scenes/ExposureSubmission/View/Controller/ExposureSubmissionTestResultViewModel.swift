@@ -16,7 +16,7 @@ class ExposureSubmissionTestResultViewModel {
 		onSubmissionConsentCellTap: @escaping (@escaping (Bool) -> Void) -> Void,
 		onContinueWithSymptomsFlowButtonTap: @escaping () -> Void,
 		onContinueWarnOthersButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
-		onChangeToPositiveTestResult: @escaping (CoronaTestType) -> Void,
+		onChangeToPositiveTestResult: @escaping () -> Void,
 		onTestDeleted: @escaping () -> Void
 	) {
 		self.coronaTestType = coronaTestType
@@ -29,12 +29,12 @@ class ExposureSubmissionTestResultViewModel {
 		self.onTestDeleted = onTestDeleted
 
 		guard let coronaTest = coronaTestService.coronaTest(ofType: coronaTestType) else {
+			onTestDeleted()
 			return
 		}
 
-		self.testResult = coronaTest.testResult
-		updateForCurrentTestResult(coronaTest: coronaTest)
-		bindToSubmissionConsent()
+		self.coronaTest = coronaTest
+		bindToCoronaTestUpdates()
 	}
 	
 	// MARK: - Internal
@@ -45,23 +45,19 @@ class ExposureSubmissionTestResultViewModel {
 	@OpenCombine.Published var shouldAttemptToDismiss: Bool = false
 	@OpenCombine.Published var footerViewModel: FooterViewModel?
 
-	var testResult: TestResult = .pending {
-		didSet {
-//			updateForCurrentTestResult()
-		}
-	}
+	var coronaTest: CoronaTest!
 	
 	var timeStamp: Int64? {
 		coronaTestService.coronaTest(ofType: coronaTestType).map { Int64($0.testDate.timeIntervalSince1970) }
 	}
 	
 	func didTapPrimaryButton() {
-		switch testResult {
+		switch coronaTest.testResult {
 		case .positive:
 			// Determine next step based on consent state. In case the user has given exposure
 			// submission consent, we continue with collecting onset of symptoms.
 			// Otherwise we continue with the warn others process
-			if isSubmissionConsentGiven {
+			if coronaTest.isSubmissionConsentGiven {
 				Log.info("Positive Test Result: Next -> 'onset of symptoms'.")
 				onContinueWithSymptomsFlowButtonTap()
 			} else {
@@ -83,7 +79,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func didTapSecondaryButton() {
-		switch testResult {
+		switch coronaTest.testResult {
 		case .positive:
 			self.shouldAttemptToDismiss = true
 		case .pending:
@@ -102,7 +98,7 @@ class ExposureSubmissionTestResultViewModel {
 	}
 	
 	func updateWarnOthers() {
-		warnOthersReminder.evaluateShowingTestResult(testResult)
+		warnOthersReminder.evaluateShowingTestResult(coronaTest.testResult)
 	}
 	
 	// MARK: - Private
@@ -116,13 +112,10 @@ class ExposureSubmissionTestResultViewModel {
 	private let onContinueWithSymptomsFlowButtonTap: () -> Void
 	private let onContinueWarnOthersButtonTap: (@escaping (Bool) -> Void) -> Void
 
-	private let onChangeToPositiveTestResult: (CoronaTestType) -> Void
+	private let onChangeToPositiveTestResult: () -> Void
 	private let onTestDeleted: () -> Void
 
-	private var isSubmissionConsentGiven: Bool = false
-
 	private var cancellables: Set<AnyCancellable> = []
-	
 	
 	private var primaryButtonIsLoading: Bool = false {
 		didSet {
@@ -132,6 +125,13 @@ class ExposureSubmissionTestResultViewModel {
 	}
 
 	private func updateForCurrentTestResult(coronaTest: CoronaTest) {
+		// Positive test results are not shown immediately
+		if coronaTest.testResult == .positive {
+			self.onChangeToPositiveTestResult()
+		} else {
+			self.updateWarnOthers()
+		}
+
 		self.dynamicTableViewModel = DynamicTableViewModel(currentTestResultSections)
 		footerViewModel = ExposureSubmissionTestResultViewModel.footerViewModel(coronaTest: coronaTest)
 	}
@@ -143,21 +143,18 @@ class ExposureSubmissionTestResultViewModel {
 			switch result {
 			case let .failure(error):
 				self.error = error
-			// Positive test results are not shown immediately
-			case let .success(testResult) where testResult == .positive:
-				self.onChangeToPositiveTestResult(self.coronaTestType)
-			case let .success(testResult):
-				self.testResult = testResult
-				self.updateWarnOthers()
+			case .success:
+				break
 			}
+
 			completion()
 		}
 	}
 	
 	private var currentTestResultSections: [DynamicSection] {
-		switch testResult {
+		switch coronaTest.testResult {
 		case .positive:
-			return isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
+			return coronaTest.isSubmissionConsentGiven ? positiveTestResultSectionsWithSubmissionConsent : positiveTestResultSectionsWithoutSubmissionConsent
 		case .negative:
 			return negativeTestResultSections
 		case .invalid:
@@ -357,7 +354,7 @@ class ExposureSubmissionTestResultViewModel {
 					.icon(
 						UIImage(imageLiteralResourceName: "Icons_Grey_Warnen"),
 						text: .string(
-							isSubmissionConsentGiven ?
+							coronaTest.isSubmissionConsentGiven ?
 										AppStrings.ExposureSubmissionResult.warnOthersConsentGiven :
 										AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven
 						),
@@ -377,7 +374,7 @@ class ExposureSubmissionTestResultViewModel {
 						configure: { _, cell, _ in
 							cell.accessoryType = .disclosureIndicator
 							cell.selectionStyle = .default
-							cell.accessibilityIdentifier = self.isSubmissionConsentGiven ?
+							cell.accessibilityIdentifier = self.coronaTest.isSubmissionConsentGiven ?
 								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentGivenCell :
 								AccessibilityIdentifiers.ExposureSubmissionResult.warnOthersConsentNotGivenCell
 						}
@@ -426,13 +423,29 @@ class ExposureSubmissionTestResultViewModel {
 		]
 	}
 	
-	private func bindToSubmissionConsent() {
-		// Needs to be updated to receive changes from the CoronaTestService
-//		self.exposureSubmissionService.isSubmissionConsentGivenPublisher.sink { isSubmissionConsentGiven in
-//			Log.info("TestResult Screen: Update content for submission consent given = \(isSubmissionConsentGiven)")
-//			self.isSubmissionConsentGiven = isSubmissionConsentGiven
-//			self.updateForCurrentTestResult()
-//		}.store(in: &cancellables)
+	private func bindToCoronaTestUpdates() {
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.$pcrTest
+				.sink { [weak self] pcrTest in
+					guard let pcrTest = pcrTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .pcr(pcrTest))
+				}
+				.store(in: &cancellables)
+		case .antigen:
+			coronaTestService.$antigenTest
+				.sink { [weak self] antigenTest in
+					guard let antigenTest = antigenTest else {
+						return
+					}
+
+					self?.updateForCurrentTestResult(coronaTest: .antigen(antigenTest))
+				}
+				.store(in: &cancellables)
+		}
 	}
 
 }
