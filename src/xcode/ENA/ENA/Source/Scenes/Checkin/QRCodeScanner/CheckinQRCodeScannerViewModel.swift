@@ -4,7 +4,6 @@
 
 import Foundation
 import AVFoundation
-import OpenCombine
 
 final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObjectsDelegate {
 
@@ -23,17 +22,14 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		from _: AVCaptureConnection
 	) {
 		guard let code = metadataObjects.first(where: { $0 is MetadataMachineReadableCodeObject }) as? MetadataMachineReadableCodeObject,
-			  let route = Route(code.stringValue),
-			  case let Route.checkin(key) = route,
-			  let traceLocation = TraceLocation(qrCodeString: key)
+			  let url = code.stringValue
 		else {
 			onError?(QRScannerError.codeNotFound)
 			return
 		}
-		onSuccess?(traceLocation)
+		onSuccess?(url)
 	}
 	
-
 	// MARK: - Internal
 
 	lazy var captureSession: AVCaptureSession? = {
@@ -53,7 +49,7 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 		return captureSession
 	}()
 
-	var onSuccess: ((TraceLocation) -> Void)?
+	var onSuccess: ((String) -> Void)?
 	var onError: ((QRScannerError) -> Void)?
 	/// get current torchMode by device state
 	var torchMode: TorchMode {
@@ -106,7 +102,6 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 	// MARK: - Private
 
 	private let captureDevice: AVCaptureDevice?
-
 	private var isScanningActivated: Bool {
 		captureSession?.isRunning ?? false
 	}
@@ -128,5 +123,4 @@ final class CheckinQRCodeScannerViewModel: NSObject, AVCaptureMetadataOutputObje
 			onError?(.cameraPermissionDenied)
 		}
 	}
-
 }

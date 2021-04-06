@@ -12,7 +12,7 @@ class CheckInTimeModelTests: XCTestCase {
 		// GIVEN
 		var subscriptions = Set<AnyCancellable>()
 		let now = Date(timeIntervalSince1970: 1616074184)
-		let cellModel = CheckInTimeModel("myType", date: now, hasTopSeparator: false)
+		let cellModel = CheckInTimeModel("myType", date: now, hasTopSeparator: false, isPickerVisible: false)
 
 		// WHEN
 		let dateChangeExpectation = expectation(description: "date did change")
